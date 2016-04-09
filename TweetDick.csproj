@@ -78,6 +78,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\UserConfig.cs" />
     <Compile Include="Core\FormBrowser.cs">
       <SubType>Form</SubType>
     </Compile>

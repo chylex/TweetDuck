@@ -3,15 +3,13 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
+using TweetDick.Configuration;
 using TweetDick.Core;
 
 namespace TweetDick{
     static class Program{
-        public static string StoragePath{
-            get{
-                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"TweetDick");
-            }
-        }
+        public static readonly string StoragePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"TweetDick");
+        public static readonly UserConfig UserConfig;
 
         private static string HeaderAcceptLanguage{
             get{
@@ -24,6 +22,10 @@ namespace TweetDick{
                     return culture.ToLowerInvariant()+",en;q=0.9";
                 }
             }
+        }
+
+        static Program(){
+            UserConfig = UserConfig.Load(Path.Combine(StoragePath,"TD_UserConfig.cfg"));
         }
 
         [STAThread]
