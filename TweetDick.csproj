@@ -97,6 +97,14 @@
     <Compile Include="Core\FormBackgroundWork.Designer.cs">
       <DependentUpon>FormBackgroundWork.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migration\FormMigrationQuestion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Migration\FormMigrationQuestion.Designer.cs">
+      <DependentUpon>FormMigrationQuestion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migration\MigrationDecision.cs" />
+    <Compile Include="Migration\MigrationManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="Configuration\app.config" />

@@ -5,6 +5,7 @@ using System.IO;
 using System.Windows.Forms;
 using TweetDick.Configuration;
 using TweetDick.Core;
+using TweetDick.Migration;
 
 namespace TweetDick{
     static class Program{
@@ -32,6 +33,8 @@ namespace TweetDick{
         private static void Main(){
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            MigrationManager.Run();
 
             Cef.Initialize(new CefSettings{
                 AcceptLanguageList = HeaderAcceptLanguage,
