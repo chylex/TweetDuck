@@ -1,11 +1,18 @@
 ﻿using CefSharp;
 using System;
 using System.Globalization;
+using System.IO;
 using System.Windows.Forms;
-using TweetDick.Forms;
+using TweetDick.Core;
 
 namespace TweetDick{
     static class Program{
+        public static string StoragePath{
+            get{
+                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"TweetDick");
+            }
+        }
+
         private static string HeaderAcceptLanguage{
             get{
                 string culture = CultureInfo.CurrentCulture.Name;
@@ -21,14 +28,16 @@ namespace TweetDick{
 
         [STAThread]
         private static void Main(){
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
             Cef.Initialize(new CefSettings{
                 AcceptLanguageList = HeaderAcceptLanguage,
                 UserAgent = "TweetDick "+Application.ProductVersion,
-                Locale = CultureInfo.CurrentCulture.TwoLetterISOLanguageName
+                Locale = CultureInfo.CurrentCulture.TwoLetterISOLanguageName,
+                CachePath = StoragePath
             });
 
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FormBrowser());
 
             Application.ApplicationExit += (sender, args) => {
