@@ -1,4 +1,4 @@
-﻿namespace TweetDick.Forms {
+﻿namespace TweetDick.Core {
     partial class FormBrowser {
         /// <summary>
         /// Required designer variable.

@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
 using CefSharp.WinForms;
 
-namespace TweetDick.Forms{
+namespace TweetDick.Core{
     public partial class FormBrowser : Form{
         private readonly ChromiumWebBrowser browser;
 
