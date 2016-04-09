@@ -84,6 +84,12 @@
     <Compile Include="Core\FormBrowser.Designer.cs">
       <DependentUpon>FormBrowser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\RichTextLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Core\RichTextLabel.Designer.cs">
+      <DependentUpon>RichTextLabel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="Configuration\app.config" />
