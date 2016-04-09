@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,6 +16,7 @@ namespace TweetDick.Migration{
                 MigrationDecision decision = formQuestion.ShowDialog() == DialogResult.OK ? formQuestion.Decision : MigrationDecision.AskLater;
 
                 switch(decision){
+                    case MigrationDecision.MigratePurge:
                     case MigrationDecision.Migrate:
                     case MigrationDecision.Copy:
                         FormBackgroundWork formWait = new FormBackgroundWork();
@@ -45,7 +47,7 @@ namespace TweetDick.Migration{
         }
 
         private static bool BeginMigration(MigrationDecision decision, Action<Exception> onFinished){
-            if (decision != MigrationDecision.Migrate && decision != MigrationDecision.Copy){
+            if (decision != MigrationDecision.MigratePurge && decision != MigrationDecision.Migrate && decision != MigrationDecision.Copy){
                 return false;
             }
 
@@ -69,11 +71,21 @@ namespace TweetDick.Migration{
                         // most likely not empty, ignore
                     }
                 }
+
+                if (decision == MigrationDecision.MigratePurge){
+                    string guid = ProgramRegistrySearch.FindByDisplayName("TweetDeck");
+
+                    if (guid != null){
+                        Process uninstaller = Process.Start("msiexec.exe","/x"+guid+" /quiet /qn");
+
+                        if (uninstaller != null){
+                            uninstaller.WaitForExit();
+                        }
+                    }
+                }
             });
 
-            task.ContinueWith(originalTask => {
-                onFinished(originalTask.Exception);
-            },TaskContinuationOptions.ExecuteSynchronously);
+            task.ContinueWith(originalTask => onFinished(originalTask.Exception),TaskContinuationOptions.ExecuteSynchronously);
             task.Start();
 
             return true;
