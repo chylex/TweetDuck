@@ -91,6 +91,12 @@
     <Compile Include="Core\RichTextLabel.Designer.cs">
       <DependentUpon>RichTextLabel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\FormBackgroundWork.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Core\FormBackgroundWork.Designer.cs">
+      <DependentUpon>FormBackgroundWork.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="Configuration\app.config" />
