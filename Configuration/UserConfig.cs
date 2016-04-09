@@ -28,7 +28,10 @@ namespace TweetDick.Configuration{
 
         public bool Save(){
             try{
-                Directory.CreateDirectory(file);
+                string directory = Path.GetDirectoryName(file);
+                if (directory == null)return false;
+
+                Directory.CreateDirectory(directory);
 
                 using(Stream stream = new FileStream(file,FileMode.Create,FileAccess.Write,FileShare.None)){
                     Formatter.Serialize(stream,this);
