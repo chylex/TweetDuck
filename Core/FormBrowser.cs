@@ -81,6 +81,15 @@ namespace TweetDick.Core{
 
         // callback handlers
 
+        public void InvokeSafe(Action func){
+            if (InvokeRequired){
+                Invoke(func);
+            }
+            else{
+                func();
+            }
+        }
+
         public void OpenSettings(){
             // TODO
         }

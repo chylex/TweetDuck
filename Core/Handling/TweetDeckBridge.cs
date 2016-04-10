@@ -7,7 +7,9 @@
         }
 
         public void OpenSettingsMenu(){
-            form.OpenSettings();
+            form.InvokeSafe(() => {
+                form.OpenSettings();
+            });
         }
 
         public void Log(string data){

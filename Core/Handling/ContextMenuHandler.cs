@@ -1,4 +1,5 @@
 ﻿using CefSharp;
+using System;
 
 namespace TweetDick.Core.Handling{
     class ContextMenuHandler : IContextMenuHandler{
@@ -31,11 +32,17 @@ namespace TweetDick.Core.Handling{
         public bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags){
             switch((int)commandId){
                 case MenuSettings:
-                    form.OpenSettings();
+                    form.InvokeSafe(() => {
+                        form.OpenSettings();
+                    });
+
                     return true;
 
                 case MenuAbout:
-                    form.OpenAbout();
+                    form.InvokeSafe(() => {
+                        form.OpenAbout();
+                    });
+
                     return true;
             }
 
