@@ -38,15 +38,14 @@
   var app = $("body").children(".js-app");
   
   new MutationObserver(function(mutations){
-    if (mutations.some(mutation => mutation.attributeName === "class")){
-      if (isInitialized && app.hasClass("is-hidden")){
-        isInitialized = false;
-      }
-      else if (!isInitialized && !app.hasClass("is-hidden")){
-        initializeTweetDick();
-      }
+    if (isInitialized && app.hasClass("is-hidden")){
+      isInitialized = false;
+    }
+    else if (!isInitialized && !app.hasClass("is-hidden")){
+      initializeTweetDick();
     }
   }).observe(app[0],{
-    attributes: true
+    attributes: true,
+    attributeFilter: [ "class" ]
   });
 })($,$TD);
