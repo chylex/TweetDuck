@@ -57,7 +57,7 @@
             this.panelButtons.Controls.Add(this.btnMigrate);
             this.panelButtons.Controls.Add(this.btnMigrateUninstall);
             this.panelButtons.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.panelButtons.Location = new System.Drawing.Point(12, 101);
+            this.panelButtons.Location = new System.Drawing.Point(12, 87);
             this.panelButtons.Name = "panelButtons";
             this.panelButtons.Size = new System.Drawing.Size(480, 23);
             this.panelButtons.TabIndex = 0;
@@ -129,7 +129,7 @@
             this.labelQuestion.Name = "labelQuestion";
             this.labelQuestion.ReadOnly = true;
             this.labelQuestion.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.labelQuestion.Size = new System.Drawing.Size(443, 86);
+            this.labelQuestion.Size = new System.Drawing.Size(443, 72);
             this.labelQuestion.TabIndex = 2;
             this.labelQuestion.TabStop = false;
             this.labelQuestion.Text = "";
@@ -138,7 +138,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(504, 136);
+            this.ClientSize = new System.Drawing.Size(504, 122);
             this.Controls.Add(this.labelQuestion);
             this.Controls.Add(this.panelButtons);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;

@@ -8,7 +8,7 @@ namespace TweetDick.Core{
         /// </summary>
         public static string Wrap(string str){
             string rtf = @"{\rtf1\ansi\ansicpg1250\deff0\deflang1029{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}";
-            rtf += @"{\*\generator Msftedit 4.20.69.1337;}\viewkind4\uc1\pard\sa200\sl276\slmult1\lang1036\f0\fs20 ";
+            rtf += @"{\*\generator Msftedit 4.20.69.1337;}\viewkind4\uc1\pard\sa200\sl276\slmult1\lang1036\f0\fs16 ";
             rtf += str;
             return rtf;
         }
