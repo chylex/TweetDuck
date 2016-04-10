@@ -3,7 +3,6 @@ using CefSharp;
 using CefSharp.WinForms;
 using System.Drawing;
 using System;
-using System.Text;
 using System.Collections.Generic;
 using TweetDick.Core.Handling;
 

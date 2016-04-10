@@ -1,5 +1,4 @@
 ﻿using CefSharp;
-using System;
 
 namespace TweetDick.Core.Handling{
     class ContextMenuHandler : IContextMenuHandler{
