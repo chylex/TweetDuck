@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TweetDick.Core;
@@ -63,7 +64,7 @@ namespace TweetDick.Migration{
                 CopyFile("Local Storage"+Path.DirectorySeparatorChar+"https_tweetdeck.twitter.com_0.localstorage");
                 CopyFile("Local Storage"+Path.DirectorySeparatorChar+"https_tweetdeck.twitter.com_0.localstorage-journal");
 
-                if (decision == MigrationDecision.Migrate){
+                if (decision == MigrationDecision.Migrate || decision == MigrationDecision.MigratePurge){
                     Directory.Delete(TweetDeckPath,true);
 
                     try{
@@ -74,6 +75,32 @@ namespace TweetDick.Migration{
                 }
 
                 if (decision == MigrationDecision.MigratePurge){
+                    // kill process if running
+                    Process runningProcess = ProgramProcessSearch.FindProcessWithWindowByName("TweetDeck");
+
+                    if (runningProcess != null){
+                        runningProcess.CloseMainWindow();
+
+                        for(int wait = 0; wait < 100 && !runningProcess.HasExited; wait++){ // 10 seconds
+                            runningProcess.Refresh();
+                            Thread.Sleep(100);
+                        }
+                            
+                        runningProcess.Close();
+                    }
+
+                    // update the pinned taskbar lnk if exists
+                    string linkFile = Path.Combine(Environment.ExpandEnvironmentVariables(@"%APPDATA%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar"),"TweetDeck.lnk");
+
+                    if (File.Exists(linkFile)){
+                        LnkEditor lnk = new LnkEditor(linkFile);
+                        lnk.SetPath(Application.ExecutablePath);
+                        lnk.SetWorkingDirectory(Environment.CurrentDirectory);
+                        lnk.SetComment("TweetDick"); // TODO add a tagline
+                        lnk.Save();
+                    }
+
+                    // uninstall in the background
                     string guid = ProgramRegistrySearch.FindByDisplayName("TweetDeck");
 
                     if (guid != null){
@@ -83,6 +110,8 @@ namespace TweetDick.Migration{
                             uninstaller.WaitForExit();
                         }
                     }
+
+                    // migration finished like a boss
                 }
             });
 
