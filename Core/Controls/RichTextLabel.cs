@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace TweetDick.Core{
+namespace TweetDick.Core.Controls{
     public partial class RichTextLabel : RichTextBox{
         /// <summary>
         /// Wraps the body of a RTF formatted string with default tags and formatting.

@@ -1,4 +1,6 @@
-﻿namespace TweetDick.Migration {
+﻿using TweetDick.Core.Controls;
+
+namespace TweetDick.Migration {
     partial class FormMigrationQuestion {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +31,7 @@
             this.btnCopy = new System.Windows.Forms.Button();
             this.btnMigrate = new System.Windows.Forms.Button();
             this.btnMigrateUninstall = new System.Windows.Forms.Button();
-            this.labelQuestion = new TweetDick.Core.RichTextLabel();
+            this.labelQuestion = new RichTextLabel();
             this.panelButtons.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -159,7 +161,7 @@
         private System.Windows.Forms.FlowLayoutPanel panelButtons;
         private System.Windows.Forms.Button btnCopy;
         private System.Windows.Forms.Button btnMigrate;
-        private Core.RichTextLabel labelQuestion;
+        private RichTextLabel labelQuestion;
         private System.Windows.Forms.Button btnAskLater;
         private System.Windows.Forms.Button btnMigrateUninstall;
     }

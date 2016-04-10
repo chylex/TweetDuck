@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TweetDick.Core;
+using TweetDick.Core.Other;
 using TweetDick.Migration.Helpers;
 
 namespace TweetDick.Migration{

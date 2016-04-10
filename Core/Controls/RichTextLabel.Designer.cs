@@ -1,4 +1,4 @@
-﻿namespace TweetDick.Core {
+﻿namespace TweetDick.Core.Controls {
     partial class RichTextLabel {
         /// <summary> 
         /// Required designer variable.

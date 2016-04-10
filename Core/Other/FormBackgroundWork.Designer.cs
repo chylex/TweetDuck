@@ -1,4 +1,6 @@
-﻿namespace TweetDick.Core {
+﻿using TweetDick.Core.Controls;
+
+namespace TweetDick.Core.Other {
     partial class FormBackgroundWork {
         /// <summary>
         /// Required designer variable.
@@ -24,7 +26,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.progressBarUseless = new System.Windows.Forms.ProgressBar();
-            this.labelDescription = new TweetDick.Core.RichTextLabel();
+            this.labelDescription = new RichTextLabel();
             this.SuspendLayout();
             // 
             // progressBarUseless
@@ -71,6 +73,6 @@
         #endregion
 
         private System.Windows.Forms.ProgressBar progressBarUseless;
-        private Core.RichTextLabel labelDescription;
+        private RichTextLabel labelDescription;
     }
 }

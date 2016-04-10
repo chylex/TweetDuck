@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
+using TweetDick.Core.Controls;
 
-namespace TweetDick.Core{
-    public partial class FormBackgroundWork : Form{
+namespace TweetDick.Core.Other{
+    partial class FormBackgroundWork : Form{
         public FormBackgroundWork(){
             InitializeComponent();
 
