@@ -18,6 +18,7 @@ namespace TweetDick.Core{
 
         private readonly ChromiumWebBrowser browser;
         private readonly TweetDeckBridge bridge;
+        private readonly FormNotification notification;
 
         public FormBrowser(){
             InitializeComponent();
@@ -29,6 +30,9 @@ namespace TweetDick.Core{
             browser.RegisterJsObject("$TD",bridge);
 
             Controls.Add(browser);
+
+            notification = new FormNotification(this);
+            notification.Show(this);
         }
 
         protected override void WndProc(ref Message m){
@@ -96,6 +100,10 @@ namespace TweetDick.Core{
 
         public void OpenAbout(){
             // TODO
+        }
+
+        public void OnTweetPopup(string tweetHtml, string tweetColumn){
+            notification.ShowNotification(new TweetNotification(tweetHtml));
         }
     }
 }

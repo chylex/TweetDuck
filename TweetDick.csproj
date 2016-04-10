@@ -86,6 +86,13 @@
     <Compile Include="Core\FormBrowser.Designer.cs">
       <DependentUpon>FormBrowser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\FormNotification.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Core\FormNotification.Designer.cs">
+      <DependentUpon>FormNotification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Core\Handling\TweetNotification.cs" />
     <Compile Include="Core\RichTextLabel.cs">
       <SubType>Component</SubType>
     </Compile>
