@@ -2,6 +2,7 @@
 using System;
 using System.Globalization;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using TweetDick.Configuration;
 using TweetDick.Core;
@@ -28,6 +29,9 @@ namespace TweetDick{
         static Program(){
             UserConfig = UserConfig.Load(Path.Combine(StoragePath,"TD_UserConfig.cfg"));
         }
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+        public static extern IntPtr LoadLibrary(string name);
 
         [STAThread]
         private static void Main(){

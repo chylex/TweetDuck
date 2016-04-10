@@ -13,6 +13,28 @@ namespace TweetDick.Core.Controls{
             return rtf;
         }
 
+        /// <summary>
+        /// Wraps URL tags around a link.
+        /// </summary>
+        public static string AddLink(string url){
+            return @"{\field{\*\fldinst{HYPERLINK """+url+@"""}}{\fldrslt{\ul\cf1 "+url+@"}}}";
+        }
+
+        /// <summary>
+        /// Uses v5 of RichTextBox, which fixes URLs and other crap.
+        /// </summary>
+        protected override CreateParams CreateParams{
+            get{
+                CreateParams createParams = base.CreateParams;
+
+                if (Program.LoadLibrary("msftedit.dll") != IntPtr.Zero){
+                    createParams.ClassName = "RICHEDIT50W";
+                }
+
+                return createParams;
+            }
+        }
+
         public RichTextLabel(){
             InitializeComponent();
 
