@@ -105,7 +105,7 @@
     </Compile>
     <Compile Include="Migration\MigrationDecision.cs" />
     <Compile Include="Migration\MigrationManager.cs" />
-    <Compile Include="Migration\ProgramRegistrySearch.cs" />
+    <Compile Include="Migration\Helpers\ProgramRegistrySearch.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="Configuration\app.config" />

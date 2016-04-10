@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TweetDick.Core;
+using TweetDick.Migration.Helpers;
 
 namespace TweetDick.Migration{
     static class MigrationManager{
