@@ -4,6 +4,8 @@ using System;
 using System.Linq;
 using TweetDick.Configuration;
 using CefSharp;
+using System.IO;
+using System.Text;
 
 namespace TweetDick.Core{
     public partial class FormBrowser : Form{
@@ -14,12 +16,17 @@ namespace TweetDick.Core{
         }
 
         private readonly ChromiumWebBrowser browser;
+        private readonly TweetDeckBridge bridge;
 
         public FormBrowser(){
             InitializeComponent();
 
+            bridge = new TweetDeckBridge(this);
+
             browser = new ChromiumWebBrowser("https://tweetdeck.twitter.com/");
             browser.LoadingStateChanged += Browser_LoadingStateChanged;
+            browser.RegisterJsObject("$TD",bridge);
+
             Controls.Add(browser);
         }
 
@@ -54,6 +61,9 @@ namespace TweetDick.Core{
             if (!e.IsLoading){
                 Invoke(new Action(SetupWindow));
                 browser.LoadingStateChanged -= Browser_LoadingStateChanged;
+
+                string js = File.ReadAllText("code.js",Encoding.UTF8);
+                browser.ExecuteScriptAsync(js);
             }
         }
 
