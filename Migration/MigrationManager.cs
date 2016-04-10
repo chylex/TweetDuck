@@ -89,15 +89,25 @@ namespace TweetDick.Migration{
                         runningProcess.Close();
                     }
 
-                    // update the pinned taskbar lnk if exists
-                    string linkFile = Path.Combine(Environment.ExpandEnvironmentVariables(@"%APPDATA%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar"),"TweetDeck.lnk");
+                    // update the lnk files wherever possible (desktop icons, pinned taskbar)
+                    string[] locations = {
+                        Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
+                        Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory),
+                        Environment.ExpandEnvironmentVariables(@"%APPDATA%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar")
+                    };
 
-                    if (File.Exists(linkFile)){
-                        LnkEditor lnk = new LnkEditor(linkFile);
-                        lnk.SetPath(Application.ExecutablePath);
-                        lnk.SetWorkingDirectory(Environment.CurrentDirectory);
-                        lnk.SetComment("TweetDick"); // TODO add a tagline
-                        lnk.Save();
+                    foreach(string location in locations){
+                        string linkFile = Path.Combine(location,"TweetDeck.lnk");
+
+                        if (File.Exists(linkFile)){
+                            LnkEditor lnk = new LnkEditor(linkFile);
+                            lnk.SetPath(Application.ExecutablePath);
+                            lnk.SetWorkingDirectory(Environment.CurrentDirectory);
+                            lnk.SetComment("TweetDick"); // TODO add a tagline
+                            lnk.Save();
+
+                            File.Move(linkFile,Path.Combine(location,"TweetDick.lnk"));
+                        }
                     }
 
                     // uninstall in the background
