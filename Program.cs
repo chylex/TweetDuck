@@ -46,6 +46,7 @@ namespace TweetDick{
             Application.Run(new FormBrowser());
 
             Application.ApplicationExit += (sender, args) => {
+                UserConfig.Save();
                 Cef.Shutdown();
             };
         }

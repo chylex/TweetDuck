@@ -20,7 +20,7 @@ namespace TweetDick.Configuration{
         // END OF CONFIGURATION
 
         [NonSerialized]
-        private readonly string file;
+        private string file;
 
         private UserConfig(string file){
             this.file = file;
@@ -32,6 +32,12 @@ namespace TweetDick.Configuration{
                 if (directory == null)return false;
 
                 Directory.CreateDirectory(directory);
+
+                if (File.Exists(file)){
+                    string backupFile = GetBackupFile(file);
+                    File.Delete(backupFile);
+                    File.Move(file,backupFile);
+                }
 
                 using(Stream stream = new FileStream(file,FileMode.Create,FileAccess.Write,FileShare.None)){
                     Formatter.Serialize(stream,this);
@@ -47,16 +53,26 @@ namespace TweetDick.Configuration{
         public static UserConfig Load(string file){
             UserConfig config = null;
 
-            try{
-                using(Stream stream = new FileStream(file,FileMode.Open,FileAccess.Read,FileShare.Read)){
-                    config = Formatter.Deserialize(stream) as UserConfig;
+            for(int attempt = 0; attempt < 2; attempt++){
+                try{
+                    using(Stream stream = new FileStream(attempt == 0 ? file : GetBackupFile(file),FileMode.Open,FileAccess.Read,FileShare.Read)){
+                        if ((config = Formatter.Deserialize(stream) as UserConfig) != null){
+                            config.file = file;
+                        }
+                    }
+
+                    break;
+                }catch(FileNotFoundException){
+                }catch(Exception){
+                    // TODO
                 }
-            }catch(FileNotFoundException){
-            }catch(Exception){
-                // TODO
             }
 
             return config ?? new UserConfig(file);
+        }
+
+        private static string GetBackupFile(string file){
+            return file+".bak";
         }
     }
 }
