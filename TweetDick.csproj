@@ -97,7 +97,7 @@
     <Compile Include="Core\FormBackgroundWork.Designer.cs">
       <DependentUpon>FormBackgroundWork.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\TweetDeckBridge.cs" />
+    <Compile Include="Core\Handling\TweetDeckBridge.cs" />
     <Compile Include="Migration\FormMigrationQuestion.cs">
       <SubType>Form</SubType>
     </Compile>

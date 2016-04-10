@@ -6,6 +6,7 @@ using TweetDick.Configuration;
 using CefSharp;
 using System.IO;
 using System.Text;
+using TweetDick.Core.Handling;
 
 namespace TweetDick.Core{
     public partial class FormBrowser : Form{
