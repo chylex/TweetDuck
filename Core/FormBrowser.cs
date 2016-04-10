@@ -24,7 +24,7 @@ namespace TweetDick.Core{
 
             bridge = new TweetDeckBridge(this);
 
-            browser = new ChromiumWebBrowser("https://tweetdeck.twitter.com/");
+            browser = new ChromiumWebBrowser("https://tweetdeck.twitter.com/"){ MenuHandler = new ContextMenuHandler(this) };
             browser.LoadingStateChanged += Browser_LoadingStateChanged;
             browser.RegisterJsObject("$TD",bridge);
 
@@ -77,6 +77,16 @@ namespace TweetDick.Core{
         private void FormBrowser_WindowStateChanged(object sender, EventArgs e){
             Config.IsMaximized = WindowState != FormWindowState.Normal;
             FormBrowser_ResizeEnd(sender,e);
+        }
+
+        // callback handlers
+
+        public void OpenSettings(){
+            // TODO
+        }
+
+        public void OpenAbout(){
+            // TODO
         }
     }
 }

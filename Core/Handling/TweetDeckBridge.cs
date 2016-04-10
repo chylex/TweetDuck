@@ -1,6 +1,4 @@
-﻿using System.Windows.Forms;
-
-namespace TweetDick.Core.Handling{
+﻿namespace TweetDick.Core.Handling{
     class TweetDeckBridge{
         private readonly FormBrowser form;
 
@@ -9,7 +7,7 @@ namespace TweetDick.Core.Handling{
         }
 
         public void OpenSettingsMenu(){
-            MessageBox.Show("Settings");
+            form.OpenSettings();
         }
 
         public void Log(string data){

@@ -8,6 +8,27 @@
   // Function: Initializes TweetDick events. Called after the website app is loaded.
   //
   var initializeTweetDick = function(){
+    $("[data-action='settings-menu']").click(function(){
+      setTimeout(function(){
+        var menu = $(".js-dropdown-content").children("ul").first();
+        if (menu.length == 0)return;
+        
+        menu.children(".drp-h-divider").last().after('<li class="is-selectable" data-tweetdick><a href="#" data-action>TweetDick</a></li><li class="drp-h-divider"></li>');
+        
+        var tweetDickBtn = menu.children("[data-tweetdick]");
+        
+        tweetDickBtn.on("click","a",function(){
+          $TD.openSettingsMenu();
+        });
+        
+        tweetDickBtn.hover(function(){
+          $(this).addClass("is-selected");
+        },function(){
+          $(this).removeClass("is-selected");
+        });
+      },0);
+    });
+    
     isInitialized = true;
   };
   
