@@ -22,7 +22,7 @@ namespace TweetDick.Core{
             this.owner = owner;
             this.autoHide = autoHide;
 
-            browser = new ChromiumWebBrowser(""){ MenuHandler = new MenuHandlerEmpty() };
+            browser = new ChromiumWebBrowser("about:blank"){ MenuHandler = new MenuHandlerEmpty() };
             panelBrowser.Controls.Add(browser);
         }
 

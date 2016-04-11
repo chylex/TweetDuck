@@ -12,9 +12,11 @@ namespace TweetDick.Core.Other{
         }
 
         private readonly FormNotification notification;
+        private bool isLoaded;
 
         public FormSettings(FormBrowser browserForm){
             InitializeComponent();
+            Shown += (sender, args) => isLoaded = true;
 
             notification = new FormNotification(browserForm,false);
             notification.Show(this);
@@ -49,7 +51,6 @@ namespace TweetDick.Core.Other{
             comboBoxDisplay.SelectedIndex = Math.Min(comboBoxDisplay.Items.Count-1,Config.NotificationDisplay);
 
             trackBarEdgeDistance.Value = Config.NotificationEdgeDistance;
-            notification.HideNotification();
         }
 
         private void FormSettings_FormClosing(object sender, FormClosingEventArgs e){
@@ -57,6 +58,8 @@ namespace TweetDick.Core.Other{
         }
 
         private void radioLoc_CheckedChanged(object sender, EventArgs e){
+            if (!isLoaded)return;
+
             if (radioLocTL.Checked)Config.NotificationPosition = TweetNotification.Position.TopLeft;
             else if (radioLocTR.Checked)Config.NotificationPosition = TweetNotification.Position.TopRight;
             else if (radioLocBL.Checked)Config.NotificationPosition = TweetNotification.Position.BottomLeft;
@@ -74,20 +77,28 @@ namespace TweetDick.Core.Other{
         }
 
         private void radioLoc_Click(object sender, EventArgs e){
+            if (!isLoaded)return;
+
             notification.ShowNotificationForSettings(false);
         }
 
         private void comboBoxDisplay_SelectedValueChanged(object sender, EventArgs e){
+            if (!isLoaded)return;
+
             Config.NotificationDisplay = comboBoxDisplay.SelectedIndex;
             notification.ShowNotificationForSettings(false);
         }
 
         private void trackBarEdgeDistance_ValueChanged(object sender, EventArgs e){
+            if (!isLoaded)return;
+
             Config.NotificationEdgeDistance = trackBarEdgeDistance.Value;
             notification.ShowNotificationForSettings(false);
         }
 
         private void radioDur_CheckedChanged(object sender, EventArgs e){
+            if (!isLoaded)return;
+
             if (radioDurShort.Checked)Config.NotificationDuration = TweetNotification.Duration.Short;
             else if (radioDurMedium.Checked)Config.NotificationDuration = TweetNotification.Duration.Medium;
             else if (radioDurLong.Checked)Config.NotificationDuration = TweetNotification.Duration.Long;
@@ -97,6 +108,8 @@ namespace TweetDick.Core.Other{
         }
 
         private void radioDur_Click(object sender, EventArgs e){
+            if (!isLoaded)return;
+
             notification.ShowNotificationForSettings(true);
         }
     }
