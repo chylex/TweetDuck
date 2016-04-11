@@ -61,12 +61,12 @@ namespace TweetDick.Core.Other{
             }
 
             trackBarEdgeDistance.Enabled = !radioLocCustom.Checked;
-            notification.ShowNotificationForSettings();
+            notification.ShowNotificationForSettings(false);
         }
 
         private void trackBarEdgeDistance_ValueChanged(object sender, EventArgs e){
             Config.NotificationEdgeDistance = trackBarEdgeDistance.Value;
-            notification.ShowNotificationForSettings();
+            notification.ShowNotificationForSettings(false);
         }
 
         private void radioDur_CheckedChanged(object sender, EventArgs e){
@@ -74,6 +74,12 @@ namespace TweetDick.Core.Other{
             else if (radioDurMedium.Checked)Config.NotificationDuration = TweetNotification.Duration.Medium;
             else if (radioDurLong.Checked)Config.NotificationDuration = TweetNotification.Duration.Long;
             else if (radioDurVeryLong.Checked)Config.NotificationDuration = TweetNotification.Duration.VeryLong;
+
+            notification.ShowNotificationForSettings(true);
+        }
+
+        private void radioDur_Click(object sender, EventArgs e){
+            notification.ShowNotificationForSettings(true);
         }
     }
 }

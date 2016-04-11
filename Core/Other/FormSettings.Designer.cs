@@ -169,6 +169,7 @@
             this.radioDurVeryLong.Text = "Very Long";
             this.radioDurVeryLong.UseVisualStyleBackColor = true;
             this.radioDurVeryLong.CheckedChanged += new System.EventHandler(this.radioDur_CheckedChanged);
+            this.radioDurVeryLong.Click += new System.EventHandler(this.radioDur_Click);
             // 
             // radioDurLong
             // 
@@ -181,6 +182,7 @@
             this.radioDurLong.Text = "Long";
             this.radioDurLong.UseVisualStyleBackColor = true;
             this.radioDurLong.CheckedChanged += new System.EventHandler(this.radioDur_CheckedChanged);
+            this.radioDurLong.Click += new System.EventHandler(this.radioDur_Click);
             // 
             // radioDurMedium
             // 
@@ -193,6 +195,7 @@
             this.radioDurMedium.Text = "Medium";
             this.radioDurMedium.UseVisualStyleBackColor = true;
             this.radioDurMedium.CheckedChanged += new System.EventHandler(this.radioDur_CheckedChanged);
+            this.radioDurMedium.Click += new System.EventHandler(this.radioDur_Click);
             // 
             // radioDurShort
             // 
@@ -205,6 +208,7 @@
             this.radioDurShort.Text = "Short";
             this.radioDurShort.UseVisualStyleBackColor = true;
             this.radioDurShort.CheckedChanged += new System.EventHandler(this.radioDur_CheckedChanged);
+            this.radioDurShort.Click += new System.EventHandler(this.radioDur_Click);
             // 
             // FormSettings
             // 

@@ -24,19 +24,52 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.timerNext = new System.Windows.Forms.Timer(this.components);
+            this.panelBrowser = new System.Windows.Forms.Panel();
+            this.timerHideProgress = new System.Windows.Forms.Timer(this.components);
+            this.progressBarTimer = new TweetDick.Core.Controls.FlatProgressBar();
             this.SuspendLayout();
             // 
-            // timer
+            // timerNext
             // 
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            this.timerNext.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+            // panelBrowser
+            // 
+            this.panelBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelBrowser.BackColor = System.Drawing.Color.White;
+            this.panelBrowser.Location = new System.Drawing.Point(0, 0);
+            this.panelBrowser.Margin = new System.Windows.Forms.Padding(0);
+            this.panelBrowser.Name = "panelBrowser";
+            this.panelBrowser.Size = new System.Drawing.Size(284, 118);
+            this.panelBrowser.TabIndex = 0;
+            // 
+            // timerHideProgress
+            // 
+            this.timerHideProgress.Interval = 16;
+            this.timerHideProgress.Tick += new System.EventHandler(this.timerHideProgress_Tick);
+            // 
+            // progressBarTimer
+            // 
+            this.progressBarTimer.BackColor = System.Drawing.SystemColors.Control;
+            this.progressBarTimer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(99)))), ((int)(((byte)(153)))));
+            this.progressBarTimer.Location = new System.Drawing.Point(0, 118);
+            this.progressBarTimer.Margin = new System.Windows.Forms.Padding(0);
+            this.progressBarTimer.Maximum = 1000;
+            this.progressBarTimer.Name = "progressBarTimer";
+            this.progressBarTimer.Size = new System.Drawing.Size(284, 4);
+            this.progressBarTimer.TabIndex = 1;
             // 
             // FormNotification
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 118);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(284, 122);
+            this.Controls.Add(this.progressBarTimer);
+            this.Controls.Add(this.panelBrowser);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Location = new System.Drawing.Point(32000, 32000);
             this.Name = "FormNotification";
             this.ShowInTaskbar = false;
@@ -49,6 +82,9 @@
 
         #endregion
 
-        private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.Timer timerNext;
+        private System.Windows.Forms.Panel panelBrowser;
+        private Controls.FlatProgressBar progressBarTimer;
+        private System.Windows.Forms.Timer timerHideProgress;
     }
 }
