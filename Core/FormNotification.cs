@@ -36,7 +36,6 @@ namespace TweetDick.Core{
 
         public void ShowNotificationForSettings(bool resetAnimation){
             if (browser.Address == "about:blank"){
-                browser.Load("about:blank");
                 browser.LoadHtml(TweetNotification.ExampleTweet.GenerateHtml(),"http://tweetdeck.twitter.com/");
                 resetAnimation = true;
             }
@@ -52,7 +51,7 @@ namespace TweetDick.Core{
         }
 
         public void HideNotification(){
-            browser.Load("about:blank");
+            browser.LoadHtml("","about:blank");
             Location = new Point(32000,32000);
 
             timerNext.Stop();
