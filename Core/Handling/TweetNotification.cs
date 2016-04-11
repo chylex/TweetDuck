@@ -58,13 +58,13 @@ namespace TweetDick.Core.Handling{
             int multiplier;
 
             switch(modifier){
-                case Duration.Short: multiplier = 40; break;
-                case Duration.Long: multiplier = 60; break;
-                case Duration.VeryLong: multiplier = 75; break;
-                default: multiplier = 50; break;
+                case Duration.Short: multiplier = 15; break;
+                case Duration.Long: multiplier = 35; break;
+                case Duration.VeryLong: multiplier = 45; break;
+                default: multiplier = 25; break;
             }
 
-            return Math.Max(2500,multiplier*characters);
+            return 2000+Math.Max(1000,multiplier*characters);
         }
 
         public string GenerateHtml(){
