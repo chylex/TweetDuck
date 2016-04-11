@@ -85,6 +85,8 @@
     var container = mid.children(".js-chirp-container").first();
     if (container.length == 0)return;
     
+    var scroller = container.parent();
+    
     new MutationObserver(function(mutations){
       if (!container[0].hasAttribute("data-tweetdeck-loaded")){
         container[0].setAttribute("data-tweetdeck-loaded","");
@@ -93,6 +95,8 @@
       
       var data = TD.controller.columnManager.get(column.attr("data-column"));
       if (!data.model.getHasNotification())return;
+      
+      if (scroller.scrollTop() != 0)return;
       
       Array.prototype.forEach.call(mutations,function(mutation){
         Array.prototype.forEach.call(mutation.addedNodes,function(node){
