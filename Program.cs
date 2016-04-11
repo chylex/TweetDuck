@@ -51,7 +51,10 @@ namespace TweetDick{
                 AcceptLanguageList = HeaderAcceptLanguage,
                 UserAgent = "TweetDick "+Application.ProductVersion,
                 Locale = CultureInfo.CurrentCulture.TwoLetterISOLanguageName,
-                CachePath = StoragePath
+                CachePath = StoragePath,
+                #if !DEBUG
+                LogSeverity = LogSeverity.Disable
+                #endif
             });
 
             Application.Run(new FormBrowser());
