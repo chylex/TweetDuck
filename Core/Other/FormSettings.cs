@@ -73,6 +73,10 @@ namespace TweetDick.Core.Other{
             notification.ShowNotificationForSettings(false);
         }
 
+        private void radioLoc_Click(object sender, EventArgs e){
+            notification.ShowNotificationForSettings(false);
+        }
+
         private void comboBoxDisplay_SelectedValueChanged(object sender, EventArgs e){
             Config.NotificationDisplay = comboBoxDisplay.SelectedIndex;
             notification.ShowNotificationForSettings(false);
