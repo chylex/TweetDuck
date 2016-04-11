@@ -202,7 +202,12 @@
   // Block: Hook into links to bypass default open function
   //
   $(document.body).delegate("a[target='_blank']","click",function(e){
-    $TD.openBrowser($(this).attr("href"));
+    var me = $(this);
+    
+    if (!me.is(".link-complex") && !(me.attr("rel") == "mediaPreview" && me.closest("#open-modal").length == 0)){
+      $TD.openBrowser(me.attr("href"));
+    }
+    
     e.preventDefault();
   });
 })($,$TD);
