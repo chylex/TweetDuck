@@ -60,7 +60,10 @@ namespace TweetDick.Core{
         private void LoadNextNotification(){
             TweetNotification tweet = tweetQueue.Dequeue();
 
-            browser.Load("about:blank"); // required, otherwise shit breaks
+            if (browser.Address == "about:blank"){
+                browser.Load("about:blank"); // required, otherwise shit breaks
+            }
+
             browser.LoadHtml(tweet.GenerateHtml(),"http://tweetdeck.twitter.com/");
 
             totalTime = timeLeft = tweet.GetDisplayDuration(Program.UserConfig.NotificationDuration);
