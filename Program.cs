@@ -40,6 +40,13 @@ namespace TweetDick{
 
             MigrationManager.Run();
 
+            Cef.OnContextInitialized = () => {
+                using(IRequestContext ctx = Cef.GetGlobalRequestContext()){
+                    string err;
+                    ctx.SetPreference("browser.enable_spellchecking",false,out err);
+                }
+            };
+
             Cef.Initialize(new CefSettings{
                 AcceptLanguageList = HeaderAcceptLanguage,
                 UserAgent = "TweetDick "+Application.ProductVersion,
