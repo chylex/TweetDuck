@@ -22,6 +22,8 @@ namespace TweetDick.Core{
             this.owner = owner;
             this.autoHide = autoHide;
 
+            owner.FormClosed += (sender, args) => Close();
+
             browser = new ChromiumWebBrowser("about:blank"){ MenuHandler = new MenuHandlerEmpty() };
             panelBrowser.Controls.Add(browser);
         }
@@ -54,6 +56,7 @@ namespace TweetDick.Core{
         public void HideNotification(){
             browser.LoadHtml("","about:blank");
             Location = new Point(32000,32000);
+            TopMost = false;
             timerProgress.Stop();
         }
 
@@ -107,6 +110,8 @@ namespace TweetDick.Core{
                     Location = config.CustomNotificationPosition;
                     break;
             }
+
+            TopMost = true;
         }
 
         private void timerHideProgress_Tick(object sender, EventArgs e){

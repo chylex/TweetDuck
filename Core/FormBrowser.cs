@@ -38,7 +38,7 @@ namespace TweetDick.Core{
             Controls.Add(browser);
 
             notification = new FormNotification(this,true);
-            notification.Show(this);
+            notification.Show();
         }
 
         protected override void WndProc(ref Message m){
