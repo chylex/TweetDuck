@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using TweetDick.Core.Handling;
 
 namespace TweetDick.Configuration{
     [Serializable]
@@ -17,6 +18,22 @@ namespace TweetDick.Configuration{
         public Point WindowLocation { get; set; }
         public Size WindowSize { get; set; }
 
+        public TweetNotification.Position NotificationPosition { get; set; }
+        public Point CustomNotificationPosition { get; set; }
+        public int NotificationEdgeDistance { get; set; }
+
+        public bool IsCustomWindowLocationSet{
+            get{
+                return WindowLocation.X != 32000;
+            }
+        }
+
+        public bool IsCustomNotificationPositionSet{
+            get{
+                return CustomNotificationPosition.X != 32000;
+            }
+        }
+
         // END OF CONFIGURATION
 
         [NonSerialized]
@@ -24,6 +41,12 @@ namespace TweetDick.Configuration{
 
         private UserConfig(string file){
             this.file = file;
+
+            IsMaximized = true;
+            WindowLocation = new Point(32000,32000);
+            NotificationPosition = TweetNotification.Position.TopRight;
+            CustomNotificationPosition = new Point(32000,32000);
+            NotificationEdgeDistance = 8;
         }
 
         public bool Save(){

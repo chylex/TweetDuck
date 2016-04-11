@@ -112,6 +112,12 @@
       <DependentUpon>FormBackgroundWork.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\Handling\TweetDeckBridge.cs" />
+    <Compile Include="Core\Other\FormSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Core\Other\FormSettings.Designer.cs">
+      <DependentUpon>FormSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migration\FormMigrationQuestion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +172,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <TargetPath>code.js</TargetPath>
     </ContentWithTargetPath>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Core\Other\FormSettings.resx">
+      <DependentUpon>FormSettings.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\cef.redist.x86.3.2526.1362\build\cef.redist.x86.targets" Condition="Exists('packages\cef.redist.x86.3.2526.1362\build\cef.redist.x86.targets')" />

@@ -5,15 +5,16 @@ using System.Drawing;
 using System;
 using System.Collections.Generic;
 using TweetDick.Core.Handling;
+using TweetDick.Configuration;
 
 namespace TweetDick.Core{
     partial class FormNotification : Form{
-        private readonly FormBrowser owner;
+        private readonly Form owner;
         private readonly ChromiumWebBrowser browser;
 
         private readonly Queue<TweetNotification> tweetQueue = new Queue<TweetNotification>(4);
 
-        public FormNotification(FormBrowser owner){
+        public FormNotification(Form owner){
             InitializeComponent();
 
             this.owner = owner;
@@ -23,14 +24,18 @@ namespace TweetDick.Core{
         }
 
         public void ShowNotification(TweetNotification notification){
-            Screen screen = Screen.FromControl(owner);
-            Location = new Point(screen.WorkingArea.X+screen.WorkingArea.Width-16-Width,screen.WorkingArea.Y+16);
+            MoveToVisibleLocation();
 
             tweetQueue.Enqueue(notification);
 
             if (!timer.Enabled){
                 LoadNextNotification();
             }
+        }
+
+        public void ShowNotificationForSettings(){
+            browser.Load("about:blank");
+            MoveToVisibleLocation();
         }
 
         public void HideNotification(){
@@ -47,6 +52,40 @@ namespace TweetDick.Core{
             timer.Stop();
             timer.Interval = 5000;
             timer.Start();
+        }
+
+        private void MoveToVisibleLocation(){
+            UserConfig config = Program.UserConfig;
+            Screen screen = Screen.FromControl(owner);
+
+            int edgeDist = config.NotificationEdgeDistance;
+
+            switch(config.NotificationPosition){
+                case TweetNotification.Position.TopLeft:
+                    Location = new Point(screen.WorkingArea.X+edgeDist,screen.WorkingArea.Y+edgeDist);
+                    break;
+
+                case TweetNotification.Position.TopRight:
+                    Location = new Point(screen.WorkingArea.X+screen.WorkingArea.Width-edgeDist-Width,screen.WorkingArea.Y+edgeDist);
+                    break;
+
+                case TweetNotification.Position.BottomLeft:
+                    Location = new Point(screen.WorkingArea.X+edgeDist,screen.WorkingArea.Y+screen.WorkingArea.Height-edgeDist-Height);
+                    break;
+
+                case TweetNotification.Position.BottomRight:
+                    Location = new Point(screen.WorkingArea.X+screen.WorkingArea.Width-edgeDist-Width,screen.WorkingArea.Y+screen.WorkingArea.Height-edgeDist-Height);
+                    break;
+
+                case TweetNotification.Position.Custom:
+                    if (!config.IsCustomNotificationPositionSet){
+                        config.CustomNotificationPosition = new Point(screen.WorkingArea.X+screen.WorkingArea.Width-edgeDist-Width,screen.WorkingArea.Y+edgeDist);
+                        config.Save();
+                    }
+
+                    Location = config.CustomNotificationPosition;
+                    break;
+            }
         }
 
         private void timer_Tick(object sender, EventArgs e){

@@ -22,6 +22,7 @@ namespace TweetDick.Core{
         private readonly TweetDeckBridge bridge;
         private readonly FormNotification notification;
 
+        private FormSettings currentFormSettings;
         private FormAbout currentFormAbout;
 
         public FormBrowser(){
@@ -56,13 +57,13 @@ namespace TweetDick.Core{
         // window setup
 
         private void SetupWindow(){
-            if (!Config.WindowSize.IsEmpty){
+            if (Config.IsCustomWindowLocationSet){
                 Location = Config.WindowLocation;
                 Size = Config.WindowSize;
                 WindowState = Config.IsMaximized ? FormWindowState.Maximized : FormWindowState.Normal;
             }
 
-            if (Config.WindowSize.IsEmpty || !Screen.AllScreens.Any(screen => screen.WorkingArea.IntersectsWith(Bounds))){
+            if (!Config.IsCustomWindowLocationSet || !Screen.AllScreens.Any(screen => screen.WorkingArea.IntersectsWith(Bounds))){
                 Location = Screen.PrimaryScreen.WorkingArea.Location;
                 Size = Screen.PrimaryScreen.WorkingArea.Size;
                 WindowState = FormWindowState.Maximized;
@@ -104,7 +105,14 @@ namespace TweetDick.Core{
         }
 
         public void OpenSettings(){
-            // TODO
+            if (currentFormSettings != null){
+                currentFormSettings.BringToFront();
+            }
+            else{
+                currentFormSettings = new FormSettings(this);
+                currentFormSettings.FormClosed += (sender, args) => currentFormSettings = null;
+                ShowChildForm(currentFormSettings);
+            }
         }
 
         public void OpenAbout(){

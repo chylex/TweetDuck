@@ -13,6 +13,10 @@ namespace TweetDick.Core.Handling{
             HeadTag = headContents;
         }
 
+        public enum Position{
+            TopLeft, TopRight, BottomLeft, BottomRight, Custom
+        }
+
         private readonly string html;
 
         public TweetNotification(string html){
