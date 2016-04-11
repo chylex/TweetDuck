@@ -19,8 +19,8 @@ namespace TweetDick.Core{
 
             this.owner = owner;
 
-            browser = new ChromiumWebBrowser(""){ MenuHandler = new MenuHandlerEmpty() };
-            Controls.Add(browser);
+            browser = new ChromiumWebBrowser("about:blank"){ MenuHandler = new MenuHandlerEmpty() };
+            panelBrowser.Controls.Add(browser);
         }
 
         public void ShowNotification(TweetNotification notification){
@@ -33,8 +33,12 @@ namespace TweetDick.Core{
             }
         }
 
-        public void ShowNotificationForSettings(){
-            browser.Load("about:blank");
+            if (browser.Address == "about:blank"){
+                browser.Load("about:blank");
+                browser.LoadHtml(TweetNotification.ExampleTweet.GenerateHtml(),"http://tweetdeck.twitter.com/");
+                resetAnimation = true;
+            }
+
             MoveToVisibleLocation();
         }
 

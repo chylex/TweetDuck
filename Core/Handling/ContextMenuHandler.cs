@@ -23,8 +23,12 @@ namespace TweetDick.Core.Handling{
             
             model.AddItem(CefMenuCommand.Reload,"Reload");
             model.AddSeparator();
-            model.AddItem((CefMenuCommand)MenuSettings,"Settings");
-            model.AddSeparator();
+
+            if (TweetNotification.IsReady){
+                model.AddItem((CefMenuCommand)MenuSettings,"Settings");
+                model.AddSeparator();
+            }
+
             model.AddItem((CefMenuCommand)MenuAbout,"About TweetDick");
         }
 
