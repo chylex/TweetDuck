@@ -4,8 +4,6 @@ using System;
 using System.Linq;
 using TweetDick.Configuration;
 using CefSharp;
-using System.IO;
-using System.Text;
 using TweetDick.Core.Handling;
 using TweetDick.Core.Other;
 using System.Drawing;

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using TweetDick.Core;
 using TweetDick.Core.Controls;
 
 namespace TweetDick.Migration{
