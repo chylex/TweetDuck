@@ -62,6 +62,11 @@
       return true;
     };
     
+    window.TD.controller.notifications.isPermissionGranted = function(){
+      return true;
+    };
+    
+    // Finish init
     isInitialized = true;
   };
   
@@ -85,7 +90,9 @@
         container[0].setAttribute("data-tweetdeck-loaded","");
         return;
       }
-      // TODO check if popups are enabled first
+      
+      var data = TD.controller.columnManager.get(column.attr("data-column"));
+      if (!data.model.getHasNotification())return;
       
       Array.prototype.forEach.call(mutations,function(mutation){
         Array.prototype.forEach.call(mutation.addedNodes,function(node){
