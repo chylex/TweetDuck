@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using TweetDick.Core.Handling;
 using TweetDick.Configuration;
+using TweetDick.Resources;
 
 namespace TweetDick.Core{
     partial class FormNotification : Form{
@@ -16,7 +17,9 @@ namespace TweetDick.Core{
         private readonly bool autoHide;
         private int timeLeft, totalTime;
 
-        public FormNotification(Form owner, bool autoHide){
+        private readonly string notificationJS;
+
+        public FormNotification(Form owner, TweetDeckBridge bridge, bool autoHide){
             InitializeComponent();
 
             this.owner = owner;
@@ -24,8 +27,24 @@ namespace TweetDick.Core{
 
             owner.FormClosed += (sender, args) => Close();
 
+            notificationJS = ScriptLoader.LoadResource("notification.js");
+
             browser = new ChromiumWebBrowser("about:blank"){ MenuHandler = new MenuHandlerEmpty() };
+            browser.FrameLoadEnd += Browser_FrameLoadEnd;
+
+            if (bridge != null){
+                browser.RegisterJsObject("$TD",bridge);
+            }
+
             panelBrowser.Controls.Add(browser);
+        }
+
+        public FormNotification(Form owner, bool autoHide) : this(owner,null,autoHide){}
+
+        private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
+            if (e.Frame.IsMain && notificationJS != null){
+                browser.ExecuteScriptAsync(notificationJS);
+            }
         }
 
         public void ShowNotification(TweetNotification notification){

@@ -38,7 +38,7 @@ namespace TweetDick.Core{
 
             Controls.Add(browser);
 
-            notification = new FormNotification(this,true);
+            notification = new FormNotification(this,bridge,true);
             notification.Show();
         }
 
