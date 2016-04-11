@@ -79,6 +79,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\UserConfig.cs" />
+    <Compile Include="Core\Controls\FlatProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Core\Controls\FlatProgressBar.Designer.cs">
+      <DependentUpon>FlatProgressBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\Handling\ContextMenuHandler.cs" />
     <Compile Include="Core\FormBrowser.cs">
       <SubType>Form</SubType>
