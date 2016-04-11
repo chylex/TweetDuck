@@ -137,7 +137,7 @@ namespace TweetDick.Core{
             if (Bounds.Contains(Cursor.Position))return;
 
             timeLeft -= timerProgress.Interval;
-            progressBarTimer.SetValueInstant((int)Math.Min(1000,Math.Round(1001.0*(totalTime-timeLeft)/totalTime)));
+            progressBarTimer.SetValueInstant((int)Math.Min(1000,Math.Round(1050.0*(totalTime-timeLeft)/totalTime)));
 
             if (timeLeft <= 0){
                 if (tweetQueue.Count > 0){
