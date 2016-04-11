@@ -33,6 +33,9 @@ namespace TweetDick{
         [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
         public static extern IntPtr LoadLibrary(string name);
 
+        [DllImport("Shell32.dll")]
+        public static extern int SHChangeNotify(int eventId, int flags, IntPtr item1, IntPtr item2);
+
         [STAThread]
         private static void Main(){
             Application.EnableVisualStyles();

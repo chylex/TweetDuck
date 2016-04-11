@@ -26,7 +26,7 @@ namespace TweetDick.Migration{
                         formWait.ShowWorkDialog(() => {
                             if (!BeginMigration(decision,ex => formWait.Invoke(new Action(() => {
                                 if (ex != null){
-                                    MessageBox.Show(ex.Message); // TODO
+                                    MessageBox.Show(ex.ToString()); // TODO
                                 }
 
                                 formWait.Close();
@@ -65,16 +65,6 @@ namespace TweetDick.Migration{
                 CopyFile("Local Storage"+Path.DirectorySeparatorChar+"https_tweetdeck.twitter.com_0.localstorage-journal");
 
                 if (decision == MigrationDecision.Migrate || decision == MigrationDecision.MigratePurge){
-                    Directory.Delete(TweetDeckPath,true);
-
-                    try{
-                        Directory.Delete(TweetDeckPathParent,false);
-                    }catch(IOException){
-                        // most likely not empty, ignore
-                    }
-                }
-
-                if (decision == MigrationDecision.MigratePurge){
                     // kill process if running
                     Process runningProcess = ProgramProcessSearch.FindProcessWithWindowByName("TweetDeck");
 
@@ -89,6 +79,25 @@ namespace TweetDick.Migration{
                         runningProcess.Close();
                     }
 
+                    // delete folders
+                    for(int wait = 0; wait < 50; wait++){
+                        try{
+                            Directory.Delete(TweetDeckPath,true);
+                            break;
+                        }catch(Exception){
+                            // browser subprocess not ended yet, wait
+                            Thread.Sleep(300);
+                        }
+                    }
+
+                    try{
+                        Directory.Delete(TweetDeckPathParent,false);
+                    }catch(IOException){
+                        // most likely not empty, ignore
+                    }
+                }
+
+                if (decision == MigrationDecision.MigratePurge){
                     // update the lnk files wherever possible (desktop icons, pinned taskbar)
                     string[] locations = {
                         Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
@@ -109,6 +118,8 @@ namespace TweetDick.Migration{
                             File.Move(linkFile,Path.Combine(location,"TweetDick.lnk"));
                         }
                     }
+
+                    Program.SHChangeNotify(0x8000000,0x1000,IntPtr.Zero,IntPtr.Zero); // refreshes desktop
 
                     // uninstall in the background
                     string guid = ProgramRegistrySearch.FindByDisplayName("TweetDeck");
@@ -132,7 +143,11 @@ namespace TweetDick.Migration{
         }
 
         private static void CopyFile(string relativePath){
-            File.Copy(Path.Combine(TweetDeckPath,relativePath),Path.Combine(Program.StoragePath,relativePath),true);
+            try{
+                File.Copy(Path.Combine(TweetDeckPath,relativePath),Path.Combine(Program.StoragePath,relativePath),true);
+            }catch(FileNotFoundException){
+            }catch(DirectoryNotFoundException){
+            }
         }
     }
 }
