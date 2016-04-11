@@ -24,15 +24,10 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            this.timerNext = new System.Windows.Forms.Timer(this.components);
             this.panelBrowser = new System.Windows.Forms.Panel();
-            this.timerHideProgress = new System.Windows.Forms.Timer(this.components);
+            this.timerProgress = new System.Windows.Forms.Timer(this.components);
             this.progressBarTimer = new TweetDick.Core.Controls.FlatProgressBar();
             this.SuspendLayout();
-            // 
-            // timerNext
-            // 
-            this.timerNext.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // panelBrowser
             // 
@@ -45,10 +40,10 @@
             this.panelBrowser.Size = new System.Drawing.Size(284, 118);
             this.panelBrowser.TabIndex = 0;
             // 
-            // timerHideProgress
+            // timerProgress
             // 
-            this.timerHideProgress.Interval = 16;
-            this.timerHideProgress.Tick += new System.EventHandler(this.timerHideProgress_Tick);
+            this.timerProgress.Interval = 16;
+            this.timerProgress.Tick += new System.EventHandler(this.timerHideProgress_Tick);
             // 
             // progressBarTimer
             // 
@@ -82,9 +77,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Timer timerNext;
         private System.Windows.Forms.Panel panelBrowser;
         private Controls.FlatProgressBar progressBarTimer;
-        private System.Windows.Forms.Timer timerHideProgress;
+        private System.Windows.Forms.Timer timerProgress;
     }
 }

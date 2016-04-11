@@ -13,12 +13,14 @@ namespace TweetDick.Core{
         private readonly ChromiumWebBrowser browser;
 
         private readonly Queue<TweetNotification> tweetQueue = new Queue<TweetNotification>(4);
-        private DateTime timeLeftStart;
+        private int timeLeft, totalTime;
+        private bool autoHide;
 
-        public FormNotification(Form owner){
+        public FormNotification(Form owner, bool autoHide){
             InitializeComponent();
 
             this.owner = owner;
+            this.autoHide = autoHide;
 
             browser = new ChromiumWebBrowser("about:blank"){ MenuHandler = new MenuHandlerEmpty() };
             panelBrowser.Controls.Add(browser);
@@ -29,7 +31,7 @@ namespace TweetDick.Core{
 
             tweetQueue.Enqueue(notification);
 
-            if (!timerNext.Enabled){
+            if (!timerProgress.Enabled){
                 LoadNextNotification();
             }
         }
@@ -41,10 +43,8 @@ namespace TweetDick.Core{
             }
 
             if (resetAnimation){
-                timerNext.Interval = TweetNotification.ExampleTweet.GetDisplayDuration(Program.UserConfig.NotificationDuration);
-                timeLeftStart = DateTime.Now;
-                timerHideProgress.Stop();
-                timerHideProgress.Start();
+                totalTime = timeLeft = TweetNotification.ExampleTweet.GetDisplayDuration(Program.UserConfig.NotificationDuration);
+                timerProgress.Start();
             }
 
             MoveToVisibleLocation();
@@ -53,9 +53,7 @@ namespace TweetDick.Core{
         public void HideNotification(){
             browser.LoadHtml("","about:blank");
             Location = new Point(32000,32000);
-
-            timerNext.Stop();
-            timerHideProgress.Stop();
+            timerProgress.Stop();
         }
 
         private void LoadNextNotification(){
@@ -64,13 +62,9 @@ namespace TweetDick.Core{
             browser.Load("about:blank");
             browser.LoadHtml(tweet.GenerateHtml(),"http://tweetdeck.twitter.com/");
 
-            timerNext.Stop();
-            timerNext.Interval = tweet.GetDisplayDuration(Program.UserConfig.NotificationDuration);
-            timerNext.Start();
-
-            timeLeftStart = DateTime.Now;
-            timerHideProgress.Stop();
-            timerHideProgress.Start();
+            totalTime = timeLeft = tweet.GetDisplayDuration(Program.UserConfig.NotificationDuration);
+            timerProgress.Stop();
+            timerProgress.Start();
         }
 
         private void MoveToVisibleLocation(){
@@ -107,18 +101,20 @@ namespace TweetDick.Core{
             }
         }
 
-        private void timer_Tick(object sender, EventArgs e){
-            if (tweetQueue.Count > 0){
-                LoadNextNotification();
-            }
-            else{
-                HideNotification();
-            }
-        }
-
         private void timerHideProgress_Tick(object sender, EventArgs e){
-            int elapsed = (int)(DateTime.Now-timeLeftStart).TotalMilliseconds;
-            progressBarTimer.SetValueInstant((int)Math.Min(1000,Math.Round(1001.0*elapsed/timerNext.Interval)));
+            if (Bounds.Contains(Cursor.Position))return;
+
+            timeLeft -= timerProgress.Interval;
+            progressBarTimer.SetValueInstant((int)Math.Min(1000,Math.Round(1001.0*(totalTime-timeLeft)/totalTime)));
+
+            if (timeLeft <= 0){
+                if (tweetQueue.Count > 0){
+                    LoadNextNotification();
+                }
+                else if (autoHide){
+                    HideNotification();
+                }
+            }
         }
 
         private void FormNotification_FormClosing(object sender, FormClosingEventArgs e){

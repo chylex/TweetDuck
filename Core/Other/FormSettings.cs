@@ -16,7 +16,7 @@ namespace TweetDick.Core.Other{
         public FormSettings(FormBrowser browserForm){
             InitializeComponent();
 
-            notification = new FormNotification(browserForm);
+            notification = new FormNotification(browserForm,false);
             notification.Show(this);
 
             notification.Move += (sender, args) => {
