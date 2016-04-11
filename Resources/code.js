@@ -177,7 +177,7 @@
   $TD.loadNotificationHeadContents(getNotificationHeadContents());
   
   //
-  // Block:
+  // Block: Hook into links to bypass default open function
   //
   $(document.body).delegate("a[target='_blank']","click",function(e){
     $TD.openBrowser($(this).attr("href"));
