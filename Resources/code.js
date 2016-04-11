@@ -210,4 +210,8 @@
     
     e.preventDefault();
   });
+  
+  window.open = function(url){
+    $TD.openBrowser(url);
+  };
 })($,$TD);
