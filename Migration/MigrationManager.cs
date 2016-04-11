@@ -112,10 +112,10 @@ namespace TweetDick.Migration{
                             LnkEditor lnk = new LnkEditor(linkFile);
                             lnk.SetPath(Application.ExecutablePath);
                             lnk.SetWorkingDirectory(Environment.CurrentDirectory);
-                            lnk.SetComment("TweetDick"); // TODO add a tagline
+                            lnk.SetComment(Program.BrandName); // TODO add a tagline
                             lnk.Save();
 
-                            File.Move(linkFile,Path.Combine(location,"TweetDick.lnk"));
+                            File.Move(linkFile,Path.Combine(location,Program.BrandName+".lnk"));
                         }
                     }
 

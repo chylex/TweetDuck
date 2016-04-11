@@ -4,7 +4,7 @@ using TweetDick.Configuration;
 using TweetDick.Core.Handling;
 
 namespace TweetDick.Core.Other{
-    partial class FormSettings : Form{
+    sealed partial class FormSettings : Form{
         private static UserConfig Config{
             get{
                 return Program.UserConfig;
@@ -17,6 +17,8 @@ namespace TweetDick.Core.Other{
         public FormSettings(FormBrowser browserForm){
             InitializeComponent();
             Shown += (sender, args) => isLoaded = true;
+
+            Text = Program.BrandName+" Settings";
 
             notification = new FormNotification(browserForm,false);
             notification.Show(this);
@@ -42,7 +44,7 @@ namespace TweetDick.Core.Other{
                 case TweetNotification.Duration.VeryLong: radioDurVeryLong.Checked = true; break;
             }
 
-            comboBoxDisplay.Items.Add("(Same As TweetDick)");
+            comboBoxDisplay.Items.Add("(Same As "+Program.BrandName+")");
 
             foreach(Screen screen in Screen.AllScreens){
                 comboBoxDisplay.Items.Add(screen.DeviceName+" ("+screen.Bounds.Width+"x"+screen.Bounds.Height+")");

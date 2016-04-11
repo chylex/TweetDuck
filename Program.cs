@@ -10,7 +10,15 @@ using TweetDick.Migration;
 
 namespace TweetDick{
     static class Program{
-        public static readonly string StoragePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"TweetDick");
+        #if DUCK
+        public const string BrandName = "TweetDuck";
+        public const string Website = "http://tweetduck.chylex.com";
+        #else
+        public const string BrandName = "TweetDick";
+        public const string Website = "http://tweetdick.chylex.com";
+        #endif
+
+        public static readonly string StoragePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),BrandName);
         public static readonly UserConfig UserConfig;
 
         private static string HeaderAcceptLanguage{
@@ -52,7 +60,7 @@ namespace TweetDick{
 
             Cef.Initialize(new CefSettings{
                 AcceptLanguageList = HeaderAcceptLanguage,
-                UserAgent = "TweetDick "+Application.ProductVersion,
+                UserAgent = BrandName+" "+Application.ProductVersion,
                 Locale = CultureInfo.CurrentCulture.TwoLetterISOLanguageName,
                 CachePath = StoragePath,
                 #if !DEBUG

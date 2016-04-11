@@ -1,5 +1,5 @@
 ﻿namespace TweetDick.Core {
-    partial class FormBrowser {
+    sealed partial class FormBrowser {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -34,7 +34,6 @@
             this.Location = new System.Drawing.Point(32000, 32000);
             this.Name = "FormBrowser";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "TweetDick";
             this.ResizeEnd += new System.EventHandler(this.FormBrowser_ResizeEnd);
             this.ResumeLayout(false);
 

@@ -1,5 +1,5 @@
 ﻿namespace TweetDick.Core.Other {
-    partial class FormSettings {
+    sealed partial class FormSettings {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -277,7 +277,6 @@
             this.MinimizeBox = false;
             this.Name = "FormSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "TweetDick Settings";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormSettings_FormClosing);
             this.groupNotificationLocation.ResumeLayout(false);
             this.groupNotificationLocation.PerformLayout();

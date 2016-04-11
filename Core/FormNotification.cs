@@ -9,7 +9,7 @@ using TweetDick.Configuration;
 using TweetDick.Resources;
 
 namespace TweetDick.Core{
-    partial class FormNotification : Form{
+    sealed partial class FormNotification : Form{
         private readonly Form owner;
         private readonly ChromiumWebBrowser browser;
 
@@ -21,6 +21,8 @@ namespace TweetDick.Core{
 
         public FormNotification(Form owner, TweetDeckBridge bridge, bool autoHide){
             InitializeComponent();
+
+            Text = Program.BrandName;
 
             this.owner = owner;
             this.autoHide = autoHide;

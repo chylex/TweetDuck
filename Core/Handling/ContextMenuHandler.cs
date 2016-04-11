@@ -29,7 +29,7 @@ namespace TweetDick.Core.Handling{
                 model.AddSeparator();
             }
 
-            model.AddItem((CefMenuCommand)MenuAbout,"About TweetDick");
+            model.AddItem((CefMenuCommand)MenuAbout,"About "+Program.BrandName);
         }
 
         public bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags){

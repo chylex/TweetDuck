@@ -9,7 +9,7 @@ namespace TweetDick.Resources{
             try{
                 return File.ReadAllText(name,Encoding.UTF8);
             }catch(Exception ex){
-                MessageBox.Show("Unfortunately, TweetDick could not load the "+name+" file. The program will continue running with limited functionality.\r\n\r\n"+ex.Message,"TweetDick Has Failed :(",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show("Unfortunately, "+Program.BrandName+" could not load the "+name+" file. The program will continue running with limited functionality.\r\n\r\n"+ex.Message,"TweetDick Has Failed :(",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 return null;
             }
         }

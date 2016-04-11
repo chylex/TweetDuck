@@ -1,5 +1,5 @@
 ﻿namespace TweetDick.Core.Other {
-    partial class FormAbout {
+    sealed partial class FormAbout {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -54,7 +54,6 @@
             this.MinimizeBox = false;
             this.Name = "FormAbout";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "About TweetDick";
             this.ResumeLayout(false);
 
         }

@@ -10,7 +10,7 @@ using System.Drawing;
 using TweetDick.Resources;
 
 namespace TweetDick.Core{
-    partial class FormBrowser : Form{
+    sealed partial class FormBrowser : Form{
         private static UserConfig Config{
             get{
                 return Program.UserConfig;
@@ -26,6 +26,8 @@ namespace TweetDick.Core{
 
         public FormBrowser(){
             InitializeComponent();
+
+            Text = Program.BrandName;
 
             bridge = new TweetDeckBridge(this);
 

@@ -1,5 +1,5 @@
 ﻿namespace TweetDick.Core {
-    partial class FormNotification {
+    sealed partial class FormNotification {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -69,7 +69,6 @@
             this.Name = "FormNotification";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "TweetDick";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormNotification_FormClosing);
             this.ResumeLayout(false);
 

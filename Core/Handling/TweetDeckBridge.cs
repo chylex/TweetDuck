@@ -4,6 +4,12 @@ namespace TweetDick.Core.Handling{
     class TweetDeckBridge{
         private readonly FormBrowser form;
 
+        public string BrandName{
+            get{
+                return Program.BrandName;
+            }
+        }
+
         public TweetDeckBridge(FormBrowser form){
             this.form = form;
         }
