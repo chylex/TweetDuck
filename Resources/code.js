@@ -76,6 +76,10 @@
     if (container.length == 0)return;
     
     new MutationObserver(function(mutations){
+      if (!container[0].hasAttribute("data-tweetdeck-loaded")){
+        container[0].setAttribute("data-tweetdeck-loaded","");
+        return;
+      }
       // TODO check if popups are enabled first
       
       Array.prototype.forEach.call(mutations,function(mutation){
