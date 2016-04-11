@@ -175,4 +175,12 @@
   });
   
   $TD.loadNotificationHeadContents(getNotificationHeadContents());
+  
+  //
+  // Block:
+  //
+  $(document.body).delegate("a[target='_blank']","click",function(e){
+    $TD.openBrowser($(this).attr("href"));
+    e.preventDefault();
+  });
 })($,$TD);

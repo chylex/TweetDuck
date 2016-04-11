@@ -1,4 +1,6 @@
-﻿namespace TweetDick.Core.Handling{
+﻿using System.Diagnostics;
+
+namespace TweetDick.Core.Handling{
     class TweetDeckBridge{
         private readonly FormBrowser form;
 
@@ -30,8 +32,12 @@
             });
         }
 
+        public void OpenBrowser(string url){
+            Process.Start(url);
+        }
+
         public void Log(string data){
-            System.Diagnostics.Debug.WriteLine(data);
+            Debug.WriteLine(data);
         }
     }
 }
