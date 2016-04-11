@@ -272,7 +272,7 @@
             this.ClientSize = new System.Drawing.Size(384, 282);
             this.Controls.Add(this.tableLayout);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = TweetDick.Properties.Resources.icon;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormSettings";

@@ -140,6 +140,11 @@
     <Compile Include="Migration\Helpers\ProgramRegistrySearch.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <None Include="Configuration\app.config" />
     <None Include="Configuration\packages.config" />
   </ItemGroup>
@@ -183,7 +188,16 @@
     </ContentWithTargetPath>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\icon.ico" />
+    <ContentWithTargetPath Include="Resources\icon.ico">
+      <TargetPath>icon.ico</TargetPath>
+    </ContentWithTargetPath>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
