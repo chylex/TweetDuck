@@ -32,6 +32,7 @@ namespace TweetDick.Core{
 
             browser = new ChromiumWebBrowser("https://tweetdeck.twitter.com/"){ MenuHandler = new ContextMenuHandler(this) };
             browser.LoadingStateChanged += Browser_LoadingStateChanged;
+            browser.FrameLoadEnd += Browser_FrameLoadEnd;
             browser.RegisterJsObject("$TD",bridge);
 
             Controls.Add(browser);
@@ -76,9 +77,22 @@ namespace TweetDick.Core{
             if (!e.IsLoading){
                 Invoke(new Action(SetupWindow));
                 browser.LoadingStateChanged -= Browser_LoadingStateChanged;
+            }
+        }
 
-                string js = File.ReadAllText("code.js",Encoding.UTF8);
-                browser.ExecuteScriptAsync(js);
+        private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
+            if (e.Frame.IsMain){
+                string js = null;
+
+                try{
+                    js = File.ReadAllText("code.js",Encoding.UTF8);
+                }catch(Exception ex){
+                    MessageBox.Show("Unfortunately, TweetDick could not load the code.js file. The program will continue running with limited functionality.\r\n\r\n"+ex.Message,"TweetDick Has Failed :(",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                }
+
+                if (js != null){
+                    browser.ExecuteScriptAsync(js);
+                }
             }
         }
 
