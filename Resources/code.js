@@ -57,6 +57,11 @@
       refreshColumnObservers();
     })();
     
+    // Popup notifications
+    window.TD.controller.notifications.hasNotifications = function(){
+      return true;
+    };
+    
     isInitialized = true;
   };
   
