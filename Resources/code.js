@@ -113,7 +113,13 @@
   //
   var onNewTweet = function(column, tweet){
     var html = $(tweet.outerHTML);
-    html.find("footer:first").remove();
+    var body = html.find(".tweet-body").first();
+    
+    body.children("div.js-quote-detail").each(function(){
+      $(this).html("(quoted tweet)");
+    });
+    
+    body.children().not("p,div.js-quote-detail").remove();
     
     $TD.onTweetPopup(html.html(),html.find(".js-tweet-text:first").text().length); // TODO column & remove pic links from text()
   };
