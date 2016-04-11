@@ -145,6 +145,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\ScriptLoader.cs" />
     <None Include="Configuration\app.config" />
     <None Include="Configuration\packages.config" />
   </ItemGroup>

@@ -9,6 +9,7 @@ using System.Text;
 using TweetDick.Core.Handling;
 using TweetDick.Core.Other;
 using System.Drawing;
+using TweetDick.Resources;
 
 namespace TweetDick.Core{
     partial class FormBrowser : Form{
@@ -82,13 +83,7 @@ namespace TweetDick.Core{
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             if (e.Frame.IsMain){
-                string js = null;
-
-                try{
-                    js = File.ReadAllText("code.js",Encoding.UTF8);
-                }catch(Exception ex){
-                    MessageBox.Show("Unfortunately, TweetDick could not load the code.js file. The program will continue running with limited functionality.\r\n\r\n"+ex.Message,"TweetDick Has Failed :(",MessageBoxButtons.OK,MessageBoxIcon.Error);
-                }
+                string js = ScriptLoader.LoadResource("code.js");
 
                 if (js != null){
                     browser.ExecuteScriptAsync(js);
