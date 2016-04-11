@@ -24,6 +24,8 @@
         /// </summary>
         private void InitializeComponent() {
             this.groupNotificationLocation = new System.Windows.Forms.GroupBox();
+            this.labelDisplay = new System.Windows.Forms.Label();
+            this.comboBoxDisplay = new System.Windows.Forms.ComboBox();
             this.labelEdgeDistance = new System.Windows.Forms.Label();
             this.trackBarEdgeDistance = new System.Windows.Forms.TrackBar();
             this.radioLocCustom = new System.Windows.Forms.RadioButton();
@@ -58,6 +60,29 @@
             this.groupNotificationLocation.TabIndex = 0;
             this.groupNotificationLocation.TabStop = false;
             this.groupNotificationLocation.Text = "Notification Location";
+            // 
+            // labelDisplay
+            // 
+            this.labelDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelDisplay.AutoSize = true;
+            this.labelDisplay.Location = new System.Drawing.Point(6, 154);
+            this.labelDisplay.Name = "labelDisplay";
+            this.labelDisplay.Size = new System.Drawing.Size(41, 13);
+            this.labelDisplay.TabIndex = 8;
+            this.labelDisplay.Text = "Display";
+            // 
+            // comboBoxDisplay
+            // 
+            this.comboBoxDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxDisplay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxDisplay.FormattingEnabled = true;
+            this.comboBoxDisplay.Location = new System.Drawing.Point(9, 170);
+            this.comboBoxDisplay.Margin = new System.Windows.Forms.Padding(3, 3, 3, 12);
+            this.comboBoxDisplay.Name = "comboBoxDisplay";
+            this.comboBoxDisplay.Size = new System.Drawing.Size(168, 21);
+            this.comboBoxDisplay.TabIndex = 7;
+            this.comboBoxDisplay.SelectedValueChanged += new System.EventHandler(this.comboBoxDisplay_SelectedValueChanged);
             // 
             // labelEdgeDistance
             // 
@@ -214,7 +239,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(328, 242);
+            this.ClientSize = new System.Drawing.Size(384, 282);
             this.Controls.Add(this.groupNotificationDuration);
             this.Controls.Add(this.groupNotificationLocation);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -248,5 +273,7 @@
         private System.Windows.Forms.RadioButton radioDurLong;
         private System.Windows.Forms.RadioButton radioDurMedium;
         private System.Windows.Forms.RadioButton radioDurShort;
+        private System.Windows.Forms.Label labelDisplay;
+        private System.Windows.Forms.ComboBox comboBoxDisplay;
     }
 }

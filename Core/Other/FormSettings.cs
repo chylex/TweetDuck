@@ -40,6 +40,14 @@ namespace TweetDick.Core.Other{
                 case TweetNotification.Duration.VeryLong: radioDurVeryLong.Checked = true; break;
             }
 
+            comboBoxDisplay.Items.Add("(Same As TweetDick)");
+
+            foreach(Screen screen in Screen.AllScreens){
+                comboBoxDisplay.Items.Add(screen.DeviceName+" ("+screen.Bounds.Width+"x"+screen.Bounds.Height+")");
+            }
+
+            comboBoxDisplay.SelectedIndex = Math.Min(comboBoxDisplay.Items.Count-1,Config.NotificationDisplay);
+
             trackBarEdgeDistance.Value = Config.NotificationEdgeDistance;
             notification.HideNotification();
         }
@@ -61,7 +69,12 @@ namespace TweetDick.Core.Other{
                 Config.NotificationPosition = TweetNotification.Position.Custom;
             }
 
-            trackBarEdgeDistance.Enabled = !radioLocCustom.Checked;
+            comboBoxDisplay.Enabled = trackBarEdgeDistance.Enabled = !radioLocCustom.Checked;
+            notification.ShowNotificationForSettings(false);
+        }
+
+        private void comboBoxDisplay_SelectedValueChanged(object sender, EventArgs e){
+            Config.NotificationDisplay = comboBoxDisplay.SelectedIndex;
             notification.ShowNotificationForSettings(false);
         }
 

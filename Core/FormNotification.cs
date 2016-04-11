@@ -72,6 +72,10 @@ namespace TweetDick.Core{
             UserConfig config = Program.UserConfig;
             Screen screen = Screen.FromControl(owner);
 
+            if (config.NotificationDisplay > 0 && config.NotificationDisplay <= Screen.AllScreens.Length){
+                screen = Screen.AllScreens[config.NotificationDisplay-1];
+            }
+
             int edgeDist = config.NotificationEdgeDistance;
 
             switch(config.NotificationPosition){

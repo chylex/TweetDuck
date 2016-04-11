@@ -22,6 +22,7 @@ namespace TweetDick.Configuration{
         public TweetNotification.Position NotificationPosition { get; set; }
         public Point CustomNotificationPosition { get; set; }
         public int NotificationEdgeDistance { get; set; }
+        public int NotificationDisplay { get; set; }
 
         public bool IsCustomWindowLocationSet{
             get{
