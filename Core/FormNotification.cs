@@ -13,8 +13,8 @@ namespace TweetDick.Core{
         private readonly ChromiumWebBrowser browser;
 
         private readonly Queue<TweetNotification> tweetQueue = new Queue<TweetNotification>(4);
+        private readonly bool autoHide;
         private int timeLeft, totalTime;
-        private bool autoHide;
 
         public FormNotification(Form owner, bool autoHide){
             InitializeComponent();
@@ -22,7 +22,7 @@ namespace TweetDick.Core{
             this.owner = owner;
             this.autoHide = autoHide;
 
-            browser = new ChromiumWebBrowser("about:blank"){ MenuHandler = new MenuHandlerEmpty() };
+            browser = new ChromiumWebBrowser(""){ MenuHandler = new MenuHandlerEmpty() };
             panelBrowser.Controls.Add(browser);
         }
 
@@ -38,6 +38,7 @@ namespace TweetDick.Core{
 
         public void ShowNotificationForSettings(bool resetAnimation){
             if (browser.Address == "about:blank"){
+                browser.Load("about:blank"); // required, otherwise shit breaks
                 browser.LoadHtml(TweetNotification.ExampleTweet.GenerateHtml(),"http://tweetdeck.twitter.com/");
                 resetAnimation = true;
             }
@@ -59,7 +60,7 @@ namespace TweetDick.Core{
         private void LoadNextNotification(){
             TweetNotification tweet = tweetQueue.Dequeue();
 
-            browser.Load("about:blank");
+            browser.Load("about:blank"); // required, otherwise shit breaks
             browser.LoadHtml(tweet.GenerateHtml(),"http://tweetdeck.twitter.com/");
 
             totalTime = timeLeft = tweet.GetDisplayDuration(Program.UserConfig.NotificationDuration);
