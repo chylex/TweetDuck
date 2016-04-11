@@ -99,6 +99,12 @@
     <Compile Include="Core\Controls\RichTextLabel.Designer.cs">
       <DependentUpon>RichTextLabel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\Other\FormAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Core\Other\FormAbout.Designer.cs">
+      <DependentUpon>FormAbout.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\Other\FormBackgroundWork.cs">
       <SubType>Form</SubType>
     </Compile>

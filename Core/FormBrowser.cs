@@ -7,6 +7,7 @@ using CefSharp;
 using System.IO;
 using System.Text;
 using TweetDick.Core.Handling;
+using TweetDick.Core.Other;
 
 namespace TweetDick.Core{
     public partial class FormBrowser : Form{
@@ -19,6 +20,8 @@ namespace TweetDick.Core{
         private readonly ChromiumWebBrowser browser;
         private readonly TweetDeckBridge bridge;
         private readonly FormNotification notification;
+
+        private FormAbout currentFormAbout;
 
         public FormBrowser(){
             InitializeComponent();
@@ -99,7 +102,14 @@ namespace TweetDick.Core{
         }
 
         public void OpenAbout(){
-            // TODO
+            if (currentFormAbout != null){
+                currentFormAbout.BringToFront();
+            }
+            else{
+                currentFormAbout = new FormAbout();
+                currentFormAbout.FormClosed += (sender, args) => currentFormAbout = null;
+                currentFormAbout.Show(this);
+            }
         }
 
         public void OnTweetPopup(string tweetHtml, string tweetColumn){
