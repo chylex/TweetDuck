@@ -26,7 +26,7 @@
 
         menu.children(".drp-h-divider").last().after('<li class="is-selectable" data-tweetdick><a href="#" data-action>TweetDick</a></li><li class="drp-h-divider"></li>');
 
-        var tweetDickBtn = menu.children("[data-tweetdick]").first();
+        var tweetDickBtn = menu.children("[data-std]").first();
 
         tweetDickBtn.on("click","a",function(){
           $TD.openSettingsMenu();
@@ -74,7 +74,7 @@
   // Function: Registers an observer to a TweetDeck column, which reports new tweets.
   //
   var registerTweetObserverForColumn = function(column){
-    if (column[0].hasAttribute("data-tweetdick-observed"))return;
+    if (column[0].hasAttribute("data-std-observed"))return;
     
     var mid = column;
     mid = mid.children().first();
@@ -88,8 +88,8 @@
     var scroller = container.parent();
     
     new MutationObserver(function(mutations){
-      if (!container[0].hasAttribute("data-tweetdeck-loaded")){
-        container[0].setAttribute("data-tweetdeck-loaded","");
+      if (!container[0].hasAttribute("data-std-loaded")){
+        container[0].setAttribute("data-std-loaded","");
         return;
       }
       
@@ -109,7 +109,7 @@
       childList: true
     });
     
-    column[0].setAttribute("data-tweetdick-observed","");
+    column[0].setAttribute("data-std-observed","");
   };
   
   //
