@@ -50,7 +50,7 @@ namespace TweetDick.Core{
             browser.LoadHtml(tweet.GenerateHtml(),"http://tweetdeck.twitter.com/");
 
             timer.Stop();
-            timer.Interval = 5000;
+            timer.Interval = tweet.GetDisplayDuration(Program.UserConfig.NotificationDuration);
             timer.Start();
         }
 

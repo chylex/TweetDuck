@@ -18,6 +18,7 @@ namespace TweetDick.Configuration{
         public Point WindowLocation { get; set; }
         public Size WindowSize { get; set; }
 
+        public TweetNotification.Duration NotificationDuration { get; set; }
         public TweetNotification.Position NotificationPosition { get; set; }
         public Point CustomNotificationPosition { get; set; }
         public int NotificationEdgeDistance { get; set; }
@@ -44,6 +45,7 @@ namespace TweetDick.Configuration{
 
             IsMaximized = true;
             WindowLocation = new Point(32000,32000);
+            NotificationDuration = TweetNotification.Duration.Medium;
             NotificationPosition = TweetNotification.Position.TopRight;
             CustomNotificationPosition = new Point(32000,32000);
             NotificationEdgeDistance = 8;

@@ -24,9 +24,9 @@
             });
         }
 
-        public void OnTweetPopup(string tweetHtml, string tweetColumn){
+        public void OnTweetPopup(string tweetHtml, int tweetCharacters){
             form.InvokeSafe(() => {
-                form.OnTweetPopup(tweetHtml,tweetColumn);
+                form.OnTweetPopup(new TweetNotification(tweetHtml,tweetCharacters));
             });
         }
 

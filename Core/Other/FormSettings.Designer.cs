@@ -31,12 +31,20 @@
             this.radioLocBL = new System.Windows.Forms.RadioButton();
             this.radioLocTR = new System.Windows.Forms.RadioButton();
             this.radioLocTL = new System.Windows.Forms.RadioButton();
+            this.groupNotificationDuration = new System.Windows.Forms.GroupBox();
+            this.radioDurVeryLong = new System.Windows.Forms.RadioButton();
+            this.radioDurLong = new System.Windows.Forms.RadioButton();
+            this.radioDurMedium = new System.Windows.Forms.RadioButton();
+            this.radioDurShort = new System.Windows.Forms.RadioButton();
             this.groupNotificationLocation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).BeginInit();
+            this.groupNotificationDuration.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupNotificationLocation
             // 
+            this.groupNotificationLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.groupNotificationLocation.Controls.Add(this.labelEdgeDistance);
             this.groupNotificationLocation.Controls.Add(this.trackBarEdgeDistance);
             this.groupNotificationLocation.Controls.Add(this.radioLocCustom);
@@ -46,7 +54,7 @@
             this.groupNotificationLocation.Controls.Add(this.radioLocTL);
             this.groupNotificationLocation.Location = new System.Drawing.Point(13, 13);
             this.groupNotificationLocation.Name = "groupNotificationLocation";
-            this.groupNotificationLocation.Size = new System.Drawing.Size(149, 217);
+            this.groupNotificationLocation.Size = new System.Drawing.Size(148, 217);
             this.groupNotificationLocation.TabIndex = 0;
             this.groupNotificationLocation.TabStop = false;
             this.groupNotificationLocation.Text = "Notification Location";
@@ -70,7 +78,7 @@
             this.trackBarEdgeDistance.Maximum = 40;
             this.trackBarEdgeDistance.Minimum = 8;
             this.trackBarEdgeDistance.Name = "trackBarEdgeDistance";
-            this.trackBarEdgeDistance.Size = new System.Drawing.Size(137, 45);
+            this.trackBarEdgeDistance.Size = new System.Drawing.Size(136, 45);
             this.trackBarEdgeDistance.SmallChange = 2;
             this.trackBarEdgeDistance.TabIndex = 5;
             this.trackBarEdgeDistance.TickFrequency = 2;
@@ -137,11 +145,73 @@
             this.radioLocTL.UseVisualStyleBackColor = true;
             this.radioLocTL.CheckedChanged += new System.EventHandler(this.radioLoc_CheckedChanged);
             // 
+            // groupNotificationDuration
+            // 
+            this.groupNotificationDuration.Controls.Add(this.radioDurVeryLong);
+            this.groupNotificationDuration.Controls.Add(this.radioDurLong);
+            this.groupNotificationDuration.Controls.Add(this.radioDurMedium);
+            this.groupNotificationDuration.Controls.Add(this.radioDurShort);
+            this.groupNotificationDuration.Location = new System.Drawing.Point(167, 13);
+            this.groupNotificationDuration.Name = "groupNotificationDuration";
+            this.groupNotificationDuration.Size = new System.Drawing.Size(148, 118);
+            this.groupNotificationDuration.TabIndex = 1;
+            this.groupNotificationDuration.TabStop = false;
+            this.groupNotificationDuration.Text = "Notification Duration";
+            // 
+            // radioDurVeryLong
+            // 
+            this.radioDurVeryLong.AutoSize = true;
+            this.radioDurVeryLong.Location = new System.Drawing.Point(6, 92);
+            this.radioDurVeryLong.Name = "radioDurVeryLong";
+            this.radioDurVeryLong.Size = new System.Drawing.Size(73, 17);
+            this.radioDurVeryLong.TabIndex = 3;
+            this.radioDurVeryLong.TabStop = true;
+            this.radioDurVeryLong.Text = "Very Long";
+            this.radioDurVeryLong.UseVisualStyleBackColor = true;
+            this.radioDurVeryLong.CheckedChanged += new System.EventHandler(this.radioDur_CheckedChanged);
+            // 
+            // radioDurLong
+            // 
+            this.radioDurLong.AutoSize = true;
+            this.radioDurLong.Location = new System.Drawing.Point(6, 68);
+            this.radioDurLong.Name = "radioDurLong";
+            this.radioDurLong.Size = new System.Drawing.Size(49, 17);
+            this.radioDurLong.TabIndex = 2;
+            this.radioDurLong.TabStop = true;
+            this.radioDurLong.Text = "Long";
+            this.radioDurLong.UseVisualStyleBackColor = true;
+            this.radioDurLong.CheckedChanged += new System.EventHandler(this.radioDur_CheckedChanged);
+            // 
+            // radioDurMedium
+            // 
+            this.radioDurMedium.AutoSize = true;
+            this.radioDurMedium.Location = new System.Drawing.Point(6, 44);
+            this.radioDurMedium.Name = "radioDurMedium";
+            this.radioDurMedium.Size = new System.Drawing.Size(62, 17);
+            this.radioDurMedium.TabIndex = 1;
+            this.radioDurMedium.TabStop = true;
+            this.radioDurMedium.Text = "Medium";
+            this.radioDurMedium.UseVisualStyleBackColor = true;
+            this.radioDurMedium.CheckedChanged += new System.EventHandler(this.radioDur_CheckedChanged);
+            // 
+            // radioDurShort
+            // 
+            this.radioDurShort.AutoSize = true;
+            this.radioDurShort.Location = new System.Drawing.Point(6, 20);
+            this.radioDurShort.Name = "radioDurShort";
+            this.radioDurShort.Size = new System.Drawing.Size(50, 17);
+            this.radioDurShort.TabIndex = 0;
+            this.radioDurShort.TabStop = true;
+            this.radioDurShort.Text = "Short";
+            this.radioDurShort.UseVisualStyleBackColor = true;
+            this.radioDurShort.CheckedChanged += new System.EventHandler(this.radioDur_CheckedChanged);
+            // 
             // FormSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 242);
+            this.ClientSize = new System.Drawing.Size(328, 242);
+            this.Controls.Add(this.groupNotificationDuration);
             this.Controls.Add(this.groupNotificationLocation);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -153,6 +223,8 @@
             this.groupNotificationLocation.ResumeLayout(false);
             this.groupNotificationLocation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).EndInit();
+            this.groupNotificationDuration.ResumeLayout(false);
+            this.groupNotificationDuration.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -167,5 +239,10 @@
         private System.Windows.Forms.RadioButton radioLocTL;
         private System.Windows.Forms.Label labelEdgeDistance;
         private System.Windows.Forms.TrackBar trackBarEdgeDistance;
+        private System.Windows.Forms.GroupBox groupNotificationDuration;
+        private System.Windows.Forms.RadioButton radioDurVeryLong;
+        private System.Windows.Forms.RadioButton radioDurLong;
+        private System.Windows.Forms.RadioButton radioDurMedium;
+        private System.Windows.Forms.RadioButton radioDurShort;
     }
 }

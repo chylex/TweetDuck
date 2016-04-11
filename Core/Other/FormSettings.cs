@@ -4,7 +4,7 @@ using TweetDick.Configuration;
 using TweetDick.Core.Handling;
 
 namespace TweetDick.Core.Other{
-    public partial class FormSettings : Form{
+    partial class FormSettings : Form{
         private static UserConfig Config{
             get{
                 return Program.UserConfig;
@@ -30,6 +30,13 @@ namespace TweetDick.Core.Other{
                 case TweetNotification.Position.TopRight: radioLocTR.Checked = true; break;
                 case TweetNotification.Position.BottomLeft: radioLocBL.Checked = true; break;
                 case TweetNotification.Position.BottomRight: radioLocBR.Checked = true; break;
+            }
+
+            switch(Config.NotificationDuration){
+                case TweetNotification.Duration.Short: radioDurShort.Checked = true; break;
+                case TweetNotification.Duration.Medium: radioDurMedium.Checked = true; break;
+                case TweetNotification.Duration.Long: radioDurLong.Checked = true; break;
+                case TweetNotification.Duration.VeryLong: radioDurVeryLong.Checked = true; break;
             }
 
             trackBarEdgeDistance.Value = Config.NotificationEdgeDistance;
@@ -60,6 +67,13 @@ namespace TweetDick.Core.Other{
         private void trackBarEdgeDistance_ValueChanged(object sender, EventArgs e){
             Config.NotificationEdgeDistance = trackBarEdgeDistance.Value;
             notification.ShowNotificationForSettings();
+        }
+
+        private void radioDur_CheckedChanged(object sender, EventArgs e){
+            if (radioDurShort.Checked)Config.NotificationDuration = TweetNotification.Duration.Short;
+            else if (radioDurMedium.Checked)Config.NotificationDuration = TweetNotification.Duration.Medium;
+            else if (radioDurLong.Checked)Config.NotificationDuration = TweetNotification.Duration.Long;
+            else if (radioDurVeryLong.Checked)Config.NotificationDuration = TweetNotification.Duration.VeryLong;
         }
     }
 }

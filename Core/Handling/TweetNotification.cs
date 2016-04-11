@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 namespace TweetDick.Core.Handling{
     sealed class TweetNotification{
@@ -17,10 +18,29 @@ namespace TweetDick.Core.Handling{
             TopLeft, TopRight, BottomLeft, BottomRight, Custom
         }
 
-        private readonly string html;
+        public enum Duration{
+            Short, Medium, Long, VeryLong
+        }
 
-        public TweetNotification(string html){
+        private readonly string html;
+        private readonly int characters;
+
+        public TweetNotification(string html, int characters){
             this.html = html;
+            this.characters = characters;
+        }
+
+        public int GetDisplayDuration(Duration modifier){
+            int multiplier;
+
+            switch(modifier){
+                case Duration.Short: multiplier = 40; break;
+                case Duration.Long: multiplier = 60; break;
+                case Duration.VeryLong: multiplier = 75; break;
+                default: multiplier = 50; break;
+            }
+
+            return Math.Max(2500,multiplier*characters);
         }
 
         public string GenerateHtml(){

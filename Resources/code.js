@@ -103,7 +103,7 @@
     var html = $(tweet.outerHTML);
     html.find("footer:first").remove();
     
-    $TD.onTweetPopup(html.html(),""); // TODO
+    $TD.onTweetPopup(html.html(),html.find(".js-tweet-text:first").text().length); // TODO column & remove pic links from text()
   };
   
   //

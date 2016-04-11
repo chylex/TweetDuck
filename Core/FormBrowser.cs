@@ -11,7 +11,7 @@ using TweetDick.Core.Other;
 using System.Drawing;
 
 namespace TweetDick.Core{
-    public partial class FormBrowser : Form{
+    partial class FormBrowser : Form{
         private static UserConfig Config{
             get{
                 return Program.UserConfig;
@@ -126,8 +126,8 @@ namespace TweetDick.Core{
             }
         }
 
-        public void OnTweetPopup(string tweetHtml, string tweetColumn){
-            notification.ShowNotification(new TweetNotification(tweetHtml));
+        public void OnTweetPopup(TweetNotification tweet){
+            notification.ShowNotification(tweet);
         }
     }
 }
