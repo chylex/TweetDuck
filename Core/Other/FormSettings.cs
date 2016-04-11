@@ -30,6 +30,7 @@ namespace TweetDick.Core.Other{
                 case TweetNotification.Position.TopRight: radioLocTR.Checked = true; break;
                 case TweetNotification.Position.BottomLeft: radioLocBL.Checked = true; break;
                 case TweetNotification.Position.BottomRight: radioLocBR.Checked = true; break;
+                case TweetNotification.Position.Custom: radioLocCustom.Checked = true; break;
             }
 
             switch(Config.NotificationDuration){
