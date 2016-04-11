@@ -8,6 +8,7 @@ using System.IO;
 using System.Text;
 using TweetDick.Core.Handling;
 using TweetDick.Core.Other;
+using System.Drawing;
 
 namespace TweetDick.Core{
     public partial class FormBrowser : Form{
@@ -45,6 +46,11 @@ namespace TweetDick.Core{
             if (prevState != WindowState && m.Msg == 0x0014){ // WM_ERASEBKGND
                 FormBrowser_WindowStateChanged(this,new EventArgs());
             }
+        }
+
+        private void ShowChildForm(Form form){
+            form.Show(this);
+            form.Location = new Point(Location.X+Width/2-form.Width/2,Location.Y+Height/2-form.Height/2);
         }
 
         // window setup
@@ -108,7 +114,7 @@ namespace TweetDick.Core{
             else{
                 currentFormAbout = new FormAbout();
                 currentFormAbout.FormClosed += (sender, args) => currentFormAbout = null;
-                currentFormAbout.Show(this);
+                ShowChildForm(currentFormAbout);
             }
         }
 
