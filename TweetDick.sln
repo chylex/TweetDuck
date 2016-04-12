@@ -15,8 +15,8 @@ Global
 		{2389A7CD-E0D3-4706-8294-092929A33A2D}.Debug|x86.ActiveCfg = Debug|x86
 		{2389A7CD-E0D3-4706-8294-092929A33A2D}.Debug|x86.Build.0 = Debug|x86
 		{2389A7CD-E0D3-4706-8294-092929A33A2D}.Debug|x86.Deploy.0 = Debug|x86
-		{2389A7CD-E0D3-4706-8294-092929A33A2D}.Release Dick|x86.ActiveCfg = Release Duck|x86
-		{2389A7CD-E0D3-4706-8294-092929A33A2D}.Release Dick|x86.Build.0 = Release Duck|x86
+		{2389A7CD-E0D3-4706-8294-092929A33A2D}.Release Dick|x86.ActiveCfg = Release Dick|x86
+		{2389A7CD-E0D3-4706-8294-092929A33A2D}.Release Dick|x86.Build.0 = Release Dick|x86
 		{2389A7CD-E0D3-4706-8294-092929A33A2D}.Release Duck|x86.ActiveCfg = Release Duck|x86
 		{2389A7CD-E0D3-4706-8294-092929A33A2D}.Release Duck|x86.Build.0 = Release Duck|x86
 	EndGlobalSection
