@@ -19,7 +19,9 @@ namespace TweetDick{
         #endif
 
         public static readonly string StoragePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),BrandName);
-        public static readonly UserConfig UserConfig;
+        private static readonly LockManager LockManager;
+        
+        public static UserConfig UserConfig { get; private set; }
 
         private static string HeaderAcceptLanguage{
             get{
@@ -35,7 +37,7 @@ namespace TweetDick{
         }
 
         static Program(){
-            UserConfig = UserConfig.Load(Path.Combine(StoragePath,"TD_UserConfig.cfg"));
+            LockManager = new LockManager(Path.Combine(StoragePath,".lock"));
         }
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
@@ -48,6 +50,18 @@ namespace TweetDick{
         private static void Main(){
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            
+            if (!LockManager.Lock()){
+                if (MessageBox.Show("Another instance of "+BrandName+" is already running.\r\nDo you want to close it?",BrandName+" is Already Running",MessageBoxButtons.YesNo,MessageBoxIcon.Error,MessageBoxDefaultButton.Button2) == DialogResult.Yes){
+                    if (!LockManager.CloseLockingProcess(10000)){
+                        MessageBox.Show("Could not close the other process.",BrandName+" Has Failed :(",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                else return;
+            }
+
+            UserConfig = UserConfig.Load(Path.Combine(StoragePath,"TD_UserConfig.cfg"));
 
             MigrationManager.Run();
 
@@ -70,6 +84,7 @@ namespace TweetDick{
 
             Application.ApplicationExit += (sender, args) => {
                 UserConfig.Save();
+                LockManager.Unlock();
                 Cef.Shutdown();
             };
 
