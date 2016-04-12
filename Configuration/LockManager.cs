@@ -67,7 +67,7 @@ namespace TweetDick.Configuration{
                 }
             }catch(FileNotFoundException){
                 return CreateLockFile();
-            }catch(Exception e){
+            }catch(Exception){
                 return false;
             }
 
