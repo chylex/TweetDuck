@@ -14,8 +14,11 @@ namespace TweetDick.Migration{
 
         public static void Run(){
             if (!Program.UserConfig.IgnoreMigration && Directory.Exists(TweetDeckPath)){
-                FormMigrationQuestion formQuestion = new FormMigrationQuestion();
-                MigrationDecision decision = formQuestion.ShowDialog() == DialogResult.OK ? formQuestion.Decision : MigrationDecision.AskLater;
+                MigrationDecision decision;
+
+                using(FormMigrationQuestion formQuestion = new FormMigrationQuestion()){
+                    decision = formQuestion.ShowDialog() == DialogResult.OK ? formQuestion.Decision : MigrationDecision.AskLater;
+                }
 
                 switch(decision){
                     case MigrationDecision.MigratePurge:

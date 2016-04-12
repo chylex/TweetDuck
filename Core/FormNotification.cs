@@ -39,6 +39,8 @@ namespace TweetDick.Core{
             }
 
             panelBrowser.Controls.Add(browser);
+
+            Disposed += (sender, args) => browser.Dispose();
         }
 
         public FormNotification(Form owner, bool autoHide) : this(owner,null,autoHide){}

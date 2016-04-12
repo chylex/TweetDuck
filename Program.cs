@@ -8,6 +8,7 @@ using TweetDick.Configuration;
 using TweetDick.Core;
 using TweetDick.Migration;
 
+[assembly: CLSCompliant(true)]
 namespace TweetDick{
     static class Program{
         #if DUCK
@@ -19,7 +20,7 @@ namespace TweetDick{
         #endif
 
         public static readonly string StoragePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),BrandName);
-        private static readonly LockManager LockManager;
+        private static readonly LockManager LockManager = new LockManager(Path.Combine(StoragePath,".lock"));
         
         public static UserConfig UserConfig { get; private set; }
 
@@ -34,10 +35,6 @@ namespace TweetDick{
                     return culture.ToLowerInvariant()+",en;q=0.9";
                 }
             }
-        }
-
-        static Program(){
-            LockManager = new LockManager(Path.Combine(StoragePath,".lock"));
         }
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto)]

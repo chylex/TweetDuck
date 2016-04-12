@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 using TweetDick;
+using System.Resources;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -34,3 +35,5 @@ using TweetDick;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("0.9.1.0")]
 [assembly: AssemblyFileVersion("0.9.1.0")]
+
+[assembly: NeutralResourcesLanguageAttribute("en")]

@@ -38,6 +38,8 @@ namespace TweetDick.Core{
 
             Controls.Add(browser);
 
+            Disposed += (sender, args) => browser.Dispose();
+
             notification = new FormNotification(this,bridge,true);
             notification.Show();
         }
