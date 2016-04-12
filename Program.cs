@@ -68,12 +68,12 @@ namespace TweetDick{
                 #endif
             });
 
-            Application.Run(new FormBrowser());
-
             Application.ApplicationExit += (sender, args) => {
                 UserConfig.Save();
                 Cef.Shutdown();
             };
+
+            Application.Run(new FormBrowser());
         }
     }
 }
