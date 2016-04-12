@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="packages\CefSharp.WinForms.49.0.0-pre02\build\CefSharp.WinForms.props" Condition="Exists('packages\CefSharp.WinForms.49.0.0-pre02\build\CefSharp.WinForms.props')" />
   <Import Project="packages\CefSharp.Common.49.0.0-pre02\build\CefSharp.Common.props" Condition="Exists('packages\CefSharp.Common.49.0.0-pre02\build\CefSharp.Common.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProjectGuid>{2389A7CD-E0D3-4706-8294-092929A33A2D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -61,6 +61,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <DefineConstants>DUCK</DefineConstants>
@@ -211,6 +212,11 @@
   <Import Project="packages\cef.redist.x86.3.2623.1396\build\cef.redist.x86.targets" Condition="Exists('packages\cef.redist.x86.3.2623.1396\build\cef.redist.x86.targets')" />
   <Import Project="packages\cef.redist.x64.3.2623.1396\build\cef.redist.x64.targets" Condition="Exists('packages\cef.redist.x64.3.2623.1396\build\cef.redist.x64.targets')" />
   <Import Project="packages\CefSharp.Common.49.0.0-pre02\build\CefSharp.Common.targets" Condition="Exists('packages\CefSharp.Common.49.0.0-pre02\build\CefSharp.Common.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>if "$(ConfigurationName)" == "Release Duck" del "$(TargetDir)TweetDuck.exe"
+if "$(ConfigurationName)" == "Release Duck" ren "$(TargetPath)" TweetDuck.exe
+del "$(TargetPath).config"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
