@@ -201,17 +201,32 @@
   //
   // Block: Hook into links to bypass default open function
   //
-  $(document.body).delegate("a[target='_blank']","click",function(e){
-    var me = $(this);
+  (function(){
+    var urlWait = false;
     
-    if (!me.is(".link-complex") && !(me.attr("rel") == "mediaPreview" && me.closest("#open-modal").length == 0)){
-      $TD.openBrowser(me.attr("href"));
-    }
+    var onUrlOpened = function(){
+      urlWait = true;
+      setTimeout(function(){ urlWait = false; },0);
+    };
     
-    e.preventDefault();
-  });
-  
-  window.open = function(url){
-    $TD.openBrowser(url);
-  };
+    $(document.body).delegate("a[target='_blank']","click",function(e){
+      if (urlWait)return;
+
+      var me = $(this);
+
+      if (!me.is(".link-complex") && !(me.attr("rel") == "mediaPreview" && me.closest("#open-modal").length == 0)){
+        $TD.openBrowser(me.attr("href"));
+      }
+
+      e.preventDefault();
+      onUrlOpened();
+    });
+    
+    window.open = function(url){
+      if (urlWait)return;
+      
+      $TD.openBrowser(url);
+      onUrlOpened();
+    };
+  })();
 })($,$TD);
