@@ -10,6 +10,8 @@ using TweetDick.Resources;
 
 namespace TweetDick.Core{
     sealed partial class FormNotification : Form{
+        public Func<bool> CanMoveWindow = () => true;
+
         private readonly Form owner;
         private readonly ChromiumWebBrowser browser;
 
@@ -49,6 +51,14 @@ namespace TweetDick.Core{
             if (e.Frame.IsMain && notificationJS != null){
                 browser.ExecuteScriptAsync(notificationJS);
             }
+        }
+
+        protected override void WndProc(ref Message m){
+            if (m.Msg == 0x0112 && (m.WParam.ToInt32() & 0xFFF0) == 0xF010 && !CanMoveWindow()){ // WM_SYSCOMMAND, SC_MOVE
+                return;
+            }
+
+            base.WndProc(ref m);
         }
 
         public void ShowNotification(TweetNotification notification){

@@ -41,7 +41,7 @@ namespace TweetDick.Core{
 
             Disposed += (sender, args) => browser.Dispose();
 
-            notification = new FormNotification(this,bridge,true);
+            notification = new FormNotification(this,bridge,true){ CanMoveWindow = () => false };
             notification.Show();
         }
 

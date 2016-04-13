@@ -20,14 +20,15 @@ namespace TweetDick.Core.Other{
 
             Text = Program.BrandName+" Settings";
 
-            notification = new FormNotification(browserForm,false);
-            notification.Show(this);
+            notification = new FormNotification(browserForm,false){ CanMoveWindow = () => radioLocCustom.Checked };
 
             notification.Move += (sender, args) => {
                 if (radioLocCustom.Checked){
                     Config.CustomNotificationPosition = notification.Location;
                 }
             };
+
+            notification.Show(this);
 
             switch(Config.NotificationPosition){
                 case TweetNotification.Position.TopLeft: radioLocTL.Checked = true; break;
