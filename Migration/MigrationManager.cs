@@ -101,14 +101,17 @@ namespace TweetDick.Migration{
                 }
 
                 if (decision == MigrationDecision.MigratePurge){
-                    // update the lnk files wherever possible (desktop icons, pinned taskbar)
+                    // update the lnk files wherever possible (desktop icons, pinned taskbar, start menu)
                     string[] locations = {
                         Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
                         Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory),
-                        Environment.ExpandEnvironmentVariables(@"%APPDATA%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar")
+                        Environment.ExpandEnvironmentVariables(@"%APPDATA%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar"),
+                        FindStartMenuDir()
                     };
 
                     foreach(string location in locations){
+                        if (location == string.Empty)continue;
+
                         string linkFile = Path.Combine(location,"TweetDeck.lnk");
 
                         if (File.Exists(linkFile)){
@@ -151,6 +154,13 @@ namespace TweetDick.Migration{
             }catch(FileNotFoundException){
             }catch(DirectoryNotFoundException){
             }
+        }
+
+        private static string FindStartMenuDir(){
+            string startMenu = Environment.GetFolderPath(Environment.SpecialFolder.StartMenu);
+
+            string[] sub = Directory.GetDirectories(startMenu);
+            return sub.Length == 0 ? string.Empty : Path.Combine(startMenu,sub[0],"TweetDeck");
         }
     }
 }
