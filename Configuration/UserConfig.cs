@@ -26,13 +26,13 @@ namespace TweetDick.Configuration{
 
         public bool IsCustomWindowLocationSet{
             get{
-                return WindowLocation.X != -32000;
+                return WindowLocation.X != -32000 && WindowLocation.X != 32000;
             }
         }
 
         public bool IsCustomNotificationPositionSet{
             get{
-                return CustomNotificationPosition.X != -32000;
+                return CustomNotificationPosition.X != -32000 && CustomNotificationPosition.X != 32000;
             }
         }
 
