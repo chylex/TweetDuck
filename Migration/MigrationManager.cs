@@ -121,7 +121,17 @@ namespace TweetDick.Migration{
                             lnk.SetComment(Program.BrandName); // TODO add a tagline
                             lnk.Save();
 
-                            File.Move(linkFile,Path.Combine(location,Program.BrandName+".lnk"));
+                            string renamed = Path.Combine(location,Program.BrandName+".lnk");
+
+                            try{
+                                if (File.Exists(renamed)){
+                                    File.Delete(renamed);
+                                }
+
+                                File.Move(linkFile,renamed);
+                            }catch{
+                                // eh, too bad
+                            }
                         }
                     }
 
