@@ -78,7 +78,7 @@ namespace TweetDick.Core{
 
         public void HideNotification(){
             browser.LoadHtml("","about:blank");
-            Location = new Point(32000,32000);
+            Location = new Point(-32000,-32000);
             TopMost = false;
             timerProgress.Stop();
         }

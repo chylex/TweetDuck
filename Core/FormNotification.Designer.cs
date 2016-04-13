@@ -65,7 +65,7 @@
             this.Controls.Add(this.progressBarTimer);
             this.Controls.Add(this.panelBrowser);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Location = new System.Drawing.Point(32000, 32000);
+            this.Location = new System.Drawing.Point(-32000, -32000);
             this.Name = "FormNotification";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;

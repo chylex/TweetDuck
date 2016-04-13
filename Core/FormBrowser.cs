@@ -23,6 +23,7 @@ namespace TweetDick.Core{
 
         private FormSettings currentFormSettings;
         private FormAbout currentFormAbout;
+        private bool isLoaded;
 
         public FormBrowser(){
             InitializeComponent();
@@ -72,6 +73,8 @@ namespace TweetDick.Core{
                 Size = Screen.PrimaryScreen.WorkingArea.Size;
                 WindowState = FormWindowState.Maximized;
             }
+
+            isLoaded = true;
         }
 
         // active event handlers
@@ -94,12 +97,16 @@ namespace TweetDick.Core{
         }
 
         private void FormBrowser_ResizeEnd(object sender, EventArgs e){ // also triggers when the window moves
+            if (!isLoaded)return;
+
             Config.WindowLocation = Location;
             Config.WindowSize = Size;
             Config.Save();
         }
 
         private void FormBrowser_WindowStateChanged(object sender, EventArgs e){
+            if (!isLoaded)return;
+
             Config.IsMaximized = WindowState != FormWindowState.Normal;
             FormBrowser_ResizeEnd(sender,e);
         }
