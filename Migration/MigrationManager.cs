@@ -134,6 +134,9 @@ namespace TweetDick.Migration{
                                 if (!File.Exists(renamed)){
                                     File.Move(linkFile,renamed);
                                 }
+                                else{
+                                    File.Delete(linkFile);
+                                }
                             }catch{
                                 // eh, too bad
                             }
@@ -175,12 +178,14 @@ namespace TweetDick.Migration{
             yield return Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory);
             yield return Environment.ExpandEnvironmentVariables(@"%APPDATA%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar");
             
+            /* already handled by the installer
             string startMenu = Environment.GetFolderPath(Environment.SpecialFolder.StartMenu);
             string[] sub = Directory.GetDirectories(startMenu);
 
             if (sub.Length > 0){
                 yield return Path.Combine(startMenu,sub[0],"TweetDeck");
             }
+            */
         }
 
         private static void RunUninstaller(string guid, int timeout){
