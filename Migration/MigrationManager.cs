@@ -131,11 +131,9 @@ namespace TweetDick.Migration{
                             string renamed = Path.Combine(location,Program.BrandName+".lnk");
 
                             try{
-                                if (File.Exists(renamed)){
-                                    File.Delete(renamed);
+                                if (!File.Exists(renamed)){
+                                    File.Move(linkFile,renamed);
                                 }
-
-                                File.Move(linkFile,renamed);
                             }catch{
                                 // eh, too bad
                             }
