@@ -13,6 +13,7 @@ namespace TweetDick.Configuration{
         // START OF CONFIGURATION
 
         public bool IgnoreMigration { get; set; }
+        public bool IgnoreUninstallCheck { get; set; }
 
         public bool IsMaximized { get; set; }
         public Point WindowLocation { get; set; }

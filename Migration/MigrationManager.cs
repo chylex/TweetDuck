@@ -49,6 +49,16 @@ namespace TweetDick.Migration{
                         break;
                 }
             }
+            else if (!Program.UserConfig.IgnoreUninstallCheck){
+                string guid = ProgramRegistrySearch.FindByDisplayName("TweetDeck");
+
+                if (guid != null && MessageBox.Show("TweetDeck is still installed on your computer, do you want to uninstall it?","Uninstall TweetDeck",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2) == DialogResult.Yes){
+                    RunUninstaller(guid,0);
+                }
+
+                Program.UserConfig.IgnoreUninstallCheck = true;
+                Program.UserConfig.Save();
+            }
         }
 
         private static bool BeginMigration(MigrationDecision decision, Action<Exception> onFinished){
@@ -141,12 +151,7 @@ namespace TweetDick.Migration{
                     string guid = ProgramRegistrySearch.FindByDisplayName("TweetDeck");
 
                     if (guid != null){
-                        Process uninstaller = Process.Start("msiexec.exe","/x "+guid+" /quiet /qn");
-
-                        if (uninstaller != null){
-                            uninstaller.WaitForExit(5000); // it appears that the process is restarted or something that triggers this, but it shouldn't be a problem
-                            uninstaller.Close();
-                        }
+                        RunUninstaller(guid,5000);
                     }
 
                     // migration finished like a boss
@@ -172,6 +177,18 @@ namespace TweetDick.Migration{
 
             string[] sub = Directory.GetDirectories(startMenu);
             return sub.Length == 0 ? string.Empty : Path.Combine(startMenu,sub[0],"TweetDeck");
+        }
+
+        private static void RunUninstaller(string guid, int timeout){
+            Process uninstaller = Process.Start("msiexec.exe","/x "+guid+" /quiet /qn");
+
+            if (uninstaller != null){
+                if (timeout > 0){
+                    uninstaller.WaitForExit(timeout); // it appears that the process is restarted or something that triggers this, but it shouldn't be a problem
+                }
+
+                uninstaller.Close();
+            }
         }
     }
 }
