@@ -22,7 +22,7 @@
     $("[data-action='settings-menu']").click(function(){
       setTimeout(function(){
         var menu = $(".js-dropdown-content").children("ul").first();
-        if (menu.length == 0)return;
+        if (menu.length === 0)return;
 
         menu.children(".drp-h-divider").last().after('<li class="is-selectable" data-std><a href="#" data-action>'+$TD.brandName+'</a></li><li class="drp-h-divider"></li>');
 
@@ -83,7 +83,7 @@
     mid = mid.children(".js-column-scroller").first();
     
     var container = mid.children(".js-chirp-container").first();
-    if (container.length == 0)return;
+    if (container.length === 0)return;
     
     var scroller = container.parent();
     
@@ -100,7 +100,7 @@
       
       Array.prototype.forEach.call(mutations,function(mutation){
         Array.prototype.forEach.call(mutation.addedNodes,function(node){
-          if (node.tagName != "ARTICLE")return;
+          if (node.tagName !== "ARTICLE")return;
           
           onNewTweet(column,node);
         });
@@ -213,8 +213,9 @@
       if (urlWait)return;
 
       var me = $(this);
+      var rel = me.attr("rel");
 
-      if (!me.is(".link-complex") && !(me.attr("rel") == "mediaPreview" && me.closest("#open-modal").length == 0)){
+      if (!me.is(".link-complex") && !(rel === "mediaPreview" && me.closest("#open-modal").length === 0) && rel !== "list"){
         $TD.openBrowser(me.attr("href"));
       }
 
