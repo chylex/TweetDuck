@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
@@ -54,6 +56,7 @@ namespace TweetDick.Migration{
 
                 if (guid != null && MessageBox.Show("TweetDeck is still installed on your computer, do you want to uninstall it?","Uninstall TweetDeck",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2) == DialogResult.Yes){
                     RunUninstaller(guid,0);
+                    CleanupTweetDeck();
                 }
 
                 Program.UserConfig.IgnoreUninstallCheck = true;
@@ -112,14 +115,7 @@ namespace TweetDick.Migration{
 
                 if (decision == MigrationDecision.MigratePurge){
                     // update the lnk files wherever possible (desktop icons, pinned taskbar, start menu)
-                    string[] locations = {
-                        Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
-                        Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory),
-                        Environment.ExpandEnvironmentVariables(@"%APPDATA%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar"),
-                        FindStartMenuDir()
-                    };
-
-                    foreach(string location in locations){
+                    foreach(string location in GetLnkDirectories()){
                         if (location == string.Empty)continue;
 
                         string linkFile = Path.Combine(location,"TweetDeck.lnk");
@@ -154,6 +150,9 @@ namespace TweetDick.Migration{
                         RunUninstaller(guid,5000);
                     }
 
+                    // registry cleanup
+                    CleanupTweetDeck();
+
                     // migration finished like a boss
                 }
             });
@@ -172,11 +171,17 @@ namespace TweetDick.Migration{
             }
         }
 
-        private static string FindStartMenuDir(){
+        private static IEnumerable<string> GetLnkDirectories(){
+            yield return Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            yield return Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory);
+            yield return Environment.ExpandEnvironmentVariables(@"%APPDATA%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar");
+            
             string startMenu = Environment.GetFolderPath(Environment.SpecialFolder.StartMenu);
-
             string[] sub = Directory.GetDirectories(startMenu);
-            return sub.Length == 0 ? string.Empty : Path.Combine(startMenu,sub[0],"TweetDeck");
+
+            if (sub.Length > 0){
+                yield return Path.Combine(startMenu,sub[0],"TweetDeck");
+            }
         }
 
         private static void RunUninstaller(string guid, int timeout){
@@ -188,6 +193,15 @@ namespace TweetDick.Migration{
                 }
 
                 uninstaller.Close();
+            }
+        }
+
+        private static void CleanupTweetDeck(){
+            try{
+                Registry.CurrentUser.DeleteSubKeyTree(@"Software\Twitter\TweetDeck",true);
+                Registry.CurrentUser.DeleteSubKey(@"Software\Twitter"); // only if empty
+            }catch(Exception){
+                // not found or too bad
             }
         }
     }
