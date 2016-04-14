@@ -141,10 +141,10 @@ namespace TweetDick.Migration{
                     string guid = ProgramRegistrySearch.FindByDisplayName("TweetDeck");
 
                     if (guid != null){
-                        Process uninstaller = Process.Start("msiexec.exe","/x"+guid+" /quiet /qn");
+                        Process uninstaller = Process.Start("msiexec.exe","/x "+guid+" /quiet /qn");
 
                         if (uninstaller != null){
-                            uninstaller.WaitForExit();
+                            uninstaller.WaitForExit(5000); // it appears that the process is restarted or something that triggers this, but it shouldn't be a problem
                         }
                     }
 
