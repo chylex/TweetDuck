@@ -145,6 +145,7 @@ namespace TweetDick.Migration{
 
                         if (uninstaller != null){
                             uninstaller.WaitForExit(5000); // it appears that the process is restarted or something that triggers this, but it shouldn't be a problem
+                            uninstaller.Close();
                         }
                     }
 
