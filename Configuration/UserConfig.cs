@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Windows.Forms;
 using TweetDick.Core.Handling;
 
 namespace TweetDick.Configuration{
@@ -71,8 +72,8 @@ namespace TweetDick.Configuration{
                 }
 
                 return true;
-            }catch(Exception){
-                // TODO
+            }catch(Exception e){
+                Program.HandleException("Could not save the configuration file.",e);
                 return false;
             }
         }
@@ -87,11 +88,11 @@ namespace TweetDick.Configuration{
                             config.file = file;
                         }
                     }
-
+                    
                     break;
                 }catch(FileNotFoundException){
-                }catch(Exception){
-                    // TODO
+                }catch(Exception e){
+                    Program.HandleException("Could not open the configuration file.",e);
                 }
             }
 

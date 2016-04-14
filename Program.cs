@@ -1,8 +1,10 @@
 ﻿using CefSharp;
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows.Forms;
 using TweetDick.Configuration;
 using TweetDick.Core;
@@ -79,6 +81,14 @@ namespace TweetDick{
                 #endif
             });
 
+            AppDomain.CurrentDomain.UnhandledException += (sender, args) => {
+                Exception ex = args.ExceptionObject as Exception;
+
+                if (ex != null){
+                    HandleException("An unhandled exception has occurred.",ex);
+                }
+            };
+
             Application.ApplicationExit += (sender, args) => {
                 UserConfig.Save();
                 LockManager.Unlock();
@@ -86,6 +96,31 @@ namespace TweetDick{
             };
 
             Application.Run(new FormBrowser());
+        }
+
+        public static void HandleException(string message, Exception e){
+            Log(e.ToString());
+            
+            if (MessageBox.Show(message+"\r\nDo you want to open the log file to report the issue?",BrandName+" Has Failed :(",MessageBoxButtons.YesNo,MessageBoxIcon.Error,MessageBoxDefaultButton.Button2) == DialogResult.Yes){
+                Process.Start(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"td-log.txt"));
+            }
+        }
+
+        public static void Log(string data){
+            StringBuilder build = new StringBuilder();
+
+            if (!File.Exists("td-log.txt")){
+                build.Append("Please, report all issues to: https://github.com/chylex/TweetDick/issues\r\n\r\n");
+            }
+
+            build.Append("[").Append(DateTime.Now.ToString("G")).Append("]\r\n");
+            build.Append(data).Append("\r\n\r\n");
+
+            try{
+                File.AppendAllText("td-log.txt",build.ToString(),Encoding.UTF8);
+            }catch{
+                // oops
+            }
         }
     }
 }

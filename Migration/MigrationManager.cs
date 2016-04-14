@@ -30,11 +30,12 @@ namespace TweetDick.Migration{
 
                         formWait.ShowWorkDialog(() => {
                             if (!BeginMigration(decision,ex => formWait.Invoke(new Action(() => {
-                                if (ex != null){
-                                    MessageBox.Show(ex.ToString()); // TODO
-                                }
-
                                 formWait.Close();
+
+                                if (ex != null){
+                                    Program.HandleException("An unexpected exception has occurred during the migration process.",ex);
+                                    return;
+                                }
 
                                 Program.UserConfig.IgnoreMigration = true;
                                 Program.UserConfig.Save();
