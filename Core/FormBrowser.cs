@@ -25,6 +25,8 @@ namespace TweetDck.Core{
         private FormAbout currentFormAbout;
         private bool isLoaded;
 
+        private FormWindowState prevState;
+
         public FormBrowser(){
             InitializeComponent();
 
@@ -43,15 +45,8 @@ namespace TweetDck.Core{
 
             notification = new FormNotification(this,bridge,true){ CanMoveWindow = () => false };
             notification.Show();
-        }
 
-        protected override void WndProc(ref Message m){
-            FormWindowState prevState = WindowState;
-            base.WndProc(ref m);
-
-            if (prevState != WindowState && m.Msg == 0x0014){ // WM_ERASEBKGND
-                FormBrowser_WindowStateChanged(this,new EventArgs());
-            }
+            trayIcon.Text = Program.BrandName;
         }
 
         private void ShowChildForm(Form form){
@@ -74,6 +69,7 @@ namespace TweetDck.Core{
                 WindowState = FormWindowState.Maximized;
             }
 
+            prevState = WindowState;
             isLoaded = true;
         }
 
@@ -96,26 +92,41 @@ namespace TweetDck.Core{
             }
         }
 
+        private void FormBrowser_Resize(object sender, EventArgs e){
+            if (!isLoaded)return;
+
+            if (WindowState != prevState){
+                prevState = WindowState;
+
+                if (WindowState == FormWindowState.Minimized){
+                    if (Config.MinimizeToTray){
+                        Hide(); // hides taskbar too?! welp that works I guess
+                        trayIcon.Visible = true;
+                    }
+                }
+                else{
+                    FormBrowser_ResizeEnd(sender,e);
+                }
+            }
+        }
+
         private void FormBrowser_ResizeEnd(object sender, EventArgs e){ // also triggers when the window moves
             if (!isLoaded)return;
 
             if (Location.X != -32000){
+                Config.IsMaximized = WindowState == FormWindowState.Maximized;
                 Config.WindowLocation = Location;
                 Config.WindowSize = Size;
                 Config.Save();
             }
         }
 
-        private void FormBrowser_WindowStateChanged(object sender, EventArgs e){
-            if (!isLoaded)return;
+        private void trayIcon_Click(object sender, EventArgs e){
+            isLoaded = false;
+            Show();
+            SetupWindow();
 
-            if (WindowState == FormWindowState.Minimized){
-                // TODO
-            }
-            else{
-                Config.IsMaximized = WindowState == FormWindowState.Maximized;
-                FormBrowser_ResizeEnd(sender,e);
-            }
+            trayIcon.Visible = false;
         }
 
         // callback handlers

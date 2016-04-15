@@ -23,7 +23,6 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
             this.groupNotificationLocation = new System.Windows.Forms.GroupBox();
             this.labelDisplay = new System.Windows.Forms.Label();
             this.comboBoxDisplay = new System.Windows.Forms.ComboBox();
@@ -34,16 +33,21 @@
             this.radioLocBL = new System.Windows.Forms.RadioButton();
             this.radioLocTR = new System.Windows.Forms.RadioButton();
             this.radioLocTL = new System.Windows.Forms.RadioButton();
+            this.tableLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.tableColumn2Panel = new System.Windows.Forms.Panel();
+            this.groupUserInterface = new System.Windows.Forms.GroupBox();
+            this.checkMinimizeTray = new System.Windows.Forms.CheckBox();
             this.groupNotificationDuration = new System.Windows.Forms.GroupBox();
             this.radioDurVeryLong = new System.Windows.Forms.RadioButton();
             this.radioDurLong = new System.Windows.Forms.RadioButton();
             this.radioDurMedium = new System.Windows.Forms.RadioButton();
             this.radioDurShort = new System.Windows.Forms.RadioButton();
-            this.tableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.groupNotificationLocation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).BeginInit();
-            this.groupNotificationDuration.SuspendLayout();
             this.tableLayout.SuspendLayout();
+            this.tableColumn2Panel.SuspendLayout();
+            this.groupUserInterface.SuspendLayout();
+            this.groupNotificationDuration.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupNotificationLocation
@@ -181,6 +185,57 @@
             this.radioLocTL.CheckedChanged += new System.EventHandler(this.radioLoc_CheckedChanged);
             this.radioLocTL.Click += new System.EventHandler(this.radioLoc_Click);
             // 
+            // tableLayout
+            // 
+            this.tableLayout.ColumnCount = 2;
+            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayout.Controls.Add(this.tableColumn2Panel, 1, 0);
+            this.tableLayout.Controls.Add(this.groupNotificationLocation, 0, 0);
+            this.tableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayout.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
+            this.tableLayout.Location = new System.Drawing.Point(0, 0);
+            this.tableLayout.Name = "tableLayout";
+            this.tableLayout.Padding = new System.Windows.Forms.Padding(3);
+            this.tableLayout.RowCount = 1;
+            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayout.Size = new System.Drawing.Size(384, 282);
+            this.tableLayout.TabIndex = 2;
+            // 
+            // tableColumn2Panel
+            // 
+            this.tableColumn2Panel.Controls.Add(this.groupUserInterface);
+            this.tableColumn2Panel.Controls.Add(this.groupNotificationDuration);
+            this.tableColumn2Panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableColumn2Panel.Location = new System.Drawing.Point(192, 3);
+            this.tableColumn2Panel.Margin = new System.Windows.Forms.Padding(0);
+            this.tableColumn2Panel.Name = "tableColumn2Panel";
+            this.tableColumn2Panel.Size = new System.Drawing.Size(189, 276);
+            this.tableColumn2Panel.TabIndex = 3;
+            // 
+            // groupUserInterface
+            // 
+            this.groupUserInterface.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupUserInterface.Controls.Add(this.checkMinimizeTray);
+            this.groupUserInterface.Location = new System.Drawing.Point(3, 127);
+            this.groupUserInterface.Name = "groupUserInterface";
+            this.groupUserInterface.Size = new System.Drawing.Size(183, 146);
+            this.groupUserInterface.TabIndex = 3;
+            this.groupUserInterface.TabStop = false;
+            this.groupUserInterface.Text = "User Interface";
+            // 
+            // checkMinimizeTray
+            // 
+            this.checkMinimizeTray.AutoSize = true;
+            this.checkMinimizeTray.Location = new System.Drawing.Point(6, 20);
+            this.checkMinimizeTray.Name = "checkMinimizeTray";
+            this.checkMinimizeTray.Size = new System.Drawing.Size(102, 17);
+            this.checkMinimizeTray.TabIndex = 0;
+            this.checkMinimizeTray.Text = "Minimize to Tray";
+            this.checkMinimizeTray.UseVisualStyleBackColor = true;
+            this.checkMinimizeTray.CheckedChanged += new System.EventHandler(this.checkMinimizeTray_CheckedChanged);
+            // 
             // groupNotificationDuration
             // 
             this.groupNotificationDuration.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -189,10 +244,10 @@
             this.groupNotificationDuration.Controls.Add(this.radioDurLong);
             this.groupNotificationDuration.Controls.Add(this.radioDurMedium);
             this.groupNotificationDuration.Controls.Add(this.radioDurShort);
-            this.groupNotificationDuration.Location = new System.Drawing.Point(195, 6);
+            this.groupNotificationDuration.Location = new System.Drawing.Point(3, 3);
             this.groupNotificationDuration.Name = "groupNotificationDuration";
             this.groupNotificationDuration.Size = new System.Drawing.Size(183, 118);
-            this.groupNotificationDuration.TabIndex = 1;
+            this.groupNotificationDuration.TabIndex = 2;
             this.groupNotificationDuration.TabStop = false;
             this.groupNotificationDuration.Text = "Notification Duration";
             // 
@@ -248,23 +303,6 @@
             this.radioDurShort.CheckedChanged += new System.EventHandler(this.radioDur_CheckedChanged);
             this.radioDurShort.Click += new System.EventHandler(this.radioDur_Click);
             // 
-            // tableLayout
-            // 
-            this.tableLayout.ColumnCount = 2;
-            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayout.Controls.Add(this.groupNotificationLocation, 0, 0);
-            this.tableLayout.Controls.Add(this.groupNotificationDuration, 1, 0);
-            this.tableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayout.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-            this.tableLayout.Location = new System.Drawing.Point(0, 0);
-            this.tableLayout.Name = "tableLayout";
-            this.tableLayout.Padding = new System.Windows.Forms.Padding(3);
-            this.tableLayout.RowCount = 1;
-            this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayout.Size = new System.Drawing.Size(384, 282);
-            this.tableLayout.TabIndex = 2;
-            // 
             // FormSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -272,7 +310,7 @@
             this.ClientSize = new System.Drawing.Size(384, 282);
             this.Controls.Add(this.tableLayout);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = TweetDck.Properties.Resources.icon;
+            this.Icon = global::TweetDck.Properties.Resources.icon;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormSettings";
@@ -281,9 +319,12 @@
             this.groupNotificationLocation.ResumeLayout(false);
             this.groupNotificationLocation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).EndInit();
+            this.tableLayout.ResumeLayout(false);
+            this.tableColumn2Panel.ResumeLayout(false);
+            this.groupUserInterface.ResumeLayout(false);
+            this.groupUserInterface.PerformLayout();
             this.groupNotificationDuration.ResumeLayout(false);
             this.groupNotificationDuration.PerformLayout();
-            this.tableLayout.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -298,13 +339,16 @@
         private System.Windows.Forms.RadioButton radioLocTL;
         private System.Windows.Forms.Label labelEdgeDistance;
         private System.Windows.Forms.TrackBar trackBarEdgeDistance;
+        private System.Windows.Forms.Label labelDisplay;
+        private System.Windows.Forms.ComboBox comboBoxDisplay;
+        private System.Windows.Forms.TableLayoutPanel tableLayout;
+        private System.Windows.Forms.Panel tableColumn2Panel;
+        private System.Windows.Forms.GroupBox groupUserInterface;
         private System.Windows.Forms.GroupBox groupNotificationDuration;
         private System.Windows.Forms.RadioButton radioDurVeryLong;
         private System.Windows.Forms.RadioButton radioDurLong;
         private System.Windows.Forms.RadioButton radioDurMedium;
         private System.Windows.Forms.RadioButton radioDurShort;
-        private System.Windows.Forms.Label labelDisplay;
-        private System.Windows.Forms.ComboBox comboBoxDisplay;
-        private System.Windows.Forms.TableLayoutPanel tableLayout;
+        private System.Windows.Forms.CheckBox checkMinimizeTray;
     }
 }

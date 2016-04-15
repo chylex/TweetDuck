@@ -54,6 +54,7 @@ namespace TweetDck.Core.Other{
             comboBoxDisplay.SelectedIndex = Math.Min(comboBoxDisplay.Items.Count-1,Config.NotificationDisplay);
 
             trackBarEdgeDistance.Value = Config.NotificationEdgeDistance;
+            checkMinimizeTray.Checked = Config.MinimizeToTray;
         }
 
         private void FormSettings_FormClosing(object sender, FormClosingEventArgs e){
@@ -114,6 +115,12 @@ namespace TweetDck.Core.Other{
             if (!isLoaded)return;
 
             notification.ShowNotificationForSettings(true);
+        }
+
+        private void checkMinimizeTray_CheckedChanged(object sender, EventArgs e){
+            if (!isLoaded)return;
+
+            Config.MinimizeToTray = checkMinimizeTray.Checked;
         }
     }
 }

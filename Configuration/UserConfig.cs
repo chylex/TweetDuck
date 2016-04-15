@@ -21,6 +21,8 @@ namespace TweetDck.Configuration{
         public Point WindowLocation { get; set; }
         public Size WindowSize { get; set; }
 
+        public bool MinimizeToTray { get; set; }
+
         public TweetNotification.Duration NotificationDuration { get; set; }
         public TweetNotification.Position NotificationPosition { get; set; }
         public Point CustomNotificationPosition { get; set; }

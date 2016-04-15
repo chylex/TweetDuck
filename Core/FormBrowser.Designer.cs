@@ -23,23 +23,33 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBrowser));
+            this.components = new System.ComponentModel.Container();
+            this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.SuspendLayout();
+            // 
+            // trayIcon
+            // 
+            this.trayIcon.Icon = global::TweetDck.Properties.Resources.icon;
+            this.trayIcon.Click += new System.EventHandler(this.trayIcon_Click);
             // 
             // FormBrowser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Icon = TweetDck.Properties.Resources.icon;
+            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Icon = global::TweetDck.Properties.Resources.icon;
             this.Location = new System.Drawing.Point(-32000, -32000);
             this.Name = "FormBrowser";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.ResizeEnd += new System.EventHandler(this.FormBrowser_ResizeEnd);
+            this.Resize += new System.EventHandler(this.FormBrowser_Resize);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.NotifyIcon trayIcon;
     }
 }
 
