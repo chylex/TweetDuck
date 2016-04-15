@@ -28,5 +28,18 @@ namespace TweetDck.Core.Utils{
         public static void OpenExternalBrowser(string url){ // TODO implement mailto
             Process.Start(url);
         }
+
+        public static void DownloadFileAsync(string url, string target, Action<Exception> onFailure){
+            WebClient client = new WebClient{ Proxy = null };
+            client.Headers[HttpRequestHeader.UserAgent] = HeaderUserAgent;
+
+            client.DownloadFileCompleted += (sender, args) => {
+                if (args.Error != null){
+                    onFailure(args.Error);
+                }
+            };
+
+            client.DownloadFileAsync(new Uri(url),target);
+        }
     }
 }
