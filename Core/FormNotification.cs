@@ -62,6 +62,15 @@ namespace TweetDck.Core{
         }
 
         public void ShowNotification(TweetNotification notification){
+            if (Program.UserConfig.DisplayNotificationTimer){
+                panelBrowser.Height = 156;
+                progressBarTimer.Visible = true;
+            }
+            else{
+                panelBrowser.Height = 152;
+                progressBarTimer.Visible = false;
+            }
+
             MoveToVisibleLocation();
 
             tweetQueue.Enqueue(notification);

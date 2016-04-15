@@ -22,6 +22,7 @@ namespace TweetDck.Configuration{
         public Size WindowSize { get; set; }
 
         public bool MinimizeToTray { get; set; }
+        public bool DisplayNotificationTimer { get; set; }
 
         public TweetNotification.Duration NotificationDuration { get; set; }
         public TweetNotification.Position NotificationPosition { get; set; }
@@ -50,6 +51,7 @@ namespace TweetDck.Configuration{
             this.file = file;
 
             IsMaximized = true;
+            DisplayNotificationTimer = true;
             WindowLocation = new Point(-32000,-32000);
             NotificationDuration = TweetNotification.Duration.Medium;
             NotificationPosition = TweetNotification.Position.TopRight;

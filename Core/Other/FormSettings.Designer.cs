@@ -38,6 +38,7 @@
             this.groupUserInterface = new System.Windows.Forms.GroupBox();
             this.checkMinimizeTray = new System.Windows.Forms.CheckBox();
             this.groupNotificationDuration = new System.Windows.Forms.GroupBox();
+            this.checkNotificationTimer = new System.Windows.Forms.CheckBox();
             this.radioDurVeryLong = new System.Windows.Forms.RadioButton();
             this.radioDurLong = new System.Windows.Forms.RadioButton();
             this.radioDurMedium = new System.Windows.Forms.RadioButton();
@@ -217,10 +218,11 @@
             // 
             this.groupUserInterface.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupUserInterface.Controls.Add(this.checkNotificationTimer);
             this.groupUserInterface.Controls.Add(this.checkMinimizeTray);
-            this.groupUserInterface.Location = new System.Drawing.Point(3, 127);
+            this.groupUserInterface.Location = new System.Drawing.Point(3, 128);
             this.groupUserInterface.Name = "groupUserInterface";
-            this.groupUserInterface.Size = new System.Drawing.Size(183, 146);
+            this.groupUserInterface.Size = new System.Drawing.Size(183, 145);
             this.groupUserInterface.TabIndex = 3;
             this.groupUserInterface.TabStop = false;
             this.groupUserInterface.Text = "User Interface";
@@ -246,10 +248,21 @@
             this.groupNotificationDuration.Controls.Add(this.radioDurShort);
             this.groupNotificationDuration.Location = new System.Drawing.Point(3, 3);
             this.groupNotificationDuration.Name = "groupNotificationDuration";
-            this.groupNotificationDuration.Size = new System.Drawing.Size(183, 118);
+            this.groupNotificationDuration.Size = new System.Drawing.Size(183, 119);
             this.groupNotificationDuration.TabIndex = 2;
             this.groupNotificationDuration.TabStop = false;
             this.groupNotificationDuration.Text = "Notification Duration";
+            // 
+            // checkNotificationTimer
+            // 
+            this.checkNotificationTimer.AutoSize = true;
+            this.checkNotificationTimer.Location = new System.Drawing.Point(6, 43);
+            this.checkNotificationTimer.Name = "checkNotificationTimer";
+            this.checkNotificationTimer.Size = new System.Drawing.Size(145, 17);
+            this.checkNotificationTimer.TabIndex = 4;
+            this.checkNotificationTimer.Text = "Display Notification Timer";
+            this.checkNotificationTimer.UseVisualStyleBackColor = true;
+            this.checkNotificationTimer.CheckedChanged += new System.EventHandler(this.checkNotificationTimer_CheckedChanged);
             // 
             // radioDurVeryLong
             // 
@@ -350,5 +363,6 @@
         private System.Windows.Forms.RadioButton radioDurMedium;
         private System.Windows.Forms.RadioButton radioDurShort;
         private System.Windows.Forms.CheckBox checkMinimizeTray;
+        private System.Windows.Forms.CheckBox checkNotificationTimer;
     }
 }
