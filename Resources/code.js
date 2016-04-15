@@ -230,4 +230,16 @@
       onUrlOpened();
     };
   })();
+  
+  //
+  // Block: Hook into mp4 video element clicking 
+  //
+  $(document.body).delegate("video.js-media-gif","click",function(e){
+    var src = $(this).attr("src");
+    
+    if (src.endsWith(".mp4")){
+      $TD.openBrowser(src);
+      e.preventDefault();
+    }
+  });
 })($,$TD);
