@@ -99,9 +99,11 @@ namespace TweetDck.Core{
         private void FormBrowser_ResizeEnd(object sender, EventArgs e){ // also triggers when the window moves
             if (!isLoaded)return;
 
-            Config.WindowLocation = Location;
-            Config.WindowSize = Size;
-            Config.Save();
+            if (Location.X != -32000){
+                Config.WindowLocation = Location;
+                Config.WindowSize = Size;
+                Config.Save();
+            }
         }
 
         private void FormBrowser_WindowStateChanged(object sender, EventArgs e){
