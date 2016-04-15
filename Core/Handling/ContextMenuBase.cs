@@ -1,5 +1,5 @@
 ﻿using CefSharp;
-using System.Diagnostics;
+using TweetDck.Core.Utils;
 using System.Windows.Forms;
 
 namespace TweetDck.Core.Handling{
@@ -28,7 +28,7 @@ namespace TweetDck.Core.Handling{
         public virtual bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags){
             switch((int)commandId){
                 case MenuOpenUrlInBrowser:
-                    Process.Start(parameters.LinkUrl);
+                    BrowserUtils.OpenExternalBrowser(parameters.LinkUrl);
                     break;
 
                 case MenuCopyUrl:
@@ -36,7 +36,7 @@ namespace TweetDck.Core.Handling{
                     break;
 
                 case MenuOpenImageInBrowser:
-                    Process.Start(parameters.SourceUrl);
+                    BrowserUtils.OpenExternalBrowser(parameters.SourceUrl);
                     break;
 
                 case MenuCopyImageUrl:

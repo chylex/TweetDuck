@@ -9,6 +9,7 @@ using CefSharp;
 using TweetDck.Configuration;
 using TweetDck.Core;
 using TweetDck.Migration;
+using TweetDck.Core.Utils;
 
 [assembly: CLSCompliant(true)]
 namespace TweetDck{
@@ -25,19 +26,6 @@ namespace TweetDck{
         private static readonly LockManager LockManager = new LockManager(Path.Combine(StoragePath,".lock"));
         
         public static UserConfig UserConfig { get; private set; }
-
-        private static string HeaderAcceptLanguage{
-            get{
-                string culture = CultureInfo.CurrentCulture.Name;
-
-                if (culture == "en"){
-                    return "en-us,en";
-                }
-                else{
-                    return culture.ToLowerInvariant()+",en;q=0.9";
-                }
-            }
-        }
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
         public static extern IntPtr LoadLibrary(string name);
@@ -72,8 +60,8 @@ namespace TweetDck{
             };
 
             Cef.Initialize(new CefSettings{
-                AcceptLanguageList = HeaderAcceptLanguage,
-                UserAgent = BrandName+" "+Application.ProductVersion,
+                AcceptLanguageList = BrowserUtils.HeaderAcceptLanguage,
+                UserAgent = BrowserUtils.HeaderUserAgent,
                 Locale = CultureInfo.CurrentCulture.TwoLetterISOLanguageName,
                 CachePath = StoragePath,
                 #if !DEBUG

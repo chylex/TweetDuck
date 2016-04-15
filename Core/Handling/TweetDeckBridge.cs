@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+﻿using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Handling{
     class TweetDeckBridge{
@@ -39,11 +39,11 @@ namespace TweetDck.Core.Handling{
         }
 
         public void OpenBrowser(string url){
-            Process.Start(url);
+            BrowserUtils.OpenExternalBrowser(url);
         }
 
         public void Log(string data){
-            Debug.WriteLine(data);
+            System.Diagnostics.Debug.WriteLine(data);
         }
     }
 }
