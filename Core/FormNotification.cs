@@ -62,15 +62,6 @@ namespace TweetDck.Core{
         }
 
         public void ShowNotification(TweetNotification notification){
-            if (Program.UserConfig.DisplayNotificationTimer){
-                panelBrowser.Height = 156;
-                progressBarTimer.Visible = true;
-            }
-            else{
-                panelBrowser.Height = 152;
-                progressBarTimer.Visible = false;
-            }
-
             MoveToVisibleLocation();
 
             tweetQueue.Enqueue(notification);
@@ -119,6 +110,15 @@ namespace TweetDck.Core{
         private void MoveToVisibleLocation(){
             UserConfig config = Program.UserConfig;
             Screen screen = Screen.FromControl(owner);
+
+            if (config.DisplayNotificationTimer){
+                Height = 156;
+                progressBarTimer.Visible = true;
+            }
+            else{
+                Height = 152;
+                progressBarTimer.Visible = false;
+            }
 
             if (config.NotificationDisplay > 0 && config.NotificationDisplay <= Screen.AllScreens.Length){
                 screen = Screen.AllScreens[config.NotificationDisplay-1];

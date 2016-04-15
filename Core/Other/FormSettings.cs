@@ -128,6 +128,7 @@ namespace TweetDck.Core.Other{
             if (!isLoaded)return;
 
             Config.DisplayNotificationTimer = checkNotificationTimer.Checked;
+            notification.ShowNotificationForSettings(true);
         }
     }
 }
