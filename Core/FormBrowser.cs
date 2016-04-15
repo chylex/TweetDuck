@@ -107,8 +107,13 @@ namespace TweetDck.Core{
         private void FormBrowser_WindowStateChanged(object sender, EventArgs e){
             if (!isLoaded)return;
 
-            Config.IsMaximized = WindowState != FormWindowState.Normal;
-            FormBrowser_ResizeEnd(sender,e);
+            if (WindowState == FormWindowState.Minimized){
+                // TODO
+            }
+            else{
+                Config.IsMaximized = WindowState == FormWindowState.Maximized;
+                FormBrowser_ResizeEnd(sender,e);
+            }
         }
 
         // callback handlers
