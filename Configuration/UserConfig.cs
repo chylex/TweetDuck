@@ -106,6 +106,12 @@ namespace TweetDck.Configuration{
 
         private class SerializationCompatibilityHandler : SerializationBinder{
             public override Type BindToType(string assemblyName, string typeName){
+                #if DUCK
+                assemblyName = assemblyName.Replace("TweetDick","TweetDuck");
+                #else
+                assemblyName = assemblyName.Replace("TweetDuck","TweetDick");
+                #endif
+
                 typeName = typeName.Replace("TweetDick","TweetDck");
                 return Type.GetType(string.Format("{0}, {1}",typeName,assemblyName));
             }
