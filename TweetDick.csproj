@@ -83,6 +83,7 @@
     <Compile Include="Core\Controls\FlatProgressBar.Designer.cs">
       <DependentUpon>FlatProgressBar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\Handling\ContextMenuBase.cs" />
     <Compile Include="Core\Handling\ContextMenuBrowser.cs" />
     <Compile Include="Core\FormBrowser.cs">
       <SubType>Form</SubType>

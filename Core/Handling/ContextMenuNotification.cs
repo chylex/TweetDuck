@@ -1,18 +1,15 @@
 ﻿using CefSharp;
 
 namespace TweetDck.Core.Handling{
-    class ContextMenuNotification : IContextMenuHandler{
-        public void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model){
+    class ContextMenuNotification : ContextMenuBase{
+        public override void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model){
             model.Clear();
+
+            base.OnBeforeContextMenu(browserControl,browser,frame,parameters,model);
+            RemoveSeparatorIfLast(model);
         }
 
-        public bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags){
-            return false;
-        }
-
-        public void OnContextMenuDismissed(IWebBrowser browserControl, IBrowser browser, IFrame frame){}
-
-        public bool RunContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model, IRunContextMenuCallback callback){
+        public override bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags){
             return false;
         }
     }

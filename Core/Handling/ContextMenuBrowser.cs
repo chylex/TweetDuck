@@ -1,9 +1,9 @@
 ﻿using CefSharp;
 
 namespace TweetDck.Core.Handling{
-    class ContextMenuBrowser : IContextMenuHandler{
-        private const int MenuSettings = 26500;
-        private const int MenuAbout = 26501;
+    class ContextMenuBrowser : ContextMenuBase{
+        private const int MenuSettings = 26600;
+        private const int MenuAbout = 26601;
 
         private readonly FormBrowser form;
 
@@ -11,28 +11,31 @@ namespace TweetDck.Core.Handling{
             this.form = form;
         }
 
-        public void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model){
+        public override void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model){
             model.Remove(CefMenuCommand.Back);
             model.Remove(CefMenuCommand.Forward);
             model.Remove(CefMenuCommand.Print);
             model.Remove(CefMenuCommand.ViewSource);
 
-            if (model.Count > 0 && model.GetTypeAt(model.Count-1) == MenuItemType.Separator){
-                model.RemoveAt(model.Count-1);
-            }
+            RemoveSeparatorIfFirst(model);
+
+            base.OnBeforeContextMenu(browserControl,browser,frame,parameters,model);
             
             model.AddItem(CefMenuCommand.Reload,"Reload");
             model.AddSeparator();
 
             if (TweetNotification.IsReady){
                 model.AddItem((CefMenuCommand)MenuSettings,"Settings");
-                model.AddSeparator();
             }
 
             model.AddItem((CefMenuCommand)MenuAbout,"About "+Program.BrandName);
         }
 
-        public bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags){
+        public override bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags){
+            if (base.OnContextMenuCommand(browserControl,browser,frame,parameters,commandId,eventFlags)){
+                return true;
+            }
+
             switch((int)commandId){
                 case MenuSettings:
                     form.InvokeSafe(() => {
@@ -49,12 +52,6 @@ namespace TweetDck.Core.Handling{
                     return true;
             }
 
-            return false;
-        }
-
-        public void OnContextMenuDismissed(IWebBrowser browserControl, IBrowser browser, IFrame frame){}
-
-        public bool RunContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model, IRunContextMenuCallback callback){
             return false;
         }
     }
