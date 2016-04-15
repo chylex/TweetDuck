@@ -12,6 +12,8 @@ namespace TweetDck.Configuration{
             Binder = new SerializationCompatibilityHandler()
         };
 
+        private const int CurrentFileVersion = 1;
+
         // START OF CONFIGURATION
 
         public bool IgnoreMigration { get; set; }
@@ -47,6 +49,8 @@ namespace TweetDck.Configuration{
         [NonSerialized]
         private string file;
 
+        private int fileVersion;
+
         private UserConfig(string file){
             this.file = file;
 
@@ -57,6 +61,22 @@ namespace TweetDck.Configuration{
             NotificationPosition = TweetNotification.Position.TopRight;
             CustomNotificationPosition = new Point(-32000,-32000);
             NotificationEdgeDistance = 8;
+        }
+
+        private void UpgradeFile(){
+            if (fileVersion == CurrentFileVersion){
+                return;
+            }
+
+            // if outdated, cycle through all versions
+            if (fileVersion == 0){
+                DisplayNotificationTimer = true;
+                ++fileVersion;
+            }
+
+            // update the version
+            fileVersion = CurrentFileVersion;
+            Save();
         }
 
         public bool Save(){
@@ -94,6 +114,10 @@ namespace TweetDck.Configuration{
                         }
                     }
                     
+                    if (config != null){
+                        config.UpgradeFile();
+                    }
+
                     break;
                 }catch(FileNotFoundException){
                 }catch(Exception e){
