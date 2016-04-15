@@ -1,6 +1,6 @@
-﻿using TweetDick.Core.Controls;
+﻿using TweetDck.Core.Controls;
 
-namespace TweetDick.Migration {
+namespace TweetDck.Migration {
     partial class FormMigrationQuestion {
         /// <summary>
         /// Required designer variable.

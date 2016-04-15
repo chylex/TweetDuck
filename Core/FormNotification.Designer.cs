@@ -1,4 +1,6 @@
-﻿namespace TweetDick.Core {
+﻿using TweetDck.Core.Controls;
+
+namespace TweetDck.Core {
     sealed partial class FormNotification {
         /// <summary>
         /// Required designer variable.
@@ -26,7 +28,7 @@
             this.components = new System.ComponentModel.Container();
             this.panelBrowser = new System.Windows.Forms.Panel();
             this.timerProgress = new System.Windows.Forms.Timer(this.components);
-            this.progressBarTimer = new TweetDick.Core.Controls.FlatProgressBar();
+            this.progressBarTimer = new FlatProgressBar();
             this.SuspendLayout();
             // 
             // panelBrowser

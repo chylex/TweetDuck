@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace TweetDick.Core.Handling{
+namespace TweetDck.Core.Handling{
     class TweetDeckBridge{
         private readonly FormBrowser form;
 

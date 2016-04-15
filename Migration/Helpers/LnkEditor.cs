@@ -1,8 +1,8 @@
 ﻿using System;
-using Shell32;
 using System.IO;
+using Shell32;
 
-namespace TweetDick.Migration.Helpers{
+namespace TweetDck.Migration.Helpers{
     sealed class LnkEditor{
         private readonly ShellLinkObject obj;
 

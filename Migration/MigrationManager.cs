@@ -1,15 +1,15 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TweetDick.Core.Other;
-using TweetDick.Migration.Helpers;
+using Microsoft.Win32;
+using TweetDck.Core.Other;
+using TweetDck.Migration.Helpers;
 
-namespace TweetDick.Migration{
+namespace TweetDck.Migration{
     static class MigrationManager{
         private static readonly string TweetDeckPathParent = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"twitter");
         private static readonly string TweetDeckPath = Path.Combine(TweetDeckPathParent,"TweetDeck");

@@ -1,6 +1,6 @@
 ﻿using CefSharp;
 
-namespace TweetDick.Core.Handling{
+namespace TweetDck.Core.Handling{
     class ContextMenuHandler : IContextMenuHandler{
         private const int MenuSettings = 26500;
         private const int MenuAbout = 26501;

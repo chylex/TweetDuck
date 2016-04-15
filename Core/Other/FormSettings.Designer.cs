@@ -1,4 +1,4 @@
-﻿namespace TweetDick.Core.Other {
+﻿namespace TweetDck.Core.Other {
     sealed partial class FormSettings {
         /// <summary>
         /// Required designer variable.
@@ -272,7 +272,7 @@
             this.ClientSize = new System.Drawing.Size(384, 282);
             this.Controls.Add(this.tableLayout);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = TweetDick.Properties.Resources.icon;
+            this.Icon = TweetDck.Properties.Resources.icon;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormSettings";

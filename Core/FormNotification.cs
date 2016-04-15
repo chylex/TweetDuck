@@ -1,14 +1,14 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
 using CefSharp;
 using CefSharp.WinForms;
-using System.Drawing;
-using System;
-using System.Collections.Generic;
-using TweetDick.Core.Handling;
-using TweetDick.Configuration;
-using TweetDick.Resources;
+using TweetDck.Configuration;
+using TweetDck.Core.Handling;
+using TweetDck.Resources;
 
-namespace TweetDick.Core{
+namespace TweetDck.Core{
     sealed partial class FormNotification : Form{
         public Func<bool> CanMoveWindow = () => true;
 

@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 
-namespace TweetDick.Configuration{
+namespace TweetDck.Configuration{
     class LockManager{
         private readonly string file;
         private FileStream lockStream;

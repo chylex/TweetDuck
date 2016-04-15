@@ -1,4 +1,4 @@
-﻿namespace TweetDick.Migration{
+﻿namespace TweetDck.Migration{
     enum MigrationDecision{
         /// <summary>
         /// Copies the important files and then deletes the TweetDeck folder.

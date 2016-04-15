@@ -1,17 +1,17 @@
-﻿using CefSharp;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
-using TweetDick.Configuration;
-using TweetDick.Core;
-using TweetDick.Migration;
+using CefSharp;
+using TweetDck.Configuration;
+using TweetDck.Core;
+using TweetDck.Migration;
 
 [assembly: CLSCompliant(true)]
-namespace TweetDick{
+namespace TweetDck{
     static class Program{
         #if DUCK
         public const string BrandName = "TweetDuck";

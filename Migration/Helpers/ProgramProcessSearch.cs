@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 
-namespace TweetDick.Migration.Helpers{
+namespace TweetDck.Migration.Helpers{
     static class ProgramProcessSearch{
         public static Process FindProcessWithWindowByName(string name){
             try{

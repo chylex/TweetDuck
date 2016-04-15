@@ -3,13 +3,14 @@ using System.Drawing;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Windows.Forms;
-using TweetDick.Core.Handling;
+using TweetDck.Core.Handling;
 
-namespace TweetDick.Configuration{
+namespace TweetDck.Configuration{
     [Serializable]
     sealed class UserConfig{
-        private static readonly IFormatter Formatter = new BinaryFormatter();
+        private static readonly IFormatter Formatter = new BinaryFormatter(){
+            Binder = new SerializationCompatibilityHandler()
+        };
 
         // START OF CONFIGURATION
 
@@ -101,6 +102,13 @@ namespace TweetDick.Configuration{
 
         private static string GetBackupFile(string file){
             return file+".bak";
+        }
+
+        private class SerializationCompatibilityHandler : SerializationBinder{
+            public override Type BindToType(string assemblyName, string typeName){
+                typeName = typeName.Replace("TweetDick","TweetDck");
+                return Type.GetType(string.Format("{0}, {1}",typeName,assemblyName));
+            }
         }
     }
 }

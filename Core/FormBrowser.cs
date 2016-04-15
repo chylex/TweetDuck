@@ -1,15 +1,15 @@
-﻿using System.Windows.Forms;
-using CefSharp.WinForms;
-using System;
-using System.Linq;
-using TweetDick.Configuration;
-using CefSharp;
-using TweetDick.Core.Handling;
-using TweetDick.Core.Other;
+﻿using System;
 using System.Drawing;
-using TweetDick.Resources;
+using System.Linq;
+using System.Windows.Forms;
+using CefSharp;
+using CefSharp.WinForms;
+using TweetDck.Configuration;
+using TweetDck.Core.Handling;
+using TweetDck.Core.Other;
+using TweetDck.Resources;
 
-namespace TweetDick.Core{
+namespace TweetDck.Core{
     sealed partial class FormBrowser : Form{
         private static UserConfig Config{
             get{

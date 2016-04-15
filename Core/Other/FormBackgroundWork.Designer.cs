@@ -1,6 +1,6 @@
-﻿using TweetDick.Core.Controls;
+﻿using TweetDck.Core.Controls;
 
-namespace TweetDick.Core.Other {
+namespace TweetDck.Core.Other {
     partial class FormBackgroundWork {
         /// <summary>
         /// Required designer variable.

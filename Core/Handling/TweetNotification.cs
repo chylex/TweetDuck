@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace TweetDick.Core.Handling{
+namespace TweetDck.Core.Handling{
     sealed class TweetNotification{
         private static string FontSizeClass { get; set; }
         private static string HeadTag { get; set; }

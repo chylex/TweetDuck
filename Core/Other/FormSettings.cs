@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
-using TweetDick.Configuration;
-using TweetDick.Core.Handling;
+using TweetDck.Configuration;
+using TweetDck.Core.Handling;
 
-namespace TweetDick.Core.Other{
+namespace TweetDck.Core.Other{
     sealed partial class FormSettings : Form{
         private static UserConfig Config{
             get{

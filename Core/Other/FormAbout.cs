@@ -1,8 +1,8 @@
 ﻿using System.Text;
 using System.Windows.Forms;
-using TweetDick.Core.Controls;
+using TweetDck.Core.Controls;
 
-namespace TweetDick.Core.Other{
+namespace TweetDck.Core.Other{
     sealed partial class FormAbout : Form{
         public FormAbout(){
             InitializeComponent();

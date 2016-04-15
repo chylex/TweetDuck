@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace TweetDick.Core.Controls{
+namespace TweetDck.Core.Controls{
     public partial class FlatProgressBar : ProgressBar{
         private SolidBrush brush;
 

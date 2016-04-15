@@ -1,4 +1,6 @@
-﻿namespace TweetDick.Core.Other {
+﻿using TweetDck.Core.Controls;
+
+namespace TweetDck.Core.Other {
     sealed partial class FormAbout {
         /// <summary>
         /// Required designer variable.
@@ -23,7 +25,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.labelAbout = new TweetDick.Core.Controls.RichTextLabel();
+            this.labelAbout = new RichTextLabel();
             this.SuspendLayout();
             // 
             // labelAbout

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using TweetDick.Core.Controls;
+using TweetDck.Core.Controls;
 
-namespace TweetDick.Migration{
+namespace TweetDck.Migration{
     partial class FormMigrationQuestion : Form{
         public MigrationDecision Decision { get; private set; }
 

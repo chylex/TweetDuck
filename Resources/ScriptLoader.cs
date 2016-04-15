@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
-namespace TweetDick.Resources{
+namespace TweetDck.Resources{
     static class ScriptLoader{
         public static string LoadResource(string name){
             try{

@@ -2,7 +2,7 @@
 using System.Linq;
 using Microsoft.Win32;
 
-namespace TweetDick.Migration.Helpers{
+namespace TweetDck.Migration.Helpers{
     static class ProgramRegistrySearch{
         public static string FindByDisplayName(string displayName){
             Predicate<RegistryKey> predicate = key => displayName.Equals(key.GetValue("DisplayName") as string,StringComparison.OrdinalIgnoreCase);

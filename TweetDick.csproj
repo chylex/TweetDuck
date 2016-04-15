@@ -9,7 +9,7 @@
     <ProjectGuid>{2389A7CD-E0D3-4706-8294-092929A33A2D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TweetDick</RootNamespace>
+    <RootNamespace>TweetDck</RootNamespace>
     <AssemblyName Condition=" '$(Configuration)' == 'Debug' ">TweetDick</AssemblyName>
     <AssemblyName Condition=" '$(Configuration)' == 'Release Dick' ">TweetDick</AssemblyName>
     <AssemblyName Condition=" '$(Configuration)' == 'Release Duck' ">TweetDuck</AssemblyName>
