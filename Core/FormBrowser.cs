@@ -34,7 +34,7 @@ namespace TweetDck.Core{
 
             bridge = new TweetDeckBridge(this);
 
-            browser = new ChromiumWebBrowser("https://tweetdeck.twitter.com/"){ MenuHandler = new ContextMenuHandler(this) };
+            browser = new ChromiumWebBrowser("https://tweetdeck.twitter.com/"){ MenuHandler = new ContextMenuBrowser(this) };
             browser.LoadingStateChanged += Browser_LoadingStateChanged;
             browser.FrameLoadEnd += Browser_FrameLoadEnd;
             browser.RegisterJsObject("$TD",bridge);

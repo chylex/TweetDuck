@@ -33,7 +33,7 @@ namespace TweetDck.Core{
 
             notificationJS = ScriptLoader.LoadResource("notification.js");
 
-            browser = new ChromiumWebBrowser("about:blank"){ MenuHandler = new MenuHandlerEmpty() };
+            browser = new ChromiumWebBrowser("about:blank"){ MenuHandler = new ContextMenuNotification() };
             browser.FrameLoadEnd += Browser_FrameLoadEnd;
 
             if (bridge != null){
@@ -177,22 +177,6 @@ namespace TweetDck.Core{
                 HideNotification();
                 tweetQueue.Clear();
                 e.Cancel = true;
-            }
-        }
-
-        private class MenuHandlerEmpty : IContextMenuHandler{
-            public void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model){
-                model.Clear();
-            }
-
-            public bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags){
-                return false;
-            }
-
-            public void OnContextMenuDismissed(IWebBrowser browserControl, IBrowser browser, IFrame frame){}
-
-            public bool RunContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model, IRunContextMenuCallback callback){
-                return false;
             }
         }
     }

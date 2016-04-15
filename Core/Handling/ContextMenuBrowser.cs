@@ -1,13 +1,13 @@
 ﻿using CefSharp;
 
 namespace TweetDck.Core.Handling{
-    class ContextMenuHandler : IContextMenuHandler{
+    class ContextMenuBrowser : IContextMenuHandler{
         private const int MenuSettings = 26500;
         private const int MenuAbout = 26501;
 
         private readonly FormBrowser form;
 
-        public ContextMenuHandler(FormBrowser form){
+        public ContextMenuBrowser(FormBrowser form){
             this.form = form;
         }
 
