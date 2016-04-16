@@ -22,6 +22,8 @@ namespace TweetDck{
         public const string Website = "http://tweetdick.chylex.com";
         #endif
 
+        public const string VersionTag = "1.1";
+
         public static readonly string StoragePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),BrandName);
         private static readonly LockManager LockManager = new LockManager(Path.Combine(StoragePath,".lock"));
         

@@ -10,6 +10,24 @@ namespace TweetDck.Core.Handling{
             }
         }
 
+        public string VersionTag{
+            get{
+                return Program.VersionTag;
+            }
+        }
+
+        public bool UpdateCheckEnabled{
+            get{
+                return Program.UserConfig.EnableUpdateCheck;
+            }
+        }
+
+        public string DismissedVersionTag{
+            get{
+                return Program.UserConfig.DismissedUpdate ?? string.Empty;
+            }
+        }
+
         public TweetDeckBridge(FormBrowser form){
             this.form = form;
         }
@@ -35,6 +53,18 @@ namespace TweetDck.Core.Handling{
         public void OnTweetPopup(string tweetHtml, int tweetCharacters){
             form.InvokeSafe(() => {
                 form.OnTweetPopup(new TweetNotification(tweetHtml,tweetCharacters));
+            });
+        }
+
+        public void OnUpdateAccepted(string versionTag, string downloadUrl){
+            form.InvokeSafe(() => {
+            });
+        }
+
+        public void OnUpdateDismissed(string versionTag){
+            form.InvokeSafe(() => {
+                Program.UserConfig.DismissedUpdate = versionTag;
+                Program.UserConfig.Save();
             });
         }
 

@@ -56,6 +56,7 @@ namespace TweetDck.Core.Other{
             trackBarEdgeDistance.Value = Config.NotificationEdgeDistance;
             checkMinimizeTray.Checked = Config.MinimizeToTray;
             checkNotificationTimer.Checked = Config.DisplayNotificationTimer;
+            checkUpdateNotifications.Checked = Config.EnableUpdateCheck;
         }
 
         private void FormSettings_FormClosing(object sender, FormClosingEventArgs e){
@@ -129,6 +130,12 @@ namespace TweetDck.Core.Other{
 
             Config.DisplayNotificationTimer = checkNotificationTimer.Checked;
             notification.ShowNotificationForSettings(true);
+        }
+
+        private void checkUpdateNotifications_CheckedChanged(object sender, EventArgs e){
+            if (!isLoaded)return;
+
+            Config.EnableUpdateCheck = checkUpdateNotifications.Checked;
         }
     }
 }

@@ -36,13 +36,14 @@
             this.tableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.tableColumn2Panel = new System.Windows.Forms.Panel();
             this.groupUserInterface = new System.Windows.Forms.GroupBox();
+            this.checkNotificationTimer = new System.Windows.Forms.CheckBox();
             this.checkMinimizeTray = new System.Windows.Forms.CheckBox();
             this.groupNotificationDuration = new System.Windows.Forms.GroupBox();
-            this.checkNotificationTimer = new System.Windows.Forms.CheckBox();
             this.radioDurVeryLong = new System.Windows.Forms.RadioButton();
             this.radioDurLong = new System.Windows.Forms.RadioButton();
             this.radioDurMedium = new System.Windows.Forms.RadioButton();
             this.radioDurShort = new System.Windows.Forms.RadioButton();
+            this.checkUpdateNotifications = new System.Windows.Forms.CheckBox();
             this.groupNotificationLocation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).BeginInit();
             this.tableLayout.SuspendLayout();
@@ -218,6 +219,7 @@
             // 
             this.groupUserInterface.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupUserInterface.Controls.Add(this.checkUpdateNotifications);
             this.groupUserInterface.Controls.Add(this.checkNotificationTimer);
             this.groupUserInterface.Controls.Add(this.checkMinimizeTray);
             this.groupUserInterface.Location = new System.Drawing.Point(3, 128);
@@ -226,6 +228,17 @@
             this.groupUserInterface.TabIndex = 3;
             this.groupUserInterface.TabStop = false;
             this.groupUserInterface.Text = "User Interface";
+            // 
+            // checkNotificationTimer
+            // 
+            this.checkNotificationTimer.AutoSize = true;
+            this.checkNotificationTimer.Location = new System.Drawing.Point(6, 43);
+            this.checkNotificationTimer.Name = "checkNotificationTimer";
+            this.checkNotificationTimer.Size = new System.Drawing.Size(145, 17);
+            this.checkNotificationTimer.TabIndex = 4;
+            this.checkNotificationTimer.Text = "Display Notification Timer";
+            this.checkNotificationTimer.UseVisualStyleBackColor = true;
+            this.checkNotificationTimer.CheckedChanged += new System.EventHandler(this.checkNotificationTimer_CheckedChanged);
             // 
             // checkMinimizeTray
             // 
@@ -252,17 +265,6 @@
             this.groupNotificationDuration.TabIndex = 2;
             this.groupNotificationDuration.TabStop = false;
             this.groupNotificationDuration.Text = "Notification Duration";
-            // 
-            // checkNotificationTimer
-            // 
-            this.checkNotificationTimer.AutoSize = true;
-            this.checkNotificationTimer.Location = new System.Drawing.Point(6, 43);
-            this.checkNotificationTimer.Name = "checkNotificationTimer";
-            this.checkNotificationTimer.Size = new System.Drawing.Size(145, 17);
-            this.checkNotificationTimer.TabIndex = 4;
-            this.checkNotificationTimer.Text = "Display Notification Timer";
-            this.checkNotificationTimer.UseVisualStyleBackColor = true;
-            this.checkNotificationTimer.CheckedChanged += new System.EventHandler(this.checkNotificationTimer_CheckedChanged);
             // 
             // radioDurVeryLong
             // 
@@ -316,6 +318,17 @@
             this.radioDurShort.CheckedChanged += new System.EventHandler(this.radioDur_CheckedChanged);
             this.radioDurShort.Click += new System.EventHandler(this.radioDur_Click);
             // 
+            // checkUpdateNotifications
+            // 
+            this.checkUpdateNotifications.AutoSize = true;
+            this.checkUpdateNotifications.Location = new System.Drawing.Point(6, 67);
+            this.checkUpdateNotifications.Name = "checkUpdateNotifications";
+            this.checkUpdateNotifications.Size = new System.Drawing.Size(122, 17);
+            this.checkUpdateNotifications.TabIndex = 5;
+            this.checkUpdateNotifications.Text = "Update Notifications";
+            this.checkUpdateNotifications.UseVisualStyleBackColor = true;
+            this.checkUpdateNotifications.CheckedChanged += new System.EventHandler(this.checkUpdateNotifications_CheckedChanged);
+            // 
             // FormSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -364,5 +377,6 @@
         private System.Windows.Forms.RadioButton radioDurShort;
         private System.Windows.Forms.CheckBox checkMinimizeTray;
         private System.Windows.Forms.CheckBox checkNotificationTimer;
+        private System.Windows.Forms.CheckBox checkUpdateNotifications;
     }
 }

@@ -32,6 +32,9 @@ namespace TweetDck.Configuration{
         public int NotificationEdgeDistance { get; set; }
         public int NotificationDisplay { get; set; }
 
+        public bool EnableUpdateCheck { get; set; }
+        public string DismissedUpdate { get; set; }
+
         public bool IsCustomWindowLocationSet{
             get{
                 return WindowLocation.X != -32000 && WindowLocation.X != 32000;
@@ -61,6 +64,7 @@ namespace TweetDck.Configuration{
             NotificationPosition = TweetNotification.Position.TopRight;
             CustomNotificationPosition = new Point(-32000,-32000);
             NotificationEdgeDistance = 8;
+            EnableUpdateCheck = true;
         }
 
         private void UpgradeFile(){
@@ -71,6 +75,7 @@ namespace TweetDck.Configuration{
             // if outdated, cycle through all versions
             if (fileVersion == 0){
                 DisplayNotificationTimer = true;
+                EnableUpdateCheck = true;
                 ++fileVersion;
             }
 

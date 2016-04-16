@@ -145,8 +145,21 @@ namespace TweetDck.Core{
                 currentFormSettings.BringToFront();
             }
             else{
+                bool prevEnableUpdateCheck = Config.EnableUpdateCheck;
+
                 currentFormSettings = new FormSettings(this);
-                currentFormSettings.FormClosed += (sender, args) => currentFormSettings = null;
+
+                currentFormSettings.FormClosed += (sender, args) => {
+                    currentFormSettings = null;
+
+                    if (!prevEnableUpdateCheck && Config.EnableUpdateCheck){
+                        Config.DismissedUpdate = string.Empty;
+                        Config.Save();
+
+                        browser.ExecuteScriptAsync("TDGF_runUpdateCheck",new object[0]);
+                    }
+                };
+
                 ShowChildForm(currentFormSettings);
             }
         }
