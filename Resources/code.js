@@ -123,7 +123,7 @@
       $(this).html("(quoted tweet)");
     });
     
-    body.children().not("p,div.js-quote-detail").remove();
+    body.children().not("p,span,div.js-quote-detail").remove();
     
     var characters = html.find(".js-tweet-text:first").text().length;
     if (characters == 0)return;
