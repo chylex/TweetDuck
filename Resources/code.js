@@ -125,7 +125,10 @@
     
     body.children().not("p,div.js-quote-detail").remove();
     
-    $TD.onTweetPopup(html.html(),html.find(".js-tweet-text:first").text().length); // TODO column & remove pic links from text()
+    var characters = html.find(".js-tweet-text:first").text().length;
+    if (characters == 0)return;
+    
+    $TD.onTweetPopup(html.html(),characters); // TODO column & remove pic links from text()
   };
   
   //
