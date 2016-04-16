@@ -25,7 +25,7 @@ namespace TweetDck.Core.Other {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.labelAbout = new RichTextLabel();
+            this.labelAbout = new TweetDck.Core.Controls.RichTextLabel();
             this.SuspendLayout();
             // 
             // labelAbout
@@ -43,6 +43,7 @@ namespace TweetDck.Core.Other {
             this.labelAbout.TabIndex = 0;
             this.labelAbout.TabStop = false;
             this.labelAbout.Text = "";
+            this.labelAbout.Click += new System.EventHandler(this.labelAbout_Click);
             // 
             // FormAbout
             // 
