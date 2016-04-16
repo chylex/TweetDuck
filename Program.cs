@@ -27,6 +27,12 @@ namespace TweetDck{
         
         public static UserConfig UserConfig { get; private set; }
 
+        public static string LogFile{
+            get{
+                return Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"td-log.txt");
+            }
+        }
+
         [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
         public static extern IntPtr LoadLibrary(string name);
 
@@ -90,14 +96,14 @@ namespace TweetDck{
             Log(e.ToString());
             
             if (MessageBox.Show(message+"\r\nDo you want to open the log file to report the issue?",BrandName+" Has Failed :(",MessageBoxButtons.YesNo,MessageBoxIcon.Error,MessageBoxDefaultButton.Button2) == DialogResult.Yes){
-                Process.Start(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"td-log.txt"));
+                Process.Start(LogFile);
             }
         }
 
         public static void Log(string data){
             StringBuilder build = new StringBuilder();
 
-            if (!File.Exists("td-log.txt")){
+            if (!File.Exists(LogFile)){
                 build.Append("Please, report all issues to: https://github.com/chylex/TweetDick/issues\r\n\r\n");
             }
 
@@ -105,7 +111,7 @@ namespace TweetDck{
             build.Append(data).Append("\r\n\r\n");
 
             try{
-                File.AppendAllText("td-log.txt",build.ToString(),Encoding.UTF8);
+                File.AppendAllText(LogFile,build.ToString(),Encoding.UTF8);
             }catch{
                 // oops
             }
