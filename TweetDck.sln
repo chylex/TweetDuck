@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetDick", "TweetDick.csproj", "{2389A7CD-E0D3-4706-8294-092929A33A2D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetDck", "TweetDck.csproj", "{2389A7CD-E0D3-4706-8294-092929A33A2D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
