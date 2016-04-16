@@ -223,7 +223,9 @@
 xcopy "$(ProjectDir)LICENSE" "$(TargetDir)" /Y
 del "$(TargetDir)LICENSE.txt"
 ren "$(TargetDir)LICENSE" "LICENSE.txt"
-xcopy "$(ProjectDir)Libraries\CEFSHARP-LICENSE.txt" "$(TargetDir)" /Y</PostBuildEvent>
+xcopy "$(ProjectDir)Libraries\CEFSHARP-LICENSE.txt" "$(TargetDir)" /Y
+xcopy "$(ProjectDir)packages\Microsoft.VC120.CRT.JetBrains.12.0.21005.2\DotFiles\msvcp120.dll" "$(TargetDir)" /Y
+xcopy "$(ProjectDir)packages\Microsoft.VC120.CRT.JetBrains.12.0.21005.2\DotFiles\msvcr120.dll" "$(TargetDir)" /Y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
