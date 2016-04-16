@@ -12,7 +12,7 @@ namespace TweetDck.Core.Other{
             StringBuilder build = new StringBuilder();
             build.Append(@"\fs22").Append(Program.BrandName).Append(@" was created by chylex as a replacement to the discontinued TweetDeck client for Windows, and is released under the MIT license.\par ");
             build.Append(@"Official Website: ").Append(RichTextLabel.AddLink(Program.Website)).Append(@"\line ");
-            build.Append(@"Source Code: ").Append(RichTextLabel.AddLink("https://github.com/chylex/TweetDick"));
+            build.Append(@"Source Code: ").Append(RichTextLabel.AddLink("https://github.com/chylex/TweetDuck"));
 
             labelAbout.Rtf = RichTextLabel.Wrap(build.ToString());
         }

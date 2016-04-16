@@ -5,7 +5,7 @@
   var fontSizeClasses = [ "txt-base-smallest", "txt-base-small", "txt-base-medium", "txt-base-large", "txt-base-largest" ];
   
   //
-  // Variable: Says whether TweetDick events was initialized.
+  // Variable: Says whether TweetD*ck events was initialized.
   //
   var isInitialized = false;
   
@@ -15,9 +15,9 @@
   var prevFontSizeClass;
   
   //
-  // Function: Initializes TweetDick events. Called after the website app is loaded.
+  // Function: Initializes TweetD*ck events. Called after the website app is loaded.
   //
-  var initializeTweetDick = function(){
+  var initializeTweetDck = function(){
     // Settings button hook
     $("[data-action='settings-menu']").click(function(){
       setTimeout(function(){
@@ -26,13 +26,13 @@
 
         menu.children(".drp-h-divider").last().after('<li class="is-selectable" data-std><a href="#" data-action>'+$TD.brandName+'</a></li><li class="drp-h-divider"></li>');
 
-        var tweetDickBtn = menu.children("[data-std]").first();
+        var tweetDckBtn = menu.children("[data-std]").first();
 
-        tweetDickBtn.on("click","a",function(){
+        tweetDckBtn.on("click","a",function(){
           $TD.openSettingsMenu();
         });
 
-        tweetDickBtn.hover(function(){
+        tweetDckBtn.hover(function(){
           $(this).addClass("is-selected");
         },function(){
           $(this).removeClass("is-selected");
@@ -57,7 +57,7 @@
       refreshColumnObservers();
     })();
     
-    // Popup notifications
+    // Force popup notification settings
     window.TD.controller.notifications.hasNotifications = function(){
       return true;
     };
@@ -158,7 +158,7 @@
   };
   
   //
-  // Block: Observe the app <div> element and initialize TweetDick whenever possible.
+  // Block: Observe the app <div> element and initialize TweetD*ck whenever possible.
   //
   var app = $("body").children(".js-app");
   
@@ -167,7 +167,7 @@
       isInitialized = false;
     }
     else if (!isInitialized && !app.hasClass("is-hidden")){
-      initializeTweetDick();
+      initializeTweetDck();
     }
   }).observe(app[0],{
     attributes: true,

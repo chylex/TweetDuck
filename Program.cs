@@ -104,7 +104,7 @@ namespace TweetDck{
             StringBuilder build = new StringBuilder();
 
             if (!File.Exists(LogFile)){
-                build.Append("Please, report all issues to: https://github.com/chylex/TweetDick/issues\r\n\r\n");
+                build.Append("Please, report all issues to: https://github.com/chylex/TweetDuck/issues\r\n\r\n");
             }
 
             build.Append("[").Append(DateTime.Now.ToString("G")).Append("]\r\n");
