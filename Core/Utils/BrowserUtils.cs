@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Net;
 using System.Windows.Forms;
 
@@ -27,6 +28,11 @@ namespace TweetDck.Core.Utils{
 
         public static void OpenExternalBrowser(string url){ // TODO implement mailto
             Process.Start(url);
+        }
+
+        public static string GetFileNameFromUrl(string url){
+            string file = Path.GetFileName(new Uri(url).AbsolutePath);
+            return string.IsNullOrEmpty(file) ? null : file;
         }
 
         public static void DownloadFileAsync(string url, string target, Action<Exception> onFailure){

@@ -104,7 +104,7 @@ namespace TweetDck.Core.Handling{
             }
 
             // return file name
-            return Path.GetFileName(url);
+            return BrowserUtils.GetFileNameFromUrl(url) ?? "unknown";
         }
     }
 }
