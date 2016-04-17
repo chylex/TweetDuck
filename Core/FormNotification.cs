@@ -153,7 +153,10 @@ namespace TweetDck.Core{
                     break;
             }
 
+            bool ownerHadFocus = owner.ContainsFocus && owner.WindowState != FormWindowState.Minimized;
             TopMost = true;
+
+            if (ownerHadFocus)owner.Focus();
         }
 
         private void timerHideProgress_Tick(object sender, EventArgs e){
