@@ -95,6 +95,8 @@ namespace TweetDck{
             Application.Run(mainForm);
 
             if (mainForm.UpdateInstallerPath != null){
+                Cef.Shutdown();
+
                 Process.Start(mainForm.UpdateInstallerPath,"/SP- /SILENT /NOICONS /CLOSEAPPLICATIONS");
                 Application.Exit();
             }
