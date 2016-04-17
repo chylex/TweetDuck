@@ -11,15 +11,7 @@ namespace TweetDck.Core.Controls{
         }
 
         public void SetValueInstant(int value){
-            if (value == Maximum){
-                Value = value;
-                Value = value-1;
-                Value = value;
-            }
-            else{
-                Value = value+1;
-                Value = value;
-            }
+            ControlExtensions.SetValueInstant(this,value);
         }
 
         protected override void OnPaint(PaintEventArgs e){

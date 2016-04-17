@@ -77,6 +77,7 @@
   <ItemGroup>
     <Compile Include="Configuration\LockManager.cs" />
     <Compile Include="Configuration\UserConfig.cs" />
+    <Compile Include="Core\Controls\ControlExtensions.cs" />
     <Compile Include="Core\Controls\FlatProgressBar.cs">
       <SubType>Component</SubType>
     </Compile>

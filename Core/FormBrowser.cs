@@ -8,6 +8,7 @@ using TweetDck.Configuration;
 using TweetDck.Core.Handling;
 using TweetDck.Core.Other;
 using TweetDck.Resources;
+using TweetDck.Core.Controls;
 
 namespace TweetDck.Core{
     sealed partial class FormBrowser : Form{
@@ -132,12 +133,7 @@ namespace TweetDck.Core{
         // callback handlers
 
         public void InvokeSafe(Action func){
-            if (InvokeRequired){
-                Invoke(func);
-            }
-            else{
-                func();
-            }
+            ControlExtensions.InvokeSafe(this,func);
         }
 
         public void OpenSettings(){
