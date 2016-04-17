@@ -58,7 +58,7 @@
             // labelDescription
             // 
             this.labelDescription.AutoSize = true;
-            this.labelDescription.Location = new System.Drawing.Point(13, 13);
+            this.labelDescription.Location = new System.Drawing.Point(9, 13);
             this.labelDescription.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.labelDescription.Name = "labelDescription";
             this.labelDescription.Size = new System.Drawing.Size(0, 13);
@@ -67,7 +67,7 @@
             // labelStatus
             // 
             this.labelStatus.AutoSize = true;
-            this.labelStatus.Location = new System.Drawing.Point(12, 62);
+            this.labelStatus.Location = new System.Drawing.Point(9, 62);
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Size = new System.Drawing.Size(0, 13);
             this.labelStatus.TabIndex = 3;
