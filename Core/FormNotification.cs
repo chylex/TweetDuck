@@ -112,11 +112,11 @@ namespace TweetDck.Core{
             Screen screen = Screen.FromControl(owner);
 
             if (config.DisplayNotificationTimer){
-                Height = 156;
+                ClientSize = new Size(ClientSize.Width,122);
                 progressBarTimer.Visible = true;
             }
             else{
-                Height = 152;
+                ClientSize = new Size(ClientSize.Width,118);
                 progressBarTimer.Visible = false;
             }
 

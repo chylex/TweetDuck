@@ -127,6 +127,10 @@
     var html = $(tweet.outerHTML);
     var body = html.find(".tweet-body").first();
     
+    if (html.find(".icon-reply").length > 0){
+      return; // ignore sent messages
+    }
+    
     body.children("div.js-quote-detail").each(function(){
       $(this).html("(quoted tweet)");
     });
