@@ -91,7 +91,13 @@ namespace TweetDck{
                 Cef.Shutdown();
             };
 
-            Application.Run(new FormBrowser());
+            FormBrowser mainForm = new FormBrowser();
+            Application.Run(mainForm);
+
+            if (mainForm.UpdateInstallerPath != null){
+                Process.Start(mainForm.UpdateInstallerPath,"/SP- /SILENT /NOICONS /CLOSEAPPLICATIONS");
+                Application.Exit();
+            }
         }
 
         public static void HandleException(string message, Exception e){

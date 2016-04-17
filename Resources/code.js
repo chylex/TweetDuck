@@ -239,8 +239,8 @@
     });
 
     buttonDiv.children(".tdu-btn-download").click(function(){
+      ele.remove();
       $TD.onUpdateAccepted(version,download);
-      ele.slideUp(function(){ ele.remove(); });
     });
 
     buttonDiv.children(".tdu-btn-dismiss").click(function(){
@@ -267,9 +267,8 @@
     $.getJSON("https://api.github.com/repos/chylex/"+$TD.brandName+"/releases/latest",function(response){
       var tagName = response.tag_name;
       
-      if (tagName != $TD.versionTag && tagName != $TD.dismissedVersionTag){
-        var dlLink = "https://github.com/chylex/"+$TD.brandName+"/releases/download/"+tagName+"/"+response.assets[0].name;
-        createUpdateNotificationElement(tagName,dlLink);
+      if (tagName != $TD.versionTag && tagName != $TD.dismissedVersionTag && response.assets.length > 0){
+        createUpdateNotificationElement(tagName,response.assets[0].browser_download_url);
       }
     });
   };

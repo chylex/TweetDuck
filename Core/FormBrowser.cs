@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using CefSharp;
@@ -8,6 +7,7 @@ using TweetDck.Configuration;
 using TweetDck.Core.Handling;
 using TweetDck.Core.Other;
 using TweetDck.Resources;
+using TweetDck.Core.Utils;
 using TweetDck.Core.Controls;
 
 namespace TweetDck.Core{
@@ -17,6 +17,8 @@ namespace TweetDck.Core{
                 return Program.UserConfig;
             }
         }
+
+        public string UpdateInstallerPath { get; private set; }
 
         private readonly ChromiumWebBrowser browser;
         private readonly TweetDeckBridge bridge;
@@ -173,6 +175,25 @@ namespace TweetDck.Core{
 
         public void OnTweetPopup(TweetNotification tweet){
             notification.ShowNotification(tweet);
+        }
+
+        public void BeginUpdateProcess(string versionTag, string downloadUrl){
+            Hide();
+
+            FormUpdateDownload downloadForm = new FormUpdateDownload(new UpdateInfo(versionTag,downloadUrl));
+            downloadForm.MoveToCenter(this);
+            downloadForm.ShowDialog();
+
+            if (downloadForm.UpdateStatus == FormUpdateDownload.Status.Succeeded){
+                UpdateInstallerPath = downloadForm.InstallerPath;
+                Close();
+            }
+            else if (downloadForm.UpdateStatus == FormUpdateDownload.Status.Manual){
+                Close();
+            }
+            else{
+                Show();
+            }
         }
     }
 }
