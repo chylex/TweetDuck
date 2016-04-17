@@ -11,7 +11,7 @@ namespace TweetDck.Core.Other{
         public FormAbout(){
             InitializeComponent();
 
-            Text = "About "+Program.BrandName;
+            Text = "About "+Program.BrandName+" "+Program.VersionTag;
 
             StringBuilder build = new StringBuilder();
             build.Append(@"\fs22").Append(Program.BrandName).Append(@" was created by chylex as a replacement to the discontinued TweetDeck client for Windows, and is released under the MIT license.\par ");
