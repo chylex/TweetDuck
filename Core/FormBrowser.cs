@@ -87,9 +87,7 @@ namespace TweetDck.Core{
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             if (e.Frame.IsMain){
-                string js = ScriptLoader.LoadResource("code.js");
-
-                if (js != null){
+                foreach(string js in ScriptLoader.LoadResources("code.js","update.js").Where(js => js != null)){
                     browser.ExecuteScriptAsync(js);
                 }
             }

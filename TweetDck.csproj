@@ -212,6 +212,12 @@
       <TargetPath>notification.js</TargetPath>
     </ContentWithTargetPath>
   </ItemGroup>
+  <ItemGroup>
+    <ContentWithTargetPath Include="Resources\update.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>update.js</TargetPath>
+    </ContentWithTargetPath>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
