@@ -122,13 +122,23 @@ namespace TweetDck.Core{
             }
         }
 
-        private void trayIcon_Click(object sender, EventArgs e){
+        private void trayIcon_MouseClick(object sender, MouseEventArgs e){
+            if (e.Button == MouseButtons.Left){
+                restoreToolStripMenuItem_Click(sender,e);
+            }
+        }
+
+        private void restoreToolStripMenuItem_Click(object sender, EventArgs e){
             isLoaded = false;
             Show();
             SetupWindow();
             Activate();
 
             trayIcon.Visible = false;
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e){
+            Close();
         }
 
         // callback handlers
