@@ -54,7 +54,15 @@ namespace TweetDck.Configuration{
                 int pid = BitConverter.ToInt32(bytes,0);
 
                 try{
-                    lockingProcess = Process.GetProcessById(pid);
+                    Process foundProcess = Process.GetProcessById(pid);
+
+                    using(Process currentProcess = Process.GetCurrentProcess()){
+                        if (foundProcess.ProcessName == currentProcess.ProcessName){
+                            lockingProcess = foundProcess;
+                        }
+
+                        currentProcess.Close();
+                    }
                 }catch(ArgumentException){}
 
                 return lockingProcess == null && CreateLockFile();
@@ -76,7 +84,6 @@ namespace TweetDck.Configuration{
 
         public void Unlock(){
             if (lockStream != null){
-                lockStream.Close();
                 lockStream.Dispose();
                 File.Delete(file);
 
@@ -96,7 +103,7 @@ namespace TweetDck.Configuration{
                 }
 
                 if (lockingProcess.HasExited){
-                    lockingProcess.Close();
+                    lockingProcess.Dispose();
                     lockingProcess = null;
                     return true;
                 }
