@@ -128,6 +128,7 @@ namespace TweetDck.Core{
             isLoaded = false;
             Show();
             SetupWindow();
+            Activate();
 
             trayIcon.Visible = false;
         }
