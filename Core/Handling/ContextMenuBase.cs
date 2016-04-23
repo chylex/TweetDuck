@@ -35,7 +35,7 @@ namespace TweetDck.Core.Handling{
                     break;
 
                 case MenuCopyUrl:
-                    Clipboard.SetText(parameters.UnfilteredLinkUrl,TextDataFormat.Text);
+                    Clipboard.SetText(parameters.UnfilteredLinkUrl,TextDataFormat.UnicodeText);
                     break;
 
                 case MenuOpenImageInBrowser:
@@ -66,7 +66,7 @@ namespace TweetDck.Core.Handling{
                     break;
 
                 case MenuCopyImageUrl:
-                    Clipboard.SetText(parameters.SourceUrl,TextDataFormat.Text);
+                    Clipboard.SetText(parameters.SourceUrl,TextDataFormat.UnicodeText);
                     break;
             }
 
