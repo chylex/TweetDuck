@@ -29,7 +29,7 @@
         var menu = $(".js-dropdown-content").children("ul").first();
         if (menu.length === 0)return;
 
-        menu.children(".drp-h-divider").last().after('<li class="is-selectable" data-std><a href="#" data-action>'+$TD.brandName+'</a></li><li class="drp-h-divider"></li>');
+        menu.children(".drp-h-divider").last().after('<li class="is-selectable" data-std><a href="#" data-action>'+$TD.brandName+' settings</a></li><li class="drp-h-divider"></li>');
 
         var tweetDckBtn = menu.children("[data-std]").first();
 
