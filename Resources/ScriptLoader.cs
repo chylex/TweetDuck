@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace TweetDck.Resources{
     static class ScriptLoader{
@@ -12,6 +14,10 @@ namespace TweetDck.Resources{
                 MessageBox.Show("Unfortunately, "+Program.BrandName+" could not load the "+name+" file. The program will continue running with limited functionality.\r\n\r\n"+ex.Message,Program.BrandName+" Has Failed :(",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 return null;
             }
+        }
+
+        public static IList<string> LoadResources(params string[] names){
+            return names.Select(LoadResource).ToList();
         }
     }
 }
