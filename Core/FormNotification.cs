@@ -48,7 +48,7 @@ namespace TweetDck.Core{
         public FormNotification(Form owner, bool autoHide) : this(owner,null,autoHide){}
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
-            if (e.Frame.IsMain && notificationJS != null){
+            if (e.Frame.IsMain && notificationJS != null && browser.Address != "about:blank"){
                 browser.ExecuteScriptAsync(notificationJS);
             }
         }
