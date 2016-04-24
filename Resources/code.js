@@ -204,7 +204,7 @@
       var me = $(this);
       var rel = me.attr("rel");
 
-      if (!me.is(".link-complex") && !(rel === "mediaPreview" && me.closest("#open-modal").length === 0) && rel !== "list"){
+      if (!me.is(".link-complex") && !(rel === "mediaPreview" && me.closest("#open-modal").length === 0) && rel !== "list" && rel !== "user"){
         $TD.openBrowser(me.attr("href"));
       }
 
