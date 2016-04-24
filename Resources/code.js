@@ -200,6 +200,7 @@
         expanded = cutStart(expanded,"http://");
         expanded = cutStart(expanded,"www.");
         
+        me.css("word-break","break-all");
         me.attr("td-prev-text",text);
         me.text(expanded);
       }
