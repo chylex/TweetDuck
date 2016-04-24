@@ -63,6 +63,8 @@
     
     // Finish init
     $TD.loadFontSizeClass(TD.settings.getFontSize());
+    $TD.loadNotificationHeadContents(getNotificationHeadContents());
+    
     isInitialized = true;
   };
   
@@ -173,23 +175,17 @@
   });
   
   //
-  // Block: Observe changes in <html> class to update font size.
+  // Block: Hook into settings object to detect when the settings change.
   //
   TD.settings.setFontSize = extendFunction(TD.settings.setFontSize,function(name){
     $TD.loadFontSizeClass(name);
   });
   
-  //
-  // Block: Observe stylesheet swapping.
-  //
-  new MutationObserver(function(mutations){
-    $TD.loadNotificationHeadContents(getNotificationHeadContents());
-  }).observe(document.head.querySelector("[http-equiv='Default-Style']"),{
-    attributes: true,
-    attributeFilter: [ "content" ]
+  TD.settings.setTheme = extendFunction(TD.settings.setTheme,function(){
+    setTimeout(function(){
+      $TD.loadNotificationHeadContents(getNotificationHeadContents());
+    },0);
   });
-  
-  $TD.loadNotificationHeadContents(getNotificationHeadContents());
   
   //
   // Block: Hook into links to bypass default open function
