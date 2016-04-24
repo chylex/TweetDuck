@@ -1,4 +1,4 @@
-(function($,$TD){
+(function($,$TD,TD){
   //
   // Constant: List of valid font size classes.
   //
@@ -58,16 +58,27 @@
     })();
     
     // Force popup notification settings
-    window.TD.controller.notifications.hasNotifications = function(){
+    TD.controller.notifications.hasNotifications = function(){
       return true;
     };
     
-    window.TD.controller.notifications.isPermissionGranted = function(){
+    TD.controller.notifications.isPermissionGranted = function(){
       return true;
     };
     
     // Finish init
     isInitialized = true;
+  };
+  
+  //
+  // Function: Appends code at the end of a function.
+  //
+  var extendFunction = function(func, extension){
+    return function(){
+      var res = func.apply(this,arguments);
+      extension.apply(this,arguments);
+      return res;
+    };
   };
   
   //
@@ -249,4 +260,4 @@
       e.preventDefault();
     }
   });
-})($,$TD);
+})($,$TD,TD);
