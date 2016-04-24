@@ -143,19 +143,6 @@
   };
   
   //
-  // Function: Retrieves the font size using <html> class attribute.
-  //
-  var getFontSizeClass = function(){
-    for(var index = 0; index < fontSizeClasses.length; index++){
-      if (document.documentElement.classList.contains(fontSizeClasses[index])){
-        return fontSizeClasses[index];
-      }
-    }
-    
-    return fontSizeClasses[0];
-  };
-  
-  //
   // Function: Retrieves the tags to be put into <head> for notification HTML code.
   //
   var getNotificationHeadContents = function(){
