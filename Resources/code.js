@@ -178,6 +178,42 @@
   })();
   
   //
+  // Block: Expand shortened links.
+  //
+  (function(){
+    var cutStart = function(str, search){
+      return _.startsWith(str,search) ? str.substr(search.length) : str;
+    };
+    
+    $(document.body).delegate("a[data-full-url]","mouseenter mouseleave",function(e){
+      var me = $(this);
+
+      if (e.type == "mouseenter"){
+        var text = me.text();
+        
+        if (text.charCodeAt(text.length-1) !== 8230){ // horizontal ellipsis
+          return;
+        }
+        
+        var expanded = me.attr("data-full-url");
+        expanded = cutStart(expanded,"https://");
+        expanded = cutStart(expanded,"http://");
+        expanded = cutStart(expanded,"www.");
+        
+        me.attr("td-prev-text",text);
+        me.text(expanded);
+      }
+      else{
+        var prevText = me.attr("td-prev-text");
+        
+        if (prevText){
+          me.text(prevText);
+        }
+      }
+    });
+  })();
+  
+  //
   // Block: Hook into mp4 video element clicking 
   //
   $(document.body).delegate("video.js-media-gif","click",function(e){
