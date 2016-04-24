@@ -71,14 +71,15 @@ namespace TweetDck.Core{
             }
         }
 
-        public void ShowNotificationForSettings(bool resetAnimation){
+        public void ShowNotificationForSettings(bool reset){
             if (browser.Address == "about:blank"){
                 browser.Load("about:blank"); // required, otherwise shit breaks
-                browser.LoadHtml(TweetNotification.ExampleTweet.GenerateHtml(),"http://tweetdeck.twitter.com/");
-                resetAnimation = true;
+                reset = true;
             }
+            
+            if (reset){
+                browser.LoadHtml(TweetNotification.ExampleTweet.GenerateHtml(),"http://tweetdeck.twitter.com/");
 
-            if (resetAnimation){
                 totalTime = timeLeft = TweetNotification.ExampleTweet.GetDisplayDuration(Program.UserConfig.NotificationDuration);
                 timerProgress.Start();
             }

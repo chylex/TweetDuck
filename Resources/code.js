@@ -10,11 +10,6 @@
   var isInitialized = false;
   
   //
-  // Variable: Previous font size class in the <html> tag.
-  //
-  var prevFontSizeClass;
-  
-  //
   // Function: Initializes TweetD*ck events. Called after the website app is loaded.
   //
   var initializeTweetDck = function(){
@@ -67,6 +62,7 @@
     };
     
     // Finish init
+    $TD.loadFontSizeClass(TD.settings.getFontSize());
     isInitialized = true;
   };
   
@@ -192,16 +188,8 @@
   //
   // Block: Observe changes in <html> class to update font size.
   //
-  new MutationObserver(function(mutations){
-    var fsClass = getFontSizeClass();
-    
-    if (fsClass != prevFontSizeClass){
-      prevFontSizeClass = fsClass;
-      $TD.loadFontSizeClass(fsClass);
-    }
-  }).observe(document.documentElement,{
-    attributes: true,
-    attributeFilter: [ "class" ]
+  TD.settings.setFontSize = extendFunction(TD.settings.setFontSize,function(name){
+    $TD.loadFontSizeClass(name);
   });
   
   //

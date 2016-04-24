@@ -70,7 +70,7 @@ namespace TweetDck.Core.Handling{
         public string GenerateHtml(){
             StringBuilder build = new StringBuilder();
             build.Append("<!DOCTYPE html>");
-            build.Append("<html class='os-windows ").Append(FontSizeClass).Append("'>");
+            build.Append("<html class='os-windows txt-base-").Append(FontSizeClass).Append("'>");
             build.Append("<head>").Append(HeadTag).Append("</head>");
             build.Append("<body class='hearty'><div class='app-columns-container'><div class='column' style='width:100%'>");
             build.Append(html);
