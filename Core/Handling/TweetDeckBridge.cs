@@ -56,6 +56,10 @@ namespace TweetDck.Core.Handling{
             });
         }
 
+        public void OnTweetSound(){
+            Log("sound"); // TODO
+        }
+
         public void OnUpdateAccepted(string versionTag, string downloadUrl){
             form.InvokeSafe(() => {
                 form.BeginUpdateProcess(versionTag,downloadUrl);

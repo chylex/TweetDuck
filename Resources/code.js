@@ -35,31 +35,12 @@
       },0);
     });
     
-    // Tweet notifications
-    (function(){
-      var columns = $(".js-app-columns").first();
-
-      var refreshColumnObservers = function(){
-        columns.children().each(function(){
-          registerTweetObserverForColumn($(this));
-        });
-      };
-
-      new MutationObserver(refreshColumnObservers).observe(columns[0],{
-        childList: true
-      });
-
-      refreshColumnObservers();
-    })();
-    
-    // Force popup notification settings
-    TD.controller.notifications.hasNotifications = function(){
-      return true;
-    };
-    
-    TD.controller.notifications.isPermissionGranted = function(){
-      return true;
-    };
+    // Notification handling
+    $.subscribe("/notifications/new",function(obj){
+      for(var item of obj.items){
+        onNewTweet(obj.column,item);
+      }
+    });
     
     // Finish init
     $TD.loadFontSizeClass(TD.settings.getFontSize());
@@ -80,68 +61,33 @@
   };
   
   //
-  // Function: Registers an observer to a TweetDeck column, which reports new tweets.
-  //
-  var registerTweetObserverForColumn = function(column){
-    if (column[0].hasAttribute("data-std-observed"))return;
-    
-    var mid = column;
-    mid = mid.children().first();
-    mid = mid.children().first();
-    mid = mid.children(".js-column-content").first();
-    mid = mid.children(".js-column-scroller").first();
-    
-    var container = mid.children(".js-chirp-container").first();
-    if (container.length === 0)return;
-    
-    var scroller = container.parent();
-    
-    new MutationObserver(function(mutations){
-      if (!container[0].hasAttribute("data-std-loaded")){
-        container[0].setAttribute("data-std-loaded","");
-        return;
-      }
-      
-      var data = TD.controller.columnManager.get(column.attr("data-column"));
-      if (!data.model.getHasNotification())return;
-      
-      if (scroller.scrollTop() != 0)return;
-      
-      Array.prototype.forEach.call(mutations,function(mutation){
-        Array.prototype.forEach.call(mutation.addedNodes,function(node){
-          if (node.tagName !== "ARTICLE")return;
-          
-          onNewTweet(column,node);
-        });
-      });
-    }).observe(container[0],{
-      childList: true
-    });
-    
-    column[0].setAttribute("data-std-observed","");
-  };
-  
-  //
   // Function: Event callback for a new tweet.
   //
   var onNewTweet = function(column, tweet){
-    var html = $(tweet.outerHTML);
-    var body = html.find(".tweet-body").first();
-    
-    body.children("div.js-quote-detail").each(function(){
-      $(this).html("(quoted tweet)");
-    });
-    
-    body.children().not("p,span,div.js-quote-detail").remove();
-    
-    if (html.find(".icon-reply").length > 0){
-      return; // ignore sent messages
+    if (column.model.getHasNotification()){
+      var html = $(tweet.render({
+        withFooter: false,
+        withTweetActions: false,
+        withMediaPreview: false
+      }));
+
+      html.css("border","0");
+
+      var body = html.find(".tweet-body").first();
+
+      body.children("div.js-quote-detail").each(function(){
+        $(this).html("(quoted tweet)");
+        $(this).removeClass("padding-al");
+        $(this).css("padding","6px");
+      });
+
+      body.children("footer").remove();
+
+      $TD.onTweetPopup(html.html(),tweet.fullLength); // TODO column
     }
-    
-    var characters = html.find(".js-tweet-text:first").text().length;
-    if (characters == 0)return;
-    
-    $TD.onTweetPopup(html.html(),characters); // TODO column & remove pic links from text()
+    else if (column.model.getHasSound()){
+      $TD.onTweetSound(); // TODO disable original
+    }
   };
   
   //
@@ -186,6 +132,17 @@
       $TD.loadNotificationHeadContents(getNotificationHeadContents());
     },0);
   });
+  
+  //
+  // Block: Force popup notification settings
+  //
+  TD.controller.notifications.hasNotifications = function(){
+    return true;
+  };
+
+  TD.controller.notifications.isPermissionGranted = function(){
+    return true;
+  };
   
   //
   // Block: Hook into links to bypass default open function
