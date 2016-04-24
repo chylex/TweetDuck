@@ -178,7 +178,7 @@
   })();
   
   //
-  // Block: Expand shortened links.
+  // Block: Expand shortened links on hover.
   //
   (function(){
     var cutStart = function(str, search){
@@ -188,7 +188,7 @@
     $(document.body).delegate("a[data-full-url]","mouseenter mouseleave",function(e){
       var me = $(this);
 
-      if (e.type == "mouseenter"){
+      if (e.type === "mouseenter"){
         var text = me.text();
         
         if (text.charCodeAt(text.length-1) !== 8230){ // horizontal ellipsis
@@ -204,7 +204,7 @@
         me.attr("td-prev-text",text);
         me.text(expanded);
       }
-      else{
+      else if (e.type === "mouseleave"){
         var prevText = me.attr("td-prev-text");
         
         if (prevText){
@@ -213,6 +213,13 @@
       }
     });
   })();
+  
+  //
+  // Block: Allow bypassing of t.co in context menus.
+  //
+  $(document.body).delegate("a","contextmenu",function(){
+    $TD.setLastRightClickedLink($(this).attr("data-full-url") || "");
+  });
   
   //
   // Block: Hook into mp4 video element clicking 

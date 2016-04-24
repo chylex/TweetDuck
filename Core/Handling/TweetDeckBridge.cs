@@ -2,6 +2,8 @@
 
 namespace TweetDck.Core.Handling{
     class TweetDeckBridge{
+        public static string LastRightClickedLink = string.Empty;
+
         private readonly FormBrowser form;
 
         public string BrandName{
@@ -41,6 +43,12 @@ namespace TweetDck.Core.Handling{
         public void LoadNotificationHeadContents(string headContents){
             form.InvokeSafe(() => {
                TweetNotification.SetHeadTag(headContents); 
+            });
+        }
+
+        public void SetLastRightClickedLink(string link){
+            form.InvokeSafe(() => {
+                LastRightClickedLink = link; 
             });
         }
 
