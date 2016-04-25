@@ -28,7 +28,7 @@ namespace TweetDck.Core {
             this.components = new System.ComponentModel.Container();
             this.panelBrowser = new System.Windows.Forms.Panel();
             this.timerProgress = new System.Windows.Forms.Timer(this.components);
-            this.progressBarTimer = new FlatProgressBar();
+            this.progressBarTimer = new TweetDck.Core.Controls.FlatProgressBar();
             this.SuspendLayout();
             // 
             // panelBrowser
@@ -68,6 +68,8 @@ namespace TweetDck.Core {
             this.Controls.Add(this.panelBrowser);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Location = new System.Drawing.Point(-32000, -32000);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FormNotification";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
