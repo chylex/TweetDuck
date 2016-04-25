@@ -45,9 +45,18 @@
   };
   
   //
+  // Function: Prepends code at the beginning of a function. If the prepended function returns true, execution of the original function is cancelled.
+  //
+  var prependToFunction = function(func, extension){
+    return function(){
+      return extension.apply(this,arguments) === true ? undefined : func.apply(this,arguments);
+    };
+  };
+  
+  //
   // Function: Appends code at the end of a function.
   //
-  var extendFunction = function(func, extension){
+  var appendToFunction = function(func, extension){
     return function(){
       var res = func.apply(this,arguments);
       extension.apply(this,arguments);
@@ -118,11 +127,11 @@
   //
   // Block: Hook into settings object to detect when the settings change.
   //
-  TD.settings.setFontSize = extendFunction(TD.settings.setFontSize,function(name){
+  TD.settings.setFontSize = appendToFunction(TD.settings.setFontSize,function(name){
     $TD.loadFontSizeClass(name);
   });
   
-  TD.settings.setTheme = extendFunction(TD.settings.setTheme,function(){
+  TD.settings.setTheme = appendToFunction(TD.settings.setTheme,function(){
     setTimeout(function(){
       $TD.loadNotificationHeadContents(getNotificationHeadContents());
     },0);
