@@ -75,9 +75,9 @@
             // 
             // labelDisplay
             // 
-            this.labelDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelDisplay.AutoSize = true;
-            this.labelDisplay.Location = new System.Drawing.Point(6, 154);
+            this.labelDisplay.Location = new System.Drawing.Point(6, 148);
+            this.labelDisplay.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelDisplay.Name = "labelDisplay";
             this.labelDisplay.Size = new System.Drawing.Size(41, 13);
             this.labelDisplay.TabIndex = 8;
@@ -89,8 +89,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxDisplay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxDisplay.FormattingEnabled = true;
-            this.comboBoxDisplay.Location = new System.Drawing.Point(9, 170);
-            this.comboBoxDisplay.Margin = new System.Windows.Forms.Padding(3, 3, 3, 12);
+            this.comboBoxDisplay.Location = new System.Drawing.Point(9, 164);
             this.comboBoxDisplay.Name = "comboBoxDisplay";
             this.comboBoxDisplay.Size = new System.Drawing.Size(168, 21);
             this.comboBoxDisplay.TabIndex = 7;
@@ -98,9 +97,9 @@
             // 
             // labelEdgeDistance
             // 
-            this.labelEdgeDistance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelEdgeDistance.AutoSize = true;
-            this.labelEdgeDistance.Location = new System.Drawing.Point(6, 203);
+            this.labelEdgeDistance.Location = new System.Drawing.Point(6, 197);
+            this.labelEdgeDistance.Margin = new System.Windows.Forms.Padding(3, 9, 3, 0);
             this.labelEdgeDistance.Name = "labelEdgeDistance";
             this.labelEdgeDistance.Size = new System.Drawing.Size(103, 13);
             this.labelEdgeDistance.TabIndex = 6;
@@ -108,10 +107,10 @@
             // 
             // trackBarEdgeDistance
             // 
-            this.trackBarEdgeDistance.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.trackBarEdgeDistance.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBarEdgeDistance.LargeChange = 8;
-            this.trackBarEdgeDistance.Location = new System.Drawing.Point(6, 219);
+            this.trackBarEdgeDistance.Location = new System.Drawing.Point(6, 213);
             this.trackBarEdgeDistance.Maximum = 40;
             this.trackBarEdgeDistance.Minimum = 8;
             this.trackBarEdgeDistance.Name = "trackBarEdgeDistance";
@@ -229,10 +228,23 @@
             this.groupUserInterface.TabStop = false;
             this.groupUserInterface.Text = "User Interface";
             // 
+            // checkUpdateNotifications
+            // 
+            this.checkUpdateNotifications.AutoSize = true;
+            this.checkUpdateNotifications.Location = new System.Drawing.Point(6, 45);
+            this.checkUpdateNotifications.Margin = new System.Windows.Forms.Padding(3, 4, 3, 3);
+            this.checkUpdateNotifications.Name = "checkUpdateNotifications";
+            this.checkUpdateNotifications.Size = new System.Drawing.Size(115, 17);
+            this.checkUpdateNotifications.TabIndex = 5;
+            this.checkUpdateNotifications.Text = "Check for Updates";
+            this.checkUpdateNotifications.UseVisualStyleBackColor = true;
+            this.checkUpdateNotifications.CheckedChanged += new System.EventHandler(this.checkUpdateNotifications_CheckedChanged);
+            // 
             // checkNotificationTimer
             // 
             this.checkNotificationTimer.AutoSize = true;
-            this.checkNotificationTimer.Location = new System.Drawing.Point(6, 43);
+            this.checkNotificationTimer.Location = new System.Drawing.Point(6, 21);
+            this.checkNotificationTimer.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.checkNotificationTimer.Name = "checkNotificationTimer";
             this.checkNotificationTimer.Size = new System.Drawing.Size(145, 17);
             this.checkNotificationTimer.TabIndex = 4;
@@ -318,16 +330,7 @@
             this.radioDurShort.CheckedChanged += new System.EventHandler(this.radioDur_CheckedChanged);
             this.radioDurShort.Click += new System.EventHandler(this.radioDur_Click);
             // 
-            // checkUpdateNotifications
             // 
-            this.checkUpdateNotifications.AutoSize = true;
-            this.checkUpdateNotifications.Location = new System.Drawing.Point(6, 67);
-            this.checkUpdateNotifications.Name = "checkUpdateNotifications";
-            this.checkUpdateNotifications.Size = new System.Drawing.Size(122, 17);
-            this.checkUpdateNotifications.TabIndex = 5;
-            this.checkUpdateNotifications.Text = "Check for Updates";
-            this.checkUpdateNotifications.UseVisualStyleBackColor = true;
-            this.checkUpdateNotifications.CheckedChanged += new System.EventHandler(this.checkUpdateNotifications_CheckedChanged);
             // 
             // FormSettings
             // 
