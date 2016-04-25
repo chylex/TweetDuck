@@ -181,6 +181,16 @@
     };
   })();
   
+  TD.util.maybeOpenClickExternally = prependToFunction(TD.util.maybeOpenClickExternally,function(e){
+    if (e.ctrlKey){
+      $TD.openBrowser(e.currentTarget.getAttribute("href"));
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+      return true;
+    }
+  });
+  
   //
   // Block: Expand shortened links on hover.
   //
