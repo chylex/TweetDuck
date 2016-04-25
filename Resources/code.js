@@ -1,10 +1,5 @@
 (function($,$TD,TD){
   //
-  // Constant: List of valid font size classes.
-  //
-  var fontSizeClasses = [ "txt-base-smallest", "txt-base-small", "txt-base-medium", "txt-base-large", "txt-base-largest" ];
-  
-  //
   // Variable: Says whether TweetD*ck events was initialized.
   //
   var isInitialized = false;
