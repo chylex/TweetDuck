@@ -42,16 +42,15 @@ namespace TweetDck.Core{
 
             panelBrowser.Controls.Add(browser);
 
+            if (autoHide){
+                Program.UserConfig.MuteToggled += Config_MuteToggled;
+                Disposed += (sender, args) => Program.UserConfig.MuteToggled -= Config_MuteToggled;
+            }
+
             Disposed += (sender, args) => browser.Dispose();
         }
 
         public FormNotification(Form owner, bool autoHide) : this(owner,null,autoHide){}
-
-        private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
-            if (e.Frame.IsMain && notificationJS != null && browser.Address != "about:blank"){
-                browser.ExecuteScriptAsync(notificationJS);
-            }
-        }
 
         protected override void WndProc(ref Message m){
             if (m.Msg == 0x0112 && (m.WParam.ToInt32() & 0xFFF0) == 0xF010 && !CanMoveWindow()){ // WM_SYSCOMMAND, SC_MOVE
@@ -61,13 +60,64 @@ namespace TweetDck.Core{
             base.WndProc(ref m);
         }
 
+        // event handlers
+
+        private void timerHideProgress_Tick(object sender, EventArgs e){
+            if (Bounds.Contains(Cursor.Position))return;
+
+            timeLeft -= timerProgress.Interval;
+            progressBarTimer.SetValueInstant((int)Math.Min(1000,Math.Round(1050.0*(totalTime-timeLeft)/totalTime)));
+
+            if (timeLeft <= 0){
+                if (tweetQueue.Count > 0){
+                    LoadNextNotification();
+                }
+                else if (autoHide){
+                    HideNotification();
+                }
+            }
+        }
+
+        private void Config_MuteToggled(object sender, EventArgs e){
+            if (Program.UserConfig.MuteNotifications){
+                HideNotification();
+            }
+            else{
+                if (tweetQueue.Count > 0){
+                    MoveToVisibleLocation();
+                    LoadNextNotification();
+                }
+            }
+        }
+
+        private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
+            if (e.Frame.IsMain && notificationJS != null && browser.Address != "about:blank"){
+                browser.ExecuteScriptAsync(notificationJS);
+            }
+        }
+
+        private void FormNotification_FormClosing(object sender, FormClosingEventArgs e){
+            if (e.CloseReason == CloseReason.UserClosing){
+                HideNotification();
+                tweetQueue.Clear();
+                e.Cancel = true;
+            }
+        }
+
+        // notification methods
+
         public void ShowNotification(TweetNotification notification){
-            MoveToVisibleLocation();
+            if (Program.UserConfig.MuteNotifications){
+                tweetQueue.Enqueue(notification);
+            }
+            else{
+                MoveToVisibleLocation();
 
-            tweetQueue.Enqueue(notification);
+                tweetQueue.Enqueue(notification);
 
-            if (!timerProgress.Enabled){
-                LoadNextNotification();
+                if (!timerProgress.Enabled){
+                    LoadNextNotification();
+                }
             }
         }
 
@@ -109,6 +159,8 @@ namespace TweetDck.Core{
         }
 
         private void MoveToVisibleLocation(){
+            bool needsReactivating = Location.X == -32000;
+
             UserConfig config = Program.UserConfig;
             Screen screen = Screen.FromControl(owner);
 
@@ -154,33 +206,11 @@ namespace TweetDck.Core{
                     break;
             }
 
-            bool ownerHadFocus = owner.ContainsFocus && owner.WindowState != FormWindowState.Minimized;
-            TopMost = true;
+            if (needsReactivating){
+                // TODO bool ownerHadFocus = owner.ContainsFocus && owner.WindowState != FormWindowState.Minimized;
+                TopMost = true;
 
-            if (ownerHadFocus)owner.Focus();
-        }
-
-        private void timerHideProgress_Tick(object sender, EventArgs e){
-            if (Bounds.Contains(Cursor.Position))return;
-
-            timeLeft -= timerProgress.Interval;
-            progressBarTimer.SetValueInstant((int)Math.Min(1000,Math.Round(1050.0*(totalTime-timeLeft)/totalTime)));
-
-            if (timeLeft <= 0){
-                if (tweetQueue.Count > 0){
-                    LoadNextNotification();
-                }
-                else if (autoHide){
-                    HideNotification();
-                }
-            }
-        }
-
-        private void FormNotification_FormClosing(object sender, FormClosingEventArgs e){
-            if (e.CloseReason == CloseReason.UserClosing){
-                HideNotification();
-                tweetQueue.Clear();
-                e.Cancel = true;
+                // TODO if (ownerHadFocus)owner.Focus();
             }
         }
     }

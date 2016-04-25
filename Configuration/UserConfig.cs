@@ -46,13 +46,33 @@ namespace TweetDck.Configuration{
                 return CustomNotificationPosition.X != -32000 && CustomNotificationPosition.X != 32000;
             }
         }
+        
+        public bool MuteNotifications{
+            get{
+                return muteNotifications;
+            }
+
+            set{
+                if (muteNotifications == value)return;
+
+                muteNotifications = value;
+
+                if (MuteToggled != null){
+                    MuteToggled(this,new EventArgs());
+                }
+            }
+        }
 
         // END OF CONFIGURATION
+        
+        [field:NonSerialized]
+        public event EventHandler MuteToggled;
 
         [NonSerialized]
         private string file;
 
         private int fileVersion;
+        private bool muteNotifications;
 
         private UserConfig(string file){
             this.file = file;

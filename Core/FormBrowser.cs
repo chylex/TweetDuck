@@ -9,6 +9,7 @@ using TweetDck.Core.Other;
 using TweetDck.Resources;
 using TweetDck.Core.Utils;
 using TweetDck.Core.Controls;
+using System.ComponentModel;
 
 namespace TweetDck.Core{
     sealed partial class FormBrowser : Form{
@@ -128,6 +129,15 @@ namespace TweetDck.Core{
             }
         }
 
+        private void contextMenuTray_Opening(object sender, CancelEventArgs e){
+            muteNotificationsToolStripMenuItem.CheckedChanged -= muteNotificationsToolStripMenuItem_CheckedChanged;
+            muteNotificationsToolStripMenuItem.Checked = Program.UserConfig.MuteNotifications;
+        }
+
+        private void contextMenuTray_Opened(object sender, EventArgs e){
+            muteNotificationsToolStripMenuItem.CheckedChanged += muteNotificationsToolStripMenuItem_CheckedChanged;
+        }
+
         private void restoreToolStripMenuItem_Click(object sender, EventArgs e){
             isLoaded = false;
             Show();
@@ -135,6 +145,11 @@ namespace TweetDck.Core{
             Activate();
 
             trayIcon.Visible = false;
+        }
+
+        private void muteNotificationsToolStripMenuItem_CheckedChanged(object sender, EventArgs e){
+            Program.UserConfig.MuteNotifications = muteNotificationsToolStripMenuItem.Checked;
+            Program.UserConfig.Save();
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e){

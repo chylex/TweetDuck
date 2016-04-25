@@ -4,6 +4,7 @@ namespace TweetDck.Core.Handling{
     class ContextMenuBrowser : ContextMenuBase{
         private const int MenuSettings = 26600;
         private const int MenuAbout = 26601;
+        private const int MenuMute = 26602;
 
         private readonly FormBrowser form;
 
@@ -22,6 +23,8 @@ namespace TweetDck.Core.Handling{
             base.OnBeforeContextMenu(browserControl,browser,frame,parameters,model);
             
             model.AddItem(CefMenuCommand.Reload,"Reload");
+            model.AddCheckItem((CefMenuCommand)MenuMute,"Mute Notifications");
+            model.SetChecked((CefMenuCommand)MenuMute,Program.UserConfig.MuteNotifications);
             model.AddSeparator();
 
             if (TweetNotification.IsReady){
@@ -47,6 +50,14 @@ namespace TweetDck.Core.Handling{
                 case MenuAbout:
                     form.InvokeSafe(() => {
                         form.OpenAbout();
+                    });
+
+                    return true;
+
+                case MenuMute:
+                    form.InvokeSafe(() => {
+                        Program.UserConfig.MuteNotifications = !Program.UserConfig.MuteNotifications;
+                        Program.UserConfig.Save();
                     });
 
                     return true;
