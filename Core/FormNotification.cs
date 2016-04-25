@@ -21,6 +21,12 @@ namespace TweetDck.Core{
 
         private readonly string notificationJS;
 
+        protected override bool ShowWithoutActivation{
+            get{
+                return true;
+            }
+        }
+
         public FormNotification(Form owner, TweetDeckBridge bridge, bool autoHide){
             InitializeComponent();
 
@@ -141,7 +147,6 @@ namespace TweetDck.Core{
         public void HideNotification(){
             browser.LoadHtml("","about:blank");
             Location = new Point(-32000,-32000);
-            TopMost = false;
             timerProgress.Stop();
         }
 
@@ -210,10 +215,7 @@ namespace TweetDck.Core{
             }
 
             if (needsReactivating){
-                // TODO bool ownerHadFocus = owner.ContainsFocus && owner.WindowState != FormWindowState.Minimized;
-                TopMost = true;
-
-                // TODO if (ownerHadFocus)owner.Focus();
+                Program.SetWindowPos(Handle.ToInt32(),-1,Left,Top,Width,Height,0x0010); // HWND_TOPMOST, SWP_NOACTIVATE
             }
         }
 
