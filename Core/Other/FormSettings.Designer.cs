@@ -325,7 +325,7 @@
             this.checkUpdateNotifications.Name = "checkUpdateNotifications";
             this.checkUpdateNotifications.Size = new System.Drawing.Size(122, 17);
             this.checkUpdateNotifications.TabIndex = 5;
-            this.checkUpdateNotifications.Text = "Update Notifications";
+            this.checkUpdateNotifications.Text = "Check for Updates";
             this.checkUpdateNotifications.UseVisualStyleBackColor = true;
             this.checkUpdateNotifications.CheckedChanged += new System.EventHandler(this.checkUpdateNotifications_CheckedChanged);
             // 
