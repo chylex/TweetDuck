@@ -201,6 +201,10 @@ namespace TweetDck.Core{
             notification.ShowNotification(tweet);
         }
 
+        public void OnTweetSound(){
+            
+        }
+
         public void BeginUpdateProcess(string versionTag, string downloadUrl){
             Hide();
 

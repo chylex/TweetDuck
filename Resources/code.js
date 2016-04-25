@@ -236,6 +236,13 @@
   });
   
   //
+  // Block: Hook into the notification sound effect.
+  //
+  document.getElementById("update-sound").play = function(){
+    $TD.onTweetSound();
+  };
+  
+  //
   // Block: Hook into mp4 video element clicking 
   //
   $(document.body).delegate("video.js-media-gif","click",function(e){
