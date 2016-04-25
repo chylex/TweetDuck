@@ -114,6 +114,7 @@ namespace TweetDck.Core{
                 MoveToVisibleLocation();
 
                 tweetQueue.Enqueue(notification);
+                UpdateTitle();
 
                 if (!timerProgress.Enabled){
                     LoadNextNotification();
@@ -156,6 +157,8 @@ namespace TweetDck.Core{
             totalTime = timeLeft = tweet.GetDisplayDuration(Program.UserConfig.NotificationDuration);
             timerProgress.Stop();
             timerProgress.Start();
+
+            UpdateTitle();
         }
 
         private void MoveToVisibleLocation(){
@@ -212,6 +215,10 @@ namespace TweetDck.Core{
 
                 // TODO if (ownerHadFocus)owner.Focus();
             }
+        }
+
+        private void UpdateTitle(){
+            Text = tweetQueue.Count > 0 ? Program.BrandName+" ("+tweetQueue.Count+" more left)" : Program.BrandName;
         }
     }
 }
