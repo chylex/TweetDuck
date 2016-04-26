@@ -82,7 +82,7 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.progressDownload);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = global::TweetDck.Properties.Resources.icon;
+            this.Icon = ((System.Drawing.Icon)(TweetDck.Properties.Resources.ResourceManager.GetObject("icon")));
             this.MaximizeBox = false;
             this.Name = "FormUpdateDownload";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;

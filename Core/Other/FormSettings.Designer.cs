@@ -352,7 +352,7 @@
             this.ClientSize = new System.Drawing.Size(384, 282);
             this.Controls.Add(this.tableLayout);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = global::TweetDck.Properties.Resources.icon;
+            this.Icon = ((System.Drawing.Icon)(TweetDck.Properties.Resources.ResourceManager.GetObject("icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormSettings";
