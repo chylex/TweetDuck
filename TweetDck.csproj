@@ -131,6 +131,12 @@
     <Compile Include="Core\Other\FormUpdateDownload.Designer.cs">
       <DependentUpon>FormUpdateDownload.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\TrayIcon.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Core\TrayIcon.Designer.cs">
+      <DependentUpon>TrayIcon.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\Utils\BrowserUtils.cs" />
     <Compile Include="Core\Utils\UpdateInfo.cs" />
     <Compile Include="Migration\FormMigrationQuestion.cs">

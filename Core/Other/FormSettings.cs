@@ -53,8 +53,13 @@ namespace TweetDck.Core.Other{
 
             comboBoxDisplay.SelectedIndex = Math.Min(comboBoxDisplay.Items.Count-1,Config.NotificationDisplay);
 
+            comboBoxTrayType.Items.Add("Disabled");
+            comboBoxTrayType.Items.Add("Display Icon Only");
+            comboBoxTrayType.Items.Add("Minimize to Tray");
+            comboBoxTrayType.Items.Add("Close to Tray");
+            comboBoxTrayType.SelectedIndex = Math.Min(Math.Max((int)Config.TrayBehavior,0),comboBoxTrayType.Items.Count-1);
+
             trackBarEdgeDistance.Value = Config.NotificationEdgeDistance;
-            checkMinimizeTray.Checked = Config.MinimizeToTray;
             checkNotificationTimer.Checked = Config.DisplayNotificationTimer;
             checkUpdateNotifications.Checked = Config.EnableUpdateCheck;
         }
@@ -119,10 +124,10 @@ namespace TweetDck.Core.Other{
             notification.ShowNotificationForSettings(true);
         }
 
-        private void checkMinimizeTray_CheckedChanged(object sender, EventArgs e){
+        private void comboBoxTrayType_SelectedIndexChanged(object sender, EventArgs e){
             if (!isLoaded)return;
 
-            Config.MinimizeToTray = checkMinimizeTray.Checked;
+            Config.TrayBehavior = (TrayIcon.Behavior)comboBoxTrayType.SelectedIndex;
         }
 
         private void checkNotificationTimer_CheckedChanged(object sender, EventArgs e){

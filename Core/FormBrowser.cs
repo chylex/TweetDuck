@@ -47,10 +47,14 @@ namespace TweetDck.Core{
 
             Disposed += (sender, args) => browser.Dispose();
 
+            trayIcon.ClickRestore += trayIcon_ClickRestore;
+            trayIcon.ClickClose += trayIcon_ClickClose;
+            Config.TrayBehaviorChanged += Config_TrayBehaviorChanged;
+
+            UpdateTrayIcon();
+
             notification = new FormNotification(this,bridge,true){ CanMoveWindow = () => false };
             notification.Show();
-
-            trayIcon.Text = Program.BrandName;
         }
 
         private void ShowChildForm(Form form){
@@ -77,6 +81,10 @@ namespace TweetDck.Core{
             isLoaded = true;
         }
 
+        private void UpdateTrayIcon(){
+            trayIcon.Visible = Config.TrayBehavior != TrayIcon.Behavior.Disabled;
+        }
+
         // active event handlers
 
         private void Browser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e){
@@ -101,9 +109,8 @@ namespace TweetDck.Core{
                 prevState = WindowState;
 
                 if (WindowState == FormWindowState.Minimized){
-                    if (Config.MinimizeToTray){
+                    if (Config.TrayBehavior == TrayIcon.Behavior.MinimizeToTray){
                         Hide(); // hides taskbar too?! welp that works I guess
-                        trayIcon.Visible = true;
                     }
                 }
                 else{
@@ -123,36 +130,35 @@ namespace TweetDck.Core{
             }
         }
 
-        private void trayIcon_MouseClick(object sender, MouseEventArgs e){
-            if (e.Button == MouseButtons.Left){
-                restoreToolStripMenuItem_Click(sender,e);
+        private void FormBrowser_FormClosing(object sender, FormClosingEventArgs e){
+            if (!isLoaded)return;
+
+            if (Config.TrayBehavior == TrayIcon.Behavior.CloseToTray && trayIcon.Visible && e.CloseReason == CloseReason.UserClosing){
+                Hide(); // hides taskbar too?! welp that works I guess
+                e.Cancel = true;
             }
         }
 
-        private void contextMenuTray_Opening(object sender, CancelEventArgs e){
-            muteNotificationsToolStripMenuItem.CheckedChanged -= muteNotificationsToolStripMenuItem_CheckedChanged;
-            muteNotificationsToolStripMenuItem.Checked = Program.UserConfig.MuteNotifications;
+        private void Config_TrayBehaviorChanged(object sender, EventArgs e){
+            if (!isLoaded)return;
+            
+            UpdateTrayIcon();
         }
 
-        private void contextMenuTray_Opened(object sender, EventArgs e){
-            muteNotificationsToolStripMenuItem.CheckedChanged += muteNotificationsToolStripMenuItem_CheckedChanged;
-        }
+        private void trayIcon_ClickRestore(object sender, EventArgs e){
+            if (!isLoaded)return;
 
-        private void restoreToolStripMenuItem_Click(object sender, EventArgs e){
             isLoaded = false;
             Show();
             SetupWindow();
             Activate();
-
-            trayIcon.Visible = false;
+            UpdateTrayIcon();
         }
 
-        private void muteNotificationsToolStripMenuItem_CheckedChanged(object sender, EventArgs e){
-            Program.UserConfig.MuteNotifications = muteNotificationsToolStripMenuItem.Checked;
-            Program.UserConfig.Save();
-        }
+        private void trayIcon_ClickClose(object sender, EventArgs e){
+            if (!isLoaded)return;
 
-        private void closeToolStripMenuItem_Click(object sender, EventArgs e){
+            trayIcon.Visible = false; // checked in FormClosing event
             Close();
         }
 

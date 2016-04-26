@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using TweetDck.Core;
 using TweetDck.Core.Handling;
 
 namespace TweetDck.Configuration{
@@ -22,8 +23,6 @@ namespace TweetDck.Configuration{
         public bool IsMaximized { get; set; }
         public Point WindowLocation { get; set; }
         public Size WindowSize { get; set; }
-
-        public bool MinimizeToTray { get; set; }
         public bool DisplayNotificationTimer { get; set; }
 
         public TweetNotification.Duration NotificationDuration { get; set; }
@@ -63,16 +62,36 @@ namespace TweetDck.Configuration{
             }
         }
 
+        public TrayIcon.Behavior TrayBehavior{
+            get{
+                return trayBehavior;
+            }
+
+            set{
+                if (trayBehavior == value)return;
+
+                trayBehavior = value;
+
+                if (TrayBehaviorChanged != null){
+                    TrayBehaviorChanged(this,new EventArgs());
+                }
+            }
+        }
+
         // END OF CONFIGURATION
         
         [field:NonSerialized]
         public event EventHandler MuteToggled;
+        
+        [field:NonSerialized]
+        public event EventHandler TrayBehaviorChanged;
 
         [NonSerialized]
         private string file;
 
         private int fileVersion;
         private bool muteNotifications;
+        private TrayIcon.Behavior trayBehavior;
 
         private UserConfig(string file){
             this.file = file;

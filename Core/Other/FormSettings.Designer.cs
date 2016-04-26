@@ -36,14 +36,15 @@
             this.tableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.tableColumn2Panel = new System.Windows.Forms.Panel();
             this.groupUserInterface = new System.Windows.Forms.GroupBox();
+            this.comboBoxTrayType = new System.Windows.Forms.ComboBox();
+            this.labelTrayType = new System.Windows.Forms.Label();
+            this.checkUpdateNotifications = new System.Windows.Forms.CheckBox();
             this.checkNotificationTimer = new System.Windows.Forms.CheckBox();
-            this.checkMinimizeTray = new System.Windows.Forms.CheckBox();
             this.groupNotificationDuration = new System.Windows.Forms.GroupBox();
             this.radioDurVeryLong = new System.Windows.Forms.RadioButton();
             this.radioDurLong = new System.Windows.Forms.RadioButton();
             this.radioDurMedium = new System.Windows.Forms.RadioButton();
             this.radioDurShort = new System.Windows.Forms.RadioButton();
-            this.checkUpdateNotifications = new System.Windows.Forms.CheckBox();
             this.groupNotificationLocation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).BeginInit();
             this.tableLayout.SuspendLayout();
@@ -218,15 +219,40 @@
             // 
             this.groupUserInterface.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupUserInterface.Controls.Add(this.comboBoxTrayType);
+            this.groupUserInterface.Controls.Add(this.labelTrayType);
             this.groupUserInterface.Controls.Add(this.checkUpdateNotifications);
             this.groupUserInterface.Controls.Add(this.checkNotificationTimer);
-            this.groupUserInterface.Controls.Add(this.checkMinimizeTray);
             this.groupUserInterface.Location = new System.Drawing.Point(3, 128);
             this.groupUserInterface.Name = "groupUserInterface";
             this.groupUserInterface.Size = new System.Drawing.Size(183, 145);
             this.groupUserInterface.TabIndex = 3;
             this.groupUserInterface.TabStop = false;
             this.groupUserInterface.Text = "User Interface";
+            // 
+            // comboBoxTrayType
+            // 
+            this.comboBoxTrayType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxTrayType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxTrayType.FormattingEnabled = true;
+            this.comboBoxTrayType.Location = new System.Drawing.Point(9, 93);
+            this.comboBoxTrayType.Margin = new System.Windows.Forms.Padding(3, 3, 3, 12);
+            this.comboBoxTrayType.Name = "comboBoxTrayType";
+            this.comboBoxTrayType.Size = new System.Drawing.Size(168, 21);
+            this.comboBoxTrayType.TabIndex = 10;
+            this.comboBoxTrayType.SelectedIndexChanged += new System.EventHandler(this.comboBoxTrayType_SelectedIndexChanged);
+            // 
+            // labelTrayType
+            // 
+            this.labelTrayType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelTrayType.AutoSize = true;
+            this.labelTrayType.Location = new System.Drawing.Point(6, 77);
+            this.labelTrayType.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
+            this.labelTrayType.Name = "labelTrayType";
+            this.labelTrayType.Size = new System.Drawing.Size(52, 13);
+            this.labelTrayType.TabIndex = 9;
+            this.labelTrayType.Text = "Tray Icon";
             // 
             // checkUpdateNotifications
             // 
@@ -251,17 +277,6 @@
             this.checkNotificationTimer.Text = "Display Notification Timer";
             this.checkNotificationTimer.UseVisualStyleBackColor = true;
             this.checkNotificationTimer.CheckedChanged += new System.EventHandler(this.checkNotificationTimer_CheckedChanged);
-            // 
-            // checkMinimizeTray
-            // 
-            this.checkMinimizeTray.AutoSize = true;
-            this.checkMinimizeTray.Location = new System.Drawing.Point(6, 20);
-            this.checkMinimizeTray.Name = "checkMinimizeTray";
-            this.checkMinimizeTray.Size = new System.Drawing.Size(102, 17);
-            this.checkMinimizeTray.TabIndex = 0;
-            this.checkMinimizeTray.Text = "Minimize to Tray";
-            this.checkMinimizeTray.UseVisualStyleBackColor = true;
-            this.checkMinimizeTray.CheckedChanged += new System.EventHandler(this.checkMinimizeTray_CheckedChanged);
             // 
             // groupNotificationDuration
             // 
@@ -330,8 +345,6 @@
             this.radioDurShort.CheckedChanged += new System.EventHandler(this.radioDur_CheckedChanged);
             this.radioDurShort.Click += new System.EventHandler(this.radioDur_Click);
             // 
-            // 
-            // 
             // FormSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -378,8 +391,9 @@
         private System.Windows.Forms.RadioButton radioDurLong;
         private System.Windows.Forms.RadioButton radioDurMedium;
         private System.Windows.Forms.RadioButton radioDurShort;
-        private System.Windows.Forms.CheckBox checkMinimizeTray;
         private System.Windows.Forms.CheckBox checkNotificationTimer;
         private System.Windows.Forms.CheckBox checkUpdateNotifications;
+        private System.Windows.Forms.ComboBox comboBoxTrayType;
+        private System.Windows.Forms.Label labelTrayType;
     }
 }
