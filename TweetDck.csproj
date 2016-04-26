@@ -240,9 +240,9 @@
   <Import Project="packages\CefSharp.Common.49.0.0-pre02\build\CefSharp.Common.targets" Condition="Exists('packages\CefSharp.Common.49.0.0-pre02\build\CefSharp.Common.targets')" />
   <PropertyGroup>
     <PostBuildEvent>del "$(TargetPath).config"
-xcopy "$(ProjectDir)LICENSE" "$(TargetDir)" /Y
+xcopy "$(ProjectDir)LICENSE.md" "$(TargetDir)" /Y
 del "$(TargetDir)LICENSE.txt"
-ren "$(TargetDir)LICENSE" "LICENSE.txt"
+ren "$(TargetDir)LICENSE.md" "LICENSE.txt"
 xcopy "$(ProjectDir)Libraries\CEFSHARP-LICENSE.txt" "$(TargetDir)" /Y
 xcopy "$(ProjectDir)packages\Microsoft.VC120.CRT.JetBrains.12.0.21005.2\DotFiles\msvcp120.dll" "$(TargetDir)" /Y
 xcopy "$(ProjectDir)packages\Microsoft.VC120.CRT.JetBrains.12.0.21005.2\DotFiles\msvcr120.dll" "$(TargetDir)" /Y</PostBuildEvent>
