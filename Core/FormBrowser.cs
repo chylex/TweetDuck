@@ -124,8 +124,12 @@ namespace TweetDck.Core{
 
             if (Location.X != -32000){
                 Config.IsMaximized = WindowState == FormWindowState.Maximized;
-                Config.WindowLocation = Location;
-                Config.WindowSize = Size;
+
+                if (WindowState == FormWindowState.Normal){
+                    Config.WindowLocation = Location;
+                    Config.WindowSize = Size;
+                }
+
                 Config.Save();
             }
         }
