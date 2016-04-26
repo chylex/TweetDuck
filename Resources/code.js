@@ -167,10 +167,10 @@
 
       if (!me.is(".link-complex") && !(rel === "mediaPreview" && me.closest("#open-modal").length === 0) && rel !== "list" && rel !== "user"){
         $TD.openBrowser(me.attr("href"));
+        onUrlOpened();
       }
-
+      
       e.preventDefault();
-      onUrlOpened();
     });
     
     window.open = function(url){
@@ -179,17 +179,19 @@
       $TD.openBrowser(url);
       onUrlOpened();
     };
+    
+    TD.util.maybeOpenClickExternally = prependToFunction(TD.util.maybeOpenClickExternally,function(e){
+      if (e.ctrlKey){
+        if (urlWait)return;
+
+        $TD.openBrowser(e.currentTarget.getAttribute("href"));
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        return true;
+      }
+    });
   })();
-  
-  TD.util.maybeOpenClickExternally = prependToFunction(TD.util.maybeOpenClickExternally,function(e){
-    if (e.ctrlKey){
-      $TD.openBrowser(e.currentTarget.getAttribute("href"));
-      e.preventDefault();
-      e.stopPropagation();
-      e.stopImmediatePropagation();
-      return true;
-    }
-  });
   
   //
   // Block: Expand shortened links on hover.
