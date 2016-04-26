@@ -18,6 +18,12 @@ namespace TweetDck.Core.Handling{
             }
         }
 
+        public bool MuteNotifications{
+            get{
+                return Program.UserConfig.MuteNotifications;
+            }
+        }
+
         public bool UpdateCheckEnabled{
             get{
                 return Program.UserConfig.EnableUpdateCheck;

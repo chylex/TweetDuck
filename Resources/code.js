@@ -238,9 +238,17 @@
   //
   // Block: Hook into the notification sound effect.
   //
-  document.getElementById("update-sound").play = function(){
+  (function(){
+    var soundEle = document.getElementById("update-sound");
+    
+    soundEle.play = prependToFunction(soundEle.play,function(){
+      return $TD.muteNotifications;
+    });
+  })();
+  
+  /* TODO document.getElementById("update-sound").play = function(){
     $TD.onTweetSound();
-  };
+  };*/
   
   //
   // Block: Hook into mp4 video element clicking 
