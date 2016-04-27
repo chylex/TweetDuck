@@ -274,6 +274,7 @@
     // change View Conversation
     var footerLayout = TD.mustaches["status/tweet_single_footer.mustache"];
     footerLayout = footerLayout.replace('txt-mute txt-size--12','txt-mute txt-small');
+    footerLayout = footerLayout.replace('{{#inReplyToID}}','{{^inReplyToID}} <a class="pull-left margin-txs txt-mute txt-small is-vishidden-narrow" href="#" rel="viewDetails">{{_i}}Details{{/i}}</a> <a class="pull-left margin-txs txt-mute txt-small is-vishidden is-visshown-narrow" href="#" rel="viewDetails">{{_i}}Open{{/i}}</a> {{/inReplyToID}} {{#inReplyToID}}');
     footerLayout = footerLayout.replace('<span class="link-complex-target"> {{_i}}View Conversation{{/i}}','<i class="icon icon-conversation icon-small-context"></i> <span class="link-complex-target"> <span class="is-vishidden-wide is-vishidden-narrow">{{_i}}View{{/i}}</span> <span class="is-vishidden is-visshown-wide">{{_i}}Conversation{{/i}}</span>');
     TD.mustaches["status/tweet_single_footer.mustache"] = footerLayout;
     
