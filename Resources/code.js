@@ -87,7 +87,7 @@
 
       body.children("footer").remove();
 
-      $TD.onTweetPopup(html.html(),tweet.fullLength); // TODO column
+      $TD.onTweetPopup(html.html(),tweet.text.length); // TODO column
     }
     else if (column.model.getHasSound()){
       $TD.onTweetSound(); // TODO disable original
