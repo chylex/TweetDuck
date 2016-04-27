@@ -281,6 +281,7 @@
     // tweet actions
     sheet.insertRule(".tweet-actions { float: right !important; width: auto !important; visibility: hidden; }",0);
     sheet.insertRule(".tweet-actions:hover { visibility: visible; }",0);
+    sheet.insertRule(".tweet-actions > li:nth-child(4) { margin-right: 2px !important; }",0);
     
     // break long urls
     sheet.insertRule("a[data-full-url] { word-break: break-all; }",0);
