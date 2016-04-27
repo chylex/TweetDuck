@@ -206,6 +206,9 @@
     </ContentWithTargetPath>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Core\FormBrowser.resx">
+      <DependentUpon>FormBrowser.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -223,6 +226,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <TargetPath>update.js</TargetPath>
     </ContentWithTargetPath>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\icon-small.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
