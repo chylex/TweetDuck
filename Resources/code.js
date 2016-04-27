@@ -216,7 +216,6 @@
         expanded = cutStart(expanded,"http://");
         expanded = cutStart(expanded,"www.");
         
-        me.css("word-break","break-all");
         me.attr("td-prev-text",text);
         me.text(expanded);
       }
@@ -281,5 +280,8 @@
     // tweet actions
     sheet.insertRule(".tweet-actions { float: right !important; width: auto !important; visibility: hidden; }",0);
     sheet.insertRule(".tweet-actions:hover { visibility: visible; }",0);
+    
+    // break long urls
+    sheet.insertRule("a[data-full-url] { word-break: break-all; }",0);
   })();
 })($,$TD,TD);
