@@ -56,6 +56,8 @@ namespace TweetDck{
                         MessageBox.Show("Could not close the other process.",BrandName+" Has Failed :(",MessageBoxButtons.OK,MessageBoxIcon.Error);
                         return;
                     }
+
+                    LockManager.Lock();
                 }
                 else return;
             }
