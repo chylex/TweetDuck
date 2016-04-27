@@ -263,4 +263,23 @@
       e.preventDefault();
     }
   });
+  
+  //
+  // Block: Inject custom CSS and layout into the page
+  //
+  (function(){
+    var style = document.createElement("style");
+    document.head.appendChild(style);
+    var sheet = style.sheet;
+    
+    // change View Conversation
+    var footerLayout = TD.mustaches["status/tweet_single_footer.mustache"];
+    footerLayout = footerLayout.replace('txt-mute txt-size--12','txt-mute txt-small');
+    footerLayout = footerLayout.replace('<span class="link-complex-target"> {{_i}}View Conversation{{/i}}','<i class="icon icon-conversation icon-small-context"></i> <span class="link-complex-target"> <span class="is-vishidden-wide is-vishidden-narrow">{{_i}}View{{/i}}</span> <span class="is-vishidden is-visshown-wide">{{_i}}Conversation{{/i}}</span>');
+    TD.mustaches["status/tweet_single_footer.mustache"] = footerLayout;
+    
+    // tweet actions
+    sheet.insertRule(".tweet-actions { float: right !important; width: auto !important; visibility: hidden; }",0);
+    sheet.insertRule(".tweet-actions:hover { visibility: visible; }",0);
+  })();
 })($,$TD,TD);
