@@ -86,7 +86,7 @@
             // 
             // comboBoxDisplay
             // 
-            this.comboBoxDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.comboBoxDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxDisplay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxDisplay.FormattingEnabled = true;
@@ -352,7 +352,7 @@
             this.ClientSize = new System.Drawing.Size(384, 282);
             this.Controls.Add(this.tableLayout);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(TweetDck.Properties.Resources.ResourceManager.GetObject("icon")));
+            this.Icon = global::TweetDck.Properties.Resources.icon;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormSettings";
