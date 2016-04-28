@@ -61,6 +61,7 @@ namespace TweetDck.Core.Other{
 
             trackBarEdgeDistance.Value = Config.NotificationEdgeDistance;
             checkNotificationTimer.Checked = Config.DisplayNotificationTimer;
+            checkExpandLinks.Checked = Config.ExpandLinksOnHover;
             checkUpdateNotifications.Checked = Config.EnableUpdateCheck;
         }
 
@@ -135,6 +136,12 @@ namespace TweetDck.Core.Other{
 
             Config.DisplayNotificationTimer = checkNotificationTimer.Checked;
             notification.ShowNotificationForSettings(true);
+        }
+
+        private void checkExpandLinks_CheckedChanged(object sender, EventArgs e){
+            if (!isLoaded)return;
+
+            Config.ExpandLinksOnHover = checkExpandLinks.Checked;
         }
 
         private void checkUpdateNotifications_CheckedChanged(object sender, EventArgs e){

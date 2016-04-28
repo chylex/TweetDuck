@@ -13,7 +13,7 @@ namespace TweetDck.Configuration{
             Binder = new SerializationCompatibilityHandler()
         };
 
-        private const int CurrentFileVersion = 1;
+        private const int CurrentFileVersion = 2;
 
         // START OF CONFIGURATION
 
@@ -33,6 +33,7 @@ namespace TweetDck.Configuration{
 
         public bool EnableUpdateCheck { get; set; }
         public string DismissedUpdate { get; set; }
+        public bool ExpandLinksOnHover { get; set; }
 
         public bool IsCustomWindowLocationSet{
             get{
@@ -104,6 +105,7 @@ namespace TweetDck.Configuration{
             CustomNotificationPosition = new Point(-32000,-32000);
             NotificationEdgeDistance = 8;
             EnableUpdateCheck = true;
+            ExpandLinksOnHover = true;
         }
 
         private void UpgradeFile(){
@@ -115,6 +117,11 @@ namespace TweetDck.Configuration{
             if (fileVersion == 0){
                 DisplayNotificationTimer = true;
                 EnableUpdateCheck = true;
+                ++fileVersion;
+            }
+
+            if (fileVersion == 1){
+                ExpandLinksOnHover = true;
                 ++fileVersion;
             }
 

@@ -202,6 +202,10 @@
     };
     
     $(document.body).delegate("a[data-full-url]","mouseenter mouseleave",function(e){
+      if (!$TD.expandLinksOnHover){
+        return;
+      }
+      
       var me = $(this);
 
       if (e.type === "mouseenter"){

@@ -30,6 +30,12 @@ namespace TweetDck.Core.Handling{
             }
         }
 
+        public bool ExpandLinksOnHover{
+            get{
+                return Program.UserConfig.ExpandLinksOnHover;
+            }
+        }
+
         public string DismissedVersionTag{
             get{
                 return Program.UserConfig.DismissedUpdate ?? string.Empty;
