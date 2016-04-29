@@ -9,7 +9,6 @@ using TweetDck.Core.Other;
 using TweetDck.Resources;
 using TweetDck.Core.Utils;
 using TweetDck.Core.Controls;
-using System.ComponentModel;
 
 namespace TweetDck.Core{
     sealed partial class FormBrowser : Form{
@@ -38,7 +37,11 @@ namespace TweetDck.Core{
 
             bridge = new TweetDeckBridge(this);
 
-            browser = new ChromiumWebBrowser("https://tweetdeck.twitter.com/"){ MenuHandler = new ContextMenuBrowser(this) };
+            browser = new ChromiumWebBrowser("https://tweetdeck.twitter.com/"){
+                MenuHandler = new ContextMenuBrowser(this),
+                DialogHandler = new DialogHandlerBrowser(this)
+            };
+
             browser.LoadingStateChanged += Browser_LoadingStateChanged;
             browser.FrameLoadEnd += Browser_FrameLoadEnd;
             browser.RegisterJsObject("$TD",bridge);
@@ -213,6 +216,14 @@ namespace TweetDck.Core{
 
         public void OnTweetSound(){
             
+        }
+
+        public void OnImagePasted(){
+            browser.ExecuteScriptAsync("TDGF_tryPasteImage",new object[0]);
+        }
+
+        public void OnImagePastedFinish(){
+            browser.ExecuteScriptAsync("TDGF_tryPasteImageFinish",new object[0]);
         }
 
         public void BeginUpdateProcess(string versionTag, string downloadUrl){

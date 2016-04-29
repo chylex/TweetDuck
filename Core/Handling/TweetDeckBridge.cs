@@ -1,8 +1,14 @@
-﻿using TweetDck.Core.Utils;
+﻿using System;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Windows.Forms;
+using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Handling{
     class TweetDeckBridge{
         public static string LastRightClickedLink = string.Empty;
+        public static string ClipboardImagePath = string.Empty;
 
         private readonly FormBrowser form;
 
@@ -92,6 +98,39 @@ namespace TweetDck.Core.Handling{
             form.InvokeSafe(() => {
                 Program.UserConfig.DismissedUpdate = versionTag;
                 Program.UserConfig.Save();
+            });
+        }
+
+        public void TryPasteImage(){
+            form.InvokeSafe(() => {
+                if (Clipboard.ContainsImage()){
+                    Image img = Clipboard.GetImage();
+                    if (img == null)return;
+
+                    try{
+                        Directory.CreateDirectory(Program.TemporaryPath);
+
+                        ClipboardImagePath = Path.Combine(Program.TemporaryPath,"TD-Img-"+DateTime.Now.Ticks+".png");
+                        img.Save(ClipboardImagePath,ImageFormat.Png);
+
+                        form.OnImagePasted();
+                    }catch(Exception e){
+                        Program.HandleException("Could not paste image from clipboard.",e);
+                    }
+                }
+            });
+        }
+
+        public void ClickUploadImage(int offsetX, int offsetY){
+            form.InvokeSafe(() => {
+                Point prevPos = Cursor.Position;
+
+                Cursor.Position = form.PointToScreen(new Point(offsetX,offsetY));
+                Program.mouse_event(0x02,Cursor.Position.X,Cursor.Position.Y,0,0); // MOUSEEVENTF_LEFTDOWN
+                Program.mouse_event(0x04,Cursor.Position.X,Cursor.Position.Y,0,0); // MOUSEEVENTF_LEFTUP
+
+                Cursor.Position = prevPos;
+                form.OnImagePastedFinish();
             });
         }
 

@@ -99,6 +99,7 @@
       <DependentUpon>FormNotification.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\Handling\ContextMenuNotification.cs" />
+    <Compile Include="Core\Handling\DialogHandlerBrowser.cs" />
     <Compile Include="Core\Handling\TweetNotification.cs" />
     <Compile Include="Core\Controls\RichTextLabel.cs">
       <SubType>Component</SubType>

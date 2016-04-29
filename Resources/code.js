@@ -268,6 +268,64 @@
   });
   
   //
+  // Block: Paste images when tweeting.
+  //
+  (function(){
+    var lastPasteElement;
+    
+    var clickUpload = function(){
+      var buttonPos = $(".js-add-image-button").first().children().first().offset(); // finds the camera icon offset
+      $TD.clickUploadImage(Math.floor(buttonPos.left),Math.floor(buttonPos.top));
+    };
+    
+    $(".js-app").delegate(".js-compose-text","paste",function(e){
+      lastPasteElement = $(this);
+      $TD.tryPasteImage();
+    });
+
+    window.TDGF_tryPasteImage = function(){
+      if (lastPasteElement){
+        var parent = lastPasteElement.parent();
+
+        if (parent.siblings(".js-add-image-button").length === 0){
+          var pop = parent.closest(".js-inline-reply").find(".js-inline-compose-pop");
+
+          if (pop.length === 0){
+            lastPasteElement = null;
+            return;
+          }
+          
+          pop.click();
+          
+          var drawer = $(".js-drawer");
+          var counter = 0;
+          
+          var interval = setInterval(function(){
+            if (drawer.offset().left >= 195){
+              clickUpload();
+              clearInterval(interval);
+            }
+            else if (++counter >= 10){
+              clearInterval(interval);
+            }
+          },51);
+        }
+        else{
+          clickUpload();
+        }
+        
+        lastPasteElement = null;
+      }
+    };
+    
+    window.TDGF_tryPasteImageFinish = function(){
+      setTimeout(function(){
+        $(".js-drawer").find(".js-compose-text").first()[0].focus();
+      },10);
+    };
+  })();
+  
+  //
   // Block: Inject custom CSS and layout into the page
   //
   (function(){

@@ -47,6 +47,9 @@ namespace TweetDck{
         [DllImport("user32.dll", EntryPoint = "SetWindowPos")]
         public static extern bool SetWindowPos(int hWnd, int hWndOrder, int x, int y, int width, int height, uint flags);
 
+        [DllImport("user32.dll")]
+        public static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
+
         [STAThread]
         private static void Main(){
             Application.EnableVisualStyles();
