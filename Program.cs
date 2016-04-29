@@ -26,6 +26,8 @@ namespace TweetDck{
         public const string VersionFull = "1.2.0.0";
 
         public static readonly string StoragePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),BrandName);
+        public static readonly string TemporaryPath = Path.Combine(Path.GetTempPath(),BrandName);
+
         private static readonly LockManager LockManager = new LockManager(Path.Combine(StoragePath,".lock"));
         
         public static UserConfig UserConfig { get; private set; }
@@ -93,7 +95,7 @@ namespace TweetDck{
 
             Application.ApplicationExit += (sender, args) => {
                 UserConfig.Save();
-                LockManager.Unlock();
+                ExitCleanup();
                 Cef.Shutdown();
             };
 
@@ -101,7 +103,7 @@ namespace TweetDck{
             Application.Run(mainForm);
 
             if (mainForm.UpdateInstallerPath != null){
-                Cef.Shutdown();
+                ExitCleanup();
 
                 Process.Start(mainForm.UpdateInstallerPath,"/SP- /SILENT /NOICONS /CLOSEAPPLICATIONS");
                 Application.Exit();
@@ -131,6 +133,19 @@ namespace TweetDck{
             }catch{
                 // oops
             }
+        }
+
+        private static void ExitCleanup(){
+            try{
+                LockManager.Unlock();
+                Directory.Delete(TemporaryPath,true);
+            }catch(DirectoryNotFoundException){
+            }catch(Exception e){
+                // welp, too bad
+                Debug.WriteLine(e.ToString());
+            }
+
+            Cef.Shutdown();
         }
     }
 }
