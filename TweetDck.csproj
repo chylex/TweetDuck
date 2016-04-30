@@ -210,6 +210,12 @@
     <EmbeddedResource Include="Core\FormBrowser.resx">
       <DependentUpon>FormBrowser.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Core\Other\FormSettings.resx">
+      <DependentUpon>FormSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Core\Other\FormUpdateDownload.resx">
+      <DependentUpon>FormUpdateDownload.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
