@@ -272,9 +272,22 @@
   //
   (function(){
     var lastPasteElement;
+    var prevScrollTop;
+    
+    var getScroller = function(){
+      return $(".js-drawer").find(".js-compose-scroller").first().children().first();
+    };
     
     var clickUpload = function(){
-      var buttonPos = $(".js-add-image-button").first().children().first().offset(); // finds the camera icon offset
+      var button = $(".js-add-image-button").first();
+      
+      var scroller = getScroller();
+      prevScrollTop = scroller.scrollTop();
+      
+      scroller.scrollTop(0);
+      scroller.scrollTop(button.offset().top); // scrolls the button into view
+      
+      var buttonPos = button.children().first().offset(); // finds the camera icon offset
       $TD.clickUploadImage(Math.floor(buttonPos.left),Math.floor(buttonPos.top));
     };
     
@@ -320,6 +333,7 @@
     
     window.TDGF_tryPasteImageFinish = function(){
       setTimeout(function(){
+        getScroller().scrollTop(prevScrollTop);
         $(".js-drawer").find(".js-compose-text").first()[0].focus();
       },10);
     };
