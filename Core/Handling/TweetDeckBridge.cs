@@ -126,8 +126,8 @@ namespace TweetDck.Core.Handling{
                 Point prevPos = Cursor.Position;
 
                 Cursor.Position = form.PointToScreen(new Point(offsetX,offsetY));
-                Program.mouse_event(0x02,Cursor.Position.X,Cursor.Position.Y,0,0); // MOUSEEVENTF_LEFTDOWN
-                Program.mouse_event(0x04,Cursor.Position.X,Cursor.Position.Y,0,0); // MOUSEEVENTF_LEFTUP
+                Program.mouse_event(SystemInformation.MouseButtonsSwapped ? 0x08 : 0x02,Cursor.Position.X,Cursor.Position.Y,0,0); // MOUSEEVENTF_RIGHTDOWN | MOUSEEVENTF_LEFTDOWN
+                Program.mouse_event(SystemInformation.MouseButtonsSwapped ? 0x10 : 0x04,Cursor.Position.X,Cursor.Position.Y,0,0); // MOUSEEVENTF_RIGHTUP | MOUSEEVENTF_LEFTUP
 
                 Cursor.Position = prevPos;
                 form.OnImagePastedFinish();
