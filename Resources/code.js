@@ -30,6 +30,11 @@
       },0);
     });
     
+    // Fix layout for right-aligned actions menu
+    $(document).on("uiShowActionsMenu",function(){
+      $(".js-dropdown.pos-r").toggleClass("pos-r pos-l");
+    });
+    
     // Notification handling
     $.subscribe("/notifications/new",function(obj){
       for(var item of obj.items){
