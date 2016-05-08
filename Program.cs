@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using CefSharp;
@@ -37,18 +36,6 @@ namespace TweetDck{
                 return Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"td-log.txt");
             }
         }
-
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
-        public static extern IntPtr LoadLibrary(string name);
-
-        [DllImport("Shell32.dll")]
-        public static extern int SHChangeNotify(int eventId, int flags, IntPtr item1, IntPtr item2);
-
-        [DllImport("user32.dll", EntryPoint = "SetWindowPos")]
-        public static extern bool SetWindowPos(int hWnd, int hWndOrder, int x, int y, int width, int height, uint flags);
-
-        [DllImport("user32.dll")]
-        public static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
 
         [STAThread]
         private static void Main(){

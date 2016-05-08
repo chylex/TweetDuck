@@ -7,6 +7,7 @@ using CefSharp.WinForms;
 using TweetDck.Configuration;
 using TweetDck.Core.Handling;
 using TweetDck.Resources;
+using TweetDck.Core.Utils;
 
 namespace TweetDck.Core{
     sealed partial class FormNotification : Form{
@@ -222,7 +223,7 @@ namespace TweetDck.Core{
             }
 
             if (needsReactivating){
-                Program.SetWindowPos(Handle.ToInt32(),-1,Left,Top,Width,Height,0x0010); // HWND_TOPMOST, SWP_NOACTIVATE
+                NativeMethods.SetFormPos(this,NativeMethods.HWND_TOPMOST,NativeMethods.SWP_NOACTIVATE);
             }
         }
 

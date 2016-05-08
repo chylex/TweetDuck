@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 using TweetDck.Core.Other;
 using TweetDck.Migration.Helpers;
+using TweetDck.Core.Utils;
 
 namespace TweetDck.Migration{
     static class MigrationManager{
@@ -143,7 +144,7 @@ namespace TweetDck.Migration{
                         }
                     }
 
-                    Program.SHChangeNotify(0x8000000,0x1000,IntPtr.Zero,IntPtr.Zero); // refreshes desktop
+                    NativeMethods.SHChangeNotify(0x8000000,0x1000,IntPtr.Zero,IntPtr.Zero); // refreshes desktop
 
                     // uninstall in the background
                     string guid = ProgramRegistrySearch.FindByDisplayName("TweetDeck");

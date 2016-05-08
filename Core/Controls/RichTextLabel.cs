@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Controls{
     public partial class RichTextLabel : RichTextBox{
@@ -27,7 +28,7 @@ namespace TweetDck.Core.Controls{
             get{
                 CreateParams createParams = base.CreateParams;
 
-                if (Program.LoadLibrary("msftedit.dll") != IntPtr.Zero){
+                if (NativeMethods.LoadLibrary("msftedit.dll") != IntPtr.Zero){
                     createParams.ClassName = "RICHEDIT50W";
                 }
 
