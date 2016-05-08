@@ -211,6 +211,9 @@
     <EmbeddedResource Include="Core\FormBrowser.resx">
       <DependentUpon>FormBrowser.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Core\Other\FormAbout.resx">
+      <DependentUpon>FormAbout.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Core\Other\FormSettings.resx">
       <DependentUpon>FormSettings.cs</DependentUpon>
     </EmbeddedResource>
