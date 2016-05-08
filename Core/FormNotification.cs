@@ -27,6 +27,8 @@ namespace TweetDck.Core{
             }
         }
 
+        public bool FreezeTimer { get; set; }
+
         public FormNotification(Form owner, TweetDeckBridge bridge, bool autoHide){
             InitializeComponent();
 
@@ -39,7 +41,7 @@ namespace TweetDck.Core{
 
             notificationJS = ScriptLoader.LoadResource("notification.js");
 
-            browser = new ChromiumWebBrowser("about:blank"){ MenuHandler = new ContextMenuNotification() };
+            browser = new ChromiumWebBrowser("about:blank"){ MenuHandler = new ContextMenuNotification(this,autoHide) };
             browser.FrameLoadEnd += Browser_FrameLoadEnd;
 
             if (bridge != null){
@@ -69,18 +71,13 @@ namespace TweetDck.Core{
         // event handlers
 
         private void timerHideProgress_Tick(object sender, EventArgs e){
-            if (Bounds.Contains(Cursor.Position))return;
+            if (Bounds.Contains(Cursor.Position) || FreezeTimer)return;
 
             timeLeft -= timerProgress.Interval;
             progressBarTimer.SetValueInstant((int)Math.Min(1000,Math.Round(1050.0*(totalTime-timeLeft)/totalTime)));
 
             if (timeLeft <= 0){
-                if (tweetQueue.Count > 0){
-                    LoadNextNotification();
-                }
-                else if (autoHide){
-                    HideNotification();
-                }
+                FinishCurrentTweet();
             }
         }
 
@@ -137,7 +134,7 @@ namespace TweetDck.Core{
             if (reset){
                 browser.LoadHtml(TweetNotification.ExampleTweet.GenerateHtml(),"http://tweetdeck.twitter.com/");
 
-                totalTime = timeLeft = TweetNotification.ExampleTweet.GetDisplayDuration(Program.UserConfig.NotificationDuration);
+                ResetTimerValue(TweetNotification.ExampleTweet.GetDisplayDuration(Program.UserConfig.NotificationDuration));
                 timerProgress.Start();
             }
 
@@ -147,7 +144,17 @@ namespace TweetDck.Core{
         public void HideNotification(){
             browser.LoadHtml("","about:blank");
             Location = new Point(-32000,-32000);
+            progressBarTimer.Value = 0;
             timerProgress.Stop();
+        }
+
+        public void FinishCurrentTweet(){
+            if (tweetQueue.Count > 0){
+                LoadNextNotification();
+            }
+            else if (autoHide){
+                HideNotification();
+            }
         }
 
         private void LoadNextNotification(){
@@ -159,7 +166,7 @@ namespace TweetDck.Core{
 
             browser.LoadHtml(tweet.GenerateHtml(),"http://tweetdeck.twitter.com/");
 
-            totalTime = timeLeft = tweet.GetDisplayDuration(Program.UserConfig.NotificationDuration);
+            ResetTimerValue(tweet.GetDisplayDuration(Program.UserConfig.NotificationDuration));
             timerProgress.Stop();
             timerProgress.Start();
 
@@ -221,6 +228,11 @@ namespace TweetDck.Core{
 
         private void UpdateTitle(){
             Text = tweetQueue.Count > 0 ? Program.BrandName+" ("+tweetQueue.Count+" more left)" : Program.BrandName;
+        }
+
+        private void ResetTimerValue(int newTimeLeft){
+            totalTime = timeLeft = newTimeLeft;
+            progressBarTimer.Value = 0;
         }
     }
 }
