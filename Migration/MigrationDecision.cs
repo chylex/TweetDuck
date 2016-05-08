@@ -9,11 +9,6 @@
         /// Does exactly what <see cref="Migrate"/> does, but also silently uninstalls TweetDeck.
         /// </summary>
         MigratePurge,
-        
-        /// <summary>
-        /// Copies the important files without deleting the TweetDeck folder.
-        /// </summary>
-        Copy,
 
         /// <summary>
         /// Does not copy any files and does not ask the user about data migration again.

@@ -10,7 +10,7 @@ namespace TweetDck.Migration{
         public FormMigrationQuestion(){
             InitializeComponent();
 
-            labelQuestion.Rtf = RichTextLabel.Wrap(@"Hey there, I found some TweetDeck data! Do you want to \b Migrate\b0  it and delete the old data folder, \b Copy\b0  it and keep the folder, \b Ignore\b0  the request forever, or do you need some more time for the decision?\par You may also \b Migrate & Purge\b0  which uninstalls TweetDeck too!");
+            labelQuestion.Rtf = RichTextLabel.Wrap(@"Hey there, I found some TweetDeck data! Do you want to \b Migrate\b0  it and delete the old data folder, \b Ignore\b0  the request forever, or just try "+Program.BrandName+@" first?\par You may also \b Migrate & Purge\b0  which uninstalls TweetDeck too!");
         }
 
         protected override void OnPaint(PaintEventArgs e){
@@ -24,10 +24,6 @@ namespace TweetDck.Migration{
 
         private void btnMigrate_Click(object sender, EventArgs e){
             Close(MigrationDecision.Migrate);
-        }
-
-        private void btnCopy_Click(object sender, EventArgs e){
-            Close(MigrationDecision.Copy);
         }
 
         private void btnIgnore_Click(object sender, EventArgs e){

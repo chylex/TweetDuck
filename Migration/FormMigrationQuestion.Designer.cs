@@ -28,10 +28,9 @@ namespace TweetDck.Migration {
             this.btnIgnore = new System.Windows.Forms.Button();
             this.panelButtons = new System.Windows.Forms.FlowLayoutPanel();
             this.btnAskLater = new System.Windows.Forms.Button();
-            this.btnCopy = new System.Windows.Forms.Button();
             this.btnMigrate = new System.Windows.Forms.Button();
             this.btnMigrateUninstall = new System.Windows.Forms.Button();
-            this.labelQuestion = new RichTextLabel();
+            this.labelQuestion = new TweetDck.Core.Controls.RichTextLabel();
             this.panelButtons.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -39,8 +38,8 @@ namespace TweetDck.Migration {
             // 
             this.btnIgnore.AutoSize = true;
             this.btnIgnore.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnIgnore.Location = new System.Drawing.Point(356, 0);
-            this.btnIgnore.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.btnIgnore.Location = new System.Drawing.Point(353, 0);
+            this.btnIgnore.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnIgnore.Name = "btnIgnore";
             this.btnIgnore.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnIgnore.Size = new System.Drawing.Size(53, 23);
@@ -55,11 +54,10 @@ namespace TweetDck.Migration {
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelButtons.Controls.Add(this.btnAskLater);
             this.panelButtons.Controls.Add(this.btnIgnore);
-            this.panelButtons.Controls.Add(this.btnCopy);
             this.panelButtons.Controls.Add(this.btnMigrate);
             this.panelButtons.Controls.Add(this.btnMigrateUninstall);
             this.panelButtons.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.panelButtons.Location = new System.Drawing.Point(12, 87);
+            this.panelButtons.Location = new System.Drawing.Point(12, 75);
             this.panelButtons.Name = "panelButtons";
             this.panelButtons.Size = new System.Drawing.Size(480, 23);
             this.panelButtons.TabIndex = 0;
@@ -78,25 +76,11 @@ namespace TweetDck.Migration {
             this.btnAskLater.UseVisualStyleBackColor = true;
             this.btnAskLater.Click += new System.EventHandler(this.btnAskLater_Click);
             // 
-            // btnCopy
-            // 
-            this.btnCopy.AutoSize = true;
-            this.btnCopy.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnCopy.Location = new System.Drawing.Point(303, 0);
-            this.btnCopy.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.btnCopy.Name = "btnCopy";
-            this.btnCopy.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.btnCopy.Size = new System.Drawing.Size(47, 23);
-            this.btnCopy.TabIndex = 2;
-            this.btnCopy.Text = "Copy";
-            this.btnCopy.UseVisualStyleBackColor = true;
-            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
-            // 
             // btnMigrate
             // 
             this.btnMigrate.AutoSize = true;
             this.btnMigrate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnMigrate.Location = new System.Drawing.Point(239, 0);
+            this.btnMigrate.Location = new System.Drawing.Point(289, 0);
             this.btnMigrate.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnMigrate.Name = "btnMigrate";
             this.btnMigrate.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
@@ -110,7 +94,7 @@ namespace TweetDck.Migration {
             // 
             this.btnMigrateUninstall.AutoSize = true;
             this.btnMigrateUninstall.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnMigrateUninstall.Location = new System.Drawing.Point(135, 0);
+            this.btnMigrateUninstall.Location = new System.Drawing.Point(185, 0);
             this.btnMigrateUninstall.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.btnMigrateUninstall.Name = "btnMigrateUninstall";
             this.btnMigrateUninstall.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
@@ -131,7 +115,7 @@ namespace TweetDck.Migration {
             this.labelQuestion.Name = "labelQuestion";
             this.labelQuestion.ReadOnly = true;
             this.labelQuestion.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.labelQuestion.Size = new System.Drawing.Size(443, 72);
+            this.labelQuestion.Size = new System.Drawing.Size(443, 60);
             this.labelQuestion.TabIndex = 2;
             this.labelQuestion.TabStop = false;
             this.labelQuestion.Text = "";
@@ -140,13 +124,14 @@ namespace TweetDck.Migration {
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(504, 122);
+            this.ClientSize = new System.Drawing.Size(504, 110);
             this.Controls.Add(this.labelQuestion);
             this.Controls.Add(this.panelButtons);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormMigrationQuestion";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TweetDeck Migration";
             this.panelButtons.ResumeLayout(false);
@@ -159,7 +144,6 @@ namespace TweetDck.Migration {
 
         private System.Windows.Forms.Button btnIgnore;
         private System.Windows.Forms.FlowLayoutPanel panelButtons;
-        private System.Windows.Forms.Button btnCopy;
         private System.Windows.Forms.Button btnMigrate;
         private RichTextLabel labelQuestion;
         private System.Windows.Forms.Button btnAskLater;

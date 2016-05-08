@@ -26,7 +26,6 @@ namespace TweetDck.Migration{
                 switch(decision){
                     case MigrationDecision.MigratePurge:
                     case MigrationDecision.Migrate:
-                    case MigrationDecision.Copy:
                         FormBackgroundWork formWait = new FormBackgroundWork();
 
                         formWait.ShowWorkDialog(() => {
@@ -67,7 +66,7 @@ namespace TweetDck.Migration{
         }
 
         private static bool BeginMigration(MigrationDecision decision, Action<Exception> onFinished){
-            if (decision != MigrationDecision.MigratePurge && decision != MigrationDecision.Migrate && decision != MigrationDecision.Copy){
+            if (decision != MigrationDecision.MigratePurge && decision != MigrationDecision.Migrate){
                 return false;
             }
 
@@ -126,7 +125,7 @@ namespace TweetDck.Migration{
                             LnkEditor lnk = new LnkEditor(linkFile);
                             lnk.SetPath(Application.ExecutablePath);
                             lnk.SetWorkingDirectory(Environment.CurrentDirectory);
-                            lnk.SetComment(Program.BrandName); // TODO add a tagline
+                            lnk.SetComment(Program.BrandName+" client for Windows");
                             lnk.Save();
 
                             string renamed = Path.Combine(location,Program.BrandName+".lnk");
@@ -178,15 +177,6 @@ namespace TweetDck.Migration{
             yield return Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             yield return Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory);
             yield return Environment.ExpandEnvironmentVariables(@"%APPDATA%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar");
-            
-            /* already handled by the installer
-            string startMenu = Environment.GetFolderPath(Environment.SpecialFolder.StartMenu);
-            string[] sub = Directory.GetDirectories(startMenu);
-
-            if (sub.Length > 0){
-                yield return Path.Combine(startMenu,sub[0],"TweetDeck");
-            }
-            */
         }
 
         private static void RunUninstaller(string guid, int timeout){
