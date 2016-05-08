@@ -37,8 +37,8 @@
     
     // Notification handling
     $.subscribe("/notifications/new",function(obj){
-      for(var item of obj.items){
-        onNewTweet(obj.column,item);
+      for(let index = obj.items.length-1; index >= 0; index--){
+        onNewTweet(obj.column,obj.items[index]);
       }
     });
     
