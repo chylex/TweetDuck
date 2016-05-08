@@ -18,9 +18,13 @@ namespace TweetDck.Core.Handling{
             model.Remove(CefMenuCommand.Print);
             model.Remove(CefMenuCommand.ViewSource);
 
-            RemoveSeparatorIfFirst(model);
-
+            RemoveSeparatorIfLast(model);
             base.OnBeforeContextMenu(browserControl,browser,frame,parameters,model);
+
+            if (model.Count > 0){
+                RemoveSeparatorIfLast(model);
+                model.AddSeparator();
+            }
             
             model.AddItem(CefMenuCommand.Reload,"Reload");
             model.AddCheckItem((CefMenuCommand)MenuMute,"Mute Notifications");

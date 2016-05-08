@@ -12,8 +12,6 @@ namespace TweetDck.Core.Handling{
         private const int MenuCopyImageUrl = 26504;
 
         public virtual void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model){
-            RemoveSeparatorIfLast(model);
-
             if (parameters.TypeFlags.HasFlag(ContextMenuType.Link) && !parameters.UnfilteredLinkUrl.EndsWith("tweetdeck.twitter.com/#")){
                 model.AddItem((CefMenuCommand)MenuOpenUrlInBrowser,"Open in browser");
                 model.AddItem((CefMenuCommand)MenuCopyUrl,"Copy link address");
@@ -77,12 +75,6 @@ namespace TweetDck.Core.Handling{
 
         public virtual bool RunContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model, IRunContextMenuCallback callback){
             return false;
-        }
-
-        protected void RemoveSeparatorIfFirst(IMenuModel model){
-            if (model.Count > 0 && model.GetTypeAt(model.Count-1) == MenuItemType.Separator){
-                model.RemoveAt(model.Count-1);
-            }
         }
 
         protected void RemoveSeparatorIfLast(IMenuModel model){
