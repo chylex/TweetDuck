@@ -45,17 +45,11 @@ namespace TweetDck.Core.Handling{
 
             switch((int)commandId){
                 case MenuSettings:
-                    form.InvokeSafe(() => {
-                        form.OpenSettings();
-                    });
-
+                    form.InvokeSafe(form.OpenSettings);
                     return true;
 
                 case MenuAbout:
-                    form.InvokeSafe(() => {
-                        form.OpenAbout();
-                    });
-
+                    form.InvokeSafe(form.OpenAbout);
                     return true;
 
                 case MenuMute:

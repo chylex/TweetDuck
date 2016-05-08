@@ -4,7 +4,7 @@
   //
   var bubbleParents = function(element, tag, callback){
     do{
-      if (element.tagName == "A"){
+      if (element.tagName === "A"){
         callback(element);
         return true;
       }

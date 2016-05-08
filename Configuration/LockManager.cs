@@ -60,8 +60,6 @@ namespace TweetDck.Configuration{
                         if (foundProcess.ProcessName == currentProcess.ProcessName){
                             lockingProcess = foundProcess;
                         }
-
-                        currentProcess.Close();
                     }
                 }catch(ArgumentException){}
 

@@ -117,7 +117,7 @@
   //
   var app = $("body").children(".js-app");
   
-  new MutationObserver(function(mutations){
+  new MutationObserver(function(){
     if (isInitialized && app.hasClass("is-hidden")){
       isInitialized = false;
     }
@@ -143,7 +143,7 @@
   });
   
   //
-  // Block: Force popup notification settings
+  // Block: Force popup notification settings.
   //
   TD.controller.notifications.hasNotifications = function(){
     return true;
@@ -154,7 +154,7 @@
   };
   
   //
-  // Block: Hook into links to bypass default open function
+  // Block: Hook into links to bypass default open function.
   //
   (function(){
     var urlWait = false;
@@ -261,7 +261,7 @@
   };*/
   
   //
-  // Block: Hook into mp4 video element clicking 
+  // Block: Hook into mp4 video element clicking.
   //
   $(document.body).delegate("video.js-media-gif","click",function(e){
     var src = $(this).attr("src");
@@ -296,7 +296,7 @@
       $TD.clickUploadImage(Math.floor(buttonPos.left),Math.floor(buttonPos.top));
     };
     
-    $(".js-app").delegate(".js-compose-text","paste",function(e){
+    $(".js-app").delegate(".js-compose-text","paste",function(){
       lastPasteElement = $(this);
       $TD.tryPasteImage();
     });
@@ -345,7 +345,7 @@
   })();
   
   //
-  // Block: Inject custom CSS and layout into the page
+  // Block: Inject custom CSS and layout into the page.
   //
   (function(){
     var style = document.createElement("style");

@@ -21,7 +21,6 @@ namespace TweetDck.Core{
         public string UpdateInstallerPath { get; private set; }
 
         private readonly ChromiumWebBrowser browser;
-        private readonly TweetDeckBridge bridge;
         private readonly FormNotification notification;
 
         private FormSettings currentFormSettings;
@@ -35,7 +34,7 @@ namespace TweetDck.Core{
 
             Text = Program.BrandName;
 
-            bridge = new TweetDeckBridge(this);
+            TweetDeckBridge bridge = new TweetDeckBridge(this);
 
             browser = new ChromiumWebBrowser("https://tweetdeck.twitter.com/"){
                 MenuHandler = new ContextMenuBrowser(this),

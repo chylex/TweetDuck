@@ -117,7 +117,7 @@ namespace TweetDck.Migration{
                 if (decision == MigrationDecision.MigratePurge){
                     // update the lnk files wherever possible (desktop icons, pinned taskbar, start menu)
                     foreach(string location in GetLnkDirectories()){
-                        if (location == string.Empty)continue;
+                        if (string.IsNullOrEmpty(location))continue;
 
                         string linkFile = Path.Combine(location,"TweetDeck.lnk");
 

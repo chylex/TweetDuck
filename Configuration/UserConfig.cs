@@ -9,7 +9,7 @@ using TweetDck.Core.Handling;
 namespace TweetDck.Configuration{
     [Serializable]
     sealed class UserConfig{
-        private static readonly IFormatter Formatter = new BinaryFormatter(){
+        private static readonly IFormatter Formatter = new BinaryFormatter{
             Binder = new SerializationCompatibilityHandler()
         };
 

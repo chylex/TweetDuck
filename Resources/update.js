@@ -96,7 +96,7 @@
   };
   
   //
-  // Function: Runs an update check and updates all DOM elements appropriately
+  // Function: Runs an update check and updates all DOM elements appropriately.
   //
   var runUpdateCheck = function(){
     clearTimeout(updateCheckTimeoutID);
@@ -107,7 +107,7 @@
     $.getJSON("https://api.github.com/repos/chylex/"+$TD.brandName+"/releases/latest",function(response){
       var tagName = response.tag_name;
       
-      if (tagName != $TD.versionTag && tagName != $TD.dismissedVersionTag && response.assets.length > 0){
+      if (tagName !== $TD.versionTag && tagName !== $TD.dismissedVersionTag && response.assets.length > 0){
         createUpdateNotificationElement(tagName,response.assets[0].browser_download_url);
       }
     });
