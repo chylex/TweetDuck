@@ -26,7 +26,7 @@ namespace TweetDck.Core.Other {
         /// </summary>
         private void InitializeComponent() {
             this.progressBarUseless = new System.Windows.Forms.ProgressBar();
-            this.labelDescription = new RichTextLabel();
+            this.labelDescription = new TweetDck.Core.Controls.RichTextLabel();
             this.SuspendLayout();
             // 
             // progressBarUseless
@@ -64,6 +64,7 @@ namespace TweetDck.Core.Other {
             this.Controls.Add(this.progressBarUseless);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "FormBackgroundWork";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TweetDeck Migration";
             this.ResumeLayout(false);

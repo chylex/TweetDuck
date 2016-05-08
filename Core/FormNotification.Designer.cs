@@ -71,6 +71,7 @@ namespace TweetDck.Core {
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormNotification";
+            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormNotification_FormClosing);
