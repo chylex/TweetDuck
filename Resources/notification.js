@@ -29,7 +29,7 @@
   //
   document.body.addEventListener("contextmenu",function(e){
     bubbleParents(e.target,"A",function(ele){
-      $TD.setLastRightClickedLink(element.getAttribute("data-full-url") || "");
+      $TD.setLastRightClickedLink(ele.getAttribute("data-full-url") || "");
     });
   });
 })($TD);
