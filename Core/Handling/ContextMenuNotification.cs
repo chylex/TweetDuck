@@ -33,6 +33,8 @@ namespace TweetDck.Core.Handling{
 
             base.OnBeforeContextMenu(browserControl,browser,frame,parameters,model);
             RemoveSeparatorIfLast(model);
+
+            form.InvokeSafe(() => form.ContextMenuOpen = true);
         }
 
         public override bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags){
@@ -55,6 +57,11 @@ namespace TweetDck.Core.Handling{
             }
 
             return false;
+        }
+
+        public override void OnContextMenuDismissed(IWebBrowser browserControl, IBrowser browser, IFrame frame){
+            base.OnContextMenuDismissed(browserControl,browser,frame);
+            form.InvokeSafe(() => form.ContextMenuOpen = false);
         }
     }
 }

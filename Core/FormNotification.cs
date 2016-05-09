@@ -29,6 +29,7 @@ namespace TweetDck.Core{
         }
 
         public bool FreezeTimer { get; set; }
+        public bool ContextMenuOpen { get; set; }
         public string CurrentUrl { get; private set; }
 
         public FormNotification(Form owner, TweetDeckBridge bridge, bool autoHide){
@@ -73,7 +74,7 @@ namespace TweetDck.Core{
         // event handlers
 
         private void timerHideProgress_Tick(object sender, EventArgs e){
-            if (Bounds.Contains(Cursor.Position) || FreezeTimer)return;
+            if (Bounds.Contains(Cursor.Position) || FreezeTimer || ContextMenuOpen)return;
 
             timeLeft -= timerProgress.Interval;
             progressBarTimer.SetValueInstant((int)Math.Min(1000,Math.Round(1050.0*(totalTime-timeLeft)/totalTime)));
@@ -154,6 +155,9 @@ namespace TweetDck.Core{
             }
             else if (autoHide){
                 HideNotification();
+            }
+            else{
+                timerProgress.Stop();
             }
         }
 
