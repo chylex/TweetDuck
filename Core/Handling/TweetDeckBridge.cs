@@ -4,6 +4,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
 using TweetDck.Core.Utils;
+using TweetDck.Core.Controls;
 
 namespace TweetDck.Core.Handling{
     class TweetDeckBridge{
@@ -71,9 +72,7 @@ namespace TweetDck.Core.Handling{
         }
 
         public void OpenSettingsMenu(){
-            form.InvokeSafe(() => {
-                form.OpenSettings();
-            });
+            form.InvokeSafe(form.OpenSettings);
         }
 
         public void OnTweetPopup(string tweetHtml, int tweetCharacters){
@@ -83,9 +82,7 @@ namespace TweetDck.Core.Handling{
         }
 
         public void OnTweetSound(){
-            form.InvokeSafe(() => {
-                form.OnTweetSound();
-            });
+            form.InvokeSafe(form.OnTweetSound);
         }
 
         public void OnUpdateAccepted(string versionTag, string downloadUrl){

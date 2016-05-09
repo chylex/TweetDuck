@@ -170,10 +170,6 @@ namespace TweetDck.Core{
 
         // callback handlers
 
-        public void InvokeSafe(Action func){
-            ControlExtensions.InvokeSafe(this,func);
-        }
-
         public void OpenSettings(){
             if (currentFormSettings != null){
                 currentFormSettings.BringToFront();

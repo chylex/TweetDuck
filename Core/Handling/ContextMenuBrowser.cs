@@ -1,4 +1,5 @@
 ﻿using CefSharp;
+using TweetDck.Core.Controls;
 
 namespace TweetDck.Core.Handling{
     class ContextMenuBrowser : ContextMenuBase{
