@@ -206,11 +206,10 @@
       return _.startsWith(str,search) ? str.substr(search.length) : str;
     };
     
-    $(document.body).delegate("a[data-full-url]","mouseenter mouseleave",function(e){
-      if (!$TD.expandLinksOnHover){
-        return;
-      }
-      
+    var prevMouseX = -1, prevMouseY = -1;
+    var tooltipTimer, tooltipDisplayed;
+    
+    $(document.body).delegate("a[data-full-url]","mouseenter mouseleave mousemove",function(e){
       var me = $(this);
 
       if (e.type === "mouseenter"){
@@ -220,19 +219,41 @@
           return;
         }
         
-        var expanded = me.attr("data-full-url");
-        expanded = cutStart(expanded,"https://");
-        expanded = cutStart(expanded,"http://");
-        expanded = cutStart(expanded,"www.");
-        
-        me.attr("td-prev-text",text);
-        me.text(expanded);
+        if ($TD.expandLinksOnHover){
+          var expanded = me.attr("data-full-url");
+          expanded = cutStart(expanded,"https://");
+          expanded = cutStart(expanded,"http://");
+          expanded = cutStart(expanded,"www.");
+          
+          me.attr("td-prev-text",text);
+          me.text(expanded);
+        }
+        else{
+          tooltipTimer = window.setTimeout(function(){
+            $TD.displayTooltip(me.attr("data-full-url"));
+            tooltipDisplayed = true;
+          },400);
+        }
       }
       else if (e.type === "mouseleave"){
-        var prevText = me.attr("td-prev-text");
-        
-        if (prevText){
-          me.text(prevText);
+        if ($TD.expandLinksOnHover){
+          var prevText = me.attr("td-prev-text");
+
+          if (prevText){
+            me.text(prevText);
+          }
+        }
+        else{
+          window.clearTimeout(tooltipTimer);
+          tooltipDisplayed = false;
+          $TD.displayTooltip(null);
+        }
+      }
+      else if (e.type === "mousemove"){
+        if (tooltipDisplayed && (prevMouseX != e.clientX || prevMouseY != e.clientY)){
+          $TD.displayTooltip(me.attr("data-full-url"));
+          prevMouseX = e.clientX;
+          prevMouseY = e.clientY;
         }
       }
     });

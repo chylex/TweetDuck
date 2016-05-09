@@ -9,6 +9,7 @@ using TweetDck.Core.Other;
 using TweetDck.Resources;
 using TweetDck.Core.Utils;
 using TweetDck.Core.Controls;
+using System.Drawing;
 
 namespace TweetDck.Core{
     sealed partial class FormBrowser : Form{
@@ -211,6 +212,17 @@ namespace TweetDck.Core{
 
         public void OnTweetSound(){
             
+        }
+
+        public void DisplayTooltip(string text){
+            if (string.IsNullOrEmpty(text)){
+                toolTip.Hide(this);
+            }
+            else{
+                Point position = PointToClient(Cursor.Position);
+                position.Offset(20,10);
+                toolTip.Show(text,this,position);
+            }
         }
 
         public void OnImagePasted(){

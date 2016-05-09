@@ -98,6 +98,12 @@ namespace TweetDck.Core.Handling{
             });
         }
 
+        public void DisplayTooltip(string text){
+            form.InvokeSafe(() => {
+                form.DisplayTooltip(text);
+            });
+        }
+
         public void TryPasteImage(){
             form.InvokeSafe(() => {
                 if (Clipboard.ContainsImage()){
