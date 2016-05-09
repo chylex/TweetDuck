@@ -28,7 +28,7 @@ namespace TweetDck.Core.Handling{
             }
             
             model.AddItem(CefMenuCommand.Reload,"Reload");
-            model.AddCheckItem((CefMenuCommand)MenuMute,"Mute Notifications");
+            model.AddCheckItem((CefMenuCommand)MenuMute,"Mute notifications");
             model.SetChecked((CefMenuCommand)MenuMute,Program.UserConfig.MuteNotifications);
             model.AddSeparator();
 
