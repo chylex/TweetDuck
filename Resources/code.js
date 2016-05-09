@@ -81,7 +81,8 @@
       }));
 
       html.css("border","0");
-
+      
+      var url = html.find("time").first().children("a").first().attr("href") || "";
       var body = html.find(".tweet-body").first();
 
       body.children("div.js-quote-detail").each(function(){
@@ -91,8 +92,8 @@
       });
 
       body.children("footer").remove();
-
-      $TD.onTweetPopup(html.html(),tweet.text.length); // TODO column
+      
+      $TD.onTweetPopup(html.html(),url,tweet.text.length); // TODO column
     }
     else if (column.model.getHasSound()){
       $TD.onTweetSound(); // TODO disable original
@@ -292,6 +293,30 @@
       e.preventDefault();
     }
   });
+  
+  //
+  // Block: Copy tweet address.
+  //
+  (function(){
+    var lastTweet = "";
+    
+    var updateHighlightedTweet = function(link){
+      if (lastTweet != link){
+        $TD.setLastHighlightedTweet(link);
+        lastTweet = link;
+      }
+    };
+    
+    $(document.body).delegate("article.js-stream-item","mouseenter mouseleave",function(e){
+      if (e.type === "mouseenter"){
+        var link = $(this).find("time").first().children("a").first();
+        updateHighlightedTweet(link.length > 0 ? link.attr("href") : "");
+      }
+      else if (e.type === "mouseleave"){
+        updateHighlightedTweet("");
+      }
+    });
+  })();
   
   //
   // Block: Paste images when tweeting.

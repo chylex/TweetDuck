@@ -29,6 +29,7 @@ namespace TweetDck.Core{
         }
 
         public bool FreezeTimer { get; set; }
+        public string CurrentUrl { get; private set; }
 
         public FormNotification(Form owner, TweetDeckBridge bridge, bool autoHide){
             InitializeComponent();
@@ -133,9 +134,7 @@ namespace TweetDck.Core{
             }
             
             if (reset){
-                browser.LoadHtml(TweetNotification.ExampleTweet.GenerateHtml(),"http://tweetdeck.twitter.com/");
-
-                ResetTimerValue(TweetNotification.ExampleTweet.GetDisplayDuration(Program.UserConfig.NotificationDuration));
+                LoadTweet(TweetNotification.ExampleTweet);
                 timerProgress.Start();
             }
 
@@ -165,13 +164,20 @@ namespace TweetDck.Core{
                 browser.Load("about:blank"); // required, otherwise shit breaks
             }
 
-            browser.LoadHtml(tweet.GenerateHtml(),"http://tweetdeck.twitter.com/");
-
-            ResetTimerValue(tweet.GetDisplayDuration(Program.UserConfig.NotificationDuration));
+            LoadTweet(tweet);
             timerProgress.Stop();
             timerProgress.Start();
 
             UpdateTitle();
+        }
+
+        private void LoadTweet(TweetNotification tweet){
+            browser.LoadHtml(tweet.GenerateHtml(),"http://tweetdeck.twitter.com/");
+
+            totalTime = timeLeft = tweet.GetDisplayDuration(Program.UserConfig.NotificationDuration);
+            progressBarTimer.Value = 0;
+
+            CurrentUrl = tweet.Url;
         }
 
         private void MoveToVisibleLocation(){
@@ -229,11 +235,6 @@ namespace TweetDck.Core{
 
         private void UpdateTitle(){
             Text = tweetQueue.Count > 0 ? Program.BrandName+" ("+tweetQueue.Count+" more left)" : Program.BrandName;
-        }
-
-        private void ResetTimerValue(int newTimeLeft){
-            totalTime = timeLeft = newTimeLeft;
-            progressBarTimer.Value = 0;
         }
     }
 }

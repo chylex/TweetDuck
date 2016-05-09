@@ -9,6 +9,7 @@ using TweetDck.Core.Controls;
 namespace TweetDck.Core.Handling{
     class TweetDeckBridge{
         public static string LastRightClickedLink = string.Empty;
+        public static string LastHighlightedTweet = string.Empty;
         public static string ClipboardImagePath = string.Empty;
 
         private readonly FormBrowser form;
@@ -66,18 +67,20 @@ namespace TweetDck.Core.Handling{
         }
 
         public void SetLastRightClickedLink(string link){
-            form.InvokeSafe(() => {
-                LastRightClickedLink = link; 
-            });
+            form.InvokeSafe(() => LastRightClickedLink = link);
+        }
+
+        public void SetLastHighlightedTweet(string link){
+            form.InvokeSafe(() => LastHighlightedTweet = link);
         }
 
         public void OpenSettingsMenu(){
             form.InvokeSafe(form.OpenSettings);
         }
 
-        public void OnTweetPopup(string tweetHtml, int tweetCharacters){
+        public void OnTweetPopup(string tweetHtml, string tweetUrl, int tweetCharacters){
             form.InvokeSafe(() => {
-                form.OnTweetPopup(new TweetNotification(tweetHtml,tweetCharacters));
+                form.OnTweetPopup(new TweetNotification(tweetHtml,tweetUrl,tweetCharacters));
             });
         }
 

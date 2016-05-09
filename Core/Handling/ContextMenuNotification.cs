@@ -1,10 +1,12 @@
-﻿using CefSharp;
+﻿using System.Windows.Forms;
+using CefSharp;
 using TweetDck.Core.Controls;
 
 namespace TweetDck.Core.Handling{
     class ContextMenuNotification : ContextMenuBase{
         private const int MenuSkipTweet = 26600;
         private const int MenuFreeze = 26601;
+        private const int MenuCopyTweetUrl = 26602;
 
         private readonly FormNotification form;
         private readonly bool enableCustomMenu;
@@ -22,6 +24,11 @@ namespace TweetDck.Core.Handling{
                 model.AddCheckItem((CefMenuCommand)MenuFreeze,"Freeze");
                 model.SetChecked((CefMenuCommand)MenuFreeze,form.FreezeTimer);
                 model.AddSeparator();
+
+                if (!string.IsNullOrEmpty(form.CurrentUrl)){
+                    model.AddItem((CefMenuCommand)MenuCopyTweetUrl,"Copy tweet address");
+                    model.AddSeparator();
+                }
             }
 
             base.OnBeforeContextMenu(browserControl,browser,frame,parameters,model);
@@ -40,6 +47,10 @@ namespace TweetDck.Core.Handling{
 
                 case MenuFreeze:
                     form.InvokeSafe(() => form.FreezeTimer = !form.FreezeTimer);
+                    return true;
+
+                case MenuCopyTweetUrl:
+                    Clipboard.SetText(form.CurrentUrl,TextDataFormat.UnicodeText);
                     return true;
             }
 

@@ -26,7 +26,7 @@ namespace TweetDck.Core.Handling{
                 build.Append(@"<div class='tweet-body'><p class='js-tweet-text tweet-text with-linebreaks'>This is an example tweet, which lets you test the location and duration of popup notifications.</p></div>");
                 build.Append(@"</div></div></article>");
 
-                return new TweetNotification(build.ToString(),95);
+                return new TweetNotification(build.ToString(),"",95);
             }
         }
 
@@ -46,11 +46,19 @@ namespace TweetDck.Core.Handling{
             Short, Medium, Long, VeryLong
         }
 
+        public string Url{
+            get{
+                return url;
+            }
+        }
+
         private readonly string html;
+        private readonly string url;
         private readonly int characters;
 
-        public TweetNotification(string html, int characters){
+        public TweetNotification(string html, string url, int characters){
             this.html = html;
+            this.url = url;
             this.characters = characters;
         }
 
