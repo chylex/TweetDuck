@@ -32,6 +32,20 @@ namespace TweetDck.Core{
         public bool ContextMenuOpen { get; set; }
         public string CurrentUrl { get; private set; }
 
+        private static int BaseClientWidth{
+            get{
+                int level = TweetNotification.FontSizeLevel;
+                return level == 0 ? 284 : (int)Math.Round(284.0*(1.0+0.05*level));
+            }
+        }
+
+        private static int BaseClientHeight{
+            get{
+                int level = TweetNotification.FontSizeLevel;
+                return level == 0 ? 118 : (int)Math.Round(118.0*(1.0+0.075*level));
+            }
+        }
+
         public FormNotification(Form owner, TweetDeckBridge bridge, bool autoHide){
             InitializeComponent();
 
@@ -191,11 +205,11 @@ namespace TweetDck.Core{
             Screen screen = Screen.FromControl(owner);
 
             if (config.DisplayNotificationTimer){
-                ClientSize = new Size(ClientSize.Width,122);
+                ClientSize = new Size(BaseClientWidth,BaseClientHeight+4);
                 progressBarTimer.Visible = true;
             }
             else{
-                ClientSize = new Size(ClientSize.Width,118);
+                ClientSize = new Size(BaseClientWidth,BaseClientHeight);
                 progressBarTimer.Visible = false;
             }
 

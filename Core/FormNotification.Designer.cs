@@ -33,7 +33,8 @@ namespace TweetDck.Core {
             // 
             // panelBrowser
             // 
-            this.panelBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.panelBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelBrowser.BackColor = System.Drawing.Color.White;
             this.panelBrowser.Location = new System.Drawing.Point(0, 0);
@@ -49,6 +50,8 @@ namespace TweetDck.Core {
             // 
             // progressBarTimer
             // 
+            this.progressBarTimer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBarTimer.BackColor = System.Drawing.SystemColors.Control;
             this.progressBarTimer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(99)))), ((int)(((byte)(153)))));
             this.progressBarTimer.Location = new System.Drawing.Point(0, 118);

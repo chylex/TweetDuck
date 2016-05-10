@@ -12,6 +12,18 @@ namespace TweetDck.Core.Handling{
             }
         }
 
+        public static int FontSizeLevel{
+            get{
+                switch(FontSizeClass){
+                    case "largest": return 4;
+                    case "large": return 3;
+                    case "medium": return 2;
+                    case "small": return 1;
+                    default: return 0;
+                }
+            }
+        }
+
         public static TweetNotification ExampleTweet{
             get{
                 StringBuilder build = new StringBuilder();
