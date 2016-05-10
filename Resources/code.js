@@ -5,6 +5,16 @@
   var isInitialized = false;
   
   //
+  // Variable: Current highlighted column jQuery object.
+  //
+  var highlightedColumnEle;
+  
+  //
+  // Variable: Currently highlighted tweet jQuery object.
+  //
+  var highlightedTweetEle;
+  
+  //
   // Function: Initializes TweetD*ck events. Called after the website app is loaded.
   //
   var initializeTweetDck = function(){
@@ -295,7 +305,19 @@
   });
   
   //
-  // Block: Copy tweet address.
+  // Block: Update highlighted column
+  //
+  app.delegate("section","mouseenter mouseleave",function(e){
+    if (e.type === "mouseenter"){
+      highlightedColumnEle = $(this);
+    }
+    else if (e.type === "mouseleave"){
+      highlightedColumnEle = null;
+    }
+  });
+  
+  //
+  // Block: Copy tweet address and update highlighted tweet.
   //
   (function(){
     var lastTweet = "";
@@ -307,12 +329,15 @@
       }
     };
     
-    $(document.body).delegate("article.js-stream-item","mouseenter mouseleave",function(e){
+    app.delegate("article.js-stream-item","mouseenter mouseleave",function(e){
       if (e.type === "mouseenter"){
+        highlightedTweetEle = $(this);
+        
         var link = $(this).find("time").first().children("a").first();
         updateHighlightedTweet(link.length > 0 ? link.attr("href") : "");
       }
       else if (e.type === "mouseleave"){
+        highlightedTweetEle = null;
         updateHighlightedTweet("");
       }
     });
@@ -389,6 +414,25 @@
       },10);
     };
   })();
+  
+  //
+  // Block: Support for extra mouse buttons
+  //
+  window.TDGF_onMouseClickExtra = function(button){
+    if (button === 1){ // back button
+      if (highlightedColumnEle && highlightedColumnEle.closest(".js-column").is(".is-shifted-1")){
+        highlightedColumnEle.find(".js-column-back").first().click();
+      }
+      else{
+        $(".js-column-back").click();
+      }
+    }
+    else if (button === 2){ // forward button
+      if (highlightedTweetEle){
+        highlightedTweetEle.children().first().click();
+      }
+    }
+  };
   
   //
   // Block: Inject custom CSS and layout into the page.

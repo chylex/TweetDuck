@@ -169,6 +169,15 @@ namespace TweetDck.Core{
             Close();
         }
 
+        protected override void WndProc(ref Message m){
+            if (isLoaded && m.Msg == 0x210 && (m.WParam.ToInt32() & 0xFFFF) == 0x020B){ // WM_PARENTNOTIFY, WM_XBUTTONDOWN
+                browser.ExecuteScriptAsync("TDGF_onMouseClickExtra",(m.WParam.ToInt32() >> 16) & 0xFFFF);
+                return;
+            }
+
+            base.WndProc(ref m);
+        }
+
         // callback handlers
 
         public void OpenSettings(){
