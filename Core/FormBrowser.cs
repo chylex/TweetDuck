@@ -22,6 +22,7 @@ namespace TweetDck.Core{
         public string UpdateInstallerPath { get; private set; }
 
         private readonly ChromiumWebBrowser browser;
+        private readonly TweetDeckBridge bridge;
         private readonly FormNotification notification;
 
         private FormSettings currentFormSettings;
@@ -35,7 +36,7 @@ namespace TweetDck.Core{
 
             Text = Program.BrandName;
 
-            TweetDeckBridge bridge = new TweetDeckBridge(this);
+            bridge = new TweetDeckBridge(this);
 
             browser = new ChromiumWebBrowser("https://tweetdeck.twitter.com/"){
                 MenuHandler = new ContextMenuBrowser(this),
@@ -56,13 +57,18 @@ namespace TweetDck.Core{
 
             UpdateTrayIcon();
 
-            notification = new FormNotification(this,bridge,true){ CanMoveWindow = () => false };
+            notification = CreateNotificationForm(true);
+            notification.CanMoveWindow = () => false;
             notification.Show();
         }
 
         private void ShowChildForm(Form form){
             form.Show(this);
             form.MoveToCenter(this);
+        }
+
+        public FormNotification CreateNotificationForm(bool autoHide){
+            return new FormNotification(this,bridge,autoHide);
         }
 
         // window setup

@@ -20,7 +20,8 @@ namespace TweetDck.Core.Other{
 
             Text = Program.BrandName+" Settings";
 
-            notification = new FormNotification(browserForm,false){ CanMoveWindow = () => radioLocCustom.Checked };
+            notification = browserForm.CreateNotificationForm(false);
+            notification.CanMoveWindow = () => radioLocCustom.Checked;
 
             notification.Move += (sender, args) => {
                 if (radioLocCustom.Checked){

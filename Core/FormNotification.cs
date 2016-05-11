@@ -60,10 +60,7 @@ namespace TweetDck.Core{
 
             browser = new ChromiumWebBrowser("about:blank"){ MenuHandler = new ContextMenuNotification(this,autoHide) };
             browser.FrameLoadEnd += Browser_FrameLoadEnd;
-
-            if (bridge != null){
-                browser.RegisterJsObject("$TD",bridge);
-            }
+            browser.RegisterJsObject("$TD",bridge);
 
             panelBrowser.Controls.Add(browser);
 
@@ -74,8 +71,6 @@ namespace TweetDck.Core{
 
             Disposed += (sender, args) => browser.Dispose();
         }
-
-        public FormNotification(Form owner, bool autoHide) : this(owner,null,autoHide){}
 
         protected override void WndProc(ref Message m){
             if (m.Msg == 0x0112 && (m.WParam.ToInt32() & 0xFFF0) == 0xF010 && !CanMoveWindow()){ // WM_SYSCOMMAND, SC_MOVE
