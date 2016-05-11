@@ -92,7 +92,7 @@ namespace TweetDck.Core.Handling{
             build.Append("<!DOCTYPE html>");
             build.Append("<html class='os-windows txt-base-").Append(FontSizeClass).Append("'>");
             build.Append("<head>").Append(HeadTag).Append("</head>");
-            build.Append("<body class='hearty'><div class='app-columns-container'><div class='column' style='width:100%'>");
+            build.Append("<body class='hearty'><div class='app-columns-container'><div class='column scroll-styled-v' style='width:100%;overflow-y:auto'>");
             build.Append(html);
             build.Append("</div></div></body>");
             build.Append("</html>");

@@ -91,17 +91,9 @@
       }));
 
       html.css("border","0");
+      html.find(".tweet-body").first().children("footer").remove();
       
       var url = html.find("time").first().children("a").first().attr("href") || "";
-      var body = html.find(".tweet-body").first();
-
-      body.children("div.js-quote-detail").each(function(){
-        $(this).html("(quoted tweet)");
-        $(this).removeClass("padding-al");
-        $(this).css("padding","6px");
-      });
-
-      body.children("footer").remove();
       
       $TD.onTweetPopup(html.html(),url,tweet.text.length); // TODO column
     }
