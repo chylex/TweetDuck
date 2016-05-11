@@ -14,6 +14,17 @@
   };
   
   //
+  // Function: Adds an event listener which calls listener(event, element) when an event was triggered by an element of the specified type or one of its children.
+  //
+  EventTarget.prototype.addBubbledEventListener = function(element, type, listener){
+    this.addEventListener(type,function(e){
+      bubbleParents(e.target,element.toUpperCase(),function(ele){
+        listener(e,ele);
+      });
+    });
+  };
+  
+  //
   // Block: Hook into links to bypass default open function.
   //
   document.body.addEventListener("click",function(e){
@@ -27,9 +38,7 @@
   //
   // Block: Allow bypassing of t.co in context menus.
   //
-  document.body.addEventListener("contextmenu",function(e){
-    bubbleParents(e.target,"A",function(ele){
-      $TD.setLastRightClickedLink(ele.getAttribute("data-full-url") || "");
-    });
+  document.body.addBubbledEventListener("a","contextmenu",function(e, ele){
+    $TD.setLastRightClickedLink(ele.getAttribute("data-full-url") || "");
   });
 })($TD);
