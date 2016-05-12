@@ -202,11 +202,11 @@
   })();
   
   //
-  // Block: Expand shortened links on hover.
+  // Block: Expand shortened links on hover or display tooltip.
   //
   (function(){
     var cutStart = function(str, search){
-      return _.startsWith(str,search) ? str.substr(search.length) : str;
+      return str.startsWith(search) ? str.substr(search.length) : str;
     };
     
     var prevMouseX = -1, prevMouseY = -1;
@@ -233,7 +233,7 @@
         }
         else{
           tooltipTimer = window.setTimeout(function(){
-            $TD.displayTooltip(me.attr("data-full-url"));
+            $TD.displayTooltip(me.attr("data-full-url"),false);
             tooltipDisplayed = true;
           },400);
         }
@@ -246,15 +246,16 @@
             me.text(prevText);
           }
         }
-        else{
+        
+        if (tooltipDisplayed){
           window.clearTimeout(tooltipTimer);
           tooltipDisplayed = false;
-          $TD.displayTooltip(null);
+          $TD.displayTooltip(null,false);
         }
       }
       else if (e.type === "mousemove"){
         if (tooltipDisplayed && (prevMouseX != e.clientX || prevMouseY != e.clientY)){
-          $TD.displayTooltip(me.attr("data-full-url"));
+          $TD.displayTooltip(me.attr("data-full-url"),false);
           prevMouseX = e.clientX;
           prevMouseY = e.clientY;
         }

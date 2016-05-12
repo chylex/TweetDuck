@@ -101,9 +101,9 @@ namespace TweetDck.Core.Handling{
             });
         }
 
-        public void DisplayTooltip(string text){
+        public void DisplayTooltip(string text, bool showInNotification){
             form.InvokeSafe(() => {
-                form.DisplayTooltip(text);
+                form.DisplayTooltip(text,showInNotification);
             });
         }
 

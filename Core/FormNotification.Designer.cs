@@ -29,6 +29,7 @@ namespace TweetDck.Core {
             this.panelBrowser = new System.Windows.Forms.Panel();
             this.timerProgress = new System.Windows.Forms.Timer(this.components);
             this.progressBarTimer = new TweetDck.Core.Controls.FlatProgressBar();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // panelBrowser
@@ -87,5 +88,6 @@ namespace TweetDck.Core {
         private System.Windows.Forms.Panel panelBrowser;
         private Controls.FlatProgressBar progressBarTimer;
         private System.Windows.Forms.Timer timerProgress;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

@@ -229,7 +229,12 @@ namespace TweetDck.Core{
             
         }
 
-        public void DisplayTooltip(string text){
+        public void DisplayTooltip(string text, bool showInNotification){
+            if (showInNotification){
+                notification.DisplayTooltip(text);
+                return;
+            }
+
             if (string.IsNullOrEmpty(text)){
                 toolTip.Hide(this);
             }

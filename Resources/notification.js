@@ -27,4 +27,72 @@
   addEventListener(links,"contextmenu",function(e){
     $TD.setLastRightClickedLink(e.currentTarget.getAttribute("data-full-url") || "");
   });
+  
+  //
+  // Block: Expand shortened links on hover or display tooltip.
+  //
+  (function(){
+    var cutStart = function(str, search){
+      return str.startsWith(search) ? str.substr(search.length) : str;
+    };
+    
+    var prevMouseX = -1, prevMouseY = -1;
+    var tooltipTimer, tooltipDisplayed;
+    
+    addEventListener(links,"mouseenter",function(e){
+      var url = e.currentTarget.getAttribute("data-full-url");
+      if (!url)return;
+      
+      var text = e.currentTarget.textContent;
+        
+      if (text.charCodeAt(text.length-1) !== 8230){ // horizontal ellipsis
+        return;
+      }
+
+      if ($TD.expandLinksOnHover){
+        var expanded = url;
+        expanded = cutStart(expanded,"https://");
+        expanded = cutStart(expanded,"http://");
+        expanded = cutStart(expanded,"www.");
+
+        e.currentTarget.setAttribute("td-prev-text",text);
+        e.currentTarget.innerHTML = expanded;
+      }
+      else{
+        tooltipTimer = window.setTimeout(function(){
+          $TD.displayTooltip(url,true);
+          tooltipDisplayed = true;
+        },400);
+      }
+    });
+    
+    addEventListener(links,"mouseleave",function(e){
+      if (!e.currentTarget.hasAttribute("data-full-url"))return;
+      
+      if ($TD.expandLinksOnHover){
+        var prevText = e.currentTarget.getAttribute("td-prev-text");
+
+        if (prevText){
+          e.currentTarget.innerHTML = prevText;
+        }
+      }
+      
+      if (tooltipDisplayed){
+        window.clearTimeout(tooltipTimer);
+        tooltipDisplayed = false;
+        $TD.displayTooltip(null,true);
+      }
+    });
+    
+    addEventListener(links,"mousemove",function(e){
+      if (tooltipDisplayed && (prevMouseX != e.clientX || prevMouseY != e.clientY)){
+        var url = e.currentTarget.getAttribute("data-full-url");
+        if (!url)return;
+        
+        $TD.displayTooltip(url,true);
+        prevMouseX = e.clientX;
+        prevMouseY = e.clientY;
+      }
+    });
+  })();
 })($TD);

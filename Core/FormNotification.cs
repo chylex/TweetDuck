@@ -249,5 +249,16 @@ namespace TweetDck.Core{
         private void UpdateTitle(){
             Text = tweetQueue.Count > 0 ? Program.BrandName+" ("+tweetQueue.Count+" more left)" : Program.BrandName;
         }
+
+        public void DisplayTooltip(string text){
+            if (string.IsNullOrEmpty(text)){
+                toolTip.Hide(this);
+            }
+            else{
+                Point position = PointToClient(Cursor.Position);
+                position.Offset(20,5);
+                toolTip.Show(text,this,position);
+            }
+        }
     }
 }
