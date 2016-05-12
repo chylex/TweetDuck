@@ -1,44 +1,30 @@
 (function($TD){
   //
-  // Function: Bubbles up the parents until it hits an element with the specified tag (includes the first element), and returns true if the search was successful.
+  // Variable: Collection of all <a> tags.
   //
-  var bubbleParents = function(element, tag, callback){
-    do{
-      if (element.tagName === "A"){
-        callback(element);
-        return true;
-      }
-    }while((element = element.parentElement) != null);
-    
-    return false;
-  };
+  var links = document.getElementsByTagName("A");
   
   //
-  // Function: Adds an event listener which calls listener(event, element) when an event was triggered by an element of the specified type or one of its children.
+  // Function: Adds an event listener to all elements in the array or collection.
   //
-  EventTarget.prototype.addBubbledEventListener = function(element, type, listener){
-    this.addEventListener(type,function(e){
-      bubbleParents(e.target,element.toUpperCase(),function(ele){
-        listener(e,ele);
-      });
-    });
+  var addEventListener = function(collection, type, listener){
+    for(let index = 0; index < collection.length; index++){
+      collection[index].addEventListener(type,listener);
+    }
   };
   
   //
   // Block: Hook into links to bypass default open function.
   //
-  document.body.addEventListener("click",function(e){
-    if (bubbleParents(e.target,"A",function(ele){
-      $TD.openBrowser(ele.getAttribute("href"));
-    })){
-      e.preventDefault();
-    }
+  addEventListener(links,"click",function(e){
+    $TD.openBrowser(e.currentTarget.getAttribute("href"));
+    e.preventDefault();
   });
   
   //
   // Block: Allow bypassing of t.co in context menus.
   //
-  document.body.addBubbledEventListener("a","contextmenu",function(e, ele){
-    $TD.setLastRightClickedLink(ele.getAttribute("data-full-url") || "");
+  addEventListener(links,"contextmenu",function(e){
+    $TD.setLastRightClickedLink(e.currentTarget.getAttribute("data-full-url") || "");
   });
 })($TD);
