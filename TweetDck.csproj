@@ -240,6 +240,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\icon-small.ico" />
+    <None Include="Resources\icon-tray-new.ico" />
+    <None Include="Resources\icon-tray.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

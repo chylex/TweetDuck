@@ -31,13 +31,13 @@
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenu.SuspendLayout();
             // 
-            // trayIcon
+            // notifyIcon
             // 
             this.notifyIcon.ContextMenuStrip = this.contextMenu;
-            this.notifyIcon.Icon = global::TweetDck.Properties.Resources.icon;
+            this.notifyIcon.Icon = global::TweetDck.Properties.Resources.icon_tray;
             this.notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.trayIcon_MouseClick);
             // 
-            // contextMenuTray
+            // contextMenu
             // 
             this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.restoreToolStripMenuItem,

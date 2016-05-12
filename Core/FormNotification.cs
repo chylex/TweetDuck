@@ -14,6 +14,7 @@ namespace TweetDck.Core{
         public Func<bool> CanMoveWindow = () => true;
 
         private readonly Form owner;
+        private readonly TrayIcon trayIcon;
         private readonly ChromiumWebBrowser browser;
 
         private readonly Queue<TweetNotification> tweetQueue = new Queue<TweetNotification>(4);
@@ -46,12 +47,13 @@ namespace TweetDck.Core{
             }
         }
 
-        public FormNotification(Form owner, TweetDeckBridge bridge, bool autoHide){
+        public FormNotification(Form owner, TweetDeckBridge bridge, TrayIcon trayIcon, bool autoHide){
             InitializeComponent();
 
             Text = Program.BrandName;
 
             this.owner = owner;
+            this.trayIcon = trayIcon;
             this.autoHide = autoHide;
 
             owner.FormClosed += (sender, args) => Close();
@@ -102,6 +104,8 @@ namespace TweetDck.Core{
                     MoveToVisibleLocation();
                     LoadNextNotification();
                 }
+
+                trayIcon.HasNotifications = false;
             }
         }
 
@@ -124,6 +128,7 @@ namespace TweetDck.Core{
         public void ShowNotification(TweetNotification notification){
             if (Program.UserConfig.MuteNotifications){
                 tweetQueue.Enqueue(notification);
+                trayIcon.HasNotifications = true;
             }
             else{
                 MoveToVisibleLocation();

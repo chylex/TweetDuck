@@ -68,7 +68,7 @@ namespace TweetDck.Core{
         }
 
         public FormNotification CreateNotificationForm(bool autoHide){
-            return new FormNotification(this,bridge,autoHide);
+            return new FormNotification(this,bridge,trayIcon,autoHide);
         }
 
         // window setup

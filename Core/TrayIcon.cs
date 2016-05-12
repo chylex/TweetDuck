@@ -21,6 +21,21 @@ namespace TweetDck.Core{
             }
         }
 
+        public bool HasNotifications{
+            get{
+                return hasNotifications;
+            }
+
+            set{
+                if (hasNotifications != value){
+                    notifyIcon.Icon = value ? Properties.Resources.icon_tray_new : Properties.Resources.icon_tray;
+                    hasNotifications = value;
+                }
+            }
+        }
+
+        private bool hasNotifications;
+
         public TrayIcon(){
             InitializeComponent();
             notifyIcon.Text = Program.BrandName;
