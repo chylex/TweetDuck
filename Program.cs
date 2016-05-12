@@ -21,8 +21,8 @@ namespace TweetDck{
         public const string Website = "http://tweetdick.chylex.com";
         #endif
 
-        public const string VersionTag = "1.2.1";
-        public const string VersionFull = "1.2.1.0";
+        public const string VersionTag = "1.2.2";
+        public const string VersionFull = "1.2.2.0";
 
         public static readonly string StoragePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),BrandName);
         public static readonly string TemporaryPath = Path.Combine(Path.GetTempPath(),BrandName);
