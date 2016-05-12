@@ -113,7 +113,7 @@
       var tagName = response.tag_name;
       
       if (tagName !== $TD.versionTag && tagName !== $TD.dismissedVersionTag && response.assets.length > 0){
-        var obj = response.assets.find(asset => asset.name === updateFileName) || assets[0];
+        var obj = response.assets.find(asset => asset.name === updateFileName) || response.assets[0];
         createUpdateNotificationElement(tagName,obj.browser_download_url);
       }
     });
