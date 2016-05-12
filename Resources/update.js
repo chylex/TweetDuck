@@ -5,6 +5,11 @@
   var updateCheckTimeoutID;
   
   //
+  // Constant: Update exe file name.
+  //
+  const updateFileName = $TD.brandName+".Update.exe";
+  
+  //
   // Function: Creates the update notification element. Removes the old one if already exists.
   //
   var createUpdateNotificationElement = function(version, download){
@@ -108,7 +113,8 @@
       var tagName = response.tag_name;
       
       if (tagName !== $TD.versionTag && tagName !== $TD.dismissedVersionTag && response.assets.length > 0){
-        createUpdateNotificationElement(tagName,response.assets[0].browser_download_url);
+        var obj = response.assets.find(asset => asset.name === updateFileName) || assets[0];
+        createUpdateNotificationElement(tagName,obj.browser_download_url);
       }
     });
   };
