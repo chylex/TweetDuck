@@ -30,6 +30,7 @@ namespace TweetDck{
         public static readonly string TemporaryPath = Path.Combine(Path.GetTempPath(),BrandName);
 
         private static readonly LockManager LockManager = new LockManager(Path.Combine(StoragePath,".lock"));
+        private static bool HasCleanedUp;
         
         public static UserConfig UserConfig { get; private set; }
 
@@ -101,11 +102,7 @@ namespace TweetDck{
                 }
             };
 
-            Application.ApplicationExit += (sender, args) => {
-                UserConfig.Save();
-                ExitCleanup();
-                Cef.Shutdown();
-            };
+            Application.ApplicationExit += (sender, args) => ExitCleanup();
 
             FormBrowser mainForm = new FormBrowser();
             Application.Run(mainForm);
@@ -144,8 +141,11 @@ namespace TweetDck{
         }
 
         private static void ExitCleanup(){
+            if (HasCleanedUp)return;
+
+            UserConfig.Save();
+
             try{
-                LockManager.Unlock();
                 Directory.Delete(TemporaryPath,true);
             }catch(DirectoryNotFoundException){
             }catch(Exception e){
@@ -153,7 +153,10 @@ namespace TweetDck{
                 Debug.WriteLine(e.ToString());
             }
 
+            LockManager.Unlock();
             Cef.Shutdown();
+
+            HasCleanedUp = true;
         }
     }
 }

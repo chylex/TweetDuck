@@ -80,13 +80,23 @@ namespace TweetDck.Configuration{
             return false;
         }
 
-        public void Unlock(){
+        public bool Unlock(){
+            bool result = true;
+
             if (lockStream != null){
                 lockStream.Dispose();
-                File.Delete(file);
+
+                try{
+                    File.Delete(file);
+                }catch(Exception e){
+                    Program.Log(e.ToString());
+                    result = false;
+                }
 
                 lockStream = null;
             }
+
+            return result;
         }
 
         public bool CloseLockingProcess(int timeout){
