@@ -9,6 +9,8 @@ using TweetDck.Configuration;
 using TweetDck.Core;
 using TweetDck.Migration;
 using TweetDck.Core.Utils;
+using System.Linq;
+using System.Threading;
 
 [assembly: CLSCompliant(true)]
 namespace TweetDck{
@@ -41,17 +43,33 @@ namespace TweetDck{
         private static void Main(){
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
-            if (!LockManager.Lock()){
-                if (MessageBox.Show("Another instance of "+BrandName+" is already running.\r\nDo you want to close it?",BrandName+" is Already Running",MessageBoxButtons.YesNo,MessageBoxIcon.Error,MessageBoxDefaultButton.Button2) == DialogResult.Yes){
-                    if (!LockManager.CloseLockingProcess(10000)){
-                        MessageBox.Show("Could not close the other process.",BrandName+" Has Failed :(",MessageBoxButtons.OK,MessageBoxIcon.Error);
+
+            if (Environment.GetCommandLineArgs().Contains("-restart")){
+                for(int attempt = 0; attempt < 21; attempt++){
+                    if (LockManager.Lock()){
+                        break;
+                    }
+                    else if (attempt == 20){
+                        MessageBox.Show(BrandName+" is taking too long to close, please wait and then start the application again manually.",BrandName+" Cannot Restart",MessageBoxButtons.OK,MessageBoxIcon.Error);
                         return;
                     }
-
-                    LockManager.Lock();
+                    else{
+                        Thread.Sleep(500);
+                    }
                 }
-                else return;
+            }
+            else{
+                if (!LockManager.Lock()){
+                    if (MessageBox.Show("Another instance of "+BrandName+" is already running.\r\nDo you want to close it?",BrandName+" is Already Running",MessageBoxButtons.YesNo,MessageBoxIcon.Error,MessageBoxDefaultButton.Button2) == DialogResult.Yes){
+                        if (!LockManager.CloseLockingProcess(10000)){
+                            MessageBox.Show("Could not close the other process.",BrandName+" Has Failed :(",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        LockManager.Lock();
+                    }
+                    else return;
+                }
             }
 
             UserConfig = UserConfig.Load(Path.Combine(StoragePath,"TD_UserConfig.cfg"));

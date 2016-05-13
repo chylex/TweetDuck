@@ -139,6 +139,7 @@
       <DependentUpon>TrayIcon.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\Utils\BrowserUtils.cs" />
+    <Compile Include="Core\Utils\HardwareAcceleration.cs" />
     <Compile Include="Core\Utils\NativeMethods.cs" />
     <Compile Include="Core\Utils\UpdateInfo.cs" />
     <Compile Include="Migration\FormMigrationQuestion.cs">

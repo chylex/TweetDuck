@@ -47,12 +47,17 @@
             this.radioDurLong = new System.Windows.Forms.RadioButton();
             this.radioDurMedium = new System.Windows.Forms.RadioButton();
             this.radioDurShort = new System.Windows.Forms.RadioButton();
+            this.tableColumn3Panel = new System.Windows.Forms.Panel();
+            this.groupAdvancedSettings = new System.Windows.Forms.GroupBox();
+            this.checkHardwareAcceleration = new System.Windows.Forms.CheckBox();
             this.groupNotificationLocation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).BeginInit();
             this.tableLayout.SuspendLayout();
             this.tableColumn2Panel.SuspendLayout();
             this.groupUserInterface.SuspendLayout();
             this.groupNotificationDuration.SuspendLayout();
+            this.tableColumn3Panel.SuspendLayout();
+            this.groupAdvancedSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupNotificationLocation
@@ -191,11 +196,13 @@
             // 
             // tableLayout
             // 
-            this.tableLayout.ColumnCount = 2;
-            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayout.ColumnCount = 3;
+            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33F));
+            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33F));
+            this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.34F));
             this.tableLayout.Controls.Add(this.tableColumn2Panel, 1, 0);
             this.tableLayout.Controls.Add(this.groupNotificationLocation, 0, 0);
+            this.tableLayout.Controls.Add(this.tableColumn3Panel, 2, 0);
             this.tableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayout.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
             this.tableLayout.Location = new System.Drawing.Point(0, 0);
@@ -203,7 +210,7 @@
             this.tableLayout.Padding = new System.Windows.Forms.Padding(3);
             this.tableLayout.RowCount = 1;
             this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayout.Size = new System.Drawing.Size(384, 290);
+            this.tableLayout.Size = new System.Drawing.Size(576, 290);
             this.tableLayout.TabIndex = 2;
             // 
             // tableColumn2Panel
@@ -360,11 +367,45 @@
             this.radioDurShort.CheckedChanged += new System.EventHandler(this.radioDur_CheckedChanged);
             this.radioDurShort.Click += new System.EventHandler(this.radioDur_Click);
             // 
+            // tableColumn3Panel
+            // 
+            this.tableColumn3Panel.Controls.Add(this.groupAdvancedSettings);
+            this.tableColumn3Panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableColumn3Panel.Location = new System.Drawing.Point(381, 3);
+            this.tableColumn3Panel.Margin = new System.Windows.Forms.Padding(0);
+            this.tableColumn3Panel.Name = "tableColumn3Panel";
+            this.tableColumn3Panel.Size = new System.Drawing.Size(192, 284);
+            this.tableColumn3Panel.TabIndex = 4;
+            // 
+            // groupAdvancedSettings
+            // 
+            this.groupAdvancedSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupAdvancedSettings.Controls.Add(this.checkHardwareAcceleration);
+            this.groupAdvancedSettings.Location = new System.Drawing.Point(3, 3);
+            this.groupAdvancedSettings.Name = "groupAdvancedSettings";
+            this.groupAdvancedSettings.Size = new System.Drawing.Size(186, 281);
+            this.groupAdvancedSettings.TabIndex = 0;
+            this.groupAdvancedSettings.TabStop = false;
+            this.groupAdvancedSettings.Text = "Advanced Settings";
+            // 
+            // checkHardwareAcceleration
+            // 
+            this.checkHardwareAcceleration.AutoSize = true;
+            this.checkHardwareAcceleration.Location = new System.Drawing.Point(6, 21);
+            this.checkHardwareAcceleration.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.checkHardwareAcceleration.Name = "checkHardwareAcceleration";
+            this.checkHardwareAcceleration.Size = new System.Drawing.Size(134, 17);
+            this.checkHardwareAcceleration.TabIndex = 5;
+            this.checkHardwareAcceleration.Text = "Hardware Acceleration";
+            this.checkHardwareAcceleration.UseVisualStyleBackColor = true;
+            this.checkHardwareAcceleration.CheckedChanged += new System.EventHandler(this.checkHardwareAcceleration_CheckedChanged);
+            // 
             // FormSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 290);
+            this.ClientSize = new System.Drawing.Size(576, 290);
             this.Controls.Add(this.tableLayout);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -382,6 +423,9 @@
             this.groupUserInterface.PerformLayout();
             this.groupNotificationDuration.ResumeLayout(false);
             this.groupNotificationDuration.PerformLayout();
+            this.tableColumn3Panel.ResumeLayout(false);
+            this.groupAdvancedSettings.ResumeLayout(false);
+            this.groupAdvancedSettings.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -411,5 +455,8 @@
         private System.Windows.Forms.ComboBox comboBoxTrayType;
         private System.Windows.Forms.Label labelTrayType;
         private System.Windows.Forms.CheckBox checkExpandLinks;
+        private System.Windows.Forms.Panel tableColumn3Panel;
+        private System.Windows.Forms.GroupBox groupAdvancedSettings;
+        private System.Windows.Forms.CheckBox checkHardwareAcceleration;
     }
 }

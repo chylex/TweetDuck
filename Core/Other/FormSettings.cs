@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 using TweetDck.Configuration;
 using TweetDck.Core.Handling;
+using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Other{
     sealed partial class FormSettings : Form{
@@ -64,6 +66,7 @@ namespace TweetDck.Core.Other{
             checkNotificationTimer.Checked = Config.DisplayNotificationTimer;
             checkExpandLinks.Checked = Config.ExpandLinksOnHover;
             checkUpdateNotifications.Checked = Config.EnableUpdateCheck;
+            checkHardwareAcceleration.Checked = HardwareAcceleration.IsEnabled;
         }
 
         private void FormSettings_FormClosing(object sender, FormClosingEventArgs e){
@@ -149,6 +152,34 @@ namespace TweetDck.Core.Other{
             if (!isLoaded)return;
 
             Config.EnableUpdateCheck = checkUpdateNotifications.Checked;
+        }
+
+        private void checkHardwareAcceleration_CheckedChanged(object sender, EventArgs e){
+            if (!isLoaded)return;
+
+            bool succeeded = false;
+
+            if (checkHardwareAcceleration.Checked){
+                if (HardwareAcceleration.CanEnable){
+                    succeeded = HardwareAcceleration.Enable();
+                }
+                else{
+                    MessageBox.Show("Cannot enable hardware acceleration, the libraries libEGL.dll and libGLESv2.dll could not be restored.",Program.BrandName+" Settings",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                }
+            }
+            else{
+                succeeded = HardwareAcceleration.Disable();
+            }
+
+            if (succeeded && MessageBox.Show("The application must restart for the setting to take place. Do you want to restart now?",Program.BrandName+" Settings",MessageBoxButtons.YesNo,MessageBoxIcon.Information) == DialogResult.Yes){ // TODO
+                Process.Start(Application.ExecutablePath,"-restart");
+                Application.Exit();
+            }
+            else if (!succeeded){
+                checkHardwareAcceleration.CheckedChanged -= checkHardwareAcceleration_CheckedChanged;
+                checkHardwareAcceleration.Checked = HardwareAcceleration.IsEnabled;
+                checkHardwareAcceleration.CheckedChanged += checkHardwareAcceleration_CheckedChanged;
+            }
         }
     }
 }
