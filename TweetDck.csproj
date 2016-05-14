@@ -138,6 +138,7 @@
     <Compile Include="Core\TrayIcon.Designer.cs">
       <DependentUpon>TrayIcon.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\Utils\BrowserCache.cs" />
     <Compile Include="Core\Utils\BrowserUtils.cs" />
     <Compile Include="Core\Utils\HardwareAcceleration.cs" />
     <Compile Include="Core\Utils\NativeMethods.cs" />

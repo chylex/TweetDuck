@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using TweetDck.Configuration;
 using TweetDck.Core.Handling;
 using TweetDck.Core.Utils;
+using TweetDck.Core.Controls;
 
 namespace TweetDck.Core.Other{
     sealed partial class FormSettings : Form{
@@ -67,6 +68,15 @@ namespace TweetDck.Core.Other{
             checkExpandLinks.Checked = Config.ExpandLinksOnHover;
             checkUpdateNotifications.Checked = Config.EnableUpdateCheck;
             checkHardwareAcceleration.Checked = HardwareAcceleration.IsEnabled;
+
+            BrowserCache.CalculateCacheSize(bytes => this.InvokeSafe(() => {
+                if (bytes == -1L){
+                    btnClearCache.Text = "Clear Cache (unknown size)";
+                }
+                else{
+                    btnClearCache.Text = "Clear Cache ("+(int)Math.Ceiling(bytes/(1024.0*1024.0))+" MB)";
+                }
+            }));
         }
 
         private void FormSettings_FormClosing(object sender, FormClosingEventArgs e){
@@ -180,6 +190,18 @@ namespace TweetDck.Core.Other{
                 checkHardwareAcceleration.Checked = HardwareAcceleration.IsEnabled;
                 checkHardwareAcceleration.CheckedChanged += checkHardwareAcceleration_CheckedChanged;
             }
+        }
+
+        private void btnClearCache_Click(object sender, EventArgs e){
+            if (!isLoaded)return;
+
+            isLoaded = false;
+            btnClearCache.Enabled = false;
+            isLoaded = true; // OTHERWISE WINFORMS CALLS THE ONCLICK EVENT FOR A RANDOM RADIO BUTTON WHAT THE CUNTFUCK IS THIS
+
+            BrowserCache.SetClearOnExit();
+
+            MessageBox.Show("Cache will be automatically cleared when "+Program.BrandName+" exits.","Clear Cache",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
     }
 }

@@ -49,6 +49,8 @@
             this.radioDurShort = new System.Windows.Forms.RadioButton();
             this.tableColumn3Panel = new System.Windows.Forms.Panel();
             this.groupAdvancedSettings = new System.Windows.Forms.GroupBox();
+            this.btnClearCache = new System.Windows.Forms.Button();
+            this.labelMiscellaneous = new System.Windows.Forms.Label();
             this.checkHardwareAcceleration = new System.Windows.Forms.CheckBox();
             this.groupNotificationLocation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).BeginInit();
@@ -381,6 +383,8 @@
             // 
             this.groupAdvancedSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupAdvancedSettings.Controls.Add(this.btnClearCache);
+            this.groupAdvancedSettings.Controls.Add(this.labelMiscellaneous);
             this.groupAdvancedSettings.Controls.Add(this.checkHardwareAcceleration);
             this.groupAdvancedSettings.Location = new System.Drawing.Point(3, 3);
             this.groupAdvancedSettings.Name = "groupAdvancedSettings";
@@ -388,6 +392,26 @@
             this.groupAdvancedSettings.TabIndex = 0;
             this.groupAdvancedSettings.TabStop = false;
             this.groupAdvancedSettings.Text = "Advanced Settings";
+            // 
+            // btnClearCache
+            // 
+            this.btnClearCache.Location = new System.Drawing.Point(9, 68);
+            this.btnClearCache.Name = "btnClearCache";
+            this.btnClearCache.Size = new System.Drawing.Size(171, 23);
+            this.btnClearCache.TabIndex = 11;
+            this.btnClearCache.Text = "Clear Cache (calculating)";
+            this.btnClearCache.UseVisualStyleBackColor = true;
+            this.btnClearCache.Click += new System.EventHandler(this.btnClearCache_Click);
+            // 
+            // labelMiscellaneous
+            // 
+            this.labelMiscellaneous.AutoSize = true;
+            this.labelMiscellaneous.Location = new System.Drawing.Point(6, 52);
+            this.labelMiscellaneous.Margin = new System.Windows.Forms.Padding(3, 11, 3, 0);
+            this.labelMiscellaneous.Name = "labelMiscellaneous";
+            this.labelMiscellaneous.Size = new System.Drawing.Size(74, 13);
+            this.labelMiscellaneous.TabIndex = 10;
+            this.labelMiscellaneous.Text = "Miscellaneous";
             // 
             // checkHardwareAcceleration
             // 
@@ -458,5 +482,7 @@
         private System.Windows.Forms.Panel tableColumn3Panel;
         private System.Windows.Forms.GroupBox groupAdvancedSettings;
         private System.Windows.Forms.CheckBox checkHardwareAcceleration;
+        private System.Windows.Forms.Label labelMiscellaneous;
+        private System.Windows.Forms.Button btnClearCache;
     }
 }

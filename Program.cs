@@ -153,9 +153,10 @@ namespace TweetDck{
                 Debug.WriteLine(e.ToString());
             }
 
-            LockManager.Unlock();
             Cef.Shutdown();
-
+            BrowserCache.Exit();
+            
+            LockManager.Unlock();
             HasCleanedUp = true;
         }
     }
