@@ -67,6 +67,11 @@ namespace TweetDck.Core{
             form.MoveToCenter(this);
         }
 
+        private void ForceClose(){
+            trayIcon.Visible = false; // checked in FormClosing event
+            Close();
+        }
+
         public FormNotification CreateNotificationForm(bool autoHide){
             return new FormNotification(this,bridge,trayIcon,autoHide);
         }
@@ -171,8 +176,7 @@ namespace TweetDck.Core{
         private void trayIcon_ClickClose(object sender, EventArgs e){
             if (!isLoaded)return;
 
-            trayIcon.Visible = false; // checked in FormClosing event
-            Close();
+            ForceClose();
         }
 
         protected override void WndProc(ref Message m){
@@ -262,10 +266,10 @@ namespace TweetDck.Core{
 
             if (downloadForm.UpdateStatus == FormUpdateDownload.Status.Succeeded){
                 UpdateInstallerPath = downloadForm.InstallerPath;
-                Close();
+                ForceClose();
             }
             else if (downloadForm.UpdateStatus == FormUpdateDownload.Status.Manual){
-                Close();
+                ForceClose();
             }
             else{
                 Show();
