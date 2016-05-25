@@ -52,6 +52,7 @@
             this.btnClearCache = new System.Windows.Forms.Button();
             this.labelMiscellaneous = new System.Windows.Forms.Label();
             this.checkHardwareAcceleration = new System.Windows.Forms.CheckBox();
+            this.tableColumn1Panel = new System.Windows.Forms.Panel();
             this.groupNotificationLocation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).BeginInit();
             this.tableLayout.SuspendLayout();
@@ -60,6 +61,7 @@
             this.groupNotificationDuration.SuspendLayout();
             this.tableColumn3Panel.SuspendLayout();
             this.groupAdvancedSettings.SuspendLayout();
+            this.tableColumn1Panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupNotificationLocation
@@ -76,9 +78,9 @@
             this.groupNotificationLocation.Controls.Add(this.radioLocBL);
             this.groupNotificationLocation.Controls.Add(this.radioLocTR);
             this.groupNotificationLocation.Controls.Add(this.radioLocTL);
-            this.groupNotificationLocation.Location = new System.Drawing.Point(6, 6);
+            this.groupNotificationLocation.Location = new System.Drawing.Point(3, 3);
             this.groupNotificationLocation.Name = "groupNotificationLocation";
-            this.groupNotificationLocation.Size = new System.Drawing.Size(183, 278);
+            this.groupNotificationLocation.Size = new System.Drawing.Size(183, 326);
             this.groupNotificationLocation.TabIndex = 0;
             this.groupNotificationLocation.TabStop = false;
             this.groupNotificationLocation.Text = "Notification Location";
@@ -202,8 +204,8 @@
             this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33F));
             this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33F));
             this.tableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.34F));
+            this.tableLayout.Controls.Add(this.tableColumn1Panel, 0, 0);
             this.tableLayout.Controls.Add(this.tableColumn2Panel, 1, 0);
-            this.tableLayout.Controls.Add(this.groupNotificationLocation, 0, 0);
             this.tableLayout.Controls.Add(this.tableColumn3Panel, 2, 0);
             this.tableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayout.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
@@ -212,18 +214,18 @@
             this.tableLayout.Padding = new System.Windows.Forms.Padding(3);
             this.tableLayout.RowCount = 1;
             this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayout.Size = new System.Drawing.Size(576, 290);
+            this.tableLayout.Size = new System.Drawing.Size(576, 338);
             this.tableLayout.TabIndex = 2;
             // 
             // tableColumn2Panel
             // 
-            this.tableColumn2Panel.Controls.Add(this.groupUserInterface);
             this.tableColumn2Panel.Controls.Add(this.groupNotificationDuration);
+            this.tableColumn2Panel.Controls.Add(this.groupUserInterface);
             this.tableColumn2Panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableColumn2Panel.Location = new System.Drawing.Point(192, 3);
             this.tableColumn2Panel.Margin = new System.Windows.Forms.Padding(0);
             this.tableColumn2Panel.Name = "tableColumn2Panel";
-            this.tableColumn2Panel.Size = new System.Drawing.Size(189, 284);
+            this.tableColumn2Panel.Size = new System.Drawing.Size(189, 332);
             this.tableColumn2Panel.TabIndex = 3;
             // 
             // groupUserInterface
@@ -238,7 +240,7 @@
             this.groupUserInterface.Controls.Add(this.checkNotificationTimer);
             this.groupUserInterface.Location = new System.Drawing.Point(3, 128);
             this.groupUserInterface.Name = "groupUserInterface";
-            this.groupUserInterface.Size = new System.Drawing.Size(183, 153);
+            this.groupUserInterface.Size = new System.Drawing.Size(183, 201);
             this.groupUserInterface.TabIndex = 3;
             this.groupUserInterface.TabStop = false;
             this.groupUserInterface.Text = "User Interface";
@@ -376,19 +378,20 @@
             this.tableColumn3Panel.Location = new System.Drawing.Point(381, 3);
             this.tableColumn3Panel.Margin = new System.Windows.Forms.Padding(0);
             this.tableColumn3Panel.Name = "tableColumn3Panel";
-            this.tableColumn3Panel.Size = new System.Drawing.Size(192, 284);
+            this.tableColumn3Panel.Size = new System.Drawing.Size(192, 332);
             this.tableColumn3Panel.TabIndex = 4;
             // 
             // groupAdvancedSettings
             // 
-            this.groupAdvancedSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupAdvancedSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupAdvancedSettings.Controls.Add(this.btnClearCache);
             this.groupAdvancedSettings.Controls.Add(this.labelMiscellaneous);
             this.groupAdvancedSettings.Controls.Add(this.checkHardwareAcceleration);
             this.groupAdvancedSettings.Location = new System.Drawing.Point(3, 3);
             this.groupAdvancedSettings.Name = "groupAdvancedSettings";
-            this.groupAdvancedSettings.Size = new System.Drawing.Size(186, 281);
+            this.groupAdvancedSettings.Size = new System.Drawing.Size(183, 326);
             this.groupAdvancedSettings.TabIndex = 0;
             this.groupAdvancedSettings.TabStop = false;
             this.groupAdvancedSettings.Text = "Advanced Settings";
@@ -425,11 +428,21 @@
             this.checkHardwareAcceleration.UseVisualStyleBackColor = true;
             this.checkHardwareAcceleration.CheckedChanged += new System.EventHandler(this.checkHardwareAcceleration_CheckedChanged);
             // 
+            // tableColumn1Panel
+            // 
+            this.tableColumn1Panel.Controls.Add(this.groupNotificationLocation);
+            this.tableColumn1Panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableColumn1Panel.Location = new System.Drawing.Point(3, 3);
+            this.tableColumn1Panel.Margin = new System.Windows.Forms.Padding(0);
+            this.tableColumn1Panel.Name = "tableColumn1Panel";
+            this.tableColumn1Panel.Size = new System.Drawing.Size(189, 332);
+            this.tableColumn1Panel.TabIndex = 5;
+            // 
             // FormSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(576, 290);
+            this.ClientSize = new System.Drawing.Size(576, 338);
             this.Controls.Add(this.tableLayout);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -450,6 +463,7 @@
             this.tableColumn3Panel.ResumeLayout(false);
             this.groupAdvancedSettings.ResumeLayout(false);
             this.groupAdvancedSettings.PerformLayout();
+            this.tableColumn1Panel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -484,5 +498,6 @@
         private System.Windows.Forms.CheckBox checkHardwareAcceleration;
         private System.Windows.Forms.Label labelMiscellaneous;
         private System.Windows.Forms.Button btnClearCache;
+        private System.Windows.Forms.Panel tableColumn1Panel;
     }
 }
