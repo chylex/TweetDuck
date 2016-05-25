@@ -50,13 +50,15 @@
       }
 
       if ($TD.expandLinksOnHover){
-        var expanded = url;
-        expanded = cutStart(expanded,"https://");
-        expanded = cutStart(expanded,"http://");
-        expanded = cutStart(expanded,"www.");
+        tooltipTimer = window.setTimeout(function(){
+          var expanded = url;
+          expanded = cutStart(expanded,"https://");
+          expanded = cutStart(expanded,"http://");
+          expanded = cutStart(expanded,"www.");
 
-        e.currentTarget.setAttribute("td-prev-text",text);
-        e.currentTarget.innerHTML = expanded;
+          e.currentTarget.setAttribute("td-prev-text",text);
+          e.currentTarget.innerHTML = expanded;
+        },200);
       }
       else{
         tooltipTimer = window.setTimeout(function(){
@@ -77,8 +79,9 @@
         }
       }
       
+      window.clearTimeout(tooltipTimer);
+      
       if (tooltipDisplayed){
-        window.clearTimeout(tooltipTimer);
         tooltipDisplayed = false;
         $TD.displayTooltip(null,true);
       }
