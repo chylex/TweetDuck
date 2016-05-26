@@ -126,10 +126,10 @@
     <Compile Include="Core\Other\FormSettings.Designer.cs">
       <DependentUpon>FormSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Other\FormUpdateDownload.cs">
+    <Compile Include="Updates\FormUpdateDownload.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Core\Other\FormUpdateDownload.Designer.cs">
+    <Compile Include="Updates\FormUpdateDownload.Designer.cs">
       <DependentUpon>FormUpdateDownload.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\TrayIcon.cs">
@@ -142,7 +142,10 @@
     <Compile Include="Core\Utils\BrowserUtils.cs" />
     <Compile Include="Core\Utils\HardwareAcceleration.cs" />
     <Compile Include="Core\Utils\NativeMethods.cs" />
-    <Compile Include="Core\Utils\UpdateInfo.cs" />
+    <Compile Include="Updates\UpdateAcceptedEventArgs.cs" />
+    <Compile Include="Updates\UpdateCheckEventArgs.cs" />
+    <Compile Include="Updates\UpdateHandler.cs" />
+    <Compile Include="Updates\UpdateInfo.cs" />
     <Compile Include="Migration\FormMigrationQuestion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -219,7 +222,7 @@
     <EmbeddedResource Include="Core\Other\FormSettings.resx">
       <DependentUpon>FormSettings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Core\Other\FormUpdateDownload.resx">
+    <EmbeddedResource Include="Updates\FormUpdateDownload.resx">
       <DependentUpon>FormUpdateDownload.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

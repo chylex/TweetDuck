@@ -1,4 +1,6 @@
-﻿namespace TweetDck.Core.Utils{
+﻿using TweetDck.Core.Utils;
+
+namespace TweetDck.Updates{
     class UpdateInfo{
         public readonly string VersionTag;
         public readonly string DownloadUrl;

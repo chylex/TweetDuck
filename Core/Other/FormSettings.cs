@@ -5,6 +5,7 @@ using TweetDck.Configuration;
 using TweetDck.Core.Handling;
 using TweetDck.Core.Utils;
 using TweetDck.Core.Controls;
+using TweetDck.Updates;
 
 namespace TweetDck.Core.Other{
     sealed partial class FormSettings : Form{
@@ -15,13 +16,21 @@ namespace TweetDck.Core.Other{
         }
 
         private readonly FormNotification notification;
-        private bool isLoaded;
+        private readonly UpdateHandler updates;
 
-        public FormSettings(FormBrowser browserForm){
+        private bool isLoaded;
+        private int updateCheckEventId;
+
+        public FormSettings(FormBrowser browserForm, UpdateHandler updates){
             InitializeComponent();
             Shown += (sender, args) => isLoaded = true;
 
             Text = Program.BrandName+" Settings";
+
+            this.updates = updates;
+
+            updates.CheckFinished += updates_CheckFinished;
+            Disposed += (sender, args) => updates.CheckFinished -= updates_CheckFinished;
 
             notification = browserForm.CreateNotificationForm(false);
             notification.CanMoveWindow = () => radioLocCustom.Checked;
@@ -202,6 +211,29 @@ namespace TweetDck.Core.Other{
             BrowserCache.SetClearOnExit();
 
             MessageBox.Show("Cache will be automatically cleared when "+Program.BrandName+" exits.","Clear Cache",MessageBoxButtons.OK,MessageBoxIcon.Information);
+        }
+
+        private void btnCheckUpdates_Click(object sender, EventArgs e){
+            if (!isLoaded)return;
+
+            Config.DismissedUpdate = string.Empty;
+            Config.Save();
+
+            updateCheckEventId = updates.Check(true);
+
+            isLoaded = false;
+            btnCheckUpdates.Enabled = false;
+            isLoaded = true; // SAME AS ABOVE
+        }
+
+        private void updates_CheckFinished(object sender, UpdateCheckEventArgs e){
+            if (e.EventId == updateCheckEventId){
+                btnCheckUpdates.Enabled = true;
+
+                if (!e.UpdateAvailable){
+                    MessageBox.Show("Your version of "+Program.BrandName+" is up to date.","No Updates Available",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                }
+            }
         }
     }
 }

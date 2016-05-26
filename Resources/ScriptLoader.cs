@@ -16,8 +16,8 @@ namespace TweetDck.Resources{
             }
         }
 
-        public static IList<string> LoadResources(params string[] names){
-            return names.Select(LoadResource).ToList();
+        public static IEnumerable<string> LoadResources(params string[] names){
+            return names.Select(LoadResource);
         }
     }
 }

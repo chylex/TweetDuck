@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using TweetDck.Core.Controls;
 using TweetDck.Core.Utils;
 
-namespace TweetDck.Core.Other{
+namespace TweetDck.Updates{
     sealed partial class FormUpdateDownload : Form{
         public string InstallerPath{
             get{

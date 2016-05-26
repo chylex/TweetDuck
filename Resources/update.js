@@ -1,4 +1,4 @@
-(function($,$TD){
+(function($,$TDU){
   //
   // Variable: Current timeout ID for update checking.
   //
@@ -7,7 +7,12 @@
   //
   // Constant: Update exe file name.
   //
-  const updateFileName = $TD.brandName+".Update.exe";
+  const updateFileName = $TDU.brandName+".Update.exe";
+  
+  //
+  // Constant: Url that returns JSON data about latest version.
+  //
+  const updateCheckUrl = "https://api.github.com/repos/chylex/"+$TDU.brandName+"/releases/latest";
   
   //
   // Function: Creates the update notification element. Removes the old one if already exists.
@@ -22,7 +27,7 @@
     
     var html = [
       "<div id='tweetdck-update'>",
-      "<p class='tdu-title'>"+$TD.brandName+" Update</p>",
+      "<p class='tdu-title'>"+$TDU.brandName+" Update</p>",
       "<p class='tdu-info'>Version "+version+" is now available.</p>",
       "<div class='tdu-buttons'>",
       "<button class='btn btn-positive tdu-btn-download'><span class='label'>Download</button>",
@@ -85,11 +90,11 @@
 
     buttonDiv.children(".tdu-btn-download").click(function(){
       ele.remove();
-      $TD.onUpdateAccepted(version,download);
+      $TDU.onUpdateAccepted(version,download);
     });
 
     buttonDiv.children(".tdu-btn-dismiss").click(function(){
-      $TD.onUpdateDismissed(version);
+      $TDU.onUpdateDismissed(version);
       ele.slideUp(function(){ ele.remove(); });
     });
     
@@ -103,18 +108,23 @@
   //
   // Function: Runs an update check and updates all DOM elements appropriately.
   //
-  var runUpdateCheck = function(){
+  var runUpdateCheck = function(force, eventID){
     clearTimeout(updateCheckTimeoutID);
     updateCheckTimeoutID = setTimeout(runUpdateCheck,1000*60*60); // 1 hour
     
-    if (!$TD.updateCheckEnabled)return;
+    if (!$TDU.updateCheckEnabled && !force)return;
     
-    $.getJSON("https://api.github.com/repos/chylex/"+$TD.brandName+"/releases/latest",function(response){
+    $.getJSON(updateCheckUrl,function(response){
       var tagName = response.tag_name;
+      var hasUpdate = tagName !== $TDU.versionTag && tagName !== $TDU.dismissedVersionTag && response.assets.length > 0;
       
-      if (tagName !== $TD.versionTag && tagName !== $TD.dismissedVersionTag && response.assets.length > 0){
+      if (hasUpdate){
         var obj = response.assets.find(asset => asset.name === updateFileName) || response.assets[0];
         createUpdateNotificationElement(tagName,obj.browser_download_url);
+      }
+      
+      if (eventID !== 0){
+        $TDU.onUpdateCheckFinished(eventID,hasUpdate,tagName);
       }
     });
   };
@@ -122,6 +132,6 @@
   //
   // Block: Setup global functions.
   //
-  window.TDGF_runUpdateCheck = runUpdateCheck;
+  window.TDUF_runUpdateCheck = runUpdateCheck;
   runUpdateCheck();
-})($,$TD);
+})($,$TDU);

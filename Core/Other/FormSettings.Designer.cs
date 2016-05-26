@@ -53,6 +53,8 @@
             this.labelMiscellaneous = new System.Windows.Forms.Label();
             this.checkHardwareAcceleration = new System.Windows.Forms.CheckBox();
             this.tableColumn1Panel = new System.Windows.Forms.Panel();
+            this.labelUpdateNotifications = new System.Windows.Forms.Label();
+            this.btnCheckUpdates = new System.Windows.Forms.Button();
             this.groupNotificationLocation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).BeginInit();
             this.tableLayout.SuspendLayout();
@@ -80,7 +82,7 @@
             this.groupNotificationLocation.Controls.Add(this.radioLocTL);
             this.groupNotificationLocation.Location = new System.Drawing.Point(3, 3);
             this.groupNotificationLocation.Name = "groupNotificationLocation";
-            this.groupNotificationLocation.Size = new System.Drawing.Size(183, 326);
+            this.groupNotificationLocation.Size = new System.Drawing.Size(183, 324);
             this.groupNotificationLocation.TabIndex = 0;
             this.groupNotificationLocation.TabStop = false;
             this.groupNotificationLocation.Text = "Notification Location";
@@ -88,7 +90,7 @@
             // labelDisplay
             // 
             this.labelDisplay.AutoSize = true;
-            this.labelDisplay.Location = new System.Drawing.Point(6, 148);
+            this.labelDisplay.Location = new System.Drawing.Point(3, 148);
             this.labelDisplay.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelDisplay.Name = "labelDisplay";
             this.labelDisplay.Size = new System.Drawing.Size(41, 13);
@@ -101,16 +103,16 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxDisplay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxDisplay.FormattingEnabled = true;
-            this.comboBoxDisplay.Location = new System.Drawing.Point(9, 164);
+            this.comboBoxDisplay.Location = new System.Drawing.Point(6, 164);
             this.comboBoxDisplay.Name = "comboBoxDisplay";
-            this.comboBoxDisplay.Size = new System.Drawing.Size(168, 21);
+            this.comboBoxDisplay.Size = new System.Drawing.Size(171, 21);
             this.comboBoxDisplay.TabIndex = 7;
             this.comboBoxDisplay.SelectedValueChanged += new System.EventHandler(this.comboBoxDisplay_SelectedValueChanged);
             // 
             // labelEdgeDistance
             // 
             this.labelEdgeDistance.AutoSize = true;
-            this.labelEdgeDistance.Location = new System.Drawing.Point(6, 197);
+            this.labelEdgeDistance.Location = new System.Drawing.Point(3, 197);
             this.labelEdgeDistance.Margin = new System.Windows.Forms.Padding(3, 9, 3, 0);
             this.labelEdgeDistance.Name = "labelEdgeDistance";
             this.labelEdgeDistance.Size = new System.Drawing.Size(103, 13);
@@ -214,7 +216,7 @@
             this.tableLayout.Padding = new System.Windows.Forms.Padding(3);
             this.tableLayout.RowCount = 1;
             this.tableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayout.Size = new System.Drawing.Size(576, 338);
+            this.tableLayout.Size = new System.Drawing.Size(576, 336);
             this.tableLayout.TabIndex = 2;
             // 
             // tableColumn2Panel
@@ -225,7 +227,7 @@
             this.tableColumn2Panel.Location = new System.Drawing.Point(192, 3);
             this.tableColumn2Panel.Margin = new System.Windows.Forms.Padding(0);
             this.tableColumn2Panel.Name = "tableColumn2Panel";
-            this.tableColumn2Panel.Size = new System.Drawing.Size(189, 332);
+            this.tableColumn2Panel.Size = new System.Drawing.Size(189, 330);
             this.tableColumn2Panel.TabIndex = 3;
             // 
             // groupUserInterface
@@ -233,6 +235,8 @@
             this.groupUserInterface.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupUserInterface.Controls.Add(this.btnCheckUpdates);
+            this.groupUserInterface.Controls.Add(this.labelUpdateNotifications);
             this.groupUserInterface.Controls.Add(this.checkExpandLinks);
             this.groupUserInterface.Controls.Add(this.comboBoxTrayType);
             this.groupUserInterface.Controls.Add(this.labelTrayType);
@@ -240,7 +244,7 @@
             this.groupUserInterface.Controls.Add(this.checkNotificationTimer);
             this.groupUserInterface.Location = new System.Drawing.Point(3, 128);
             this.groupUserInterface.Name = "groupUserInterface";
-            this.groupUserInterface.Size = new System.Drawing.Size(183, 201);
+            this.groupUserInterface.Size = new System.Drawing.Size(183, 199);
             this.groupUserInterface.TabIndex = 3;
             this.groupUserInterface.TabStop = false;
             this.groupUserInterface.Text = "User Interface";
@@ -263,17 +267,16 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxTrayType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTrayType.FormattingEnabled = true;
-            this.comboBoxTrayType.Location = new System.Drawing.Point(9, 116);
-            this.comboBoxTrayType.Margin = new System.Windows.Forms.Padding(3, 3, 3, 12);
+            this.comboBoxTrayType.Location = new System.Drawing.Point(6, 92);
             this.comboBoxTrayType.Name = "comboBoxTrayType";
-            this.comboBoxTrayType.Size = new System.Drawing.Size(168, 21);
+            this.comboBoxTrayType.Size = new System.Drawing.Size(171, 21);
             this.comboBoxTrayType.TabIndex = 10;
             this.comboBoxTrayType.SelectedIndexChanged += new System.EventHandler(this.comboBoxTrayType_SelectedIndexChanged);
             // 
             // labelTrayType
             // 
             this.labelTrayType.AutoSize = true;
-            this.labelTrayType.Location = new System.Drawing.Point(6, 100);
+            this.labelTrayType.Location = new System.Drawing.Point(3, 76);
             this.labelTrayType.Margin = new System.Windows.Forms.Padding(3, 11, 3, 0);
             this.labelTrayType.Name = "labelTrayType";
             this.labelTrayType.Size = new System.Drawing.Size(52, 13);
@@ -283,12 +286,12 @@
             // checkUpdateNotifications
             // 
             this.checkUpdateNotifications.AutoSize = true;
-            this.checkUpdateNotifications.Location = new System.Drawing.Point(6, 69);
-            this.checkUpdateNotifications.Margin = new System.Windows.Forms.Padding(3, 4, 3, 3);
+            this.checkUpdateNotifications.Location = new System.Drawing.Point(6, 145);
+            this.checkUpdateNotifications.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.checkUpdateNotifications.Name = "checkUpdateNotifications";
-            this.checkUpdateNotifications.Size = new System.Drawing.Size(115, 17);
+            this.checkUpdateNotifications.Size = new System.Drawing.Size(165, 17);
             this.checkUpdateNotifications.TabIndex = 5;
-            this.checkUpdateNotifications.Text = "Check for Updates";
+            this.checkUpdateNotifications.Text = "Check Updates Automatically";
             this.checkUpdateNotifications.UseVisualStyleBackColor = true;
             this.checkUpdateNotifications.CheckedChanged += new System.EventHandler(this.checkUpdateNotifications_CheckedChanged);
             // 
@@ -378,7 +381,7 @@
             this.tableColumn3Panel.Location = new System.Drawing.Point(381, 3);
             this.tableColumn3Panel.Margin = new System.Windows.Forms.Padding(0);
             this.tableColumn3Panel.Name = "tableColumn3Panel";
-            this.tableColumn3Panel.Size = new System.Drawing.Size(192, 332);
+            this.tableColumn3Panel.Size = new System.Drawing.Size(192, 330);
             this.tableColumn3Panel.TabIndex = 4;
             // 
             // groupAdvancedSettings
@@ -391,7 +394,7 @@
             this.groupAdvancedSettings.Controls.Add(this.checkHardwareAcceleration);
             this.groupAdvancedSettings.Location = new System.Drawing.Point(3, 3);
             this.groupAdvancedSettings.Name = "groupAdvancedSettings";
-            this.groupAdvancedSettings.Size = new System.Drawing.Size(183, 326);
+            this.groupAdvancedSettings.Size = new System.Drawing.Size(183, 324);
             this.groupAdvancedSettings.TabIndex = 0;
             this.groupAdvancedSettings.TabStop = false;
             this.groupAdvancedSettings.Text = "Advanced Settings";
@@ -435,14 +438,34 @@
             this.tableColumn1Panel.Location = new System.Drawing.Point(3, 3);
             this.tableColumn1Panel.Margin = new System.Windows.Forms.Padding(0);
             this.tableColumn1Panel.Name = "tableColumn1Panel";
-            this.tableColumn1Panel.Size = new System.Drawing.Size(189, 332);
+            this.tableColumn1Panel.Size = new System.Drawing.Size(189, 330);
             this.tableColumn1Panel.TabIndex = 5;
+            // 
+            // labelUpdateNotifications
+            // 
+            this.labelUpdateNotifications.AutoSize = true;
+            this.labelUpdateNotifications.Location = new System.Drawing.Point(3, 127);
+            this.labelUpdateNotifications.Margin = new System.Windows.Forms.Padding(3, 11, 3, 0);
+            this.labelUpdateNotifications.Name = "labelUpdateNotifications";
+            this.labelUpdateNotifications.Size = new System.Drawing.Size(103, 13);
+            this.labelUpdateNotifications.TabIndex = 12;
+            this.labelUpdateNotifications.Text = "Update Notifications";
+            // 
+            // btnCheckUpdates
+            // 
+            this.btnCheckUpdates.Location = new System.Drawing.Point(6, 168);
+            this.btnCheckUpdates.Name = "btnCheckUpdates";
+            this.btnCheckUpdates.Size = new System.Drawing.Size(171, 23);
+            this.btnCheckUpdates.TabIndex = 13;
+            this.btnCheckUpdates.Text = "Check Updates Now";
+            this.btnCheckUpdates.UseVisualStyleBackColor = true;
+            this.btnCheckUpdates.Click += new System.EventHandler(this.btnCheckUpdates_Click);
             // 
             // FormSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(576, 338);
+            this.ClientSize = new System.Drawing.Size(576, 336);
             this.Controls.Add(this.tableLayout);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -499,5 +522,7 @@
         private System.Windows.Forms.Label labelMiscellaneous;
         private System.Windows.Forms.Button btnClearCache;
         private System.Windows.Forms.Panel tableColumn1Panel;
+        private System.Windows.Forms.Label labelUpdateNotifications;
+        private System.Windows.Forms.Button btnCheckUpdates;
     }
 }

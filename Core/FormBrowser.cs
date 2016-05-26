@@ -7,9 +7,9 @@ using TweetDck.Configuration;
 using TweetDck.Core.Handling;
 using TweetDck.Core.Other;
 using TweetDck.Resources;
-using TweetDck.Core.Utils;
 using TweetDck.Core.Controls;
 using System.Drawing;
+using TweetDck.Updates;
 
 namespace TweetDck.Core{
     sealed partial class FormBrowser : Form{
@@ -24,6 +24,7 @@ namespace TweetDck.Core{
         private readonly ChromiumWebBrowser browser;
         private readonly TweetDeckBridge bridge;
         private readonly FormNotification notification;
+        private readonly UpdateHandler updates;
 
         private FormSettings currentFormSettings;
         private FormAbout currentFormAbout;
@@ -60,6 +61,9 @@ namespace TweetDck.Core{
             notification = CreateNotificationForm(true);
             notification.CanMoveWindow = () => false;
             notification.Show();
+
+            updates = new UpdateHandler(browser,this);
+            updates.UpdateAccepted += updates_UpdateAccepted;
         }
 
         private void ShowChildForm(Form form){
@@ -110,7 +114,7 @@ namespace TweetDck.Core{
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             if (e.Frame.IsMain){
-                foreach(string js in ScriptLoader.LoadResources("code.js","update.js").Where(js => js != null)){
+                foreach(string js in ScriptLoader.LoadResources("code.js").Where(js => js != null)){
                     browser.ExecuteScriptAsync(js);
                 }
             }
@@ -179,6 +183,25 @@ namespace TweetDck.Core{
             ForceClose();
         }
 
+        private void updates_UpdateAccepted(object sender, UpdateAcceptedEventArgs e){
+            Hide();
+
+            FormUpdateDownload downloadForm = new FormUpdateDownload(e.UpdateInfo);
+            downloadForm.MoveToCenter(this);
+            downloadForm.ShowDialog();
+
+            if (downloadForm.UpdateStatus == FormUpdateDownload.Status.Succeeded){
+                UpdateInstallerPath = downloadForm.InstallerPath;
+                ForceClose();
+            }
+            else if (downloadForm.UpdateStatus == FormUpdateDownload.Status.Manual){
+                ForceClose();
+            }
+            else{
+                Show();
+            }
+        }
+
         protected override void WndProc(ref Message m){
             if (isLoaded && m.Msg == 0x210 && (m.WParam.ToInt32() & 0xFFFF) == 0x020B){ // WM_PARENTNOTIFY, WM_XBUTTONDOWN
                 browser.ExecuteScriptAsync("TDGF_onMouseClickExtra",(m.WParam.ToInt32() >> 16) & 0xFFFF);
@@ -197,7 +220,7 @@ namespace TweetDck.Core{
             else{
                 bool prevEnableUpdateCheck = Config.EnableUpdateCheck;
 
-                currentFormSettings = new FormSettings(this);
+                currentFormSettings = new FormSettings(this,updates);
 
                 currentFormSettings.FormClosed += (sender, args) => {
                     currentFormSettings = null;
@@ -205,8 +228,7 @@ namespace TweetDck.Core{
                     if (!prevEnableUpdateCheck && Config.EnableUpdateCheck){
                         Config.DismissedUpdate = string.Empty;
                         Config.Save();
-
-                        browser.ExecuteScriptAsync("TDGF_runUpdateCheck",new object[0]);
+                        updates.Check(false);
                     }
                 };
 
@@ -255,25 +277,6 @@ namespace TweetDck.Core{
 
         public void OnImagePastedFinish(){
             browser.ExecuteScriptAsync("TDGF_tryPasteImageFinish",new object[0]);
-        }
-
-        public void BeginUpdateProcess(string versionTag, string downloadUrl){
-            Hide();
-
-            FormUpdateDownload downloadForm = new FormUpdateDownload(new UpdateInfo(versionTag,downloadUrl));
-            downloadForm.MoveToCenter(this);
-            downloadForm.ShowDialog();
-
-            if (downloadForm.UpdateStatus == FormUpdateDownload.Status.Succeeded){
-                UpdateInstallerPath = downloadForm.InstallerPath;
-                ForceClose();
-            }
-            else if (downloadForm.UpdateStatus == FormUpdateDownload.Status.Manual){
-                ForceClose();
-            }
-            else{
-                Show();
-            }
         }
     }
 }

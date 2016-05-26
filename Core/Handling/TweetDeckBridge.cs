@@ -32,21 +32,9 @@ namespace TweetDck.Core.Handling{
             }
         }
 
-        public bool UpdateCheckEnabled{
-            get{
-                return Program.UserConfig.EnableUpdateCheck;
-            }
-        }
-
         public bool ExpandLinksOnHover{
             get{
                 return Program.UserConfig.ExpandLinksOnHover;
-            }
-        }
-
-        public string DismissedVersionTag{
-            get{
-                return Program.UserConfig.DismissedUpdate ?? string.Empty;
             }
         }
 
@@ -86,19 +74,6 @@ namespace TweetDck.Core.Handling{
 
         public void OnTweetSound(){
             form.InvokeSafe(form.OnTweetSound);
-        }
-
-        public void OnUpdateAccepted(string versionTag, string downloadUrl){
-            form.InvokeSafe(() => {
-                form.BeginUpdateProcess(versionTag,downloadUrl);
-            });
-        }
-
-        public void OnUpdateDismissed(string versionTag){
-            form.InvokeSafe(() => {
-                Program.UserConfig.DismissedUpdate = versionTag;
-                Program.UserConfig.Save();
-            });
         }
 
         public void DisplayTooltip(string text, bool showInNotification){

@@ -1,4 +1,4 @@
-﻿namespace TweetDck.Core.Other {
+﻿namespace TweetDck.Updates {
     partial class FormUpdateDownload {
         /// <summary>
         /// Required designer variable.
