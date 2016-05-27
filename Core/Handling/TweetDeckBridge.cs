@@ -10,6 +10,8 @@ namespace TweetDck.Core.Handling{
     class TweetDeckBridge{
         public static string LastRightClickedLink = string.Empty;
         public static string LastHighlightedTweet = string.Empty;
+        public static string LastHighlightedTweetEmbedded = string.Empty;
+        public static string NotificationTweetEmbedded = string.Empty;
         public static string ClipboardImagePath = string.Empty;
 
         private readonly FormBrowser form;
@@ -58,8 +60,15 @@ namespace TweetDck.Core.Handling{
             form.InvokeSafe(() => LastRightClickedLink = link);
         }
 
-        public void SetLastHighlightedTweet(string link){
-            form.InvokeSafe(() => LastHighlightedTweet = link);
+        public void SetLastHighlightedTweet(string link, string embeddedLink){
+            form.InvokeSafe(() => {
+                LastHighlightedTweet = link;
+                LastHighlightedTweetEmbedded = embeddedLink;
+            });
+        }
+
+        public void SetNotificationTweetEmbedded(string link){
+            form.InvokeSafe(() => NotificationTweetEmbedded = link);
         }
 
         public void OpenSettingsMenu(){

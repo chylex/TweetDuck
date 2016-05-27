@@ -98,4 +98,20 @@
       }
     });
   })();
+  
+  //
+  // Block: Setup embedded tweet address for context menu
+  //
+  (function(){
+    var embedded = document.getElementsByClassName("quoted-tweet");
+    if (embedded.length === 0)return;
+    
+    var tweetId = embedded[0].getAttribute("data-tweet-id");
+    if (!tweetId)return;
+    
+    var account = embedded[0].getElementsByClassName("account-link");
+    if (account.length === 0)return;
+    
+    $TD.setNotificationTweetEmbedded(account[0].getAttribute("href")+"/status/"+tweetId);
+  })();
 })($TD);

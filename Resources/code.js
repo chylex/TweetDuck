@@ -318,9 +318,9 @@
   (function(){
     var lastTweet = "";
     
-    var updateHighlightedTweet = function(link){
+    var updateHighlightedTweet = function(link, embeddedLink){
       if (lastTweet != link){
-        $TD.setLastHighlightedTweet(link);
+        $TD.setLastHighlightedTweet(link,embeddedLink);
         lastTweet = link;
       }
     };
@@ -330,11 +330,13 @@
         highlightedTweetEle = $(this);
         
         var link = $(this).find("time").first().children("a").first();
-        updateHighlightedTweet(link.length > 0 ? link.attr("href") : "");
+        var embedded = $(this).find(".quoted-tweet[data-tweet-id]").first();
+        
+        updateHighlightedTweet(link.length > 0 ? link.attr("href") : "",embedded.length > 0 ? embedded.find(".account-link").first().attr("href")+"/status/"+embedded.attr("data-tweet-id") : "");
       }
       else if (e.type === "mouseleave"){
         highlightedTweetEle = null;
-        updateHighlightedTweet("");
+        updateHighlightedTweet("","");
       }
     });
   })();
