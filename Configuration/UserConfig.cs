@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -192,7 +193,7 @@ namespace TweetDck.Configuration{
                 #endif
 
                 typeName = typeName.Replace("TweetDick","TweetDck");
-                return Type.GetType(string.Format("{0}, {1}",typeName,assemblyName));
+                return Type.GetType(string.Format(CultureInfo.CurrentCulture,"{0}, {1}",typeName,assemblyName));
             }
         }
     }

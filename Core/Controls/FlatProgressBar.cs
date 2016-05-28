@@ -23,5 +23,11 @@ namespace TweetDck.Core.Controls{
             rect.Width = (int)(rect.Width*((double)Value/Maximum));
             e.Graphics.FillRectangle(brush,rect);
         }
+
+        protected override void Dispose(bool disposing){
+            if (brush != null)brush.Dispose();
+
+            base.Dispose(disposing);
+        }
     }
 }

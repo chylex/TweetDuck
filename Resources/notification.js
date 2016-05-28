@@ -88,7 +88,7 @@
     });
     
     addEventListener(links,"mousemove",function(e){
-      if (tooltipDisplayed && (prevMouseX != e.clientX || prevMouseY != e.clientY)){
+      if (tooltipDisplayed && (prevMouseX !== e.clientX || prevMouseY !== e.clientY)){
         var url = e.currentTarget.getAttribute("data-full-url");
         if (!url)return;
         

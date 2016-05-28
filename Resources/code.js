@@ -257,7 +257,7 @@
         }
       }
       else if (e.type === "mousemove"){
-        if (tooltipDisplayed && (prevMouseX != e.clientX || prevMouseY != e.clientY)){
+        if (tooltipDisplayed && (prevMouseX !== e.clientX || prevMouseY !== e.clientY)){
           $TD.displayTooltip(me.attr("data-full-url"),false);
           prevMouseX = e.clientX;
           prevMouseY = e.clientY;
@@ -319,7 +319,7 @@
     var lastTweet = "";
     
     var updateHighlightedTweet = function(link, embeddedLink){
-      if (lastTweet != link){
+      if (lastTweet !== link){
         $TD.setLastHighlightedTweet(link,embeddedLink);
         lastTweet = link;
       }

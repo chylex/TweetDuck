@@ -1,4 +1,5 @@
 ﻿using CefSharp;
+using System;
 using System.IO;
 using System.Windows.Forms;
 using TweetDck.Core.Utils;
@@ -12,7 +13,7 @@ namespace TweetDck.Core.Handling{
         private const int MenuCopyImageUrl = 26504;
 
         public virtual void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model){
-            if (parameters.TypeFlags.HasFlag(ContextMenuType.Link) && !parameters.UnfilteredLinkUrl.EndsWith("tweetdeck.twitter.com/#")){
+            if (parameters.TypeFlags.HasFlag(ContextMenuType.Link) && !parameters.UnfilteredLinkUrl.EndsWith("tweetdeck.twitter.com/#",StringComparison.Ordinal)){
                 model.AddItem((CefMenuCommand)MenuOpenUrlInBrowser,"Open in browser");
                 model.AddItem((CefMenuCommand)MenuCopyUrl,"Copy link address");
                 model.AddSeparator();
@@ -77,7 +78,7 @@ namespace TweetDck.Core.Handling{
             return false;
         }
 
-        protected void RemoveSeparatorIfLast(IMenuModel model){
+        protected static void RemoveSeparatorIfLast(IMenuModel model){
             if (model.Count > 0 && model.GetTypeAt(model.Count-1) == MenuItemType.Separator){
                 model.RemoveAt(model.Count-1);
             }
