@@ -113,10 +113,10 @@
     <Compile Include="Core\Other\FormAbout.Designer.cs">
       <DependentUpon>FormAbout.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Other\FormBackgroundWork.cs">
+    <Compile Include="Migration\FormBackgroundWork.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Core\Other\FormBackgroundWork.Designer.cs">
+    <Compile Include="Migration\FormBackgroundWork.Designer.cs">
       <DependentUpon>FormBackgroundWork.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\Handling\TweetDeckBridge.cs" />
@@ -153,7 +153,6 @@
       <DependentUpon>FormMigrationQuestion.cs</DependentUpon>
     </Compile>
     <Compile Include="Migration\Helpers\LnkEditor.cs" />
-    <Compile Include="Migration\Helpers\ProgramProcessSearch.cs" />
     <Compile Include="Migration\MigrationDecision.cs" />
     <Compile Include="Migration\MigrationManager.cs" />
     <Compile Include="Migration\Helpers\ProgramRegistrySearch.cs" />
