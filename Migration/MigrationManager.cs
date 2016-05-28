@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
-using TweetDck.Core.Other;
 using TweetDck.Migration.Helpers;
 using TweetDck.Core.Utils;
 
@@ -83,7 +83,13 @@ namespace TweetDck.Migration{
 
                 if (decision == MigrationDecision.Migrate || decision == MigrationDecision.MigratePurge){
                     // kill process if running
-                    Process runningProcess = ProgramProcessSearch.FindProcessWithWindowByName("TweetDeck");
+                    Process runningProcess = null;
+
+                    try{
+                        runningProcess = Process.GetProcessesByName("TweetDeck").FirstOrDefault(process => process.MainWindowHandle != IntPtr.Zero);
+                    }catch(Exception){
+                        // process not found
+                    }
 
                     if (runningProcess != null){
                         runningProcess.CloseMainWindow();

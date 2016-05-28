@@ -1,6 +1,6 @@
 ﻿using TweetDck.Core.Controls;
 
-namespace TweetDck.Core.Other {
+namespace TweetDck.Migration {
     partial class FormBackgroundWork {
         /// <summary>
         /// Required designer variable.
@@ -26,17 +26,17 @@ namespace TweetDck.Core.Other {
         /// </summary>
         private void InitializeComponent() {
             this.progressBarUseless = new System.Windows.Forms.ProgressBar();
-            this.labelDescription = new TweetDck.Core.Controls.RichTextLabel();
+            this.labelDescription = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // progressBarUseless
             // 
             this.progressBarUseless.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarUseless.Location = new System.Drawing.Point(12, 49);
+            this.progressBarUseless.Location = new System.Drawing.Point(15, 52);
             this.progressBarUseless.MarqueeAnimationSpeed = 10;
             this.progressBarUseless.Name = "progressBarUseless";
-            this.progressBarUseless.Size = new System.Drawing.Size(480, 23);
+            this.progressBarUseless.Size = new System.Drawing.Size(477, 23);
             this.progressBarUseless.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.progressBarUseless.TabIndex = 0;
             // 
@@ -45,21 +45,19 @@ namespace TweetDck.Core.Other {
             this.labelDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelDescription.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.labelDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelDescription.Location = new System.Drawing.Point(12, 12);
             this.labelDescription.Name = "labelDescription";
-            this.labelDescription.ReadOnly = true;
-            this.labelDescription.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.labelDescription.Size = new System.Drawing.Size(480, 31);
+            this.labelDescription.Size = new System.Drawing.Size(480, 37);
             this.labelDescription.TabIndex = 1;
-            this.labelDescription.TabStop = false;
-            this.labelDescription.Text = "";
+            this.labelDescription.Text = "Please, watch this informationless progress bar showcase while some magic happens" +
+    " in the background...";
             // 
             // FormBackgroundWork
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(504, 84);
+            this.ClientSize = new System.Drawing.Size(504, 87);
             this.Controls.Add(this.labelDescription);
             this.Controls.Add(this.progressBarUseless);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -74,6 +72,6 @@ namespace TweetDck.Core.Other {
         #endregion
 
         private System.Windows.Forms.ProgressBar progressBarUseless;
-        private RichTextLabel labelDescription;
+        private System.Windows.Forms.Label labelDescription;
     }
 }

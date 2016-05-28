@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Windows.Forms;
-using TweetDck.Core.Controls;
 
-namespace TweetDck.Core.Other{
+namespace TweetDck.Migration{
     partial class FormBackgroundWork : Form{
         public FormBackgroundWork(){
             InitializeComponent();
-
-            labelDescription.Rtf = RichTextLabel.Wrap(@"Please, watch this informationless progress bar showcase while some magic happens in the background...");
         }
 
         public void ShowWorkDialog(Action onBegin){
