@@ -40,11 +40,6 @@
       },0);
     });
     
-    // Fix layout for right-aligned actions menu
-    $(document).on("uiShowActionsMenu",function(){
-      $(".js-dropdown.pos-r").toggleClass("pos-r pos-l");
-    });
-    
     // Notification handling
     $.subscribe("/notifications/new",function(obj){
       for(let index = obj.items.length-1; index >= 0; index--){
@@ -438,19 +433,8 @@
   (function(){
     var style = document.createElement("style");
     document.head.appendChild(style);
+    
     var sheet = style.sheet;
-    
-    // change View Conversation
-    var footerLayout = TD.mustaches["status/tweet_single_footer.mustache"];
-    footerLayout = footerLayout.replace('txt-mute txt-size--12','txt-mute txt-small');
-    footerLayout = footerLayout.replace('{{#inReplyToID}}','{{^inReplyToID}} <a class="pull-left margin-txs txt-mute txt-small is-vishidden-narrow" href="#" rel="viewDetails">{{_i}}Details{{/i}}</a> <a class="pull-left margin-txs txt-mute txt-small is-vishidden is-visshown-narrow" href="#" rel="viewDetails">{{_i}}Open{{/i}}</a> {{/inReplyToID}} {{#inReplyToID}}');
-    footerLayout = footerLayout.replace('<span class="link-complex-target"> {{_i}}View Conversation{{/i}}','<i class="icon icon-conversation icon-small-context"></i> <span class="link-complex-target"> <span class="is-vishidden-wide is-vishidden-narrow">{{_i}}View{{/i}}</span> <span class="is-vishidden is-visshown-wide">{{_i}}Conversation{{/i}}</span>');
-    TD.mustaches["status/tweet_single_footer.mustache"] = footerLayout;
-    
-    // tweet actions
-    sheet.insertRule(".tweet-actions { float: right !important; width: auto !important; visibility: hidden; }",0);
-    sheet.insertRule(".tweet-actions:hover { visibility: visible; }",0);
-    sheet.insertRule(".tweet-actions > li:nth-child(4) { margin-right: 2px !important; }",0);
     
     // break long urls
     sheet.insertRule("a[data-full-url] { word-break: break-all; }",0);

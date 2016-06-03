@@ -1,0 +1,12 @@
+[name]
+Revert TweetDeck design changes
+
+[description]
+- Moves action menu to the right and hides it by default
+- Reverts interactive texts around tweets (such as 'Details' or 'Conversation')
+
+[author]
+chylex
+
+[version]
+1.0
