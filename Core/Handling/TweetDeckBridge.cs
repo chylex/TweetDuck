@@ -75,6 +75,10 @@ namespace TweetDck.Core.Handling{
             form.InvokeSafe(form.OpenSettings);
         }
 
+        public void OpenPluginsMenu(){
+            form.InvokeSafe(form.OpenPlugins);
+        }
+
         public void OnTweetPopup(string tweetHtml, string tweetUrl, int tweetCharacters){
             form.InvokeSafe(() => {
                 form.OnTweetPopup(new TweetNotification(tweetHtml,tweetUrl,tweetCharacters));

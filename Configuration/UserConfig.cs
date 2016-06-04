@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using TweetDck.Core;
 using TweetDck.Core.Handling;
+using TweetDck.Plugins;
 
 namespace TweetDck.Configuration{
     [Serializable]
@@ -14,7 +15,7 @@ namespace TweetDck.Configuration{
             Binder = new SerializationCompatibilityHandler()
         };
 
-        private const int CurrentFileVersion = 2;
+        private const int CurrentFileVersion = 3;
 
         // START OF CONFIGURATION
 
@@ -35,6 +36,8 @@ namespace TweetDck.Configuration{
         public bool EnableUpdateCheck { get; set; }
         public string DismissedUpdate { get; set; }
         public bool ExpandLinksOnHover { get; set; }
+
+        public PluginConfig Plugins { get; private set; }
 
         public bool IsCustomWindowLocationSet{
             get{
@@ -107,6 +110,7 @@ namespace TweetDck.Configuration{
             NotificationEdgeDistance = 8;
             EnableUpdateCheck = true;
             ExpandLinksOnHover = true;
+            Plugins = new PluginConfig();
         }
 
         private void UpgradeFile(){
@@ -123,6 +127,11 @@ namespace TweetDck.Configuration{
 
             if (fileVersion == 1){
                 ExpandLinksOnHover = true;
+                ++fileVersion;
+            }
+
+            if (fileVersion == 2){
+                Plugins = new PluginConfig();
                 ++fileVersion;
             }
 

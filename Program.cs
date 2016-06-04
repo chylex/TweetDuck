@@ -11,6 +11,7 @@ using TweetDck.Migration;
 using TweetDck.Core.Utils;
 using System.Linq;
 using System.Threading;
+using TweetDck.Plugins;
 
 [assembly: CLSCompliant(true)]
 namespace TweetDck{
@@ -27,6 +28,7 @@ namespace TweetDck{
         public const string VersionFull = "1.2.3.0";
 
         public static readonly string StoragePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),BrandName);
+        public static readonly string PluginPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"plugins");
         public static readonly string TemporaryPath = Path.Combine(Path.GetTempPath(),BrandName);
 
         private static readonly LockManager LockManager = new LockManager(Path.Combine(StoragePath,".lock"));
@@ -104,7 +106,12 @@ namespace TweetDck{
 
             Application.ApplicationExit += (sender, args) => ExitCleanup();
 
-            FormBrowser mainForm = new FormBrowser();
+            PluginManager plugins = new PluginManager(PluginPath,UserConfig.Plugins);
+            plugins.ReloadError += plugins_ReloadError;
+            plugins.Config.PluginChangedState += (sender, args) => UserConfig.Save();
+            plugins.Reload();
+
+            FormBrowser mainForm = new FormBrowser(plugins);
             Application.Run(mainForm);
 
             if (mainForm.UpdateInstallerPath != null){
@@ -113,6 +120,10 @@ namespace TweetDck{
                 Process.Start(mainForm.UpdateInstallerPath,"/SP- /SILENT /NOICONS /CLOSEAPPLICATIONS");
                 Application.Exit();
             }
+        }
+
+        private static void plugins_ReloadError(object sender, PluginLoadErrorEventArgs e){
+            MessageBox.Show("The following plugins will not be available until the issues are resolved:\n"+string.Join("\n",e.Errors),"Error Loading Plugins",MessageBoxButtons.OK,MessageBoxIcon.Warning);
         }
 
         public static void HandleException(string message, Exception e){

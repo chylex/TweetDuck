@@ -5,6 +5,7 @@ using TweetDck.Core.Controls;
 namespace TweetDck.Core.Handling{
     class ContextMenuBrowser : ContextMenuBase{
         private const int MenuSettings = 26600;
+        private const int MenuPlugins = 26005;
         private const int MenuAbout = 26601;
         private const int MenuMute = 26602;
         private const int MenuCopyTweetUrl = 26603;
@@ -47,6 +48,7 @@ namespace TweetDck.Core.Handling{
 
             if (TweetNotification.IsReady){
                 model.AddItem((CefMenuCommand)MenuSettings,"Settings");
+                model.AddItem((CefMenuCommand)MenuPlugins,"Plugins");
             }
 
             model.AddItem((CefMenuCommand)MenuAbout,"About "+Program.BrandName);
@@ -64,6 +66,10 @@ namespace TweetDck.Core.Handling{
 
                 case MenuAbout:
                     form.InvokeSafe(form.OpenAbout);
+                    return true;
+
+                case MenuPlugins:
+                    form.InvokeSafe(form.OpenPlugins);
                     return true;
 
                 case MenuMute:

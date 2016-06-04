@@ -10,6 +10,7 @@ using TweetDck.Resources;
 using TweetDck.Core.Controls;
 using System.Drawing;
 using TweetDck.Updates;
+using TweetDck.Plugins;
 
 namespace TweetDck.Core{
     sealed partial class FormBrowser : Form{
@@ -24,15 +25,17 @@ namespace TweetDck.Core{
         private readonly ChromiumWebBrowser browser;
         private readonly TweetDeckBridge bridge;
         private readonly FormNotification notification;
+        private readonly PluginManager plugins;
         private readonly UpdateHandler updates;
 
         private FormSettings currentFormSettings;
         private FormAbout currentFormAbout;
+        private FormPlugins currentFormPlugins;
         private bool isLoaded;
 
         private FormWindowState prevState;
 
-        public FormBrowser(){
+        public FormBrowser(PluginManager plugins){
             InitializeComponent();
 
             Text = Program.BrandName;
@@ -64,6 +67,8 @@ namespace TweetDck.Core{
 
             updates = new UpdateHandler(browser,this);
             updates.UpdateAccepted += updates_UpdateAccepted;
+
+            this.plugins = plugins;
         }
 
         private void ShowChildForm(Form form){
@@ -244,6 +249,17 @@ namespace TweetDck.Core{
                 currentFormAbout = new FormAbout();
                 currentFormAbout.FormClosed += (sender, args) => currentFormAbout = null;
                 ShowChildForm(currentFormAbout);
+            }
+        }
+
+        public void OpenPlugins(){
+            if (currentFormPlugins != null){
+                currentFormPlugins.BringToFront();
+            }
+            else{
+                currentFormPlugins = new FormPlugins(plugins);
+                currentFormPlugins.FormClosed += (sender, args) => currentFormPlugins = null;
+                ShowChildForm(currentFormPlugins);
             }
         }
 

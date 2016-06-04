@@ -113,6 +113,12 @@
     <Compile Include="Core\Other\FormAbout.Designer.cs">
       <DependentUpon>FormAbout.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\Other\FormPlugins.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Core\Other\FormPlugins.Designer.cs">
+      <DependentUpon>FormPlugins.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migration\FormBackgroundWork.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,6 +132,36 @@
     <Compile Include="Core\Other\FormSettings.Designer.cs">
       <DependentUpon>FormSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Plugins\Controls\PluginControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\Controls\PluginControl.Designer.cs">
+      <DependentUpon>PluginControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Controls\PluginListControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\Controls\PluginListControl.Designer.cs">
+      <DependentUpon>PluginListControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Controls\PluginListFlowLayout.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Plugins\Controls\PluginListFlowLayout.Designer.cs">
+      <DependentUpon>PluginListFlowLayout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Controls\TabButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Plugins\Controls\TabButton.Designer.cs">
+      <DependentUpon>TabButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Plugin.cs" />
+    <Compile Include="Plugins\PluginChangedStateEventArgs.cs" />
+    <Compile Include="Plugins\PluginConfig.cs" />
+    <Compile Include="Plugins\PluginGroup.cs" />
+    <Compile Include="Plugins\PluginLoadErrorEventArgs.cs" />
+    <Compile Include="Plugins\PluginManager.cs" />
     <Compile Include="Updates\FormUpdateDownload.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -206,6 +242,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Core\Other\FormAbout.resx">
       <DependentUpon>FormAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Core\Other\FormPlugins.resx">
+      <DependentUpon>FormPlugins.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Core\Other\FormSettings.resx">
       <DependentUpon>FormSettings.cs</DependentUpon>

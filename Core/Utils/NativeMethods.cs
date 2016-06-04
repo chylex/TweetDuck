@@ -12,6 +12,8 @@ namespace TweetDck.Core.Utils{
         public const int MOUSEEVENTF_RIGHTDOWN = 0x08;
         public const int MOUSEEVENTF_RIGHTUP = 0x10;
 
+        public const int SB_HORZ = 0;
+
         public enum MouseButton{
             Left, Right
         }
@@ -27,6 +29,10 @@ namespace TweetDck.Core.Utils{
 
         [DllImport("user32.dll")]
         public static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool ShowScrollBar(IntPtr hWnd, int wBar, bool bShow);
 
         public static void SetFormPos(Form form, int hWndOrder, uint flags){
             SetWindowPos(form.Handle.ToInt32(),hWndOrder,form.Left,form.Top,form.Width,form.Height,flags);

@@ -23,16 +23,27 @@
       setTimeout(function(){
         var menu = $(".js-dropdown-content").children("ul").first();
         if (menu.length === 0)return;
+        
+        menu.children(".drp-h-divider").last().after([
+          '<li class="is-selectable" data-std><a href="#" data-action="td-settings">'+$TD.brandName+' settings</a></li>',
+          '<li class="is-selectable" data-std><a href="#" data-action="td-plugins">'+$TD.brandName+' plugins</a></li>',
+          '<li class="drp-h-divider"></li>'
+        ].join(""));
+        
+        var buttons = menu.children("[data-std]");
 
-        menu.children(".drp-h-divider").last().after('<li class="is-selectable" data-std><a href="#" data-action>'+$TD.brandName+' settings</a></li><li class="drp-h-divider"></li>');
-
-        var tweetDckBtn = menu.children("[data-std]").first();
-
-        tweetDckBtn.on("click","a",function(){
-          $TD.openSettingsMenu();
+        buttons.on("click","a",function(){
+          var action = $(this).attr("data-action");
+          
+          if (action === "td-settings"){
+            $TD.openSettingsMenu();
+          }
+          else if (action === "td-plugins"){
+            $TD.openPluginsMenu();
+          }
         });
 
-        tweetDckBtn.hover(function(){
+        buttons.hover(function(){
           $(this).addClass("is-selected");
         },function(){
           $(this).removeClass("is-selected");
