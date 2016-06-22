@@ -40,10 +40,12 @@
     var tooltipTimer, tooltipDisplayed;
     
     addEventListener(links,"mouseenter",function(e){
-      var url = e.currentTarget.getAttribute("data-full-url");
+      var me = e.currentTarget;
+      
+      var url = me.getAttribute("data-full-url");
       if (!url)return;
       
-      var text = e.currentTarget.textContent;
+      var text = me.textContent;
         
       if (text.charCodeAt(text.length-1) !== 8230){ // horizontal ellipsis
         return;
@@ -56,8 +58,8 @@
           expanded = cutStart(expanded,"http://");
           expanded = cutStart(expanded,"www.");
 
-          e.currentTarget.setAttribute("td-prev-text",text);
-          e.currentTarget.innerHTML = expanded;
+          me.setAttribute("td-prev-text",text);
+          me.innerHTML = expanded;
         },200);
       }
       else{
