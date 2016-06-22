@@ -371,7 +371,7 @@
       $TD.clickUploadImage(Math.floor(buttonPos.left),Math.floor(buttonPos.top));
     };
     
-    $(".js-app").delegate(".js-compose-text","paste",function(){
+    $(".js-app").delegate(".js-compose-text,.js-reply-tweetbox","paste",function(){
       lastPasteElement = $(this);
       $TD.tryPasteImage();
     });
@@ -381,7 +381,7 @@
         var parent = lastPasteElement.parent();
 
         if (parent.siblings(".js-add-image-button").length === 0){
-          var pop = parent.closest(".js-inline-reply").find(".js-inline-compose-pop");
+          var pop = parent.closest(".js-inline-reply,.rpl").find(".js-inline-compose-pop,.js-reply-popout");
 
           if (pop.length === 0){
             lastPasteElement = null;
