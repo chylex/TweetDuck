@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TweetDck.Plugins.Events;
 
 namespace TweetDck.Plugins{
     [Serializable]

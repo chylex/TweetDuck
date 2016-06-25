@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TweetDck.Plugins{
+namespace TweetDck.Plugins.Events{
     class PluginChangedStateEventArgs : EventArgs{
         public Plugin Plugin { get; private set; }
         public bool IsEnabled { get; private set; }

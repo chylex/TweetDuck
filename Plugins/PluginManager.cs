@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using TweetDck.Plugins.Events;
 using TweetDck.Resources;
 
 namespace TweetDck.Plugins{
@@ -12,8 +13,8 @@ namespace TweetDck.Plugins{
 
         public IEnumerable<Plugin> Plugins { get { return plugins; } }
         public PluginConfig Config { get; private set; }
-
-        public event EventHandler<PluginLoadErrorEventArgs> ReloadError;
+        
+        public event EventHandler<PluginLoadEventArgs> Reloaded;
 
         private readonly string rootPath;
         private readonly HashSet<Plugin> plugins = new HashSet<Plugin>();
@@ -29,8 +30,14 @@ namespace TweetDck.Plugins{
             return plugins.Where(plugin => plugin.Group == group);
         }
 
+        public int CountPluginByGroup(PluginGroup group){
+            return plugins.Count(plugin => plugin.Group == group);
+        }
+
         public void Reload(){
+            HashSet<Plugin> prevPlugins = new HashSet<Plugin>(plugins);
             plugins.Clear();
+
             loadErrors = new List<string>(2);
             
             foreach(Plugin plugin in LoadPluginsFrom(PathOfficialPlugins,PluginGroup.Official)){
@@ -41,8 +48,8 @@ namespace TweetDck.Plugins{
                 plugins.Add(plugin);
             }
 
-            if (loadErrors.Count > 0 && ReloadError != null){
-                ReloadError(this,new PluginLoadErrorEventArgs(loadErrors));
+            if (Reloaded != null && (loadErrors.Count > 0 || !prevPlugins.SetEquals(plugins))){
+                Reloaded(this,new PluginLoadEventArgs(loadErrors));
             }
         }
 

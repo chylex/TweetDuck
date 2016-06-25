@@ -12,6 +12,7 @@ using TweetDck.Core.Utils;
 using System.Linq;
 using System.Threading;
 using TweetDck.Plugins;
+using TweetDck.Plugins.Events;
 
 [assembly: CLSCompliant(true)]
 namespace TweetDck{
@@ -107,7 +108,7 @@ namespace TweetDck{
             Application.ApplicationExit += (sender, args) => ExitCleanup();
 
             PluginManager plugins = new PluginManager(PluginPath,UserConfig.Plugins);
-            plugins.ReloadError += plugins_ReloadError;
+            plugins.Reloaded += plugins_Reloaded;
             plugins.Config.PluginChangedState += (sender, args) => UserConfig.Save();
             plugins.Reload();
 
@@ -122,8 +123,10 @@ namespace TweetDck{
             }
         }
 
-        private static void plugins_ReloadError(object sender, PluginLoadErrorEventArgs e){
-            MessageBox.Show("The following plugins will not be available until the issues are resolved:\n"+string.Join("\n",e.Errors),"Error Loading Plugins",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+        private static void plugins_Reloaded(object sender, PluginLoadEventArgs e){
+            if (!e.Success){
+                MessageBox.Show("The following plugins will not be available until the issues are resolved:\n"+string.Join("\n",e.Errors),"Error Loading Plugins",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+            }
         }
 
         public static void HandleException(string message, Exception e){
