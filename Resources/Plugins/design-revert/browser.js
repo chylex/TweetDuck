@@ -1,9 +1,3 @@
-constructor(){
-  super({
-    requiresPageReload: true
-  });
-}
-
 enabled(){
   // add a stylesheet to change tweet actions
   var style = document.createElement("style");
