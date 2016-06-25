@@ -22,7 +22,7 @@ namespace TweetDck.Core.Other{
 
         private void btnReload_Click(object sender, EventArgs e){
             pluginManager.Reload();
-            pluginList.ReloadPlugins();
+            pluginList.ReloadPluginTab();
         }
 
         private void btnClose_Click(object sender, EventArgs e){

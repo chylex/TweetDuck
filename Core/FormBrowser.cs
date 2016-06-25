@@ -11,6 +11,7 @@ using TweetDck.Core.Controls;
 using System.Drawing;
 using TweetDck.Updates;
 using TweetDck.Plugins;
+using TweetDck.Plugins.Events;
 
 namespace TweetDck.Core{
     sealed partial class FormBrowser : Form{
@@ -62,6 +63,7 @@ namespace TweetDck.Core{
             UpdateTrayIcon();
 
             plugins = pluginManager;
+            plugins.Reloaded += plugins_Reloaded;
             plugins.Config.PluginChangedState += plugins_PluginChangedState;
 
             notification = CreateNotificationForm(true);
@@ -189,6 +191,10 @@ namespace TweetDck.Core{
             if (!isLoaded)return;
 
             ForceClose();
+        }
+        
+        private void plugins_Reloaded(object sender, PluginLoadEventArgs e){
+            browser.ExecuteScriptAsync(plugins.GenerateScript(PluginEnvironment.Browser));
         }
 
         private void plugins_PluginChangedState(object sender, PluginChangedStateEventArgs e){

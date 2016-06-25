@@ -23,7 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.flowLayoutPlugins = new PluginListFlowLayout();
+            this.flowLayoutPlugins = new TweetDck.Plugins.Controls.PluginListFlowLayout();
             this.btnTabCustom = new TweetDck.Plugins.Controls.TabButton();
             this.btnTabOfficial = new TweetDck.Plugins.Controls.TabButton();
             this.SuspendLayout();
@@ -50,10 +50,10 @@
             this.btnTabCustom.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
             this.btnTabCustom.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.btnTabCustom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTabCustom.Location = new System.Drawing.Point(80, 0);
+            this.btnTabCustom.Location = new System.Drawing.Point(90, 0);
             this.btnTabCustom.Margin = new System.Windows.Forms.Padding(0);
             this.btnTabCustom.Name = "btnTabCustom";
-            this.btnTabCustom.Size = new System.Drawing.Size(81, 30);
+            this.btnTabCustom.Size = new System.Drawing.Size(91, 30);
             this.btnTabCustom.TabIndex = 8;
             this.btnTabCustom.Text = "Custom";
             this.btnTabCustom.UseVisualStyleBackColor = true;
@@ -68,7 +68,7 @@
             this.btnTabOfficial.Location = new System.Drawing.Point(0, 0);
             this.btnTabOfficial.Margin = new System.Windows.Forms.Padding(0);
             this.btnTabOfficial.Name = "btnTabOfficial";
-            this.btnTabOfficial.Size = new System.Drawing.Size(81, 30);
+            this.btnTabOfficial.Size = new System.Drawing.Size(91, 30);
             this.btnTabOfficial.TabIndex = 7;
             this.btnTabOfficial.Text = "Official";
             this.btnTabOfficial.UseVisualStyleBackColor = true;

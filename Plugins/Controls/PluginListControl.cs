@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using TweetDck.Plugins.Events;
 
 namespace TweetDck.Plugins.Controls{
     sealed partial class PluginListControl : UserControl{
@@ -25,10 +26,18 @@ namespace TweetDck.Plugins.Controls{
             }
 
             this.pluginManager = manager;
+            this.pluginManager.Reloaded += pluginManager_Reloaded;
+            this.pluginManager_Reloaded(manager,null);
+
             SelectTab(btnTabOfficial,PluginGroup.Official);
         }
 
-        public void ReloadPlugins(){
+        private void pluginManager_Reloaded(object sender, PluginLoadEventArgs e){
+            btnTabOfficial.Text = "Official: "+pluginManager.CountPluginByGroup(PluginGroup.Official);
+            btnTabCustom.Text = "Custom: "+pluginManager.CountPluginByGroup(PluginGroup.Custom);
+        }
+
+        public void ReloadPluginTab(){
             if (!selectedGroup.HasValue)return;
 
             flowLayoutPlugins.Controls.Clear();
@@ -59,7 +68,7 @@ namespace TweetDck.Plugins.Controls{
 
             button.BackColor = Color.White;
             
-            ReloadPlugins();
+            ReloadPluginTab();
         }
 
         private void flowLayoutPlugins_Resize(object sender, EventArgs e){

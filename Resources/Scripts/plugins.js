@@ -1,3 +1,13 @@
+var isReloading = "TD_PLUGINS" in window;
+
+if (isReloading){
+  window.TD_PLUGINS.installed.forEach(plugin => {
+    if (!window.TD_PLUGINS.isDisabled(plugin)){
+      plugin.obj.disabled();
+    }
+  });
+}
+
 class PluginBase{
   constructor(pluginSettings){
     this.$pluginSettings = pluginSettings || {};
@@ -60,3 +70,7 @@ var PLUGINS = {
 };
 
 window.TD_PLUGINS = PLUGINS;
+
+if (isReloading){
+  window.location.reload();
+}
