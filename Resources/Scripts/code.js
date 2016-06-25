@@ -1,10 +1,5 @@
 (function($,$TD,TD){
   //
-  // Variable: Says whether TweetD*ck events was initialized.
-  //
-  var isInitialized = false;
-  
-  //
   // Variable: Current highlighted column jQuery object.
   //
   var highlightedColumnEle;
@@ -58,11 +53,15 @@
       }
     });
     
-    // Finish init
+    // Finish init and load plugins
     $TD.loadFontSizeClass(TD.settings.getFontSize());
     $TD.loadNotificationHeadContents(getNotificationHeadContents());
     
-    isInitialized = true;
+    window.TD_APP_READY = true;
+    
+    if (window.TD_PLUGINS){
+      window.TD_PLUGINS.onReady();
+    }
   };
   
   //
@@ -127,10 +126,10 @@
   var app = $("body").children(".js-app");
   
   new MutationObserver(function(){
-    if (isInitialized && app.hasClass("is-hidden")){
-      isInitialized = false;
+    if (window.TD_APP_READY && app.hasClass("is-hidden")){
+      window.TD_APP_READY = false;
     }
-    else if (!isInitialized && !app.hasClass("is-hidden")){
+    else if (!window.TD_APP_READY && !app.hasClass("is-hidden")){
       initializeTweetDck();
     }
   }).observe(app[0],{

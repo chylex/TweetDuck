@@ -7,6 +7,18 @@ namespace TweetDck.Plugins{
         [field:NonSerialized]
         public event EventHandler<PluginChangedStateEventArgs> PluginChangedState;
 
+        public IEnumerable<string> DisabledPlugins{
+            get{
+                return Disabled;
+            }
+        }
+
+        public bool AnyDisabled{
+            get{
+                return Disabled.Count > 0;
+            }
+        }
+
         private readonly HashSet<string> Disabled = new HashSet<string>();
 
         public void SetEnabled(Plugin plugin, bool enabled){

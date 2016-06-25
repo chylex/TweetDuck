@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
+using TweetDck.Resources;
 
 namespace TweetDck.Plugins{
     class PluginManager{
@@ -42,6 +44,31 @@ namespace TweetDck.Plugins{
             if (loadErrors.Count > 0 && ReloadError != null){
                 ReloadError(this,new PluginLoadErrorEventArgs(loadErrors));
             }
+        }
+
+        public string GenerateScript(PluginEnvironment environment){
+            string mainScript = ScriptLoader.LoadResource("plugins.js");
+            if (mainScript == null)return string.Empty;
+
+            StringBuilder build = new StringBuilder((1+plugins.Count)*512);
+
+            PluginScriptGenerator.AppendStart(build,environment);
+            build.Append(mainScript);
+            PluginScriptGenerator.AppendConfig(build,Config);
+
+            foreach(Plugin plugin in Plugins){
+                string path = plugin.GetScriptPath(environment);
+                if (string.IsNullOrEmpty(path))continue;
+
+                try{
+                    PluginScriptGenerator.AppendPlugin(build,plugin.Identifier,File.ReadAllText(path));
+                }catch{
+                    // TODO
+                }
+            }
+            
+            PluginScriptGenerator.AppendEnd(build,environment);
+            return build.ToString();
         }
 
         private IEnumerable<Plugin> LoadPluginsFrom(string path, PluginGroup group){

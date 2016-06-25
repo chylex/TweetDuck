@@ -116,4 +116,13 @@
     
     $TD.setNotificationTweetEmbedded(account[0].getAttribute("href")+"/status/"+tweetId);
   })();
+  
+  //
+  // Block: Load plugins.
+  //
+  window.TD_APP_READY = true;
+  
+  if (window.TD_PLUGINS){
+    window.TD_PLUGINS.onReady();
+  }
 })($TD);

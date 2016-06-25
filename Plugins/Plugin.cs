@@ -6,11 +6,6 @@ using System.Text;
 
 namespace TweetDck.Plugins{
     class Plugin{
-        [Flags]
-        public enum Environment{
-            None, Browser, Notification
-        }
-
         public string Identifier { get { return identifier; } }
         public string Name { get { return metadata["NAME"]; } }
         public string Description { get { return metadata["DESCRIPTION"]; } }
@@ -18,7 +13,7 @@ namespace TweetDck.Plugins{
         public string Version { get { return metadata["VERSION"]; } }
         public string Website { get { return metadata["WEBSITE"]; } }
         public PluginGroup Group { get; private set; }
-        public Environment Environments { get; private set; }
+        public PluginEnvironment Environments { get; private set; }
 
         private readonly string path;
         private readonly string identifier;
@@ -32,9 +27,19 @@ namespace TweetDck.Plugins{
 
         private Plugin(string path, PluginGroup group){
             this.path = path;
-            this.identifier = group.GetIdentifierPrefix()+Path.GetDirectoryName(path);
+            this.identifier = group.GetIdentifierPrefix()+Path.GetFileName(path);
             this.Group = group;
-            this.Environments = Environment.None;
+            this.Environments = PluginEnvironment.None;
+        }
+
+        public string GetScriptPath(PluginEnvironment environment){
+            if (Environments.HasFlag(environment)){
+                string file = environment.GetScriptFile();
+                return file != null ? Path.Combine(path,file) : string.Empty;
+            }
+            else{
+                return string.Empty;
+            }
         }
 
         public override int GetHashCode(){
@@ -63,11 +68,10 @@ namespace TweetDck.Plugins{
 
         private static bool LoadEnvironments(string path, Plugin plugin, out string error){
             foreach(string file in Directory.EnumerateFiles(path,"*.js",SearchOption.TopDirectoryOnly).Select(Path.GetFileName)){
-                if (file.Equals("browser.js",StringComparison.Ordinal)){
-                    plugin.Environments |= Environment.Browser;
-                }
-                else if (file.Equals("notification.js",StringComparison.Ordinal)){
-                    plugin.Environments |= Environment.Notification;
+                PluginEnvironment environment = PluginEnvironmentExtensions.Values.FirstOrDefault(env => file.Equals(env.GetScriptFile(),StringComparison.Ordinal));
+
+                if (environment != PluginEnvironment.None){
+                    plugin.Environments |= environment;
                 }
                 else{
                     error = "Unknown script file: "+file;
@@ -75,7 +79,7 @@ namespace TweetDck.Plugins{
                 }
             }
 
-            if (plugin.Environments == Environment.None){
+            if (plugin.Environments == PluginEnvironment.None){
                 error = "Plugin has no script files.";
                 return false;
             }

@@ -8,12 +8,14 @@ using TweetDck.Configuration;
 using TweetDck.Core.Handling;
 using TweetDck.Resources;
 using TweetDck.Core.Utils;
+using TweetDck.Plugins;
 
 namespace TweetDck.Core{
     sealed partial class FormNotification : Form{
         public Func<bool> CanMoveWindow = () => true;
 
         private readonly Form owner;
+        private readonly PluginManager plugins;
         private readonly TrayIcon trayIcon;
         private readonly ChromiumWebBrowser browser;
 
@@ -47,12 +49,13 @@ namespace TweetDck.Core{
             }
         }
 
-        public FormNotification(Form owner, TweetDeckBridge bridge, TrayIcon trayIcon, bool autoHide){
+        public FormNotification(Form owner, TweetDeckBridge bridge, PluginManager plugins, TrayIcon trayIcon, bool autoHide){
             InitializeComponent();
 
             Text = Program.BrandName;
 
             this.owner = owner;
+            this.plugins = plugins;
             this.trayIcon = trayIcon;
             this.autoHide = autoHide;
 
@@ -112,6 +115,7 @@ namespace TweetDck.Core{
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             if (e.Frame.IsMain && notificationJS != null && browser.Address != "about:blank"){
                 browser.ExecuteScriptAsync(notificationJS);
+                browser.ExecuteScriptAsync(plugins.GenerateScript(PluginEnvironment.Notification));
             }
         }
 

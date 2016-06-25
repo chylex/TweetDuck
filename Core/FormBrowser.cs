@@ -35,7 +35,7 @@ namespace TweetDck.Core{
 
         private FormWindowState prevState;
 
-        public FormBrowser(PluginManager plugins){
+        public FormBrowser(PluginManager pluginManager){
             InitializeComponent();
 
             Text = Program.BrandName;
@@ -61,14 +61,15 @@ namespace TweetDck.Core{
 
             UpdateTrayIcon();
 
+            plugins = pluginManager;
+            plugins.Config.PluginChangedState += plugins_PluginChangedState;
+
             notification = CreateNotificationForm(true);
             notification.CanMoveWindow = () => false;
             notification.Show();
 
             updates = new UpdateHandler(browser,this);
             updates.UpdateAccepted += updates_UpdateAccepted;
-
-            this.plugins = plugins;
         }
 
         private void ShowChildForm(Form form){
@@ -82,7 +83,7 @@ namespace TweetDck.Core{
         }
 
         public FormNotification CreateNotificationForm(bool autoHide){
-            return new FormNotification(this,bridge,trayIcon,autoHide);
+            return new FormNotification(this,bridge,plugins,trayIcon,autoHide);
         }
 
         // window setup
@@ -122,6 +123,8 @@ namespace TweetDck.Core{
                 foreach(string js in ScriptLoader.LoadResources("code.js").Where(js => js != null)){
                     browser.ExecuteScriptAsync(js);
                 }
+
+                browser.ExecuteScriptAsync(plugins.GenerateScript(PluginEnvironment.Browser));
             }
         }
 
@@ -186,6 +189,10 @@ namespace TweetDck.Core{
             if (!isLoaded)return;
 
             ForceClose();
+        }
+
+        private void plugins_PluginChangedState(object sender, PluginChangedStateEventArgs e){
+            browser.ExecuteScriptAsync(PluginScriptGenerator.GenerateSetPluginState(e.Plugin,e.IsEnabled));
         }
 
         private void updates_UpdateAccepted(object sender, UpdateAcceptedEventArgs e){

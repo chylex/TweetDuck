@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="packages\CefSharp.WinForms.49.0.0-pre02\build\CefSharp.WinForms.props" Condition="Exists('packages\CefSharp.WinForms.49.0.0-pre02\build\CefSharp.WinForms.props')" />
   <Import Project="packages\CefSharp.Common.49.0.0-pre02\build\CefSharp.Common.props" Condition="Exists('packages\CefSharp.Common.49.0.0-pre02\build\CefSharp.Common.props')" />
@@ -159,9 +159,11 @@
     <Compile Include="Plugins\Plugin.cs" />
     <Compile Include="Plugins\PluginChangedStateEventArgs.cs" />
     <Compile Include="Plugins\PluginConfig.cs" />
+    <Compile Include="Plugins\PluginEnvironment.cs" />
     <Compile Include="Plugins\PluginGroup.cs" />
     <Compile Include="Plugins\PluginLoadErrorEventArgs.cs" />
     <Compile Include="Plugins\PluginManager.cs" />
+    <Compile Include="Plugins\PluginScriptGenerator.cs" />
     <Compile Include="Updates\FormUpdateDownload.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -273,6 +275,12 @@
     <ContentWithTargetPath Include="Resources\Scripts\notification.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <TargetPath>notification.js</TargetPath>
+    </ContentWithTargetPath>
+  </ItemGroup>
+  <ItemGroup>
+    <ContentWithTargetPath Include="Resources\Scripts\plugins.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>plugins.js</TargetPath>
     </ContentWithTargetPath>
   </ItemGroup>
   <ItemGroup>
