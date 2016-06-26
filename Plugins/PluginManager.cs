@@ -84,7 +84,7 @@ namespace TweetDck.Plugins{
                 Plugin plugin = Plugin.CreateFromFolder(fullDir,group,out error);
 
                 if (plugin == null){
-                    loadErrors.Add(group.GetIdentifierPrefix()+Path.GetDirectoryName(fullDir)+": "+error);
+                    loadErrors.Add(group.GetIdentifierPrefix()+Path.GetFileName(fullDir)+": "+error);
                 }
                 else{
                     yield return plugin;
