@@ -423,8 +423,13 @@
   //
   window.TDGF_onMouseClickExtra = function(button){
     if (button === 1){ // back button
+      var modal = $("#open-modal");
+      
       if (highlightedColumnEle && highlightedColumnEle.closest(".js-column").is(".is-shifted-1")){
         highlightedColumnEle.find(".js-column-back").first().click();
+      }
+      else if (modal.is(":visible")){
+        modal.find("a[rel=dismiss]").click();
       }
       else{
         $(".js-column-back").click();
