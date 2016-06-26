@@ -17,11 +17,16 @@ namespace TweetDck.Plugins.Controls{
             this.plugin = plugin;
 
             this.labelName.Text = plugin.Name;
-            this.labelDescription.Text = plugin.Description;
+            this.labelDescription.Text = plugin.CanRun ? plugin.Description : "This plugin requires "+Program.BrandName+" "+plugin.RequiredVersion+" or newer.";
             this.labelVersion.Text = plugin.Version;
             this.labelAuthor.Text = plugin.Author;
             this.labelWebsite.Text = plugin.Website;
             this.btnToggleState.Text = pluginManager.Config.IsEnabled(plugin) ? "Disable" : "Enable";
+
+            if (!plugin.CanRun){
+                this.labelName.ForeColor = Color.DarkRed;
+                this.btnToggleState.Enabled = false;
+            }
 
             panelDescription_Resize(panelDescription,new EventArgs());
         }

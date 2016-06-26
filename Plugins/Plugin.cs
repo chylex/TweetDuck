@@ -12,8 +12,15 @@ namespace TweetDck.Plugins{
         public string Author { get { return metadata["AUTHOR"]; } }
         public string Version { get { return metadata["VERSION"]; } }
         public string Website { get { return metadata["WEBSITE"]; } }
+        public string RequiredVersion { get { return metadata["REQUIRES"]; } }
         public PluginGroup Group { get; private set; }
         public PluginEnvironment Environments { get; private set; }
+
+        public bool CanRun{
+            get{
+                return canRun ?? (canRun = CheckRequiredVersion(RequiredVersion)).Value;
+            }
+        }
 
         private readonly string path;
         private readonly string identifier;
@@ -22,8 +29,11 @@ namespace TweetDck.Plugins{
             { "DESCRIPTION", "" },
             { "AUTHOR", "(anonymous)" },
             { "VERSION", "(unknown)" },
-            { "WEBSITE", "" }
+            { "WEBSITE", "" },
+            { "REQUIRES", "*" }
         };
+
+        private bool? canRun;
 
         private Plugin(string path, PluginGroup group){
             this.path = path;
@@ -133,8 +143,19 @@ namespace TweetDck.Plugins{
                 return false;
             }
 
+            Version ver;
+
+            if (plugin.RequiredVersion.Length == 0 || !(plugin.RequiredVersion.Equals("*") || System.Version.TryParse(plugin.RequiredVersion,out ver))){
+                error = "Plugin contains invalid version: "+plugin.RequiredVersion;
+                return false;
+            }
+
             error = string.Empty;
             return true;
+        }
+
+        private static bool CheckRequiredVersion(string requires){
+            return requires.Equals("*",StringComparison.Ordinal) || Program.Version >= new Version(requires);
         }
     }
 }

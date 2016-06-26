@@ -65,7 +65,7 @@ namespace TweetDck.Plugins{
 
             foreach(Plugin plugin in Plugins){
                 string path = plugin.GetScriptPath(environment);
-                if (string.IsNullOrEmpty(path))continue;
+                if (string.IsNullOrEmpty(path) || !plugin.CanRun)continue;
 
                 try{
                     PluginScriptGenerator.AppendPlugin(build,plugin.Identifier,File.ReadAllText(path));

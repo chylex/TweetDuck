@@ -28,6 +28,8 @@ namespace TweetDck{
         public const string VersionTag = "1.2.3";
         public const string VersionFull = "1.2.3.0";
 
+        public static readonly Version Version = new Version(VersionTag);
+
         public static readonly string StoragePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),BrandName);
         public static readonly string PluginPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"plugins");
         public static readonly string TemporaryPath = Path.Combine(Path.GetTempPath(),BrandName);

@@ -31,7 +31,7 @@ namespace TweetDck.Plugins{
         }
 
         public bool IsEnabled(Plugin plugin){
-            return !Disabled.Contains(plugin.Identifier);
+            return !Disabled.Contains(plugin.Identifier) && plugin.CanRun;
         }
     }
 }
