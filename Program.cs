@@ -32,6 +32,8 @@ namespace TweetDck{
         public static readonly string PluginPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"plugins");
         public static readonly string TemporaryPath = Path.Combine(Path.GetTempPath(),BrandName);
 
+        public static uint WindowRestoreMessage;
+
         private static readonly LockManager LockManager = new LockManager(Path.Combine(StoragePath,".lock"));
         private static bool HasCleanedUp;
         
@@ -47,6 +49,8 @@ namespace TweetDck{
         private static void Main(){
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            WindowRestoreMessage = NativeMethods.RegisterWindowMessage("TweetDuckRestore");
 
             if (Environment.GetCommandLineArgs().Contains("-restart")){
                 for(int attempt = 0; attempt < 21; attempt++){
@@ -64,7 +68,11 @@ namespace TweetDck{
             }
             else{
                 if (!LockManager.Lock()){
-                    if (MessageBox.Show("Another instance of "+BrandName+" is already running.\r\nDo you want to close it?",BrandName+" is Already Running",MessageBoxButtons.YesNo,MessageBoxIcon.Error,MessageBoxDefaultButton.Button2) == DialogResult.Yes){
+                    if (LockManager.LockingProcess.MainWindowHandle == IntPtr.Zero && LockManager.LockingProcess.Responding){ // restore if the original process is in tray
+                        NativeMethods.SendMessage(NativeMethods.HWND_BROADCAST,WindowRestoreMessage,0,IntPtr.Zero);
+                        return;
+                    }
+                    else if (MessageBox.Show("Another instance of "+BrandName+" is already running.\r\nDo you want to close it?",BrandName+" is Already Running",MessageBoxButtons.YesNo,MessageBoxIcon.Error,MessageBoxDefaultButton.Button2) == DialogResult.Yes){
                         if (!LockManager.CloseLockingProcess(10000)){
                             MessageBox.Show("Could not close the other process.",BrandName+" Has Failed :(",MessageBoxButtons.OK,MessageBoxIcon.Error);
                             return;

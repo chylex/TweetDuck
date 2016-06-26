@@ -4,6 +4,8 @@ using System.Windows.Forms;
 
 namespace TweetDck.Core.Utils{
     static class NativeMethods{
+        public static readonly IntPtr HWND_BROADCAST = new IntPtr(0xFFFF);
+
         public const int HWND_TOPMOST = -1;
         public const uint SWP_NOACTIVATE = 0x0010;
 
@@ -29,6 +31,12 @@ namespace TweetDck.Core.Utils{
 
         [DllImport("user32.dll")]
         public static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, int wParam, IntPtr lParam);
+
+        [DllImport("user32.dll")]
+        public static extern uint RegisterWindowMessage(string messageName);
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]

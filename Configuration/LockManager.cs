@@ -5,9 +5,10 @@ using System.Threading;
 
 namespace TweetDck.Configuration{
     class LockManager{
+        public Process LockingProcess { get; private set; }
+
         private readonly string file;
         private FileStream lockStream;
-        private Process lockingProcess;
 
         public LockManager(string file){
             this.file = file;
@@ -25,9 +26,9 @@ namespace TweetDck.Configuration{
                 lockStream.Write(id,0,id.Length);
                 lockStream.Flush();
 
-                if (lockingProcess != null){
-                    lockingProcess.Close();
-                    lockingProcess = null;
+                if (LockingProcess != null){
+                    LockingProcess.Close();
+                    LockingProcess = null;
                 }
 
                 return true;
@@ -58,12 +59,12 @@ namespace TweetDck.Configuration{
 
                     using(Process currentProcess = Process.GetCurrentProcess()){
                         if (foundProcess.ProcessName == currentProcess.ProcessName){
-                            lockingProcess = foundProcess;
+                            LockingProcess = foundProcess;
                         }
                     }
                 }catch(ArgumentException){}
 
-                return lockingProcess == null && CreateLockFile();
+                return LockingProcess == null && CreateLockFile();
             }catch(DirectoryNotFoundException){
                 string dir = Path.GetDirectoryName(file);
 
@@ -100,19 +101,19 @@ namespace TweetDck.Configuration{
         }
 
         public bool CloseLockingProcess(int timeout){
-            if (lockingProcess != null){
-                lockingProcess.CloseMainWindow();
+            if (LockingProcess != null){
+                LockingProcess.CloseMainWindow();
 
-                for(int waited = 0; waited < timeout && !lockingProcess.HasExited;){
-                    lockingProcess.Refresh();
+                for(int waited = 0; waited < timeout && !LockingProcess.HasExited;){
+                    LockingProcess.Refresh();
 
                     Thread.Sleep(100);
                     waited += 100;
                 }
 
-                if (lockingProcess.HasExited){
-                    lockingProcess.Dispose();
-                    lockingProcess = null;
+                if (LockingProcess.HasExited){
+                    LockingProcess.Dispose();
+                    LockingProcess = null;
                     return true;
                 }
             }
