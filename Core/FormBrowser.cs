@@ -122,7 +122,7 @@ namespace TweetDck.Core{
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             if (e.Frame.IsMain){
-                ScriptLoader.ExecuteFile(browser,"code.js","root:code");
+                ScriptLoader.ExecuteFile(browser,"code.js");
                 plugins_Reloaded(plugins,new PluginLoadEventArgs(new string[0]));
             }
         }

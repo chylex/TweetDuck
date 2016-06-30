@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using CefSharp;
 using CefSharp.WinForms;
 using TweetDck.Core;
@@ -25,7 +24,7 @@ namespace TweetDck.Updates{
 
         private void browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             if (e.Frame.IsMain){
-                ScriptLoader.ExecuteFile(e.Frame,"update.js","root:update");
+                ScriptLoader.ExecuteFile(e.Frame,"update.js");
             }
         }
 

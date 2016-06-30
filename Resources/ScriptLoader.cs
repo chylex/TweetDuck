@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using System.Linq;
 using CefSharp;
 using CefSharp.WinForms;
 
@@ -20,12 +18,12 @@ namespace TweetDck.Resources{
             }
         }
 
-        public static void ExecuteFile(ChromiumWebBrowser browser, string file, string identifier){
-            ExecuteScript(browser,LoadResource(file),identifier);
+        public static void ExecuteFile(ChromiumWebBrowser browser, string file){
+            ExecuteScript(browser,LoadResource(file),"root:"+Path.GetFileNameWithoutExtension(file));
         }
 
-        public static void ExecuteFile(IFrame frame, string file, string identifier){
-            ExecuteScript(frame,LoadResource(file),identifier);
+        public static void ExecuteFile(IFrame frame, string file){
+            ExecuteScript(frame,LoadResource(file),"root:"+Path.GetFileNameWithoutExtension(file));
         }
 
         public static void ExecuteScript(ChromiumWebBrowser browser, string script, string identifier){
