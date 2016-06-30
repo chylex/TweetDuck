@@ -14,13 +14,13 @@ namespace TweetDck.Core.Utils{
             isMaximized = form.WindowState == FormWindowState.Maximized;
         }
 
-        public void Restore(Form form){
+        public void Restore(Form form, bool firstTimeFullscreen = false){
             if (rect != Rectangle.Empty){
                 form.DesktopBounds = rect;
                 form.WindowState = isMaximized ? FormWindowState.Maximized : FormWindowState.Normal;
             }
 
-            if (rect == Rectangle.Empty || !Screen.AllScreens.Any(screen => screen.WorkingArea.IntersectsWith(form.Bounds))){
+            if ((rect == Rectangle.Empty && firstTimeFullscreen) || !Screen.AllScreens.Any(screen => screen.WorkingArea.IntersectsWith(form.Bounds))){
                 form.DesktopBounds = Screen.PrimaryScreen.WorkingArea;
                 form.WindowState = FormWindowState.Maximized;
                 Save(form);
