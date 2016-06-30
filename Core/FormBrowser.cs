@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Windows.Forms;
 using CefSharp;
 using CefSharp.WinForms;
@@ -91,18 +90,7 @@ namespace TweetDck.Core{
         // window setup
 
         private void SetupWindow(){
-            if (Config.IsCustomWindowLocationSet){
-                Location = Config.WindowLocation;
-                Size = Config.WindowSize;
-                WindowState = Config.IsMaximized ? FormWindowState.Maximized : FormWindowState.Normal;
-            }
-
-            if (!Config.IsCustomWindowLocationSet || !Screen.AllScreens.Any(screen => screen.WorkingArea.IntersectsWith(Bounds))){
-                Location = Screen.PrimaryScreen.WorkingArea.Location;
-                Size = Screen.PrimaryScreen.WorkingArea.Size;
-                WindowState = FormWindowState.Maximized;
-            }
-
+            Config.BrowserWindow.Restore(this);
             prevState = WindowState;
             isLoaded = true;
         }
@@ -149,13 +137,7 @@ namespace TweetDck.Core{
             if (!isLoaded)return;
 
             if (Location.X != -32000){
-                Config.IsMaximized = WindowState == FormWindowState.Maximized;
-
-                if (WindowState == FormWindowState.Normal || (WindowState == FormWindowState.Maximized && !Screen.FromControl(this).Equals(Screen.FromPoint(Config.WindowLocation)))){
-                    Config.WindowLocation = Location;
-                    Config.WindowSize = Size;
-                }
-
+                Config.BrowserWindow.Save(this);
                 Config.Save();
             }
         }

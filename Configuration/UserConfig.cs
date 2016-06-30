@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using TweetDck.Core;
 using TweetDck.Core.Handling;
+using TweetDck.Core.Utils;
 using TweetDck.Plugins;
 
 namespace TweetDck.Configuration{
@@ -23,8 +24,7 @@ namespace TweetDck.Configuration{
         public bool IgnoreUninstallCheck { get; set; }
 
         public bool IsMaximized { get; set; }
-        public Point WindowLocation { get; set; }
-        public Size WindowSize { get; set; }
+        public WindowState BrowserWindow { get; set; }
         public bool DisplayNotificationTimer { get; set; }
 
         public TweetNotification.Duration NotificationDuration { get; set; }
@@ -38,12 +38,6 @@ namespace TweetDck.Configuration{
         public bool ExpandLinksOnHover { get; set; }
 
         public PluginConfig Plugins { get; private set; }
-
-        public bool IsCustomWindowLocationSet{
-            get{
-                return WindowLocation.X != -32000 && WindowLocation.X != 32000;
-            }
-        }
 
         public bool IsCustomNotificationPositionSet{
             get{
@@ -103,7 +97,6 @@ namespace TweetDck.Configuration{
 
             IsMaximized = true;
             DisplayNotificationTimer = true;
-            WindowLocation = new Point(-32000,-32000);
             NotificationDuration = TweetNotification.Duration.Medium;
             NotificationPosition = TweetNotification.Position.TopRight;
             CustomNotificationPosition = new Point(-32000,-32000);
