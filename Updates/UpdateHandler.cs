@@ -25,9 +25,7 @@ namespace TweetDck.Updates{
 
         private void browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             if (e.Frame.IsMain){
-                foreach(string js in ScriptLoader.LoadResources("update.js").Where(js => js != null)){
-                    browser.ExecuteScriptAsync(js);
-                }
+                ScriptLoader.ExecuteFile(e.Frame,"update.js","root:update");
             }
         }
 

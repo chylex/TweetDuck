@@ -122,11 +122,8 @@ namespace TweetDck.Core{
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             if (e.Frame.IsMain){
-                foreach(string js in ScriptLoader.LoadResources("code.js").Where(js => js != null)){
-                    browser.ExecuteScriptAsync(js);
-                }
-
-                browser.ExecuteScriptAsync(plugins.GenerateScript(PluginEnvironment.Browser));
+                ScriptLoader.ExecuteFile(browser,"code.js","root:code");
+                plugins_Reloaded(plugins,new PluginLoadEventArgs(new string[0]));
             }
         }
 
@@ -198,7 +195,7 @@ namespace TweetDck.Core{
         }
 
         private void plugins_PluginChangedState(object sender, PluginChangedStateEventArgs e){
-            browser.ExecuteScriptAsync(PluginScriptGenerator.GenerateSetPluginState(e.Plugin,e.IsEnabled));
+            ScriptLoader.ExecuteScript(browser,PluginScriptGenerator.GenerateSetPluginState(e.Plugin,e.IsEnabled),"gen:pluginstate:"+e.Plugin);
         }
 
         private void updates_UpdateAccepted(object sender, UpdateAcceptedEventArgs e){

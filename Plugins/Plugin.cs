@@ -52,6 +52,10 @@ namespace TweetDck.Plugins{
             }
         }
 
+        public override string ToString(){
+            return Identifier;
+        }
+
         public override int GetHashCode(){
             return identifier.GetHashCode();
         }
