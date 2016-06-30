@@ -34,7 +34,7 @@
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.AutoSize = true;
-            this.btnClose.Location = new System.Drawing.Point(571, 362);
+            this.btnClose.Location = new System.Drawing.Point(643, 439);
             this.btnClose.Name = "btnClose";
             this.btnClose.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnClose.Size = new System.Drawing.Size(49, 23);
@@ -47,7 +47,7 @@
             // 
             this.btnReload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnReload.AutoSize = true;
-            this.btnReload.Location = new System.Drawing.Point(131, 362);
+            this.btnReload.Location = new System.Drawing.Point(131, 439);
             this.btnReload.Name = "btnReload";
             this.btnReload.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnReload.Size = new System.Drawing.Size(71, 23);
@@ -60,7 +60,7 @@
             // 
             this.btnOpenFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnOpenFolder.AutoSize = true;
-            this.btnOpenFolder.Location = new System.Drawing.Point(12, 362);
+            this.btnOpenFolder.Location = new System.Drawing.Point(12, 439);
             this.btnOpenFolder.Name = "btnOpenFolder";
             this.btnOpenFolder.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnOpenFolder.Size = new System.Drawing.Size(113, 23);
@@ -76,23 +76,23 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pluginList.Location = new System.Drawing.Point(12, 12);
             this.pluginList.Name = "pluginList";
-            this.pluginList.Size = new System.Drawing.Size(608, 344);
+            this.pluginList.Size = new System.Drawing.Size(680, 421);
             this.pluginList.TabIndex = 4;
             // 
             // FormPlugins
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(632, 397);
+            this.ClientSize = new System.Drawing.Size(704, 474);
             this.Controls.Add(this.pluginList);
             this.Controls.Add(this.btnOpenFolder);
             this.Controls.Add(this.btnReload);
             this.Controls.Add(this.btnClose);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(320, 240);
+            this.MinimumSize = new System.Drawing.Size(480, 320);
             this.Name = "FormPlugins";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "FormPlugins";
+            this.Text = "Plugins";
             this.ResumeLayout(false);
             this.PerformLayout();
 

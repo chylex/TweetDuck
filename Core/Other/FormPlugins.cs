@@ -14,6 +14,15 @@ namespace TweetDck.Core.Other{
         public FormPlugins(PluginManager pluginManager) : this(){
             this.pluginManager = pluginManager;
             this.pluginList.Initialize(pluginManager);
+
+            Shown += (sender, args) => {
+                Program.UserConfig.PluginsWindow.Restore(this,false);
+            };
+
+            FormClosed += (sender, args) => {
+                Program.UserConfig.PluginsWindow.Save(this);
+                Program.UserConfig.Save();
+            };
         }
 
         private void btnOpenFolder_Click(object sender, EventArgs e){

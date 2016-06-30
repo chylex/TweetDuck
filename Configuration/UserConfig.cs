@@ -37,6 +37,7 @@ namespace TweetDck.Configuration{
         public bool ExpandLinksOnHover { get; set; }
 
         public PluginConfig Plugins { get; private set; }
+        public WindowState PluginsWindow { get; set; }
 
         public bool IsCustomNotificationPositionSet{
             get{
@@ -103,6 +104,7 @@ namespace TweetDck.Configuration{
             EnableUpdateCheck = true;
             ExpandLinksOnHover = true;
             Plugins = new PluginConfig();
+            PluginsWindow = new WindowState();
         }
 
         private void UpgradeFile(){
@@ -125,6 +127,7 @@ namespace TweetDck.Configuration{
             if (fileVersion == 2){
                 BrowserWindow = new WindowState();
                 Plugins = new PluginConfig();
+                PluginsWindow = new WindowState();
                 ++fileVersion;
             }
 
