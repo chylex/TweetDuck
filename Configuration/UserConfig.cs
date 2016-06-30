@@ -23,7 +23,6 @@ namespace TweetDck.Configuration{
         public bool IgnoreMigration { get; set; }
         public bool IgnoreUninstallCheck { get; set; }
 
-        public bool IsMaximized { get; set; }
         public WindowState BrowserWindow { get; set; }
         public bool DisplayNotificationTimer { get; set; }
 
@@ -95,7 +94,7 @@ namespace TweetDck.Configuration{
         private UserConfig(string file){
             this.file = file;
 
-            IsMaximized = true;
+            BrowserWindow = new WindowState();
             DisplayNotificationTimer = true;
             NotificationDuration = TweetNotification.Duration.Medium;
             NotificationPosition = TweetNotification.Position.TopRight;
@@ -124,6 +123,7 @@ namespace TweetDck.Configuration{
             }
 
             if (fileVersion == 2){
+                BrowserWindow = new WindowState();
                 Plugins = new PluginConfig();
                 ++fileVersion;
             }
