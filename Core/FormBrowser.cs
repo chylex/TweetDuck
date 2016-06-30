@@ -90,7 +90,7 @@ namespace TweetDck.Core{
         // window setup
 
         private void SetupWindow(){
-            Config.BrowserWindow.Restore(this);
+            Config.BrowserWindow.Restore(this,true);
             prevState = WindowState;
             isLoaded = true;
         }

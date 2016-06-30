@@ -14,7 +14,7 @@ namespace TweetDck.Core.Utils{
             isMaximized = form.WindowState == FormWindowState.Maximized;
         }
 
-        public void Restore(Form form, bool firstTimeFullscreen = false){
+        public void Restore(Form form, bool firstTimeFullscreen){
             if (rect != Rectangle.Empty){
                 form.DesktopBounds = rect;
                 form.WindowState = isMaximized ? FormWindowState.Maximized : FormWindowState.Normal;
