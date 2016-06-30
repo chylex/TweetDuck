@@ -30,14 +30,14 @@ namespace TweetDck.Resources{
             if (script == null)return;
 
             using(IFrame frame = browser.GetMainFrame()){
-                frame.ExecuteJavaScriptAsync(script,UrlPrefix+identifier);
+                frame.ExecuteJavaScriptAsync(script,UrlPrefix+identifier,1);
             }
         }
 
         public static void ExecuteScript(IFrame frame, string script, string identifier){
             if (script == null)return;
 
-            frame.ExecuteJavaScriptAsync(script,UrlPrefix+identifier);
+            frame.ExecuteJavaScriptAsync(script,UrlPrefix+identifier,1);
         }
     }
 }
