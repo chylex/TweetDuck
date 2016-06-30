@@ -1,76 +1,80 @@
-var isReloading = "TD_PLUGINS" in window;
-
-if (isReloading){
-  window.TD_PLUGINS.installed.forEach(plugin => {
-    if (!window.TD_PLUGINS.isDisabled(plugin)){
-      plugin.obj.disabled();
+(function(){
+  //
+  // Class: Abstract plugin base class.
+  //
+  window.PluginBase = class{
+    constructor(pluginSettings){
+      this.$pluginSettings = pluginSettings || {};
     }
-  });
-}
 
-class PluginBase{
-  constructor(pluginSettings){
-    this.$pluginSettings = pluginSettings || {};
-  }
-
-  enabled(){}
-  ready(){}
-  disabled(){}
-}
-
-var PLUGINS = {
-  installed: [],
-  disabled: [],
-  waiting: [],
-
-  isDisabled: plugin => PLUGINS.disabled.includes(plugin.id),
-  findObject: identifier => PLUGINS.installed.find(plugin => plugin.id === identifier),
-
-  load: function(){
-    PLUGINS.installed.forEach(plugin => {
-      if (!PLUGINS.isDisabled(plugin)){
+    enabled(){}
+    ready(){}
+    disabled(){}
+  };
+  
+  //
+  // Variable: Main object for containing and managing plugins.
+  //
+  window.TD_PLUGINS = new class{
+    constructor(){
+      this.installed = [];
+      this.disabled = [];
+      this.waiting = [];
+    }
+    
+    isDisabled(plugin){
+      return this.disabled.includes(plugin.id);
+    }
+    
+    findObject(identifier){
+      return this.installed.find(plugin => plugin.id === identifier);
+    }
+    
+    install(plugin){
+      this.installed.push(plugin);
+      
+      if (!this.isDisabled(plugin)){
         plugin.obj.enabled();
-        PLUGINS.runWhenReady(plugin);
+        this.runWhenReady(plugin);
       }
-    });
-  },
-
-  onReady: function(){
-    PLUGINS.waiting.forEach(plugin => plugin.obj.ready());
-    PLUGINS.waiting = [];
-  },
-
-  runWhenReady: function(plugin){
-    if (window.TD_APP_READY){
-      plugin.obj.ready();
     }
-    else{
-      PLUGINS.waiting.push(plugin);
+    
+    runWhenReady(plugin){
+      if (window.TD_APP_READY){
+        plugin.obj.ready();
+      }
+      else{
+        this.waiting.push(plugin);
+      }
     }
-  },
+    
+    setState(plugin, enable){
+      if (enable && this.isDisabled(plugin)){
+        this.disabled.splice(this.disabled.indexOf(plugin.id),1);
+        plugin.obj.enabled();
+        this.runWhenReady(plugin);
+      }
+      else if (!enable && !this.isDisabled(plugin)){
+        this.disabled.push(plugin.id);
+        plugin.obj.disabled();
+      }
+      else return;
 
-  setState: function(identifier, enable){
-    var plugin = PLUGINS.findObject(identifier);
-
-    if (enable && PLUGINS.isDisabled(plugin)){
-      PLUGINS.disabled.splice(PLUGINS.disabled.indexOf(identifier),1);
-      plugin.obj.enabled();
-      PLUGINS.runWhenReady(plugin);
+      if (plugin.obj.$pluginSettings.requiresPageReload){
+        window.location.reload();
+      }
     }
-    else if (!enable && !PLUGINS.isDisabled(plugin)){
-      PLUGINS.disabled.push(identifier);
-      plugin.obj.disabled();
+    
+    onReady(){
+      this.waiting.forEach(plugin => plugin.obj.ready());
+      this.waiting = [];
     }
-    else return;
-
-    if (plugin.obj.$pluginSettings.requiresPageReload){
-      window.location.reload();
-    }
-  }
-};
-
-window.TD_PLUGINS = PLUGINS;
-
-if (isReloading){
-  window.location.reload();
-}
+  };
+  
+  //
+  // Block: Setup global function to change plugin state.
+  //
+  window.TDPF_setPluginState = function(identifier, enable){
+    window.TD_PLUGINS.setState(window.TD_PLUGINS.findObject(identifier),enable);
+  };
+})();

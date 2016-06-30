@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
+using CefSharp;
 using TweetDck.Plugins.Events;
 using TweetDck.Resources;
 
 namespace TweetDck.Plugins{
     class PluginManager{
+        public const string PluginScriptFile = "plugins.js";
+
         public string PathOfficialPlugins { get { return Path.Combine(rootPath,"official"); } }
         public string PathCustomPlugins { get { return Path.Combine(rootPath,"user"); } }
 
@@ -53,29 +55,24 @@ namespace TweetDck.Plugins{
             }
         }
 
-        public string GenerateScript(PluginEnvironment environment){
-            string mainScript = ScriptLoader.LoadResource("plugins.js");
-            if (mainScript == null)return string.Empty;
-
-            StringBuilder build = new StringBuilder((1+plugins.Count)*512);
-
-            PluginScriptGenerator.AppendStart(build,environment);
-            build.Append(mainScript);
-            PluginScriptGenerator.AppendConfig(build,Config);
+        public void ExecutePlugins(IFrame frame, PluginEnvironment environment){
+            ScriptLoader.ExecuteScript(frame,PluginScriptGenerator.GenerateConfig(Config),"gen:pluginconfig");
 
             foreach(Plugin plugin in Plugins){
                 string path = plugin.GetScriptPath(environment);
                 if (string.IsNullOrEmpty(path) || !plugin.CanRun)continue;
 
+                string script;
+
                 try{
-                    PluginScriptGenerator.AppendPlugin(build,plugin.Identifier,File.ReadAllText(path));
+                    script = File.ReadAllText(path);
                 }catch{
                     // TODO
+                    continue;
                 }
+
+                ScriptLoader.ExecuteScript(frame,PluginScriptGenerator.GeneratePlugin(plugin.Identifier,script,environment),"plugin:"+plugin);
             }
-            
-            PluginScriptGenerator.AppendEnd(build,environment);
-            return build.ToString();
         }
 
         private IEnumerable<Plugin> LoadPluginsFrom(string path, PluginGroup group){
