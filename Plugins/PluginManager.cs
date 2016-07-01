@@ -60,12 +60,14 @@ namespace TweetDck.Plugins{
             }
         }
 
-        public void ExecutePlugins(IFrame frame, PluginEnvironment environment){
-            ScriptLoader.ExecuteScript(frame,PluginScriptGenerator.GenerateConfig(Config),"gen:pluginconfig");
+        public void ExecutePlugins(IFrame frame, PluginEnvironment environment, bool includeDisabled){
+            if (includeDisabled){
+                ScriptLoader.ExecuteScript(frame,PluginScriptGenerator.GenerateConfig(Config),"gen:pluginconfig");
+            }
 
             foreach(Plugin plugin in Plugins){
                 string path = plugin.GetScriptPath(environment);
-                if (string.IsNullOrEmpty(path) || !plugin.CanRun)continue;
+                if (string.IsNullOrEmpty(path) || !plugin.CanRun || (!includeDisabled && !Config.IsEnabled(plugin)))continue;
 
                 string script;
 

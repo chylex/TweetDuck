@@ -114,7 +114,7 @@ namespace TweetDck.Core{
 
                 if (plugins.HasAnyPlugin(PluginEnvironment.Browser)){
                     ScriptLoader.ExecuteFile(e.Frame,PluginManager.PluginBrowserScriptFile);
-                    plugins.ExecutePlugins(e.Frame,PluginEnvironment.Browser);
+                    plugins.ExecutePlugins(e.Frame,PluginEnvironment.Browser,true);
                 }
             }
         }
