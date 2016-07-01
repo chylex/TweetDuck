@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="packages\CefSharp.WinForms.49.0.0-pre02\build\CefSharp.WinForms.props" Condition="Exists('packages\CefSharp.WinForms.49.0.0-pre02\build\CefSharp.WinForms.props')" />
   <Import Project="packages\CefSharp.Common.49.0.0-pre02\build\CefSharp.Common.props" Condition="Exists('packages\CefSharp.Common.49.0.0-pre02\build\CefSharp.Common.props')" />
@@ -279,9 +279,15 @@
     </ContentWithTargetPath>
   </ItemGroup>
   <ItemGroup>
-    <ContentWithTargetPath Include="Resources\Scripts\plugins.js">
+    <ContentWithTargetPath Include="Resources\Scripts\plugins.browser.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <TargetPath>plugins.js</TargetPath>
+      <TargetPath>plugins.browser.js</TargetPath>
+    </ContentWithTargetPath>
+  </ItemGroup>
+  <ItemGroup>
+    <ContentWithTargetPath Include="Resources\Scripts\plugins.notification.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>plugins.notification.js</TargetPath>
     </ContentWithTargetPath>
   </ItemGroup>
   <ItemGroup>
