@@ -12,6 +12,11 @@ using TweetDck.Plugins;
 
 namespace TweetDck.Core{
     sealed partial class FormNotification : Form{
+        private const string NotificationScriptFile = "notification.js";
+
+        private static readonly string NotificationScriptIdentifier = ScriptLoader.GetRootIdentifier(NotificationScriptFile);
+        private static readonly string PluginScriptIdentifier = ScriptLoader.GetRootIdentifier(PluginManager.PluginNotificationScriptFile);
+
         public Func<bool> CanMoveWindow = () => true;
 
         private readonly Form owner;
@@ -24,6 +29,7 @@ namespace TweetDck.Core{
         private int timeLeft, totalTime;
 
         private readonly string notificationJS;
+        private readonly string pluginJS;
 
         protected override bool ShowWithoutActivation{
             get{
@@ -61,7 +67,8 @@ namespace TweetDck.Core{
 
             owner.FormClosed += (sender, args) => Close();
 
-            notificationJS = ScriptLoader.LoadResource("notification.js");
+            notificationJS = ScriptLoader.LoadResource(NotificationScriptFile);
+            pluginJS = ScriptLoader.LoadResource(PluginManager.PluginNotificationScriptFile);
 
             browser = new ChromiumWebBrowser("about:blank"){ MenuHandler = new ContextMenuNotification(this,autoHide) };
             browser.FrameLoadEnd += Browser_FrameLoadEnd;
@@ -114,9 +121,12 @@ namespace TweetDck.Core{
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             if (e.Frame.IsMain && notificationJS != null && browser.Address != "about:blank"){
-                ScriptLoader.ExecuteScript(e.Frame,notificationJS,"root:notification");
-                ScriptLoader.ExecuteFile(e.Frame,PluginManager.PluginScriptFile);
-                plugins.ExecutePlugins(e.Frame,PluginEnvironment.Notification);
+                ScriptLoader.ExecuteScript(e.Frame,notificationJS,NotificationScriptIdentifier);
+
+                if (plugins.HasAnyPlugin(PluginEnvironment.Notification)){
+                    ScriptLoader.ExecuteScript(e.Frame,pluginJS,PluginScriptIdentifier);
+                    plugins.ExecutePlugins(e.Frame,PluginEnvironment.Notification);
+                }
             }
         }
 
