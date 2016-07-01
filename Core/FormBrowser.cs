@@ -111,8 +111,11 @@ namespace TweetDck.Core{
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             if (e.Frame.IsMain){
                 ScriptLoader.ExecuteFile(e.Frame,"code.js");
-                ScriptLoader.ExecuteFile(e.Frame,PluginManager.PluginScriptFile);
-                plugins.ExecutePlugins(e.Frame,PluginEnvironment.Browser);
+
+                if (plugins.HasAnyPlugin(PluginEnvironment.Browser)){
+                    ScriptLoader.ExecuteFile(e.Frame,PluginManager.PluginBrowserScriptFile);
+                    plugins.ExecutePlugins(e.Frame,PluginEnvironment.Browser);
+                }
             }
         }
 

@@ -36,6 +36,10 @@ namespace TweetDck.Plugins{
             return plugins.Count(plugin => plugin.Group == group);
         }
 
+        public bool HasAnyPlugin(PluginEnvironment environment){
+            return plugins.Any(plugin => plugin.Environments.HasFlag(environment));
+        }
+
         public void Reload(){
             HashSet<Plugin> prevPlugins = new HashSet<Plugin>(plugins);
             plugins.Clear();

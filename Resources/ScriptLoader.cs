@@ -19,11 +19,11 @@ namespace TweetDck.Resources{
         }
 
         public static void ExecuteFile(ChromiumWebBrowser browser, string file){
-            ExecuteScript(browser,LoadResource(file),"root:"+Path.GetFileNameWithoutExtension(file));
+            ExecuteScript(browser,LoadResource(file),GetRootIdentifier(file));
         }
 
         public static void ExecuteFile(IFrame frame, string file){
-            ExecuteScript(frame,LoadResource(file),"root:"+Path.GetFileNameWithoutExtension(file));
+            ExecuteScript(frame,LoadResource(file),GetRootIdentifier(file));
         }
 
         public static void ExecuteScript(ChromiumWebBrowser browser, string script, string identifier){
@@ -38,6 +38,10 @@ namespace TweetDck.Resources{
             if (script == null)return;
 
             frame.ExecuteJavaScriptAsync(script,UrlPrefix+identifier,1);
+        }
+
+        public static string GetRootIdentifier(string file){
+            return "root:"+Path.GetFileNameWithoutExtension(file);
         }
     }
 }
