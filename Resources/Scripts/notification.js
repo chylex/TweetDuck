@@ -14,14 +14,6 @@
   };
   
   //
-  // Block: Hook into links to bypass default open function.
-  //
-  addEventListener(links,"click",function(e){
-    $TD.openBrowser(e.currentTarget.getAttribute("href"));
-    e.preventDefault();
-  });
-  
-  //
   // Block: Allow bypassing of t.co in context menus.
   //
   addEventListener(links,"contextmenu",function(e){

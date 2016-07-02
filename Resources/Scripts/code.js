@@ -162,51 +162,6 @@
   };
   
   //
-  // Block: Hook into links to bypass default open function.
-  //
-  (function(){
-    var urlWait = false;
-    
-    var onUrlOpened = function(){
-      urlWait = true;
-      setTimeout(function(){ urlWait = false; },0);
-    };
-    
-    $(document.body).delegate("a[target='_blank']","click",function(e){
-      if (urlWait)return;
-
-      var me = $(this);
-      var rel = me.attr("rel");
-
-      if (!me.is(".link-complex") && !(rel === "mediaPreview" && me.closest("#open-modal").length === 0) && rel !== "list" && rel !== "user" && rel !== "tweet"){
-        $TD.openBrowser(me.attr("href"));
-        onUrlOpened();
-      }
-      
-      e.preventDefault();
-    });
-    
-    window.open = function(url){
-      if (urlWait)return;
-      
-      $TD.openBrowser(url);
-      onUrlOpened();
-    };
-    
-    TD.util.maybeOpenClickExternally = prependToFunction(TD.util.maybeOpenClickExternally,function(e){
-      if (e.ctrlKey){
-        if (urlWait)return;
-
-        $TD.openBrowser(e.currentTarget.getAttribute("href"));
-        e.preventDefault();
-        e.stopPropagation();
-        e.stopImmediatePropagation();
-        return true;
-      }
-    });
-  })();
-  
-  //
   // Block: Expand shortened links on hover or display tooltip.
   //
   (function(){

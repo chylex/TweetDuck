@@ -70,7 +70,11 @@ namespace TweetDck.Core{
             notificationJS = ScriptLoader.LoadResource(NotificationScriptFile);
             pluginJS = ScriptLoader.LoadResource(PluginManager.PluginNotificationScriptFile);
 
-            browser = new ChromiumWebBrowser("about:blank"){ MenuHandler = new ContextMenuNotification(this,autoHide) };
+            browser = new ChromiumWebBrowser("about:blank"){
+                MenuHandler = new ContextMenuNotification(this,autoHide),
+                LifeSpanHandler = new LifeSpanHandler()
+            };
+
             browser.FrameLoadEnd += Browser_FrameLoadEnd;
             browser.RegisterJsObject("$TD",bridge);
 
