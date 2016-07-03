@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading;
 using TweetDck.Plugins;
 using TweetDck.Plugins.Events;
+using TweetDck.Core.Other.Settings.Export;
 
 [assembly: CLSCompliant(true)]
 namespace TweetDck{
@@ -57,7 +58,9 @@ namespace TweetDck{
 
             WindowRestoreMessage = NativeMethods.RegisterWindowMessage("TweetDuckRestore");
 
-            if (Environment.GetCommandLineArgs().Contains("-restart")){
+            string[] programArguments = Environment.GetCommandLineArgs();
+
+            if (programArguments.Contains("-restart")){
                 for(int attempt = 0; attempt < 21; attempt++){
                     if (LockManager.Lock()){
                         break;
@@ -89,7 +92,16 @@ namespace TweetDck{
                 }
             }
 
-            UserConfig = UserConfig.Load(Path.Combine(StoragePath,"TD_UserConfig.cfg"));
+            if (programArguments.Contains("-importcookies") && File.Exists(ExportManager.TempCookiesPath)){
+                try{
+                    if (File.Exists(ExportManager.CookiesPath)){
+                        File.Delete(ExportManager.CookiesPath);
+                    }
+                    File.Move(ExportManager.TempCookiesPath,ExportManager.CookiesPath);
+                }catch(Exception e){
+                    HandleException("Could not import the cookie file to restore login session.",e);
+                }
+            }
 
             ReloadConfig();
 

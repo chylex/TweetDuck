@@ -132,6 +132,8 @@
     <Compile Include="Core\Other\FormPlugins.Designer.cs">
       <DependentUpon>FormPlugins.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\Other\Settings\Export\CombinedFileStream.cs" />
+    <Compile Include="Core\Other\Settings\Export\ExportManager.cs" />
     <Compile Include="Core\Other\Settings\TabSettingsAdvanced.cs">
       <SubType>UserControl</SubType>
     </Compile>
