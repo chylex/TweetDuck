@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace TweetDck.Core.Controls{
     static class ControlExtensions{
-        public static void InvokeSafe(this Form form, Action func){
+        public static void InvokeSafe(this Control control, Action func){
             if (form.InvokeRequired){
                 form.Invoke(func);
             }
