@@ -25,6 +25,8 @@ namespace TweetDck{
         public const string Website = "http://tweetdick.chylex.com";
         #endif
 
+        public const string BrowserSubprocess = BrandName+".Browser.exe";
+
         public const string VersionTag = "1.2.3";
         public const string VersionFull = "1.2.3.0";
 
@@ -102,6 +104,7 @@ namespace TweetDck{
                 UserAgent = BrowserUtils.HeaderUserAgent,
                 Locale = CultureInfo.CurrentCulture.TwoLetterISOLanguageName,
                 CachePath = StoragePath,
+                BrowserSubprocessPath = File.Exists(BrowserSubprocess) ? BrowserSubprocess : "CefSharp.BrowserSubprocess.exe",
                 #if !DEBUG
                 LogSeverity = LogSeverity.Disable
                 #endif
