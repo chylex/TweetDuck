@@ -35,6 +35,7 @@ namespace TweetDck{
         public static readonly string StoragePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),BrandName);
         public static readonly string PluginPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"plugins");
         public static readonly string TemporaryPath = Path.Combine(Path.GetTempPath(),BrandName);
+        public static readonly string ConfigFilePath = Path.Combine(StoragePath,"TD_UserConfig.cfg");
 
         public static uint WindowRestoreMessage;
 
@@ -89,6 +90,8 @@ namespace TweetDck{
             }
 
             UserConfig = UserConfig.Load(Path.Combine(StoragePath,"TD_UserConfig.cfg"));
+
+            ReloadConfig();
 
             MigrationManager.Run();
 
@@ -165,6 +168,22 @@ namespace TweetDck{
             }catch{
                 // oops
             }
+        }
+
+        public static void ReloadConfig(){
+            UserConfig = UserConfig.Load(ConfigFilePath);
+        }
+
+        public static void ResetConfig(){
+            try{
+                File.Delete(ConfigFilePath);
+                File.Delete(UserConfig.GetBackupFile(ConfigFilePath));
+            }catch(Exception e){
+                HandleException("Could not delete configuration files to reset the settings.",e);
+                return;
+            }
+
+            ReloadConfig();
         }
 
         private static void ExitCleanup(){

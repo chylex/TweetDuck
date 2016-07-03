@@ -185,7 +185,7 @@ namespace TweetDck.Configuration{
             return config ?? new UserConfig(file);
         }
 
-        private static string GetBackupFile(string file){
+        public static string GetBackupFile(string file){
             return file+".bak";
         }
 
