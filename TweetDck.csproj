@@ -132,6 +132,36 @@
     <Compile Include="Core\Other\FormPlugins.Designer.cs">
       <DependentUpon>FormPlugins.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\Other\Settings\TabSettingsAdvanced.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Core\Other\Settings\TabSettingsAdvanced.Designer.cs">
+      <DependentUpon>TabSettingsAdvanced.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Core\Other\Settings\BaseTabSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Core\Other\Settings\BaseTabSettings.Designer.cs">
+      <DependentUpon>BaseTabSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Core\Other\Settings\TabSettingsGeneral.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Core\Other\Settings\TabSettingsGeneral.Designer.cs">
+      <DependentUpon>TabSettingsGeneral.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Core\Other\Settings\TabSettingsNotifications.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Core\Other\Settings\TabSettingsNotifications.Designer.cs">
+      <DependentUpon>TabSettingsNotifications.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Core\Other\Settings\TabSettingsUpdates.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Core\Other\Settings\TabSettingsUpdates.Designer.cs">
+      <DependentUpon>TabSettingsUpdates.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\Utils\WindowState.cs" />
     <Compile Include="Migration\FormBackgroundWork.cs">
       <SubType>Form</SubType>
