@@ -5,8 +5,8 @@ using System.Windows.Forms;
 namespace TweetDck.Core.Controls{
     static class ControlExtensions{
         public static void InvokeSafe(this Control control, Action func){
-            if (form.InvokeRequired){
-                form.Invoke(func);
+            if (control.InvokeRequired){
+                control.Invoke(func);
             }
             else{
                 func();
