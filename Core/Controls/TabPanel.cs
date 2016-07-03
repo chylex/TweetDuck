@@ -12,6 +12,8 @@ namespace TweetDck.Core.Controls{
             }
         }
 
+        public TabButton ActiveButton { get; private set; }
+
         // ReSharper disable once ConvertToAutoPropertyWithPrivateSetter
         public Panel Content{
             get{
@@ -39,12 +41,14 @@ namespace TweetDck.Core.Controls{
         }
 
         public void SelectTab(TabButton button){
-            foreach(TabButton btn in Buttons){
-                btn.BackColor = SystemColors.Control;
+            if (ActiveButton != null){
+                ActiveButton.BackColor = SystemColors.Control;
             }
 
             button.BackColor = Color.White;
             button.Callback();
+
+            ActiveButton = button;
         }
 
         public void ReplaceContent(Control newControl){
