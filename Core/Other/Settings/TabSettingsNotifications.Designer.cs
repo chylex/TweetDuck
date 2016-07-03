@@ -96,22 +96,6 @@
             this.labelEdgeDistance.TabIndex = 6;
             this.labelEdgeDistance.Text = "Distance From Edge";
             // 
-            // trackBarEdgeDistance
-            // 
-            this.trackBarEdgeDistance.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBarEdgeDistance.LargeChange = 8;
-            this.trackBarEdgeDistance.Location = new System.Drawing.Point(6, 213);
-            this.trackBarEdgeDistance.Maximum = 40;
-            this.trackBarEdgeDistance.Minimum = 8;
-            this.trackBarEdgeDistance.Name = "trackBarEdgeDistance";
-            this.trackBarEdgeDistance.Size = new System.Drawing.Size(171, 45);
-            this.trackBarEdgeDistance.SmallChange = 2;
-            this.trackBarEdgeDistance.TabIndex = 5;
-            this.trackBarEdgeDistance.TickFrequency = 2;
-            this.trackBarEdgeDistance.Value = 8;
-            this.trackBarEdgeDistance.ValueChanged += new System.EventHandler(this.trackBarEdgeDistance_ValueChanged);
-            // 
             // radioLocCustom
             // 
             this.radioLocCustom.AutoSize = true;
@@ -176,6 +160,22 @@
             this.radioLocTL.UseVisualStyleBackColor = true;
             this.radioLocTL.CheckedChanged += new System.EventHandler(this.radioLoc_CheckedChanged);
             this.radioLocTL.Click += new System.EventHandler(this.radioLoc_Click);
+            // 
+            // trackBarEdgeDistance
+            // 
+            this.trackBarEdgeDistance.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackBarEdgeDistance.LargeChange = 8;
+            this.trackBarEdgeDistance.Location = new System.Drawing.Point(6, 213);
+            this.trackBarEdgeDistance.Maximum = 40;
+            this.trackBarEdgeDistance.Minimum = 8;
+            this.trackBarEdgeDistance.Name = "trackBarEdgeDistance";
+            this.trackBarEdgeDistance.Size = new System.Drawing.Size(171, 45);
+            this.trackBarEdgeDistance.SmallChange = 2;
+            this.trackBarEdgeDistance.TabIndex = 5;
+            this.trackBarEdgeDistance.TickFrequency = 2;
+            this.trackBarEdgeDistance.Value = 8;
+            this.trackBarEdgeDistance.ValueChanged += new System.EventHandler(this.trackBarEdgeDistance_ValueChanged);
             // 
             // groupNotificationDuration
             // 
