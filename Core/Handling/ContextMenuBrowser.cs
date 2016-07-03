@@ -46,11 +46,8 @@ namespace TweetDck.Core.Handling{
             model.SetChecked((CefMenuCommand)MenuMute,Program.UserConfig.MuteNotifications);
             model.AddSeparator();
 
-            if (TweetNotification.IsReady){
-                model.AddItem((CefMenuCommand)MenuSettings,"Settings");
-                model.AddItem((CefMenuCommand)MenuPlugins,"Plugins");
-            }
-
+            model.AddItem((CefMenuCommand)MenuSettings,"Settings");
+            model.AddItem((CefMenuCommand)MenuPlugins,"Plugins");
             model.AddItem((CefMenuCommand)MenuAbout,"About "+Program.BrandName);
         }
 

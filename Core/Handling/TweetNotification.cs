@@ -6,9 +6,15 @@ namespace TweetDck.Core.Handling{
         private static string FontSizeClass { get; set; }
         private static string HeadTag { get; set; }
 
-        public static bool IsReady{
+        private static string DefaultFontSizeClass{
             get{
-                return FontSizeClass != null && HeadTag != null;
+                return "medium";
+            }
+        }
+
+        private static string DefaultHeadTag{
+            get{
+                return @"<meta charset='utf-8'><meta http-equiv='X-UA-Compatible' content='chrome=1'><link rel='stylesheet' href='https://ton.twimg.com/tweetdeck-web/web/css/font.5ef884f9f9.css'><link rel='stylesheet' href='https://ton.twimg.com/tweetdeck-web/web/css/app-dark.5631e0dd42.css'>";
             }
         }
 
@@ -90,8 +96,8 @@ namespace TweetDck.Core.Handling{
         public string GenerateHtml(){
             StringBuilder build = new StringBuilder();
             build.Append("<!DOCTYPE html>");
-            build.Append("<html class='os-windows txt-base-").Append(FontSizeClass).Append("'>");
-            build.Append("<head>").Append(HeadTag).Append("</head>");
+            build.Append("<html class='os-windows txt-base-").Append(FontSizeClass ?? DefaultFontSizeClass).Append("'>");
+            build.Append("<head>").Append(HeadTag ?? DefaultHeadTag).Append("</head>");
             build.Append("<body class='hearty'><div class='app-columns-container'><div class='column scroll-styled-v' style='width:100%;overflow-y:auto'>");
             build.Append(html);
             build.Append("</div></div></body>");
