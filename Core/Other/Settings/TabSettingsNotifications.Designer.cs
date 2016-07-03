@@ -27,12 +27,12 @@
             this.labelDisplay = new System.Windows.Forms.Label();
             this.comboBoxDisplay = new System.Windows.Forms.ComboBox();
             this.labelEdgeDistance = new System.Windows.Forms.Label();
-            this.trackBarEdgeDistance = new System.Windows.Forms.TrackBar();
             this.radioLocCustom = new System.Windows.Forms.RadioButton();
             this.radioLocBR = new System.Windows.Forms.RadioButton();
             this.radioLocBL = new System.Windows.Forms.RadioButton();
             this.radioLocTR = new System.Windows.Forms.RadioButton();
             this.radioLocTL = new System.Windows.Forms.RadioButton();
+            this.trackBarEdgeDistance = new System.Windows.Forms.TrackBar();
             this.groupNotificationDuration = new System.Windows.Forms.GroupBox();
             this.radioDurVeryLong = new System.Windows.Forms.RadioButton();
             this.radioDurLong = new System.Windows.Forms.RadioButton();
@@ -107,7 +107,6 @@
             this.radioLocCustom.Text = "Custom";
             this.radioLocCustom.UseVisualStyleBackColor = true;
             this.radioLocCustom.CheckedChanged += new System.EventHandler(this.radioLoc_CheckedChanged);
-            this.radioLocCustom.Click += new System.EventHandler(this.radioLoc_Click);
             // 
             // radioLocBR
             // 
@@ -120,7 +119,6 @@
             this.radioLocBR.Text = "Bottom Right";
             this.radioLocBR.UseVisualStyleBackColor = true;
             this.radioLocBR.CheckedChanged += new System.EventHandler(this.radioLoc_CheckedChanged);
-            this.radioLocBR.Click += new System.EventHandler(this.radioLoc_Click);
             // 
             // radioLocBL
             // 
@@ -133,7 +131,6 @@
             this.radioLocBL.Text = "Bottom Left";
             this.radioLocBL.UseVisualStyleBackColor = true;
             this.radioLocBL.CheckedChanged += new System.EventHandler(this.radioLoc_CheckedChanged);
-            this.radioLocBL.Click += new System.EventHandler(this.radioLoc_Click);
             // 
             // radioLocTR
             // 
@@ -146,7 +143,6 @@
             this.radioLocTR.Text = "Top Right";
             this.radioLocTR.UseVisualStyleBackColor = true;
             this.radioLocTR.CheckedChanged += new System.EventHandler(this.radioLoc_CheckedChanged);
-            this.radioLocTR.Click += new System.EventHandler(this.radioLoc_Click);
             // 
             // radioLocTL
             // 
@@ -159,7 +155,6 @@
             this.radioLocTL.Text = "Top Left";
             this.radioLocTL.UseVisualStyleBackColor = true;
             this.radioLocTL.CheckedChanged += new System.EventHandler(this.radioLoc_CheckedChanged);
-            this.radioLocTL.Click += new System.EventHandler(this.radioLoc_Click);
             // 
             // trackBarEdgeDistance
             // 
@@ -273,6 +268,7 @@
             this.Controls.Add(this.groupNotificationLocation);
             this.Name = "TabSettingsNotifications";
             this.Size = new System.Drawing.Size(397, 282);
+            this.ParentChanged += new System.EventHandler(this.TabSettingsNotifications_ParentChanged);
             this.groupNotificationLocation.ResumeLayout(false);
             this.groupNotificationLocation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).EndInit();

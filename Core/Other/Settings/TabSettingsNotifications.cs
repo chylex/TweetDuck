@@ -47,6 +47,15 @@ namespace TweetDck.Core.Other.Settings{
             trackBarEdgeDistance.Value = Config.NotificationEdgeDistance;
         }
 
+        private void TabSettingsNotifications_ParentChanged(object sender, EventArgs e){
+            if (Parent == null){
+                notification.HideNotification();
+            }
+            else{
+                notification.ShowNotificationForSettings(false); // TODO prevent closing and first time load shows nothing for some fucking reason
+            }
+        }
+
         private void radioLoc_CheckedChanged(object sender, EventArgs e){
             if (!Ready)return;
 
@@ -63,12 +72,6 @@ namespace TweetDck.Core.Other.Settings{
             }
 
             comboBoxDisplay.Enabled = trackBarEdgeDistance.Enabled = !radioLocCustom.Checked;
-            notification.ShowNotificationForSettings(false);
-        }
-
-        private void radioLoc_Click(object sender, EventArgs e){
-            if (!Ready)return;
-
             notification.ShowNotificationForSettings(false);
         }
 
