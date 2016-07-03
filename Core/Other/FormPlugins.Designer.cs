@@ -27,7 +27,7 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.btnReload = new System.Windows.Forms.Button();
             this.btnOpenFolder = new System.Windows.Forms.Button();
-            this.pluginList = new TweetDck.Plugins.Controls.PluginListControl();
+            this.tabPanelPlugins = new TweetDck.Core.Controls.TabPanel();
             this.SuspendLayout();
             // 
             // btnClose
@@ -71,20 +71,20 @@
             // 
             // pluginList
             // 
-            this.pluginList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tabPanelPlugins.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pluginList.Location = new System.Drawing.Point(12, 12);
-            this.pluginList.Name = "pluginList";
-            this.pluginList.Size = new System.Drawing.Size(680, 421);
-            this.pluginList.TabIndex = 4;
+            this.tabPanelPlugins.Location = new System.Drawing.Point(12, 12);
+            this.tabPanelPlugins.Name = "tabPanelPlugins";
+            this.tabPanelPlugins.Size = new System.Drawing.Size(680, 421);
+            this.tabPanelPlugins.TabIndex = 4;
             // 
             // FormPlugins
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(704, 474);
-            this.Controls.Add(this.pluginList);
+            this.Controls.Add(this.tabPanelPlugins);
             this.Controls.Add(this.btnOpenFolder);
             this.Controls.Add(this.btnReload);
             this.Controls.Add(this.btnClose);
@@ -103,6 +103,6 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnReload;
         private System.Windows.Forms.Button btnOpenFolder;
-        private Plugins.Controls.PluginListControl pluginList;
+        private TweetDck.Core.Controls.TabPanel tabPanelPlugins;
     }
 }

@@ -152,23 +152,11 @@
     <Compile Include="Plugins\Controls\PluginControl.Designer.cs">
       <DependentUpon>PluginControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Controls\PluginListControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Plugins\Controls\PluginListControl.Designer.cs">
-      <DependentUpon>PluginListControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Plugins\Controls\PluginListFlowLayout.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Plugins\Controls\PluginListFlowLayout.Designer.cs">
       <DependentUpon>PluginListFlowLayout.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Plugins\Controls\TabButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Plugins\Controls\TabButton.Designer.cs">
-      <DependentUpon>TabButton.cs</DependentUpon>
     </Compile>
     <Compile Include="Plugins\Plugin.cs" />
     <Compile Include="Plugins\Events\PluginChangedStateEventArgs.cs" />
