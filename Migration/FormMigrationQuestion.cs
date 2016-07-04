@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using TweetDck.Core.Controls;
 
 namespace TweetDck.Migration{
     partial class FormMigrationQuestion : Form{
@@ -10,7 +9,7 @@ namespace TweetDck.Migration{
         public FormMigrationQuestion(){
             InitializeComponent();
 
-            labelQuestion.Rtf = RichTextLabel.Wrap(@"Hey there, I found some TweetDeck data! Do you want to \b Migrate\b0  it and delete the old data folder, \b Ignore\b0  the request forever, or just try "+Program.BrandName+@" first?\par You may also \b Migrate & Purge\b0  which uninstalls TweetDeck too!");
+            labelQuestion.Text = "Hey there, I found some TweetDeck data! Do you want to »Migrate« it and delete the old data folder, »Ignore« the request forever, or try "+Program.BrandName+" out first?\r\nYou may also »Migrate && Purge« which uninstalls TweetDeck too!";
         }
 
         protected override void OnPaint(PaintEventArgs e){

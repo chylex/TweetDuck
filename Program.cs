@@ -97,6 +97,7 @@ namespace TweetDck{
                     if (File.Exists(ExportManager.CookiesPath)){
                         File.Delete(ExportManager.CookiesPath);
                     }
+
                     File.Move(ExportManager.TempCookiesPath,ExportManager.CookiesPath);
                 }catch(Exception e){
                     HandleException("Could not import the cookie file to restore login session.",e);

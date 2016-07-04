@@ -114,12 +114,6 @@
     <Compile Include="Core\Handling\DialogHandlerBrowser.cs" />
     <Compile Include="Core\Handling\LifeSpanHandler.cs" />
     <Compile Include="Core\Handling\TweetNotification.cs" />
-    <Compile Include="Core\Controls\RichTextLabel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Core\Controls\RichTextLabel.Designer.cs">
-      <DependentUpon>RichTextLabel.cs</DependentUpon>
-    </Compile>
     <Compile Include="Core\Other\FormAbout.cs">
       <SubType>Form</SubType>
     </Compile>

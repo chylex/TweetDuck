@@ -9,12 +9,6 @@ using TweetDck.Updates;
 
 namespace TweetDck.Core.Other{
     sealed partial class FormSettings : Form{
-        private static UserConfig Config{
-            get{
-                return Program.UserConfig;
-            }
-        }
-
         private readonly Dictionary<Type,BaseTabSettings> tabs = new Dictionary<Type,BaseTabSettings>(4);
 
         public FormSettings(FormBrowser browserForm, UpdateHandler updates){
@@ -48,7 +42,7 @@ namespace TweetDck.Core.Other{
         }
 
         private void FormSettings_FormClosing(object sender, FormClosingEventArgs e){
-            Config.Save();
+            Program.UserConfig.Save();
         }
 
         private void btnExport_Click(object sender, EventArgs e){
@@ -71,7 +65,7 @@ namespace TweetDck.Core.Other{
             }
 
             if (file != null){
-                Config.Save();
+                Program.UserConfig.Save();
 
                 ExportManager manager = new ExportManager(file);
 
