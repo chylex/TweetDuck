@@ -53,6 +53,16 @@
       }
     });
     
+    // Setup video element replacement
+    new MutationObserver(function(){
+      $("video").each(function(){
+        $(this).parent().replaceWith("<a href='"+$(this).attr("src")+"' style='display:block; border:1px solid #555; padding:3px 6px'>&#9658; Open video in browser</a>");
+      });
+    }).observe($(".js-app-columns")[0],{
+      childList: true,
+      subtree: true
+    });
+    
     // Finish init and load plugins
     $TD.loadFontSizeClass(TD.settings.getFontSize());
     $TD.loadNotificationHeadContents(getNotificationHeadContents());
@@ -249,19 +259,7 @@
   };*/
   
   //
-  // Block: Hook into mp4 video element clicking.
-  //
-  $(document.body).delegate("video.js-media-gif","click",function(e){
-    var src = $(this).attr("src");
-    
-    if (src.endsWith(".mp4")){
-      $TD.openBrowser(src);
-      e.preventDefault();
-    }
-  });
-  
-  //
-  // Block: Update highlighted column
+  // Block: Update highlighted column.
   //
   app.delegate("section","mouseenter mouseleave",function(e){
     if (e.type === "mouseenter"){
@@ -374,7 +372,7 @@
   })();
   
   //
-  // Block: Support for extra mouse buttons
+  // Block: Support for extra mouse buttons.
   //
   window.TDGF_onMouseClickExtra = function(button){
     if (button === 1){ // back button
