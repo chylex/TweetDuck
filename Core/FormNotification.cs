@@ -28,6 +28,26 @@ namespace TweetDck.Core{
         private readonly bool autoHide;
         private int timeLeft, totalTime;
 
+        private bool? prevDisplayTimer;
+        private int? prevFontSize;
+
+        private bool RequiresResize{
+            get{
+                return !prevDisplayTimer.HasValue || !prevFontSize.HasValue || prevDisplayTimer != Program.UserConfig.DisplayNotificationTimer || prevFontSize != TweetNotification.FontSizeLevel;
+            }
+
+            set{
+                if (value){
+                    prevDisplayTimer = null;
+                    prevFontSize = null;
+                }
+                else{
+                    prevDisplayTimer = Program.UserConfig.DisplayNotificationTimer;
+                    prevFontSize = TweetNotification.FontSizeLevel;
+                }
+            }
+        }
+
         private readonly string notificationJS;
         private readonly string pluginJS;
 
@@ -218,24 +238,30 @@ namespace TweetDck.Core{
         }
 
         private void MoveToVisibleLocation(){
-            bool needsReactivating = Location.X == -32000;
-
             UserConfig config = Program.UserConfig;
-            Screen screen = Screen.FromControl(owner);
 
-            if (config.DisplayNotificationTimer){
-                ClientSize = new Size(BaseClientWidth,BaseClientHeight+4);
-                progressBarTimer.Visible = true;
+            if (RequiresResize){
+                RequiresResize = false;
+
+                if (config.DisplayNotificationTimer){
+                    ClientSize = new Size(BaseClientWidth,BaseClientHeight+4);
+                    progressBarTimer.Visible = true;
+                }
+                else{
+                    ClientSize = new Size(BaseClientWidth,BaseClientHeight);
+                    progressBarTimer.Visible = false;
+                }
+
+                panelBrowser.Height = BaseClientHeight;
             }
-            else{
-                ClientSize = new Size(BaseClientWidth,BaseClientHeight);
-                progressBarTimer.Visible = false;
-            }
+            
+            Screen screen = Screen.FromControl(owner);
 
             if (config.NotificationDisplay > 0 && config.NotificationDisplay <= Screen.AllScreens.Length){
                 screen = Screen.AllScreens[config.NotificationDisplay-1];
             }
-
+            
+            bool needsReactivating = Location.X == -32000;
             int edgeDist = config.NotificationEdgeDistance;
 
             switch(config.NotificationPosition){
