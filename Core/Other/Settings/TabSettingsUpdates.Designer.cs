@@ -29,7 +29,7 @@
             // 
             // btnCheckUpdates
             // 
-            this.btnCheckUpdates.Location = new System.Drawing.Point(9, 34);
+            this.btnCheckUpdates.Location = new System.Drawing.Point(9, 32);
             this.btnCheckUpdates.Name = "btnCheckUpdates";
             this.btnCheckUpdates.Size = new System.Drawing.Size(171, 23);
             this.btnCheckUpdates.TabIndex = 15;
@@ -40,8 +40,7 @@
             // checkUpdateNotifications
             // 
             this.checkUpdateNotifications.AutoSize = true;
-            this.checkUpdateNotifications.Location = new System.Drawing.Point(9, 11);
-            this.checkUpdateNotifications.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.checkUpdateNotifications.Location = new System.Drawing.Point(9, 9);
             this.checkUpdateNotifications.Name = "checkUpdateNotifications";
             this.checkUpdateNotifications.Size = new System.Drawing.Size(165, 17);
             this.checkUpdateNotifications.TabIndex = 14;

@@ -30,7 +30,7 @@
             // 
             // btnClearCache
             // 
-            this.btnClearCache.Location = new System.Drawing.Point(12, 58);
+            this.btnClearCache.Location = new System.Drawing.Point(12, 56);
             this.btnClearCache.Name = "btnClearCache";
             this.btnClearCache.Size = new System.Drawing.Size(171, 23);
             this.btnClearCache.TabIndex = 14;
@@ -41,7 +41,7 @@
             // labelMiscellaneous
             // 
             this.labelMiscellaneous.AutoSize = true;
-            this.labelMiscellaneous.Location = new System.Drawing.Point(9, 42);
+            this.labelMiscellaneous.Location = new System.Drawing.Point(9, 40);
             this.labelMiscellaneous.Margin = new System.Windows.Forms.Padding(3, 11, 3, 0);
             this.labelMiscellaneous.Name = "labelMiscellaneous";
             this.labelMiscellaneous.Size = new System.Drawing.Size(74, 13);
@@ -51,8 +51,7 @@
             // checkHardwareAcceleration
             // 
             this.checkHardwareAcceleration.AutoSize = true;
-            this.checkHardwareAcceleration.Location = new System.Drawing.Point(9, 11);
-            this.checkHardwareAcceleration.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.checkHardwareAcceleration.Location = new System.Drawing.Point(9, 9);
             this.checkHardwareAcceleration.Name = "checkHardwareAcceleration";
             this.checkHardwareAcceleration.Size = new System.Drawing.Size(134, 17);
             this.checkHardwareAcceleration.TabIndex = 12;

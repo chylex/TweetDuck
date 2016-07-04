@@ -31,8 +31,7 @@
             // checkExpandLinks
             // 
             this.checkExpandLinks.AutoSize = true;
-            this.checkExpandLinks.Location = new System.Drawing.Point(9, 10);
-            this.checkExpandLinks.Margin = new System.Windows.Forms.Padding(3, 4, 3, 3);
+            this.checkExpandLinks.Location = new System.Drawing.Point(9, 9);
             this.checkExpandLinks.Name = "checkExpandLinks";
             this.checkExpandLinks.Size = new System.Drawing.Size(166, 17);
             this.checkExpandLinks.TabIndex = 14;
@@ -44,7 +43,7 @@
             // 
             this.comboBoxTrayType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTrayType.FormattingEnabled = true;
-            this.comboBoxTrayType.Location = new System.Drawing.Point(9, 57);
+            this.comboBoxTrayType.Location = new System.Drawing.Point(9, 56);
             this.comboBoxTrayType.Name = "comboBoxTrayType";
             this.comboBoxTrayType.Size = new System.Drawing.Size(171, 21);
             this.comboBoxTrayType.TabIndex = 13;
@@ -53,7 +52,7 @@
             // labelTrayType
             // 
             this.labelTrayType.AutoSize = true;
-            this.labelTrayType.Location = new System.Drawing.Point(6, 41);
+            this.labelTrayType.Location = new System.Drawing.Point(6, 40);
             this.labelTrayType.Margin = new System.Windows.Forms.Padding(3, 11, 3, 0);
             this.labelTrayType.Name = "labelTrayType";
             this.labelTrayType.Size = new System.Drawing.Size(52, 13);
