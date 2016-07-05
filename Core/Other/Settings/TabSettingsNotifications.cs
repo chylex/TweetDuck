@@ -14,8 +14,12 @@ namespace TweetDck.Core.Other.Settings{
 
             this.notification.Move += (sender, args) => {
                 if (radioLocCustom.Checked){
-                    Config.CustomNotificationPosition = notification.Location;
+                    Config.CustomNotificationPosition = this.notification.Location;
                 }
+            };
+            
+            this.notification.Initialized += (sender, args) => {
+                this.notification.ShowNotificationForSettings(true);
             };
 
             this.notification.Show(this);
@@ -49,10 +53,10 @@ namespace TweetDck.Core.Other.Settings{
 
         private void TabSettingsNotifications_ParentChanged(object sender, EventArgs e){
             if (Parent == null){
-                notification.HideNotification();
+                notification.HideNotification(false);
             }
             else{
-                notification.ShowNotificationForSettings(false); // TODO prevent closing and first time load shows nothing for some fucking reason
+                notification.ShowNotificationForSettings(false);
             }
         }
 

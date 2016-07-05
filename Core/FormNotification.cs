@@ -61,6 +61,9 @@ namespace TweetDck.Core{
         public bool ContextMenuOpen { get; set; }
         public string CurrentUrl { get; private set; }
 
+        public EventHandler Initialized;
+        private bool isInitialized;
+
         private static int BaseClientWidth{
             get{
                 int level = TweetNotification.FontSizeLevel;
@@ -95,6 +98,7 @@ namespace TweetDck.Core{
                 LifeSpanHandler = new LifeSpanHandler()
             };
 
+            browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
             browser.FrameLoadEnd += Browser_FrameLoadEnd;
             browser.RegisterJsObject("$TD",new TweetDeckBridge(owner,this));
 
@@ -131,7 +135,7 @@ namespace TweetDck.Core{
 
         private void Config_MuteToggled(object sender, EventArgs e){
             if (Program.UserConfig.MuteNotifications){
-                HideNotification();
+                HideNotification(true);
             }
             else{
                 if (tweetQueue.Count > 0){
@@ -142,8 +146,23 @@ namespace TweetDck.Core{
             }
         }
 
+        private void Browser_IsBrowserInitializedChanged(object sender, IsBrowserInitializedChangedEventArgs e){
+            if (e.IsBrowserInitialized && Initialized != null){
+                Initialized(this,new EventArgs());
+            }
+        }
+
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
-            if (e.Frame.IsMain && notificationJS != null && browser.Address != "about:blank"){
+            if (!e.Frame.IsMain)return;
+
+            if (!isInitialized){
+                isInitialized = true;
+
+                if (Initialized != null){
+                    Initialized(this,new EventArgs());
+                }
+            }
+            else if (notificationJS != null && browser.Address != "about:blank"){
                 ScriptLoader.ExecuteScript(e.Frame,notificationJS,NotificationScriptIdentifier);
 
                 if (plugins.HasAnyPlugin(PluginEnvironment.Notification)){
@@ -155,7 +174,7 @@ namespace TweetDck.Core{
 
         private void FormNotification_FormClosing(object sender, FormClosingEventArgs e){
             if (e.CloseReason == CloseReason.UserClosing){
-                HideNotification();
+                HideNotification(false);
                 tweetQueue.Clear();
                 e.Cancel = true;
             }
@@ -179,7 +198,7 @@ namespace TweetDck.Core{
         }
 
         public void ShowNotificationForSettings(bool reset){
-            if (reset || browser.Address == "about:blank"){
+            if (reset){
                 LoadTweet(TweetNotification.ExampleTweet);
             }
             else{
@@ -187,8 +206,11 @@ namespace TweetDck.Core{
             }
         }
 
-        public void HideNotification(){
-            browser.LoadHtml("","about:blank");
+        public void HideNotification(bool loadBlank){
+            if (loadBlank){
+                browser.LoadHtml("","about:blank");
+            }
+
             Location = new Point(-32000,-32000);
             progressBarTimer.Value = 0;
             timerProgress.Stop();
@@ -205,7 +227,7 @@ namespace TweetDck.Core{
                 LoadNextNotification();
             }
             else if (autoHide){
-                HideNotification();
+                HideNotification(true);
             }
             else{
                 timerProgress.Stop();
