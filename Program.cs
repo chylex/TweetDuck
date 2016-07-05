@@ -122,7 +122,7 @@ namespace TweetDck{
                 CachePath = StoragePath,
                 BrowserSubprocessPath = File.Exists(BrowserSubprocess) ? BrowserSubprocess : "CefSharp.BrowserSubprocess.exe",
                 #if !DEBUG
-                LogSeverity = LogSeverity.Disable
+                LogSeverity = programArguments.Contains("-log") ? LogSeverity.Info : LogSeverity.Disable
                 #endif
             });
 
