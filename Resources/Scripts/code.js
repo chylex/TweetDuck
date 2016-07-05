@@ -56,7 +56,7 @@
     // Setup video element replacement
     new MutationObserver(function(){
       $("video").each(function(){
-        $(this).parent().replaceWith("<a href='"+$(this).attr("src")+"' style='display:block; border:1px solid #555; padding:3px 6px'>&#9658; Open video in browser</a>");
+        $(this).parent().replaceWith("<a href='"+$(this).attr("src")+"' rel='url' target='_blank' style='display:block; border:1px solid #555; padding:3px 6px'>&#9658; Open video in browser</a>");
       });
     }).observe($(".js-app-columns")[0],{
       childList: true,
