@@ -94,7 +94,7 @@
   })();
   
   //
-  // Block: Setup embedded tweet address for context menu
+  // Block: Setup embedded tweet address for context menu.
   //
   (function(){
     var embedded = document.getElementsByClassName("quoted-tweet");
@@ -108,4 +108,9 @@
     
     $TD.setNotificationTweetEmbedded(account[0].getAttribute("href")+"/status/"+tweetId);
   })();
+  
+  //
+  // Block: Page fully loaded.
+  //
+  $TD.onNotificationReady();
 })($TD);

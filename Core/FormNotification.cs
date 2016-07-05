@@ -75,7 +75,7 @@ namespace TweetDck.Core{
             }
         }
 
-        public FormNotification(Form owner, TweetDeckBridge bridge, PluginManager plugins, TrayIcon trayIcon, bool autoHide){
+        public FormNotification(FormBrowser owner, PluginManager plugins, TrayIcon trayIcon, bool autoHide){
             InitializeComponent();
 
             Text = Program.BrandName;
@@ -96,7 +96,7 @@ namespace TweetDck.Core{
             };
 
             browser.FrameLoadEnd += Browser_FrameLoadEnd;
-            browser.RegisterJsObject("$TD",bridge);
+            browser.RegisterJsObject("$TD",new TweetDeckBridge(owner,this));
 
             panelBrowser.Controls.Add(browser);
 
@@ -122,7 +122,7 @@ namespace TweetDck.Core{
             if (Bounds.Contains(Cursor.Position) || FreezeTimer || ContextMenuOpen)return;
 
             timeLeft -= timerProgress.Interval;
-            progressBarTimer.SetValueInstant((int)Math.Min(1000,Math.Round(1050.0*(totalTime-timeLeft)/totalTime)));
+            progressBarTimer.SetValueInstant((int)Math.Min(1000,Math.Round(1025.0*(totalTime-timeLeft)/totalTime)));
 
             if (timeLeft <= 0){
                 FinishCurrentTweet();
@@ -135,7 +135,6 @@ namespace TweetDck.Core{
             }
             else{
                 if (tweetQueue.Count > 0){
-                    MoveToVisibleLocation();
                     LoadNextNotification();
                 }
 
@@ -170,8 +169,6 @@ namespace TweetDck.Core{
                 trayIcon.HasNotifications = true;
             }
             else{
-                MoveToVisibleLocation();
-
                 tweetQueue.Enqueue(notification);
                 UpdateTitle();
 
@@ -182,17 +179,12 @@ namespace TweetDck.Core{
         }
 
         public void ShowNotificationForSettings(bool reset){
-            if (browser.Address == "about:blank"){
-                browser.Load("about:blank"); // required, otherwise shit breaks
-                reset = true;
-            }
-            
-            if (reset){
+            if (reset || browser.Address == "about:blank"){
                 LoadTweet(TweetNotification.ExampleTweet);
-                timerProgress.Start();
             }
-
-            MoveToVisibleLocation();
+            else{
+                MoveToVisibleLocation();
+            }
         }
 
         public void HideNotification(){
@@ -200,6 +192,12 @@ namespace TweetDck.Core{
             Location = new Point(-32000,-32000);
             progressBarTimer.Value = 0;
             timerProgress.Stop();
+        }
+
+        public void OnNotificationReady(){
+            UpdateTitle();
+            MoveToVisibleLocation();
+            timerProgress.Start();
         }
 
         public void FinishCurrentTweet(){
@@ -215,26 +213,17 @@ namespace TweetDck.Core{
         }
 
         private void LoadNextNotification(){
-            TweetNotification tweet = tweetQueue.Dequeue();
-
-            if (browser.Address == "about:blank"){
-                browser.Load("about:blank"); // required, otherwise shit breaks
-            }
-
-            LoadTweet(tweet);
-            timerProgress.Stop();
-            timerProgress.Start();
-
-            UpdateTitle();
+            LoadTweet(tweetQueue.Dequeue());
         }
 
         private void LoadTweet(TweetNotification tweet){
-            browser.LoadHtml(tweet.GenerateHtml(),"http://tweetdeck.twitter.com/");
-
+            CurrentUrl = tweet.Url;
+            
+            timerProgress.Stop();
             totalTime = timeLeft = tweet.GetDisplayDuration(Program.UserConfig.NotificationDuration);
             progressBarTimer.Value = 0;
 
-            CurrentUrl = tweet.Url;
+            browser.LoadHtml(tweet.GenerateHtml(),"http://tweetdeck.twitter.com/?"+DateTime.Now.Ticks);
         }
 
         private void MoveToVisibleLocation(){

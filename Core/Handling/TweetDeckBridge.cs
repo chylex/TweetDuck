@@ -15,6 +15,7 @@ namespace TweetDck.Core.Handling{
         public static string ClipboardImagePath = string.Empty;
 
         private readonly FormBrowser form;
+        private readonly FormNotification notification;
 
         public string BrandName{
             get{
@@ -40,8 +41,9 @@ namespace TweetDck.Core.Handling{
             }
         }
 
-        public TweetDeckBridge(FormBrowser form){
+        public TweetDeckBridge(FormBrowser form, FormNotification notification){
             this.form = form;
+            this.notification = notification;
         }
 
         public void LoadFontSizeClass(string fsClass){
@@ -80,8 +82,8 @@ namespace TweetDck.Core.Handling{
         }
 
         public void OnTweetPopup(string tweetHtml, string tweetUrl, int tweetCharacters){
-            form.InvokeSafe(() => {
-                form.OnTweetPopup(new TweetNotification(tweetHtml,tweetUrl,tweetCharacters));
+            notification.InvokeSafe(() => {
+                notification.ShowNotification(new TweetNotification(tweetHtml,tweetUrl,tweetCharacters));
             });
         }
 
@@ -89,10 +91,17 @@ namespace TweetDck.Core.Handling{
             form.InvokeSafe(form.OnTweetSound);
         }
 
+        public void OnNotificationReady(){
+            notification.InvokeSafe(notification.OnNotificationReady);
+        }
+
         public void DisplayTooltip(string text, bool showInNotification){
-            form.InvokeSafe(() => {
-                form.DisplayTooltip(text,showInNotification);
-            });
+            if (showInNotification){
+                notification.InvokeSafe(() => notification.DisplayTooltip(text));
+            }
+            else{
+                form.InvokeSafe(() => form.DisplayTooltip(text));
+            }
         }
 
         public void TryPasteImage(){

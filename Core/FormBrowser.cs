@@ -40,7 +40,15 @@ namespace TweetDck.Core{
 
             Text = Program.BrandName;
 
-            bridge = new TweetDeckBridge(this);
+            plugins = pluginManager;
+            plugins.Reloaded += plugins_Reloaded;
+            plugins.Config.PluginChangedState += plugins_PluginChangedState;
+
+            notification = CreateNotificationForm(true);
+            notification.CanMoveWindow = () => false;
+            notification.Show();
+
+            bridge = new TweetDeckBridge(this,notification);
 
             browser = new ChromiumWebBrowser("https://tweetdeck.twitter.com/"){
                 MenuHandler = new ContextMenuBrowser(this),
@@ -62,14 +70,6 @@ namespace TweetDck.Core{
 
             UpdateTrayIcon();
 
-            plugins = pluginManager;
-            plugins.Reloaded += plugins_Reloaded;
-            plugins.Config.PluginChangedState += plugins_PluginChangedState;
-
-            notification = CreateNotificationForm(true);
-            notification.CanMoveWindow = () => false;
-            notification.Show();
-
             updates = new UpdateHandler(browser,this);
             updates.UpdateAccepted += updates_UpdateAccepted;
         }
@@ -85,7 +85,7 @@ namespace TweetDck.Core{
         }
 
         public FormNotification CreateNotificationForm(bool autoHide){
-            return new FormNotification(this,bridge,plugins,trayIcon,autoHide);
+            return new FormNotification(this,plugins,trayIcon,autoHide);
         }
 
         // window setup
@@ -265,20 +265,11 @@ namespace TweetDck.Core{
             }
         }
 
-        public void OnTweetPopup(TweetNotification tweet){
-            notification.ShowNotification(tweet);
-        }
-
         public void OnTweetSound(){
             
         }
 
-        public void DisplayTooltip(string text, bool showInNotification){
-            if (showInNotification){
-                notification.DisplayTooltip(text);
-                return;
-            }
-
+        public void DisplayTooltip(string text){
             if (string.IsNullOrEmpty(text)){
                 toolTip.Hide(this);
             }
