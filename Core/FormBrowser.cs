@@ -53,7 +53,7 @@ namespace TweetDck.Core{
             browser = new ChromiumWebBrowser("https://tweetdeck.twitter.com/"){
                 MenuHandler = new ContextMenuBrowser(this),
                 DialogHandler = new DialogHandlerBrowser(this),
-                LifeSpanHandler = new LifeSpanHandler()
+                LifeSpanHandler = new LifeSpanHandler(false)
             };
 
             browser.LoadingStateChanged += Browser_LoadingStateChanged;

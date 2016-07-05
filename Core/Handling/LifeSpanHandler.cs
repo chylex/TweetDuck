@@ -3,8 +3,19 @@ using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Handling{
     class LifeSpanHandler : ILifeSpanHandler{
+        private readonly bool openAllExternally;
+
+        public LifeSpanHandler(bool openAllExternally){
+            this.openAllExternally = openAllExternally;
+        }
+
         public bool OnBeforePopup(IWebBrowser browserControl, IBrowser browser, IFrame frame, string targetUrl, string targetFrameName, WindowOpenDisposition targetDisposition, bool userGesture, IPopupFeatures popupFeatures, IWindowInfo windowInfo, IBrowserSettings browserSettings, ref bool noJavascriptAccess, out IWebBrowser newBrowser){
             newBrowser = null;
+
+            if (openAllExternally){
+                BrowserUtils.OpenExternalBrowser(targetUrl);
+                return true;
+            }
 
             switch(targetDisposition){
                 case WindowOpenDisposition.NewBackgroundTab:
