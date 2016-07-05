@@ -5,7 +5,7 @@ using TweetDck.Updates;
 namespace TweetDck.Core.Other.Settings{
     partial class TabSettingsUpdates : BaseTabSettings{
         private readonly UpdateHandler updates;
-        private int updateCheckEventId;
+        private int updateCheckEventId = -1;
 
         public TabSettingsUpdates(UpdateHandler updates){
             InitializeComponent();
