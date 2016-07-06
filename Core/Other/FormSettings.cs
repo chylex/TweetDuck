@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using TweetDck.Configuration;
 using TweetDck.Core.Other.Settings;
 using TweetDck.Core.Other.Settings.Export;
 using TweetDck.Updates;

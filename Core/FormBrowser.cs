@@ -23,8 +23,6 @@ namespace TweetDck.Core{
         public string UpdateInstallerPath { get; private set; }
 
         private readonly ChromiumWebBrowser browser;
-        private readonly TweetDeckBridge bridge;
-        private readonly FormNotification notification;
         private readonly PluginManager plugins;
         private readonly UpdateHandler updates;
 
@@ -40,38 +38,36 @@ namespace TweetDck.Core{
 
             Text = Program.BrandName;
 
-            plugins = pluginManager;
-            plugins.Reloaded += plugins_Reloaded;
-            plugins.Config.PluginChangedState += plugins_PluginChangedState;
+            this.plugins = pluginManager;
+            this.plugins.Reloaded += plugins_Reloaded;
+            this.plugins.Config.PluginChangedState += plugins_PluginChangedState;
 
-            notification = CreateNotificationForm(true);
+            FormNotification notification = CreateNotificationForm(true);
             notification.CanMoveWindow = () => false;
             notification.Show();
 
-            bridge = new TweetDeckBridge(this,notification);
-
-            browser = new ChromiumWebBrowser("https://tweetdeck.twitter.com/"){
+            this.browser = new ChromiumWebBrowser("https://tweetdeck.twitter.com/"){
                 MenuHandler = new ContextMenuBrowser(this),
                 DialogHandler = new DialogHandlerBrowser(this),
                 LifeSpanHandler = new LifeSpanHandler()
             };
 
-            browser.LoadingStateChanged += Browser_LoadingStateChanged;
-            browser.FrameLoadEnd += Browser_FrameLoadEnd;
-            browser.RegisterJsObject("$TD",bridge);
+            this.browser.LoadingStateChanged += Browser_LoadingStateChanged;
+            this.browser.FrameLoadEnd += Browser_FrameLoadEnd;
+            this.browser.RegisterJsObject("$TD",new TweetDeckBridge(this,notification));
 
             Controls.Add(browser);
 
             Disposed += (sender, args) => browser.Dispose();
 
-            trayIcon.ClickRestore += trayIcon_ClickRestore;
-            trayIcon.ClickClose += trayIcon_ClickClose;
+            this.trayIcon.ClickRestore += trayIcon_ClickRestore;
+            this.trayIcon.ClickClose += trayIcon_ClickClose;
             Config.TrayBehaviorChanged += Config_TrayBehaviorChanged;
 
             UpdateTrayIcon();
 
-            updates = new UpdateHandler(browser,this);
-            updates.UpdateAccepted += updates_UpdateAccepted;
+            this.updates = new UpdateHandler(browser,this);
+            this.updates.UpdateAccepted += updates_UpdateAccepted;
         }
 
         private void ShowChildForm(Form form){
