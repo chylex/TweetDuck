@@ -95,7 +95,7 @@ namespace TweetDck.Core{
 
             browser = new ChromiumWebBrowser("about:blank"){
                 MenuHandler = new ContextMenuNotification(this,autoHide),
-                LifeSpanHandler = new LifeSpanHandler(true)
+                LifeSpanHandler = new LifeSpanHandler()
             };
 
             browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
