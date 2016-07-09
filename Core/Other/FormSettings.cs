@@ -42,6 +42,10 @@ namespace TweetDck.Core.Other{
 
         private void FormSettings_FormClosing(object sender, FormClosingEventArgs e){
             Program.UserConfig.Save();
+
+            foreach(BaseTabSettings control in tabs.Values){
+                control.Dispose();
+            }
         }
 
         private void btnExport_Click(object sender, EventArgs e){

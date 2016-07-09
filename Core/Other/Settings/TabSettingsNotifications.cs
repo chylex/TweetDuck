@@ -49,6 +49,8 @@ namespace TweetDck.Core.Other.Settings{
 
             checkNotificationTimer.Checked = Config.DisplayNotificationTimer;
             trackBarEdgeDistance.Value = Config.NotificationEdgeDistance;
+
+            Disposed += (sender, args) => this.notification.Dispose();
         }
 
         private void TabSettingsNotifications_ParentChanged(object sender, EventArgs e){
