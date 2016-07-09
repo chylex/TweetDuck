@@ -18,6 +18,12 @@ namespace TweetDck.Core.Handling{
             }
         }
 
+        private static string CustomCSS{
+            get{
+                return @".scroll-styled-v::-webkit-scrollbar{width:8px}.scroll-styled-v::-webkit-scrollbar-thumb{border-radius:0}";
+            }
+        }
+
         public static int FontSizeLevel{
             get{
                 switch(FontSizeClass){
@@ -97,7 +103,7 @@ namespace TweetDck.Core.Handling{
             StringBuilder build = new StringBuilder();
             build.Append("<!DOCTYPE html>");
             build.Append("<html class='os-windows txt-base-").Append(FontSizeClass ?? DefaultFontSizeClass).Append("'>");
-            build.Append("<head>").Append(HeadTag ?? DefaultHeadTag).Append("</head>");
+            build.Append("<head>").Append(HeadTag ?? DefaultHeadTag).Append("<style type='text/css'>").Append(CustomCSS).Append("</style></head>");
             build.Append("<body class='hearty'><div class='app-columns-container'><div class='column scroll-styled-v' style='width:100%;overflow-y:auto'>");
             build.Append(html);
             build.Append("</div></div></body>");
