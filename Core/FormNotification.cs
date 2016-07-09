@@ -127,8 +127,12 @@ namespace TweetDck.Core{
         }
 
         private IntPtr MouseHookProc(int nCode, IntPtr wParam, IntPtr lParam){
-            if (!Focused && wParam.ToInt32() == NativeMethods.WH_MOUSEWHEEL && browser.Bounds.Contains(PointToClient(Cursor.Position))){
-                Focus();
+            if (!ContainsFocus && wParam.ToInt32() == NativeMethods.WH_MOUSEWHEEL && browser.Bounds.Contains(PointToClient(Cursor.Position))){
+                // fuck it, Activate() doesn't work with this
+                Point prevPos = Cursor.Position;
+                NativeMethods.SimulateMouseClick(NativeMethods.MouseButton.Left);
+                Cursor.Position = PointToScreen(new Point(-1,-1));
+                Cursor.Position = prevPos;
             }
 
             return NativeMethods.CallNextHookEx(mouseHook,nCode,wParam,lParam);
