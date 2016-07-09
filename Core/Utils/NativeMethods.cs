@@ -16,9 +16,14 @@ namespace TweetDck.Core.Utils{
 
         public const int SB_HORZ = 0;
 
+        public const int WH_MOUSE_LL = 14;
+        public const int WH_MOUSEWHEEL = 0x020A;
+
         public enum MouseButton{
             Left, Right
         }
+
+        public delegate IntPtr HookProc(int nCode, IntPtr wParam, IntPtr lParam);
 
         [DllImport("Shell32.dll")]
         public static extern int SHChangeNotify(int eventId, int flags, IntPtr item1, IntPtr item2);
@@ -38,6 +43,15 @@ namespace TweetDck.Core.Utils{
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool ShowScrollBar(IntPtr hWnd, int wBar, bool bShow);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr SetWindowsHookEx(int idHook, HookProc lpfn, IntPtr hInstance, int threadId);
+
+        [DllImport("user32.dll")]
+        public static extern bool UnhookWindowsHookEx(IntPtr idHook);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr CallNextHookEx(IntPtr idHook, int nCode, IntPtr wParam, IntPtr lParam);
 
         public static void SetFormPos(Form form, int hWndOrder, uint flags){
             SetWindowPos(form.Handle.ToInt32(),hWndOrder,form.Left,form.Top,form.Width,form.Height,flags);

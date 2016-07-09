@@ -27,6 +27,9 @@ namespace TweetDck.Core{
         private readonly Queue<TweetNotification> tweetQueue = new Queue<TweetNotification>(4);
         private readonly bool autoHide;
         private int timeLeft, totalTime;
+        
+        private readonly IntPtr mouseHook;
+        private readonly NativeMethods.HookProc mouseHookDelegate;
 
         private bool? prevDisplayTimer;
         private int? prevFontSize;
@@ -109,7 +112,10 @@ namespace TweetDck.Core{
                 Disposed += (sender, args) => Program.UserConfig.MuteToggled -= Config_MuteToggled;
             }
 
-            Disposed += (sender, args) => browser.Dispose();
+            mouseHookDelegate = MouseHookProc;
+            mouseHook = NativeMethods.SetWindowsHookEx(NativeMethods.WH_MOUSE_LL,mouseHookDelegate,IntPtr.Zero,0);
+
+            Disposed += FormNotification_Disposed;
         }
 
         protected override void WndProc(ref Message m){
@@ -118,6 +124,14 @@ namespace TweetDck.Core{
             }
 
             base.WndProc(ref m);
+        }
+
+        private IntPtr MouseHookProc(int nCode, IntPtr wParam, IntPtr lParam){
+            if (!Focused && wParam.ToInt32() == NativeMethods.WH_MOUSEWHEEL && browser.Bounds.Contains(PointToClient(Cursor.Position))){
+                Focus();
+            }
+
+            return NativeMethods.CallNextHookEx(mouseHook,nCode,wParam,lParam);
         }
 
         // event handlers
@@ -177,6 +191,14 @@ namespace TweetDck.Core{
                 HideNotification(false);
                 tweetQueue.Clear();
                 e.Cancel = true;
+            }
+        }
+
+        private void FormNotification_Disposed(object sender, EventArgs e){
+            browser.Dispose();
+
+            if (mouseHook != IntPtr.Zero){
+                NativeMethods.UnhookWindowsHookEx(mouseHook);
             }
         }
 
