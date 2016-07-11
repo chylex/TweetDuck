@@ -28,8 +28,8 @@ namespace TweetDck.Core{
         private readonly bool autoHide;
         private int timeLeft, totalTime;
         
-        private readonly IntPtr mouseHook;
         private readonly NativeMethods.HookProc mouseHookDelegate;
+        private IntPtr mouseHook;
 
         private bool? prevDisplayTimer;
         private int? prevFontSize;
@@ -203,6 +203,7 @@ namespace TweetDck.Core{
 
             if (mouseHook != IntPtr.Zero){
                 NativeMethods.UnhookWindowsHookEx(mouseHook);
+                mouseHook = IntPtr.Zero;
             }
         }
 
