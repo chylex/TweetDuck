@@ -186,6 +186,7 @@
     </Compile>
     <Compile Include="Plugins\Plugin.cs" />
     <Compile Include="Plugins\Events\PluginChangedStateEventArgs.cs" />
+    <Compile Include="Plugins\PluginBridge.cs" />
     <Compile Include="Plugins\PluginConfig.cs" />
     <Compile Include="Plugins\PluginEnvironment.cs" />
     <Compile Include="Plugins\PluginGroup.cs" />

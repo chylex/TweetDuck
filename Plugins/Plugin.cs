@@ -22,6 +22,12 @@ namespace TweetDck.Plugins{
             }
         }
 
+        public string FolderPath{
+            get{
+                return path;
+            }
+        }
+
         private readonly string path;
         private readonly string identifier;
         private readonly Dictionary<string,string> metadata = new Dictionary<string,string>(4){

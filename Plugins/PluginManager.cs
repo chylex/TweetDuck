@@ -16,17 +16,21 @@ namespace TweetDck.Plugins{
 
         public IEnumerable<Plugin> Plugins { get { return plugins; } }
         public PluginConfig Config { get; private set; }
+        public PluginBridge Bridge { get; private set; }
         
         public event EventHandler<PluginLoadEventArgs> Reloaded;
 
         private readonly string rootPath;
         private readonly HashSet<Plugin> plugins = new HashSet<Plugin>();
+        private readonly Dictionary<int,Plugin> tokens = new Dictionary<int,Plugin>();
+        private readonly Random rand = new Random();
 
         private List<string> loadErrors;
 
         public PluginManager(string path, PluginConfig config){
             this.rootPath = path;
             this.Config = config;
+            this.Bridge = new PluginBridge(this);
         }
 
         public IEnumerable<Plugin> GetPluginsByGroup(PluginGroup group){
@@ -41,9 +45,15 @@ namespace TweetDck.Plugins{
             return plugins.Any(plugin => plugin.Environments.HasFlag(environment));
         }
 
+        public Plugin GetPluginFromToken(int token){
+            Plugin plugin;
+            return tokens.TryGetValue(token,out plugin) ? plugin : null;
+        }
+
         public void Reload(){
             HashSet<Plugin> prevPlugins = new HashSet<Plugin>(plugins);
             plugins.Clear();
+            tokens.Clear();
 
             loadErrors = new List<string>(2);
             
@@ -78,7 +88,17 @@ namespace TweetDck.Plugins{
                     continue;
                 }
 
-                ScriptLoader.ExecuteScript(frame,PluginScriptGenerator.GeneratePlugin(plugin.Identifier,script,environment),"plugin:"+plugin);
+                int token;
+
+                if (tokens.ContainsValue(plugin)){
+                    token = tokens.First(kvp => kvp.Value.Equals(plugin)).Key;
+                }
+                else{
+                    token = GenerateToken();
+                    tokens[token] = plugin;
+                }
+
+                ScriptLoader.ExecuteScript(frame,PluginScriptGenerator.GeneratePlugin(plugin.Identifier,script,token,environment),"plugin:"+plugin);
             }
         }
 
@@ -94,6 +114,18 @@ namespace TweetDck.Plugins{
                     yield return plugin;
                 }
             }
+        }
+
+        private int GenerateToken(){
+            for(int attempt = 0; attempt < 1000; attempt++){
+                int token = rand.Next();
+
+                if (!tokens.ContainsKey(token)){
+                    return token;
+                }
+            }
+
+            return -tokens.Count;
         }
     }
 }

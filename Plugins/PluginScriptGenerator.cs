@@ -6,15 +6,18 @@ namespace TweetDck.Plugins{
             return config.AnyDisabled ? "window.TD_PLUGINS.disabled = [\""+string.Join("\",\"",config.DisabledPlugins)+"\"];" : string.Empty;
         }
 
-        public static string GeneratePlugin(string pluginIdentifier, string pluginContents, PluginEnvironment environment){
-            StringBuilder build = new StringBuilder(pluginIdentifier.Length+pluginContents.Length+110);
+        public static string GeneratePlugin(string pluginIdentifier, string pluginContents, int pluginToken, PluginEnvironment environment){
+            StringBuilder build = new StringBuilder(pluginIdentifier.Length+pluginContents.Length+150);
 
             build.Append("(function(").Append(environment.GetScriptVariables()).Append("){");
             
-            build.Append("window.TD_PLUGINS.install({");
+            build.Append("let tmp={");
             build.Append("id:\"").Append(pluginIdentifier).Append("\",");
             build.Append("obj:new class extends PluginBase{").Append(pluginContents).Append("}");
             build.Append("});");
+            
+            build.Append("tmp.obj.$token=").Append(pluginToken).Append(";");
+            build.Append("window.TD_PLUGINS.install(tmp);");
 
             build.Append("})(").Append(environment.GetScriptVariables()).Append(");");
 

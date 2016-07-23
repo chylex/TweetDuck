@@ -81,13 +81,13 @@ namespace TweetDck.Core{
             }
         }
 
-        public FormNotification(FormBrowser owner, PluginManager plugins, TrayIcon trayIcon, bool autoHide){
+        public FormNotification(FormBrowser owner, PluginManager pluginManager, TrayIcon trayIcon, bool autoHide){
             InitializeComponent();
 
             Text = Program.BrandName;
 
             this.owner = owner;
-            this.plugins = plugins;
+            this.plugins = pluginManager;
             this.trayIcon = trayIcon;
             this.autoHide = autoHide;
 
@@ -104,6 +104,7 @@ namespace TweetDck.Core{
             browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
             browser.FrameLoadEnd += Browser_FrameLoadEnd;
             browser.RegisterJsObject("$TD",new TweetDeckBridge(owner,this));
+            browser.RegisterAsyncJsObject("$TDP",plugins.Bridge);
 
             panelBrowser.Controls.Add(browser);
 
