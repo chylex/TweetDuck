@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -39,24 +40,18 @@ namespace TweetDck.Plugins{
             return string.Empty;
         }
 
-        public bool WriteFile(int token, string path, string contents){
+        public void WriteFile(int token, string path, string contents){
             string fullPath = GetFullPathIfSafe(token,path);
 
             if (fullPath == string.Empty){
-                return false;
+                throw new Exception("File path has to be relative to the plugin folder.");
             }
 
-            try{
-                // ReSharper disable once AssignNullToNotNullAttribute
-                Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
+            // ReSharper disable once AssignNullToNotNullAttribute
+            Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
 
-                File.WriteAllText(fullPath,contents,Encoding.UTF8);
-                fileCache[fullPath] = contents;
-                return true;
-            }catch{
-                // TODO
-                return false;
-            }
+            File.WriteAllText(fullPath,contents,Encoding.UTF8);
+            fileCache[fullPath] = contents;
         }
 
         public string ReadFile(int token, string path){
@@ -67,7 +62,7 @@ namespace TweetDck.Plugins{
             string fullPath = GetFullPathIfSafe(token,path);
 
             if (fullPath == string.Empty){
-                return string.Empty;
+                throw new Exception("File path has to be relative to the plugin folder.");
             }
 
             string cachedContents;
@@ -76,29 +71,18 @@ namespace TweetDck.Plugins{
                 return cachedContents;
             }
 
-            try{
-                return fileCache[fullPath] = File.ReadAllText(fullPath,Encoding.UTF8);
-            }catch{
-                // TODO
-                return string.Empty;
-            }
+            return fileCache[fullPath] = File.ReadAllText(fullPath,Encoding.UTF8);
         }
 
-        public bool DeleteFile(int token, string path){
+        public void DeleteFile(int token, string path){
             string fullPath = GetFullPathIfSafe(token,path);
 
             if (fullPath == string.Empty){
-                return false;
+                throw new Exception("File path has to be relative to the plugin folder.");
             }
             
-            try{
-                fileCache.Remove(fullPath);
-                File.Delete(fullPath);
-                return true;
-            }catch{
-                // TODO
-                return false;
-            }
+            fileCache.Remove(fullPath);
+            File.Delete(fullPath);
         }
     }
 }
