@@ -14,7 +14,7 @@ namespace TweetDck.Plugins{
             build.Append("let tmp={");
             build.Append("id:\"").Append(pluginIdentifier).Append("\",");
             build.Append("obj:new class extends PluginBase{").Append(pluginContents).Append("}");
-            build.Append("});");
+            build.Append("};");
             
             build.Append("tmp.obj.$token=").Append(pluginToken).Append(";");
             build.Append("window.TD_PLUGINS.install(tmp);");
