@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Windows.Forms;
 using TweetDck.Core.Handling;
+using TweetDck.Core.Controls;
 
 namespace TweetDck.Core.Other.Settings{
     partial class TabSettingsNotifications : BaseTabSettings{
@@ -20,7 +21,7 @@ namespace TweetDck.Core.Other.Settings{
             };
             
             this.notification.Initialized += (sender, args) => {
-                this.notification.ShowNotificationForSettings(true);
+                this.InvokeSafe(() => this.notification.ShowNotificationForSettings(true));
             };
 
             this.notification.Show(this);
@@ -49,6 +50,7 @@ namespace TweetDck.Core.Other.Settings{
             comboBoxDisplay.SelectedIndex = Math.Min(comboBoxDisplay.Items.Count-1,Config.NotificationDisplay);
 
             checkNotificationTimer.Checked = Config.DisplayNotificationTimer;
+            checkLegacyLoad.Checked = Config.NotificationLegacyLoad;
 
             trackBarEdgeDistance.Value = Config.NotificationEdgeDistance;
             labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value.ToString(CultureInfo.InvariantCulture)+" px";
@@ -106,6 +108,12 @@ namespace TweetDck.Core.Other.Settings{
 
             Config.DisplayNotificationTimer = checkNotificationTimer.Checked;
             notification.ShowNotificationForSettings(true);
+        }
+
+        private void checkLegacyLoad_CheckedChanged(object sender, EventArgs e){
+            if (!Ready)return;
+
+            Config.NotificationLegacyLoad = checkLegacyLoad.Checked;
         }
 
         private void comboBoxDisplay_SelectedValueChanged(object sender, EventArgs e){

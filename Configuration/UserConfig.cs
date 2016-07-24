@@ -31,6 +31,7 @@ namespace TweetDck.Configuration{
         public Point CustomNotificationPosition { get; set; }
         public int NotificationEdgeDistance { get; set; }
         public int NotificationDisplay { get; set; }
+        public bool NotificationLegacyLoad { get; set; }
 
         public bool EnableUpdateCheck { get; set; }
         public string DismissedUpdate { get; set; }

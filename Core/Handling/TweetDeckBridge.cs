@@ -92,7 +92,9 @@ namespace TweetDck.Core.Handling{
         }
 
         public void OnNotificationReady(){
-            notification.InvokeSafe(notification.OnNotificationReady);
+            if (!Program.UserConfig.NotificationLegacyLoad){
+                notification.InvokeSafe(notification.OnNotificationReady);
+            }
         }
 
         public void DisplayTooltip(string text, bool showInNotification){

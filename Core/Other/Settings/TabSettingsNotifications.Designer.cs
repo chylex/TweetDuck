@@ -43,6 +43,7 @@
             this.groupUserInterface = new System.Windows.Forms.GroupBox();
             this.checkNotificationTimer = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.checkLegacyLoad = new System.Windows.Forms.CheckBox();
             this.groupNotificationLocation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).BeginInit();
             this.groupNotificationDuration.SuspendLayout();
@@ -255,10 +256,11 @@
             // 
             // groupUserInterface
             // 
+            this.groupUserInterface.Controls.Add(this.checkLegacyLoad);
             this.groupUserInterface.Controls.Add(this.checkNotificationTimer);
             this.groupUserInterface.Location = new System.Drawing.Point(198, 134);
             this.groupUserInterface.Name = "groupUserInterface";
-            this.groupUserInterface.Size = new System.Drawing.Size(183, 48);
+            this.groupUserInterface.Size = new System.Drawing.Size(183, 69);
             this.groupUserInterface.TabIndex = 10;
             this.groupUserInterface.TabStop = false;
             this.groupUserInterface.Text = "General";
@@ -275,6 +277,19 @@
             this.toolTip.SetToolTip(this.checkNotificationTimer, "Shows how much time is left before the current notification disappears.");
             this.checkNotificationTimer.UseVisualStyleBackColor = true;
             this.checkNotificationTimer.CheckedChanged += new System.EventHandler(this.checkNotificationTimer_CheckedChanged);
+            // 
+            // checkLegacyLoad
+            // 
+            this.checkLegacyLoad.AutoSize = true;
+            this.checkLegacyLoad.Location = new System.Drawing.Point(6, 44);
+            this.checkLegacyLoad.Name = "checkLegacyLoad";
+            this.checkLegacyLoad.Size = new System.Drawing.Size(139, 17);
+            this.checkLegacyLoad.TabIndex = 5;
+            this.checkLegacyLoad.Text = "Legacy Loading System";
+            this.toolTip.SetToolTip(this.checkLegacyLoad, "Try enabling if notifications do not display.\r\nMight cause delays and visual arti" +
+        "facts.");
+            this.checkLegacyLoad.UseVisualStyleBackColor = true;
+            this.checkLegacyLoad.CheckedChanged += new System.EventHandler(this.checkLegacyLoad_CheckedChanged);
             // 
             // TabSettingsNotifications
             // 
@@ -318,5 +333,6 @@
         private System.Windows.Forms.CheckBox checkNotificationTimer;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Label labelEdgeDistanceValue;
+        private System.Windows.Forms.CheckBox checkLegacyLoad;
     }
 }

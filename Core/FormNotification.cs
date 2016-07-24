@@ -174,7 +174,7 @@ namespace TweetDck.Core{
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             if (!e.Frame.IsMain)return;
 
-            if (!isInitialized){
+            if (!isInitialized && !Program.UserConfig.NotificationLegacyLoad){
                 isInitialized = true;
 
                 if (Initialized != null){
@@ -235,7 +235,7 @@ namespace TweetDck.Core{
         }
 
         public void HideNotification(bool loadBlank){
-            if (loadBlank){
+            if (loadBlank || Program.UserConfig.NotificationLegacyLoad){
                 browser.LoadHtml("","about:blank");
             }
 
@@ -274,6 +274,10 @@ namespace TweetDck.Core{
             progressBarTimer.Value = 0;
 
             browser.LoadHtml(tweet.GenerateHtml(),"http://tweetdeck.twitter.com/?"+DateTime.Now.Ticks);
+
+            if (Program.UserConfig.NotificationLegacyLoad){
+                OnNotificationReady();
+            }
         }
 
         private void MoveToVisibleLocation(){
