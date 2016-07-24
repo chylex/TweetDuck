@@ -9,6 +9,7 @@ namespace TweetDck.Core.Other.Settings{
             comboBoxTrayType.Items.Add("Display Icon Only");
             comboBoxTrayType.Items.Add("Minimize to Tray");
             comboBoxTrayType.Items.Add("Close to Tray");
+            comboBoxTrayType.Items.Add("Combined");
             comboBoxTrayType.SelectedIndex = Math.Min(Math.Max((int)Config.TrayBehavior,0),comboBoxTrayType.Items.Count-1);
 
             checkExpandLinks.Checked = Program.UserConfig.ExpandLinksOnHover;

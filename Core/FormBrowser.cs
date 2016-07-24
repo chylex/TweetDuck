@@ -94,7 +94,7 @@ namespace TweetDck.Core{
         }
 
         private void UpdateTrayIcon(){
-            trayIcon.Visible = Config.TrayBehavior != TrayIcon.Behavior.Disabled;
+            trayIcon.Visible = Config.TrayBehavior.ShouldDisplayIcon();
         }
 
         // active event handlers
@@ -124,7 +124,7 @@ namespace TweetDck.Core{
                 prevState = WindowState;
 
                 if (WindowState == FormWindowState.Minimized){
-                    if (Config.TrayBehavior == TrayIcon.Behavior.MinimizeToTray){
+                    if (Config.TrayBehavior.ShouldHideOnMinimize()){
                         Hide(); // hides taskbar too?! welp that works I guess
                     }
                 }
@@ -146,7 +146,7 @@ namespace TweetDck.Core{
         private void FormBrowser_FormClosing(object sender, FormClosingEventArgs e){
             if (!isLoaded)return;
 
-            if (Config.TrayBehavior == TrayIcon.Behavior.CloseToTray && trayIcon.Visible && e.CloseReason == CloseReason.UserClosing){
+            if (Config.TrayBehavior.ShouldHideOnClose() && trayIcon.Visible && e.CloseReason == CloseReason.UserClosing){
                 Hide(); // hides taskbar too?! welp that works I guess
                 e.Cancel = true;
             }

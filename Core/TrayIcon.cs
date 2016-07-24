@@ -5,7 +5,7 @@ using System.Windows.Forms;
 namespace TweetDck.Core{
     partial class TrayIcon : Component{
         public enum Behavior{ // keep order
-            Disabled, DisplayOnly, MinimizeToTray, CloseToTray
+            Disabled, DisplayOnly, MinimizeToTray, CloseToTray, Combined
         }
 
         public event EventHandler ClickRestore;
@@ -73,6 +73,20 @@ namespace TweetDck.Core{
             if (ClickClose != null){
                 ClickClose(this,e);
             }
+        }
+    }
+
+    static class BehaviorExtensions{
+        public static bool ShouldDisplayIcon(this TrayIcon.Behavior behavior){
+            return behavior != TrayIcon.Behavior.Disabled;
+        }
+
+        public static bool ShouldHideOnMinimize(this TrayIcon.Behavior behavior){
+            return behavior == TrayIcon.Behavior.MinimizeToTray || behavior == TrayIcon.Behavior.Combined;
+        }
+
+        public static bool ShouldHideOnClose(this TrayIcon.Behavior behavior){
+            return behavior == TrayIcon.Behavior.CloseToTray || behavior == TrayIcon.Behavior.Combined;
         }
     }
 }
