@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.groupNotificationLocation = new System.Windows.Forms.GroupBox();
             this.labelDisplay = new System.Windows.Forms.Label();
             this.comboBoxDisplay = new System.Windows.Forms.ComboBox();
@@ -40,6 +41,7 @@
             this.radioDurShort = new System.Windows.Forms.RadioButton();
             this.groupUserInterface = new System.Windows.Forms.GroupBox();
             this.checkNotificationTimer = new System.Windows.Forms.CheckBox();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.groupNotificationLocation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).BeginInit();
             this.groupNotificationDuration.SuspendLayout();
@@ -105,6 +107,7 @@
             this.radioLocCustom.TabIndex = 4;
             this.radioLocCustom.TabStop = true;
             this.radioLocCustom.Text = "Custom";
+            this.toolTip.SetToolTip(this.radioLocCustom, "Drag the notification window to the desired location.");
             this.radioLocCustom.UseVisualStyleBackColor = true;
             this.radioLocCustom.CheckedChanged += new System.EventHandler(this.radioLoc_CheckedChanged);
             // 
@@ -256,6 +259,7 @@
             this.checkNotificationTimer.Size = new System.Drawing.Size(145, 17);
             this.checkNotificationTimer.TabIndex = 4;
             this.checkNotificationTimer.Text = "Display Notification Timer";
+            this.toolTip.SetToolTip(this.checkNotificationTimer, "Shows how much time is left before the current notification disappears.");
             this.checkNotificationTimer.UseVisualStyleBackColor = true;
             this.checkNotificationTimer.CheckedChanged += new System.EventHandler(this.checkNotificationTimer_CheckedChanged);
             // 
@@ -299,5 +303,6 @@
         private System.Windows.Forms.RadioButton radioDurShort;
         private System.Windows.Forms.GroupBox groupUserInterface;
         private System.Windows.Forms.CheckBox checkNotificationTimer;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

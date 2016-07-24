@@ -23,8 +23,10 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.btnCheckUpdates = new System.Windows.Forms.Button();
             this.checkUpdateNotifications = new System.Windows.Forms.CheckBox();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // btnCheckUpdates
@@ -34,6 +36,7 @@
             this.btnCheckUpdates.Size = new System.Drawing.Size(171, 23);
             this.btnCheckUpdates.TabIndex = 15;
             this.btnCheckUpdates.Text = "Check Updates Now";
+            this.toolTip.SetToolTip(this.btnCheckUpdates, "Forces an update check, even for updates that had been dismissed.");
             this.btnCheckUpdates.UseVisualStyleBackColor = true;
             this.btnCheckUpdates.Click += new System.EventHandler(this.btnCheckUpdates_Click);
             // 
@@ -45,6 +48,8 @@
             this.checkUpdateNotifications.Size = new System.Drawing.Size(165, 17);
             this.checkUpdateNotifications.TabIndex = 14;
             this.checkUpdateNotifications.Text = "Check Updates Automatically";
+            this.toolTip.SetToolTip(this.checkUpdateNotifications, "Checks for updates every hour.\r\nIf an update is dismissed, it will not appear aga" +
+        "in.");
             this.checkUpdateNotifications.UseVisualStyleBackColor = true;
             this.checkUpdateNotifications.CheckedChanged += new System.EventHandler(this.checkUpdateNotifications_CheckedChanged);
             // 
@@ -65,5 +70,6 @@
 
         private System.Windows.Forms.Button btnCheckUpdates;
         private System.Windows.Forms.CheckBox checkUpdateNotifications;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

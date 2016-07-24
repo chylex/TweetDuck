@@ -23,9 +23,11 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.checkExpandLinks = new System.Windows.Forms.CheckBox();
             this.comboBoxTrayType = new System.Windows.Forms.ComboBox();
             this.labelTrayType = new System.Windows.Forms.Label();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // checkExpandLinks
@@ -36,6 +38,8 @@
             this.checkExpandLinks.Size = new System.Drawing.Size(166, 17);
             this.checkExpandLinks.TabIndex = 14;
             this.checkExpandLinks.Text = "Expand Links When Hovered";
+            this.toolTip.SetToolTip(this.checkExpandLinks, "Expands links inside the tweets. If disabled,\r\nthe full links show up in a toolti" +
+        "p instead.");
             this.checkExpandLinks.UseVisualStyleBackColor = true;
             this.checkExpandLinks.CheckedChanged += new System.EventHandler(this.checkExpandLinks_CheckedChanged);
             // 
@@ -47,6 +51,7 @@
             this.comboBoxTrayType.Name = "comboBoxTrayType";
             this.comboBoxTrayType.Size = new System.Drawing.Size(171, 21);
             this.comboBoxTrayType.TabIndex = 13;
+            this.toolTip.SetToolTip(this.comboBoxTrayType, "Changes behavior of the Tray icon.\r\nRight-click the icon for an action menu.");
             this.comboBoxTrayType.SelectedIndexChanged += new System.EventHandler(this.comboBoxTrayType_SelectedIndexChanged);
             // 
             // labelTrayType
@@ -78,5 +83,6 @@
         private System.Windows.Forms.CheckBox checkExpandLinks;
         private System.Windows.Forms.ComboBox comboBoxTrayType;
         private System.Windows.Forms.Label labelTrayType;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

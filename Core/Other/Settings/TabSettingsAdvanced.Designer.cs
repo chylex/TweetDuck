@@ -23,9 +23,11 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.btnClearCache = new System.Windows.Forms.Button();
             this.labelMiscellaneous = new System.Windows.Forms.Label();
             this.checkHardwareAcceleration = new System.Windows.Forms.CheckBox();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // btnClearCache
@@ -35,6 +37,8 @@
             this.btnClearCache.Size = new System.Drawing.Size(171, 23);
             this.btnClearCache.TabIndex = 14;
             this.btnClearCache.Text = "Clear Cache (calculating)";
+            this.toolTip.SetToolTip(this.btnClearCache, "Clearing cache will free up space taken by downloaded images and other resources." +
+        "");
             this.btnClearCache.UseVisualStyleBackColor = true;
             this.btnClearCache.Click += new System.EventHandler(this.btnClearCache_Click);
             // 
@@ -56,6 +60,8 @@
             this.checkHardwareAcceleration.Size = new System.Drawing.Size(134, 17);
             this.checkHardwareAcceleration.TabIndex = 12;
             this.checkHardwareAcceleration.Text = "Hardware Acceleration";
+            this.toolTip.SetToolTip(this.checkHardwareAcceleration, "Uses your graphics card to improve performance.\r\nDisable if you experience issues" +
+        " with rendering.");
             this.checkHardwareAcceleration.UseVisualStyleBackColor = true;
             this.checkHardwareAcceleration.CheckedChanged += new System.EventHandler(this.checkHardwareAcceleration_CheckedChanged);
             // 
@@ -78,5 +84,6 @@
         private System.Windows.Forms.Button btnClearCache;
         private System.Windows.Forms.Label labelMiscellaneous;
         private System.Windows.Forms.CheckBox checkHardwareAcceleration;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }
