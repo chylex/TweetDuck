@@ -61,7 +61,7 @@ namespace TweetDck.Core.Other.Settings{
                 notification.HideNotification(false);
             }
             else{
-                notification.ShowNotificationForSettings(false);
+                notification.ShowNotificationForSettings(true);
             }
         }
 
