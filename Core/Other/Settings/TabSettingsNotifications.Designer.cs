@@ -25,6 +25,7 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             this.groupNotificationLocation = new System.Windows.Forms.GroupBox();
+            this.labelEdgeDistanceValue = new System.Windows.Forms.Label();
             this.labelDisplay = new System.Windows.Forms.Label();
             this.comboBoxDisplay = new System.Windows.Forms.ComboBox();
             this.labelEdgeDistance = new System.Windows.Forms.Label();
@@ -50,6 +51,7 @@
             // 
             // groupNotificationLocation
             // 
+            this.groupNotificationLocation.Controls.Add(this.labelEdgeDistanceValue);
             this.groupNotificationLocation.Controls.Add(this.labelDisplay);
             this.groupNotificationLocation.Controls.Add(this.comboBoxDisplay);
             this.groupNotificationLocation.Controls.Add(this.labelEdgeDistance);
@@ -64,7 +66,18 @@
             this.groupNotificationLocation.Size = new System.Drawing.Size(183, 264);
             this.groupNotificationLocation.TabIndex = 1;
             this.groupNotificationLocation.TabStop = false;
-            this.groupNotificationLocation.Text = "Notification Location";
+            this.groupNotificationLocation.Text = "Location";
+            // 
+            // labelEdgeDistanceValue
+            // 
+            this.labelEdgeDistanceValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelEdgeDistanceValue.Location = new System.Drawing.Point(143, 214);
+            this.labelEdgeDistanceValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.labelEdgeDistanceValue.Name = "labelEdgeDistanceValue";
+            this.labelEdgeDistanceValue.Size = new System.Drawing.Size(34, 13);
+            this.labelEdgeDistanceValue.TabIndex = 11;
+            this.labelEdgeDistanceValue.Text = "0 px";
+            this.labelEdgeDistanceValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelDisplay
             // 
@@ -168,10 +181,10 @@
             this.trackBarEdgeDistance.Maximum = 40;
             this.trackBarEdgeDistance.Minimum = 8;
             this.trackBarEdgeDistance.Name = "trackBarEdgeDistance";
-            this.trackBarEdgeDistance.Size = new System.Drawing.Size(171, 45);
+            this.trackBarEdgeDistance.Size = new System.Drawing.Size(141, 45);
             this.trackBarEdgeDistance.SmallChange = 2;
             this.trackBarEdgeDistance.TabIndex = 5;
-            this.trackBarEdgeDistance.TickFrequency = 2;
+            this.trackBarEdgeDistance.TickFrequency = 4;
             this.trackBarEdgeDistance.Value = 8;
             this.trackBarEdgeDistance.ValueChanged += new System.EventHandler(this.trackBarEdgeDistance_ValueChanged);
             // 
@@ -186,7 +199,7 @@
             this.groupNotificationDuration.Size = new System.Drawing.Size(183, 119);
             this.groupNotificationDuration.TabIndex = 9;
             this.groupNotificationDuration.TabStop = false;
-            this.groupNotificationDuration.Text = "Notification Duration";
+            this.groupNotificationDuration.Text = "Duration";
             // 
             // radioDurVeryLong
             // 
@@ -248,7 +261,7 @@
             this.groupUserInterface.Size = new System.Drawing.Size(183, 48);
             this.groupUserInterface.TabIndex = 10;
             this.groupUserInterface.TabStop = false;
-            this.groupUserInterface.Text = "User Interface";
+            this.groupUserInterface.Text = "General";
             // 
             // checkNotificationTimer
             // 
@@ -304,5 +317,6 @@
         private System.Windows.Forms.GroupBox groupUserInterface;
         private System.Windows.Forms.CheckBox checkNotificationTimer;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.Label labelEdgeDistanceValue;
     }
 }

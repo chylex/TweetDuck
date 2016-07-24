@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows.Forms;
 using TweetDck.Core.Handling;
 
@@ -48,7 +49,9 @@ namespace TweetDck.Core.Other.Settings{
             comboBoxDisplay.SelectedIndex = Math.Min(comboBoxDisplay.Items.Count-1,Config.NotificationDisplay);
 
             checkNotificationTimer.Checked = Config.DisplayNotificationTimer;
+
             trackBarEdgeDistance.Value = Config.NotificationEdgeDistance;
+            labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value.ToString(CultureInfo.InvariantCulture)+" px";
 
             Disposed += (sender, args) => this.notification.Dispose();
         }
@@ -114,7 +117,8 @@ namespace TweetDck.Core.Other.Settings{
 
         private void trackBarEdgeDistance_ValueChanged(object sender, EventArgs e){
             if (!Ready)return;
-
+            
+            labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value.ToString(CultureInfo.InvariantCulture)+" px";
             Config.NotificationEdgeDistance = trackBarEdgeDistance.Value;
             notification.ShowNotificationForSettings(false);
         }
