@@ -27,8 +27,8 @@ namespace TweetDck.Plugins{
 
         public static string GetScriptVariables(this PluginEnvironment environment){
             switch(environment){
-                case PluginEnvironment.Browser: return "$,$TD,TD";
-                case PluginEnvironment.Notification: return "$TD";
+                case PluginEnvironment.Browser: return "$,$TD,$TDP,TD";
+                case PluginEnvironment.Notification: return "$TD,$TDP";
                 default: return string.Empty;
             }
         }
