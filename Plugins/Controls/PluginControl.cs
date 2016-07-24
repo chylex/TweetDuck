@@ -27,13 +27,21 @@ namespace TweetDck.Plugins.Controls{
                 this.labelName.ForeColor = Color.DarkRed;
                 this.btnToggleState.Enabled = false;
             }
+            else if (labelDescription.Text == string.Empty){
+                labelDescription.Visible = false;
+            }
 
             panelDescription_Resize(panelDescription,new EventArgs());
         }
 
         private void panelDescription_Resize(object sender, EventArgs e){
-            labelDescription.MaximumSize = new Size(panelDescription.Width-SystemInformation.VerticalScrollBarWidth,0);
-            Height = Math.Min(MinimumSize.Height+(labelDescription.Height-13),MaximumSize.Height);
+            if (labelDescription.Text == string.Empty){
+                Height = MinimumSize.Height;
+            }
+            else{
+                labelDescription.MaximumSize = new Size(panelDescription.Width-SystemInformation.VerticalScrollBarWidth,0);
+                Height = Math.Min(MinimumSize.Height+9+labelDescription.Height,MaximumSize.Height);
+            }
         }
 
         private void labelWebsite_Click(object sender, EventArgs e){

@@ -138,7 +138,7 @@
             this.Controls.Add(this.btnToggleState);
             this.Controls.Add(this.labelVersion);
             this.MaximumSize = new System.Drawing.Size(65535, 109);
-            this.MinimumSize = new System.Drawing.Size(0, 83);
+            this.MinimumSize = new System.Drawing.Size(0, 61);
             this.Name = "PluginControl";
             this.Padding = new System.Windows.Forms.Padding(3);
             this.Size = new System.Drawing.Size(530, 109);
