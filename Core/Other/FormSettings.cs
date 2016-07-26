@@ -48,72 +48,11 @@ namespace TweetDck.Core.Other{
             }
         }
 
-        private void btnExport_Click(object sender, EventArgs e){
-            DialogResult resultSaveCredentials = MessageBox.Show("Do you want to include your login session? This will not save your password into the file, but it will allow anyone with the file to login into TweetDeck as you.","Export "+Program.BrandName+" Settings",MessageBoxButtons.YesNoCancel,MessageBoxIcon.Question,MessageBoxDefaultButton.Button3);
-            if (resultSaveCredentials == DialogResult.Cancel)return;
-
-            bool saveCredentials = resultSaveCredentials == DialogResult.Yes;
-            string file;
-
-            using(SaveFileDialog dialog = new SaveFileDialog{
-                AddExtension = true,
-                AutoUpgradeEnabled = true,
-                OverwritePrompt = true,
-                DefaultExt = "tdsettings",
-                FileName = Program.BrandName+".tdsettings",
-                Title = "Export "+Program.BrandName+" Settings",
-                Filter = Program.BrandName+" Settings (*.tdsettings)|*.tdsettings"
-            }){
-                file = dialog.ShowDialog() == DialogResult.OK ? dialog.FileName : null;
-            }
-
-            if (file != null){
-                Program.UserConfig.Save();
-
-                ExportManager manager = new ExportManager(file);
-
-                if (!manager.Export(saveCredentials)){
-                    Program.HandleException("An exception happened while exporting "+Program.BrandName+" settings.",manager.LastException);
-                }
-            }
-        }
-
-        private void btnImport_Click(object sender, EventArgs e){
-            string file;
-
-            using(OpenFileDialog dialog = new OpenFileDialog{
-                AutoUpgradeEnabled = true,
-                DereferenceLinks = true,
-                Title = "Import "+Program.BrandName+" Settings",
-                Filter = Program.BrandName+" Settings (*.tdsettings)|*.tdsettings"
-            }){
-                file = dialog.ShowDialog() == DialogResult.OK ? dialog.FileName : null;
-            }
-
-            if (file != null){
-                ExportManager manager = new ExportManager(file);
-
-                if (manager.Import()){
-                    ReloadUI();
-                }
-                else{
-                    Program.HandleException("An exception happened while importing "+Program.BrandName+" settings.",manager.LastException);
-                }
-            }
-        }
-
-        private void btnReset_Click(object sender, EventArgs e){
-            if (MessageBox.Show("This will reset all of your settings, including disabled plugins. Do you want to proceed?","Reset "+Program.BrandName+" Settings",MessageBoxButtons.YesNo,MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2) == DialogResult.Yes){
-                Program.ResetConfig();
-                ReloadUI();
-            }
-        }
-
         private void btnClose_Click(object sender, EventArgs e){
             Close();
         }
 
-        private void ReloadUI(){
+        public void ReloadUI(){
             tabs.Clear();
             tabPanel.Content.Controls.Clear();
             tabPanel.ActiveButton.Callback();

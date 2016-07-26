@@ -28,6 +28,9 @@
             this.labelMiscellaneous = new System.Windows.Forms.Label();
             this.checkHardwareAcceleration = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.btnReset = new System.Windows.Forms.Button();
+            this.btnImport = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnClearCache
@@ -65,10 +68,52 @@
             this.checkHardwareAcceleration.UseVisualStyleBackColor = true;
             this.checkHardwareAcceleration.CheckedChanged += new System.EventHandler(this.checkHardwareAcceleration_CheckedChanged);
             // 
+            // btnReset
+            // 
+            this.btnReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnReset.AutoSize = true;
+            this.btnReset.Location = new System.Drawing.Point(209, 250);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.btnReset.Size = new System.Drawing.Size(102, 23);
+            this.btnReset.TabIndex = 17;
+            this.btnReset.Text = "Restore Defaults";
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            // 
+            // btnImport
+            // 
+            this.btnImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnImport.AutoSize = true;
+            this.btnImport.Location = new System.Drawing.Point(109, 250);
+            this.btnImport.Name = "btnImport";
+            this.btnImport.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.btnImport.Size = new System.Drawing.Size(94, 23);
+            this.btnImport.TabIndex = 16;
+            this.btnImport.Text = "Import Settings";
+            this.btnImport.UseVisualStyleBackColor = true;
+            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
+            // 
+            // btnExport
+            // 
+            this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnExport.AutoSize = true;
+            this.btnExport.Location = new System.Drawing.Point(9, 250);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.btnExport.Size = new System.Drawing.Size(94, 23);
+            this.btnExport.TabIndex = 15;
+            this.btnExport.Text = "Export Settings";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
             // TabSettingsAdvanced
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnReset);
+            this.Controls.Add(this.btnImport);
+            this.Controls.Add(this.btnExport);
             this.Controls.Add(this.btnClearCache);
             this.Controls.Add(this.labelMiscellaneous);
             this.Controls.Add(this.checkHardwareAcceleration);
@@ -85,5 +130,8 @@
         private System.Windows.Forms.Label labelMiscellaneous;
         private System.Windows.Forms.CheckBox checkHardwareAcceleration;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.Button btnReset;
+        private System.Windows.Forms.Button btnImport;
+        private System.Windows.Forms.Button btnExport;
     }
 }
