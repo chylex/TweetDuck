@@ -60,7 +60,7 @@
             this.Controls.Add(this.btnCheckUpdates);
             this.Controls.Add(this.checkUpdateNotifications);
             this.Name = "TabSettingsUpdates";
-            this.Size = new System.Drawing.Size(211, 78);
+            this.Size = new System.Drawing.Size(478, 282);
             this.ResumeLayout(false);
             this.PerformLayout();
 

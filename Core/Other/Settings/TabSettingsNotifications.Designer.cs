@@ -41,9 +41,9 @@
             this.radioDurMedium = new System.Windows.Forms.RadioButton();
             this.radioDurShort = new System.Windows.Forms.RadioButton();
             this.groupUserInterface = new System.Windows.Forms.GroupBox();
+            this.checkLegacyLoad = new System.Windows.Forms.CheckBox();
             this.checkNotificationTimer = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.checkLegacyLoad = new System.Windows.Forms.CheckBox();
             this.groupNotificationLocation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).BeginInit();
             this.groupNotificationDuration.SuspendLayout();
@@ -265,19 +265,6 @@
             this.groupUserInterface.TabStop = false;
             this.groupUserInterface.Text = "General";
             // 
-            // checkNotificationTimer
-            // 
-            this.checkNotificationTimer.AutoSize = true;
-            this.checkNotificationTimer.Location = new System.Drawing.Point(6, 21);
-            this.checkNotificationTimer.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
-            this.checkNotificationTimer.Name = "checkNotificationTimer";
-            this.checkNotificationTimer.Size = new System.Drawing.Size(145, 17);
-            this.checkNotificationTimer.TabIndex = 4;
-            this.checkNotificationTimer.Text = "Display Notification Timer";
-            this.toolTip.SetToolTip(this.checkNotificationTimer, "Shows how much time is left before the current notification disappears.");
-            this.checkNotificationTimer.UseVisualStyleBackColor = true;
-            this.checkNotificationTimer.CheckedChanged += new System.EventHandler(this.checkNotificationTimer_CheckedChanged);
-            // 
             // checkLegacyLoad
             // 
             this.checkLegacyLoad.AutoSize = true;
@@ -291,6 +278,19 @@
             this.checkLegacyLoad.UseVisualStyleBackColor = true;
             this.checkLegacyLoad.CheckedChanged += new System.EventHandler(this.checkLegacyLoad_CheckedChanged);
             // 
+            // checkNotificationTimer
+            // 
+            this.checkNotificationTimer.AutoSize = true;
+            this.checkNotificationTimer.Location = new System.Drawing.Point(6, 21);
+            this.checkNotificationTimer.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.checkNotificationTimer.Name = "checkNotificationTimer";
+            this.checkNotificationTimer.Size = new System.Drawing.Size(145, 17);
+            this.checkNotificationTimer.TabIndex = 4;
+            this.checkNotificationTimer.Text = "Display Notification Timer";
+            this.toolTip.SetToolTip(this.checkNotificationTimer, "Shows how much time is left before the current notification disappears.");
+            this.checkNotificationTimer.UseVisualStyleBackColor = true;
+            this.checkNotificationTimer.CheckedChanged += new System.EventHandler(this.checkNotificationTimer_CheckedChanged);
+            // 
             // TabSettingsNotifications
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -299,7 +299,7 @@
             this.Controls.Add(this.groupNotificationDuration);
             this.Controls.Add(this.groupNotificationLocation);
             this.Name = "TabSettingsNotifications";
-            this.Size = new System.Drawing.Size(397, 282);
+            this.Size = new System.Drawing.Size(478, 282);
             this.ParentChanged += new System.EventHandler(this.TabSettingsNotifications_ParentChanged);
             this.groupNotificationLocation.ResumeLayout(false);
             this.groupNotificationLocation.PerformLayout();

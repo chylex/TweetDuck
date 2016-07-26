@@ -73,7 +73,7 @@
             this.Controls.Add(this.labelMiscellaneous);
             this.Controls.Add(this.checkHardwareAcceleration);
             this.Name = "TabSettingsAdvanced";
-            this.Size = new System.Drawing.Size(239, 120);
+            this.Size = new System.Drawing.Size(478, 282);
             this.ResumeLayout(false);
             this.PerformLayout();
 

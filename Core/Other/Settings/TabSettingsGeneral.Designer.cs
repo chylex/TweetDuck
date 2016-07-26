@@ -72,7 +72,7 @@
             this.Controls.Add(this.comboBoxTrayType);
             this.Controls.Add(this.labelTrayType);
             this.Name = "TabSettingsGeneral";
-            this.Size = new System.Drawing.Size(219, 99);
+            this.Size = new System.Drawing.Size(478, 282);
             this.ResumeLayout(false);
             this.PerformLayout();
 
