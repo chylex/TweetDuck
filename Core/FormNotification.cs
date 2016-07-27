@@ -21,7 +21,6 @@ namespace TweetDck.Core{
 
         private readonly Form owner;
         private readonly PluginManager plugins;
-        private readonly TrayIcon trayIcon;
         private readonly ChromiumWebBrowser browser;
 
         private readonly Queue<TweetNotification> tweetQueue = new Queue<TweetNotification>(4);
@@ -81,14 +80,13 @@ namespace TweetDck.Core{
             }
         }
 
-        public FormNotification(FormBrowser owner, PluginManager pluginManager, TrayIcon trayIcon, bool autoHide){
+        public FormNotification(FormBrowser owner, PluginManager pluginManager, bool autoHide){
             InitializeComponent();
 
             Text = Program.BrandName;
 
             this.owner = owner;
             this.plugins = pluginManager;
-            this.trayIcon = trayIcon;
             this.autoHide = autoHide;
 
             owner.FormClosed += (sender, args) => Close();
@@ -156,12 +154,8 @@ namespace TweetDck.Core{
             if (Program.UserConfig.MuteNotifications){
                 HideNotification(true);
             }
-            else{
-                if (tweetQueue.Count > 0){
-                    LoadNextNotification();
-                }
-
-                trayIcon.HasNotifications = false;
+            else if (tweetQueue.Count > 0){
+                LoadNextNotification();
             }
         }
 
@@ -213,7 +207,6 @@ namespace TweetDck.Core{
         public void ShowNotification(TweetNotification notification){
             if (Program.UserConfig.MuteNotifications){
                 tweetQueue.Enqueue(notification);
-                trayIcon.HasNotifications = true;
             }
             else{
                 tweetQueue.Enqueue(notification);

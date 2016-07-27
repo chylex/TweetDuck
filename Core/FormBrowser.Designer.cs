@@ -43,6 +43,7 @@
             this.MinimumSize = new System.Drawing.Size(340, 424);
             this.Name = "FormBrowser";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.Activated += new System.EventHandler(this.FormBrowser_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormBrowser_FormClosing);
             this.ResizeEnd += new System.EventHandler(this.FormBrowser_ResizeEnd);
             this.Resize += new System.EventHandler(this.FormBrowser_Resize);

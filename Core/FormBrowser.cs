@@ -82,7 +82,7 @@ namespace TweetDck.Core{
         }
 
         public FormNotification CreateNotificationForm(bool autoHide){
-            return new FormNotification(this,plugins,trayIcon,autoHide);
+            return new FormNotification(this,plugins,autoHide);
         }
 
         // window setup
@@ -115,6 +115,12 @@ namespace TweetDck.Core{
                     plugins.ExecutePlugins(e.Frame,PluginEnvironment.Browser,true);
                 }
             }
+        }
+
+        private void FormBrowser_Activated(object sender, EventArgs e){
+            if (!isLoaded)return;
+
+            trayIcon.HasNotifications = false;
         }
 
         private void FormBrowser_Resize(object sender, EventArgs e){
@@ -234,6 +240,10 @@ namespace TweetDck.Core{
                         Config.Save();
                         updates.Check(false);
                     }
+
+                    if (!Config.EnableTrayHighlight){
+                        trayIcon.HasNotifications = false;
+                    }
                 };
 
                 ShowChildForm(currentFormSettings);
@@ -262,8 +272,10 @@ namespace TweetDck.Core{
             }
         }
 
-        public void OnTweetSound(){
-            
+        public void OnTweetNotification(){
+            if (Config.EnableTrayHighlight && !ContainsFocus){
+                trayIcon.HasNotifications = true;
+            }
         }
 
         public void DisplayTooltip(string text){

@@ -83,12 +83,13 @@ namespace TweetDck.Core.Handling{
 
         public void OnTweetPopup(string tweetHtml, string tweetUrl, int tweetCharacters){
             notification.InvokeSafe(() => {
+                form.OnTweetNotification();
                 notification.ShowNotification(new TweetNotification(tweetHtml,tweetUrl,tweetCharacters));
             });
         }
 
         public void OnTweetSound(){
-            form.InvokeSafe(form.OnTweetSound);
+            form.InvokeSafe(form.OnTweetNotification);
         }
 
         public void OnNotificationReady(){

@@ -16,7 +16,7 @@ namespace TweetDck.Configuration{
             Binder = new SerializationCompatibilityHandler()
         };
 
-        private const int CurrentFileVersion = 3;
+        private const int CurrentFileVersion = 4;
 
         // START OF CONFIGURATION
 
@@ -33,9 +33,11 @@ namespace TweetDck.Configuration{
         public int NotificationDisplay { get; set; }
         public bool NotificationLegacyLoad { get; set; }
 
+        public bool ExpandLinksOnHover { get; set; }
+        public bool EnableTrayHighlight { get; set; }
+
         public bool EnableUpdateCheck { get; set; }
         public string DismissedUpdate { get; set; }
-        public bool ExpandLinksOnHover { get; set; }
 
         public PluginConfig Plugins { get; private set; }
         public WindowState PluginsWindow { get; set; }
@@ -104,6 +106,7 @@ namespace TweetDck.Configuration{
             NotificationEdgeDistance = 8;
             EnableUpdateCheck = true;
             ExpandLinksOnHover = true;
+            EnableTrayHighlight = true;
             Plugins = new PluginConfig();
             PluginsWindow = new WindowState();
         }
@@ -129,6 +132,11 @@ namespace TweetDck.Configuration{
                 BrowserWindow = new WindowState();
                 Plugins = new PluginConfig();
                 PluginsWindow = new WindowState();
+                ++fileVersion;
+            }
+
+            if (fileVersion == 3){
+                EnableTrayHighlight = true;
                 ++fileVersion;
             }
 

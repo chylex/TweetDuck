@@ -13,6 +13,7 @@ namespace TweetDck.Core.Other.Settings{
             comboBoxTrayType.SelectedIndex = Math.Min(Math.Max((int)Config.TrayBehavior,0),comboBoxTrayType.Items.Count-1);
 
             checkExpandLinks.Checked = Program.UserConfig.ExpandLinksOnHover;
+            checkTrayHighlight.Checked = Program.UserConfig.EnableTrayHighlight;
         }
 
         private void checkExpandLinks_CheckedChanged(object sender, EventArgs e){
@@ -25,6 +26,12 @@ namespace TweetDck.Core.Other.Settings{
             if (!Ready)return;
 
             Config.TrayBehavior = (TrayIcon.Behavior)comboBoxTrayType.SelectedIndex;
+        }
+
+        private void checkTrayHighlight_CheckedChanged(object sender, EventArgs e){
+            if (!Ready)return;
+            
+            Config.EnableTrayHighlight = checkTrayHighlight.Checked;
         }
     }
 }
