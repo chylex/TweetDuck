@@ -25,6 +25,7 @@ namespace TweetDck.Configuration{
 
         public WindowState BrowserWindow { get; set; }
         public bool DisplayNotificationTimer { get; set; }
+        public bool NotificationTimerCountDown { get; set; }
 
         public TweetNotification.Duration NotificationDuration { get; set; }
         public TweetNotification.Position NotificationPosition { get; set; }

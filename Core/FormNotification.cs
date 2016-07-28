@@ -143,7 +143,9 @@ namespace TweetDck.Core{
             if (Bounds.Contains(Cursor.Position) || FreezeTimer || ContextMenuOpen)return;
 
             timeLeft -= timerProgress.Interval;
-            progressBarTimer.SetValueInstant((int)Math.Min(1000,Math.Round(1025.0*(totalTime-timeLeft)/totalTime)));
+
+            int value = (int)Math.Round(1025.0*(totalTime-timeLeft)/totalTime);
+            progressBarTimer.SetValueInstant(Math.Min(1000,Math.Max(0,Program.UserConfig.NotificationTimerCountDown ? 1000-value : value)));
 
             if (timeLeft <= 0){
                 FinishCurrentTweet();
@@ -233,7 +235,7 @@ namespace TweetDck.Core{
             }
 
             Location = new Point(-32000,-32000);
-            progressBarTimer.Value = 0;
+            progressBarTimer.Value = Program.UserConfig.NotificationTimerCountDown ? 1000 : 0;
             timerProgress.Stop();
         }
 
@@ -264,7 +266,7 @@ namespace TweetDck.Core{
             
             timerProgress.Stop();
             totalTime = timeLeft = tweet.GetDisplayDuration(Program.UserConfig.NotificationDuration);
-            progressBarTimer.Value = 0;
+            progressBarTimer.Value = Program.UserConfig.NotificationTimerCountDown ? 1000 : 0;
 
             browser.LoadHtml(tweet.GenerateHtml(),"http://tweetdeck.twitter.com/?"+DateTime.Now.Ticks);
 

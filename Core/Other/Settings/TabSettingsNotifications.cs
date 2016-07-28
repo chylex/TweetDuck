@@ -50,6 +50,8 @@ namespace TweetDck.Core.Other.Settings{
             comboBoxDisplay.SelectedIndex = Math.Min(comboBoxDisplay.Items.Count-1,Config.NotificationDisplay);
 
             checkNotificationTimer.Checked = Config.DisplayNotificationTimer;
+            checkTimerCountDown.Enabled = checkNotificationTimer.Checked;
+            checkTimerCountDown.Checked = Config.NotificationTimerCountDown;
             checkLegacyLoad.Checked = Config.NotificationLegacyLoad;
 
             trackBarEdgeDistance.Value = Config.NotificationEdgeDistance;
@@ -107,6 +109,14 @@ namespace TweetDck.Core.Other.Settings{
             if (!Ready)return;
 
             Config.DisplayNotificationTimer = checkNotificationTimer.Checked;
+            checkTimerCountDown.Enabled = checkNotificationTimer.Checked;
+            notification.ShowNotificationForSettings(true);
+        }
+
+        private void checkTimerCountDown_CheckedChanged(object sender, EventArgs e){
+            if (!Ready)return;
+
+            Config.NotificationTimerCountDown = checkTimerCountDown.Checked;
             notification.ShowNotificationForSettings(true);
         }
 
