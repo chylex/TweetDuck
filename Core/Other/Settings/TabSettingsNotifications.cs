@@ -34,12 +34,8 @@ namespace TweetDck.Core.Other.Settings{
                 case TweetNotification.Position.Custom: radioLocCustom.Checked = true; break;
             }
 
-            switch(Config.NotificationDuration){
-                case TweetNotification.Duration.Short: radioDurShort.Checked = true; break;
-                case TweetNotification.Duration.Medium: radioDurMedium.Checked = true; break;
-                case TweetNotification.Duration.Long: radioDurLong.Checked = true; break;
-                case TweetNotification.Duration.VeryLong: radioDurVeryLong.Checked = true; break;
-            }
+            trackBarDuration.Value = Config.NotificationDurationValue;
+            labelDurationValue.Text = Config.NotificationDurationValue+" ms/c";
 
             comboBoxDisplay.Items.Add("(Same As "+Program.BrandName+")");
 
@@ -88,21 +84,31 @@ namespace TweetDck.Core.Other.Settings{
             notification.ShowNotificationForSettings(false);
         }
 
-        private void radioDur_CheckedChanged(object sender, EventArgs e){
+        private void trackBarDuration_ValueChanged(object sender, EventArgs e){
             if (!Ready)return;
-
-            if (radioDurShort.Checked)Config.NotificationDuration = TweetNotification.Duration.Short;
-            else if (radioDurMedium.Checked)Config.NotificationDuration = TweetNotification.Duration.Medium;
-            else if (radioDurLong.Checked)Config.NotificationDuration = TweetNotification.Duration.Long;
-            else if (radioDurVeryLong.Checked)Config.NotificationDuration = TweetNotification.Duration.VeryLong;
+            
+            Config.NotificationDurationValue = trackBarDuration.Value;
+            labelDurationValue.Text = Config.NotificationDurationValue+" ms/c";
 
             notification.ShowNotificationForSettings(true);
         }
 
-        private void radioDur_Click(object sender, EventArgs e){
+        private void btnDurationShort_Click(object sender, EventArgs e){
             if (!Ready)return;
 
-            notification.ShowNotificationForSettings(true);
+            trackBarDuration.Value = 15;
+        }
+
+        private void btnDurationMedium_Click(object sender, EventArgs e){
+            if (!Ready)return;
+
+            trackBarDuration.Value = 25;
+        }
+
+        private void btnDurationLong_Click(object sender, EventArgs e){
+            if (!Ready)return;
+
+            trackBarDuration.Value = 35;
         }
 
         private void checkNotificationTimer_CheckedChanged(object sender, EventArgs e){

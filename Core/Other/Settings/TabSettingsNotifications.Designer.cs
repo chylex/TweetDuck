@@ -36,18 +36,22 @@
             this.radioLocTL = new System.Windows.Forms.RadioButton();
             this.trackBarEdgeDistance = new System.Windows.Forms.TrackBar();
             this.groupNotificationDuration = new System.Windows.Forms.GroupBox();
-            this.radioDurVeryLong = new System.Windows.Forms.RadioButton();
-            this.radioDurLong = new System.Windows.Forms.RadioButton();
-            this.radioDurMedium = new System.Windows.Forms.RadioButton();
-            this.radioDurShort = new System.Windows.Forms.RadioButton();
+            this.tableLayoutDurationButtons = new System.Windows.Forms.TableLayoutPanel();
+            this.btnDurationMedium = new TweetDck.Core.Controls.FlatButton();
+            this.btnDurationLong = new TweetDck.Core.Controls.FlatButton();
+            this.btnDurationShort = new TweetDck.Core.Controls.FlatButton();
+            this.labelDurationValue = new System.Windows.Forms.Label();
+            this.trackBarDuration = new System.Windows.Forms.TrackBar();
             this.groupUserInterface = new System.Windows.Forms.GroupBox();
+            this.checkTimerCountDown = new System.Windows.Forms.CheckBox();
             this.checkLegacyLoad = new System.Windows.Forms.CheckBox();
             this.checkNotificationTimer = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.checkTimerCountDown = new System.Windows.Forms.CheckBox();
             this.groupNotificationLocation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).BeginInit();
             this.groupNotificationDuration.SuspendLayout();
+            this.tableLayoutDurationButtons.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarDuration)).BeginInit();
             this.groupUserInterface.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,7 +67,7 @@
             this.groupNotificationLocation.Controls.Add(this.radioLocTR);
             this.groupNotificationLocation.Controls.Add(this.radioLocTL);
             this.groupNotificationLocation.Controls.Add(this.trackBarEdgeDistance);
-            this.groupNotificationLocation.Location = new System.Drawing.Point(9, 9);
+            this.groupNotificationLocation.Location = new System.Drawing.Point(198, 9);
             this.groupNotificationLocation.Name = "groupNotificationLocation";
             this.groupNotificationLocation.Size = new System.Drawing.Size(183, 264);
             this.groupNotificationLocation.TabIndex = 1;
@@ -192,80 +196,132 @@
             // 
             // groupNotificationDuration
             // 
-            this.groupNotificationDuration.Controls.Add(this.radioDurVeryLong);
-            this.groupNotificationDuration.Controls.Add(this.radioDurLong);
-            this.groupNotificationDuration.Controls.Add(this.radioDurMedium);
-            this.groupNotificationDuration.Controls.Add(this.radioDurShort);
-            this.groupNotificationDuration.Location = new System.Drawing.Point(198, 9);
+            this.groupNotificationDuration.Controls.Add(this.tableLayoutDurationButtons);
+            this.groupNotificationDuration.Controls.Add(this.labelDurationValue);
+            this.groupNotificationDuration.Controls.Add(this.trackBarDuration);
+            this.groupNotificationDuration.Location = new System.Drawing.Point(9, 106);
             this.groupNotificationDuration.Name = "groupNotificationDuration";
-            this.groupNotificationDuration.Size = new System.Drawing.Size(183, 119);
+            this.groupNotificationDuration.Size = new System.Drawing.Size(183, 89);
             this.groupNotificationDuration.TabIndex = 9;
             this.groupNotificationDuration.TabStop = false;
             this.groupNotificationDuration.Text = "Duration";
             // 
-            // radioDurVeryLong
+            // tableLayoutDurationButtons
             // 
-            this.radioDurVeryLong.AutoSize = true;
-            this.radioDurVeryLong.Location = new System.Drawing.Point(6, 92);
-            this.radioDurVeryLong.Name = "radioDurVeryLong";
-            this.radioDurVeryLong.Size = new System.Drawing.Size(73, 17);
-            this.radioDurVeryLong.TabIndex = 3;
-            this.radioDurVeryLong.TabStop = true;
-            this.radioDurVeryLong.Text = "Very Long";
-            this.radioDurVeryLong.UseVisualStyleBackColor = true;
-            this.radioDurVeryLong.CheckedChanged += new System.EventHandler(this.radioDur_CheckedChanged);
-            this.radioDurVeryLong.Click += new System.EventHandler(this.radioDur_Click);
+            this.tableLayoutDurationButtons.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutDurationButtons.ColumnCount = 3;
+            this.tableLayoutDurationButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32F));
+            this.tableLayoutDurationButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 36F));
+            this.tableLayoutDurationButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32F));
+            this.tableLayoutDurationButtons.Controls.Add(this.btnDurationMedium, 0, 0);
+            this.tableLayoutDurationButtons.Controls.Add(this.btnDurationLong, 1, 0);
+            this.tableLayoutDurationButtons.Controls.Add(this.btnDurationShort, 0, 0);
+            this.tableLayoutDurationButtons.Location = new System.Drawing.Point(6, 56);
+            this.tableLayoutDurationButtons.Name = "tableLayoutDurationButtons";
+            this.tableLayoutDurationButtons.RowCount = 1;
+            this.tableLayoutDurationButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutDurationButtons.Size = new System.Drawing.Size(171, 27);
+            this.tableLayoutDurationButtons.TabIndex = 5;
             // 
-            // radioDurLong
+            // btnDurationMedium
             // 
-            this.radioDurLong.AutoSize = true;
-            this.radioDurLong.Location = new System.Drawing.Point(6, 68);
-            this.radioDurLong.Name = "radioDurLong";
-            this.radioDurLong.Size = new System.Drawing.Size(49, 17);
-            this.radioDurLong.TabIndex = 2;
-            this.radioDurLong.TabStop = true;
-            this.radioDurLong.Text = "Long";
-            this.radioDurLong.UseVisualStyleBackColor = true;
-            this.radioDurLong.CheckedChanged += new System.EventHandler(this.radioDur_CheckedChanged);
-            this.radioDurLong.Click += new System.EventHandler(this.radioDur_Click);
+            this.btnDurationMedium.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDurationMedium.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.btnDurationMedium.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnDurationMedium.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.btnDurationMedium.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDurationMedium.Location = new System.Drawing.Point(55, 1);
+            this.btnDurationMedium.Margin = new System.Windows.Forms.Padding(1);
+            this.btnDurationMedium.Name = "btnDurationMedium";
+            this.btnDurationMedium.Size = new System.Drawing.Size(59, 25);
+            this.btnDurationMedium.TabIndex = 2;
+            this.btnDurationMedium.Text = "Medium";
+            this.btnDurationMedium.UseVisualStyleBackColor = true;
+            this.btnDurationMedium.Click += new System.EventHandler(this.btnDurationMedium_Click);
             // 
-            // radioDurMedium
+            // btnDurationLong
             // 
-            this.radioDurMedium.AutoSize = true;
-            this.radioDurMedium.Location = new System.Drawing.Point(6, 44);
-            this.radioDurMedium.Name = "radioDurMedium";
-            this.radioDurMedium.Size = new System.Drawing.Size(62, 17);
-            this.radioDurMedium.TabIndex = 1;
-            this.radioDurMedium.TabStop = true;
-            this.radioDurMedium.Text = "Medium";
-            this.radioDurMedium.UseVisualStyleBackColor = true;
-            this.radioDurMedium.CheckedChanged += new System.EventHandler(this.radioDur_CheckedChanged);
-            this.radioDurMedium.Click += new System.EventHandler(this.radioDur_Click);
+            this.btnDurationLong.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDurationLong.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.btnDurationLong.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnDurationLong.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.btnDurationLong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDurationLong.Location = new System.Drawing.Point(116, 1);
+            this.btnDurationLong.Margin = new System.Windows.Forms.Padding(1);
+            this.btnDurationLong.Name = "btnDurationLong";
+            this.btnDurationLong.Size = new System.Drawing.Size(54, 25);
+            this.btnDurationLong.TabIndex = 1;
+            this.btnDurationLong.Text = "Long";
+            this.btnDurationLong.UseVisualStyleBackColor = true;
+            this.btnDurationLong.Click += new System.EventHandler(this.btnDurationLong_Click);
             // 
-            // radioDurShort
+            // btnDurationShort
             // 
-            this.radioDurShort.AutoSize = true;
-            this.radioDurShort.Location = new System.Drawing.Point(6, 20);
-            this.radioDurShort.Name = "radioDurShort";
-            this.radioDurShort.Size = new System.Drawing.Size(50, 17);
-            this.radioDurShort.TabIndex = 0;
-            this.radioDurShort.TabStop = true;
-            this.radioDurShort.Text = "Short";
-            this.radioDurShort.UseVisualStyleBackColor = true;
-            this.radioDurShort.CheckedChanged += new System.EventHandler(this.radioDur_CheckedChanged);
-            this.radioDurShort.Click += new System.EventHandler(this.radioDur_Click);
+            this.btnDurationShort.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDurationShort.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
+            this.btnDurationShort.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnDurationShort.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.btnDurationShort.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDurationShort.Location = new System.Drawing.Point(1, 1);
+            this.btnDurationShort.Margin = new System.Windows.Forms.Padding(1);
+            this.btnDurationShort.Name = "btnDurationShort";
+            this.btnDurationShort.Size = new System.Drawing.Size(52, 25);
+            this.btnDurationShort.TabIndex = 0;
+            this.btnDurationShort.Text = "Short";
+            this.btnDurationShort.UseVisualStyleBackColor = true;
+            this.btnDurationShort.Click += new System.EventHandler(this.btnDurationShort_Click);
+            // 
+            // labelDurationValue
+            // 
+            this.labelDurationValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelDurationValue.BackColor = System.Drawing.Color.Transparent;
+            this.labelDurationValue.Location = new System.Drawing.Point(129, 20);
+            this.labelDurationValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.labelDurationValue.Name = "labelDurationValue";
+            this.labelDurationValue.Size = new System.Drawing.Size(48, 13);
+            this.labelDurationValue.TabIndex = 13;
+            this.labelDurationValue.Text = "0 ms/c";
+            this.labelDurationValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.toolTip.SetToolTip(this.labelDurationValue, "Milliseconds per character.");
+            // 
+            // trackBarDuration
+            // 
+            this.trackBarDuration.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackBarDuration.Location = new System.Drawing.Point(6, 19);
+            this.trackBarDuration.Maximum = 60;
+            this.trackBarDuration.Minimum = 10;
+            this.trackBarDuration.Name = "trackBarDuration";
+            this.trackBarDuration.Size = new System.Drawing.Size(128, 45);
+            this.trackBarDuration.TabIndex = 12;
+            this.trackBarDuration.TickFrequency = 5;
+            this.trackBarDuration.Value = 25;
+            this.trackBarDuration.ValueChanged += new System.EventHandler(this.trackBarDuration_ValueChanged);
             // 
             // groupUserInterface
             // 
             this.groupUserInterface.Controls.Add(this.checkTimerCountDown);
             this.groupUserInterface.Controls.Add(this.checkLegacyLoad);
             this.groupUserInterface.Controls.Add(this.checkNotificationTimer);
-            this.groupUserInterface.Location = new System.Drawing.Point(198, 134);
+            this.groupUserInterface.Location = new System.Drawing.Point(9, 9);
             this.groupUserInterface.Name = "groupUserInterface";
             this.groupUserInterface.Size = new System.Drawing.Size(183, 91);
             this.groupUserInterface.TabIndex = 10;
             this.groupUserInterface.TabStop = false;
             this.groupUserInterface.Text = "General";
+            // 
+            // checkTimerCountDown
+            // 
+            this.checkTimerCountDown.AutoSize = true;
+            this.checkTimerCountDown.Location = new System.Drawing.Point(6, 44);
+            this.checkTimerCountDown.Name = "checkTimerCountDown";
+            this.checkTimerCountDown.Size = new System.Drawing.Size(119, 17);
+            this.checkTimerCountDown.TabIndex = 6;
+            this.checkTimerCountDown.Text = "Timer Counts Down";
+            this.toolTip.SetToolTip(this.checkTimerCountDown, "The notification timer counts down instead of up.");
+            this.checkTimerCountDown.UseVisualStyleBackColor = true;
+            this.checkTimerCountDown.CheckedChanged += new System.EventHandler(this.checkTimerCountDown_CheckedChanged);
             // 
             // checkLegacyLoad
             // 
@@ -293,18 +349,6 @@
             this.checkNotificationTimer.UseVisualStyleBackColor = true;
             this.checkNotificationTimer.CheckedChanged += new System.EventHandler(this.checkNotificationTimer_CheckedChanged);
             // 
-            // checkTimerCountDown
-            // 
-            this.checkTimerCountDown.AutoSize = true;
-            this.checkTimerCountDown.Location = new System.Drawing.Point(6, 44);
-            this.checkTimerCountDown.Name = "checkTimerCountDown";
-            this.checkTimerCountDown.Size = new System.Drawing.Size(119, 17);
-            this.checkTimerCountDown.TabIndex = 6;
-            this.checkTimerCountDown.Text = "Timer Counts Down";
-            this.toolTip.SetToolTip(this.checkTimerCountDown, "The notification timer counts down instead of up.");
-            this.checkTimerCountDown.UseVisualStyleBackColor = true;
-            this.checkTimerCountDown.CheckedChanged += new System.EventHandler(this.checkTimerCountDown_CheckedChanged);
-            // 
             // TabSettingsNotifications
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -320,6 +364,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).EndInit();
             this.groupNotificationDuration.ResumeLayout(false);
             this.groupNotificationDuration.PerformLayout();
+            this.tableLayoutDurationButtons.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarDuration)).EndInit();
             this.groupUserInterface.ResumeLayout(false);
             this.groupUserInterface.PerformLayout();
             this.ResumeLayout(false);
@@ -339,15 +385,17 @@
         private System.Windows.Forms.RadioButton radioLocTR;
         private System.Windows.Forms.RadioButton radioLocTL;
         private System.Windows.Forms.GroupBox groupNotificationDuration;
-        private System.Windows.Forms.RadioButton radioDurVeryLong;
-        private System.Windows.Forms.RadioButton radioDurLong;
-        private System.Windows.Forms.RadioButton radioDurMedium;
-        private System.Windows.Forms.RadioButton radioDurShort;
         private System.Windows.Forms.GroupBox groupUserInterface;
         private System.Windows.Forms.CheckBox checkNotificationTimer;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Label labelEdgeDistanceValue;
         private System.Windows.Forms.CheckBox checkLegacyLoad;
         private System.Windows.Forms.CheckBox checkTimerCountDown;
+        private System.Windows.Forms.Label labelDurationValue;
+        private System.Windows.Forms.TrackBar trackBarDuration;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutDurationButtons;
+        private TweetDck.Core.Controls.FlatButton btnDurationMedium;
+        private TweetDck.Core.Controls.FlatButton btnDurationLong;
+        private TweetDck.Core.Controls.FlatButton btnDurationShort;
     }
 }

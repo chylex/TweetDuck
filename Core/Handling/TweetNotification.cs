@@ -86,17 +86,8 @@ namespace TweetDck.Core.Handling{
             this.characters = characters;
         }
 
-        public int GetDisplayDuration(Duration modifier){
-            int multiplier;
-
-            switch(modifier){
-                case Duration.Short: multiplier = 15; break;
-                case Duration.Long: multiplier = 35; break;
-                case Duration.VeryLong: multiplier = 45; break;
-                default: multiplier = 25; break;
-            }
-
-            return 2000+Math.Max(1000,multiplier*characters);
+        public int GetDisplayDuration(int value){
+            return 2000+Math.Max(1000,value*characters);
         }
 
         public string GenerateHtml(){

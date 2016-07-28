@@ -265,7 +265,7 @@ namespace TweetDck.Core{
             CurrentUrl = tweet.Url;
             
             timerProgress.Stop();
-            totalTime = timeLeft = tweet.GetDisplayDuration(Program.UserConfig.NotificationDuration);
+            totalTime = timeLeft = tweet.GetDisplayDuration(Program.UserConfig.NotificationDurationValue);
             progressBarTimer.Value = Program.UserConfig.NotificationTimerCountDown ? 1000 : 0;
 
             browser.LoadHtml(tweet.GenerateHtml(),"http://tweetdeck.twitter.com/?"+DateTime.Now.Ticks);

@@ -32,6 +32,7 @@ namespace TweetDck.Configuration{
         public Point CustomNotificationPosition { get; set; }
         public int NotificationEdgeDistance { get; set; }
         public int NotificationDisplay { get; set; }
+        public int NotificationDurationValue { get; set; }
         public bool NotificationLegacyLoad { get; set; }
 
         public bool ExpandLinksOnHover { get; set; }
@@ -138,6 +139,14 @@ namespace TweetDck.Configuration{
 
             if (fileVersion == 3){
                 EnableTrayHighlight = true;
+
+                switch(NotificationDuration){
+                    case TweetNotification.Duration.Short: NotificationDurationValue = 15; break;
+                    case TweetNotification.Duration.Medium: NotificationDurationValue = 25; break;
+                    case TweetNotification.Duration.Long: NotificationDurationValue = 35; break;
+                    case TweetNotification.Duration.VeryLong: NotificationDurationValue = 45; break;
+                }
+
                 ++fileVersion;
             }
 
