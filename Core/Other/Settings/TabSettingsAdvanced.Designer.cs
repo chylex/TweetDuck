@@ -25,17 +25,18 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             this.btnClearCache = new System.Windows.Forms.Button();
-            this.labelMiscellaneous = new System.Windows.Forms.Label();
             this.checkHardwareAcceleration = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.btnReset = new System.Windows.Forms.Button();
             this.btnImport = new System.Windows.Forms.Button();
             this.btnExport = new System.Windows.Forms.Button();
+            this.groupPerformance = new System.Windows.Forms.GroupBox();
+            this.groupPerformance.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnClearCache
             // 
-            this.btnClearCache.Location = new System.Drawing.Point(12, 56);
+            this.btnClearCache.Location = new System.Drawing.Point(6, 44);
             this.btnClearCache.Name = "btnClearCache";
             this.btnClearCache.Size = new System.Drawing.Size(171, 23);
             this.btnClearCache.TabIndex = 14;
@@ -45,20 +46,11 @@
             this.btnClearCache.UseVisualStyleBackColor = true;
             this.btnClearCache.Click += new System.EventHandler(this.btnClearCache_Click);
             // 
-            // labelMiscellaneous
-            // 
-            this.labelMiscellaneous.AutoSize = true;
-            this.labelMiscellaneous.Location = new System.Drawing.Point(9, 40);
-            this.labelMiscellaneous.Margin = new System.Windows.Forms.Padding(3, 11, 3, 0);
-            this.labelMiscellaneous.Name = "labelMiscellaneous";
-            this.labelMiscellaneous.Size = new System.Drawing.Size(74, 13);
-            this.labelMiscellaneous.TabIndex = 13;
-            this.labelMiscellaneous.Text = "Miscellaneous";
-            // 
             // checkHardwareAcceleration
             // 
             this.checkHardwareAcceleration.AutoSize = true;
-            this.checkHardwareAcceleration.Location = new System.Drawing.Point(9, 9);
+            this.checkHardwareAcceleration.Location = new System.Drawing.Point(6, 21);
+            this.checkHardwareAcceleration.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.checkHardwareAcceleration.Name = "checkHardwareAcceleration";
             this.checkHardwareAcceleration.Size = new System.Drawing.Size(134, 17);
             this.checkHardwareAcceleration.TabIndex = 12;
@@ -107,18 +99,29 @@
             this.btnExport.UseVisualStyleBackColor = true;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
+            // groupPerformance
+            // 
+            this.groupPerformance.Controls.Add(this.checkHardwareAcceleration);
+            this.groupPerformance.Controls.Add(this.btnClearCache);
+            this.groupPerformance.Location = new System.Drawing.Point(9, 9);
+            this.groupPerformance.Name = "groupPerformance";
+            this.groupPerformance.Size = new System.Drawing.Size(183, 74);
+            this.groupPerformance.TabIndex = 18;
+            this.groupPerformance.TabStop = false;
+            this.groupPerformance.Text = "Performance";
+            // 
             // TabSettingsAdvanced
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupPerformance);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.btnImport);
             this.Controls.Add(this.btnExport);
-            this.Controls.Add(this.btnClearCache);
-            this.Controls.Add(this.labelMiscellaneous);
-            this.Controls.Add(this.checkHardwareAcceleration);
             this.Name = "TabSettingsAdvanced";
             this.Size = new System.Drawing.Size(478, 282);
+            this.groupPerformance.ResumeLayout(false);
+            this.groupPerformance.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -127,11 +130,11 @@
         #endregion
 
         private System.Windows.Forms.Button btnClearCache;
-        private System.Windows.Forms.Label labelMiscellaneous;
         private System.Windows.Forms.CheckBox checkHardwareAcceleration;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.Button btnImport;
         private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.GroupBox groupPerformance;
     }
 }

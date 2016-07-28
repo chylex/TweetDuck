@@ -27,11 +27,13 @@
             this.btnCheckUpdates = new System.Windows.Forms.Button();
             this.checkUpdateNotifications = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.groupGeneral = new System.Windows.Forms.GroupBox();
+            this.groupGeneral.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnCheckUpdates
             // 
-            this.btnCheckUpdates.Location = new System.Drawing.Point(9, 32);
+            this.btnCheckUpdates.Location = new System.Drawing.Point(6, 44);
             this.btnCheckUpdates.Name = "btnCheckUpdates";
             this.btnCheckUpdates.Size = new System.Drawing.Size(171, 23);
             this.btnCheckUpdates.TabIndex = 15;
@@ -43,7 +45,8 @@
             // checkUpdateNotifications
             // 
             this.checkUpdateNotifications.AutoSize = true;
-            this.checkUpdateNotifications.Location = new System.Drawing.Point(9, 9);
+            this.checkUpdateNotifications.Location = new System.Drawing.Point(6, 21);
+            this.checkUpdateNotifications.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.checkUpdateNotifications.Name = "checkUpdateNotifications";
             this.checkUpdateNotifications.Size = new System.Drawing.Size(165, 17);
             this.checkUpdateNotifications.TabIndex = 14;
@@ -53,16 +56,27 @@
             this.checkUpdateNotifications.UseVisualStyleBackColor = true;
             this.checkUpdateNotifications.CheckedChanged += new System.EventHandler(this.checkUpdateNotifications_CheckedChanged);
             // 
+            // groupGeneral
+            // 
+            this.groupGeneral.Controls.Add(this.checkUpdateNotifications);
+            this.groupGeneral.Controls.Add(this.btnCheckUpdates);
+            this.groupGeneral.Location = new System.Drawing.Point(9, 9);
+            this.groupGeneral.Name = "groupGeneral";
+            this.groupGeneral.Size = new System.Drawing.Size(183, 75);
+            this.groupGeneral.TabIndex = 16;
+            this.groupGeneral.TabStop = false;
+            this.groupGeneral.Text = "General";
+            // 
             // TabSettingsUpdates
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btnCheckUpdates);
-            this.Controls.Add(this.checkUpdateNotifications);
+            this.Controls.Add(this.groupGeneral);
             this.Name = "TabSettingsUpdates";
             this.Size = new System.Drawing.Size(478, 282);
+            this.groupGeneral.ResumeLayout(false);
+            this.groupGeneral.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -71,5 +85,6 @@
         private System.Windows.Forms.Button btnCheckUpdates;
         private System.Windows.Forms.CheckBox checkUpdateNotifications;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.GroupBox groupGeneral;
     }
 }
