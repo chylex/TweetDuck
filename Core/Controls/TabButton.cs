@@ -3,18 +3,8 @@ using System.Drawing;
 using System.Windows.Forms;
 
 namespace TweetDck.Core.Controls{
-    sealed partial class TabButton : Button{
-        protected override bool ShowFocusCues{
-            get{
-                return false;
-            }
-        }
-
+    sealed partial class TabButton : FlatButton{
         public Action Callback { get; private set; }
-
-        public TabButton(){
-            GotFocus += TabButton_GotFocus;
-        }
 
         public void SetupButton(int locationX, int sizeWidth, string title, Action callback){
             Callback = callback;
@@ -30,10 +20,6 @@ namespace TweetDck.Core.Controls{
             Text = title;
             UseVisualStyleBackColor = true;
             ResumeLayout(true);
-        }
-
-        private void TabButton_GotFocus(object sender, EventArgs e){ // removes extra border when focused
-            NotifyDefault(false);
         }
     }
 }
