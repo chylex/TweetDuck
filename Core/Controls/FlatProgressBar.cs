@@ -3,9 +3,11 @@ using System.Windows.Forms;
 
 namespace TweetDck.Core.Controls{
     public partial class FlatProgressBar : ProgressBar{
-        private SolidBrush brush;
+        private readonly SolidBrush brush;
 
         public FlatProgressBar(){
+            brush = new SolidBrush(Color.White);
+
             SetStyle(ControlStyles.UserPaint,true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer,true);
         }
@@ -15,8 +17,8 @@ namespace TweetDck.Core.Controls{
         }
 
         protected override void OnPaint(PaintEventArgs e){
-            if (brush == null || brush.Color != ForeColor){
-                brush = new SolidBrush(ForeColor);
+            if (brush.Color != ForeColor){
+                brush.Color = ForeColor;
             }
 
             Rectangle rect = e.ClipRectangle;
@@ -25,9 +27,11 @@ namespace TweetDck.Core.Controls{
         }
 
         protected override void Dispose(bool disposing){
-            if (brush != null)brush.Dispose();
-
             base.Dispose(disposing);
+
+            if (disposing){
+                brush.Dispose();
+            }
         }
     }
 }
