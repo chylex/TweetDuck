@@ -7,8 +7,8 @@ enabled(){
   var sheet = style.sheet;
   sheet.insertRule(".tweet-actions { float: right !important; width: auto !important; }",0);
   sheet.insertRule(".tweet-action { opacity: 0; }",0);
-  sheet.insertRule(".is-favorite .tweet-action, .is-retweet .tweet-action { opacity: 0.5; }",0);
-  sheet.insertRule(".tweet:hover .tweet-action, .is-favorite .tweet-action[rel='favorite'], .is-retweet .tweet-action[rel='retweet'] { opacity: 1; }",0);
+  sheet.insertRule(".is-favorite .tweet-action, .is-retweet .tweet-action { opacity: 0.5; visibility: visible !important; }",0);
+  sheet.insertRule(".tweet:hover .tweet-action, .is-favorite .tweet-action[rel='favorite'], .is-retweet .tweet-action[rel='retweet'] { opacity: 1; visibility: visible !important; }",0);
   sheet.insertRule(".tweet-actions > li:nth-child(4) { margin-right: 2px !important; }",0);
 
   // revert small links around the tweet
