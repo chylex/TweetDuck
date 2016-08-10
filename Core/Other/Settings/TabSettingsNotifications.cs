@@ -34,7 +34,7 @@ namespace TweetDck.Core.Other.Settings{
                 case TweetNotification.Position.Custom: radioLocCustom.Checked = true; break;
             }
 
-            trackBarDuration.Value = Config.NotificationDurationValue;
+            trackBarDuration.SetValueSafe(Config.NotificationDurationValue);
             labelDurationValue.Text = Config.NotificationDurationValue+" ms/c";
 
             comboBoxDisplay.Items.Add("(Same As "+Program.BrandName+")");
@@ -50,7 +50,7 @@ namespace TweetDck.Core.Other.Settings{
             checkTimerCountDown.Checked = Config.NotificationTimerCountDown;
             checkLegacyLoad.Checked = Config.NotificationLegacyLoad;
 
-            trackBarEdgeDistance.Value = Config.NotificationEdgeDistance;
+            trackBarEdgeDistance.SetValueSafe(Config.NotificationEdgeDistance);
             labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value.ToString(CultureInfo.InvariantCulture)+" px";
 
             Disposed += (sender, args) => this.notification.Dispose();

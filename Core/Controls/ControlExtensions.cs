@@ -28,5 +28,11 @@ namespace TweetDck.Core.Controls{
                 bar.Value = value;
             }
         }
+
+        public static void SetValueSafe(this TrackBar trackBar, int value){
+            if (value >= trackBar.Minimum && value <= trackBar.Maximum){
+                trackBar.Value = value;
+            }
+        }
     }
 }
