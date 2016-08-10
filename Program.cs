@@ -115,7 +115,7 @@ namespace TweetDck{
                 }
             };
 
-            Cef.Initialize(new CefSettings{
+            CefSettings settings = new CefSettings{
                 AcceptLanguageList = BrowserUtils.HeaderAcceptLanguage,
                 UserAgent = BrowserUtils.HeaderUserAgent,
                 Locale = CultureInfo.CurrentCulture.TwoLetterISOLanguageName,
@@ -124,7 +124,11 @@ namespace TweetDck{
                 #if !DEBUG
                 LogSeverity = programArguments.Contains("-log") ? LogSeverity.Info : LogSeverity.Disable
                 #endif
-            });
+            };
+
+            CommandLineArgsParser.AddToDictionary(UserConfig.CustomCefArgs,settings.CefCommandLineArgs);
+
+            Cef.Initialize(settings);
 
             AppDomain.CurrentDomain.UnhandledException += (sender, args) => {
                 Exception ex = args.ExceptionObject as Exception;

@@ -44,6 +44,8 @@ namespace TweetDck.Configuration{
         public PluginConfig Plugins { get; private set; }
         public WindowState PluginsWindow { get; set; }
 
+        public string CustomCefArgs { get; set; }
+
         public bool IsCustomNotificationPositionSet{
             get{
                 return CustomNotificationPosition.X != -32000 && CustomNotificationPosition.X != 32000;

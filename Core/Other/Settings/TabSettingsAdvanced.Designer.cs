@@ -27,11 +27,14 @@
             this.btnClearCache = new System.Windows.Forms.Button();
             this.checkHardwareAcceleration = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.btnEditCefArgs = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
             this.btnImport = new System.Windows.Forms.Button();
             this.btnExport = new System.Windows.Forms.Button();
             this.groupPerformance = new System.Windows.Forms.GroupBox();
+            this.groupConfiguration = new System.Windows.Forms.GroupBox();
             this.groupPerformance.SuspendLayout();
+            this.groupConfiguration.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnClearCache
@@ -59,6 +62,17 @@
         " with rendering.");
             this.checkHardwareAcceleration.UseVisualStyleBackColor = true;
             this.checkHardwareAcceleration.CheckedChanged += new System.EventHandler(this.checkHardwareAcceleration_CheckedChanged);
+            // 
+            // btnEditCefArgs
+            // 
+            this.btnEditCefArgs.Location = new System.Drawing.Point(6, 19);
+            this.btnEditCefArgs.Name = "btnEditCefArgs";
+            this.btnEditCefArgs.Size = new System.Drawing.Size(171, 23);
+            this.btnEditCefArgs.TabIndex = 15;
+            this.btnEditCefArgs.Text = "Edit CEF Arguments";
+            this.toolTip.SetToolTip(this.btnEditCefArgs, "Set custom command line arguments for Chromium Embedded Framework.");
+            this.btnEditCefArgs.UseVisualStyleBackColor = true;
+            this.btnEditCefArgs.Click += new System.EventHandler(this.btnEditCefArgs_Click);
             // 
             // btnReset
             // 
@@ -110,10 +124,21 @@
             this.groupPerformance.TabStop = false;
             this.groupPerformance.Text = "Performance";
             // 
+            // groupConfiguration
+            // 
+            this.groupConfiguration.Controls.Add(this.btnEditCefArgs);
+            this.groupConfiguration.Location = new System.Drawing.Point(9, 89);
+            this.groupConfiguration.Name = "groupConfiguration";
+            this.groupConfiguration.Size = new System.Drawing.Size(183, 48);
+            this.groupConfiguration.TabIndex = 19;
+            this.groupConfiguration.TabStop = false;
+            this.groupConfiguration.Text = "Configuration";
+            // 
             // TabSettingsAdvanced
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupConfiguration);
             this.Controls.Add(this.groupPerformance);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.btnImport);
@@ -122,6 +147,7 @@
             this.Size = new System.Drawing.Size(478, 282);
             this.groupPerformance.ResumeLayout(false);
             this.groupPerformance.PerformLayout();
+            this.groupConfiguration.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -136,5 +162,7 @@
         private System.Windows.Forms.Button btnImport;
         private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.GroupBox groupPerformance;
+        private System.Windows.Forms.GroupBox groupConfiguration;
+        private System.Windows.Forms.Button btnEditCefArgs;
     }
 }

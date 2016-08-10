@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Forms;
 using TweetDck.Core.Controls;
+using TweetDck.Core.Other.Settings.Dialogs;
 using TweetDck.Core.Other.Settings.Export;
 using TweetDck.Core.Utils;
 
@@ -48,14 +49,22 @@ namespace TweetDck.Core.Other.Settings{
                 succeeded = HardwareAcceleration.Disable();
             }
 
-            if (succeeded && MessageBox.Show("The application must restart for the setting to take place. Do you want to restart now?",Program.BrandName+" Settings",MessageBoxButtons.YesNo,MessageBoxIcon.Information) == DialogResult.Yes){ // TODO
-                Process.Start(Application.ExecutablePath,"-restart");
-                Application.Exit();
+            if (succeeded){
+                PromptRestart();
             }
-            else if (!succeeded){
+            else{
                 checkHardwareAcceleration.CheckedChanged -= checkHardwareAcceleration_CheckedChanged;
                 checkHardwareAcceleration.Checked = HardwareAcceleration.IsEnabled;
                 checkHardwareAcceleration.CheckedChanged += checkHardwareAcceleration_CheckedChanged;
+            }
+        }
+
+        private void btnEditCefArgs_Click(object sender, EventArgs e){
+            DialogSettingsCefArgs form = new DialogSettingsCefArgs();
+
+            if (form.ShowDialog(ParentForm) == DialogResult.OK){
+                Config.CustomCefArgs = form.CefArgs;
+                PromptRestart();
             }
         }
 
@@ -117,6 +126,13 @@ namespace TweetDck.Core.Other.Settings{
             if (MessageBox.Show("This will reset all of your settings, including disabled plugins. Do you want to proceed?","Reset "+Program.BrandName+" Settings",MessageBoxButtons.YesNo,MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2) == DialogResult.Yes){
                 Program.ResetConfig();
                 ((FormSettings)ParentForm).ReloadUI();
+            }
+        }
+
+        private static void PromptRestart(){
+            if (MessageBox.Show("The application must restart for the setting to take place. Do you want to restart now?",Program.BrandName+" Settings",MessageBoxButtons.YesNo,MessageBoxIcon.Information) == DialogResult.Yes){
+                Process.Start(Application.ExecutablePath,"-restart");
+                Application.Exit();
             }
         }
     }

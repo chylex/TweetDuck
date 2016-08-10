@@ -129,6 +129,12 @@
     <Compile Include="Core\Other\FormPlugins.Designer.cs">
       <DependentUpon>FormPlugins.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsCefArgs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsCefArgs.Designer.cs">
+      <DependentUpon>DialogSettingsCefArgs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\Other\Settings\Export\CombinedFileStream.cs" />
     <Compile Include="Core\Other\Settings\Export\ExportManager.cs" />
     <Compile Include="Core\Other\Settings\TabSettingsAdvanced.cs">
@@ -161,6 +167,7 @@
     <Compile Include="Core\Other\Settings\TabSettingsUpdates.Designer.cs">
       <DependentUpon>TabSettingsUpdates.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\Utils\CommandLineArgsParser.cs" />
     <Compile Include="Core\Utils\WindowState.cs" />
     <Compile Include="Migration\FormBackgroundWork.cs">
       <SubType>Form</SubType>
