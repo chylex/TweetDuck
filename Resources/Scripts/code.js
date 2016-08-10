@@ -399,12 +399,14 @@
   // Block: Inject custom CSS and layout into the page.
   //
   (function(){
-    var style = document.createElement("style");
-    document.head.appendChild(style);
+    var styleOfficial = document.createElement("style");
+    document.head.appendChild(styleOfficial);
+    styleOfficial.sheet.insertRule("a[data-full-url] { word-break: break-all; }",0); // break long urls
     
-    var sheet = style.sheet;
-    
-    // break long urls
-    sheet.insertRule("a[data-full-url] { word-break: break-all; }",0);
+    if ($TD.hasCustomBrowserCSS){
+      var styleCustom = document.createElement("style");
+      styleCustom.innerHTML = $TD.customBrowserCSS;
+      document.head.appendChild(styleCustom);
+    }
   })();
 })($,$TD,TD);

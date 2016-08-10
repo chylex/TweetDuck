@@ -45,6 +45,8 @@ namespace TweetDck.Configuration{
         public WindowState PluginsWindow { get; set; }
 
         public string CustomCefArgs { get; set; }
+        public string CustomBrowserCSS { get; set; }
+        public string CustomNotificationCSS { get; set; }
 
         public bool IsCustomNotificationPositionSet{
             get{

@@ -8,8 +8,12 @@ using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Other.Settings{
     partial class TabSettingsAdvanced : BaseTabSettings{
-        public TabSettingsAdvanced(){
+        private readonly Action browserReloadAction;
+
+        public TabSettingsAdvanced(Action browserReloadAction){
             InitializeComponent();
+
+            this.browserReloadAction = browserReloadAction;
 
             checkHardwareAcceleration.Checked = HardwareAcceleration.IsEnabled;
 
@@ -65,6 +69,21 @@ namespace TweetDck.Core.Other.Settings{
             if (form.ShowDialog(ParentForm) == DialogResult.OK){
                 Config.CustomCefArgs = form.CefArgs;
                 PromptRestart();
+            }
+        }
+
+        private void btnEditCSS_Click(object sender, EventArgs e){
+            DialogSettingsCSS form = new DialogSettingsCSS();
+
+            if (form.ShowDialog(ParentForm) == DialogResult.OK){
+                bool hasChangedBrowser = form.BrowserCSS != Config.CustomBrowserCSS;
+
+                Config.CustomBrowserCSS = form.BrowserCSS;
+                Config.CustomNotificationCSS = form.NotificationCSS;
+
+                if (hasChangedBrowser && MessageBox.Show("The browser CSS has changed, do you want to reload it?","Browser CSS Changed",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2) == DialogResult.Yes){
+                    browserReloadAction();
+                }
             }
         }
 

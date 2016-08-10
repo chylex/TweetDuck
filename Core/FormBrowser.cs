@@ -181,7 +181,7 @@ namespace TweetDck.Core{
         }
         
         private void plugins_Reloaded(object sender, PluginLoadEventArgs e){
-            browser.ExecuteScriptAsync("window.location.reload()");
+            ReloadBrowser();
         }
 
         private void plugins_PluginChangedState(object sender, PluginChangedStateEventArgs e){
@@ -295,6 +295,10 @@ namespace TweetDck.Core{
 
         public void OnImagePastedFinish(){
             browser.ExecuteScriptAsync("TDGF_tryPasteImageFinish",new object[0]);
+        }
+
+        public void ReloadBrowser(){
+            browser.ExecuteScriptAsync("window.location.reload()");
         }
     }
 }

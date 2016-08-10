@@ -129,6 +129,12 @@
     <Compile Include="Core\Other\FormPlugins.Designer.cs">
       <DependentUpon>FormPlugins.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsCSS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsCSS.Designer.cs">
+      <DependentUpon>DialogSettingsCSS.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsCefArgs.cs">
       <SubType>Form</SubType>
     </Compile>

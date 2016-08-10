@@ -33,6 +33,7 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.groupPerformance = new System.Windows.Forms.GroupBox();
             this.groupConfiguration = new System.Windows.Forms.GroupBox();
+            this.btnEditCSS = new System.Windows.Forms.Button();
             this.groupPerformance.SuspendLayout();
             this.groupConfiguration.SuspendLayout();
             this.SuspendLayout();
@@ -126,13 +127,25 @@
             // 
             // groupConfiguration
             // 
+            this.groupConfiguration.Controls.Add(this.btnEditCSS);
             this.groupConfiguration.Controls.Add(this.btnEditCefArgs);
             this.groupConfiguration.Location = new System.Drawing.Point(9, 89);
             this.groupConfiguration.Name = "groupConfiguration";
-            this.groupConfiguration.Size = new System.Drawing.Size(183, 48);
+            this.groupConfiguration.Size = new System.Drawing.Size(183, 77);
             this.groupConfiguration.TabIndex = 19;
             this.groupConfiguration.TabStop = false;
             this.groupConfiguration.Text = "Configuration";
+            // 
+            // btnEditCSS
+            // 
+            this.btnEditCSS.Location = new System.Drawing.Point(6, 48);
+            this.btnEditCSS.Name = "btnEditCSS";
+            this.btnEditCSS.Size = new System.Drawing.Size(171, 23);
+            this.btnEditCSS.TabIndex = 16;
+            this.btnEditCSS.Text = "Edit CSS";
+            this.toolTip.SetToolTip(this.btnEditCSS, "Set custom CSS for browser and notification windows.");
+            this.btnEditCSS.UseVisualStyleBackColor = true;
+            this.btnEditCSS.Click += new System.EventHandler(this.btnEditCSS_Click);
             // 
             // TabSettingsAdvanced
             // 
@@ -164,5 +177,6 @@
         private System.Windows.Forms.GroupBox groupPerformance;
         private System.Windows.Forms.GroupBox groupConfiguration;
         private System.Windows.Forms.Button btnEditCefArgs;
+        private System.Windows.Forms.Button btnEditCSS;
     }
 }

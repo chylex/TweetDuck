@@ -94,7 +94,13 @@ namespace TweetDck.Core.Handling{
             StringBuilder build = new StringBuilder();
             build.Append("<!DOCTYPE html>");
             build.Append("<html class='os-windows txt-base-").Append(FontSizeClass ?? DefaultFontSizeClass).Append("'>");
-            build.Append("<head>").Append(HeadTag ?? DefaultHeadTag).Append("<style type='text/css'>").Append(CustomCSS).Append("</style></head>");
+            build.Append("<head>").Append(HeadTag ?? DefaultHeadTag).Append("<style type='text/css'>").Append(CustomCSS).Append("</style>");
+            
+            if (!string.IsNullOrEmpty(Program.UserConfig.CustomNotificationCSS)){
+                build.Append("<style type='text/css'>").Append(Program.UserConfig.CustomNotificationCSS).Append("</style>");
+            }
+
+            build.Append("</head>");
             build.Append("<body class='hearty'><div class='app-columns-container'><div class='column scroll-styled-v' style='width:100%;overflow-y:auto'>");
             build.Append(html);
             build.Append("</div></div></body>");
