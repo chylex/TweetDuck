@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using TweetDck.Plugins.Events;
 
 namespace TweetDck.Plugins{
     class PluginBridge{
@@ -10,6 +11,11 @@ namespace TweetDck.Plugins{
 
         public PluginBridge(PluginManager manager){
             this.manager = manager;
+            this.manager.Reloaded += manager_Reloaded;
+        }
+
+        private void manager_Reloaded(object sender, PluginLoadEventArgs e){
+            fileCache.Clear();
         }
 
         private string GetFullPathIfSafe(int token, string path){
@@ -54,10 +60,6 @@ namespace TweetDck.Plugins{
             fileCache[fullPath] = contents;
         }
 
-        public string ReadFile(int token, string path){
-            return ReadFile(token,path,true);
-        }
-
         public string ReadFile(int token, string path, bool cache){
             string fullPath = GetFullPathIfSafe(token,path);
 
@@ -67,7 +69,7 @@ namespace TweetDck.Plugins{
 
             string cachedContents;
             
-            if (fileCache.TryGetValue(fullPath,out cachedContents)){
+            if (cache && fileCache.TryGetValue(fullPath,out cachedContents)){
                 return cachedContents;
             }
 
