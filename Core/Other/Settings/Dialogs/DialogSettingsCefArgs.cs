@@ -16,7 +16,7 @@ namespace TweetDck.Core.Other.Settings.Dialogs{
             
             Text = Program.BrandName+" Settings - CEF Arguments";
 
-            textBoxArgs.Text = Program.UserConfig.CustomCefArgs;
+            textBoxArgs.Text = Program.UserConfig.CustomCefArgs ?? "";
             textBoxArgs.Select(textBoxArgs.Text.Length,0);
         }
 
