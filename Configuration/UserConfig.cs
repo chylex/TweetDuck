@@ -110,6 +110,7 @@ namespace TweetDck.Configuration{
             NotificationPosition = TweetNotification.Position.TopRight;
             CustomNotificationPosition = new Point(-32000,-32000);
             NotificationEdgeDistance = 8;
+            NotificationDurationValue = 25;
             EnableUpdateCheck = true;
             ExpandLinksOnHover = true;
             EnableTrayHighlight = true;
