@@ -45,9 +45,12 @@ enabled(){
   
   // add column buttons and keyboard shortcut info to UI
   replaceMustache("column/column_header.mustache", "</header>", [
+    '{{^isTemporary}}',
     '<a class="column-header-link" href="#" data-action="td-clearcolumns-dosingle" style="right:34px">',
     '<i class="icon icon-clear-timeline"></i>',
-    '</a></header>'
+    '</a>',
+    '{{/isTemporary}}',
+    '</header>'
   ].join(""));
   
   replaceMustache("keyboard_shortcut_list.mustache", "</dl>  <dl", [
@@ -57,6 +60,16 @@ enabled(){
     '<span class="text-like-keyboard-key">Alt</span> + <span class="text-like-keyboard-key">Del</span> Clear all',
     '</dd></dl><dl'
   ].join(""));
+  
+  // load custom style
+  var style = document.createElement("style");
+  document.head.appendChild(style);
+
+  var sheet = style.sheet;
+  sheet.insertRule(".column-title { margin-right: 60px !important; }", 0);
+  sheet.insertRule(".column-type-message .column-title { margin-right: 115px !important; }", 0);
+  sheet.insertRule(".mark-all-read-link { right: 59px !important; }", 0);
+  sheet.insertRule(".open-compose-dm-link { right: 90px !important; }", 0);
 }
 
 ready(){
