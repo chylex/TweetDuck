@@ -4,7 +4,7 @@ using TweetDck.Plugins.Events;
 
 namespace TweetDck.Plugins{
     [Serializable]
-    class PluginConfig{
+    sealed class PluginConfig{
         [field:NonSerialized]
         public event EventHandler<PluginChangedStateEventArgs> PluginChangedState;
 
@@ -32,6 +32,10 @@ namespace TweetDck.Plugins{
 
         public bool IsEnabled(Plugin plugin){
             return !Disabled.Contains(plugin.Identifier) && plugin.CanRun;
+        }
+
+        public void DisableOfficialFromConfig(string pluginName){
+            Disabled.Add("official/"+pluginName);
         }
     }
 }
