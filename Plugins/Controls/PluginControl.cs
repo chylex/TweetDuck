@@ -31,7 +31,7 @@ namespace TweetDck.Plugins.Controls{
                 labelDescription.Visible = false;
             }
 
-            panelDescription_Resize(panelDescription,new EventArgs());
+            panelDescription_Resize(panelDescription, new EventArgs());
         }
 
         private void panelDescription_Resize(object sender, EventArgs e){
@@ -39,8 +39,8 @@ namespace TweetDck.Plugins.Controls{
                 Height = MinimumSize.Height;
             }
             else{
-                labelDescription.MaximumSize = new Size(panelDescription.Width-SystemInformation.VerticalScrollBarWidth,0);
-                Height = Math.Min(MinimumSize.Height+9+labelDescription.Height,MaximumSize.Height);
+                labelDescription.MaximumSize = new Size(panelDescription.Width-SystemInformation.VerticalScrollBarWidth, 0);
+                Height = Math.Min(MinimumSize.Height+9+labelDescription.Height, MaximumSize.Height);
             }
         }
 
@@ -52,7 +52,7 @@ namespace TweetDck.Plugins.Controls{
 
         private void btnToggleState_Click(object sender, EventArgs e){
             bool newState = !pluginManager.Config.IsEnabled(plugin);
-            pluginManager.Config.SetEnabled(plugin,newState);
+            pluginManager.Config.SetEnabled(plugin, newState);
 
             btnToggleState.Text = newState ? "Disable" : "Enable";
         }

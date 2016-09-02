@@ -21,30 +21,30 @@ namespace TweetDck.Core.Handling{
             model.Clear();
 
             if (enableCustomMenu){
-                model.AddItem((CefMenuCommand)MenuSkipTweet,"Skip tweet");
-                model.AddCheckItem((CefMenuCommand)MenuFreeze,"Freeze");
-                model.SetChecked((CefMenuCommand)MenuFreeze,form.FreezeTimer);
+                model.AddItem((CefMenuCommand)MenuSkipTweet, "Skip tweet");
+                model.AddCheckItem((CefMenuCommand)MenuFreeze, "Freeze");
+                model.SetChecked((CefMenuCommand)MenuFreeze, form.FreezeTimer);
                 model.AddSeparator();
 
                 if (!string.IsNullOrEmpty(form.CurrentUrl)){
-                    model.AddItem((CefMenuCommand)MenuCopyTweetUrl,"Copy tweet address");
+                    model.AddItem((CefMenuCommand)MenuCopyTweetUrl, "Copy tweet address");
 
                     if (!string.IsNullOrEmpty(TweetDeckBridge.NotificationTweetEmbedded)){
-                        model.AddItem((CefMenuCommand)MenuCopyTweetEmbeddedUrl,"Copy quoted tweet address");
+                        model.AddItem((CefMenuCommand)MenuCopyTweetEmbeddedUrl, "Copy quoted tweet address");
                     }
 
                     model.AddSeparator();
                 }
             }
 
-            base.OnBeforeContextMenu(browserControl,browser,frame,parameters,model);
+            base.OnBeforeContextMenu(browserControl, browser, frame, parameters, model);
             RemoveSeparatorIfLast(model);
 
             form.InvokeSafe(() => form.ContextMenuOpen = true);
         }
 
         public override bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags){
-            if (base.OnContextMenuCommand(browserControl,browser,frame,parameters,commandId,eventFlags)){
+            if (base.OnContextMenuCommand(browserControl, browser, frame, parameters, commandId, eventFlags)){
                 return true;
             }
 
@@ -58,11 +58,11 @@ namespace TweetDck.Core.Handling{
                     return true;
 
                 case MenuCopyTweetUrl:
-                    Clipboard.SetText(form.CurrentUrl,TextDataFormat.UnicodeText);
+                    Clipboard.SetText(form.CurrentUrl, TextDataFormat.UnicodeText);
                     return true;
 
                 case MenuCopyTweetEmbeddedUrl:
-                    Clipboard.SetText(TweetDeckBridge.NotificationTweetEmbedded,TextDataFormat.UnicodeText);
+                    Clipboard.SetText(TweetDeckBridge.NotificationTweetEmbedded, TextDataFormat.UnicodeText);
                     return true;
             }
 
@@ -70,7 +70,7 @@ namespace TweetDck.Core.Handling{
         }
 
         public override void OnContextMenuDismissed(IWebBrowser browserControl, IBrowser browser, IFrame frame){
-            base.OnContextMenuDismissed(browserControl,browser,frame);
+            base.OnContextMenuDismissed(browserControl, browser, frame);
             form.InvokeSafe(() => form.ContextMenuOpen = false);
         }
     }

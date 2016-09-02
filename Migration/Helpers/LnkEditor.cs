@@ -26,7 +26,7 @@ namespace TweetDck.Migration.Helpers{
         public void SetPath(string newPath){
             if (obj == null)return;
             obj.Path = newPath;
-            obj.SetIconLocation(newPath,0);
+            obj.SetIconLocation(newPath, 0);
         }
 
         public void SetWorkingDirectory(string newWorkingDirectory){

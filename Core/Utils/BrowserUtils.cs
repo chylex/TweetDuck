@@ -45,7 +45,7 @@ namespace TweetDck.Core.Utils{
                 }
             };
 
-            client.DownloadFileAsync(new Uri(url),target);
+            client.DownloadFileAsync(new Uri(url), target);
         }
     }
 }

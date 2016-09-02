@@ -54,8 +54,8 @@ namespace TweetDck.Core{
 
             this.browser.LoadingStateChanged += Browser_LoadingStateChanged;
             this.browser.FrameLoadEnd += Browser_FrameLoadEnd;
-            this.browser.RegisterJsObject("$TD",new TweetDeckBridge(this,notification));
-            this.browser.RegisterAsyncJsObject("$TDP",plugins.Bridge);
+            this.browser.RegisterJsObject("$TD", new TweetDeckBridge(this, notification));
+            this.browser.RegisterAsyncJsObject("$TDP", plugins.Bridge);
 
             Controls.Add(browser);
 
@@ -67,7 +67,7 @@ namespace TweetDck.Core{
 
             UpdateTrayIcon();
 
-            this.updates = new UpdateHandler(browser,this);
+            this.updates = new UpdateHandler(browser, this);
             this.updates.UpdateAccepted += updates_UpdateAccepted;
         }
 
@@ -82,13 +82,13 @@ namespace TweetDck.Core{
         }
 
         public FormNotification CreateNotificationForm(bool autoHide){
-            return new FormNotification(this,plugins,autoHide);
+            return new FormNotification(this, plugins, autoHide);
         }
 
         // window setup
 
         private void SetupWindow(){
-            Config.BrowserWindow.Restore(this,true);
+            Config.BrowserWindow.Restore(this, true);
             prevState = WindowState;
             isLoaded = true;
         }
@@ -108,11 +108,11 @@ namespace TweetDck.Core{
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             if (e.Frame.IsMain){
-                ScriptLoader.ExecuteFile(e.Frame,"code.js");
+                ScriptLoader.ExecuteFile(e.Frame, "code.js");
 
                 if (plugins.HasAnyPlugin(PluginEnvironment.Browser)){
-                    ScriptLoader.ExecuteFile(e.Frame,PluginManager.PluginBrowserScriptFile);
-                    plugins.ExecutePlugins(e.Frame,PluginEnvironment.Browser,true);
+                    ScriptLoader.ExecuteFile(e.Frame, PluginManager.PluginBrowserScriptFile);
+                    plugins.ExecutePlugins(e.Frame, PluginEnvironment.Browser, true);
                 }
             }
         }
@@ -135,7 +135,7 @@ namespace TweetDck.Core{
                     }
                 }
                 else{
-                    FormBrowser_ResizeEnd(sender,e);
+                    FormBrowser_ResizeEnd(sender, e);
                 }
             }
         }
@@ -185,7 +185,7 @@ namespace TweetDck.Core{
         }
 
         private void plugins_PluginChangedState(object sender, PluginChangedStateEventArgs e){
-            browser.ExecuteScriptAsync("window.TDPF_setPluginState",e.Plugin,e.IsEnabled ? 1 : 0); // ExecuteScriptAsync cannot handle boolean values as of yet
+            browser.ExecuteScriptAsync("window.TDPF_setPluginState", e.Plugin, e.IsEnabled ? 1 : 0); // ExecuteScriptAsync cannot handle boolean values as of yet
         }
 
         private void updates_UpdateAccepted(object sender, UpdateAcceptedEventArgs e){
@@ -209,12 +209,12 @@ namespace TweetDck.Core{
 
         protected override void WndProc(ref Message m){
             if (isLoaded && m.Msg == Program.WindowRestoreMessage){
-                trayIcon_ClickRestore(trayIcon,new EventArgs());
+                trayIcon_ClickRestore(trayIcon, new EventArgs());
                 return;
             }
 
             if (isLoaded && m.Msg == 0x210 && (m.WParam.ToInt32() & 0xFFFF) == 0x020B){ // WM_PARENTNOTIFY, WM_XBUTTONDOWN
-                browser.ExecuteScriptAsync("TDGF_onMouseClickExtra",(m.WParam.ToInt32() >> 16) & 0xFFFF);
+                browser.ExecuteScriptAsync("TDGF_onMouseClickExtra", (m.WParam.ToInt32() >> 16) & 0xFFFF);
                 return;
             }
 
@@ -230,7 +230,7 @@ namespace TweetDck.Core{
             else{
                 bool prevEnableUpdateCheck = Config.EnableUpdateCheck;
 
-                currentFormSettings = new FormSettings(this,updates);
+                currentFormSettings = new FormSettings(this, updates);
 
                 currentFormSettings.FormClosed += (sender, args) => {
                     currentFormSettings = null;
@@ -284,17 +284,17 @@ namespace TweetDck.Core{
             }
             else{
                 Point position = PointToClient(Cursor.Position);
-                position.Offset(20,10);
-                toolTip.Show(text,this,position);
+                position.Offset(20, 10);
+                toolTip.Show(text, this, position);
             }
         }
 
         public void OnImagePasted(){
-            browser.ExecuteScriptAsync("TDGF_tryPasteImage",new object[0]);
+            browser.ExecuteScriptAsync("TDGF_tryPasteImage", new object[0]);
         }
 
         public void OnImagePastedFinish(){
-            browser.ExecuteScriptAsync("TDGF_tryPasteImageFinish",new object[0]);
+            browser.ExecuteScriptAsync("TDGF_tryPasteImageFinish", new object[0]);
         }
 
         public void ReloadBrowser(){

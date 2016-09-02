@@ -45,7 +45,7 @@ namespace TweetDck.Core{
 
         private void trayIcon_MouseClick(object sender, MouseEventArgs e){
             if (e.Button == MouseButtons.Left){
-                restoreToolStripMenuItem_Click(sender,e);
+                restoreToolStripMenuItem_Click(sender, e);
             }
         }
 
@@ -60,7 +60,7 @@ namespace TweetDck.Core{
 
         private void restoreToolStripMenuItem_Click(object sender, EventArgs e){
             if (ClickRestore != null){
-                ClickRestore(this,e);
+                ClickRestore(this, e);
             }
         }
 
@@ -71,7 +71,7 @@ namespace TweetDck.Core{
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e){
             if (ClickClose != null){
-                ClickClose(this,e);
+                ClickClose(this, e);
             }
         }
     }

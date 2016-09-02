@@ -14,9 +14,9 @@ namespace TweetDck.Core.Controls{
             FlatAppearance.MouseDownBackColor = Color.White;
             FlatAppearance.MouseOverBackColor = Color.White;
             FlatStyle = FlatStyle.Flat;
-            Location = new Point(locationX,0);
+            Location = new Point(locationX, 0);
             Margin = new Padding(0);
-            Size = new Size(sizeWidth,30);
+            Size = new Size(sizeWidth, 30);
             Text = title;
             UseVisualStyleBackColor = true;
             ResumeLayout(true);

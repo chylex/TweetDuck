@@ -33,21 +33,21 @@ namespace TweetDck{
 
         public static readonly Version Version = new Version(VersionTag);
 
-        public static readonly string StoragePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),BrandName);
-        public static readonly string PluginPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"plugins");
-        public static readonly string TemporaryPath = Path.Combine(Path.GetTempPath(),BrandName);
-        public static readonly string ConfigFilePath = Path.Combine(StoragePath,"TD_UserConfig.cfg");
+        public static readonly string StoragePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), BrandName);
+        public static readonly string PluginPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "plugins");
+        public static readonly string TemporaryPath = Path.Combine(Path.GetTempPath(), BrandName);
+        public static readonly string ConfigFilePath = Path.Combine(StoragePath, "TD_UserConfig.cfg");
 
         public static uint WindowRestoreMessage;
 
-        private static readonly LockManager LockManager = new LockManager(Path.Combine(StoragePath,".lock"));
+        private static readonly LockManager LockManager = new LockManager(Path.Combine(StoragePath, ".lock"));
         private static bool HasCleanedUp;
         
         public static UserConfig UserConfig { get; private set; }
 
         public static string LogFile{
             get{
-                return Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"td-log.txt");
+                return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "td-log.txt");
             }
         }
 
@@ -66,7 +66,7 @@ namespace TweetDck{
                         break;
                     }
                     else if (attempt == 20){
-                        MessageBox.Show(BrandName+" is taking too long to close, please wait and then start the application again manually.",BrandName+" Cannot Restart",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                        MessageBox.Show(BrandName+" is taking too long to close, please wait and then start the application again manually.", BrandName+" Cannot Restart", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
                     else{
@@ -77,12 +77,12 @@ namespace TweetDck{
             else{
                 if (!LockManager.Lock()){
                     if (LockManager.LockingProcess.MainWindowHandle == IntPtr.Zero && LockManager.LockingProcess.Responding){ // restore if the original process is in tray
-                        NativeMethods.SendMessage(NativeMethods.HWND_BROADCAST,WindowRestoreMessage,0,IntPtr.Zero);
+                        NativeMethods.SendMessage(NativeMethods.HWND_BROADCAST, WindowRestoreMessage, 0, IntPtr.Zero);
                         return;
                     }
-                    else if (MessageBox.Show("Another instance of "+BrandName+" is already running.\r\nDo you want to close it?",BrandName+" is Already Running",MessageBoxButtons.YesNo,MessageBoxIcon.Error,MessageBoxDefaultButton.Button2) == DialogResult.Yes){
+                    else if (MessageBox.Show("Another instance of "+BrandName+" is already running.\r\nDo you want to close it?", BrandName+" is Already Running", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
                         if (!LockManager.CloseLockingProcess(10000)){
-                            MessageBox.Show("Could not close the other process.",BrandName+" Has Failed :(",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                            MessageBox.Show("Could not close the other process.", BrandName+" Has Failed :(", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
 
@@ -98,9 +98,9 @@ namespace TweetDck{
                         File.Delete(ExportManager.CookiesPath);
                     }
 
-                    File.Move(ExportManager.TempCookiesPath,ExportManager.CookiesPath);
+                    File.Move(ExportManager.TempCookiesPath, ExportManager.CookiesPath);
                 }catch(Exception e){
-                    HandleException("Could not import the cookie file to restore login session.",e);
+                    HandleException("Could not import the cookie file to restore login session.", e);
                 }
             }
 
@@ -111,7 +111,7 @@ namespace TweetDck{
             Cef.OnContextInitialized = () => {
                 using(IRequestContext ctx = Cef.GetGlobalRequestContext()){
                     string err;
-                    ctx.SetPreference("browser.enable_spellchecking",false,out err);
+                    ctx.SetPreference("browser.enable_spellchecking", false, out err);
                 }
             };
 
@@ -126,7 +126,7 @@ namespace TweetDck{
                 #endif
             };
 
-            CommandLineArgsParser.AddToDictionary(UserConfig.CustomCefArgs,settings.CefCommandLineArgs);
+            CommandLineArgsParser.AddToDictionary(UserConfig.CustomCefArgs, settings.CefCommandLineArgs);
 
             Cef.Initialize(settings);
 
@@ -134,13 +134,13 @@ namespace TweetDck{
                 Exception ex = args.ExceptionObject as Exception;
 
                 if (ex != null){
-                    HandleException("An unhandled exception has occurred.",ex);
+                    HandleException("An unhandled exception has occurred.", ex);
                 }
             };
 
             Application.ApplicationExit += (sender, args) => ExitCleanup();
 
-            PluginManager plugins = new PluginManager(PluginPath,UserConfig.Plugins);
+            PluginManager plugins = new PluginManager(PluginPath, UserConfig.Plugins);
             plugins.Reloaded += plugins_Reloaded;
             plugins.Config.PluginChangedState += (sender, args) => UserConfig.Save();
             plugins.Reload();
@@ -151,21 +151,21 @@ namespace TweetDck{
             if (mainForm.UpdateInstallerPath != null){
                 ExitCleanup();
 
-                Process.Start(mainForm.UpdateInstallerPath,"/SP- /SILENT /NOICONS /CLOSEAPPLICATIONS");
+                Process.Start(mainForm.UpdateInstallerPath, "/SP- /SILENT /NOICONS /CLOSEAPPLICATIONS");
                 Application.Exit();
             }
         }
 
         private static void plugins_Reloaded(object sender, PluginLoadEventArgs e){
             if (!e.Success){
-                MessageBox.Show("The following plugins will not be available until the issues are resolved:\n"+string.Join("\n",e.Errors),"Error Loading Plugins",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                MessageBox.Show("The following plugins will not be available until the issues are resolved:\n"+string.Join("\n", e.Errors), "Error Loading Plugins", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
         public static void HandleException(string message, Exception e){
             Log(e.ToString());
             
-            if (MessageBox.Show(message+"\r\nDo you want to open the log file to report the issue?",BrandName+" Has Failed :(",MessageBoxButtons.YesNo,MessageBoxIcon.Error,MessageBoxDefaultButton.Button2) == DialogResult.Yes){
+            if (MessageBox.Show(message+"\r\nDo you want to open the log file to report the issue?", BrandName+" Has Failed :(", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
                 Process.Start(LogFile);
             }
         }
@@ -181,7 +181,7 @@ namespace TweetDck{
             build.Append(data).Append("\r\n\r\n");
 
             try{
-                File.AppendAllText(LogFile,build.ToString(),Encoding.UTF8);
+                File.AppendAllText(LogFile, build.ToString(), Encoding.UTF8);
             }catch{
                 // oops
             }
@@ -196,7 +196,7 @@ namespace TweetDck{
                 File.Delete(ConfigFilePath);
                 File.Delete(UserConfig.GetBackupFile(ConfigFilePath));
             }catch(Exception e){
-                HandleException("Could not delete configuration files to reset the settings.",e);
+                HandleException("Could not delete configuration files to reset the settings.", e);
                 return;
             }
 
@@ -209,7 +209,7 @@ namespace TweetDck{
             UserConfig.Save();
 
             try{
-                Directory.Delete(TemporaryPath,true);
+                Directory.Delete(TemporaryPath, true);
             }catch(DirectoryNotFoundException){
             }catch(Exception e){
                 // welp, too bad

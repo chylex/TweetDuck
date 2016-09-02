@@ -54,7 +54,7 @@ namespace TweetDck.Core.Utils{
         public static extern IntPtr CallNextHookEx(IntPtr idHook, int nCode, IntPtr wParam, IntPtr lParam);
 
         public static void SetFormPos(Form form, int hWndOrder, uint flags){
-            SetWindowPos(form.Handle.ToInt32(),hWndOrder,form.Left,form.Top,form.Width,form.Height,flags);
+            SetWindowPos(form.Handle.ToInt32(), hWndOrder, form.Left, form.Top, form.Width, form.Height, flags);
         }
 
         public static void SimulateMouseClick(MouseButton button){
@@ -74,8 +74,8 @@ namespace TweetDck.Core.Utils{
                 default: return;
             }
 
-            mouse_event(flagHold,Cursor.Position.X,Cursor.Position.Y,0,0);
-            mouse_event(flagRelease,Cursor.Position.X,Cursor.Position.Y,0,0);
+            mouse_event(flagHold, Cursor.Position.X, Cursor.Position.Y, 0, 0);
+            mouse_event(flagRelease, Cursor.Position.X, Cursor.Position.Y, 0, 0);
         }
     }
 }

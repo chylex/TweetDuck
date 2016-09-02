@@ -2,18 +2,18 @@
 using System.Windows.Forms;
 
 namespace TweetDck.Core.Controls{
-    public partial class FlatProgressBar : ProgressBar{
+    sealed partial class FlatProgressBar : ProgressBar{
         private readonly SolidBrush brush;
 
         public FlatProgressBar(){
             brush = new SolidBrush(Color.White);
 
-            SetStyle(ControlStyles.UserPaint,true);
-            SetStyle(ControlStyles.OptimizedDoubleBuffer,true);
+            SetStyle(ControlStyles.UserPaint, true);
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
         }
 
         public void SetValueInstant(int value){
-            ControlExtensions.SetValueInstant(this,value);
+            ControlExtensions.SetValueInstant(this, value);
         }
 
         protected override void OnPaint(PaintEventArgs e){

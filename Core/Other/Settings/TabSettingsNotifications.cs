@@ -43,7 +43,7 @@ namespace TweetDck.Core.Other.Settings{
                 comboBoxDisplay.Items.Add(screen.DeviceName+" ("+screen.Bounds.Width+"x"+screen.Bounds.Height+")");
             }
 
-            comboBoxDisplay.SelectedIndex = Math.Min(comboBoxDisplay.Items.Count-1,Config.NotificationDisplay);
+            comboBoxDisplay.SelectedIndex = Math.Min(comboBoxDisplay.Items.Count-1, Config.NotificationDisplay);
 
             checkNotificationTimer.Checked = Config.DisplayNotificationTimer;
             checkTimerCountDown.Enabled = checkNotificationTimer.Checked;

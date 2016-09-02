@@ -30,7 +30,7 @@ namespace TweetDck.Plugins{
 
         private readonly string path;
         private readonly string identifier;
-        private readonly Dictionary<string,string> metadata = new Dictionary<string,string>(4){
+        private readonly Dictionary<string, string> metadata = new Dictionary<string, string>(4){
             { "NAME", "" },
             { "DESCRIPTION", "" },
             { "AUTHOR", "(anonymous)" },
@@ -51,7 +51,7 @@ namespace TweetDck.Plugins{
         public string GetScriptPath(PluginEnvironment environment){
             if (Environments.HasFlag(environment)){
                 string file = environment.GetScriptFile();
-                return file != null ? Path.Combine(path,file) : string.Empty;
+                return file != null ? Path.Combine(path, file) : string.Empty;
             }
             else{
                 return string.Empty;
@@ -72,13 +72,13 @@ namespace TweetDck.Plugins{
         }
 
         public static Plugin CreateFromFolder(string path, PluginGroup group, out string error){
-            Plugin plugin = new Plugin(path,group);
+            Plugin plugin = new Plugin(path, group);
 
-            if (!LoadMetadata(path,plugin,out error)){
+            if (!LoadMetadata(path, plugin, out error)){
                 return null;
             }
 
-            if (!LoadEnvironments(path,plugin,out error)){
+            if (!LoadEnvironments(path, plugin, out error)){
                 return null;
             }
 
@@ -87,8 +87,8 @@ namespace TweetDck.Plugins{
         }
 
         private static bool LoadEnvironments(string path, Plugin plugin, out string error){
-            foreach(string file in Directory.EnumerateFiles(path,"*.js",SearchOption.TopDirectoryOnly).Select(Path.GetFileName)){
-                PluginEnvironment environment = PluginEnvironmentExtensions.Values.FirstOrDefault(env => file.Equals(env.GetScriptFile(),StringComparison.Ordinal));
+            foreach(string file in Directory.EnumerateFiles(path, "*.js", SearchOption.TopDirectoryOnly).Select(Path.GetFileName)){
+                PluginEnvironment environment = PluginEnvironmentExtensions.Values.FirstOrDefault(env => file.Equals(env.GetScriptFile(), StringComparison.Ordinal));
 
                 if (environment != PluginEnvironment.None){
                     plugin.Environments |= environment;
@@ -111,14 +111,14 @@ namespace TweetDck.Plugins{
         private static readonly string[] endTag = { "[END]" };
 
         private static bool LoadMetadata(string path, Plugin plugin, out string error){
-            string metaFile = Path.Combine(path,".meta");
+            string metaFile = Path.Combine(path, ".meta");
 
             if (!File.Exists(metaFile)){
                 error = "Missing .meta file.";
                 return false;
             }
 
-            string[] lines = File.ReadAllLines(metaFile,Encoding.UTF8);
+            string[] lines = File.ReadAllLines(metaFile, Encoding.UTF8);
             string currentTag = null, currentContents = "";
 
             foreach(string line in lines.Concat(endTag).Select(line => line.TrimEnd()).Where(line => line.Length > 0)){
@@ -127,7 +127,7 @@ namespace TweetDck.Plugins{
                         plugin.metadata[currentTag] = currentContents;
                     }
 
-                    currentTag = line.Substring(1,line.Length-2).ToUpperInvariant();
+                    currentTag = line.Substring(1, line.Length-2).ToUpperInvariant();
                     currentContents = "";
 
                     if (line.Equals(endTag[0])){
@@ -155,7 +155,7 @@ namespace TweetDck.Plugins{
 
             Version ver;
 
-            if (plugin.RequiredVersion.Length == 0 || !(plugin.RequiredVersion.Equals("*") || System.Version.TryParse(plugin.RequiredVersion,out ver))){
+            if (plugin.RequiredVersion.Length == 0 || !(plugin.RequiredVersion.Equals("*") || System.Version.TryParse(plugin.RequiredVersion, out ver))){
                 error = "Plugin contains invalid version: "+plugin.RequiredVersion;
                 return false;
             }
@@ -165,7 +165,7 @@ namespace TweetDck.Plugins{
         }
 
         private static bool CheckRequiredVersion(string requires){
-            return requires.Equals("*",StringComparison.Ordinal) || Program.Version >= new Version(requires);
+            return requires.Equals("*", StringComparison.Ordinal) || Program.Version >= new Version(requires);
         }
     }
 }

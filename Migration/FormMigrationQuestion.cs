@@ -13,7 +13,7 @@ namespace TweetDck.Migration{
         }
 
         protected override void OnPaint(PaintEventArgs e){
-            e.Graphics.DrawIcon(SystemIcons.Question,10,10);
+            e.Graphics.DrawIcon(SystemIcons.Question, 10, 10);
             base.OnPaint(e);
         }
 

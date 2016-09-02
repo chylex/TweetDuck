@@ -33,7 +33,7 @@ namespace TweetDck.Core.Controls{
 
         public TabButton AddButton(string title, Action callback){
             TabButton button = new TabButton();
-            button.SetupButton((btnWidth-1)*panelButtons.Controls.Count,btnWidth,title,callback);
+            button.SetupButton((btnWidth-1)*panelButtons.Controls.Count, btnWidth, title, callback);
             button.Click += (sender, args) => SelectTab((TabButton)sender);
 
             panelButtons.Controls.Add(button);

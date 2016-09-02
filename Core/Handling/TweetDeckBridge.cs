@@ -96,7 +96,7 @@ namespace TweetDck.Core.Handling{
         public void OnTweetPopup(string tweetHtml, string tweetUrl, int tweetCharacters){
             notification.InvokeSafe(() => {
                 form.OnTweetNotification();
-                notification.ShowNotification(new TweetNotification(tweetHtml,tweetUrl,tweetCharacters));
+                notification.ShowNotification(new TweetNotification(tweetHtml, tweetUrl, tweetCharacters));
             });
         }
 
@@ -128,12 +128,12 @@ namespace TweetDck.Core.Handling{
                     try{
                         Directory.CreateDirectory(Program.TemporaryPath);
 
-                        ClipboardImagePath = Path.Combine(Program.TemporaryPath,"TD-Img-"+DateTime.Now.Ticks+".png");
-                        img.Save(ClipboardImagePath,ImageFormat.Png);
+                        ClipboardImagePath = Path.Combine(Program.TemporaryPath, "TD-Img-"+DateTime.Now.Ticks+".png");
+                        img.Save(ClipboardImagePath, ImageFormat.Png);
 
                         form.OnImagePasted();
                     }catch(Exception e){
-                        Program.HandleException("Could not paste image from clipboard.",e);
+                        Program.HandleException("Could not paste image from clipboard.", e);
                     }
                 }
             });
@@ -143,7 +143,7 @@ namespace TweetDck.Core.Handling{
             form.InvokeSafe(() => {
                 Point prevPos = Cursor.Position;
 
-                Cursor.Position = form.PointToScreen(new Point(offsetX,offsetY));
+                Cursor.Position = form.PointToScreen(new Point(offsetX, offsetY));
                 NativeMethods.SimulateMouseClick(NativeMethods.MouseButton.Left);
                 Cursor.Position = prevPos;
 

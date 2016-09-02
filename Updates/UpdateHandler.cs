@@ -19,29 +19,29 @@ namespace TweetDck.Updates{
             this.browser = browser;
             this.form = form;
             browser.FrameLoadEnd += browser_FrameLoadEnd;
-            browser.RegisterJsObject("$TDU",new Bridge(this));
+            browser.RegisterJsObject("$TDU", new Bridge(this));
         }
 
         private void browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             if (e.Frame.IsMain){
-                ScriptLoader.ExecuteFile(e.Frame,"update.js");
+                ScriptLoader.ExecuteFile(e.Frame, "update.js");
             }
         }
 
         public int Check(bool force){
-            browser.ExecuteScriptAsync("TDUF_runUpdateCheck",force,++lastEventId);
+            browser.ExecuteScriptAsync("TDUF_runUpdateCheck", force, ++lastEventId);
             return lastEventId;
         }
 
         private void TriggerUpdateAcceptedEvent(UpdateAcceptedEventArgs args){
             if (UpdateAccepted != null){
-                form.InvokeSafe(() => UpdateAccepted(this,args));
+                form.InvokeSafe(() => UpdateAccepted(this, args));
             }
         }
 
         private void TriggerCheckFinishedEvent(UpdateCheckEventArgs args){
             if (CheckFinished != null){
-                form.InvokeSafe(() => CheckFinished(this,args));
+                form.InvokeSafe(() => CheckFinished(this, args));
             }
         }
 
@@ -77,11 +77,11 @@ namespace TweetDck.Updates{
             }
 
             public void OnUpdateCheckFinished(int eventId, bool isUpdateAvailable, string latestVersion){
-                owner.TriggerCheckFinishedEvent(new UpdateCheckEventArgs(eventId,isUpdateAvailable,latestVersion));
+                owner.TriggerCheckFinishedEvent(new UpdateCheckEventArgs(eventId, isUpdateAvailable, latestVersion));
             }
 
             public void OnUpdateAccepted(string versionTag, string downloadUrl){
-                owner.TriggerUpdateAcceptedEvent(new UpdateAcceptedEventArgs(new UpdateInfo(versionTag,downloadUrl)));
+                owner.TriggerUpdateAcceptedEvent(new UpdateAcceptedEventArgs(new UpdateInfo(versionTag, downloadUrl)));
             }
 
             public void OnUpdateDismissed(string versionTag){

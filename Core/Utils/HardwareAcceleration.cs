@@ -3,8 +3,8 @@ using System.IO;
 
 namespace TweetDck.Core.Utils{
     static class HardwareAcceleration{
-        private static readonly string LibEGL = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"libEGL.dll");
-        private static readonly string LibGLES = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"libGLESv2.dll");
+        private static readonly string LibEGL = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "libEGL.dll");
+        private static readonly string LibGLES = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "libGLESv2.dll");
 
         private static readonly string DisabledLibEGL = LibEGL+".bak";
         private static readonly string DisabledLibGLES = LibGLES+".bak";
@@ -25,8 +25,8 @@ namespace TweetDck.Core.Utils{
             if (IsEnabled)return false;
 
             try{
-                File.Move(DisabledLibEGL,LibEGL);
-                File.Move(DisabledLibGLES,LibGLES);
+                File.Move(DisabledLibEGL, LibEGL);
+                File.Move(DisabledLibGLES, LibGLES);
                 return true;
             }catch{
                 return false;
@@ -49,8 +49,8 @@ namespace TweetDck.Core.Utils{
             }
 
             try{
-                File.Move(LibEGL,DisabledLibEGL);
-                File.Move(LibGLES,DisabledLibGLES);
+                File.Move(LibEGL, DisabledLibEGL);
+                File.Move(LibGLES, DisabledLibGLES);
                 return true;
             }catch{
                 return false;

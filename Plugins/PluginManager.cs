@@ -11,8 +11,8 @@ namespace TweetDck.Plugins{
         public const string PluginBrowserScriptFile = "plugins.browser.js";
         public const string PluginNotificationScriptFile = "plugins.notification.js";
 
-        public string PathOfficialPlugins { get { return Path.Combine(rootPath,"official"); } }
-        public string PathCustomPlugins { get { return Path.Combine(rootPath,"user"); } }
+        public string PathOfficialPlugins { get { return Path.Combine(rootPath, "official"); } }
+        public string PathCustomPlugins { get { return Path.Combine(rootPath, "user"); } }
 
         public IEnumerable<Plugin> Plugins { get { return plugins; } }
         public PluginConfig Config { get; private set; }
@@ -22,7 +22,7 @@ namespace TweetDck.Plugins{
 
         private readonly string rootPath;
         private readonly HashSet<Plugin> plugins = new HashSet<Plugin>();
-        private readonly Dictionary<int,Plugin> tokens = new Dictionary<int,Plugin>();
+        private readonly Dictionary<int, Plugin> tokens = new Dictionary<int, Plugin>();
         private readonly Random rand = new Random();
 
         private List<string> loadErrors;
@@ -47,7 +47,7 @@ namespace TweetDck.Plugins{
 
         public Plugin GetPluginFromToken(int token){
             Plugin plugin;
-            return tokens.TryGetValue(token,out plugin) ? plugin : null;
+            return tokens.TryGetValue(token, out plugin) ? plugin : null;
         }
 
         public void Reload(){
@@ -57,22 +57,22 @@ namespace TweetDck.Plugins{
 
             loadErrors = new List<string>(2);
             
-            foreach(Plugin plugin in LoadPluginsFrom(PathOfficialPlugins,PluginGroup.Official)){
+            foreach(Plugin plugin in LoadPluginsFrom(PathOfficialPlugins, PluginGroup.Official)){
                 plugins.Add(plugin);
             }
 
-            foreach(Plugin plugin in LoadPluginsFrom(PathCustomPlugins,PluginGroup.Custom)){
+            foreach(Plugin plugin in LoadPluginsFrom(PathCustomPlugins, PluginGroup.Custom)){
                 plugins.Add(plugin);
             }
 
             if (Reloaded != null && (loadErrors.Count > 0 || !prevPlugins.SetEquals(plugins))){
-                Reloaded(this,new PluginLoadEventArgs(loadErrors));
+                Reloaded(this, new PluginLoadEventArgs(loadErrors));
             }
         }
 
         public void ExecutePlugins(IFrame frame, PluginEnvironment environment, bool includeDisabled){
             if (includeDisabled){
-                ScriptLoader.ExecuteScript(frame,PluginScriptGenerator.GenerateConfig(Config),"gen:pluginconfig");
+                ScriptLoader.ExecuteScript(frame, PluginScriptGenerator.GenerateConfig(Config), "gen:pluginconfig");
             }
 
             foreach(Plugin plugin in Plugins){
@@ -98,14 +98,14 @@ namespace TweetDck.Plugins{
                     tokens[token] = plugin;
                 }
 
-                ScriptLoader.ExecuteScript(frame,PluginScriptGenerator.GeneratePlugin(plugin.Identifier,script,token,environment),"plugin:"+plugin);
+                ScriptLoader.ExecuteScript(frame, PluginScriptGenerator.GeneratePlugin(plugin.Identifier, script, token, environment), "plugin:"+plugin);
             }
         }
 
         private IEnumerable<Plugin> LoadPluginsFrom(string path, PluginGroup group){
-            foreach(string fullDir in Directory.EnumerateDirectories(path,"*",SearchOption.TopDirectoryOnly)){
+            foreach(string fullDir in Directory.EnumerateDirectories(path, "*", SearchOption.TopDirectoryOnly)){
                 string error;
-                Plugin plugin = Plugin.CreateFromFolder(fullDir,group,out error);
+                Plugin plugin = Plugin.CreateFromFolder(fullDir, group, out error);
 
                 if (plugin == null){
                     loadErrors.Add(group.GetIdentifierPrefix()+Path.GetFileName(fullDir)+": "+error);

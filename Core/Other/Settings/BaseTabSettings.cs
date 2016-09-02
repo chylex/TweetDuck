@@ -12,7 +12,7 @@ namespace TweetDck.Core.Other.Settings{
         public bool Ready { get; set; }
 
         public BaseTabSettings(){
-            Padding = new Padding(6,6,6,6);
+            Padding = new Padding(6);
         }
     }
 }

@@ -5,8 +5,8 @@ using System.Windows.Forms;
 
 namespace TweetDck.Core.Other.Settings.Export{
     sealed class ExportManager{
-        public static readonly string CookiesPath = Path.Combine(Program.StoragePath,"Cookies");
-        public static readonly string TempCookiesPath = Path.Combine(Program.StoragePath,"CookiesTmp");
+        public static readonly string CookiesPath = Path.Combine(Program.StoragePath, "Cookies");
+        public static readonly string TempCookiesPath = Path.Combine(Program.StoragePath, "CookiesTmp");
 
         public Exception LastException { get; private set; }
 
@@ -18,11 +18,11 @@ namespace TweetDck.Core.Other.Settings.Export{
 
         public bool Export(bool includeSession){
             try{
-                using(CombinedFileStream stream = new CombinedFileStream(new FileStream(file,FileMode.Create,FileAccess.Write,FileShare.None))){
-                    stream.WriteFile("config",Program.ConfigFilePath);
+                using(CombinedFileStream stream = new CombinedFileStream(new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None))){
+                    stream.WriteFile("config", Program.ConfigFilePath);
 
                     if (includeSession){
-                        stream.WriteFile("cookies",CookiesPath);
+                        stream.WriteFile("cookies", CookiesPath);
                     }
 
                     stream.Flush();
@@ -37,7 +37,7 @@ namespace TweetDck.Core.Other.Settings.Export{
 
         public bool Import(){
             try{
-                using(CombinedFileStream stream = new CombinedFileStream(new FileStream(file,FileMode.Open,FileAccess.Read,FileShare.None))){
+                using(CombinedFileStream stream = new CombinedFileStream(new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.None))){
                     CombinedFileStream.Entry entry;
 
                     while((entry = stream.ReadFile()) != null){
@@ -48,11 +48,11 @@ namespace TweetDck.Core.Other.Settings.Export{
                                 break;
 
                             case "cookies":
-                                if (MessageBox.Show("Do you want to import the login session? This will restart "+Program.BrandName+".","Importing "+Program.BrandName+" Settings",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2) == DialogResult.Yes){
-                                    entry.WriteToFile(Path.Combine(Program.StoragePath,TempCookiesPath));
+                                if (MessageBox.Show("Do you want to import the login session? This will restart "+Program.BrandName+".", "Importing "+Program.BrandName+" Settings", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
+                                    entry.WriteToFile(Path.Combine(Program.StoragePath, TempCookiesPath));
 
                                     // okay to and restart, 'cookies' is always the last entry
-                                    Process.Start(Application.ExecutablePath,"-restart -importcookies");
+                                    Process.Start(Application.ExecutablePath, "-restart -importcookies");
                                     Application.Exit();
                                 }
 

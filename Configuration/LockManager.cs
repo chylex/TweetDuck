@@ -4,7 +4,7 @@ using System.IO;
 using System.Threading;
 
 namespace TweetDck.Configuration{
-    class LockManager{
+    sealed class LockManager{
         public Process LockingProcess { get; private set; }
 
         private readonly string file;
@@ -20,10 +20,10 @@ namespace TweetDck.Configuration{
             }
 
             try{
-                lockStream = new FileStream(file,FileMode.Create,FileAccess.Write,FileShare.Read);
+                lockStream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.Read);
 
                 byte[] id = BitConverter.GetBytes(Process.GetCurrentProcess().Id);
-                lockStream.Write(id,0,id.Length);
+                lockStream.Write(id, 0, id.Length);
                 lockStream.Flush();
 
                 if (LockingProcess != null){
@@ -48,11 +48,11 @@ namespace TweetDck.Configuration{
             try{
                 byte[] bytes = new byte[4];
 
-                using(FileStream fileStream = new FileStream(file,FileMode.Open,FileAccess.Read,FileShare.ReadWrite)){
-                    fileStream.Read(bytes,0,4);
+                using(FileStream fileStream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)){
+                    fileStream.Read(bytes, 0, 4);
                 }
 
-                int pid = BitConverter.ToInt32(bytes,0);
+                int pid = BitConverter.ToInt32(bytes, 0);
 
                 try{
                     Process foundProcess = Process.GetProcessById(pid);

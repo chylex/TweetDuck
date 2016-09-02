@@ -25,34 +25,34 @@ namespace TweetDck.Core.Handling{
             RemoveSeparatorIfLast(model);
 
             if (!string.IsNullOrEmpty(TweetDeckBridge.LastHighlightedTweet)){
-                model.AddItem((CefMenuCommand)MenuCopyTweetUrl,"Copy tweet address");
+                model.AddItem((CefMenuCommand)MenuCopyTweetUrl, "Copy tweet address");
 
                 if (!string.IsNullOrEmpty(TweetDeckBridge.LastHighlightedTweetEmbedded)){
-                    model.AddItem((CefMenuCommand)MenuCopyTweetEmbeddedUrl,"Copy quoted tweet address");
+                    model.AddItem((CefMenuCommand)MenuCopyTweetEmbeddedUrl, "Copy quoted tweet address");
                 }
 
                 model.AddSeparator();
             }
 
-            base.OnBeforeContextMenu(browserControl,browser,frame,parameters,model);
+            base.OnBeforeContextMenu(browserControl, browser, frame, parameters, model);
 
             if (model.Count > 0){
                 RemoveSeparatorIfLast(model);
                 model.AddSeparator();
             }
             
-            model.AddItem(CefMenuCommand.Reload,"Reload");
-            model.AddCheckItem((CefMenuCommand)MenuMute,"Mute notifications");
-            model.SetChecked((CefMenuCommand)MenuMute,Program.UserConfig.MuteNotifications);
+            model.AddItem(CefMenuCommand.Reload, "Reload");
+            model.AddCheckItem((CefMenuCommand)MenuMute, "Mute notifications");
+            model.SetChecked((CefMenuCommand)MenuMute, Program.UserConfig.MuteNotifications);
             model.AddSeparator();
 
-            model.AddItem((CefMenuCommand)MenuSettings,"Settings");
-            model.AddItem((CefMenuCommand)MenuPlugins,"Plugins");
-            model.AddItem((CefMenuCommand)MenuAbout,"About "+Program.BrandName);
+            model.AddItem((CefMenuCommand)MenuSettings, "Settings");
+            model.AddItem((CefMenuCommand)MenuPlugins, "Plugins");
+            model.AddItem((CefMenuCommand)MenuAbout, "About "+Program.BrandName);
         }
 
         public override bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags){
-            if (base.OnContextMenuCommand(browserControl,browser,frame,parameters,commandId,eventFlags)){
+            if (base.OnContextMenuCommand(browserControl, browser, frame, parameters, commandId, eventFlags)){
                 return true;
             }
 
@@ -82,11 +82,11 @@ namespace TweetDck.Core.Handling{
                     return true;
 
                 case MenuCopyTweetUrl:
-                    Clipboard.SetText(TweetDeckBridge.LastHighlightedTweet,TextDataFormat.UnicodeText);
+                    Clipboard.SetText(TweetDeckBridge.LastHighlightedTweet, TextDataFormat.UnicodeText);
                     return true;
 
                 case MenuCopyTweetEmbeddedUrl:
-                    Clipboard.SetText(TweetDeckBridge.LastHighlightedTweetEmbedded,TextDataFormat.UnicodeText);
+                    Clipboard.SetText(TweetDeckBridge.LastHighlightedTweetEmbedded, TextDataFormat.UnicodeText);
                     return true;
             }
 

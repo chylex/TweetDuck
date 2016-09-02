@@ -5,12 +5,12 @@ using Microsoft.Win32;
 namespace TweetDck.Migration.Helpers{
     static class ProgramRegistrySearch{
         public static string FindByDisplayName(string displayName){
-            Predicate<RegistryKey> predicate = key => displayName.Equals(key.GetValue("DisplayName") as string,StringComparison.OrdinalIgnoreCase);
+            Predicate<RegistryKey> predicate = key => displayName.Equals(key.GetValue("DisplayName") as string, StringComparison.OrdinalIgnoreCase);
             string guid;
 
-            return FindMatchingSubKey(Registry.LocalMachine,@"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall",predicate,out guid) ||
-                   FindMatchingSubKey(Registry.LocalMachine,@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall",predicate,out guid) ||
-                   FindMatchingSubKey(Registry.CurrentUser,@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall",predicate,out guid)
+            return FindMatchingSubKey(Registry.LocalMachine, @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall", predicate, out guid) ||
+                   FindMatchingSubKey(Registry.LocalMachine, @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall", predicate, out guid) ||
+                   FindMatchingSubKey(Registry.CurrentUser, @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall", predicate, out guid)
                    ? guid : null;
         }
 
@@ -18,10 +18,10 @@ namespace TweetDck.Migration.Helpers{
             string outputId = null;
 
             try{
-                RegistryKey parentKey = keyHandle.OpenSubKey(path,false);
+                RegistryKey parentKey = keyHandle.OpenSubKey(path, false);
                 if (parentKey == null)throw new InvalidOperationException();
 
-                foreach(RegistryKey subKey in parentKey.GetSubKeyNames().Select(subName => parentKey.OpenSubKey(subName,false)).Where(subKey => subKey != null)){
+                foreach(RegistryKey subKey in parentKey.GetSubKeyNames().Select(subName => parentKey.OpenSubKey(subName, false)).Where(subKey => subKey != null)){
                     if (predicate(subKey)){
                         outputId = subKey.Name.Substring(subKey.Name.LastIndexOf('\\')+1);
                         subKey.Close();

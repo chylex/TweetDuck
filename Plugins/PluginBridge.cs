@@ -7,7 +7,7 @@ using TweetDck.Plugins.Events;
 namespace TweetDck.Plugins{
     class PluginBridge{
         private readonly PluginManager manager;
-        private readonly Dictionary<string,string> fileCache = new Dictionary<string,string>(2);
+        private readonly Dictionary<string, string> fileCache = new Dictionary<string, string>(2);
 
         public PluginBridge(PluginManager manager){
             this.manager = manager;
@@ -25,7 +25,7 @@ namespace TweetDck.Plugins{
                 return string.Empty;
             }
 
-            string fullPath = Path.Combine(plugin.FolderPath,path);
+            string fullPath = Path.Combine(plugin.FolderPath, path);
 
             try{
                 string folderPathName = new DirectoryInfo(plugin.FolderPath).FullName;
@@ -47,7 +47,7 @@ namespace TweetDck.Plugins{
         }
 
         public void WriteFile(int token, string path, string contents){
-            string fullPath = GetFullPathIfSafe(token,path);
+            string fullPath = GetFullPathIfSafe(token, path);
 
             if (fullPath == string.Empty){
                 throw new Exception("File path has to be relative to the plugin folder.");
@@ -56,12 +56,12 @@ namespace TweetDck.Plugins{
             // ReSharper disable once AssignNullToNotNullAttribute
             Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
 
-            File.WriteAllText(fullPath,contents,Encoding.UTF8);
+            File.WriteAllText(fullPath, contents, Encoding.UTF8);
             fileCache[fullPath] = contents;
         }
 
         public string ReadFile(int token, string path, bool cache){
-            string fullPath = GetFullPathIfSafe(token,path);
+            string fullPath = GetFullPathIfSafe(token, path);
 
             if (fullPath == string.Empty){
                 throw new Exception("File path has to be relative to the plugin folder.");
@@ -69,15 +69,15 @@ namespace TweetDck.Plugins{
 
             string cachedContents;
             
-            if (cache && fileCache.TryGetValue(fullPath,out cachedContents)){
+            if (cache && fileCache.TryGetValue(fullPath, out cachedContents)){
                 return cachedContents;
             }
 
-            return fileCache[fullPath] = File.ReadAllText(fullPath,Encoding.UTF8);
+            return fileCache[fullPath] = File.ReadAllText(fullPath, Encoding.UTF8);
         }
 
         public void DeleteFile(int token, string path){
-            string fullPath = GetFullPathIfSafe(token,path);
+            string fullPath = GetFullPathIfSafe(token, path);
 
             if (fullPath == string.Empty){
                 throw new Exception("File path has to be relative to the plugin folder.");

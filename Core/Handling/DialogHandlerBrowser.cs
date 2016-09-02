@@ -12,7 +12,7 @@ namespace TweetDck.Core.Handling{
 
         public bool OnFileDialog(IWebBrowser browserControl, IBrowser browser, CefFileDialogMode mode, string title, string defaultFilePath, List<string> acceptFilters, int selectedAcceptFilter, IFileDialogCallback callback){
             if (!string.IsNullOrEmpty(TweetDeckBridge.ClipboardImagePath)){
-                callback.Continue(selectedAcceptFilter,new List<string>{ TweetDeckBridge.ClipboardImagePath });
+                callback.Continue(selectedAcceptFilter, new List<string>{ TweetDeckBridge.ClipboardImagePath });
 
                 form.InvokeSafe(() => {
                     TweetDeckBridge.ClipboardImagePath = string.Empty;

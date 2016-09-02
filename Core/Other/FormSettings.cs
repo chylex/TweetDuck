@@ -8,7 +8,7 @@ using TweetDck.Updates;
 
 namespace TweetDck.Core.Other{
     sealed partial class FormSettings : Form{
-        private readonly Dictionary<Type,BaseTabSettings> tabs = new Dictionary<Type,BaseTabSettings>(4);
+        private readonly Dictionary<Type, BaseTabSettings> tabs = new Dictionary<Type, BaseTabSettings>(4);
 
         public FormSettings(FormBrowser browserForm, UpdateHandler updates){
             InitializeComponent();
@@ -16,10 +16,10 @@ namespace TweetDck.Core.Other{
             Text = Program.BrandName+" Settings";
 
             this.tabPanel.SetupTabPanel(100);
-            this.tabPanel.AddButton("General",SelectTab<TabSettingsGeneral>);
-            this.tabPanel.AddButton("Notifications",() => SelectTab(() => new TabSettingsNotifications(browserForm.CreateNotificationForm(false))));
-            this.tabPanel.AddButton("Updates",() => SelectTab(() => new TabSettingsUpdates(updates)));
-            this.tabPanel.AddButton("Advanced",() => SelectTab(() => new TabSettingsAdvanced(browserForm.ReloadBrowser)));
+            this.tabPanel.AddButton("General", SelectTab<TabSettingsGeneral>);
+            this.tabPanel.AddButton("Notifications", () => SelectTab(() => new TabSettingsNotifications(browserForm.CreateNotificationForm(false))));
+            this.tabPanel.AddButton("Updates", () => SelectTab(() => new TabSettingsUpdates(updates)));
+            this.tabPanel.AddButton("Advanced", () => SelectTab(() => new TabSettingsAdvanced(browserForm.ReloadBrowser)));
             this.tabPanel.SelectTab(tabPanel.Buttons.First());
         }
 
@@ -30,7 +30,7 @@ namespace TweetDck.Core.Other{
         private void SelectTab<T>(Func<T> constructor) where T : BaseTabSettings{
             BaseTabSettings control;
 
-            if (tabs.TryGetValue(typeof(T),out control)){
+            if (tabs.TryGetValue(typeof(T), out control)){
                 tabPanel.ReplaceContent(control);
             }
             else{

@@ -13,16 +13,16 @@ namespace TweetDck.Core.Handling{
         private const int MenuCopyImageUrl = 26504;
 
         public virtual void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model){
-            if (parameters.TypeFlags.HasFlag(ContextMenuType.Link) && !parameters.UnfilteredLinkUrl.EndsWith("tweetdeck.twitter.com/#",StringComparison.Ordinal)){
-                model.AddItem((CefMenuCommand)MenuOpenUrlInBrowser,"Open in browser");
-                model.AddItem((CefMenuCommand)MenuCopyUrl,"Copy link address");
+            if (parameters.TypeFlags.HasFlag(ContextMenuType.Link) && !parameters.UnfilteredLinkUrl.EndsWith("tweetdeck.twitter.com/#", StringComparison.Ordinal)){
+                model.AddItem((CefMenuCommand)MenuOpenUrlInBrowser, "Open in browser");
+                model.AddItem((CefMenuCommand)MenuCopyUrl, "Copy link address");
                 model.AddSeparator();
             }
 
             if (parameters.TypeFlags.HasFlag(ContextMenuType.Media) && parameters.HasImageContents){
-                model.AddItem((CefMenuCommand)MenuOpenImageInBrowser,"Open image in browser");
-                model.AddItem((CefMenuCommand)MenuSaveImage,"Save image as...");
-                model.AddItem((CefMenuCommand)MenuCopyImageUrl,"Copy image URL");
+                model.AddItem((CefMenuCommand)MenuOpenImageInBrowser, "Open image in browser");
+                model.AddItem((CefMenuCommand)MenuSaveImage, "Save image as...");
+                model.AddItem((CefMenuCommand)MenuCopyImageUrl, "Copy image URL");
                 model.AddSeparator();
             }
         }
@@ -34,7 +34,7 @@ namespace TweetDck.Core.Handling{
                     break;
 
                 case MenuCopyUrl:
-                    Clipboard.SetText(string.IsNullOrEmpty(TweetDeckBridge.LastRightClickedLink) ? parameters.UnfilteredLinkUrl : TweetDeckBridge.LastRightClickedLink,TextDataFormat.UnicodeText);
+                    Clipboard.SetText(string.IsNullOrEmpty(TweetDeckBridge.LastRightClickedLink) ? parameters.UnfilteredLinkUrl : TweetDeckBridge.LastRightClickedLink, TextDataFormat.UnicodeText);
                     break;
 
                 case MenuOpenImageInBrowser:
@@ -57,15 +57,15 @@ namespace TweetDck.Core.Handling{
                     }
 
                     if (saveTarget != null){
-                        BrowserUtils.DownloadFileAsync(parameters.SourceUrl,saveTarget,ex => {
-                            MessageBox.Show("An error occurred while downloading the image: "+ex.Message,Program.BrandName+" Has Failed :(",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                        BrowserUtils.DownloadFileAsync(parameters.SourceUrl, saveTarget, ex => {
+                            MessageBox.Show("An error occurred while downloading the image: "+ex.Message, Program.BrandName+" Has Failed :(", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         });
                     }
 
                     break;
 
                 case MenuCopyImageUrl:
-                    Clipboard.SetText(parameters.SourceUrl,TextDataFormat.UnicodeText);
+                    Clipboard.SetText(parameters.SourceUrl, TextDataFormat.UnicodeText);
                     break;
             }
 
@@ -89,10 +89,10 @@ namespace TweetDck.Core.Handling{
             int dot = url.LastIndexOf('.');
 
             if (dot != -1){
-                int colon = url.IndexOf(':',dot);
+                int colon = url.IndexOf(':', dot);
             
                 if (colon != -1){
-                    url = url.Substring(0,colon);
+                    url = url.Substring(0, colon);
                 }
             }
 

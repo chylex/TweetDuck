@@ -3,7 +3,7 @@
 namespace TweetDck.Plugins{
     static class PluginScriptGenerator{
         public static string GenerateConfig(PluginConfig config){
-            return config.AnyDisabled ? "window.TD_PLUGINS.disabled = [\""+string.Join("\",\"",config.DisabledPlugins)+"\"];" : string.Empty;
+            return config.AnyDisabled ? "window.TD_PLUGINS.disabled = [\""+string.Join("\",\"", config.DisabledPlugins)+"\"];" : string.Empty;
         }
 
         public static string GeneratePlugin(string pluginIdentifier, string pluginContents, int pluginToken, PluginEnvironment environment){

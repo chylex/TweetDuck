@@ -50,7 +50,7 @@ namespace TweetDck.Core.Handling{
                 build.Append(@"<div class='tweet-body'><p class='js-tweet-text tweet-text with-linebreaks'>This is an example tweet, which lets you test the location and duration of popup notifications.</p></div>");
                 build.Append(@"</div></div></article>");
 
-                return new TweetNotification(build.ToString(),"",95);
+                return new TweetNotification(build.ToString(), "", 95);
             }
         }
 
@@ -87,7 +87,7 @@ namespace TweetDck.Core.Handling{
         }
 
         public int GetDisplayDuration(int value){
-            return 2000+Math.Max(1000,value*characters);
+            return 2000+Math.Max(1000, value*characters);
         }
 
         public string GenerateHtml(){

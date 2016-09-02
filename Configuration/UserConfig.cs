@@ -65,7 +65,7 @@ namespace TweetDck.Configuration{
                 muteNotifications = value;
 
                 if (MuteToggled != null){
-                    MuteToggled(this,new EventArgs());
+                    MuteToggled(this, new EventArgs());
                 }
             }
         }
@@ -81,7 +81,7 @@ namespace TweetDck.Configuration{
                 trayBehavior = value;
 
                 if (TrayBehaviorChanged != null){
-                    TrayBehaviorChanged(this,new EventArgs());
+                    TrayBehaviorChanged(this, new EventArgs());
                 }
             }
         }
@@ -108,7 +108,7 @@ namespace TweetDck.Configuration{
             DisplayNotificationTimer = true;
             NotificationDuration = TweetNotification.Duration.Medium;
             NotificationPosition = TweetNotification.Position.TopRight;
-            CustomNotificationPosition = new Point(-32000,-32000);
+            CustomNotificationPosition = new Point(-32000, -32000);
             NotificationEdgeDistance = 8;
             NotificationDurationValue = 25;
             EnableUpdateCheck = true;
@@ -170,16 +170,16 @@ namespace TweetDck.Configuration{
                 if (File.Exists(file)){
                     string backupFile = GetBackupFile(file);
                     File.Delete(backupFile);
-                    File.Move(file,backupFile);
+                    File.Move(file, backupFile);
                 }
 
-                using(Stream stream = new FileStream(file,FileMode.Create,FileAccess.Write,FileShare.None)){
-                    Formatter.Serialize(stream,this);
+                using(Stream stream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None)){
+                    Formatter.Serialize(stream, this);
                 }
 
                 return true;
             }catch(Exception e){
-                Program.HandleException("Could not save the configuration file.",e);
+                Program.HandleException("Could not save the configuration file.", e);
                 return false;
             }
         }
@@ -189,7 +189,7 @@ namespace TweetDck.Configuration{
 
             for(int attempt = 0; attempt < 2; attempt++){
                 try{
-                    using(Stream stream = new FileStream(attempt == 0 ? file : GetBackupFile(file),FileMode.Open,FileAccess.Read,FileShare.Read)){
+                    using(Stream stream = new FileStream(attempt == 0 ? file : GetBackupFile(file), FileMode.Open, FileAccess.Read, FileShare.Read)){
                         if ((config = Formatter.Deserialize(stream) as UserConfig) != null){
                             config.file = file;
                         }
@@ -202,7 +202,7 @@ namespace TweetDck.Configuration{
                     break;
                 }catch(FileNotFoundException){
                 }catch(Exception e){
-                    Program.HandleException("Could not open the configuration file.",e);
+                    Program.HandleException("Could not open the configuration file.", e);
                 }
             }
 
@@ -216,13 +216,13 @@ namespace TweetDck.Configuration{
         private class SerializationCompatibilityHandler : SerializationBinder{
             public override Type BindToType(string assemblyName, string typeName){
                 #if DUCK
-                assemblyName = assemblyName.Replace("TweetDick","TweetDuck");
+                assemblyName = assemblyName.Replace("TweetDick", "TweetDuck");
                 #else
-                assemblyName = assemblyName.Replace("TweetDuck","TweetDick");
+                assemblyName = assemblyName.Replace("TweetDuck", "TweetDick");
                 #endif
 
-                typeName = typeName.Replace("TweetDick","TweetDck");
-                return Type.GetType(string.Format(CultureInfo.CurrentCulture,"{0}, {1}",typeName,assemblyName));
+                typeName = typeName.Replace("TweetDick", "TweetDck");
+                return Type.GetType(string.Format(CultureInfo.CurrentCulture, "{0},  {1}", typeName, assemblyName));
             }
         }
     }

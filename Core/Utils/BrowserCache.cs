@@ -8,13 +8,13 @@ namespace TweetDck.Core.Utils{
     static class BrowserCache{
         private static bool ClearOnExit { get; set; }
 
-        private static readonly string IndexFile = Path.Combine(Program.StoragePath,"index");
+        private static readonly string IndexFile = Path.Combine(Program.StoragePath, "index");
 
         private static IEnumerable<string> CacheFiles{
             get{
                 return Directory.EnumerateFiles(Program.StoragePath).Where(path => {
                     string file = Path.GetFileName(path);
-                    return file != null && (file.StartsWith("data_",StringComparison.Ordinal) || file.StartsWith("f_",StringComparison.Ordinal));
+                    return file != null && (file.StartsWith("data_", StringComparison.Ordinal) || file.StartsWith("f_", StringComparison.Ordinal));
                 }).Concat(new[]{ IndexFile });
             }
         }
@@ -30,7 +30,7 @@ namespace TweetDck.Core.Utils{
                 }).Sum();
             });
             
-            task.ContinueWith(originalTask => callbackBytes(originalTask.Exception == null ? originalTask.Result : -1L),TaskContinuationOptions.ExecuteSynchronously);
+            task.ContinueWith(originalTask => callbackBytes(originalTask.Exception == null ? originalTask.Result : -1L), TaskContinuationOptions.ExecuteSynchronously);
             task.Start();
         }
 

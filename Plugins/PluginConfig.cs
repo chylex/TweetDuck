@@ -25,7 +25,7 @@ namespace TweetDck.Plugins{
         public void SetEnabled(Plugin plugin, bool enabled){
             if ((enabled && Disabled.Remove(plugin.Identifier)) || (!enabled && Disabled.Add(plugin.Identifier))){
                 if (PluginChangedState != null){
-                    PluginChangedState(this,new PluginChangedStateEventArgs(plugin,enabled));
+                    PluginChangedState(this, new PluginChangedStateEventArgs(plugin, enabled));
                 }
             }
         }

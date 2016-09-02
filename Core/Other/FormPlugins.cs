@@ -28,14 +28,14 @@ namespace TweetDck.Core.Other{
             this.tabPanelPlugins.SetupTabPanel(90);
             this.tabPanelPlugins.ReplaceContent(flowLayoutPlugins);
 
-            this.tabBtnOfficial = tabPanelPlugins.AddButton("",() => SelectGroup(PluginGroup.Official));
-            this.tabBtnCustom = tabPanelPlugins.AddButton("",() => SelectGroup(PluginGroup.Custom));
+            this.tabBtnOfficial = tabPanelPlugins.AddButton("", () => SelectGroup(PluginGroup.Official));
+            this.tabBtnCustom = tabPanelPlugins.AddButton("", () => SelectGroup(PluginGroup.Custom));
 
             this.tabPanelPlugins.SelectTab(tabBtnOfficial);
-            this.pluginManager_Reloaded(pluginManager,null);
+            this.pluginManager_Reloaded(pluginManager, null);
 
             Shown += (sender, args) => {
-                Program.UserConfig.PluginsWindow.Restore(this,false);
+                Program.UserConfig.PluginsWindow.Restore(this, false);
             };
 
             FormClosed += (sender, args) => {
@@ -59,10 +59,10 @@ namespace TweetDck.Core.Other{
             flowLayoutPlugins.Controls.Clear();
 
             foreach(Plugin plugin in pluginManager.GetPluginsByGroup(selectedGroup.Value)){
-                flowLayoutPlugins.Controls.Add(new PluginControl(pluginManager,plugin));
+                flowLayoutPlugins.Controls.Add(new PluginControl(pluginManager, plugin));
             }
 
-            flowLayoutPlugins_Resize(flowLayoutPlugins,new EventArgs());
+            flowLayoutPlugins_Resize(flowLayoutPlugins, new EventArgs());
             flowLayoutPlugins.ResumeLayout(true);
         }
 
@@ -80,7 +80,7 @@ namespace TweetDck.Core.Other{
         }
 
         private void btnOpenFolder_Click(object sender, EventArgs e){
-            using(Process.Start("explorer.exe","\""+pluginManager.PathCustomPlugins+"\"")){}
+            using(Process.Start("explorer.exe", "\""+pluginManager.PathCustomPlugins+"\"")){}
         }
 
         private void btnReload_Click(object sender, EventArgs e){

@@ -13,9 +13,9 @@ namespace TweetDck.Core.Other{
 
             labelDescription.Text = Program.BrandName+" was created by chylex as a replacement to the discontinued official TweetDeck client for Windows.\n\nThe program is available for free under the open source MIT license.";
             
-            labelWebsite.Links.Add(new LinkLabel.Link(0,labelWebsite.Text.Length,Program.Website));
-            labelSourceCode.Links.Add(new LinkLabel.Link(0,labelSourceCode.Text.Length,GitHubLink));
-            labelIssues.Links.Add(new LinkLabel.Link(0,labelIssues.Text.Length,IssuesLink));
+            labelWebsite.Links.Add(new LinkLabel.Link(0, labelWebsite.Text.Length, Program.Website));
+            labelSourceCode.Links.Add(new LinkLabel.Link(0, labelSourceCode.Text.Length, GitHubLink));
+            labelIssues.Links.Add(new LinkLabel.Link(0, labelIssues.Text.Length, IssuesLink));
         }
 
         private void OnLinkClicked(object sender, LinkLabelLinkClickedEventArgs e){

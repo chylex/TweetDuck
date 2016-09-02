@@ -95,14 +95,14 @@ namespace TweetDck.Core{
             pluginJS = ScriptLoader.LoadResource(PluginManager.PluginNotificationScriptFile);
 
             browser = new ChromiumWebBrowser("about:blank"){
-                MenuHandler = new ContextMenuNotification(this,autoHide),
+                MenuHandler = new ContextMenuNotification(this, autoHide),
                 LifeSpanHandler = new LifeSpanHandler()
             };
 
             browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
             browser.FrameLoadEnd += Browser_FrameLoadEnd;
-            browser.RegisterJsObject("$TD",new TweetDeckBridge(owner,this));
-            browser.RegisterAsyncJsObject("$TDP",plugins.Bridge);
+            browser.RegisterJsObject("$TD", new TweetDeckBridge(owner, this));
+            browser.RegisterAsyncJsObject("$TDP", plugins.Bridge);
 
             panelBrowser.Controls.Add(browser);
 
@@ -112,7 +112,7 @@ namespace TweetDck.Core{
             }
 
             mouseHookDelegate = MouseHookProc;
-            mouseHook = NativeMethods.SetWindowsHookEx(NativeMethods.WH_MOUSE_LL,mouseHookDelegate,IntPtr.Zero,0);
+            mouseHook = NativeMethods.SetWindowsHookEx(NativeMethods.WH_MOUSE_LL, mouseHookDelegate, IntPtr.Zero, 0);
 
             Disposed += FormNotification_Disposed;
         }
@@ -129,12 +129,12 @@ namespace TweetDck.Core{
             if (!ContainsFocus && wParam.ToInt32() == NativeMethods.WH_MOUSEWHEEL && browser.Bounds.Contains(PointToClient(Cursor.Position))){
                 // fuck it, Activate() doesn't work with this
                 Point prevPos = Cursor.Position;
-                Cursor.Position = PointToScreen(new Point(-1,-1));
+                Cursor.Position = PointToScreen(new Point(-1, -1));
                 NativeMethods.SimulateMouseClick(NativeMethods.MouseButton.Left);
                 Cursor.Position = prevPos;
             }
 
-            return NativeMethods.CallNextHookEx(mouseHook,nCode,wParam,lParam);
+            return NativeMethods.CallNextHookEx(mouseHook, nCode, wParam, lParam);
         }
 
         // event handlers
@@ -145,7 +145,7 @@ namespace TweetDck.Core{
             timeLeft -= timerProgress.Interval;
 
             int value = (int)Math.Round(1025.0*(totalTime-timeLeft)/totalTime);
-            progressBarTimer.SetValueInstant(Math.Min(1000,Math.Max(0,Program.UserConfig.NotificationTimerCountDown ? 1000-value : value)));
+            progressBarTimer.SetValueInstant(Math.Min(1000, Math.Max(0, Program.UserConfig.NotificationTimerCountDown ? 1000-value : value)));
 
             if (timeLeft <= 0){
                 FinishCurrentTweet();
@@ -163,7 +163,7 @@ namespace TweetDck.Core{
 
         private void Browser_IsBrowserInitializedChanged(object sender, IsBrowserInitializedChangedEventArgs e){
             if (e.IsBrowserInitialized && Initialized != null){
-                Initialized(this,new EventArgs());
+                Initialized(this, new EventArgs());
             }
         }
 
@@ -174,15 +174,15 @@ namespace TweetDck.Core{
                 isInitialized = true;
 
                 if (Initialized != null){
-                    Initialized(this,new EventArgs());
+                    Initialized(this, new EventArgs());
                 }
             }
             else if (notificationJS != null && browser.Address != "about:blank"){
-                ScriptLoader.ExecuteScript(e.Frame,notificationJS,NotificationScriptIdentifier);
+                ScriptLoader.ExecuteScript(e.Frame, notificationJS, NotificationScriptIdentifier);
 
                 if (plugins.HasAnyPlugin(PluginEnvironment.Notification)){
-                    ScriptLoader.ExecuteScript(e.Frame,pluginJS,PluginScriptIdentifier);
-                    plugins.ExecutePlugins(e.Frame,PluginEnvironment.Notification,false);
+                    ScriptLoader.ExecuteScript(e.Frame, pluginJS, PluginScriptIdentifier);
+                    plugins.ExecutePlugins(e.Frame, PluginEnvironment.Notification, false);
                 }
             }
         }
@@ -231,10 +231,10 @@ namespace TweetDck.Core{
 
         public void HideNotification(bool loadBlank){
             if (loadBlank || Program.UserConfig.NotificationLegacyLoad){
-                browser.LoadHtml("","about:blank");
+                browser.LoadHtml("", "about:blank");
             }
 
-            Location = new Point(-32000,-32000);
+            Location = new Point(-32000, -32000);
             progressBarTimer.Value = Program.UserConfig.NotificationTimerCountDown ? 1000 : 0;
             timerProgress.Stop();
         }
@@ -268,7 +268,7 @@ namespace TweetDck.Core{
             totalTime = timeLeft = tweet.GetDisplayDuration(Program.UserConfig.NotificationDurationValue);
             progressBarTimer.Value = Program.UserConfig.NotificationTimerCountDown ? 1000 : 0;
 
-            browser.LoadHtml(tweet.GenerateHtml(),"http://tweetdeck.twitter.com/?"+DateTime.Now.Ticks);
+            browser.LoadHtml(tweet.GenerateHtml(), "http://tweetdeck.twitter.com/?"+DateTime.Now.Ticks);
 
             if (Program.UserConfig.NotificationLegacyLoad){
                 OnNotificationReady();
@@ -282,11 +282,11 @@ namespace TweetDck.Core{
                 RequiresResize = false;
 
                 if (config.DisplayNotificationTimer){
-                    ClientSize = new Size(BaseClientWidth,BaseClientHeight+4);
+                    ClientSize = new Size(BaseClientWidth, BaseClientHeight+4);
                     progressBarTimer.Visible = true;
                 }
                 else{
-                    ClientSize = new Size(BaseClientWidth,BaseClientHeight);
+                    ClientSize = new Size(BaseClientWidth, BaseClientHeight);
                     progressBarTimer.Visible = false;
                 }
 
@@ -304,24 +304,24 @@ namespace TweetDck.Core{
 
             switch(config.NotificationPosition){
                 case TweetNotification.Position.TopLeft:
-                    Location = new Point(screen.WorkingArea.X+edgeDist,screen.WorkingArea.Y+edgeDist);
+                    Location = new Point(screen.WorkingArea.X+edgeDist, screen.WorkingArea.Y+edgeDist);
                     break;
 
                 case TweetNotification.Position.TopRight:
-                    Location = new Point(screen.WorkingArea.X+screen.WorkingArea.Width-edgeDist-Width,screen.WorkingArea.Y+edgeDist);
+                    Location = new Point(screen.WorkingArea.X+screen.WorkingArea.Width-edgeDist-Width, screen.WorkingArea.Y+edgeDist);
                     break;
 
                 case TweetNotification.Position.BottomLeft:
-                    Location = new Point(screen.WorkingArea.X+edgeDist,screen.WorkingArea.Y+screen.WorkingArea.Height-edgeDist-Height);
+                    Location = new Point(screen.WorkingArea.X+edgeDist, screen.WorkingArea.Y+screen.WorkingArea.Height-edgeDist-Height);
                     break;
 
                 case TweetNotification.Position.BottomRight:
-                    Location = new Point(screen.WorkingArea.X+screen.WorkingArea.Width-edgeDist-Width,screen.WorkingArea.Y+screen.WorkingArea.Height-edgeDist-Height);
+                    Location = new Point(screen.WorkingArea.X+screen.WorkingArea.Width-edgeDist-Width, screen.WorkingArea.Y+screen.WorkingArea.Height-edgeDist-Height);
                     break;
 
                 case TweetNotification.Position.Custom:
                     if (!config.IsCustomNotificationPositionSet){
-                        config.CustomNotificationPosition = new Point(screen.WorkingArea.X+screen.WorkingArea.Width-edgeDist-Width,screen.WorkingArea.Y+edgeDist);
+                        config.CustomNotificationPosition = new Point(screen.WorkingArea.X+screen.WorkingArea.Width-edgeDist-Width, screen.WorkingArea.Y+edgeDist);
                         config.Save();
                     }
 
@@ -330,7 +330,7 @@ namespace TweetDck.Core{
             }
 
             if (needsReactivating){
-                NativeMethods.SetFormPos(this,NativeMethods.HWND_TOPMOST,NativeMethods.SWP_NOACTIVATE);
+                NativeMethods.SetFormPos(this, NativeMethods.HWND_TOPMOST, NativeMethods.SWP_NOACTIVATE);
             }
         }
 
@@ -344,8 +344,8 @@ namespace TweetDck.Core{
             }
             else{
                 Point position = PointToClient(Cursor.Position);
-                position.Offset(20,5);
-                toolTip.Show(text,this,position);
+                position.Offset(20, 5);
+                toolTip.Show(text, this, position);
             }
         }
     }

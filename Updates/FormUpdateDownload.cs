@@ -13,7 +13,7 @@ namespace TweetDck.Updates{
 
         public string InstallerPath{
             get{
-                return Path.Combine(Path.GetTempPath(),updateInfo.FileName);
+                return Path.Combine(Path.GetTempPath(), updateInfo.FileName);
             }
         }
 
@@ -45,7 +45,7 @@ namespace TweetDck.Updates{
         }
 
         private void FormUpdateDownload_Shown(object sender, EventArgs e){
-            webClient.DownloadFileAsync(new Uri(updateInfo.DownloadUrl),InstallerPath);
+            webClient.DownloadFileAsync(new Uri(updateInfo.DownloadUrl), InstallerPath);
         }
 
         private void btnCancel_Click(object sender, EventArgs e){
@@ -69,7 +69,7 @@ namespace TweetDck.Updates{
                         progressDownload.SetValueInstant(1000);
                     }
 
-                    labelStatus.Text = (e.BytesReceived/BytesToMB).ToString("0.0",CultureInfo.CurrentCulture)+" MB";
+                    labelStatus.Text = (e.BytesReceived/BytesToMB).ToString("0.0", CultureInfo.CurrentCulture)+" MB";
                 }
                 else{
                     if (progressDownload.Style != ProgressBarStyle.Continuous){
@@ -77,7 +77,7 @@ namespace TweetDck.Updates{
                     }
 
                     progressDownload.SetValueInstant(e.ProgressPercentage*10);
-                    labelStatus.Text = (e.BytesReceived/BytesToMB).ToString("0.0",CultureInfo.CurrentCulture)+" / "+(e.TotalBytesToReceive/BytesToMB).ToString("0.0",CultureInfo.CurrentCulture)+" MB";
+                    labelStatus.Text = (e.BytesReceived/BytesToMB).ToString("0.0", CultureInfo.CurrentCulture)+" / "+(e.TotalBytesToReceive/BytesToMB).ToString("0.0", CultureInfo.CurrentCulture)+" MB";
                 }
             });
         }
@@ -92,7 +92,7 @@ namespace TweetDck.Updates{
                 else if (e.Error != null){
                     Program.Log(e.Error.ToString());
 
-                    if (MessageBox.Show("Could not download the update: "+e.Error.Message+"\r\n\r\nDo you want to open the website and try downloading the update manually?","Update Has Failed",MessageBoxButtons.YesNo,MessageBoxIcon.Error,MessageBoxDefaultButton.Button1) == DialogResult.Yes){
+                    if (MessageBox.Show("Could not download the update: "+e.Error.Message+"\r\n\r\nDo you want to open the website and try downloading the update manually?", "Update Has Failed", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1) == DialogResult.Yes){
                         BrowserUtils.OpenExternalBrowser(Program.Website);
                         UpdateStatus = Status.Manual;
                     }

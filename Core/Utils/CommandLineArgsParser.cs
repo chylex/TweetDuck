@@ -7,11 +7,11 @@ namespace TweetDck.Core.Utils{
 
         private static Regex SplitRegex{
             get{
-                return splitRegex ?? (splitRegex = new Regex(@"([^=\s]+(?:=(?:""[^""]*?""|[^ ]*))?)",RegexOptions.Compiled));
+                return splitRegex ?? (splitRegex = new Regex(@"([^=\s]+(?:=(?:""[^""]*?""|[^ ]*))?)", RegexOptions.Compiled));
             }
         }
 
-        public static int AddToDictionary(string args, IDictionary<string,string> dictionary){
+        public static int AddToDictionary(string args, IDictionary<string, string> dictionary){
             if (string.IsNullOrWhiteSpace(args)){
                 return 0;
             }
@@ -29,7 +29,7 @@ namespace TweetDck.Core.Utils{
                     value = "1";
                 }
                 else{
-                    key = matchValue.Substring(0,indexEquals).TrimStart('-');
+                    key = matchValue.Substring(0, indexEquals).TrimStart('-');
                     value = matchValue.Substring(indexEquals+1).Trim('"');
                 }
 

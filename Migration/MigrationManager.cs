@@ -12,8 +12,8 @@ using TweetDck.Core.Utils;
 
 namespace TweetDck.Migration{
     static class MigrationManager{
-        private static readonly string TweetDeckPathParent = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"twitter");
-        private static readonly string TweetDeckPath = Path.Combine(TweetDeckPathParent,"TweetDeck");
+        private static readonly string TweetDeckPathParent = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "twitter");
+        private static readonly string TweetDeckPath = Path.Combine(TweetDeckPathParent, "TweetDeck");
 
         public static void Run(){
             if (!Program.UserConfig.IgnoreMigration && Directory.Exists(TweetDeckPath)){
@@ -29,11 +29,11 @@ namespace TweetDck.Migration{
                         FormBackgroundWork formWait = new FormBackgroundWork();
 
                         formWait.ShowWorkDialog(() => {
-                            if (!BeginMigration(decision,ex => formWait.Invoke(new Action(() => {
+                            if (!BeginMigration(decision, ex => formWait.Invoke(new Action(() => {
                                 formWait.Close();
 
                                 if (ex != null){
-                                    Program.HandleException("An unexpected exception has occurred during the migration process.",ex);
+                                    Program.HandleException("An unexpected exception has occurred during the migration process.", ex);
                                     return;
                                 }
 
@@ -55,8 +55,8 @@ namespace TweetDck.Migration{
             else if (!Program.UserConfig.IgnoreUninstallCheck){
                 string guid = ProgramRegistrySearch.FindByDisplayName("TweetDeck");
 
-                if (guid != null && MessageBox.Show("TweetDeck is still installed on your computer, do you want to uninstall it?","Uninstall TweetDeck",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2) == DialogResult.Yes){
-                    RunUninstaller(guid,0);
+                if (guid != null && MessageBox.Show("TweetDeck is still installed on your computer, do you want to uninstall it?", "Uninstall TweetDeck", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
+                    RunUninstaller(guid, 0);
                     CleanupTweetDeck();
                 }
 
@@ -72,8 +72,8 @@ namespace TweetDck.Migration{
 
             Task task = new Task(() => {
                 Directory.CreateDirectory(Program.StoragePath);
-                Directory.CreateDirectory(Path.Combine(Program.StoragePath,"localStorage"));
-                Directory.CreateDirectory(Path.Combine(Program.StoragePath,"Local Storage"));
+                Directory.CreateDirectory(Path.Combine(Program.StoragePath, "localStorage"));
+                Directory.CreateDirectory(Path.Combine(Program.StoragePath, "Local Storage"));
 
                 CopyFile("Cookies");
                 CopyFile("Cookies-journal");
@@ -105,7 +105,7 @@ namespace TweetDck.Migration{
                     // delete folders
                     for(int wait = 0; wait < 50; wait++){
                         try{
-                            Directory.Delete(TweetDeckPath,true);
+                            Directory.Delete(TweetDeckPath, true);
                             break;
                         }catch(Exception){
                             // browser subprocess not ended yet, wait
@@ -114,7 +114,7 @@ namespace TweetDck.Migration{
                     }
 
                     try{
-                        Directory.Delete(TweetDeckPathParent,false);
+                        Directory.Delete(TweetDeckPathParent, false);
                     }catch(IOException){
                         // most likely not empty, ignore
                     }
@@ -125,7 +125,7 @@ namespace TweetDck.Migration{
                     foreach(string location in GetLnkDirectories()){
                         if (string.IsNullOrEmpty(location))continue;
 
-                        string linkFile = Path.Combine(location,"TweetDeck.lnk");
+                        string linkFile = Path.Combine(location, "TweetDeck.lnk");
 
                         if (File.Exists(linkFile)){
                             LnkEditor lnk = new LnkEditor(linkFile);
@@ -134,11 +134,11 @@ namespace TweetDck.Migration{
                             lnk.SetComment(Program.BrandName+" client for Windows");
                             lnk.Save();
 
-                            string renamed = Path.Combine(location,Program.BrandName+".lnk");
+                            string renamed = Path.Combine(location, Program.BrandName+".lnk");
 
                             try{
                                 if (!File.Exists(renamed)){
-                                    File.Move(linkFile,renamed);
+                                    File.Move(linkFile, renamed);
                                 }
                                 else{
                                     File.Delete(linkFile);
@@ -149,13 +149,13 @@ namespace TweetDck.Migration{
                         }
                     }
 
-                    NativeMethods.SHChangeNotify(0x8000000,0x1000,IntPtr.Zero,IntPtr.Zero); // refreshes desktop
+                    NativeMethods.SHChangeNotify(0x8000000, 0x1000, IntPtr.Zero, IntPtr.Zero); // refreshes desktop
 
                     // uninstall in the background
                     string guid = ProgramRegistrySearch.FindByDisplayName("TweetDeck");
 
                     if (guid != null){
-                        RunUninstaller(guid,5000);
+                        RunUninstaller(guid, 5000);
                     }
 
                     // registry cleanup
@@ -165,7 +165,7 @@ namespace TweetDck.Migration{
                 }
             });
 
-            task.ContinueWith(originalTask => onFinished(originalTask.Exception),TaskContinuationOptions.ExecuteSynchronously);
+            task.ContinueWith(originalTask => onFinished(originalTask.Exception), TaskContinuationOptions.ExecuteSynchronously);
             task.Start();
 
             return true;
@@ -173,7 +173,7 @@ namespace TweetDck.Migration{
 
         private static void CopyFile(string relativePath){
             try{
-                File.Copy(Path.Combine(TweetDeckPath,relativePath),Path.Combine(Program.StoragePath,relativePath),true);
+                File.Copy(Path.Combine(TweetDeckPath, relativePath), Path.Combine(Program.StoragePath, relativePath), true);
             }catch(FileNotFoundException){
             }catch(DirectoryNotFoundException){
             }
@@ -186,7 +186,7 @@ namespace TweetDck.Migration{
         }
 
         private static void RunUninstaller(string guid, int timeout){
-            Process uninstaller = Process.Start("msiexec.exe","/x "+guid+" /quiet /qn");
+            Process uninstaller = Process.Start("msiexec.exe", "/x "+guid+" /quiet /qn");
 
             if (uninstaller != null){
                 if (timeout > 0){
@@ -199,7 +199,7 @@ namespace TweetDck.Migration{
 
         private static void CleanupTweetDeck(){
             try{
-                Registry.CurrentUser.DeleteSubKeyTree(@"Software\Twitter\TweetDeck",true);
+                Registry.CurrentUser.DeleteSubKeyTree(@"Software\Twitter\TweetDeck", true);
                 Registry.CurrentUser.DeleteSubKey(@"Software\Twitter"); // only if empty
             }catch(Exception){
                 // not found or too bad

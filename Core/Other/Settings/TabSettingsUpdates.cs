@@ -40,7 +40,7 @@ namespace TweetDck.Core.Other.Settings{
                 btnCheckUpdates.Enabled = true;
 
                 if (!e.UpdateAvailable){
-                    MessageBox.Show("Your version of "+Program.BrandName+" is up to date.","No Updates Available",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                    MessageBox.Show("Your version of "+Program.BrandName+" is up to date.", "No Updates Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }

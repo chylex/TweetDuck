@@ -33,7 +33,7 @@ namespace TweetDck.Core.Other.Settings{
             btnClearCache.Enabled = false;
             BrowserCache.SetClearOnExit();
 
-            MessageBox.Show("Cache will be automatically cleared when "+Program.BrandName+" exits.","Clear Cache",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            MessageBox.Show("Cache will be automatically cleared when "+Program.BrandName+" exits.", "Clear Cache", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void checkHardwareAcceleration_CheckedChanged(object sender, EventArgs e){
@@ -46,7 +46,7 @@ namespace TweetDck.Core.Other.Settings{
                     succeeded = HardwareAcceleration.Enable();
                 }
                 else{
-                    MessageBox.Show("Cannot enable hardware acceleration, the libraries libEGL.dll and libGLESv2.dll could not be restored.",Program.BrandName+" Settings",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    MessageBox.Show("Cannot enable hardware acceleration, the libraries libEGL.dll and libGLESv2.dll could not be restored.", Program.BrandName+" Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else{
@@ -81,14 +81,14 @@ namespace TweetDck.Core.Other.Settings{
                 Config.CustomBrowserCSS = form.BrowserCSS;
                 Config.CustomNotificationCSS = form.NotificationCSS;
 
-                if (hasChangedBrowser && MessageBox.Show("The browser CSS has changed, do you want to reload it?","Browser CSS Changed",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2) == DialogResult.Yes){
+                if (hasChangedBrowser && MessageBox.Show("The browser CSS has changed, do you want to reload it?", "Browser CSS Changed", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
                     browserReloadAction();
                 }
             }
         }
 
         private void btnExport_Click(object sender, EventArgs e){
-            DialogResult resultSaveCredentials = MessageBox.Show("Do you want to include your login session? This will not save your password into the file, but it will allow anyone with the file to login into TweetDeck as you.","Export "+Program.BrandName+" Settings",MessageBoxButtons.YesNoCancel,MessageBoxIcon.Question,MessageBoxDefaultButton.Button3);
+            DialogResult resultSaveCredentials = MessageBox.Show("Do you want to include your login session? This will not save your password into the file, but it will allow anyone with the file to login into TweetDeck as you.", "Export "+Program.BrandName+" Settings", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button3);
             if (resultSaveCredentials == DialogResult.Cancel)return;
 
             bool saveCredentials = resultSaveCredentials == DialogResult.Yes;
@@ -112,7 +112,7 @@ namespace TweetDck.Core.Other.Settings{
                 ExportManager manager = new ExportManager(file);
 
                 if (!manager.Export(saveCredentials)){
-                    Program.HandleException("An exception happened while exporting "+Program.BrandName+" settings.",manager.LastException);
+                    Program.HandleException("An exception happened while exporting "+Program.BrandName+" settings.", manager.LastException);
                 }
             }
         }
@@ -136,21 +136,21 @@ namespace TweetDck.Core.Other.Settings{
                     ((FormSettings)ParentForm).ReloadUI();
                 }
                 else{
-                    Program.HandleException("An exception happened while importing "+Program.BrandName+" settings.",manager.LastException);
+                    Program.HandleException("An exception happened while importing "+Program.BrandName+" settings.", manager.LastException);
                 }
             }
         }
 
         private void btnReset_Click(object sender, EventArgs e){
-            if (MessageBox.Show("This will reset all of your settings, including disabled plugins. Do you want to proceed?","Reset "+Program.BrandName+" Settings",MessageBoxButtons.YesNo,MessageBoxIcon.Warning,MessageBoxDefaultButton.Button2) == DialogResult.Yes){
+            if (MessageBox.Show("This will reset all of your settings, including disabled plugins. Do you want to proceed?", "Reset "+Program.BrandName+" Settings", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
                 Program.ResetConfig();
                 ((FormSettings)ParentForm).ReloadUI();
             }
         }
 
         private static void PromptRestart(){
-            if (MessageBox.Show("The application must restart for the setting to take place. Do you want to restart now?",Program.BrandName+" Settings",MessageBoxButtons.YesNo,MessageBoxIcon.Information) == DialogResult.Yes){
-                Process.Start(Application.ExecutablePath,"-restart");
+            if (MessageBox.Show("The application must restart for the setting to take place. Do you want to restart now?", Program.BrandName+" Settings", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes){
+                Process.Start(Application.ExecutablePath, "-restart");
                 Application.Exit();
             }
         }
