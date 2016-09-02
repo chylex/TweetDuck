@@ -33,10 +33,15 @@ namespace TweetDck{
 
         public static readonly Version Version = new Version(VersionTag);
 
-        public static readonly string StoragePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), BrandName);
-        public static readonly string PluginPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "plugins");
-        public static readonly string TemporaryPath = Path.Combine(Path.GetTempPath(), BrandName);
+        public static readonly bool IsPortable = File.Exists("makeportable");
+
+        public static readonly string ProgramPath = AppDomain.CurrentDomain.BaseDirectory;
+        public static readonly string StoragePath = IsPortable ? Path.Combine(ProgramPath, "portable", "storage") : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), BrandName);
+        public static readonly string TemporaryPath = IsPortable ? Path.Combine(ProgramPath, "portable", "tmp") : Path.Combine(Path.GetTempPath(), BrandName);
         public static readonly string ConfigFilePath = Path.Combine(StoragePath, "TD_UserConfig.cfg");
+        
+        public static readonly string ScriptPath = Path.Combine(ProgramPath, "scripts");
+        public static readonly string PluginPath = Path.Combine(ProgramPath, "plugins");
 
         public static uint WindowRestoreMessage;
 
@@ -47,7 +52,7 @@ namespace TweetDck{
 
         public static string LogFile{
             get{
-                return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "td-log.txt");
+                return Path.Combine(ProgramPath, "td-log.txt");
             }
         }
 
