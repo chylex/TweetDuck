@@ -407,6 +407,7 @@
     styleOfficial.sheet.insertRule("a[data-full-url] { word-break: break-all; }",0); // break long urls
     styleOfficial.sheet.insertRule(".column-nav-link .attribution { position: absolute; }",0); // fix cut off account names
     styleOfficial.sheet.insertRule(".txt-base-smallest .badge-verified:before { height: 13px !important; }",0); // fix cut off badge icon
+    styleOfficial.sheet.insertRule(".keyboard-shortcut-list { vertical-align: top; }",0); // fix keyboard navigation alignment
     
     if ($TD.hasCustomBrowserCSS){
       var styleCustom = document.createElement("style");
