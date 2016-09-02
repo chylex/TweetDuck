@@ -43,7 +43,7 @@ namespace TweetDck.Core.Handling{
                 build.Append(@"<header class='tweet-header'>");
                 build.Append(@"<time class='tweet-timestamp js-timestamp pull-right txt-mute'><a target='_blank' rel='url' href='https://twitter.com/chylexmc' class='txt-small'>0s</a></time>");
                 build.Append(@"<a target='_blank' rel='user' href='https://twitter.com/chylexmc' class='account-link link-complex block'>");
-                build.Append(@"<div class='obj-left item-img tweet-img'><img width='48' height='48' alt='chylexmc's avatar' src='https://pbs.twimg.com/profile_images/645532929930608642/J56NBJVY_normal.png' class='tweet-avatar avatar pull-right'></div>");
+                build.Append(@"<div class='obj-left item-img tweet-img'><img width='48' height='48' alt='chylexmc's avatar' src='https://pbs.twimg.com/profile_images/765161905312980992/AhDP9iY-_normal.jpg' class='tweet-avatar avatar pull-right'></div>");
                 build.Append(@"<div class='nbfc'><span class='account-inline txt-ellipsis'><b class='fullname link-complex-target'>chylex</b> <span class='username txt-mute'>@chylexmc</span></span></div>");
                 build.Append(@"</a>");
                 build.Append(@"</header>");
