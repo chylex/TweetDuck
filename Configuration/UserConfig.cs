@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -16,7 +17,7 @@ namespace TweetDck.Configuration{
             Binder = new SerializationCompatibilityHandler()
         };
 
-        private const int CurrentFileVersion = 4;
+        private const int CurrentFileVersion = 5;
 
         // START OF CONFIGURATION
 
@@ -116,6 +117,8 @@ namespace TweetDck.Configuration{
             EnableTrayHighlight = true;
             Plugins = new PluginConfig();
             PluginsWindow = new WindowState();
+
+            Plugins.DisableOfficialFromConfig("clear-columns");
         }
 
         private void UpgradeFile(){
@@ -152,6 +155,11 @@ namespace TweetDck.Configuration{
                     case TweetNotification.Duration.VeryLong: NotificationDurationValue = 45; break;
                 }
 
+                ++fileVersion;
+            }
+
+            if (fileVersion == 4){
+                Plugins.DisableOfficialFromConfig("clear-columns");
                 ++fileVersion;
             }
 
