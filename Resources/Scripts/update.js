@@ -1,4 +1,4 @@
-(function($,$TDU){
+(function($, $TDU){
   //
   // Variable: Current timeout ID for update checking.
   //
@@ -90,7 +90,7 @@
 
     buttonDiv.children(".tdu-btn-download").click(function(){
       ele.remove();
-      $TDU.onUpdateAccepted(version,download);
+      $TDU.onUpdateAccepted(version, download);
     });
 
     buttonDiv.children(".tdu-btn-dismiss").click(function(){
@@ -110,21 +110,21 @@
   //
   var runUpdateCheck = function(force, eventID){
     clearTimeout(updateCheckTimeoutID);
-    updateCheckTimeoutID = setTimeout(runUpdateCheck,1000*60*60); // 1 hour
+    updateCheckTimeoutID = setTimeout(runUpdateCheck, 1000*60*60); // 1 hour
     
     if (!$TDU.updateCheckEnabled && !force)return;
     
-    $.getJSON(updateCheckUrl,function(response){
+    $.getJSON(updateCheckUrl, function(response){
       var tagName = response.tag_name;
       var hasUpdate = tagName !== $TDU.versionTag && tagName !== $TDU.dismissedVersionTag && response.assets.length > 0;
       
       if (hasUpdate){
         var obj = response.assets.find(asset => asset.name === updateFileName) || response.assets[0];
-        createUpdateNotificationElement(tagName,obj.browser_download_url);
+        createUpdateNotificationElement(tagName, obj.browser_download_url);
       }
       
       if (eventID !== 0){
-        $TDU.onUpdateCheckFinished(eventID,hasUpdate,tagName);
+        $TDU.onUpdateCheckFinished(eventID, hasUpdate, tagName);
       }
     });
   };
@@ -134,4 +134,4 @@
   //
   window.TDUF_runUpdateCheck = runUpdateCheck;
   runUpdateCheck();
-})($,$TDU);
+})($, $TDU);

@@ -50,7 +50,7 @@
     
     setState(plugin, enable){
       if (enable && this.isDisabled(plugin)){
-        this.disabled.splice(this.disabled.indexOf(plugin.id),1);
+        this.disabled.splice(this.disabled.indexOf(plugin.id), 1);
         plugin.obj.enabled();
         this.runWhenReady(plugin);
       }
@@ -75,6 +75,6 @@
   // Block: Setup global function to change plugin state.
   //
   window.TDPF_setPluginState = function(identifier, enable){
-    window.TD_PLUGINS.setState(window.TD_PLUGINS.findObject(identifier),enable);
+    window.TD_PLUGINS.setState(window.TD_PLUGINS.findObject(identifier), enable);
   };
 })();

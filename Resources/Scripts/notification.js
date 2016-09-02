@@ -9,14 +9,14 @@
   //
   var addEventListener = function(collection, type, listener){
     for(let index = 0; index < collection.length; index++){
-      collection[index].addEventListener(type,listener);
+      collection[index].addEventListener(type, listener);
     }
   };
   
   //
   // Block: Hook into links to bypass default open function.
   //
-  addEventListener(links,"click",function(e){
+  addEventListener(links, "click", function(e){
     $TD.openBrowser(e.currentTarget.getAttribute("href"));
     e.preventDefault();
   });
@@ -24,7 +24,7 @@
   //
   // Block: Allow bypassing of t.co in context menus.
   //
-  addEventListener(links,"contextmenu",function(e){
+  addEventListener(links, "contextmenu", function(e){
     $TD.setLastRightClickedLink(e.currentTarget.getAttribute("data-full-url") || "");
   });
   
@@ -39,7 +39,7 @@
     var prevMouseX = -1, prevMouseY = -1;
     var tooltipTimer, tooltipDisplayed;
     
-    addEventListener(links,"mouseenter",function(e){
+    addEventListener(links, "mouseenter", function(e){
       var me = e.currentTarget;
       
       var url = me.getAttribute("data-full-url");
@@ -54,23 +54,23 @@
       if ($TD.expandLinksOnHover){
         tooltipTimer = window.setTimeout(function(){
           var expanded = url;
-          expanded = cutStart(expanded,"https://");
-          expanded = cutStart(expanded,"http://");
-          expanded = cutStart(expanded,"www.");
+          expanded = cutStart(expanded, "https://");
+          expanded = cutStart(expanded, "http://");
+          expanded = cutStart(expanded, "www.");
 
-          me.setAttribute("td-prev-text",text);
+          me.setAttribute("td-prev-text", text);
           me.innerHTML = expanded;
-        },200);
+        }, 200);
       }
       else{
         tooltipTimer = window.setTimeout(function(){
-          $TD.displayTooltip(url,true);
+          $TD.displayTooltip(url, true);
           tooltipDisplayed = true;
-        },400);
+        }, 400);
       }
     });
     
-    addEventListener(links,"mouseleave",function(e){
+    addEventListener(links, "mouseleave", function(e){
       if (!e.currentTarget.hasAttribute("data-full-url"))return;
       
       if ($TD.expandLinksOnHover){
@@ -85,16 +85,16 @@
       
       if (tooltipDisplayed){
         tooltipDisplayed = false;
-        $TD.displayTooltip(null,true);
+        $TD.displayTooltip(null, true);
       }
     });
     
-    addEventListener(links,"mousemove",function(e){
+    addEventListener(links, "mousemove", function(e){
       if (tooltipDisplayed && (prevMouseX !== e.clientX || prevMouseY !== e.clientY)){
         var url = e.currentTarget.getAttribute("data-full-url");
         if (!url)return;
         
-        $TD.displayTooltip(url,true);
+        $TD.displayTooltip(url, true);
         prevMouseX = e.clientX;
         prevMouseY = e.clientY;
       }
