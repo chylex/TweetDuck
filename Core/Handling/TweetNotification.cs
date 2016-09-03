@@ -48,6 +48,11 @@ namespace TweetDck.Core.Handling{
                 build.Append(@"</a>");
                 build.Append(@"</header>");
                 build.Append(@"<div class='tweet-body'><p class='js-tweet-text tweet-text with-linebreaks'>This is an example tweet, which lets you test the location and duration of popup notifications.</p></div>");
+                
+                #if DEBUG
+                build.Append(@"<div style='margin-top:64px'>Scrollbar test padding...</div>");
+                #endif
+
                 build.Append(@"</div></div></article>");
 
                 return new TweetNotification(build.ToString(), "", 95);
