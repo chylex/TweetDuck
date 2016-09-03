@@ -398,6 +398,21 @@
   };
   
   //
+  // Block: Fix scheduled tweets not showing up sometimes.
+  //
+  $(document).on("dataTweetSent", function(e, data){
+    if (data.response.state && data.response.state === "scheduled"){
+      var column = Object.values(TD.controller.columnManager.getAll()).find(column => column.model.state.type === "scheduled");
+
+      if (column){
+        setTimeout(function(){
+          column.reloadTweets();
+        }, 1000);
+      }
+    }
+  });
+  
+  //
   // Block: Inject custom CSS and layout into the page.
   //
   (function(){
