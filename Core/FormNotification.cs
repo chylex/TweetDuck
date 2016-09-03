@@ -112,7 +112,6 @@ namespace TweetDck.Core{
             }
 
             mouseHookDelegate = MouseHookProc;
-            mouseHook = NativeMethods.SetWindowsHookEx(NativeMethods.WH_MOUSE_LL, mouseHookDelegate, IntPtr.Zero, 0);
 
             Disposed += FormNotification_Disposed;
         }
@@ -123,6 +122,21 @@ namespace TweetDck.Core{
             }
 
             base.WndProc(ref m);
+        }
+
+        // mouse wheel hook
+
+        private void StartMouseHook(){
+            if (mouseHook == IntPtr.Zero){
+                mouseHook = NativeMethods.SetWindowsHookEx(NativeMethods.WH_MOUSE_LL, mouseHookDelegate, IntPtr.Zero, 0);
+            }
+        }
+
+        private void StopMouseHook(){
+            if (mouseHook != IntPtr.Zero){
+                NativeMethods.UnhookWindowsHookEx(mouseHook);
+                mouseHook = IntPtr.Zero;
+            }
         }
 
         private IntPtr MouseHookProc(int nCode, IntPtr wParam, IntPtr lParam){
@@ -197,11 +211,7 @@ namespace TweetDck.Core{
 
         private void FormNotification_Disposed(object sender, EventArgs e){
             browser.Dispose();
-
-            if (mouseHook != IntPtr.Zero){
-                NativeMethods.UnhookWindowsHookEx(mouseHook);
-                mouseHook = IntPtr.Zero;
-            }
+            StopMouseHook();
         }
 
         // notification methods
@@ -237,6 +247,8 @@ namespace TweetDck.Core{
             Location = new Point(-32000, -32000);
             progressBarTimer.Value = Program.UserConfig.NotificationTimerCountDown ? 1000 : 0;
             timerProgress.Stop();
+
+            StopMouseHook();
         }
 
         public void OnNotificationReady(){
@@ -332,6 +344,8 @@ namespace TweetDck.Core{
             if (needsReactivating){
                 NativeMethods.SetFormPos(this, NativeMethods.HWND_TOPMOST, NativeMethods.SWP_NOACTIVATE);
             }
+
+            StartMouseHook();
         }
 
         private void UpdateTitle(){
