@@ -33,9 +33,9 @@ namespace TweetDck.Core.Other.Settings.Export{
                             continue;
                         }
                         else if (split.Length == 3){
-                            if (split[2].Equals(".meta", StringComparison.InvariantCultureIgnoreCase) ||
-                                split[2].Equals("browser.js", StringComparison.InvariantCultureIgnoreCase) ||
-                                split[2].Equals("notification.js", StringComparison.InvariantCultureIgnoreCase)){
+                            if (split[2].Equals(".meta", StringComparison.OrdinalIgnoreCase) ||
+                                split[2].Equals("browser.js", StringComparison.OrdinalIgnoreCase) ||
+                                split[2].Equals("notification.js", StringComparison.OrdinalIgnoreCase)){
                                 continue;
                             }
                         }

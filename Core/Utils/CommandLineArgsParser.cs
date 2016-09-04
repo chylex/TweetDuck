@@ -33,7 +33,7 @@ namespace TweetDck.Core.Utils{
                     value = matchValue.Substring(indexEquals+1).Trim('"');
                 }
 
-                if (key != string.Empty){
+                if (key.Length != 0){
                     dictionary[key] = value;
                     ++count;
                 }

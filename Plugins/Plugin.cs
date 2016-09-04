@@ -93,7 +93,7 @@ namespace TweetDck.Plugins{
                 if (environment != PluginEnvironment.None){
                     plugin.Environments |= environment;
                 }
-                else if (!file.StartsWith("user.")){
+                else if (!file.StartsWith("user.", StringComparison.OrdinalIgnoreCase)){
                     error = "Unknown script file: "+file+". All custom script files have to be in the following naming style: user."+file;
                     return false;
                 }

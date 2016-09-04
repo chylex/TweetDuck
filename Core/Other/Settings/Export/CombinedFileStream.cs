@@ -89,8 +89,11 @@ namespace TweetDck.Core.Other.Settings.Export{
             }
 
             public void WriteToFile(string path, bool createDirectory){
-                // ReSharper disable once AssignNullToNotNullAttribute
-                Directory.CreateDirectory(Path.GetDirectoryName(path));
+                if (createDirectory){
+                    // ReSharper disable once AssignNullToNotNullAttribute
+                    Directory.CreateDirectory(Path.GetDirectoryName(path));
+                }
+
                 File.WriteAllBytes(path, contents);
             }
         }

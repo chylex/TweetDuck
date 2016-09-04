@@ -27,7 +27,7 @@ namespace TweetDck.Plugins.Controls{
                 this.labelName.ForeColor = Color.DarkRed;
                 this.btnToggleState.Enabled = false;
             }
-            else if (labelDescription.Text == string.Empty){
+            else if (labelDescription.Text.Length == 0){
                 labelDescription.Visible = false;
             }
 
@@ -35,7 +35,7 @@ namespace TweetDck.Plugins.Controls{
         }
 
         private void panelDescription_Resize(object sender, EventArgs e){
-            if (labelDescription.Text == string.Empty){
+            if (labelDescription.Text.Length == 0){
                 Height = MinimumSize.Height;
             }
             else{

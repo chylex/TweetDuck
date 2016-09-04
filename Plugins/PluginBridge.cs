@@ -85,7 +85,7 @@ namespace TweetDck.Plugins{
         public void DeleteFile(int token, string path){
             string fullPath = GetFullPathIfSafe(token, path);
 
-            if (fullPath == string.Empty){
+            if (fullPath.Length == 0){
                 throw new Exception("File path has to be relative to the plugin folder.");
             }
             
@@ -96,7 +96,7 @@ namespace TweetDck.Plugins{
         public bool CheckFileExists(int token, string path){
             string fullPath = GetFullPathIfSafe(token, path);
 
-            if (fullPath == string.Empty){
+            if (fullPath.Length == 0){
                 throw new Exception("File path has to be relative to the plugin folder.");
             }
 
