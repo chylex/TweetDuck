@@ -84,8 +84,10 @@ namespace TweetDck.Core.Other{
         }
 
         private void btnReload_Click(object sender, EventArgs e){
-            pluginManager.Reload();
-            ReloadPluginTab();
+            if (MessageBox.Show("This will also reload the browser window. Do you want to proceed?", "Reloading Plugins", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
+                pluginManager.Reload();
+                ReloadPluginTab();
+            }
         }
 
         private void btnClose_Click(object sender, EventArgs e){

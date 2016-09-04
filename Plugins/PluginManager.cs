@@ -52,7 +52,6 @@ namespace TweetDck.Plugins{
         }
 
         public void Reload(){
-            HashSet<Plugin> prevPlugins = new HashSet<Plugin>(plugins);
             plugins.Clear();
             tokens.Clear();
 
@@ -66,7 +65,7 @@ namespace TweetDck.Plugins{
                 plugins.Add(plugin);
             }
 
-            if (Reloaded != null && (loadErrors.Count > 0 || !prevPlugins.SetEquals(plugins))){
+            if (Reloaded != null){
                 Reloaded(this, new PluginLoadEventArgs(loadErrors));
             }
         }
