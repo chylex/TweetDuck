@@ -73,7 +73,13 @@ namespace TweetDck.Plugins{
                 return cachedContents;
             }
 
-            return fileCache[fullPath] = File.ReadAllText(fullPath, Encoding.UTF8);
+            try{
+                return fileCache[fullPath] = File.ReadAllText(fullPath, Encoding.UTF8);
+            }catch(FileNotFoundException){
+                throw new Exception("File not found.");
+            }catch(DirectoryNotFoundException){
+                throw new Exception("Directory not found.");
+            }
         }
 
         public void DeleteFile(int token, string path){
