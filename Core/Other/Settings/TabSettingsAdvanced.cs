@@ -5,15 +5,18 @@ using TweetDck.Core.Controls;
 using TweetDck.Core.Other.Settings.Dialogs;
 using TweetDck.Core.Other.Settings.Export;
 using TweetDck.Core.Utils;
+using TweetDck.Plugins;
 
 namespace TweetDck.Core.Other.Settings{
     partial class TabSettingsAdvanced : BaseTabSettings{
         private readonly Action browserReloadAction;
+        private readonly PluginManager plugins;
 
-        public TabSettingsAdvanced(Action browserReloadAction){
+        public TabSettingsAdvanced(Action browserReloadAction, PluginManager plugins){
             InitializeComponent();
 
             this.browserReloadAction = browserReloadAction;
+            this.plugins = plugins;
 
             checkHardwareAcceleration.Checked = HardwareAcceleration.IsEnabled;
 
@@ -109,7 +112,7 @@ namespace TweetDck.Core.Other.Settings{
             if (file != null){
                 Program.UserConfig.Save();
 
-                ExportManager manager = new ExportManager(file);
+                ExportManager manager = new ExportManager(file, plugins);
 
                 if (!manager.Export(saveCredentials)){
                     Program.HandleException("An exception happened while exporting "+Program.BrandName+" settings.", manager.LastException);
@@ -130,7 +133,7 @@ namespace TweetDck.Core.Other.Settings{
             }
 
             if (file != null){
-                ExportManager manager = new ExportManager(file);
+                ExportManager manager = new ExportManager(file, plugins);
 
                 if (manager.Import()){
                     ((FormSettings)ParentForm).ReloadUI();

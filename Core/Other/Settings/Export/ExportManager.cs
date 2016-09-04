@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
+using TweetDck.Plugins;
 
 namespace TweetDck.Core.Other.Settings.Export{
     sealed class ExportManager{
@@ -11,15 +14,38 @@ namespace TweetDck.Core.Other.Settings.Export{
         public Exception LastException { get; private set; }
 
         private readonly string file;
+        private readonly PluginManager plugins;
 
-        public ExportManager(string file){
+        public ExportManager(string file, PluginManager plugins){
             this.file = file;
+            this.plugins = plugins;
         }
 
         public bool Export(bool includeSession){
             try{
                 using(CombinedFileStream stream = new CombinedFileStream(new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None))){
                     stream.WriteFile("config", Program.ConfigFilePath);
+
+                    foreach(PathInfo path in EnumerateFilesRelative(plugins.PathOfficialPlugins)){
+                        string[] split = path.Relative.Split(CombinedFileStream.KeySeparator);
+
+                        if (split.Length < 3){
+                            continue;
+                        }
+                        else if (split.Length == 3){
+                            if (split[2].Equals(".meta", StringComparison.InvariantCultureIgnoreCase) ||
+                                split[2].Equals("browser.js", StringComparison.InvariantCultureIgnoreCase) ||
+                                split[2].Equals("notification.js", StringComparison.InvariantCultureIgnoreCase)){
+                                continue;
+                            }
+                        }
+
+                        stream.WriteFile("plugin.off"+path.Relative, path.Full);
+                    }
+
+                    foreach(PathInfo path in EnumerateFilesRelative(plugins.PathCustomPlugins)){
+                        stream.WriteFile("plugin.usr"+path.Relative, path.Full);
+                    }
 
                     if (includeSession){
                         stream.WriteFile("cookies", CookiesPath);
@@ -37,14 +63,31 @@ namespace TweetDck.Core.Other.Settings.Export{
 
         public bool Import(){
             try{
+                bool updatedPlugins = false;
+
                 using(CombinedFileStream stream = new CombinedFileStream(new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.None))){
                     CombinedFileStream.Entry entry;
 
                     while((entry = stream.ReadFile()) != null){
-                        switch(entry.Identifier){
+                        switch(entry.KeyName){
                             case "config":
                                 entry.WriteToFile(Program.ConfigFilePath);
                                 Program.ReloadConfig();
+                                break;
+
+                            case "plugin.off":
+                                string root = Path.Combine(plugins.PathOfficialPlugins, entry.Identifier.Split(CombinedFileStream.KeySeparator)[1]);
+
+                                if (Directory.Exists(root)){
+                                    entry.WriteToFile(Path.Combine(plugins.PathOfficialPlugins, entry.Identifier.Substring(entry.KeyName.Length+1)), true);
+                                    updatedPlugins = true;
+                                }
+
+                                break;
+
+                            case "plugin.usr":
+                                entry.WriteToFile(Path.Combine(plugins.PathCustomPlugins, entry.Identifier.Substring(entry.KeyName.Length+1)), true);
+                                updatedPlugins = true;
                                 break;
 
                             case "cookies":
@@ -61,11 +104,27 @@ namespace TweetDck.Core.Other.Settings.Export{
                     }
                 }
 
+                if (updatedPlugins){
+                    plugins.Reload();
+                }
+
                 return true;
             }catch(Exception e){
                 LastException = e;
                 return false;
             }
+        }
+
+        private static IEnumerable<PathInfo> EnumerateFilesRelative(string root){
+            return Directory.EnumerateFiles(root, "*.*", SearchOption.AllDirectories).Select(fullPath => new PathInfo{
+                Full = fullPath,
+                Relative = fullPath.Substring(root.Length).Replace(Path.DirectorySeparatorChar, CombinedFileStream.KeySeparator) // includes leading separator character
+            });
+        }
+
+        private class PathInfo{
+            public string Full { get; set; }
+            public string Relative { get; set; }
         }
     }
 }

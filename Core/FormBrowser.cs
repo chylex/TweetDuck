@@ -231,7 +231,7 @@ namespace TweetDck.Core{
             else{
                 bool prevEnableUpdateCheck = Config.EnableUpdateCheck;
 
-                currentFormSettings = new FormSettings(this, updates);
+                currentFormSettings = new FormSettings(this, plugins, updates);
 
                 currentFormSettings.FormClosed += (sender, args) => {
                     currentFormSettings = null;

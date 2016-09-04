@@ -28,12 +28,12 @@
             this.checkHardwareAcceleration = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.btnEditCefArgs = new System.Windows.Forms.Button();
+            this.btnEditCSS = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
             this.btnImport = new System.Windows.Forms.Button();
             this.btnExport = new System.Windows.Forms.Button();
             this.groupPerformance = new System.Windows.Forms.GroupBox();
             this.groupConfiguration = new System.Windows.Forms.GroupBox();
-            this.btnEditCSS = new System.Windows.Forms.Button();
             this.groupPerformance.SuspendLayout();
             this.groupConfiguration.SuspendLayout();
             this.SuspendLayout();
@@ -75,11 +75,22 @@
             this.btnEditCefArgs.UseVisualStyleBackColor = true;
             this.btnEditCefArgs.Click += new System.EventHandler(this.btnEditCefArgs_Click);
             // 
+            // btnEditCSS
+            // 
+            this.btnEditCSS.Location = new System.Drawing.Point(6, 48);
+            this.btnEditCSS.Name = "btnEditCSS";
+            this.btnEditCSS.Size = new System.Drawing.Size(171, 23);
+            this.btnEditCSS.TabIndex = 16;
+            this.btnEditCSS.Text = "Edit CSS";
+            this.toolTip.SetToolTip(this.btnEditCSS, "Set custom CSS for browser and notification windows.");
+            this.btnEditCSS.UseVisualStyleBackColor = true;
+            this.btnEditCSS.Click += new System.EventHandler(this.btnEditCSS_Click);
+            // 
             // btnReset
             // 
             this.btnReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnReset.AutoSize = true;
-            this.btnReset.Location = new System.Drawing.Point(209, 250);
+            this.btnReset.Location = new System.Drawing.Point(190, 250);
             this.btnReset.Name = "btnReset";
             this.btnReset.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnReset.Size = new System.Drawing.Size(102, 23);
@@ -92,12 +103,12 @@
             // 
             this.btnImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnImport.AutoSize = true;
-            this.btnImport.Location = new System.Drawing.Point(109, 250);
+            this.btnImport.Location = new System.Drawing.Point(100, 250);
             this.btnImport.Name = "btnImport";
             this.btnImport.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.btnImport.Size = new System.Drawing.Size(94, 23);
+            this.btnImport.Size = new System.Drawing.Size(84, 23);
             this.btnImport.TabIndex = 16;
-            this.btnImport.Text = "Import Settings";
+            this.btnImport.Text = "Import Profile";
             this.btnImport.UseVisualStyleBackColor = true;
             this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
             // 
@@ -105,12 +116,13 @@
             // 
             this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnExport.AutoSize = true;
+            this.btnExport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnExport.Location = new System.Drawing.Point(9, 250);
             this.btnExport.Name = "btnExport";
             this.btnExport.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.btnExport.Size = new System.Drawing.Size(94, 23);
+            this.btnExport.Size = new System.Drawing.Size(85, 23);
             this.btnExport.TabIndex = 15;
-            this.btnExport.Text = "Export Settings";
+            this.btnExport.Text = "Export Profile";
             this.btnExport.UseVisualStyleBackColor = true;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
@@ -135,17 +147,6 @@
             this.groupConfiguration.TabIndex = 19;
             this.groupConfiguration.TabStop = false;
             this.groupConfiguration.Text = "Configuration";
-            // 
-            // btnEditCSS
-            // 
-            this.btnEditCSS.Location = new System.Drawing.Point(6, 48);
-            this.btnEditCSS.Name = "btnEditCSS";
-            this.btnEditCSS.Size = new System.Drawing.Size(171, 23);
-            this.btnEditCSS.TabIndex = 16;
-            this.btnEditCSS.Text = "Edit CSS";
-            this.toolTip.SetToolTip(this.btnEditCSS, "Set custom CSS for browser and notification windows.");
-            this.btnEditCSS.UseVisualStyleBackColor = true;
-            this.btnEditCSS.Click += new System.EventHandler(this.btnEditCSS_Click);
             // 
             // TabSettingsAdvanced
             // 

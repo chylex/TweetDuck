@@ -4,6 +4,8 @@ using System.Text;
 
 namespace TweetDck.Core.Other.Settings.Export{
     class CombinedFileStream : IDisposable{
+        public const char KeySeparator = '/';
+
         private readonly Stream stream;
 
         public CombinedFileStream(Stream stream){
@@ -65,6 +67,13 @@ namespace TweetDck.Core.Other.Settings.Export{
         public class Entry{
             public string Identifier { get; private set; }
 
+            public string KeyName{
+                get{
+                    int index = Identifier.IndexOf(KeySeparator);
+                    return index == -1 ? Identifier : Identifier.Substring(0, index);
+                }
+            }
+
             private readonly byte[] contents;
 
             public Entry(string identifier, byte[] contents){
@@ -73,6 +82,12 @@ namespace TweetDck.Core.Other.Settings.Export{
             }
 
             public void WriteToFile(string path){
+                File.WriteAllBytes(path, contents);
+            }
+
+            public void WriteToFile(string path, bool createDirectory){
+                // ReSharper disable once AssignNullToNotNullAttribute
+                Directory.CreateDirectory(Path.GetDirectoryName(path));
                 File.WriteAllBytes(path, contents);
             }
         }

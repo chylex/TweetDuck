@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using TweetDck.Core.Other.Settings;
+using TweetDck.Plugins;
 using TweetDck.Updates;
 
 namespace TweetDck.Core.Other{
     sealed partial class FormSettings : Form{
         private readonly Dictionary<Type, BaseTabSettings> tabs = new Dictionary<Type, BaseTabSettings>(4);
 
-        public FormSettings(FormBrowser browserForm, UpdateHandler updates){
+        public FormSettings(FormBrowser browserForm, PluginManager plugins, UpdateHandler updates){
             InitializeComponent();
 
             Text = Program.BrandName+" Settings";
@@ -18,7 +19,7 @@ namespace TweetDck.Core.Other{
             this.tabPanel.AddButton("General", SelectTab<TabSettingsGeneral>);
             this.tabPanel.AddButton("Notifications", () => SelectTab(() => new TabSettingsNotifications(browserForm.CreateNotificationForm(false))));
             this.tabPanel.AddButton("Updates", () => SelectTab(() => new TabSettingsUpdates(updates)));
-            this.tabPanel.AddButton("Advanced", () => SelectTab(() => new TabSettingsAdvanced(browserForm.ReloadBrowser)));
+            this.tabPanel.AddButton("Advanced", () => SelectTab(() => new TabSettingsAdvanced(browserForm.ReloadBrowser, plugins)));
             this.tabPanel.SelectTab(tabPanel.Buttons.First());
         }
 
