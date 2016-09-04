@@ -92,5 +92,15 @@ namespace TweetDck.Plugins{
             fileCache.Remove(fullPath);
             File.Delete(fullPath);
         }
+
+        public bool CheckFileExists(int token, string path){
+            string fullPath = GetFullPathIfSafe(token, path);
+
+            if (fullPath == string.Empty){
+                throw new Exception("File path has to be relative to the plugin folder.");
+            }
+
+            return File.Exists(fullPath);
+        }
     }
 }
