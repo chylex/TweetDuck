@@ -1,0 +1,17 @@
+[name]
+Custom reply account
+
+[description]
+- Allows customizing the automatically selected reply account per column
+
+[author]
+chylex
+
+[version]
+1.0
+
+[website]
+https://tweetduck.chylex.com
+
+[requires]
+1.3.3

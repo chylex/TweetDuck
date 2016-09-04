@@ -119,6 +119,7 @@ namespace TweetDck.Configuration{
             PluginsWindow = new WindowState();
 
             Plugins.DisableOfficialFromConfig("clear-columns");
+            Plugins.DisableOfficialFromConfig("reply-account");
         }
 
         private void UpgradeFile(){
@@ -160,6 +161,7 @@ namespace TweetDck.Configuration{
 
             if (fileVersion == 4){
                 Plugins.DisableOfficialFromConfig("clear-columns");
+                Plugins.DisableOfficialFromConfig("reply-account");
                 ++fileVersion;
             }
 
