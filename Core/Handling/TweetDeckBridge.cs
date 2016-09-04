@@ -155,6 +155,19 @@ namespace TweetDck.Core.Handling{
             BrowserUtils.OpenExternalBrowser(url);
         }
 
+        public void Alert(string type, string contents){
+            MessageBoxIcon icon;
+
+            switch(type){
+                case "error": icon = MessageBoxIcon.Error; break;
+                case "warning": icon = MessageBoxIcon.Warning; break;
+                case "info": icon = MessageBoxIcon.Information; break;
+                default: icon = MessageBoxIcon.None; break;
+            }
+
+            MessageBox.Show(contents, Program.BrandName+" Browser Message", MessageBoxButtons.OK, icon);
+        }
+
         public void Log(string data){
             System.Diagnostics.Debug.WriteLine(data);
         }

@@ -11,7 +11,7 @@
           obj = eval("("+contents+")");
         }catch(err){
           if (!(onFailure && onFailure(err.message))){
-            alert("Problem loading '"+fileName+"' file for '"+identifier+"' plugin, the JavaScript syntax is invalid: "+err.message);
+            $TD.alert("warning", "Problem loading '"+fileName+"' file for '"+identifier+"' plugin, the JavaScript syntax is invalid: "+err.message);
           }
 
           return;
@@ -20,7 +20,7 @@
         onSuccess && onSuccess(obj);
       }).catch(err => {
         if (!(onFailure && onFailure(err))){
-          alert("Problem loading '"+fileName+"' file for '"+identifier+"' plugin: "+err);
+          $TD.alert("warning", "Problem loading '"+fileName+"' file for '"+identifier+"' plugin: "+err);
         }
       });
     };
@@ -36,7 +36,7 @@
             continueLoading(token, identifier, fileNameUser, onSuccess, onFailure);
           }).catch(err => {
             if (!(onFailure && onFailure(err))){
-              alert("Problem generating '"+fileNameUser+"' file for '"+identifier+"' plugin: "+err);
+              $TD.alert("warning", "Problem generating '"+fileNameUser+"' file for '"+identifier+"' plugin: "+err);
             }
           });
         }
@@ -45,7 +45,7 @@
         }
       }).catch(err => {
         if (!(onFailure && onFailure(err))){
-          alert("Problem checking '"+fileNameUser+"' file for '"+identifier+"' plugin: "+err);
+          $TD.alert("warning", "Problem checking '"+fileNameUser+"' file for '"+identifier+"' plugin: "+err);
         }
       });
     };
