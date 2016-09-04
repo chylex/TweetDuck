@@ -3,6 +3,7 @@ using CefSharp;
 using CefSharp.WinForms;
 using TweetDck.Core;
 using TweetDck.Core.Controls;
+using TweetDck.Core.Utils;
 using TweetDck.Resources;
 
 namespace TweetDck.Updates{
@@ -70,6 +71,12 @@ namespace TweetDck.Updates{
                 }
             }
 
+            public bool IsSystemSupported{
+                get{
+                    return Environment.OSVersion.Version >= new Version("6.1"); // 6.1 NT version = Windows 7
+                }
+            }
+
             private readonly UpdateHandler owner;
 
             public Bridge(UpdateHandler owner){
@@ -89,6 +96,10 @@ namespace TweetDck.Updates{
                     Program.UserConfig.DismissedUpdate = versionTag;
                     Program.UserConfig.Save();
                 });
+            }
+
+            public void OpenBrowser(string url){
+                BrowserUtils.OpenExternalBrowser(url);
             }
         }
     }

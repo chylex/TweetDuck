@@ -18,6 +18,8 @@
   // Function: Creates the update notification element. Removes the old one if already exists.
   //
   var createUpdateNotificationElement = function(version, download){
+    var outdated = version === "unsupported";
+    
     var ele = $("#tweetdck-update");
     var existed = ele.length > 0;
     
@@ -25,13 +27,22 @@
       ele.remove();
     }
     
-    var html = [
+    var html = outdated ? [
+      "<div id='tweetdck-update'>",
+      "<p class='tdu-title'>Unsupported System</p>",
+      "<p class='tdu-info'>You will not receive updates.</p>",
+      "<div class='tdu-buttons'>",
+      "<button class='btn btn-positive tdu-btn-unsupported'><span class='label'>Read More</span></button>",
+      "<button class='btn btn-negative tdu-btn-dismiss'><span class='label'>Dismiss</span></button>",
+      "</div>",
+      "</div>"
+    ] : [
       "<div id='tweetdck-update'>",
       "<p class='tdu-title'>"+$TDU.brandName+" Update</p>",
       "<p class='tdu-info'>Version "+version+" is now available.</p>",
       "<div class='tdu-buttons'>",
-      "<button class='btn btn-positive tdu-btn-download'><span class='label'>Download</button>",
-      "<button class='btn btn-negative tdu-btn-dismiss'><span class='label'>Dismiss</button>",
+      "<button class='btn btn-positive tdu-btn-download'><span class='label'>Download</span></button>",
+      "<button class='btn btn-negative tdu-btn-dismiss'><span class='label'>Dismiss</span></button>",
       "</div>",
       "</div>"
     ];
@@ -60,7 +71,7 @@
       fontWeight: "bold",
       textAlign: "center",
       letterSpacing: "0.2px",
-      margin: "4px auto 2px"
+      margin: "5px auto 2px"
     });
 
     ele.children("p.tdu-info").first().css({
@@ -93,7 +104,11 @@
       $TDU.onUpdateAccepted(version, download);
     });
 
-    buttonDiv.children(".tdu-btn-dismiss").click(function(){
+    buttonDiv.children(".tdu-btn-unsupported").click(function(){
+      $TDU.openBrowser("https://github.com/chylex/TweetDuck/wiki/Supported-Systems");
+    });
+
+    buttonDiv.children(".tdu-btn-dismiss,.tdu-btn-unsupported").click(function(){
       $TDU.onUpdateDismissed(version);
       ele.slideUp(function(){ ele.remove(); });
     });
@@ -109,6 +124,14 @@
   // Function: Runs an update check and updates all DOM elements appropriately.
   //
   var runUpdateCheck = function(force, eventID){
+    if (!$TDU.isSystemSupported){
+      if ($TDU.dismissedVersionTag !== "unsupported"){
+        createUpdateNotificationElement("unsupported");
+      }
+      
+      return;
+    }
+    
     clearTimeout(updateCheckTimeoutID);
     updateCheckTimeoutID = setTimeout(runUpdateCheck, 1000*60*60); // 1 hour
     
