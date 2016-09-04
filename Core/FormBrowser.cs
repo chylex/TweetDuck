@@ -73,7 +73,7 @@ namespace TweetDck.Core{
 
         private void ShowChildForm(Form form){
             form.Show(this);
-            form.MoveToCenter(this);
+            form.Shown += (sender, args) => form.MoveToCenter(this);
         }
 
         private void ForceClose(){
