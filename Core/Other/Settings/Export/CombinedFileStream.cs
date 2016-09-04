@@ -13,6 +13,12 @@ namespace TweetDck.Core.Other.Settings.Export{
         }
 
         public void WriteFile(string identifier, string path){
+            byte[] name = Encoding.UTF8.GetBytes(identifier);
+
+            if (name.Length > 255){
+                throw new ArgumentOutOfRangeException("Identifier cannot be 256 or more characters long: "+identifier);
+            }
+
             byte[] contents;
 
             using(FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)){
@@ -28,12 +34,9 @@ namespace TweetDck.Core.Other.Settings.Export{
                 }
             }
 
-            byte[] name = Encoding.UTF8.GetBytes(identifier);
-            byte[] contentsLength = BitConverter.GetBytes(contents.Length);
-
             stream.WriteByte((byte)name.Length);
             stream.Write(name, 0, name.Length);
-            stream.Write(contentsLength, 0, 4);
+            stream.Write(BitConverter.GetBytes(contents.Length), 0, 4);
             stream.Write(contents, 0, contents.Length);
         }
 

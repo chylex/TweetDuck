@@ -40,11 +40,19 @@ namespace TweetDck.Core.Other.Settings.Export{
                             }
                         }
 
-                        stream.WriteFile("plugin.off"+path.Relative, path.Full);
+                        try{
+                            stream.WriteFile("plugin.off"+path.Relative, path.Full);
+                        }catch(ArgumentOutOfRangeException e){
+                            MessageBox.Show("Could not include a file in the export. "+e.Message, "Export Profile", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
                     }
 
                     foreach(PathInfo path in EnumerateFilesRelative(plugins.PathCustomPlugins)){
-                        stream.WriteFile("plugin.usr"+path.Relative, path.Full);
+                        try{
+                            stream.WriteFile("plugin.usr"+path.Relative, path.Full);
+                        }catch(ArgumentOutOfRangeException e){
+                            MessageBox.Show("Could not include a file in the export. "+e.Message, "Export Profile", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
                     }
 
                     if (includeSession){
