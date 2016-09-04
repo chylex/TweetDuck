@@ -196,6 +196,7 @@ namespace TweetDck.Core{
 
                 if (plugins.HasAnyPlugin(PluginEnvironment.Notification)){
                     ScriptLoader.ExecuteScript(e.Frame, pluginJS, PluginScriptIdentifier);
+                    ScriptLoader.ExecuteFile(e.Frame, PluginManager.PluginGlobalScriptFile);
                     plugins.ExecutePlugins(e.Frame, PluginEnvironment.Notification, false);
                 }
             }

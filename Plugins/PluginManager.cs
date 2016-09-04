@@ -10,6 +10,7 @@ namespace TweetDck.Plugins{
     class PluginManager{
         public const string PluginBrowserScriptFile = "plugins.browser.js";
         public const string PluginNotificationScriptFile = "plugins.notification.js";
+        public const string PluginGlobalScriptFile = "plugins.js";
 
         public string PathOfficialPlugins { get { return Path.Combine(rootPath, "official"); } }
         public string PathCustomPlugins { get { return Path.Combine(rootPath, "user"); } }
