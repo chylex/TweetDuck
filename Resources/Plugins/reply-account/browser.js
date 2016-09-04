@@ -1,7 +1,7 @@
 enabled(){
-  var configuration = {};
+  var configuration = { defaultAccount: "" };
   
-  window.TDPF_loadConfigurationFile(this, "user.configuration.js", obj => configuration = obj);
+  window.TDPF_loadConfigurationFile(this, "user.configuration.js", "user.configuration.default.js", obj => configuration = obj);
   
   this.uiInlineComposeTweetEvent = function(e, data){
     var account = null;
@@ -45,7 +45,21 @@ enabled(){
 }
 
 ready(){
-  $(document).on("uiInlineComposeTweet", this.uiInlineComposeTweetEvent);
+  var events = $._data(document, "events");
+  
+  if ("uiInlineComposeTweet" in events){
+    $(document).on("uiInlineComposeTweet", this.uiInlineComposeTweetEvent);
+    
+    var handlers = events["uiInlineComposeTweet"];
+    var oldHandler = handlers[0];
+    var newHandler = handlers[1];
+    
+    handlers[0] = newHandler;
+    handlers[1] = oldHandler;
+  }
+  else{
+    $(document).on("uiInlineComposeTweet", this.uiInlineComposeTweetEvent);
+  }
 }
 
 disabled(){
