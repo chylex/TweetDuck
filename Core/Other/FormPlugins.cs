@@ -7,7 +7,7 @@ using TweetDck.Plugins.Controls;
 using TweetDck.Plugins.Events;
 
 namespace TweetDck.Core.Other{
-    partial class FormPlugins : Form{
+    sealed partial class FormPlugins : Form{
         private readonly PluginManager pluginManager;
         private readonly TabButton tabBtnOfficial, tabBtnCustom;
         private readonly PluginListFlowLayout flowLayoutPlugins;
@@ -16,6 +16,8 @@ namespace TweetDck.Core.Other{
 
         public FormPlugins(){
             InitializeComponent();
+
+            Text = Program.BrandName+" Settings";
         }
 
         public FormPlugins(PluginManager pluginManager) : this(){
