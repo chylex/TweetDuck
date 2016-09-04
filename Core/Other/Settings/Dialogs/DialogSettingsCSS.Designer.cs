@@ -47,6 +47,7 @@
             this.textBoxBrowserCSS.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.textBoxBrowserCSS.Multiline = true;
             this.textBoxBrowserCSS.Name = "textBoxBrowserCSS";
+            this.textBoxBrowserCSS.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBoxBrowserCSS.Size = new System.Drawing.Size(226, 193);
             this.textBoxBrowserCSS.TabIndex = 0;
             this.textBoxBrowserCSS.WordWrap = false;
@@ -129,7 +130,8 @@
             this.textBoxNotificationCSS.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.textBoxNotificationCSS.Multiline = true;
             this.textBoxNotificationCSS.Name = "textBoxNotificationCSS";
-            this.textBoxNotificationCSS.Size = new System.Drawing.Size(227, 193);
+            this.textBoxNotificationCSS.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxNotificationCSS.Size = new System.Drawing.Size(226, 193);
             this.textBoxNotificationCSS.TabIndex = 1;
             this.textBoxNotificationCSS.WordWrap = false;
             // 
