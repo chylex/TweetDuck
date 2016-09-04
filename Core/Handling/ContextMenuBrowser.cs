@@ -4,12 +4,14 @@ using TweetDck.Core.Controls;
 
 namespace TweetDck.Core.Handling{
     class ContextMenuBrowser : ContextMenuBase{
-        private const int MenuSettings = 26600;
-        private const int MenuPlugins = 26005;
-        private const int MenuAbout = 26601;
-        private const int MenuMute = 26602;
-        private const int MenuCopyTweetUrl = 26603;
-        private const int MenuCopyTweetEmbeddedUrl = 26604;
+        private const int MenuGlobal = 26600;
+        private const int MenuMute = 26601;
+        private const int MenuSettings = 26602;
+        private const int MenuPlugins = 26003;
+        private const int MenuAbout = 26604;
+
+        private const int MenuCopyTweetUrl = 26610;
+        private const int MenuCopyTweetEmbeddedUrl = 26611;
 
         private readonly FormBrowser form;
 
@@ -40,15 +42,17 @@ namespace TweetDck.Core.Handling{
                 RemoveSeparatorIfLast(model);
                 model.AddSeparator();
             }
-            
-            model.AddItem(CefMenuCommand.Reload, "Reload");
-            model.AddCheckItem((CefMenuCommand)MenuMute, "Mute notifications");
-            model.SetChecked((CefMenuCommand)MenuMute, Program.UserConfig.MuteNotifications);
-            model.AddSeparator();
 
-            model.AddItem((CefMenuCommand)MenuSettings, "Settings");
-            model.AddItem((CefMenuCommand)MenuPlugins, "Plugins");
-            model.AddItem((CefMenuCommand)MenuAbout, "About "+Program.BrandName);
+            IMenuModel globalMenu = model.Count == 0 ? model : model.AddSubMenu((CefMenuCommand)MenuGlobal, Program.BrandName);
+            
+            globalMenu.AddItem(CefMenuCommand.Reload, "Reload browser");
+            globalMenu.AddCheckItem((CefMenuCommand)MenuMute, "Mute notifications");
+            globalMenu.SetChecked((CefMenuCommand)MenuMute, Program.UserConfig.MuteNotifications);
+            globalMenu.AddSeparator();
+
+            globalMenu.AddItem((CefMenuCommand)MenuSettings, "Settings");
+            globalMenu.AddItem((CefMenuCommand)MenuPlugins, "Plugins");
+            globalMenu.AddItem((CefMenuCommand)MenuAbout, "About "+Program.BrandName);
         }
 
         public override bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags){
