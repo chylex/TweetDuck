@@ -6,38 +6,38 @@ using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Handling{
     abstract class ContextMenuBase : IContextMenuHandler{
-        private const int MenuOpenUrlInBrowser = 26500;
-        private const int MenuCopyUrl = 26501;
-        private const int MenuOpenImageInBrowser = 26502;
+        private const int MenuOpenLinkUrl = 26500;
+        private const int MenuCopyLinkUrl = 26501;
+        private const int MenuOpenImage = 26502;
         private const int MenuSaveImage = 26503;
         private const int MenuCopyImageUrl = 26504;
 
         public virtual void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model){
             if (parameters.TypeFlags.HasFlag(ContextMenuType.Link) && !parameters.UnfilteredLinkUrl.EndsWith("tweetdeck.twitter.com/#", StringComparison.Ordinal)){
-                model.AddItem((CefMenuCommand)MenuOpenUrlInBrowser, "Open in browser");
-                model.AddItem((CefMenuCommand)MenuCopyUrl, "Copy link address");
+                model.AddItem((CefMenuCommand)MenuOpenLinkUrl, "Open link in browser");
+                model.AddItem((CefMenuCommand)MenuCopyLinkUrl, "Copy link address");
                 model.AddSeparator();
             }
 
             if (parameters.TypeFlags.HasFlag(ContextMenuType.Media) && parameters.HasImageContents){
-                model.AddItem((CefMenuCommand)MenuOpenImageInBrowser, "Open image in browser");
+                model.AddItem((CefMenuCommand)MenuOpenImage, "Open image in browser");
                 model.AddItem((CefMenuCommand)MenuSaveImage, "Save image as...");
-                model.AddItem((CefMenuCommand)MenuCopyImageUrl, "Copy image URL");
+                model.AddItem((CefMenuCommand)MenuCopyImageUrl, "Copy image address");
                 model.AddSeparator();
             }
         }
 
         public virtual bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags){
             switch((int)commandId){
-                case MenuOpenUrlInBrowser:
+                case MenuOpenLinkUrl:
                     BrowserUtils.OpenExternalBrowser(parameters.LinkUrl);
                     break;
 
-                case MenuCopyUrl:
+                case MenuCopyLinkUrl:
                     Clipboard.SetText(string.IsNullOrEmpty(TweetDeckBridge.LastRightClickedLink) ? parameters.UnfilteredLinkUrl : TweetDeckBridge.LastRightClickedLink, TextDataFormat.UnicodeText);
                     break;
 
-                case MenuOpenImageInBrowser:
+                case MenuOpenImage:
                     BrowserUtils.OpenExternalBrowser(parameters.SourceUrl);
                     break;
 
