@@ -1,6 +1,7 @@
 ﻿using CefSharp;
 using System.Windows.Forms;
 using TweetDck.Core.Controls;
+using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Handling{
     class ContextMenuBrowser : ContextMenuBase{
@@ -9,9 +10,11 @@ namespace TweetDck.Core.Handling{
         private const int MenuSettings = 26602;
         private const int MenuPlugins = 26003;
         private const int MenuAbout = 26604;
-
-        private const int MenuCopyTweetUrl = 26610;
-        private const int MenuCopyTweetEmbeddedUrl = 26611;
+        
+        private const int MenuOpenTweetUrl = 26610;
+        private const int MenuCopyTweetUrl = 26611;
+        private const int MenuOpenQuotedTweetUrl = 26612;
+        private const int MenuCopyQuotedTweetUrl = 26613;
 
         private readonly FormBrowser form;
 
@@ -26,17 +29,20 @@ namespace TweetDck.Core.Handling{
             model.Remove(CefMenuCommand.ViewSource);
             RemoveSeparatorIfLast(model);
 
+            base.OnBeforeContextMenu(browserControl, browser, frame, parameters, model);
+
             if (!string.IsNullOrEmpty(TweetDeckBridge.LastHighlightedTweet)){
+                model.AddItem((CefMenuCommand)MenuOpenTweetUrl, "Open tweet in browser");
                 model.AddItem((CefMenuCommand)MenuCopyTweetUrl, "Copy tweet address");
 
-                if (!string.IsNullOrEmpty(TweetDeckBridge.LastHighlightedTweetEmbedded)){
-                    model.AddItem((CefMenuCommand)MenuCopyTweetEmbeddedUrl, "Copy quoted tweet address");
+                if (!string.IsNullOrEmpty(TweetDeckBridge.LastHighlightedQuotedTweet)){
+                    model.AddSeparator();
+                    model.AddItem((CefMenuCommand)MenuOpenQuotedTweetUrl, "Open quoted tweet in browser");
+                    model.AddItem((CefMenuCommand)MenuCopyQuotedTweetUrl, "Copy quoted tweet address");
                 }
 
                 model.AddSeparator();
             }
-
-            base.OnBeforeContextMenu(browserControl, browser, frame, parameters, model);
 
             if (model.Count > 0){
                 RemoveSeparatorIfLast(model);
@@ -85,12 +91,20 @@ namespace TweetDck.Core.Handling{
 
                     return true;
 
+                case MenuOpenTweetUrl:
+                    BrowserUtils.OpenExternalBrowser(TweetDeckBridge.LastHighlightedTweet);
+                    return true;
+
                 case MenuCopyTweetUrl:
                     Clipboard.SetText(TweetDeckBridge.LastHighlightedTweet, TextDataFormat.UnicodeText);
                     return true;
 
-                case MenuCopyTweetEmbeddedUrl:
-                    Clipboard.SetText(TweetDeckBridge.LastHighlightedTweetEmbedded, TextDataFormat.UnicodeText);
+                case MenuOpenQuotedTweetUrl:
+                    BrowserUtils.OpenExternalBrowser(TweetDeckBridge.LastHighlightedQuotedTweet);
+                    return true;
+
+                case MenuCopyQuotedTweetUrl:
+                    Clipboard.SetText(TweetDeckBridge.LastHighlightedQuotedTweet, TextDataFormat.UnicodeText);
                     return true;
             }
 

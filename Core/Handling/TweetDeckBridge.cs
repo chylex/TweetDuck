@@ -10,7 +10,7 @@ namespace TweetDck.Core.Handling{
     class TweetDeckBridge{
         public static string LastRightClickedLink = string.Empty;
         public static string LastHighlightedTweet = string.Empty;
-        public static string LastHighlightedTweetEmbedded = string.Empty;
+        public static string LastHighlightedQuotedTweet = string.Empty;
         public static string NotificationTweetEmbedded = string.Empty;
         public static string ClipboardImagePath = string.Empty;
 
@@ -74,10 +74,10 @@ namespace TweetDck.Core.Handling{
             form.InvokeSafe(() => LastRightClickedLink = link);
         }
 
-        public void SetLastHighlightedTweet(string link, string embeddedLink){
+        public void SetLastHighlightedTweet(string link, string quotedLink){
             form.InvokeSafe(() => {
                 LastHighlightedTweet = link;
-                LastHighlightedTweetEmbedded = embeddedLink;
+                LastHighlightedQuotedTweet = quotedLink;
             });
         }
 
