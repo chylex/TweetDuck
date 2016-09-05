@@ -74,11 +74,22 @@ namespace TweetDck.Core.Other{
         }
 
         private void flowLayoutPlugins_Resize(object sender, EventArgs e){
-            int horizontalOffset = 8+(flowLayoutPlugins.VerticalScroll.Visible ? SystemInformation.VerticalScrollBarWidth : 0);
+            if (flowLayoutPlugins.Controls.Count == 0){
+                return;
+            }
+
+            Control lastControl = flowLayoutPlugins.Controls[flowLayoutPlugins.Controls.Count-1];
+            bool showScrollBar = lastControl.Location.Y+lastControl.Height >= flowLayoutPlugins.Height;
+            int horizontalOffset = showScrollBar ? SystemInformation.VerticalScrollBarWidth : 0;
+            
+            flowLayoutPlugins.AutoScroll = showScrollBar;
+            flowLayoutPlugins.VerticalScroll.Visible = showScrollBar;
 
             foreach(Control control in flowLayoutPlugins.Controls){
                 control.Width = flowLayoutPlugins.Width-control.Margin.Horizontal-horizontalOffset;
             }
+
+            flowLayoutPlugins.Focus();
         }
 
         private void btnOpenFolder_Click(object sender, EventArgs e){
