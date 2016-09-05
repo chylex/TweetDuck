@@ -38,9 +38,9 @@
             // btnToggleState
             // 
             this.btnToggleState.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnToggleState.Location = new System.Drawing.Point(449, 80);
+            this.btnToggleState.Location = new System.Drawing.Point(444, 80);
             this.btnToggleState.Name = "btnToggleState";
-            this.btnToggleState.Size = new System.Drawing.Size(75, 23);
+            this.btnToggleState.Size = new System.Drawing.Size(80, 23);
             this.btnToggleState.TabIndex = 0;
             this.btnToggleState.Text = "Disable";
             this.btnToggleState.UseVisualStyleBackColor = true;
@@ -99,7 +99,7 @@
             this.flowLayoutInfo.Controls.Add(this.labelWebsite);
             this.flowLayoutInfo.Location = new System.Drawing.Point(11, 85);
             this.flowLayoutInfo.Name = "flowLayoutInfo";
-            this.flowLayoutInfo.Size = new System.Drawing.Size(432, 18);
+            this.flowLayoutInfo.Size = new System.Drawing.Size(427, 18);
             this.flowLayoutInfo.TabIndex = 4;
             this.flowLayoutInfo.WrapContents = false;
             // 

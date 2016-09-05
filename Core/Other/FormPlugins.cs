@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using TweetDck.Core.Controls;
 using TweetDck.Plugins;
@@ -60,8 +62,17 @@ namespace TweetDck.Core.Other{
             flowLayoutPlugins.SuspendLayout();
             flowLayoutPlugins.Controls.Clear();
 
-            foreach(Plugin plugin in pluginManager.GetPluginsByGroup(selectedGroup.Value)){
-                flowLayoutPlugins.Controls.Add(new PluginControl(pluginManager, plugin));
+            Plugin[] plugins = pluginManager.GetPluginsByGroup(selectedGroup.Value).OrderBy(plugin => !plugin.CanRun ? 0 : pluginManager.Config.IsEnabled(plugin) ? 1 : 2).ThenBy(plugin => plugin.Name).ToArray();
+
+            for(int index = 0; index < plugins.Length; index++){
+                flowLayoutPlugins.Controls.Add(new PluginControl(pluginManager, plugins[index]));
+
+                if (index < plugins.Length-1){
+                    flowLayoutPlugins.Controls.Add(new Panel{
+                        BackColor = Color.DimGray,
+                        Size = new Size(1, 1)
+                    });
+                }
             }
 
             flowLayoutPlugins_Resize(flowLayoutPlugins, new EventArgs());

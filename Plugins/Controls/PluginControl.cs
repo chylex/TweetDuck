@@ -21,13 +21,10 @@ namespace TweetDck.Plugins.Controls{
             this.labelVersion.Text = plugin.Version;
             this.labelAuthor.Text = plugin.Author;
             this.labelWebsite.Text = plugin.Website;
-            this.btnToggleState.Text = pluginManager.Config.IsEnabled(plugin) ? "Disable" : "Enable";
 
-            if (!plugin.CanRun){
-                this.labelName.ForeColor = Color.DarkRed;
-                this.btnToggleState.Enabled = false;
-            }
-            else if (labelDescription.Text.Length == 0){
+            UpdatePluginState();
+
+            if (labelDescription.Text.Length == 0){
                 labelDescription.Visible = false;
             }
 
@@ -54,7 +51,28 @@ namespace TweetDck.Plugins.Controls{
             bool newState = !pluginManager.Config.IsEnabled(plugin);
             pluginManager.Config.SetEnabled(plugin, newState);
 
-            btnToggleState.Text = newState ? "Disable" : "Enable";
+            UpdatePluginState();
+        }
+
+        private void UpdatePluginState(){
+            bool isEnabled = plugin.CanRun && pluginManager.Config.IsEnabled(plugin);
+            Color textColor = isEnabled ? Color.Black : Color.FromArgb(90, 90, 90);
+            
+            labelVersion.ForeColor = textColor;
+            labelAuthor.ForeColor = textColor;
+            labelWebsite.ForeColor = isEnabled ? Color.Blue : Color.FromArgb(90, 90, 249);
+
+            if (plugin.CanRun){
+                labelName.ForeColor = textColor;
+                labelDescription.ForeColor = textColor;
+                btnToggleState.Text = isEnabled ? "Disable" : "Enable";
+            }
+            else{
+                labelName.ForeColor = Color.DarkRed;
+                labelDescription.ForeColor = Color.DarkRed;
+                btnToggleState.Enabled = false;
+                btnToggleState.Text = "Unavailable";
+            }
         }
     }
 }
