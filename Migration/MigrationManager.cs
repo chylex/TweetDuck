@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -8,7 +7,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using TweetDck.Migration.Helpers;
-using TweetDck.Core.Utils;
 
 namespace TweetDck.Migration{
     static class MigrationManager{
@@ -121,36 +119,6 @@ namespace TweetDck.Migration{
                 }
 
                 if (decision == MigrationDecision.MigratePurge){
-                    // update the lnk files wherever possible (desktop icons, pinned taskbar, start menu)
-                    foreach(string location in GetLnkDirectories()){
-                        if (string.IsNullOrEmpty(location))continue;
-
-                        string linkFile = Path.Combine(location, "TweetDeck.lnk");
-
-                        if (File.Exists(linkFile)){
-                            LnkEditor lnk = new LnkEditor(linkFile);
-                            lnk.SetPath(Application.ExecutablePath);
-                            lnk.SetWorkingDirectory(Environment.CurrentDirectory);
-                            lnk.SetComment(Program.BrandName+" client for Windows");
-                            lnk.Save();
-
-                            string renamed = Path.Combine(location, Program.BrandName+".lnk");
-
-                            try{
-                                if (!File.Exists(renamed)){
-                                    File.Move(linkFile, renamed);
-                                }
-                                else{
-                                    File.Delete(linkFile);
-                                }
-                            }catch{
-                                // eh, too bad
-                            }
-                        }
-                    }
-
-                    NativeMethods.SHChangeNotify(0x8000000, 0x1000, IntPtr.Zero, IntPtr.Zero); // refreshes desktop
-
                     // uninstall in the background
                     string guid = ProgramRegistrySearch.FindByDisplayName("TweetDeck");
 
@@ -177,12 +145,6 @@ namespace TweetDck.Migration{
             }catch(FileNotFoundException){
             }catch(DirectoryNotFoundException){
             }
-        }
-
-        private static IEnumerable<string> GetLnkDirectories(){
-            yield return Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-            yield return Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory);
-            yield return Environment.ExpandEnvironmentVariables(@"%APPDATA%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar");
         }
 
         private static void RunUninstaller(string guid, int timeout){

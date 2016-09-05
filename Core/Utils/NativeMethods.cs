@@ -25,9 +25,6 @@ namespace TweetDck.Core.Utils{
 
         public delegate IntPtr HookProc(int nCode, IntPtr wParam, IntPtr lParam);
 
-        [DllImport("Shell32.dll")]
-        public static extern int SHChangeNotify(int eventId, int flags, IntPtr item1, IntPtr item2);
-
         [DllImport("user32.dll", EntryPoint = "SetWindowPos")]
         public static extern bool SetWindowPos(int hWnd, int hWndOrder, int x, int y, int width, int height, uint flags);
 
