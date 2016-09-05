@@ -182,7 +182,7 @@ namespace TweetDck{
                 build.Append("Please, report all issues to: https://github.com/chylex/TweetDuck/issues\r\n\r\n");
             }
 
-            build.Append("[").Append(DateTime.Now.ToString("G")).Append("]\r\n");
+            build.Append("[").Append(DateTime.Now.ToString("G", CultureInfo.CurrentCulture)).Append("]\r\n");
             build.Append(data).Append("\r\n\r\n");
 
             try{
