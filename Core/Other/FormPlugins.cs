@@ -19,7 +19,7 @@ namespace TweetDck.Core.Other{
         public FormPlugins(){
             InitializeComponent();
 
-            Text = Program.BrandName+" Settings";
+            Text = Program.BrandName+" Plugins";
         }
 
         public FormPlugins(PluginManager pluginManager) : this(){
