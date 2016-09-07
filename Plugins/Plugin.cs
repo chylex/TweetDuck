@@ -102,15 +102,7 @@ namespace TweetDck.Plugins{
 
         private static bool LoadEnvironments(string path, Plugin plugin, out string error){
             foreach(string file in Directory.EnumerateFiles(path, "*.js", SearchOption.TopDirectoryOnly).Select(Path.GetFileName)){
-                PluginEnvironment environment = PluginEnvironmentExtensions.Values.FirstOrDefault(env => file.Equals(env.GetScriptFile(), StringComparison.Ordinal));
-
-                if (environment != PluginEnvironment.None){
-                    plugin.Environments |= environment;
-                }
-                else if (!file.StartsWith("user.", StringComparison.OrdinalIgnoreCase)){
-                    error = "Unknown script file: "+file+". All custom script files have to be in the following naming style: user."+file;
-                    return false;
-                }
+                plugin.Environments |= PluginEnvironmentExtensions.Values.FirstOrDefault(env => file.Equals(env.GetScriptFile(), StringComparison.Ordinal));
             }
 
             if (plugin.Environments == PluginEnvironment.None){
