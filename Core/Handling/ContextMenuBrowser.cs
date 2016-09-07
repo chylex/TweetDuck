@@ -31,7 +31,7 @@ namespace TweetDck.Core.Handling{
 
             base.OnBeforeContextMenu(browserControl, browser, frame, parameters, model);
 
-            if (!string.IsNullOrEmpty(TweetDeckBridge.LastHighlightedTweet)){
+            if (!string.IsNullOrEmpty(TweetDeckBridge.LastHighlightedTweet) && (parameters.TypeFlags & (ContextMenuType.Editable | ContextMenuType.Selection)) == 0){
                 model.AddItem((CefMenuCommand)MenuOpenTweetUrl, "Open tweet in browser");
                 model.AddItem((CefMenuCommand)MenuCopyTweetUrl, "Copy tweet address");
 
@@ -44,21 +44,20 @@ namespace TweetDck.Core.Handling{
                 model.AddSeparator();
             }
 
-            if (model.Count > 0){
-                RemoveSeparatorIfLast(model);
-                model.AddSeparator();
-            }
+            if ((parameters.TypeFlags & (ContextMenuType.Editable | ContextMenuType.Selection)) == 0){
+                AddSeparator(model);
 
-            IMenuModel globalMenu = model.Count == 0 ? model : model.AddSubMenu((CefMenuCommand)MenuGlobal, Program.BrandName);
+                IMenuModel globalMenu = model.Count == 0 ? model : model.AddSubMenu((CefMenuCommand)MenuGlobal, Program.BrandName);
             
-            globalMenu.AddItem(CefMenuCommand.Reload, "Reload browser");
-            globalMenu.AddCheckItem((CefMenuCommand)MenuMute, "Mute notifications");
-            globalMenu.SetChecked((CefMenuCommand)MenuMute, Program.UserConfig.MuteNotifications);
-            globalMenu.AddSeparator();
+                globalMenu.AddItem(CefMenuCommand.Reload, "Reload browser");
+                globalMenu.AddCheckItem((CefMenuCommand)MenuMute, "Mute notifications");
+                globalMenu.SetChecked((CefMenuCommand)MenuMute, Program.UserConfig.MuteNotifications);
+                globalMenu.AddSeparator();
 
-            globalMenu.AddItem((CefMenuCommand)MenuSettings, "Settings");
-            globalMenu.AddItem((CefMenuCommand)MenuPlugins, "Plugins");
-            globalMenu.AddItem((CefMenuCommand)MenuAbout, "About "+Program.BrandName);
+                globalMenu.AddItem((CefMenuCommand)MenuSettings, "Settings");
+                globalMenu.AddItem((CefMenuCommand)MenuPlugins, "Plugins");
+                globalMenu.AddItem((CefMenuCommand)MenuAbout, "About "+Program.BrandName);
+            }
         }
 
         public override bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags){

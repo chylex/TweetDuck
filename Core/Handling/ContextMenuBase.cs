@@ -84,6 +84,12 @@ namespace TweetDck.Core.Handling{
             }
         }
 
+        protected static void AddSeparator(IMenuModel model){
+            if (model.Count > 0 && model.GetTypeAt(model.Count-1) != MenuItemType.Separator){ // do not add separators if there is nothing to separate
+                model.AddSeparator();
+            }
+        }
+
         private static string GetImageFileName(string url){
             // twimg adds a colon after file extension
             int dot = url.LastIndexOf('.');
