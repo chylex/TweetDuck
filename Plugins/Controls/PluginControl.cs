@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using TweetDck.Core.Utils;
 
@@ -47,6 +49,10 @@ namespace TweetDck.Plugins.Controls{
             }
         }
 
+        private void btnOpenConfig_Click(object sender, EventArgs e){
+            using(Process.Start("explorer.exe", "/select,\""+plugin.ConfigPath+"\"")){}
+        }
+
         private void btnToggleState_Click(object sender, EventArgs e){
             bool newState = !pluginManager.Config.IsEnabled(plugin);
             pluginManager.Config.SetEnabled(plugin, newState);
@@ -66,12 +72,14 @@ namespace TweetDck.Plugins.Controls{
                 labelName.ForeColor = textColor;
                 labelDescription.ForeColor = textColor;
                 btnToggleState.Text = isEnabled ? "Disable" : "Enable";
+                btnOpenConfig.Visible = plugin.HasConfig;
+                btnOpenConfig.Enabled = btnOpenConfig.Visible && File.Exists(plugin.ConfigPath);
             }
             else{
                 labelName.ForeColor = Color.DarkRed;
                 labelDescription.ForeColor = Color.DarkRed;
-                btnToggleState.Enabled = false;
-                btnToggleState.Text = "Unavailable";
+                btnToggleState.Visible = false;
+                btnOpenConfig.Visible = false;
             }
         }
     }

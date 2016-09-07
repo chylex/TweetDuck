@@ -12,6 +12,7 @@ namespace TweetDck.Plugins{
         public string Author { get { return metadata["AUTHOR"]; } }
         public string Version { get { return metadata["VERSION"]; } }
         public string Website { get { return metadata["WEBSITE"]; } }
+        public string ConfigFile { get { return metadata["CONFIGFILE"]; } }
         public string RequiredVersion { get { return metadata["REQUIRES"]; } }
         public PluginGroup Group { get; private set; }
         public PluginEnvironment Environments { get; private set; }
@@ -28,6 +29,18 @@ namespace TweetDck.Plugins{
             }
         }
 
+        public bool HasConfig{
+            get{
+                return ConfigFile.Length > 0;
+            }
+        }
+
+        public string ConfigPath{
+            get{
+                return HasConfig ? Path.Combine(path, ConfigFile) : "";
+            }
+        }
+
         private readonly string path;
         private readonly string identifier;
         private readonly Dictionary<string, string> metadata = new Dictionary<string, string>(4){
@@ -36,6 +49,7 @@ namespace TweetDck.Plugins{
             { "AUTHOR", "(anonymous)" },
             { "VERSION", "(unknown)" },
             { "WEBSITE", "" },
+            { "CONFIGFILE", "" },
             { "REQUIRES", "*" }
         };
 

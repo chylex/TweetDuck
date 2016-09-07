@@ -31,6 +31,7 @@
             this.flowLayoutInfo = new System.Windows.Forms.FlowLayoutPanel();
             this.labelWebsite = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
+            this.btnOpenConfig = new System.Windows.Forms.Button();
             this.panelDescription.SuspendLayout();
             this.flowLayoutInfo.SuspendLayout();
             this.SuspendLayout();
@@ -38,9 +39,9 @@
             // btnToggleState
             // 
             this.btnToggleState.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnToggleState.Location = new System.Drawing.Point(444, 80);
+            this.btnToggleState.Location = new System.Drawing.Point(459, 80);
             this.btnToggleState.Name = "btnToggleState";
-            this.btnToggleState.Size = new System.Drawing.Size(80, 23);
+            this.btnToggleState.Size = new System.Drawing.Size(65, 23);
             this.btnToggleState.TabIndex = 0;
             this.btnToggleState.Text = "Disable";
             this.btnToggleState.UseVisualStyleBackColor = true;
@@ -99,7 +100,7 @@
             this.flowLayoutInfo.Controls.Add(this.labelWebsite);
             this.flowLayoutInfo.Location = new System.Drawing.Point(11, 85);
             this.flowLayoutInfo.Name = "flowLayoutInfo";
-            this.flowLayoutInfo.Size = new System.Drawing.Size(427, 18);
+            this.flowLayoutInfo.Size = new System.Drawing.Size(368, 18);
             this.flowLayoutInfo.TabIndex = 4;
             this.flowLayoutInfo.WrapContents = false;
             // 
@@ -128,10 +129,22 @@
             this.labelVersion.Text = "Version";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // btnOpenConfig
+            // 
+            this.btnOpenConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOpenConfig.Location = new System.Drawing.Point(385, 80);
+            this.btnOpenConfig.Name = "btnOpenConfig";
+            this.btnOpenConfig.Size = new System.Drawing.Size(68, 23);
+            this.btnOpenConfig.TabIndex = 6;
+            this.btnOpenConfig.Text = "Configure";
+            this.btnOpenConfig.UseVisualStyleBackColor = true;
+            this.btnOpenConfig.Click += new System.EventHandler(this.btnOpenConfig_Click);
+            // 
             // PluginControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnOpenConfig);
             this.Controls.Add(this.flowLayoutInfo);
             this.Controls.Add(this.panelDescription);
             this.Controls.Add(this.labelName);
@@ -161,5 +174,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutInfo;
         private System.Windows.Forms.Label labelWebsite;
         private System.Windows.Forms.Label labelVersion;
+        private System.Windows.Forms.Button btnOpenConfig;
     }
 }
