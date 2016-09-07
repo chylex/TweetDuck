@@ -1,7 +1,7 @@
 enabled(){
   var configuration = { defaultAccount: "" };
   
-  window.TDPF_loadConfigurationFile(this, "user.configuration.js", "user.configuration.default.js", obj => configuration = obj);
+  window.TDPF_loadConfigurationFile(this, "configuration.js", "configuration.default.js", obj => configuration = obj);
   
   this.uiInlineComposeTweetEvent = function(e, data){
     var account = null;
