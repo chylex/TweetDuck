@@ -13,7 +13,24 @@ namespace TweetDck.Migration{
         private static readonly string TweetDeckPathParent = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "twitter");
         private static readonly string TweetDeckPath = Path.Combine(TweetDeckPathParent, "TweetDeck");
 
+        private static readonly string TweetDickStorage = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TweetDick");
+
         public static void Run(){
+            #if DUCK
+            if (!Program.IsPortable && Directory.Exists(TweetDickStorage) && !Directory.Exists(Program.StoragePath)){
+                if (MessageBox.Show("Welcome to TweetDuck! Would you like to move your old TweetDick configuration and login data?", "TweetDick Migration", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes){
+                    try{
+                        Directory.Move(TweetDickStorage, Program.StoragePath);
+                        MessageBox.Show("All done! You can now uninstall TweetDick.", "TweetDick Migration", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }catch(Exception ex){
+                        Program.HandleException("An unexpected exception has occurred during the migration process.", ex);
+                    }
+                }
+
+                return;
+            }
+            #endif
+
             if (!Program.UserConfig.IgnoreMigration && Directory.Exists(TweetDeckPath)){
                 MigrationDecision decision;
 

@@ -19,6 +19,7 @@
   //
   var createUpdateNotificationElement = function(version, download){
     var outdated = version === "unsupported";
+    var tweetdick = version === "tweetdick";
     
     var ele = $("#tweetdck-update");
     var existed = ele.length > 0;
@@ -31,6 +32,15 @@
       "<div id='tweetdck-update'>",
       "<p class='tdu-title'>Unsupported System</p>",
       "<p class='tdu-info'>You will not receive updates.</p>",
+      "<div class='tdu-buttons'>",
+      "<button class='btn btn-positive tdu-btn-unsupported'><span class='label'>Read More</span></button>",
+      "<button class='btn btn-negative tdu-btn-dismiss'><span class='label'>Dismiss</span></button>",
+      "</div>",
+      "</div>"
+    ] : tweetdick ? [
+      "<div id='tweetdck-update'>",
+      "<p class='tdu-title'>TweetDick Ending</p>",
+      "<p class='tdu-info'>Please, move to TweetDuck.</p>",
       "<div class='tdu-buttons'>",
       "<button class='btn btn-positive tdu-btn-unsupported'><span class='label'>Read More</span></button>",
       "<button class='btn btn-negative tdu-btn-dismiss'><span class='label'>Dismiss</span></button>",
@@ -108,6 +118,10 @@
       $TDU.openBrowser("https://github.com/chylex/TweetDuck/wiki/Supported-Systems");
     });
 
+    buttonDiv.children(".tdu-btn-tweetdick").click(function(){
+      $TDU.openBrowser("https://github.com/chylex/TweetDick/wiki/Future-of-TweetDick");
+    });
+
     buttonDiv.children(".tdu-btn-dismiss,.tdu-btn-unsupported").click(function(){
       $TDU.onUpdateDismissed(version);
       ele.slideUp(function(){ ele.remove(); });
@@ -127,6 +141,13 @@
     if (!$TDU.isSystemSupported){
       if ($TDU.dismissedVersionTag !== "unsupported"){
         createUpdateNotificationElement("unsupported");
+      }
+      
+      return;
+    }
+    else if ($TDU.brandName === "TweetDick"){
+      if ($TDU.dismissedVersionTag !== "tweetdick"){
+        createUpdateNotificationElement("tweetdick");
       }
       
       return;
