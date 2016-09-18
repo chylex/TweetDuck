@@ -13,6 +13,7 @@ namespace TweetDck.Plugins{
         public string Version { get { return metadata["VERSION"]; } }
         public string Website { get { return metadata["WEBSITE"]; } }
         public string ConfigFile { get { return metadata["CONFIGFILE"]; } }
+        public string ConfigDefault { get { return metadata["CONFIGDEFAULT"]; } }
         public string RequiredVersion { get { return metadata["REQUIRES"]; } }
         public PluginGroup Group { get; private set; }
         public PluginEnvironment Environments { get; private set; }
@@ -31,13 +32,25 @@ namespace TweetDck.Plugins{
 
         public bool HasConfig{
             get{
-                return ConfigFile.Length > 0;
+                return ConfigFile.Length > 0 && GetFullPathIfSafe(ConfigFile).Length > 0;
             }
         }
 
         public string ConfigPath{
             get{
-                return HasConfig ? Path.Combine(path, ConfigFile) : "";
+                return HasConfig ? Path.Combine(path, ConfigFile) : string.Empty;
+            }
+        }
+
+        public bool HasDefaultConfig{
+            get{
+                return ConfigDefault.Length > 0 && GetFullPathIfSafe(ConfigDefault).Length > 0;
+            }
+        }
+
+        public string DefaultConfigPath{
+            get{
+                return HasDefaultConfig ? Path.Combine(path, ConfigDefault) : string.Empty;
             }
         }
 
@@ -50,6 +63,7 @@ namespace TweetDck.Plugins{
             { "VERSION", "(unknown)" },
             { "WEBSITE", "" },
             { "CONFIGFILE", "" },
+            { "CONFIGDEFAULT", "" },
             { "REQUIRES", "*" }
         };
 
@@ -62,6 +76,18 @@ namespace TweetDck.Plugins{
             this.Environments = PluginEnvironment.None;
         }
 
+        private void OnMetadataLoaded(){
+            string configPath = ConfigPath, defaultConfigPath = DefaultConfigPath;
+
+            if (configPath.Length > 0 && defaultConfigPath.Length > 0 && !File.Exists(configPath) && File.Exists(defaultConfigPath)){
+                try{
+                    File.Copy(defaultConfigPath, configPath, false);
+                }catch(Exception e){
+                    Program.HandleException("Could not generate a configuration file for '"+identifier+"' plugin.", e);
+                }
+            }
+        }
+
         public string GetScriptPath(PluginEnvironment environment){
             if (Environments.HasFlag(environment)){
                 string file = environment.GetScriptFile();
@@ -70,6 +96,28 @@ namespace TweetDck.Plugins{
             else{
                 return string.Empty;
             }
+        }
+
+        public string GetFullPathIfSafe(string relativePath){
+            string fullPath = Path.Combine(path, relativePath);
+
+            try{
+                string folderPathName = new DirectoryInfo(path).FullName;
+                DirectoryInfo currentInfo = new DirectoryInfo(fullPath);
+
+                while(currentInfo.Parent != null){
+                    if (currentInfo.Parent.FullName == folderPathName){
+                        return fullPath;
+                    }
+                    
+                    currentInfo = currentInfo.Parent;
+                }
+            }
+            catch{
+                // ignore
+            }
+
+            return string.Empty;
         }
 
         public override string ToString(){
@@ -165,6 +213,8 @@ namespace TweetDck.Plugins{
                 error = "Plugin contains invalid version: "+plugin.RequiredVersion;
                 return false;
             }
+
+            plugin.OnMetadataLoaded();
 
             error = string.Empty;
             return true;

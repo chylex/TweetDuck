@@ -20,30 +20,7 @@ namespace TweetDck.Plugins{
 
         private string GetFullPathIfSafe(int token, string path){
             Plugin plugin = manager.GetPluginFromToken(token);
-            
-            if (plugin == null){
-                return string.Empty;
-            }
-
-            string fullPath = Path.Combine(plugin.FolderPath, path);
-
-            try{
-                string folderPathName = new DirectoryInfo(plugin.FolderPath).FullName;
-                DirectoryInfo currentInfo = new DirectoryInfo(fullPath);
-
-                while(currentInfo.Parent != null){
-                    if (currentInfo.Parent.FullName == folderPathName){
-                        return fullPath;
-                    }
-                    
-                    currentInfo = currentInfo.Parent;
-                }
-            }
-            catch{
-                // ignore
-            }
-
-            return string.Empty;
+            return plugin == null ? string.Empty : plugin.GetFullPathIfSafe(path);
         }
 
         public void WriteFile(int token, string path, string contents){

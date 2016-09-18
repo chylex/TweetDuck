@@ -2,8 +2,13 @@
   //
   // Block: Setup a simple JavaScript object configuration loader.
   //
-  (function(){
-    var continueLoading = function(token, identifier, fileName, onSuccess, onFailure){
+  window.TDPF_loadConfigurationFile = function(pluginObject, fileNameUser, fileNameDefault, onSuccess, onFailure){
+    var identifier = pluginObject.$id;
+    var token = pluginObject.$token;
+
+    $TDP.checkFileExists(token, fileNameUser).then(exists => {
+      var fileName = exists ? fileNameUser : fileNameDefault;
+
       $TDP.readFile(token, fileName, true).then(contents => {
         var obj;
 
@@ -20,34 +25,13 @@
         onSuccess && onSuccess(obj);
       }).catch(err => {
         if (!(onFailure && onFailure(err))){
-          $TD.alert("warning", "Problem loading '"+fileName+"' file for '"+identifier+"' plugin: "+err);
+          $TD.alert("warning", "Problem loading '"+fileName+"' file for '"+identifier+"' plugin: "+err.message);
         }
       });
-    };
-    
-    window.TDPF_loadConfigurationFile = function(pluginObject, fileNameUser, fileNameDefault, onSuccess, onFailure){
-      var identifier = pluginObject.$id;
-      var token = pluginObject.$token;
-
-      $TDP.checkFileExists(token, fileNameUser).then(exists => {
-        if (!exists){
-          $TDP.readFile(token, fileNameDefault, true).then(contents => {
-            $TDP.writeFile(token, fileNameUser, contents);
-            continueLoading(token, identifier, fileNameUser, onSuccess, onFailure);
-          }).catch(err => {
-            if (!(onFailure && onFailure(err))){
-              $TD.alert("warning", "Problem generating '"+fileNameUser+"' file for '"+identifier+"' plugin: "+err);
-            }
-          });
-        }
-        else{
-          continueLoading(token, identifier, fileNameUser, onSuccess, onFailure);
-        }
-      }).catch(err => {
-        if (!(onFailure && onFailure(err))){
-          $TD.alert("warning", "Problem checking '"+fileNameUser+"' file for '"+identifier+"' plugin: "+err);
-        }
-      });
-    };
-  })();
+    }).catch(err => {
+      if (!(onFailure && onFailure(err))){
+        $TD.alert("warning", "Problem checking '"+fileNameUser+"' file for '"+identifier+"' plugin: "+err.message);
+      }
+    });
+  };
 })($TDP);
