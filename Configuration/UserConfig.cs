@@ -210,6 +210,8 @@ namespace TweetDck.Configuration{
 
                     break;
                 }catch(FileNotFoundException){
+                }catch(DirectoryNotFoundException){
+                    break;
                 }catch(Exception e){
                     Program.HandleException("Could not open the configuration file.", e);
                 }

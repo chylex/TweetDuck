@@ -68,6 +68,8 @@ namespace TweetDck{
                 return;
             }
 
+            ReloadConfig();
+
             string[] programArguments = Environment.GetCommandLineArgs();
 
             if (programArguments.Contains("-restart")){
@@ -85,6 +87,8 @@ namespace TweetDck{
                 }
             }
             else{
+                MigrationManager.Run();
+
                 if (!LockManager.Lock()){
                     if (LockManager.LockingProcess.MainWindowHandle == IntPtr.Zero && LockManager.LockingProcess.Responding){ // restore if the original process is in tray
                         NativeMethods.SendMessage(NativeMethods.HWND_BROADCAST, WindowRestoreMessage, 0, IntPtr.Zero);
@@ -113,10 +117,6 @@ namespace TweetDck{
                     HandleException("Could not import the cookie file to restore login session.", e);
                 }
             }
-
-            ReloadConfig();
-
-            MigrationManager.Run();
 
             Cef.OnContextInitialized = () => {
                 using(IRequestContext ctx = Cef.GetGlobalRequestContext()){
