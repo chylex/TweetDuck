@@ -11,6 +11,7 @@ namespace TweetDck.Core.Other.Settings.Export{
         public static readonly string CookiesPath = Path.Combine(Program.StoragePath, "Cookies");
         public static readonly string TempCookiesPath = Path.Combine(Program.StoragePath, "CookiesTmp");
 
+        public bool IsRestarting { get; private set; }
         public Exception LastException { get; private set; }
 
         private readonly string file;
@@ -103,6 +104,7 @@ namespace TweetDck.Core.Other.Settings.Export{
                                     entry.WriteToFile(Path.Combine(Program.StoragePath, TempCookiesPath));
 
                                     // okay to and restart, 'cookies' is always the last entry
+                                    IsRestarting = true;
                                     Process.Start(Application.ExecutablePath, "-restart -importcookies");
                                     Application.Exit();
                                 }

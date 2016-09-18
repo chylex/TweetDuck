@@ -136,7 +136,9 @@ namespace TweetDck.Core.Other.Settings{
                 ExportManager manager = new ExportManager(file, plugins);
 
                 if (manager.Import()){
-                    ((FormSettings)ParentForm).ReloadUI();
+                    if (!manager.IsRestarting){
+                        ((FormSettings)ParentForm).ReloadUI();
+                    }
                 }
                 else{
                     Program.HandleException("An exception happened while importing "+Program.BrandName+" settings.", manager.LastException);
