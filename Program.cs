@@ -63,6 +63,11 @@ namespace TweetDck{
 
             WindowRestoreMessage = NativeMethods.RegisterWindowMessage("TweetDuckRestore");
 
+            if (!File.Exists(LogFile) && !Log(string.Empty)){
+                MessageBox.Show("Could not write to the log file. If you installed "+BrandName+" to Program Files, please run it as Administrator.", "Administrator Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             string[] programArguments = Environment.GetCommandLineArgs();
 
             if (programArguments.Contains("-restart")){
@@ -203,8 +208,10 @@ namespace TweetDck{
                 build.Append("Please, report all issues to: https://github.com/chylex/TweetDuck/issues\r\n\r\n");
             }
 
-            build.Append("[").Append(DateTime.Now.ToString("G", CultureInfo.CurrentCulture)).Append("]\r\n");
-            build.Append(data).Append("\r\n\r\n");
+            if (data.Length > 0){
+                build.Append("[").Append(DateTime.Now.ToString("G", CultureInfo.CurrentCulture)).Append("]\r\n");
+                build.Append(data).Append("\r\n\r\n");
+            }
 
             try{
                 File.AppendAllText(LogFile, build.ToString(), Encoding.UTF8);
