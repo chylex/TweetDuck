@@ -143,7 +143,7 @@ namespace TweetDck.Core{
             if (!ContainsFocus && wParam.ToInt32() == NativeMethods.WH_MOUSEWHEEL && browser.Bounds.Contains(PointToClient(Cursor.Position))){
                 // fuck it, Activate() doesn't work with this
                 Point prevPos = Cursor.Position;
-                Cursor.Position = PointToScreen(new Point(-1, -1));
+                Cursor.Position = PointToScreen(new Point(0, -1));
                 NativeMethods.SimulateMouseClick(NativeMethods.MouseButton.Left);
                 Cursor.Position = prevPos;
             }
