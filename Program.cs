@@ -14,6 +14,7 @@ using System.Threading;
 using TweetDck.Plugins;
 using TweetDck.Plugins.Events;
 using TweetDck.Core.Other.Settings.Export;
+using TweetDck.Core.Handling;
 
 [assembly: CLSCompliant(true)]
 namespace TweetDck{
@@ -113,13 +114,6 @@ namespace TweetDck{
                 }
             }
 
-            Cef.OnContextInitialized = () => {
-                using(IRequestContext ctx = Cef.GetGlobalRequestContext()){
-                    string err;
-                    ctx.SetPreference("browser.enable_spellchecking", false, out err);
-                }
-            };
-
             CefSettings settings = new CefSettings{
                 AcceptLanguageList = BrowserUtils.HeaderAcceptLanguage,
                 UserAgent = BrowserUtils.HeaderUserAgent,
@@ -133,7 +127,7 @@ namespace TweetDck{
 
             CommandLineArgsParser.AddToDictionary(UserConfig.CustomCefArgs, settings.CefCommandLineArgs);
 
-            Cef.Initialize(settings);
+            Cef.Initialize(settings, false, new BrowserProcessHandler());
 
             AppDomain.CurrentDomain.UnhandledException += (sender, args) => {
                 Exception ex = args.ExceptionObject as Exception;
