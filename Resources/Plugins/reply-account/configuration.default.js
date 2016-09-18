@@ -3,9 +3,7 @@
    * WARNING
    * -------
    *
-   * Make sure you are editing 'user.configuration.js' and not the default configuration file.
-   * The custom configuration file is automatically generated the first time the plugin is enabled.
-   * Do not edit the default one, as it will be replaced with each update.
+   * Make sure you are editing 'configuration.js' and not the default configuration file, as the default one will be replaced with each update.
    *
    */
   

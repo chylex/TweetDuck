@@ -16,5 +16,8 @@ https://tweetduck.chylex.com
 [configfile]
 configuration.js
 
+[configdefault]
+configuration.default.js
+
 [requires]
 1.3.3
