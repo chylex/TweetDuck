@@ -18,13 +18,8 @@ using TweetDck.Core.Other.Settings.Export;
 [assembly: CLSCompliant(true)]
 namespace TweetDck{
     static class Program{
-        #if DUCK
         public const string BrandName = "TweetDuck";
         public const string Website = "http://tweetduck.chylex.com";
-        #else
-        public const string BrandName = "TweetDick";
-        public const string Website = "http://tweetdick.chylex.com";
-        #endif
 
         public const string BrowserSubprocess = BrandName+".Browser.exe";
 

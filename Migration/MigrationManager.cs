@@ -16,7 +16,6 @@ namespace TweetDck.Migration{
         private static readonly string TweetDickStorage = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TweetDick");
 
         public static void Run(){
-            #if DUCK
             if (!Program.IsPortable && Directory.Exists(TweetDickStorage) && !Directory.Exists(Program.StoragePath)){
                 if (MessageBox.Show("Welcome to TweetDuck! Would you like to move your old TweetDick configuration and login data?", "TweetDick Migration", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes){
                     try{
@@ -29,7 +28,6 @@ namespace TweetDck.Migration{
 
                 return;
             }
-            #endif
 
             if (!Program.UserConfig.IgnoreMigration && Directory.Exists(TweetDeckPath)){
                 MigrationDecision decision;
