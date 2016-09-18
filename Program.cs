@@ -36,8 +36,8 @@ namespace TweetDck{
         public static readonly bool IsPortable = File.Exists("makeportable");
 
         public static readonly string ProgramPath = AppDomain.CurrentDomain.BaseDirectory;
-        public static readonly string StoragePath = IsPortable ? Path.Combine(ProgramPath, "portable", "storage") : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), BrandName);
-        public static readonly string TemporaryPath = IsPortable ? Path.Combine(ProgramPath, "portable", "tmp") : Path.Combine(Path.GetTempPath(), BrandName);
+        public static readonly string StoragePath = IsPortable ? Path.Combine(ProgramPath, "portable", "storage") : GetDataStoragePath();
+        public static readonly string TemporaryPath = IsPortable ? Path.Combine(ProgramPath, "portable", "tmp") : Path.Combine(Path.GetTempPath(), BrandName+'_'+Path.GetRandomFileName().Substring(0, 6));
         public static readonly string ConfigFilePath = Path.Combine(StoragePath, "TD_UserConfig.cfg");
         
         public static readonly string ScriptPath = Path.Combine(ProgramPath, "scripts");
@@ -164,6 +164,24 @@ namespace TweetDck{
         private static void plugins_Reloaded(object sender, PluginLoadEventArgs e){
             if (!e.Success){
                 MessageBox.Show("The following plugins will not be available until the issues are resolved:\n"+string.Join("\n", e.Errors), "Error Loading Plugins", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private static string GetCmdArgumentValue(string search){
+            string[] args = Environment.GetCommandLineArgs();
+            int index = Array.FindIndex(args, arg => arg.Equals(search, StringComparison.OrdinalIgnoreCase));
+
+            return index >= 0 && index < args.Length-1 ? args[index+1] : null;
+        }
+
+        private static string GetDataStoragePath(){
+            string custom = GetCmdArgumentValue("-datafolder");
+
+            if (custom != null && (custom.Contains(Path.DirectorySeparatorChar) || custom.Contains(Path.AltDirectorySeparatorChar))){
+                return custom;
+            }
+            else{
+                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), custom ?? BrandName);
             }
         }
 
