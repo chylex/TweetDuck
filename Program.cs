@@ -186,14 +186,17 @@ namespace TweetDck{
         }
 
         public static void HandleException(string message, Exception e){
-            Log(e.ToString());
-            
-            if (MessageBox.Show(message+"\r\nDo you want to open the log file to report the issue?", BrandName+" Has Failed :(", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
-                Process.Start(LogFile);
+            if (Log(e.ToString())){
+                if (MessageBox.Show(message+"\r\nDo you want to open the log file to report the issue?", BrandName+" Has Failed :(", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
+                    Process.Start(LogFile);
+                }
+            }
+            else{
+                MessageBox.Show(message+"\r\nFailed writing the error into the log file.\r\nOriginal exception: "+e, BrandName+" Has Failed :(", MessageBoxButtons.OK);
             }
         }
 
-        public static void Log(string data){
+        public static bool Log(string data){
             StringBuilder build = new StringBuilder();
 
             if (!File.Exists(LogFile)){
@@ -205,8 +208,9 @@ namespace TweetDck{
 
             try{
                 File.AppendAllText(LogFile, build.ToString(), Encoding.UTF8);
+                return true;
             }catch{
-                // oops
+                return false;
             }
         }
 
