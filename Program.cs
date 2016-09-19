@@ -34,7 +34,9 @@ namespace TweetDck{
         public static readonly string ProgramPath = AppDomain.CurrentDomain.BaseDirectory;
         public static readonly string StoragePath = IsPortable ? Path.Combine(ProgramPath, "portable", "storage") : GetDataStoragePath();
         public static readonly string TemporaryPath = IsPortable ? Path.Combine(ProgramPath, "portable", "tmp") : Path.Combine(Path.GetTempPath(), BrandName+'_'+Path.GetRandomFileName().Substring(0, 6));
+
         public static readonly string ConfigFilePath = Path.Combine(StoragePath, "TD_UserConfig.cfg");
+        public static readonly string LogFilePath = Path.Combine(ProgramPath, "td-log.txt");
         
         public static readonly string ScriptPath = Path.Combine(ProgramPath, "scripts");
         public static readonly string PluginPath = Path.Combine(ProgramPath, "plugins");
@@ -46,12 +48,6 @@ namespace TweetDck{
         
         public static UserConfig UserConfig { get; private set; }
 
-        public static string LogFile{
-            get{
-                return Path.Combine(ProgramPath, "td-log.txt");
-            }
-        }
-
         [STAThread]
         private static void Main(){
             Application.EnableVisualStyles();
@@ -59,7 +55,7 @@ namespace TweetDck{
 
             WindowRestoreMessage = NativeMethods.RegisterWindowMessage("TweetDuckRestore");
 
-            if (!File.Exists(LogFile) && !Log(string.Empty)){
+            if (!File.Exists(LogFilePath) && !Log(string.Empty)){
                 MessageBox.Show("Could not write to the log file. If you installed "+BrandName+" to Program Files, please run it as Administrator.", "Administrator Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -182,7 +178,7 @@ namespace TweetDck{
         public static void HandleException(string message, Exception e){
             if (Log(e.ToString())){
                 if (MessageBox.Show(message+"\r\nDo you want to open the log file to report the issue?", BrandName+" Has Failed :(", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
-                    Process.Start(LogFile);
+                    Process.Start(LogFilePath);
                 }
             }
             else{
@@ -193,7 +189,7 @@ namespace TweetDck{
         public static bool Log(string data){
             StringBuilder build = new StringBuilder();
 
-            if (!File.Exists(LogFile)){
+            if (!File.Exists(LogFilePath)){
                 build.Append("Please, report all issues to: https://github.com/chylex/TweetDuck/issues\r\n\r\n");
             }
 
@@ -203,7 +199,7 @@ namespace TweetDck{
             }
 
             try{
-                File.AppendAllText(LogFile, build.ToString(), Encoding.UTF8);
+                File.AppendAllText(LogFilePath, build.ToString(), Encoding.UTF8);
                 return true;
             }catch{
                 return false;
