@@ -111,6 +111,8 @@ namespace TweetDck{
                 }
             }
 
+            BrowserCache.ClearOldCacheFiles();
+
             CefSettings settings = new CefSettings{
                 AcceptLanguageList = BrowserUtils.HeaderAcceptLanguage,
                 UserAgent = BrowserUtils.HeaderUserAgent,
