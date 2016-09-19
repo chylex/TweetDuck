@@ -101,6 +101,12 @@ namespace TweetDck.Core{
 
         private void Browser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e){
             if (!e.IsLoading){
+                browser.AddWordToDictionary("tweetdeck");
+                browser.AddWordToDictionary("TweetDeck");
+                browser.AddWordToDictionary("tweetduck");
+                browser.AddWordToDictionary("TweetDuck");
+                browser.AddWordToDictionary("TD");
+
                 Invoke(new Action(SetupWindow));
                 browser.LoadingStateChanged -= Browser_LoadingStateChanged;
             }

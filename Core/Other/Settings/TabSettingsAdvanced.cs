@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows.Forms;
 using TweetDck.Core.Controls;
 using TweetDck.Core.Other.Settings.Dialogs;
@@ -150,13 +149,6 @@ namespace TweetDck.Core.Other.Settings{
             if (MessageBox.Show("This will reset all of your settings, including disabled plugins. Do you want to proceed?", "Reset "+Program.BrandName+" Settings", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
                 Program.ResetConfig();
                 ((FormSettings)ParentForm).ReloadUI();
-            }
-        }
-
-        private static void PromptRestart(){
-            if (MessageBox.Show("The application must restart for the setting to take place. Do you want to restart now?", Program.BrandName+" Settings", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes){
-                Process.Start(Application.ExecutablePath, "-restart");
-                Application.Exit();
             }
         }
     }

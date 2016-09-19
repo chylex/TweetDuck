@@ -114,7 +114,7 @@ namespace TweetDck{
             CefSettings settings = new CefSettings{
                 AcceptLanguageList = BrowserUtils.HeaderAcceptLanguage,
                 UserAgent = BrowserUtils.HeaderUserAgent,
-                Locale = CultureInfo.CurrentCulture.TwoLetterISOLanguageName,
+                Locale = GetCmdArgumentValue("locale") ?? "en",
                 CachePath = StoragePath,
                 BrowserSubprocessPath = File.Exists(BrowserSubprocess) ? BrowserSubprocess : "CefSharp.BrowserSubprocess.exe",
                 #if !DEBUG

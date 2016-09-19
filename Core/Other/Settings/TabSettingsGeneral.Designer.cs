@@ -28,6 +28,7 @@
             this.comboBoxTrayType = new System.Windows.Forms.ComboBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.checkTrayHighlight = new System.Windows.Forms.CheckBox();
+            this.checkSpellCheck = new System.Windows.Forms.CheckBox();
             this.groupTray = new System.Windows.Forms.GroupBox();
             this.labelTrayIcon = new System.Windows.Forms.Label();
             this.groupInterface = new System.Windows.Forms.GroupBox();
@@ -74,12 +75,24 @@
             this.checkTrayHighlight.UseVisualStyleBackColor = true;
             this.checkTrayHighlight.CheckedChanged += new System.EventHandler(this.checkTrayHighlight_CheckedChanged);
             // 
+            // checkSpellCheck
+            // 
+            this.checkSpellCheck.AutoSize = true;
+            this.checkSpellCheck.Location = new System.Drawing.Point(9, 44);
+            this.checkSpellCheck.Name = "checkSpellCheck";
+            this.checkSpellCheck.Size = new System.Drawing.Size(119, 17);
+            this.checkSpellCheck.TabIndex = 15;
+            this.checkSpellCheck.Text = "Enable Spell Check";
+            this.toolTip.SetToolTip(this.checkSpellCheck, "Underlines words that are spelled incorrectly.");
+            this.checkSpellCheck.UseVisualStyleBackColor = true;
+            this.checkSpellCheck.CheckedChanged += new System.EventHandler(this.checkSpellCheck_CheckedChanged);
+            // 
             // groupTray
             // 
             this.groupTray.Controls.Add(this.checkTrayHighlight);
             this.groupTray.Controls.Add(this.labelTrayIcon);
             this.groupTray.Controls.Add(this.comboBoxTrayType);
-            this.groupTray.Location = new System.Drawing.Point(9, 63);
+            this.groupTray.Location = new System.Drawing.Point(9, 86);
             this.groupTray.Name = "groupTray";
             this.groupTray.Size = new System.Drawing.Size(183, 93);
             this.groupTray.TabIndex = 15;
@@ -98,10 +111,11 @@
             // 
             // groupInterface
             // 
+            this.groupInterface.Controls.Add(this.checkSpellCheck);
             this.groupInterface.Controls.Add(this.checkExpandLinks);
             this.groupInterface.Location = new System.Drawing.Point(9, 9);
             this.groupInterface.Name = "groupInterface";
-            this.groupInterface.Size = new System.Drawing.Size(183, 48);
+            this.groupInterface.Size = new System.Drawing.Size(183, 71);
             this.groupInterface.TabIndex = 16;
             this.groupInterface.TabStop = false;
             this.groupInterface.Text = "User Interface";
@@ -131,5 +145,6 @@
         private System.Windows.Forms.GroupBox groupInterface;
         private System.Windows.Forms.Label labelTrayIcon;
         private System.Windows.Forms.CheckBox checkTrayHighlight;
+        private System.Windows.Forms.CheckBox checkSpellCheck;
     }
 }
