@@ -60,8 +60,6 @@ namespace TweetDck{
                 return;
             }
 
-            ReloadConfig();
-
             string[] programArguments = Environment.GetCommandLineArgs();
 
             if (programArguments.Contains("-restart")){
@@ -77,8 +75,11 @@ namespace TweetDck{
                         Thread.Sleep(500);
                     }
                 }
+
+                ReloadConfig();
             }
             else{
+                ReloadConfig();
                 MigrationManager.Run();
 
                 if (!LockManager.Lock()){
