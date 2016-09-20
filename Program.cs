@@ -15,6 +15,7 @@ using TweetDck.Plugins;
 using TweetDck.Plugins.Events;
 using TweetDck.Core.Other.Settings.Export;
 using TweetDck.Core.Handling;
+using System.Security.AccessControl;
 
 [assembly: CLSCompliant(true)]
 namespace TweetDck{
@@ -55,8 +56,8 @@ namespace TweetDck{
 
             WindowRestoreMessage = NativeMethods.RegisterWindowMessage("TweetDuckRestore");
 
-            if (!File.Exists(LogFilePath) && !Log(string.Empty)){
-                MessageBox.Show("Could not write to the log file. If you installed "+BrandName+" to Program Files, please run it as Administrator.", "Administrator Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            if (!WindowsUtils.CheckFolderPermission(ProgramPath, FileSystemRights.WriteData)){
+                MessageBox.Show(BrandName+" does not have write permissions to the program folder. If you installed "+BrandName+" to Program Files, please run it as Administrator.", "Administrator Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -196,10 +197,8 @@ namespace TweetDck{
                 build.Append("Please, report all issues to: https://github.com/chylex/TweetDuck/issues\r\n\r\n");
             }
 
-            if (data.Length > 0){
-                build.Append("[").Append(DateTime.Now.ToString("G", CultureInfo.CurrentCulture)).Append("]\r\n");
-                build.Append(data).Append("\r\n\r\n");
-            }
+            build.Append("[").Append(DateTime.Now.ToString("G", CultureInfo.CurrentCulture)).Append("]\r\n");
+            build.Append(data).Append("\r\n\r\n");
 
             try{
                 File.AppendAllText(LogFilePath, build.ToString(), Encoding.UTF8);

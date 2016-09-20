@@ -178,6 +178,7 @@
     </Compile>
     <Compile Include="Core\Utils\CommandLineArgsParser.cs" />
     <Compile Include="Core\Utils\WindowState.cs" />
+    <Compile Include="Core\Utils\WindowsUtils.cs" />
     <Compile Include="Migration\FormBackgroundWork.cs">
       <SubType>Form</SubType>
     </Compile>
