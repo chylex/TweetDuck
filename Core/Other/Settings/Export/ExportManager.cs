@@ -8,8 +8,8 @@ using TweetDck.Plugins;
 
 namespace TweetDck.Core.Other.Settings.Export{
     sealed class ExportManager{
-        public static readonly string CookiesPath = Path.Combine(Program.StoragePath, "Cookies");
-        public static readonly string TempCookiesPath = Path.Combine(Program.StoragePath, "CookiesTmp");
+        private static readonly string CookiesPath = Path.Combine(Program.StoragePath, "Cookies");
+        private static readonly string TempCookiesPath = Path.Combine(Program.StoragePath, "CookiesTmp");
 
         public bool IsRestarting { get; private set; }
         public Exception LastException { get; private set; }
@@ -122,6 +122,20 @@ namespace TweetDck.Core.Other.Settings.Export{
             }catch(Exception e){
                 LastException = e;
                 return false;
+            }
+        }
+
+        public static void ImportCookies(){
+            if (File.Exists(TempCookiesPath)){
+                try{
+                    if (File.Exists(CookiesPath)){
+                        File.Delete(CookiesPath);
+                    }
+
+                    File.Move(TempCookiesPath, CookiesPath);
+                }catch(Exception e){
+                    Program.Reporter.HandleException("Profile Import Error", "Could not import the cookie file to restore login session.", true, e);
+                }
             }
         }
 

@@ -109,16 +109,8 @@ namespace TweetDck{
                 }
             }
 
-            if (programArguments.Contains("-importcookies") && File.Exists(ExportManager.TempCookiesPath)){
-                try{
-                    if (File.Exists(ExportManager.CookiesPath)){
-                        File.Delete(ExportManager.CookiesPath);
-                    }
-
-                    File.Move(ExportManager.TempCookiesPath, ExportManager.CookiesPath);
-                }catch(Exception e){
-                    Reporter.HandleException("Profile Import Error", "Could not import the cookie file to restore login session.", true, e);
-                }
+            if (programArguments.Contains("-importcookies")){
+                ExportManager.ImportCookies();
             }
 
             BrowserCache.ClearOldCacheFiles();
