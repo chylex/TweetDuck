@@ -46,7 +46,7 @@ namespace TweetDck{
                 Location = new Point(12, 12),
                 Margin = new Padding(0, 0, 48, 0),
                 Size = new Size(88, 26),
-                Text = "Open Log File",
+                Text = "Show Error Log",
                 UseVisualStyleBackColor = true
             };
 
@@ -64,7 +64,7 @@ namespace TweetDck{
                 }
             }
 
-            Environment.Exit(1);
+            Environment.FailFast(message, e);
         }
     }
 }
