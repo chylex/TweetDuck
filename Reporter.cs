@@ -1,13 +1,40 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
+using System.IO;
+using System.Text;
 using System.Windows.Forms;
 using TweetDck.Core.Other;
 
 namespace TweetDck{
-    static class Reporter{
-        public static void HandleException(string caption, string message, bool canIgnore, Exception e){
-            Program.Log(e.ToString());
+    class Reporter{
+        private readonly string logFile;
+
+        public Reporter(string logFile){
+            this.logFile = logFile;
+        }
+
+        public bool Log(string data){
+            StringBuilder build = new StringBuilder();
+
+            if (!File.Exists(logFile)){
+                build.Append("Please, report all issues to: https://github.com/chylex/TweetDuck/issues\r\n\r\n");
+            }
+
+            build.Append("[").Append(DateTime.Now.ToString("G", CultureInfo.CurrentCulture)).Append("]\r\n");
+            build.Append(data).Append("\r\n\r\n");
+
+            try{
+                File.AppendAllText(logFile, build.ToString(), Encoding.UTF8);
+                return true;
+            }catch{
+                return false;
+            }
+        }
+
+        public void HandleException(string caption, string message, bool canIgnore, Exception e){
+            Log(e.ToString());
 
             FormMessage form = new FormMessage(caption, message+"\r\nError: "+e.Message, canIgnore ? MessageBoxIcon.Warning : MessageBoxIcon.Error);
             
@@ -23,7 +50,7 @@ namespace TweetDck{
                 UseVisualStyleBackColor = true
             };
 
-            btnOpenLog.Click += (sender, args) => Process.Start(Program.LogFilePath);
+            btnOpenLog.Click += (sender, args) => Process.Start(logFile);
 
             form.AddActionControl(btnOpenLog);
 

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
-using System.Text;
 using System.Windows.Forms;
 using CefSharp;
 using TweetDck.Configuration;
@@ -37,7 +35,7 @@ namespace TweetDck{
         public static readonly string TemporaryPath = IsPortable ? Path.Combine(ProgramPath, "portable", "tmp") : Path.Combine(Path.GetTempPath(), BrandName+'_'+Path.GetRandomFileName().Substring(0, 6));
 
         public static readonly string ConfigFilePath = Path.Combine(StoragePath, "TD_UserConfig.cfg");
-        public static readonly string LogFilePath = Path.Combine(ProgramPath, "td-log.txt");
+        private static readonly string LogFilePath = Path.Combine(ProgramPath, "td-log.txt");
         
         public static readonly string ScriptPath = Path.Combine(ProgramPath, "scripts");
         public static readonly string PluginPath = Path.Combine(ProgramPath, "plugins");
@@ -48,6 +46,7 @@ namespace TweetDck{
         private static bool HasCleanedUp;
         
         public static UserConfig UserConfig { get; private set; }
+        public static Reporter Reporter { get; private set; }
 
         [STAThread]
         private static void Main(){
@@ -60,6 +59,8 @@ namespace TweetDck{
                 MessageBox.Show(BrandName+" does not have write permissions to the program folder. If it is installed in Program Files, please run it as Administrator.", "Administrator Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
+            Reporter = new Reporter(LogFilePath);
 
             string[] programArguments = Environment.GetCommandLineArgs();
 
@@ -183,22 +184,8 @@ namespace TweetDck{
             Reporter.HandleException(BrandName+" Has Failed :(", message, false, new Exception());
         }
 
-        public static bool Log(string data){
-            StringBuilder build = new StringBuilder();
-
-            if (!File.Exists(LogFilePath)){
-                build.Append("Please, report all issues to: https://github.com/chylex/TweetDuck/issues\r\n\r\n");
-            }
-
-            build.Append("[").Append(DateTime.Now.ToString("G", CultureInfo.CurrentCulture)).Append("]\r\n");
-            build.Append(data).Append("\r\n\r\n");
-
-            try{
-                File.AppendAllText(LogFilePath, build.ToString(), Encoding.UTF8);
-                return true;
-            }catch{
-                return false;
-            }
+        public static void Log(string message){ // TODO replace all uses
+            Reporter.Log(message);
         }
 
         public static void ReloadConfig(){
