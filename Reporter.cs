@@ -64,7 +64,11 @@ namespace TweetDck{
                 }
             }
 
-            Environment.FailFast(message, e);
+            try{
+                Process.GetCurrentProcess().Kill();
+            }catch{
+                Environment.FailFast(message, e);
+            }
         }
     }
 }
