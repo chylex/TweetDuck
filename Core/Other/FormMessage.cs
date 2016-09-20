@@ -4,6 +4,8 @@ using System.Windows.Forms;
 
 namespace TweetDck.Core.Other{
     sealed partial class FormMessage : Form{
+        public Button ClickedButton { get; private set; }
+
         private readonly Icon icon;
         private readonly bool isReady;
 
@@ -44,7 +46,7 @@ namespace TweetDck.Core.Other{
             this.labelMessage.Text = text;
         }
 
-        public int AddButton(string title){
+        public Button AddButton(string title){
             Button button = new Button{
                 Anchor = AnchorStyles.Bottom | AnchorStyles.Right,
                 Location = new Point(Width-112-buttonCount*96, 12),
@@ -54,12 +56,26 @@ namespace TweetDck.Core.Other{
                 UseVisualStyleBackColor = true
             };
 
+            button.Click += (sender, args) => {
+                ClickedButton = (Button)sender;
+                DialogResult = DialogResult.OK;
+                Close();
+            };
+
             panelActions.Controls.Add(button);
 
             minFormWidth += 96;
             Width = Math.Max(realFormWidth, minFormWidth);
 
-            return buttonCount++;
+            ++buttonCount;
+            return button;
+        }
+
+        public void AddActionControl(Control control){
+            panelActions.Controls.Add(control);
+
+            minFormWidth += control.Width+control.Margin.Horizontal;
+            Width = Math.Max(realFormWidth, minFormWidth);
         }
 
         private void labelMessage_SizeChanged(object sender, EventArgs e){
