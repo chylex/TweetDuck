@@ -35,7 +35,7 @@ namespace TweetDck{
         public static readonly string TemporaryPath = IsPortable ? Path.Combine(ProgramPath, "portable", "tmp") : Path.Combine(Path.GetTempPath(), BrandName+'_'+Path.GetRandomFileName().Substring(0, 6));
 
         public static readonly string ConfigFilePath = Path.Combine(StoragePath, "TD_UserConfig.cfg");
-        private static readonly string LogFilePath = Path.Combine(ProgramPath, "td-log.txt");
+        private static readonly string LogFilePath = Path.Combine(StoragePath, "TD_Log.txt");
         
         public static readonly string ScriptPath = Path.Combine(ProgramPath, "scripts");
         public static readonly string PluginPath = Path.Combine(ProgramPath, "plugins");
