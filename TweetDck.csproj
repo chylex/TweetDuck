@@ -120,6 +120,12 @@
     <Compile Include="Core\Other\FormAbout.Designer.cs">
       <DependentUpon>FormAbout.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\Other\FormMessage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Core\Other\FormMessage.Designer.cs">
+      <DependentUpon>FormMessage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\Other\FormPlugins.cs">
       <SubType>Form</SubType>
     </Compile>
