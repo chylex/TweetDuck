@@ -184,10 +184,6 @@ namespace TweetDck{
             Reporter.HandleException(BrandName+" Has Failed :(", message, false, new Exception());
         }
 
-        public static void Log(string message){ // TODO replace all uses
-            Reporter.Log(message);
-        }
-
         public static void ReloadConfig(){
             UserConfig = UserConfig.Load(ConfigFilePath);
         }

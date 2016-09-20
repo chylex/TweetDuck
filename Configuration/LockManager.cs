@@ -90,7 +90,7 @@ namespace TweetDck.Configuration{
                 try{
                     File.Delete(file);
                 }catch(Exception e){
-                    Program.Log(e.ToString());
+                    Program.Reporter.Log(e.ToString());
                     result = false;
                 }
 
