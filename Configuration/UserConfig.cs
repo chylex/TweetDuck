@@ -189,13 +189,14 @@ namespace TweetDck.Configuration{
 
                 return true;
             }catch(Exception e){
-                Program.HandleException("Could not save the configuration file.", e);
+                Program.Reporter.HandleException("Configuration Error", "Could not save the configuration file.", true, e);
                 return false;
             }
         }
         
         public static UserConfig Load(string file){
             UserConfig config = null;
+            Exception firstException = null;
 
             for(int attempt = 0; attempt < 2; attempt++){
                 try{
@@ -214,8 +215,18 @@ namespace TweetDck.Configuration{
                 }catch(DirectoryNotFoundException){
                     break;
                 }catch(Exception e){
-                    Program.HandleException("Could not open the configuration file.", e);
+                    if (attempt == 0){
+                        firstException = e;
+                        Program.Reporter.Log(e.ToString());
+                    }
+                    else if (firstException != null){
+                        Program.Reporter.HandleException("Configuration Error", "Could not open the backup configuration file. If you continue, you may lose your settings and list of enabled plugins.", true, e);
+                    }
                 }
+            }
+
+            if (firstException != null && config == null){
+                Program.Reporter.HandleException("Configuration Error", "Could not open the configuration file.", true, firstException);
             }
 
             return config ?? new UserConfig(file);

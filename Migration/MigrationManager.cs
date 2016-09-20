@@ -22,7 +22,7 @@ namespace TweetDck.Migration{
                         Directory.Move(TweetDickStorage, Program.StoragePath);
                         MessageBox.Show("All done! You can now uninstall TweetDick.", "TweetDick Migration", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }catch(Exception ex){
-                        Program.HandleException("An unexpected exception has occurred during the migration process.", ex);
+                        Program.Reporter.HandleException("Migration Error", "An unexpected error occurred during the migration process.", true, ex);
                     }
                 }
 
@@ -46,7 +46,7 @@ namespace TweetDck.Migration{
                                 formWait.Close();
 
                                 if (ex != null){
-                                    Program.HandleException("An unexpected exception has occurred during the migration process.", ex);
+                                    Program.Reporter.HandleException("Migration Error", "An unexpected error occurred during the migration process.", true, ex);
                                     return;
                                 }
 

@@ -62,6 +62,14 @@ namespace TweetDck{
 
             Reporter = new Reporter(LogFilePath);
 
+            AppDomain.CurrentDomain.UnhandledException += (sender, args) => {
+                Exception ex = args.ExceptionObject as Exception;
+
+                if (ex != null){
+                    Reporter.HandleException(BrandName+" Has Failed :(", "An unhandled exception has occurred.", false, ex);
+                }
+            };
+
             string[] programArguments = Environment.GetCommandLineArgs();
 
             if (programArguments.Contains("-restart")){
@@ -109,7 +117,7 @@ namespace TweetDck{
 
                     File.Move(ExportManager.TempCookiesPath, ExportManager.CookiesPath);
                 }catch(Exception e){
-                    HandleException("Could not import the cookie file to restore login session.", e);
+                    Reporter.HandleException("Profile Import Error", "Could not import the cookie file to restore login session.", true, e);
                 }
             }
 
@@ -129,14 +137,6 @@ namespace TweetDck{
             CommandLineArgsParser.AddToDictionary(UserConfig.CustomCefArgs, settings.CefCommandLineArgs);
 
             Cef.Initialize(settings, false, new BrowserProcessHandler());
-
-            AppDomain.CurrentDomain.UnhandledException += (sender, args) => {
-                Exception ex = args.ExceptionObject as Exception;
-
-                if (ex != null){
-                    HandleException("An unhandled exception has occurred.", ex);
-                }
-            };
 
             Application.ApplicationExit += (sender, args) => ExitCleanup();
 
@@ -180,10 +180,6 @@ namespace TweetDck{
             }
         }
 
-        public static void HandleException(string message, Exception e){ // TODO replace all uses
-            Reporter.HandleException(BrandName+" Has Failed :(", message, false, new Exception());
-        }
-
         public static void ReloadConfig(){
             UserConfig = UserConfig.Load(ConfigFilePath);
         }
@@ -193,7 +189,7 @@ namespace TweetDck{
                 File.Delete(ConfigFilePath);
                 File.Delete(UserConfig.GetBackupFile(ConfigFilePath));
             }catch(Exception e){
-                HandleException("Could not delete configuration files to reset the settings.", e);
+                Reporter.HandleException("Configuration Reset Error", "Could not delete configuration files to reset the settings.", true, e);
                 return;
             }
 

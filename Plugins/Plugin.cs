@@ -83,7 +83,7 @@ namespace TweetDck.Plugins{
                 try{
                     File.Copy(defaultConfigPath, configPath, false);
                 }catch(Exception e){
-                    Program.HandleException("Could not generate a configuration file for '"+identifier+"' plugin.", e);
+                    Program.Reporter.HandleException("Plugin Loading Error", "Could not generate a configuration file for '"+identifier+"' plugin.", true, e);
                 }
             }
         }

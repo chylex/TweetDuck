@@ -133,7 +133,7 @@ namespace TweetDck.Core.Handling{
 
                         form.OnImagePasted();
                     }catch(Exception e){
-                        Program.HandleException("Could not paste image from clipboard.", e);
+                        Program.Reporter.HandleException("Clipboard Image Error", "Could not paste image from clipboard.", true, e);
                     }
                 }
             });

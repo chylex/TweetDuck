@@ -114,7 +114,7 @@ namespace TweetDck.Core.Other.Settings{
                 ExportManager manager = new ExportManager(file, plugins);
 
                 if (!manager.Export(saveCredentials)){
-                    Program.HandleException("An exception happened while exporting "+Program.BrandName+" settings.", manager.LastException);
+                    Program.Reporter.HandleException("Profile Export Error", "An exception happened while exporting "+Program.BrandName+" settings.", true, manager.LastException);
                 }
             }
         }
@@ -140,7 +140,7 @@ namespace TweetDck.Core.Other.Settings{
                     }
                 }
                 else{
-                    Program.HandleException("An exception happened while importing "+Program.BrandName+" settings.", manager.LastException);
+                    Program.Reporter.HandleException("Profile Import Error", "An exception happened while importing "+Program.BrandName+" settings.", true, manager.LastException);
                 }
             }
         }
