@@ -213,6 +213,7 @@
     <Compile Include="Plugins\Events\PluginLoadEventArgs.cs" />
     <Compile Include="Plugins\PluginManager.cs" />
     <Compile Include="Plugins\PluginScriptGenerator.cs" />
+    <Compile Include="Reporter.cs" />
     <Compile Include="Updates\FormUpdateDownload.cs">
       <SubType>Form</SubType>
     </Compile>

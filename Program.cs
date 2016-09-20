@@ -179,15 +179,8 @@ namespace TweetDck{
             }
         }
 
-        public static void HandleException(string message, Exception e){
-            if (Log(e.ToString())){
-                if (MessageBox.Show(message+"\r\nDo you want to open the log file to report the issue?", BrandName+" Has Failed :(", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
-                    Process.Start(LogFilePath);
-                }
-            }
-            else{
-                MessageBox.Show(message+"\r\nFailed writing the error into the log file.\r\nOriginal exception: "+e, BrandName+" Has Failed :(", MessageBoxButtons.OK);
-            }
+        public static void HandleException(string message, Exception e){ // TODO replace all uses
+            Reporter.HandleException(BrandName+" Has Failed :(", message, false, new Exception());
         }
 
         public static bool Log(string data){
