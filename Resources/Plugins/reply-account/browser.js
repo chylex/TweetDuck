@@ -1,5 +1,5 @@
 enabled(){
-  var configuration = { defaultAccount: "" };
+  var configuration = { defaultAccount: "#preferred" };
   
   window.TDPF_loadConfigurationFile(this, "configuration.js", "configuration.default.js", obj => configuration = obj);
   
@@ -18,6 +18,13 @@ enabled(){
     }
     else{
       query = configuration.defaultAccount;
+      
+      if (query === ""){
+        query = "#preferred";
+      }
+      else if (typeof query !== "string"){
+        query = "#default";
+      }
     }
     
     if (typeof query === "undefined"){
