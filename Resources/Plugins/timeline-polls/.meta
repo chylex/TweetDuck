@@ -1,0 +1,15 @@
+[name]
+Polls in timelines
+
+[description]
+- Adds poll result display directly into timelines
+- Experimental, may be buggy or break when TweetDeck updates
+
+[author]
+chylex
+
+[version]
+1.0
+
+[website]
+https://tweetduck.chylex.com
