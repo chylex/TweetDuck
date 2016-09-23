@@ -4,40 +4,68 @@ enabled(){
   window.TDPF_loadConfigurationFile(this, "configuration.js", "configuration.default.js", obj => configuration = obj);
   
   this.uiInlineComposeTweetEvent = function(e, data){
-    var account = null;
+    var query;
     
-    if (configuration.useAdvancedSelector && configuration.customSelector){
-      var column = TD.controller.columnManager.get(data.element.closest("section.column").attr("data-column"));
-      var result = configuration.customSelector(column);
-      
-      if (typeof result === "string" && result[0] === '@'){
-        account = result.substring(1);
-      }
-    }
-    
-    if (account === null){
-      if (configuration.defaultAccount === false){
-        return;
-      }
-      else if (configuration.defaultAccount !== "" && configuration.defaultAccount[0] === '@'){
-        account = configuration.defaultAccount.substring(1);
-      }
-    }
-    
-    var identifier;
-    
-    if (account === null){
-      identifier = TD.storage.clientController.client.getDefaultAccount();
-    }
-    else{
-      var obj = TD.storage.accountController.getAccountFromUsername(account);
-      
-      if (obj.length === 0){
-        return;
+    if (configuration.useAdvancedSelector){
+      if (configuration.customSelector){
+        var column = TD.controller.columnManager.get(data.element.closest("section.column").attr("data-column"));
+        query = configuration.customSelector(column);
       }
       else{
-        identifier = obj[0].privateState.key;
+        $TD.alert("warning", "Plugin reply-account has invalid configuration: useAdvancedSelector is true, but customSelector function is missing");
+        return;
       }
+    }
+    else{
+      query = configuration.defaultAccount;
+    }
+    
+    if (typeof query === "undefined"){
+      query = "#preferred";
+    }
+    
+    if (typeof query !== "string"){
+      return;
+    }
+    else if (query.length === 0){
+      $TD.alert("warning", "Plugin reply-account has invalid configuration: the requested account is empty");
+      return;
+    }
+    else if (query[0] !== '@' && query[0] !== '&'){
+      $TD.alert("warning", "Plugin reply-account has invalid configuration: the requested account does not begin with @ or #: "+query);
+      return;
+    }
+    
+    var identifier = null;
+    
+    switch(query){
+      case "#preferred":
+        identifier = TD.storage.clientController.client.getDefaultAccount();
+        break;
+      
+      case "#last":
+        // TODO
+        break;
+      
+      case "#default":
+        return;
+      
+      default:
+        if (query[0] === '@'){
+          var obj = TD.storage.accountController.getAccountFromUsername(query.substring(1));
+          
+          if (obj.length === 0){
+            $TD.alert("warning", "Plugin reply-account has invalid configuration: requested account not found: "+query);
+            return;
+          }
+          else{
+            identifier = obj[0].privateState.key;
+          }
+        }
+        else{
+          $TD.alert("warning", "Plugin reply-account has invalid configuration: unknown requested account query: "+query);
+          return;
+        }
     }
     
     data.singleFrom = data.from = [ identifier ];
