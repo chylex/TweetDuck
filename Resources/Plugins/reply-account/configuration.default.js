@@ -14,7 +14,7 @@
    * Set value of 'defaultAccount' to one of the following values:
    *
    *   "#preferred"  to use your preferred TweetDeck account (the one used to log into TweetDeck)
-   *   "#last"       to specify the account that was selected last time
+   *   "#last"       to specify the account that was selected last time (only updates if a single account is selected)
    *   "#default"    to fall back to default TweetDeck behavior; useful for advanced configuration below, otherwise disable the plugin instead
    *   "@myAccount"  to specify an account name to use; has to be one of your registered account names
    *

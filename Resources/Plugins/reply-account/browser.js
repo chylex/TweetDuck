@@ -3,7 +3,9 @@ enabled(){
   
   window.TDPF_loadConfigurationFile(this, "configuration.js", "configuration.default.js", obj => configuration = obj);
   
-  this.uiInlineComposeTweetEvent = function(e, data){
+  this.lastSelectedAccount = null;
+  
+  this.uiInlineComposeTweetEvent = (e, data) => {
     var query;
     
     if (configuration.useAdvancedSelector){
@@ -38,7 +40,7 @@ enabled(){
       $TD.alert("warning", "Plugin reply-account has invalid configuration: the requested account is empty");
       return;
     }
-    else if (query[0] !== '@' && query[0] !== '&'){
+    else if (query[0] !== '@' && query[0] !== '#'){
       $TD.alert("warning", "Plugin reply-account has invalid configuration: the requested account does not begin with @ or #: "+query);
       return;
     }
@@ -51,7 +53,11 @@ enabled(){
         break;
       
       case "#last":
-        // TODO
+        if (this.lastSelectedAccount === null){
+          return;
+        }
+        
+        identifier = this.lastSelectedAccount;
         break;
       
       case "#default":
@@ -77,6 +83,11 @@ enabled(){
     
     data.singleFrom = data.from = [ identifier ];
   };
+  
+  this.onSelectedAccountChanged = () => {
+    var selected = $(".js-account-item.is-selected", ".js-account-list");
+    this.lastSelectedAccount = selected.length === 1 ? selected.attr("data-account-key") : null;
+  };
 }
 
 ready(){
@@ -95,8 +106,11 @@ ready(){
   else{
     $(document).on("uiInlineComposeTweet", this.uiInlineComposeTweetEvent);
   }
+  
+  $(document).on("click", ".js-account-list .js-account-item", this.onSelectedAccountChanged);
 }
 
 disabled(){
   $(document).off("uiInlineComposeTweet", this.uiInlineComposeTweetEvent);
+  $(document).off("click", ".js-account-list .js-account-item", this.onSelectedAccountChanged);
 }
