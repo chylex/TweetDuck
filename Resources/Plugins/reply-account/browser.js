@@ -5,7 +5,11 @@ enabled(){
   
   this.lastSelectedAccount = null;
   
-  this.uiInlineComposeTweetEvent = (e, data) => {
+  this.uiComposeTweetEvent = (e, data) => {
+    if (data.type !== "reply"){
+      return;
+    }
+    
     var query;
     
     if (configuration.useAdvancedSelector){
@@ -93,24 +97,24 @@ enabled(){
 ready(){
   var events = $._data(document, "events");
   
-  if ("uiInlineComposeTweet" in events){
-    $(document).on("uiInlineComposeTweet", this.uiInlineComposeTweetEvent);
+  for(var event of [ "uiInlineComposeTweet", "uiDockedComposeTweet" ]){
+    $(document).on(event, this.uiComposeTweetEvent);
     
-    var handlers = events["uiInlineComposeTweet"];
-    var oldHandler = handlers[0];
-    var newHandler = handlers[1];
+    var handlers = events[event];
+    var newHandler = handlers[handlers.length-1];
+    
+    for(var index = handlers.length-1; index > 0; index--){
+      handlers[index] = handlers[index-1];
+    }
     
     handlers[0] = newHandler;
-    handlers[1] = oldHandler;
-  }
-  else{
-    $(document).on("uiInlineComposeTweet", this.uiInlineComposeTweetEvent);
   }
   
   $(document).on("click", ".js-account-list .js-account-item", this.onSelectedAccountChanged);
 }
 
 disabled(){
-  $(document).off("uiInlineComposeTweet", this.uiInlineComposeTweetEvent);
+  $(document).off("uiInlineComposeTweet", this.uiComposeTweetEvent);
+  $(document).off("uiDockedComposeTweet", this.uiComposeTweetEvent);
   $(document).off("click", ".js-account-list .js-account-item", this.onSelectedAccountChanged);
 }
