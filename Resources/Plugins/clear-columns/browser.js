@@ -104,7 +104,7 @@ enabled(){
   css.insert(".column-type-message .column-title { margin-right: 115px !important; }");
   css.insert(".mark-all-read-link { right: 59px !important; }");
   css.insert(".open-compose-dm-link { right: 90px !important; }");
-  css.insert(".btn-options-tray button[data-action='clear'] { display: none !important; }");
+  css.insert("button[data-action='clear'].btn-options-tray { display: none !important; }");
 }
 
 ready(){
