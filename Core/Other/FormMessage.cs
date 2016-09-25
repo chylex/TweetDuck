@@ -34,6 +34,10 @@ namespace TweetDck.Core.Other{
                     icon = SystemIcons.Error;
                     break;
 
+                case MessageBoxIcon.Question:
+                    icon = SystemIcons.Question;
+                    break;
+
                 default:
                     icon = null;
                     labelMessage.Location = new Point(labelMessage.Location.X-32, labelMessage.Location.Y);
