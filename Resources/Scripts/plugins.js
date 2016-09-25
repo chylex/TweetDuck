@@ -15,7 +15,7 @@
         try{
           obj = eval("("+contents+")");
         }catch(err){
-          if (!(onFailure && onFailure(err.message))){
+          if (!(onFailure && onFailure(err))){
             $TD.alert("warning", "Problem loading '"+fileName+"' file for '"+identifier+"' plugin, the JavaScript syntax is invalid: "+err.message);
           }
 
