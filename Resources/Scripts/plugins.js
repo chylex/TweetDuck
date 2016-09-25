@@ -34,4 +34,21 @@
       }
     });
   };
+  
+  //
+  // Block: Setup a function to add/remove custom CSS.
+  //
+  window.TDPF_createCustomStyle = function(pluginObject){
+    var element = document.createElement("style");
+    element.id = "plugin-"+pluginObject.$id+"-"+Math.random().toString(36).substring(2, 7);
+    document.head.appendChild(element);
+    
+    var obj = {
+      insert: (rule) => element.sheet.insertRule(rule, 0),
+      remove: () => $(element).remove()
+    };
+    
+    obj.element = element;
+    return obj;
+  };
 })($TDP);
