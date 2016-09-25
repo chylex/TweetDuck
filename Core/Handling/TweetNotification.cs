@@ -55,7 +55,7 @@ namespace TweetDck.Core.Handling{
 
                 build.Append(@"</div></div></article>");
 
-                return new TweetNotification(build.ToString(), "", 95);
+                return new TweetNotification(build.ToString(), "", 95, true);
             }
         }
 
@@ -84,11 +84,15 @@ namespace TweetDck.Core.Handling{
         private readonly string html;
         private readonly string url;
         private readonly int characters;
+        private readonly bool isExample;
 
-        public TweetNotification(string html, string url, int characters){
+        public TweetNotification(string html, string url, int characters) : this(html, url, characters, false){}
+
+        private TweetNotification(string html, string url, int characters, bool isExample){
             this.html = html;
             this.url = url;
             this.characters = characters;
+            this.isExample = isExample;
         }
 
         public int GetDisplayDuration(int value){
@@ -106,7 +110,7 @@ namespace TweetDck.Core.Handling{
             }
 
             build.Append("</head>");
-            build.Append("<body class='hearty'><div class='app-columns-container'><div class='column scroll-styled-v' style='width:100%;overflow-y:auto'>");
+            build.Append("<body class='hearty'").Append(isExample ? " td-example-notification" : "").Append("><div class='app-columns-container'><div class='column scroll-styled-v' style='width:100%;overflow-y:auto'>");
             build.Append(html);
             build.Append("</div></div></body>");
             build.Append("</html>");
