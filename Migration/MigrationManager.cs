@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using TweetDck.Migration.Helpers;
+using TweetDck.Core.Other;
+using System.Drawing;
 
 namespace TweetDck.Migration{
     static class MigrationManager{
@@ -32,8 +34,25 @@ namespace TweetDck.Migration{
             if (!Program.UserConfig.IgnoreMigration && Directory.Exists(TweetDeckPath)){
                 MigrationDecision decision;
 
-                using(FormMigrationQuestion formQuestion = new FormMigrationQuestion()){
-                    decision = formQuestion.ShowDialog() == DialogResult.OK ? formQuestion.Decision : MigrationDecision.AskLater;
+                const string prompt = "Hey there, I found some TweetDeck data! Do you want to »Migrate« it and delete the old data folder, »Ignore« the prompt, or try "+Program.BrandName+" out first? You may also »Migrate && Purge« which uninstalls TweetDeck too!";
+
+                using(FormMessage formQuestion = new FormMessage("TweetDeck Migration", prompt, MessageBoxIcon.Question)){
+                    formQuestion.AddButton("Ask Later");
+                    Button btnIgnore = formQuestion.AddButton("Ignore");
+                    Button btnMigrate = formQuestion.AddButton("Migrate");
+                    Button btnMigrateAndPurge = formQuestion.AddButton("Migrate && Purge");
+
+                    btnMigrateAndPurge.Location = new Point(btnMigrateAndPurge.Location.X-18, btnMigrateAndPurge.Location.Y);
+                    btnMigrateAndPurge.Width += 18;
+
+                    if (formQuestion.ShowDialog() == DialogResult.OK){
+                        decision = formQuestion.ClickedButton == btnMigrateAndPurge ? MigrationDecision.MigratePurge :
+                                   formQuestion.ClickedButton == btnMigrate ? MigrationDecision.Migrate :
+                                   formQuestion.ClickedButton == btnIgnore ? MigrationDecision.Ignore : MigrationDecision.AskLater;
+                    }
+                    else{
+                        decision = MigrationDecision.AskLater;
+                    }
                 }
 
                 switch(decision){
