@@ -119,6 +119,10 @@ namespace TweetDck.Core.Handling{
             }
         }
 
+        public void LoadNextNotification(){
+            notification.InvokeSafe(notification.FinishCurrentTweet);
+        }
+
         public void TryPasteImage(){
             form.InvokeSafe(() => {
                 if (Clipboard.ContainsImage()){

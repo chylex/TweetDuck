@@ -20,7 +20,7 @@ namespace TweetDck.Core.Handling{
 
         private static string CustomCSS{
             get{
-                return @".scroll-styled-v::-webkit-scrollbar{width:8px}.scroll-styled-v::-webkit-scrollbar-thumb{border-radius:0}a[data-full-url]{word-break:break-all}";
+                return @".scroll-styled-v::-webkit-scrollbar{width:8px}.scroll-styled-v::-webkit-scrollbar-thumb{border-radius:0}a[data-full-url]{word-break:break-all}#td-skip{opacity:0.75;cursor:pointer}#td-skip:hover{opacity:1}";
             }
         }
 
