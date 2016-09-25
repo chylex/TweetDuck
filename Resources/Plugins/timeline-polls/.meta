@@ -13,3 +13,6 @@ chylex
 
 [website]
 https://tweetduck.chylex.com
+
+[requires]
+1.4.1

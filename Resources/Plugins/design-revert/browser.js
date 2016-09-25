@@ -1,15 +1,11 @@
 enabled(){
   // add a stylesheet to change tweet actions
-  var style = document.createElement("style");
-  style.id = "design-revert";
-  document.head.appendChild(style);
-
-  var sheet = style.sheet;
-  sheet.insertRule(".tweet-actions { float: right !important; width: auto !important; }", 0);
-  sheet.insertRule(".tweet-action { opacity: 0; }", 0);
-  sheet.insertRule(".is-favorite .tweet-action, .is-retweet .tweet-action { opacity: 0.5; visibility: visible !important; }", 0);
-  sheet.insertRule(".tweet:hover .tweet-action, .is-favorite .tweet-action[rel='favorite'], .is-retweet .tweet-action[rel='retweet'] { opacity: 1; visibility: visible !important; }", 0);
-  sheet.insertRule(".tweet-actions > li:nth-child(4) { margin-right: 2px !important; }", 0);
+  this.css = window.TDPF_createCustomStyle(this);
+  this.css.insert(".tweet-actions { float: right !important; width: auto !important; }");
+  this.css.insert(".tweet-action { opacity: 0; }");
+  this.css.insert(".is-favorite .tweet-action, .is-retweet .tweet-action { opacity: 0.5; visibility: visible !important; }");
+  this.css.insert(".tweet:hover .tweet-action, .is-favorite .tweet-action[rel='favorite'], .is-retweet .tweet-action[rel='retweet'] { opacity: 1; visibility: visible !important; }");
+  this.css.insert(".tweet-actions > li:nth-child(4) { margin-right: 2px !important; }");
 
   // revert small links around the tweet
   this.prevFooterMustache = TD.mustaches["status/tweet_single_footer.mustache"];
@@ -31,7 +27,8 @@ ready(){
 }
 
 disabled(){
-  $("#design-revert").remove();
+  this.css.remove();
+  
   $(document).off("uiShowActionsMenu", this.uiShowActionsMenuEvent);
   TD.mustaches["status/tweet_single_footer.mustache"] = this.prevFooterMustache;
 }

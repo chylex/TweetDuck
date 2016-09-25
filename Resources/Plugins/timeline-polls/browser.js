@@ -6,12 +6,8 @@ constructor(){
 
 enabled(){
   // add a stylesheet
-  var style = document.createElement("style");
-  style.id = "timeline-polls";
-  document.head.appendChild(style);
-
-  var sheet = style.sheet;
-  sheet.insertRule(".column-detail .timeline-poll-container { display: none }", 0);
+  this.css = window.TDPF_createCustomStyle(this);
+  this.css.insert(".column-detail .timeline-poll-container { display: none }");
   
   // setup layout injecting
   this.prevMustaches = {};
@@ -29,6 +25,6 @@ enabled(){
 }
 
 disabled(){
-  $("#timeline-polls").remove();
+  this.css.remove();
   Object.keys(this.prevMustaches).forEach(mustache => TD.mustaches[mustache] = this.prevMustaches[mustache]);
 }

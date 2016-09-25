@@ -62,14 +62,11 @@ enabled(){
   ].join(""));
   
   // load custom style
-  var style = document.createElement("style");
-  document.head.appendChild(style);
-
-  var sheet = style.sheet;
-  sheet.insertRule(".column-title { margin-right: 60px !important; }", 0);
-  sheet.insertRule(".column-type-message .column-title { margin-right: 115px !important; }", 0);
-  sheet.insertRule(".mark-all-read-link { right: 59px !important; }", 0);
-  sheet.insertRule(".open-compose-dm-link { right: 90px !important; }", 0);
+  var css = window.TDPF_createCustomStyle(this);
+  css.insert(".column-title { margin-right: 60px !important; }");
+  css.insert(".column-type-message .column-title { margin-right: 115px !important; }");
+  css.insert(".mark-all-read-link { right: 59px !important; }");
+  css.insert(".open-compose-dm-link { right: 90px !important; }");
 }
 
 ready(){
