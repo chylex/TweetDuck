@@ -24,12 +24,6 @@ namespace TweetDck.Plugins{
             }
         }
 
-        public string FolderPath{
-            get{
-                return path;
-            }
-        }
-
         public bool HasConfig{
             get{
                 return ConfigFile.Length > 0 && GetFullPathIfSafe(ConfigFile).Length > 0;

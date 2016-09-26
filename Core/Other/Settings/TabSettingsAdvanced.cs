@@ -70,21 +70,25 @@ namespace TweetDck.Core.Other.Settings{
 
             if (form.ShowDialog(ParentForm) == DialogResult.OK){
                 Config.CustomCefArgs = form.CefArgs;
+                form.Dispose();
                 PromptRestart();
+            }
+            else{
+                form.Dispose();
             }
         }
 
         private void btnEditCSS_Click(object sender, EventArgs e){
-            DialogSettingsCSS form = new DialogSettingsCSS();
+            using(DialogSettingsCSS form = new DialogSettingsCSS()){
+                if (form.ShowDialog(ParentForm) == DialogResult.OK){
+                    bool hasChangedBrowser = form.BrowserCSS != Config.CustomBrowserCSS;
 
-            if (form.ShowDialog(ParentForm) == DialogResult.OK){
-                bool hasChangedBrowser = form.BrowserCSS != Config.CustomBrowserCSS;
+                    Config.CustomBrowserCSS = form.BrowserCSS;
+                    Config.CustomNotificationCSS = form.NotificationCSS;
 
-                Config.CustomBrowserCSS = form.BrowserCSS;
-                Config.CustomNotificationCSS = form.NotificationCSS;
-
-                if (hasChangedBrowser && MessageBox.Show("The browser CSS has changed, do you want to reload it?", "Browser CSS Changed", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
-                    browserReloadAction();
+                    if (hasChangedBrowser && MessageBox.Show("The browser CSS has changed, do you want to reload it?", "Browser CSS Changed", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
+                        browserReloadAction();
+                    }
                 }
             }
         }
