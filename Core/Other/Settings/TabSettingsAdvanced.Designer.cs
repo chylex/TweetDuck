@@ -34,8 +34,12 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.groupPerformance = new System.Windows.Forms.GroupBox();
             this.groupConfiguration = new System.Windows.Forms.GroupBox();
+            this.groupApp = new System.Windows.Forms.GroupBox();
+            this.btnRestartLog = new System.Windows.Forms.Button();
+            this.btnRestart = new System.Windows.Forms.Button();
             this.groupPerformance.SuspendLayout();
             this.groupConfiguration.SuspendLayout();
+            this.groupApp.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnClearCache
@@ -148,10 +152,46 @@
             this.groupConfiguration.TabStop = false;
             this.groupConfiguration.Text = "Configuration";
             // 
+            // groupApp
+            // 
+            this.groupApp.Controls.Add(this.btnRestartLog);
+            this.groupApp.Controls.Add(this.btnRestart);
+            this.groupApp.Location = new System.Drawing.Point(198, 9);
+            this.groupApp.Name = "groupApp";
+            this.groupApp.Size = new System.Drawing.Size(183, 77);
+            this.groupApp.TabIndex = 20;
+            this.groupApp.TabStop = false;
+            this.groupApp.Text = "App";
+            // 
+            // btnRestartLog
+            // 
+            this.btnRestartLog.Location = new System.Drawing.Point(6, 48);
+            this.btnRestartLog.Name = "btnRestartLog";
+            this.btnRestartLog.Size = new System.Drawing.Size(171, 23);
+            this.btnRestartLog.TabIndex = 17;
+            this.btnRestartLog.Text = "Restart with Logging";
+            this.toolTip.SetToolTip(this.btnRestartLog, "Restarts the program and enables logging\r\ninto a debug.txt file in the installati" +
+        "on folder.");
+            this.btnRestartLog.UseVisualStyleBackColor = true;
+            this.btnRestartLog.Click += new System.EventHandler(this.btnRestartLog_Click);
+            // 
+            // btnRestart
+            // 
+            this.btnRestart.Location = new System.Drawing.Point(6, 19);
+            this.btnRestart.Name = "btnRestart";
+            this.btnRestart.Size = new System.Drawing.Size(171, 23);
+            this.btnRestart.TabIndex = 16;
+            this.btnRestart.Text = "Restart the Program";
+            this.toolTip.SetToolTip(this.btnRestart, "Restarts the program using the same command\r\nline arguments that were used at lau" +
+        "nch.");
+            this.btnRestart.UseVisualStyleBackColor = true;
+            this.btnRestart.Click += new System.EventHandler(this.btnRestart_Click);
+            // 
             // TabSettingsAdvanced
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupApp);
             this.Controls.Add(this.groupConfiguration);
             this.Controls.Add(this.groupPerformance);
             this.Controls.Add(this.btnReset);
@@ -162,6 +202,7 @@
             this.groupPerformance.ResumeLayout(false);
             this.groupPerformance.PerformLayout();
             this.groupConfiguration.ResumeLayout(false);
+            this.groupApp.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -179,5 +220,8 @@
         private System.Windows.Forms.GroupBox groupConfiguration;
         private System.Windows.Forms.Button btnEditCefArgs;
         private System.Windows.Forms.Button btnEditCSS;
+        private System.Windows.Forms.GroupBox groupApp;
+        private System.Windows.Forms.Button btnRestartLog;
+        private System.Windows.Forms.Button btnRestart;
     }
 }

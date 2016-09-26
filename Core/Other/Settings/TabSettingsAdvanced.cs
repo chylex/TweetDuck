@@ -151,5 +151,13 @@ namespace TweetDck.Core.Other.Settings{
                 ((FormSettings)ParentForm).ReloadUI();
             }
         }
+
+        private void btnRestart_Click(object sender, EventArgs e){
+            Program.Restart();
+        }
+
+        private void btnRestartLog_Click(object sender, EventArgs e){
+            Program.Restart(new string[]{ "-log" });
+        }
     }
 }
