@@ -1,10 +1,23 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using Microsoft.Win32;
 
-namespace TweetDck.Migration.Helpers{
-    static class ProgramRegistrySearch{
-        public static string FindByDisplayName(string displayName){
+namespace TweetDck.Migration{
+    static class MigrationUtils{
+        public static void RunUninstaller(string guid, int timeout){
+            Process uninstaller = Process.Start("msiexec.exe", "/x "+guid+" /quiet /qn");
+
+            if (uninstaller != null){
+                if (timeout > 0){
+                    uninstaller.WaitForExit(timeout); // it appears that the process is restarted or something that triggers this, but it shouldn't be a problem
+                }
+
+                uninstaller.Close();
+            }
+        }
+
+        public static string FindProgramGuidByDisplayName(string displayName){
             Predicate<RegistryKey> predicate = key => displayName.Equals(key.GetValue("DisplayName") as string, StringComparison.OrdinalIgnoreCase);
             string guid;
 

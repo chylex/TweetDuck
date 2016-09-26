@@ -6,7 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
-using TweetDck.Migration.Helpers;
 using TweetDck.Core.Other;
 using System.Drawing;
 
@@ -85,10 +84,10 @@ namespace TweetDck.Migration{
                 }
             }
             else if (!Program.UserConfig.IgnoreUninstallCheck){
-                string guid = ProgramRegistrySearch.FindByDisplayName("TweetDeck");
+                string guid = MigrationUtils.FindProgramGuidByDisplayName("TweetDeck");
 
                 if (guid != null && MessageBox.Show("TweetDeck is still installed on your computer, do you want to uninstall it?", "Uninstall TweetDeck", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
-                    RunUninstaller(guid, 0);
+                    MigrationUtils.RunUninstaller(guid, 0);
                     CleanupTweetDeck();
                 }
 
@@ -154,10 +153,10 @@ namespace TweetDck.Migration{
 
                 if (decision == MigrationDecision.MigratePurge){
                     // uninstall in the background
-                    string guid = ProgramRegistrySearch.FindByDisplayName("TweetDeck");
+                    string guid = MigrationUtils.FindProgramGuidByDisplayName("TweetDeck");
 
                     if (guid != null){
-                        RunUninstaller(guid, 5000);
+                        MigrationUtils.RunUninstaller(guid, 5000);
                     }
 
                     // registry cleanup
@@ -178,18 +177,6 @@ namespace TweetDck.Migration{
                 File.Copy(Path.Combine(TweetDeckPath, relativePath), Path.Combine(Program.StoragePath, relativePath), true);
             }catch(FileNotFoundException){
             }catch(DirectoryNotFoundException){
-            }
-        }
-
-        private static void RunUninstaller(string guid, int timeout){
-            Process uninstaller = Process.Start("msiexec.exe", "/x "+guid+" /quiet /qn");
-
-            if (uninstaller != null){
-                if (timeout > 0){
-                    uninstaller.WaitForExit(timeout); // it appears that the process is restarted or something that triggers this, but it shouldn't be a problem
-                }
-
-                uninstaller.Close();
             }
         }
 
