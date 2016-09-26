@@ -33,7 +33,7 @@ namespace TweetDck.Core.Other.Settings.Dialogs{
                 return;
             }
 
-            int count = CommandLineArgsParser.AddToDictionary(CefArgs, new Dictionary<string, string>());
+            int count = CommandLineArgsParser.ReadCefArguments(CefArgs).Count;
             string prompt = count == 0 && !string.IsNullOrWhiteSpace(prevArgs) ? "All arguments will be removed from the settings. Continue?" : count+(count == 1 ? " argument" : " arguments")+" will be added to the settings. Continue?";
 
             if (MessageBox.Show(prompt, "Confirm CEF Arguments", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.OK){

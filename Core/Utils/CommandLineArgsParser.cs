@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace TweetDck.Core.Utils{
     static class CommandLineArgsParser{
@@ -11,14 +10,14 @@ namespace TweetDck.Core.Utils{
             }
         }
 
-        public static int AddToDictionary(string args, IDictionary<string, string> dictionary){
-            if (string.IsNullOrWhiteSpace(args)){
-                return 0;
+        public static CommandLineArgs ReadCefArguments(string argumentString){
+            CommandLineArgs args = new CommandLineArgs();
+
+            if (string.IsNullOrWhiteSpace(argumentString)){
+                return args;
             }
 
-            int count = 0;
-
-            foreach(Match match in SplitRegex.Matches(args)){
+            foreach(Match match in SplitRegex.Matches(argumentString)){
                 string matchValue = match.Value;
 
                 int indexEquals = matchValue.IndexOf('=');
@@ -34,12 +33,11 @@ namespace TweetDck.Core.Utils{
                 }
 
                 if (key.Length != 0){
-                    dictionary[key] = value;
-                    ++count;
+                    args.SetValue(key, value);
                 }
             }
 
-            return count;
+            return args;
         }
     }
 }

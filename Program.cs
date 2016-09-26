@@ -125,7 +125,7 @@ namespace TweetDck{
                 #endif
             };
 
-            CommandLineArgsParser.AddToDictionary(UserConfig.CustomCefArgs, settings.CefCommandLineArgs);
+            CommandLineArgsParser.ReadCefArguments(UserConfig.CustomCefArgs).ToDictionary(settings.CefCommandLineArgs);
 
             Cef.Initialize(settings, false, new BrowserProcessHandler());
 
