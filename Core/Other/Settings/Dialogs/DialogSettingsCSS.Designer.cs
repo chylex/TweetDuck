@@ -48,14 +48,14 @@
             this.textBoxBrowserCSS.Multiline = true;
             this.textBoxBrowserCSS.Name = "textBoxBrowserCSS";
             this.textBoxBrowserCSS.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxBrowserCSS.Size = new System.Drawing.Size(226, 193);
+            this.textBoxBrowserCSS.Size = new System.Drawing.Size(373, 253);
             this.textBoxBrowserCSS.TabIndex = 0;
             this.textBoxBrowserCSS.WordWrap = false;
             // 
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(354, 227);
+            this.btnCancel.Location = new System.Drawing.Point(654, 287);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnCancel.Size = new System.Drawing.Size(56, 23);
@@ -67,7 +67,7 @@
             // btnApply
             // 
             this.btnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnApply.Location = new System.Drawing.Point(416, 227);
+            this.btnApply.Location = new System.Drawing.Point(716, 287);
             this.btnApply.Name = "btnApply";
             this.btnApply.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnApply.Size = new System.Drawing.Size(56, 23);
@@ -95,8 +95,8 @@
             this.splitContainer.Panel2.Controls.Add(this.labelNotification);
             this.splitContainer.Panel2.Controls.Add(this.textBoxNotificationCSS);
             this.splitContainer.Panel2MinSize = 64;
-            this.splitContainer.Size = new System.Drawing.Size(460, 209);
-            this.splitContainer.SplitterDistance = 226;
+            this.splitContainer.Size = new System.Drawing.Size(760, 269);
+            this.splitContainer.SplitterDistance = 373;
             this.splitContainer.SplitterWidth = 5;
             this.splitContainer.TabIndex = 5;
             // 
@@ -131,7 +131,7 @@
             this.textBoxNotificationCSS.Multiline = true;
             this.textBoxNotificationCSS.Name = "textBoxNotificationCSS";
             this.textBoxNotificationCSS.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxNotificationCSS.Size = new System.Drawing.Size(226, 193);
+            this.textBoxNotificationCSS.Size = new System.Drawing.Size(378, 253);
             this.textBoxNotificationCSS.TabIndex = 1;
             this.textBoxNotificationCSS.WordWrap = false;
             // 
@@ -139,7 +139,7 @@
             // 
             this.labelWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelWarning.AutoSize = true;
-            this.labelWarning.Location = new System.Drawing.Point(9, 232);
+            this.labelWarning.Location = new System.Drawing.Point(9, 292);
             this.labelWarning.Name = "labelWarning";
             this.labelWarning.Size = new System.Drawing.Size(341, 13);
             this.labelWarning.TabIndex = 6;
@@ -149,7 +149,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 262);
+            this.ClientSize = new System.Drawing.Size(784, 322);
             this.Controls.Add(this.labelWarning);
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.btnApply);
