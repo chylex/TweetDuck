@@ -5,7 +5,11 @@ namespace TweetDck.Core.Utils{
     class CommandLineArgs{
         public static CommandLineArgs FromStringArray(char entryChar, string[] array){
             CommandLineArgs args = new CommandLineArgs();
+            ReadStringArray(entryChar, array, args);
+            return args;
+        }
 
+        public static void ReadStringArray(char entryChar, string[] array, CommandLineArgs targetArgs){
             for(int index = 0; index < array.Length; index++){
                 string entry = array[index];
 
@@ -14,20 +18,18 @@ namespace TweetDck.Core.Utils{
                         string potentialValue = array[index+1];
 
                         if (potentialValue.Length > 0 && potentialValue[0] == entryChar){
-                            args.AddFlag(entry);
+                            targetArgs.AddFlag(entry);
                         }
                         else{
-                            args.SetValue(entry, potentialValue);
+                            targetArgs.SetValue(entry, potentialValue);
                             ++index;
                         }
                     }
                     else{
-                        args.AddFlag(entry);
+                        targetArgs.AddFlag(entry);
                     }
                 }
             }
-
-            return args;
         }
 
         private readonly HashSet<string> flags = new HashSet<string>();

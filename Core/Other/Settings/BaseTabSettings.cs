@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using TweetDck.Configuration;
 
 namespace TweetDck.Core.Other.Settings{
@@ -18,8 +17,7 @@ namespace TweetDck.Core.Other.Settings{
 
         protected static void PromptRestart(){
             if (MessageBox.Show("The application must restart for the setting to take place. Do you want to restart now?", Program.BrandName+" Settings", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes){
-                Process.Start(Application.ExecutablePath, "-restart");
-                Application.Exit();
+                Program.Restart();
             }
         }
     }

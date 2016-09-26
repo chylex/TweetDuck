@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -105,8 +104,7 @@ namespace TweetDck.Core.Other.Settings.Export{
 
                                     // okay to and restart, 'cookies' is always the last entry
                                     IsRestarting = true;
-                                    Process.Start(Application.ExecutablePath, "-restart -importcookies");
-                                    Application.Exit();
+                                    Program.Restart(new string[]{ "-importcookies" });
                                 }
 
                                 break;

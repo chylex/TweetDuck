@@ -180,6 +180,21 @@ namespace TweetDck{
             ReloadConfig();
         }
 
+        public static void Restart(){
+            Restart(new string[0]);
+        }
+
+        public static void Restart(string[] extraArgs){
+            CommandLineArgs args = Args.Clone();
+            args.AddFlag("-restart");
+            args.RemoveFlag("-importcookies");
+            
+            CommandLineArgs.ReadStringArray('-', extraArgs, args);
+
+            Process.Start(Application.ExecutablePath, args.ToString());
+            Application.Exit();
+        }
+
         private static void ExitCleanup(){
             if (HasCleanedUp)return;
 
