@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using TweetDck.Core.Controls;
 
 namespace TweetDck.Core.Other.Settings.Dialogs{
     sealed partial class DialogSettingsCSS : Form{
@@ -19,8 +20,11 @@ namespace TweetDck.Core.Other.Settings.Dialogs{
             InitializeComponent();
             
             Text = Program.BrandName+" Settings - CSS";
-
+            
+            textBoxBrowserCSS.EnableMultilineShortcuts();
             textBoxBrowserCSS.Text = Program.UserConfig.CustomBrowserCSS ?? "";
+
+            textBoxNotificationCSS.EnableMultilineShortcuts();
             textBoxNotificationCSS.Text = Program.UserConfig.CustomNotificationCSS ?? "";
         }
 

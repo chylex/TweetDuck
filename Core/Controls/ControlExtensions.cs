@@ -34,5 +34,15 @@ namespace TweetDck.Core.Controls{
                 trackBar.Value = value;
             }
         }
+
+        public static void EnableMultilineShortcuts(this TextBox textBox){
+            textBox.KeyDown += (sender, args) => {
+                if (args.Control && args.KeyCode == Keys.A){
+                    ((TextBox)sender).SelectAll();
+                    args.SuppressKeyPress = true;
+                    args.Handled = true;
+                }
+            };
+        }
     }
 }

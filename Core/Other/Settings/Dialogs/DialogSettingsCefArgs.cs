@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using TweetDck.Core.Controls;
 using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Other.Settings.Dialogs{
@@ -14,7 +15,8 @@ namespace TweetDck.Core.Other.Settings.Dialogs{
             InitializeComponent();
             
             Text = Program.BrandName+" Settings - CEF Arguments";
-
+            
+            textBoxArgs.EnableMultilineShortcuts();
             textBoxArgs.Text = Program.UserConfig.CustomCefArgs ?? "";
             textBoxArgs.Select(textBoxArgs.Text.Length, 0);
         }
