@@ -126,8 +126,8 @@
     }
     
     document.body.insertAdjacentHTML("afterbegin", [
-      '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="17" viewBox="0 0 350 600" style="position:fixed;left:12px;bottom:8px;z-index:1000">',
-      '<path id="td-skip" fill="#888" d="M0,151.656l102.208-102.22l247.777,247.775L102.208,544.986L0,442.758l145.546-145.547">',
+      '<svg id="td-skip" xmlns="http://www.w3.org/2000/svg" width="10" height="17" viewBox="0 0 350 600" style="position:fixed;left:30px;bottom:10px;z-index:1000">',
+      '<path fill="#888" d="M0,151.656l102.208-102.22l247.777,247.775L102.208,544.986L0,442.758l145.546-145.547">',
       '</svg>'
     ].join(""));
     
