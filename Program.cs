@@ -29,6 +29,7 @@ namespace TweetDck{
         public static readonly Version Version = new Version(VersionTag);
 
         public static readonly bool IsPortable = File.Exists("makeportable");
+        private static readonly CommandLineArgs Args = CommandLineArgs.FromStringArray('-', Environment.GetCommandLineArgs());
 
         public static readonly string ProgramPath = AppDomain.CurrentDomain.BaseDirectory;
         public static readonly string StoragePath = IsPortable ? Path.Combine(ProgramPath, "portable", "storage") : GetDataStoragePath();
@@ -70,9 +71,7 @@ namespace TweetDck{
                 }
             };
 
-            string[] programArguments = Environment.GetCommandLineArgs();
-
-            if (programArguments.Contains("-restart")){
+            if (Args.HasFlag("-restart")){
                 for(int attempt = 0; attempt < 41; attempt++){
                     if (LockManager.Lock()){
                         break;
@@ -109,7 +108,7 @@ namespace TweetDck{
                 }
             }
 
-            if (programArguments.Contains("-importcookies")){
+            if (Args.HasFlag("-importcookies")){
                 ExportManager.ImportCookies();
             }
 
@@ -118,7 +117,7 @@ namespace TweetDck{
             CefSettings settings = new CefSettings{
                 AcceptLanguageList = BrowserUtils.HeaderAcceptLanguage,
                 UserAgent = BrowserUtils.HeaderUserAgent,
-                Locale = GetCmdArgumentValue("locale") ?? "en",
+                Locale = Args.GetValue("-locale", "en"),
                 CachePath = StoragePath,
                 BrowserSubprocessPath = File.Exists(BrowserSubprocess) ? BrowserSubprocess : "CefSharp.BrowserSubprocess.exe",
                 #if !DEBUG
@@ -154,15 +153,8 @@ namespace TweetDck{
             }
         }
 
-        private static string GetCmdArgumentValue(string search){
-            string[] args = Environment.GetCommandLineArgs();
-            int index = Array.FindIndex(args, arg => arg.Equals(search, StringComparison.OrdinalIgnoreCase));
-
-            return index >= 0 && index < args.Length-1 ? args[index+1] : null;
-        }
-
         private static string GetDataStoragePath(){
-            string custom = GetCmdArgumentValue("-datafolder");
+            string custom = Args.GetValue("-datafolder", null);
 
             if (custom != null && (custom.Contains(Path.DirectorySeparatorChar) || custom.Contains(Path.AltDirectorySeparatorChar))){
                 return custom;
