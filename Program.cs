@@ -23,8 +23,8 @@ namespace TweetDck{
 
         public const string BrowserSubprocess = BrandName+".Browser.exe";
 
-        public const string VersionTag = "1.4";
-        public const string VersionFull = "1.4.0.0";
+        public const string VersionTag = "1.4.1";
+        public const string VersionFull = "1.4.1.0";
 
         public static readonly Version Version = new Version(VersionTag);
 
