@@ -28,7 +28,7 @@ namespace TweetDck.Core.Other {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAbout));
             this.pictureLogo = new System.Windows.Forms.PictureBox();
             this.labelDescription = new System.Windows.Forms.Label();
-            this.labelSourceCode = new System.Windows.Forms.LinkLabel();
+            this.labelTips = new System.Windows.Forms.LinkLabel();
             this.labelWebsite = new System.Windows.Forms.LinkLabel();
             this.tablePanelLinks = new System.Windows.Forms.TableLayoutPanel();
             this.labelIssues = new System.Windows.Forms.LinkLabel();
@@ -59,19 +59,19 @@ namespace TweetDck.Core.Other {
             this.labelDescription.Size = new System.Drawing.Size(232, 109);
             this.labelDescription.TabIndex = 1;
             // 
-            // labelSourceCode
+            // labelTips
             // 
-            this.labelSourceCode.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelSourceCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelSourceCode.LinkArea = new System.Windows.Forms.LinkArea(0, 0);
-            this.labelSourceCode.Location = new System.Drawing.Point(117, 0);
-            this.labelSourceCode.Margin = new System.Windows.Forms.Padding(0);
-            this.labelSourceCode.Name = "labelSourceCode";
-            this.labelSourceCode.Size = new System.Drawing.Size(99, 16);
-            this.labelSourceCode.TabIndex = 3;
-            this.labelSourceCode.Text = "Source Code";
-            this.labelSourceCode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelSourceCode.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OnLinkClicked);
+            this.labelTips.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelTips.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelTips.LinkArea = new System.Windows.Forms.LinkArea(0, 0);
+            this.labelTips.Location = new System.Drawing.Point(117, 0);
+            this.labelTips.Margin = new System.Windows.Forms.Padding(0);
+            this.labelTips.Name = "labelTips";
+            this.labelTips.Size = new System.Drawing.Size(99, 16);
+            this.labelTips.TabIndex = 3;
+            this.labelTips.Text = "Tips && Tricks";
+            this.labelTips.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelTips.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OnLinkClicked);
             // 
             // labelWebsite
             // 
@@ -98,7 +98,7 @@ namespace TweetDck.Core.Other {
             this.tablePanelLinks.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.14F));
             this.tablePanelLinks.Controls.Add(this.labelIssues, 2, 0);
             this.tablePanelLinks.Controls.Add(this.labelWebsite, 0, 0);
-            this.tablePanelLinks.Controls.Add(this.labelSourceCode, 1, 0);
+            this.tablePanelLinks.Controls.Add(this.labelTips, 1, 0);
             this.tablePanelLinks.Location = new System.Drawing.Point(12, 124);
             this.tablePanelLinks.Name = "tablePanelLinks";
             this.tablePanelLinks.RowCount = 1;
@@ -146,7 +146,7 @@ namespace TweetDck.Core.Other {
 
         private System.Windows.Forms.PictureBox pictureLogo;
         private System.Windows.Forms.Label labelDescription;
-        private System.Windows.Forms.LinkLabel labelSourceCode;
+        private System.Windows.Forms.LinkLabel labelTips;
         private System.Windows.Forms.LinkLabel labelWebsite;
         private System.Windows.Forms.TableLayoutPanel tablePanelLinks;
         private System.Windows.Forms.LinkLabel labelIssues;
