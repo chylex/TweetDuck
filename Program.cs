@@ -157,7 +157,14 @@ namespace TweetDck{
             string custom = Args.GetValue("-datafolder", null);
 
             if (custom != null && (custom.Contains(Path.DirectorySeparatorChar) || custom.Contains(Path.AltDirectorySeparatorChar))){
-                return custom;
+                if (Path.GetInvalidPathChars().Any(custom.Contains)){
+                    Reporter.HandleEarlyFailure("Data Folder Invalid", "The data folder contains invalid characters:\n"+custom);
+                }
+                else if (!Path.IsPathRooted(custom)){
+                    Reporter.HandleEarlyFailure("Data Folder Invalid", "The data folder has to be either a simple folder name, or a full path:\n"+custom);
+                }
+
+                return Environment.ExpandEnvironmentVariables(custom);
             }
             else{
                 return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), custom ?? BrandName);
