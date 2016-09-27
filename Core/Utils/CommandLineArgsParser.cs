@@ -6,7 +6,7 @@ namespace TweetDck.Core.Utils{
 
         private static Regex SplitRegex{
             get{
-                return splitRegex ?? (splitRegex = new Regex(@"([^=\s]+(?:=(?:""[^""]*?""|[^ ]*))?)", RegexOptions.Compiled));
+                return splitRegex ?? (splitRegex = new Regex(@"([^=\s]+(?:=(?:[^ ]*""[^""]*?""[^ ]*|[^ ]*))?)", RegexOptions.Compiled));
             }
         }
 
