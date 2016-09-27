@@ -378,13 +378,19 @@
   //
   window.TDGF_onMouseClickExtra = function(button){
     if (button === 1){ // back button
-      var modal = $("#open-modal");
+      var inlineComposer, drawerComposer, modal;
       
-      if (highlightedColumnEle && highlightedColumnEle.closest(".js-column").is(".is-shifted-1")){
+      if ((modal = $("#open-modal")).is(":visible")){
+        modal.find("a[rel=dismiss]").click();
+      }
+      else if ((inlineComposer = $(".js-inline-compose-close")).length === 1){
+        inlineComposer.click();
+      }
+      else if (highlightedColumnEle && highlightedColumnEle.closest(".js-column").is(".is-shifted-1")){
         highlightedColumnEle.find(".js-column-back").first().click();
       }
-      else if (modal.is(":visible")){
-        modal.find("a[rel=dismiss]").click();
+      else if ((drawerComposer = $(".js-app-content.is-open .js-drawer-close:visible")).length === 1){
+        drawerComposer.click();
       }
       else{
         $(".js-column-back").click();
