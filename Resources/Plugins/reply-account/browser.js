@@ -6,7 +6,7 @@ enabled(){
   this.lastSelectedAccount = null;
   
   this.uiComposeTweetEvent = (e, data) => {
-    if (data.type !== "reply"){
+    if (data.type !== "reply" || data.popFromInline || !("element" in data)){
       return;
     }
     
