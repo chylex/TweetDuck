@@ -137,6 +137,17 @@
   })();
   
   //
+  // Block: Setup a hover class on body.
+  //
+  document.body.addEventListener("mouseenter", function(){
+    document.body.classList.add("td-hover");
+  });
+
+  document.body.addEventListener("mouseleave", function(){
+    document.body.classList.remove("td-hover");
+  });
+  
+  //
   // Block: Page fully loaded.
   //
   $TD.onNotificationReady();
