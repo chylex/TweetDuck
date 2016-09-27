@@ -70,5 +70,20 @@ namespace TweetDck{
                 Environment.FailFast(message, e);
             }
         }
+
+        public static void HandleEarlyFailure(string caption, string message){
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            FormMessage form = new FormMessage(caption, message, MessageBoxIcon.Error);
+            form.AddButton("Exit");
+            form.ShowDialog();
+
+            try{
+                Process.GetCurrentProcess().Kill();
+            }catch{
+                Environment.FailFast(message, new Exception(message));
+            }
+        }
     }
 }
