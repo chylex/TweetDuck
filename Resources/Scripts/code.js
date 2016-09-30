@@ -109,9 +109,8 @@
         isMediaPreviewSmall: false,
         isMediaPreviewLarge: false
       }));
-
+      
       html.css("border", "0");
-      html.find(".tweet-body").first().children("footer").remove();
       
       var url = html.find("time").first().children("a").first().attr("href") || "";
       
