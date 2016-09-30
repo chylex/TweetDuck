@@ -6,15 +6,11 @@ constructor(){
 
 enabled(){
   // add a stylesheet
-  this.css = window.TDPF_createCustomStyle(this);
-  this.css.insert(".column-detail .timeline-poll-container { display: none }");
+  window.TDPF_createCustomStyle(this).insert(".column-detail .timeline-poll-container { display: none }");
   
   // setup layout injecting
-  this.prevMustaches = {};
-  
   var injectLayout = (mustache, onlyIfNotFound, search, replace) => {
     if (TD.mustaches[mustache].indexOf(onlyIfNotFound) === -1){
-      this.prevMustaches[mustache] = TD.mustaches[mustache];
       TD.mustaches[mustache] = TD.mustaches[mustache].replace(search, replace);
     }
   };
@@ -25,6 +21,5 @@ enabled(){
 }
 
 disabled(){
-  this.css.remove();
-  Object.keys(this.prevMustaches).forEach(mustache => TD.mustaches[mustache] = this.prevMustaches[mustache]);
+  // not needed, plugin reloads the page when enabled or disabled
 }
