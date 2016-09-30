@@ -104,7 +104,10 @@
       var html = $(tweet.render({
         withFooter: false,
         withTweetActions: false,
-        withMediaPreview: false
+        withMediaPreview: true,
+        isMediaPreviewOff: true,
+        isMediaPreviewSmall: false,
+        isMediaPreviewLarge: false
       }));
 
       html.css("border", "0");
