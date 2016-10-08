@@ -56,22 +56,12 @@ Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\Cache"
 Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\GPUCache"
 
 [Code]
-function InitializeSetup: Boolean;
-var FrameworkVersion: Cardinal;
-var HasCorrectVersion: Boolean;
+function TDGetNetFrameworkVersion: Cardinal; forward;
 
+{ Check .NET Framework version on startup, ask user if they want to proceed if older than 4.5.1. }
+function InitializeSetup: Boolean;
 begin
-  HasCorrectVersion := False;
-  
-  if RegQueryDWordValue(HKEY_LOCAL_MACHINE, 'Software\Microsoft\NET Framework Setup\NDP\v4\Full', 'Release', FrameworkVersion) then
-  begin
-    if FrameworkVersion >= 379893 then
-    begin
-      HasCorrectVersion := True;
-    end;
-  end;
-  
-  if HasCorrectVersion then
+  if TDGetNetFrameworkVersion() >= 379893 then
   begin
     Result := True;
     Exit;
@@ -86,6 +76,7 @@ begin
   Result := True;
 end;
 
+{ Ask user if they want to delete 'AppData\TweetDuck' and 'plugins' folders after uninstallation. }
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 var ProfileDataFolder: String;
 var PluginDataFolder: String;
@@ -103,4 +94,18 @@ begin
       DelTree(ExpandConstant('{app}'), True, False, False);
     end;
   end;
+end;
+
+{ Return DWORD value containing the build version of .NET Framework. }
+function TDGetNetFrameworkVersion: Cardinal;
+var FrameworkVersion: Cardinal;
+
+begin
+  if RegQueryDWordValue(HKEY_LOCAL_MACHINE, 'Software\Microsoft\NET Framework Setup\NDP\v4\Full', 'Release', FrameworkVersion) then
+  begin
+    Result := FrameworkVersion;
+    Exit;
+  end;
+  
+  Result := 0;
 end;
