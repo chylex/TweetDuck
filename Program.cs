@@ -127,6 +127,11 @@ namespace TweetDck{
 
             CommandLineArgsParser.ReadCefArguments(UserConfig.CustomCefArgs).ToDictionary(settings.CefCommandLineArgs);
 
+            if (!HardwareAcceleration.IsEnabled){
+                settings.CefCommandLineArgs["disable-gpu"] = "1";
+                settings.CefCommandLineArgs["disable-gpu-vsync"] = "1";
+            }
+
             Cef.Initialize(settings, false, new BrowserProcessHandler());
 
             Application.ApplicationExit += (sender, args) => ExitCleanup();
