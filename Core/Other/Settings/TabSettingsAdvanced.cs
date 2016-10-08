@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 using TweetDck.Core.Controls;
 using TweetDck.Core.Other.Settings.Dialogs;
@@ -154,6 +155,10 @@ namespace TweetDck.Core.Other.Settings{
                 Program.ResetConfig();
                 ((FormSettings)ParentForm).ReloadUI();
             }
+        }
+
+        private void btnOpenAppFolder_Click(object sender, EventArgs e){
+            using(Process.Start("explorer.exe", "\""+Program.ProgramPath+"\"")){}
         }
 
         private void btnRestart_Click(object sender, EventArgs e){
