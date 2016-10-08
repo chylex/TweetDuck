@@ -18,6 +18,9 @@ namespace TweetDck.Core.Handling{
 
         private readonly FormBrowser form;
 
+        private string lastHighlightedTweet;
+        private string lastHighlightedQuotedTweet;
+
         public ContextMenuBrowser(FormBrowser form){
             this.form = form;
         }
@@ -31,11 +34,14 @@ namespace TweetDck.Core.Handling{
 
             base.OnBeforeContextMenu(browserControl, browser, frame, parameters, model);
 
-            if (!string.IsNullOrEmpty(TweetDeckBridge.LastHighlightedTweet) && (parameters.TypeFlags & (ContextMenuType.Editable | ContextMenuType.Selection)) == 0){
+            lastHighlightedTweet = TweetDeckBridge.LastHighlightedTweet;
+            lastHighlightedQuotedTweet = TweetDeckBridge.LastHighlightedQuotedTweet;
+
+            if (!string.IsNullOrEmpty(lastHighlightedTweet) && (parameters.TypeFlags & (ContextMenuType.Editable | ContextMenuType.Selection)) == 0){
                 model.AddItem((CefMenuCommand)MenuOpenTweetUrl, "Open tweet in browser");
                 model.AddItem((CefMenuCommand)MenuCopyTweetUrl, "Copy tweet address");
 
-                if (!string.IsNullOrEmpty(TweetDeckBridge.LastHighlightedQuotedTweet)){
+                if (!string.IsNullOrEmpty(lastHighlightedQuotedTweet)){
                     model.AddSeparator();
                     model.AddItem((CefMenuCommand)MenuOpenQuotedTweetUrl, "Open quoted tweet in browser");
                     model.AddItem((CefMenuCommand)MenuCopyQuotedTweetUrl, "Copy quoted tweet address");
@@ -91,19 +97,19 @@ namespace TweetDck.Core.Handling{
                     return true;
 
                 case MenuOpenTweetUrl:
-                    BrowserUtils.OpenExternalBrowser(TweetDeckBridge.LastHighlightedTweet);
+                    BrowserUtils.OpenExternalBrowser(lastHighlightedTweet);
                     return true;
 
                 case MenuCopyTweetUrl:
-                    Clipboard.SetText(TweetDeckBridge.LastHighlightedTweet, TextDataFormat.UnicodeText);
+                    Clipboard.SetText(lastHighlightedTweet, TextDataFormat.UnicodeText);
                     return true;
 
                 case MenuOpenQuotedTweetUrl:
-                    BrowserUtils.OpenExternalBrowser(TweetDeckBridge.LastHighlightedQuotedTweet);
+                    BrowserUtils.OpenExternalBrowser(lastHighlightedQuotedTweet);
                     return true;
 
                 case MenuCopyQuotedTweetUrl:
-                    Clipboard.SetText(TweetDeckBridge.LastHighlightedQuotedTweet, TextDataFormat.UnicodeText);
+                    Clipboard.SetText(lastHighlightedQuotedTweet, TextDataFormat.UnicodeText);
                     return true;
             }
 
