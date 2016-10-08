@@ -6,10 +6,12 @@
 #define MyAppURL "https://tweetduck.chylex.com"
 #define MyAppExeName "TweetDuck.exe"
 
+#define MyAppID "8C25A716-7E11-4AAD-9992-8B5D0C78AE06"
 #define MyAppVersion GetFileVersion("..\bin\x86\Release\TweetDuck.exe")
+#define CefVersion "3.2785.1478.0"
 
 [Setup]
-AppId={{8C25A716-7E11-4AAD-9992-8B5D0C78AE06}
+AppId={{{#MyAppID}}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppVerName={#MyAppName} {#MyAppVersion}
@@ -29,6 +31,8 @@ Compression=lzma
 SolidCompression=yes
 InternalCompressLevel=max
 MinVersion=0,6.1
+
+#include <idp.iss>
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -60,10 +64,20 @@ Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\GPUCache"
 
 [Code]
 function TDGetNetFrameworkVersion: Cardinal; forward;
+function TDIsMatchingCEFVersion(InstallPath: String): Boolean; forward;
+function TDPrepareFullDownloadIfNeeded: Boolean; forward;
+procedure TDExecuteFullDownload; forward;
 
-{ Check .NET Framework version on startup, ask user if they want to proceed if older than 4.5.1. }
+{ Check .NET Framework version on startup, ask user if they want to proceed if older than 4.5.1. Prepare full download package if required. }
 function InitializeSetup: Boolean;
 begin
+  if not TDPrepareFullDownloadIfNeeded() then
+  begin
+    MsgBox('{#MyAppName} installation could not be found on your system.', mbCriticalError, MB_OK);
+    Result := False;
+    Exit;
+  end;
+  
   if TDGetNetFrameworkVersion() >= 379893 then
   begin
     Result := True;
@@ -106,6 +120,8 @@ begin
   begin
     DeleteFile(ExpandConstant('{app}\unins000.dat'));
     DeleteFile(ExpandConstant('{app}\unins000.exe'));
+    
+    TDExecuteFullDownload();
   end;
 end;
 
@@ -121,4 +137,59 @@ begin
   end;
   
   Result := 0;
+end;
+
+{ Return whether the version of the installed libcef.dll library matches internal one. }
+function TDIsMatchingCEFVersion(InstallPath: String): Boolean;
+var CEFVersion: String;
+
+begin
+  Result := (GetVersionNumbersString(InstallPath+'\libcef.dll', CEFVersion) and (CompareStr(CEFVersion, '{#CefVersion}') = 0))
+end;
+
+{ Prepare the full package installer to run if the CEF version is not matching. Return False if the app is not installed. }
+function TDPrepareFullDownloadIfNeeded: Boolean;
+var InstallPath: String;
+
+begin
+  if not RegQueryStringValue(HKEY_LOCAL_MACHINE, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\{{#MyAppID}}_is1', 'InstallLocation', InstallPath) then
+  begin
+    Result := False;
+    Exit;
+  end;
+  
+  if not TDIsMatchingCEFVersion(InstallPath) then
+  begin
+    idpAddFile('https://github.com/{#MyAppPublisher}/{#MyAppName}/releases/download/{#MyAppVersion}/{#MyAppName}.exe', ExpandConstant('{tmp}\{#MyAppName}.Full.exe'));
+    idpDownloadAfter(wpReady);
+  end;
+  
+  Result := True;
+end;
+
+{ Run the full package installer if downloaded. }
+procedure TDExecuteFullDownload;
+var InstallFile: String;
+var ResultCode: Integer;
+
+begin
+  InstallFile := ExpandConstant('{tmp}\{#MyAppName}.Full.exe')
+  
+  if FileExists(InstallFile) then
+  begin
+    WizardForm.ProgressGauge.Style := npbstMarquee;
+    
+    try
+      if not Exec(InstallFile, '/passive /norestart', '', SW_SHOW, ewWaitUntilTerminated, ResultCode) then begin
+        MsgBox('Could not run the full installer, please visit {#MyAppURL} and download the latest version manually. Error: '+SysErrorMessage(ResultCode), mbCriticalError, MB_OK);
+        DeleteFile(InstallFile);
+        
+        Abort();
+        Exit;
+      end;
+    finally
+      WizardForm.ProgressGauge.Style := npbstNormal;
+      DeleteFile(InstallFile);
+    end;
+  end;
 end;
