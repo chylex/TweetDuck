@@ -180,7 +180,7 @@ begin
     WizardForm.ProgressGauge.Style := npbstMarquee;
     
     try
-      if not Exec(InstallFile, '/passive /norestart', '', SW_SHOW, ewWaitUntilTerminated, ResultCode) then begin
+      if not Exec(InstallFile, '/SP- /SILENT /MERGETASKS="!desktopicon"', '', SW_SHOW, ewWaitUntilTerminated, ResultCode) then begin
         MsgBox('Could not run the full installer, please visit {#MyAppURL} and download the latest version manually. Error: '+SysErrorMessage(ResultCode), mbCriticalError, MB_OK);
         DeleteFile(InstallFile);
         
