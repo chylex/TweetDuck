@@ -17,9 +17,12 @@
 [Rr]eleases/
 x64/
 x86/
-bld/
 [Bb]in/
 [Oo]bj/
+bld/*
+!bld/gen_full.iss
+!bld/gen_upd.iss
+!bld/Resources
 
 # Visual Studio 2015 cache/options directory
 .vs/
