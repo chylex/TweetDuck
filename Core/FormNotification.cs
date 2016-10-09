@@ -225,7 +225,7 @@ namespace TweetDck.Core{
                 tweetQueue.Enqueue(notification);
                 UpdateTitle();
 
-                if (!timerProgress.Enabled){
+                if (totalTime == 0){
                     LoadNextNotification();
                 }
             }
@@ -248,6 +248,7 @@ namespace TweetDck.Core{
             Location = new Point(-32000, -32000);
             progressBarTimer.Value = Program.UserConfig.NotificationTimerCountDown ? 1000 : 0;
             timerProgress.Stop();
+            totalTime = 0;
 
             StopMouseHook();
         }
