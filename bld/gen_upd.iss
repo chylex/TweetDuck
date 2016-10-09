@@ -69,7 +69,7 @@ function TDIsMatchingCEFVersion(InstallPath: String): Boolean; forward;
 function TDPrepareFullDownloadIfNeeded: Boolean; forward;
 procedure TDExecuteFullDownload; forward;
 
-{ Check .NET Framework version on startup, ask user if they want to proceed if older than 4.5.1. Prepare full download package if required. }
+{ Check .NET Framework version on startup, ask user if they want to proceed if older than 4.5.2. Prepare full download package if required. }
 function InitializeSetup: Boolean;
 begin
   if not TDPrepareFullDownloadIfNeeded() then

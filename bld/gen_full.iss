@@ -58,7 +58,7 @@ Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\GPUCache"
 [Code]
 function TDGetNetFrameworkVersion: Cardinal; forward;
 
-{ Check .NET Framework version on startup, ask user if they want to proceed if older than 4.5.1. }
+{ Check .NET Framework version on startup, ask user if they want to proceed if older than 4.5.2. }
 function InitializeSetup: Boolean;
 begin
   if TDGetNetFrameworkVersion() >= 379893 then
