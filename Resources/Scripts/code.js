@@ -111,6 +111,7 @@
       }));
       
       html.css("border", "0");
+      html.find("footer").last().remove(); // apparently withTweetActions breaks for certain tweets, nice
       
       var url = html.find("time").first().children("a").first().attr("href") || "";
       
