@@ -379,32 +379,39 @@
   //
   // Block: Support for extra mouse buttons.
   //
-  window.TDGF_onMouseClickExtra = function(button){
-    if (button === 1){ // back button
-      var inlineComposer, drawerComposer, modal;
-      
-      if ((modal = $("#open-modal")).is(":visible")){
-        modal.find("a[rel=dismiss]").click();
+  (function(){
+    var tryClickSelector = function(selector, parent){
+      return $(selector, parent).click().length;
+    };
+    
+    var tryCloseModal = function(){
+      var modal = $("#open-modal");
+      return modal.is(":visible") && tryClickSelector("a[rel=dismiss]", modal);
+    };
+    
+    var tryCloseHighlightedColumn = function(){
+      if (highlightedColumnEle){
+        var column = highlightedColumnEle.closest(".js-column");
+        return (column.is(".is-shifted-2") && tryClickSelector(".js-tweet-social-proof-back", column)) || (column.is(".is-shifted-1") && tryClickSelector(".js-column-back", column));
       }
-      else if ((inlineComposer = $(".js-inline-compose-close")).length === 1){
-        inlineComposer.click();
-      }
-      else if (highlightedColumnEle && highlightedColumnEle.closest(".js-column").is(".is-shifted-1")){
-        highlightedColumnEle.find(".js-column-back").first().click();
-      }
-      else if ((drawerComposer = $(".js-app-content.is-open .js-drawer-close:visible")).length === 1){
-        drawerComposer.click();
-      }
-      else{
+    };
+    
+    window.TDGF_onMouseClickExtra = function(button){
+      if (button === 1){ // back button
+        tryCloseModal() ||
+        tryClickSelector(".js-inline-compose-close") ||
+        tryCloseHighlightedColumn() ||
+        tryClickSelector(".js-app-content.is-open .js-drawer-close:visible") ||
+        tryClickSelector(".is-shifted-2 .js-tweet-social-proof-back") ||
         $(".js-column-back").click();
       }
-    }
-    else if (button === 2){ // forward button
-      if (highlightedTweetEle){
-        highlightedTweetEle.children().first().click();
+      else if (button === 2){ // forward button
+        if (highlightedTweetEle){
+          highlightedTweetEle.children().first().click();
+        }
       }
-    }
-  };
+    };
+  })();
   
   //
   // Block: Fix scheduled tweets not showing up sometimes.
