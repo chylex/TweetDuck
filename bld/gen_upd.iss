@@ -64,6 +64,7 @@ Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\GPUCache"
 
 [Code]
 function TDGetNetFrameworkVersion: Cardinal; forward;
+function TDGetAppVersionClean: String; forward;
 function TDIsMatchingCEFVersion(InstallPath: String): Boolean; forward;
 function TDPrepareFullDownloadIfNeeded: Boolean; forward;
 procedure TDExecuteFullDownload; forward;
@@ -91,6 +92,15 @@ begin
   end;
   
   Result := True;
+end;
+
+{ Prepare download plugin if there are any files to download. }
+procedure InitializeWizard();
+begin
+  if idpFilesCount <> 0 then
+  begin
+    idpDownloadAfter(wpReady);
+  end;
 end;
 
 { Ask user if they want to delete 'AppData\TweetDuck' and 'plugins' folders after uninstallation. }
@@ -147,6 +157,29 @@ begin
   Result := (GetVersionNumbersString(InstallPath+'\libcef.dll', CEFVersion) and (CompareStr(CEFVersion, '{#CefVersion}') = 0))
 end;
 
+{ Return a cleaned up form of the app version string (removes all .0 suffixes). }
+function TDGetAppVersionClean: String;
+var Substr: String;
+var CleanVersion: String;
+
+begin
+  CleanVersion := '{#MyAppVersion}'
+  
+  while True do
+  begin
+    Substr := Copy(CleanVersion, Length(CleanVersion)-1, 2);
+    
+    if (CompareStr(Substr, '.0') <> 0) then
+    begin
+      break;
+    end;
+    
+    CleanVersion := Copy(CleanVersion, 1, Length(CleanVersion)-2);
+  end;
+  
+  Result := CleanVersion;
+end;
+
 { Prepare the full package installer to run if the CEF version is not matching. Return False if the app is not installed. }
 function TDPrepareFullDownloadIfNeeded: Boolean;
 var InstallPath: String;
@@ -160,8 +193,7 @@ begin
   
   if not TDIsMatchingCEFVersion(InstallPath) then
   begin
-    idpAddFile('https://github.com/{#MyAppPublisher}/{#MyAppName}/releases/download/{#MyAppVersion}/{#MyAppName}.exe', ExpandConstant('{tmp}\{#MyAppName}.Full.exe'));
-    idpDownloadAfter(wpReady);
+    idpAddFile('https://github.com/{#MyAppPublisher}/{#MyAppName}/releases/download/'+TDGetAppVersionClean()+'/{#MyAppName}.exe', ExpandConstant('{tmp}\{#MyAppName}.Full.exe'));
   end;
   
   Result := True;
