@@ -120,6 +120,7 @@ namespace TweetDck{
                 Locale = Args.GetValue("-locale", "en"),
                 CachePath = StoragePath,
                 BrowserSubprocessPath = File.Exists(BrowserSubprocess) ? BrowserSubprocess : "CefSharp.BrowserSubprocess.exe",
+                LogFile = Path.Combine(StoragePath, "jsconsole.log"),
                 #if !DEBUG
                 LogSeverity = Args.HasFlag("-log") ? LogSeverity.Info : LogSeverity.Disable
                 #endif
