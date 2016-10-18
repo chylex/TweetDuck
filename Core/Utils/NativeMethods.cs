@@ -15,6 +15,7 @@ namespace TweetDck.Core.Utils{
         public const int MOUSEEVENTF_RIGHTUP = 0x10;
 
         public const int SB_HORZ = 0;
+        public const int BCM_SETSHIELD = 0x160C;
 
         public const int WH_MOUSE_LL = 14;
         public const int WH_MOUSEWHEEL = 0x020A;

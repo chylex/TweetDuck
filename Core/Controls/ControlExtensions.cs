@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Controls{
     static class ControlExtensions{
@@ -33,6 +34,12 @@ namespace TweetDck.Core.Controls{
             if (value >= trackBar.Minimum && value <= trackBar.Maximum){
                 trackBar.Value = value;
             }
+        }
+
+        public static void SetElevated(this Button button){
+            button.Text = " "+button.Text;
+            button.FlatStyle = FlatStyle.System;
+            NativeMethods.SendMessage(button.Handle, NativeMethods.BCM_SETSHIELD, 0, new IntPtr(1));
         }
 
         public static void EnableMultilineShortcuts(this TextBox textBox){
