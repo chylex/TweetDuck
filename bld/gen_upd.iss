@@ -54,6 +54,8 @@ Type: files; Name: "{app}\d3dcompiler_43.dll"
 Type: files; Name: "{app}\devtools_resources.pak"
 Type: files; Name: "{app}\CefSharp.BrowserSubprocess.exe"
 Type: files; Name: "{app}\td-log.txt"
+Type: files; Name: "{app}\debug.log"
+Type: files; Name: "{localappdata}\{#MyAppName}\ChromeDWriteFontCache"
 
 [UninstallDelete]
 Type: files; Name: "{app}\*.*"
