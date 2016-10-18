@@ -58,7 +58,7 @@ namespace TweetDck.Configuration{
                     Process foundProcess = Process.GetProcessById(pid);
 
                     using(Process currentProcess = Process.GetCurrentProcess()){
-                        if (foundProcess.ProcessName == currentProcess.ProcessName){
+                        if (foundProcess.ProcessName == currentProcess.ProcessName || foundProcess.MainWindowTitle == Program.BrandName){
                             LockingProcess = foundProcess;
                         }
                     }
