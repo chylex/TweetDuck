@@ -45,7 +45,7 @@ Source: "..\bin\x86\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesu
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall
+Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall shellexec
 
 [InstallDelete]
 Type: files; Name: "{app}\*.xml"
