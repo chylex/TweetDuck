@@ -141,10 +141,10 @@ procedure CurStepChanged(CurStep: TSetupStep);
 begin
   if CurStep = ssInstall then
   begin
+    TDExecuteFullDownload();
+    
     DeleteFile(ExpandConstant('{app}\unins000.dat'));
     DeleteFile(ExpandConstant('{app}\unins000.exe'));
-    
-    TDExecuteFullDownload();
   end;
 end;
 
@@ -228,10 +228,18 @@ begin
     WizardForm.ProgressGauge.Style := npbstMarquee;
     
     try
-      if not Exec(InstallFile, '/SP- /SILENT /MERGETASKS="!desktopicon" /UPDATEPATH="'+UpdatePath+'"', '', SW_SHOW, ewWaitUntilTerminated, ResultCode) then begin
+      if Exec(InstallFile, '/SP- /SILENT /MERGETASKS="!desktopicon" /UPDATEPATH="'+UpdatePath+'"', '', SW_SHOW, ewWaitUntilTerminated, ResultCode) then begin
+        if ResultCode <> 0 then
+        begin
+          DeleteFile(InstallFile);
+          Abort();
+          Exit;
+        end;
+      end else
+      begin
         MsgBox('Could not run the full installer, please visit {#MyAppURL} and download the latest version manually. Error: '+SysErrorMessage(ResultCode), mbCriticalError, MB_OK);
-        DeleteFile(InstallFile);
         
+        DeleteFile(InstallFile);
         Abort();
         Exit;
       end;
