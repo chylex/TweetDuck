@@ -56,11 +56,15 @@ Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\Cache"
 Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\GPUCache"
 
 [Code]
+var UpdatePath: String;
+
 function TDGetNetFrameworkVersion: Cardinal; forward;
 
 { Check .NET Framework version on startup, ask user if they want to proceed if older than 4.5.2. }
 function InitializeSetup: Boolean;
 begin
+  UpdatePath := ExpandConstant('{param:UPDATEPATH}')
+  
   if TDGetNetFrameworkVersion() >= 379893 then
   begin
     Result := True;
@@ -74,6 +78,21 @@ begin
   end;
   
   Result := True;
+end;
+
+{ Set the installation path if updating. }
+procedure InitializeWizard();
+begin
+  if (UpdatePath <> '') then
+  begin
+    WizardForm.DirEdit.Text := UpdatePath;
+  end;
+end;
+
+{ Skip the install path selection page if running from an update installer. }
+function ShouldSkipPage(PageID: Integer): Boolean;
+begin
+  Result := (PageID = wpSelectDir) and (UpdatePath <> '')
 end;
 
 { Ask user if they want to delete 'AppData\TweetDuck' and 'plugins' folders after uninstallation. }

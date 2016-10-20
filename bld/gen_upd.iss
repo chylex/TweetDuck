@@ -65,20 +65,29 @@ Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\Cache"
 Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\GPUCache"
 
 [Code]
+function TDFindUpdatePath: String; forward;
 function TDGetNetFrameworkVersion: Cardinal; forward;
 function TDGetAppVersionClean: String; forward;
-function TDIsMatchingCEFVersion(InstallPath: String): Boolean; forward;
-function TDPrepareFullDownloadIfNeeded: Boolean; forward;
+function TDIsMatchingCEFVersion: Boolean; forward;
 procedure TDExecuteFullDownload; forward;
+
+var UpdatePath: String;
 
 { Check .NET Framework version on startup, ask user if they want to proceed if older than 4.5.2. Prepare full download package if required. }
 function InitializeSetup: Boolean;
 begin
-  if not TDPrepareFullDownloadIfNeeded() then
+  UpdatePath := TDFindUpdatePath()
+  
+  if UpdatePath = '' then
   begin
     MsgBox('{#MyAppName} installation could not be found on your system.', mbCriticalError, MB_OK);
     Result := False;
     Exit;
+  end;
+  
+  if not TDIsMatchingCEFVersion() then
+  begin
+    idpAddFile('https://github.com/{#MyAppPublisher}/{#MyAppName}/releases/download/'+TDGetAppVersionClean()+'/{#MyAppName}.exe', ExpandConstant('{tmp}\{#MyAppName}.Full.exe'));
   end;
   
   if TDGetNetFrameworkVersion() >= 379893 then
@@ -96,9 +105,11 @@ begin
   Result := True;
 end;
 
-{ Prepare download plugin if there are any files to download. }
+{ Prepare download plugin if there are any files to download, and set the installation path. }
 procedure InitializeWizard();
 begin
+  WizardForm.DirEdit.Text := UpdatePath;
+  
   if idpFilesCount <> 0 then
   begin
     idpDownloadAfter(wpReady);
@@ -137,6 +148,28 @@ begin
   end;
 end;
 
+{ Returns a validated installation path (including trailing backslash) using the /UPDATEPATH parameter or installation info in registry. Returns empty string on failure. }
+function TDFindUpdatePath: String;
+var Path: String;
+
+begin
+  Path := ExpandConstant('{param:UPDATEPATH}')
+  
+  if (Path = '') and not RegQueryStringValue(HKEY_LOCAL_MACHINE, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\{{#MyAppID}}_is1', 'InstallLocation', Path) then
+  begin
+    Result := ''
+    Exit
+  end;
+  
+  if not FileExists(Path+'{#MyAppExeName}') then
+  begin
+    Result := ''
+    Exit
+  end;
+  
+  Result := Path
+end;
+
 { Return DWORD value containing the build version of .NET Framework. }
 function TDGetNetFrameworkVersion: Cardinal;
 var FrameworkVersion: Cardinal;
@@ -152,11 +185,11 @@ begin
 end;
 
 { Return whether the version of the installed libcef.dll library matches internal one. }
-function TDIsMatchingCEFVersion(InstallPath: String): Boolean;
+function TDIsMatchingCEFVersion: Boolean;
 var CEFVersion: String;
 
 begin
-  Result := (GetVersionNumbersString(InstallPath+'\libcef.dll', CEFVersion) and (CompareStr(CEFVersion, '{#CefVersion}') = 0))
+  Result := (GetVersionNumbersString(UpdatePath+'libcef.dll', CEFVersion) and (CompareStr(CEFVersion, '{#CefVersion}') = 0))
 end;
 
 { Return a cleaned up form of the app version string (removes all .0 suffixes). }
@@ -182,25 +215,6 @@ begin
   Result := CleanVersion;
 end;
 
-{ Prepare the full package installer to run if the CEF version is not matching. Return False if the app is not installed. }
-function TDPrepareFullDownloadIfNeeded: Boolean;
-var InstallPath: String;
-
-begin
-  if not RegQueryStringValue(HKEY_LOCAL_MACHINE, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\{{#MyAppID}}_is1', 'InstallLocation', InstallPath) then
-  begin
-    Result := False;
-    Exit;
-  end;
-  
-  if not TDIsMatchingCEFVersion(InstallPath) then
-  begin
-    idpAddFile('https://github.com/{#MyAppPublisher}/{#MyAppName}/releases/download/'+TDGetAppVersionClean()+'/{#MyAppName}.exe', ExpandConstant('{tmp}\{#MyAppName}.Full.exe'));
-  end;
-  
-  Result := True;
-end;
-
 { Run the full package installer if downloaded. }
 procedure TDExecuteFullDownload;
 var InstallFile: String;
@@ -214,7 +228,7 @@ begin
     WizardForm.ProgressGauge.Style := npbstMarquee;
     
     try
-      if not Exec(InstallFile, '/SP- /SILENT /MERGETASKS="!desktopicon"', '', SW_SHOW, ewWaitUntilTerminated, ResultCode) then begin
+      if not Exec(InstallFile, '/SP- /SILENT /MERGETASKS="!desktopicon" /UPDATEPATH="'+UpdatePath+'"', '', SW_SHOW, ewWaitUntilTerminated, ResultCode) then begin
         MsgBox('Could not run the full installer, please visit {#MyAppURL} and download the latest version manually. Error: '+SysErrorMessage(ResultCode), mbCriticalError, MB_OK);
         DeleteFile(InstallFile);
         

@@ -148,7 +148,7 @@ namespace TweetDck{
             if (mainForm.UpdateInstallerPath != null){
                 ExitCleanup();
 
-                Process.Start(mainForm.UpdateInstallerPath, "/SP- /SILENT /NOICONS /CLOSEAPPLICATIONS");
+                Process.Start(mainForm.UpdateInstallerPath, "/SP- /SILENT /CLOSEAPPLICATIONS /UPDATEPATH=\""+ProgramPath+"\""); // ProgramPath has a trailing backslash
                 Application.Exit();
             }
         }
