@@ -5,15 +5,25 @@ using Microsoft.Win32;
 
 namespace TweetDck.Migration{
     static class MigrationUtils{
-        public static void RunUninstaller(string guid, int timeout){
-            Process uninstaller = Process.Start("msiexec.exe", "/x "+guid+" /quiet /qn");
+        public static bool RunUninstaller(string guid, int timeout){
+            try{
+                Process uninstaller = Process.Start(new ProcessStartInfo{
+                    FileName = "msiexec.exe",
+                    Arguments = "/x "+guid+" /quiet /qn",
+                    Verb = "runas"
+                });
 
-            if (uninstaller != null){
-                if (timeout > 0){
-                    uninstaller.WaitForExit(timeout); // it appears that the process is restarted or something that triggers this, but it shouldn't be a problem
+                if (uninstaller != null){
+                    if (timeout > 0){
+                        uninstaller.WaitForExit(timeout); // it appears that the process is restarted or something that triggers this, but it shouldn't be a problem
+                    }
+
+                    uninstaller.Close();
                 }
 
-                uninstaller.Close();
+                return true;
+            }catch(Exception){
+                return false;
             }
         }
 

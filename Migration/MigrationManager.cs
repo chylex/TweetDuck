@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 using TweetDck.Core.Other;
 using System.Drawing;
+using TweetDck.Core.Controls;
 
 namespace TweetDck.Migration{
     static class MigrationManager{
@@ -41,8 +42,9 @@ namespace TweetDck.Migration{
                     Button btnMigrate = formQuestion.AddButton("Migrate");
                     Button btnMigrateAndPurge = formQuestion.AddButton("Migrate && Purge");
 
-                    btnMigrateAndPurge.Location = new Point(btnMigrateAndPurge.Location.X-18, btnMigrateAndPurge.Location.Y);
-                    btnMigrateAndPurge.Width += 18;
+                    btnMigrateAndPurge.Location = new Point(btnMigrateAndPurge.Location.X-20, btnMigrateAndPurge.Location.Y);
+                    btnMigrateAndPurge.Width += 20;
+                    btnMigrateAndPurge.SetElevated();
 
                     if (formQuestion.ShowDialog() == DialogResult.OK){
                         decision = formQuestion.ClickedButton == btnMigrateAndPurge ? MigrationDecision.MigratePurge :
@@ -85,10 +87,20 @@ namespace TweetDck.Migration{
             }
             else if (!Program.UserConfig.IgnoreUninstallCheck){
                 string guid = MigrationUtils.FindProgramGuidByDisplayName("TweetDeck");
+                
+                if (guid != null){
+                    const string prompt = "TweetDeck is still installed on your computer, do you want to uninstall it?";
 
-                if (guid != null && MessageBox.Show("TweetDeck is still installed on your computer, do you want to uninstall it?", "Uninstall TweetDeck", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
-                    MigrationUtils.RunUninstaller(guid, 0);
-                    CleanupTweetDeck();
+                    using(FormMessage formQuestion = new FormMessage("Uninstall TweetDeck", prompt, MessageBoxIcon.Question)){
+                        formQuestion.AddButton("No");
+
+                        Button btnYes = formQuestion.AddButton("Yes");
+                        btnYes.SetElevated();
+
+                        if (formQuestion.ShowDialog() == DialogResult.OK && formQuestion.ClickedButton == btnYes && MigrationUtils.RunUninstaller(guid, 0)){
+                            CleanupTweetDeck();
+                        }
+                    }
                 }
 
                 Program.UserConfig.IgnoreUninstallCheck = true;
@@ -155,8 +167,8 @@ namespace TweetDck.Migration{
                     // uninstall in the background
                     string guid = MigrationUtils.FindProgramGuidByDisplayName("TweetDeck");
 
-                    if (guid != null){
-                        MigrationUtils.RunUninstaller(guid, 5000);
+                    if (guid != null && !MigrationUtils.RunUninstaller(guid, 5000)){
+                        return;
                     }
 
                     // registry cleanup
