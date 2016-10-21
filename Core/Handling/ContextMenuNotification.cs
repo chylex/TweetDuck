@@ -7,7 +7,7 @@ namespace TweetDck.Core.Handling{
         private const int MenuSkipTweet = 26600;
         private const int MenuFreeze = 26601;
         private const int MenuCopyTweetUrl = 26602;
-        private const int MenuCopyTweetEmbeddedUrl = 26603;
+        private const int MenuCopyQuotedTweetUrl = 26603;
 
         private readonly FormNotification form;
         private readonly bool enableCustomMenu;
@@ -29,8 +29,8 @@ namespace TweetDck.Core.Handling{
                 if (!string.IsNullOrEmpty(form.CurrentUrl)){
                     model.AddItem((CefMenuCommand)MenuCopyTweetUrl, "Copy tweet address");
 
-                    if (!string.IsNullOrEmpty(TweetDeckBridge.NotificationTweetEmbedded)){
-                        model.AddItem((CefMenuCommand)MenuCopyTweetEmbeddedUrl, "Copy quoted tweet address");
+                    if (!string.IsNullOrEmpty(form.CurrentQuotedTweetUrl)){
+                        model.AddItem((CefMenuCommand)MenuCopyQuotedTweetUrl, "Copy quoted tweet address");
                     }
 
                     model.AddSeparator();
@@ -61,8 +61,8 @@ namespace TweetDck.Core.Handling{
                     Clipboard.SetText(form.CurrentUrl, TextDataFormat.UnicodeText);
                     return true;
 
-                case MenuCopyTweetEmbeddedUrl:
-                    Clipboard.SetText(TweetDeckBridge.NotificationTweetEmbedded, TextDataFormat.UnicodeText);
+                case MenuCopyQuotedTweetUrl:
+                    Clipboard.SetText(form.CurrentQuotedTweetUrl, TextDataFormat.UnicodeText);
                     return true;
             }
 

@@ -11,7 +11,6 @@ namespace TweetDck.Core.Handling{
         public static string LastRightClickedLink = string.Empty;
         public static string LastHighlightedTweet = string.Empty;
         public static string LastHighlightedQuotedTweet = string.Empty;
-        public static string NotificationTweetEmbedded = string.Empty;
         public static string ClipboardImagePath = string.Empty;
 
         private readonly FormBrowser form;
@@ -81,8 +80,8 @@ namespace TweetDck.Core.Handling{
             });
         }
 
-        public void SetNotificationTweetEmbedded(string link){
-            form.InvokeSafe(() => NotificationTweetEmbedded = link);
+        public void SetNotificationQuotedTweet(string link){
+            notification.InvokeSafe(() => notification.CurrentQuotedTweetUrl = link);
         }
 
         public void OpenSettingsMenu(){

@@ -62,6 +62,7 @@ namespace TweetDck.Core{
         public bool FreezeTimer { get; set; }
         public bool ContextMenuOpen { get; set; }
         public string CurrentUrl { get; private set; }
+        public string CurrentQuotedTweetUrl { get; set; }
 
         public EventHandler Initialized;
         private bool isInitialized;
@@ -277,6 +278,7 @@ namespace TweetDck.Core{
 
         private void LoadTweet(TweetNotification tweet){
             CurrentUrl = tweet.Url;
+            CurrentQuotedTweetUrl = string.Empty; // load from JS
             
             timerProgress.Stop();
             totalTime = timeLeft = tweet.GetDisplayDuration(Program.UserConfig.NotificationDurationValue);

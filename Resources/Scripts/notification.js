@@ -114,7 +114,7 @@
     var account = embedded[0].getElementsByClassName("account-link");
     if (account.length === 0)return;
     
-    $TD.setNotificationTweetEmbedded(account[0].getAttribute("href")+"/status/"+tweetId);
+    $TD.setNotificationQuotedTweet(account[0].getAttribute("href")+"/status/"+tweetId);
   })();
   
   //
