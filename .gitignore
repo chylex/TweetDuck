@@ -21,6 +21,7 @@ x86/
 [Oo]bj/
 bld/*
 !bld/gen_full.iss
+!bld/gen_port.iss
 !bld/gen_upd.iss
 !bld/Resources
 
