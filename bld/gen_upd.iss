@@ -25,6 +25,7 @@ OutputBaseFilename={#MyAppName}.Update
 VersionInfoVersion={#MyAppVersion}
 LicenseFile=.\Resources\LICENSE
 SetupIconFile=.\Resources\icon.ico
+Uninstallable=TDIsUninstallable
 UninstallDisplayName={#MyAppName}
 UninstallDisplayIcon={app}\{#MyAppExeName}
 Compression=lzma
@@ -65,17 +66,20 @@ Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\Cache"
 Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\GPUCache"
 
 [Code]
+function TDIsUninstallable: Boolean; forward;
 function TDFindUpdatePath: String; forward;
 function TDGetNetFrameworkVersion: Cardinal; forward;
 function TDGetAppVersionClean: String; forward;
 function TDIsMatchingCEFVersion: Boolean; forward;
 procedure TDExecuteFullDownload; forward;
 
+var IsPortable: Boolean;
 var UpdatePath: String;
 
 { Check .NET Framework version on startup, ask user if they want to proceed if older than 4.5.2. Prepare full download package if required. }
 function InitializeSetup: Boolean;
 begin
+  IsPortable := ExpandConstant('{param:PORTABLE}') = '1'
   UpdatePath := TDFindUpdatePath()
   
   if UpdatePath = '' then
@@ -143,9 +147,18 @@ begin
   begin
     TDExecuteFullDownload();
     
-    DeleteFile(ExpandConstant('{app}\unins000.dat'));
-    DeleteFile(ExpandConstant('{app}\unins000.exe'));
+    if TDIsUninstallable() then
+    begin
+      DeleteFile(ExpandConstant('{app}\unins000.dat'));
+      DeleteFile(ExpandConstant('{app}\unins000.exe'));
+    end;
   end;
+end;
+
+{ Returns true if the installer should create uninstallation entries (i.e. not running in portable mode). }
+function TDIsUninstallable: Boolean;
+begin
+  Result := not IsPortable
 end;
 
 { Returns a validated installation path (including trailing backslash) using the /UPDATEPATH parameter or installation info in registry. Returns empty string on failure. }
@@ -155,7 +168,7 @@ var Path: String;
 begin
   Path := ExpandConstant('{param:UPDATEPATH}')
   
-  if (Path = '') and not RegQueryStringValue(HKEY_LOCAL_MACHINE, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\{{#MyAppID}}_is1', 'InstallLocation', Path) then
+  if (Path = '') and not IsPortable and not RegQueryStringValue(HKEY_LOCAL_MACHINE, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\{{#MyAppID}}_is1', 'InstallLocation', Path) then
   begin
     Result := ''
     Exit
