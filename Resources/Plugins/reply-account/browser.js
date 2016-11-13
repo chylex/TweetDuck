@@ -14,8 +14,20 @@ enabled(){
     
     if (configuration.useAdvancedSelector){
       if (configuration.customSelector){
-        var column = TD.controller.columnManager.get(data.element.closest("section.column").attr("data-column"));
-        query = configuration.customSelector(column);
+        var section = data.element.closest("section.column");
+        
+        var column = TD.controller.columnManager.get(section.attr("data-column"));
+        var header = $("h1.column-title", section);
+        
+        var columnTitle = header.children(".column-head-title").text();
+        var columnAccount = header.children(".attribution").text();
+        
+        try{
+          query = configuration.customSelector(column.getColumnType(), columnTitle, columnAccount, column);
+        }catch(e){
+          $TD.alert("warning", "Plugin reply-account has invalid configuration: customSelector threw an error: "+e.message);
+          return;
+        }
       }
       else{
         $TD.alert("warning", "Plugin reply-account has invalid configuration: useAdvancedSelector is true, but customSelector function is missing");
