@@ -100,6 +100,10 @@ namespace TweetDck.Core{
                 LifeSpanHandler = new LifeSpanHandler()
             };
 
+            #if DEBUG
+            browser.ConsoleMessage += BrowserUtils.HandleConsoleMessage;
+            #endif
+
             browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
             browser.FrameLoadEnd += Browser_FrameLoadEnd;
             browser.RegisterJsObject("$TD", new TweetDeckBridge(owner, this));

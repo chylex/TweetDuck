@@ -8,6 +8,7 @@ using TweetDck.Core.Other;
 using TweetDck.Resources;
 using TweetDck.Core.Controls;
 using System.Drawing;
+using TweetDck.Core.Utils;
 using TweetDck.Updates;
 using TweetDck.Plugins;
 using TweetDck.Plugins.Events;
@@ -51,6 +52,10 @@ namespace TweetDck.Core{
                 DialogHandler = new DialogHandlerBrowser(this),
                 LifeSpanHandler = new LifeSpanHandler()
             };
+
+            #if DEBUG
+            this.browser.ConsoleMessage += BrowserUtils.HandleConsoleMessage;
+            #endif
 
             this.browser.LoadingStateChanged += Browser_LoadingStateChanged;
             this.browser.FrameLoadEnd += Browser_FrameLoadEnd;

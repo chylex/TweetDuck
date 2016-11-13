@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
+using CefSharp;
 
 namespace TweetDck.Core.Utils{
     static class BrowserUtils{
@@ -47,5 +48,11 @@ namespace TweetDck.Core.Utils{
 
             client.DownloadFileAsync(new Uri(url), target);
         }
+
+        #if DEBUG
+        public static void HandleConsoleMessage(object sender, ConsoleMessageEventArgs e){
+            Debug.WriteLine("[Console] {0} ({1}:{2})", e.Message, e.Source, e.Line);
+        }
+        #endif
     }
 }
