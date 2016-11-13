@@ -14,6 +14,11 @@ enabled(){
     
     if (configuration.useAdvancedSelector){
       if (configuration.customSelector){
+        if (configuration.customSelector.toString().startsWith("function (column){")){
+          $TD.alert("warning", "Plugin reply-account has invalid configuration: customSelector needs to be updated due to TweetDeck changes, please read the default configuration file for the updated guide");
+          return;
+        }
+        
         var section = data.element.closest("section.column");
         
         var column = TD.controller.columnManager.get(section.attr("data-column"));
