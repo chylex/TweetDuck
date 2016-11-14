@@ -50,7 +50,9 @@ namespace TweetDck{
                 UseVisualStyleBackColor = true
             };
 
-            btnOpenLog.Click += (sender, args) => Process.Start(logFile);
+            btnOpenLog.Click += (sender, args) => {
+                using(Process.Start(logFile)){}
+            };
 
             form.AddActionControl(btnOpenLog);
 

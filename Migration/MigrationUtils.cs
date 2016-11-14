@@ -2,16 +2,13 @@
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.Win32;
+using TweetDck.Core.Utils;
 
 namespace TweetDck.Migration{
     static class MigrationUtils{
         public static bool RunUninstaller(string guid, int timeout){
             try{
-                Process uninstaller = Process.Start(new ProcessStartInfo{
-                    FileName = "msiexec.exe",
-                    Arguments = "/x "+guid+" /quiet /qn",
-                    Verb = "runas"
-                });
+                Process uninstaller = WindowsUtils.StartProcess("msiexec.exe", "/x "+guid+" /quiet /qn", true);
 
                 if (uninstaller != null){
                     if (timeout > 0){
