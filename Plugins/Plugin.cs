@@ -27,13 +27,13 @@ namespace TweetDck.Plugins{
 
         public bool HasConfig{
             get{
-                return ConfigFile.Length > 0 && GetFullPathIfSafe(PluginFolder.Root, ConfigFile).Length > 0;
+                return ConfigFile.Length > 0 && GetFullPathIfSafe(PluginFolder.Data, ConfigFile).Length > 0;
             }
         }
 
         public string ConfigPath{
             get{
-                return HasConfig ? Path.Combine(GetPluginFolder(PluginFolder.Root), ConfigFile) : string.Empty;
+                return HasConfig ? Path.Combine(GetPluginFolder(PluginFolder.Data), ConfigFile) : string.Empty;
             }
         }
 
@@ -82,6 +82,7 @@ namespace TweetDck.Plugins{
 
             if (configPath.Length > 0 && defaultConfigPath.Length > 0 && !File.Exists(configPath) && File.Exists(defaultConfigPath)){
                 try{
+                    Directory.CreateDirectory(GetPluginFolder(PluginFolder.Data));
                     File.Copy(defaultConfigPath, configPath, false);
                 }catch(Exception e){
                     Program.Reporter.HandleException("Plugin Loading Error", "Could not generate a configuration file for '"+identifier+"' plugin.", true, e);

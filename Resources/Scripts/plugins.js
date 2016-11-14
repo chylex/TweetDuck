@@ -8,8 +8,8 @@
 
     $TDP.checkFileExists(token, fileNameUser).then(exists => {
       var fileName = exists ? fileNameUser : fileNameDefault;
-
-      $TDP.readFile(token, fileName, true).then(contents => {
+      
+      (exists ? $TDP.readFile(token, fileName, true) : $TDP.readFileRoot(token, fileName)).then(contents => {
         var obj;
 
         try{
