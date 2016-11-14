@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using TweetDck.Plugins.Enums;
 
 namespace TweetDck.Plugins{
     static class PluginScriptGenerator{

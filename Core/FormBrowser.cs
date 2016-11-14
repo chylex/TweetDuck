@@ -11,6 +11,7 @@ using System.Drawing;
 using TweetDck.Core.Utils;
 using TweetDck.Updates;
 using TweetDck.Plugins;
+using TweetDck.Plugins.Enums;
 using TweetDck.Plugins.Events;
 
 namespace TweetDck.Core{

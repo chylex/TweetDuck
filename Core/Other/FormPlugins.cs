@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using TweetDck.Core.Controls;
 using TweetDck.Plugins;
 using TweetDck.Plugins.Controls;
+using TweetDck.Plugins.Enums;
 using TweetDck.Plugins.Events;
 
 namespace TweetDck.Core.Other{

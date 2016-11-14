@@ -210,8 +210,8 @@
     <Compile Include="Plugins\Events\PluginChangedStateEventArgs.cs" />
     <Compile Include="Plugins\PluginBridge.cs" />
     <Compile Include="Plugins\PluginConfig.cs" />
-    <Compile Include="Plugins\PluginEnvironment.cs" />
-    <Compile Include="Plugins\PluginGroup.cs" />
+    <Compile Include="Plugins\Enums\PluginEnvironment.cs" />
+    <Compile Include="Plugins\Enums\PluginGroup.cs" />
     <Compile Include="Plugins\Events\PluginLoadEventArgs.cs" />
     <Compile Include="Plugins\PluginManager.cs" />
     <Compile Include="Plugins\PluginScriptGenerator.cs" />

@@ -1,4 +1,4 @@
-﻿namespace TweetDck.Plugins{
+﻿namespace TweetDck.Plugins.Enums{
     enum PluginGroup{
         Official, Custom
     }

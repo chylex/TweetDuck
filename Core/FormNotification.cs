@@ -9,6 +9,7 @@ using TweetDck.Core.Handling;
 using TweetDck.Resources;
 using TweetDck.Core.Utils;
 using TweetDck.Plugins;
+using TweetDck.Plugins.Enums;
 
 namespace TweetDck.Core{
     sealed partial class FormNotification : Form{

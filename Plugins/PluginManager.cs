@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using CefSharp;
+using TweetDck.Plugins.Enums;
 using TweetDck.Plugins.Events;
 using TweetDck.Resources;
 
