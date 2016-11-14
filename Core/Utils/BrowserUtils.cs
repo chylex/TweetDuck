@@ -49,6 +49,10 @@ namespace TweetDck.Core.Utils{
             client.DownloadFileAsync(new Uri(url), target);
         }
 
+        public static bool IsTweetDeckWebsite(IFrame frame){
+            return frame.Url.Contains("//tweetdeck.twitter.com/");
+        }
+
         #if DEBUG
         public static void HandleConsoleMessage(object sender, ConsoleMessageEventArgs e){
             Debug.WriteLine("[Console] {0} ({1}:{2})", e.Message, e.Source, e.Line);
