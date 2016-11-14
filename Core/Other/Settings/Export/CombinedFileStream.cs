@@ -4,12 +4,16 @@ using System.Text;
 
 namespace TweetDck.Core.Other.Settings.Export{
     class CombinedFileStream : IDisposable{
-        public const char KeySeparator = '/';
+        public const char KeySeparator = '|';
 
         private readonly Stream stream;
 
         public CombinedFileStream(Stream stream){
             this.stream = stream;
+        }
+
+        public void WriteFile(string[] identifier, string path){
+            WriteFile(string.Join(KeySeparator.ToString(), identifier), path);
         }
 
         public void WriteFile(string identifier, string path){
@@ -74,6 +78,13 @@ namespace TweetDck.Core.Other.Settings.Export{
                 get{
                     int index = Identifier.IndexOf(KeySeparator);
                     return index == -1 ? Identifier : Identifier.Substring(0, index);
+                }
+            }
+
+            public string[] KeyValue{
+                get{
+                    int index = Identifier.IndexOf(KeySeparator);
+                    return index == -1 ? new string[0] : Identifier.Substring(index+1).Split(KeySeparator);
                 }
             }
 

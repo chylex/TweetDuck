@@ -35,6 +35,10 @@ namespace TweetDck.Plugins{
             this.Bridge = new PluginBridge(this);
         }
 
+        public bool IsPluginInstalled(string identifier){
+            return plugins.Any(plugin => plugin.Identifier.Equals(identifier));
+        }
+
         public IEnumerable<Plugin> GetPluginsByGroup(PluginGroup group){
             return plugins.Where(plugin => plugin.Group == group);
         }

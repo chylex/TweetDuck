@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using TweetDck.Plugins;
+using TweetDck.Plugins.Enums;
 
 namespace TweetDck.Core.Other.Settings.Export{
     sealed class ExportManager{
@@ -26,32 +27,13 @@ namespace TweetDck.Core.Other.Settings.Export{
                 using(CombinedFileStream stream = new CombinedFileStream(new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None))){
                     stream.WriteFile("config", Program.ConfigFilePath);
 
-                    foreach(PathInfo path in EnumerateFilesRelative(plugins.PathOfficialPlugins)){
-                        string[] split = path.Relative.Split(CombinedFileStream.KeySeparator);
-
-                        if (split.Length < 3){
-                            continue;
-                        }
-                        else if (split.Length == 3){
-                            if (split[2].Equals(".meta", StringComparison.OrdinalIgnoreCase) ||
-                                split[2].Equals("browser.js", StringComparison.OrdinalIgnoreCase) ||
-                                split[2].Equals("notification.js", StringComparison.OrdinalIgnoreCase)){
-                                continue;
+                    foreach(Plugin plugin in plugins.Plugins){
+                        foreach(PathInfo path in EnumerateFilesRelative(plugin.GetPluginFolder(PluginFolder.Data))){
+                            try{
+                                stream.WriteFile(new string[]{ "plugin.data", plugin.Identifier, path.Relative }, path.Full);
+                            }catch(ArgumentOutOfRangeException e){
+                                MessageBox.Show("Could not include a plugin file in the export. "+e.Message, "Export Profile", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
-                        }
-
-                        try{
-                            stream.WriteFile("plugin.off"+path.Relative, path.Full);
-                        }catch(ArgumentOutOfRangeException e){
-                            MessageBox.Show("Could not include a file in the export. "+e.Message, "Export Profile", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-                    }
-
-                    foreach(PathInfo path in EnumerateFilesRelative(plugins.PathCustomPlugins)){
-                        try{
-                            stream.WriteFile("plugin.usr"+path.Relative, path.Full);
-                        }catch(ArgumentOutOfRangeException e){
-                            MessageBox.Show("Could not include a file in the export. "+e.Message, "Export Profile", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                     }
 
@@ -72,6 +54,7 @@ namespace TweetDck.Core.Other.Settings.Export{
         public bool Import(){
             try{
                 bool updatedPlugins = false;
+                HashSet<string> missingPlugins = new HashSet<string>();
 
                 using(CombinedFileStream stream = new CombinedFileStream(new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.None))){
                     CombinedFileStream.Entry entry;
@@ -83,28 +66,24 @@ namespace TweetDck.Core.Other.Settings.Export{
                                 Program.ReloadConfig();
                                 break;
 
-                            case "plugin.off":
-                                string root = Path.Combine(plugins.PathOfficialPlugins, entry.Identifier.Split(CombinedFileStream.KeySeparator)[1]);
+                            case "plugin.data":
+                                string[] value = entry.KeyValue;
 
-                                if (Directory.Exists(root)){
-                                    entry.WriteToFile(Path.Combine(plugins.PathOfficialPlugins, entry.Identifier.Substring(entry.KeyName.Length+1)), true);
+                                entry.WriteToFile(Path.Combine(Program.PluginDataPath, value[0], value[1]), true);
+
+                                if (plugins.IsPluginInstalled(value[0])){
                                     updatedPlugins = true;
+                                }
+                                else{
+                                    missingPlugins.Add(value[0]);
                                 }
 
                                 break;
 
-                            case "plugin.usr":
-                                entry.WriteToFile(Path.Combine(plugins.PathCustomPlugins, entry.Identifier.Substring(entry.KeyName.Length+1)), true);
-                                updatedPlugins = true;
-                                break;
-
                             case "cookies":
-                                if (MessageBox.Show("Do you want to import the login session? This will restart "+Program.BrandName+".", "Importing "+Program.BrandName+" Settings", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
+                                if (MessageBox.Show("Do you want to import the login session? This will restart "+Program.BrandName+".", "Importing "+Program.BrandName+" Profile", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
                                     entry.WriteToFile(Path.Combine(Program.StoragePath, TempCookiesPath));
-
-                                    // okay to and restart, 'cookies' is always the last entry
                                     IsRestarting = true;
-                                    Program.Restart(new string[]{ "-importcookies" });
                                 }
 
                                 break;
@@ -112,7 +91,14 @@ namespace TweetDck.Core.Other.Settings.Export{
                     }
                 }
 
-                if (updatedPlugins){
+                if (missingPlugins.Count > 0){
+                    MessageBox.Show("Detected missing plugins when importing plugin data:"+Environment.NewLine+string.Join(Environment.NewLine, missingPlugins), "Importing "+Program.BrandName+" Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                if (IsRestarting){
+                    Program.Restart(new string[]{ "-importcookies" });
+                }
+                else if (updatedPlugins){
                     plugins.Reload();
                 }
 
@@ -138,10 +124,10 @@ namespace TweetDck.Core.Other.Settings.Export{
         }
 
         private static IEnumerable<PathInfo> EnumerateFilesRelative(string root){
-            return Directory.EnumerateFiles(root, "*.*", SearchOption.AllDirectories).Select(fullPath => new PathInfo{
+            return Directory.Exists(root) ? Directory.EnumerateFiles(root, "*.*", SearchOption.AllDirectories).Select(fullPath => new PathInfo{
                 Full = fullPath,
-                Relative = fullPath.Substring(root.Length).Replace(Path.DirectorySeparatorChar, CombinedFileStream.KeySeparator) // includes leading separator character
-            });
+                Relative = fullPath.Substring(root.Length).TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) // strip leading separator character
+            }) : Enumerable.Empty<PathInfo>();
         }
 
         private class PathInfo{
