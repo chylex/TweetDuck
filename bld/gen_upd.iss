@@ -28,6 +28,7 @@ SetupIconFile=.\Resources\icon.ico
 Uninstallable=TDIsUninstallable
 UninstallDisplayName={#MyAppName}
 UninstallDisplayIcon={app}\{#MyAppExeName}
+PrivilegesRequired=lowest
 Compression=lzma
 SolidCompression=yes
 InternalCompressLevel=max

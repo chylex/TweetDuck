@@ -149,7 +149,9 @@ namespace TweetDck{
             if (mainForm.UpdateInstallerPath != null){
                 ExitCleanup();
 
-                Process.Start(mainForm.UpdateInstallerPath, "/SP- /SILENT /CLOSEAPPLICATIONS /UPDATEPATH=\""+ProgramPath+"\""+(IsPortable ? " /PORTABLE=1" : "")); // ProgramPath has a trailing backslash
+                bool runElevated = !IsPortable || !WindowsUtils.CheckFolderPermission(ProgramPath, FileSystemRights.WriteData);
+
+                WindowsUtils.StartProcess(mainForm.UpdateInstallerPath, "/SP- /SILENT /CLOSEAPPLICATIONS /UPDATEPATH=\""+ProgramPath+"\""+(IsPortable ? " /PORTABLE=1" : ""), runElevated); // ProgramPath has a trailing backslash
                 Application.Exit();
             }
         }

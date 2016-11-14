@@ -25,6 +25,7 @@ LicenseFile=.\Resources\LICENSE
 SetupIconFile=.\Resources\icon.ico
 Uninstallable=no
 UsePreviousAppDir=no
+PrivilegesRequired=lowest
 Compression=lzma
 SolidCompression=yes
 InternalCompressLevel=max
