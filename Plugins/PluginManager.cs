@@ -104,6 +104,10 @@ namespace TweetDck.Plugins{
         }
 
         private IEnumerable<Plugin> LoadPluginsFrom(string path, PluginGroup group){
+            if (!Directory.Exists(path)){
+                yield break;
+            }
+
             foreach(string fullDir in Directory.EnumerateDirectories(path, "*", SearchOption.TopDirectoryOnly)){
                 string error;
                 Plugin plugin = Plugin.CreateFromFolder(fullDir, group, out error);
