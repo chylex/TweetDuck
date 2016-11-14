@@ -10,7 +10,7 @@ namespace TweetDck.Core.Utils{
                 AuthorizationRuleCollection rules = Directory.GetAccessControl(path).GetAccessRules(true, true, typeof(SecurityIdentifier));
                 WindowsIdentity identity = WindowsIdentity.GetCurrent();
 
-                if (identity == null || identity.Groups == null){
+                if (identity.Groups == null){
                     return false;
                 }
 
