@@ -37,6 +37,11 @@ namespace TweetDck.Core.Handling{
             lastHighlightedTweet = TweetDeckBridge.LastHighlightedTweet;
             lastHighlightedQuotedTweet = TweetDeckBridge.LastHighlightedQuotedTweet;
 
+            if (!BrowserUtils.IsTweetDeckWebsite(frame)){
+                lastHighlightedTweet = string.Empty;
+                lastHighlightedQuotedTweet = string.Empty;
+            }
+
             if (!string.IsNullOrEmpty(lastHighlightedTweet) && (parameters.TypeFlags & (ContextMenuType.Editable | ContextMenuType.Selection)) == 0){
                 model.AddItem((CefMenuCommand)MenuOpenTweetUrl, "Open tweet in browser");
                 model.AddItem((CefMenuCommand)MenuCopyTweetUrl, "Copy tweet address");
