@@ -50,7 +50,7 @@ namespace TweetDck.Plugins.Controls{
         }
 
         private void btnOpenConfig_Click(object sender, EventArgs e){
-            using(Process.Start("explorer.exe", "/select,\""+plugin.ConfigPath+"\"")){}
+            using(Process.Start("explorer.exe", "/select,\""+plugin.ConfigPath.Replace('/', '\\')+"\"")){}
         }
 
         private void btnToggleState_Click(object sender, EventArgs e){
