@@ -57,7 +57,6 @@ Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\Cache"
 Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\GPUCache"
 
 [Code]
-var IsPortableInstallation: Boolean;
 var UpdatePath: String;
 
 function TDGetNetFrameworkVersion: Cardinal; forward;
@@ -65,15 +64,7 @@ function TDGetNetFrameworkVersion: Cardinal; forward;
 { Check .NET Framework version on startup, ask user if they want to proceed if older than 4.5.2. }
 function InitializeSetup: Boolean;
 begin
-  IsPortableInstallation := ExpandConstant('{param:PORTABLEINSTALL}') = '1'
   UpdatePath := ExpandConstant('{param:UPDATEPATH}')
-  
-  if IsPortableInstallation and (UpdatePath = '') then
-  begin
-    MsgBox('The /PORTABLEINSTALL flag requires the /UPDATEPATH parameter.', mbCriticalError, MB_OK);
-    Result := False;
-    Exit;
-  end;
   
   if TDGetNetFrameworkVersion() >= 379893 then
   begin
@@ -125,25 +116,10 @@ begin
   end;
 end;
 
-{ Create a 'makeportable' file if running in portable mode. }
-procedure CurStepChanged(CurStep: TSetupStep);
-begin
-  if (CurStep = ssPostInstall) and IsPortableInstallation then
-  begin
-    while not SaveStringToFile(ExpandConstant('{app}\makeportable'), '', False) do
-    begin
-      if MsgBox('Could not create a ''makeportable'' file in the installation folder. If the file is not present, the installation will not be fully portable.', mbCriticalError, MB_RETRYCANCEL) <> IDRETRY then
-      begin
-        break;
-      end;
-    end;
-  end;
-end;
-
-{ Returns true if the installer should create uninstallation entries (i.e. not running in portable or full update mode). }
+{ Returns true if the installer should create uninstallation entries (i.e. not running in full update mode). }
 function TDIsUninstallable: Boolean;
 begin
-  Result := (UpdatePath = '') and not IsPortableInstallation
+  Result := (UpdatePath = '')
 end;
 
 { Return DWORD value containing the build version of .NET Framework. }
