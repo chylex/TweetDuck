@@ -81,8 +81,26 @@ namespace TweetDck.Plugins{
             string configPath = ConfigPath, defaultConfigPath = DefaultConfigPath;
 
             if (configPath.Length > 0 && defaultConfigPath.Length > 0 && !File.Exists(configPath) && File.Exists(defaultConfigPath)){
+                string dataFolder = GetPluginFolder(PluginFolder.Data);
+
+                if (!Directory.Exists(dataFolder)){ // config migration
+                    string originalFile = Path.Combine(GetPluginFolder(PluginFolder.Root), ConfigFile);
+
+                    if (File.Exists(originalFile)){
+                        try{
+                            Directory.CreateDirectory(dataFolder);
+                            File.Copy(originalFile, configPath, false);
+                            File.Delete(originalFile); // will fail without write perms in program folder, ignore if so
+                        }catch{
+                            // ignore
+                        }
+
+                        return;
+                    }
+                }
+
                 try{
-                    Directory.CreateDirectory(GetPluginFolder(PluginFolder.Data));
+                    Directory.CreateDirectory(dataFolder);
                     File.Copy(defaultConfigPath, configPath, false);
                 }catch(Exception e){
                     Program.Reporter.HandleException("Plugin Loading Error", "Could not generate a configuration file for '"+identifier+"' plugin.", true, e);
