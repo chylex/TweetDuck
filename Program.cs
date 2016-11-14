@@ -57,8 +57,8 @@ namespace TweetDck{
 
             WindowRestoreMessage = NativeMethods.RegisterWindowMessage("TweetDuckRestore");
 
-            if (!WindowsUtils.CheckFolderPermission(ProgramPath, FileSystemRights.WriteData)){
-                MessageBox.Show(BrandName+" does not have write permissions to the program folder. If it is installed in Program Files, please run it as Administrator.", "Administrator Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            if (!WindowsUtils.CheckFolderPermission(StoragePath, FileSystemRights.WriteData)){
+                MessageBox.Show(BrandName+" does not have write permissions to the storage folder: "+StoragePath, "Permission Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
