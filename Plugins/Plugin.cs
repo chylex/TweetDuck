@@ -27,29 +27,30 @@ namespace TweetDck.Plugins{
 
         public bool HasConfig{
             get{
-                return ConfigFile.Length > 0 && GetFullPathIfSafe(ConfigFile).Length > 0;
+                return ConfigFile.Length > 0 && GetFullPathIfSafe(PluginFolder.Root, ConfigFile).Length > 0;
             }
         }
 
         public string ConfigPath{
             get{
-                return HasConfig ? Path.Combine(path, ConfigFile) : string.Empty;
+                return HasConfig ? Path.Combine(GetPluginFolder(PluginFolder.Root), ConfigFile) : string.Empty;
             }
         }
 
         public bool HasDefaultConfig{
             get{
-                return ConfigDefault.Length > 0 && GetFullPathIfSafe(ConfigDefault).Length > 0;
+                return ConfigDefault.Length > 0 && GetFullPathIfSafe(PluginFolder.Root, ConfigDefault).Length > 0;
             }
         }
 
         public string DefaultConfigPath{
             get{
-                return HasDefaultConfig ? Path.Combine(path, ConfigDefault) : string.Empty;
+                return HasDefaultConfig ? Path.Combine(GetPluginFolder(PluginFolder.Root), ConfigDefault) : string.Empty;
             }
         }
 
-        private readonly string path;
+        private readonly string pathRoot;
+        private readonly string pathData;
         private readonly string identifier;
         private readonly Dictionary<string, string> metadata = new Dictionary<string, string>(4){
             { "NAME", "" },
@@ -65,8 +66,13 @@ namespace TweetDck.Plugins{
         private bool? canRun;
 
         private Plugin(string path, PluginGroup group){
-            this.path = path;
-            this.identifier = group.GetIdentifierPrefix()+Path.GetFileName(path);
+            string name = Path.GetFileName(path);
+            System.Diagnostics.Debug.Assert(name != null);
+
+            this.pathRoot = path;
+            this.pathData = Path.Combine(Program.PluginDataPath, group.GetIdentifierPrefix(), name);
+
+            this.identifier = group.GetIdentifierPrefix()+name;
             this.Group = group;
             this.Environments = PluginEnvironment.None;
         }
@@ -86,18 +92,31 @@ namespace TweetDck.Plugins{
         public string GetScriptPath(PluginEnvironment environment){
             if (Environments.HasFlag(environment)){
                 string file = environment.GetScriptFile();
-                return file != null ? Path.Combine(path, file) : string.Empty;
+                return file != null ? Path.Combine(pathRoot, file) : string.Empty;
             }
             else{
                 return string.Empty;
             }
         }
 
+        public string GetPluginFolder(PluginFolder folder){
+            switch(folder){
+                case PluginFolder.Root: return pathRoot;
+                case PluginFolder.Data: return pathData;
+                default: return string.Empty;
+            }
+        }
+
         public string GetFullPathIfSafe(string relativePath){
-            string fullPath = Path.Combine(path, relativePath);
+            return GetFullPathIfSafe(PluginFolder.Root, relativePath);
+        }
+
+        public string GetFullPathIfSafe(PluginFolder folder, string relativePath){
+            string rootFolder = GetPluginFolder(folder);
+            string fullPath = Path.Combine(rootFolder, relativePath);
 
             try{
-                string folderPathName = new DirectoryInfo(path).FullName;
+                string folderPathName = new DirectoryInfo(rootFolder).FullName;
                 DirectoryInfo currentInfo = new DirectoryInfo(fullPath);
 
                 while(currentInfo.Parent != null){
@@ -125,7 +144,7 @@ namespace TweetDck.Plugins{
 
         public override bool Equals(object obj){
             Plugin plugin = obj as Plugin;
-            return plugin != null && plugin.path.Equals(path);
+            return plugin != null && plugin.identifier.Equals(identifier);
         }
 
         public static Plugin CreateFromFolder(string path, PluginGroup group, out string error){
