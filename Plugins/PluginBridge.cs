@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using TweetDck.Plugins.Enums;
 using TweetDck.Plugins.Events;
 
 namespace TweetDck.Plugins{
@@ -18,35 +19,26 @@ namespace TweetDck.Plugins{
             fileCache.Clear();
         }
 
-        private string GetFullPathIfSafe(int token, string path){
+        private string GetFullPathOrThrow(int token, PluginFolder folder, string path){
             Plugin plugin = manager.GetPluginFromToken(token);
-            return plugin == null ? string.Empty : plugin.GetFullPathIfSafe(path);
-        }
-
-        public void WriteFile(int token, string path, string contents){
-            string fullPath = GetFullPathIfSafe(token, path);
-
-            if (fullPath == string.Empty){
-                throw new Exception("File path has to be relative to the plugin folder.");
-            }
-
-            // ReSharper disable once AssignNullToNotNullAttribute
-            Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
-
-            File.WriteAllText(fullPath, contents, Encoding.UTF8);
-            fileCache[fullPath] = contents;
-        }
-
-        public string ReadFile(int token, string path, bool cache){
-            string fullPath = GetFullPathIfSafe(token, path);
+            string fullPath = plugin == null ? string.Empty : plugin.GetFullPathIfSafe(folder, path);
 
             if (fullPath.Length == 0){
-                throw new Exception("File path has to be relative to the plugin folder.");
+                switch(folder){
+                    case PluginFolder.Data: throw new Exception("File path has to be relative to the plugin data folder.");
+                    case PluginFolder.Root: throw new Exception("File path has to be relative to the plugin root folder.");
+                    default: throw new Exception("Invalid folder type "+folder+", this is a "+Program.BrandName+" error.");
+                }
             }
+            else{
+                return fullPath;
+            }
+        }
 
+        private string ReadFileUnsafe(string fullPath, bool readCached){
             string cachedContents;
             
-            if (cache && fileCache.TryGetValue(fullPath, out cachedContents)){
+            if (readCached && fileCache.TryGetValue(fullPath, out cachedContents)){
                 return cachedContents;
             }
 
@@ -59,25 +51,39 @@ namespace TweetDck.Plugins{
             }
         }
 
-        public void DeleteFile(int token, string path){
-            string fullPath = GetFullPathIfSafe(token, path);
+        // Public methods
 
-            if (fullPath.Length == 0){
-                throw new Exception("File path has to be relative to the plugin folder.");
-            }
-            
+        public void WriteFile(int token, string path, string contents){
+            string fullPath = GetFullPathOrThrow(token, PluginFolder.Data, path);
+
+            // ReSharper disable once AssignNullToNotNullAttribute
+            Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
+
+            File.WriteAllText(fullPath, contents, Encoding.UTF8);
+            fileCache[fullPath] = contents;
+        }
+
+        public string ReadFile(int token, string path, bool cache){
+            return ReadFileUnsafe(GetFullPathOrThrow(token, PluginFolder.Data, path), cache);
+        }
+
+        public void DeleteFile(int token, string path){
+            string fullPath = GetFullPathOrThrow(token, PluginFolder.Data, path);
+
             fileCache.Remove(fullPath);
             File.Delete(fullPath);
         }
 
         public bool CheckFileExists(int token, string path){
-            string fullPath = GetFullPathIfSafe(token, path);
+            return File.Exists(GetFullPathOrThrow(token, PluginFolder.Data, path));
+        }
 
-            if (fullPath.Length == 0){
-                throw new Exception("File path has to be relative to the plugin folder.");
-            }
+        public string ReadFileRoot(int token, string path){
+            return ReadFileUnsafe(GetFullPathOrThrow(token, PluginFolder.Root, path), true);
+        }
 
-            return File.Exists(fullPath);
+        public bool CheckFileExistsRoot(int token, string path){
+            return File.Exists(GetFullPathOrThrow(token, PluginFolder.Root, path));
         }
     }
 }

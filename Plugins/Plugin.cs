@@ -107,10 +107,6 @@ namespace TweetDck.Plugins{
             }
         }
 
-        public string GetFullPathIfSafe(string relativePath){
-            return GetFullPathIfSafe(PluginFolder.Root, relativePath);
-        }
-
         public string GetFullPathIfSafe(PluginFolder folder, string relativePath){
             string rootFolder = GetPluginFolder(folder);
             string fullPath = Path.Combine(rootFolder, relativePath);
