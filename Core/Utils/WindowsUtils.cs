@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Security.Principal;
@@ -28,6 +29,19 @@ namespace TweetDck.Core.Utils{
             catch{
                 return false;
             }
+        }
+
+        public static Process StartProcess(string file, string arguments, bool runElevated){
+            ProcessStartInfo processInfo = new ProcessStartInfo{
+                FileName = file,
+                Arguments = arguments
+            };
+
+            if (runElevated){
+                processInfo.Verb = "runas";
+            }
+
+            return Process.Start(processInfo);
         }
     }
 }
