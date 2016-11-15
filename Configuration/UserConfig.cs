@@ -12,9 +12,7 @@ using TweetDck.Plugins;
 namespace TweetDck.Configuration{
     [Serializable]
     sealed class UserConfig{
-        private static readonly IFormatter Formatter = new BinaryFormatter{
-            Binder = new SerializationCompatibilityHandler()
-        };
+        private static readonly IFormatter Formatter = new BinaryFormatter();
 
         private const int CurrentFileVersion = 5;
 
@@ -231,14 +229,6 @@ namespace TweetDck.Configuration{
 
         public static string GetBackupFile(string file){
             return file+".bak";
-        }
-
-        private class SerializationCompatibilityHandler : SerializationBinder{
-            public override Type BindToType(string assemblyName, string typeName){
-                assemblyName = assemblyName.Replace("TweetDick", "TweetDuck");
-                typeName = typeName.Replace("TweetDick", "TweetDck");
-                return Type.GetType(string.Format(CultureInfo.CurrentCulture, "{0},  {1}", typeName, assemblyName));
-            }
         }
     }
 }
