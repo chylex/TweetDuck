@@ -57,7 +57,7 @@ namespace TweetDck{
 
             WindowRestoreMessage = NativeMethods.RegisterWindowMessage("TweetDuckRestore");
 
-            if (!WindowsUtils.CheckFolderWritePermissionLazy(StoragePath)){
+            if (!WindowsUtils.CheckFolderWritePermission(StoragePath)){
                 MessageBox.Show(BrandName+" does not have write permissions to the storage folder: "+StoragePath, "Permission Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -149,7 +149,7 @@ namespace TweetDck{
             if (mainForm.UpdateInstallerPath != null){
                 ExitCleanup();
 
-                bool runElevated = !IsPortable || !WindowsUtils.CheckFolderWritePermissionLazy(ProgramPath);
+                bool runElevated = !IsPortable || !WindowsUtils.CheckFolderWritePermission(ProgramPath);
 
                 WindowsUtils.StartProcess(mainForm.UpdateInstallerPath, "/SP- /SILENT /CLOSEAPPLICATIONS /UPDATEPATH=\""+ProgramPath+"\""+(IsPortable ? " /PORTABLE=1" : ""), runElevated); // ProgramPath has a trailing backslash
                 Application.Exit();
