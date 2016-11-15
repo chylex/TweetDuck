@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using CefSharp;
 using TweetDck.Configuration;
 using TweetDck.Core;
-using TweetDck.Migration;
 using TweetDck.Core.Utils;
 using System.Linq;
 using System.Threading;
@@ -13,7 +12,6 @@ using TweetDck.Plugins;
 using TweetDck.Plugins.Events;
 using TweetDck.Core.Other.Settings.Export;
 using TweetDck.Core.Handling;
-using System.Security.AccessControl;
 
 [assembly: CLSCompliant(true)]
 namespace TweetDck{
@@ -85,13 +83,8 @@ namespace TweetDck{
                         Thread.Sleep(500);
                     }
                 }
-
-                ReloadConfig();
             }
             else{
-                ReloadConfig();
-                MigrationManager.Run();
-
                 if (!LockManager.Lock()){
                     if (LockManager.LockingProcess.MainWindowHandle == IntPtr.Zero && LockManager.LockingProcess.Responding){ // restore if the original process is in tray
                         NativeMethods.SendMessage(NativeMethods.HWND_BROADCAST, WindowRestoreMessage, 0, IntPtr.Zero);
@@ -108,6 +101,8 @@ namespace TweetDck{
                     else return;
                 }
             }
+
+            ReloadConfig();
 
             if (Args.HasFlag("-importcookies")){
                 ExportManager.ImportCookies();

@@ -20,9 +20,6 @@ namespace TweetDck.Configuration{
 
         // START OF CONFIGURATION
 
-        public bool IgnoreMigration { get; set; }
-        public bool IgnoreUninstallCheck { get; set; }
-
         public WindowState BrowserWindow { get; set; }
         public bool DisplayNotificationTimer { get; set; }
         public bool NotificationTimerCountDown { get; set; }

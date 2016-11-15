@@ -180,12 +180,6 @@
     <Compile Include="Core\Utils\CommandLineArgsParser.cs" />
     <Compile Include="Core\Utils\WindowState.cs" />
     <Compile Include="Core\Utils\WindowsUtils.cs" />
-    <Compile Include="Migration\FormBackgroundWork.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Migration\FormBackgroundWork.Designer.cs">
-      <DependentUpon>FormBackgroundWork.cs</DependentUpon>
-    </Compile>
     <Compile Include="Core\Handling\TweetDeckBridge.cs" />
     <Compile Include="Core\Other\FormSettings.cs">
       <SubType>Form</SubType>
@@ -193,7 +187,6 @@
     <Compile Include="Core\Other\FormSettings.Designer.cs">
       <DependentUpon>FormSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migration\MigrationUtils.cs" />
     <Compile Include="Plugins\Controls\PluginControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -237,8 +230,6 @@
     <Compile Include="Updates\UpdateCheckEventArgs.cs" />
     <Compile Include="Updates\UpdateHandler.cs" />
     <Compile Include="Updates\UpdateInfo.cs" />
-    <Compile Include="Migration\MigrationDecision.cs" />
-    <Compile Include="Migration\MigrationManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
