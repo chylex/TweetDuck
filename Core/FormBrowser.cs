@@ -291,6 +291,17 @@ namespace TweetDck.Core{
             }
         }
 
+        public void OnTweetScreenshotReady(string html, int width, int height){
+            FormNotification dummyWindow = CreateNotificationForm(NotificationFlags.DisableScripts | NotificationFlags.DisableContextMenu);
+
+            dummyWindow.ShowNotificationForScreenshot(new TweetNotification(html, string.Empty, 0), width, height, () => {
+                // TODO DrawToBitmap does not work here
+                dummyWindow.Dispose(); // TODO something freezes the program sometimes
+            });
+
+            dummyWindow.Show();
+        }
+
         public void DisplayTooltip(string text){
             if (string.IsNullOrEmpty(text)){
                 toolTip.Hide(this);
@@ -308,6 +319,10 @@ namespace TweetDck.Core{
 
         public void OnImagePastedFinish(){
             browser.ExecuteScriptAsync("TDGF_tryPasteImageFinish()");
+        }
+
+        public void TriggerTweetScreenshot(){
+            browser.ExecuteScriptAsync("TDGF_triggerScreenshot()");
         }
 
         public void ReloadBrowser(){

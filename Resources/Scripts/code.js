@@ -305,6 +305,24 @@
   })();
   
   //
+  // Block: Screenshot tweet to clipboard.
+  //
+  (function(){
+    var selectedTweet;
+    
+    app.delegate("article.js-stream-item", "contextmenu", function(){
+      selectedTweet = $(this);
+    });
+    
+    window.TDGF_triggerScreenshot = function(){
+      if (selectedTweet){
+        selectedTweet.find("footer").last().remove();
+        $TD.screenshotTweet(selectedTweet.html(), selectedTweet.width(), selectedTweet.height());
+      }
+    };
+  })();
+  
+  //
   // Block: Paste images when tweeting.
   //
   (function(){

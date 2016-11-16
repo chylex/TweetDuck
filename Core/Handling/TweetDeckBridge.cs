@@ -154,6 +154,10 @@ namespace TweetDck.Core.Handling{
             });
         }
 
+        public void ScreenshotTweet(string html, int width, int height){
+            form.InvokeSafe(() => form.OnTweetScreenshotReady(html, width, height));
+        }
+
         public void OpenBrowser(string url){
             BrowserUtils.OpenExternalBrowser(url);
         }

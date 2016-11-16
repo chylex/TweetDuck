@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using CefSharp;
 using CefSharp.WinForms;
 using TweetDck.Configuration;
+using TweetDck.Core.Controls;
 using TweetDck.Core.Handling;
 using TweetDck.Resources;
 using TweetDck.Core.Utils;
@@ -23,9 +24,9 @@ namespace TweetDck.Core{
         private readonly Form owner;
         private readonly PluginManager plugins;
         private readonly ChromiumWebBrowser browser;
+        private readonly NotificationFlags flags;
 
         private readonly Queue<TweetNotification> tweetQueue = new Queue<TweetNotification>(4);
-        private readonly NotificationFlags flags;
         private int timeLeft, totalTime;
         
         private readonly NativeMethods.HookProc mouseHookDelegate;
@@ -245,6 +246,41 @@ namespace TweetDck.Core{
             }
             else{
                 MoveToVisibleLocation();
+            }
+        }
+
+        public void ShowNotificationForScreenshot(TweetNotification tweet, int width, int height, Action callback){
+            browser.RegisterAsyncJsObject("$TD_NotificationScreenshot", new ScreenshotBridge(() => this.InvokeSafe(callback)));
+
+            browser.FrameLoadEnd += (sender, args) => {
+                if (args.Frame.IsMain){
+                    args.Frame.ExecuteJavaScriptAsync("$TD_NotificationScreenshot.trigger()");
+                }
+            };
+
+            browser.LoadHtml(tweet.GenerateHtml(false), "http://tweetdeck.twitter.com/?"+DateTime.Now.Ticks);
+            
+            ClientSize = new Size(width, height);
+            progressBarTimer.Visible = false;
+            panelBrowser.Height = height;
+
+            // TODO
+
+            Screen screen = Screen.FromControl(this);
+            Location = new Point(screen.WorkingArea.X+8, screen.WorkingArea.Y+8);
+
+            // TODO start a timer on 10 seconds to close the window if anything fails or takes too long
+        }
+
+        private sealed class ScreenshotBridge{
+            private readonly Action safeCallback;
+
+            public ScreenshotBridge(Action safeCallback){
+                this.safeCallback = safeCallback;
+            }
+
+            public void Trigger(){
+                safeCallback();
             }
         }
 
