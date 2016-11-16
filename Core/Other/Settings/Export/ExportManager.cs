@@ -53,7 +53,6 @@ namespace TweetDck.Core.Other.Settings.Export{
 
         public bool Import(){
             try{
-                bool updatedPlugins = false;
                 HashSet<string> missingPlugins = new HashSet<string>();
 
                 using(CombinedFileStream stream = new CombinedFileStream(new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.None))){
@@ -71,10 +70,7 @@ namespace TweetDck.Core.Other.Settings.Export{
 
                                 entry.WriteToFile(Path.Combine(Program.PluginDataPath, value[0], value[1]), true);
 
-                                if (plugins.IsPluginInstalled(value[0])){
-                                    updatedPlugins = true;
-                                }
-                                else{
+                                if (!plugins.IsPluginInstalled(value[0])){
                                     missingPlugins.Add(value[0]);
                                 }
 
@@ -98,7 +94,7 @@ namespace TweetDck.Core.Other.Settings.Export{
                 if (IsRestarting){
                     Program.Restart(new string[]{ "-importcookies" });
                 }
-                else if (updatedPlugins){
+                else{
                     plugins.Reload();
                 }
 

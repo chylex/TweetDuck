@@ -6,7 +6,7 @@ namespace TweetDck.Plugins{
     [Serializable]
     sealed class PluginConfig{
         [field:NonSerialized]
-        public event EventHandler<PluginChangedStateEventArgs> PluginChangedState;
+        public event EventHandler<PluginChangedStateEventArgs> InternalPluginChangedState; // should only be accessed from PluginManager
 
         public IEnumerable<string> DisabledPlugins{
             get{
@@ -24,8 +24,8 @@ namespace TweetDck.Plugins{
 
         public void SetEnabled(Plugin plugin, bool enabled){
             if ((enabled && Disabled.Remove(plugin.Identifier)) || (!enabled && Disabled.Add(plugin.Identifier))){
-                if (PluginChangedState != null){
-                    PluginChangedState(this, new PluginChangedStateEventArgs(plugin, enabled));
+                if (InternalPluginChangedState != null){
+                    InternalPluginChangedState(this, new PluginChangedStateEventArgs(plugin, enabled));
                 }
             }
         }

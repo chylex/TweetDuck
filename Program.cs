@@ -135,7 +135,7 @@ namespace TweetDck{
 
             PluginManager plugins = new PluginManager(PluginPath, UserConfig.Plugins);
             plugins.Reloaded += plugins_Reloaded;
-            plugins.Config.PluginChangedState += (sender, args) => UserConfig.Save();
+            plugins.PluginChangedState += (sender, args) => UserConfig.Save();
             plugins.Reload();
 
             FormBrowser mainForm = new FormBrowser(plugins);
@@ -155,6 +155,8 @@ namespace TweetDck{
             if (!e.Success){
                 MessageBox.Show("The following plugins will not be available until the issues are resolved:\n"+string.Join("\n", e.Errors), "Error Loading Plugins", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
+            ((PluginManager)sender).SetConfig(UserConfig.Plugins);
         }
 
         private static string GetDataStoragePath(){

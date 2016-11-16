@@ -42,7 +42,7 @@ namespace TweetDck.Core{
 
             this.plugins = pluginManager;
             this.plugins.Reloaded += plugins_Reloaded;
-            this.plugins.Config.PluginChangedState += plugins_PluginChangedState;
+            this.plugins.PluginChangedState += plugins_PluginChangedState;
 
             FormNotification notification = CreateNotificationForm(true);
             notification.CanMoveWindow = () => false;

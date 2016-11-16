@@ -21,6 +21,7 @@ namespace TweetDck.Plugins{
         public PluginBridge Bridge { get; private set; }
         
         public event EventHandler<PluginLoadEventArgs> Reloaded;
+        public event EventHandler<PluginChangedStateEventArgs> PluginChangedState;
 
         private readonly string rootPath;
         private readonly HashSet<Plugin> plugins = new HashSet<Plugin>();
@@ -31,8 +32,19 @@ namespace TweetDck.Plugins{
 
         public PluginManager(string path, PluginConfig config){
             this.rootPath = path;
-            this.Config = config;
+            this.SetConfig(config);
             this.Bridge = new PluginBridge(this);
+        }
+
+        public void SetConfig(PluginConfig config){
+            this.Config = config;
+            this.Config.InternalPluginChangedState += Config_InternalPluginChangedState;
+        }
+
+        private void Config_InternalPluginChangedState(object sender, PluginChangedStateEventArgs e){
+            if (PluginChangedState != null){
+                PluginChangedState(this, e);
+            }
         }
 
         public bool IsPluginInstalled(string identifier){
