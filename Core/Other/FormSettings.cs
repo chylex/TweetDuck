@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using TweetDck.Core.Other.Settings;
+using TweetDck.Core.Utils;
 using TweetDck.Plugins;
 using TweetDck.Updates;
 
@@ -17,7 +18,7 @@ namespace TweetDck.Core.Other{
 
             this.tabPanel.SetupTabPanel(100);
             this.tabPanel.AddButton("General", SelectTab<TabSettingsGeneral>);
-            this.tabPanel.AddButton("Notifications", () => SelectTab(() => new TabSettingsNotifications(browserForm.CreateNotificationForm(false))));
+            this.tabPanel.AddButton("Notifications", () => SelectTab(() => new TabSettingsNotifications(browserForm.CreateNotificationForm(NotificationFlags.DisableContextMenu))));
             this.tabPanel.AddButton("Updates", () => SelectTab(() => new TabSettingsUpdates(updates)));
             this.tabPanel.AddButton("Advanced", () => SelectTab(() => new TabSettingsAdvanced(browserForm.ReloadBrowser, plugins)));
             this.tabPanel.SelectTab(tabPanel.Buttons.First());

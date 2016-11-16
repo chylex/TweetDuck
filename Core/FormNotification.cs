@@ -25,7 +25,7 @@ namespace TweetDck.Core{
         private readonly ChromiumWebBrowser browser;
 
         private readonly Queue<TweetNotification> tweetQueue = new Queue<TweetNotification>(4);
-        private readonly bool autoHide;
+        private readonly NotificationFlags flags;
         private int timeLeft, totalTime;
         
         private readonly NativeMethods.HookProc mouseHookDelegate;
@@ -82,22 +82,24 @@ namespace TweetDck.Core{
             }
         }
 
-        public FormNotification(FormBrowser owner, PluginManager pluginManager, bool autoHide){
+        public FormNotification(FormBrowser owner, PluginManager pluginManager, NotificationFlags flags){
             InitializeComponent();
 
             Text = Program.BrandName;
 
             this.owner = owner;
             this.plugins = pluginManager;
-            this.autoHide = autoHide;
+            this.flags = flags;
 
             owner.FormClosed += (sender, args) => Close();
 
-            notificationJS = ScriptLoader.LoadResource(NotificationScriptFile);
-            pluginJS = ScriptLoader.LoadResource(PluginManager.PluginNotificationScriptFile);
+            if (!flags.HasFlag(NotificationFlags.DisableScripts)){
+                notificationJS = ScriptLoader.LoadResource(NotificationScriptFile);
+                pluginJS = ScriptLoader.LoadResource(PluginManager.PluginNotificationScriptFile);
+            }
 
             browser = new ChromiumWebBrowser("about:blank"){
-                MenuHandler = new ContextMenuNotification(this, autoHide),
+                MenuHandler = new ContextMenuNotification(this, !flags.HasFlag(NotificationFlags.DisableContextMenu)),
                 LifeSpanHandler = new LifeSpanHandler()
             };
 
@@ -112,7 +114,7 @@ namespace TweetDck.Core{
 
             panelBrowser.Controls.Add(browser);
 
-            if (autoHide){
+            if (flags.HasFlag(NotificationFlags.AutoHide)){
                 Program.UserConfig.MuteToggled += Config_MuteToggled;
                 Disposed += (sender, args) => Program.UserConfig.MuteToggled -= Config_MuteToggled;
             }
@@ -197,7 +199,7 @@ namespace TweetDck.Core{
                     Initialized(this, new EventArgs());
                 }
             }
-            else if (notificationJS != null && browser.Address != "about:blank"){
+            else if (notificationJS != null && browser.Address != "about:blank" && !flags.HasFlag(NotificationFlags.DisableScripts)){
                 ScriptLoader.ExecuteScript(e.Frame, notificationJS, NotificationScriptIdentifier);
 
                 if (plugins.HasAnyPlugin(PluginEnvironment.Notification)){
@@ -269,7 +271,7 @@ namespace TweetDck.Core{
             if (tweetQueue.Count > 0){
                 LoadNextNotification();
             }
-            else if (autoHide){
+            else if (flags.HasFlag(NotificationFlags.AutoHide)){
                 HideNotification(true);
             }
             else{

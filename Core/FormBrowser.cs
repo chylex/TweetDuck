@@ -44,7 +44,7 @@ namespace TweetDck.Core{
             this.plugins.Reloaded += plugins_Reloaded;
             this.plugins.PluginChangedState += plugins_PluginChangedState;
 
-            FormNotification notification = CreateNotificationForm(true);
+            FormNotification notification = CreateNotificationForm(NotificationFlags.AutoHide);
             notification.CanMoveWindow = () => false;
             notification.Show();
 
@@ -87,8 +87,8 @@ namespace TweetDck.Core{
             Close();
         }
 
-        public FormNotification CreateNotificationForm(bool autoHide){
-            return new FormNotification(this, plugins, autoHide);
+        public FormNotification CreateNotificationForm(NotificationFlags flags){
+            return new FormNotification(this, plugins, flags);
         }
 
         // window setup
