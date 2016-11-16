@@ -34,7 +34,7 @@ namespace TweetDck{
         }
 
         public void HandleException(string caption, string message, bool canIgnore, Exception e){
-            Log(e.ToString());
+            bool loggedSuccessfully = Log(e.ToString());
 
             FormMessage form = new FormMessage(caption, message+"\r\nError: "+e.Message, canIgnore ? MessageBoxIcon.Warning : MessageBoxIcon.Error);
             
@@ -43,6 +43,7 @@ namespace TweetDck{
 
             Button btnOpenLog = new Button{
                 Anchor = AnchorStyles.Bottom | AnchorStyles.Left,
+                Enabled = loggedSuccessfully,
                 Location = new Point(12, 12),
                 Margin = new Padding(0, 0, 48, 0),
                 Size = new Size(88, 26),
