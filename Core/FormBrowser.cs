@@ -303,11 +303,11 @@ namespace TweetDck.Core{
         }
 
         public void OnImagePasted(){
-            browser.ExecuteScriptAsync("TDGF_tryPasteImage", new object[0]);
+            browser.ExecuteScriptAsync("TDGF_tryPasteImage()");
         }
 
         public void OnImagePastedFinish(){
-            browser.ExecuteScriptAsync("TDGF_tryPasteImageFinish", new object[0]);
+            browser.ExecuteScriptAsync("TDGF_tryPasteImageFinish()");
         }
 
         public void ReloadBrowser(){
