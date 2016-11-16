@@ -19,8 +19,6 @@ namespace TweetDck{
         public const string BrandName = "TweetDuck";
         public const string Website = "https://tweetduck.chylex.com";
 
-        public const string BrowserSubprocess = BrandName+".Browser.exe";
-
         public const string VersionTag = "1.5";
         public const string VersionFull = "1.5.0.0";
 
@@ -115,9 +113,9 @@ namespace TweetDck{
                 UserAgent = BrowserUtils.HeaderUserAgent,
                 Locale = Args.GetValue("-locale", "en"),
                 CachePath = StoragePath,
-                BrowserSubprocessPath = File.Exists(BrowserSubprocess) ? BrowserSubprocess : "CefSharp.BrowserSubprocess.exe",
                 LogFile = Path.Combine(StoragePath, "TD_Console.txt"),
                 #if !DEBUG
+                BrowserSubprocessPath = BrandName+".Browser.exe",
                 LogSeverity = Args.HasFlag("-log") ? LogSeverity.Info : LogSeverity.Disable
                 #endif
             };
