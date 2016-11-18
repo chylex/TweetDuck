@@ -53,6 +53,7 @@ namespace TweetDck.Core.Other{
         public Button AddButton(string title){
             Button button = new Button{
                 Anchor = AnchorStyles.Bottom | AnchorStyles.Right,
+                Font = SystemFonts.MessageBoxFont,
                 Location = new Point(Width-112-buttonCount*96, 12),
                 Size = new Size(88, 26),
                 TabIndex = buttonCount,

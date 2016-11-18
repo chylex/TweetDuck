@@ -42,8 +42,8 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelMessage.AutoSize = true;
-            this.labelMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelMessage.Location = new System.Drawing.Point(62, 33);
+            this.labelMessage.Font = System.Drawing.SystemFonts.MessageBoxFont;
+            this.labelMessage.Location = new System.Drawing.Point(62, 34);
             this.labelMessage.Margin = new System.Windows.Forms.Padding(53, 24, 27, 24);
             this.labelMessage.MaximumSize = new System.Drawing.Size(600, 0);
             this.labelMessage.MinimumSize = new System.Drawing.Size(0, 24);

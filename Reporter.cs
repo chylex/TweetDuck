@@ -44,6 +44,7 @@ namespace TweetDck{
             Button btnOpenLog = new Button{
                 Anchor = AnchorStyles.Bottom | AnchorStyles.Left,
                 Enabled = loggedSuccessfully,
+                Font = SystemFonts.MessageBoxFont,
                 Location = new Point(12, 12),
                 Margin = new Padding(0, 0, 48, 0),
                 Size = new Size(88, 26),
