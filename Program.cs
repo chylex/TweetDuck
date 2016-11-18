@@ -12,6 +12,7 @@ using TweetDck.Plugins;
 using TweetDck.Plugins.Events;
 using TweetDck.Core.Other.Settings.Export;
 using TweetDck.Core.Handling;
+using TweetDck.Core.Other;
 
 [assembly: CLSCompliant(true)]
 namespace TweetDck{
@@ -74,8 +75,19 @@ namespace TweetDck{
                         break;
                     }
                     else if (attempt == 40){
-                        MessageBox.Show(BrandName+" is taking too long to close, please wait and then start the application again manually.", BrandName+" Cannot Restart", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
+                        using(FormMessage form = new FormMessage(BrandName+" Cannot Restart", BrandName+" is taking too long to close.", MessageBoxIcon.Warning)){
+                            form.AddButton("Exit");
+                            Button btnRetry = form.AddButton("Retry");
+
+                            if (form.ShowDialog() == DialogResult.OK){
+                                if (form.ClickedButton == btnRetry){
+                                    attempt /= 2;
+                                    continue;
+                                }
+                            }
+
+                            return;
+                        }
                     }
                     else{
                         Thread.Sleep(500);
