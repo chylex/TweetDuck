@@ -70,11 +70,11 @@ namespace TweetDck{
             };
 
             if (Args.HasFlag("-restart")){
-                for(int attempt = 0; attempt < 41; attempt++){
+                for(int attempt = 0; attempt < 21; attempt++){
                     if (LockManager.Lock()){
                         break;
                     }
-                    else if (attempt == 40){
+                    else if (attempt == 20){
                         using(FormMessage form = new FormMessage(BrandName+" Cannot Restart", BrandName+" is taking too long to close.", MessageBoxIcon.Warning)){
                             form.AddButton("Exit");
                             Button btnRetry = form.AddButton("Retry");
@@ -208,11 +208,20 @@ namespace TweetDck{
         }
 
         public static void Restart(string[] extraArgs){
+            FormBrowser browserForm = Application.OpenForms.OfType<FormBrowser>().FirstOrDefault();
+
+            if (browserForm == null){
+                return;
+            }
+
             CommandLineArgs args = Args.Clone();
             args.AddFlag("-restart");
             args.RemoveFlag("-importcookies");
             
             CommandLineArgs.ReadStringArray('-', extraArgs, args);
+
+            browserForm.ForceClose();
+            ExitCleanup();
 
             Process.Start(Application.ExecutablePath, args.ToString());
             Application.Exit();

@@ -82,7 +82,7 @@ namespace TweetDck.Core{
             form.Shown += (sender, args) => form.MoveToCenter(this);
         }
 
-        private void ForceClose(){
+        public void ForceClose(){
             trayIcon.Visible = false; // checked in FormClosing event
             Close();
         }
