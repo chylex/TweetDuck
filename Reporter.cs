@@ -15,6 +15,16 @@ namespace TweetDck{
             this.logFile = logFile;
         }
 
+        public void SetupUnhandledExceptionHandler(string caption){
+            AppDomain.CurrentDomain.UnhandledException += (sender, args) => {
+                Exception ex = args.ExceptionObject as Exception;
+
+                if (ex != null){
+                    HandleException(caption, "An unhandled exception has occurred.", false, ex);
+                }
+            };
+        }
+
         public bool Log(string data){
             StringBuilder build = new StringBuilder();
 

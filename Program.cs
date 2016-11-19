@@ -60,14 +60,7 @@ namespace TweetDck{
             }
 
             Reporter = new Reporter(LogFilePath);
-
-            AppDomain.CurrentDomain.UnhandledException += (sender, args) => {
-                Exception ex = args.ExceptionObject as Exception;
-
-                if (ex != null){
-                    Reporter.HandleException(BrandName+" Has Failed :(", "An unhandled exception has occurred.", false, ex);
-                }
-            };
+            Reporter.SetupUnhandledExceptionHandler(BrandName+" Has Failed :(");
 
             if (Args.HasFlag("-restart")){
                 for(int attempt = 0; attempt < 21; attempt++){
