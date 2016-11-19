@@ -64,8 +64,14 @@ namespace TweetDck{
 
             if (Args.HasFlag("-restart")){
                 for(int attempt = 0; attempt < 21; attempt++){
-                    if (LockManager.Lock()){
+                    LockManager.Result lockResult = LockManager.Lock();
+
+                    if (lockResult == LockManager.Result.Success){
                         break;
+                    }
+                    else if (lockResult == LockManager.Result.Fail){
+                        MessageBox.Show("An unknown error occurred accessing the data folder. Please, make sure "+BrandName+" is not already running. If the problem persists, try restarting your system.", BrandName+" Has Failed :(", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
                     }
                     else if (attempt == 20){
                         using(FormMessage form = new FormMessage(BrandName+" Cannot Restart", BrandName+" is taking too long to close.", MessageBoxIcon.Warning)){
@@ -88,13 +94,15 @@ namespace TweetDck{
                 }
             }
             else{
-                if (!LockManager.Lock()){
+                LockManager.Result lockResult = LockManager.Lock();
+
+                if (lockResult == LockManager.Result.HasProcess){
                     if (LockManager.LockingProcess.MainWindowHandle == IntPtr.Zero && LockManager.LockingProcess.Responding){ // restore if the original process is in tray
                         NativeMethods.SendMessage(NativeMethods.HWND_BROADCAST, WindowRestoreMessage, 0, IntPtr.Zero);
                         return;
                     }
                     else if (MessageBox.Show("Another instance of "+BrandName+" is already running.\r\nDo you want to close it?", BrandName+" is Already Running", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
-                        if (!LockManager.CloseLockingProcess(20000)){
+                        if (!LockManager.CloseLockingProcess(30000)){
                             MessageBox.Show("Could not close the other process.", BrandName+" Has Failed :(", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
@@ -102,6 +110,10 @@ namespace TweetDck{
                         LockManager.Lock();
                     }
                     else return;
+                }
+                else if (lockResult != LockManager.Result.Success){
+                    MessageBox.Show("An unknown error occurred accessing the data folder. Please, make sure "+BrandName+" is not already running. If the problem persists, try restarting your system.", BrandName+" Has Failed :(", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
             }
 
