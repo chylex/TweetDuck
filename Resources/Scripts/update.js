@@ -146,7 +146,7 @@
         createUpdateNotificationElement(tagName, obj.browser_download_url);
       }
       
-      if (eventID !== 0){
+      if (eventID){ // ignore undefined and 0
         $TDU.onUpdateCheckFinished(eventID, hasUpdate, tagName);
       }
     });
