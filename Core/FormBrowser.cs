@@ -35,7 +35,7 @@ namespace TweetDck.Core{
 
         private FormWindowState prevState;
 
-        public FormBrowser(PluginManager pluginManager){
+        public FormBrowser(PluginManager pluginManager, UpdaterSettings updaterSettings){
             InitializeComponent();
 
             Text = Program.BrandName;
@@ -73,7 +73,7 @@ namespace TweetDck.Core{
 
             UpdateTrayIcon();
 
-            this.updates = new UpdateHandler(browser, this);
+            this.updates = new UpdateHandler(browser, this, updaterSettings);
             this.updates.UpdateAccepted += updates_UpdateAccepted;
         }
 

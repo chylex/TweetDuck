@@ -13,6 +13,7 @@ using TweetDck.Plugins.Events;
 using TweetDck.Core.Other.Settings.Export;
 using TweetDck.Core.Handling;
 using TweetDck.Core.Other;
+using TweetDck.Updates;
 
 [assembly: CLSCompliant(true)]
 namespace TweetDck{
@@ -153,7 +154,10 @@ namespace TweetDck{
             plugins.PluginChangedState += (sender, args) => UserConfig.Save();
             plugins.Reload();
 
-            FormBrowser mainForm = new FormBrowser(plugins);
+            FormBrowser mainForm = new FormBrowser(plugins, new UpdaterSettings{
+                AllowPreReleases = Args.HasFlag("-debugupdates")
+            });
+
             Application.Run(mainForm);
 
             if (mainForm.UpdateInstallerPath != null){

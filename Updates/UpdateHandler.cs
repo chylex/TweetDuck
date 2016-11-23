@@ -10,15 +10,18 @@ namespace TweetDck.Updates{
     class UpdateHandler{
         private readonly ChromiumWebBrowser browser;
         private readonly FormBrowser form;
+        private readonly UpdaterSettings settings;
 
         public event EventHandler<UpdateAcceptedEventArgs> UpdateAccepted;
         public event EventHandler<UpdateCheckEventArgs> CheckFinished;
 
         private int lastEventId;
 
-        public UpdateHandler(ChromiumWebBrowser browser, FormBrowser form){
+        public UpdateHandler(ChromiumWebBrowser browser, FormBrowser form, UpdaterSettings settings){
             this.browser = browser;
             this.form = form;
+            this.settings = settings;
+
             browser.FrameLoadEnd += browser_FrameLoadEnd;
             browser.RegisterJsObject("$TDU", new Bridge(this));
         }
@@ -68,6 +71,12 @@ namespace TweetDck.Updates{
             public string DismissedVersionTag{
                 get{
                     return Program.UserConfig.DismissedUpdate ?? string.Empty;
+                }
+            }
+
+            public bool AllowPreReleases{
+                get{
+                    return owner.settings.AllowPreReleases;
                 }
             }
 

@@ -238,6 +238,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\ScriptLoader.cs" />
+    <Compile Include="Updates\UpdaterSettings.cs" />
     <None Include="Configuration\app.config" />
     <None Include="Configuration\packages.config" />
   </ItemGroup>

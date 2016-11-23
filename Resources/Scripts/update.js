@@ -12,7 +12,12 @@
   //
   // Constant: Url that returns JSON data about latest version.
   //
-  const updateCheckUrl = "https://api.github.com/repos/chylex/"+$TDU.brandName+"/releases/latest";
+  const updateCheckUrlLatest = "https://api.github.com/repos/chylex/"+$TDU.brandName+"/releases/latest";
+  
+  //
+  // Constant: Url that returns JSON data about all versions, including prereleases.
+  //
+  const updateCheckUrlAll = "https://api.github.com/repos/chylex/"+$TDU.brandName+"/releases";
   
   //
   // Function: Creates the update notification element. Removes the old one if already exists.
@@ -135,14 +140,20 @@
     clearTimeout(updateCheckTimeoutID);
     updateCheckTimeoutID = setTimeout(runUpdateCheck, 1000*60*60); // 1 hour
     
-    if (!$TDU.updateCheckEnabled && !force)return;
+    if (!$TDU.updateCheckEnabled && !force){
+      return;
+    }
     
-    $.getJSON(updateCheckUrl, function(response){
-      var tagName = response.tag_name;
-      var hasUpdate = tagName !== $TDU.versionTag && tagName !== $TDU.dismissedVersionTag && response.assets.length > 0;
+    var allowPre = $TDU.allowPreReleases;
+    
+    $.getJSON(allowPre ? updateCheckUrlAll : updateCheckUrlLatest, function(response){
+      var release = allowPre ? response[0] : response;
+      
+      var tagName = release.tag_name;
+      var hasUpdate = tagName !== $TDU.versionTag && tagName !== $TDU.dismissedVersionTag && release.assets.length > 0;
       
       if (hasUpdate){
-        var obj = response.assets.find(asset => asset.name === updateFileName) || response.assets[0];
+        var obj = release.assets.find(asset => asset.name === updateFileName) || release.assets[0];
         createUpdateNotificationElement(tagName, obj.browser_download_url);
       }
       
