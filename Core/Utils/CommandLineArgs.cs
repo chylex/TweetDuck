@@ -57,6 +57,10 @@ namespace TweetDck.Core.Utils{
             values[key.ToLowerInvariant()] = value;
         }
 
+        public bool HasValue(string key){
+            return values.ContainsKey(key.ToLowerInvariant());
+        }
+
         public string GetValue(string key, string defaultValue){
             string val;
             return values.TryGetValue(key.ToLowerInvariant(), out val) ? val : defaultValue;
