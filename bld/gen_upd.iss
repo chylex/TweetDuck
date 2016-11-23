@@ -47,7 +47,7 @@ Source: "..\bin\x86\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesu
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Check: TDIsUninstallable
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall shellexec
+Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Parameters: "{param:RUNARGS}"; Flags: nowait postinstall shellexec
 
 [InstallDelete]
 Type: files; Name: "{app}\*.xml"
@@ -242,7 +242,8 @@ begin
     WizardForm.ProgressGauge.Style := npbstMarquee;
     
     try
-      if Exec(InstallFile, '/SP- /SILENT /MERGETASKS="!desktopicon" /UPDATEPATH="'+UpdatePath+'"', '', SW_SHOW, ewWaitUntilTerminated, ResultCode) then begin
+      if Exec(InstallFile, '/SP- /SILENT /MERGETASKS="!desktopicon" /UPDATEPATH="'+UpdatePath+'"', '', SW_SHOW, ewWaitUntilTerminated, ResultCode) then
+      begin
         if ResultCode <> 0 then
         begin
           DeleteFile(InstallFile);

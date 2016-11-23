@@ -163,9 +163,10 @@ namespace TweetDck{
             if (mainForm.UpdateInstallerPath != null){
                 ExitCleanup();
 
+                string updaterArgs = "/SP- /SILENT /CLOSEAPPLICATIONS /UPDATEPATH=\""+ProgramPath+"\" /RUNARGS=\""+GetArgsClean().ToString().Replace("\"", "\\\"")+"\""+(IsPortable ? " /PORTABLE=1" : "");
                 bool runElevated = !IsPortable || !WindowsUtils.CheckFolderWritePermission(ProgramPath);
 
-                WindowsUtils.StartProcess(mainForm.UpdateInstallerPath, "/SP- /SILENT /CLOSEAPPLICATIONS /UPDATEPATH=\""+ProgramPath+"\""+(IsPortable ? " /PORTABLE=1" : ""), runElevated); // ProgramPath has a trailing backslash
+                WindowsUtils.StartProcess(mainForm.UpdateInstallerPath, updaterArgs, runElevated); // ProgramPath has a trailing backslash
                 Application.Exit();
             }
         }
@@ -212,6 +213,12 @@ namespace TweetDck{
             ReloadConfig();
         }
 
+        private static CommandLineArgs GetArgsClean(){
+            CommandLineArgs args = Args.Clone();
+            args.RemoveFlag("-importcookies");
+            return args;
+        }
+
         public static void Restart(){
             Restart(new string[0]);
         }
@@ -223,9 +230,8 @@ namespace TweetDck{
                 return;
             }
 
-            CommandLineArgs args = Args.Clone();
+            CommandLineArgs args = GetArgsClean();
             args.AddFlag("-restart");
-            args.RemoveFlag("-importcookies");
             
             CommandLineArgs.ReadStringArray('-', extraArgs, args);
 
