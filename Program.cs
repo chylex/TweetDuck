@@ -163,7 +163,7 @@ namespace TweetDck{
             if (mainForm.UpdateInstallerPath != null){
                 ExitCleanup();
 
-                string updaterArgs = "/SP- /SILENT /CLOSEAPPLICATIONS /UPDATEPATH=\""+ProgramPath+"\" /RUNARGS=\""+GetArgsClean().ToString().Replace("\"", "\\\"")+"\""+(IsPortable ? " /PORTABLE=1" : "");
+                string updaterArgs = "/SP- /SILENT /CLOSEAPPLICATIONS /UPDATEPATH=\""+ProgramPath+"\" /RUNARGS=\""+GetArgsClean().ToString().Replace("\"", "^\"")+"\""+(IsPortable ? " /PORTABLE=1" : "");
                 bool runElevated = !IsPortable || !WindowsUtils.CheckFolderWritePermission(ProgramPath);
 
                 WindowsUtils.StartProcess(mainForm.UpdateInstallerPath, updaterArgs, runElevated); // ProgramPath has a trailing backslash
