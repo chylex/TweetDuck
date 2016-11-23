@@ -27,7 +27,7 @@ namespace TweetDck.Updates{
         }
 
         private void browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
-            if (e.Frame.IsMain){
+            if (e.Frame.IsMain && BrowserUtils.IsTweetDeckWebsite(e.Frame)){
                 ScriptLoader.ExecuteFile(e.Frame, "update.js");
             }
         }
