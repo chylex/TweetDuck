@@ -96,6 +96,18 @@ begin
   Result := (PageID = wpSelectDir) and (UpdatePath <> '')
 end;
 
+{ Check for an old TweetDeck profile and show a warning before installation. }
+procedure CurStepChanged(CurStep: TSetupStep);
+begin
+  if CurStep = ssInstall then
+  begin
+    if DirExists(ExpandConstant('{localappdata}\twitter\TweetDeck')) then
+    begin
+      MsgBox('Detected a profile from an old TweetDeck installation, you may uninstall the old client to free up some space.', mbInformation, MB_OK)
+    end;
+  end;
+end;
+
 { Ask user if they want to delete 'AppData\TweetDuck' and 'plugins' folders after uninstallation. }
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 var ProfileDataFolder: String;
