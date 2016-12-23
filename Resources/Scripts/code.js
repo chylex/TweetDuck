@@ -453,6 +453,44 @@
   });
   
   //
+  // Block: Hold Shift to reset cleared column.
+  //
+  (function(){
+    var holdingShift = false;
+    
+    var updateShiftState = (pressed) => {
+      if (pressed != holdingShift){
+        holdingShift = pressed;
+        $("button[data-action='clear']").children("span").text(holdingShift ? "Reset" : "Clear");
+      }
+    };
+    
+    var resetActiveFocus = () => {
+      document.activeElement.blur();
+    };
+    
+    $(document).keydown(function(e){
+      if (e.shiftKey && (document.activeElement === null || !("value" in document.activeElement))){
+        updateShiftState(true);
+      }
+    }).keyup(function(e){
+      if (!e.shiftKey){
+        updateShiftState(false);
+      }
+    });
+    
+    TD.vo.Column.prototype.clear = prependToFunction(TD.vo.Column.prototype.clear, function(){
+      window.setTimeout(resetActiveFocus, 0); // unfocuses the Clear button, otherwise it steals keyboard input
+      
+      if (holdingShift){
+        this.model.setClearedTimestamp(0);
+        this.reloadTweets();
+        return true;
+      }
+    });
+  })();
+  
+  //
   // Block: Inject custom CSS and layout into the page.
   //
   (function(){
