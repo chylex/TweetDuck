@@ -8,6 +8,7 @@ using TweetDck.Configuration;
 using TweetDck.Core.Handling;
 using TweetDck.Resources;
 using TweetDck.Core.Utils;
+using TweetDck.Core.Utils.Notification;
 using TweetDck.Plugins;
 using TweetDck.Plugins.Enums;
 
@@ -20,12 +21,18 @@ namespace TweetDck.Core{
 
         public Func<bool> CanMoveWindow = () => true;
 
+        public bool IsNotificationVisible{
+            get{
+                return Location.X != -32000;
+            }
+        }
+
         private readonly Form owner;
         private readonly PluginManager plugins;
         private readonly ChromiumWebBrowser browser;
+        private readonly NotificationFlags flags;
 
         private readonly Queue<TweetNotification> tweetQueue = new Queue<TweetNotification>(4);
-        private readonly bool autoHide;
         private int timeLeft, totalTime;
         
         private readonly NativeMethods.HookProc mouseHookDelegate;
@@ -82,22 +89,24 @@ namespace TweetDck.Core{
             }
         }
 
-        public FormNotification(FormBrowser owner, PluginManager pluginManager, bool autoHide){
+        public FormNotification(FormBrowser owner, PluginManager pluginManager, NotificationFlags flags){
             InitializeComponent();
 
             Text = Program.BrandName;
 
             this.owner = owner;
             this.plugins = pluginManager;
-            this.autoHide = autoHide;
+            this.flags = flags;
 
             owner.FormClosed += (sender, args) => Close();
 
-            notificationJS = ScriptLoader.LoadResource(NotificationScriptFile);
-            pluginJS = ScriptLoader.LoadResource(PluginManager.PluginNotificationScriptFile);
+            if (!flags.HasFlag(NotificationFlags.DisableScripts)){
+                notificationJS = ScriptLoader.LoadResource(NotificationScriptFile);
+                pluginJS = ScriptLoader.LoadResource(PluginManager.PluginNotificationScriptFile);
+            }
 
             browser = new ChromiumWebBrowser("about:blank"){
-                MenuHandler = new ContextMenuNotification(this, autoHide),
+                MenuHandler = new ContextMenuNotification(this, !flags.HasFlag(NotificationFlags.DisableContextMenu)),
                 LifeSpanHandler = new LifeSpanHandler()
             };
 
@@ -112,7 +121,7 @@ namespace TweetDck.Core{
 
             panelBrowser.Controls.Add(browser);
 
-            if (autoHide){
+            if (flags.HasFlag(NotificationFlags.AutoHide)){
                 Program.UserConfig.MuteToggled += Config_MuteToggled;
                 Disposed += (sender, args) => Program.UserConfig.MuteToggled -= Config_MuteToggled;
             }
@@ -197,7 +206,7 @@ namespace TweetDck.Core{
                     Initialized(this, new EventArgs());
                 }
             }
-            else if (notificationJS != null && browser.Address != "about:blank"){
+            else if (notificationJS != null && browser.Address != "about:blank" && !flags.HasFlag(NotificationFlags.DisableScripts)){
                 ScriptLoader.ExecuteScript(e.Frame, notificationJS, NotificationScriptIdentifier);
 
                 if (plugins.HasAnyPlugin(PluginEnvironment.Notification)){
@@ -242,8 +251,33 @@ namespace TweetDck.Core{
                 LoadTweet(TweetNotification.ExampleTweet);
             }
             else{
-                MoveToVisibleLocation();
+                PrepareAndDisplayWindow();
             }
+        }
+
+        public void ShowNotificationForScreenshot(TweetNotification tweet, int width, int height, Action callback){
+            browser.RegisterAsyncJsObject("$TD_NotificationScreenshot", new CallbackBridge(this, callback));
+
+            browser.FrameLoadEnd += (sender, args) => {
+                if (args.Frame.IsMain){
+                    ScriptLoader.ExecuteScript(args.Frame, "window.setTimeout(() => $TD_NotificationScreenshot.trigger(), 25)", "gen:screenshot");
+                }
+            };
+
+            browser.LoadHtml(tweet.GenerateHtml(false), "http://tweetdeck.twitter.com/?"+DateTime.Now.Ticks);
+            
+            Location = new Point(-32000, -32000);
+            ClientSize = new Size(width, height);
+            progressBarTimer.Visible = false;
+            panelBrowser.Height = height;
+
+            // TODO start a timer on 10 seconds to close the window if anything fails or takes too long
+        }
+
+        public void TakeScreenshot(){
+            MoveToVisibleLocation();
+            Activate();
+            SendKeys.SendWait("%{PRTSC}");
         }
 
         public void HideNotification(bool loadBlank){
@@ -261,7 +295,7 @@ namespace TweetDck.Core{
 
         public void OnNotificationReady(){
             UpdateTitle();
-            MoveToVisibleLocation();
+            PrepareAndDisplayWindow();
             timerProgress.Start();
         }
 
@@ -269,7 +303,7 @@ namespace TweetDck.Core{
             if (tweetQueue.Count > 0){
                 LoadNextNotification();
             }
-            else if (autoHide){
+            else if (flags.HasFlag(NotificationFlags.AutoHide)){
                 HideNotification(true);
             }
             else{
@@ -299,21 +333,6 @@ namespace TweetDck.Core{
         private void MoveToVisibleLocation(){
             UserConfig config = Program.UserConfig;
 
-            if (RequiresResize){
-                RequiresResize = false;
-
-                if (config.DisplayNotificationTimer){
-                    ClientSize = new Size(BaseClientWidth, BaseClientHeight+4);
-                    progressBarTimer.Visible = true;
-                }
-                else{
-                    ClientSize = new Size(BaseClientWidth, BaseClientHeight);
-                    progressBarTimer.Visible = false;
-                }
-
-                panelBrowser.Height = BaseClientHeight;
-            }
-            
             Screen screen = Screen.FromControl(owner);
 
             if (config.NotificationDisplay > 0 && config.NotificationDisplay <= Screen.AllScreens.Length){
@@ -353,7 +372,25 @@ namespace TweetDck.Core{
             if (needsReactivating){
                 NativeMethods.SetFormPos(this, NativeMethods.HWND_TOPMOST, NativeMethods.SWP_NOACTIVATE);
             }
+        }
 
+        private void PrepareAndDisplayWindow(){
+            if (RequiresResize){
+                RequiresResize = false;
+
+                if (Program.UserConfig.DisplayNotificationTimer){
+                    ClientSize = new Size(BaseClientWidth, BaseClientHeight+4);
+                    progressBarTimer.Visible = true;
+                }
+                else{
+                    ClientSize = new Size(BaseClientWidth, BaseClientHeight);
+                    progressBarTimer.Visible = false;
+                }
+
+                panelBrowser.Height = BaseClientHeight;
+            }
+            
+            MoveToVisibleLocation();
             StartMouseHook();
         }
 

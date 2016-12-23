@@ -9,6 +9,7 @@ using TweetDck.Resources;
 using TweetDck.Core.Controls;
 using System.Drawing;
 using TweetDck.Core.Utils;
+using TweetDck.Core.Utils.Notification;
 using TweetDck.Updates;
 using TweetDck.Plugins;
 using TweetDck.Plugins.Enums;
@@ -27,6 +28,7 @@ namespace TweetDck.Core{
         private readonly ChromiumWebBrowser browser;
         private readonly PluginManager plugins;
         private readonly UpdateHandler updates;
+        private readonly FormNotification notification;
 
         private FormSettings currentFormSettings;
         private FormAbout currentFormAbout;
@@ -44,9 +46,9 @@ namespace TweetDck.Core{
             this.plugins.Reloaded += plugins_Reloaded;
             this.plugins.PluginChangedState += plugins_PluginChangedState;
 
-            FormNotification notification = CreateNotificationForm(true);
-            notification.CanMoveWindow = () => false;
-            notification.Show();
+            this.notification = CreateNotificationForm(NotificationFlags.AutoHide);
+            this.notification.CanMoveWindow = () => false;
+            this.notification.Show();
 
             this.browser = new ChromiumWebBrowser("https://tweetdeck.twitter.com/"){
                 MenuHandler = new ContextMenuBrowser(this),
@@ -87,8 +89,8 @@ namespace TweetDck.Core{
             Close();
         }
 
-        public FormNotification CreateNotificationForm(bool autoHide){
-            return new FormNotification(this, plugins, autoHide);
+        public FormNotification CreateNotificationForm(NotificationFlags flags){
+            return new FormNotification(this, plugins, flags);
         }
 
         // window setup
@@ -291,6 +293,36 @@ namespace TweetDck.Core{
             }
         }
 
+        public void OnTweetScreenshotReady(string html, int width, int height){
+            FormNotification dummyWindow = CreateNotificationForm(NotificationFlags.DisableScripts | NotificationFlags.DisableContextMenu);
+
+            dummyWindow.ShowNotificationForScreenshot(new TweetNotification(html, string.Empty, 0), width, height, () => {
+                Point? prevNotificationLocation = null;
+                bool prevFreezeTimer = false;
+
+                if (notification.IsNotificationVisible){
+                    prevNotificationLocation = notification.Location;
+                    prevFreezeTimer = notification.FreezeTimer;
+
+                    notification.Location = new Point(-32000, -32000);
+                    notification.FreezeTimer = true;
+                }
+
+                dummyWindow.TakeScreenshot();
+                dummyWindow.Hide();
+                dummyWindow.Close();
+                // dummyWindow.Dispose(); // TODO something freezes the program sometimes
+
+                if (prevNotificationLocation.HasValue){
+                    notification.Location = prevNotificationLocation.Value;
+                    notification.FreezeTimer = prevFreezeTimer;
+                }
+            });
+            
+            dummyWindow.CanMoveWindow = () => false;
+            dummyWindow.Show();
+        }
+
         public void DisplayTooltip(string text){
             if (string.IsNullOrEmpty(text)){
                 toolTip.Hide(this);
@@ -308,6 +340,10 @@ namespace TweetDck.Core{
 
         public void OnImagePastedFinish(){
             browser.ExecuteScriptAsync("TDGF_tryPasteImageFinish()");
+        }
+
+        public void TriggerTweetScreenshot(){
+            browser.ExecuteScriptAsync("TDGF_triggerScreenshot()");
         }
 
         public void ReloadBrowser(){

@@ -15,6 +15,7 @@ namespace TweetDck.Core.Handling{
         private const int MenuCopyTweetUrl = 26611;
         private const int MenuOpenQuotedTweetUrl = 26612;
         private const int MenuCopyQuotedTweetUrl = 26613;
+        private const int MenuScreenshotTweet = 26614;
 
         private readonly FormBrowser form;
 
@@ -45,6 +46,7 @@ namespace TweetDck.Core.Handling{
             if (!string.IsNullOrEmpty(lastHighlightedTweet) && (parameters.TypeFlags & (ContextMenuType.Editable | ContextMenuType.Selection)) == 0){
                 model.AddItem((CefMenuCommand)MenuOpenTweetUrl, "Open tweet in browser");
                 model.AddItem((CefMenuCommand)MenuCopyTweetUrl, "Copy tweet address");
+                model.AddItem((CefMenuCommand)MenuScreenshotTweet, "Screenshot tweet to clipboard");
 
                 if (!string.IsNullOrEmpty(lastHighlightedQuotedTweet)){
                     model.AddSeparator();
@@ -107,6 +109,10 @@ namespace TweetDck.Core.Handling{
 
                 case MenuCopyTweetUrl:
                     Clipboard.SetText(lastHighlightedTweet, TextDataFormat.UnicodeText);
+                    return true;
+
+                case MenuScreenshotTweet:
+                    form.InvokeSafe(form.TriggerTweetScreenshot);
                     return true;
 
                 case MenuOpenQuotedTweetUrl:

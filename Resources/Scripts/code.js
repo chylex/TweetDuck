@@ -305,6 +305,30 @@
   })();
   
   //
+  // Block: Screenshot tweet to clipboard.
+  //
+  (function(){
+    var selectedTweet;
+    
+    app.delegate("article.js-stream-item", "contextmenu", function(){
+      selectedTweet = $(this);
+    });
+    
+    window.TDGF_triggerScreenshot = function(){
+      if (selectedTweet){
+        var realWidth = selectedTweet.width();
+        var realHeight = selectedTweet.height()-selectedTweet.find("footer").last().height();
+        
+        selectedTweet = selectedTweet.clone();
+        selectedTweet.children().first().addClass($(document.documentElement).attr("class"));
+        selectedTweet.find("footer").last().remove();
+        
+        $TD.screenshotTweet(selectedTweet.html(), realWidth, realHeight);
+      }
+    };
+  })();
+  
+  //
   // Block: Paste images when tweeting.
   //
   (function(){
