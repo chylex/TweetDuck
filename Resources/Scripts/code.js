@@ -316,8 +316,14 @@
     
     window.TDGF_triggerScreenshot = function(){
       if (selectedTweet){
+        var realWidth = selectedTweet.width();
+        var realHeight = selectedTweet.height()-selectedTweet.find("footer").last().height();
+        
+        selectedTweet = selectedTweet.clone();
+        selectedTweet.children().first().addClass($(document.documentElement).attr("class"));
         selectedTweet.find("footer").last().remove();
-        $TD.screenshotTweet(selectedTweet.html(), selectedTweet.width(), selectedTweet.height());
+        
+        $TD.screenshotTweet(selectedTweet.html(), realWidth, realHeight);
       }
     };
   })();
