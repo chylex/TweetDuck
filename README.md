@@ -2,7 +2,7 @@
 
 The program was build using Visual Studio 2013. After opening the solution, make sure you have **CefSharp.WinForms** and **Microsoft.VC120.CRT.JetBrains** included - if not, download them using NuGet. For **CefSharp**, you will need version 53 or newer currently available as a pre-release.
 ```
-PM> Install-Package CefSharp.WinForms -Pre -Version 53.0.0-pre01
+PM> Install-Package CefSharp.WinForms -Version 53.0.1
 PM> Install-Package Microsoft.VC120.CRT.JetBrains
 ```
 
