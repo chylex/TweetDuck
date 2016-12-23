@@ -28,6 +28,7 @@ namespace TweetDck.Core{
         private readonly ChromiumWebBrowser browser;
         private readonly PluginManager plugins;
         private readonly UpdateHandler updates;
+        private readonly FormNotification notification;
 
         private FormSettings currentFormSettings;
         private FormAbout currentFormAbout;
@@ -45,9 +46,9 @@ namespace TweetDck.Core{
             this.plugins.Reloaded += plugins_Reloaded;
             this.plugins.PluginChangedState += plugins_PluginChangedState;
 
-            FormNotification notification = CreateNotificationForm(NotificationFlags.AutoHide);
-            notification.CanMoveWindow = () => false;
-            notification.Show();
+            this.notification = CreateNotificationForm(NotificationFlags.AutoHide);
+            this.notification.CanMoveWindow = () => false;
+            this.notification.Show();
 
             this.browser = new ChromiumWebBrowser("https://tweetdeck.twitter.com/"){
                 MenuHandler = new ContextMenuBrowser(this),
@@ -296,12 +297,29 @@ namespace TweetDck.Core{
             FormNotification dummyWindow = CreateNotificationForm(NotificationFlags.DisableScripts | NotificationFlags.DisableContextMenu);
 
             dummyWindow.ShowNotificationForScreenshot(new TweetNotification(html, string.Empty, 0), width, height, () => {
+                Point? prevNotificationLocation = null;
+                bool prevFreezeTimer = false;
+
+                if (notification.IsNotificationVisible){
+                    prevNotificationLocation = notification.Location;
+                    prevFreezeTimer = notification.FreezeTimer;
+
+                    notification.Location = new Point(-32000, -32000);
+                    notification.FreezeTimer = true;
+                }
+
                 dummyWindow.TakeScreenshot();
                 dummyWindow.Hide();
                 dummyWindow.Close();
                 // dummyWindow.Dispose(); // TODO something freezes the program sometimes
-            });
 
+                if (prevNotificationLocation.HasValue){
+                    notification.Location = prevNotificationLocation.Value;
+                    notification.FreezeTimer = prevFreezeTimer;
+                }
+            });
+            
+            dummyWindow.CanMoveWindow = () => false;
             dummyWindow.Show();
         }
 

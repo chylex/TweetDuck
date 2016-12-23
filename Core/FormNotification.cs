@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using CefSharp;
 using CefSharp.WinForms;
 using TweetDck.Configuration;
-using TweetDck.Core.Controls;
 using TweetDck.Core.Handling;
 using TweetDck.Resources;
 using TweetDck.Core.Utils;
@@ -21,6 +20,12 @@ namespace TweetDck.Core{
         private static readonly string PluginScriptIdentifier = ScriptLoader.GetRootIdentifier(PluginManager.PluginNotificationScriptFile);
 
         public Func<bool> CanMoveWindow = () => true;
+
+        public bool IsNotificationVisible{
+            get{
+                return Location.X != -32000;
+            }
+        }
 
         private readonly Form owner;
         private readonly PluginManager plugins;
