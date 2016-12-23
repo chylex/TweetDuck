@@ -99,7 +99,7 @@ namespace TweetDck.Core.Handling{
             return 2000+Math.Max(1000, value*characters);
         }
 
-        public string GenerateHtml(bool enableCustomCSS = true){
+        public string GenerateHtml(string bodyClasses = null, bool enableCustomCSS = true){
             StringBuilder build = new StringBuilder();
             build.Append("<!DOCTYPE html>");
             build.Append("<html class='os-windows txt-base-").Append(FontSizeClass ?? DefaultFontSizeClass).Append("'>");
@@ -114,7 +114,13 @@ namespace TweetDck.Core.Handling{
             }
             
             build.Append("</head>");
-            build.Append("<body class='hearty'").Append(isExample ? " td-example-notification" : "").Append("><div class='app-columns-container'><div class='column scroll-styled-v' style='width:100%;overflow-y:auto'>");
+            build.Append("<body class='hearty");
+
+            if (!string.IsNullOrEmpty(bodyClasses)){
+                build.Append(' ').Append(bodyClasses);
+            }
+
+            build.Append('\'').Append(isExample ? " td-example-notification" : "").Append("><div class='app-columns-container'><div class='column scroll-styled-v' style='width:100%;overflow-y:auto'>");
             build.Append(html);
             build.Append("</div></div></body>");
             build.Append("</html>");

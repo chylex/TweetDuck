@@ -265,7 +265,7 @@ namespace TweetDck.Core{
                 }
             };
 
-            browser.LoadHtml(tweet.GenerateHtml(false), "http://tweetdeck.twitter.com/?"+DateTime.Now.Ticks);
+            browser.LoadHtml(tweet.GenerateHtml(enableCustomCSS: false), "http://tweetdeck.twitter.com/?"+DateTime.Now.Ticks);
             
             Location = ControlExtensions.InvisibleLocation;
             ClientSize = new Size(width, height);
@@ -324,7 +324,9 @@ namespace TweetDck.Core{
             totalTime = timeLeft = tweet.GetDisplayDuration(Program.UserConfig.NotificationDurationValue);
             progressBarTimer.Value = Program.UserConfig.NotificationTimerCountDown ? 1000 : 0;
 
-            browser.LoadHtml(tweet.GenerateHtml(), "http://tweetdeck.twitter.com/?"+DateTime.Now.Ticks);
+            string bodyClasses = browser.Bounds.Contains(PointToClient(Cursor.Position)) ? "td-hover" : string.Empty;
+
+            browser.LoadHtml(tweet.GenerateHtml(bodyClasses), "http://tweetdeck.twitter.com/?"+DateTime.Now.Ticks);
 
             if (Program.UserConfig.NotificationLegacyLoad){
                 OnNotificationReady();
