@@ -116,9 +116,9 @@ ready(){
   
   // add clear all button
   $("nav.app-navigator").first().append([
-    '<a class="link-clean cf app-nav-link padding-hl" data-title="Clear all" data-action="td-clearcolumns-doall">',
-    '<div class="obj-left"><i class="icon icon-large icon-clear-timeline"></i></div>',
-    '<div id="clear-columns-btn-all" class="nbfc padding-ts hide-condensed">Clear all</div>',
+    '<a class="link-clean cf app-nav-link padding-h--10" data-title="Clear all" data-action="td-clearcolumns-doall">',
+    '<div class="obj-left margin-l--2"><i class="icon icon-medium icon-clear-timeline"></i></div>',
+    '<div id="clear-columns-btn-all" class="nbfc padding-ts hide-condensed txt-size--16">Clear all</div>',
     '</a></nav>'
   ].join(""));
 }
