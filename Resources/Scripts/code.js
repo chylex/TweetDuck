@@ -426,7 +426,7 @@
         tryClickSelector(".js-inline-compose-close") ||
         tryCloseHighlightedColumn() ||
         tryClickSelector(".js-app-content.is-open .js-drawer-close:visible") ||
-        tryClickSelector(".is-shifted-2 .js-tweet-social-proof-back") ||
+        tryClickSelector(".is-shifted-2 .js-tweet-social-proof-back, .is-shifted-2 .js-dm-participants-back") ||
         $(".js-column-back").click();
       }
       else if (button === 2){ // forward button
