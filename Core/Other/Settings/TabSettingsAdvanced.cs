@@ -161,6 +161,10 @@ namespace TweetDck.Core.Other.Settings{
             using(Process.Start("explorer.exe", "\""+Program.ProgramPath+"\"")){}
         }
 
+        private void btnOpenDataFolder_Click(object sender, EventArgs e){
+            using(Process.Start("explorer.exe", "\""+Program.StoragePath+"\"")){}
+        }
+
         private void btnRestart_Click(object sender, EventArgs e){
             Program.Restart();
         }

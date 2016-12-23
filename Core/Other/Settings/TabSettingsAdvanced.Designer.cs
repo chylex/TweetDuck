@@ -31,13 +31,14 @@
             this.btnEditCSS = new System.Windows.Forms.Button();
             this.btnRestartLog = new System.Windows.Forms.Button();
             this.btnRestart = new System.Windows.Forms.Button();
+            this.btnOpenAppFolder = new System.Windows.Forms.Button();
+            this.btnOpenDataFolder = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
             this.btnImport = new System.Windows.Forms.Button();
             this.btnExport = new System.Windows.Forms.Button();
             this.groupPerformance = new System.Windows.Forms.GroupBox();
             this.groupConfiguration = new System.Windows.Forms.GroupBox();
             this.groupApp = new System.Windows.Forms.GroupBox();
-            this.btnOpenAppFolder = new System.Windows.Forms.Button();
             this.groupPerformance.SuspendLayout();
             this.groupConfiguration.SuspendLayout();
             this.groupApp.SuspendLayout();
@@ -93,19 +94,19 @@
             // 
             // btnRestartLog
             // 
-            this.btnRestartLog.Location = new System.Drawing.Point(6, 77);
+            this.btnRestartLog.Location = new System.Drawing.Point(6, 106);
             this.btnRestartLog.Name = "btnRestartLog";
             this.btnRestartLog.Size = new System.Drawing.Size(171, 23);
             this.btnRestartLog.TabIndex = 18;
             this.btnRestartLog.Text = "Restart with Logging";
-            this.toolTip.SetToolTip(this.btnRestartLog, "Restarts the program and enables logging\r\ninto a debug.txt file in the installati" +
-        "on folder.");
+            this.toolTip.SetToolTip(this.btnRestartLog, "Restarts the program and enables logging\r\ninto a debug.txt file in the data folde" +
+        "r.");
             this.btnRestartLog.UseVisualStyleBackColor = true;
             this.btnRestartLog.Click += new System.EventHandler(this.btnRestartLog_Click);
             // 
             // btnRestart
             // 
-            this.btnRestart.Location = new System.Drawing.Point(6, 48);
+            this.btnRestart.Location = new System.Drawing.Point(6, 77);
             this.btnRestart.Name = "btnRestart";
             this.btnRestart.Size = new System.Drawing.Size(171, 23);
             this.btnRestart.TabIndex = 17;
@@ -114,6 +115,28 @@
         "nch.");
             this.btnRestart.UseVisualStyleBackColor = true;
             this.btnRestart.Click += new System.EventHandler(this.btnRestart_Click);
+            // 
+            // btnOpenAppFolder
+            // 
+            this.btnOpenAppFolder.Location = new System.Drawing.Point(6, 19);
+            this.btnOpenAppFolder.Name = "btnOpenAppFolder";
+            this.btnOpenAppFolder.Size = new System.Drawing.Size(171, 23);
+            this.btnOpenAppFolder.TabIndex = 16;
+            this.btnOpenAppFolder.Text = "Open Program Folder";
+            this.toolTip.SetToolTip(this.btnOpenAppFolder, "Opens the folder where the app is located.");
+            this.btnOpenAppFolder.UseVisualStyleBackColor = true;
+            this.btnOpenAppFolder.Click += new System.EventHandler(this.btnOpenAppFolder_Click);
+            // 
+            // btnOpenDataFolder
+            // 
+            this.btnOpenDataFolder.Location = new System.Drawing.Point(6, 48);
+            this.btnOpenDataFolder.Name = "btnOpenDataFolder";
+            this.btnOpenDataFolder.Size = new System.Drawing.Size(171, 23);
+            this.btnOpenDataFolder.TabIndex = 19;
+            this.btnOpenDataFolder.Text = "Open Data Folder";
+            this.toolTip.SetToolTip(this.btnOpenDataFolder, "Opens the folder where your profile data is located.");
+            this.btnOpenDataFolder.UseVisualStyleBackColor = true;
+            this.btnOpenDataFolder.Click += new System.EventHandler(this.btnOpenDataFolder_Click);
             // 
             // btnReset
             // 
@@ -179,26 +202,16 @@
             // 
             // groupApp
             // 
+            this.groupApp.Controls.Add(this.btnOpenDataFolder);
             this.groupApp.Controls.Add(this.btnOpenAppFolder);
             this.groupApp.Controls.Add(this.btnRestartLog);
             this.groupApp.Controls.Add(this.btnRestart);
             this.groupApp.Location = new System.Drawing.Point(198, 9);
             this.groupApp.Name = "groupApp";
-            this.groupApp.Size = new System.Drawing.Size(183, 106);
+            this.groupApp.Size = new System.Drawing.Size(183, 135);
             this.groupApp.TabIndex = 20;
             this.groupApp.TabStop = false;
             this.groupApp.Text = "App";
-            // 
-            // btnOpenAppFolder
-            // 
-            this.btnOpenAppFolder.Location = new System.Drawing.Point(6, 19);
-            this.btnOpenAppFolder.Name = "btnOpenAppFolder";
-            this.btnOpenAppFolder.Size = new System.Drawing.Size(171, 23);
-            this.btnOpenAppFolder.TabIndex = 16;
-            this.btnOpenAppFolder.Text = "Open Program Folder";
-            this.toolTip.SetToolTip(this.btnOpenAppFolder, "Opens the folder where the app is located.");
-            this.btnOpenAppFolder.UseVisualStyleBackColor = true;
-            this.btnOpenAppFolder.Click += new System.EventHandler(this.btnOpenAppFolder_Click);
             // 
             // TabSettingsAdvanced
             // 
@@ -237,5 +250,6 @@
         private System.Windows.Forms.Button btnRestartLog;
         private System.Windows.Forms.Button btnRestart;
         private System.Windows.Forms.Button btnOpenAppFolder;
+        private System.Windows.Forms.Button btnOpenDataFolder;
     }
 }
