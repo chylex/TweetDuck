@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using TweetDck.Core.Other.Settings;
-using TweetDck.Core.Utils;
+using TweetDck.Core.Utils.Notification;
 using TweetDck.Plugins;
 using TweetDck.Updates;
 

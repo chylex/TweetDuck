@@ -9,6 +9,7 @@ using TweetDck.Resources;
 using TweetDck.Core.Controls;
 using System.Drawing;
 using TweetDck.Core.Utils;
+using TweetDck.Core.Utils.Notification;
 using TweetDck.Updates;
 using TweetDck.Plugins;
 using TweetDck.Plugins.Enums;
