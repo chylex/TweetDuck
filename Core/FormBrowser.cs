@@ -158,7 +158,7 @@ namespace TweetDck.Core{
         private void FormBrowser_ResizeEnd(object sender, EventArgs e){ // also triggers when the window moves
             if (!isLoaded)return;
 
-            if (Location.X != -32000){
+            if (Location != ControlExtensions.InvisibleLocation){
                 Config.BrowserWindow.Save(this);
                 Config.Save();
             }
@@ -304,7 +304,7 @@ namespace TweetDck.Core{
                     prevNotificationLocation = notification.Location;
                     prevFreezeTimer = notification.FreezeTimer;
 
-                    notification.Location = new Point(-32000, -32000);
+                    notification.Location = ControlExtensions.InvisibleLocation;
                     notification.FreezeTimer = true;
                 }
 

@@ -70,7 +70,7 @@ namespace TweetDck.Core {
             this.Controls.Add(this.progressBarTimer);
             this.Controls.Add(this.panelBrowser);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Location = new System.Drawing.Point(-32000, -32000);
+            this.Location = TweetDck.Core.Controls.ControlExtensions.InvisibleLocation;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormNotification";

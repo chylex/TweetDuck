@@ -11,6 +11,7 @@ using TweetDck.Core.Utils;
 using TweetDck.Core.Utils.Notification;
 using TweetDck.Plugins;
 using TweetDck.Plugins.Enums;
+using TweetDck.Core.Controls;
 
 namespace TweetDck.Core{
     sealed partial class FormNotification : Form{
@@ -23,7 +24,7 @@ namespace TweetDck.Core{
 
         public bool IsNotificationVisible{
             get{
-                return Location.X != -32000;
+                return Location != ControlExtensions.InvisibleLocation;
             }
         }
 
@@ -266,7 +267,7 @@ namespace TweetDck.Core{
 
             browser.LoadHtml(tweet.GenerateHtml(false), "http://tweetdeck.twitter.com/?"+DateTime.Now.Ticks);
             
-            Location = new Point(-32000, -32000);
+            Location = ControlExtensions.InvisibleLocation;
             ClientSize = new Size(width, height);
             progressBarTimer.Visible = false;
             panelBrowser.Height = height;
@@ -285,7 +286,7 @@ namespace TweetDck.Core{
                 browser.LoadHtml("", "about:blank");
             }
 
-            Location = new Point(-32000, -32000);
+            Location = ControlExtensions.InvisibleLocation;
             progressBarTimer.Value = Program.UserConfig.NotificationTimerCountDown ? 1000 : 0;
             timerProgress.Stop();
             totalTime = 0;
@@ -339,7 +340,7 @@ namespace TweetDck.Core{
                 screen = Screen.AllScreens[config.NotificationDisplay-1];
             }
             
-            bool needsReactivating = Location.X == -32000;
+            bool needsReactivating = Location == ControlExtensions.InvisibleLocation;
             int edgeDist = config.NotificationEdgeDistance;
 
             switch(config.NotificationPosition){

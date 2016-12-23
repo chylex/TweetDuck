@@ -4,6 +4,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using TweetDck.Core;
+using TweetDck.Core.Controls;
 using TweetDck.Core.Handling;
 using TweetDck.Core.Utils;
 using TweetDck.Plugins;
@@ -45,7 +46,7 @@ namespace TweetDck.Configuration{
 
         public bool IsCustomNotificationPositionSet{
             get{
-                return CustomNotificationPosition.X != -32000 && CustomNotificationPosition.X != 32000;
+                return CustomNotificationPosition != ControlExtensions.InvisibleLocation;
             }
         }
         
@@ -103,7 +104,7 @@ namespace TweetDck.Configuration{
             DisplayNotificationTimer = true;
             NotificationDuration = TweetNotification.Duration.Medium;
             NotificationPosition = TweetNotification.Position.TopRight;
-            CustomNotificationPosition = new Point(-32000, -32000);
+            CustomNotificationPosition = ControlExtensions.InvisibleLocation;
             NotificationEdgeDistance = 8;
             NotificationDurationValue = 25;
             EnableUpdateCheck = true;

@@ -38,7 +38,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(324, 386);
             this.Icon = Properties.Resources.icon;
-            this.Location = new System.Drawing.Point(-32000, -32000);
+            this.Location = TweetDck.Core.Controls.ControlExtensions.InvisibleLocation;
             this.MinimumSize = new System.Drawing.Size(340, 424);
             this.Name = "FormBrowser";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;

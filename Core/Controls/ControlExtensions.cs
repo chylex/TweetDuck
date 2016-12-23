@@ -5,6 +5,8 @@ using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Controls{
     static class ControlExtensions{
+        public static readonly Point InvisibleLocation = new Point(-32000, -32000);
+
         public static void InvokeSafe(this Control control, Action func){
             if (control.InvokeRequired){
                 control.Invoke(func);
