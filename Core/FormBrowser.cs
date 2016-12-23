@@ -46,7 +46,7 @@ namespace TweetDck.Core{
             this.plugins.Reloaded += plugins_Reloaded;
             this.plugins.PluginChangedState += plugins_PluginChangedState;
 
-            this.notification = CreateNotificationForm(NotificationFlags.AutoHide);
+            this.notification = CreateNotificationForm(NotificationFlags.AutoHide | NotificationFlags.TopMost);
             this.notification.CanMoveWindow = () => false;
             this.notification.Show();
 
@@ -294,7 +294,7 @@ namespace TweetDck.Core{
         }
 
         public void OnTweetScreenshotReady(string html, int width, int height){
-            FormNotification dummyWindow = CreateNotificationForm(NotificationFlags.DisableScripts | NotificationFlags.DisableContextMenu);
+            FormNotification dummyWindow = CreateNotificationForm(NotificationFlags.DisableScripts | NotificationFlags.DisableContextMenu | NotificationFlags.TopMost);
 
             dummyWindow.ShowNotificationForScreenshot(new TweetNotification(html, string.Empty, 0), width, height, () => {
                 Point? prevNotificationLocation = null;

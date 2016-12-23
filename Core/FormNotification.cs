@@ -369,7 +369,7 @@ namespace TweetDck.Core{
                     break;
             }
 
-            if (needsReactivating){
+            if (needsReactivating && flags.HasFlag(NotificationFlags.TopMost)){
                 NativeMethods.SetFormPos(this, NativeMethods.HWND_TOPMOST, NativeMethods.SWP_NOACTIVATE);
             }
         }
