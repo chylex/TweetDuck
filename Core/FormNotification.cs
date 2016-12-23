@@ -254,7 +254,7 @@ namespace TweetDck.Core{
 
             browser.FrameLoadEnd += (sender, args) => {
                 if (args.Frame.IsMain){
-                    args.Frame.ExecuteJavaScriptAsync("$TD_NotificationScreenshot.trigger()");
+                    ScriptLoader.ExecuteScript(args.Frame, "window.setTimeout(() => $TD_NotificationScreenshot.trigger(), 25)", "gen:screenshot");
                 }
             };
 

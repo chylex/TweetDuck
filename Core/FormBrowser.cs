@@ -295,8 +295,10 @@ namespace TweetDck.Core{
             FormNotification dummyWindow = CreateNotificationForm(NotificationFlags.DisableScripts | NotificationFlags.DisableContextMenu);
 
             dummyWindow.ShowNotificationForScreenshot(new TweetNotification(html, string.Empty, 0), width, height, () => {
-                // TODO DrawToBitmap does not work here
-                dummyWindow.Dispose(); // TODO something freezes the program sometimes
+                dummyWindow.Activate();
+                SendKeys.SendWait("%{PRTSC}");
+                dummyWindow.Close();
+                // dummyWindow.Dispose(); // TODO something freezes the program sometimes
             });
 
             dummyWindow.Show();
