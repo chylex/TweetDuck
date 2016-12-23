@@ -12,6 +12,14 @@ namespace TweetDck.Core.Handling{
         private const int MenuSaveImage = 26503;
         private const int MenuCopyImageUrl = 26504;
 
+        #if DEBUG
+        private const int MenuOpenDevTools = 26599;
+
+        protected void AddDebugMenuItems(IMenuModel model){
+            model.AddItem((CefMenuCommand)MenuOpenDevTools, "Open dev tools");
+        }
+        #endif
+
         public virtual void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model){
             if (parameters.TypeFlags.HasFlag(ContextMenuType.Link) && !parameters.UnfilteredLinkUrl.EndsWith("tweetdeck.twitter.com/#", StringComparison.Ordinal)){
                 model.AddItem((CefMenuCommand)MenuOpenLinkUrl, "Open link in browser");
@@ -67,6 +75,12 @@ namespace TweetDck.Core.Handling{
                 case MenuCopyImageUrl:
                     Clipboard.SetText(parameters.SourceUrl, TextDataFormat.UnicodeText);
                     break;
+
+                #if DEBUG
+                case MenuOpenDevTools:
+                    browserControl.ShowDevTools();
+                    break;
+                #endif
             }
 
             return false;

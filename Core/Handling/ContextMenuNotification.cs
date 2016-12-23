@@ -40,6 +40,11 @@ namespace TweetDck.Core.Handling{
             base.OnBeforeContextMenu(browserControl, browser, frame, parameters, model);
             RemoveSeparatorIfLast(model);
 
+            #if DEBUG
+            AddSeparator(model);
+            AddDebugMenuItems(model);
+            #endif
+
             form.InvokeSafe(() => form.ContextMenuOpen = true);
         }
 

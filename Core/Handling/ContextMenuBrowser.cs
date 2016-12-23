@@ -70,6 +70,11 @@ namespace TweetDck.Core.Handling{
                 globalMenu.AddItem((CefMenuCommand)MenuSettings, "Settings");
                 globalMenu.AddItem((CefMenuCommand)MenuPlugins, "Plugins");
                 globalMenu.AddItem((CefMenuCommand)MenuAbout, "About "+Program.BrandName);
+
+                #if DEBUG
+                globalMenu.AddSeparator();
+                AddDebugMenuItems(globalMenu);
+                #endif
             }
         }
 
