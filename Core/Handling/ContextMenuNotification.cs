@@ -19,6 +19,7 @@ namespace TweetDck.Core.Handling{
 
         public override void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model){
             model.Clear();
+            base.OnBeforeContextMenu(browserControl, browser, frame, parameters, model);
 
             if (enableCustomMenu){
                 model.AddItem((CefMenuCommand)MenuSkipTweet, "Skip tweet");
@@ -37,13 +38,11 @@ namespace TweetDck.Core.Handling{
                 }
             }
 
-            base.OnBeforeContextMenu(browserControl, browser, frame, parameters, model);
-            RemoveSeparatorIfLast(model);
-
             #if DEBUG
-            AddSeparator(model);
             AddDebugMenuItems(model);
             #endif
+
+            RemoveSeparatorIfLast(model);
 
             form.InvokeSafe(() => form.ContextMenuOpen = true);
         }
