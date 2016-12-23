@@ -246,7 +246,7 @@ namespace TweetDck.Core{
                 LoadTweet(TweetNotification.ExampleTweet);
             }
             else{
-                MoveToVisibleLocation();
+                PrepareAndDisplayWindow();
             }
         }
 
@@ -261,16 +261,18 @@ namespace TweetDck.Core{
 
             browser.LoadHtml(tweet.GenerateHtml(false), "http://tweetdeck.twitter.com/?"+DateTime.Now.Ticks);
             
+            Location = new Point(-32000, -32000);
             ClientSize = new Size(width, height);
             progressBarTimer.Visible = false;
             panelBrowser.Height = height;
 
-            // TODO
-
-            Screen screen = Screen.FromControl(this);
-            Location = new Point(screen.WorkingArea.X+8, screen.WorkingArea.Y+8);
-
             // TODO start a timer on 10 seconds to close the window if anything fails or takes too long
+        }
+
+        public void TakeScreenshot(){
+            MoveToVisibleLocation();
+            Activate();
+            SendKeys.SendWait("%{PRTSC}");
         }
 
         public void HideNotification(bool loadBlank){
@@ -288,7 +290,7 @@ namespace TweetDck.Core{
 
         public void OnNotificationReady(){
             UpdateTitle();
-            MoveToVisibleLocation();
+            PrepareAndDisplayWindow();
             timerProgress.Start();
         }
 
@@ -326,21 +328,6 @@ namespace TweetDck.Core{
         private void MoveToVisibleLocation(){
             UserConfig config = Program.UserConfig;
 
-            if (RequiresResize){
-                RequiresResize = false;
-
-                if (config.DisplayNotificationTimer){
-                    ClientSize = new Size(BaseClientWidth, BaseClientHeight+4);
-                    progressBarTimer.Visible = true;
-                }
-                else{
-                    ClientSize = new Size(BaseClientWidth, BaseClientHeight);
-                    progressBarTimer.Visible = false;
-                }
-
-                panelBrowser.Height = BaseClientHeight;
-            }
-            
             Screen screen = Screen.FromControl(owner);
 
             if (config.NotificationDisplay > 0 && config.NotificationDisplay <= Screen.AllScreens.Length){
@@ -380,7 +367,25 @@ namespace TweetDck.Core{
             if (needsReactivating){
                 NativeMethods.SetFormPos(this, NativeMethods.HWND_TOPMOST, NativeMethods.SWP_NOACTIVATE);
             }
+        }
 
+        private void PrepareAndDisplayWindow(){
+            if (RequiresResize){
+                RequiresResize = false;
+
+                if (Program.UserConfig.DisplayNotificationTimer){
+                    ClientSize = new Size(BaseClientWidth, BaseClientHeight+4);
+                    progressBarTimer.Visible = true;
+                }
+                else{
+                    ClientSize = new Size(BaseClientWidth, BaseClientHeight);
+                    progressBarTimer.Visible = false;
+                }
+
+                panelBrowser.Height = BaseClientHeight;
+            }
+            
+            MoveToVisibleLocation();
             StartMouseHook();
         }
 

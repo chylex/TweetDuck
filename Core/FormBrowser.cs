@@ -296,8 +296,8 @@ namespace TweetDck.Core{
             FormNotification dummyWindow = CreateNotificationForm(NotificationFlags.DisableScripts | NotificationFlags.DisableContextMenu);
 
             dummyWindow.ShowNotificationForScreenshot(new TweetNotification(html, string.Empty, 0), width, height, () => {
-                dummyWindow.Activate();
-                SendKeys.SendWait("%{PRTSC}");
+                dummyWindow.TakeScreenshot();
+                dummyWindow.Hide();
                 dummyWindow.Close();
                 // dummyWindow.Dispose(); // TODO something freezes the program sometimes
             });
