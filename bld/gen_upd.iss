@@ -53,6 +53,7 @@ Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChang
 Type: files; Name: "{app}\*.xml"
 Type: files; Name: "{app}\*.js"
 Type: files; Name: "{app}\d3dcompiler_43.dll"
+Type: files; Name: "{app}\widevinecdmadapter.dll"
 Type: files; Name: "{app}\devtools_resources.pak"
 Type: files; Name: "{app}\CefSharp.BrowserSubprocess.exe"
 Type: files; Name: "{app}\td-log.txt"
