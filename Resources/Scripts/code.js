@@ -293,7 +293,7 @@
       if (e.type === "mouseenter"){
         highlightedTweetEle = $(this);
         
-        var link = $(this).find("time").first().children("a").first();
+        var link = $(this).parent().hasClass("js-tweet-detail") ? $(this).find("a[rel='url']").first() : $(this).find("time").first().children("a").first();
         var embedded = $(this).find(".quoted-tweet[data-tweet-id]").first();
         
         updateHighlightedTweet(link.length > 0 ? link.attr("href") : "", embedded.length > 0 ? embedded.find(".account-link").first().attr("href")+"/status/"+embedded.attr("data-tweet-id") : "");
