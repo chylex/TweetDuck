@@ -34,6 +34,12 @@ namespace TweetDck.Core.Handling{
             }
         }
 
+        public bool HasCustomNotificationSound{
+            get{
+                return !string.IsNullOrEmpty(Program.UserConfig.NotificationSoundPath);
+            }
+        }
+
         public bool ExpandLinksOnHover{
             get{
                 return Program.UserConfig.ExpandLinksOnHover;
@@ -100,7 +106,10 @@ namespace TweetDck.Core.Handling{
         }
 
         public void OnTweetSound(){
-            form.InvokeSafe(form.OnTweetNotification);
+            form.InvokeSafe(() => {
+                form.OnTweetNotification();
+                form.PlayNotificationSound();
+            });
         }
 
         public void OnNotificationReady(){

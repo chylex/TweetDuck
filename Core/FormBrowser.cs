@@ -14,6 +14,7 @@ using TweetDck.Updates;
 using TweetDck.Plugins;
 using TweetDck.Plugins.Enums;
 using TweetDck.Plugins.Events;
+using System.Media;
 
 namespace TweetDck.Core{
     sealed partial class FormBrowser : Form{
@@ -36,6 +37,8 @@ namespace TweetDck.Core{
         private bool isLoaded;
 
         private FormWindowState prevState;
+
+        private SoundPlayer notificationSound;
 
         public FormBrowser(PluginManager pluginManager, UpdaterSettings updaterSettings){
             InitializeComponent();
@@ -67,7 +70,13 @@ namespace TweetDck.Core{
 
             Controls.Add(browser);
 
-            Disposed += (sender, args) => browser.Dispose();
+            Disposed += (sender, args) => {
+                browser.Dispose();
+
+                if (notificationSound != null){
+                    notificationSound.Dispose();
+                }
+            };
 
             this.trayIcon.ClickRestore += trayIcon_ClickRestore;
             this.trayIcon.ClickClose += trayIcon_ClickClose;
@@ -287,10 +296,26 @@ namespace TweetDck.Core{
             }
         }
 
-        public void OnTweetNotification(){
+        public void OnTweetNotification(){ // may be called multiple times, once for each type of notification
             if (Config.EnableTrayHighlight && !ContainsFocus){
                 trayIcon.HasNotifications = true;
             }
+        }
+
+        public void PlayNotificationSound(){
+            if (string.IsNullOrEmpty(Config.NotificationSoundPath)){
+                return;
+            }
+
+            if (notificationSound == null){
+                notificationSound = new SoundPlayer();
+            }
+
+            if (notificationSound.SoundLocation != Config.NotificationSoundPath){
+                notificationSound.SoundLocation = Config.NotificationSoundPath;
+            }
+
+            notificationSound.Play();
         }
 
         public void OnTweetScreenshotReady(string html, int width, int height){

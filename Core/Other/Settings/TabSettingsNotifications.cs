@@ -53,7 +53,13 @@ namespace TweetDck.Core.Other.Settings{
             trackBarEdgeDistance.SetValueSafe(Config.NotificationEdgeDistance);
             labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value.ToString(CultureInfo.InvariantCulture)+" px";
 
+            tbCustomSound.Text = Config.NotificationSoundPath ?? string.Empty;
+
             Disposed += (sender, args) => this.notification.Dispose();
+        }
+
+        public override void OnClosing(){
+            Config.NotificationSoundPath = tbCustomSound.Text;
         }
 
         private void TabSettingsNotifications_ParentChanged(object sender, EventArgs e){
@@ -145,6 +151,23 @@ namespace TweetDck.Core.Other.Settings{
             labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value.ToString(CultureInfo.InvariantCulture)+" px";
             Config.NotificationEdgeDistance = trackBarEdgeDistance.Value;
             notification.ShowNotificationForSettings(false);
+        }
+
+        private void btnBrowseSound_Click(object sender, EventArgs e){
+            using(OpenFileDialog dialog = new OpenFileDialog{
+                AutoUpgradeEnabled = true,
+                DereferenceLinks = true,
+                Title = "Custom Notification Sound",
+                Filter = "Wave file (*.wav)|*.wav"
+            }){
+                if (dialog.ShowDialog() == DialogResult.OK){
+                    tbCustomSound.Text = dialog.FileName;
+                }
+            }
+        }
+
+        private void btnResetSound_Click(object sender, EventArgs e){
+            tbCustomSound.Text = string.Empty;
         }
     }
 }

@@ -66,6 +66,16 @@ namespace TweetDck.Configuration{
             }
         }
 
+        public string NotificationSoundPath{
+            get{
+                return !string.IsNullOrEmpty(notificationSoundPath) && File.Exists(notificationSoundPath) ? notificationSoundPath : string.Empty;
+            }
+
+            set{
+                notificationSoundPath = value;
+            }
+        }
+
         public TrayIcon.Behavior TrayBehavior{
             get{
                 return trayBehavior;
@@ -95,6 +105,7 @@ namespace TweetDck.Configuration{
 
         private int fileVersion;
         private bool muteNotifications;
+        private string notificationSoundPath;
         private TrayIcon.Behavior trayBehavior;
 
         private UserConfig(string file){

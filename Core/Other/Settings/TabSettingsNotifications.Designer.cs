@@ -47,12 +47,17 @@
             this.checkLegacyLoad = new System.Windows.Forms.CheckBox();
             this.checkNotificationTimer = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.groupCustomSound = new System.Windows.Forms.GroupBox();
+            this.tbCustomSound = new System.Windows.Forms.TextBox();
+            this.btnBrowseSound = new System.Windows.Forms.Button();
+            this.btnResetSound = new System.Windows.Forms.Button();
             this.groupNotificationLocation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).BeginInit();
             this.groupNotificationDuration.SuspendLayout();
             this.tableLayoutDurationButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarDuration)).BeginInit();
             this.groupUserInterface.SuspendLayout();
+            this.groupCustomSound.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupNotificationLocation
@@ -349,10 +354,54 @@
             this.checkNotificationTimer.UseVisualStyleBackColor = true;
             this.checkNotificationTimer.CheckedChanged += new System.EventHandler(this.checkNotificationTimer_CheckedChanged);
             // 
+            // groupCustomSound
+            // 
+            this.groupCustomSound.Controls.Add(this.btnResetSound);
+            this.groupCustomSound.Controls.Add(this.btnBrowseSound);
+            this.groupCustomSound.Controls.Add(this.tbCustomSound);
+            this.groupCustomSound.Location = new System.Drawing.Point(9, 201);
+            this.groupCustomSound.Name = "groupCustomSound";
+            this.groupCustomSound.Size = new System.Drawing.Size(183, 72);
+            this.groupCustomSound.TabIndex = 11;
+            this.groupCustomSound.TabStop = false;
+            this.groupCustomSound.Text = "Custom Sound";
+            // 
+            // tbCustomSound
+            // 
+            this.tbCustomSound.Location = new System.Drawing.Point(6, 19);
+            this.tbCustomSound.Name = "tbCustomSound";
+            this.tbCustomSound.Size = new System.Drawing.Size(170, 20);
+            this.tbCustomSound.TabIndex = 0;
+            // 
+            // btnBrowseSound
+            // 
+            this.btnBrowseSound.AutoSize = true;
+            this.btnBrowseSound.Location = new System.Drawing.Point(53, 43);
+            this.btnBrowseSound.Name = "btnBrowseSound";
+            this.btnBrowseSound.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.btnBrowseSound.Size = new System.Drawing.Size(67, 23);
+            this.btnBrowseSound.TabIndex = 1;
+            this.btnBrowseSound.Text = "Browse...";
+            this.btnBrowseSound.UseVisualStyleBackColor = true;
+            this.btnBrowseSound.Click += new System.EventHandler(this.btnBrowseSound_Click);
+            // 
+            // btnResetSound
+            // 
+            this.btnResetSound.AutoSize = true;
+            this.btnResetSound.Location = new System.Drawing.Point(126, 43);
+            this.btnResetSound.Name = "btnResetSound";
+            this.btnResetSound.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.btnResetSound.Size = new System.Drawing.Size(51, 23);
+            this.btnResetSound.TabIndex = 2;
+            this.btnResetSound.Text = "Reset";
+            this.btnResetSound.UseVisualStyleBackColor = true;
+            this.btnResetSound.Click += new System.EventHandler(this.btnResetSound_Click);
+            // 
             // TabSettingsNotifications
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupCustomSound);
             this.Controls.Add(this.groupUserInterface);
             this.Controls.Add(this.groupNotificationDuration);
             this.Controls.Add(this.groupNotificationLocation);
@@ -368,6 +417,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarDuration)).EndInit();
             this.groupUserInterface.ResumeLayout(false);
             this.groupUserInterface.PerformLayout();
+            this.groupCustomSound.ResumeLayout(false);
+            this.groupCustomSound.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -397,5 +448,9 @@
         private TweetDck.Core.Controls.FlatButton btnDurationMedium;
         private TweetDck.Core.Controls.FlatButton btnDurationLong;
         private TweetDck.Core.Controls.FlatButton btnDurationShort;
+        private System.Windows.Forms.GroupBox groupCustomSound;
+        private System.Windows.Forms.Button btnResetSound;
+        private System.Windows.Forms.Button btnBrowseSound;
+        private System.Windows.Forms.TextBox tbCustomSound;
     }
 }

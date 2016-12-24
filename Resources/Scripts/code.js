@@ -117,8 +117,9 @@
       
       $TD.onTweetPopup(html.html(), url, tweet.text.length); // TODO column
     }
-    else if (column.model.getHasSound()){
-      $TD.onTweetSound(); // TODO disable original
+    
+    if (column.model.getHasSound()){
+      $TD.onTweetSound();
     }
   };
   
@@ -255,7 +256,7 @@
     var soundEle = document.getElementById("update-sound");
     
     soundEle.play = prependToFunction(soundEle.play, function(){
-      return $TD.muteNotifications;
+      return $TD.muteNotifications || $TD.hasCustomNotificationSound;
     });
   })();
   
