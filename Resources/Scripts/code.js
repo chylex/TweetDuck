@@ -507,5 +507,7 @@
       styleCustom.innerHTML = $TD.customBrowserCSS;
       document.head.appendChild(styleCustom);
     }
+    
+    TD.services.TwitterActionRetweetedRetweet.prototype.iconClass = "icon-retweet icon-retweet-color txt-base-medium"; // fix retweet icon mismatch
   })();
 })($, $TD, TD);
