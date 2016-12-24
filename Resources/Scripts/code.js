@@ -317,14 +317,37 @@
     
     window.TDGF_triggerScreenshot = function(){
       if (selectedTweet){
-        var realWidth = selectedTweet.width();
-        var realHeight = selectedTweet.height()-selectedTweet.find("footer").last().height();
+        var tweetWidth = selectedTweet.width();
+        var isDetail = selectedTweet.parent().hasClass("js-tweet-detail");
         
         selectedTweet = selectedTweet.clone();
-        selectedTweet.children().first().addClass($(document.documentElement).attr("class"));
-        selectedTweet.find("footer").last().remove();
+        selectedTweet.children().first().addClass($(document.documentElement).attr("class")).css("padding-bottom", "12px");
         
-        $TD.screenshotTweet(selectedTweet.html(), realWidth, realHeight);
+        var quotedTweet = selectedTweet.find(".js-quote-detail");
+        
+        if (quotedTweet.length > 0){
+          quotedTweet[0].style.setProperty("margin-bottom", "0", "important");
+        }
+        
+        if (isDetail){
+          selectedTweet.find(".js-translate-call-to-action").first().remove();
+          selectedTweet.find(".js-cards-container").first().nextAll().remove();
+          selectedTweet.find(".js-detail-view-inline").first().remove();
+        }
+        else{
+          selectedTweet.find("footer").last().remove();
+        }
+        
+        var testTweet = selectedTweet.clone().css({
+          position: "absolute",
+          left: "-999px",
+          width: tweetWidth+"px"
+        }).appendTo(document.body);
+        
+        var realHeight = testTweet.height();
+        testTweet.remove();
+        
+        $TD.screenshotTweet(selectedTweet.html(), tweetWidth, realHeight);
       }
     };
   })();
