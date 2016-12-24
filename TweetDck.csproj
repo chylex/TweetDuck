@@ -298,7 +298,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Plugins\" />
-    <Folder Include="Resources\Scripts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Scripts\code.js" />
+    <Content Include="Resources\Scripts\notification.js" />
+    <Content Include="Resources\Scripts\plugins.browser.js" />
+    <Content Include="Resources\Scripts\plugins.js" />
+    <Content Include="Resources\Scripts\plugins.notification.js" />
+    <Content Include="Resources\Scripts\update.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
