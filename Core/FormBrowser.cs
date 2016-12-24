@@ -26,6 +26,12 @@ namespace TweetDck.Core{
 
         public string UpdateInstallerPath { get; private set; }
 
+        public FormNotification BrowserNotificationForm{
+            get{
+                return notification;
+            }
+        }
+
         private readonly ChromiumWebBrowser browser;
         private readonly PluginManager plugins;
         private readonly UpdateHandler updates;
@@ -38,6 +44,7 @@ namespace TweetDck.Core{
 
         private FormWindowState prevState;
 
+        private TweetScreenshotManager notificationScreenshotManager;
         private SoundPlayer notificationSound;
 
         public FormBrowser(PluginManager pluginManager, UpdaterSettings updaterSettings){
@@ -72,6 +79,10 @@ namespace TweetDck.Core{
 
             Disposed += (sender, args) => {
                 browser.Dispose();
+
+                if (notificationScreenshotManager != null){
+                    notificationScreenshotManager.Dispose();
+                }
 
                 if (notificationSound != null){
                     notificationSound.Dispose();
@@ -319,33 +330,11 @@ namespace TweetDck.Core{
         }
 
         public void OnTweetScreenshotReady(string html, int width, int height){
-            FormNotification dummyWindow = CreateNotificationForm(NotificationFlags.DisableScripts | NotificationFlags.DisableContextMenu | NotificationFlags.TopMost);
+            if (notificationScreenshotManager == null){
+                notificationScreenshotManager = new TweetScreenshotManager(this);
+            }
 
-            dummyWindow.ShowNotificationForScreenshot(new TweetNotification(html, string.Empty, 0), width, height, () => {
-                Point? prevNotificationLocation = null;
-                bool prevFreezeTimer = false;
-
-                if (notification.IsNotificationVisible){
-                    prevNotificationLocation = notification.Location;
-                    prevFreezeTimer = notification.FreezeTimer;
-
-                    notification.Location = ControlExtensions.InvisibleLocation;
-                    notification.FreezeTimer = true;
-                }
-
-                dummyWindow.TakeScreenshot();
-                dummyWindow.Hide();
-                dummyWindow.Close();
-                // dummyWindow.Dispose(); // TODO something freezes the program sometimes
-
-                if (prevNotificationLocation.HasValue){
-                    notification.Location = prevNotificationLocation.Value;
-                    notification.FreezeTimer = prevFreezeTimer;
-                }
-            });
-            
-            dummyWindow.CanMoveWindow = () => false;
-            dummyWindow.Show();
+            notificationScreenshotManager.Trigger(html, width, height);
         }
 
         public void DisplayTooltip(string text){

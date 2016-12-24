@@ -28,7 +28,7 @@ namespace TweetDck.Core{
             }
         }
 
-        private readonly Form owner;
+        private readonly Control owner;
         private readonly PluginManager plugins;
         private readonly ChromiumWebBrowser browser;
         private readonly NotificationFlags flags;
@@ -101,11 +101,6 @@ namespace TweetDck.Core{
 
             owner.FormClosed += (sender, args) => Close();
 
-            if (!flags.HasFlag(NotificationFlags.DisableScripts)){
-                notificationJS = ScriptLoader.LoadResource(NotificationScriptFile);
-                pluginJS = ScriptLoader.LoadResource(PluginManager.PluginNotificationScriptFile);
-            }
-
             browser = new ChromiumWebBrowser("about:blank"){
                 MenuHandler = new ContextMenuNotification(this, !flags.HasFlag(NotificationFlags.DisableContextMenu)),
                 LifeSpanHandler = new LifeSpanHandler()
@@ -117,8 +112,16 @@ namespace TweetDck.Core{
 
             browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
             browser.FrameLoadEnd += Browser_FrameLoadEnd;
-            browser.RegisterJsObject("$TD", new TweetDeckBridge(owner, this));
-            browser.RegisterAsyncJsObject("$TDP", plugins.Bridge);
+
+            if (!flags.HasFlag(NotificationFlags.DisableScripts)){
+                notificationJS = ScriptLoader.LoadResource(NotificationScriptFile);
+                browser.RegisterJsObject("$TD", new TweetDeckBridge(owner, this));
+
+                if (plugins != null){
+                    pluginJS = ScriptLoader.LoadResource(PluginManager.PluginNotificationScriptFile);
+                    browser.RegisterAsyncJsObject("$TDP", plugins.Bridge);
+                }
+            }
 
             panelBrowser.Controls.Add(browser);
 
@@ -210,7 +213,7 @@ namespace TweetDck.Core{
             else if (notificationJS != null && browser.Address != "about:blank" && !flags.HasFlag(NotificationFlags.DisableScripts)){
                 ScriptLoader.ExecuteScript(e.Frame, notificationJS, NotificationScriptIdentifier);
 
-                if (plugins.HasAnyPlugin(PluginEnvironment.Notification)){
+                if (plugins != null && plugins.HasAnyPlugin(PluginEnvironment.Notification)){
                     ScriptLoader.ExecuteScript(e.Frame, pluginJS, PluginScriptIdentifier);
                     ScriptLoader.ExecuteFile(e.Frame, PluginManager.PluginGlobalScriptFile);
                     plugins.ExecutePlugins(e.Frame, PluginEnvironment.Notification, false);
@@ -256,29 +259,32 @@ namespace TweetDck.Core{
             }
         }
 
-        public void ShowNotificationForScreenshot(TweetNotification tweet, int width, int height, Action callback){
+        public void PrepareNotificationForScreenshot(Action callback){
             browser.RegisterAsyncJsObject("$TD_NotificationScreenshot", new CallbackBridge(this, callback));
 
             browser.FrameLoadEnd += (sender, args) => {
-                if (args.Frame.IsMain){
+                if (args.Frame.IsMain && browser.Address != "about:blank"){
                     ScriptLoader.ExecuteScript(args.Frame, "window.setTimeout(() => $TD_NotificationScreenshot.trigger(), 25)", "gen:screenshot");
                 }
             };
+        }
 
+        public void LoadNotificationForScreenshot(TweetNotification tweet, int width, int height){
             browser.LoadHtml(tweet.GenerateHtml(enableCustomCSS: false), "http://tweetdeck.twitter.com/?"+DateTime.Now.Ticks);
             
             Location = ControlExtensions.InvisibleLocation;
             ClientSize = new Size(width, height);
             progressBarTimer.Visible = false;
             panelBrowser.Height = height;
-
-            // TODO start a timer on 10 seconds to close the window if anything fails or takes too long
         }
 
-        public void TakeScreenshot(){
+        public void TakeScreenshotAndHide(){
             MoveToVisibleLocation();
             Activate();
             SendKeys.SendWait("%{PRTSC}");
+            
+            Location = ControlExtensions.InvisibleLocation;
+            browser.LoadHtml("", "about:blank");
         }
 
         public void HideNotification(bool loadBlank){
