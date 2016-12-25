@@ -18,9 +18,15 @@ namespace TweetDck.Core.Handling{
             }
         }
 
+        private static string FixedCSS{
+            get{
+                return @"a[data-full-url]{word-break:break-all}.txt-base-smallest .badge-verified:before{height:13px!important}";
+            }
+        }
+
         private static string CustomCSS{
             get{
-                return @".scroll-styled-v::-webkit-scrollbar{width:8px}.scroll-styled-v::-webkit-scrollbar-thumb{border-radius:0}a[data-full-url]{word-break:break-all}#td-skip{opacity:0;cursor:pointer;transition:opacity 0.15s ease}.td-hover #td-skip{opacity:0.75}#td-skip:hover{opacity:1}";
+                return @".scroll-styled-v::-webkit-scrollbar{width:8px}.scroll-styled-v::-webkit-scrollbar-thumb{border-radius:0}#td-skip{opacity:0;cursor:pointer;transition:opacity 0.15s ease}.td-hover #td-skip{opacity:0.75}#td-skip:hover{opacity:1}";
             }
         }
 
@@ -106,11 +112,14 @@ namespace TweetDck.Core.Handling{
             build.Append("<head>").Append(HeadTag ?? DefaultHeadTag);
             
             if (enableCustomCSS){
-                build.Append("<style type='text/css'>").Append(CustomCSS).Append("</style>");
+                build.Append("<style type='text/css'>").Append(FixedCSS).Append(CustomCSS).Append("</style>");
 
                 if (!string.IsNullOrEmpty(Program.UserConfig.CustomNotificationCSS)){
                     build.Append("<style type='text/css'>").Append(Program.UserConfig.CustomNotificationCSS).Append("</style>");
                 }
+            }
+            else{
+                build.Append("<style type='text/css'>").Append(FixedCSS).Append("</style>");
             }
             
             build.Append("</head>");
