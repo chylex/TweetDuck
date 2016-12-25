@@ -260,10 +260,6 @@
     });
   })();
   
-  /* TODO document.getElementById("update-sound").play = function(){
-    $TD.onTweetSound();
-  };*/
-  
   //
   // Block: Update highlighted column.
   //
