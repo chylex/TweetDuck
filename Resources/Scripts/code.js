@@ -307,6 +307,12 @@
   (function(){
     var selectedTweet;
     
+    var setImportantProperty = function(obj, property, value){
+      if (obj.length === 1){
+        obj[0].style.setProperty(property, value, "important");
+      }
+    };
+    
     app.delegate("article.js-stream-item", "contextmenu", function(){
       selectedTweet = $(this);
     });
@@ -314,18 +320,19 @@
     window.TDGF_triggerScreenshot = function(){
       if (selectedTweet){
         var tweetWidth = selectedTweet.width();
-        var isDetail = selectedTweet.parent().hasClass("js-tweet-detail");
+        var parent = selectedTweet.parent();
+        
+        var isDetail = parent.hasClass("js-tweet-detail");
+        var isReply = !isDetail && (parent.hasClass("js-replies-to") || parent.hasClass("js-replies-before"));
         
         selectedTweet = selectedTweet.clone();
         selectedTweet.children().first().addClass($(document.documentElement).attr("class")).css("padding-bottom", "12px");
         
-        var quotedTweet = selectedTweet.find(".js-quote-detail");
-        
-        if (quotedTweet.length > 0){
-          quotedTweet[0].style.setProperty("margin-bottom", "0", "important");
-        }
+        setImportantProperty(selectedTweet.find(".js-quote-detail"), "margin-bottom", "0");
+        setImportantProperty(selectedTweet.find(".js-media-preview-container"), "margin-bottom", "0");
         
         if (isDetail){
+          setImportantProperty(selectedTweet.find(".js-tweet-media"), "margin-bottom", "0");
           selectedTweet.find(".js-translate-call-to-action").first().remove();
           selectedTweet.find(".js-cards-container").first().nextAll().remove();
           selectedTweet.find(".js-detail-view-inline").first().remove();
@@ -333,6 +340,13 @@
         else{
           selectedTweet.find("footer").last().remove();
         }
+        
+        if (isReply){
+          selectedTweet.find(".is-conversation").removeClass("is-conversation");
+          selectedTweet.find(".timeline-poll-container").first().remove(); // fix for timeline polls plugin
+        }
+        
+        selectedTweet.find(".js-poll-link").remove();
         
         var testTweet = selectedTweet.clone().css({
           position: "absolute",
