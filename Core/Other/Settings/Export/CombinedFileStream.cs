@@ -63,6 +63,26 @@ namespace TweetDck.Core.Other.Settings.Export{
             return new Entry(Encoding.UTF8.GetString(name), contents);
         }
 
+        public string SkipFile(){
+            int nameLength = stream.ReadByte();
+
+            if (nameLength == -1){
+                return null;
+            }
+
+            byte[] name = new byte[nameLength];
+            stream.Read(name, 0, nameLength);
+
+            byte[] contentLength = new byte[4];
+            stream.Read(contentLength, 0, 4);
+
+            stream.Position += BitConverter.ToInt32(contentLength, 0);
+
+            string keyName = Encoding.UTF8.GetString(name);
+            int separatorIndex = keyName.IndexOf(KeySeparator);
+            return separatorIndex == -1 ? keyName : keyName.Substring(0, separatorIndex);
+        }
+
         public void Flush(){
             stream.Flush();
         }
