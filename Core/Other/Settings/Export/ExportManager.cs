@@ -55,6 +55,37 @@ namespace TweetDck.Core.Other.Settings.Export{
             }
         }
 
+        public ExportFileFlags GetImportFlags(){
+            ExportFileFlags flags = ExportFileFlags.None;
+
+            try{
+                using(CombinedFileStream stream = new CombinedFileStream(new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.None))){
+                    string key;
+
+                    while((key = stream.SkipFile()) != null){
+                        switch(key){
+                            case "config":
+                                flags |= ExportFileFlags.Config;
+                                break;
+
+                            case "plugin.data":
+                                flags |= ExportFileFlags.PluginData;
+                                break;
+
+                            case "cookies":
+                                flags |= ExportFileFlags.Session;
+                                break;
+                        }
+                    }
+                }
+            }catch(Exception e){
+                LastException = e;
+                flags = ExportFileFlags.None;
+            }
+
+            return flags;
+        }
+
         public bool Import(ExportFileFlags flags){
             try{
                 HashSet<string> missingPlugins = new HashSet<string>();

@@ -151,7 +151,7 @@ namespace TweetDck.Core.Other.Settings{
             ExportManager manager = new ExportManager(file, plugins);
             ExportFileFlags flags;
 
-            using(DialogSettingsExport dialog = DialogSettingsExport.Import(ExportFileFlags.All)){ // TODO detect
+            using(DialogSettingsExport dialog = DialogSettingsExport.Import(manager.GetImportFlags())){
                 if (dialog.ShowDialog() != DialogResult.OK){
                     return;
                 }
