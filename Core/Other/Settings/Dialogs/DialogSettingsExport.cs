@@ -52,6 +52,7 @@ namespace TweetDck.Core.Other.Settings.Dialogs{
 
         private void SetFlag(ExportFileFlags flag, bool enable){
             selectedFlags = enable ? selectedFlags | flag : selectedFlags & ~flag;
+            btnApply.Enabled = selectedFlags != ExportFileFlags.None;
         }
 
         private void cbConfig_CheckedChanged(object sender, EventArgs e){
