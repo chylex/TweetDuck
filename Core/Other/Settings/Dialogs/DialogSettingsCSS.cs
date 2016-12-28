@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using TweetDck.Core.Controls;
+using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Other.Settings.Dialogs{
     sealed partial class DialogSettingsCSS : Form{
@@ -26,6 +27,10 @@ namespace TweetDck.Core.Other.Settings.Dialogs{
 
             textBoxNotificationCSS.EnableMultilineShortcuts();
             textBoxNotificationCSS.Text = Program.UserConfig.CustomNotificationCSS ?? "";
+        }
+
+        private void btnOpenWiki_Click(object sender, EventArgs e){
+            BrowserUtils.OpenExternalBrowser("https://github.com/chylex/TweetDuck/wiki");
         }
 
         private void btnApply_Click(object sender, EventArgs e){

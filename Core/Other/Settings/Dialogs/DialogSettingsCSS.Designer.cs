@@ -31,6 +31,7 @@
             this.labelNotification = new System.Windows.Forms.Label();
             this.textBoxNotificationCSS = new System.Windows.Forms.TextBox();
             this.labelWarning = new System.Windows.Forms.Label();
+            this.btnOpenWiki = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -131,7 +132,7 @@
             this.textBoxNotificationCSS.Multiline = true;
             this.textBoxNotificationCSS.Name = "textBoxNotificationCSS";
             this.textBoxNotificationCSS.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxNotificationCSS.Size = new System.Drawing.Size(378, 253);
+            this.textBoxNotificationCSS.Size = new System.Drawing.Size(376, 253);
             this.textBoxNotificationCSS.TabIndex = 1;
             this.textBoxNotificationCSS.WordWrap = false;
             // 
@@ -139,22 +140,36 @@
             // 
             this.labelWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelWarning.AutoSize = true;
-            this.labelWarning.Location = new System.Drawing.Point(9, 292);
+            this.labelWarning.Location = new System.Drawing.Point(91, 292);
             this.labelWarning.Name = "labelWarning";
             this.labelWarning.Size = new System.Drawing.Size(341, 13);
             this.labelWarning.TabIndex = 6;
             this.labelWarning.Text = "The code is not validated, please make sure there are no syntax errors.";
+            // 
+            // btnOpenWiki
+            // 
+            this.btnOpenWiki.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnOpenWiki.AutoSize = true;
+            this.btnOpenWiki.Location = new System.Drawing.Point(12, 287);
+            this.btnOpenWiki.Name = "btnOpenWiki";
+            this.btnOpenWiki.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.btnOpenWiki.Size = new System.Drawing.Size(73, 23);
+            this.btnOpenWiki.TabIndex = 7;
+            this.btnOpenWiki.Text = "Open Wiki";
+            this.btnOpenWiki.UseVisualStyleBackColor = true;
+            this.btnOpenWiki.Click += new System.EventHandler(this.btnOpenWiki_Click);
             // 
             // DialogSettingsCSS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 322);
+            this.Controls.Add(this.btnOpenWiki);
             this.Controls.Add(this.labelWarning);
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.btnApply);
             this.Controls.Add(this.btnCancel);
-            this.MinimumSize = new System.Drawing.Size(500, 160);
+            this.MinimumSize = new System.Drawing.Size(600, 160);
             this.Name = "DialogSettingsCSS";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -179,5 +194,6 @@
         private System.Windows.Forms.Label labelBrowser;
         private System.Windows.Forms.Label labelNotification;
         private System.Windows.Forms.Label labelWarning;
+        private System.Windows.Forms.Button btnOpenWiki;
     }
 }
