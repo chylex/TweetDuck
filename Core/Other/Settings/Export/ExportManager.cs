@@ -22,22 +22,26 @@ namespace TweetDck.Core.Other.Settings.Export{
             this.plugins = plugins;
         }
 
-        public bool Export(bool includeSession){
+        public bool Export(ExportFileFlags flags){
             try{
                 using(CombinedFileStream stream = new CombinedFileStream(new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None))){
-                    stream.WriteFile("config", Program.ConfigFilePath);
+                    if (flags.HasFlag(ExportFileFlags.Config)){
+                        stream.WriteFile("config", Program.ConfigFilePath);
+                    }
 
-                    foreach(Plugin plugin in plugins.Plugins){
-                        foreach(PathInfo path in EnumerateFilesRelative(plugin.GetPluginFolder(PluginFolder.Data))){
-                            try{
-                                stream.WriteFile(new string[]{ "plugin.data", plugin.Identifier, path.Relative }, path.Full);
-                            }catch(ArgumentOutOfRangeException e){
-                                MessageBox.Show("Could not include a plugin file in the export. "+e.Message, "Export Profile", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    if (flags.HasFlag(ExportFileFlags.PluginData)){
+                        foreach(Plugin plugin in plugins.Plugins){
+                            foreach(PathInfo path in EnumerateFilesRelative(plugin.GetPluginFolder(PluginFolder.Data))){
+                                try{
+                                    stream.WriteFile(new string[]{ "plugin.data", plugin.Identifier, path.Relative }, path.Full);
+                                }catch(ArgumentOutOfRangeException e){
+                                    MessageBox.Show("Could not include a plugin file in the export. "+e.Message, "Export Profile", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                }
                             }
                         }
                     }
 
-                    if (includeSession){
+                    if (flags.HasFlag(ExportFileFlags.Session)){
                         stream.WriteFile("cookies", CookiesPath);
                     }
 
@@ -51,7 +55,7 @@ namespace TweetDck.Core.Other.Settings.Export{
             }
         }
 
-        public bool Import(){
+        public bool Import(ExportFileFlags flags){
             try{
                 HashSet<string> missingPlugins = new HashSet<string>();
 
@@ -61,23 +65,28 @@ namespace TweetDck.Core.Other.Settings.Export{
                     while((entry = stream.ReadFile()) != null){
                         switch(entry.KeyName){
                             case "config":
-                                entry.WriteToFile(Program.ConfigFilePath);
-                                Program.ReloadConfig();
+                                if (flags.HasFlag(ExportFileFlags.Config)){
+                                    entry.WriteToFile(Program.ConfigFilePath);
+                                    Program.ReloadConfig();
+                                }
+
                                 break;
 
                             case "plugin.data":
-                                string[] value = entry.KeyValue;
+                                if (flags.HasFlag(ExportFileFlags.PluginData)){
+                                    string[] value = entry.KeyValue;
 
-                                entry.WriteToFile(Path.Combine(Program.PluginDataPath, value[0], value[1]), true);
+                                    entry.WriteToFile(Path.Combine(Program.PluginDataPath, value[0], value[1]), true);
 
-                                if (!plugins.IsPluginInstalled(value[0])){
-                                    missingPlugins.Add(value[0]);
+                                    if (!plugins.IsPluginInstalled(value[0])){
+                                        missingPlugins.Add(value[0]);
+                                    }
                                 }
 
                                 break;
 
                             case "cookies":
-                                if (MessageBox.Show("Do you want to import the login session? This will restart "+Program.BrandName+".", "Importing "+Program.BrandName+" Profile", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
+                                if (flags.HasFlag(ExportFileFlags.Session) && MessageBox.Show("Do you want to import the login session? This will restart "+Program.BrandName+".", "Importing "+Program.BrandName+" Profile", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
                                     entry.WriteToFile(Path.Combine(Program.StoragePath, TempCookiesPath));
                                     IsRestarting = true;
                                 }

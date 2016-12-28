@@ -95,10 +95,16 @@ namespace TweetDck.Core.Other.Settings{
         }
 
         private void btnExport_Click(object sender, EventArgs e){
-            DialogResult resultSaveCredentials = MessageBox.Show("Do you want to include your login session? This will not save your password into the file, but it will allow anyone with the file to login into TweetDeck as you.", "Export "+Program.BrandName+" Settings", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button3);
-            if (resultSaveCredentials == DialogResult.Cancel)return;
+            ExportFileFlags flags;
 
-            bool saveCredentials = resultSaveCredentials == DialogResult.Yes;
+            using(DialogSettingsExport dialog = DialogSettingsExport.Export()){
+                if (dialog.ShowDialog() != DialogResult.OK){
+                    return;
+                }
+
+                flags = dialog.Flags;
+            }
+
             string file;
 
             using(SaveFileDialog dialog = new SaveFileDialog{
@@ -110,17 +116,19 @@ namespace TweetDck.Core.Other.Settings{
                 Title = "Export "+Program.BrandName+" Settings",
                 Filter = Program.BrandName+" Settings (*.tdsettings)|*.tdsettings"
             }){
-                file = dialog.ShowDialog() == DialogResult.OK ? dialog.FileName : null;
+                if (dialog.ShowDialog() != DialogResult.OK){
+                    return;
+                }
+
+                file = dialog.FileName;
             }
 
-            if (file != null){
-                Program.UserConfig.Save();
+            Program.UserConfig.Save();
 
-                ExportManager manager = new ExportManager(file, plugins);
-
-                if (!manager.Export(saveCredentials)){
-                    Program.Reporter.HandleException("Profile Export Error", "An exception happened while exporting "+Program.BrandName+" settings.", true, manager.LastException);
-                }
+            ExportManager manager = new ExportManager(file, plugins);
+            
+            if (!manager.Export(flags)){
+                Program.Reporter.HandleException("Profile Export Error", "An exception happened while exporting "+Program.BrandName+" settings.", true, manager.LastException);
             }
         }
 
@@ -133,20 +141,31 @@ namespace TweetDck.Core.Other.Settings{
                 Title = "Import "+Program.BrandName+" Settings",
                 Filter = Program.BrandName+" Settings (*.tdsettings)|*.tdsettings"
             }){
-                file = dialog.ShowDialog() == DialogResult.OK ? dialog.FileName : null;
+                if (dialog.ShowDialog() != DialogResult.OK){
+                    return;
+                }
+
+                file = dialog.FileName;
             }
 
-            if (file != null){
-                ExportManager manager = new ExportManager(file, plugins);
+            ExportManager manager = new ExportManager(file, plugins);
+            ExportFileFlags flags;
 
-                if (manager.Import()){
-                    if (!manager.IsRestarting){
-                        ((FormSettings)ParentForm).ReloadUI();
-                    }
+            using(DialogSettingsExport dialog = DialogSettingsExport.Import(ExportFileFlags.All)){ // TODO detect
+                if (dialog.ShowDialog() != DialogResult.OK){
+                    return;
                 }
-                else{
-                    Program.Reporter.HandleException("Profile Import Error", "An exception happened while importing "+Program.BrandName+" settings.", true, manager.LastException);
+
+                flags = dialog.Flags;
+            }
+
+            if (manager.Import(flags)){
+                if (!manager.IsRestarting){
+                    ((FormSettings)ParentForm).ReloadUI();
                 }
+            }
+            else{
+                Program.Reporter.HandleException("Profile Import Error", "An exception happened while importing "+Program.BrandName+" settings.", true, manager.LastException);
             }
         }
 
