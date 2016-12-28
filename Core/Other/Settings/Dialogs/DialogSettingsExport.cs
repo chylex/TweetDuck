@@ -37,7 +37,7 @@ namespace TweetDck.Core.Other.Settings.Dialogs{
             if (isExporting){
                 Text = "Export Profile";
                 btnApply.Text = "Export";
-                Flags = ExportFileFlags.All;
+                Flags = ExportFileFlags.All & ~ExportFileFlags.Session;
             }
             else{
                 Text = "Import Profile";
