@@ -27,21 +27,20 @@ namespace TweetDck.Core.Other.Settings.Dialogs{
             }
         }
         
-        private readonly bool isExporting;
         private ExportFileFlags selectedFlags = ExportFileFlags.None;
 
         private DialogSettingsExport(ExportFileFlags importFlags){
             InitializeComponent();
 
-            isExporting = importFlags == ExportFileFlags.None;
+            bool isExporting = importFlags == ExportFileFlags.None;
 
             if (isExporting){
-                Text = "Export";
+                Text = "Export Profile";
                 btnApply.Text = "Export";
                 Flags = ExportFileFlags.All;
             }
             else{
-                Text = "Import";
+                Text = "Import Profile";
                 btnApply.Text = "Import";
                 Flags = importFlags;
 
@@ -60,11 +59,11 @@ namespace TweetDck.Core.Other.Settings.Dialogs{
         }
 
         private void cbSession_CheckedChanged(object sender, EventArgs e){
-            SetFlag(ExportFileFlags.Session, cbConfig.Checked);
+            SetFlag(ExportFileFlags.Session, cbSession.Checked);
         }
 
         private void cbPluginData_CheckedChanged(object sender, EventArgs e){
-            SetFlag(ExportFileFlags.PluginData, cbConfig.Checked);
+            SetFlag(ExportFileFlags.PluginData, cbPluginData.Checked);
         }
 
         private void btnApply_Click(object sender, EventArgs e){

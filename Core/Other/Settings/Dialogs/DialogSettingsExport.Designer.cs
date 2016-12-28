@@ -34,7 +34,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.AutoSize = true;
-            this.btnCancel.Location = new System.Drawing.Point(216, 107);
+            this.btnCancel.Location = new System.Drawing.Point(176, 97);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnCancel.Size = new System.Drawing.Size(56, 23);
@@ -47,7 +47,7 @@
             // 
             this.btnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnApply.AutoSize = true;
-            this.btnApply.Location = new System.Drawing.Point(157, 107);
+            this.btnApply.Location = new System.Drawing.Point(117, 97);
             this.btnApply.Name = "btnApply";
             this.btnApply.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnApply.Size = new System.Drawing.Size(53, 23);
@@ -92,7 +92,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 142);
+            this.ClientSize = new System.Drawing.Size(244, 132);
             this.Controls.Add(this.cbPluginData);
             this.Controls.Add(this.cbSession);
             this.Controls.Add(this.cbConfig);
