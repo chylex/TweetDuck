@@ -1,5 +1,6 @@
 ﻿using CefSharp;
 using System.Windows.Forms;
+using TweetDck.Core.Bridge;
 using TweetDck.Core.Controls;
 using TweetDck.Core.Utils;
 

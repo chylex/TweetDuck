@@ -2,7 +2,7 @@ using System;
 using System.Windows.Forms;
 using TweetDck.Core.Controls;
 
-namespace TweetDck.Core.Utils.Notification{
+namespace TweetDck.Core.Bridge{
     sealed class CallbackBridge{
         private readonly Control owner;
         private readonly Action safeCallback;

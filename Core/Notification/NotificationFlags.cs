@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TweetDck.Core.Utils.Notification{
+namespace TweetDck.Core.Notification{
     [Flags]
     public enum NotificationFlags{
         None = 0,

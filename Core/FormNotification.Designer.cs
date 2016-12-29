@@ -1,7 +1,7 @@
 ﻿using TweetDck.Core.Controls;
 
 namespace TweetDck.Core {
-    sealed partial class FormNotification {
+    partial class FormNotification {
         /// <summary>
         /// Required designer variable.
         /// </summary>

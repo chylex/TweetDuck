@@ -3,11 +3,12 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
-using TweetDck.Core.Utils;
 using TweetDck.Core.Controls;
+using TweetDck.Core.Notification;
+using TweetDck.Core.Utils;
 
-namespace TweetDck.Core.Handling{
-    class TweetDeckBridge{
+namespace TweetDck.Core.Bridge{
+    sealed class TweetDeckBridge{
         public static string LastRightClickedLink = string.Empty;
         public static string LastHighlightedTweet = string.Empty;
         public static string LastHighlightedQuotedTweet = string.Empty;

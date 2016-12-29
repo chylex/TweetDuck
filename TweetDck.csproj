@@ -111,7 +111,7 @@
     <Compile Include="Core\Handling\ContextMenuNotification.cs" />
     <Compile Include="Core\Handling\DialogHandlerBrowser.cs" />
     <Compile Include="Core\Handling\LifeSpanHandler.cs" />
-    <Compile Include="Core\Handling\TweetNotification.cs" />
+    <Compile Include="Core\Notification\TweetNotification.cs" />
     <Compile Include="Core\Other\FormAbout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -181,14 +181,17 @@
     <Compile Include="Core\Other\Settings\TabSettingsUpdates.Designer.cs">
       <DependentUpon>TabSettingsUpdates.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Utils\Notification\CallbackBridge.cs" />
+    <Compile Include="Core\Bridge\CallbackBridge.cs" />
     <Compile Include="Core\Utils\CommandLineArgs.cs" />
     <Compile Include="Core\Utils\CommandLineArgsParser.cs" />
-    <Compile Include="Core\Utils\Notification\NotificationFlags.cs" />
-    <Compile Include="Core\Utils\Notification\TweetScreenshotManager.cs" />
+    <Compile Include="Core\Notification\Screenshot\FormNotificationScreenshotable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Core\Notification\NotificationFlags.cs" />
+    <Compile Include="Core\Notification\Screenshot\TweetScreenshotManager.cs" />
     <Compile Include="Core\Utils\WindowState.cs" />
     <Compile Include="Core\Utils\WindowsUtils.cs" />
-    <Compile Include="Core\Handling\TweetDeckBridge.cs" />
+    <Compile Include="Core\Bridge\TweetDeckBridge.cs" />
     <Compile Include="Core\Other\FormSettings.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Drawing;
 using TweetDck.Core.Controls;
-using TweetDck.Core.Handling;
 
-namespace TweetDck.Core.Utils.Notification{
-    class TweetScreenshotManager : IDisposable{
+namespace TweetDck.Core.Notification.Screenshot{
+    sealed class TweetScreenshotManager : IDisposable{
         private readonly FormBrowser browser;
-        private readonly FormNotification screenshot;
+        private readonly FormNotificationScreenshotable screenshot;
 
         public TweetScreenshotManager(FormBrowser browser){
             this.browser = browser;
 
-            this.screenshot = new FormNotification(browser, null, NotificationFlags.DisableScripts | NotificationFlags.DisableContextMenu | NotificationFlags.TopMost){
+            this.screenshot = new FormNotificationScreenshotable(browser, NotificationFlags.DisableScripts | NotificationFlags.DisableContextMenu | NotificationFlags.TopMost){
                 CanMoveWindow = () => false
             };
 

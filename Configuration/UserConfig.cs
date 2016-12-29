@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using TweetDck.Core;
 using TweetDck.Core.Controls;
-using TweetDck.Core.Handling;
+using TweetDck.Core.Notification;
 using TweetDck.Core.Utils;
 using TweetDck.Plugins;
 

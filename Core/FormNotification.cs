@@ -5,16 +5,17 @@ using System.Windows.Forms;
 using CefSharp;
 using CefSharp.WinForms;
 using TweetDck.Configuration;
+using TweetDck.Core.Bridge;
 using TweetDck.Core.Handling;
 using TweetDck.Resources;
 using TweetDck.Core.Utils;
-using TweetDck.Core.Utils.Notification;
 using TweetDck.Plugins;
 using TweetDck.Plugins.Enums;
 using TweetDck.Core.Controls;
+using TweetDck.Core.Notification;
 
 namespace TweetDck.Core{
-    sealed partial class FormNotification : Form{
+    partial class FormNotification : Form{
         private const string NotificationScriptFile = "notification.js";
 
         private static readonly string NotificationScriptIdentifier = ScriptLoader.GetRootIdentifier(NotificationScriptFile);
@@ -30,8 +31,8 @@ namespace TweetDck.Core{
 
         private readonly Control owner;
         private readonly PluginManager plugins;
-        private readonly ChromiumWebBrowser browser;
-        private readonly NotificationFlags flags;
+        protected readonly NotificationFlags flags;
+        protected readonly ChromiumWebBrowser browser;
 
         private readonly Queue<TweetNotification> tweetQueue = new Queue<TweetNotification>(4);
         private int timeLeft, totalTime;
@@ -92,8 +93,6 @@ namespace TweetDck.Core{
 
         public FormNotification(FormBrowser owner, PluginManager pluginManager, NotificationFlags flags){
             InitializeComponent();
-
-            Text = Program.BrandName;
 
             this.owner = owner;
             this.plugins = pluginManager;
@@ -259,34 +258,6 @@ namespace TweetDck.Core{
             }
         }
 
-        public void PrepareNotificationForScreenshot(Action callback){
-            browser.RegisterAsyncJsObject("$TD_NotificationScreenshot", new CallbackBridge(this, callback));
-
-            browser.FrameLoadEnd += (sender, args) => {
-                if (args.Frame.IsMain && browser.Address != "about:blank"){
-                    ScriptLoader.ExecuteScript(args.Frame, "window.setTimeout(() => $TD_NotificationScreenshot.trigger(), 25)", "gen:screenshot");
-                }
-            };
-        }
-
-        public void LoadNotificationForScreenshot(TweetNotification tweet, int width, int height){
-            browser.LoadHtml(tweet.GenerateHtml(enableCustomCSS: false), "http://tweetdeck.twitter.com/?"+DateTime.Now.Ticks);
-            
-            Location = ControlExtensions.InvisibleLocation;
-            ClientSize = new Size(width, height);
-            progressBarTimer.Visible = false;
-            panelBrowser.Height = height;
-        }
-
-        public void TakeScreenshotAndHide(){
-            MoveToVisibleLocation();
-            Activate();
-            SendKeys.SendWait("%{PRTSC}");
-            
-            Location = ControlExtensions.InvisibleLocation;
-            browser.LoadHtml("", "about:blank");
-        }
-
         public void HideNotification(bool loadBlank){
             if (loadBlank || Program.UserConfig.NotificationLegacyLoad){
                 browser.LoadHtml("", "about:blank");
@@ -339,7 +310,30 @@ namespace TweetDck.Core{
             }
         }
 
-        private void MoveToVisibleLocation(){
+        private void PrepareAndDisplayWindow(){
+            if (RequiresResize){
+                RequiresResize = false;
+                SetNotificationSize(BaseClientWidth, BaseClientHeight, Program.UserConfig.DisplayNotificationTimer);
+            }
+            
+            MoveToVisibleLocation();
+            StartMouseHook();
+        }
+
+        protected void SetNotificationSize(int width, int height, bool displayTimer){
+            if (displayTimer){
+                ClientSize = new Size(width, height+4);
+                progressBarTimer.Visible = true;
+            }
+            else{
+                ClientSize = new Size(width, height);
+                progressBarTimer.Visible = false;
+            }
+
+            panelBrowser.Height = height;
+        }
+
+        protected void MoveToVisibleLocation(){
             UserConfig config = Program.UserConfig;
 
             Screen screen = Screen.FromControl(owner);
@@ -383,27 +377,7 @@ namespace TweetDck.Core{
             }
         }
 
-        private void PrepareAndDisplayWindow(){
-            if (RequiresResize){
-                RequiresResize = false;
-
-                if (Program.UserConfig.DisplayNotificationTimer){
-                    ClientSize = new Size(BaseClientWidth, BaseClientHeight+4);
-                    progressBarTimer.Visible = true;
-                }
-                else{
-                    ClientSize = new Size(BaseClientWidth, BaseClientHeight);
-                    progressBarTimer.Visible = false;
-                }
-
-                panelBrowser.Height = BaseClientHeight;
-            }
-            
-            MoveToVisibleLocation();
-            StartMouseHook();
-        }
-
-        private void UpdateTitle(){
+        protected void UpdateTitle(){
             Text = tweetQueue.Count > 0 ? Program.BrandName+" ("+tweetQueue.Count+" more left)" : Program.BrandName;
         }
 

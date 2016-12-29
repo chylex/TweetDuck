@@ -9,12 +9,14 @@ using TweetDck.Resources;
 using TweetDck.Core.Controls;
 using System.Drawing;
 using TweetDck.Core.Utils;
-using TweetDck.Core.Utils.Notification;
 using TweetDck.Updates;
 using TweetDck.Plugins;
 using TweetDck.Plugins.Enums;
 using TweetDck.Plugins.Events;
 using System.Media;
+using TweetDck.Core.Bridge;
+using TweetDck.Core.Notification;
+using TweetDck.Core.Notification.Screenshot;
 
 namespace TweetDck.Core{
     sealed partial class FormBrowser : Form{

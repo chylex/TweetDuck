@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Forms;
-using TweetDck.Core.Handling;
 using TweetDck.Core.Controls;
+using TweetDck.Core.Notification;
 
 namespace TweetDck.Core.Other.Settings{
     partial class TabSettingsNotifications : BaseTabSettings{

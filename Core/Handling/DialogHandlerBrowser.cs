@@ -1,5 +1,6 @@
 ﻿using CefSharp;
 using System.Collections.Generic;
+using TweetDck.Core.Bridge;
 using TweetDck.Core.Controls;
 
 namespace TweetDck.Core.Handling{

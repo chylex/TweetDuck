@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
+using TweetDck.Core.Bridge;
 using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Handling{
