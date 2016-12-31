@@ -14,6 +14,10 @@ namespace TweetDck.Core.Bridge{
         public static string LastHighlightedQuotedTweet = string.Empty;
         public static string ClipboardImagePath = string.Empty;
 
+        public static void ResetStaticProperties(){
+            LastRightClickedLink = LastHighlightedTweet = LastHighlightedQuotedTweet = ClipboardImagePath = string.Empty;
+        }
+
         private readonly FormBrowser form;
         private readonly FormNotification notification;
 

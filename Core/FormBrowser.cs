@@ -151,6 +151,8 @@ namespace TweetDck.Core{
                     ScriptLoader.ExecuteFile(e.Frame, PluginManager.PluginGlobalScriptFile);
                     plugins.ExecutePlugins(e.Frame, PluginEnvironment.Browser, true);
                 }
+
+                TweetDeckBridge.ResetStaticProperties();
             }
         }
 

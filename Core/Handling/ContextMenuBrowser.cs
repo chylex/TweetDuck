@@ -39,7 +39,7 @@ namespace TweetDck.Core.Handling{
             lastHighlightedTweet = TweetDeckBridge.LastHighlightedTweet;
             lastHighlightedQuotedTweet = TweetDeckBridge.LastHighlightedQuotedTweet;
 
-            if (!BrowserUtils.IsTweetDeckWebsite(frame)){
+            if (!BrowserUtils.IsTweetDeckWebsite(frame) || browser.IsLoading){
                 lastHighlightedTweet = string.Empty;
                 lastHighlightedQuotedTweet = string.Empty;
             }
