@@ -4,10 +4,10 @@ using TweetDck.Core.Bridge;
 using TweetDck.Core.Controls;
 
 namespace TweetDck.Core.Handling{
-    class DialogHandlerBrowser : IDialogHandler{
+    class FileDialogHandler : IDialogHandler{
         private readonly FormBrowser form;
 
-        public DialogHandlerBrowser(FormBrowser form){
+        public FileDialogHandler(FormBrowser form){
             this.form = form;
         }
 
