@@ -110,6 +110,7 @@
     </Compile>
     <Compile Include="Core\Handling\ContextMenuNotification.cs" />
     <Compile Include="Core\Handling\FileDialogHandler.cs" />
+    <Compile Include="Core\Handling\JavaScriptDialogHandler.cs" />
     <Compile Include="Core\Handling\LifeSpanHandler.cs" />
     <Compile Include="Core\Notification\TweetNotification.cs" />
     <Compile Include="Core\Other\FormAbout.cs">

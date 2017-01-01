@@ -65,6 +65,7 @@ namespace TweetDck.Core{
             this.browser = new ChromiumWebBrowser("https://tweetdeck.twitter.com/"){
                 MenuHandler = new ContextMenuBrowser(this),
                 DialogHandler = new FileDialogHandler(this),
+                JsDialogHandler = new JavaScriptDialogHandler(),
                 LifeSpanHandler = new LifeSpanHandler()
             };
 
