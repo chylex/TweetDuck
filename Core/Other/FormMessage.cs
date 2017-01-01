@@ -40,7 +40,7 @@ namespace TweetDck.Core.Other{
 
                 default:
                     icon = null;
-                    labelMessage.Location = new Point(labelMessage.Location.X-32, labelMessage.Location.Y);
+                    labelMessage.Location = new Point(labelMessage.Location.X-37, labelMessage.Location.Y);
                     break;
             }
 
