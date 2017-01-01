@@ -32,7 +32,10 @@ namespace TweetDck.Core.Notification.Screenshot{
             MoveToVisibleLocation();
             Activate();
             SendKeys.SendWait("%{PRTSC}");
-            
+            Reset();
+        }
+
+        public void Reset(){
             Location = ControlExtensions.InvisibleLocation;
             browser.LoadHtml("", "about:blank");
         }
