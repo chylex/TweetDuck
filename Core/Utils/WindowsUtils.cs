@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using System.Windows.Forms;
 
 namespace TweetDck.Core.Utils{
     static class WindowsUtils{
@@ -28,6 +29,15 @@ namespace TweetDck.Core.Utils{
             }
 
             return Process.Start(processInfo);
+        }
+
+        public static Timer CreateSingleTickTimer(int timeout){
+            Timer timer = new Timer{
+                Interval = timeout
+            };
+
+            timer.Tick += (sender, args) => timer.Stop();
+            return timer;
         }
     }
 }
