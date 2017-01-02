@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using TweetDck.Core.Controls;
+using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Notification.Screenshot{
     sealed class TweetScreenshotManager : IDisposable{
@@ -12,17 +13,14 @@ namespace TweetDck.Core.Notification.Screenshot{
         public TweetScreenshotManager(FormBrowser browser){
             this.browser = browser;
 
-            this.timeout = new Timer{
-                Interval = 10000
-            };
-
-            this.timeout.Tick += safetyTimer_Tick;
-
             this.screenshot = new FormNotificationScreenshotable(browser, NotificationFlags.DisableScripts | NotificationFlags.DisableContextMenu | NotificationFlags.TopMost){
                 CanMoveWindow = () => false
             };
 
             this.screenshot.PrepareNotificationForScreenshot(Callback);
+
+            this.timeout = WindowsUtils.CreateSingleTickTimer(10000);
+            this.timeout.Tick += (sender, args) => screenshot.Reset();
         }
 
         public void Trigger(string html, int width, int height){
@@ -57,11 +55,6 @@ namespace TweetDck.Core.Notification.Screenshot{
                 notification.Location = prevNotificationLocation.Value;
                 notification.FreezeTimer = prevFreezeTimer;
             }
-        }
-
-        private void safetyTimer_Tick(object sender, EventArgs e){
-            timeout.Stop();
-            screenshot.Reset();
         }
 
         public void Dispose(){
