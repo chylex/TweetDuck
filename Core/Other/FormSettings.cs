@@ -9,18 +9,22 @@ using TweetDck.Updates;
 
 namespace TweetDck.Core.Other{
     sealed partial class FormSettings : Form{
+        private readonly FormBrowser browser;
         private readonly Dictionary<Type, BaseTabSettings> tabs = new Dictionary<Type, BaseTabSettings>(4);
 
-        public FormSettings(FormBrowser browserForm, PluginManager plugins, UpdateHandler updates){
+        public FormSettings(FormBrowser browser, PluginManager plugins, UpdateHandler updates){
             InitializeComponent();
 
             Text = Program.BrandName+" Settings";
 
+            this.browser = browser;
+            this.browser.BrowserNotificationForm.PauseNotification();
+
             this.tabPanel.SetupTabPanel(100);
             this.tabPanel.AddButton("General", SelectTab<TabSettingsGeneral>);
-            this.tabPanel.AddButton("Notifications", () => SelectTab(() => new TabSettingsNotifications(browserForm.CreateNotificationForm(NotificationFlags.DisableContextMenu))));
+            this.tabPanel.AddButton("Notifications", () => SelectTab(() => new TabSettingsNotifications(browser.CreateNotificationForm(NotificationFlags.DisableContextMenu))));
             this.tabPanel.AddButton("Updates", () => SelectTab(() => new TabSettingsUpdates(updates)));
-            this.tabPanel.AddButton("Advanced", () => SelectTab(() => new TabSettingsAdvanced(browserForm.ReloadBrowser, plugins)));
+            this.tabPanel.AddButton("Advanced", () => SelectTab(() => new TabSettingsAdvanced(browser.ReloadBrowser, plugins)));
             this.tabPanel.SelectTab(tabPanel.Buttons.First());
         }
 
@@ -51,6 +55,8 @@ namespace TweetDck.Core.Other{
             foreach(BaseTabSettings control in tabs.Values){
                 control.Dispose();
             }
+
+            browser.BrowserNotificationForm.ResumeNotification();
         }
 
         private void btnClose_Click(object sender, EventArgs e){
