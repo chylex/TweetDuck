@@ -106,10 +106,6 @@ namespace TweetDck.Core{
             Close();
         }
 
-        public FormNotification CreateNotificationForm(NotificationFlags flags){
-            return new FormNotification(this, plugins, flags);
-        }
-
         // window setup
 
         private void SetupWindow(){
@@ -260,6 +256,10 @@ namespace TweetDck.Core{
         }
 
         // notification helpers
+
+        public FormNotification CreateNotificationForm(NotificationFlags flags){
+            return new FormNotification(this, plugins, flags);
+        }
 
         public void PauseNotification(){
             notification.PauseNotification();
