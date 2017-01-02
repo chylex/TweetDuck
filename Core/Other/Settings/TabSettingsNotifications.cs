@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
 using TweetDck.Core.Controls;
 using TweetDck.Core.Notification;
+using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Other.Settings{
     partial class TabSettingsNotifications : BaseTabSettings{
         private readonly FormNotification notification;
+        private readonly Point initCursorPosition;
 
         public TabSettingsNotifications(FormNotification notification){
             InitializeComponent();
@@ -24,7 +27,10 @@ namespace TweetDck.Core.Other.Settings{
                 this.InvokeSafe(() => this.notification.ShowNotificationForSettings(true));
             };
 
+            this.notification.Activated += notification_Activated;
             this.notification.Show(this);
+
+            initCursorPosition = Cursor.Position;
 
             switch(Config.NotificationPosition){
                 case TweetNotification.Position.TopLeft: radioLocTL.Checked = true; break;
@@ -69,6 +75,21 @@ namespace TweetDck.Core.Other.Settings{
             else{
                 notification.ShowNotificationForSettings(true);
             }
+        }
+
+        private void notification_Activated(object sender, EventArgs e){
+            if (Cursor.Position == initCursorPosition){
+                Timer delay = WindowsUtils.CreateSingleTickTimer(1);
+
+                delay.Tick += (sender2, args2) => { // here you can see a disgusting hack to force the freshly opened notification window out of focus
+                    NativeMethods.SimulateMouseClick(NativeMethods.MouseButton.Left); // because for some reason, the stupid thing keeps stealing it
+                    delay.Dispose(); // even after using ShowWithoutActivation, the CreateParams bullshit, and about a million different combinations
+                }; // of trying to force the original form back into focus in various events, so you will have to fucking deal with it, alright
+
+                delay.Start();
+            }
+
+            notification.Activated -= notification_Activated;
         }
 
         private void radioLoc_CheckedChanged(object sender, EventArgs e){
