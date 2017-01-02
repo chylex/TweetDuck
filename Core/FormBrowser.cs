@@ -147,6 +147,10 @@ namespace TweetDck.Core{
             if (e.Frame.IsMain && BrowserUtils.IsTweetDeckWebsite(e.Frame)){
                 ScriptLoader.ExecuteFile(e.Frame, "code.js");
 
+                #if DEBUG
+                ScriptLoader.ExecuteFile(e.Frame, "debug.js");
+                #endif
+
                 if (plugins.HasAnyPlugin(PluginEnvironment.Browser)){
                     ScriptLoader.ExecuteFile(e.Frame, PluginManager.PluginBrowserScriptFile);
                     ScriptLoader.ExecuteFile(e.Frame, PluginManager.PluginGlobalScriptFile);
