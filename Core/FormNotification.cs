@@ -77,6 +77,15 @@ namespace TweetDck.Core{
         public EventHandler Initialized;
         private bool isInitialized;
 
+        private int pauseCounter;
+        private bool pausedDuringNotification;
+
+        public bool IsPaused{
+            get{
+                return pauseCounter > 0;
+            }
+        }
+
         private static int BaseClientWidth{
             get{
                 int level = TweetNotification.FontSizeLevel;
@@ -127,6 +136,10 @@ namespace TweetDck.Core{
             if (flags.HasFlag(NotificationFlags.AutoHide)){
                 Program.UserConfig.MuteToggled += Config_MuteToggled;
                 Disposed += (sender, args) => Program.UserConfig.MuteToggled -= Config_MuteToggled;
+
+                if (Program.UserConfig.MuteNotifications){
+                    PauseNotification();
+                }
             }
 
             mouseHookDelegate = MouseHookProc;
@@ -186,10 +199,10 @@ namespace TweetDck.Core{
 
         private void Config_MuteToggled(object sender, EventArgs e){
             if (Program.UserConfig.MuteNotifications){
-                HideNotification(true);
+                PauseNotification();
             }
-            else if (tweetQueue.Count > 0){
-                LoadNextNotification();
+            else{
+                ResumeNotification();
             }
         }
 
@@ -236,7 +249,7 @@ namespace TweetDck.Core{
         // notification methods
 
         public void ShowNotification(TweetNotification notification){
-            if (Program.UserConfig.MuteNotifications){
+            if (IsPaused){
                 tweetQueue.Enqueue(notification);
             }
             else{
@@ -286,6 +299,29 @@ namespace TweetDck.Core{
             }
             else{
                 timerProgress.Stop();
+            }
+        }
+
+        public void PauseNotification(){
+            if (pauseCounter++ == 0){
+                pausedDuringNotification = IsNotificationVisible;
+
+                if (IsNotificationVisible){
+                    Location = ControlExtensions.InvisibleLocation;
+                    timerProgress.Stop();
+                    StopMouseHook();
+                }
+            }
+        }
+
+        public void ResumeNotification(){
+            if (pauseCounter > 0 && --pauseCounter == 0){
+                if (pausedDuringNotification){
+                    OnNotificationReady();
+                }
+                else if (tweetQueue.Count > 0){
+                    LoadNextNotification();
+                }
             }
         }
 
