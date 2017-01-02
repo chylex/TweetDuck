@@ -36,25 +36,9 @@ namespace TweetDck.Core.Notification.Screenshot{
 
             timeout.Stop();
 
-            FormNotification notification = browser.BrowserNotificationForm;
-
-            Point? prevNotificationLocation = null;
-            bool prevFreezeTimer = false;
-
-            if (notification.IsNotificationVisible){
-                prevNotificationLocation = notification.Location;
-                prevFreezeTimer = notification.FreezeTimer;
-
-                notification.Location = ControlExtensions.InvisibleLocation;
-                notification.FreezeTimer = true;
-            }
-
+            browser.PauseNotification();
             screenshot.TakeScreenshotAndHide();
-
-            if (prevNotificationLocation.HasValue){
-                notification.Location = prevNotificationLocation.Value;
-                notification.FreezeTimer = prevFreezeTimer;
-            }
+            browser.ResumeNotification();
         }
 
         public void Dispose(){

@@ -28,12 +28,6 @@ namespace TweetDck.Core{
 
         public string UpdateInstallerPath { get; private set; }
 
-        public FormNotification BrowserNotificationForm{
-            get{
-                return notification;
-            }
-        }
-
         private readonly ChromiumWebBrowser browser;
         private readonly PluginManager plugins;
         private readonly UpdateHandler updates;
@@ -263,6 +257,16 @@ namespace TweetDck.Core{
             }
 
             base.WndProc(ref m);
+        }
+
+        // notification helpers
+
+        public void PauseNotification(){
+            notification.PauseNotification();
+        }
+
+        public void ResumeNotification(){
+            notification.ResumeNotification();
         }
 
         // callback handlers

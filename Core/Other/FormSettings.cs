@@ -18,7 +18,7 @@ namespace TweetDck.Core.Other{
             Text = Program.BrandName+" Settings";
 
             this.browser = browser;
-            this.browser.BrowserNotificationForm.PauseNotification();
+            this.browser.PauseNotification();
 
             this.tabPanel.SetupTabPanel(100);
             this.tabPanel.AddButton("General", SelectTab<TabSettingsGeneral>);
@@ -56,7 +56,7 @@ namespace TweetDck.Core.Other{
                 control.Dispose();
             }
 
-            browser.BrowserNotificationForm.ResumeNotification();
+            browser.ResumeNotification();
         }
 
         private void btnClose_Click(object sender, EventArgs e){
