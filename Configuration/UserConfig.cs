@@ -12,7 +12,7 @@ using TweetDck.Plugins;
 namespace TweetDck.Configuration{
     [Serializable]
     sealed class UserConfig{
-        private static readonly IFormatter Formatter = new BinaryFormatter();
+        private static readonly IFormatter Formatter = new BinaryFormatter{ Binder = new CustomBinder() };
 
         private const int CurrentFileVersion = 5;
 
@@ -22,7 +22,6 @@ namespace TweetDck.Configuration{
         public bool DisplayNotificationTimer { get; set; }
         public bool NotificationTimerCountDown { get; set; }
 
-        public TweetNotification.Duration NotificationDuration { get; set; }
         public TweetNotification.Position NotificationPosition { get; set; }
         public Point CustomNotificationPosition { get; set; }
         public int NotificationEdgeDistance { get; set; }
@@ -113,7 +112,6 @@ namespace TweetDck.Configuration{
 
             BrowserWindow = new WindowState();
             DisplayNotificationTimer = true;
-            NotificationDuration = TweetNotification.Duration.Medium;
             NotificationPosition = TweetNotification.Position.TopRight;
             CustomNotificationPosition = ControlExtensions.InvisibleLocation;
             NotificationEdgeDistance = 8;
@@ -154,14 +152,7 @@ namespace TweetDck.Configuration{
 
             if (fileVersion == 3){
                 EnableTrayHighlight = true;
-
-                switch(NotificationDuration){
-                    case TweetNotification.Duration.Short: NotificationDurationValue = 15; break;
-                    case TweetNotification.Duration.Medium: NotificationDurationValue = 25; break;
-                    case TweetNotification.Duration.Long: NotificationDurationValue = 35; break;
-                    case TweetNotification.Duration.VeryLong: NotificationDurationValue = 45; break;
-                }
-
+                NotificationDurationValue = 25;
                 ++fileVersion;
             }
 
@@ -240,6 +231,16 @@ namespace TweetDck.Configuration{
 
         public static string GetBackupFile(string file){
             return file+".bak";
+        }
+
+        private sealed class CustomBinder : SerializationBinder{
+            public override Type BindToType(string assemblyName, string typeName){
+                if (typeName == "TweetDck.Core.Handling.TweetNotification+Position"){
+                    return typeof(TweetNotification.Position);
+                }
+
+                return null;
+            }
         }
     }
 }

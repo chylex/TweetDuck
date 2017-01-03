@@ -59,10 +59,6 @@ namespace TweetDck.Core.Notification{
             TopLeft, TopRight, BottomLeft, BottomRight, Custom
         }
 
-        public enum Duration{
-            Short, Medium, Long, VeryLong
-        }
-
         public string Url{
             get{
                 return url;
