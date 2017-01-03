@@ -29,6 +29,16 @@ namespace TweetDck.Core{
             }
         }
 
+        public new Point Location{
+            get{
+                return base.Location;
+            }
+
+            set{
+                Visible = (base.Location = value) != ControlExtensions.InvisibleLocation;
+            }
+        }
+
         private readonly Control owner;
         private readonly PluginManager plugins;
         protected readonly NotificationFlags flags;
