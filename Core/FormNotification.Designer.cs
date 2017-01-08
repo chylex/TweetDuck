@@ -30,6 +30,7 @@ namespace TweetDck.Core {
             this.timerProgress = new System.Windows.Forms.Timer(this.components);
             this.progressBarTimer = new TweetDck.Core.Controls.FlatProgressBar();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.timerDisplayDelay = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // panelBrowser
@@ -61,6 +62,11 @@ namespace TweetDck.Core {
             this.progressBarTimer.Size = new System.Drawing.Size(284, 4);
             this.progressBarTimer.TabIndex = 1;
             // 
+            // timerDisplayDelay
+            // 
+            this.timerDisplayDelay.Interval = 17;
+            this.timerDisplayDelay.Tick += new System.EventHandler(this.timerDisplayDelay_Tick);
+            // 
             // FormNotification
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -88,5 +94,6 @@ namespace TweetDck.Core {
         private Controls.FlatProgressBar progressBarTimer;
         private System.Windows.Forms.Timer timerProgress;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.Timer timerDisplayDelay;
     }
 }

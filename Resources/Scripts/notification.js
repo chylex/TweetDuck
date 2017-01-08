@@ -146,9 +146,4 @@
   document.body.addEventListener("mouseleave", function(){
     document.body.classList.remove("td-hover");
   });
-  
-  //
-  // Block: Page fully loaded.
-  //
-  $TD.onNotificationReady();
 })($TD);

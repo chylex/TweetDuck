@@ -128,6 +128,7 @@ namespace TweetDck.Core{
             #endif
 
             browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
+            browser.LoadingStateChanged += Browser_LoadingStateChanged;
             browser.FrameLoadEnd += Browser_FrameLoadEnd;
 
             if (!flags.HasFlag(NotificationFlags.DisableScripts)){
@@ -193,6 +194,11 @@ namespace TweetDck.Core{
 
         // event handlers
 
+        private void timerDisplayDelay_Tick(object sender, EventArgs e){
+            OnNotificationReady();
+            timerDisplayDelay.Stop();
+        }
+
         private void timerHideProgress_Tick(object sender, EventArgs e){
             if (Bounds.Contains(Cursor.Position) || FreezeTimer || ContextMenuOpen)return;
 
@@ -218,6 +224,15 @@ namespace TweetDck.Core{
         private void Browser_IsBrowserInitializedChanged(object sender, IsBrowserInitializedChangedEventArgs e){
             if (e.IsBrowserInitialized && Initialized != null){
                 Initialized(this, new EventArgs());
+            }
+        }
+
+        private void Browser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e){
+            if (!e.IsLoading && browser.Address != "about:blank"){
+                this.InvokeSafe(() => {
+                    Visible = true; // ensures repaint before moving the window to a visible location
+                    timerDisplayDelay.Start();
+                });
             }
         }
 

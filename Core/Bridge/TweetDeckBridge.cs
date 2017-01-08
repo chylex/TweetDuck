@@ -117,10 +117,6 @@ namespace TweetDck.Core.Bridge{
             });
         }
 
-        public void OnNotificationReady(){
-                notification.InvokeSafe(notification.OnNotificationReady);
-        }
-
         public void DisplayTooltip(string text, bool showInNotification){
             if (showInNotification){
                 notification.InvokeSafe(() => notification.DisplayTooltip(text));
