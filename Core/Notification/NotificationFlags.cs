@@ -7,6 +7,7 @@ namespace TweetDck.Core.Notification{
         AutoHide = 1,
         DisableScripts = 2,
         DisableContextMenu = 4,
-        TopMost = 8
+        TopMost = 8,
+        ManualDisplay = 16
     }
 }

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Drawing;
 using System.Windows.Forms;
-using TweetDck.Core.Controls;
 using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Notification.Screenshot{
@@ -13,11 +11,9 @@ namespace TweetDck.Core.Notification.Screenshot{
         public TweetScreenshotManager(FormBrowser browser){
             this.browser = browser;
 
-            this.screenshot = new FormNotificationScreenshotable(browser, NotificationFlags.DisableScripts | NotificationFlags.DisableContextMenu | NotificationFlags.TopMost){
+            this.screenshot = new FormNotificationScreenshotable(Callback, browser, NotificationFlags.DisableScripts | NotificationFlags.DisableContextMenu | NotificationFlags.TopMost | NotificationFlags.ManualDisplay){
                 CanMoveWindow = () => false
             };
-
-            this.screenshot.PrepareNotificationForScreenshot(Callback);
 
             this.timeout = WindowsUtils.CreateSingleTickTimer(10000);
             this.timeout.Tick += (sender, args) => screenshot.Reset();

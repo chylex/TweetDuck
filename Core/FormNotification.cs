@@ -228,7 +228,7 @@ namespace TweetDck.Core{
         }
 
         private void Browser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e){
-            if (!e.IsLoading && browser.Address != "about:blank"){
+            if (!e.IsLoading && browser.Address != "about:blank" && !flags.HasFlag(NotificationFlags.ManualDisplay)){
                 this.InvokeSafe(() => {
                     Visible = true; // ensures repaint before moving the window to a visible location
                     timerDisplayDelay.Start();
@@ -297,12 +297,6 @@ namespace TweetDck.Core{
             totalTime = 0;
 
             StopMouseHook();
-        }
-
-        public void OnNotificationReady(){
-            UpdateTitle();
-            PrepareAndDisplayWindow();
-            timerProgress.Start();
         }
 
         public void FinishCurrentTweet(){
@@ -426,6 +420,12 @@ namespace TweetDck.Core{
 
         protected void UpdateTitle(){
             Text = tweetQueue.Count > 0 ? Program.BrandName+" ("+tweetQueue.Count+" more left)" : Program.BrandName;
+        }
+
+        protected void OnNotificationReady(){
+            UpdateTitle();
+            PrepareAndDisplayWindow();
+            timerProgress.Start();
         }
 
         public void DisplayTooltip(string text){
