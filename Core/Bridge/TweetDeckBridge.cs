@@ -166,6 +166,10 @@ namespace TweetDck.Core.Bridge{
             form.InvokeSafe(() => form.OnTweetScreenshotReady(html, width, height));
         }
 
+        public void FixClipboard(){
+            form.InvokeSafe(WindowsUtils.ClipboardStripHtmlStyles);
+        }
+
         public void OpenBrowser(string url){
             BrowserUtils.OpenExternalBrowser(url);
         }

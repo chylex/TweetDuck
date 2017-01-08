@@ -525,6 +525,13 @@
   })();
   
   //
+  // Block: Work around clipboard HTML formatting.
+  //
+  $(document).on("copy", function(e){
+    window.setTimeout($TD.fixClipboard, 0);
+  });
+  
+  //
   // Block: Inject custom CSS and layout into the page.
   //
   (function(){
