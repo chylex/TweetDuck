@@ -14,7 +14,7 @@ namespace TweetDck.Configuration{
     sealed class UserConfig{
         private static readonly IFormatter Formatter = new BinaryFormatter{ Binder = new CustomBinder() };
 
-        private const int CurrentFileVersion = 5;
+        private const int CurrentFileVersion = 6;
 
         // START OF CONFIGURATION
 
@@ -30,6 +30,7 @@ namespace TweetDck.Configuration{
 
         public bool EnableSpellCheck { get; set; }
         public bool ExpandLinksOnHover { get; set; }
+        public bool ShowScreenshotBorder { get; set; }
         public bool EnableTrayHighlight { get; set; }
 
         public bool EnableUpdateCheck { get; set; }
@@ -117,6 +118,7 @@ namespace TweetDck.Configuration{
             NotificationDurationValue = 25;
             EnableUpdateCheck = true;
             ExpandLinksOnHover = true;
+            ShowScreenshotBorder = true;
             EnableTrayHighlight = true;
             Plugins = new PluginConfig();
             PluginsWindow = new WindowState();
@@ -158,6 +160,11 @@ namespace TweetDck.Configuration{
             if (fileVersion == 4){
                 Plugins.DisableOfficialFromConfig("clear-columns");
                 Plugins.DisableOfficialFromConfig("reply-account");
+                ++fileVersion;
+            }
+
+            if (fileVersion == 5){
+                ShowScreenshotBorder = true;
                 ++fileVersion;
             }
 

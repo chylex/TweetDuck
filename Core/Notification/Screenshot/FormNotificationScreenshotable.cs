@@ -23,6 +23,8 @@ namespace TweetDck.Core.Notification.Screenshot{
             browser.LoadHtml(tweet.GenerateHtml(enableCustomCSS: false), "http://tweetdeck.twitter.com/?"+DateTime.Now.Ticks);
             
             Location = ControlExtensions.InvisibleLocation;
+            FormBorderStyle = Program.UserConfig.ShowScreenshotBorder ? FormBorderStyle.FixedToolWindow : FormBorderStyle.None;
+
             SetNotificationSize(width, height, false);
         }
 

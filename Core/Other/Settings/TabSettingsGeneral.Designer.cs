@@ -29,6 +29,7 @@
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.checkTrayHighlight = new System.Windows.Forms.CheckBox();
             this.checkSpellCheck = new System.Windows.Forms.CheckBox();
+            this.checkScreenshotBorder = new System.Windows.Forms.CheckBox();
             this.groupTray = new System.Windows.Forms.GroupBox();
             this.labelTrayIcon = new System.Windows.Forms.Label();
             this.groupInterface = new System.Windows.Forms.GroupBox();
@@ -87,12 +88,24 @@
             this.checkSpellCheck.UseVisualStyleBackColor = true;
             this.checkSpellCheck.CheckedChanged += new System.EventHandler(this.checkSpellCheck_CheckedChanged);
             // 
+            // checkScreenshotBorder
+            // 
+            this.checkScreenshotBorder.AutoSize = true;
+            this.checkScreenshotBorder.Location = new System.Drawing.Point(9, 67);
+            this.checkScreenshotBorder.Name = "checkScreenshotBorder";
+            this.checkScreenshotBorder.Size = new System.Drawing.Size(169, 17);
+            this.checkScreenshotBorder.TabIndex = 16;
+            this.checkScreenshotBorder.Text = "Include Border In Screenshots";
+            this.toolTip.SetToolTip(this.checkScreenshotBorder, "Shows the window border in tweet screenshots.");
+            this.checkScreenshotBorder.UseVisualStyleBackColor = true;
+            this.checkScreenshotBorder.CheckedChanged += new System.EventHandler(this.checkScreenshotBorder_CheckedChanged);
+            // 
             // groupTray
             // 
             this.groupTray.Controls.Add(this.checkTrayHighlight);
             this.groupTray.Controls.Add(this.labelTrayIcon);
             this.groupTray.Controls.Add(this.comboBoxTrayType);
-            this.groupTray.Location = new System.Drawing.Point(9, 86);
+            this.groupTray.Location = new System.Drawing.Point(9, 109);
             this.groupTray.Name = "groupTray";
             this.groupTray.Size = new System.Drawing.Size(183, 93);
             this.groupTray.TabIndex = 15;
@@ -111,11 +124,12 @@
             // 
             // groupInterface
             // 
+            this.groupInterface.Controls.Add(this.checkScreenshotBorder);
             this.groupInterface.Controls.Add(this.checkSpellCheck);
             this.groupInterface.Controls.Add(this.checkExpandLinks);
             this.groupInterface.Location = new System.Drawing.Point(9, 9);
             this.groupInterface.Name = "groupInterface";
-            this.groupInterface.Size = new System.Drawing.Size(183, 71);
+            this.groupInterface.Size = new System.Drawing.Size(183, 90);
             this.groupInterface.TabIndex = 16;
             this.groupInterface.TabStop = false;
             this.groupInterface.Text = "User Interface";
@@ -146,5 +160,6 @@
         private System.Windows.Forms.Label labelTrayIcon;
         private System.Windows.Forms.CheckBox checkTrayHighlight;
         private System.Windows.Forms.CheckBox checkSpellCheck;
+        private System.Windows.Forms.CheckBox checkScreenshotBorder;
     }
 }
