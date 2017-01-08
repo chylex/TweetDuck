@@ -44,13 +44,12 @@
             this.trackBarDuration = new System.Windows.Forms.TrackBar();
             this.groupUserInterface = new System.Windows.Forms.GroupBox();
             this.checkTimerCountDown = new System.Windows.Forms.CheckBox();
-            this.checkLegacyLoad = new System.Windows.Forms.CheckBox();
             this.checkNotificationTimer = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.groupCustomSound = new System.Windows.Forms.GroupBox();
-            this.tbCustomSound = new System.Windows.Forms.TextBox();
-            this.btnBrowseSound = new System.Windows.Forms.Button();
             this.btnResetSound = new System.Windows.Forms.Button();
+            this.btnBrowseSound = new System.Windows.Forms.Button();
+            this.tbCustomSound = new System.Windows.Forms.TextBox();
             this.groupNotificationLocation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).BeginInit();
             this.groupNotificationDuration.SuspendLayout();
@@ -204,7 +203,7 @@
             this.groupNotificationDuration.Controls.Add(this.tableLayoutDurationButtons);
             this.groupNotificationDuration.Controls.Add(this.labelDurationValue);
             this.groupNotificationDuration.Controls.Add(this.trackBarDuration);
-            this.groupNotificationDuration.Location = new System.Drawing.Point(9, 106);
+            this.groupNotificationDuration.Location = new System.Drawing.Point(9, 83);
             this.groupNotificationDuration.Name = "groupNotificationDuration";
             this.groupNotificationDuration.Size = new System.Drawing.Size(183, 89);
             this.groupNotificationDuration.TabIndex = 9;
@@ -307,11 +306,10 @@
             // groupUserInterface
             // 
             this.groupUserInterface.Controls.Add(this.checkTimerCountDown);
-            this.groupUserInterface.Controls.Add(this.checkLegacyLoad);
             this.groupUserInterface.Controls.Add(this.checkNotificationTimer);
             this.groupUserInterface.Location = new System.Drawing.Point(9, 9);
             this.groupUserInterface.Name = "groupUserInterface";
-            this.groupUserInterface.Size = new System.Drawing.Size(183, 91);
+            this.groupUserInterface.Size = new System.Drawing.Size(183, 68);
             this.groupUserInterface.TabIndex = 10;
             this.groupUserInterface.TabStop = false;
             this.groupUserInterface.Text = "General";
@@ -327,19 +325,6 @@
             this.toolTip.SetToolTip(this.checkTimerCountDown, "The notification timer counts down instead of up.");
             this.checkTimerCountDown.UseVisualStyleBackColor = true;
             this.checkTimerCountDown.CheckedChanged += new System.EventHandler(this.checkTimerCountDown_CheckedChanged);
-            // 
-            // checkLegacyLoad
-            // 
-            this.checkLegacyLoad.AutoSize = true;
-            this.checkLegacyLoad.Location = new System.Drawing.Point(6, 67);
-            this.checkLegacyLoad.Name = "checkLegacyLoad";
-            this.checkLegacyLoad.Size = new System.Drawing.Size(139, 17);
-            this.checkLegacyLoad.TabIndex = 5;
-            this.checkLegacyLoad.Text = "Legacy Loading System";
-            this.toolTip.SetToolTip(this.checkLegacyLoad, "Try enabling if notifications do not display.\r\nMight cause delays and visual arti" +
-        "facts.");
-            this.checkLegacyLoad.UseVisualStyleBackColor = true;
-            this.checkLegacyLoad.CheckedChanged += new System.EventHandler(this.checkLegacyLoad_CheckedChanged);
             // 
             // checkNotificationTimer
             // 
@@ -359,19 +344,24 @@
             this.groupCustomSound.Controls.Add(this.btnResetSound);
             this.groupCustomSound.Controls.Add(this.btnBrowseSound);
             this.groupCustomSound.Controls.Add(this.tbCustomSound);
-            this.groupCustomSound.Location = new System.Drawing.Point(9, 201);
+            this.groupCustomSound.Location = new System.Drawing.Point(9, 178);
             this.groupCustomSound.Name = "groupCustomSound";
             this.groupCustomSound.Size = new System.Drawing.Size(183, 72);
             this.groupCustomSound.TabIndex = 11;
             this.groupCustomSound.TabStop = false;
             this.groupCustomSound.Text = "Custom Sound";
             // 
-            // tbCustomSound
+            // btnResetSound
             // 
-            this.tbCustomSound.Location = new System.Drawing.Point(6, 19);
-            this.tbCustomSound.Name = "tbCustomSound";
-            this.tbCustomSound.Size = new System.Drawing.Size(170, 20);
-            this.tbCustomSound.TabIndex = 0;
+            this.btnResetSound.AutoSize = true;
+            this.btnResetSound.Location = new System.Drawing.Point(126, 43);
+            this.btnResetSound.Name = "btnResetSound";
+            this.btnResetSound.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.btnResetSound.Size = new System.Drawing.Size(51, 23);
+            this.btnResetSound.TabIndex = 2;
+            this.btnResetSound.Text = "Reset";
+            this.btnResetSound.UseVisualStyleBackColor = true;
+            this.btnResetSound.Click += new System.EventHandler(this.btnResetSound_Click);
             // 
             // btnBrowseSound
             // 
@@ -385,17 +375,12 @@
             this.btnBrowseSound.UseVisualStyleBackColor = true;
             this.btnBrowseSound.Click += new System.EventHandler(this.btnBrowseSound_Click);
             // 
-            // btnResetSound
+            // tbCustomSound
             // 
-            this.btnResetSound.AutoSize = true;
-            this.btnResetSound.Location = new System.Drawing.Point(126, 43);
-            this.btnResetSound.Name = "btnResetSound";
-            this.btnResetSound.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.btnResetSound.Size = new System.Drawing.Size(51, 23);
-            this.btnResetSound.TabIndex = 2;
-            this.btnResetSound.Text = "Reset";
-            this.btnResetSound.UseVisualStyleBackColor = true;
-            this.btnResetSound.Click += new System.EventHandler(this.btnResetSound_Click);
+            this.tbCustomSound.Location = new System.Drawing.Point(6, 19);
+            this.tbCustomSound.Name = "tbCustomSound";
+            this.tbCustomSound.Size = new System.Drawing.Size(170, 20);
+            this.tbCustomSound.TabIndex = 0;
             // 
             // TabSettingsNotifications
             // 
@@ -440,7 +425,6 @@
         private System.Windows.Forms.CheckBox checkNotificationTimer;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Label labelEdgeDistanceValue;
-        private System.Windows.Forms.CheckBox checkLegacyLoad;
         private System.Windows.Forms.CheckBox checkTimerCountDown;
         private System.Windows.Forms.Label labelDurationValue;
         private System.Windows.Forms.TrackBar trackBarDuration;

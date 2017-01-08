@@ -85,7 +85,6 @@ namespace TweetDck.Core{
         public string CurrentQuotedTweetUrl { get; set; }
 
         public EventHandler Initialized;
-        private bool isInitialized;
 
         private int pauseCounter;
         private bool pausedDuringNotification;
@@ -223,16 +222,7 @@ namespace TweetDck.Core{
         }
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
-            if (!e.Frame.IsMain)return;
-
-            if (!isInitialized && !Program.UserConfig.NotificationLegacyLoad){
-                isInitialized = true;
-
-                if (Initialized != null){
-                    Initialized(this, new EventArgs());
-                }
-            }
-            else if (notificationJS != null && browser.Address != "about:blank" && !flags.HasFlag(NotificationFlags.DisableScripts)){
+            if (e.Frame.IsMain && notificationJS != null && browser.Address != "about:blank" && !flags.HasFlag(NotificationFlags.DisableScripts)){
                 ScriptLoader.ExecuteScript(e.Frame, notificationJS, NotificationScriptIdentifier);
 
                 if (plugins != null && plugins.HasAnyPlugin(PluginEnvironment.Notification)){
@@ -282,7 +272,7 @@ namespace TweetDck.Core{
         }
 
         public void HideNotification(bool loadBlank){
-            if (loadBlank || Program.UserConfig.NotificationLegacyLoad){
+            if (loadBlank){
                 browser.LoadHtml("", "about:blank");
             }
 
@@ -350,10 +340,6 @@ namespace TweetDck.Core{
             string bodyClasses = browser.Bounds.Contains(PointToClient(Cursor.Position)) ? "td-hover" : string.Empty;
 
             browser.LoadHtml(tweet.GenerateHtml(bodyClasses), "http://tweetdeck.twitter.com/?"+DateTime.Now.Ticks);
-
-            if (Program.UserConfig.NotificationLegacyLoad){
-                OnNotificationReady();
-            }
         }
 
         private void PrepareAndDisplayWindow(){

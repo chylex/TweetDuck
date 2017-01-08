@@ -118,9 +118,7 @@ namespace TweetDck.Core.Bridge{
         }
 
         public void OnNotificationReady(){
-            if (!Program.UserConfig.NotificationLegacyLoad){
                 notification.InvokeSafe(notification.OnNotificationReady);
-            }
         }
 
         public void DisplayTooltip(string text, bool showInNotification){

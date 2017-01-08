@@ -27,7 +27,6 @@ namespace TweetDck.Configuration{
         public int NotificationEdgeDistance { get; set; }
         public int NotificationDisplay { get; set; }
         public int NotificationDurationValue { get; set; }
-        public bool NotificationLegacyLoad { get; set; }
 
         public bool EnableSpellCheck { get; set; }
         public bool ExpandLinksOnHover { get; set; }
