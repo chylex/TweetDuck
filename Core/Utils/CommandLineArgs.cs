@@ -105,7 +105,7 @@ namespace TweetDck.Core.Utils{
                 build.Append(kvp.Key).Append(" \"").Append(kvp.Value).Append("\" ");
             }
 
-            return build.Remove(build.Length-1, 1).ToString();
+            return build.Length == 0 ? string.Empty : build.Remove(build.Length-1, 1).ToString();
         }
     }
 }
