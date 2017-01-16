@@ -1,16 +1,14 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Resources;
-using TweetDck;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TweetDeck client for Windows")]
-[assembly: AssemblyDescription("TweetDeck client for Windows")]
+[assembly: AssemblyTitle("UnitTests")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct(Program.BrandName)]
+[assembly: AssemblyProduct("UnitTests")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -21,7 +19,7 @@ using TweetDck;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("7f09373d-8beb-416f-a48d-45d8aaeb8caf")]
+[assembly: Guid("99036b78-aad6-4a76-8bf3-40c77eca2464")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -33,11 +31,5 @@ using TweetDck;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion(Program.VersionFull)]
-[assembly: AssemblyFileVersion(Program.VersionFull)]
-
-[assembly: NeutralResourcesLanguageAttribute("en")]
-
-#if DEBUG
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("UnitTests")]
-#endif
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
