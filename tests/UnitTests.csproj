@@ -47,6 +47,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Core\Utils\TestBrowserUtils.cs" />
+    <Compile Include="Core\Utils\TestCommandLineArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
