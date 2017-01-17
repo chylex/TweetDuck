@@ -1,5 +1,4 @@
 ﻿using CefSharp;
-using System.Windows.Forms;
 using TweetDck.Core.Bridge;
 using TweetDck.Core.Controls;
 using TweetDck.Core.Utils;
@@ -23,7 +22,7 @@ namespace TweetDck.Core.Handling{
         private string lastHighlightedTweet;
         private string lastHighlightedQuotedTweet;
 
-        public ContextMenuBrowser(FormBrowser form){
+        public ContextMenuBrowser(FormBrowser form) : base(form){
             this.form = form;
         }
 
@@ -114,7 +113,7 @@ namespace TweetDck.Core.Handling{
                     return true;
 
                 case MenuCopyTweetUrl:
-                    Clipboard.SetText(lastHighlightedTweet, TextDataFormat.UnicodeText);
+                    SetClipboardText(lastHighlightedTweet);
                     return true;
 
                 case MenuScreenshotTweet:
@@ -126,7 +125,7 @@ namespace TweetDck.Core.Handling{
                     return true;
 
                 case MenuCopyQuotedTweetUrl:
-                    Clipboard.SetText(lastHighlightedQuotedTweet, TextDataFormat.UnicodeText);
+                    SetClipboardText(lastHighlightedQuotedTweet);
                     return true;
             }
 

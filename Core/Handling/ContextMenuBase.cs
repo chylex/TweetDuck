@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 using TweetDck.Core.Bridge;
+using TweetDck.Core.Controls;
 using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Handling{
@@ -20,6 +21,12 @@ namespace TweetDck.Core.Handling{
             model.AddItem((CefMenuCommand)MenuOpenDevTools, "Open dev tools");
         }
         #endif
+
+        private readonly Form form;
+
+        protected ContextMenuBase(Form form){
+            this.form = form;
+        }
 
         public virtual void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model){
             if (parameters.TypeFlags.HasFlag(ContextMenuType.Link) && !parameters.UnfilteredLinkUrl.EndsWith("tweetdeck.twitter.com/#", StringComparison.Ordinal)){
@@ -43,7 +50,7 @@ namespace TweetDck.Core.Handling{
                     break;
 
                 case MenuCopyLinkUrl:
-                    Clipboard.SetText(string.IsNullOrEmpty(TweetDeckBridge.LastRightClickedLink) ? parameters.UnfilteredLinkUrl : TweetDeckBridge.LastRightClickedLink, TextDataFormat.UnicodeText);
+                    SetClipboardText(string.IsNullOrEmpty(TweetDeckBridge.LastRightClickedLink) ? parameters.UnfilteredLinkUrl : TweetDeckBridge.LastRightClickedLink);
                     break;
 
                 case MenuOpenImage:
@@ -74,7 +81,7 @@ namespace TweetDck.Core.Handling{
                     break;
 
                 case MenuCopyImageUrl:
-                    Clipboard.SetText(parameters.SourceUrl, TextDataFormat.UnicodeText);
+                    SetClipboardText(parameters.SourceUrl);
                     break;
 
                 #if DEBUG
@@ -91,6 +98,10 @@ namespace TweetDck.Core.Handling{
 
         public virtual bool RunContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model, IRunContextMenuCallback callback){
             return false;
+        }
+
+        protected void SetClipboardText(string text){
+            form.InvokeSafe(() => WindowsUtils.SetClipboard(text, TextDataFormat.UnicodeText));
         }
 
         protected static void RemoveSeparatorIfLast(IMenuModel model){

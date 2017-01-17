@@ -1,6 +1,6 @@
-﻿using System.Windows.Forms;
-using CefSharp;
+﻿using CefSharp;
 using TweetDck.Core.Controls;
+using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Handling{
     class ContextMenuNotification : ContextMenuBase{
@@ -12,7 +12,7 @@ namespace TweetDck.Core.Handling{
         private readonly FormNotification form;
         private readonly bool enableCustomMenu;
 
-        public ContextMenuNotification(FormNotification form, bool enableCustomMenu){
+        public ContextMenuNotification(FormNotification form, bool enableCustomMenu) : base(form){
             this.form = form;
             this.enableCustomMenu = enableCustomMenu;
         }
@@ -62,11 +62,11 @@ namespace TweetDck.Core.Handling{
                     return true;
 
                 case MenuCopyTweetUrl:
-                    Clipboard.SetText(form.CurrentUrl, TextDataFormat.UnicodeText);
+                    SetClipboardText(form.CurrentUrl);
                     return true;
 
                 case MenuCopyQuotedTweetUrl:
-                    Clipboard.SetText(form.CurrentQuotedTweetUrl, TextDataFormat.UnicodeText);
+                    SetClipboardText(form.CurrentQuotedTweetUrl);
                     return true;
             }
 

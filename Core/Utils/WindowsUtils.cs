@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -55,7 +56,19 @@ namespace TweetDck.Core.Utils{
             int removed = original.Length-updated.Length;
             updated = RegexOffsetClipboardHtml.Replace(updated, match => (int.Parse(match.Value)-removed).ToString().PadLeft(match.Value.Length, '0'));
 
-            Clipboard.SetText(updated, TextDataFormat.Html);
+            SetClipboard(updated, TextDataFormat.Html);
+        }
+
+        public static void SetClipboard(string text, TextDataFormat format){
+            if (string.IsNullOrEmpty(text)){
+                return;
+            }
+
+            try{
+                Clipboard.SetText(text, format);
+            }catch(ExternalException e){
+                Program.Reporter.HandleException("Clipboard Error", Program.BrandName+" could not access the clipboard as it is currently used by another process.", true, e);
+            }
         }
     }
 }
