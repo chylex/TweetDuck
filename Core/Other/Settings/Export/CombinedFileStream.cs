@@ -121,8 +121,11 @@ namespace TweetDck.Core.Other.Settings.Export{
 
             public void WriteToFile(string path, bool createDirectory){
                 if (createDirectory){
-                    // ReSharper disable once AssignNullToNotNullAttribute
-                    Directory.CreateDirectory(Path.GetDirectoryName(path));
+                    string dir = Path.GetDirectoryName(path);
+
+                    if (!string.IsNullOrEmpty(dir)){
+                        Directory.CreateDirectory(dir);
+                    }
                 }
 
                 File.WriteAllBytes(path, contents);
