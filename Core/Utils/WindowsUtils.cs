@@ -50,13 +50,18 @@ namespace TweetDck.Core.Utils{
                 return;
             }
 
-            string original = Clipboard.GetText(TextDataFormat.Html);
-            string updated = RegexStripHtmlStyles.Replace(original, string.Empty);
+            string originalText = Clipboard.GetText(TextDataFormat.UnicodeText);
+            string originalHtml = Clipboard.GetText(TextDataFormat.Html);
 
-            int removed = original.Length-updated.Length;
-            updated = RegexOffsetClipboardHtml.Replace(updated, match => (int.Parse(match.Value)-removed).ToString().PadLeft(match.Value.Length, '0'));
+            string updatedHtml = RegexStripHtmlStyles.Replace(originalHtml, string.Empty);
 
-            SetClipboard(updated, TextDataFormat.Html);
+            int removed = originalHtml.Length-updatedHtml.Length;
+            updatedHtml = RegexOffsetClipboardHtml.Replace(updatedHtml, match => (int.Parse(match.Value)-removed).ToString().PadLeft(match.Value.Length, '0'));
+
+            DataObject obj = new DataObject();
+            obj.SetText(originalText, TextDataFormat.UnicodeText);
+            obj.SetText(updatedHtml, TextDataFormat.Html);
+            SetClipboardData(obj);
         }
 
         public static void SetClipboard(string text, TextDataFormat format){
@@ -64,8 +69,14 @@ namespace TweetDck.Core.Utils{
                 return;
             }
 
+            DataObject obj = new DataObject();
+            obj.SetText(text, format);
+            SetClipboardData(obj);
+        }
+
+        private static void SetClipboardData(DataObject obj){
             try{
-                Clipboard.SetText(text, format);
+                Clipboard.SetDataObject(obj);
             }catch(ExternalException e){
                 Program.Reporter.HandleException("Clipboard Error", Program.BrandName+" could not access the clipboard as it is currently used by another process.", true, e);
             }
