@@ -47,6 +47,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Core\Settings\TestCombinedFileStream.cs" />
     <Compile Include="Core\Utils\TestBrowserUtils.cs" />
     <Compile Include="Core\Utils\TestCommandLineArgs.cs" />
     <Compile Include="Core\Utils\TestCommandLineArgsParser.cs" />
