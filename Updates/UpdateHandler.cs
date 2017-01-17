@@ -82,7 +82,7 @@ namespace TweetDck.Updates{
 
             public bool IsSystemSupported{
                 get{
-                    return Environment.OSVersion.Version >= new Version("6.1"); // 6.1 NT version = Windows 7
+                    return true; // Environment.OSVersion.Version >= new Version("6.1"); // 6.1 NT version = Windows 7
                 }
             }
 
