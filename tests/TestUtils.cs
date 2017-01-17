@@ -19,6 +19,11 @@ namespace UnitTests{
             File.WriteAllLines(file, lines, Encoding.UTF8);
         }
 
+        public static FileStream WriteFile(string file){
+            DeleteFileOnExit(file);
+            return new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None);
+        }
+
         public static string ReadText(string file){
             try{
                 return File.ReadAllText(file, Encoding.UTF8);
@@ -35,17 +40,24 @@ namespace UnitTests{
             }
         }
 
+        public static FileStream ReadFile(string file){
+            return new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.None);
+        }
+
         public static void DeleteFileOnExit(string file){
             CreatedFiles.Add(file);
         }
         
-        [AssemblyCleanup]
-        public static void RunExitCleanup(){
-            foreach(string file in CreatedFiles){
-                try{
-                    File.Delete(file);
-                }catch(Exception){
-                    // ignore
+        [TestClass]
+        public static class Cleanup{
+            [AssemblyCleanup]
+            public static void DeleteFilesOnExit(){
+                foreach(string file in CreatedFiles){
+                    try{
+                        File.Delete(file);
+                    }catch(Exception){
+                        // ignore
+                    }
                 }
             }
         }
