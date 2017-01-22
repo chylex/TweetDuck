@@ -1,6 +1,5 @@
 ﻿using CefSharp;
 using TweetDck.Core.Controls;
-using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Handling{
     class ContextMenuNotification : ContextMenuBase{
