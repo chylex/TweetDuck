@@ -33,6 +33,10 @@ namespace TweetDck.Core.Handling{
             model.Remove(CefMenuCommand.ViewSource);
             RemoveSeparatorIfLast(model);
 
+            if (parameters.TypeFlags.HasFlag(ContextMenuType.Selection)){
+                model.AddSeparator();
+            }
+
             base.OnBeforeContextMenu(browserControl, browser, frame, parameters, model);
 
             lastHighlightedTweet = TweetDeckBridge.LastHighlightedTweet;
@@ -76,6 +80,8 @@ namespace TweetDck.Core.Handling{
                 AddDebugMenuItems(globalMenu);
                 #endif
             }
+
+            RemoveSeparatorIfLast(model);
         }
 
         public override bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags){

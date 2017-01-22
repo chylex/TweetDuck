@@ -19,6 +19,12 @@ namespace TweetDck.Core.Handling{
 
         public override void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model){
             model.Clear();
+
+            if (parameters.TypeFlags.HasFlag(ContextMenuType.Selection)){
+                model.AddItem(CefMenuCommand.Copy, "Copy");
+                model.AddSeparator();
+            }
+
             base.OnBeforeContextMenu(browserControl, browser, frame, parameters, model);
 
             if (enableCustomMenu){
