@@ -24,13 +24,26 @@ namespace TweetDck.Core.Utils{
             Left, Right
         }
 
+        private struct LASTINPUTINFO{
+            public static readonly uint Size = (uint)Marshal.SizeOf(typeof(LASTINPUTINFO));
+
+            // ReSharper disable once NotAccessedField.Local
+            public uint cbSize;
+            #pragma warning disable 649
+            public uint dwTime;
+            #pragma warning restore 649
+        }
+
         public delegate IntPtr HookProc(int nCode, IntPtr wParam, IntPtr lParam);
 
         [DllImport("user32.dll", EntryPoint = "SetWindowPos")]
-        public static extern bool SetWindowPos(int hWnd, int hWndOrder, int x, int y, int width, int height, uint flags);
+        private static extern bool SetWindowPos(int hWnd, int hWndOrder, int x, int y, int width, int height, uint flags);
 
         [DllImport("user32.dll")]
-        public static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
+        private static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
+
+        [DllImport("user32.dll")]
+        private static extern bool GetLastInputInfo(ref LASTINPUTINFO info);
 
         [DllImport("user32.dll")]
         public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, int wParam, IntPtr lParam);
@@ -74,6 +87,24 @@ namespace TweetDck.Core.Utils{
 
             mouse_event(flagHold, Cursor.Position.X, Cursor.Position.Y, 0, 0);
             mouse_event(flagRelease, Cursor.Position.X, Cursor.Position.Y, 0, 0);
+        }
+
+        public static int GetIdleSeconds(){
+            LASTINPUTINFO info = new LASTINPUTINFO();
+            info.cbSize = LASTINPUTINFO.Size;
+
+            if (!GetLastInputInfo(ref info)){
+                return 0;
+            }
+
+            uint ticks;
+
+            unchecked{
+                ticks = (uint)Environment.TickCount;
+            }
+
+            int seconds = (int)Math.Floor(TimeSpan.FromMilliseconds(ticks-info.dwTime).TotalSeconds);
+            return Math.Max(0, seconds); // ignore rollover after several weeks of uptime
         }
     }
 }
