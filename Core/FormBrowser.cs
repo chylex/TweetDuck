@@ -53,7 +53,11 @@ namespace TweetDck.Core{
             this.plugins.PluginChangedState += plugins_PluginChangedState;
 
             this.notification = CreateNotificationForm(NotificationFlags.AutoHide | NotificationFlags.TopMost);
+            #if DEBUG
+            this.notification.CanMoveWindow = () => (ModifierKeys & Keys.Alt) == Keys.Alt;
+            #else
             this.notification.CanMoveWindow = () => false;
+            #endif
             this.notification.Show();
 
             this.browser = new ChromiumWebBrowser("https://tweetdeck.twitter.com/"){
