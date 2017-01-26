@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using TweetDck.Updates;
+using TweetDck.Updates.Events;
 
 namespace TweetDck.Core.Other.Settings{
     partial class TabSettingsUpdates : BaseTabSettings{

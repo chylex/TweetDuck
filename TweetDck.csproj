@@ -238,8 +238,8 @@
     <Compile Include="Core\Utils\BrowserUtils.cs" />
     <Compile Include="Core\Utils\HardwareAcceleration.cs" />
     <Compile Include="Core\Utils\NativeMethods.cs" />
-    <Compile Include="Updates\UpdateAcceptedEventArgs.cs" />
-    <Compile Include="Updates\UpdateCheckEventArgs.cs" />
+    <Compile Include="Updates\Events\UpdateAcceptedEventArgs.cs" />
+    <Compile Include="Updates\Events\UpdateCheckEventArgs.cs" />
     <Compile Include="Updates\UpdateHandler.cs" />
     <Compile Include="Updates\UpdateInfo.cs" />
     <Compile Include="Program.cs" />

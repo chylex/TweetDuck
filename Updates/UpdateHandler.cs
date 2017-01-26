@@ -5,6 +5,7 @@ using TweetDck.Core;
 using TweetDck.Core.Controls;
 using TweetDck.Core.Utils;
 using TweetDck.Resources;
+using TweetDck.Updates.Events;
 
 namespace TweetDck.Updates{
     class UpdateHandler{

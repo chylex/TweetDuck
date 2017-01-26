@@ -17,6 +17,7 @@ using System.Media;
 using TweetDck.Core.Bridge;
 using TweetDck.Core.Notification;
 using TweetDck.Core.Notification.Screenshot;
+using TweetDck.Updates.Events;
 
 namespace TweetDck.Core{
     sealed partial class FormBrowser : Form{
