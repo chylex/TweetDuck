@@ -12,7 +12,7 @@ namespace TweetDck.Core.Notification.Screenshot{
 
             browser.FrameLoadEnd += (sender, args) => {
                 if (args.Frame.IsMain && browser.Address != "about:blank"){
-                    ScriptLoader.ExecuteScript(args.Frame, "window.setTimeout(() => $TD_NotificationScreenshot.trigger(), 25)", "gen:screenshot");
+                    ScriptLoader.ExecuteScript(args.Frame, "window.setTimeout($TD_NotificationScreenshot.trigger, 25)", "gen:screenshot");
                 }
             };
 
