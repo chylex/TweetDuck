@@ -99,6 +99,7 @@ namespace TweetDck.Core{
 
             this.updates = new UpdateHandler(browser, this, updaterSettings);
             this.updates.UpdateAccepted += updates_UpdateAccepted;
+            this.updates.UpdateDismissed += updates_UpdateDismissed;
         }
 
         private void ShowChildForm(Form form){
@@ -244,6 +245,11 @@ namespace TweetDck.Core{
             else{
                 Show();
             }
+        }
+
+        private void updates_UpdateDismissed(object sender, UpdateDismissedEventArgs e){
+            Config.DismissedUpdate = e.VersionTag;
+            Config.Save();
         }
 
         protected override void WndProc(ref Message m){

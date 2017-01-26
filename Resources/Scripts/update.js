@@ -7,25 +7,25 @@
   //
   // Constant: Update exe file name.
   //
-  const updateFileName = $TDU.brandName+".Update.exe";
+  const updateFileName = "TweetDuck.Update.exe";
   
   //
   // Constant: Url that returns JSON data about latest version.
   //
-  const updateCheckUrlLatest = "https://api.github.com/repos/chylex/"+$TDU.brandName+"/releases/latest";
+  const updateCheckUrlLatest = "https://api.github.com/repos/chylex/TweetDuck/releases/latest";
   
   //
   // Constant: Url that returns JSON data about all versions, including prereleases.
   //
-  const updateCheckUrlAll = "https://api.github.com/repos/chylex/"+$TDU.brandName+"/releases";
+  const updateCheckUrlAll = "https://api.github.com/repos/chylex/TweetDuck/releases";
   
   //
   // Function: Creates the update notification element. Removes the old one if already exists.
   //
-  var createUpdateNotificationElement = function(version, download){
+  var displayNotification = function(version, download){
     var outdated = version === "unsupported";
     
-    var ele = $("#tweetdck-update");
+    var ele = $("#tweetduck-update");
     var existed = ele.length > 0;
     
     if (existed > 0){
@@ -33,7 +33,7 @@
     }
     
     var html = outdated ? [
-      "<div id='tweetdck-update'>",
+      "<div id='tweetduck-update'>",
       "<p class='tdu-title'>Unsupported System</p>",
       "<p class='tdu-info'>You will not receive updates.</p>",
       "<div class='tdu-buttons'>",
@@ -42,8 +42,8 @@
       "</div>",
       "</div>"
     ] : [
-      "<div id='tweetdck-update'>",
-      "<p class='tdu-title'>"+$TDU.brandName+" Update</p>",
+      "<div id='tweetduck-update'>",
+      "<p class='tdu-title'>TweetDuck Update</p>",
       "<p class='tdu-info'>Version "+version+" is now available.</p>",
       "<div class='tdu-buttons'>",
       "<button class='btn btn-positive tdu-btn-download'><span class='label'>Download</span></button>",
@@ -54,7 +54,7 @@
 
     $(document.body).append(html.join(""));
 
-    ele = $("#tweetdck-update");
+    ele = $("#tweetduck-update");
 
     var buttonDiv = ele.children("div.tdu-buttons").first();
 
@@ -128,33 +128,19 @@
   //
   // Function: Runs an update check and updates all DOM elements appropriately.
   //
-  var runUpdateCheck = function(force, eventID){
-    if (!$TDU.isSystemSupported){
-      if ($TDU.dismissedVersionTag !== "unsupported"){
-        createUpdateNotificationElement("unsupported");
-      }
-      
-      return;
-    }
-    
+  var runUpdateCheck = function(eventID, versionTag, dismissedVersionTag, allowPre){
     clearTimeout(updateCheckTimeoutID);
-    updateCheckTimeoutID = setTimeout(runUpdateCheck, 1000*60*60); // 1 hour
-    
-    if (!$TDU.updateCheckEnabled && !force){
-      return;
-    }
-    
-    var allowPre = $TDU.allowPreReleases;
+    updateCheckTimeoutID = setTimeout($TDU.triggerUpdateCheck, 1000*60*60); // 1 hour
     
     $.getJSON(allowPre ? updateCheckUrlAll : updateCheckUrlLatest, function(response){
       var release = allowPre ? response[0] : response;
       
       var tagName = release.tag_name;
-      var hasUpdate = tagName !== $TDU.versionTag && tagName !== $TDU.dismissedVersionTag && release.assets.length > 0;
+      var hasUpdate = tagName !== versionTag && tagName !== dismissedVersionTag && release.assets.length > 0;
       
       if (hasUpdate){
         var obj = release.assets.find(asset => asset.name === updateFileName) || release.assets[0];
-        createUpdateNotificationElement(tagName, obj.browser_download_url);
+        displayNotification(tagName, obj.browser_download_url);
       }
       
       if (eventID){ // ignore undefined and 0
@@ -166,6 +152,6 @@
   //
   // Block: Setup global functions.
   //
+  window.TDUF_displayNotification = displayNotification;
   window.TDUF_runUpdateCheck = runUpdateCheck;
-  runUpdateCheck();
 })($, $TDU);
