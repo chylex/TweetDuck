@@ -544,12 +544,14 @@
     styleOfficial.sheet.insertRule(".txt-base-smallest .badge-verified:before { height: 13px !important; }", 0); // fix cut off badge icon
     styleOfficial.sheet.insertRule(".keyboard-shortcut-list { vertical-align: top; }", 0); // fix keyboard navigation alignment
     
-    if ($TD.hasCustomBrowserCSS){
-      var styleCustom = document.createElement("style");
-      styleCustom.innerHTML = $TD.customBrowserCSS;
-      document.head.appendChild(styleCustom);
-    }
-    
     TD.services.TwitterActionRetweetedRetweet.prototype.iconClass = "icon-retweet icon-retweet-color txt-base-medium"; // fix retweet icon mismatch
+    
+    window.TDGF_reinjectCustomCSS = function(styles){
+      $("#tweetduck-custom-css").remove();
+      
+      if (styles && styles.length){
+        $(document.head).append("<style type='text/css' id='tweetduck-custom-css'>"+styles+"</style>");
+      }
+    };
   })();
 })($, $TD, TD);

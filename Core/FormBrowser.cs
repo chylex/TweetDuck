@@ -142,6 +142,7 @@ namespace TweetDck.Core{
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             if (e.Frame.IsMain && BrowserUtils.IsTweetDeckWebsite(e.Frame)){
                 ScriptLoader.ExecuteFile(e.Frame, "code.js");
+                ReinjectCustomCSS(Config.CustomBrowserCSS);
 
                 #if DEBUG
                 ScriptLoader.ExecuteFile(e.Frame, "debug.js");
@@ -278,6 +279,12 @@ namespace TweetDck.Core{
 
         public void ResumeNotification(){
             notification.ResumeNotification();
+        }
+
+        // javascript calls
+
+        public void ReinjectCustomCSS(string css){
+            browser.ExecuteScriptAsync("TDGF_reinjectCustomCSS", css == null ? string.Empty : css.Replace(Environment.NewLine, " "));
         }
 
         // callback handlers

@@ -39,18 +39,6 @@ namespace TweetDck.Core.Bridge{
             }
         }
 
-        public bool HasCustomBrowserCSS{
-            get{
-                return !string.IsNullOrEmpty(Program.UserConfig.CustomBrowserCSS);
-            }
-        }
-
-        public string CustomBrowserCSS{
-            get{
-                return Program.UserConfig.CustomBrowserCSS;
-            }
-        }
-
         public TweetDeckBridge(FormBrowser form, FormNotification notification){
             this.form = form;
             this.notification = notification;

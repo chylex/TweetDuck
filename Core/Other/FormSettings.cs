@@ -24,7 +24,7 @@ namespace TweetDck.Core.Other{
             this.tabPanel.AddButton("General", SelectTab<TabSettingsGeneral>);
             this.tabPanel.AddButton("Notifications", () => SelectTab(() => new TabSettingsNotifications(browser.CreateNotificationForm(NotificationFlags.DisableContextMenu))));
             this.tabPanel.AddButton("Updates", () => SelectTab(() => new TabSettingsUpdates(updates)));
-            this.tabPanel.AddButton("Advanced", () => SelectTab(() => new TabSettingsAdvanced(browser.ReloadBrowser, plugins)));
+            this.tabPanel.AddButton("Advanced", () => SelectTab(() => new TabSettingsAdvanced(browser.ReinjectCustomCSS, plugins)));
             this.tabPanel.SelectTab(tabPanel.Buttons.First());
         }
 
