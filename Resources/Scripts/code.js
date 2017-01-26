@@ -20,8 +20,8 @@
         if (menu.length === 0)return;
         
         menu.children(".drp-h-divider").last().after([
-          '<li class="is-selectable" data-std><a href="#" data-action="td-settings">'+$TD.brandName+' settings</a></li>',
-          '<li class="is-selectable" data-std><a href="#" data-action="td-plugins">'+$TD.brandName+' plugins</a></li>',
+          '<li class="is-selectable" data-std><a href="#" data-action="td-settings">TweetDuck settings</a></li>',
+          '<li class="is-selectable" data-std><a href="#" data-action="td-plugins">TweetDuck plugins</a></li>',
           '<li class="drp-h-divider"></li>'
         ].join(""));
         

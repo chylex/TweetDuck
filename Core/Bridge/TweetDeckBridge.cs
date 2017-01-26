@@ -21,18 +21,6 @@ namespace TweetDck.Core.Bridge{
         private readonly FormBrowser form;
         private readonly FormNotification notification;
 
-        public string BrandName{
-            get{
-                return Program.BrandName;
-            }
-        }
-
-        public string VersionTag{
-            get{
-                return Program.VersionTag;
-            }
-        }
-
         public bool MuteNotifications{
             get{
                 return Program.UserConfig.MuteNotifications;
