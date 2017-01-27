@@ -5,14 +5,28 @@ using TweetDck.Core;
 using TweetDck.Core.Controls;
 using TweetDck.Core.Utils;
 using TweetDck.Resources;
+using TweetDck.Updates.Events;
 
 namespace TweetDck.Updates{
     class UpdateHandler{
+        private static bool IsSystemSupported{
+            get{
+                return true; // Environment.OSVersion.Version >= new Version("6.1"); // 6.1 NT version = Windows 7
+            }
+        }
+
+        public UpdaterSettings Settings{
+            get{
+                return settings;
+            }
+        }
+
         private readonly ChromiumWebBrowser browser;
         private readonly FormBrowser form;
         private readonly UpdaterSettings settings;
 
         public event EventHandler<UpdateAcceptedEventArgs> UpdateAccepted;
+        public event EventHandler<UpdateDismissedEventArgs> UpdateDismissed;
         public event EventHandler<UpdateCheckEventArgs> CheckFinished;
 
         private int lastEventId;
@@ -23,24 +37,48 @@ namespace TweetDck.Updates{
             this.settings = settings;
 
             browser.FrameLoadEnd += browser_FrameLoadEnd;
-            browser.RegisterJsObject("$TDU", new Bridge(this));
+            browser.RegisterAsyncJsObject("$TDU", new Bridge(this));
         }
 
         private void browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             if (e.Frame.IsMain && BrowserUtils.IsTweetDeckWebsite(e.Frame)){
                 ScriptLoader.ExecuteFile(e.Frame, "update.js");
+                Check(false);
             }
         }
 
         public int Check(bool force){
-            browser.ExecuteScriptAsync("TDUF_runUpdateCheck", force, ++lastEventId);
-            return lastEventId;
+            if (IsSystemSupported){
+                if (Program.UserConfig.EnableUpdateCheck || force){
+                    string dismissedUpdate = force || settings.DismissedUpdate == null ? string.Empty : settings.DismissedUpdate;
+
+                    browser.ExecuteScriptAsync("TDUF_runUpdateCheck", ++lastEventId, Program.VersionTag, dismissedUpdate, settings.AllowPreReleases);
+                    return lastEventId;
+                }
+
+                return 0;
+            }
+            else if (settings.DismissedUpdate != "unsupported"){
+                browser.ExecuteScriptAsync("TDUF_displayNotification", "unsupported");
+            }
+            
+            return -1;
         }
 
         private void TriggerUpdateAcceptedEvent(UpdateAcceptedEventArgs args){
             if (UpdateAccepted != null){
                 form.InvokeSafe(() => UpdateAccepted(this, args));
             }
+        }
+
+        private void TriggerUpdateDismissedEvent(UpdateDismissedEventArgs args){
+            form.InvokeSafe(() => {
+                settings.DismissedUpdate = args.VersionTag;
+                
+                if (UpdateDismissed != null){
+                    UpdateDismissed(this, args);
+                }
+            });
         }
 
         private void TriggerCheckFinishedEvent(UpdateCheckEventArgs args){
@@ -50,46 +88,14 @@ namespace TweetDck.Updates{
         }
 
         public class Bridge{
-            public string BrandName{
-                get{
-                    return Program.BrandName;
-                }
-            }
-
-            public string VersionTag{
-                get{
-                    return Program.VersionTag;
-                }
-            }
-
-            public bool UpdateCheckEnabled{
-                get{
-                    return Program.UserConfig.EnableUpdateCheck;
-                }
-            }
-
-            public string DismissedVersionTag{
-                get{
-                    return Program.UserConfig.DismissedUpdate ?? string.Empty;
-                }
-            }
-
-            public bool AllowPreReleases{
-                get{
-                    return owner.settings.AllowPreReleases;
-                }
-            }
-
-            public bool IsSystemSupported{
-                get{
-                    return true; // Environment.OSVersion.Version >= new Version("6.1"); // 6.1 NT version = Windows 7
-                }
-            }
-
             private readonly UpdateHandler owner;
 
             public Bridge(UpdateHandler owner){
                 this.owner = owner;
+            }
+
+            public void TriggerUpdateCheck(){
+                owner.Check(false);
             }
 
             public void OnUpdateCheckFinished(int eventId, bool isUpdateAvailable, string latestVersion){
@@ -101,10 +107,7 @@ namespace TweetDck.Updates{
             }
 
             public void OnUpdateDismissed(string versionTag){
-                owner.form.InvokeSafe(() => {
-                    Program.UserConfig.DismissedUpdate = versionTag;
-                    Program.UserConfig.Save();
-                });
+                owner.TriggerUpdateDismissedEvent(new UpdateDismissedEventArgs(versionTag));
             }
 
             public void OpenBrowser(string url){

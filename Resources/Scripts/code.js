@@ -1,4 +1,4 @@
-(function($, $TD, TD){
+(function($, $TD, $TDX, TD){
   //
   // Variable: Current highlighted column jQuery object.
   //
@@ -20,8 +20,8 @@
         if (menu.length === 0)return;
         
         menu.children(".drp-h-divider").last().after([
-          '<li class="is-selectable" data-std><a href="#" data-action="td-settings">'+$TD.brandName+' settings</a></li>',
-          '<li class="is-selectable" data-std><a href="#" data-action="td-plugins">'+$TD.brandName+' plugins</a></li>',
+          '<li class="is-selectable" data-std><a href="#" data-action="td-settings">TweetDuck settings</a></li>',
+          '<li class="is-selectable" data-std><a href="#" data-action="td-plugins">TweetDuck plugins</a></li>',
           '<li class="drp-h-divider"></li>'
         ].join(""));
         
@@ -199,7 +199,7 @@
           return;
         }
         
-        if ($TD.expandLinksOnHover){
+        if ($TDX.expandLinksOnHover){
           tooltipTimer = window.setTimeout(function(){
             var expanded = me.attr("data-full-url");
             expanded = cutStart(expanded, "https://");
@@ -218,7 +218,7 @@
         }
       }
       else if (e.type === "mouseleave"){
-        if ($TD.expandLinksOnHover){
+        if ($TDX.expandLinksOnHover){
           var prevText = me.attr("td-prev-text");
 
           if (prevText){
@@ -257,7 +257,7 @@
     var soundEle = document.getElementById("update-sound");
     
     soundEle.play = prependToFunction(soundEle.play, function(){
-      return $TD.muteNotifications || $TD.hasCustomNotificationSound;
+      return $TDX.muteNotifications || $TDX.hasCustomNotificationSound;
     });
   })();
   
@@ -544,12 +544,14 @@
     styleOfficial.sheet.insertRule(".txt-base-smallest .badge-verified:before { height: 13px !important; }", 0); // fix cut off badge icon
     styleOfficial.sheet.insertRule(".keyboard-shortcut-list { vertical-align: top; }", 0); // fix keyboard navigation alignment
     
-    if ($TD.hasCustomBrowserCSS){
-      var styleCustom = document.createElement("style");
-      styleCustom.innerHTML = $TD.customBrowserCSS;
-      document.head.appendChild(styleCustom);
-    }
-    
     TD.services.TwitterActionRetweetedRetweet.prototype.iconClass = "icon-retweet icon-retweet-color txt-base-medium"; // fix retweet icon mismatch
+    
+    window.TDGF_reinjectCustomCSS = function(styles){
+      $("#tweetduck-custom-css").remove();
+      
+      if (styles && styles.length){
+        $(document.head).append("<style type='text/css' id='tweetduck-custom-css'>"+styles+"</style>");
+      }
+    };
   })();
-})($, $TD, TD);
+})($, $TD, $TDX, TD);

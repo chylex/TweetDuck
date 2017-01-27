@@ -133,7 +133,7 @@ namespace TweetDck.Core{
 
             if (!flags.HasFlag(NotificationFlags.DisableScripts)){
                 notificationJS = ScriptLoader.LoadResource(NotificationScriptFile);
-                browser.RegisterJsObject("$TD", new TweetDeckBridge(owner, this));
+                browser.RegisterAsyncJsObject("$TD", new TweetDeckBridge(owner, this));
 
                 if (plugins != null){
                     pluginJS = ScriptLoader.LoadResource(PluginManager.PluginNotificationScriptFile);
@@ -238,6 +238,7 @@ namespace TweetDck.Core{
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             if (e.Frame.IsMain && notificationJS != null && browser.Address != "about:blank" && !flags.HasFlag(NotificationFlags.DisableScripts)){
+                e.Frame.ExecuteJavaScriptAsync(PropertyBridge.GenerateScript(PropertyBridge.Properties.ExpandLinksOnHover));
                 ScriptLoader.ExecuteScript(e.Frame, notificationJS, NotificationScriptIdentifier);
 
                 if (plugins != null && plugins.HasAnyPlugin(PluginEnvironment.Notification)){
@@ -435,7 +436,7 @@ namespace TweetDck.Core{
             else{
                 Point position = PointToClient(Cursor.Position);
                 position.Offset(20, 5);
-                toolTip.Show(text, this, position);
+                toolTip.Show(text, this, position); // TODO figure out flickering when moving the mouse
             }
         }
     }

@@ -17,6 +17,8 @@ using System.Media;
 using TweetDck.Core.Bridge;
 using TweetDck.Core.Notification;
 using TweetDck.Core.Notification.Screenshot;
+using TweetDck.Updates.Events;
+using System.IO;
 
 namespace TweetDck.Core{
     sealed partial class FormBrowser : Form{
@@ -42,6 +44,7 @@ namespace TweetDck.Core{
 
         private TweetScreenshotManager notificationScreenshotManager;
         private SoundPlayer notificationSound;
+        private bool ignoreNotificationSoundError;
 
         public FormBrowser(PluginManager pluginManager, UpdaterSettings updaterSettings){
             InitializeComponent();
@@ -73,7 +76,7 @@ namespace TweetDck.Core{
 
             this.browser.LoadingStateChanged += Browser_LoadingStateChanged;
             this.browser.FrameLoadEnd += Browser_FrameLoadEnd;
-            this.browser.RegisterJsObject("$TD", new TweetDeckBridge(this, notification));
+            this.browser.RegisterAsyncJsObject("$TD", new TweetDeckBridge(this, notification));
             this.browser.RegisterAsyncJsObject("$TDP", plugins.Bridge);
 
             Controls.Add(browser);
@@ -96,8 +99,11 @@ namespace TweetDck.Core{
 
             UpdateTrayIcon();
 
+            Config.MuteToggled += Config_MuteToggled;
+
             this.updates = new UpdateHandler(browser, this, updaterSettings);
             this.updates.UpdateAccepted += updates_UpdateAccepted;
+            this.updates.UpdateDismissed += updates_UpdateDismissed;
         }
 
         private void ShowChildForm(Form form){
@@ -139,7 +145,9 @@ namespace TweetDck.Core{
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             if (e.Frame.IsMain && BrowserUtils.IsTweetDeckWebsite(e.Frame)){
+                UpdateProperties();
                 ScriptLoader.ExecuteFile(e.Frame, "code.js");
+                ReinjectCustomCSS(Config.CustomBrowserCSS);
 
                 #if DEBUG
                 ScriptLoader.ExecuteFile(e.Frame, "debug.js");
@@ -196,6 +204,10 @@ namespace TweetDck.Core{
             }
         }
 
+        private void Config_MuteToggled(object sender, EventArgs e){
+            UpdateProperties(PropertyBridge.Properties.MuteNotifications);
+        }
+
         private void Config_TrayBehaviorChanged(object sender, EventArgs e){
             if (!isLoaded)return;
             
@@ -245,6 +257,11 @@ namespace TweetDck.Core{
             }
         }
 
+        private void updates_UpdateDismissed(object sender, UpdateDismissedEventArgs e){
+            Config.DismissedUpdate = e.VersionTag;
+            Config.Save();
+        }
+
         protected override void WndProc(ref Message m){
             if (isLoaded && m.Msg == Program.WindowRestoreMessage){
                 trayIcon_ClickRestore(trayIcon, new EventArgs());
@@ -273,6 +290,16 @@ namespace TweetDck.Core{
             notification.ResumeNotification();
         }
 
+        // javascript calls
+
+        public void ReinjectCustomCSS(string css){
+            browser.ExecuteScriptAsync("TDGF_reinjectCustomCSS", css == null ? string.Empty : css.Replace(Environment.NewLine, " "));
+        }
+
+        public void UpdateProperties(PropertyBridge.Properties properties = PropertyBridge.Properties.All){
+            browser.ExecuteScriptAsync(PropertyBridge.GenerateScript(properties));
+        }
+
         // callback handlers
 
         public void OpenSettings(){
@@ -288,14 +315,18 @@ namespace TweetDck.Core{
                     currentFormSettings = null;
 
                     if (!prevEnableUpdateCheck && Config.EnableUpdateCheck){
+                        updates.Settings.DismissedUpdate = string.Empty;
                         Config.DismissedUpdate = string.Empty;
                         Config.Save();
+
                         updates.Check(false);
                     }
 
                     if (!Config.EnableTrayHighlight){
                         trayIcon.HasNotifications = false;
                     }
+
+                    UpdateProperties(PropertyBridge.Properties.ExpandLinksOnHover | PropertyBridge.Properties.HasCustomNotificationSound);
                 };
 
                 ShowChildForm(currentFormSettings);
@@ -331,19 +362,49 @@ namespace TweetDck.Core{
         }
 
         public void PlayNotificationSound(){
-            if (string.IsNullOrEmpty(Config.NotificationSoundPath)){
+            if (Config.NotificationSoundPath.Length == 0){
                 return;
             }
 
             if (notificationSound == null){
-                notificationSound = new SoundPlayer();
+                notificationSound = new SoundPlayer{
+                    LoadTimeout = 5000
+                };
             }
 
             if (notificationSound.SoundLocation != Config.NotificationSoundPath){
                 notificationSound.SoundLocation = Config.NotificationSoundPath;
+                ignoreNotificationSoundError = false;
             }
 
-            notificationSound.Play();
+            try{
+                notificationSound.Play();
+            }catch(FileNotFoundException e){
+                OnNotificationSoundError("File not found: "+e.FileName);
+            }catch(InvalidOperationException){
+                OnNotificationSoundError("File is not a valid sound file.");
+            }catch(TimeoutException){
+                OnNotificationSoundError("File took too long to load.");
+            }
+        }
+
+        private void OnNotificationSoundError(string message){
+            if (!ignoreNotificationSoundError){
+                ignoreNotificationSoundError = true;
+
+                using(FormMessage form = new FormMessage("Notification Sound Error", "Could not play custom notification sound."+Environment.NewLine+message, MessageBoxIcon.Error)){
+                    form.AddButton("Ignore");
+
+                    Button btnOpenSettings = form.AddButton("Open Settings");
+                    btnOpenSettings.Width += 16;
+                    btnOpenSettings.Location = new Point(btnOpenSettings.Location.X-16, btnOpenSettings.Location.Y);
+
+                    if (form.ShowDialog() == DialogResult.OK && form.ClickedButton == btnOpenSettings){
+                        OpenSettings();
+                        currentFormSettings.SelectTab(FormSettings.TabIndexNotification);
+                    }
+                }
+            }
         }
 
         public void OnTweetScreenshotReady(string html, int width, int height){

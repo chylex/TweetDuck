@@ -21,48 +21,6 @@ namespace TweetDck.Core.Bridge{
         private readonly FormBrowser form;
         private readonly FormNotification notification;
 
-        public string BrandName{
-            get{
-                return Program.BrandName;
-            }
-        }
-
-        public string VersionTag{
-            get{
-                return Program.VersionTag;
-            }
-        }
-
-        public bool MuteNotifications{
-            get{
-                return Program.UserConfig.MuteNotifications;
-            }
-        }
-
-        public bool HasCustomNotificationSound{
-            get{
-                return !string.IsNullOrEmpty(Program.UserConfig.NotificationSoundPath);
-            }
-        }
-
-        public bool ExpandLinksOnHover{
-            get{
-                return Program.UserConfig.ExpandLinksOnHover;
-            }
-        }
-
-        public bool HasCustomBrowserCSS{
-            get{
-                return !string.IsNullOrEmpty(Program.UserConfig.CustomBrowserCSS);
-            }
-        }
-
-        public string CustomBrowserCSS{
-            get{
-                return Program.UserConfig.CustomBrowserCSS;
-            }
-        }
-
         public TweetDeckBridge(FormBrowser form, FormNotification notification){
             this.form = form;
             this.notification = notification;

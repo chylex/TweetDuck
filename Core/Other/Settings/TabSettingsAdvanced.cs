@@ -9,13 +9,13 @@ using TweetDck.Plugins;
 
 namespace TweetDck.Core.Other.Settings{
     partial class TabSettingsAdvanced : BaseTabSettings{
-        private readonly Action browserReloadAction;
+        private readonly Action<string> reinjectBrowserCSS;
         private readonly PluginManager plugins;
 
-        public TabSettingsAdvanced(Action browserReloadAction, PluginManager plugins){
+        public TabSettingsAdvanced(Action<string> reinjectBrowserCSS, PluginManager plugins){
             InitializeComponent();
 
-            this.browserReloadAction = browserReloadAction;
+            this.reinjectBrowserCSS = reinjectBrowserCSS;
             this.plugins = plugins;
 
             checkHardwareAcceleration.Checked = HardwareAcceleration.IsEnabled;
@@ -80,17 +80,13 @@ namespace TweetDck.Core.Other.Settings{
         }
 
         private void btnEditCSS_Click(object sender, EventArgs e){
-            using(DialogSettingsCSS form = new DialogSettingsCSS()){
+            using(DialogSettingsCSS form = new DialogSettingsCSS(reinjectBrowserCSS)){
                 if (form.ShowDialog(ParentForm) == DialogResult.OK){
-                    bool hasChangedBrowser = form.BrowserCSS != Config.CustomBrowserCSS;
-
                     Config.CustomBrowserCSS = form.BrowserCSS;
                     Config.CustomNotificationCSS = form.NotificationCSS;
-
-                    if (hasChangedBrowser && MessageBox.Show("The browser CSS has changed, do you want to reload it?", "Browser CSS Changed", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
-                        browserReloadAction();
-                    }
                 }
+
+                reinjectBrowserCSS(Config.CustomBrowserCSS); // reinject on cancel too, because the CSS is updated while typing
             }
         }
 

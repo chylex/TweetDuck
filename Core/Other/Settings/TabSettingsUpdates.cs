@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using TweetDck.Updates;
+using TweetDck.Updates.Events;
 
 namespace TweetDck.Core.Other.Settings{
     partial class TabSettingsUpdates : BaseTabSettings{
@@ -27,12 +28,18 @@ namespace TweetDck.Core.Other.Settings{
         private void btnCheckUpdates_Click(object sender, EventArgs e){
             if (!Ready)return;
 
-            Config.DismissedUpdate = string.Empty;
-            Config.Save();
-
             updateCheckEventId = updates.Check(true);
 
-            btnCheckUpdates.Enabled = false;
+            if (updateCheckEventId == -1){
+                MessageBox.Show("Sorry, your system is no longer supported.", "Unsupported System", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else{
+                btnCheckUpdates.Enabled = false;
+                
+                updates.Settings.DismissedUpdate = string.Empty;
+                Config.DismissedUpdate = string.Empty;
+                Config.Save();
+            }
         }
 
         private void updates_CheckFinished(object sender, UpdateCheckEventArgs e){

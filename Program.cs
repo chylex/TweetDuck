@@ -125,6 +125,8 @@ namespace TweetDck{
             }
 
             BrowserCache.ClearOldCacheFiles();
+            
+            CefSharpSettings.WcfEnabled = false;
 
             CefSettings settings = new CefSettings{
                 AcceptLanguageList = BrowserUtils.HeaderAcceptLanguage,
@@ -155,7 +157,8 @@ namespace TweetDck{
             plugins.Reload();
 
             FormBrowser mainForm = new FormBrowser(plugins, new UpdaterSettings{
-                AllowPreReleases = Args.HasFlag("-debugupdates")
+                AllowPreReleases = Args.HasFlag("-debugupdates"),
+                DismissedUpdate = UserConfig.DismissedUpdate
             });
 
             Application.Run(mainForm);

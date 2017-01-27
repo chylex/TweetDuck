@@ -9,7 +9,7 @@ using TweetDck.Core.Utils;
 
 namespace TweetDck.Updates{
     sealed partial class FormUpdateDownload : Form{
-        private const double BytesToMB = 1024.0*1024.0;
+        private const double BytesToKB = 1024.0;
 
         public string InstallerPath{
             get{
@@ -69,7 +69,7 @@ namespace TweetDck.Updates{
                         progressDownload.SetValueInstant(1000);
                     }
 
-                    labelStatus.Text = (e.BytesReceived/BytesToMB).ToString("0.0", CultureInfo.CurrentCulture)+" MB";
+                    labelStatus.Text = (e.BytesReceived/BytesToKB).ToString("0.0", CultureInfo.CurrentCulture)+" kB";
                 }
                 else{
                     if (progressDownload.Style != ProgressBarStyle.Continuous){
@@ -77,7 +77,7 @@ namespace TweetDck.Updates{
                     }
 
                     progressDownload.SetValueInstant(e.ProgressPercentage*10);
-                    labelStatus.Text = (e.BytesReceived/BytesToMB).ToString("0.0", CultureInfo.CurrentCulture)+" / "+(e.TotalBytesToReceive/BytesToMB).ToString("0.0", CultureInfo.CurrentCulture)+" MB";
+                    labelStatus.Text = (e.BytesReceived/BytesToKB).ToString("0.0", CultureInfo.CurrentCulture)+" / "+(e.TotalBytesToReceive/BytesToKB).ToString("0.0", CultureInfo.CurrentCulture)+" kB";
                 }
             });
         }

@@ -1,6 +1,6 @@
 using System;
 
-namespace TweetDck.Updates{
+namespace TweetDck.Updates.Events{
     class UpdateCheckEventArgs : EventArgs{
         public int EventId { get; private set; }
         public bool UpdateAvailable { get; private set; }

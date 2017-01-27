@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TweetDck.Updates{
+namespace TweetDck.Updates.Events{
     class UpdateAcceptedEventArgs : EventArgs{
         public readonly UpdateInfo UpdateInfo;
 

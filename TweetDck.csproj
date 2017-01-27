@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Configuration\LockManager.cs" />
     <Compile Include="Configuration\UserConfig.cs" />
+    <Compile Include="Core\Bridge\PropertyBridge.cs" />
     <Compile Include="Core\Controls\ControlExtensions.cs" />
     <Compile Include="Core\Controls\FlatButton.cs">
       <SubType>Component</SubType>
@@ -222,6 +223,7 @@
     <Compile Include="Plugins\PluginManager.cs" />
     <Compile Include="Plugins\PluginScriptGenerator.cs" />
     <Compile Include="Reporter.cs" />
+    <Compile Include="Updates\Events\UpdateDismissedEventArgs.cs" />
     <Compile Include="Updates\FormUpdateDownload.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -238,8 +240,8 @@
     <Compile Include="Core\Utils\BrowserUtils.cs" />
     <Compile Include="Core\Utils\HardwareAcceleration.cs" />
     <Compile Include="Core\Utils\NativeMethods.cs" />
-    <Compile Include="Updates\UpdateAcceptedEventArgs.cs" />
-    <Compile Include="Updates\UpdateCheckEventArgs.cs" />
+    <Compile Include="Updates\Events\UpdateAcceptedEventArgs.cs" />
+    <Compile Include="Updates\Events\UpdateCheckEventArgs.cs" />
     <Compile Include="Updates\UpdateHandler.cs" />
     <Compile Include="Updates\UpdateInfo.cs" />
     <Compile Include="Program.cs" />

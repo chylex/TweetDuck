@@ -1,4 +1,4 @@
-(function($TD){
+(function($TD, $TDX){
   //
   // Variable: Collection of all <a> tags.
   //
@@ -51,7 +51,7 @@
         return;
       }
 
-      if ($TD.expandLinksOnHover){
+      if ($TDX.expandLinksOnHover){
         tooltipTimer = window.setTimeout(function(){
           var expanded = url;
           expanded = cutStart(expanded, "https://");
@@ -73,7 +73,7 @@
     addEventListener(links, "mouseleave", function(e){
       if (!e.currentTarget.hasAttribute("data-full-url"))return;
       
-      if ($TD.expandLinksOnHover){
+      if ($TDX.expandLinksOnHover){
         var prevText = e.currentTarget.getAttribute("td-prev-text");
 
         if (prevText){
@@ -146,4 +146,4 @@
   document.body.addEventListener("mouseleave", function(){
     document.body.classList.remove("td-hover");
   });
-})($TD);
+})($TD, $TDX);

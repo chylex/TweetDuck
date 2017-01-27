@@ -9,6 +9,8 @@ using TweetDck.Updates;
 
 namespace TweetDck.Core.Other{
     sealed partial class FormSettings : Form{
+        public const int TabIndexNotification = 1;
+
         private readonly FormBrowser browser;
         private readonly Dictionary<Type, BaseTabSettings> tabs = new Dictionary<Type, BaseTabSettings>(4);
 
@@ -24,8 +26,12 @@ namespace TweetDck.Core.Other{
             this.tabPanel.AddButton("General", SelectTab<TabSettingsGeneral>);
             this.tabPanel.AddButton("Notifications", () => SelectTab(() => new TabSettingsNotifications(browser.CreateNotificationForm(NotificationFlags.DisableContextMenu))));
             this.tabPanel.AddButton("Updates", () => SelectTab(() => new TabSettingsUpdates(updates)));
-            this.tabPanel.AddButton("Advanced", () => SelectTab(() => new TabSettingsAdvanced(browser.ReloadBrowser, plugins)));
+            this.tabPanel.AddButton("Advanced", () => SelectTab(() => new TabSettingsAdvanced(browser.ReinjectCustomCSS, plugins)));
             this.tabPanel.SelectTab(tabPanel.Buttons.First());
+        }
+
+        public void SelectTab(int index){
+            this.tabPanel.SelectTab(tabPanel.Buttons.ElementAt(index));
         }
 
         private void SelectTab<T>() where T : BaseTabSettings, new(){

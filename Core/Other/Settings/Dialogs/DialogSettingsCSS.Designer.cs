@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.textBoxBrowserCSS = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnApply = new System.Windows.Forms.Button();
@@ -32,6 +33,7 @@
             this.textBoxNotificationCSS = new System.Windows.Forms.TextBox();
             this.labelWarning = new System.Windows.Forms.Label();
             this.btnOpenWiki = new System.Windows.Forms.Button();
+            this.timerTestBrowser = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -52,6 +54,7 @@
             this.textBoxBrowserCSS.Size = new System.Drawing.Size(373, 253);
             this.textBoxBrowserCSS.TabIndex = 0;
             this.textBoxBrowserCSS.WordWrap = false;
+            this.textBoxBrowserCSS.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxBrowserCSS_KeyUp);
             // 
             // btnCancel
             // 
@@ -132,7 +135,7 @@
             this.textBoxNotificationCSS.Multiline = true;
             this.textBoxNotificationCSS.Name = "textBoxNotificationCSS";
             this.textBoxNotificationCSS.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxNotificationCSS.Size = new System.Drawing.Size(376, 253);
+            this.textBoxNotificationCSS.Size = new System.Drawing.Size(373, 253);
             this.textBoxNotificationCSS.TabIndex = 1;
             this.textBoxNotificationCSS.WordWrap = false;
             // 
@@ -158,6 +161,11 @@
             this.btnOpenWiki.Text = "Open Wiki";
             this.btnOpenWiki.UseVisualStyleBackColor = true;
             this.btnOpenWiki.Click += new System.EventHandler(this.btnOpenWiki_Click);
+            // 
+            // timerTestBrowser
+            // 
+            this.timerTestBrowser.Interval = 500;
+            this.timerTestBrowser.Tick += new System.EventHandler(this.timerTestBrowser_Tick);
             // 
             // DialogSettingsCSS
             // 
@@ -195,5 +203,6 @@
         private System.Windows.Forms.Label labelNotification;
         private System.Windows.Forms.Label labelWarning;
         private System.Windows.Forms.Button btnOpenWiki;
+        private System.Windows.Forms.Timer timerTestBrowser;
     }
 }

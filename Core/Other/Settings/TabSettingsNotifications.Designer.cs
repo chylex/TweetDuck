@@ -381,6 +381,7 @@
             this.tbCustomSound.Name = "tbCustomSound";
             this.tbCustomSound.Size = new System.Drawing.Size(170, 20);
             this.tbCustomSound.TabIndex = 0;
+            this.tbCustomSound.TextChanged += new System.EventHandler(this.tbCustomSound_TextChanged);
             // 
             // TabSettingsNotifications
             // 

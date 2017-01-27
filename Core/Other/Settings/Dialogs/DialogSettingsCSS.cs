@@ -17,16 +17,30 @@ namespace TweetDck.Core.Other.Settings.Dialogs{
             }
         }
 
-        public DialogSettingsCSS(){
+        private readonly Action<string> reinjectBrowserCSS;
+
+        public DialogSettingsCSS(Action<string> reinjectBrowserCSS){
             InitializeComponent();
             
             Text = Program.BrandName+" Settings - CSS";
+
+            this.reinjectBrowserCSS = reinjectBrowserCSS;
             
             textBoxBrowserCSS.EnableMultilineShortcuts();
             textBoxBrowserCSS.Text = Program.UserConfig.CustomBrowserCSS ?? "";
 
             textBoxNotificationCSS.EnableMultilineShortcuts();
             textBoxNotificationCSS.Text = Program.UserConfig.CustomNotificationCSS ?? "";
+        }
+
+        private void textBoxBrowserCSS_KeyUp(object sender, KeyEventArgs e){
+            timerTestBrowser.Stop();
+            timerTestBrowser.Start();
+        }
+
+        private void timerTestBrowser_Tick(object sender, EventArgs e){
+            reinjectBrowserCSS(textBoxBrowserCSS.Text);
+            timerTestBrowser.Stop();
         }
 
         private void btnOpenWiki_Click(object sender, EventArgs e){
