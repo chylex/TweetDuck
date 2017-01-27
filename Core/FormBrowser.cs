@@ -74,7 +74,7 @@ namespace TweetDck.Core{
 
             this.browser.LoadingStateChanged += Browser_LoadingStateChanged;
             this.browser.FrameLoadEnd += Browser_FrameLoadEnd;
-            this.browser.RegisterJsObject("$TD", new TweetDeckBridge(this, notification));
+            this.browser.RegisterAsyncJsObject("$TD", new TweetDeckBridge(this, notification));
             this.browser.RegisterAsyncJsObject("$TDP", plugins.Bridge);
 
             Controls.Add(browser);
