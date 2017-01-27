@@ -125,6 +125,8 @@ namespace TweetDck{
             }
 
             BrowserCache.ClearOldCacheFiles();
+            
+            CefSharpSettings.WcfEnabled = false;
 
             CefSettings settings = new CefSettings{
                 AcceptLanguageList = BrowserUtils.HeaderAcceptLanguage,
