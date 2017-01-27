@@ -238,6 +238,7 @@ namespace TweetDck.Core{
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             if (e.Frame.IsMain && notificationJS != null && browser.Address != "about:blank" && !flags.HasFlag(NotificationFlags.DisableScripts)){
+                e.Frame.ExecuteJavaScriptAsync(PropertyBridge.GenerateScript(PropertyBridge.Properties.ExpandLinksOnHover));
                 ScriptLoader.ExecuteScript(e.Frame, notificationJS, NotificationScriptIdentifier);
 
                 if (plugins != null && plugins.HasAnyPlugin(PluginEnvironment.Notification)){

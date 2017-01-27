@@ -1,4 +1,4 @@
-(function($, $TD, TD){
+(function($, $TD, $TDX, TD){
   //
   // Variable: Current highlighted column jQuery object.
   //
@@ -199,7 +199,7 @@
           return;
         }
         
-        if ($TD.expandLinksOnHover){
+        if ($TDX.expandLinksOnHover){
           tooltipTimer = window.setTimeout(function(){
             var expanded = me.attr("data-full-url");
             expanded = cutStart(expanded, "https://");
@@ -218,7 +218,7 @@
         }
       }
       else if (e.type === "mouseleave"){
-        if ($TD.expandLinksOnHover){
+        if ($TDX.expandLinksOnHover){
           var prevText = me.attr("td-prev-text");
 
           if (prevText){
@@ -257,7 +257,7 @@
     var soundEle = document.getElementById("update-sound");
     
     soundEle.play = prependToFunction(soundEle.play, function(){
-      return $TD.muteNotifications || $TD.hasCustomNotificationSound;
+      return $TDX.muteNotifications || $TDX.hasCustomNotificationSound;
     });
   })();
   
@@ -554,4 +554,4 @@
       }
     };
   })();
-})($, $TD, TD);
+})($, $TD, $TDX, TD);

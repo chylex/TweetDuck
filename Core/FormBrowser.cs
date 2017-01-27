@@ -97,6 +97,8 @@ namespace TweetDck.Core{
 
             UpdateTrayIcon();
 
+            Config.MuteToggled += Config_MuteToggled;
+
             this.updates = new UpdateHandler(browser, this, updaterSettings);
             this.updates.UpdateAccepted += updates_UpdateAccepted;
             this.updates.UpdateDismissed += updates_UpdateDismissed;
@@ -141,6 +143,7 @@ namespace TweetDck.Core{
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             if (e.Frame.IsMain && BrowserUtils.IsTweetDeckWebsite(e.Frame)){
+                UpdateProperties();
                 ScriptLoader.ExecuteFile(e.Frame, "code.js");
                 ReinjectCustomCSS(Config.CustomBrowserCSS);
 
@@ -197,6 +200,10 @@ namespace TweetDck.Core{
                 Hide(); // hides taskbar too?! welp that works I guess
                 e.Cancel = true;
             }
+        }
+
+        private void Config_MuteToggled(object sender, EventArgs e){
+            UpdateProperties(PropertyBridge.Properties.MuteNotifications);
         }
 
         private void Config_TrayBehaviorChanged(object sender, EventArgs e){
@@ -287,6 +294,10 @@ namespace TweetDck.Core{
             browser.ExecuteScriptAsync("TDGF_reinjectCustomCSS", css == null ? string.Empty : css.Replace(Environment.NewLine, " "));
         }
 
+        public void UpdateProperties(PropertyBridge.Properties properties = PropertyBridge.Properties.All){
+            browser.ExecuteScriptAsync(PropertyBridge.GenerateScript(properties));
+        }
+
         // callback handlers
 
         public void OpenSettings(){
@@ -310,6 +321,8 @@ namespace TweetDck.Core{
                     if (!Config.EnableTrayHighlight){
                         trayIcon.HasNotifications = false;
                     }
+
+                    UpdateProperties(PropertyBridge.Properties.ExpandLinksOnHover | PropertyBridge.Properties.HasCustomNotificationSound);
                 };
 
                 ShowChildForm(currentFormSettings);
