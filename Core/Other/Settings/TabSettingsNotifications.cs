@@ -58,7 +58,7 @@ namespace TweetDck.Core.Other.Settings{
             trackBarEdgeDistance.SetValueSafe(Config.NotificationEdgeDistance);
             labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value.ToString(CultureInfo.InvariantCulture)+" px";
 
-            tbCustomSound.Text = Config.NotificationSoundPath ?? string.Empty;
+            tbCustomSound.Text = Config.NotificationSoundPath;
 
             Disposed += (sender, args) => this.notification.Dispose();
         }

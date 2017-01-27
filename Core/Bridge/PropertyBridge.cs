@@ -7,7 +7,7 @@ namespace TweetDck.Core.Bridge{
         public enum Properties{
             ExpandLinksOnHover = 1,
             MuteNotifications = 2,
-            HasCustomNotificationSound = 4, // TODO changes if the file is deleted
+            HasCustomNotificationSound = 4,
             All = ExpandLinksOnHover | MuteNotifications | HasCustomNotificationSound
         }
 
@@ -24,7 +24,7 @@ namespace TweetDck.Core.Bridge{
             }
 
             if (properties.HasFlag(Properties.HasCustomNotificationSound)){
-                build.Append("c.hasCustomNotificationSound=").Append(!string.IsNullOrEmpty(Program.UserConfig.NotificationSoundPath) ? "true;" : "false;");
+                build.Append("c.hasCustomNotificationSound=").Append(Program.UserConfig.NotificationSoundPath.Length > 0 ? "true;" : "false;");
             }
 
             build.Append("})(window.$TDX=window.$TDX||{})");

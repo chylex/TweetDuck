@@ -67,7 +67,7 @@ namespace TweetDck.Configuration{
 
         public string NotificationSoundPath{
             get{
-                return !string.IsNullOrEmpty(notificationSoundPath) && File.Exists(notificationSoundPath) ? notificationSoundPath : string.Empty;
+                return string.IsNullOrEmpty(notificationSoundPath) ? string.Empty : notificationSoundPath;
             }
 
             set{
