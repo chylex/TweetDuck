@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Windows.Forms;
 using TweetDck.Core.Controls;
 using TweetDck.Core.Notification;
@@ -165,6 +166,13 @@ namespace TweetDck.Core.Other.Settings{
             labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value.ToString(CultureInfo.InvariantCulture)+" px";
             Config.NotificationEdgeDistance = trackBarEdgeDistance.Value;
             notification.ShowNotificationForSettings(false);
+        }
+
+        private void tbCustomSound_TextChanged(object sender, EventArgs e){
+            if (!Ready)return;
+
+            bool fileExists = string.IsNullOrEmpty(tbCustomSound.Text) || File.Exists(tbCustomSound.Text);
+            tbCustomSound.ForeColor = fileExists ? SystemColors.WindowText : Color.Maroon;
         }
 
         private void btnBrowseSound_Click(object sender, EventArgs e){
