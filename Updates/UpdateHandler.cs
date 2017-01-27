@@ -15,6 +15,12 @@ namespace TweetDck.Updates{
             }
         }
 
+        public UpdaterSettings Settings{
+            get{
+                return settings;
+            }
+        }
+
         private readonly ChromiumWebBrowser browser;
         private readonly FormBrowser form;
         private readonly UpdaterSettings settings;
@@ -44,11 +50,9 @@ namespace TweetDck.Updates{
         public int Check(bool force){
             if (IsSystemSupported){
                 if (Program.UserConfig.EnableUpdateCheck || force){
-                    if (force){
-                        settings.DismissedUpdate = null;
-                    }
+                    string dismissedUpdate = force || settings.DismissedUpdate == null ? string.Empty : settings.DismissedUpdate;
 
-                    browser.ExecuteScriptAsync("TDUF_runUpdateCheck", ++lastEventId, Program.VersionTag, settings.DismissedUpdate ?? string.Empty, settings.AllowPreReleases);
+                    browser.ExecuteScriptAsync("TDUF_runUpdateCheck", ++lastEventId, Program.VersionTag, dismissedUpdate, settings.AllowPreReleases);
                     return lastEventId;
                 }
 

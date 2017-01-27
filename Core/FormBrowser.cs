@@ -313,8 +313,10 @@ namespace TweetDck.Core{
                     currentFormSettings = null;
 
                     if (!prevEnableUpdateCheck && Config.EnableUpdateCheck){
+                        updates.Settings.DismissedUpdate = string.Empty;
                         Config.DismissedUpdate = string.Empty;
                         Config.Save();
+
                         updates.Check(false);
                     }
 
