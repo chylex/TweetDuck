@@ -169,7 +169,7 @@ namespace TweetDck.Core.Other.Settings{
         }
 
         private void tbCustomSound_TextChanged(object sender, EventArgs e){
-            if (!Ready)return;
+            // also runs when the control is created, i.e. when Ready is false
 
             bool fileExists = string.IsNullOrEmpty(tbCustomSound.Text) || File.Exists(tbCustomSound.Text);
             tbCustomSound.ForeColor = fileExists ? SystemColors.WindowText : Color.Maroon;
