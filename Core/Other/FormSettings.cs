@@ -14,6 +14,8 @@ namespace TweetDck.Core.Other{
         private readonly FormBrowser browser;
         private readonly Dictionary<Type, BaseTabSettings> tabs = new Dictionary<Type, BaseTabSettings>(4);
 
+        private bool wasTabSelectedAutomatically;
+
         public FormSettings(FormBrowser browser, PluginManager plugins, UpdateHandler updates){
             InitializeComponent();
 
@@ -24,14 +26,16 @@ namespace TweetDck.Core.Other{
 
             this.tabPanel.SetupTabPanel(100);
             this.tabPanel.AddButton("General", SelectTab<TabSettingsGeneral>);
-            this.tabPanel.AddButton("Notifications", () => SelectTab(() => new TabSettingsNotifications(browser.CreateNotificationForm(NotificationFlags.DisableContextMenu))));
+            this.tabPanel.AddButton("Notifications", () => SelectTab(() => new TabSettingsNotifications(browser.CreateNotificationForm(NotificationFlags.DisableContextMenu), wasTabSelectedAutomatically)));
             this.tabPanel.AddButton("Updates", () => SelectTab(() => new TabSettingsUpdates(updates)));
             this.tabPanel.AddButton("Advanced", () => SelectTab(() => new TabSettingsAdvanced(browser.ReinjectCustomCSS, plugins)));
             this.tabPanel.SelectTab(tabPanel.Buttons.First());
         }
 
         public void SelectTab(int index){
+            wasTabSelectedAutomatically = true;
             this.tabPanel.SelectTab(tabPanel.Buttons.ElementAt(index));
+            wasTabSelectedAutomatically = false;
         }
 
         private void SelectTab<T>() where T : BaseTabSettings, new(){

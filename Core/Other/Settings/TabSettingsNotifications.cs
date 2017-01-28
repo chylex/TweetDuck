@@ -12,7 +12,7 @@ namespace TweetDck.Core.Other.Settings{
         private readonly FormNotification notification;
         private readonly Point initCursorPosition;
 
-        public TabSettingsNotifications(FormNotification notification){
+        public TabSettingsNotifications(FormNotification notification, bool ignoreAutoClick){
             InitializeComponent();
 
             this.notification = notification;
@@ -31,7 +31,7 @@ namespace TweetDck.Core.Other.Settings{
             this.notification.Activated += notification_Activated;
             this.notification.Show(this);
 
-            initCursorPosition = Cursor.Position;
+            initCursorPosition = ignoreAutoClick ? ControlExtensions.InvisibleLocation : Cursor.Position;
 
             switch(Config.NotificationPosition){
                 case TweetNotification.Position.TopLeft: radioLocTL.Checked = true; break;
@@ -78,7 +78,7 @@ namespace TweetDck.Core.Other.Settings{
         }
 
         private void notification_Activated(object sender, EventArgs e){
-            if (Cursor.Position == initCursorPosition){
+            if (Cursor.Position == initCursorPosition && initCursorPosition != ControlExtensions.InvisibleLocation){
                 Timer delay = WindowsUtils.CreateSingleTickTimer(1);
 
                 delay.Tick += (sender2, args2) => { // here you can see a disgusting hack to force the freshly opened notification window out of focus
