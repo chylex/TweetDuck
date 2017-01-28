@@ -107,8 +107,8 @@ namespace TweetDck.Core{
         }
 
         private void ShowChildForm(Form form){
+            form.VisibleChanged += (sender, args) => form.MoveToCenter(this);
             form.Show(this);
-            form.Shown += (sender, args) => form.MoveToCenter(this);
         }
 
         public void ForceClose(){
