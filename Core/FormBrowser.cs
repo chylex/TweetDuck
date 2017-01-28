@@ -81,6 +81,8 @@ namespace TweetDck.Core{
 
             Controls.Add(browser);
 
+            Controls.Add(new MenuStrip{ Visible = false }); // fixes Alt freezing the program in Win 10 Anniversary Update
+
             Disposed += (sender, args) => {
                 browser.Dispose();
 
