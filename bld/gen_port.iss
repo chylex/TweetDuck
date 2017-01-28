@@ -10,7 +10,7 @@
 
 [Setup]
 AppId={{8C25A716-7E11-4AAD-9992-8B5D0C78AE06}
-AppName={#MyAppName}
+AppName={#MyAppName} Portable
 AppVersion={#MyAppVersion}
 AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}

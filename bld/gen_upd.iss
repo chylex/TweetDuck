@@ -12,7 +12,7 @@
 
 [Setup]
 AppId={{{#MyAppID}}
-AppName={#MyAppName}
+AppName={#MyAppName} Update
 AppVersion={#MyAppVersion}
 AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
