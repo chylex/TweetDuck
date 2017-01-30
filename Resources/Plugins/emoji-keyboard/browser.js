@@ -461,13 +461,25 @@ enabled(){
   
   this.emojiHTML = generated.join("");
   
-  // styles
+  // styles and layout
   
   this.css = window.TDPF_createCustomStyle(this);
   this.css.insert(".emoji-keyboard { position: absolute; width: 16.5em; height: 11.2em; background-color: white; overflow-y: auto; padding: 0.1em; box-sizing: border-box; border-radius: 2px; font-size: 24px; z-index: 9999 }");
   this.css.insert(".emoji-keyboard .emoji { padding: 0.1em !important; cursor: pointer }");
   
+  this.prevComposeMustache = TD.mustaches["compose/docked_compose.mustache"];
+  TD.mustaches["compose/docked_compose.mustache"] = TD.mustaches["compose/docked_compose.mustache"].replace('<div class="cf margin-t--12 margin-b--30">', '<div class="cf margin-t--12 margin-b--30"><button class="needsclick btn btn-on-blue txt-left margin-b--12 padding-v--9 emoji-keyboard-popup-btn"><i class="icon icon-heart"></i></button>');
+  
   // keyboard generation
+  
+  this.currentKeyboard = null;
+  
+  var hideKeyboard = () => {
+    $(this.currentKeyboard).remove();
+    this.currentKeyboard = null;
+    
+    $(".emoji-keyboard-popup-btn").removeClass("is-selected");
+  };
   
   this.generateKeyboardFor = (input, left, top) => {
     var created = document.createElement("div");
@@ -484,55 +496,65 @@ enabled(){
         input.trigger("change");
         input.focus();
       }
+      
+      e.stopPropagation();
     });
     
     return created;
   };
   
-  /*
-   * TODO
-   * ----
-   * add copyright and trademark symbols manually
-   * add emoji search if I can be bothered
-   * figure out how to make emojis work properly in the textarea
-   * lazy emoji loading
-   */
-  
-  // injection
-  
-  this.prevComposeMustache = TD.mustaches["compose/docked_compose.mustache"];
-  TD.mustaches["compose/docked_compose.mustache"] = TD.mustaches["compose/docked_compose.mustache"].replace('<div class="cf margin-t--12 margin-b--30">', '<div class="cf margin-t--12 margin-b--30"><button class="needsclick btn btn-on-blue txt-left margin-b--12 padding-v--9 emoji-keyboard-popup-btn"><i class="icon icon-heart"></i></button>');
-  
-  this.currentKeyboard = null;
+  // event handlers
   
   var me = this;
   
-  this.emojiKeyboardButtonEvent = function(){
+  this.emojiKeyboardButtonClickEvent = function(e){
     if (me.currentKeyboard){
-      $(me.currentKeyboard).remove();
-      me.currentKeyboard = null;
-      
-      $(this).removeClass("is-selected");
-      $(this).blur();
+      hideKeyboard();
     }
     else{
       var pos = $(this).offset();
       me.currentKeyboard = me.generateKeyboardFor($(".js-compose-text").first(), pos.left, pos.top+$(this).outerHeight()+8);
       
       $(this).addClass("is-selected");
-      $(this).blur();
+    }
+    
+    $(this).blur();
+    e.stopPropagation();
+  };
+  
+  this.documentClickEvent = function(e){
+    if (me.currentKeyboard && !e.target.classList.contains("js-compose-text")){
+      hideKeyboard();
     }
   };
+  
+  this.documentKeyEvent = function(e){
+    if (me.currentKeyboard && e.keyCode === 27){ // escape
+      hideKeyboard();
+      e.stopPropagation();
+    }
+  };
+  
+  /*
+   * TODO
+   * ----
+   * add emoji search if I can be bothered
+   * lazy emoji loading
+   */
 }
 
 ready(){
-  $(".emoji-keyboard-popup-btn").on("click", this.emojiKeyboardButtonEvent);
+  $(".emoji-keyboard-popup-btn").on("click", this.emojiKeyboardButtonClickEvent);
+  $(document).on("click", this.documentClickEvent);
+  $(document).on("keydown", this.documentKeyEvent);
 }
 
 disabled(){
   this.css.remove();
   
-  $(".emoji-keyboard-popup-btn").off("click", this.emojiKeyboardButtonEvent);
+  $(".emoji-keyboard-popup-btn").off("click", this.emojiKeyboardButtonClickEvent);
+  $(document).off("click", this.documentClickEvent);
+  $(document).off("keydown", this.documentKeyEvent);
   TD.mustaches["compose/docked_compose.mustache"] = this.prevComposeMustache;
 }
 
