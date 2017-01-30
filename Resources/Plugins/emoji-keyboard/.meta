@@ -1,0 +1,17 @@
+[name]
+Emoji keyboard
+
+[description]
+- Adds an emoji keyboard when writing tweets
+
+[author]
+chylex
+
+[version]
+1.0
+
+[website]
+https://tweetduck.chylex.com
+
+[requires]
+1.5.3
