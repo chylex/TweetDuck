@@ -95,19 +95,19 @@ namespace TweetDck.Core.Handling{
                     return true;
 
                 case MenuSettings:
-                    form.InvokeSafe(form.OpenSettings);
+                    form.InvokeAsyncSafe(form.OpenSettings);
                     return true;
 
                 case MenuAbout:
-                    form.InvokeSafe(form.OpenAbout);
+                    form.InvokeAsyncSafe(form.OpenAbout);
                     return true;
 
                 case MenuPlugins:
-                    form.InvokeSafe(form.OpenPlugins);
+                    form.InvokeAsyncSafe(form.OpenPlugins);
                     return true;
 
                 case MenuMute:
-                    form.InvokeSafe(() => {
+                    form.InvokeAsyncSafe(() => {
                         Program.UserConfig.MuteNotifications = !Program.UserConfig.MuteNotifications;
                         Program.UserConfig.Save();
                     });
@@ -123,7 +123,7 @@ namespace TweetDck.Core.Handling{
                     return true;
 
                 case MenuScreenshotTweet:
-                    form.InvokeSafe(form.TriggerTweetScreenshot);
+                    form.InvokeAsyncSafe(form.TriggerTweetScreenshot);
                     return true;
 
                 case MenuOpenQuotedTweetUrl:

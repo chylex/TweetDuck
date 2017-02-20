@@ -16,6 +16,10 @@ namespace TweetDck.Core.Controls{
             }
         }
 
+        public static void InvokeAsyncSafe(this Control control, Action func){
+            control.BeginInvoke(func);
+        }
+
         public static void MoveToCenter(this Form targetForm, Form parentForm){
             targetForm.Location = new Point(parentForm.Location.X+parentForm.Width/2-targetForm.Width/2, parentForm.Location.Y+parentForm.Height/2-targetForm.Height/2);
         }

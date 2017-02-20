@@ -39,26 +39,26 @@ namespace TweetDck.Core.Bridge{
         }
 
         public void SetLastRightClickedLink(string link){
-            form.InvokeSafe(() => LastRightClickedLink = link);
+            form.InvokeAsyncSafe(() => LastRightClickedLink = link);
         }
 
         public void SetLastHighlightedTweet(string link, string quotedLink){
-            form.InvokeSafe(() => {
+            form.InvokeAsyncSafe(() => {
                 LastHighlightedTweet = link;
                 LastHighlightedQuotedTweet = quotedLink;
             });
         }
 
         public void SetNotificationQuotedTweet(string link){
-            notification.InvokeSafe(() => notification.CurrentQuotedTweetUrl = link);
+            notification.InvokeAsyncSafe(() => notification.CurrentQuotedTweetUrl = link);
         }
 
         public void OpenSettingsMenu(){
-            form.InvokeSafe(form.OpenSettings);
+            form.InvokeAsyncSafe(form.OpenSettings);
         }
 
         public void OpenPluginsMenu(){
-            form.InvokeSafe(form.OpenPlugins);
+            form.InvokeAsyncSafe(form.OpenPlugins);
         }
 
         public void OnTweetPopup(string tweetHtml, string tweetUrl, int tweetCharacters){
@@ -69,7 +69,7 @@ namespace TweetDck.Core.Bridge{
         }
 
         public void OnTweetSound(){
-            form.InvokeSafe(() => {
+            form.InvokeAsyncSafe(() => {
                 form.OnTweetNotification();
                 form.PlayNotificationSound();
             });
@@ -77,15 +77,15 @@ namespace TweetDck.Core.Bridge{
 
         public void DisplayTooltip(string text, bool showInNotification){
             if (showInNotification){
-                notification.InvokeSafe(() => notification.DisplayTooltip(text));
+                notification.InvokeAsyncSafe(() => notification.DisplayTooltip(text));
             }
             else{
-                form.InvokeSafe(() => form.DisplayTooltip(text));
+                form.InvokeAsyncSafe(() => form.DisplayTooltip(text));
             }
         }
 
         public void LoadNextNotification(){
-            notification.InvokeSafe(notification.FinishCurrentTweet);
+            notification.InvokeAsyncSafe(notification.FinishCurrentTweet);
         }
 
         public void TryPasteImage(){
@@ -121,11 +121,11 @@ namespace TweetDck.Core.Bridge{
         }
 
         public void ScreenshotTweet(string html, int width, int height){
-            form.InvokeSafe(() => form.OnTweetScreenshotReady(html, width, height));
+            form.InvokeAsyncSafe(() => form.OnTweetScreenshotReady(html, width, height));
         }
 
         public void FixClipboard(){
-            form.InvokeSafe(WindowsUtils.ClipboardStripHtmlStyles);
+            form.InvokeAsyncSafe(WindowsUtils.ClipboardStripHtmlStyles);
         }
 
         public void OpenBrowser(string url){

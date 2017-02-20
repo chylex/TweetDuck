@@ -101,7 +101,7 @@ namespace TweetDck.Core.Handling{
         }
 
         protected void SetClipboardText(string text){
-            form.InvokeSafe(() => WindowsUtils.SetClipboard(text, TextDataFormat.UnicodeText));
+            form.InvokeAsyncSafe(() => WindowsUtils.SetClipboard(text, TextDataFormat.UnicodeText));
         }
 
         protected static void RemoveSeparatorIfLast(IMenuModel model){

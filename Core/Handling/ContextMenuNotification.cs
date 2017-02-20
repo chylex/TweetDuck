@@ -49,7 +49,7 @@ namespace TweetDck.Core.Handling{
 
             RemoveSeparatorIfLast(model);
 
-            form.InvokeSafe(() => form.ContextMenuOpen = true);
+            form.InvokeAsyncSafe(() => form.ContextMenuOpen = true);
         }
 
         public override bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags){
@@ -59,11 +59,11 @@ namespace TweetDck.Core.Handling{
 
             switch((int)commandId){
                 case MenuSkipTweet:
-                    form.InvokeSafe(form.FinishCurrentTweet);
+                    form.InvokeAsyncSafe(form.FinishCurrentTweet);
                     return true;
 
                 case MenuFreeze:
-                    form.InvokeSafe(() => form.FreezeTimer = !form.FreezeTimer);
+                    form.InvokeAsyncSafe(() => form.FreezeTimer = !form.FreezeTimer);
                     return true;
 
                 case MenuCopyTweetUrl:
@@ -80,7 +80,7 @@ namespace TweetDck.Core.Handling{
 
         public override void OnContextMenuDismissed(IWebBrowser browserControl, IBrowser browser, IFrame frame){
             base.OnContextMenuDismissed(browserControl, browser, frame);
-            form.InvokeSafe(() => form.ContextMenuOpen = false);
+            form.InvokeAsyncSafe(() => form.ContextMenuOpen = false);
         }
     }
 }
