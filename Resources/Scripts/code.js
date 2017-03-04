@@ -10,71 +10,14 @@
   var highlightedTweetEle;
   
   //
-  // Function: Initializes TweetD*ck events. Called after the website app is loaded.
+  // Variable: Array of functions called after the website app is loaded.
   //
-  var initializeTweetDck = function(){
-    // Settings button hook
-    $("[data-action='settings-menu']").click(function(){
-      setTimeout(function(){
-        var menu = $(".js-dropdown-content").children("ul").first();
-        if (menu.length === 0)return;
-        
-        menu.children(".drp-h-divider").last().after([
-          '<li class="is-selectable" data-std><a href="#" data-action="td-settings">TweetDuck settings</a></li>',
-          '<li class="is-selectable" data-std><a href="#" data-action="td-plugins">TweetDuck plugins</a></li>',
-          '<li class="drp-h-divider"></li>'
-        ].join(""));
-        
-        var buttons = menu.children("[data-std]");
-
-        buttons.on("click", "a", function(){
-          var action = $(this).attr("data-action");
-          
-          if (action === "td-settings"){
-            $TD.openSettingsMenu();
-          }
-          else if (action === "td-plugins"){
-            $TD.openPluginsMenu();
-          }
-        });
-
-        buttons.hover(function(){
-          $(this).addClass("is-selected");
-        }, function(){
-          $(this).removeClass("is-selected");
-        });
-      }, 0);
-    });
-    
-    // Notification handling
-    $.subscribe("/notifications/new", function(obj){
-      for(let index = obj.items.length-1; index >= 0; index--){
-        onNewTweet(obj.column, obj.items[index]);
-      }
-    });
-    
-    // Setup video element replacement and fix missing target in user links
-    new MutationObserver(function(){
-      $("video").each(function(){
-        $(this).parent().replaceWith("<a href='"+$(this).attr("src")+"' rel='url' target='_blank' style='display:block; border:1px solid #555; padding:3px 6px'>&#9658; Open video in browser</a>");
-      });
-      
-      $("a[rel='user']").attr("target", "_blank");
-    }).observe($(".js-app-columns")[0], {
-      childList: true,
-      subtree: true
-    });
-    
-    // Finish init and load plugins
-    $TD.loadFontSizeClass(TD.settings.getFontSize());
-    $TD.loadNotificationHeadContents(getNotificationHeadContents());
-    
-    window.TD_APP_READY = true;
-    
-    if (window.TD_PLUGINS){
-      window.TD_PLUGINS.onReady();
-    }
-  };
+  var onAppReady = [];
+  
+  //
+  // Variable: DOM object containing the main app element.
+  //
+  var app = $(document.body).children(".js-app");
   
   //
   // Function: Prepends code at the beginning of a function. If the prepended function returns true, execution of the original function is cancelled.
@@ -138,23 +81,6 @@
   };
   
   //
-  // Block: Observe the app <div> element and initialize TweetD*ck whenever possible.
-  //
-  var app = $("body").children(".js-app");
-  
-  new MutationObserver(function(){
-    if (window.TD_APP_READY && app.hasClass("is-hidden")){
-      window.TD_APP_READY = false;
-    }
-    else if (!window.TD_APP_READY && !app.hasClass("is-hidden")){
-      initializeTweetDck();
-    }
-  }).observe(app[0], {
-    attributes: true,
-    attributeFilter: [ "class" ]
-  });
-  
-  //
   // Block: Hook into settings object to detect when the settings change.
   //
   TD.settings.setFontSize = appendToFunction(TD.settings.setFontSize, function(name){
@@ -168,7 +94,7 @@
   });
   
   //
-  // Block: Force popup notification settings.
+  // Block: Enable popup notifications.
   //
   TD.controller.notifications.hasNotifications = function(){
     return true;
@@ -177,6 +103,49 @@
   TD.controller.notifications.isPermissionGranted = function(){
     return true;
   };
+  
+  $.subscribe("/notifications/new", function(obj){
+    for(let index = obj.items.length-1; index >= 0; index--){
+      onNewTweet(obj.column, obj.items[index]);
+    }
+  });
+  
+  //
+  // Block: Add TweetDuck buttons to the settings menu.
+  //
+  onAppReady.push(function(){
+    $("[data-action='settings-menu']").click(function(){
+      setTimeout(function(){
+        var menu = $(".js-dropdown-content").children("ul").first();
+        if (menu.length === 0)return;
+        
+        menu.children(".drp-h-divider").last().after([
+          '<li class="is-selectable" data-std><a href="#" data-action="td-settings">TweetDuck settings</a></li>',
+          '<li class="is-selectable" data-std><a href="#" data-action="td-plugins">TweetDuck plugins</a></li>',
+          '<li class="drp-h-divider"></li>'
+        ].join(""));
+        
+        var buttons = menu.children("[data-std]");
+
+        buttons.on("click", "a", function(){
+          var action = $(this).attr("data-action");
+          
+          if (action === "td-settings"){
+            $TD.openSettingsMenu();
+          }
+          else if (action === "td-plugins"){
+            $TD.openPluginsMenu();
+          }
+        });
+
+        buttons.hover(function(){
+          $(this).addClass("is-selected");
+        }, function(){
+          $(this).removeClass("is-selected");
+        });
+      }, 0);
+    });
+  });
   
   //
   // Block: Expand shortened links on hover or display tooltip.
@@ -387,7 +356,7 @@
       $TD.clickUploadImage(Math.floor(buttonPos.left), Math.floor(buttonPos.top));
     };
     
-    $(".js-app").delegate(".js-compose-text,.js-reply-tweetbox", "paste", function(){
+    app.delegate(".js-compose-text,.js-reply-tweetbox", "paste", function(){
       lastPasteElement = $(this);
       $TD.tryPasteImage();
     });
@@ -554,4 +523,48 @@
       }
     };
   })();
+  
+  //
+  // Block: Setup video element replacement and fix missing target in user links
+  //
+  onAppReady.push(function(){
+    new MutationObserver(function(){
+      $("video").each(function(){
+        $(this).parent().replaceWith("<a href='"+$(this).attr("src")+"' rel='url' target='_blank' style='display:block; border:1px solid #555; padding:3px 6px'>&#9658; Open video in browser</a>");
+      });
+      
+      $("a[rel='user']").attr("target", "_blank");
+    }).observe($(".js-app-columns")[0], {
+      childList: true,
+      subtree: true
+    });
+  });
+  
+  //
+  // Block: Finish initialization and load plugins.
+  //
+  onAppReady.push(function(){
+    $TD.loadFontSizeClass(TD.settings.getFontSize());
+    $TD.loadNotificationHeadContents(getNotificationHeadContents());
+    
+    if (window.TD_PLUGINS){
+      window.TD_PLUGINS.onReady();
+    }
+  });
+  
+  //
+  // Block: Observe the main app element and call the ready event whenever the contents are loaded.
+  //
+  new MutationObserver(function(){
+    if (window.TD_APP_READY && app.hasClass("is-hidden")){
+      window.TD_APP_READY = false;
+    }
+    else if (!window.TD_APP_READY && !app.hasClass("is-hidden")){
+      onAppReady.forEach(func => func());
+      window.TD_APP_READY = true;
+    }
+  }).observe(app[0], {
+    attributes: true,
+    attributeFilter: [ "class" ]
+  });
 })($, $TD, $TDX, TD);
