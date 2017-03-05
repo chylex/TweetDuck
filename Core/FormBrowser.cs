@@ -13,12 +13,10 @@ using TweetDck.Updates;
 using TweetDck.Plugins;
 using TweetDck.Plugins.Enums;
 using TweetDck.Plugins.Events;
-using System.Media;
 using TweetDck.Core.Bridge;
 using TweetDck.Core.Notification;
 using TweetDck.Core.Notification.Screenshot;
 using TweetDck.Updates.Events;
-using System.IO;
 
 namespace TweetDck.Core{
     sealed partial class FormBrowser : Form{
@@ -43,8 +41,7 @@ namespace TweetDck.Core{
         private FormWindowState prevState;
 
         private TweetScreenshotManager notificationScreenshotManager;
-        private SoundPlayer notificationSound;
-        private bool ignoreNotificationSoundError;
+        private SoundNotification soundNotification;
 
         public FormBrowser(PluginManager pluginManager, UpdaterSettings updaterSettings){
             InitializeComponent();
@@ -90,8 +87,8 @@ namespace TweetDck.Core{
                     notificationScreenshotManager.Dispose();
                 }
 
-                if (notificationSound != null){
-                    notificationSound.Dispose();
+                if (soundNotification != null){
+                    soundNotification.Dispose();
                 }
             };
 
@@ -372,45 +369,11 @@ namespace TweetDck.Core{
                 return;
             }
 
-            if (notificationSound == null){
-                notificationSound = new SoundPlayer{
-                    LoadTimeout = 5000
-                };
+            if (soundNotification == null){
+                soundNotification = new SoundNotification(this);
             }
 
-            if (notificationSound.SoundLocation != Config.NotificationSoundPath){
-                notificationSound.SoundLocation = Config.NotificationSoundPath;
-                ignoreNotificationSoundError = false;
-            }
-
-            try{
-                notificationSound.Play();
-            }catch(FileNotFoundException e){
-                OnNotificationSoundError("File not found: "+e.FileName);
-            }catch(InvalidOperationException){
-                OnNotificationSoundError("File is not a valid sound file.");
-            }catch(TimeoutException){
-                OnNotificationSoundError("File took too long to load.");
-            }
-        }
-
-        private void OnNotificationSoundError(string message){
-            if (!ignoreNotificationSoundError){
-                ignoreNotificationSoundError = true;
-
-                using(FormMessage form = new FormMessage("Notification Sound Error", "Could not play custom notification sound."+Environment.NewLine+message, MessageBoxIcon.Error)){
-                    form.AddButton("Ignore");
-
-                    Button btnOpenSettings = form.AddButton("Open Settings");
-                    btnOpenSettings.Width += 16;
-                    btnOpenSettings.Location = new Point(btnOpenSettings.Location.X-16, btnOpenSettings.Location.Y);
-
-                    if (form.ShowDialog() == DialogResult.OK && form.ClickedButton == btnOpenSettings){
-                        OpenSettings();
-                        currentFormSettings.SelectTab(FormSettings.TabIndexNotification);
-                    }
-                }
-            }
+            soundNotification.Play(Config.NotificationSoundPath);
         }
 
         public void OnTweetScreenshotReady(string html, int width, int height){
