@@ -305,13 +305,17 @@ namespace TweetDck.Core{
         // callback handlers
 
         public void OpenSettings(){
+            OpenSettings(0);
+        }
+
+        public void OpenSettings(int tabIndex){
             if (currentFormSettings != null){
                 currentFormSettings.BringToFront();
             }
             else{
                 bool prevEnableUpdateCheck = Config.EnableUpdateCheck;
 
-                currentFormSettings = new FormSettings(this, plugins, updates);
+                currentFormSettings = new FormSettings(this, plugins, updates, tabIndex);
 
                 currentFormSettings.FormClosed += (sender, args) => {
                     currentFormSettings = null;
