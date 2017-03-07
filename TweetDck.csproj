@@ -353,7 +353,15 @@ mkdir "$(TargetDir)plugins\official"
 mkdir "$(TargetDir)plugins\user"
 xcopy "$(ProjectDir)Resources\Plugins\*" "$(TargetDir)plugins\official\" /E /Y
 rmdir "$(ProjectDir)\bin\Debug"
-rmdir "$(ProjectDir)\bin\Release"</PostBuildEvent>
+rmdir "$(ProjectDir)\bin\Release"
+
+rmdir "$(TargetDir)plugins\official\.debug" /S /Q
+
+if $(ConfigurationName) == Debug (
+  rmdir "$(TargetDir)plugins\official\.debug" /S /Q
+  mkdir "$(TargetDir)plugins\user\.debug"
+  xcopy "$(ProjectDir)Resources\Plugins\.debug\*" "$(TargetDir)plugins\user\.debug\" /E /Y
+)</PostBuildEvent>
   </PropertyGroup>
   <Import Project="packages\cef.redist.x86.3.2785.1486\build\cef.redist.x86.targets" Condition="Exists('packages\cef.redist.x86.3.2785.1486\build\cef.redist.x86.targets')" />
   <Import Project="packages\cef.redist.x64.3.2785.1486\build\cef.redist.x64.targets" Condition="Exists('packages\cef.redist.x64.3.2785.1486\build\cef.redist.x64.targets')" />
