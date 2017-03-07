@@ -13,6 +13,8 @@ namespace TweetDck.Plugins{
         public const string PluginNotificationScriptFile = "plugins.notification.js";
         public const string PluginGlobalScriptFile = "plugins.js";
 
+        private const int InvalidToken = 0;
+
         public string PathOfficialPlugins { get { return Path.Combine(rootPath, "official"); } }
         public string PathCustomPlugins { get { return Path.Combine(rootPath, "user"); } }
 
@@ -63,6 +65,16 @@ namespace TweetDck.Plugins{
             return plugins.Any(plugin => plugin.Environments.HasFlag(environment));
         }
 
+        public int GetTokenFromPlugin(Plugin plugin){
+            foreach(KeyValuePair<int, Plugin> kvp in tokens){
+                if (kvp.Value.Equals(plugin)){
+                    return kvp.Key;
+                }
+            }
+
+            return InvalidToken;
+        }
+
         public Plugin GetPluginFromToken(int token){
             Plugin plugin;
             return tokens.TryGetValue(token, out plugin) ? plugin : null;
@@ -108,7 +120,7 @@ namespace TweetDck.Plugins{
                 int token;
 
                 if (tokens.ContainsValue(plugin)){
-                    token = tokens.First(kvp => kvp.Value.Equals(plugin)).Key;
+                    token = GetTokenFromPlugin(plugin);
                 }
                 else{
                     token = GenerateToken();
@@ -141,7 +153,7 @@ namespace TweetDck.Plugins{
             for(int attempt = 0; attempt < 1000; attempt++){
                 int token = rand.Next();
 
-                if (!tokens.ContainsKey(token)){
+                if (!tokens.ContainsKey(token) && token != InvalidToken){
                     return token;
                 }
             }

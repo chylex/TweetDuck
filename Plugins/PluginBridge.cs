@@ -1,22 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using TweetDck.Core.Utils;
 using TweetDck.Plugins.Enums;
 using TweetDck.Plugins.Events;
 
 namespace TweetDck.Plugins{
     class PluginBridge{
+        private static string SanitizeCacheKey(string key){
+            return key.Replace('\\', '/').Trim();
+        }
+
         private readonly PluginManager manager;
-        private readonly Dictionary<string, string> fileCache = new Dictionary<string, string>(2);
+        private readonly TwoKeyDictionary<int, string, string> fileCache = new TwoKeyDictionary<int, string, string>(4, 2);
 
         public PluginBridge(PluginManager manager){
             this.manager = manager;
             this.manager.Reloaded += manager_Reloaded;
+            this.manager.PluginChangedState += manager_PluginChangedState;
         }
 
         private void manager_Reloaded(object sender, PluginLoadEventArgs e){
             fileCache.Clear();
+        }
+
+        private void manager_PluginChangedState(object sender, PluginChangedStateEventArgs e){
+            if (!e.IsEnabled){
+                fileCache.Remove(manager.GetTokenFromPlugin(e.Plugin));
+            }
         }
 
         private string GetFullPathOrThrow(int token, PluginFolder folder, string path){
@@ -35,15 +46,17 @@ namespace TweetDck.Plugins{
             }
         }
 
-        private string ReadFileUnsafe(string fullPath, bool readCached){
+        private string ReadFileUnsafe(int token, string cacheKey, string fullPath, bool readCached){
+            cacheKey = SanitizeCacheKey(cacheKey);
+
             string cachedContents;
             
-            if (readCached && fileCache.TryGetValue(fullPath, out cachedContents)){
+            if (readCached && fileCache.TryGetValue(token, cacheKey, out cachedContents)){
                 return cachedContents;
             }
 
             try{
-                return fileCache[fullPath] = File.ReadAllText(fullPath, Encoding.UTF8);
+                return fileCache[token, cacheKey] = File.ReadAllText(fullPath, Encoding.UTF8);
             }catch(FileNotFoundException){
                 throw new Exception("File not found.");
             }catch(DirectoryNotFoundException){
@@ -60,17 +73,17 @@ namespace TweetDck.Plugins{
             Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
 
             File.WriteAllText(fullPath, contents, Encoding.UTF8);
-            fileCache[fullPath] = contents;
+            fileCache[token, SanitizeCacheKey(path)] = contents;
         }
 
         public string ReadFile(int token, string path, bool cache){
-            return ReadFileUnsafe(GetFullPathOrThrow(token, PluginFolder.Data, path), cache);
+            return ReadFileUnsafe(token, path, GetFullPathOrThrow(token, PluginFolder.Data, path), cache);
         }
 
         public void DeleteFile(int token, string path){
             string fullPath = GetFullPathOrThrow(token, PluginFolder.Data, path);
 
-            fileCache.Remove(fullPath);
+            fileCache.Remove(token, SanitizeCacheKey(path));
             File.Delete(fullPath);
         }
 
@@ -79,7 +92,7 @@ namespace TweetDck.Plugins{
         }
 
         public string ReadFileRoot(int token, string path){
-            return ReadFileUnsafe(GetFullPathOrThrow(token, PluginFolder.Root, path), true);
+            return ReadFileUnsafe(token, "root*"+path, GetFullPathOrThrow(token, PluginFolder.Root, path), true);
         }
 
         public bool CheckFileExistsRoot(int token, string path){
