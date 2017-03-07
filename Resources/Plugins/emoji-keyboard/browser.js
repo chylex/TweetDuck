@@ -1,15 +1,27 @@
 enabled(){  
   this.emojiHTML = "";
   
-  // styles and layout
+  var me = this;
+  
+  // styles
   
   this.css = window.TDPF_createCustomStyle(this);
   this.css.insert(".emoji-keyboard { position: absolute; width: 15.35em; height: 11.2em; background-color: white; overflow-y: auto; padding: 0.1em; box-sizing: border-box; border-radius: 2px; font-size: 24px; z-index: 9999 }");
   this.css.insert(".emoji-keyboard .separator { height: 26px; }");
   this.css.insert(".emoji-keyboard .emoji { padding: 0.1em !important; cursor: pointer }");
   
+  // layout
+  
+  var buttonHTML = '<button class="needsclick btn btn-on-blue txt-left padding-v--9 emoji-keyboard-popup-btn"><i class="icon icon-heart"></i></button>';
+  
   this.prevComposeMustache = TD.mustaches["compose/docked_compose.mustache"];
-  TD.mustaches["compose/docked_compose.mustache"] = TD.mustaches["compose/docked_compose.mustache"].replace('<div class="cf margin-t--12 margin-b--30">', '<div class="cf margin-t--12 margin-b--30"><button class="needsclick btn btn-on-blue txt-left margin-b--12 padding-v--9 emoji-keyboard-popup-btn"><i class="icon icon-heart"></i></button>');
+  TD.mustaches["compose/docked_compose.mustache"] = TD.mustaches["compose/docked_compose.mustache"].replace('<div class="cf margin-t--12 margin-b--30">', '<div class="cf margin-t--12 margin-b--30">'+buttonHTML);
+  
+  var dockedComposePanel = $(".js-docked-compose");
+  
+  if (dockedComposePanel.length){
+    dockedComposePanel.find(".cf.margin-t--12.margin-b--30").first().append(buttonHTML);
+  }
   
   // keyboard generation
   
@@ -44,9 +56,18 @@ enabled(){
     return created;
   };
   
-  // event handlers
+  this.prevTryPasteImage = window.TDGF_tryPasteImage;
+  var prevTryPasteImageF = this.prevTryPasteImage;
   
-  var me = this;
+  window.TDGF_tryPasteImage = function(){
+    if (me.currentKeyboard){
+      hideKeyboard();
+    }
+    
+    return prevTryPasteImageF.apply(this, arguments);
+  };
+  
+  // event handlers
   
   this.emojiKeyboardButtonClickEvent = function(e){
     if (me.currentKeyboard){
@@ -124,9 +145,7 @@ ready(){
           let declPre = decl.slice(0, skinIndex);
           let declPost = decl.slice(skinIndex+1);
 
-          for(let newDecl of skinTones.map(skinTone => declPre+skinTone+declPost)){
-            addDeclaration(newDecl);
-          }
+          skinTones.map(skinTone => declPre+skinTone+declPost).forEach(addDeclaration);
         }
         else{
           addDeclaration(decl);
@@ -144,7 +163,15 @@ ready(){
 disabled(){
   this.css.remove();
   
+  if (this.currentKeyboard){
+    $(this.currentKeyboard).remove();
+  }
+  
+  window.TDGF_tryPasteImage = this.prevTryPasteImage;
+  
   $(".emoji-keyboard-popup-btn").off("click", this.emojiKeyboardButtonClickEvent);
+  $(".emoji-keyboard-popup-btn").remove();
+  
   $(document).off("click", this.documentClickEvent);
   $(document).off("keydown", this.documentKeyEvent);
   TD.mustaches["compose/docked_compose.mustache"] = this.prevComposeMustache;
