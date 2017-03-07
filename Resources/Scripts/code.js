@@ -513,6 +513,9 @@
     styleOfficial.sheet.insertRule(".txt-base-smallest .badge-verified:before { height: 13px !important; }", 0); // fix cut off badge icon
     styleOfficial.sheet.insertRule(".keyboard-shortcut-list { vertical-align: top; }", 0); // fix keyboard navigation alignment
     
+    styleOfficial.sheet.insertRule(".is-video a:not([href*='youtu']) { cursor: alias; }", 0); // change cursor on unsupported videos
+    styleOfficial.sheet.insertRule(".is-video a:not([href*='youtu']) .icon-bg-dot { color: #bd3d37; }", 0); // change play icon color on unsupported videos
+    
     TD.services.TwitterActionRetweetedRetweet.prototype.iconClass = "icon-retweet icon-retweet-color txt-base-medium"; // fix retweet icon mismatch
     
     window.TDGF_reinjectCustomCSS = function(styles){
@@ -525,18 +528,27 @@
   })();
   
   //
-  // Block: Setup video element replacement.
+  // Block: Setup unsupported video element hook.
   //
-  onAppReady.push(function(){
-    new MutationObserver(function(){
-      $("video").each(function(){
-        $(this).parent().replaceWith("<a href='"+$(this).attr("src")+"' rel='url' target='_blank' style='display:block; border:1px solid #555; padding:3px 6px'>&#9658; Open video in browser</a>");
-      });
-    }).observe($(".js-app-columns")[0], {
-      childList: true,
-      subtree: true
+  (function(){
+    var cancelModal = false;
+    
+    TD.components.MediaGallery.prototype._loadTweet = appendToFunction(TD.components.MediaGallery.prototype._loadTweet, function(){
+      var media = this.chirp.getMedia().find(media => media.mediaId === this.clickedMediaEntityId);
+
+      if (media && media.isVideo && media.service !== "youtube"){
+        $TD.openBrowser(this.clickedLink);
+        cancelModal = true;
+      }
     });
-  });
+
+    TD.components.BaseModal.prototype.setAndShowContainer = prependToFunction(TD.components.BaseModal.prototype.setAndShowContainer, function(){
+      if (cancelModal){
+        cancelModal = false;
+        return true;
+      }
+    });
+  })();
   
   //
   // Block: Finish initialization and load plugins.
