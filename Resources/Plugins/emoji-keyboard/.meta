@@ -3,6 +3,7 @@ Emoji keyboard
 
 [description]
 - Adds an emoji keyboard when writing tweets
+- Emoji list provided by http://unicode.org/emoji/charts/emoji-ordering.html
 
 [author]
 chylex

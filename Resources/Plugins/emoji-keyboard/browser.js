@@ -102,13 +102,10 @@ ready(){
   };
   
   $TDP.readFileRoot(this.$token, "emoji-ordering.txt").then(contents => {
-    let generated = [
-      "<p style='font-size:13px;color:#444;margin:4px;text-align:center'>Please, note that most emoji will not show up properly in the text box above, but they will display in the tweet.</p>"
-    ];
+    let generated = [];
     
     let addDeclaration = decl => {
-      let emoji = decl.split(" ").map(pt => convUnicode(parseInt(pt, 16))).join("");
-      generated.push(TD.util.cleanWithEmoji(emoji));
+      generated.push(decl.split(" ").map(pt => convUnicode(parseInt(pt, 16))).join(""));
     };
     
     let skinTones = [
@@ -116,29 +113,29 @@ ready(){
     ];
     
     for(let line of contents.split("\n")){
-      if (line[0] === '#'){
-        continue;
-      }
-      else if (line[0] === '@'){
-        generated.push("<div class='separator'></div>");
-        continue;
-      }
-      
-      let decl = line.substring(0, line.indexOf(";"));
-      let skinIndex = decl.indexOf('$');
-      
-      if (skinIndex !== -1){
-        let declPre = decl.substring(0, skinIndex);
-        let declPost = decl.substring(skinIndex+1);
-        
-        skinTones.map(skinTone => declPre+skinTone+declPost).forEach(addDeclaration);
+      if (line[0] === '@'){
+        generated.push("___");
       }
       else{
-        addDeclaration(decl);
+        let decl = line.slice(0, line.indexOf(";"));
+        let skinIndex = decl.indexOf('$');
+
+        if (skinIndex !== -1){
+          let declPre = decl.slice(0, skinIndex);
+          let declPost = decl.slice(skinIndex+1);
+
+          for(let newDecl of skinTones.map(skinTone => declPre+skinTone+declPost)){
+            addDeclaration(newDecl);
+          }
+        }
+        else{
+          addDeclaration(decl);
+        }
       }
     }
     
-    this.emojiHTML = generated.join("");
+    let start = "<p style='font-size:13px;color:#444;margin:4px;text-align:center'>Please, note that most emoji will not show up properly in the text box above, but they will display in the tweet.</p>";
+    this.emojiHTML = start+TD.util.cleanWithEmoji(generated.join("")).replace("___", "<div class='separator'></div>");
   }).catch(err => {
     $TD.alert("error", "Problem loading emoji keyboard: "+err.message);
   });

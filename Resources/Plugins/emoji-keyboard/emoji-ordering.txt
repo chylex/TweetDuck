@@ -1,7 +1,3 @@
-# Machine-readable version of the emoji ordering for v4.0 (corresponding to CLDR).
-# Note that the skin-tone modifiers are primary-ignorable in the CLDR collation rules.
-# For a listing with the groups and subgroups, and the non-qualified sequences,
-# see http://unicode.org/Public/emoji/4.0/emoji-test.txt
 1F600; 😀 grinning face
 1F601; 😁 grinning face with smiling eyes
 1F602; 😂 face with tears of joy
