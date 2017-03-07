@@ -117,8 +117,8 @@ ready(){
         continue;
       }
       
-      let decl = line.substring(0, line.indexOf(";")-1);
-      let emoji = decl.split(" ").map(pt => convUnicode(parseInt(pt.substring(2), 16))).join("");
+      let decl = line.substring(0, line.indexOf(";"));
+      let emoji = decl.split(" ").map(pt => convUnicode(parseInt(pt, 16))).join("");
       
       generated.push(TD.util.cleanWithEmoji(emoji));
     }
