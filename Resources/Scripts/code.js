@@ -513,8 +513,8 @@
     styleOfficial.sheet.insertRule(".txt-base-smallest .badge-verified:before { height: 13px !important; }", 0); // fix cut off badge icon
     styleOfficial.sheet.insertRule(".keyboard-shortcut-list { vertical-align: top; }", 0); // fix keyboard navigation alignment
     
-    styleOfficial.sheet.insertRule(".is-video a:not([href*='youtu']) { cursor: alias; }", 0); // change cursor on unsupported videos
-    styleOfficial.sheet.insertRule(".is-video a:not([href*='youtu']) .icon-bg-dot { color: #bd3d37; }", 0); // change play icon color on unsupported videos
+    styleOfficial.sheet.insertRule(".is-video a:not([href*='youtu']), .is-gif .js-media-gif-container { cursor: alias; }", 0); // change cursor on unsupported videos
+    styleOfficial.sheet.insertRule(".is-video a:not([href*='youtu']) .icon-bg-dot, .is-gif .icon-bg-dot { color: #bd3d37; }", 0); // change play icon color on unsupported videos
     
     TD.services.TwitterActionRetweetedRetweet.prototype.iconClass = "icon-retweet icon-retweet-color txt-base-medium"; // fix retweet icon mismatch
     
@@ -547,6 +547,17 @@
         cancelModal = false;
         return true;
       }
+    });
+    
+    TD.ui.Column.prototype.playGifIfNotManuallyPaused = function(){};
+    TD.mustaches["status/media_thumb.mustache"] = TD.mustaches["status/media_thumb.mustache"].replace("is-gif", "is-gif is-paused");
+    
+    app.delegate(".js-gif-play", "click", function(e){
+      var parent = $(e.target).closest(".js-tweet").first();
+      var link = (parent.hasClass("tweet-detail") ? parent.find("a[rel='url']") : parent.find("time").first().children("a")).first();
+      
+      $TD.openBrowser(link.attr("href"));
+      e.stopPropagation();
     });
   })();
   
