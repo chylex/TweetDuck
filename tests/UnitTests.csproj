@@ -51,6 +51,7 @@
     <Compile Include="Core\Utils\TestBrowserUtils.cs" />
     <Compile Include="Core\Utils\TestCommandLineArgs.cs" />
     <Compile Include="Core\Utils\TestCommandLineArgsParser.cs" />
+    <Compile Include="Core\Utils\TestTwoKeyDictionary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestUtils.cs" />
   </ItemGroup>
