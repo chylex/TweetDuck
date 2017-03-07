@@ -15,6 +15,10 @@ enabled(){
       this.css.insert(".tweet-actions > li:nth-child(4) { margin-right: 2px !important; }");
     }
     
+    if (config.smallComposeTextSize){
+      this.css.insert(".compose-text { font-size: 12px !important; height: 120px !important; }");
+    }
+    
     if (config.revertConversationLinks){
       var footer = TD.mustaches["status/tweet_single_footer.mustache"];
       footer = footer.replace('txt-mute txt-size--12', 'txt-mute txt-small');

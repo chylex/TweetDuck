@@ -11,6 +11,11 @@
   moveTweetActionsToRight: true,
   
   /*
+   * Reverts New Tweet font size to a smaller one.
+   */
+  smallComposeTextSize: false,
+  
+  /*
    * Reverts design changes to the 'View Conversation' and 'Details' links.
    */
   revertConversationLinks: true
