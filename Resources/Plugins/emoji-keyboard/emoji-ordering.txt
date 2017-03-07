@@ -102,894 +102,310 @@
 1F64A; 🙊 speak-no-evil monkey
 @
 1F466; 👦 boy
-1F466 1F3FB; 👦🏻 boy
-1F466 1F3FC; 👦🏼 boy
-1F466 1F3FD; 👦🏽 boy
-1F466 1F3FE; 👦🏾 boy
-1F466 1F3FF; 👦🏿 boy
+1F466 $; 👦🏻 boy
 1F467; 👧 girl
-1F467 1F3FB; 👧🏻 girl
-1F467 1F3FC; 👧🏼 girl
-1F467 1F3FD; 👧🏽 girl
-1F467 1F3FE; 👧🏾 girl
-1F467 1F3FF; 👧🏿 girl
+1F467 $; 👧🏻 girl
 1F468; 👨 man
-1F468 1F3FB; 👨🏻 man
-1F468 1F3FC; 👨🏼 man
-1F468 1F3FD; 👨🏽 man
-1F468 1F3FE; 👨🏾 man
-1F468 1F3FF; 👨🏿 man
+1F468 $; 👨🏻 man
 1F469; 👩 woman
-1F469 1F3FB; 👩🏻 woman
-1F469 1F3FC; 👩🏼 woman
-1F469 1F3FD; 👩🏽 woman
-1F469 1F3FE; 👩🏾 woman
-1F469 1F3FF; 👩🏿 woman
+1F469 $; 👩🏻 woman
 1F474; 👴 old man
-1F474 1F3FB; 👴🏻 old man
-1F474 1F3FC; 👴🏼 old man
-1F474 1F3FD; 👴🏽 old man
-1F474 1F3FE; 👴🏾 old man
-1F474 1F3FF; 👴🏿 old man
+1F474 $; 👴🏻 old man
 1F475; 👵 old woman
-1F475 1F3FB; 👵🏻 old woman
-1F475 1F3FC; 👵🏼 old woman
-1F475 1F3FD; 👵🏽 old woman
-1F475 1F3FE; 👵🏾 old woman
-1F475 1F3FF; 👵🏿 old woman
+1F475 $; 👵🏻 old woman
 1F476; 👶 baby
-1F476 1F3FB; 👶🏻 baby
-1F476 1F3FC; 👶🏼 baby
-1F476 1F3FD; 👶🏽 baby
-1F476 1F3FE; 👶🏾 baby
-1F476 1F3FF; 👶🏿 baby
+1F476 $; 👶🏻 baby
 1F47C; 👼 baby angel
-1F47C 1F3FB; 👼🏻 baby angel
-1F47C 1F3FC; 👼🏼 baby angel
-1F47C 1F3FD; 👼🏽 baby angel
-1F47C 1F3FE; 👼🏾 baby angel
-1F47C 1F3FF; 👼🏿 baby angel
+1F47C $; 👼🏻 baby angel
 1F468 200D 2695 FE0F; 👨‍⚕️ man health worker
-1F468 1F3FB 200D 2695 FE0F; 👨🏻‍⚕️ man health worker
-1F468 1F3FC 200D 2695 FE0F; 👨🏼‍⚕️ man health worker
-1F468 1F3FD 200D 2695 FE0F; 👨🏽‍⚕️ man health worker
-1F468 1F3FE 200D 2695 FE0F; 👨🏾‍⚕️ man health worker
-1F468 1F3FF 200D 2695 FE0F; 👨🏿‍⚕️ man health worker
+1F468 $ 200D 2695 FE0F; 👨🏻‍⚕️ man health worker
 1F469 200D 2695 FE0F; 👩‍⚕️ woman health worker
-1F469 1F3FB 200D 2695 FE0F; 👩🏻‍⚕️ woman health worker
-1F469 1F3FC 200D 2695 FE0F; 👩🏼‍⚕️ woman health worker
-1F469 1F3FD 200D 2695 FE0F; 👩🏽‍⚕️ woman health worker
-1F469 1F3FE 200D 2695 FE0F; 👩🏾‍⚕️ woman health worker
-1F469 1F3FF 200D 2695 FE0F; 👩🏿‍⚕️ woman health worker
+1F469 $ 200D 2695 FE0F; 👩🏻‍⚕️ woman health worker
 1F468 200D 1F393; 👨‍🎓 man student
-1F468 1F3FB 200D 1F393; 👨🏻‍🎓 man student
-1F468 1F3FC 200D 1F393; 👨🏼‍🎓 man student
-1F468 1F3FD 200D 1F393; 👨🏽‍🎓 man student
-1F468 1F3FE 200D 1F393; 👨🏾‍🎓 man student
-1F468 1F3FF 200D 1F393; 👨🏿‍🎓 man student
+1F468 $ 200D 1F393; 👨🏻‍🎓 man student
 1F469 200D 1F393; 👩‍🎓 woman student
-1F469 1F3FB 200D 1F393; 👩🏻‍🎓 woman student
-1F469 1F3FC 200D 1F393; 👩🏼‍🎓 woman student
-1F469 1F3FD 200D 1F393; 👩🏽‍🎓 woman student
-1F469 1F3FE 200D 1F393; 👩🏾‍🎓 woman student
-1F469 1F3FF 200D 1F393; 👩🏿‍🎓 woman student
+1F469 $ 200D 1F393; 👩🏻‍🎓 woman student
 1F468 200D 1F3EB; 👨‍🏫 man teacher
-1F468 1F3FB 200D 1F3EB; 👨🏻‍🏫 man teacher
-1F468 1F3FC 200D 1F3EB; 👨🏼‍🏫 man teacher
-1F468 1F3FD 200D 1F3EB; 👨🏽‍🏫 man teacher
-1F468 1F3FE 200D 1F3EB; 👨🏾‍🏫 man teacher
-1F468 1F3FF 200D 1F3EB; 👨🏿‍🏫 man teacher
+1F468 $ 200D 1F3EB; 👨🏻‍🏫 man teacher
 1F469 200D 1F3EB; 👩‍🏫 woman teacher
-1F469 1F3FB 200D 1F3EB; 👩🏻‍🏫 woman teacher
-1F469 1F3FC 200D 1F3EB; 👩🏼‍🏫 woman teacher
-1F469 1F3FD 200D 1F3EB; 👩🏽‍🏫 woman teacher
-1F469 1F3FE 200D 1F3EB; 👩🏾‍🏫 woman teacher
-1F469 1F3FF 200D 1F3EB; 👩🏿‍🏫 woman teacher
+1F469 $ 200D 1F3EB; 👩🏻‍🏫 woman teacher
 1F468 200D 2696 FE0F; 👨‍⚖️ man judge
-1F468 1F3FB 200D 2696 FE0F; 👨🏻‍⚖️ man judge
-1F468 1F3FC 200D 2696 FE0F; 👨🏼‍⚖️ man judge
-1F468 1F3FD 200D 2696 FE0F; 👨🏽‍⚖️ man judge
-1F468 1F3FE 200D 2696 FE0F; 👨🏾‍⚖️ man judge
-1F468 1F3FF 200D 2696 FE0F; 👨🏿‍⚖️ man judge
+1F468 $ 200D 2696 FE0F; 👨🏻‍⚖️ man judge
 1F469 200D 2696 FE0F; 👩‍⚖️ woman judge
-1F469 1F3FB 200D 2696 FE0F; 👩🏻‍⚖️ woman judge
-1F469 1F3FC 200D 2696 FE0F; 👩🏼‍⚖️ woman judge
-1F469 1F3FD 200D 2696 FE0F; 👩🏽‍⚖️ woman judge
-1F469 1F3FE 200D 2696 FE0F; 👩🏾‍⚖️ woman judge
-1F469 1F3FF 200D 2696 FE0F; 👩🏿‍⚖️ woman judge
+1F469 $ 200D 2696 FE0F; 👩🏻‍⚖️ woman judge
 1F468 200D 1F33E; 👨‍🌾 man farmer
-1F468 1F3FB 200D 1F33E; 👨🏻‍🌾 man farmer
-1F468 1F3FC 200D 1F33E; 👨🏼‍🌾 man farmer
-1F468 1F3FD 200D 1F33E; 👨🏽‍🌾 man farmer
-1F468 1F3FE 200D 1F33E; 👨🏾‍🌾 man farmer
-1F468 1F3FF 200D 1F33E; 👨🏿‍🌾 man farmer
+1F468 $ 200D 1F33E; 👨🏻‍🌾 man farmer
 1F469 200D 1F33E; 👩‍🌾 woman farmer
-1F469 1F3FB 200D 1F33E; 👩🏻‍🌾 woman farmer
-1F469 1F3FC 200D 1F33E; 👩🏼‍🌾 woman farmer
-1F469 1F3FD 200D 1F33E; 👩🏽‍🌾 woman farmer
-1F469 1F3FE 200D 1F33E; 👩🏾‍🌾 woman farmer
-1F469 1F3FF 200D 1F33E; 👩🏿‍🌾 woman farmer
+1F469 $ 200D 1F33E; 👩🏻‍🌾 woman farmer
 1F468 200D 1F373; 👨‍🍳 man cook
-1F468 1F3FB 200D 1F373; 👨🏻‍🍳 man cook
-1F468 1F3FC 200D 1F373; 👨🏼‍🍳 man cook
-1F468 1F3FD 200D 1F373; 👨🏽‍🍳 man cook
-1F468 1F3FE 200D 1F373; 👨🏾‍🍳 man cook
-1F468 1F3FF 200D 1F373; 👨🏿‍🍳 man cook
+1F468 $ 200D 1F373; 👨🏻‍🍳 man cook
 1F469 200D 1F373; 👩‍🍳 woman cook
-1F469 1F3FB 200D 1F373; 👩🏻‍🍳 woman cook
-1F469 1F3FC 200D 1F373; 👩🏼‍🍳 woman cook
-1F469 1F3FD 200D 1F373; 👩🏽‍🍳 woman cook
-1F469 1F3FE 200D 1F373; 👩🏾‍🍳 woman cook
-1F469 1F3FF 200D 1F373; 👩🏿‍🍳 woman cook
+1F469 $ 200D 1F373; 👩🏻‍🍳 woman cook
 1F468 200D 1F527; 👨‍🔧 man mechanic
-1F468 1F3FB 200D 1F527; 👨🏻‍🔧 man mechanic
-1F468 1F3FC 200D 1F527; 👨🏼‍🔧 man mechanic
-1F468 1F3FD 200D 1F527; 👨🏽‍🔧 man mechanic
-1F468 1F3FE 200D 1F527; 👨🏾‍🔧 man mechanic
-1F468 1F3FF 200D 1F527; 👨🏿‍🔧 man mechanic
+1F468 $ 200D 1F527; 👨🏻‍🔧 man mechanic
 1F469 200D 1F527; 👩‍🔧 woman mechanic
-1F469 1F3FB 200D 1F527; 👩🏻‍🔧 woman mechanic
-1F469 1F3FC 200D 1F527; 👩🏼‍🔧 woman mechanic
-1F469 1F3FD 200D 1F527; 👩🏽‍🔧 woman mechanic
-1F469 1F3FE 200D 1F527; 👩🏾‍🔧 woman mechanic
-1F469 1F3FF 200D 1F527; 👩🏿‍🔧 woman mechanic
+1F469 $ 200D 1F527; 👩🏻‍🔧 woman mechanic
 1F468 200D 1F3ED; 👨‍🏭 man factory worker
-1F468 1F3FB 200D 1F3ED; 👨🏻‍🏭 man factory worker
-1F468 1F3FC 200D 1F3ED; 👨🏼‍🏭 man factory worker
-1F468 1F3FD 200D 1F3ED; 👨🏽‍🏭 man factory worker
-1F468 1F3FE 200D 1F3ED; 👨🏾‍🏭 man factory worker
-1F468 1F3FF 200D 1F3ED; 👨🏿‍🏭 man factory worker
+1F468 $ 200D 1F3ED; 👨🏻‍🏭 man factory worker
 1F469 200D 1F3ED; 👩‍🏭 woman factory worker
-1F469 1F3FB 200D 1F3ED; 👩🏻‍🏭 woman factory worker
-1F469 1F3FC 200D 1F3ED; 👩🏼‍🏭 woman factory worker
-1F469 1F3FD 200D 1F3ED; 👩🏽‍🏭 woman factory worker
-1F469 1F3FE 200D 1F3ED; 👩🏾‍🏭 woman factory worker
-1F469 1F3FF 200D 1F3ED; 👩🏿‍🏭 woman factory worker
+1F469 $ 200D 1F3ED; 👩🏻‍🏭 woman factory worker
 1F468 200D 1F4BC; 👨‍💼 man office worker
-1F468 1F3FB 200D 1F4BC; 👨🏻‍💼 man office worker
-1F468 1F3FC 200D 1F4BC; 👨🏼‍💼 man office worker
-1F468 1F3FD 200D 1F4BC; 👨🏽‍💼 man office worker
-1F468 1F3FE 200D 1F4BC; 👨🏾‍💼 man office worker
-1F468 1F3FF 200D 1F4BC; 👨🏿‍💼 man office worker
+1F468 $ 200D 1F4BC; 👨🏻‍💼 man office worker
 1F469 200D 1F4BC; 👩‍💼 woman office worker
-1F469 1F3FB 200D 1F4BC; 👩🏻‍💼 woman office worker
-1F469 1F3FC 200D 1F4BC; 👩🏼‍💼 woman office worker
-1F469 1F3FD 200D 1F4BC; 👩🏽‍💼 woman office worker
-1F469 1F3FE 200D 1F4BC; 👩🏾‍💼 woman office worker
-1F469 1F3FF 200D 1F4BC; 👩🏿‍💼 woman office worker
+1F469 $ 200D 1F4BC; 👩🏻‍💼 woman office worker
 1F468 200D 1F52C; 👨‍🔬 man scientist
-1F468 1F3FB 200D 1F52C; 👨🏻‍🔬 man scientist
-1F468 1F3FC 200D 1F52C; 👨🏼‍🔬 man scientist
-1F468 1F3FD 200D 1F52C; 👨🏽‍🔬 man scientist
-1F468 1F3FE 200D 1F52C; 👨🏾‍🔬 man scientist
-1F468 1F3FF 200D 1F52C; 👨🏿‍🔬 man scientist
+1F468 $ 200D 1F52C; 👨🏻‍🔬 man scientist
 1F469 200D 1F52C; 👩‍🔬 woman scientist
-1F469 1F3FB 200D 1F52C; 👩🏻‍🔬 woman scientist
-1F469 1F3FC 200D 1F52C; 👩🏼‍🔬 woman scientist
-1F469 1F3FD 200D 1F52C; 👩🏽‍🔬 woman scientist
-1F469 1F3FE 200D 1F52C; 👩🏾‍🔬 woman scientist
-1F469 1F3FF 200D 1F52C; 👩🏿‍🔬 woman scientist
+1F469 $ 200D 1F52C; 👩🏻‍🔬 woman scientist
 1F468 200D 1F4BB; 👨‍💻 man technologist
-1F468 1F3FB 200D 1F4BB; 👨🏻‍💻 man technologist
-1F468 1F3FC 200D 1F4BB; 👨🏼‍💻 man technologist
-1F468 1F3FD 200D 1F4BB; 👨🏽‍💻 man technologist
-1F468 1F3FE 200D 1F4BB; 👨🏾‍💻 man technologist
-1F468 1F3FF 200D 1F4BB; 👨🏿‍💻 man technologist
+1F468 $ 200D 1F4BB; 👨🏻‍💻 man technologist
 1F469 200D 1F4BB; 👩‍💻 woman technologist
-1F469 1F3FB 200D 1F4BB; 👩🏻‍💻 woman technologist
-1F469 1F3FC 200D 1F4BB; 👩🏼‍💻 woman technologist
-1F469 1F3FD 200D 1F4BB; 👩🏽‍💻 woman technologist
-1F469 1F3FE 200D 1F4BB; 👩🏾‍💻 woman technologist
-1F469 1F3FF 200D 1F4BB; 👩🏿‍💻 woman technologist
+1F469 $ 200D 1F4BB; 👩🏻‍💻 woman technologist
 1F468 200D 1F3A4; 👨‍🎤 man singer
-1F468 1F3FB 200D 1F3A4; 👨🏻‍🎤 man singer
-1F468 1F3FC 200D 1F3A4; 👨🏼‍🎤 man singer
-1F468 1F3FD 200D 1F3A4; 👨🏽‍🎤 man singer
-1F468 1F3FE 200D 1F3A4; 👨🏾‍🎤 man singer
-1F468 1F3FF 200D 1F3A4; 👨🏿‍🎤 man singer
+1F468 $ 200D 1F3A4; 👨🏻‍🎤 man singer
 1F469 200D 1F3A4; 👩‍🎤 woman singer
-1F469 1F3FB 200D 1F3A4; 👩🏻‍🎤 woman singer
-1F469 1F3FC 200D 1F3A4; 👩🏼‍🎤 woman singer
-1F469 1F3FD 200D 1F3A4; 👩🏽‍🎤 woman singer
-1F469 1F3FE 200D 1F3A4; 👩🏾‍🎤 woman singer
-1F469 1F3FF 200D 1F3A4; 👩🏿‍🎤 woman singer
+1F469 $ 200D 1F3A4; 👩🏻‍🎤 woman singer
 1F468 200D 1F3A8; 👨‍🎨 man artist
-1F468 1F3FB 200D 1F3A8; 👨🏻‍🎨 man artist
-1F468 1F3FC 200D 1F3A8; 👨🏼‍🎨 man artist
-1F468 1F3FD 200D 1F3A8; 👨🏽‍🎨 man artist
-1F468 1F3FE 200D 1F3A8; 👨🏾‍🎨 man artist
-1F468 1F3FF 200D 1F3A8; 👨🏿‍🎨 man artist
+1F468 $ 200D 1F3A8; 👨🏻‍🎨 man artist
 1F469 200D 1F3A8; 👩‍🎨 woman artist
-1F469 1F3FB 200D 1F3A8; 👩🏻‍🎨 woman artist
-1F469 1F3FC 200D 1F3A8; 👩🏼‍🎨 woman artist
-1F469 1F3FD 200D 1F3A8; 👩🏽‍🎨 woman artist
-1F469 1F3FE 200D 1F3A8; 👩🏾‍🎨 woman artist
-1F469 1F3FF 200D 1F3A8; 👩🏿‍🎨 woman artist
+1F469 $ 200D 1F3A8; 👩🏻‍🎨 woman artist
 1F468 200D 2708 FE0F; 👨‍✈️ man pilot
-1F468 1F3FB 200D 2708 FE0F; 👨🏻‍✈️ man pilot
-1F468 1F3FC 200D 2708 FE0F; 👨🏼‍✈️ man pilot
-1F468 1F3FD 200D 2708 FE0F; 👨🏽‍✈️ man pilot
-1F468 1F3FE 200D 2708 FE0F; 👨🏾‍✈️ man pilot
-1F468 1F3FF 200D 2708 FE0F; 👨🏿‍✈️ man pilot
+1F468 $ 200D 2708 FE0F; 👨🏻‍✈️ man pilot
 1F469 200D 2708 FE0F; 👩‍✈️ woman pilot
-1F469 1F3FB 200D 2708 FE0F; 👩🏻‍✈️ woman pilot
-1F469 1F3FC 200D 2708 FE0F; 👩🏼‍✈️ woman pilot
-1F469 1F3FD 200D 2708 FE0F; 👩🏽‍✈️ woman pilot
-1F469 1F3FE 200D 2708 FE0F; 👩🏾‍✈️ woman pilot
-1F469 1F3FF 200D 2708 FE0F; 👩🏿‍✈️ woman pilot
+1F469 $ 200D 2708 FE0F; 👩🏻‍✈️ woman pilot
 1F468 200D 1F680; 👨‍🚀 man astronaut
-1F468 1F3FB 200D 1F680; 👨🏻‍🚀 man astronaut
-1F468 1F3FC 200D 1F680; 👨🏼‍🚀 man astronaut
-1F468 1F3FD 200D 1F680; 👨🏽‍🚀 man astronaut
-1F468 1F3FE 200D 1F680; 👨🏾‍🚀 man astronaut
-1F468 1F3FF 200D 1F680; 👨🏿‍🚀 man astronaut
+1F468 $ 200D 1F680; 👨🏻‍🚀 man astronaut
 1F469 200D 1F680; 👩‍🚀 woman astronaut
-1F469 1F3FB 200D 1F680; 👩🏻‍🚀 woman astronaut
-1F469 1F3FC 200D 1F680; 👩🏼‍🚀 woman astronaut
-1F469 1F3FD 200D 1F680; 👩🏽‍🚀 woman astronaut
-1F469 1F3FE 200D 1F680; 👩🏾‍🚀 woman astronaut
-1F469 1F3FF 200D 1F680; 👩🏿‍🚀 woman astronaut
+1F469 $ 200D 1F680; 👩🏻‍🚀 woman astronaut
 1F468 200D 1F692; 👨‍🚒 man firefighter
-1F468 1F3FB 200D 1F692; 👨🏻‍🚒 man firefighter
-1F468 1F3FC 200D 1F692; 👨🏼‍🚒 man firefighter
-1F468 1F3FD 200D 1F692; 👨🏽‍🚒 man firefighter
-1F468 1F3FE 200D 1F692; 👨🏾‍🚒 man firefighter
-1F468 1F3FF 200D 1F692; 👨🏿‍🚒 man firefighter
+1F468 $ 200D 1F692; 👨🏻‍🚒 man firefighter
 1F469 200D 1F692; 👩‍🚒 woman firefighter
-1F469 1F3FB 200D 1F692; 👩🏻‍🚒 woman firefighter
-1F469 1F3FC 200D 1F692; 👩🏼‍🚒 woman firefighter
-1F469 1F3FD 200D 1F692; 👩🏽‍🚒 woman firefighter
-1F469 1F3FE 200D 1F692; 👩🏾‍🚒 woman firefighter
-1F469 1F3FF 200D 1F692; 👩🏿‍🚒 woman firefighter
+1F469 $ 200D 1F692; 👩🏻‍🚒 woman firefighter
 1F46E; 👮 police officer
-1F46E 1F3FB; 👮🏻 police officer
-1F46E 1F3FC; 👮🏼 police officer
-1F46E 1F3FD; 👮🏽 police officer
-1F46E 1F3FE; 👮🏾 police officer
-1F46E 1F3FF; 👮🏿 police officer
+1F46E $; 👮🏻 police officer
 1F46E 200D 2642 FE0F; 👮‍♂️ man police officer
-1F46E 1F3FB 200D 2642 FE0F; 👮🏻‍♂️ man police officer
-1F46E 1F3FC 200D 2642 FE0F; 👮🏼‍♂️ man police officer
-1F46E 1F3FD 200D 2642 FE0F; 👮🏽‍♂️ man police officer
-1F46E 1F3FE 200D 2642 FE0F; 👮🏾‍♂️ man police officer
-1F46E 1F3FF 200D 2642 FE0F; 👮🏿‍♂️ man police officer
+1F46E $ 200D 2642 FE0F; 👮🏻‍♂️ man police officer
 1F46E 200D 2640 FE0F; 👮‍♀️ woman police officer
-1F46E 1F3FB 200D 2640 FE0F; 👮🏻‍♀️ woman police officer
-1F46E 1F3FC 200D 2640 FE0F; 👮🏼‍♀️ woman police officer
-1F46E 1F3FD 200D 2640 FE0F; 👮🏽‍♀️ woman police officer
-1F46E 1F3FE 200D 2640 FE0F; 👮🏾‍♀️ woman police officer
-1F46E 1F3FF 200D 2640 FE0F; 👮🏿‍♀️ woman police officer
+1F46E $ 200D 2640 FE0F; 👮🏻‍♀️ woman police officer
 1F575; 🕵 detective
-1F575 1F3FB; 🕵🏻 detective
-1F575 1F3FC; 🕵🏼 detective
-1F575 1F3FD; 🕵🏽 detective
-1F575 1F3FE; 🕵🏾 detective
-1F575 1F3FF; 🕵🏿 detective
+1F575 $; 🕵🏻 detective
 1F575 FE0F 200D 2642 FE0F; 🕵️‍♂️ man detective
-1F575 1F3FB 200D 2642 FE0F; 🕵🏻‍♂️ man detective
-1F575 1F3FC 200D 2642 FE0F; 🕵🏼‍♂️ man detective
-1F575 1F3FD 200D 2642 FE0F; 🕵🏽‍♂️ man detective
-1F575 1F3FE 200D 2642 FE0F; 🕵🏾‍♂️ man detective
-1F575 1F3FF 200D 2642 FE0F; 🕵🏿‍♂️ man detective
+1F575 $ 200D 2642 FE0F; 🕵🏻‍♂️ man detective
 1F575 FE0F 200D 2640 FE0F; 🕵️‍♀️ woman detective
-1F575 1F3FB 200D 2640 FE0F; 🕵🏻‍♀️ woman detective
-1F575 1F3FC 200D 2640 FE0F; 🕵🏼‍♀️ woman detective
-1F575 1F3FD 200D 2640 FE0F; 🕵🏽‍♀️ woman detective
-1F575 1F3FE 200D 2640 FE0F; 🕵🏾‍♀️ woman detective
-1F575 1F3FF 200D 2640 FE0F; 🕵🏿‍♀️ woman detective
+1F575 $ 200D 2640 FE0F; 🕵🏻‍♀️ woman detective
 1F482; 💂 guard
-1F482 1F3FB; 💂🏻 guard
-1F482 1F3FC; 💂🏼 guard
-1F482 1F3FD; 💂🏽 guard
-1F482 1F3FE; 💂🏾 guard
-1F482 1F3FF; 💂🏿 guard
+1F482 $; 💂🏻 guard
 1F482 200D 2642 FE0F; 💂‍♂️ man guard
-1F482 1F3FB 200D 2642 FE0F; 💂🏻‍♂️ man guard
-1F482 1F3FC 200D 2642 FE0F; 💂🏼‍♂️ man guard
-1F482 1F3FD 200D 2642 FE0F; 💂🏽‍♂️ man guard
-1F482 1F3FE 200D 2642 FE0F; 💂🏾‍♂️ man guard
-1F482 1F3FF 200D 2642 FE0F; 💂🏿‍♂️ man guard
+1F482 $ 200D 2642 FE0F; 💂🏻‍♂️ man guard
 1F482 200D 2640 FE0F; 💂‍♀️ woman guard
-1F482 1F3FB 200D 2640 FE0F; 💂🏻‍♀️ woman guard
-1F482 1F3FC 200D 2640 FE0F; 💂🏼‍♀️ woman guard
-1F482 1F3FD 200D 2640 FE0F; 💂🏽‍♀️ woman guard
-1F482 1F3FE 200D 2640 FE0F; 💂🏾‍♀️ woman guard
-1F482 1F3FF 200D 2640 FE0F; 💂🏿‍♀️ woman guard
+1F482 $ 200D 2640 FE0F; 💂🏻‍♀️ woman guard
 1F477; 👷 construction worker
-1F477 1F3FB; 👷🏻 construction worker
-1F477 1F3FC; 👷🏼 construction worker
-1F477 1F3FD; 👷🏽 construction worker
-1F477 1F3FE; 👷🏾 construction worker
-1F477 1F3FF; 👷🏿 construction worker
+1F477 $; 👷🏻 construction worker
 1F477 200D 2642 FE0F; 👷‍♂️ man construction worker
-1F477 1F3FB 200D 2642 FE0F; 👷🏻‍♂️ man construction worker
-1F477 1F3FC 200D 2642 FE0F; 👷🏼‍♂️ man construction worker
-1F477 1F3FD 200D 2642 FE0F; 👷🏽‍♂️ man construction worker
-1F477 1F3FE 200D 2642 FE0F; 👷🏾‍♂️ man construction worker
-1F477 1F3FF 200D 2642 FE0F; 👷🏿‍♂️ man construction worker
+1F477 $ 200D 2642 FE0F; 👷🏻‍♂️ man construction worker
 1F477 200D 2640 FE0F; 👷‍♀️ woman construction worker
-1F477 1F3FB 200D 2640 FE0F; 👷🏻‍♀️ woman construction worker
-1F477 1F3FC 200D 2640 FE0F; 👷🏼‍♀️ woman construction worker
-1F477 1F3FD 200D 2640 FE0F; 👷🏽‍♀️ woman construction worker
-1F477 1F3FE 200D 2640 FE0F; 👷🏾‍♀️ woman construction worker
-1F477 1F3FF 200D 2640 FE0F; 👷🏿‍♀️ woman construction worker
+1F477 $ 200D 2640 FE0F; 👷🏻‍♀️ woman construction worker
 1F473; 👳 person wearing turban
-1F473 1F3FB; 👳🏻 person wearing turban
-1F473 1F3FC; 👳🏼 person wearing turban
-1F473 1F3FD; 👳🏽 person wearing turban
-1F473 1F3FE; 👳🏾 person wearing turban
-1F473 1F3FF; 👳🏿 person wearing turban
+1F473 $; 👳🏻 person wearing turban
 1F473 200D 2642 FE0F; 👳‍♂️ man wearing turban
-1F473 1F3FB 200D 2642 FE0F; 👳🏻‍♂️ man wearing turban
-1F473 1F3FC 200D 2642 FE0F; 👳🏼‍♂️ man wearing turban
-1F473 1F3FD 200D 2642 FE0F; 👳🏽‍♂️ man wearing turban
-1F473 1F3FE 200D 2642 FE0F; 👳🏾‍♂️ man wearing turban
-1F473 1F3FF 200D 2642 FE0F; 👳🏿‍♂️ man wearing turban
+1F473 $ 200D 2642 FE0F; 👳🏻‍♂️ man wearing turban
 1F473 200D 2640 FE0F; 👳‍♀️ woman wearing turban
-1F473 1F3FB 200D 2640 FE0F; 👳🏻‍♀️ woman wearing turban
-1F473 1F3FC 200D 2640 FE0F; 👳🏼‍♀️ woman wearing turban
-1F473 1F3FD 200D 2640 FE0F; 👳🏽‍♀️ woman wearing turban
-1F473 1F3FE 200D 2640 FE0F; 👳🏾‍♀️ woman wearing turban
-1F473 1F3FF 200D 2640 FE0F; 👳🏿‍♀️ woman wearing turban
+1F473 $ 200D 2640 FE0F; 👳🏻‍♀️ woman wearing turban
 1F471; 👱 blond-haired person
-1F471 1F3FB; 👱🏻 blond-haired person
-1F471 1F3FC; 👱🏼 blond-haired person
-1F471 1F3FD; 👱🏽 blond-haired person
-1F471 1F3FE; 👱🏾 blond-haired person
-1F471 1F3FF; 👱🏿 blond-haired person
+1F471 $; 👱🏻 blond-haired person
 1F471 200D 2642 FE0F; 👱‍♂️ blond-haired man
-1F471 1F3FB 200D 2642 FE0F; 👱🏻‍♂️ blond-haired man
-1F471 1F3FC 200D 2642 FE0F; 👱🏼‍♂️ blond-haired man
-1F471 1F3FD 200D 2642 FE0F; 👱🏽‍♂️ blond-haired man
-1F471 1F3FE 200D 2642 FE0F; 👱🏾‍♂️ blond-haired man
-1F471 1F3FF 200D 2642 FE0F; 👱🏿‍♂️ blond-haired man
+1F471 $ 200D 2642 FE0F; 👱🏻‍♂️ blond-haired man
 1F471 200D 2640 FE0F; 👱‍♀️ blond-haired woman
-1F471 1F3FB 200D 2640 FE0F; 👱🏻‍♀️ blond-haired woman
-1F471 1F3FC 200D 2640 FE0F; 👱🏼‍♀️ blond-haired woman
-1F471 1F3FD 200D 2640 FE0F; 👱🏽‍♀️ blond-haired woman
-1F471 1F3FE 200D 2640 FE0F; 👱🏾‍♀️ blond-haired woman
-1F471 1F3FF 200D 2640 FE0F; 👱🏿‍♀️ blond-haired woman
+1F471 $ 200D 2640 FE0F; 👱🏻‍♀️ blond-haired woman
 1F385; 🎅 Santa Claus
-1F385 1F3FB; 🎅🏻 Santa Claus
-1F385 1F3FC; 🎅🏼 Santa Claus
-1F385 1F3FD; 🎅🏽 Santa Claus
-1F385 1F3FE; 🎅🏾 Santa Claus
-1F385 1F3FF; 🎅🏿 Santa Claus
+1F385 $; 🎅🏻 Santa Claus
 1F936; 🤶 Mrs. Claus
-1F936 1F3FB; 🤶🏻 Mrs. Claus
-1F936 1F3FC; 🤶🏼 Mrs. Claus
-1F936 1F3FD; 🤶🏽 Mrs. Claus
-1F936 1F3FE; 🤶🏾 Mrs. Claus
-1F936 1F3FF; 🤶🏿 Mrs. Claus
+1F936 $; 🤶🏻 Mrs. Claus
 1F478; 👸 princess
-1F478 1F3FB; 👸🏻 princess
-1F478 1F3FC; 👸🏼 princess
-1F478 1F3FD; 👸🏽 princess
-1F478 1F3FE; 👸🏾 princess
-1F478 1F3FF; 👸🏿 princess
+1F478 $; 👸🏻 princess
 1F934; 🤴 prince
-1F934 1F3FB; 🤴🏻 prince
-1F934 1F3FC; 🤴🏼 prince
-1F934 1F3FD; 🤴🏽 prince
-1F934 1F3FE; 🤴🏾 prince
-1F934 1F3FF; 🤴🏿 prince
+1F934 $; 🤴🏻 prince
 1F470; 👰 bride with veil
-1F470 1F3FB; 👰🏻 bride with veil
-1F470 1F3FC; 👰🏼 bride with veil
-1F470 1F3FD; 👰🏽 bride with veil
-1F470 1F3FE; 👰🏾 bride with veil
-1F470 1F3FF; 👰🏿 bride with veil
+1F470 $; 👰🏻 bride with veil
 1F935; 🤵 man in tuxedo
-1F935 1F3FB; 🤵🏻 man in tuxedo
-1F935 1F3FC; 🤵🏼 man in tuxedo
-1F935 1F3FD; 🤵🏽 man in tuxedo
-1F935 1F3FE; 🤵🏾 man in tuxedo
-1F935 1F3FF; 🤵🏿 man in tuxedo
+1F935 $; 🤵🏻 man in tuxedo
 1F930; 🤰 pregnant woman
-1F930 1F3FB; 🤰🏻 pregnant woman
-1F930 1F3FC; 🤰🏼 pregnant woman
-1F930 1F3FD; 🤰🏽 pregnant woman
-1F930 1F3FE; 🤰🏾 pregnant woman
-1F930 1F3FF; 🤰🏿 pregnant woman
+1F930 $; 🤰🏻 pregnant woman
 1F472; 👲 man with Chinese cap
-1F472 1F3FB; 👲🏻 man with Chinese cap
-1F472 1F3FC; 👲🏼 man with Chinese cap
-1F472 1F3FD; 👲🏽 man with Chinese cap
-1F472 1F3FE; 👲🏾 man with Chinese cap
-1F472 1F3FF; 👲🏿 man with Chinese cap
+1F472 $; 👲🏻 man with Chinese cap
 1F64D; 🙍 person frowning
-1F64D 1F3FB; 🙍🏻 person frowning
-1F64D 1F3FC; 🙍🏼 person frowning
-1F64D 1F3FD; 🙍🏽 person frowning
-1F64D 1F3FE; 🙍🏾 person frowning
-1F64D 1F3FF; 🙍🏿 person frowning
+1F64D $; 🙍🏻 person frowning
 1F64D 200D 2642 FE0F; 🙍‍♂️ man frowning
-1F64D 1F3FB 200D 2642 FE0F; 🙍🏻‍♂️ man frowning
-1F64D 1F3FC 200D 2642 FE0F; 🙍🏼‍♂️ man frowning
-1F64D 1F3FD 200D 2642 FE0F; 🙍🏽‍♂️ man frowning
-1F64D 1F3FE 200D 2642 FE0F; 🙍🏾‍♂️ man frowning
-1F64D 1F3FF 200D 2642 FE0F; 🙍🏿‍♂️ man frowning
+1F64D $ 200D 2642 FE0F; 🙍🏻‍♂️ man frowning
 1F64D 200D 2640 FE0F; 🙍‍♀️ woman frowning
-1F64D 1F3FB 200D 2640 FE0F; 🙍🏻‍♀️ woman frowning
-1F64D 1F3FC 200D 2640 FE0F; 🙍🏼‍♀️ woman frowning
-1F64D 1F3FD 200D 2640 FE0F; 🙍🏽‍♀️ woman frowning
-1F64D 1F3FE 200D 2640 FE0F; 🙍🏾‍♀️ woman frowning
-1F64D 1F3FF 200D 2640 FE0F; 🙍🏿‍♀️ woman frowning
+1F64D $ 200D 2640 FE0F; 🙍🏻‍♀️ woman frowning
 1F64E; 🙎 person pouting
-1F64E 1F3FB; 🙎🏻 person pouting
-1F64E 1F3FC; 🙎🏼 person pouting
-1F64E 1F3FD; 🙎🏽 person pouting
-1F64E 1F3FE; 🙎🏾 person pouting
-1F64E 1F3FF; 🙎🏿 person pouting
+1F64E $; 🙎🏻 person pouting
 1F64E 200D 2642 FE0F; 🙎‍♂️ man pouting
-1F64E 1F3FB 200D 2642 FE0F; 🙎🏻‍♂️ man pouting
-1F64E 1F3FC 200D 2642 FE0F; 🙎🏼‍♂️ man pouting
-1F64E 1F3FD 200D 2642 FE0F; 🙎🏽‍♂️ man pouting
-1F64E 1F3FE 200D 2642 FE0F; 🙎🏾‍♂️ man pouting
-1F64E 1F3FF 200D 2642 FE0F; 🙎🏿‍♂️ man pouting
+1F64E $ 200D 2642 FE0F; 🙎🏻‍♂️ man pouting
 1F64E 200D 2640 FE0F; 🙎‍♀️ woman pouting
-1F64E 1F3FB 200D 2640 FE0F; 🙎🏻‍♀️ woman pouting
-1F64E 1F3FC 200D 2640 FE0F; 🙎🏼‍♀️ woman pouting
-1F64E 1F3FD 200D 2640 FE0F; 🙎🏽‍♀️ woman pouting
-1F64E 1F3FE 200D 2640 FE0F; 🙎🏾‍♀️ woman pouting
-1F64E 1F3FF 200D 2640 FE0F; 🙎🏿‍♀️ woman pouting
+1F64E $ 200D 2640 FE0F; 🙎🏻‍♀️ woman pouting
 1F645; 🙅 person gesturing NO
-1F645 1F3FB; 🙅🏻 person gesturing NO
-1F645 1F3FC; 🙅🏼 person gesturing NO
-1F645 1F3FD; 🙅🏽 person gesturing NO
-1F645 1F3FE; 🙅🏾 person gesturing NO
-1F645 1F3FF; 🙅🏿 person gesturing NO
+1F645 $; 🙅🏻 person gesturing NO
 1F645 200D 2642 FE0F; 🙅‍♂️ man gesturing NO
-1F645 1F3FB 200D 2642 FE0F; 🙅🏻‍♂️ man gesturing NO
-1F645 1F3FC 200D 2642 FE0F; 🙅🏼‍♂️ man gesturing NO
-1F645 1F3FD 200D 2642 FE0F; 🙅🏽‍♂️ man gesturing NO
-1F645 1F3FE 200D 2642 FE0F; 🙅🏾‍♂️ man gesturing NO
-1F645 1F3FF 200D 2642 FE0F; 🙅🏿‍♂️ man gesturing NO
+1F645 $ 200D 2642 FE0F; 🙅🏻‍♂️ man gesturing NO
 1F645 200D 2640 FE0F; 🙅‍♀️ woman gesturing NO
-1F645 1F3FB 200D 2640 FE0F; 🙅🏻‍♀️ woman gesturing NO
-1F645 1F3FC 200D 2640 FE0F; 🙅🏼‍♀️ woman gesturing NO
-1F645 1F3FD 200D 2640 FE0F; 🙅🏽‍♀️ woman gesturing NO
-1F645 1F3FE 200D 2640 FE0F; 🙅🏾‍♀️ woman gesturing NO
-1F645 1F3FF 200D 2640 FE0F; 🙅🏿‍♀️ woman gesturing NO
+1F645 $ 200D 2640 FE0F; 🙅🏻‍♀️ woman gesturing NO
 1F646; 🙆 person gesturing OK
-1F646 1F3FB; 🙆🏻 person gesturing OK
-1F646 1F3FC; 🙆🏼 person gesturing OK
-1F646 1F3FD; 🙆🏽 person gesturing OK
-1F646 1F3FE; 🙆🏾 person gesturing OK
-1F646 1F3FF; 🙆🏿 person gesturing OK
+1F646 $; 🙆🏻 person gesturing OK
 1F646 200D 2642 FE0F; 🙆‍♂️ man gesturing OK
-1F646 1F3FB 200D 2642 FE0F; 🙆🏻‍♂️ man gesturing OK
-1F646 1F3FC 200D 2642 FE0F; 🙆🏼‍♂️ man gesturing OK
-1F646 1F3FD 200D 2642 FE0F; 🙆🏽‍♂️ man gesturing OK
-1F646 1F3FE 200D 2642 FE0F; 🙆🏾‍♂️ man gesturing OK
-1F646 1F3FF 200D 2642 FE0F; 🙆🏿‍♂️ man gesturing OK
+1F646 $ 200D 2642 FE0F; 🙆🏻‍♂️ man gesturing OK
 1F646 200D 2640 FE0F; 🙆‍♀️ woman gesturing OK
-1F646 1F3FB 200D 2640 FE0F; 🙆🏻‍♀️ woman gesturing OK
-1F646 1F3FC 200D 2640 FE0F; 🙆🏼‍♀️ woman gesturing OK
-1F646 1F3FD 200D 2640 FE0F; 🙆🏽‍♀️ woman gesturing OK
-1F646 1F3FE 200D 2640 FE0F; 🙆🏾‍♀️ woman gesturing OK
-1F646 1F3FF 200D 2640 FE0F; 🙆🏿‍♀️ woman gesturing OK
+1F646 $ 200D 2640 FE0F; 🙆🏻‍♀️ woman gesturing OK
 1F481; 💁 person tipping hand
-1F481 1F3FB; 💁🏻 person tipping hand
-1F481 1F3FC; 💁🏼 person tipping hand
-1F481 1F3FD; 💁🏽 person tipping hand
-1F481 1F3FE; 💁🏾 person tipping hand
-1F481 1F3FF; 💁🏿 person tipping hand
+1F481 $; 💁🏻 person tipping hand
 1F481 200D 2642 FE0F; 💁‍♂️ man tipping hand
-1F481 1F3FB 200D 2642 FE0F; 💁🏻‍♂️ man tipping hand
-1F481 1F3FC 200D 2642 FE0F; 💁🏼‍♂️ man tipping hand
-1F481 1F3FD 200D 2642 FE0F; 💁🏽‍♂️ man tipping hand
-1F481 1F3FE 200D 2642 FE0F; 💁🏾‍♂️ man tipping hand
-1F481 1F3FF 200D 2642 FE0F; 💁🏿‍♂️ man tipping hand
+1F481 $ 200D 2642 FE0F; 💁🏻‍♂️ man tipping hand
 1F481 200D 2640 FE0F; 💁‍♀️ woman tipping hand
-1F481 1F3FB 200D 2640 FE0F; 💁🏻‍♀️ woman tipping hand
-1F481 1F3FC 200D 2640 FE0F; 💁🏼‍♀️ woman tipping hand
-1F481 1F3FD 200D 2640 FE0F; 💁🏽‍♀️ woman tipping hand
-1F481 1F3FE 200D 2640 FE0F; 💁🏾‍♀️ woman tipping hand
-1F481 1F3FF 200D 2640 FE0F; 💁🏿‍♀️ woman tipping hand
+1F481 $ 200D 2640 FE0F; 💁🏻‍♀️ woman tipping hand
 1F64B; 🙋 person raising hand
-1F64B 1F3FB; 🙋🏻 person raising hand
-1F64B 1F3FC; 🙋🏼 person raising hand
-1F64B 1F3FD; 🙋🏽 person raising hand
-1F64B 1F3FE; 🙋🏾 person raising hand
-1F64B 1F3FF; 🙋🏿 person raising hand
+1F64B $; 🙋🏻 person raising hand
 1F64B 200D 2642 FE0F; 🙋‍♂️ man raising hand
-1F64B 1F3FB 200D 2642 FE0F; 🙋🏻‍♂️ man raising hand
-1F64B 1F3FC 200D 2642 FE0F; 🙋🏼‍♂️ man raising hand
-1F64B 1F3FD 200D 2642 FE0F; 🙋🏽‍♂️ man raising hand
-1F64B 1F3FE 200D 2642 FE0F; 🙋🏾‍♂️ man raising hand
-1F64B 1F3FF 200D 2642 FE0F; 🙋🏿‍♂️ man raising hand
+1F64B $ 200D 2642 FE0F; 🙋🏻‍♂️ man raising hand
 1F64B 200D 2640 FE0F; 🙋‍♀️ woman raising hand
-1F64B 1F3FB 200D 2640 FE0F; 🙋🏻‍♀️ woman raising hand
-1F64B 1F3FC 200D 2640 FE0F; 🙋🏼‍♀️ woman raising hand
-1F64B 1F3FD 200D 2640 FE0F; 🙋🏽‍♀️ woman raising hand
-1F64B 1F3FE 200D 2640 FE0F; 🙋🏾‍♀️ woman raising hand
-1F64B 1F3FF 200D 2640 FE0F; 🙋🏿‍♀️ woman raising hand
+1F64B $ 200D 2640 FE0F; 🙋🏻‍♀️ woman raising hand
 1F647; 🙇 person bowing
-1F647 1F3FB; 🙇🏻 person bowing
-1F647 1F3FC; 🙇🏼 person bowing
-1F647 1F3FD; 🙇🏽 person bowing
-1F647 1F3FE; 🙇🏾 person bowing
-1F647 1F3FF; 🙇🏿 person bowing
+1F647 $; 🙇🏻 person bowing
 1F647 200D 2642 FE0F; 🙇‍♂️ man bowing
-1F647 1F3FB 200D 2642 FE0F; 🙇🏻‍♂️ man bowing
-1F647 1F3FC 200D 2642 FE0F; 🙇🏼‍♂️ man bowing
-1F647 1F3FD 200D 2642 FE0F; 🙇🏽‍♂️ man bowing
-1F647 1F3FE 200D 2642 FE0F; 🙇🏾‍♂️ man bowing
-1F647 1F3FF 200D 2642 FE0F; 🙇🏿‍♂️ man bowing
+1F647 $ 200D 2642 FE0F; 🙇🏻‍♂️ man bowing
 1F647 200D 2640 FE0F; 🙇‍♀️ woman bowing
-1F647 1F3FB 200D 2640 FE0F; 🙇🏻‍♀️ woman bowing
-1F647 1F3FC 200D 2640 FE0F; 🙇🏼‍♀️ woman bowing
-1F647 1F3FD 200D 2640 FE0F; 🙇🏽‍♀️ woman bowing
-1F647 1F3FE 200D 2640 FE0F; 🙇🏾‍♀️ woman bowing
-1F647 1F3FF 200D 2640 FE0F; 🙇🏿‍♀️ woman bowing
+1F647 $ 200D 2640 FE0F; 🙇🏻‍♀️ woman bowing
 1F926; 🤦 person facepalming
-1F926 1F3FB; 🤦🏻 person facepalming
-1F926 1F3FC; 🤦🏼 person facepalming
-1F926 1F3FD; 🤦🏽 person facepalming
-1F926 1F3FE; 🤦🏾 person facepalming
-1F926 1F3FF; 🤦🏿 person facepalming
+1F926 $; 🤦🏻 person facepalming
 1F926 200D 2642 FE0F; 🤦‍♂️ man facepalming
-1F926 1F3FB 200D 2642 FE0F; 🤦🏻‍♂️ man facepalming
-1F926 1F3FC 200D 2642 FE0F; 🤦🏼‍♂️ man facepalming
-1F926 1F3FD 200D 2642 FE0F; 🤦🏽‍♂️ man facepalming
-1F926 1F3FE 200D 2642 FE0F; 🤦🏾‍♂️ man facepalming
-1F926 1F3FF 200D 2642 FE0F; 🤦🏿‍♂️ man facepalming
+1F926 $ 200D 2642 FE0F; 🤦🏻‍♂️ man facepalming
 1F926 200D 2640 FE0F; 🤦‍♀️ woman facepalming
-1F926 1F3FB 200D 2640 FE0F; 🤦🏻‍♀️ woman facepalming
-1F926 1F3FC 200D 2640 FE0F; 🤦🏼‍♀️ woman facepalming
-1F926 1F3FD 200D 2640 FE0F; 🤦🏽‍♀️ woman facepalming
-1F926 1F3FE 200D 2640 FE0F; 🤦🏾‍♀️ woman facepalming
-1F926 1F3FF 200D 2640 FE0F; 🤦🏿‍♀️ woman facepalming
+1F926 $ 200D 2640 FE0F; 🤦🏻‍♀️ woman facepalming
 1F937; 🤷 person shrugging
-1F937 1F3FB; 🤷🏻 person shrugging
-1F937 1F3FC; 🤷🏼 person shrugging
-1F937 1F3FD; 🤷🏽 person shrugging
-1F937 1F3FE; 🤷🏾 person shrugging
-1F937 1F3FF; 🤷🏿 person shrugging
+1F937 $; 🤷🏻 person shrugging
 1F937 200D 2642 FE0F; 🤷‍♂️ man shrugging
-1F937 1F3FB 200D 2642 FE0F; 🤷🏻‍♂️ man shrugging
-1F937 1F3FC 200D 2642 FE0F; 🤷🏼‍♂️ man shrugging
-1F937 1F3FD 200D 2642 FE0F; 🤷🏽‍♂️ man shrugging
-1F937 1F3FE 200D 2642 FE0F; 🤷🏾‍♂️ man shrugging
-1F937 1F3FF 200D 2642 FE0F; 🤷🏿‍♂️ man shrugging
+1F937 $ 200D 2642 FE0F; 🤷🏻‍♂️ man shrugging
 1F937 200D 2640 FE0F; 🤷‍♀️ woman shrugging
-1F937 1F3FB 200D 2640 FE0F; 🤷🏻‍♀️ woman shrugging
-1F937 1F3FC 200D 2640 FE0F; 🤷🏼‍♀️ woman shrugging
-1F937 1F3FD 200D 2640 FE0F; 🤷🏽‍♀️ woman shrugging
-1F937 1F3FE 200D 2640 FE0F; 🤷🏾‍♀️ woman shrugging
-1F937 1F3FF 200D 2640 FE0F; 🤷🏿‍♀️ woman shrugging
+1F937 $ 200D 2640 FE0F; 🤷🏻‍♀️ woman shrugging
 1F486; 💆 person getting massage
-1F486 1F3FB; 💆🏻 person getting massage
-1F486 1F3FC; 💆🏼 person getting massage
-1F486 1F3FD; 💆🏽 person getting massage
-1F486 1F3FE; 💆🏾 person getting massage
-1F486 1F3FF; 💆🏿 person getting massage
+1F486 $; 💆🏻 person getting massage
 1F486 200D 2642 FE0F; 💆‍♂️ man getting massage
-1F486 1F3FB 200D 2642 FE0F; 💆🏻‍♂️ man getting massage
-1F486 1F3FC 200D 2642 FE0F; 💆🏼‍♂️ man getting massage
-1F486 1F3FD 200D 2642 FE0F; 💆🏽‍♂️ man getting massage
-1F486 1F3FE 200D 2642 FE0F; 💆🏾‍♂️ man getting massage
-1F486 1F3FF 200D 2642 FE0F; 💆🏿‍♂️ man getting massage
+1F486 $ 200D 2642 FE0F; 💆🏻‍♂️ man getting massage
 1F486 200D 2640 FE0F; 💆‍♀️ woman getting massage
-1F486 1F3FB 200D 2640 FE0F; 💆🏻‍♀️ woman getting massage
-1F486 1F3FC 200D 2640 FE0F; 💆🏼‍♀️ woman getting massage
-1F486 1F3FD 200D 2640 FE0F; 💆🏽‍♀️ woman getting massage
-1F486 1F3FE 200D 2640 FE0F; 💆🏾‍♀️ woman getting massage
-1F486 1F3FF 200D 2640 FE0F; 💆🏿‍♀️ woman getting massage
+1F486 $ 200D 2640 FE0F; 💆🏻‍♀️ woman getting massage
 1F487; 💇 person getting haircut
-1F487 1F3FB; 💇🏻 person getting haircut
-1F487 1F3FC; 💇🏼 person getting haircut
-1F487 1F3FD; 💇🏽 person getting haircut
-1F487 1F3FE; 💇🏾 person getting haircut
-1F487 1F3FF; 💇🏿 person getting haircut
+1F487 $; 💇🏻 person getting haircut
 1F487 200D 2642 FE0F; 💇‍♂️ man getting haircut
-1F487 1F3FB 200D 2642 FE0F; 💇🏻‍♂️ man getting haircut
-1F487 1F3FC 200D 2642 FE0F; 💇🏼‍♂️ man getting haircut
-1F487 1F3FD 200D 2642 FE0F; 💇🏽‍♂️ man getting haircut
-1F487 1F3FE 200D 2642 FE0F; 💇🏾‍♂️ man getting haircut
-1F487 1F3FF 200D 2642 FE0F; 💇🏿‍♂️ man getting haircut
+1F487 $ 200D 2642 FE0F; 💇🏻‍♂️ man getting haircut
 1F487 200D 2640 FE0F; 💇‍♀️ woman getting haircut
-1F487 1F3FB 200D 2640 FE0F; 💇🏻‍♀️ woman getting haircut
-1F487 1F3FC 200D 2640 FE0F; 💇🏼‍♀️ woman getting haircut
-1F487 1F3FD 200D 2640 FE0F; 💇🏽‍♀️ woman getting haircut
-1F487 1F3FE 200D 2640 FE0F; 💇🏾‍♀️ woman getting haircut
-1F487 1F3FF 200D 2640 FE0F; 💇🏿‍♀️ woman getting haircut
+1F487 $ 200D 2640 FE0F; 💇🏻‍♀️ woman getting haircut
 1F6B6; 🚶 person walking
-1F6B6 1F3FB; 🚶🏻 person walking
-1F6B6 1F3FC; 🚶🏼 person walking
-1F6B6 1F3FD; 🚶🏽 person walking
-1F6B6 1F3FE; 🚶🏾 person walking
-1F6B6 1F3FF; 🚶🏿 person walking
+1F6B6 $; 🚶🏻 person walking
 1F6B6 200D 2642 FE0F; 🚶‍♂️ man walking
-1F6B6 1F3FB 200D 2642 FE0F; 🚶🏻‍♂️ man walking
-1F6B6 1F3FC 200D 2642 FE0F; 🚶🏼‍♂️ man walking
-1F6B6 1F3FD 200D 2642 FE0F; 🚶🏽‍♂️ man walking
-1F6B6 1F3FE 200D 2642 FE0F; 🚶🏾‍♂️ man walking
-1F6B6 1F3FF 200D 2642 FE0F; 🚶🏿‍♂️ man walking
+1F6B6 $ 200D 2642 FE0F; 🚶🏻‍♂️ man walking
 1F6B6 200D 2640 FE0F; 🚶‍♀️ woman walking
-1F6B6 1F3FB 200D 2640 FE0F; 🚶🏻‍♀️ woman walking
-1F6B6 1F3FC 200D 2640 FE0F; 🚶🏼‍♀️ woman walking
-1F6B6 1F3FD 200D 2640 FE0F; 🚶🏽‍♀️ woman walking
-1F6B6 1F3FE 200D 2640 FE0F; 🚶🏾‍♀️ woman walking
-1F6B6 1F3FF 200D 2640 FE0F; 🚶🏿‍♀️ woman walking
+1F6B6 $ 200D 2640 FE0F; 🚶🏻‍♀️ woman walking
 1F3C3; 🏃 person running
-1F3C3 1F3FB; 🏃🏻 person running
-1F3C3 1F3FC; 🏃🏼 person running
-1F3C3 1F3FD; 🏃🏽 person running
-1F3C3 1F3FE; 🏃🏾 person running
-1F3C3 1F3FF; 🏃🏿 person running
+1F3C3 $; 🏃🏻 person running
 1F3C3 200D 2642 FE0F; 🏃‍♂️ man running
-1F3C3 1F3FB 200D 2642 FE0F; 🏃🏻‍♂️ man running
-1F3C3 1F3FC 200D 2642 FE0F; 🏃🏼‍♂️ man running
-1F3C3 1F3FD 200D 2642 FE0F; 🏃🏽‍♂️ man running
-1F3C3 1F3FE 200D 2642 FE0F; 🏃🏾‍♂️ man running
-1F3C3 1F3FF 200D 2642 FE0F; 🏃🏿‍♂️ man running
+1F3C3 $ 200D 2642 FE0F; 🏃🏻‍♂️ man running
 1F3C3 200D 2640 FE0F; 🏃‍♀️ woman running
-1F3C3 1F3FB 200D 2640 FE0F; 🏃🏻‍♀️ woman running
-1F3C3 1F3FC 200D 2640 FE0F; 🏃🏼‍♀️ woman running
-1F3C3 1F3FD 200D 2640 FE0F; 🏃🏽‍♀️ woman running
-1F3C3 1F3FE 200D 2640 FE0F; 🏃🏾‍♀️ woman running
-1F3C3 1F3FF 200D 2640 FE0F; 🏃🏿‍♀️ woman running
+1F3C3 $ 200D 2640 FE0F; 🏃🏻‍♀️ woman running
 1F483; 💃 woman dancing
-1F483 1F3FB; 💃🏻 woman dancing
-1F483 1F3FC; 💃🏼 woman dancing
-1F483 1F3FD; 💃🏽 woman dancing
-1F483 1F3FE; 💃🏾 woman dancing
-1F483 1F3FF; 💃🏿 woman dancing
+1F483 $; 💃🏻 woman dancing
 1F57A; 🕺 man dancing
-1F57A 1F3FB; 🕺🏻 man dancing
-1F57A 1F3FC; 🕺🏼 man dancing
-1F57A 1F3FD; 🕺🏽 man dancing
-1F57A 1F3FE; 🕺🏾 man dancing
-1F57A 1F3FF; 🕺🏿 man dancing
+1F57A $; 🕺🏻 man dancing
 1F46F; 👯 people with bunny ears partying
 1F46F 200D 2642 FE0F; 👯‍♂️ men with bunny ears partying
 1F46F 200D 2640 FE0F; 👯‍♀️ women with bunny ears partying
 1F574; 🕴 man in business suit levitating
-1F574 1F3FB; 🕴🏻 man in business suit levitating
-1F574 1F3FC; 🕴🏼 man in business suit levitating
-1F574 1F3FD; 🕴🏽 man in business suit levitating
-1F574 1F3FE; 🕴🏾 man in business suit levitating
-1F574 1F3FF; 🕴🏿 man in business suit levitating
+1F574 $; 🕴🏻 man in business suit levitating
 1F5E3; 🗣 speaking head
 1F464; 👤 bust in silhouette
 1F465; 👥 busts in silhouette
 1F93A; 🤺 person fencing
 1F3C7; 🏇 horse racing
-1F3C7 1F3FB; 🏇🏻 horse racing
-1F3C7 1F3FC; 🏇🏼 horse racing
-1F3C7 1F3FD; 🏇🏽 horse racing
-1F3C7 1F3FE; 🏇🏾 horse racing
-1F3C7 1F3FF; 🏇🏿 horse racing
+1F3C7 $; 🏇🏻 horse racing
 26F7; ⛷ skier
 1F3C2; 🏂 snowboarder
-1F3C2 1F3FB; 🏂🏻 snowboarder
-1F3C2 1F3FC; 🏂🏼 snowboarder
-1F3C2 1F3FD; 🏂🏽 snowboarder
-1F3C2 1F3FE; 🏂🏾 snowboarder
-1F3C2 1F3FF; 🏂🏿 snowboarder
+1F3C2 $; 🏂🏻 snowboarder
 1F3CC; 🏌 person golfing
-1F3CC 1F3FB; 🏌🏻 person golfing
-1F3CC 1F3FC; 🏌🏼 person golfing
-1F3CC 1F3FD; 🏌🏽 person golfing
-1F3CC 1F3FE; 🏌🏾 person golfing
-1F3CC 1F3FF; 🏌🏿 person golfing
+1F3CC $; 🏌🏻 person golfing
 1F3CC FE0F 200D 2642 FE0F; 🏌️‍♂️ man golfing
-1F3CC 1F3FB 200D 2642 FE0F; 🏌🏻‍♂️ man golfing
-1F3CC 1F3FC 200D 2642 FE0F; 🏌🏼‍♂️ man golfing
-1F3CC 1F3FD 200D 2642 FE0F; 🏌🏽‍♂️ man golfing
-1F3CC 1F3FE 200D 2642 FE0F; 🏌🏾‍♂️ man golfing
-1F3CC 1F3FF 200D 2642 FE0F; 🏌🏿‍♂️ man golfing
+1F3CC $ 200D 2642 FE0F; 🏌🏻‍♂️ man golfing
 1F3CC FE0F 200D 2640 FE0F; 🏌️‍♀️ woman golfing
-1F3CC 1F3FB 200D 2640 FE0F; 🏌🏻‍♀️ woman golfing
-1F3CC 1F3FC 200D 2640 FE0F; 🏌🏼‍♀️ woman golfing
-1F3CC 1F3FD 200D 2640 FE0F; 🏌🏽‍♀️ woman golfing
-1F3CC 1F3FE 200D 2640 FE0F; 🏌🏾‍♀️ woman golfing
-1F3CC 1F3FF 200D 2640 FE0F; 🏌🏿‍♀️ woman golfing
+1F3CC $ 200D 2640 FE0F; 🏌🏻‍♀️ woman golfing
 1F3C4; 🏄 person surfing
-1F3C4 1F3FB; 🏄🏻 person surfing
-1F3C4 1F3FC; 🏄🏼 person surfing
-1F3C4 1F3FD; 🏄🏽 person surfing
-1F3C4 1F3FE; 🏄🏾 person surfing
-1F3C4 1F3FF; 🏄🏿 person surfing
+1F3C4 $; 🏄🏻 person surfing
 1F3C4 200D 2642 FE0F; 🏄‍♂️ man surfing
-1F3C4 1F3FB 200D 2642 FE0F; 🏄🏻‍♂️ man surfing
-1F3C4 1F3FC 200D 2642 FE0F; 🏄🏼‍♂️ man surfing
-1F3C4 1F3FD 200D 2642 FE0F; 🏄🏽‍♂️ man surfing
-1F3C4 1F3FE 200D 2642 FE0F; 🏄🏾‍♂️ man surfing
-1F3C4 1F3FF 200D 2642 FE0F; 🏄🏿‍♂️ man surfing
+1F3C4 $ 200D 2642 FE0F; 🏄🏻‍♂️ man surfing
 1F3C4 200D 2640 FE0F; 🏄‍♀️ woman surfing
-1F3C4 1F3FB 200D 2640 FE0F; 🏄🏻‍♀️ woman surfing
-1F3C4 1F3FC 200D 2640 FE0F; 🏄🏼‍♀️ woman surfing
-1F3C4 1F3FD 200D 2640 FE0F; 🏄🏽‍♀️ woman surfing
-1F3C4 1F3FE 200D 2640 FE0F; 🏄🏾‍♀️ woman surfing
-1F3C4 1F3FF 200D 2640 FE0F; 🏄🏿‍♀️ woman surfing
+1F3C4 $ 200D 2640 FE0F; 🏄🏻‍♀️ woman surfing
 1F6A3; 🚣 person rowing boat
-1F6A3 1F3FB; 🚣🏻 person rowing boat
-1F6A3 1F3FC; 🚣🏼 person rowing boat
-1F6A3 1F3FD; 🚣🏽 person rowing boat
-1F6A3 1F3FE; 🚣🏾 person rowing boat
-1F6A3 1F3FF; 🚣🏿 person rowing boat
+1F6A3 $; 🚣🏻 person rowing boat
 1F6A3 200D 2642 FE0F; 🚣‍♂️ man rowing boat
-1F6A3 1F3FB 200D 2642 FE0F; 🚣🏻‍♂️ man rowing boat
-1F6A3 1F3FC 200D 2642 FE0F; 🚣🏼‍♂️ man rowing boat
-1F6A3 1F3FD 200D 2642 FE0F; 🚣🏽‍♂️ man rowing boat
-1F6A3 1F3FE 200D 2642 FE0F; 🚣🏾‍♂️ man rowing boat
-1F6A3 1F3FF 200D 2642 FE0F; 🚣🏿‍♂️ man rowing boat
+1F6A3 $ 200D 2642 FE0F; 🚣🏻‍♂️ man rowing boat
 1F6A3 200D 2640 FE0F; 🚣‍♀️ woman rowing boat
-1F6A3 1F3FB 200D 2640 FE0F; 🚣🏻‍♀️ woman rowing boat
-1F6A3 1F3FC 200D 2640 FE0F; 🚣🏼‍♀️ woman rowing boat
-1F6A3 1F3FD 200D 2640 FE0F; 🚣🏽‍♀️ woman rowing boat
-1F6A3 1F3FE 200D 2640 FE0F; 🚣🏾‍♀️ woman rowing boat
-1F6A3 1F3FF 200D 2640 FE0F; 🚣🏿‍♀️ woman rowing boat
+1F6A3 $ 200D 2640 FE0F; 🚣🏻‍♀️ woman rowing boat
 1F3CA; 🏊 person swimming
-1F3CA 1F3FB; 🏊🏻 person swimming
-1F3CA 1F3FC; 🏊🏼 person swimming
-1F3CA 1F3FD; 🏊🏽 person swimming
-1F3CA 1F3FE; 🏊🏾 person swimming
-1F3CA 1F3FF; 🏊🏿 person swimming
+1F3CA $; 🏊🏻 person swimming
 1F3CA 200D 2642 FE0F; 🏊‍♂️ man swimming
-1F3CA 1F3FB 200D 2642 FE0F; 🏊🏻‍♂️ man swimming
-1F3CA 1F3FC 200D 2642 FE0F; 🏊🏼‍♂️ man swimming
-1F3CA 1F3FD 200D 2642 FE0F; 🏊🏽‍♂️ man swimming
-1F3CA 1F3FE 200D 2642 FE0F; 🏊🏾‍♂️ man swimming
-1F3CA 1F3FF 200D 2642 FE0F; 🏊🏿‍♂️ man swimming
+1F3CA $ 200D 2642 FE0F; 🏊🏻‍♂️ man swimming
 1F3CA 200D 2640 FE0F; 🏊‍♀️ woman swimming
-1F3CA 1F3FB 200D 2640 FE0F; 🏊🏻‍♀️ woman swimming
-1F3CA 1F3FC 200D 2640 FE0F; 🏊🏼‍♀️ woman swimming
-1F3CA 1F3FD 200D 2640 FE0F; 🏊🏽‍♀️ woman swimming
-1F3CA 1F3FE 200D 2640 FE0F; 🏊🏾‍♀️ woman swimming
-1F3CA 1F3FF 200D 2640 FE0F; 🏊🏿‍♀️ woman swimming
+1F3CA $ 200D 2640 FE0F; 🏊🏻‍♀️ woman swimming
 26F9; ⛹ person bouncing ball
-26F9 1F3FB; ⛹🏻 person bouncing ball
-26F9 1F3FC; ⛹🏼 person bouncing ball
-26F9 1F3FD; ⛹🏽 person bouncing ball
-26F9 1F3FE; ⛹🏾 person bouncing ball
-26F9 1F3FF; ⛹🏿 person bouncing ball
+26F9 $; ⛹🏻 person bouncing ball
 26F9 FE0F 200D 2642 FE0F; ⛹️‍♂️ man bouncing ball
-26F9 1F3FB 200D 2642 FE0F; ⛹🏻‍♂️ man bouncing ball
-26F9 1F3FC 200D 2642 FE0F; ⛹🏼‍♂️ man bouncing ball
-26F9 1F3FD 200D 2642 FE0F; ⛹🏽‍♂️ man bouncing ball
-26F9 1F3FE 200D 2642 FE0F; ⛹🏾‍♂️ man bouncing ball
-26F9 1F3FF 200D 2642 FE0F; ⛹🏿‍♂️ man bouncing ball
+26F9 $ 200D 2642 FE0F; ⛹🏻‍♂️ man bouncing ball
 26F9 FE0F 200D 2640 FE0F; ⛹️‍♀️ woman bouncing ball
-26F9 1F3FB 200D 2640 FE0F; ⛹🏻‍♀️ woman bouncing ball
-26F9 1F3FC 200D 2640 FE0F; ⛹🏼‍♀️ woman bouncing ball
-26F9 1F3FD 200D 2640 FE0F; ⛹🏽‍♀️ woman bouncing ball
-26F9 1F3FE 200D 2640 FE0F; ⛹🏾‍♀️ woman bouncing ball
-26F9 1F3FF 200D 2640 FE0F; ⛹🏿‍♀️ woman bouncing ball
+26F9 $ 200D 2640 FE0F; ⛹🏻‍♀️ woman bouncing ball
 1F3CB; 🏋 person lifting weights
-1F3CB 1F3FB; 🏋🏻 person lifting weights
-1F3CB 1F3FC; 🏋🏼 person lifting weights
-1F3CB 1F3FD; 🏋🏽 person lifting weights
-1F3CB 1F3FE; 🏋🏾 person lifting weights
-1F3CB 1F3FF; 🏋🏿 person lifting weights
+1F3CB $; 🏋🏻 person lifting weights
 1F3CB FE0F 200D 2642 FE0F; 🏋️‍♂️ man lifting weights
-1F3CB 1F3FB 200D 2642 FE0F; 🏋🏻‍♂️ man lifting weights
-1F3CB 1F3FC 200D 2642 FE0F; 🏋🏼‍♂️ man lifting weights
-1F3CB 1F3FD 200D 2642 FE0F; 🏋🏽‍♂️ man lifting weights
-1F3CB 1F3FE 200D 2642 FE0F; 🏋🏾‍♂️ man lifting weights
-1F3CB 1F3FF 200D 2642 FE0F; 🏋🏿‍♂️ man lifting weights
+1F3CB $ 200D 2642 FE0F; 🏋🏻‍♂️ man lifting weights
 1F3CB FE0F 200D 2640 FE0F; 🏋️‍♀️ woman lifting weights
-1F3CB 1F3FB 200D 2640 FE0F; 🏋🏻‍♀️ woman lifting weights
-1F3CB 1F3FC 200D 2640 FE0F; 🏋🏼‍♀️ woman lifting weights
-1F3CB 1F3FD 200D 2640 FE0F; 🏋🏽‍♀️ woman lifting weights
-1F3CB 1F3FE 200D 2640 FE0F; 🏋🏾‍♀️ woman lifting weights
-1F3CB 1F3FF 200D 2640 FE0F; 🏋🏿‍♀️ woman lifting weights
+1F3CB $ 200D 2640 FE0F; 🏋🏻‍♀️ woman lifting weights
 1F6B4; 🚴 person biking
-1F6B4 1F3FB; 🚴🏻 person biking
-1F6B4 1F3FC; 🚴🏼 person biking
-1F6B4 1F3FD; 🚴🏽 person biking
-1F6B4 1F3FE; 🚴🏾 person biking
-1F6B4 1F3FF; 🚴🏿 person biking
+1F6B4 $; 🚴🏻 person biking
 1F6B4 200D 2642 FE0F; 🚴‍♂️ man biking
-1F6B4 1F3FB 200D 2642 FE0F; 🚴🏻‍♂️ man biking
-1F6B4 1F3FC 200D 2642 FE0F; 🚴🏼‍♂️ man biking
-1F6B4 1F3FD 200D 2642 FE0F; 🚴🏽‍♂️ man biking
-1F6B4 1F3FE 200D 2642 FE0F; 🚴🏾‍♂️ man biking
-1F6B4 1F3FF 200D 2642 FE0F; 🚴🏿‍♂️ man biking
+1F6B4 $ 200D 2642 FE0F; 🚴🏻‍♂️ man biking
 1F6B4 200D 2640 FE0F; 🚴‍♀️ woman biking
-1F6B4 1F3FB 200D 2640 FE0F; 🚴🏻‍♀️ woman biking
-1F6B4 1F3FC 200D 2640 FE0F; 🚴🏼‍♀️ woman biking
-1F6B4 1F3FD 200D 2640 FE0F; 🚴🏽‍♀️ woman biking
-1F6B4 1F3FE 200D 2640 FE0F; 🚴🏾‍♀️ woman biking
-1F6B4 1F3FF 200D 2640 FE0F; 🚴🏿‍♀️ woman biking
+1F6B4 $ 200D 2640 FE0F; 🚴🏻‍♀️ woman biking
 1F6B5; 🚵 person mountain biking
-1F6B5 1F3FB; 🚵🏻 person mountain biking
-1F6B5 1F3FC; 🚵🏼 person mountain biking
-1F6B5 1F3FD; 🚵🏽 person mountain biking
-1F6B5 1F3FE; 🚵🏾 person mountain biking
-1F6B5 1F3FF; 🚵🏿 person mountain biking
+1F6B5 $; 🚵🏻 person mountain biking
 1F6B5 200D 2642 FE0F; 🚵‍♂️ man mountain biking
-1F6B5 1F3FB 200D 2642 FE0F; 🚵🏻‍♂️ man mountain biking
-1F6B5 1F3FC 200D 2642 FE0F; 🚵🏼‍♂️ man mountain biking
-1F6B5 1F3FD 200D 2642 FE0F; 🚵🏽‍♂️ man mountain biking
-1F6B5 1F3FE 200D 2642 FE0F; 🚵🏾‍♂️ man mountain biking
-1F6B5 1F3FF 200D 2642 FE0F; 🚵🏿‍♂️ man mountain biking
+1F6B5 $ 200D 2642 FE0F; 🚵🏻‍♂️ man mountain biking
 1F6B5 200D 2640 FE0F; 🚵‍♀️ woman mountain biking
-1F6B5 1F3FB 200D 2640 FE0F; 🚵🏻‍♀️ woman mountain biking
-1F6B5 1F3FC 200D 2640 FE0F; 🚵🏼‍♀️ woman mountain biking
-1F6B5 1F3FD 200D 2640 FE0F; 🚵🏽‍♀️ woman mountain biking
-1F6B5 1F3FE 200D 2640 FE0F; 🚵🏾‍♀️ woman mountain biking
-1F6B5 1F3FF 200D 2640 FE0F; 🚵🏿‍♀️ woman mountain biking
+1F6B5 $ 200D 2640 FE0F; 🚵🏻‍♀️ woman mountain biking
 1F3CE; 🏎 racing car
 1F3CD; 🏍 motorcycle
 1F938; 🤸 person cartwheeling
-1F938 1F3FB; 🤸🏻 person cartwheeling
-1F938 1F3FC; 🤸🏼 person cartwheeling
-1F938 1F3FD; 🤸🏽 person cartwheeling
-1F938 1F3FE; 🤸🏾 person cartwheeling
-1F938 1F3FF; 🤸🏿 person cartwheeling
+1F938 $; 🤸🏻 person cartwheeling
 1F938 200D 2642 FE0F; 🤸‍♂️ man cartwheeling
-1F938 1F3FB 200D 2642 FE0F; 🤸🏻‍♂️ man cartwheeling
-1F938 1F3FC 200D 2642 FE0F; 🤸🏼‍♂️ man cartwheeling
-1F938 1F3FD 200D 2642 FE0F; 🤸🏽‍♂️ man cartwheeling
-1F938 1F3FE 200D 2642 FE0F; 🤸🏾‍♂️ man cartwheeling
-1F938 1F3FF 200D 2642 FE0F; 🤸🏿‍♂️ man cartwheeling
+1F938 $ 200D 2642 FE0F; 🤸🏻‍♂️ man cartwheeling
 1F938 200D 2640 FE0F; 🤸‍♀️ woman cartwheeling
-1F938 1F3FB 200D 2640 FE0F; 🤸🏻‍♀️ woman cartwheeling
-1F938 1F3FC 200D 2640 FE0F; 🤸🏼‍♀️ woman cartwheeling
-1F938 1F3FD 200D 2640 FE0F; 🤸🏽‍♀️ woman cartwheeling
-1F938 1F3FE 200D 2640 FE0F; 🤸🏾‍♀️ woman cartwheeling
-1F938 1F3FF 200D 2640 FE0F; 🤸🏿‍♀️ woman cartwheeling
+1F938 $ 200D 2640 FE0F; 🤸🏻‍♀️ woman cartwheeling
 1F93C; 🤼 people wrestling
 1F93C 200D 2642 FE0F; 🤼‍♂️ men wrestling
 1F93C 200D 2640 FE0F; 🤼‍♀️ women wrestling
 1F93D; 🤽 person playing water polo
-1F93D 1F3FB; 🤽🏻 person playing water polo
-1F93D 1F3FC; 🤽🏼 person playing water polo
-1F93D 1F3FD; 🤽🏽 person playing water polo
-1F93D 1F3FE; 🤽🏾 person playing water polo
-1F93D 1F3FF; 🤽🏿 person playing water polo
+1F93D $; 🤽🏻 person playing water polo
 1F93D 200D 2642 FE0F; 🤽‍♂️ man playing water polo
-1F93D 1F3FB 200D 2642 FE0F; 🤽🏻‍♂️ man playing water polo
-1F93D 1F3FC 200D 2642 FE0F; 🤽🏼‍♂️ man playing water polo
-1F93D 1F3FD 200D 2642 FE0F; 🤽🏽‍♂️ man playing water polo
-1F93D 1F3FE 200D 2642 FE0F; 🤽🏾‍♂️ man playing water polo
-1F93D 1F3FF 200D 2642 FE0F; 🤽🏿‍♂️ man playing water polo
+1F93D $ 200D 2642 FE0F; 🤽🏻‍♂️ man playing water polo
 1F93D 200D 2640 FE0F; 🤽‍♀️ woman playing water polo
-1F93D 1F3FB 200D 2640 FE0F; 🤽🏻‍♀️ woman playing water polo
-1F93D 1F3FC 200D 2640 FE0F; 🤽🏼‍♀️ woman playing water polo
-1F93D 1F3FD 200D 2640 FE0F; 🤽🏽‍♀️ woman playing water polo
-1F93D 1F3FE 200D 2640 FE0F; 🤽🏾‍♀️ woman playing water polo
-1F93D 1F3FF 200D 2640 FE0F; 🤽🏿‍♀️ woman playing water polo
+1F93D $ 200D 2640 FE0F; 🤽🏻‍♀️ woman playing water polo
 1F93E; 🤾 person playing handball
-1F93E 1F3FB; 🤾🏻 person playing handball
-1F93E 1F3FC; 🤾🏼 person playing handball
-1F93E 1F3FD; 🤾🏽 person playing handball
-1F93E 1F3FE; 🤾🏾 person playing handball
-1F93E 1F3FF; 🤾🏿 person playing handball
+1F93E $; 🤾🏻 person playing handball
 1F93E 200D 2642 FE0F; 🤾‍♂️ man playing handball
-1F93E 1F3FB 200D 2642 FE0F; 🤾🏻‍♂️ man playing handball
-1F93E 1F3FC 200D 2642 FE0F; 🤾🏼‍♂️ man playing handball
-1F93E 1F3FD 200D 2642 FE0F; 🤾🏽‍♂️ man playing handball
-1F93E 1F3FE 200D 2642 FE0F; 🤾🏾‍♂️ man playing handball
-1F93E 1F3FF 200D 2642 FE0F; 🤾🏿‍♂️ man playing handball
+1F93E $ 200D 2642 FE0F; 🤾🏻‍♂️ man playing handball
 1F93E 200D 2640 FE0F; 🤾‍♀️ woman playing handball
-1F93E 1F3FB 200D 2640 FE0F; 🤾🏻‍♀️ woman playing handball
-1F93E 1F3FC 200D 2640 FE0F; 🤾🏼‍♀️ woman playing handball
-1F93E 1F3FD 200D 2640 FE0F; 🤾🏽‍♀️ woman playing handball
-1F93E 1F3FE 200D 2640 FE0F; 🤾🏾‍♀️ woman playing handball
-1F93E 1F3FF 200D 2640 FE0F; 🤾🏿‍♀️ woman playing handball
+1F93E $ 200D 2640 FE0F; 🤾🏻‍♀️ woman playing handball
 1F939; 🤹 person juggling
-1F939 1F3FB; 🤹🏻 person juggling
-1F939 1F3FC; 🤹🏼 person juggling
-1F939 1F3FD; 🤹🏽 person juggling
-1F939 1F3FE; 🤹🏾 person juggling
-1F939 1F3FF; 🤹🏿 person juggling
+1F939 $; 🤹🏻 person juggling
 1F939 200D 2642 FE0F; 🤹‍♂️ man juggling
-1F939 1F3FB 200D 2642 FE0F; 🤹🏻‍♂️ man juggling
-1F939 1F3FC 200D 2642 FE0F; 🤹🏼‍♂️ man juggling
-1F939 1F3FD 200D 2642 FE0F; 🤹🏽‍♂️ man juggling
-1F939 1F3FE 200D 2642 FE0F; 🤹🏾‍♂️ man juggling
-1F939 1F3FF 200D 2642 FE0F; 🤹🏿‍♂️ man juggling
+1F939 $ 200D 2642 FE0F; 🤹🏻‍♂️ man juggling
 1F939 200D 2640 FE0F; 🤹‍♀️ woman juggling
-1F939 1F3FB 200D 2640 FE0F; 🤹🏻‍♀️ woman juggling
-1F939 1F3FC 200D 2640 FE0F; 🤹🏼‍♀️ woman juggling
-1F939 1F3FD 200D 2640 FE0F; 🤹🏽‍♀️ woman juggling
-1F939 1F3FE 200D 2640 FE0F; 🤹🏾‍♀️ woman juggling
-1F939 1F3FF 200D 2640 FE0F; 🤹🏿‍♀️ woman juggling
+1F939 $ 200D 2640 FE0F; 🤹🏻‍♀️ woman juggling
 1F46B; 👫 man and woman holding hands
 1F46C; 👬 two men holding hands
 1F46D; 👭 two women holding hands
@@ -1029,197 +445,69 @@
 1F469 200D 1F467 200D 1F467; 👩‍👧‍👧 family
 @ !! removed skin tone modifiers
 1F4AA; 💪 flexed biceps
-1F4AA 1F3FB; 💪🏻 flexed biceps
-1F4AA 1F3FC; 💪🏼 flexed biceps
-1F4AA 1F3FD; 💪🏽 flexed biceps
-1F4AA 1F3FE; 💪🏾 flexed biceps
-1F4AA 1F3FF; 💪🏿 flexed biceps
+1F4AA $; 💪🏻 flexed biceps
 1F933; 🤳 selfie
-1F933 1F3FB; 🤳🏻 selfie
-1F933 1F3FC; 🤳🏼 selfie
-1F933 1F3FD; 🤳🏽 selfie
-1F933 1F3FE; 🤳🏾 selfie
-1F933 1F3FF; 🤳🏿 selfie
+1F933 $; 🤳🏻 selfie
 1F448; 👈 backhand index pointing left
-1F448 1F3FB; 👈🏻 backhand index pointing left
-1F448 1F3FC; 👈🏼 backhand index pointing left
-1F448 1F3FD; 👈🏽 backhand index pointing left
-1F448 1F3FE; 👈🏾 backhand index pointing left
-1F448 1F3FF; 👈🏿 backhand index pointing left
+1F448 $; 👈🏻 backhand index pointing left
 1F449; 👉 backhand index pointing right
-1F449 1F3FB; 👉🏻 backhand index pointing right
-1F449 1F3FC; 👉🏼 backhand index pointing right
-1F449 1F3FD; 👉🏽 backhand index pointing right
-1F449 1F3FE; 👉🏾 backhand index pointing right
-1F449 1F3FF; 👉🏿 backhand index pointing right
+1F449 $; 👉🏻 backhand index pointing right
 261D; ☝ index pointing up
-261D 1F3FB; ☝🏻 index pointing up
-261D 1F3FC; ☝🏼 index pointing up
-261D 1F3FD; ☝🏽 index pointing up
-261D 1F3FE; ☝🏾 index pointing up
-261D 1F3FF; ☝🏿 index pointing up
+261D $; ☝🏻 index pointing up
 1F446; 👆 backhand index pointing up
-1F446 1F3FB; 👆🏻 backhand index pointing up
-1F446 1F3FC; 👆🏼 backhand index pointing up
-1F446 1F3FD; 👆🏽 backhand index pointing up
-1F446 1F3FE; 👆🏾 backhand index pointing up
-1F446 1F3FF; 👆🏿 backhand index pointing up
+1F446 $; 👆🏻 backhand index pointing up
 1F595; 🖕 middle finger
-1F595 1F3FB; 🖕🏻 middle finger
-1F595 1F3FC; 🖕🏼 middle finger
-1F595 1F3FD; 🖕🏽 middle finger
-1F595 1F3FE; 🖕🏾 middle finger
-1F595 1F3FF; 🖕🏿 middle finger
+1F595 $; 🖕🏻 middle finger
 1F447; 👇 backhand index pointing down
-1F447 1F3FB; 👇🏻 backhand index pointing down
-1F447 1F3FC; 👇🏼 backhand index pointing down
-1F447 1F3FD; 👇🏽 backhand index pointing down
-1F447 1F3FE; 👇🏾 backhand index pointing down
-1F447 1F3FF; 👇🏿 backhand index pointing down
+1F447 $; 👇🏻 backhand index pointing down
 270C; ✌ victory hand
-270C 1F3FB; ✌🏻 victory hand
-270C 1F3FC; ✌🏼 victory hand
-270C 1F3FD; ✌🏽 victory hand
-270C 1F3FE; ✌🏾 victory hand
-270C 1F3FF; ✌🏿 victory hand
+270C $; ✌🏻 victory hand
 1F91E; 🤞 crossed fingers
-1F91E 1F3FB; 🤞🏻 crossed fingers
-1F91E 1F3FC; 🤞🏼 crossed fingers
-1F91E 1F3FD; 🤞🏽 crossed fingers
-1F91E 1F3FE; 🤞🏾 crossed fingers
-1F91E 1F3FF; 🤞🏿 crossed fingers
+1F91E $; 🤞🏻 crossed fingers
 1F596; 🖖 vulcan salute
-1F596 1F3FB; 🖖🏻 vulcan salute
-1F596 1F3FC; 🖖🏼 vulcan salute
-1F596 1F3FD; 🖖🏽 vulcan salute
-1F596 1F3FE; 🖖🏾 vulcan salute
-1F596 1F3FF; 🖖🏿 vulcan salute
+1F596 $; 🖖🏻 vulcan salute
 1F918; 🤘 sign of the horns
-1F918 1F3FB; 🤘🏻 sign of the horns
-1F918 1F3FC; 🤘🏼 sign of the horns
-1F918 1F3FD; 🤘🏽 sign of the horns
-1F918 1F3FE; 🤘🏾 sign of the horns
-1F918 1F3FF; 🤘🏿 sign of the horns
+1F918 $; 🤘🏻 sign of the horns
 1F919; 🤙 call me hand
-1F919 1F3FB; 🤙🏻 call me hand
-1F919 1F3FC; 🤙🏼 call me hand
-1F919 1F3FD; 🤙🏽 call me hand
-1F919 1F3FE; 🤙🏾 call me hand
-1F919 1F3FF; 🤙🏿 call me hand
+1F919 $; 🤙🏻 call me hand
 1F590; 🖐 raised hand with fingers splayed
-1F590 1F3FB; 🖐🏻 raised hand with fingers splayed
-1F590 1F3FC; 🖐🏼 raised hand with fingers splayed
-1F590 1F3FD; 🖐🏽 raised hand with fingers splayed
-1F590 1F3FE; 🖐🏾 raised hand with fingers splayed
-1F590 1F3FF; 🖐🏿 raised hand with fingers splayed
+1F590 $; 🖐🏻 raised hand with fingers splayed
 270B; ✋ raised hand
-270B 1F3FB; ✋🏻 raised hand
-270B 1F3FC; ✋🏼 raised hand
-270B 1F3FD; ✋🏽 raised hand
-270B 1F3FE; ✋🏾 raised hand
-270B 1F3FF; ✋🏿 raised hand
+270B $; ✋🏻 raised hand
 1F44C; 👌 OK hand
-1F44C 1F3FB; 👌🏻 OK hand
-1F44C 1F3FC; 👌🏼 OK hand
-1F44C 1F3FD; 👌🏽 OK hand
-1F44C 1F3FE; 👌🏾 OK hand
-1F44C 1F3FF; 👌🏿 OK hand
+1F44C $; 👌🏻 OK hand
 1F44D; 👍 thumbs up
-1F44D 1F3FB; 👍🏻 thumbs up
-1F44D 1F3FC; 👍🏼 thumbs up
-1F44D 1F3FD; 👍🏽 thumbs up
-1F44D 1F3FE; 👍🏾 thumbs up
-1F44D 1F3FF; 👍🏿 thumbs up
+1F44D $; 👍🏻 thumbs up
 1F44E; 👎 thumbs down
-1F44E 1F3FB; 👎🏻 thumbs down
-1F44E 1F3FC; 👎🏼 thumbs down
-1F44E 1F3FD; 👎🏽 thumbs down
-1F44E 1F3FE; 👎🏾 thumbs down
-1F44E 1F3FF; 👎🏿 thumbs down
+1F44E $; 👎🏻 thumbs down
 270A; ✊ raised fist
-270A 1F3FB; ✊🏻 raised fist
-270A 1F3FC; ✊🏼 raised fist
-270A 1F3FD; ✊🏽 raised fist
-270A 1F3FE; ✊🏾 raised fist
-270A 1F3FF; ✊🏿 raised fist
+270A $; ✊🏻 raised fist
 1F44A; 👊 oncoming fist
-1F44A 1F3FB; 👊🏻 oncoming fist
-1F44A 1F3FC; 👊🏼 oncoming fist
-1F44A 1F3FD; 👊🏽 oncoming fist
-1F44A 1F3FE; 👊🏾 oncoming fist
-1F44A 1F3FF; 👊🏿 oncoming fist
+1F44A $; 👊🏻 oncoming fist
 1F91B; 🤛 left-facing fist
-1F91B 1F3FB; 🤛🏻 left-facing fist
-1F91B 1F3FC; 🤛🏼 left-facing fist
-1F91B 1F3FD; 🤛🏽 left-facing fist
-1F91B 1F3FE; 🤛🏾 left-facing fist
-1F91B 1F3FF; 🤛🏿 left-facing fist
+1F91B $; 🤛🏻 left-facing fist
 1F91C; 🤜 right-facing fist
-1F91C 1F3FB; 🤜🏻 right-facing fist
-1F91C 1F3FC; 🤜🏼 right-facing fist
-1F91C 1F3FD; 🤜🏽 right-facing fist
-1F91C 1F3FE; 🤜🏾 right-facing fist
-1F91C 1F3FF; 🤜🏿 right-facing fist
+1F91C $; 🤜🏻 right-facing fist
 1F91A; 🤚 raised back of hand
-1F91A 1F3FB; 🤚🏻 raised back of hand
-1F91A 1F3FC; 🤚🏼 raised back of hand
-1F91A 1F3FD; 🤚🏽 raised back of hand
-1F91A 1F3FE; 🤚🏾 raised back of hand
-1F91A 1F3FF; 🤚🏿 raised back of hand
+1F91A $; 🤚🏻 raised back of hand
 1F44B; 👋 waving hand
-1F44B 1F3FB; 👋🏻 waving hand
-1F44B 1F3FC; 👋🏼 waving hand
-1F44B 1F3FD; 👋🏽 waving hand
-1F44B 1F3FE; 👋🏾 waving hand
-1F44B 1F3FF; 👋🏿 waving hand
+1F44B $; 👋🏻 waving hand
 1F44F; 👏 clapping hands
-1F44F 1F3FB; 👏🏻 clapping hands
-1F44F 1F3FC; 👏🏼 clapping hands
-1F44F 1F3FD; 👏🏽 clapping hands
-1F44F 1F3FE; 👏🏾 clapping hands
-1F44F 1F3FF; 👏🏿 clapping hands
+1F44F $; 👏🏻 clapping hands
 270D; ✍ writing hand
-270D 1F3FB; ✍🏻 writing hand
-270D 1F3FC; ✍🏼 writing hand
-270D 1F3FD; ✍🏽 writing hand
-270D 1F3FE; ✍🏾 writing hand
-270D 1F3FF; ✍🏿 writing hand
+270D $; ✍🏻 writing hand
 1F450; 👐 open hands
-1F450 1F3FB; 👐🏻 open hands
-1F450 1F3FC; 👐🏼 open hands
-1F450 1F3FD; 👐🏽 open hands
-1F450 1F3FE; 👐🏾 open hands
-1F450 1F3FF; 👐🏿 open hands
+1F450 $; 👐🏻 open hands
 1F64C; 🙌 raising hands
-1F64C 1F3FB; 🙌🏻 raising hands
-1F64C 1F3FC; 🙌🏼 raising hands
-1F64C 1F3FD; 🙌🏽 raising hands
-1F64C 1F3FE; 🙌🏾 raising hands
-1F64C 1F3FF; 🙌🏿 raising hands
+1F64C $; 🙌🏻 raising hands
 1F64F; 🙏 folded hands
-1F64F 1F3FB; 🙏🏻 folded hands
-1F64F 1F3FC; 🙏🏼 folded hands
-1F64F 1F3FD; 🙏🏽 folded hands
-1F64F 1F3FE; 🙏🏾 folded hands
-1F64F 1F3FF; 🙏🏿 folded hands
+1F64F $; 🙏🏻 folded hands
 1F485; 💅 nail polish
-1F485 1F3FB; 💅🏻 nail polish
-1F485 1F3FC; 💅🏼 nail polish
-1F485 1F3FD; 💅🏽 nail polish
-1F485 1F3FE; 💅🏾 nail polish
-1F485 1F3FF; 💅🏿 nail polish
+1F485 $; 💅🏻 nail polish
 1F442; 👂 ear
-1F442 1F3FB; 👂🏻 ear
-1F442 1F3FC; 👂🏼 ear
-1F442 1F3FD; 👂🏽 ear
-1F442 1F3FE; 👂🏾 ear
-1F442 1F3FF; 👂🏿 ear
+1F442 $; 👂🏻 ear
 1F443; 👃 nose
-1F443 1F3FB; 👃🏻 nose
-1F443 1F3FC; 👃🏼 nose
-1F443 1F3FD; 👃🏽 nose
-1F443 1F3FE; 👃🏾 nose
-1F443 1F3FF; 👃🏿 nose
+1F443 $; 👃🏻 nose
 1F91D; 🤝 handshake !! moved
 @
 1F463; 👣 footprints
@@ -1612,21 +900,13 @@
 1F6CE; 🛎 bellhop bell
 1F6AA; 🚪 door
 1F6CC; 🛌 person in bed
-1F6CC 1F3FB; 🛌🏻 person in bed
-1F6CC 1F3FC; 🛌🏼 person in bed
-1F6CC 1F3FD; 🛌🏽 person in bed
-1F6CC 1F3FE; 🛌🏾 person in bed
-1F6CC 1F3FF; 🛌🏿 person in bed
+1F6CC $; 🛌🏻 person in bed
 1F6CF; 🛏 bed
 1F6CB; 🛋 couch and lamp
 1F6BD; 🚽 toilet
 1F6BF; 🚿 shower
 1F6C0; 🛀 person taking bath
-1F6C0 1F3FB; 🛀🏻 person taking bath
-1F6C0 1F3FC; 🛀🏼 person taking bath
-1F6C0 1F3FD; 🛀🏽 person taking bath
-1F6C0 1F3FE; 🛀🏾 person taking bath
-1F6C0 1F3FF; 🛀🏿 person taking bath
+1F6C0 $; 🛀🏻 person taking bath
 1F6C1; 🛁 bathtub
 @
 231B; ⌛ hourglass

@@ -106,9 +106,16 @@ ready(){
       "<p style='font-size:13px;color:#444;margin:4px;text-align:center'>Please, note that most emoji will not show up properly in the text box above, but they will display in the tweet.</p>"
     ];
     
-    let lines = contents.split("\n");
+    let addDeclaration = decl => {
+      let emoji = decl.split(" ").map(pt => convUnicode(parseInt(pt, 16))).join("");
+      generated.push(TD.util.cleanWithEmoji(emoji));
+    };
     
-    for(let line of lines){
+    let skinTones = [
+      "1F3FB", "1F3FC", "1F3FD", "1F3FE", "1F3FF"
+    ];
+    
+    for(let line of contents.split("\n")){
       if (line[0] === '#'){
         continue;
       }
@@ -118,9 +125,17 @@ ready(){
       }
       
       let decl = line.substring(0, line.indexOf(";"));
-      let emoji = decl.split(" ").map(pt => convUnicode(parseInt(pt, 16))).join("");
+      let skinIndex = decl.indexOf('$');
       
-      generated.push(TD.util.cleanWithEmoji(emoji));
+      if (skinIndex !== -1){
+        let declPre = decl.substring(0, skinIndex);
+        let declPost = decl.substring(skinIndex+1);
+        
+        skinTones.map(skinTone => declPre+skinTone+declPost).forEach(addDeclaration);
+      }
+      else{
+        addDeclaration(decl);
+      }
     }
     
     this.emojiHTML = generated.join("");
