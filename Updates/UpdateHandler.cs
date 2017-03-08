@@ -67,12 +67,12 @@ namespace TweetDck.Updates{
 
         private void TriggerUpdateAcceptedEvent(UpdateAcceptedEventArgs args){
             if (UpdateAccepted != null){
-                form.InvokeSafe(() => UpdateAccepted(this, args));
+                form.InvokeAsyncSafe(() => UpdateAccepted(this, args));
             }
         }
 
         private void TriggerUpdateDismissedEvent(UpdateDismissedEventArgs args){
-            form.InvokeSafe(() => {
+            form.InvokeAsyncSafe(() => {
                 settings.DismissedUpdate = args.VersionTag;
                 
                 if (UpdateDismissed != null){
@@ -83,7 +83,7 @@ namespace TweetDck.Updates{
 
         private void TriggerCheckFinishedEvent(UpdateCheckEventArgs args){
             if (CheckFinished != null){
-                form.InvokeSafe(() => CheckFinished(this, args));
+                form.InvokeAsyncSafe(() => CheckFinished(this, args));
             }
         }
 
