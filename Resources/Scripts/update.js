@@ -20,6 +20,11 @@
   const updateCheckUrlAll = "https://api.github.com/repos/chylex/TweetDuck/releases";
   
   //
+  // Constant: Fallback url in case the update installer file is missing.
+  //
+  const updateDownloadFallback = "https://tweetduck.chylex.com/#download";
+  
+  //
   // Function: Creates the update notification element. Removes the old one if already exists.
   //
   var displayNotification = function(version, download){
@@ -28,7 +33,7 @@
     var ele = $("#tweetduck-update");
     var existed = ele.length > 0;
     
-    if (existed > 0){
+    if (existed){
       ele.remove();
     }
     
@@ -106,7 +111,13 @@
 
     buttonDiv.children(".tdu-btn-download").click(function(){
       ele.remove();
-      $TDU.onUpdateAccepted(version, download);
+      
+      if (download){
+        $TDU.onUpdateAccepted(version, download);
+      }
+      else{
+        $TDU.openBrowser(updateDownloadFallback);
+      }
     });
 
     buttonDiv.children(".tdu-btn-unsupported").click(function(){
@@ -139,7 +150,7 @@
       var hasUpdate = tagName !== versionTag && tagName !== dismissedVersionTag && release.assets.length > 0;
       
       if (hasUpdate){
-        var obj = release.assets.find(asset => asset.name === updateFileName) || release.assets[0];
+        var obj = release.assets.find(asset => asset.name === updateFileName) || { browser_download_url: "" };
         displayNotification(tagName, obj.browser_download_url);
       }
       
