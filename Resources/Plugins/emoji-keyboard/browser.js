@@ -154,7 +154,7 @@ ready(){
     }
     
     let start = "<p style='font-size:13px;color:#444;margin:4px;text-align:center'>Please, note that most emoji will not show up properly in the text box above, but they will display in the tweet.</p>";
-    this.emojiHTML = start+TD.util.cleanWithEmoji(generated.join("")).replace("___", "<div class='separator'></div>");
+    this.emojiHTML = start+TD.util.cleanWithEmoji(generated.join("")).replace(/___/g, "<div class='separator'></div>");
   }).catch(err => {
     $TD.alert("error", "Problem loading emoji keyboard: "+err.message);
   });
