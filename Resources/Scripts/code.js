@@ -497,18 +497,20 @@
   //
   // Block: Swap shift key functionality for selecting accounts.
   //
-  $(".js-drawer[data-drawer='compose']").delegate(".js-account-list > .js-account-item", "click", function(e){
-    e.shiftKey = !e.shiftKey;
-  });
-  
-  TD.components.AccountSelector.prototype.refreshPostingAccounts = appendToFunction(TD.components.AccountSelector.prototype.refreshPostingAccounts, function(){
-    if (!this.$node.attr("td-account-selector-hook")){
-      this.$node.attr("td-account-selector-hook", "1");
-      
-      this.$node.delegate(".js-account-item", "click", function(e){
-        e.shiftKey = !e.shiftKey;
-      });
-    }
+  onAppReady.push(function(){
+    $(".js-drawer[data-drawer='compose']").delegate(".js-account-list > .js-account-item", "click", function(e){
+      e.shiftKey = !e.shiftKey;
+    });
+
+    TD.components.AccountSelector.prototype.refreshPostingAccounts = appendToFunction(TD.components.AccountSelector.prototype.refreshPostingAccounts, function(){
+      if (!this.$node.attr("td-account-selector-hook")){
+        this.$node.attr("td-account-selector-hook", "1");
+
+        this.$node.delegate(".js-account-item", "click", function(e){
+          e.shiftKey = !e.shiftKey;
+        });
+      }
+    });
   });
   
   //
