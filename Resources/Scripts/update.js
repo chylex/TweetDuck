@@ -137,11 +137,20 @@
   };
   
   //
+  // Function: Returns milliseconds until the start of the next hour, with an offset in seconds that can skip an hour if the clock would roll over too soon.
+  //
+  var getTimeUntilNextHour = function(offset){
+    var now = new Date();
+    var offset = new Date(+now+offset*1000);
+    return new Date(offset.getFullYear(), offset.getMonth(), offset.getDate(), offset.getHours()+1, 0, 0)-now;
+  };
+  
+  //
   // Function: Runs an update check and updates all DOM elements appropriately.
   //
   var runUpdateCheck = function(eventID, versionTag, dismissedVersionTag, allowPre){
     clearTimeout(updateCheckTimeoutID);
-    updateCheckTimeoutID = setTimeout($TDU.triggerUpdateCheck, 1000*60*60); // 1 hour
+    updateCheckTimeoutID = setTimeout($TDU.triggerUpdateCheck, getTimeUntilNextHour(60*30)); // 30 minute offset
     
     $.getJSON(allowPre ? updateCheckUrlAll : updateCheckUrlLatest, function(response){
       var release = allowPre ? response[0] : response;
