@@ -27,13 +27,13 @@ namespace TweetDck.Core.Bridge{
         }
 
         public void LoadFontSizeClass(string fsClass){
-            form.InvokeSafe(() => {
+            form.InvokeAsyncSafe(() => {
                TweetNotification.SetFontSizeClass(fsClass);
             });
         }
 
         public void LoadNotificationHeadContents(string headContents){
-            form.InvokeSafe(() => {
+            form.InvokeAsyncSafe(() => {
                TweetNotification.SetHeadTag(headContents); 
             });
         }
@@ -62,7 +62,7 @@ namespace TweetDck.Core.Bridge{
         }
 
         public void OnTweetPopup(string tweetHtml, string tweetUrl, int tweetCharacters){
-            notification.InvokeSafe(() => {
+            notification.InvokeAsyncSafe(() => {
                 form.OnTweetNotification();
                 notification.ShowNotification(new TweetNotification(tweetHtml, tweetUrl, tweetCharacters));
             });

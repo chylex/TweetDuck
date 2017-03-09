@@ -244,15 +244,13 @@ namespace TweetDck.Core{
             FormUpdateDownload downloadForm = new FormUpdateDownload(e.UpdateInfo);
             downloadForm.MoveToCenter(this);
             downloadForm.ShowDialog();
-
-            FormUpdateDownload.Status status = downloadForm.UpdateStatus;
             downloadForm.Dispose();
 
-            if (status == FormUpdateDownload.Status.Succeeded){
+            if (downloadForm.UpdateStatus == FormUpdateDownload.Status.Succeeded){
                 UpdateInstallerPath = downloadForm.InstallerPath;
                 ForceClose();
             }
-            else if (status == FormUpdateDownload.Status.Manual){
+            else if (downloadForm.UpdateStatus == FormUpdateDownload.Status.Manual){
                 ForceClose();
             }
             else{
