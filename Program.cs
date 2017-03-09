@@ -89,9 +89,7 @@ namespace TweetDck{
                             return;
                         }
                     }
-                    else{
-                        Thread.Sleep(500);
-                    }
+                    else Thread.Sleep(500);
                 }
             }
             else{
@@ -101,15 +99,11 @@ namespace TweetDck{
                     if (LockManager.LockingProcess.MainWindowHandle == IntPtr.Zero){ // restore if the original process is in tray
                         NativeMethods.SendMessage(NativeMethods.HWND_BROADCAST, WindowRestoreMessage, 0, IntPtr.Zero);
 
-                        for(int attempt = 0; attempt < 10; attempt++){
+                        if (WindowsUtils.TrySleepUntil(() => {
                             LockManager.LockingProcess.Refresh();
-
-                            if (LockManager.LockingProcess.MainWindowHandle != IntPtr.Zero && LockManager.LockingProcess.Responding){
-                                return; // should trigger on first attempt, but wait just in case
-                            }
-                            else{
-                                Thread.Sleep(200);
-                            }
+                            return LockManager.LockingProcess.MainWindowHandle != IntPtr.Zero && LockManager.LockingProcess.Responding;
+                        }, 2000, 250)){
+                            return; // should trigger on first attempt if succeeded, but wait just in case
                         }
                     }
                     
