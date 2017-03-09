@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Threading;
+using TweetDck.Core.Utils;
 
 namespace TweetDck.Configuration{
     sealed class LockManager{
@@ -119,19 +119,12 @@ namespace TweetDck.Configuration{
             if (LockingProcess != null){
                 try{
                     if (LockingProcess.CloseMainWindow()){
-                        for(int waited = 0; waited < closeTimeout && !LockingProcess.HasExited; waited += 250){
-                            LockingProcess.Refresh();
-                            Thread.Sleep(250);
-                        }
+                        WindowsUtils.TrySleepUntil(CheckLockingProcessExited, closeTimeout, 250);
                     }
 
                     if (!LockingProcess.HasExited){
                         LockingProcess.Kill();
-
-                        for(int waited = 0; waited < killTimeout && !LockingProcess.HasExited; waited += 250){
-                            LockingProcess.Refresh();
-                            Thread.Sleep(250);
-                        }
+                        WindowsUtils.TrySleepUntil(CheckLockingProcessExited, killTimeout, 250);
                     }
 
                     if (LockingProcess.HasExited){
@@ -154,6 +147,11 @@ namespace TweetDck.Configuration{
             }
 
             return false;
+        }
+
+        private bool CheckLockingProcessExited(){
+            LockingProcess.Refresh();
+            return LockingProcess.HasExited;
         }
 
         // Utility functions
