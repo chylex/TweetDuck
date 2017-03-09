@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
