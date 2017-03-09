@@ -98,11 +98,22 @@ namespace TweetDck{
                 LockManager.Result lockResult = LockManager.Lock();
 
                 if (lockResult == LockManager.Result.HasProcess){
-                    if (LockManager.LockingProcess.MainWindowHandle == IntPtr.Zero && LockManager.LockingProcess.Responding){ // restore if the original process is in tray
+                    if (LockManager.LockingProcess.MainWindowHandle == IntPtr.Zero){ // restore if the original process is in tray
                         NativeMethods.SendMessage(NativeMethods.HWND_BROADCAST, WindowRestoreMessage, 0, IntPtr.Zero);
-                        return;
+
+                        for(int attempt = 0; attempt < 10; attempt++){
+                            LockManager.LockingProcess.Refresh();
+
+                            if (LockManager.LockingProcess.MainWindowHandle != IntPtr.Zero && LockManager.LockingProcess.Responding){
+                                return; // should trigger on first attempt, but wait just in case
+                            }
+                            else{
+                                Thread.Sleep(200);
+                            }
+                        }
                     }
-                    else if (MessageBox.Show("Another instance of "+BrandName+" is already running.\r\nDo you want to close it?", BrandName+" is Already Running", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
+                    
+                    if (MessageBox.Show("Another instance of "+BrandName+" is already running.\r\nDo you want to close it?", BrandName+" is Already Running", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
                         if (!LockManager.CloseLockingProcess(10000, 5000)){
                             MessageBox.Show("Could not close the other process.", BrandName+" Has Failed :(", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
