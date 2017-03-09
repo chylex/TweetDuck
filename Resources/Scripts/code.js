@@ -344,6 +344,11 @@
     };
     
     var clickUpload = function(){
+      $(document).one("uiFilesAdded", function(){
+        getScroller().scrollTop(prevScrollTop);
+        $(".js-drawer").find(".js-compose-text").first()[0].focus();
+      });
+      
       var button = $(".js-add-image-button").first();
       
       var scroller = getScroller();
@@ -394,13 +399,6 @@
         
         lastPasteElement = null;
       }
-    };
-    
-    window.TDGF_tryPasteImageFinish = function(){
-      setTimeout(function(){
-        getScroller().scrollTop(prevScrollTop);
-        $(".js-drawer").find(".js-compose-text").first()[0].focus();
-      }, 10);
     };
   })();
   

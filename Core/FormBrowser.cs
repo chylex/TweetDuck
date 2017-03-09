@@ -406,8 +406,10 @@ namespace TweetDck.Core{
             browser.ExecuteScriptAsync("TDGF_tryPasteImage()");
         }
 
-        public void OnImagePastedFinish(){
-            browser.ExecuteScriptAsync("TDGF_tryPasteImageFinish()");
+        public void TriggerImageUpload(int offsetX, int offsetY){
+            IBrowserHost host = browser.GetBrowser().GetHost();
+            host.SendMouseClickEvent(offsetX, offsetY, MouseButtonType.Left, false, 1, CefEventFlags.None);
+            host.SendMouseClickEvent(offsetX, offsetY, MouseButtonType.Left, true, 1, CefEventFlags.None);
         }
 
         public void TriggerTweetScreenshot(){

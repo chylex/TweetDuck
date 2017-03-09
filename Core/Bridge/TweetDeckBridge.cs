@@ -109,15 +109,7 @@ namespace TweetDck.Core.Bridge{
         }
 
         public void ClickUploadImage(int offsetX, int offsetY){
-            form.InvokeSafe(() => {
-                Point prevPos = Cursor.Position;
-
-                Cursor.Position = form.PointToScreen(new Point(offsetX, offsetY));
-                NativeMethods.SimulateMouseClick(NativeMethods.MouseButton.Left);
-                Cursor.Position = prevPos;
-
-                form.OnImagePastedFinish();
-            });
+            form.InvokeAsyncSafe(() => form.TriggerImageUpload(offsetX, offsetY));
         }
 
         public void ScreenshotTweet(string html, int width, int height){
