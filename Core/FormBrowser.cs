@@ -231,7 +231,7 @@ namespace TweetDck.Core{
         }
         
         private void plugins_Reloaded(object sender, PluginLoadEventArgs e){
-            ReloadBrowser();
+            browser.GetBrowser().Reload();
         }
 
         private void plugins_PluginChangedState(object sender, PluginChangedStateEventArgs e){
@@ -414,10 +414,6 @@ namespace TweetDck.Core{
 
         public void TriggerTweetScreenshot(){
             browser.ExecuteScriptAsync("TDGF_triggerScreenshot()");
-        }
-
-        public void ReloadBrowser(){
-            browser.ExecuteScriptAsync("window.location.reload()");
         }
     }
 }
