@@ -118,18 +118,20 @@ namespace TweetDck.Configuration{
         public bool CloseLockingProcess(int closeTimeout, int killTimeout){
             if (LockingProcess != null){
                 try{
-                    LockingProcess.CloseMainWindow();
-
-                    for(int waited = 0; waited < closeTimeout && !LockingProcess.HasExited; waited += 250){
-                        LockingProcess.Refresh();
-                        Thread.Sleep(250);
+                    if (LockingProcess.CloseMainWindow()){
+                        for(int waited = 0; waited < closeTimeout && !LockingProcess.HasExited; waited += 250){
+                            LockingProcess.Refresh();
+                            Thread.Sleep(250);
+                        }
                     }
 
-                    LockingProcess.Kill();
+                    if (!LockingProcess.HasExited){
+                        LockingProcess.Kill();
 
-                    for(int waited = 0; waited < killTimeout && !LockingProcess.HasExited; waited += 250){
-                        LockingProcess.Refresh();
-                        Thread.Sleep(250);
+                        for(int waited = 0; waited < killTimeout && !LockingProcess.HasExited; waited += 250){
+                            LockingProcess.Refresh();
+                            Thread.Sleep(250);
+                        }
                     }
 
                     if (LockingProcess.HasExited){
