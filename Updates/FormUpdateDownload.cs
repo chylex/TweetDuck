@@ -69,7 +69,7 @@ namespace TweetDck.Updates{
                         progressDownload.SetValueInstant(1000);
                     }
 
-                    labelStatus.Text = (e.BytesReceived/BytesToKB).ToString("0.0", CultureInfo.CurrentCulture)+" kB";
+                    labelStatus.Text = (long)(e.BytesReceived/BytesToKB)+" kB";
                 }
                 else{
                     if (progressDownload.Style != ProgressBarStyle.Continuous){
@@ -77,7 +77,7 @@ namespace TweetDck.Updates{
                     }
 
                     progressDownload.SetValueInstant(e.ProgressPercentage*10);
-                    labelStatus.Text = (e.BytesReceived/BytesToKB).ToString("0.0", CultureInfo.CurrentCulture)+" / "+(e.TotalBytesToReceive/BytesToKB).ToString("0.0", CultureInfo.CurrentCulture)+" kB";
+                    labelStatus.Text = (long)(e.BytesReceived/BytesToKB)+" / "+(long)(e.TotalBytesToReceive/BytesToKB)+" kB";
                 }
             });
         }
