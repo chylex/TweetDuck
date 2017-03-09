@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
@@ -114,19 +115,39 @@ namespace TweetDck.Configuration{
             return result;
         }
 
-        public bool CloseLockingProcess(int timeout){
+        public bool CloseLockingProcess(int closeTimeout, int killTimeout){
             if (LockingProcess != null){
-                LockingProcess.CloseMainWindow();
+                try{
+                    LockingProcess.CloseMainWindow();
 
-                for(int waited = 0; waited < timeout && !LockingProcess.HasExited; waited += 250){
-                    LockingProcess.Refresh();
-                    Thread.Sleep(250);
-                }
+                    for(int waited = 0; waited < closeTimeout && !LockingProcess.HasExited; waited += 250){
+                        LockingProcess.Refresh();
+                        Thread.Sleep(250);
+                    }
 
-                if (LockingProcess.HasExited){
-                    LockingProcess.Dispose();
-                    LockingProcess = null;
-                    return true;
+                    LockingProcess.Kill();
+
+                    for(int waited = 0; waited < killTimeout && !LockingProcess.HasExited; waited += 250){
+                        LockingProcess.Refresh();
+                        Thread.Sleep(250);
+                    }
+
+                    if (LockingProcess.HasExited){
+                        LockingProcess.Dispose();
+                        LockingProcess = null;
+                        return true;
+                    }
+                }catch(Exception ex){
+                    if (ex is InvalidOperationException || ex is Win32Exception){
+                        if (LockingProcess != null){
+                            LockingProcess.Refresh();
+
+                            bool hasExited = LockingProcess.HasExited;
+                            LockingProcess.Dispose();
+                            return hasExited;
+                        }
+                    }
+                    else throw;
                 }
             }
 

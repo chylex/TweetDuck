@@ -103,7 +103,7 @@ namespace TweetDck{
                         return;
                     }
                     else if (MessageBox.Show("Another instance of "+BrandName+" is already running.\r\nDo you want to close it?", BrandName+" is Already Running", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
-                        if (!LockManager.CloseLockingProcess(30000)){
+                        if (!LockManager.CloseLockingProcess(10000, 5000)){
                             MessageBox.Show("Could not close the other process.", BrandName+" Has Failed :(", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
