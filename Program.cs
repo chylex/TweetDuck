@@ -97,7 +97,7 @@ namespace TweetDck{
 
                 if (lockResult == LockManager.Result.HasProcess){
                     if (LockManager.LockingProcess.MainWindowHandle == IntPtr.Zero){ // restore if the original process is in tray
-                        NativeMethods.SendMessage(NativeMethods.HWND_BROADCAST, WindowRestoreMessage, 0, IntPtr.Zero);
+                        NativeMethods.SendMessage(NativeMethods.HWND_BROADCAST, WindowRestoreMessage, LockManager.LockingProcess.Id, IntPtr.Zero);
 
                         if (WindowsUtils.TrySleepUntil(() => {
                             LockManager.LockingProcess.Refresh();

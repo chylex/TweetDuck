@@ -17,6 +17,7 @@ using TweetDck.Core.Bridge;
 using TweetDck.Core.Notification;
 using TweetDck.Core.Notification.Screenshot;
 using TweetDck.Updates.Events;
+using System.Diagnostics;
 
 namespace TweetDck.Core{
     sealed partial class FormBrowser : Form{
@@ -266,7 +267,12 @@ namespace TweetDck.Core{
 
         protected override void WndProc(ref Message m){
             if (isLoaded && m.Msg == Program.WindowRestoreMessage){
-                trayIcon_ClickRestore(trayIcon, new EventArgs());
+                using(Process process = Process.GetCurrentProcess()){
+                    if (process.Id == m.WParam.ToInt32()){
+                        trayIcon_ClickRestore(trayIcon, new EventArgs());
+                    }
+                }
+
                 return;
             }
 
