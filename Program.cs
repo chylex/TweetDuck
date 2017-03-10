@@ -101,7 +101,7 @@ namespace TweetDck{
 
                         if (WindowsUtils.TrySleepUntil(() => {
                             LockManager.LockingProcess.Refresh();
-                            return LockManager.LockingProcess.MainWindowHandle != IntPtr.Zero && LockManager.LockingProcess.Responding;
+                            return LockManager.LockingProcess.HasExited || (LockManager.LockingProcess.MainWindowHandle != IntPtr.Zero && LockManager.LockingProcess.Responding);
                         }, 2000, 250)){
                             return; // should trigger on first attempt if succeeded, but wait just in case
                         }
