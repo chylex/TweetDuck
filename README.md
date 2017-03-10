@@ -6,6 +6,6 @@ PM> Install-Package CefSharp.WinForms -Version 55.0.0
 PM> Install-Package Microsoft.VC120.CRT.JetBrains
 ```
 
-After building, run **_postbuild.bat** which deletes unnecessary files that CefSharp adds after post-build events >_>
+After building, run either `_postbuild.bat` if you want to package the files yourself, or `bld/RUN BUILD.bat` to generate installer files using Inno Setup. Do not run both files consecutively, otherwise the program will crash - if you want to do both, rebuild the project before running each file.
 
-Built files are then available in **bin/x86** and/or **bin/x64**.
+Built files are then available in **bin/x86** and/or **bin/x64**, installer files are generated in **bld/Output**. If you decide to release a custom version publicly, please make it clear that it is not the original TweetDuck.
