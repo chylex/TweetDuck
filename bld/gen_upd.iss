@@ -166,14 +166,20 @@ end;
 { Returns a validated installation path (including trailing backslash) using the /UPDATEPATH parameter or installation info in registry. Returns empty string on failure. }
 function TDFindUpdatePath: String;
 var Path: String;
+var RegistryKey: String;
 
 begin
   Path := ExpandConstant('{param:UPDATEPATH}')
   
-  if (Path = '') and not IsPortable and not RegQueryStringValue(HKEY_LOCAL_MACHINE, 'Software\Microsoft\Windows\CurrentVersion\Uninstall\{{#MyAppID}}_is1', 'InstallLocation', Path) then
+  if (Path = '') and not IsPortable then
   begin
-    Result := ''
-    Exit
+    RegistryKey := 'Software\Microsoft\Windows\CurrentVersion\Uninstall\{{#MyAppID}}_is1'
+    
+    if not (RegQueryStringValue(HKEY_CURRENT_USER, RegistryKey, 'InstallLocation', Path) or RegQueryStringValue(HKEY_LOCAL_MACHINE, RegistryKey, 'InstallLocation', Path)) then
+    begin
+      Result := ''
+      Exit
+    end;
   end;
   
   if not FileExists(Path+'{#MyAppExeName}') then
