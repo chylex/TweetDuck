@@ -72,6 +72,7 @@ function TDIsUninstallable: Boolean; forward;
 function TDFindUpdatePath: String; forward;
 function TDGetNetFrameworkVersion: Cardinal; forward;
 function TDGetAppVersionClean: String; forward;
+function TDGetFullDownloadFileName: String; forward;
 function TDIsMatchingCEFVersion: Boolean; forward;
 procedure TDExecuteFullDownload; forward;
 
@@ -93,7 +94,7 @@ begin
   
   if not TDIsMatchingCEFVersion() then
   begin
-    idpAddFile('https://github.com/{#MyAppPublisher}/{#MyAppName}/releases/download/'+TDGetAppVersionClean()+'/{#MyAppName}.exe', ExpandConstant('{tmp}\{#MyAppName}.Full.exe'));
+    idpAddFile('https://github.com/{#MyAppPublisher}/{#MyAppName}/releases/download/'+TDGetAppVersionClean()+'/'+TDGetFullDownloadFileName(), ExpandConstant('{tmp}\{#MyAppName}.Full.exe'));
   end;
   
   if TDGetNetFrameworkVersion() >= 379893 then
@@ -203,6 +204,12 @@ begin
   end;
   
   Result := 0;
+end;
+
+{ Return the name of the full installer file to download from GitHub. }
+function TDGetFullDownloadFileName: String;
+begin
+  if IsPortable then Result := '{#MyAppName}.Portable.exe' else Result := '{#MyAppName}.exe';
 end;
 
 { Return whether the version of the installed libcef.dll library matches internal one. }
