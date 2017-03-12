@@ -96,7 +96,7 @@
 1F648; 🙈 see-no-evil monkey
 1F649; 🙉 hear-no-evil monkey
 1F64A; 🙊 speak-no-evil monkey
-@
+@1 enable skin tones
 1F466; 👦 boy
 1F466 $; 👦🏻 boy
 1F467; 👧 girl
@@ -402,6 +402,10 @@
 1F939 $ 200D 2642 FE0F; 🤹🏻‍♂️ man juggling
 1F939 200D 2640 FE0F; 🤹‍♀️ woman juggling
 1F939 $ 200D 2640 FE0F; 🤹🏻‍♀️ woman juggling
+1F6CC; 🛌 person in bed !! moved
+1F6CC $; 🛌🏻 person in beh !! moved
+1F6C0; 🛀 person taking bath !! moved
+1F6C0 $; 🛀🏻 person taking bath !! moved
 1F46B; 👫 man and woman holding hands
 1F46C; 👬 two men holding hands
 1F46D; 👭 two women holding hands
@@ -439,7 +443,7 @@
 1F469 200D 1F467; 👩‍👧 family
 1F469 200D 1F467 200D 1F466; 👩‍👧‍👦 family
 1F469 200D 1F467 200D 1F467; 👩‍👧‍👧 family
-@ !! removed skin tone modifiers
+@
 1F4AA; 💪 flexed biceps
 1F4AA $; 💪🏻 flexed biceps
 1F933; 🤳 selfie
@@ -505,7 +509,6 @@
 1F443; 👃 nose
 1F443 $; 👃🏻 nose
 1F91D; 🤝 handshake !! moved
-@
 1F463; 👣 footprints
 1F440; 👀 eyes
 1F441; 👁 eye
@@ -570,7 +573,7 @@
 1F484; 💄 lipstick
 1F48D; 💍 ring
 1F48E; 💎 gem stone
-@
+@2 no more skin tones beyond this point
 1F435; 🐵 monkey face
 1F412; 🐒 monkey
 1F98D; 🦍 gorilla
@@ -895,14 +898,10 @@
 1F6F0; 🛰 satellite
 1F6CE; 🛎 bellhop bell
 1F6AA; 🚪 door
-1F6CC; 🛌 person in bed
-1F6CC $; 🛌🏻 person in bed
 1F6CF; 🛏 bed
 1F6CB; 🛋 couch and lamp
 1F6BD; 🚽 toilet
 1F6BF; 🚿 shower
-1F6C0; 🛀 person taking bath
-1F6C0 $; 🛀🏻 person taking bath
 1F6C1; 🛁 bathtub
 @
 231B; ⌛ hourglass
