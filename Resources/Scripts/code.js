@@ -304,8 +304,8 @@
         if (isDetail){
           setImportantProperty(selectedTweet.find(".js-tweet-media"), "margin-bottom", "0");
           selectedTweet.find(".js-translate-call-to-action").first().remove();
-          selectedTweet.find(".js-cards-container").first().nextAll().remove();
-          selectedTweet.find(".js-detail-view-inline").first().remove();
+          selectedTweet.find(".js-tweet").first().nextAll().remove();
+          selectedTweet.find("footer").last().prev().addBack().remove(); // footer & date
         }
         else{
           selectedTweet.find("footer").last().remove();
