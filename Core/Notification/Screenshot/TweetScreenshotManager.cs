@@ -4,14 +4,11 @@ using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Notification.Screenshot{
     sealed class TweetScreenshotManager : IDisposable{
-        private readonly FormBrowser browser;
         private readonly FormNotificationScreenshotable screenshot;
         private readonly Timer timeout;
 
-        public TweetScreenshotManager(FormBrowser browser){
-            this.browser = browser;
-
-            this.screenshot = new FormNotificationScreenshotable(Callback, browser, NotificationFlags.DisableContextMenu | NotificationFlags.TopMost){
+        public TweetScreenshotManager(Form owner){
+            this.screenshot = new FormNotificationScreenshotable(Callback, owner, NotificationFlags.DisableContextMenu | NotificationFlags.TopMost){
                 CanMoveWindow = () => false
             };
 
@@ -31,10 +28,7 @@ namespace TweetDck.Core.Notification.Screenshot{
             }
 
             timeout.Stop();
-
-            browser.PauseNotification();
             screenshot.TakeScreenshotAndHide();
-            browser.ResumeNotification();
         }
 
         public void Dispose(){

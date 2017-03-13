@@ -4,6 +4,9 @@ using CefSharp;
 using TweetDck.Core.Bridge;
 using TweetDck.Core.Controls;
 using TweetDck.Resources;
+using System.Drawing;
+using System.Drawing.Imaging;
+using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Notification.Screenshot{
     sealed class FormNotificationScreenshotable : FormNotificationBase{
@@ -21,15 +24,30 @@ namespace TweetDck.Core.Notification.Screenshot{
             browser.LoadHtml(tweet.GenerateHtml(enableCustomCSS: false), "http://tweetdeck.twitter.com/?"+DateTime.Now.Ticks);
             
             Location = ControlExtensions.InvisibleLocation;
-            FormBorderStyle = Program.UserConfig.ShowScreenshotBorder ? FormBorderStyle.FixedToolWindow : FormBorderStyle.None;
-
             SetNotificationSize(width, height);
         }
 
         public void TakeScreenshotAndHide(){
             MoveToVisibleLocation();
-            Activate();
-            SendKeys.SendWait("%{PRTSC}");
+            
+            bool border = Program.UserConfig.ShowScreenshotBorder;
+            IntPtr context = NativeMethods.GetDeviceContext(this, border);
+
+            if (context == IntPtr.Zero){
+                MessageBox.Show("Could not retrieve a graphics context handle for the notification window to take the screenshot.", "Screenshot Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else{
+                using(Bitmap bmp = new Bitmap(border ? Width : ClientSize.Width, border ? Height : ClientSize.Height, PixelFormat.Format32bppRgb)){
+                    try{
+                        NativeMethods.RenderSourceIntoBitmap(context, bmp);
+                    }finally{
+                        NativeMethods.ReleaseDeviceContext(this, context);
+                    }
+
+                    Clipboard.SetImage(bmp);
+                }
+            }
+
             Reset();
         }
 
