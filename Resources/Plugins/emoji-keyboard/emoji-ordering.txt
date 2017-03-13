@@ -176,39 +176,27 @@
 1F468 200D 1F692; 👨‍🚒 man firefighter
 1F468 $ 200D 1F692; 👨🏻‍🚒 man firefighter
 1F469 200D 1F692; 👩‍🚒 woman firefighter
-1F469 $ 200D 1F692; 👩🏻‍🚒 woman firefighter
-1F46E; 👮 police officer
-1F46E $; 👮🏻 police officer
+1F469 $ 200D 1F692; 👩🏻‍🚒 woman firefighter !! deleted non-gendered duplicates below
 1F46E 200D 2642 FE0F; 👮‍♂️ man police officer
 1F46E $ 200D 2642 FE0F; 👮🏻‍♂️ man police officer
 1F46E 200D 2640 FE0F; 👮‍♀️ woman police officer
 1F46E $ 200D 2640 FE0F; 👮🏻‍♀️ woman police officer
-1F575; 🕵 detective
-1F575 $; 🕵🏻 detective
 1F575 FE0F 200D 2642 FE0F; 🕵️‍♂️ man detective
 1F575 $ 200D 2642 FE0F; 🕵🏻‍♂️ man detective
 1F575 FE0F 200D 2640 FE0F; 🕵️‍♀️ woman detective
 1F575 $ 200D 2640 FE0F; 🕵🏻‍♀️ woman detective
-1F482; 💂 guard
-1F482 $; 💂🏻 guard
 1F482 200D 2642 FE0F; 💂‍♂️ man guard
 1F482 $ 200D 2642 FE0F; 💂🏻‍♂️ man guard
 1F482 200D 2640 FE0F; 💂‍♀️ woman guard
 1F482 $ 200D 2640 FE0F; 💂🏻‍♀️ woman guard
-1F477; 👷 construction worker
-1F477 $; 👷🏻 construction worker
 1F477 200D 2642 FE0F; 👷‍♂️ man construction worker
 1F477 $ 200D 2642 FE0F; 👷🏻‍♂️ man construction worker
 1F477 200D 2640 FE0F; 👷‍♀️ woman construction worker
 1F477 $ 200D 2640 FE0F; 👷🏻‍♀️ woman construction worker
-1F473; 👳 person wearing turban
-1F473 $; 👳🏻 person wearing turban
 1F473 200D 2642 FE0F; 👳‍♂️ man wearing turban
 1F473 $ 200D 2642 FE0F; 👳🏻‍♂️ man wearing turban
 1F473 200D 2640 FE0F; 👳‍♀️ woman wearing turban
 1F473 $ 200D 2640 FE0F; 👳🏻‍♀️ woman wearing turban
-1F471; 👱 blond-haired person
-1F471 $; 👱🏻 blond-haired person
 1F471 200D 2642 FE0F; 👱‍♂️ blond-haired man
 1F471 $ 200D 2642 FE0F; 👱🏻‍♂️ blond-haired man
 1F471 200D 2640 FE0F; 👱‍♀️ blond-haired woman
@@ -229,80 +217,54 @@
 1F930 $; 🤰🏻 pregnant woman
 1F472; 👲 man with Chinese cap
 1F472 $; 👲🏻 man with Chinese cap
-1F64D; 🙍 person frowning
-1F64D $; 🙍🏻 person frowning
 1F64D 200D 2642 FE0F; 🙍‍♂️ man frowning
 1F64D $ 200D 2642 FE0F; 🙍🏻‍♂️ man frowning
 1F64D 200D 2640 FE0F; 🙍‍♀️ woman frowning
 1F64D $ 200D 2640 FE0F; 🙍🏻‍♀️ woman frowning
-1F64E; 🙎 person pouting
-1F64E $; 🙎🏻 person pouting
 1F64E 200D 2642 FE0F; 🙎‍♂️ man pouting
 1F64E $ 200D 2642 FE0F; 🙎🏻‍♂️ man pouting
 1F64E 200D 2640 FE0F; 🙎‍♀️ woman pouting
 1F64E $ 200D 2640 FE0F; 🙎🏻‍♀️ woman pouting
-1F645; 🙅 person gesturing NO
-1F645 $; 🙅🏻 person gesturing NO
 1F645 200D 2642 FE0F; 🙅‍♂️ man gesturing NO
 1F645 $ 200D 2642 FE0F; 🙅🏻‍♂️ man gesturing NO
 1F645 200D 2640 FE0F; 🙅‍♀️ woman gesturing NO
 1F645 $ 200D 2640 FE0F; 🙅🏻‍♀️ woman gesturing NO
-1F646; 🙆 person gesturing OK
-1F646 $; 🙆🏻 person gesturing OK
 1F646 200D 2642 FE0F; 🙆‍♂️ man gesturing OK
 1F646 $ 200D 2642 FE0F; 🙆🏻‍♂️ man gesturing OK
 1F646 200D 2640 FE0F; 🙆‍♀️ woman gesturing OK
 1F646 $ 200D 2640 FE0F; 🙆🏻‍♀️ woman gesturing OK
-1F481; 💁 person tipping hand
-1F481 $; 💁🏻 person tipping hand
 1F481 200D 2642 FE0F; 💁‍♂️ man tipping hand
 1F481 $ 200D 2642 FE0F; 💁🏻‍♂️ man tipping hand
 1F481 200D 2640 FE0F; 💁‍♀️ woman tipping hand
 1F481 $ 200D 2640 FE0F; 💁🏻‍♀️ woman tipping hand
-1F64B; 🙋 person raising hand
-1F64B $; 🙋🏻 person raising hand
 1F64B 200D 2642 FE0F; 🙋‍♂️ man raising hand
 1F64B $ 200D 2642 FE0F; 🙋🏻‍♂️ man raising hand
 1F64B 200D 2640 FE0F; 🙋‍♀️ woman raising hand
 1F64B $ 200D 2640 FE0F; 🙋🏻‍♀️ woman raising hand
-1F647; 🙇 person bowing
-1F647 $; 🙇🏻 person bowing
 1F647 200D 2642 FE0F; 🙇‍♂️ man bowing
 1F647 $ 200D 2642 FE0F; 🙇🏻‍♂️ man bowing
 1F647 200D 2640 FE0F; 🙇‍♀️ woman bowing
 1F647 $ 200D 2640 FE0F; 🙇🏻‍♀️ woman bowing
-1F926; 🤦 person facepalming
-1F926 $; 🤦🏻 person facepalming
 1F926 200D 2642 FE0F; 🤦‍♂️ man facepalming
 1F926 $ 200D 2642 FE0F; 🤦🏻‍♂️ man facepalming
 1F926 200D 2640 FE0F; 🤦‍♀️ woman facepalming
 1F926 $ 200D 2640 FE0F; 🤦🏻‍♀️ woman facepalming
-1F937; 🤷 person shrugging
-1F937 $; 🤷🏻 person shrugging
 1F937 200D 2642 FE0F; 🤷‍♂️ man shrugging
 1F937 $ 200D 2642 FE0F; 🤷🏻‍♂️ man shrugging
 1F937 200D 2640 FE0F; 🤷‍♀️ woman shrugging
 1F937 $ 200D 2640 FE0F; 🤷🏻‍♀️ woman shrugging
-1F486; 💆 person getting massage
-1F486 $; 💆🏻 person getting massage
 1F486 200D 2642 FE0F; 💆‍♂️ man getting massage
 1F486 $ 200D 2642 FE0F; 💆🏻‍♂️ man getting massage
 1F486 200D 2640 FE0F; 💆‍♀️ woman getting massage
 1F486 $ 200D 2640 FE0F; 💆🏻‍♀️ woman getting massage
-1F487; 💇 person getting haircut
-1F487 $; 💇🏻 person getting haircut
 1F487 200D 2642 FE0F; 💇‍♂️ man getting haircut
 1F487 $ 200D 2642 FE0F; 💇🏻‍♂️ man getting haircut
 1F487 200D 2640 FE0F; 💇‍♀️ woman getting haircut
 1F487 $ 200D 2640 FE0F; 💇🏻‍♀️ woman getting haircut
-1F6B6; 🚶 person walking
-1F6B6 $; 🚶🏻 person walking
 1F6B6 200D 2642 FE0F; 🚶‍♂️ man walking
 1F6B6 $ 200D 2642 FE0F; 🚶🏻‍♂️ man walking
 1F6B6 200D 2640 FE0F; 🚶‍♀️ woman walking
 1F6B6 $ 200D 2640 FE0F; 🚶🏻‍♀️ woman walking
-1F3C3; 🏃 person running
-1F3C3 $; 🏃🏻 person running
 1F3C3 200D 2642 FE0F; 🏃‍♂️ man running
 1F3C3 $ 200D 2642 FE0F; 🏃🏻‍♂️ man running
 1F3C3 200D 2640 FE0F; 🏃‍♀️ woman running
@@ -311,7 +273,6 @@
 1F483 $; 💃🏻 woman dancing
 1F57A; 🕺 man dancing
 1F57A $; 🕺🏻 man dancing
-1F46F; 👯 people with bunny ears partying
 1F46F 200D 2642 FE0F; 👯‍♂️ men with bunny ears partying
 1F46F 200D 2640 FE0F; 👯‍♀️ women with bunny ears partying
 1F574; 🕴 man in business suit levitating
@@ -325,85 +286,60 @@
 26F7; ⛷ skier
 1F3C2; 🏂 snowboarder
 1F3C2 $; 🏂🏻 snowboarder
-1F3CC; 🏌 person golfing
-1F3CC $; 🏌🏻 person golfing
 1F3CC FE0F 200D 2642 FE0F; 🏌️‍♂️ man golfing
 1F3CC $ 200D 2642 FE0F; 🏌🏻‍♂️ man golfing
 1F3CC FE0F 200D 2640 FE0F; 🏌️‍♀️ woman golfing
 1F3CC $ 200D 2640 FE0F; 🏌🏻‍♀️ woman golfing
-1F3C4; 🏄 person surfing
-1F3C4 $; 🏄🏻 person surfing
 1F3C4 200D 2642 FE0F; 🏄‍♂️ man surfing
 1F3C4 $ 200D 2642 FE0F; 🏄🏻‍♂️ man surfing
 1F3C4 200D 2640 FE0F; 🏄‍♀️ woman surfing
 1F3C4 $ 200D 2640 FE0F; 🏄🏻‍♀️ woman surfing
-1F6A3; 🚣 person rowing boat
-1F6A3 $; 🚣🏻 person rowing boat
 1F6A3 200D 2642 FE0F; 🚣‍♂️ man rowing boat
 1F6A3 $ 200D 2642 FE0F; 🚣🏻‍♂️ man rowing boat
 1F6A3 200D 2640 FE0F; 🚣‍♀️ woman rowing boat
 1F6A3 $ 200D 2640 FE0F; 🚣🏻‍♀️ woman rowing boat
-1F3CA; 🏊 person swimming
-1F3CA $; 🏊🏻 person swimming
 1F3CA 200D 2642 FE0F; 🏊‍♂️ man swimming
 1F3CA $ 200D 2642 FE0F; 🏊🏻‍♂️ man swimming
 1F3CA 200D 2640 FE0F; 🏊‍♀️ woman swimming
 1F3CA $ 200D 2640 FE0F; 🏊🏻‍♀️ woman swimming
-26F9; ⛹ person bouncing ball
-26F9 $; ⛹🏻 person bouncing ball
 26F9 FE0F 200D 2642 FE0F; ⛹️‍♂️ man bouncing ball
 26F9 $ 200D 2642 FE0F; ⛹🏻‍♂️ man bouncing ball
 26F9 FE0F 200D 2640 FE0F; ⛹️‍♀️ woman bouncing ball
 26F9 $ 200D 2640 FE0F; ⛹🏻‍♀️ woman bouncing ball
-1F3CB; 🏋 person lifting weights
-1F3CB $; 🏋🏻 person lifting weights
 1F3CB FE0F 200D 2642 FE0F; 🏋️‍♂️ man lifting weights
 1F3CB $ 200D 2642 FE0F; 🏋🏻‍♂️ man lifting weights
 1F3CB FE0F 200D 2640 FE0F; 🏋️‍♀️ woman lifting weights
 1F3CB $ 200D 2640 FE0F; 🏋🏻‍♀️ woman lifting weights
-1F6B4; 🚴 person biking
-1F6B4 $; 🚴🏻 person biking
 1F6B4 200D 2642 FE0F; 🚴‍♂️ man biking
 1F6B4 $ 200D 2642 FE0F; 🚴🏻‍♂️ man biking
 1F6B4 200D 2640 FE0F; 🚴‍♀️ woman biking
 1F6B4 $ 200D 2640 FE0F; 🚴🏻‍♀️ woman biking
-1F6B5; 🚵 person mountain biking
-1F6B5 $; 🚵🏻 person mountain biking
 1F6B5 200D 2642 FE0F; 🚵‍♂️ man mountain biking
 1F6B5 $ 200D 2642 FE0F; 🚵🏻‍♂️ man mountain biking
 1F6B5 200D 2640 FE0F; 🚵‍♀️ woman mountain biking
 1F6B5 $ 200D 2640 FE0F; 🚵🏻‍♀️ woman mountain biking
 1F3CE; 🏎 racing car
 1F3CD; 🏍 motorcycle
-1F938; 🤸 person cartwheeling
-1F938 $; 🤸🏻 person cartwheeling
 1F938 200D 2642 FE0F; 🤸‍♂️ man cartwheeling
 1F938 $ 200D 2642 FE0F; 🤸🏻‍♂️ man cartwheeling
 1F938 200D 2640 FE0F; 🤸‍♀️ woman cartwheeling
 1F938 $ 200D 2640 FE0F; 🤸🏻‍♀️ woman cartwheeling
-1F93C; 🤼 people wrestling
 1F93C 200D 2642 FE0F; 🤼‍♂️ men wrestling
 1F93C 200D 2640 FE0F; 🤼‍♀️ women wrestling
-1F93D; 🤽 person playing water polo
-1F93D $; 🤽🏻 person playing water polo
 1F93D 200D 2642 FE0F; 🤽‍♂️ man playing water polo
 1F93D $ 200D 2642 FE0F; 🤽🏻‍♂️ man playing water polo
 1F93D 200D 2640 FE0F; 🤽‍♀️ woman playing water polo
 1F93D $ 200D 2640 FE0F; 🤽🏻‍♀️ woman playing water polo
-1F93E; 🤾 person playing handball
-1F93E $; 🤾🏻 person playing handball
 1F93E 200D 2642 FE0F; 🤾‍♂️ man playing handball
 1F93E $ 200D 2642 FE0F; 🤾🏻‍♂️ man playing handball
 1F93E 200D 2640 FE0F; 🤾‍♀️ woman playing handball
 1F93E $ 200D 2640 FE0F; 🤾🏻‍♀️ woman playing handball
-1F939; 🤹 person juggling
-1F939 $; 🤹🏻 person juggling
 1F939 200D 2642 FE0F; 🤹‍♂️ man juggling
 1F939 $ 200D 2642 FE0F; 🤹🏻‍♂️ man juggling
 1F939 200D 2640 FE0F; 🤹‍♀️ woman juggling
 1F939 $ 200D 2640 FE0F; 🤹🏻‍♀️ woman juggling
 1F6CC; 🛌 person in bed !! moved
-1F6CC $; 🛌🏻 person in beh !! moved
+1F6CC $; 🛌🏻 person in bed !! moved
 1F6C0; 🛀 person taking bath !! moved
 1F6C0 $; 🛀🏻 person taking bath !! moved
 1F46B; 👫 man and woman holding hands
