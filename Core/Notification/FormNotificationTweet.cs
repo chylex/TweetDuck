@@ -5,11 +5,9 @@ using System.Windows.Forms;
 
 namespace TweetDck.Core.Notification{
     sealed class FormNotificationTweet : FormNotificationMain{
-
         private readonly Queue<TweetNotification> tweetQueue = new Queue<TweetNotification>(4);
 
         public FormNotificationTweet(FormBrowser owner, PluginManager pluginManager, NotificationFlags flags) : base(owner, pluginManager, flags){
-            
             Program.UserConfig.MuteToggled += Config_MuteToggled;
             Disposed += (sender, args) => Program.UserConfig.MuteToggled -= Config_MuteToggled;
 

@@ -7,7 +7,7 @@ using TweetDck.Resources;
 
 namespace TweetDck.Core.Notification.Screenshot{
     sealed class FormNotificationScreenshotable : FormNotificationBase{
-        public FormNotificationScreenshotable(Action callback, FormBrowser owner, NotificationFlags flags) : base(owner, flags){
+        public FormNotificationScreenshotable(Action callback, Form owner, NotificationFlags flags) : base(owner, flags){
             browser.RegisterAsyncJsObject("$TD_NotificationScreenshot", new CallbackBridge(this, callback));
 
             browser.FrameLoadEnd += (sender, args) => {

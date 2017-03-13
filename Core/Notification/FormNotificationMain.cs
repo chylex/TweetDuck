@@ -16,6 +16,13 @@ namespace TweetDck.Core.Notification{
         private static readonly string NotificationScriptIdentifier = ScriptLoader.GetRootIdentifier(NotificationScriptFile);
         private static readonly string PluginScriptIdentifier = ScriptLoader.GetRootIdentifier(PluginManager.PluginNotificationScriptFile);
 
+        private static readonly string NotificationJS, PluginJS;
+
+        static FormNotificationMain(){
+            NotificationJS = ScriptLoader.LoadResource(NotificationScriptFile);
+            PluginJS = ScriptLoader.LoadResource(PluginManager.PluginNotificationScriptFile);
+        }
+
         private static int BaseClientWidth{
             get{
                 int level = TweetNotification.FontSizeLevel;
@@ -31,9 +38,6 @@ namespace TweetDck.Core.Notification{
         }
         
         private readonly PluginManager plugins;
-
-        private readonly string notificationJS;
-        private readonly string pluginJS;
 
         protected int timeLeft, totalTime;
         protected bool pausedDuringNotification;
@@ -66,13 +70,8 @@ namespace TweetDck.Core.Notification{
 
             this.plugins = pluginManager;
 
-            notificationJS = ScriptLoader.LoadResource(NotificationScriptFile);
             browser.RegisterAsyncJsObject("$TD", new TweetDeckBridge(owner, this));
-
-            if (plugins != null){
-                pluginJS = ScriptLoader.LoadResource(PluginManager.PluginNotificationScriptFile);
-                browser.RegisterAsyncJsObject("$TDP", plugins.Bridge);
-            }
+            browser.RegisterAsyncJsObject("$TDP", plugins.Bridge);
 
             browser.LoadingStateChanged += Browser_LoadingStateChanged;
             browser.FrameLoadEnd += Browser_FrameLoadEnd;
@@ -127,12 +126,12 @@ namespace TweetDck.Core.Notification{
         }
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
-            if (e.Frame.IsMain && notificationJS != null && browser.Address != "about:blank"){
+            if (e.Frame.IsMain && NotificationJS != null && browser.Address != "about:blank"){
                 e.Frame.ExecuteJavaScriptAsync(PropertyBridge.GenerateScript(PropertyBridge.Properties.ExpandLinksOnHover));
-                ScriptLoader.ExecuteScript(e.Frame, notificationJS, NotificationScriptIdentifier);
+                ScriptLoader.ExecuteScript(e.Frame, NotificationJS, NotificationScriptIdentifier);
 
-                if (plugins != null && plugins.HasAnyPlugin(PluginEnvironment.Notification)){
-                    ScriptLoader.ExecuteScript(e.Frame, pluginJS, PluginScriptIdentifier);
+                if (plugins.HasAnyPlugin(PluginEnvironment.Notification)){
+                    ScriptLoader.ExecuteScript(e.Frame, PluginJS, PluginScriptIdentifier);
                     ScriptLoader.ExecuteFile(e.Frame, PluginManager.PluginGlobalScriptFile);
                     plugins.ExecutePlugins(e.Frame, PluginEnvironment.Notification, false);
                 }
