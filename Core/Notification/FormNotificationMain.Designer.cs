@@ -1,7 +1,5 @@
-﻿using TweetDck.Core.Controls;
-
-namespace TweetDck.Core {
-    partial class FormNotification {
+﻿namespace TweetDck.Core.Notification {
+    partial class FormNotificationMain {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -26,23 +24,15 @@ namespace TweetDck.Core {
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            this.panelBrowser = new System.Windows.Forms.Panel();
+            this.timerDisplayDelay = new System.Windows.Forms.Timer(this.components);
             this.timerProgress = new System.Windows.Forms.Timer(this.components);
             this.progressBarTimer = new TweetDck.Core.Controls.FlatProgressBar();
-            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.timerDisplayDelay = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
-            // panelBrowser
+            // timerDisplayDelay
             // 
-            this.panelBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelBrowser.BackColor = System.Drawing.Color.White;
-            this.panelBrowser.Location = new System.Drawing.Point(0, 0);
-            this.panelBrowser.Margin = new System.Windows.Forms.Padding(0);
-            this.panelBrowser.Name = "panelBrowser";
-            this.panelBrowser.Size = new System.Drawing.Size(284, 118);
-            this.panelBrowser.TabIndex = 0;
+            this.timerDisplayDelay.Interval = 17;
+            this.timerDisplayDelay.Tick += new System.EventHandler(this.timerDisplayDelay_Tick);
             // 
             // timerProgress
             // 
@@ -62,11 +52,6 @@ namespace TweetDck.Core {
             this.progressBarTimer.Size = new System.Drawing.Size(284, 4);
             this.progressBarTimer.TabIndex = 1;
             // 
-            // timerDisplayDelay
-            // 
-            this.timerDisplayDelay.Interval = 17;
-            this.timerDisplayDelay.Tick += new System.EventHandler(this.timerDisplayDelay_Tick);
-            // 
             // FormNotification
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -74,15 +59,6 @@ namespace TweetDck.Core {
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(284, 122);
             this.Controls.Add(this.progressBarTimer);
-            this.Controls.Add(this.panelBrowser);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Location = TweetDck.Core.Controls.ControlExtensions.InvisibleLocation;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "FormNotification";
-            this.ShowIcon = false;
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormNotification_FormClosing);
             this.ResumeLayout(false);
 
@@ -90,10 +66,8 @@ namespace TweetDck.Core {
 
         #endregion
 
-        private System.Windows.Forms.Panel panelBrowser;
-        private Controls.FlatProgressBar progressBarTimer;
-        private System.Windows.Forms.Timer timerProgress;
-        private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Timer timerDisplayDelay;
+        protected System.Windows.Forms.Timer timerProgress;
+        private Controls.FlatProgressBar progressBarTimer;
     }
 }

@@ -11,7 +11,7 @@ namespace TweetDck.Core.Notification.Screenshot{
         public TweetScreenshotManager(FormBrowser browser){
             this.browser = browser;
 
-            this.screenshot = new FormNotificationScreenshotable(Callback, browser, NotificationFlags.DisableScripts | NotificationFlags.DisableContextMenu | NotificationFlags.TopMost | NotificationFlags.ManualDisplay){
+            this.screenshot = new FormNotificationScreenshotable(Callback, browser, NotificationFlags.DisableContextMenu | NotificationFlags.TopMost){
                 CanMoveWindow = () => false
             };
 

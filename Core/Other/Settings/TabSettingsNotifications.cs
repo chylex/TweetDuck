@@ -9,10 +9,10 @@ using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Other.Settings{
     partial class TabSettingsNotifications : BaseTabSettings{
-        private readonly FormNotification notification;
+        private readonly FormNotificationMain notification;
         private readonly Point initCursorPosition;
 
-        public TabSettingsNotifications(FormNotification notification, bool ignoreAutoClick){
+        public TabSettingsNotifications(FormNotificationMain notification, bool ignoreAutoClick){
             InitializeComponent();
 
             this.notification = notification;

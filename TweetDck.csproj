@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="packages\CefSharp.WinForms.55.0.0\build\CefSharp.WinForms.props" Condition="Exists('packages\CefSharp.WinForms.55.0.0\build\CefSharp.WinForms.props')" />
   <Import Project="packages\CefSharp.Common.55.0.0\build\CefSharp.Common.props" Condition="Exists('packages\CefSharp.Common.55.0.0\build\CefSharp.Common.props')" />
@@ -99,16 +99,25 @@
     <Compile Include="Core\FormBrowser.Designer.cs">
       <DependentUpon>FormBrowser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\FormNotification.cs">
+    <Compile Include="Core\Notification\FormNotificationMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Core\FormNotification.Designer.cs">
-      <DependentUpon>FormNotification.cs</DependentUpon>
+    <Compile Include="Core\Notification\FormNotificationMain.Designer.cs">
+      <DependentUpon>FormNotificationMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Core\Notification\FormNotificationBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Core\Notification\FormNotificationBase.Designer.cs">
+      <DependentUpon>FormNotificationBase.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\Handling\ContextMenuNotification.cs" />
     <Compile Include="Core\Handling\FileDialogHandler.cs" />
     <Compile Include="Core\Handling\JavaScriptDialogHandler.cs" />
     <Compile Include="Core\Handling\LifeSpanHandler.cs" />
+    <Compile Include="Core\Notification\FormNotificationTweet.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Core\Notification\SoundNotification.cs" />
     <Compile Include="Core\Notification\TweetNotification.cs" />
     <Compile Include="Core\Other\FormAbout.cs">

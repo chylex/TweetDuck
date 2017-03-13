@@ -32,7 +32,7 @@ namespace TweetDck.Core{
         private readonly ChromiumWebBrowser browser;
         private readonly PluginManager plugins;
         private readonly UpdateHandler updates;
-        private readonly FormNotification notification;
+        private readonly FormNotificationTweet notification;
 
         private FormSettings currentFormSettings;
         private FormAbout currentFormAbout;
@@ -53,7 +53,7 @@ namespace TweetDck.Core{
             this.plugins.Reloaded += plugins_Reloaded;
             this.plugins.PluginChangedState += plugins_PluginChangedState;
 
-            this.notification = CreateNotificationForm(NotificationFlags.AutoHide | NotificationFlags.TopMost);
+            this.notification = new FormNotificationTweet(this, plugins, NotificationFlags.TopMost);
             #if DEBUG
             this.notification.CanMoveWindow = () => (ModifierKeys & Keys.Alt) == Keys.Alt;
             #else
@@ -284,8 +284,8 @@ namespace TweetDck.Core{
 
         // notification helpers
 
-        public FormNotification CreateNotificationForm(NotificationFlags flags){
-            return new FormNotification(this, plugins, flags);
+        public FormNotificationMain CreateNotificationForm(NotificationFlags flags){
+            return new FormNotificationMain(this, plugins, flags);
         }
 
         public void PauseNotification(){

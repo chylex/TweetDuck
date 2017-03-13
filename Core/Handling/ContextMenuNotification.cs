@@ -1,5 +1,6 @@
 ﻿using CefSharp;
 using TweetDck.Core.Controls;
+using TweetDck.Core.Notification;
 
 namespace TweetDck.Core.Handling{
     class ContextMenuNotification : ContextMenuBase{
@@ -8,10 +9,10 @@ namespace TweetDck.Core.Handling{
         private const int MenuCopyTweetUrl = 26602;
         private const int MenuCopyQuotedTweetUrl = 26603;
 
-        private readonly FormNotification form;
+        private readonly FormNotificationBase form;
         private readonly bool enableCustomMenu;
 
-        public ContextMenuNotification(FormNotification form, bool enableCustomMenu) : base(form){
+        public ContextMenuNotification(FormNotificationBase form, bool enableCustomMenu) : base(form){
             this.form = form;
             this.enableCustomMenu = enableCustomMenu;
         }
@@ -59,7 +60,7 @@ namespace TweetDck.Core.Handling{
 
             switch((int)commandId){
                 case MenuSkipTweet:
-                    form.InvokeAsyncSafe(form.FinishCurrentTweet);
+                    form.InvokeAsyncSafe(form.FinishCurrentNotification);
                     return true;
 
                 case MenuFreeze:

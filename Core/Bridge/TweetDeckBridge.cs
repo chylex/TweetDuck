@@ -19,9 +19,9 @@ namespace TweetDck.Core.Bridge{
         }
 
         private readonly FormBrowser form;
-        private readonly FormNotification notification;
+        private readonly FormNotificationMain notification;
 
-        public TweetDeckBridge(FormBrowser form, FormNotification notification){
+        public TweetDeckBridge(FormBrowser form, FormNotificationMain notification){
             this.form = form;
             this.notification = notification;
         }
@@ -85,7 +85,7 @@ namespace TweetDck.Core.Bridge{
         }
 
         public void LoadNextNotification(){
-            notification.InvokeAsyncSafe(notification.FinishCurrentTweet);
+            notification.InvokeAsyncSafe(notification.FinishCurrentNotification);
         }
 
         public void TryPasteImage(){

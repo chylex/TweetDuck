@@ -6,8 +6,8 @@ using TweetDck.Core.Controls;
 using TweetDck.Resources;
 
 namespace TweetDck.Core.Notification.Screenshot{
-    sealed class FormNotificationScreenshotable : FormNotification{
-        public FormNotificationScreenshotable(Action callback, FormBrowser owner, NotificationFlags flags) : base(owner, null, flags){
+    sealed class FormNotificationScreenshotable : FormNotificationBase{
+        public FormNotificationScreenshotable(Action callback, FormBrowser owner, NotificationFlags flags) : base(owner, flags){
             browser.RegisterAsyncJsObject("$TD_NotificationScreenshot", new CallbackBridge(this, callback));
 
             browser.FrameLoadEnd += (sender, args) => {
@@ -15,8 +15,6 @@ namespace TweetDck.Core.Notification.Screenshot{
                     ScriptLoader.ExecuteScript(args.Frame, "window.setTimeout($TD_NotificationScreenshot.trigger, 25)", "gen:screenshot");
                 }
             };
-
-            UpdateTitle();
         }
 
         public void LoadNotificationForScreenshot(TweetNotification tweet, int width, int height){
@@ -25,7 +23,7 @@ namespace TweetDck.Core.Notification.Screenshot{
             Location = ControlExtensions.InvisibleLocation;
             FormBorderStyle = Program.UserConfig.ShowScreenshotBorder ? FormBorderStyle.FixedToolWindow : FormBorderStyle.None;
 
-            SetNotificationSize(width, height, false);
+            SetNotificationSize(width, height);
         }
 
         public void TakeScreenshotAndHide(){
