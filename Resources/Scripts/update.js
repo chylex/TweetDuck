@@ -137,11 +137,11 @@
   };
   
   //
-  // Function: Returns milliseconds until the start of the next hour, with an offset in seconds that can skip an hour if the clock would roll over too soon.
+  // Function: Returns milliseconds until the start of the next hour, with an extra offset in seconds that can skip an hour if the clock would roll over too soon.
   //
-  var getTimeUntilNextHour = function(offset){
+  var getTimeUntilNextHour = function(extra){
     var now = new Date();
-    var offset = new Date(+now+offset*1000);
+    var offset = new Date(+now+extra*1000);
     return new Date(offset.getFullYear(), offset.getMonth(), offset.getDate(), offset.getHours()+1, 0, 0)-now;
   };
   
