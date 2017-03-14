@@ -12,11 +12,11 @@ namespace TweetDck.Core.Other.Settings{
             InitializeComponent();
 
             this.updates = updates;
-
             this.updates.CheckFinished += updates_CheckFinished;
-            Disposed += (sender, args) => this.updates.CheckFinished -= updates_CheckFinished;
 
             checkUpdateNotifications.Checked = Config.EnableUpdateCheck;
+
+            Disposed += (sender, args) => this.updates.CheckFinished -= updates_CheckFinished;
         }
 
         private void checkUpdateNotifications_CheckedChanged(object sender, EventArgs e){

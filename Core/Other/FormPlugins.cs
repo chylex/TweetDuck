@@ -47,6 +47,8 @@ namespace TweetDck.Core.Other{
                 Program.UserConfig.PluginsWindow.Save(this);
                 Program.UserConfig.Save();
             };
+
+            Disposed += (sender, args) => this.pluginManager.Reloaded -= pluginManager_Reloaded;
         }
 
         private void SelectGroup(PluginGroup group){

@@ -59,7 +59,7 @@ namespace TweetDck.Core.Notification{
             this.owner = owner;
             this.flags = flags;
 
-            owner.FormClosed += (sender, args) => Close();
+            owner.FormClosed += owner_FormClosed;
 
             browser = new ChromiumWebBrowser("about:blank"){
                 MenuHandler = new ContextMenuNotification(this, !flags.HasFlag(NotificationFlags.DisableContextMenu)),
@@ -73,7 +73,11 @@ namespace TweetDck.Core.Notification{
             browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
 
             panelBrowser.Controls.Add(browser);
-            Disposed += (sender, args) => browser.Dispose();
+
+            Disposed += (sender, args) => {
+                browser.Dispose();
+                owner.FormClosed -= owner_FormClosed;
+            };
 
             // ReSharper disable once VirtualMemberCallInContructor
             UpdateTitle();
@@ -88,6 +92,10 @@ namespace TweetDck.Core.Notification{
         }
 
         // event handlers
+
+        private void owner_FormClosed(object sender, FormClosedEventArgs e){
+            Close();
+        }
 
         private void Browser_IsBrowserInitializedChanged(object sender, IsBrowserInitializedChangedEventArgs e){
             if (e.IsBrowserInitialized && Initialized != null){

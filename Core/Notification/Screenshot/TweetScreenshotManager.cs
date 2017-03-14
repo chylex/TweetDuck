@@ -32,8 +32,8 @@ namespace TweetDck.Core.Notification.Screenshot{
         }
 
         public void Dispose(){
-            timeout.Dispose();
             screenshot.Dispose();
+            timeout.Dispose();
         }
     }
 }

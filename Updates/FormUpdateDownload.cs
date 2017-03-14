@@ -34,13 +34,13 @@ namespace TweetDck.Updates{
             this.updateInfo = info;
             this.UpdateStatus = Status.Waiting;
 
-            Disposed += (sender, args) => webClient.Dispose();
-
             webClient.DownloadProgressChanged += webClient_DownloadProgressChanged;
             webClient.DownloadFileCompleted += webClient_DownloadFileCompleted;
 
             Text = "Updating "+Program.BrandName;
             labelDescription.Text = "Downloading version "+info.VersionTag+"...";
+
+            Disposed += (sender, args) => this.webClient.Dispose();
         }
 
         private void FormUpdateDownload_Shown(object sender, EventArgs e){

@@ -39,6 +39,10 @@ namespace TweetDck.Plugins{
         }
 
         public void SetConfig(PluginConfig config){
+            if (this.Config != null){
+                this.Config.InternalPluginChangedState -= Config_InternalPluginChangedState;
+            }
+
             this.Config = config;
             this.Config.InternalPluginChangedState += Config_InternalPluginChangedState;
         }
