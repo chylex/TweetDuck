@@ -22,10 +22,19 @@ enabled(){
         var section = data.element.closest("section.column");
         
         var column = TD.controller.columnManager.get(section.attr("data-column"));
-        var header = $("h1.column-title", section);
+        var header = $(".column-title", section);
+        var title = header.children(".column-head-title");
         
-        var columnTitle = header.children(".column-head-title").text();
-        var columnAccount = header.children(".attribution").text();
+        var columnTitle, columnAccount;
+        
+        if (title.length){
+          columnTitle = title.text();
+          columnAccount = header.children(".attribution").text();
+        }
+        else{
+          columnTitle = header.children(".column-title-edit-box").val();
+          columnAccount = "";
+        }
         
         try{
           query = configuration.customSelector(column.getColumnType(), columnTitle, columnAccount, column);
