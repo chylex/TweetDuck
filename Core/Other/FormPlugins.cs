@@ -78,8 +78,8 @@ namespace TweetDck.Core.Other{
                 }
             }
 
-            flowLayoutPlugins_Resize(flowLayoutPlugins, new EventArgs());
             flowLayoutPlugins.ResumeLayout(true);
+            flowLayoutPlugins_Resize(flowLayoutPlugins, new EventArgs());
         }
 
         private void pluginManager_Reloaded(object sender, PluginLoadEventArgs e){
