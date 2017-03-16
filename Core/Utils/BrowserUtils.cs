@@ -27,7 +27,7 @@ namespace TweetDck.Core.Utils{
             }
         }
 
-        public static void OpenExternalBrowser(string url){ // TODO implement mailto
+        public static void OpenExternalBrowser(string url){
             using(Process.Start(url)){}
         }
 
