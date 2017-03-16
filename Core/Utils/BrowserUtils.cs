@@ -39,6 +39,15 @@ namespace TweetDck.Core.Utils{
         }
 
         public static void OpenExternalBrowser(string url){
+            if (IsValidUrl(url)){
+                OpenExternalBrowserUnsafe(url);
+            }
+            else{
+                MessageBox.Show("A potentially malicious URL was blocked from opening:"+Environment.NewLine+url, "Blocked URL", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        public static void OpenExternalBrowserUnsafe(string url){
             using(Process.Start(url)){}
         }
 

@@ -19,7 +19,7 @@ namespace TweetDck.Core.Other{
         }
 
         private void OnLinkClicked(object sender, LinkLabelLinkClickedEventArgs e){
-            BrowserUtils.OpenExternalBrowser(e.Link.LinkData as string);
+            BrowserUtils.OpenExternalBrowserUnsafe(e.Link.LinkData as string);
         }
     }
 }

@@ -92,7 +92,7 @@ namespace TweetDck.Updates{
                     Program.Reporter.Log(e.Error.ToString());
 
                     if (MessageBox.Show("Could not download the update: "+e.Error.Message+"\r\n\r\nDo you want to open the website and try downloading the update manually?", "Update Has Failed", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1) == DialogResult.Yes){
-                        BrowserUtils.OpenExternalBrowser(Program.Website);
+                        BrowserUtils.OpenExternalBrowserUnsafe(Program.Website);
                         UpdateStatus = Status.Manual;
                     }
                     else{

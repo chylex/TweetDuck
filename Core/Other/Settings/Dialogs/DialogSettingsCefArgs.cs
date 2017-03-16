@@ -22,7 +22,7 @@ namespace TweetDck.Core.Other.Settings.Dialogs{
         }
 
         private void btnHelp_Click(object sender, EventArgs e){
-            BrowserUtils.OpenExternalBrowser("http://peter.sh/experiments/chromium-command-line-switches/");
+            BrowserUtils.OpenExternalBrowserUnsafe("http://peter.sh/experiments/chromium-command-line-switches/");
         }
 
         private void btnApply_Click(object sender, EventArgs e){
