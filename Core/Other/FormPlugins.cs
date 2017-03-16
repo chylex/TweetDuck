@@ -36,11 +36,11 @@ namespace TweetDck.Core.Other{
             this.tabBtnOfficial = tabPanelPlugins.AddButton("", () => SelectGroup(PluginGroup.Official));
             this.tabBtnCustom = tabPanelPlugins.AddButton("", () => SelectGroup(PluginGroup.Custom));
 
-            this.tabPanelPlugins.SelectTab(tabBtnOfficial);
             this.pluginManager_Reloaded(pluginManager, null);
 
             Shown += (sender, args) => {
                 Program.UserConfig.PluginsWindow.Restore(this, false);
+                this.tabPanelPlugins.SelectTab(tabBtnOfficial);
             };
 
             FormClosed += (sender, args) => {
