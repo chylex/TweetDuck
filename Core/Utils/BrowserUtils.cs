@@ -27,6 +27,17 @@ namespace TweetDck.Core.Utils{
             }
         }
 
+        public static bool IsValidUrl(string url){
+            Uri uri;
+            
+            if (Uri.TryCreate(url, UriKind.Absolute, out uri)){
+                string scheme = uri.Scheme;
+                return scheme == Uri.UriSchemeHttp || scheme == Uri.UriSchemeHttps || scheme == Uri.UriSchemeFtp || scheme == Uri.UriSchemeMailto;
+            }
+
+            return false;
+        }
+
         public static void OpenExternalBrowser(string url){
             using(Process.Start(url)){}
         }
