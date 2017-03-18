@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using TweetDck.Configuration;
 using TweetDck.Plugins;
 using TweetDck.Plugins.Enums;
 
@@ -132,7 +133,7 @@ namespace TweetDck.Core.Other.Settings.Export{
                 }
 
                 if (IsRestarting){
-                    Program.Restart(new string[]{ "-importcookies" });
+                    Program.Restart(new string[]{ Arguments.ArgImportCookies });
                 }
                 else{
                     plugins.Reload();

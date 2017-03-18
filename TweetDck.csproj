@@ -65,6 +65,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\Arguments.cs" />
     <Compile Include="Configuration\LockManager.cs" />
     <Compile Include="Configuration\UserConfig.cs" />
     <Compile Include="Core\Bridge\PropertyBridge.cs" />

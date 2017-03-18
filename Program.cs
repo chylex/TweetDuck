@@ -25,9 +25,7 @@ namespace TweetDck{
         public const string VersionFull = "1.6.7.0";
 
         public static readonly Version Version = new Version(VersionTag);
-
         public static readonly bool IsPortable = File.Exists("makeportable");
-        private static readonly CommandLineArgs Args = CommandLineArgs.FromStringArray('-', Environment.GetCommandLineArgs());
 
         public static readonly string ProgramPath = AppDomain.CurrentDomain.BaseDirectory;
         public static readonly string StoragePath = IsPortable ? Path.Combine(ProgramPath, "portable", "storage") : GetDataStoragePath();
@@ -63,7 +61,7 @@ namespace TweetDck{
             Reporter = new Reporter(LogFilePath);
             Reporter.SetupUnhandledExceptionHandler(BrandName+" Has Failed :(");
 
-            if (Args.HasFlag("-restart")){
+            if (Arguments.HasFlag(Arguments.ArgRestart)){
                 for(int attempt = 0; attempt < 21; attempt++){
                     LockManager.Result lockResult = LockManager.Lock();
 
@@ -125,7 +123,7 @@ namespace TweetDck{
 
             ReloadConfig();
 
-            if (Args.HasFlag("-importcookies")){
+            if (Arguments.HasFlag(Arguments.ArgImportCookies)){
                 ExportManager.ImportCookies();
             }
 
@@ -136,12 +134,12 @@ namespace TweetDck{
             CefSettings settings = new CefSettings{
                 AcceptLanguageList = BrowserUtils.HeaderAcceptLanguage,
                 UserAgent = BrowserUtils.HeaderUserAgent,
-                Locale = Args.GetValue("-locale", "en"),
+                Locale = Arguments.GetValue(Arguments.ArgLocale, "en"),
                 CachePath = StoragePath,
                 LogFile = Path.Combine(StoragePath, "TD_Console.txt"),
                 #if !DEBUG
                 BrowserSubprocessPath = BrandName+".Browser.exe",
-                LogSeverity = Args.HasFlag("-log") ? LogSeverity.Info : LogSeverity.Disable
+                LogSeverity = Arguments.HasFlag(Arguments.ArgLogging) ? LogSeverity.Info : LogSeverity.Disable
                 #endif
             };
 
@@ -162,7 +160,7 @@ namespace TweetDck{
             plugins.Reload();
 
             FormBrowser mainForm = new FormBrowser(plugins, new UpdaterSettings{
-                AllowPreReleases = Args.HasFlag("-debugupdates"),
+                AllowPreReleases = Arguments.HasFlag(Arguments.ArgDebugUpdates),
                 DismissedUpdate = UserConfig.DismissedUpdate
             });
 
@@ -172,7 +170,7 @@ namespace TweetDck{
                 ExitCleanup();
 
                 // ProgramPath has a trailing backslash
-                string updaterArgs = "/SP- /SILENT /CLOSEAPPLICATIONS /UPDATEPATH=\""+ProgramPath+"\" /RUNARGS=\""+GetArgsClean().ToString().Replace("\"", "^\"")+"\""+(IsPortable ? " /PORTABLE=1" : "");
+                string updaterArgs = "/SP- /SILENT /CLOSEAPPLICATIONS /UPDATEPATH=\""+ProgramPath+"\" /RUNARGS=\""+Arguments.GetCurrentClean().ToString().Replace("\"", "^\"")+"\""+(IsPortable ? " /PORTABLE=1" : "");
                 bool runElevated = !IsPortable || !WindowsUtils.CheckFolderWritePermission(ProgramPath);
 
                 WindowsUtils.StartProcess(mainForm.UpdateInstallerPath, updaterArgs, runElevated);
@@ -189,7 +187,7 @@ namespace TweetDck{
         }
 
         private static string GetDataStoragePath(){
-            string custom = Args.GetValue("-datafolder", null);
+            string custom = Arguments.GetValue(Arguments.ArgDataFolder, null);
 
             if (custom != null && (custom.Contains(Path.DirectorySeparatorChar) || custom.Contains(Path.AltDirectorySeparatorChar))){
                 if (Path.GetInvalidPathChars().Any(custom.Contains)){
@@ -222,27 +220,21 @@ namespace TweetDck{
             ReloadConfig();
         }
 
-        private static CommandLineArgs GetArgsClean(){
-            CommandLineArgs args = Args.Clone();
-            args.RemoveFlag("-importcookies");
-            return args;
-        }
-
         public static void Restart(){
             Restart(new string[0]);
         }
 
         public static void Restart(string[] extraArgs){
-            FormBrowser browserForm = Application.OpenForms.OfType<FormBrowser>().FirstOrDefault();
-
-            if (browserForm == null){
-                return;
-            }
-
-            CommandLineArgs args = GetArgsClean();
-            args.AddFlag("-restart");
-            
+            CommandLineArgs args = Arguments.GetCurrentClean();
             CommandLineArgs.ReadStringArray('-', extraArgs, args);
+            RestartWithArgs(args);
+        }
+
+        public static void RestartWithArgs(CommandLineArgs args){
+            FormBrowser browserForm = Application.OpenForms.OfType<FormBrowser>().FirstOrDefault();
+            if (browserForm == null)return;
+            
+            args.AddFlag(Arguments.ArgRestart);
 
             browserForm.ForceClose();
             ExitCleanup();
