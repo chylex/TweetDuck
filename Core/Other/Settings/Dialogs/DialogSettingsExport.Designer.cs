@@ -49,11 +49,13 @@
             // 
             this.btnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnApply.AutoSize = true;
-            this.btnApply.Location = new System.Drawing.Point(117, 97);
+            this.btnApply.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnApply.Location = new System.Drawing.Point(144, 97);
             this.btnApply.Name = "btnApply";
             this.btnApply.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.btnApply.Size = new System.Drawing.Size(53, 23);
+            this.btnApply.Size = new System.Drawing.Size(26, 23);
             this.btnApply.TabIndex = 1;
+            this.btnApply.Text = " ";
             this.btnApply.UseVisualStyleBackColor = true;
             this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 

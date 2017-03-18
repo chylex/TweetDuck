@@ -18,30 +18,28 @@ namespace TweetDck.Core.Other.Settings.Dialogs{
             }
 
             set{
-                selectedFlags = value;
-                btnApply.Enabled = selectedFlags != ExportFileFlags.None;
-
-                cbConfig.Checked = selectedFlags.HasFlag(ExportFileFlags.Config);
-                cbSession.Checked = selectedFlags.HasFlag(ExportFileFlags.Session);
-                cbPluginData.Checked = selectedFlags.HasFlag(ExportFileFlags.PluginData);
+                // this will call events and SetFlag, which also updates the UI
+                cbConfig.Checked = value.HasFlag(ExportFileFlags.Config);
+                cbSession.Checked = value.HasFlag(ExportFileFlags.Session);
+                cbPluginData.Checked = value.HasFlag(ExportFileFlags.PluginData);
             }
         }
         
+        private readonly bool isExporting;
         private ExportFileFlags selectedFlags = ExportFileFlags.None;
 
         private DialogSettingsExport(ExportFileFlags importFlags){
             InitializeComponent();
 
-            bool isExporting = importFlags == ExportFileFlags.None;
+            this.isExporting = importFlags == ExportFileFlags.None;
 
             if (isExporting){
                 Text = "Export Profile";
-                btnApply.Text = "Export";
+                btnApply.Text = "Export Profile";
                 Flags = ExportFileFlags.All & ~ExportFileFlags.Session;
             }
             else{
                 Text = "Import Profile";
-                btnApply.Text = "Import";
                 Flags = importFlags;
 
                 cbConfig.Enabled = cbConfig.Checked;
@@ -53,6 +51,10 @@ namespace TweetDck.Core.Other.Settings.Dialogs{
         private void SetFlag(ExportFileFlags flag, bool enable){
             selectedFlags = enable ? selectedFlags | flag : selectedFlags & ~flag;
             btnApply.Enabled = selectedFlags != ExportFileFlags.None;
+
+            if (!isExporting){
+                btnApply.Text = selectedFlags.HasFlag(ExportFileFlags.Session) ? "Import && Restart" : "Import Profile";
+            }
         }
 
         private void cbConfig_CheckedChanged(object sender, EventArgs e){

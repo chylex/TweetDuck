@@ -117,7 +117,7 @@ namespace TweetDck.Core.Other.Settings.Export{
                                 break;
 
                             case "cookies":
-                                if (flags.HasFlag(ExportFileFlags.Session) && MessageBox.Show("Do you want to import the login session? This will restart "+Program.BrandName+".", "Importing "+Program.BrandName+" Profile", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
+                                if (flags.HasFlag(ExportFileFlags.Session)){
                                     entry.WriteToFile(Path.Combine(Program.StoragePath, TempCookiesPath));
                                     IsRestarting = true;
                                 }
