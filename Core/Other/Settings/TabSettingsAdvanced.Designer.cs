@@ -29,7 +29,7 @@
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.btnEditCefArgs = new System.Windows.Forms.Button();
             this.btnEditCSS = new System.Windows.Forms.Button();
-            this.btnRestartLog = new System.Windows.Forms.Button();
+            this.btnRestartArgs = new System.Windows.Forms.Button();
             this.btnRestart = new System.Windows.Forms.Button();
             this.btnOpenAppFolder = new System.Windows.Forms.Button();
             this.btnOpenDataFolder = new System.Windows.Forms.Button();
@@ -92,17 +92,16 @@
             this.btnEditCSS.UseVisualStyleBackColor = true;
             this.btnEditCSS.Click += new System.EventHandler(this.btnEditCSS_Click);
             // 
-            // btnRestartLog
+            // btnRestartArgs
             // 
-            this.btnRestartLog.Location = new System.Drawing.Point(6, 106);
-            this.btnRestartLog.Name = "btnRestartLog";
-            this.btnRestartLog.Size = new System.Drawing.Size(171, 23);
-            this.btnRestartLog.TabIndex = 18;
-            this.btnRestartLog.Text = "Restart with Logging";
-            this.toolTip.SetToolTip(this.btnRestartLog, "Restarts the program and enables logging\r\ninto a debug.txt file in the data folde" +
-        "r.");
-            this.btnRestartLog.UseVisualStyleBackColor = true;
-            this.btnRestartLog.Click += new System.EventHandler(this.btnRestartLog_Click);
+            this.btnRestartArgs.Location = new System.Drawing.Point(6, 106);
+            this.btnRestartArgs.Name = "btnRestartArgs";
+            this.btnRestartArgs.Size = new System.Drawing.Size(171, 23);
+            this.btnRestartArgs.TabIndex = 18;
+            this.btnRestartArgs.Text = "Restart with Arguments";
+            this.toolTip.SetToolTip(this.btnRestartArgs, "Restarts the program with customizable\r\ncommand line arguments.");
+            this.btnRestartArgs.UseVisualStyleBackColor = true;
+            this.btnRestartArgs.Click += new System.EventHandler(this.btnRestartArgs_Click);
             // 
             // btnRestart
             // 
@@ -204,7 +203,7 @@
             // 
             this.groupApp.Controls.Add(this.btnOpenDataFolder);
             this.groupApp.Controls.Add(this.btnOpenAppFolder);
-            this.groupApp.Controls.Add(this.btnRestartLog);
+            this.groupApp.Controls.Add(this.btnRestartArgs);
             this.groupApp.Controls.Add(this.btnRestart);
             this.groupApp.Location = new System.Drawing.Point(198, 9);
             this.groupApp.Name = "groupApp";
@@ -247,7 +246,7 @@
         private System.Windows.Forms.Button btnEditCefArgs;
         private System.Windows.Forms.Button btnEditCSS;
         private System.Windows.Forms.GroupBox groupApp;
-        private System.Windows.Forms.Button btnRestartLog;
+        private System.Windows.Forms.Button btnRestartArgs;
         private System.Windows.Forms.Button btnRestart;
         private System.Windows.Forms.Button btnOpenAppFolder;
         private System.Windows.Forms.Button btnOpenDataFolder;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Forms;
+using TweetDck.Configuration;
 using TweetDck.Core.Controls;
 using TweetDck.Core.Other.Settings.Dialogs;
 using TweetDck.Core.Other.Settings.Export;
@@ -184,8 +185,12 @@ namespace TweetDck.Core.Other.Settings{
             Program.Restart();
         }
 
-        private void btnRestartLog_Click(object sender, EventArgs e){
-            Program.Restart(new string[]{ "-log" });
+        private void btnRestartArgs_Click(object sender, EventArgs e){
+            using(DialogSettingsRestart dialog = new DialogSettingsRestart(Arguments.GetCurrentClean())){
+                if (dialog.ShowDialog() == DialogResult.OK){
+                    Program.RestartWithArgs(dialog.Args);
+                }
+            }
         }
     }
 }
