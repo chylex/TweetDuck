@@ -134,7 +134,7 @@ namespace TweetDck{
             CefSettings settings = new CefSettings{
                 AcceptLanguageList = BrowserUtils.HeaderAcceptLanguage,
                 UserAgent = BrowserUtils.HeaderUserAgent,
-                Locale = Arguments.GetValue(Arguments.ArgLocale, "en"),
+                Locale = Arguments.GetValue(Arguments.ArgLocale, string.Empty),
                 CachePath = StoragePath,
                 LogFile = Path.Combine(StoragePath, "TD_Console.txt"),
                 #if !DEBUG
