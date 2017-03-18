@@ -107,6 +107,8 @@
             this.Controls.Add(this.btnApply);
             this.Controls.Add(this.btnCancel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(200, 170);
             this.Name = "DialogSettingsExport";
             this.ShowIcon = false;
