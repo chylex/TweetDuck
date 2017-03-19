@@ -39,6 +39,8 @@ namespace TweetDck.Core.Utils{
         }
 
         public static void OpenExternalBrowser(string url){
+            if (string.IsNullOrWhiteSpace(url))return;
+
             if (IsValidUrl(url)){
                 OpenExternalBrowserUnsafe(url);
             }
