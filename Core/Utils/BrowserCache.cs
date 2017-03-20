@@ -31,21 +31,6 @@ namespace TweetDck.Core.Utils{
             task.Start();
         }
 
-        public static void ClearOldCacheFiles(){
-            if (!Directory.Exists(CacheFolder)){
-                foreach(string file in Directory.EnumerateFiles(Program.StoragePath).Where(path => {
-                    string file = Path.GetFileName(path);
-                    return file != null && (file.StartsWith("data_", StringComparison.Ordinal) || file.StartsWith("f_", StringComparison.Ordinal));
-                }).Concat(new[]{ Path.Combine(Program.StoragePath, "index") })){
-                    try{
-                        File.Delete(file);
-                    }catch{
-                        // welp, too bad
-                    }
-                }
-            }
-        }
-
         public static void SetClearOnExit(){
             ClearOnExit = true;
         }

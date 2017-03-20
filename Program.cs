@@ -126,8 +126,6 @@ namespace TweetDck{
             if (Arguments.HasFlag(Arguments.ArgImportCookies)){
                 ExportManager.ImportCookies();
             }
-
-            BrowserCache.ClearOldCacheFiles();
             
             CefSharpSettings.WcfEnabled = false;
 
