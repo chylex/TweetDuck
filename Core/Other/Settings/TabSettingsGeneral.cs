@@ -1,9 +1,19 @@
 ﻿using System;
+using System.Windows.Forms;
+using TweetDck.Updates;
+using TweetDck.Updates.Events;
 
 namespace TweetDck.Core.Other.Settings{
     partial class TabSettingsGeneral : BaseTabSettings{
-        public TabSettingsGeneral(){
+        private readonly UpdateHandler updates;
+        private int updateCheckEventId = -1;
+
+        public TabSettingsGeneral(UpdateHandler updates){
             InitializeComponent();
+
+            this.updates = updates;
+            this.updates.CheckFinished += updates_CheckFinished;
+            Disposed += (sender, args) => this.updates.CheckFinished -= updates_CheckFinished;
             
             comboBoxTrayType.Items.Add("Disabled");
             comboBoxTrayType.Items.Add("Display Icon Only");
@@ -16,6 +26,8 @@ namespace TweetDck.Core.Other.Settings{
             checkSpellCheck.Checked = Config.EnableSpellCheck;
             checkScreenshotBorder.Checked = Config.ShowScreenshotBorder;
             checkTrayHighlight.Checked = Config.EnableTrayHighlight;
+
+            checkUpdateNotifications.Checked = Config.EnableUpdateCheck;
         }
 
         private void checkExpandLinks_CheckedChanged(object sender, EventArgs e){
@@ -47,6 +59,39 @@ namespace TweetDck.Core.Other.Settings{
             if (!Ready)return;
             
             Config.EnableTrayHighlight = checkTrayHighlight.Checked;
+        }
+
+        private void checkUpdateNotifications_CheckedChanged(object sender, EventArgs e){
+            if (!Ready)return;
+
+            Config.EnableUpdateCheck = checkUpdateNotifications.Checked;
+        }
+
+        private void btnCheckUpdates_Click(object sender, EventArgs e){
+            if (!Ready)return;
+
+            updateCheckEventId = updates.Check(true);
+
+            if (updateCheckEventId == -1){
+                MessageBox.Show("Sorry, your system is no longer supported.", "Unsupported System", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else{
+                btnCheckUpdates.Enabled = false;
+                
+                updates.Settings.DismissedUpdate = string.Empty;
+                Config.DismissedUpdate = string.Empty;
+                Config.Save();
+            }
+        }
+
+        private void updates_CheckFinished(object sender, UpdateCheckEventArgs e){
+            if (e.EventId == updateCheckEventId){
+                btnCheckUpdates.Enabled = true;
+
+                if (!e.UpdateAvailable){
+                    MessageBox.Show("Your version of "+Program.BrandName+" is up to date.", "No Updates Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
         }
     }
 }

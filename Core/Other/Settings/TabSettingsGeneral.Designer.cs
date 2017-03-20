@@ -33,8 +33,12 @@
             this.groupTray = new System.Windows.Forms.GroupBox();
             this.labelTrayIcon = new System.Windows.Forms.Label();
             this.groupInterface = new System.Windows.Forms.GroupBox();
+            this.groupUpdates = new System.Windows.Forms.GroupBox();
+            this.checkUpdateNotifications = new System.Windows.Forms.CheckBox();
+            this.btnCheckUpdates = new System.Windows.Forms.Button();
             this.groupTray.SuspendLayout();
             this.groupInterface.SuspendLayout();
+            this.groupUpdates.SuspendLayout();
             this.SuspendLayout();
             // 
             // checkExpandLinks
@@ -134,10 +138,47 @@
             this.groupInterface.TabStop = false;
             this.groupInterface.Text = "User Interface";
             // 
+            // groupUpdates
+            // 
+            this.groupUpdates.Controls.Add(this.checkUpdateNotifications);
+            this.groupUpdates.Controls.Add(this.btnCheckUpdates);
+            this.groupUpdates.Location = new System.Drawing.Point(198, 9);
+            this.groupUpdates.Name = "groupUpdates";
+            this.groupUpdates.Size = new System.Drawing.Size(183, 75);
+            this.groupUpdates.TabIndex = 17;
+            this.groupUpdates.TabStop = false;
+            this.groupUpdates.Text = "Updates";
+            // 
+            // checkUpdateNotifications
+            // 
+            this.checkUpdateNotifications.AutoSize = true;
+            this.checkUpdateNotifications.Location = new System.Drawing.Point(6, 21);
+            this.checkUpdateNotifications.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.checkUpdateNotifications.Name = "checkUpdateNotifications";
+            this.checkUpdateNotifications.Size = new System.Drawing.Size(165, 17);
+            this.checkUpdateNotifications.TabIndex = 14;
+            this.checkUpdateNotifications.Text = "Check Updates Automatically";
+            this.toolTip.SetToolTip(this.checkUpdateNotifications, "Checks for updates every hour.\r\nIf an update is dismissed, it will not appear aga" +
+        "in.");
+            this.checkUpdateNotifications.UseVisualStyleBackColor = true;
+            this.checkUpdateNotifications.CheckedChanged += new System.EventHandler(this.checkUpdateNotifications_CheckedChanged);
+            // 
+            // btnCheckUpdates
+            // 
+            this.btnCheckUpdates.Location = new System.Drawing.Point(6, 44);
+            this.btnCheckUpdates.Name = "btnCheckUpdates";
+            this.btnCheckUpdates.Size = new System.Drawing.Size(171, 23);
+            this.btnCheckUpdates.TabIndex = 15;
+            this.btnCheckUpdates.Text = "Check Updates Now";
+            this.toolTip.SetToolTip(this.btnCheckUpdates, "Forces an update check, even for updates that had been dismissed.");
+            this.btnCheckUpdates.UseVisualStyleBackColor = true;
+            this.btnCheckUpdates.Click += new System.EventHandler(this.btnCheckUpdates_Click);
+            // 
             // TabSettingsGeneral
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupUpdates);
             this.Controls.Add(this.groupInterface);
             this.Controls.Add(this.groupTray);
             this.Name = "TabSettingsGeneral";
@@ -146,6 +187,8 @@
             this.groupTray.PerformLayout();
             this.groupInterface.ResumeLayout(false);
             this.groupInterface.PerformLayout();
+            this.groupUpdates.ResumeLayout(false);
+            this.groupUpdates.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -161,5 +204,8 @@
         private System.Windows.Forms.CheckBox checkTrayHighlight;
         private System.Windows.Forms.CheckBox checkSpellCheck;
         private System.Windows.Forms.CheckBox checkScreenshotBorder;
+        private System.Windows.Forms.GroupBox groupUpdates;
+        private System.Windows.Forms.CheckBox checkUpdateNotifications;
+        private System.Windows.Forms.Button btnCheckUpdates;
     }
 }

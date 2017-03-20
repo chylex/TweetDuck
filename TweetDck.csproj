@@ -193,12 +193,6 @@
     <Compile Include="Core\Other\Settings\TabSettingsNotifications.Designer.cs">
       <DependentUpon>TabSettingsNotifications.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Other\Settings\TabSettingsUpdates.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Core\Other\Settings\TabSettingsUpdates.Designer.cs">
-      <DependentUpon>TabSettingsUpdates.cs</DependentUpon>
-    </Compile>
     <Compile Include="Core\Bridge\CallbackBridge.cs" />
     <Compile Include="Core\Utils\CommandLineArgs.cs" />
     <Compile Include="Core\Utils\CommandLineArgsParser.cs" />
