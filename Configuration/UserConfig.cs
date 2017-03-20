@@ -14,13 +14,14 @@ namespace TweetDck.Configuration{
     sealed class UserConfig{
         private static readonly IFormatter Formatter = new BinaryFormatter();
 
-        private const int CurrentFileVersion = 6;
+        private const int CurrentFileVersion = 7;
 
         // START OF CONFIGURATION
 
         public WindowState BrowserWindow { get; set; }
         public bool DisplayNotificationTimer { get; set; }
         public bool NotificationTimerCountDown { get; set; }
+        public bool NotificationNonIntrusiveMode { get; set; }
 
         public TweetNotification.Position NotificationPosition { get; set; }
         public Point CustomNotificationPosition { get; set; }
@@ -112,6 +113,7 @@ namespace TweetDck.Configuration{
 
             BrowserWindow = new WindowState();
             DisplayNotificationTimer = true;
+            NotificationNonIntrusiveMode = true;
             NotificationPosition = TweetNotification.Position.TopRight;
             CustomNotificationPosition = ControlExtensions.InvisibleLocation;
             NotificationEdgeDistance = 8;
@@ -165,6 +167,11 @@ namespace TweetDck.Configuration{
 
             if (fileVersion == 5){
                 ShowScreenshotBorder = true;
+                ++fileVersion;
+            }
+
+            if (fileVersion == 6){
+                NotificationNonIntrusiveMode = true;
                 ++fileVersion;
             }
 

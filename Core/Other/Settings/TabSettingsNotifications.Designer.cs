@@ -43,6 +43,7 @@
             this.labelDurationValue = new System.Windows.Forms.Label();
             this.trackBarDuration = new System.Windows.Forms.TrackBar();
             this.groupUserInterface = new System.Windows.Forms.GroupBox();
+            this.checkNonIntrusive = new System.Windows.Forms.CheckBox();
             this.checkTimerCountDown = new System.Windows.Forms.CheckBox();
             this.checkNotificationTimer = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
@@ -203,7 +204,7 @@
             this.groupNotificationDuration.Controls.Add(this.tableLayoutDurationButtons);
             this.groupNotificationDuration.Controls.Add(this.labelDurationValue);
             this.groupNotificationDuration.Controls.Add(this.trackBarDuration);
-            this.groupNotificationDuration.Location = new System.Drawing.Point(9, 83);
+            this.groupNotificationDuration.Location = new System.Drawing.Point(9, 106);
             this.groupNotificationDuration.Name = "groupNotificationDuration";
             this.groupNotificationDuration.Size = new System.Drawing.Size(183, 89);
             this.groupNotificationDuration.TabIndex = 9;
@@ -305,14 +306,28 @@
             // 
             // groupUserInterface
             // 
+            this.groupUserInterface.Controls.Add(this.checkNonIntrusive);
             this.groupUserInterface.Controls.Add(this.checkTimerCountDown);
             this.groupUserInterface.Controls.Add(this.checkNotificationTimer);
             this.groupUserInterface.Location = new System.Drawing.Point(9, 9);
             this.groupUserInterface.Name = "groupUserInterface";
-            this.groupUserInterface.Size = new System.Drawing.Size(183, 68);
+            this.groupUserInterface.Size = new System.Drawing.Size(183, 91);
             this.groupUserInterface.TabIndex = 10;
             this.groupUserInterface.TabStop = false;
             this.groupUserInterface.Text = "General";
+            // 
+            // checkNonIntrusive
+            // 
+            this.checkNonIntrusive.AutoSize = true;
+            this.checkNonIntrusive.Location = new System.Drawing.Point(6, 67);
+            this.checkNonIntrusive.Name = "checkNonIntrusive";
+            this.checkNonIntrusive.Size = new System.Drawing.Size(123, 17);
+            this.checkNonIntrusive.TabIndex = 7;
+            this.checkNonIntrusive.Text = "Non-Intrusive Popup";
+            this.toolTip.SetToolTip(this.checkNonIntrusive, "When not idle and the cursor is within the notification window area,\r\nit will be " +
+        "delayed until the cursor moves away to prevent accidental clicks.");
+            this.checkNonIntrusive.UseVisualStyleBackColor = true;
+            this.checkNonIntrusive.CheckedChanged += new System.EventHandler(this.checkNonIntrusive_CheckedChanged);
             // 
             // checkTimerCountDown
             // 
@@ -344,7 +359,7 @@
             this.groupCustomSound.Controls.Add(this.btnResetSound);
             this.groupCustomSound.Controls.Add(this.btnBrowseSound);
             this.groupCustomSound.Controls.Add(this.tbCustomSound);
-            this.groupCustomSound.Location = new System.Drawing.Point(9, 178);
+            this.groupCustomSound.Location = new System.Drawing.Point(9, 201);
             this.groupCustomSound.Name = "groupCustomSound";
             this.groupCustomSound.Size = new System.Drawing.Size(183, 72);
             this.groupCustomSound.TabIndex = 11;
@@ -437,5 +452,6 @@
         private System.Windows.Forms.Button btnResetSound;
         private System.Windows.Forms.Button btnBrowseSound;
         private System.Windows.Forms.TextBox tbCustomSound;
+        private System.Windows.Forms.CheckBox checkNonIntrusive;
     }
 }

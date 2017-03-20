@@ -10,6 +10,46 @@ using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Notification{
     partial class FormNotificationBase : Form{
+        protected Point PrimaryLocation{
+            get{
+                UserConfig config = Program.UserConfig;
+                Screen screen;
+
+                if (config.NotificationDisplay > 0 && config.NotificationDisplay <= Screen.AllScreens.Length){
+                    screen = Screen.AllScreens[config.NotificationDisplay-1];
+                }
+                else{
+                    screen = Screen.FromControl(owner);
+                }
+            
+                int edgeDist = config.NotificationEdgeDistance;
+
+                switch(config.NotificationPosition){
+                    case TweetNotification.Position.TopLeft:
+                        return new Point(screen.WorkingArea.X+edgeDist, screen.WorkingArea.Y+edgeDist);
+
+                    case TweetNotification.Position.TopRight:
+                        return new Point(screen.WorkingArea.X+screen.WorkingArea.Width-edgeDist-Width, screen.WorkingArea.Y+edgeDist);
+
+                    case TweetNotification.Position.BottomLeft:
+                        return new Point(screen.WorkingArea.X+edgeDist, screen.WorkingArea.Y+screen.WorkingArea.Height-edgeDist-Height);
+
+                    case TweetNotification.Position.BottomRight:
+                        return new Point(screen.WorkingArea.X+screen.WorkingArea.Width-edgeDist-Width, screen.WorkingArea.Y+screen.WorkingArea.Height-edgeDist-Height);
+
+                    case TweetNotification.Position.Custom:
+                        if (!config.IsCustomNotificationPositionSet){
+                            config.CustomNotificationPosition = new Point(screen.WorkingArea.X+screen.WorkingArea.Width-edgeDist-Width, screen.WorkingArea.Y+edgeDist);
+                            config.Save();
+                        }
+
+                        return config.CustomNotificationPosition;
+                }
+
+                return Location;
+            }
+        }
+
         public bool IsNotificationVisible{
             get{
                 return Location != ControlExtensions.InvisibleLocation;
@@ -141,43 +181,8 @@ namespace TweetDck.Core.Notification{
         }
 
         protected void MoveToVisibleLocation(){
-            UserConfig config = Program.UserConfig;
-
-            Screen screen = Screen.FromControl(owner);
-
-            if (config.NotificationDisplay > 0 && config.NotificationDisplay <= Screen.AllScreens.Length){
-                screen = Screen.AllScreens[config.NotificationDisplay-1];
-            }
-            
             bool needsReactivating = Location == ControlExtensions.InvisibleLocation;
-            int edgeDist = config.NotificationEdgeDistance;
-
-            switch(config.NotificationPosition){
-                case TweetNotification.Position.TopLeft:
-                    Location = new Point(screen.WorkingArea.X+edgeDist, screen.WorkingArea.Y+edgeDist);
-                    break;
-
-                case TweetNotification.Position.TopRight:
-                    Location = new Point(screen.WorkingArea.X+screen.WorkingArea.Width-edgeDist-Width, screen.WorkingArea.Y+edgeDist);
-                    break;
-
-                case TweetNotification.Position.BottomLeft:
-                    Location = new Point(screen.WorkingArea.X+edgeDist, screen.WorkingArea.Y+screen.WorkingArea.Height-edgeDist-Height);
-                    break;
-
-                case TweetNotification.Position.BottomRight:
-                    Location = new Point(screen.WorkingArea.X+screen.WorkingArea.Width-edgeDist-Width, screen.WorkingArea.Y+screen.WorkingArea.Height-edgeDist-Height);
-                    break;
-
-                case TweetNotification.Position.Custom:
-                    if (!config.IsCustomNotificationPositionSet){
-                        config.CustomNotificationPosition = new Point(screen.WorkingArea.X+screen.WorkingArea.Width-edgeDist-Width, screen.WorkingArea.Y+edgeDist);
-                        config.Save();
-                    }
-
-                    Location = config.CustomNotificationPosition;
-                    break;
-            }
+            Location = PrimaryLocation;
 
             if (needsReactivating && flags.HasFlag(NotificationFlags.TopMost)){
                 NativeMethods.SetFormPos(this, NativeMethods.HWND_TOPMOST, NativeMethods.SWP_NOACTIVATE);

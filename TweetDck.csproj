@@ -119,6 +119,9 @@
     <Compile Include="Core\Notification\FormNotificationTweet.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Core\Notification\FormNotificationTweet.Designer.cs">
+      <DependentUpon>FormNotificationTweet.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\Notification\SoundNotification.cs" />
     <Compile Include="Core\Notification\TweetNotification.cs" />
     <Compile Include="Core\Other\FormAbout.cs">

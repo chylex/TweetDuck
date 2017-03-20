@@ -55,6 +55,7 @@ namespace TweetDck.Core.Other.Settings{
             checkNotificationTimer.Checked = Config.DisplayNotificationTimer;
             checkTimerCountDown.Enabled = checkNotificationTimer.Checked;
             checkTimerCountDown.Checked = Config.NotificationTimerCountDown;
+            checkNotificationTimer.Checked = Config.NotificationNonIntrusiveMode;
 
             trackBarEdgeDistance.SetValueSafe(Config.NotificationEdgeDistance);
             labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value.ToString(CultureInfo.InvariantCulture)+" px";
@@ -151,6 +152,12 @@ namespace TweetDck.Core.Other.Settings{
 
             Config.NotificationTimerCountDown = checkTimerCountDown.Checked;
             notification.ShowNotificationForSettings(true);
+        }
+
+        private void checkNonIntrusive_CheckedChanged(object sender, EventArgs e){
+            if (!Ready)return;
+
+            Config.NotificationNonIntrusiveMode = checkNonIntrusive.Checked;
         }
 
         private void comboBoxDisplay_SelectedValueChanged(object sender, EventArgs e){

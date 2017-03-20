@@ -1,21 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using TweetDck.Plugins;
 using System.Windows.Forms;
+using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Notification{
-    sealed class FormNotificationTweet : FormNotificationMain{
+    sealed partial class FormNotificationTweet : FormNotificationMain{
+        private const int NonIntrusiveIdleLimit = 30;
+
+        private bool IsCursorOverNotificationArea{
+            get{
+                return new Rectangle(PrimaryLocation, Size).Contains(Cursor.Position);
+            }
+        }
+
         private readonly Queue<TweetNotification> tweetQueue = new Queue<TweetNotification>(4);
 
         public FormNotificationTweet(FormBrowser owner, PluginManager pluginManager, NotificationFlags flags) : base(owner, pluginManager, flags){
+            InitializeComponent();
+
             Program.UserConfig.MuteToggled += Config_MuteToggled;
             Disposed += (sender, args) => Program.UserConfig.MuteToggled -= Config_MuteToggled;
 
             if (Program.UserConfig.MuteNotifications){
                 PauseNotification();
             }
-
-            FormClosing += FormNotificationTweet_FormClosing;
         }
 
         private void FormNotificationTweet_FormClosing(object sender, FormClosingEventArgs e){
@@ -32,6 +42,13 @@ namespace TweetDck.Core.Notification{
             }
             else{
                 ResumeNotification();
+            }
+        }
+
+        private void timerCursorCheck_Tick(object sender, EventArgs e){
+            if (!IsCursorOverNotificationArea){
+                ResumeNotification();
+                timerCursorCheck.Stop();
             }
         }
 
@@ -70,7 +87,15 @@ namespace TweetDck.Core.Notification{
         }
 
         private void LoadNextNotification(){
-            LoadTweet(tweetQueue.Dequeue());
+            if (Program.UserConfig.NotificationNonIntrusiveMode && !IsNotificationVisible && IsCursorOverNotificationArea && NativeMethods.GetIdleSeconds() < NonIntrusiveIdleLimit){
+                if (!timerCursorCheck.Enabled){
+                    PauseNotification();
+                    timerCursorCheck.Start();
+                }
+            }
+            else{
+                LoadTweet(tweetQueue.Dequeue());
+            }
         }
 
         protected override void UpdateTitle(){
