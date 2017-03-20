@@ -1,13 +1,13 @@
 (function($, $TD, $TDX, TD){
   //
-  // Variable: Current highlighted column jQuery object.
+  // Variable: Current highlighted column jQuery & data objects.
   //
-  var highlightedColumnEle;
+  var highlightedColumnEle, highlightedColumnObj;
   
   //
-  // Variable: Currently highlighted tweet jQuery object.
+  // Variable: Currently highlighted tweet jQuery & data objects.
   //
-  var highlightedTweetEle;
+  var highlightedTweetEle, highlightedTweetObj;
   
   //
   // Variable: Array of functions called after the website app is loaded.
@@ -231,42 +231,48 @@
   })();
   
   //
-  // Block: Update highlighted column.
-  //
-  app.delegate("section", "mouseenter mouseleave", function(e){
-    if (e.type === "mouseenter"){
-      highlightedColumnEle = $(this);
-    }
-    else if (e.type === "mouseleave"){
-      highlightedColumnEle = null;
-    }
-  });
-  
-  //
-  // Block: Copy tweet address and update highlighted tweet.
+  // Block: Update highlighted column and tweet for context menu and other functionality.
   //
   (function(){
     var lastTweet = "";
     
-    var updateHighlightedTweet = function(link, embeddedLink){
+    var updateHighlightedTweet = function(ele, obj, link, embeddedLink){
+      highlightedTweetEle = ele;
+      highlightedTweetObj = obj;
+      
       if (lastTweet !== link){
         $TD.setLastHighlightedTweet(link, embeddedLink);
         lastTweet = link;
       }
     };
     
-    app.delegate("article.js-stream-item", "mouseenter mouseleave", function(e){
+    app.delegate("section", "mouseenter mouseleave", function(e){
       if (e.type === "mouseenter"){
-        highlightedTweetEle = $(this);
-        
-        var link = $(this).parent().hasClass("js-tweet-detail") ? $(this).find("a[rel='url']").first() : $(this).find("time").first().children("a").first();
-        var embedded = $(this).find(".quoted-tweet[data-tweet-id]").first();
-        
-        updateHighlightedTweet(link.length > 0 ? link.attr("href") : "", embedded.length > 0 ? embedded.find(".account-link").first().attr("href")+"/status/"+embedded.attr("data-tweet-id") : "");
+        highlightedColumnEle = $(this);
+        highlightedColumnObj = TD.controller.columnManager.get(highlightedColumnEle.attr("data-column"));
       }
       else if (e.type === "mouseleave"){
-        highlightedTweetEle = null;
-        updateHighlightedTweet("", "");
+        highlightedColumnEle = null;
+        highlightedColumnObj = null;
+      }
+    });
+    
+    app.delegate("article.js-stream-item", "mouseenter mouseleave", function(e){
+      if (e.type === "mouseenter"){
+        if (!highlightedColumnObj)return;
+        
+        var me = $(this);
+        var tweet = highlightedColumnObj.findChirp(me.attr("data-key"));
+        
+        if (tweet && tweet.chirpType === TD.services.ChirpBase.TWEET){
+          var link = tweet.getChirpURL();
+          var embedded = tweet.quotedTweet ? tweet.quotedTweet.getChirpURL() : "";
+          
+          updateHighlightedTweet(me, tweet, link || "", embedded || "");
+        }
+      }
+      else if (e.type === "mouseleave"){
+        updateHighlightedTweet(null, null, "", "");
       }
     });
   })();
