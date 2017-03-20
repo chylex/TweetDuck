@@ -267,7 +267,6 @@
     </Compile>
     <Compile Include="Resources\ScriptLoader.cs" />
     <Compile Include="Updates\UpdaterSettings.cs" />
-    <None Include="Configuration\app.config" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -319,7 +318,7 @@
     </ContentWithTargetPath>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Configuration\packages.config" />
+    <None Include="packages.config" />
     <None Include="Resources\icon-small.ico" />
     <None Include="Resources\icon-tray-new.ico" />
     <None Include="Resources\icon-tray.ico" />
