@@ -6,6 +6,6 @@ PM> Install-Package CefSharp.WinForms -Version 55.0.0
 PM> Install-Package Microsoft.VC120.CRT.JetBrains
 ```
 
-After building, run either `_postbuild.bat` if you want to package the files yourself, or `bld/RUN BUILD.bat` to generate installer files using Inno Setup (make sure the Inno Setup binaries are on your PATH). Do not run both files consecutively, otherwise the program will crash - if you want to do both, rebuild the project before running each file.
+After building, run either `_postbuild.bat` if you want to package the files yourself, or `bld/RUN BUILD.bat` to generate installer files using Inno Setup (make sure the Inno Setup binaries are on your PATH).
 
 Built files are then available in **bin/x86**, installer files are generated in **bld/Output**. If you decide to release a custom version publicly, please make it clear that it is not the original TweetDuck. 
