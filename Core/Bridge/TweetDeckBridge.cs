@@ -53,12 +53,8 @@ namespace TweetDck.Core.Bridge{
             notification.InvokeAsyncSafe(() => notification.CurrentQuotedTweetUrl = link);
         }
 
-        public void OpenSettingsMenu(){
-            form.InvokeAsyncSafe(form.OpenSettings);
-        }
-
-        public void OpenPluginsMenu(){
-            form.InvokeAsyncSafe(form.OpenPlugins);
+        public void OpenContextMenu(){
+            form.InvokeAsyncSafe(form.OpenContextMenu);
         }
 
         public void OnTweetPopup(string tweetHtml, string tweetUrl, int tweetCharacters){

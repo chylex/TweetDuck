@@ -1,4 +1,5 @@
-﻿using CefSharp;
+﻿using System.Windows.Forms;
+using CefSharp;
 using TweetDck.Core.Bridge;
 using TweetDck.Core.Controls;
 using TweetDck.Core.Utils;
@@ -16,6 +17,12 @@ namespace TweetDck.Core.Handling{
         private const int MenuOpenQuotedTweetUrl = 26612;
         private const int MenuCopyQuotedTweetUrl = 26613;
         private const int MenuScreenshotTweet = 26614;
+
+        private const string TitleReloadBrowser = "Reload browser";
+        private const string TitleMuteNotifications = "Mute notifications";
+        private const string TitleSettings = "Settings";
+        private const string TitlePlugins = "Plugins";
+        private const string TitleAboutProgram = "About "+Program.BrandName;
 
         private readonly FormBrowser form;
 
@@ -66,14 +73,14 @@ namespace TweetDck.Core.Handling{
 
                 IMenuModel globalMenu = model.Count == 0 ? model : model.AddSubMenu((CefMenuCommand)MenuGlobal, Program.BrandName);
             
-                globalMenu.AddItem(CefMenuCommand.Reload, "Reload browser");
-                globalMenu.AddCheckItem((CefMenuCommand)MenuMute, "Mute notifications");
+                globalMenu.AddItem(CefMenuCommand.Reload, TitleReloadBrowser);
+                globalMenu.AddCheckItem((CefMenuCommand)MenuMute, TitleMuteNotifications);
                 globalMenu.SetChecked((CefMenuCommand)MenuMute, Program.UserConfig.MuteNotifications);
                 globalMenu.AddSeparator();
 
-                globalMenu.AddItem((CefMenuCommand)MenuSettings, "Settings");
-                globalMenu.AddItem((CefMenuCommand)MenuPlugins, "Plugins");
-                globalMenu.AddItem((CefMenuCommand)MenuAbout, "About "+Program.BrandName);
+                globalMenu.AddItem((CefMenuCommand)MenuSettings, TitleSettings);
+                globalMenu.AddItem((CefMenuCommand)MenuPlugins, TitlePlugins);
+                globalMenu.AddItem((CefMenuCommand)MenuAbout, TitleAboutProgram);
 
                 #if DEBUG
                 globalMenu.AddSeparator();
@@ -107,11 +114,7 @@ namespace TweetDck.Core.Handling{
                     return true;
 
                 case MenuMute:
-                    form.InvokeAsyncSafe(() => {
-                        Program.UserConfig.MuteNotifications = !Program.UserConfig.MuteNotifications;
-                        Program.UserConfig.Save();
-                    });
-
+                    form.InvokeAsyncSafe(ToggleMuteNotifications);
                     return true;
 
                 case MenuOpenTweetUrl:
@@ -136,6 +139,28 @@ namespace TweetDck.Core.Handling{
             }
 
             return false;
+        }
+
+        public static ContextMenu CreateMenu(FormBrowser form){
+            ContextMenu menu = new ContextMenu();
+
+            menu.MenuItems.Add(TitleReloadBrowser, (sender, args) => form.ReloadToTweetDeck());
+            menu.MenuItems.Add(TitleMuteNotifications, (sender, args) => ToggleMuteNotifications());
+            menu.MenuItems.Add("-");
+            menu.MenuItems.Add(TitleSettings, (sender, args) => form.OpenSettings());
+            menu.MenuItems.Add(TitlePlugins, (sender, args) => form.OpenPlugins());
+            menu.MenuItems.Add(TitleAboutProgram,  (sender, args) => form.OpenAbout());
+
+            menu.Popup += (sender, args) => {
+                menu.MenuItems[1].Checked = Program.UserConfig.MuteNotifications;
+            };
+
+            return menu;
+        }
+
+        private static void ToggleMuteNotifications(){
+            Program.UserConfig.MuteNotifications = !Program.UserConfig.MuteNotifications;
+            Program.UserConfig.Save();
         }
     }
 }

@@ -119,26 +119,15 @@
         var menu = $(".js-dropdown-content").children("ul").first();
         if (menu.length === 0)return;
         
-        menu.children(".drp-h-divider").last().after([
-          '<li class="is-selectable" data-std><a href="#" data-action="td-settings">TweetDuck settings</a></li>',
-          '<li class="is-selectable" data-std><a href="#" data-action="td-plugins">TweetDuck plugins</a></li>',
-          '<li class="drp-h-divider"></li>'
-        ].join(""));
+        menu.children(".drp-h-divider").last().before('<li class="is-selectable" data-std><a href="#" data-action="tweetduck">TweetDuck</a></li>');
         
-        var buttons = menu.children("[data-std]");
+        var button = menu.children("[data-std]");
 
-        buttons.on("click", "a", function(){
-          var action = $(this).attr("data-action");
-          
-          if (action === "td-settings"){
-            $TD.openSettingsMenu();
-          }
-          else if (action === "td-plugins"){
-            $TD.openPluginsMenu();
-          }
+        button.on("click", "a", function(){
+          $TD.openContextMenu();
         });
 
-        buttons.hover(function(){
+        button.hover(function(){
           $(this).addClass("is-selected");
         }, function(){
           $(this).removeClass("is-selected");

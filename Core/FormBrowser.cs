@@ -33,6 +33,7 @@ namespace TweetDck.Core{
         private readonly PluginManager plugins;
         private readonly UpdateHandler updates;
         private readonly FormNotificationTweet notification;
+        private readonly ContextMenu contextMenu;
 
         private FormSettings currentFormSettings;
         private FormAbout currentFormAbout;
@@ -52,6 +53,8 @@ namespace TweetDck.Core{
             this.plugins = pluginManager;
             this.plugins.Reloaded += plugins_Reloaded;
             this.plugins.PluginChangedState += plugins_PluginChangedState;
+
+            this.contextMenu = ContextMenuBrowser.CreateMenu(this);
 
             this.notification = new FormNotificationTweet(this, plugins, NotificationFlags.TopMost){
                 #if DEBUG
@@ -85,6 +88,7 @@ namespace TweetDck.Core{
 
             Disposed += (sender, args) => {
                 browser.Dispose();
+                contextMenu.Dispose();
 
                 if (notificationScreenshotManager != null){
                     notificationScreenshotManager.Dispose();
@@ -308,7 +312,15 @@ namespace TweetDck.Core{
             browser.ExecuteScriptAsync(PropertyBridge.GenerateScript(properties));
         }
 
+        public void ReloadToTweetDeck(){
+            browser.ExecuteScriptAsync("window.location.href = 'https://tweetdeck.twitter.com'");
+        }
+
         // callback handlers
+
+        public void OpenContextMenu(){
+            contextMenu.Show(this, new Point(Cursor.Position.X, Cursor.Position.Y-22));
+        }
 
         public void OpenSettings(){
             OpenSettings(0);
