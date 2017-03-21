@@ -9,11 +9,14 @@ namespace TweetDck.Resources{
     static class ScriptLoader{
         private const string UrlPrefix = "td:";
 
-        public static string LoadResource(string name){
+        public static string LoadResource(string name, bool silent = false){
             try{
                 return File.ReadAllText(Path.Combine(Program.ScriptPath, name), Encoding.UTF8);
             }catch(Exception ex){
-                MessageBox.Show("Unfortunately, "+Program.BrandName+" could not load the "+name+" file. The program will continue running with limited functionality.\r\n\r\n"+ex.Message, Program.BrandName+" Has Failed :(", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!silent){
+                    MessageBox.Show("Unfortunately, "+Program.BrandName+" could not load the "+name+" file. The program will continue running with limited functionality.\r\n\r\n"+ex.Message, Program.BrandName+" Has Failed :(", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
                 return null;
             }
         }

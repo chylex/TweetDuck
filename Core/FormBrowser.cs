@@ -79,6 +79,8 @@ namespace TweetDck.Core{
 
             this.browser.LoadingStateChanged += browser_LoadingStateChanged;
             this.browser.FrameLoadEnd += browser_FrameLoadEnd;
+            this.browser.LoadError += browser_LoadError;
+            this.browser.AddressChanged += browser_AddressChanged;
             this.browser.RegisterAsyncJsObject("$TD", new TweetDeckBridge(this, notification));
             this.browser.RegisterAsyncJsObject("$TDP", plugins.Bridge);
 
@@ -160,6 +162,25 @@ namespace TweetDck.Core{
                 }
 
                 TweetDeckBridge.ResetStaticProperties();
+            }
+        }
+
+        private void browser_LoadError(object sender, LoadErrorEventArgs e){
+            if (!e.FailedUrl.StartsWith("http://td/") && !e.FailedUrl.StartsWith("td:")){
+                string errorPage = ScriptLoader.LoadResource("pages/error.html", true);
+
+                if (errorPage != null){
+                    browser.LoadHtml(errorPage.Replace("{err}", BrowserUtils.GetErrorName(e.ErrorCode)), "http://td/error");
+                }
+            }
+        }
+
+        private void browser_AddressChanged(object sender, AddressChangedEventArgs e){
+            if (e.Address.StartsWith("td:")){
+                switch(e.Address){
+                    case "td:reload": ReloadToTweetDeck(); break;
+                    case "td:exit": this.InvokeAsyncSafe(ForceClose); break;
+                }
             }
         }
 

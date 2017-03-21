@@ -67,6 +67,10 @@ namespace TweetDck.Core.Utils{
             return Regex.Replace(str, @"(\p{Ll})(\P{Ll})|(\P{Ll})(\P{Ll}\p{Ll})", "$1$3_$2$4").ToUpperInvariant();
         }
 
+        public static string GetErrorName(CefErrorCode code){
+            return ConvertPascalCaseToScreamingSnakeCase(Enum.GetName(typeof(CefErrorCode), code) ?? string.Empty);
+        }
+
         public static void DownloadFileAsync(string url, string target, Action<Exception> onFailure){
             WebClient client = new WebClient{ Proxy = null };
             client.Headers[HttpRequestHeader.UserAgent] = HeaderUserAgent;
