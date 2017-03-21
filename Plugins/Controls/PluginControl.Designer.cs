@@ -56,6 +56,7 @@
             this.labelName.Size = new System.Drawing.Size(61, 24);
             this.labelName.TabIndex = 1;
             this.labelName.Text = "Name";
+            this.labelName.UseMnemonic = false;
             // 
             // panelDescription
             // 
@@ -81,6 +82,7 @@
             this.labelDescription.Size = new System.Drawing.Size(13, 39);
             this.labelDescription.TabIndex = 3;
             this.labelDescription.Text = "a\r\nb\r\nc";
+            this.labelDescription.UseMnemonic = false;
             // 
             // labelAuthor
             // 
@@ -91,6 +93,7 @@
             this.labelAuthor.Size = new System.Drawing.Size(38, 13);
             this.labelAuthor.TabIndex = 3;
             this.labelAuthor.Text = "Author";
+            this.labelAuthor.UseMnemonic = false;
             // 
             // flowLayoutInfo
             // 
@@ -115,6 +118,7 @@
             this.labelWebsite.Size = new System.Drawing.Size(46, 13);
             this.labelWebsite.TabIndex = 5;
             this.labelWebsite.Text = "Website";
+            this.labelWebsite.UseMnemonic = false;
             this.labelWebsite.Click += new System.EventHandler(this.labelWebsite_Click);
             // 
             // labelVersion
@@ -128,6 +132,7 @@
             this.labelVersion.TabIndex = 5;
             this.labelVersion.Text = "Version";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.labelVersion.UseMnemonic = false;
             // 
             // btnOpenConfig
             // 
