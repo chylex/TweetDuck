@@ -27,6 +27,10 @@ namespace TweetDck.Core.Utils{
             }
         }
 
+        public static readonly string[] DictionaryWords = {
+            "tweetdeck", "TweetDeck", "tweetduck", "TweetDuck", "TD"
+        };
+
         public static bool IsValidUrl(string url){
             Uri uri;
             

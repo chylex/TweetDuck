@@ -77,8 +77,8 @@ namespace TweetDck.Core{
             this.browser.ConsoleMessage += BrowserUtils.HandleConsoleMessage;
             #endif
 
-            this.browser.LoadingStateChanged += Browser_LoadingStateChanged;
-            this.browser.FrameLoadEnd += Browser_FrameLoadEnd;
+            this.browser.LoadingStateChanged += browser_LoadingStateChanged;
+            this.browser.FrameLoadEnd += browser_FrameLoadEnd;
             this.browser.RegisterAsyncJsObject("$TD", new TweetDeckBridge(this, notification));
             this.browser.RegisterAsyncJsObject("$TDP", plugins.Bridge);
 
@@ -136,20 +136,18 @@ namespace TweetDck.Core{
 
         // active event handlers
 
-        private void Browser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e){
+        private void browser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e){
             if (!e.IsLoading){
-                browser.AddWordToDictionary("tweetdeck");
-                browser.AddWordToDictionary("TweetDeck");
-                browser.AddWordToDictionary("tweetduck");
-                browser.AddWordToDictionary("TweetDuck");
-                browser.AddWordToDictionary("TD");
+                foreach(string word in BrowserUtils.DictionaryWords){
+                    browser.AddWordToDictionary(word);
+                }
 
-                Invoke(new Action(SetupWindow));
-                browser.LoadingStateChanged -= Browser_LoadingStateChanged;
+                BeginInvoke(new Action(SetupWindow));
+                browser.LoadingStateChanged -= browser_LoadingStateChanged;
             }
         }
 
-        private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
+        private void browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             if (e.Frame.IsMain && BrowserUtils.IsTweetDeckWebsite(e.Frame)){
                 UpdateProperties();
                 ScriptLoader.ExecuteFile(e.Frame, "code.js");
