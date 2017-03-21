@@ -33,7 +33,8 @@ namespace TweetDck{
 
         public static readonly string PluginDataPath = Path.Combine(StoragePath, "TD_Plugins");
         public static readonly string ConfigFilePath = Path.Combine(StoragePath, "TD_UserConfig.cfg");
-        private static readonly string LogFilePath = Path.Combine(StoragePath, "TD_Log.txt");
+        private static readonly string ErrorLogFilePath = Path.Combine(StoragePath, "TD_Log.txt");
+        private static readonly string ConsoleLogFilePath = Path.Combine(StoragePath, "TD_Console.txt");
         
         public static readonly string ScriptPath = Path.Combine(ProgramPath, "scripts");
         public static readonly string PluginPath = Path.Combine(ProgramPath, "plugins");
@@ -58,7 +59,7 @@ namespace TweetDck{
                 return;
             }
 
-            Reporter = new Reporter(LogFilePath);
+            Reporter = new Reporter(ErrorLogFilePath);
             Reporter.SetupUnhandledExceptionHandler(BrandName+" Has Failed :(");
 
             if (Arguments.HasFlag(Arguments.ArgRestart)){
@@ -134,7 +135,7 @@ namespace TweetDck{
                 UserAgent = BrowserUtils.HeaderUserAgent,
                 Locale = Arguments.GetValue(Arguments.ArgLocale, string.Empty),
                 CachePath = StoragePath,
-                LogFile = Path.Combine(StoragePath, "TD_Console.txt"),
+                LogFile = ConsoleLogFilePath,
                 #if !DEBUG
                 BrowserSubprocessPath = BrandName+".Browser.exe",
                 LogSeverity = Arguments.HasFlag(Arguments.ArgLogging) ? LogSeverity.Info : LogSeverity.Disable
