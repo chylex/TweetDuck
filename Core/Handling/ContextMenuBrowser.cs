@@ -98,7 +98,7 @@ namespace TweetDck.Core.Handling{
 
             switch((int)commandId){
                 case (int)CefMenuCommand.Reload:
-                    frame.ExecuteJavaScriptAsync("window.location.href = 'https://tweetdeck.twitter.com'");
+                    form.InvokeAsyncSafe(form.ReloadToTweetDeck);
                     return true;
 
                 case MenuSettings:
