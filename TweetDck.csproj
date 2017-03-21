@@ -325,7 +325,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Scripts\code.js" />
-    <Content Include="Resources\Scripts\debug.js" />
     <Content Include="Resources\Scripts\notification.js" />
     <Content Include="Resources\Scripts\plugins.browser.js" />
     <Content Include="Resources\Scripts\plugins.js" />
