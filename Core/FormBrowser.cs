@@ -319,7 +319,7 @@ namespace TweetDck.Core{
         // callback handlers
 
         public void OpenContextMenu(){
-            contextMenu.Show(this, new Point(Cursor.Position.X, Cursor.Position.Y-22));
+            contextMenu.Show(this, PointToClient(Cursor.Position));
         }
 
         public void OpenSettings(){
