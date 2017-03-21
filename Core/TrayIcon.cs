@@ -34,42 +34,46 @@ namespace TweetDck.Core{
             }
         }
 
+        private readonly ContextMenu contextMenu;
         private bool hasNotifications;
 
         public TrayIcon(){
             InitializeComponent();
-            notifyIcon.Text = Program.BrandName;
+
+            this.contextMenu = new ContextMenu();
+            this.contextMenu.MenuItems.Add("Restore", menuItemRestore_Click);
+            this.contextMenu.MenuItems.Add("Mute notifications", menuItemMuteNotifications_Click);
+            this.contextMenu.MenuItems.Add("Close", menuItemClose_Click);
+            this.contextMenu.Popup += contextMenu_Popup;
+                
+            this.notifyIcon.ContextMenu = contextMenu;
+            this.notifyIcon.Text = Program.BrandName;
         }
 
         // event handlers
 
         private void trayIcon_MouseClick(object sender, MouseEventArgs e){
             if (e.Button == MouseButtons.Left){
-                restoreToolStripMenuItem_Click(sender, e);
+                menuItemRestore_Click(sender, e);
             }
         }
 
-        private void contextMenuTray_Opening(object sender, CancelEventArgs e){
-            muteNotificationsToolStripMenuItem.CheckedChanged -= muteNotificationsToolStripMenuItem_CheckedChanged;
-            muteNotificationsToolStripMenuItem.Checked = Program.UserConfig.MuteNotifications;
+        private void contextMenu_Popup(object sender, EventArgs e){
+            contextMenu.MenuItems[1].Checked = Program.UserConfig.MuteNotifications;
         }
 
-        private void contextMenuTray_Opened(object sender, EventArgs e){
-            muteNotificationsToolStripMenuItem.CheckedChanged += muteNotificationsToolStripMenuItem_CheckedChanged;
-        }
-
-        private void restoreToolStripMenuItem_Click(object sender, EventArgs e){
+        private void menuItemRestore_Click(object sender, EventArgs e){
             if (ClickRestore != null){
                 ClickRestore(this, e);
             }
         }
 
-        private void muteNotificationsToolStripMenuItem_CheckedChanged(object sender, EventArgs e){
-            Program.UserConfig.MuteNotifications = muteNotificationsToolStripMenuItem.Checked;
+        private void menuItemMuteNotifications_Click(object sender, EventArgs e){
+            Program.UserConfig.MuteNotifications = !contextMenu.MenuItems[1].Checked;
             Program.UserConfig.Save();
         }
 
-        private void closeToolStripMenuItem_Click(object sender, EventArgs e){
+        private void menuItemClose_Click(object sender, EventArgs e){
             if (ClickClose != null){
                 ClickClose(this, e);
             }
