@@ -5,6 +5,7 @@ using System.IO;
 using System.Net;
 using System.Windows.Forms;
 using CefSharp;
+using System.Text.RegularExpressions;
 
 namespace TweetDck.Core.Utils{
     static class BrowserUtils{
@@ -60,6 +61,10 @@ namespace TweetDck.Core.Utils{
         public static string GetFileNameFromUrl(string url){
             string file = Path.GetFileName(new Uri(url).AbsolutePath);
             return string.IsNullOrEmpty(file) ? null : file;
+        }
+
+        public static string ConvertPascalCaseToScreamingSnakeCase(string str){
+            return Regex.Replace(str, @"(\p{Ll})(\P{Ll})|(\P{Ll})(\P{Ll}\p{Ll})", "$1$3_$2$4").ToUpperInvariant();
         }
 
         public static void DownloadFileAsync(string url, string target, Action<Exception> onFailure){

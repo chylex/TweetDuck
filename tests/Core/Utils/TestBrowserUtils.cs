@@ -46,5 +46,15 @@ namespace UnitTests.Core.Utils{
 
             Assert.IsNull(BrowserUtils.GetFileNameFromUrl("http://test.com/"));
         }
+
+        [TestMethod]
+        public void TestConvertPascalCaseToScreamingSnakeCase(){
+            Assert.AreEqual("HELP", BrowserUtils.ConvertPascalCaseToScreamingSnakeCase("Help"));
+            Assert.AreEqual("HELP_ME", BrowserUtils.ConvertPascalCaseToScreamingSnakeCase("HelpMe"));
+            Assert.AreEqual("HELP_ME_PLEASE", BrowserUtils.ConvertPascalCaseToScreamingSnakeCase("HelpMePlease"));
+
+            Assert.AreEqual("HTML_CODE", BrowserUtils.ConvertPascalCaseToScreamingSnakeCase("HTMLCode"));
+            Assert.AreEqual("CHECK_OUT_MY_HTML_CODE", BrowserUtils.ConvertPascalCaseToScreamingSnakeCase("CheckOutMyHTMLCode"));
+        }
     }
 }
