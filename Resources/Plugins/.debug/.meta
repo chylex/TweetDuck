@@ -2,13 +2,14 @@
 Debug plugin
 
 [description]
-- Runs several tests on startup, only included in debug configuration
+- Enables debug functionality and tests
+- Only included in debug configuration
 
 [author]
 chylex
 
 [version]
-1.0
+1.1
 
 [website]
 https://tweetduck.chylex.com

@@ -155,10 +155,6 @@ namespace TweetDck.Core{
                 ScriptLoader.ExecuteFile(e.Frame, "code.js");
                 ReinjectCustomCSS(Config.CustomBrowserCSS);
 
-                #if DEBUG
-                ScriptLoader.ExecuteFile(e.Frame, "debug.js");
-                #endif
-
                 if (plugins.HasAnyPlugin(PluginEnvironment.Browser)){
                     ScriptLoader.ExecuteFile(e.Frame, PluginManager.PluginBrowserScriptFile);
                     ScriptLoader.ExecuteFile(e.Frame, PluginManager.PluginGlobalScriptFile);
