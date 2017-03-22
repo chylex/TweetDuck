@@ -13,20 +13,11 @@ namespace TweetDck.Core.Utils{
         public const int HWND_TOPMOST = -1;
         public const uint SWP_NOACTIVATE = 0x0010;
 
-        public const int MOUSEEVENTF_LEFTDOWN = 0x02;
-        public const int MOUSEEVENTF_LEFTUP = 0x04;
-        public const int MOUSEEVENTF_RIGHTDOWN = 0x08;
-        public const int MOUSEEVENTF_RIGHTUP = 0x10;
-
         public const int SB_HORZ = 0;
         public const int BCM_SETSHIELD = 0x160C;
 
         public const int WM_MOUSE_LL = 14;
         public const int WM_MOUSEWHEEL = 0x020A;
-
-        public enum MouseButton{
-            Left, Right
-        }
         
         [StructLayout(LayoutKind.Sequential)]
         private struct LASTINPUTINFO{
@@ -55,9 +46,6 @@ namespace TweetDck.Core.Utils{
 
         [DllImport("user32.dll", EntryPoint = "SetWindowPos")]
         private static extern bool SetWindowPos(int hWnd, int hWndOrder, int x, int y, int width, int height, uint flags);
-
-        [DllImport("user32.dll")]
-        private static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
 
         [DllImport("user32.dll")]
         private static extern bool GetLastInputInfo(ref LASTINPUTINFO info);
@@ -96,27 +84,6 @@ namespace TweetDck.Core.Utils{
 
         public static void SetFormPos(Form form, int hWndOrder, uint flags){
             SetWindowPos(form.Handle.ToInt32(), hWndOrder, form.Left, form.Top, form.Width, form.Height, flags);
-        }
-
-        public static void SimulateMouseClick(MouseButton button){
-            int flagHold, flagRelease;
-
-            switch(button){
-                case MouseButton.Left:
-                    flagHold = SystemInformation.MouseButtonsSwapped ? MOUSEEVENTF_RIGHTDOWN : MOUSEEVENTF_LEFTDOWN;
-                    flagRelease = SystemInformation.MouseButtonsSwapped ? MOUSEEVENTF_RIGHTUP : MOUSEEVENTF_LEFTUP;
-                    break;
-
-                case MouseButton.Right:
-                    flagHold = SystemInformation.MouseButtonsSwapped ? MOUSEEVENTF_LEFTDOWN : MOUSEEVENTF_RIGHTDOWN;
-                    flagRelease = SystemInformation.MouseButtonsSwapped ? MOUSEEVENTF_LEFTUP : MOUSEEVENTF_RIGHTUP;
-                    break;
-
-                default: return;
-            }
-
-            mouse_event(flagHold, Cursor.Position.X, Cursor.Position.Y, 0, 0);
-            mouse_event(flagRelease, Cursor.Position.X, Cursor.Position.Y, 0, 0);
         }
 
         public static int GetHookWheelDelta(IntPtr ptr){
