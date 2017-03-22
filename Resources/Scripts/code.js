@@ -225,6 +225,12 @@
   (function(){
     var lastTweet = "";
     
+    var updateHighlightedColumn = function(ele){
+      highlightedColumnEle = ele;
+      highlightedColumnObj = ele ? TD.controller.columnManager.get(ele.attr("data-column")) : null;
+      return !!highlightedColumnObj;
+    };
+    
     var updateHighlightedTweet = function(ele, obj, link, embeddedLink){
       highlightedTweetEle = ele;
       highlightedTweetObj = obj;
@@ -235,24 +241,27 @@
       }
     };
     
-    app.delegate("section", "mouseenter mouseleave", function(e){
+    app.delegate("section.js-column", "mouseenter mouseleave", function(e){
       if (e.type === "mouseenter"){
-        highlightedColumnEle = $(this);
-        highlightedColumnObj = TD.controller.columnManager.get(highlightedColumnEle.attr("data-column"));
+        if (!highlightedColumnObj){
+          updateHighlightedColumn($(this));
+        }
       }
       else if (e.type === "mouseleave"){
-        highlightedColumnEle = null;
-        highlightedColumnObj = null;
+        updateHighlightedColumn(null);
       }
     });
     
     app.delegate("article.js-stream-item", "mouseenter mouseleave", function(e){
       if (e.type === "mouseenter"){
-        if (!highlightedColumnObj)return;
-        
         var me = $(this);
-        var tweet = highlightedColumnObj.findChirp(me.attr("data-key"));
         
+        if (!me[0].hasAttribute("data-tweet-id") || !highlightedColumnObj && !updateHighlightedColumn(me.closest("section.js-column"))){
+          return;
+        }
+        
+        var tweet = highlightedColumnObj.findChirp(me.attr("data-tweet-id")) || highlightedColumnObj.findChirp(me.attr("data-key"));
+
         if (tweet && tweet.chirpType === TD.services.ChirpBase.TWEET){
           var link = tweet.getChirpURL();
           var embedded = tweet.quotedTweet ? tweet.quotedTweet.getChirpURL() : "";
