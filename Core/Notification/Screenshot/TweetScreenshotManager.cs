@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Notification.Screenshot{
     sealed class TweetScreenshotManager : IDisposable{
@@ -12,8 +11,16 @@ namespace TweetDck.Core.Notification.Screenshot{
                 CanMoveWindow = () => false
             };
 
-            this.timeout = WindowsUtils.CreateSingleTickTimer(10000);
-            this.timeout.Tick += (sender, args) => screenshot.Reset();
+            this.timeout = new Timer{
+                Interval = 10000
+            };
+
+            this.timeout.Tick += timeout_Tick;
+        }
+
+        private void timeout_Tick(object sender, EventArgs e){
+            timeout.Stop();
+            screenshot.Reset();
         }
 
         public void Trigger(string html, int width, int height){

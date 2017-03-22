@@ -5,7 +5,6 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
-using Timer = System.Windows.Forms.Timer;
 
 namespace TweetDck.Core.Utils{
     static class WindowsUtils{
@@ -37,15 +36,6 @@ namespace TweetDck.Core.Utils{
             }
 
             return Process.Start(processInfo);
-        }
-
-        public static Timer CreateSingleTickTimer(int timeout){
-            Timer timer = new Timer{
-                Interval = timeout
-            };
-
-            timer.Tick += (sender, args) => timer.Stop();
-            return timer;
         }
 
         public static bool TrySleepUntil(Func<bool> test, int timeoutMillis, int timeStepMillis){
