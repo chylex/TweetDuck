@@ -68,8 +68,7 @@ namespace TweetDck.Core.Notification{
         
         public Func<bool> CanMoveWindow = () => true;
 
-        private readonly Control owner;
-        protected readonly NotificationFlags flags;
+        private readonly Form owner;
         protected readonly ChromiumWebBrowser browser;
 
         private int pauseCounter;
@@ -93,30 +92,28 @@ namespace TweetDck.Core.Notification{
 
         public event EventHandler Initialized;
 
-        public FormNotificationBase(Form owner, NotificationFlags flags){
+        public FormNotificationBase(Form owner, bool enableContextMenu){
             InitializeComponent();
 
             this.owner = owner;
-            this.flags = flags;
+            this.owner.FormClosed += owner_FormClosed;
 
-            owner.FormClosed += owner_FormClosed;
-
-            browser = new ChromiumWebBrowser("about:blank"){
-                MenuHandler = new ContextMenuNotification(this, !flags.HasFlag(NotificationFlags.DisableContextMenu)),
+            this.browser = new ChromiumWebBrowser("about:blank"){
+                MenuHandler = new ContextMenuNotification(this, enableContextMenu),
                 LifeSpanHandler = new LifeSpanHandler()
             };
 
             #if DEBUG
-            browser.ConsoleMessage += BrowserUtils.HandleConsoleMessage;
+            this.browser.ConsoleMessage += BrowserUtils.HandleConsoleMessage;
             #endif
 
-            browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
+            this.browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
 
             panelBrowser.Controls.Add(browser);
 
             Disposed += (sender, args) => {
-                browser.Dispose();
-                owner.FormClosed -= owner_FormClosed;
+                this.browser.Dispose();
+                this.owner.FormClosed -= owner_FormClosed;
             };
 
             // ReSharper disable once VirtualMemberCallInContructor
@@ -184,7 +181,7 @@ namespace TweetDck.Core.Notification{
             bool needsReactivating = Location == ControlExtensions.InvisibleLocation;
             Location = PrimaryLocation;
 
-            if (needsReactivating && flags.HasFlag(NotificationFlags.TopMost)){
+            if (needsReactivating){
                 NativeMethods.SetFormPos(this, NativeMethods.HWND_TOPMOST, NativeMethods.SWP_NOACTIVATE);
             }
         }

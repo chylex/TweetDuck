@@ -56,7 +56,7 @@ namespace TweetDck.Core{
 
             this.contextMenu = ContextMenuBrowser.CreateMenu(this);
 
-            this.notification = new FormNotificationTweet(this, plugins, NotificationFlags.TopMost){
+            this.notification = new FormNotificationTweet(this, plugins){
                 #if DEBUG
                 CanMoveWindow = () => (ModifierKeys & Keys.Alt) == Keys.Alt
                 #else
@@ -293,8 +293,8 @@ namespace TweetDck.Core{
 
         // notification helpers
 
-        public FormNotificationMain CreateNotificationForm(NotificationFlags flags){
-            return new FormNotificationMain(this, plugins, flags);
+        public FormNotificationMain CreateNotificationForm(bool enableContextMenu){
+            return new FormNotificationMain(this, plugins, enableContextMenu);
         }
 
         public void PauseNotification(){

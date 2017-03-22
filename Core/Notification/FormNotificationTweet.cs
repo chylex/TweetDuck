@@ -17,7 +17,7 @@ namespace TweetDck.Core.Notification{
 
         private readonly Queue<TweetNotification> tweetQueue = new Queue<TweetNotification>(4);
 
-        public FormNotificationTweet(FormBrowser owner, PluginManager pluginManager, NotificationFlags flags) : base(owner, pluginManager, flags){
+        public FormNotificationTweet(FormBrowser owner, PluginManager pluginManager) : base(owner, pluginManager, true){
             InitializeComponent();
 
             Program.UserConfig.MuteToggled += Config_MuteToggled;

@@ -8,7 +8,7 @@ namespace TweetDck.Core.Notification.Screenshot{
         private readonly Timer timeout;
 
         public TweetScreenshotManager(Form owner){
-            this.screenshot = new FormNotificationScreenshotable(Callback, owner, NotificationFlags.DisableContextMenu | NotificationFlags.TopMost){
+            this.screenshot = new FormNotificationScreenshotable(Callback, owner){
                 CanMoveWindow = () => false
             };
 

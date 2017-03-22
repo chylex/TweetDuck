@@ -25,11 +25,11 @@ namespace TweetDck.Core.Other.Settings{
             };
             
             this.notification.Initialized += (sender, args) => {
-                this.InvokeSafe(() => this.notification.ShowNotificationForSettings(true));
+                this.InvokeAsyncSafe(() => this.notification.ShowNotificationForSettings(true));
             };
 
             this.notification.Activated += notification_Activated;
-            this.notification.Show(this);
+            this.notification.Show();
 
             initCursorPosition = ignoreAutoClick ? ControlExtensions.InvisibleLocation : Cursor.Position;
 

@@ -65,7 +65,7 @@ namespace TweetDck.Core.Notification{
             }
         }
 
-        public FormNotificationMain(FormBrowser owner, PluginManager pluginManager, NotificationFlags flags) : base(owner, flags){
+        public FormNotificationMain(FormBrowser owner, PluginManager pluginManager, bool enableContextMenu) : base(owner, enableContextMenu){
             InitializeComponent();
 
             this.plugins = pluginManager;
