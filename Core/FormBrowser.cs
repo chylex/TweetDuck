@@ -220,14 +220,10 @@ namespace TweetDck.Core{
         }
 
         private void Config_TrayBehaviorChanged(object sender, EventArgs e){
-            if (!isLoaded)return;
-            
             UpdateTrayIcon();
         }
 
         private void trayIcon_ClickRestore(object sender, EventArgs e){
-            if (!isLoaded)return;
-
             isLoaded = false;
             Show();
             SetupWindow();
@@ -236,8 +232,6 @@ namespace TweetDck.Core{
         }
 
         private void trayIcon_ClickClose(object sender, EventArgs e){
-            if (!isLoaded)return;
-
             ForceClose();
         }
         
