@@ -1,6 +1,7 @@
 ﻿using CefSharp;
 using System;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using TweetDck.Core.Bridge;
 using TweetDck.Core.Controls;
@@ -8,11 +9,14 @@ using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Handling{
     abstract class ContextMenuBase : IContextMenuHandler{
+        private static readonly Regex RegexTwitterAccount = new Regex(@"^https?://twitter\.com/([^/]+)/?$", RegexOptions.Compiled);
+
         private const int MenuOpenLinkUrl = 26500;
         private const int MenuCopyLinkUrl = 26501;
-        private const int MenuOpenImage = 26502;
-        private const int MenuSaveImage = 26503;
-        private const int MenuCopyImageUrl = 26504;
+        private const int MenuCopyUsername = 26502;
+        private const int MenuOpenImage = 26503;
+        private const int MenuSaveImage = 26504;
+        private const int MenuCopyImageUrl = 26505;
 
         #if DEBUG
         private const int MenuOpenDevTools = 26599;
@@ -30,8 +34,16 @@ namespace TweetDck.Core.Handling{
 
         public virtual void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model){
             if (parameters.TypeFlags.HasFlag(ContextMenuType.Link) && !parameters.UnfilteredLinkUrl.EndsWith("tweetdeck.twitter.com/#", StringComparison.Ordinal)){
-                model.AddItem((CefMenuCommand)MenuOpenLinkUrl, "Open link in browser");
-                model.AddItem((CefMenuCommand)MenuCopyLinkUrl, "Copy link address");
+                if (RegexTwitterAccount.IsMatch(parameters.UnfilteredLinkUrl)){
+                    model.AddItem((CefMenuCommand)MenuOpenLinkUrl, "Open account in browser");
+                    model.AddItem((CefMenuCommand)MenuCopyLinkUrl, "Copy account address");
+                    model.AddItem((CefMenuCommand)MenuCopyUsername, "Copy account username");
+                }
+                else{
+                    model.AddItem((CefMenuCommand)MenuOpenLinkUrl, "Open link in browser");
+                    model.AddItem((CefMenuCommand)MenuCopyLinkUrl, "Copy link address");
+                }
+
                 model.AddSeparator();
             }
 
@@ -82,6 +94,11 @@ namespace TweetDck.Core.Handling{
 
                 case MenuCopyImageUrl:
                     SetClipboardText(parameters.SourceUrl);
+                    break;
+
+                case MenuCopyUsername:
+                    Match match = RegexTwitterAccount.Match(parameters.UnfilteredLinkUrl);
+                    SetClipboardText(match.Success ? match.Groups[1].Value : parameters.UnfilteredLinkUrl);
                     break;
 
                 #if DEBUG
