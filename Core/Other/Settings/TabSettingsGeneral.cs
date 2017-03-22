@@ -30,46 +30,44 @@ namespace TweetDck.Core.Other.Settings{
             checkUpdateNotifications.Checked = Config.EnableUpdateCheck;
         }
 
-        private void checkExpandLinks_CheckedChanged(object sender, EventArgs e){
-            if (!Ready)return;
+        public override void OnReady(){
+            checkExpandLinks.CheckedChanged += checkExpandLinks_CheckedChanged;
+            checkSpellCheck.CheckedChanged += checkSpellCheck_CheckedChanged;
+            checkScreenshotBorder.CheckedChanged += checkScreenshotBorder_CheckedChanged;
 
+            comboBoxTrayType.SelectedIndexChanged += comboBoxTrayType_SelectedIndexChanged;
+            checkTrayHighlight.CheckedChanged += checkTrayHighlight_CheckedChanged;
+
+            checkUpdateNotifications.CheckedChanged += checkUpdateNotifications_CheckedChanged;
+            btnCheckUpdates.Click += btnCheckUpdates_Click;
+        }
+
+        private void checkExpandLinks_CheckedChanged(object sender, EventArgs e){
             Config.ExpandLinksOnHover = checkExpandLinks.Checked;
         }
 
         private void checkSpellCheck_CheckedChanged(object sender, EventArgs e){
-            if (!Ready)return;
-
             Config.EnableSpellCheck = checkSpellCheck.Checked;
             PromptRestart();
         }
 
         private void checkScreenshotBorder_CheckedChanged(object sender, EventArgs e){
-            if (!Ready)return;
-
             Config.ShowScreenshotBorder = checkScreenshotBorder.Checked;
         }
 
         private void comboBoxTrayType_SelectedIndexChanged(object sender, EventArgs e){
-            if (!Ready)return;
-
             Config.TrayBehavior = (TrayIcon.Behavior)comboBoxTrayType.SelectedIndex;
         }
 
         private void checkTrayHighlight_CheckedChanged(object sender, EventArgs e){
-            if (!Ready)return;
-            
             Config.EnableTrayHighlight = checkTrayHighlight.Checked;
         }
 
         private void checkUpdateNotifications_CheckedChanged(object sender, EventArgs e){
-            if (!Ready)return;
-
             Config.EnableUpdateCheck = checkUpdateNotifications.Checked;
         }
 
         private void btnCheckUpdates_Click(object sender, EventArgs e){
-            if (!Ready)return;
-
             updateCheckEventId = updates.Check(true);
 
             if (updateCheckEventId == -1){

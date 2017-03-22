@@ -9,12 +9,11 @@ namespace TweetDck.Core.Other.Settings{
             }
         }
 
-        public bool Ready { get; set; }
-
         public BaseTabSettings(){
             Padding = new Padding(6);
         }
 
+        public virtual void OnReady(){}
         public virtual void OnClosing(){}
 
         protected static void PromptRestart(){

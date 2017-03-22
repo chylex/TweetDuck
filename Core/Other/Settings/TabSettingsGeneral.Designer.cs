@@ -53,7 +53,6 @@
             this.toolTip.SetToolTip(this.checkExpandLinks, "Expands links inside the tweets. If disabled,\r\nthe full links show up in a toolti" +
         "p instead.");
             this.checkExpandLinks.UseVisualStyleBackColor = true;
-            this.checkExpandLinks.CheckedChanged += new System.EventHandler(this.checkExpandLinks_CheckedChanged);
             // 
             // comboBoxTrayType
             // 
@@ -64,7 +63,6 @@
             this.comboBoxTrayType.Size = new System.Drawing.Size(171, 21);
             this.comboBoxTrayType.TabIndex = 13;
             this.toolTip.SetToolTip(this.comboBoxTrayType, "Changes behavior of the Tray icon.\r\nRight-click the icon for an action menu.");
-            this.comboBoxTrayType.SelectedIndexChanged += new System.EventHandler(this.comboBoxTrayType_SelectedIndexChanged);
             // 
             // checkTrayHighlight
             // 
@@ -78,7 +76,6 @@
             this.toolTip.SetToolTip(this.checkTrayHighlight, "Highlights the tray icon if there are new tweets.\r\nOnly works for columns with po" +
         "pup or audio notifications.\r\nThe icon resets when the main window is restored.");
             this.checkTrayHighlight.UseVisualStyleBackColor = true;
-            this.checkTrayHighlight.CheckedChanged += new System.EventHandler(this.checkTrayHighlight_CheckedChanged);
             // 
             // checkSpellCheck
             // 
@@ -90,7 +87,6 @@
             this.checkSpellCheck.Text = "Enable Spell Check";
             this.toolTip.SetToolTip(this.checkSpellCheck, "Underlines words that are spelled incorrectly.");
             this.checkSpellCheck.UseVisualStyleBackColor = true;
-            this.checkSpellCheck.CheckedChanged += new System.EventHandler(this.checkSpellCheck_CheckedChanged);
             // 
             // checkScreenshotBorder
             // 
@@ -102,7 +98,6 @@
             this.checkScreenshotBorder.Text = "Include Border In Screenshots";
             this.toolTip.SetToolTip(this.checkScreenshotBorder, "Shows the window border in tweet screenshots.");
             this.checkScreenshotBorder.UseVisualStyleBackColor = true;
-            this.checkScreenshotBorder.CheckedChanged += new System.EventHandler(this.checkScreenshotBorder_CheckedChanged);
             // 
             // groupTray
             // 
@@ -161,7 +156,6 @@
             this.toolTip.SetToolTip(this.checkUpdateNotifications, "Checks for updates every hour.\r\nIf an update is dismissed, it will not appear aga" +
         "in.");
             this.checkUpdateNotifications.UseVisualStyleBackColor = true;
-            this.checkUpdateNotifications.CheckedChanged += new System.EventHandler(this.checkUpdateNotifications_CheckedChanged);
             // 
             // btnCheckUpdates
             // 
@@ -172,7 +166,6 @@
             this.btnCheckUpdates.Text = "Check Updates Now";
             this.toolTip.SetToolTip(this.btnCheckUpdates, "Forces an update check, even for updates that had been dismissed.");
             this.btnCheckUpdates.UseVisualStyleBackColor = true;
-            this.btnCheckUpdates.Click += new System.EventHandler(this.btnCheckUpdates_Click);
             // 
             // TabSettingsGeneral
             // 

@@ -31,9 +31,24 @@ namespace TweetDck.Core.Other.Settings{
             }));
         }
 
-        private void btnClearCache_Click(object sender, EventArgs e){
-            if (!Ready)return;
+        public override void OnReady(){
+            btnClearCache.Click += btnClearCache_Click;
+            checkHardwareAcceleration.CheckedChanged += checkHardwareAcceleration_CheckedChanged;
 
+            btnEditCefArgs.Click += btnEditCefArgs_Click;
+            btnEditCSS.Click += btnEditCSS_Click;
+
+            btnExport.Click += btnExport_Click;
+            btnImport.Click += btnImport_Click;
+            btnReset.Click += btnReset_Click;
+            
+            btnOpenAppFolder.Click += btnOpenAppFolder_Click;
+            btnOpenDataFolder.Click += btnOpenDataFolder_Click;
+            btnRestart.Click += btnRestart_Click;
+            btnRestartArgs.Click += btnRestartArgs_Click;
+        }
+
+        private void btnClearCache_Click(object sender, EventArgs e){
             btnClearCache.Enabled = false;
             BrowserCache.SetClearOnExit();
 
@@ -41,8 +56,6 @@ namespace TweetDck.Core.Other.Settings{
         }
 
         private void checkHardwareAcceleration_CheckedChanged(object sender, EventArgs e){
-            if (!Ready)return;
-
             bool succeeded = false;
 
             if (checkHardwareAcceleration.Checked){

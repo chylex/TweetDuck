@@ -110,7 +110,6 @@
             this.comboBoxDisplay.Name = "comboBoxDisplay";
             this.comboBoxDisplay.Size = new System.Drawing.Size(171, 21);
             this.comboBoxDisplay.TabIndex = 7;
-            this.comboBoxDisplay.SelectedValueChanged += new System.EventHandler(this.comboBoxDisplay_SelectedValueChanged);
             // 
             // labelEdgeDistance
             // 
@@ -133,7 +132,6 @@
             this.radioLocCustom.Text = "Custom";
             this.toolTip.SetToolTip(this.radioLocCustom, "Drag the notification window to the desired location.");
             this.radioLocCustom.UseVisualStyleBackColor = true;
-            this.radioLocCustom.CheckedChanged += new System.EventHandler(this.radioLoc_CheckedChanged);
             // 
             // radioLocBR
             // 
@@ -145,7 +143,6 @@
             this.radioLocBR.TabStop = true;
             this.radioLocBR.Text = "Bottom Right";
             this.radioLocBR.UseVisualStyleBackColor = true;
-            this.radioLocBR.CheckedChanged += new System.EventHandler(this.radioLoc_CheckedChanged);
             // 
             // radioLocBL
             // 
@@ -157,7 +154,6 @@
             this.radioLocBL.TabStop = true;
             this.radioLocBL.Text = "Bottom Left";
             this.radioLocBL.UseVisualStyleBackColor = true;
-            this.radioLocBL.CheckedChanged += new System.EventHandler(this.radioLoc_CheckedChanged);
             // 
             // radioLocTR
             // 
@@ -169,7 +165,6 @@
             this.radioLocTR.TabStop = true;
             this.radioLocTR.Text = "Top Right";
             this.radioLocTR.UseVisualStyleBackColor = true;
-            this.radioLocTR.CheckedChanged += new System.EventHandler(this.radioLoc_CheckedChanged);
             // 
             // radioLocTL
             // 
@@ -181,7 +176,6 @@
             this.radioLocTL.TabStop = true;
             this.radioLocTL.Text = "Top Left";
             this.radioLocTL.UseVisualStyleBackColor = true;
-            this.radioLocTL.CheckedChanged += new System.EventHandler(this.radioLoc_CheckedChanged);
             // 
             // trackBarEdgeDistance
             // 
@@ -197,7 +191,6 @@
             this.trackBarEdgeDistance.TabIndex = 5;
             this.trackBarEdgeDistance.TickFrequency = 4;
             this.trackBarEdgeDistance.Value = 8;
-            this.trackBarEdgeDistance.ValueChanged += new System.EventHandler(this.trackBarEdgeDistance_ValueChanged);
             // 
             // groupNotificationDuration
             // 
@@ -243,7 +236,6 @@
             this.btnDurationMedium.TabIndex = 2;
             this.btnDurationMedium.Text = "Medium";
             this.btnDurationMedium.UseVisualStyleBackColor = true;
-            this.btnDurationMedium.Click += new System.EventHandler(this.btnDurationMedium_Click);
             // 
             // btnDurationLong
             // 
@@ -259,7 +251,6 @@
             this.btnDurationLong.TabIndex = 1;
             this.btnDurationLong.Text = "Long";
             this.btnDurationLong.UseVisualStyleBackColor = true;
-            this.btnDurationLong.Click += new System.EventHandler(this.btnDurationLong_Click);
             // 
             // btnDurationShort
             // 
@@ -275,7 +266,6 @@
             this.btnDurationShort.TabIndex = 0;
             this.btnDurationShort.Text = "Short";
             this.btnDurationShort.UseVisualStyleBackColor = true;
-            this.btnDurationShort.Click += new System.EventHandler(this.btnDurationShort_Click);
             // 
             // labelDurationValue
             // 
@@ -302,7 +292,6 @@
             this.trackBarDuration.TabIndex = 12;
             this.trackBarDuration.TickFrequency = 5;
             this.trackBarDuration.Value = 25;
-            this.trackBarDuration.ValueChanged += new System.EventHandler(this.trackBarDuration_ValueChanged);
             // 
             // groupUserInterface
             // 
@@ -327,7 +316,6 @@
             this.toolTip.SetToolTip(this.checkNonIntrusive, "When not idle and the cursor is within the notification window area,\r\nit will be " +
         "delayed until the cursor moves away to prevent accidental clicks.");
             this.checkNonIntrusive.UseVisualStyleBackColor = true;
-            this.checkNonIntrusive.CheckedChanged += new System.EventHandler(this.checkNonIntrusive_CheckedChanged);
             // 
             // checkTimerCountDown
             // 
@@ -339,7 +327,6 @@
             this.checkTimerCountDown.Text = "Timer Counts Down";
             this.toolTip.SetToolTip(this.checkTimerCountDown, "The notification timer counts down instead of up.");
             this.checkTimerCountDown.UseVisualStyleBackColor = true;
-            this.checkTimerCountDown.CheckedChanged += new System.EventHandler(this.checkTimerCountDown_CheckedChanged);
             // 
             // checkNotificationTimer
             // 
@@ -352,7 +339,6 @@
             this.checkNotificationTimer.Text = "Display Notification Timer";
             this.toolTip.SetToolTip(this.checkNotificationTimer, "Shows how much time is left before the current notification disappears.");
             this.checkNotificationTimer.UseVisualStyleBackColor = true;
-            this.checkNotificationTimer.CheckedChanged += new System.EventHandler(this.checkNotificationTimer_CheckedChanged);
             // 
             // groupCustomSound
             // 
@@ -376,7 +362,6 @@
             this.btnResetSound.TabIndex = 2;
             this.btnResetSound.Text = "Reset";
             this.btnResetSound.UseVisualStyleBackColor = true;
-            this.btnResetSound.Click += new System.EventHandler(this.btnResetSound_Click);
             // 
             // btnBrowseSound
             // 
@@ -388,7 +373,6 @@
             this.btnBrowseSound.TabIndex = 1;
             this.btnBrowseSound.Text = "Browse...";
             this.btnBrowseSound.UseVisualStyleBackColor = true;
-            this.btnBrowseSound.Click += new System.EventHandler(this.btnBrowseSound_Click);
             // 
             // tbCustomSound
             // 
@@ -396,7 +380,6 @@
             this.tbCustomSound.Name = "tbCustomSound";
             this.tbCustomSound.Size = new System.Drawing.Size(170, 20);
             this.tbCustomSound.TabIndex = 0;
-            this.tbCustomSound.TextChanged += new System.EventHandler(this.tbCustomSound_TextChanged);
             // 
             // TabSettingsNotifications
             // 

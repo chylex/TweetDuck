@@ -65,6 +65,30 @@ namespace TweetDck.Core.Other.Settings{
             Disposed += (sender, args) => this.notification.Dispose();
         }
 
+        public override void OnReady(){
+            radioLocTL.CheckedChanged += radioLoc_CheckedChanged;
+            radioLocTR.CheckedChanged += radioLoc_CheckedChanged;
+            radioLocBL.CheckedChanged += radioLoc_CheckedChanged;
+            radioLocBR.CheckedChanged += radioLoc_CheckedChanged;
+            radioLocCustom.CheckedChanged += radioLoc_CheckedChanged;
+
+            trackBarDuration.ValueChanged += trackBarDuration_ValueChanged;
+            btnDurationShort.Click += btnDurationShort_Click;
+            btnDurationMedium.Click += btnDurationMedium_Click;
+            btnDurationLong.Click += btnDurationLong_Click;
+
+            checkNotificationTimer.CheckedChanged += checkNotificationTimer_CheckedChanged;
+            checkTimerCountDown.CheckedChanged += checkTimerCountDown_CheckedChanged;
+            checkNonIntrusive.CheckedChanged += checkNonIntrusive_CheckedChanged;
+
+            comboBoxDisplay.SelectedValueChanged += comboBoxDisplay_SelectedValueChanged;
+            trackBarEdgeDistance.ValueChanged += trackBarEdgeDistance_ValueChanged;
+
+            tbCustomSound.TextChanged += tbCustomSound_TextChanged;
+            btnBrowseSound.Click += btnBrowseSound_Click;
+            btnResetSound.Click += btnResetSound_Click;
+        }
+
         public override void OnClosing(){
             Config.NotificationSoundPath = tbCustomSound.Text;
         }
@@ -94,8 +118,6 @@ namespace TweetDck.Core.Other.Settings{
         }
 
         private void radioLoc_CheckedChanged(object sender, EventArgs e){
-            if (!Ready)return;
-
             if (radioLocTL.Checked)Config.NotificationPosition = TweetNotification.Position.TopLeft;
             else if (radioLocTR.Checked)Config.NotificationPosition = TweetNotification.Position.TopRight;
             else if (radioLocBL.Checked)Config.NotificationPosition = TweetNotification.Position.BottomLeft;
@@ -113,8 +135,6 @@ namespace TweetDck.Core.Other.Settings{
         }
 
         private void trackBarDuration_ValueChanged(object sender, EventArgs e){
-            if (!Ready)return;
-            
             Config.NotificationDurationValue = trackBarDuration.Value;
             labelDurationValue.Text = Config.NotificationDurationValue+" ms/c";
 
@@ -122,54 +142,38 @@ namespace TweetDck.Core.Other.Settings{
         }
 
         private void btnDurationShort_Click(object sender, EventArgs e){
-            if (!Ready)return;
-
             trackBarDuration.Value = 15;
         }
 
         private void btnDurationMedium_Click(object sender, EventArgs e){
-            if (!Ready)return;
-
             trackBarDuration.Value = 25;
         }
 
         private void btnDurationLong_Click(object sender, EventArgs e){
-            if (!Ready)return;
-
             trackBarDuration.Value = 35;
         }
 
         private void checkNotificationTimer_CheckedChanged(object sender, EventArgs e){
-            if (!Ready)return;
-
             Config.DisplayNotificationTimer = checkNotificationTimer.Checked;
             checkTimerCountDown.Enabled = checkNotificationTimer.Checked;
             notification.ShowNotificationForSettings(true);
         }
 
         private void checkTimerCountDown_CheckedChanged(object sender, EventArgs e){
-            if (!Ready)return;
-
             Config.NotificationTimerCountDown = checkTimerCountDown.Checked;
             notification.ShowNotificationForSettings(true);
         }
 
         private void checkNonIntrusive_CheckedChanged(object sender, EventArgs e){
-            if (!Ready)return;
-
             Config.NotificationNonIntrusiveMode = checkNonIntrusive.Checked;
         }
 
         private void comboBoxDisplay_SelectedValueChanged(object sender, EventArgs e){
-            if (!Ready)return;
-
             Config.NotificationDisplay = comboBoxDisplay.SelectedIndex;
             notification.ShowNotificationForSettings(false);
         }
 
         private void trackBarEdgeDistance_ValueChanged(object sender, EventArgs e){
-            if (!Ready)return;
-            
             labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value.ToString(CultureInfo.InvariantCulture)+" px";
             Config.NotificationEdgeDistance = trackBarEdgeDistance.Value;
             notification.ShowNotificationForSettings(false);

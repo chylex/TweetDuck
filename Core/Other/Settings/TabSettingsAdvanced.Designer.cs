@@ -54,7 +54,6 @@
             this.toolTip.SetToolTip(this.btnClearCache, "Clearing cache will free up space taken by downloaded images and other resources." +
         "");
             this.btnClearCache.UseVisualStyleBackColor = true;
-            this.btnClearCache.Click += new System.EventHandler(this.btnClearCache_Click);
             // 
             // checkHardwareAcceleration
             // 
@@ -68,7 +67,6 @@
             this.toolTip.SetToolTip(this.checkHardwareAcceleration, "Uses your graphics card to improve performance.\r\nDisable if you experience issues" +
         " with rendering.");
             this.checkHardwareAcceleration.UseVisualStyleBackColor = true;
-            this.checkHardwareAcceleration.CheckedChanged += new System.EventHandler(this.checkHardwareAcceleration_CheckedChanged);
             // 
             // btnEditCefArgs
             // 
@@ -79,7 +77,6 @@
             this.btnEditCefArgs.Text = "Edit CEF Arguments";
             this.toolTip.SetToolTip(this.btnEditCefArgs, "Set custom command line arguments for Chromium Embedded Framework.");
             this.btnEditCefArgs.UseVisualStyleBackColor = true;
-            this.btnEditCefArgs.Click += new System.EventHandler(this.btnEditCefArgs_Click);
             // 
             // btnEditCSS
             // 
@@ -90,7 +87,6 @@
             this.btnEditCSS.Text = "Edit CSS";
             this.toolTip.SetToolTip(this.btnEditCSS, "Set custom CSS for browser and notification windows.");
             this.btnEditCSS.UseVisualStyleBackColor = true;
-            this.btnEditCSS.Click += new System.EventHandler(this.btnEditCSS_Click);
             // 
             // btnRestartArgs
             // 
@@ -101,7 +97,6 @@
             this.btnRestartArgs.Text = "Restart with Arguments";
             this.toolTip.SetToolTip(this.btnRestartArgs, "Restarts the program with customizable\r\ncommand line arguments.");
             this.btnRestartArgs.UseVisualStyleBackColor = true;
-            this.btnRestartArgs.Click += new System.EventHandler(this.btnRestartArgs_Click);
             // 
             // btnRestart
             // 
@@ -113,7 +108,6 @@
             this.toolTip.SetToolTip(this.btnRestart, "Restarts the program using the same command\r\nline arguments that were used at lau" +
         "nch.");
             this.btnRestart.UseVisualStyleBackColor = true;
-            this.btnRestart.Click += new System.EventHandler(this.btnRestart_Click);
             // 
             // btnOpenAppFolder
             // 
@@ -124,7 +118,6 @@
             this.btnOpenAppFolder.Text = "Open Program Folder";
             this.toolTip.SetToolTip(this.btnOpenAppFolder, "Opens the folder where the app is located.");
             this.btnOpenAppFolder.UseVisualStyleBackColor = true;
-            this.btnOpenAppFolder.Click += new System.EventHandler(this.btnOpenAppFolder_Click);
             // 
             // btnOpenDataFolder
             // 
@@ -135,7 +128,6 @@
             this.btnOpenDataFolder.Text = "Open Data Folder";
             this.toolTip.SetToolTip(this.btnOpenDataFolder, "Opens the folder where your profile data is located.");
             this.btnOpenDataFolder.UseVisualStyleBackColor = true;
-            this.btnOpenDataFolder.Click += new System.EventHandler(this.btnOpenDataFolder_Click);
             // 
             // btnReset
             // 
@@ -148,7 +140,6 @@
             this.btnReset.TabIndex = 17;
             this.btnReset.Text = "Restore Defaults";
             this.btnReset.UseVisualStyleBackColor = true;
-            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // btnImport
             // 
@@ -161,7 +152,6 @@
             this.btnImport.TabIndex = 16;
             this.btnImport.Text = "Import Profile";
             this.btnImport.UseVisualStyleBackColor = true;
-            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
             // 
             // btnExport
             // 
@@ -175,7 +165,6 @@
             this.btnExport.TabIndex = 15;
             this.btnExport.Text = "Export Profile";
             this.btnExport.UseVisualStyleBackColor = true;
-            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // groupPerformance
             // 

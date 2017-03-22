@@ -32,10 +32,6 @@ namespace TweetDck.Core.Other{
             hasFinishedLoading = true;
         }
 
-        private void SelectTab<T>() where T : BaseTabSettings, new(){
-            SelectTab(() => new T());
-        }
-
         private void SelectTab<T>(Func<T> constructor) where T : BaseTabSettings{
             BaseTabSettings control;
 
@@ -44,7 +40,7 @@ namespace TweetDck.Core.Other{
             }
             else{
                 control = tabs[typeof(T)] = constructor();
-                control.Ready = true;
+                control.OnReady();
                 tabPanel.ReplaceContent(control);
             }
         }
