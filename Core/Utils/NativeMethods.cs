@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace TweetDck.Core.Utils{
+    [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local")]
+    [SuppressMessage("ReSharper", "MemberCanBePrivate.Local")]
     static class NativeMethods{
         public static readonly IntPtr HWND_BROADCAST = new IntPtr(0xFFFF);
 
@@ -18,21 +21,19 @@ namespace TweetDck.Core.Utils{
         public const int SB_HORZ = 0;
         public const int BCM_SETSHIELD = 0x160C;
 
-        public const int WH_MOUSE_LL = 14;
-        public const int WH_MOUSEWHEEL = 0x020A;
+        public const int WM_MOUSE_LL = 14;
+        public const int WM_MOUSEWHEEL = 0x020A;
 
         public enum MouseButton{
             Left, Right
         }
-
+        
+        [StructLayout(LayoutKind.Sequential)]
         private struct LASTINPUTINFO{
             public static readonly uint Size = (uint)Marshal.SizeOf(typeof(LASTINPUTINFO));
 
-            // ReSharper disable once NotAccessedField.Local
             public uint cbSize;
-            #pragma warning disable 649
             public uint dwTime;
-            #pragma warning restore 649
         }
 
         public delegate IntPtr HookProc(int nCode, IntPtr wParam, IntPtr lParam);
