@@ -96,7 +96,7 @@ namespace TweetDck.Core.Notification{
         }
 
         private IntPtr MouseHookProc(int nCode, IntPtr wParam, IntPtr lParam){
-            if (!ContainsFocus && wParam.ToInt32() == NativeMethods.WH_MOUSEWHEEL && browser.Bounds.Contains(PointToClient(Cursor.Position))){
+            if (wParam.ToInt32() == NativeMethods.WH_MOUSEWHEEL && browser.Bounds.Contains(PointToClient(Cursor.Position)) && !ContainsFocus){
                 // fuck it, Activate() doesn't work with this
                 Point prevPos = Cursor.Position;
                 Cursor.Position = PointToScreen(new Point(0, -1));
