@@ -36,6 +36,21 @@ namespace TweetDck.Core.Utils{
             public uint dwTime;
         }
 
+        [StructLayout(LayoutKind.Sequential)]
+        private struct POINT{
+            public int X;
+            public int Y;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct MSLLHOOKSTRUCT{
+            public POINT pt;
+            public int mouseData;
+            public int flags;
+            public int time;
+            public UIntPtr dwExtraInfo;
+        }
+
         public delegate IntPtr HookProc(int nCode, IntPtr wParam, IntPtr lParam);
 
         [DllImport("user32.dll", EntryPoint = "SetWindowPos")]
@@ -102,6 +117,10 @@ namespace TweetDck.Core.Utils{
 
             mouse_event(flagHold, Cursor.Position.X, Cursor.Position.Y, 0, 0);
             mouse_event(flagRelease, Cursor.Position.X, Cursor.Position.Y, 0, 0);
+        }
+
+        public static int GetHookWheelDelta(IntPtr ptr){
+            return Marshal.PtrToStructure<MSLLHOOKSTRUCT>(ptr).mouseData >> 16;
         }
 
         public static int GetIdleSeconds(){
