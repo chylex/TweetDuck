@@ -5,14 +5,12 @@ using System.IO;
 using System.Windows.Forms;
 using TweetDck.Core.Controls;
 using TweetDck.Core.Notification;
-using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Other.Settings{
     partial class TabSettingsNotifications : BaseTabSettings{
         private readonly FormNotificationMain notification;
-        private readonly Point initCursorPosition;
 
-        public TabSettingsNotifications(FormNotificationMain notification, bool ignoreAutoClick){
+        public TabSettingsNotifications(FormNotificationMain notification){
             InitializeComponent();
 
             this.notification = notification;
@@ -30,8 +28,6 @@ namespace TweetDck.Core.Other.Settings{
 
             this.notification.Activated += notification_Activated;
             this.notification.Show();
-
-            initCursorPosition = ignoreAutoClick ? ControlExtensions.InvisibleLocation : Cursor.Position;
 
             switch(Config.NotificationPosition){
                 case TweetNotification.Position.TopLeft: radioLocTL.Checked = true; break;
@@ -103,17 +99,7 @@ namespace TweetDck.Core.Other.Settings{
         }
 
         private void notification_Activated(object sender, EventArgs e){
-            if (Cursor.Position == initCursorPosition && initCursorPosition != ControlExtensions.InvisibleLocation){
-                Timer delay = WindowsUtils.CreateSingleTickTimer(1);
-
-                delay.Tick += (sender2, args2) => { // here you can see a disgusting hack to force the freshly opened notification window out of focus
-                    NativeMethods.SimulateMouseClick(NativeMethods.MouseButton.Left); // because for some reason, the stupid thing keeps stealing it
-                    delay.Dispose(); // even after using ShowWithoutActivation, the CreateParams bullshit, and about a million different combinations
-                }; // of trying to force the original form back into focus in various events, so you will have to fucking deal with it, alright
-
-                delay.Start();
-            }
-
+            notification.Hide();
             notification.Activated -= notification_Activated;
         }
 

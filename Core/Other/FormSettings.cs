@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using TweetDck.Core.Notification;
 using TweetDck.Core.Other.Settings;
 using TweetDck.Plugins;
 using TweetDck.Updates;
@@ -13,7 +12,6 @@ namespace TweetDck.Core.Other{
 
         private readonly FormBrowser browser;
         private readonly Dictionary<Type, BaseTabSettings> tabs = new Dictionary<Type, BaseTabSettings>(4);
-        private readonly bool hasFinishedLoading;
 
         public FormSettings(FormBrowser browser, PluginManager plugins, UpdateHandler updates, int startTabIndex = 0){
             InitializeComponent();
@@ -25,11 +23,10 @@ namespace TweetDck.Core.Other{
 
             this.tabPanel.SetupTabPanel(100);
             this.tabPanel.AddButton("General", () => SelectTab(() => new TabSettingsGeneral(updates)));
-            this.tabPanel.AddButton("Notifications", () => SelectTab(() => new TabSettingsNotifications(browser.CreateNotificationForm(false), !hasFinishedLoading)));
+            this.tabPanel.AddButton("Notifications", () => SelectTab(() => new TabSettingsNotifications(browser.CreateNotificationForm(false))));
             this.tabPanel.AddButton("Advanced", () => SelectTab(() => new TabSettingsAdvanced(browser.ReinjectCustomCSS, plugins)));
 
             this.tabPanel.SelectTab(tabPanel.Buttons.ElementAt(startTabIndex));
-            hasFinishedLoading = true;
         }
 
         private void SelectTab<T>(Func<T> constructor) where T : BaseTabSettings{
