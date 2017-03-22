@@ -77,10 +77,7 @@ namespace TweetDck.Core.Other.Settings{
             }
             else{
                 btnCheckUpdates.Enabled = false;
-                
-                updates.Settings.DismissedUpdate = string.Empty;
-                Config.DismissedUpdate = string.Empty;
-                Config.Save();
+                updates.DismissUpdate(string.Empty);
             }
         }
 

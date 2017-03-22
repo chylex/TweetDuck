@@ -8,16 +8,10 @@ using TweetDck.Resources;
 using TweetDck.Updates.Events;
 
 namespace TweetDck.Updates{
-    class UpdateHandler{
+    sealed class UpdateHandler{
         private static bool IsSystemSupported{
             get{
                 return true; // Environment.OSVersion.Version >= new Version("6.1"); // 6.1 NT version = Windows 7
-            }
-        }
-
-        public UpdaterSettings Settings{
-            get{
-                return settings;
             }
         }
 
@@ -63,6 +57,14 @@ namespace TweetDck.Updates{
             }
             
             return -1;
+        }
+
+        public void DismissUpdate(string tag){
+            settings.DismissedUpdate = tag;
+
+            if (UpdateDismissed != null){
+                UpdateDismissed(this, new UpdateDismissedEventArgs(tag));
+            }
         }
 
         private void TriggerUpdateAcceptedEvent(UpdateAcceptedEventArgs args){
