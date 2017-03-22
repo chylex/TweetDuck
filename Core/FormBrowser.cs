@@ -165,6 +165,10 @@ namespace TweetDck.Core{
         }
 
         private void browser_LoadError(object sender, LoadErrorEventArgs e){
+            if (e.ErrorCode == CefErrorCode.Aborted){
+                return;
+            }
+
             if (!e.FailedUrl.StartsWith("http://td/")){
                 string errorPage = ScriptLoader.LoadResource("pages/error.html", true);
 
