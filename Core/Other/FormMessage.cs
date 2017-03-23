@@ -50,7 +50,7 @@ namespace TweetDck.Core.Other{
             this.labelMessage.Text = text;
         }
 
-        public Button AddButton(string title){
+        public Button AddButton(string title, DialogResult result = DialogResult.OK){
             Button button = new Button{
                 Anchor = AnchorStyles.Bottom | AnchorStyles.Right,
                 Font = SystemFonts.MessageBoxFont,
@@ -63,7 +63,7 @@ namespace TweetDck.Core.Other{
 
             button.Click += (sender, args) => {
                 ClickedButton = (Button)sender;
-                DialogResult = DialogResult.OK;
+                DialogResult = result;
                 Close();
             };
 
