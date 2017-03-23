@@ -131,6 +131,7 @@ enabled(){
     this.resetLayout();
     this.resetDesign();
     
+    this.css.insert(".avatar { border-radius: "+this.config.avatarRadius+"% !important }");
     // TODO
   };
 }

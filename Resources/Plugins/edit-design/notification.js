@@ -21,9 +21,11 @@ run(){
   
   // config handling
   this.defaultConfig = {
+    avatarRadius: 10
   };
   
   var loadConfigObject = config => {
     let css = window.TDPF_createCustomStyle(this);
+    css.insert(".avatar { border-radius: "+config.avatarRadius+"% !important }");
   };
 }
