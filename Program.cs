@@ -180,7 +180,8 @@ namespace TweetDck{
 
         private static void plugins_Reloaded(object sender, PluginErrorEventArgs e){
             if (!e.Success){
-                MessageBox.Show("The following plugins will not be available until the issues are resolved:"+Environment.NewLine+string.Join(Environment.NewLine, e.Errors), "Error Loading Plugins", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string doubleNL = Environment.NewLine+Environment.NewLine;
+                MessageBox.Show("The following plugins will not be available until the issues are resolved:"+doubleNL+string.Join(doubleNL, e.Errors), "Error Loading Plugins", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             ((PluginManager)sender).SetConfig(UserConfig.Plugins);
@@ -188,7 +189,8 @@ namespace TweetDck{
 
         private static void plugins_Executed(object sender, PluginErrorEventArgs e){
             if (!e.Success){
-                MessageBox.Show("Failed to execute the following plugins:"+Environment.NewLine+string.Join(Environment.NewLine, e.Errors), "Error Executing Plugins", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string doubleNL = Environment.NewLine+Environment.NewLine;
+                MessageBox.Show("Failed to execute the following plugins:"+doubleNL+string.Join(doubleNL, e.Errors), "Error Executing Plugins", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
