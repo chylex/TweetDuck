@@ -5,6 +5,8 @@ enabled(){
   this.config = null;
   
   this.defaultConfig = {
+    columnWidth: "310px",
+    fontSize: "12px",
     avatarRadius: 10
   };
   
@@ -132,6 +134,12 @@ enabled(){
         });
       }
     });
+    
+    modal.find("[data-td-theme='"+TD.settings.getTheme()+"']").prop("checked", true);
+    
+    modal.find("[data-td-theme]").change(function(){
+      TD.settings.setTheme($(this).attr("data-td-theme"));
+      $(document).trigger("uiToggleTheme");
     });
   }).methods({
     _render: () => $(this.htmlModal),
@@ -157,13 +165,60 @@ enabled(){
     this.resetLayout();
     this.resetDesign();
     
+    this.css.insert(".txt-base-smallest, .txt-base-largest { font-size: "+this.config.fontSize+" !important }");
     this.css.insert(".avatar { border-radius: "+this.config.avatarRadius+"% !important }");
+    
+    if (this.config.columnWidth[0] === '/'){
+      let cols = this.config.columnWidth.slice(1);
+      
+      this.css.insert(".column { width: calc((100vw - 205px) / "+cols+" - 8px) !important }");
+      this.css.insert(".is-condensed .column { width: calc((100vw - 55px) / "+cols+" - 8px) !important }");
+    }
+    else{
+      this.css.insert(".column { width: "+this.config.columnWidth+" !important }");
+    }
+    
+    switch(this.config.columnWidth){
+      case "/6":
+        TD.settings.setColumnWidth("narrow");
+        break;
+        
+      case "310px":
+      case "/5":
+        TD.settings.setColumnWidth("medium");
+        break;
+        
+      default:
+        TD.settings.setColumnWidth(parseInt(this.config.columnWidth, 10) < 310 ? "narrow" : "wide"); // NaN will give "wide"
+        break;
+    }
+    
+    switch(this.config.fontSize){
+      case "13px": TD.settings.setFontSize("small"); break;
+      case "14px": TD.settings.setFontSize("medium"); break;
+      case "15px": TD.settings.setFontSize("large"); break;
+      default: TD.settings.setFontSize(parseInt(this.config.fontSize, 10) >= 16 ? "largest" : "smallest"); break;
+    }
   };
 }
 
 ready(){
+  // configuration
+  switch(TD.settings.getColumnWidth()){
+    case "wide": this.defaultConfig.columnWidth = "350px"; break;
+    case "narrow": this.defaultConfig.columnWidth = "270px"; break;
+  }
+  
+  switch(TD.settings.getFontSize()){
+    case "small": this.defaultConfig.fontSize = "13px"; break;
+    case "medium": this.defaultConfig.fontSize = "14px"; break;
+    case "large": this.defaultConfig.fontSize = "15px"; break;
+    case "largest": this.defaultConfig.fontSize = "16px"; break;
+  }
+  
   this.onAppReady();
   
+  // DOM
   $("[data-action='settings-menu']").on("click", this.onSettingsMenuClickedEvent);
   $(".js-app").append('<div id="td-design-plugin-modal" class="js-modal settings-modal ovl scroll-v scroll-styled-v"></div>');
 }

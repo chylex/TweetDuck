@@ -21,11 +21,13 @@ run(){
   
   // config handling
   this.defaultConfig = {
+    fontSize: "12px",
     avatarRadius: 10
   };
   
   var loadConfigObject = config => {
     let css = window.TDPF_createCustomStyle(this);
+    css.insert(".txt-base-smallest, .txt-base-largest { font-size: "+config.fontSize+" !important }");
     css.insert(".avatar { border-radius: "+config.avatarRadius+"% !important }");
   };
 }

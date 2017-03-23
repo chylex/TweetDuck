@@ -7,6 +7,64 @@
   </header>
   <div class="mdl-inner">
     <div class="td-modal-content mdl-content js-mdl-content horizontal-flow-container">
+      <div class="td-modal-inner-cols">
+        <div class="l-column mdl-column">
+          
+          <!-- THEME -->
+          
+          <label class="txt-uppercase touch-larger-label">
+            <b>Theme</b>
+          </label>
+          <label class="radio">
+            <input data-td-theme="dark" class="js-theme-radio touch-larger-label" name="theme" type="radio"> Dark
+          </label>
+          <label class="radio">
+            <input data-td-theme="light" class="js-theme-radio touch-larger-label" name="theme" type="radio"> Light
+          </label>
+        </div>
+        <div class="l-column mdl-column">
+          
+          <!-- COLUMN SIZE -->
+          
+          <label class="txt-uppercase touch-larger-label">
+            <b>Columns</b>
+          </label>
+          <select data-td-key="columnWidth">
+            <option disabled></option>
+            <optgroup label="Fixed width">
+              <option value="270px">Narrow (270px)</option>
+              <option value="310px">Medium (310px)</option>
+              <option value="350px">Wide (350px)</option>
+              <option value="400px">Extreme (400px)</option>
+            </optgroup>
+            <option disabled></option>
+            <optgroup label="Dynamic width">
+              <option value="/3">3 columns on screen</option>
+              <option value="/4">4 columns on screen</option>
+              <option value="/5">5 columns on screen</option>
+              <option value="/6">6 columns on screen</option>
+            </optgroup>
+            <option disabled></option>
+          </select>
+        </div>
+        <div class="l-column mdl-column">
+          
+          <!-- FONT SIZE -->
+          
+          <label class="txt-uppercase touch-larger-label">
+            <b>Font size</b>
+          </label>
+          <select data-td-key="fontSize">
+            <option value="12px" data-td-font-size="smallest">Tiny (12px)</option>
+            <option value="13px" data-td-font-size="small">Small (13px)</option>
+            <option value="14px" data-td-font-size="medium">Medium (14px)</option>
+            <option value="15px" data-td-font-size="large">Large (15px)</option>
+            <option value="16px" data-td-font-size="largest">Very Large (16px)</option>
+            <option value="18px" data-td-font-size="largest">Massive (18px)</option>
+            <option value="20px" data-td-font-size="largest">Extreme (20px)</option>
+          </select>
+        </div>
+      </div>
       
       <!-- AVATAR SHAPE -->
       
