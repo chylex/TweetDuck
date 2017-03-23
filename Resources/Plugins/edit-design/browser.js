@@ -17,25 +17,37 @@ enabled(){
   
   // configuration
   const configFile = "config.json";
+  this.tmpConfig = null;
   
   var loadConfigObject = obj => {
-    this.config = obj;
-    this.reinjectAll();
+    this.tmpConfig = obj || {};
+    
+    if (window.TD_APP_READY){
+      this.onAppReady();
+    }
+  };
+  
+  this.onAppReady = () => {
+    if (this.tmpConfig !== null){
+      this.config = $.extend(this.defaultConfig, this.tmpConfig);
+      this.tmpConfig = null;
+      this.reinjectAll();
+    }
   };
   
   $TDP.checkFileExists(this.$token, configFile).then(exists => {
     if (!exists){
-      loadConfigObject(this.defaultConfig);
+      loadConfigObject(null);
     }
     else{
       $TDP.readFile(this.$token, configFile, true).then(contents => {
         try{
-          loadConfigObject($.extend(this.defaultConfig, JSON.parse(contents)));
+          loadConfigObject(JSON.parse(contents));
         }catch(err){
-          loadConfigObject(this.defaultConfig);
+          loadConfigObject(null);
         }
       }).catch(err => {
-        loadConfigObject(this.defaultConfig);
+        loadConfigObject(null);
         $TD.alert("error", "Problem loading configuration for the design edit plugin: "+err.message);
       });
     }
@@ -82,6 +94,15 @@ enabled(){
   // modal dialog setup
   var me = this;
   
+  var updateKey = function(key, value){
+    me.config[key] = value;
+    
+    setTimeout(function(){
+      me.saveConfig();
+      me.reinjectAll();
+    }, 1); // delays the slight lag caused by saving and reinjection
+  };
+  
   var customDesignModal = TD.components.BaseModal.extend(function(){
     let modal = $("#td-design-plugin-modal");
     this.setAndShowContainer(modal, false);
@@ -89,23 +110,28 @@ enabled(){
     modal.find("[data-td-key]").each(function(){
       let item = $(this);
       let key = item.attr("data-td-key");
-      let value = item.attr("data-td-value");
       
-      if (value == me.config[key]){
-        item.addClass("selected");
+      if (item.prop("tagName") === "SELECT"){
+        item.val(me.config[key]);
+        
+        item.change(function(){
+          updateKey(key, item.val());
+        });
       }
-      
-      item.click(function(){
-        modal.find("[data-td-key='"+key+"']").removeClass("selected");
-        item.addClass("selected");
+      else{
+        let value = item.attr("data-td-value");
         
-        me.config[key] = value;
-        
-        setTimeout(function(){
-          me.saveConfig();
-          me.reinjectAll();
-        }, 1); // delays the slight lag caused by saving and reinjection
-      });
+        if (value == me.config[key]){
+          item.addClass("selected");
+        }
+
+        item.click(function(){
+          modal.find("[data-td-key='"+key+"']").removeClass("selected");
+          item.addClass("selected");
+          updateKey(key, value);
+        });
+      }
+    });
     });
   }).methods({
     _render: () => $(this.htmlModal),
@@ -132,11 +158,12 @@ enabled(){
     this.resetDesign();
     
     this.css.insert(".avatar { border-radius: "+this.config.avatarRadius+"% !important }");
-    // TODO
   };
 }
 
 ready(){
+  this.onAppReady();
+  
   $("[data-action='settings-menu']").on("click", this.onSettingsMenuClickedEvent);
   $(".js-app").append('<div id="td-design-plugin-modal" class="js-modal settings-modal ovl scroll-v scroll-styled-v"></div>');
 }
