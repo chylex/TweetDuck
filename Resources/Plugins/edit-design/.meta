@@ -1,0 +1,17 @@
+[name]
+Edit layout & design
+
+[description]
+- Adds new layout and design configuration, which can be accessed via Settings - Edit layout & design
+
+[author]
+chylex
+
+[version]
+1.0
+
+[website]
+https://tweetduck.chylex.com
+
+[requires]
+1.5.3
