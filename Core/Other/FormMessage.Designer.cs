@@ -33,7 +33,7 @@
             this.panelActions.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelActions.Location = new System.Drawing.Point(0, 84);
             this.panelActions.Name = "panelActions";
-            this.panelActions.Size = new System.Drawing.Size(233, 49);
+            this.panelActions.Size = new System.Drawing.Size(98, 49);
             this.panelActions.TabIndex = 0;
             // 
             // labelMessage
@@ -66,6 +66,7 @@
             this.Name = "FormMessage";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.SizeChanged += new System.EventHandler(this.FormMessage_SizeChanged);
             this.ResumeLayout(false);
             this.PerformLayout();
 
