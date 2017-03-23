@@ -76,13 +76,11 @@ namespace TweetDck{
                     else if (attempt == 20){
                         using(FormMessage form = new FormMessage(BrandName+" Cannot Restart", BrandName+" is taking too long to close.", MessageBoxIcon.Warning)){
                             form.AddButton("Exit");
-                            Button btnRetry = form.AddButton("Retry");
+                            form.AddButton("Retry", DialogResult.Retry);
 
-                            if (form.ShowDialog() == DialogResult.OK){
-                                if (form.ClickedButton == btnRetry){
-                                    attempt /= 2;
-                                    continue;
-                                }
+                            if (form.ShowDialog() == DialogResult.Retry){
+                                attempt /= 2;
+                                continue;
                             }
 
                             return;

@@ -13,26 +13,19 @@ namespace TweetDck.Core.Handling {
 
             ((ChromiumWebBrowser)browserControl).InvokeSafe(() => {
                 FormMessage form = new FormMessage(Program.BrandName, messageText, MessageBoxIcon.None);
-                Button btnConfirm;
 
                 if (dialogType == CefJsDialogType.Alert){
-                    btnConfirm = form.AddButton("OK");
+                    form.AddButton("OK");
                 }
                 else if (dialogType == CefJsDialogType.Confirm){
-                    form.AddButton("No");
-                    btnConfirm = form.AddButton("Yes");
+                    form.AddButton("No", DialogResult.No);
+                    form.AddButton("Yes");
                 }
                 else{
                     return;
                 }
 
-                if (form.ShowDialog() == DialogResult.OK && form.ClickedButton == btnConfirm){
-                    callback.Continue(true);
-                }
-                else{
-                    callback.Continue(false);
-                }
-
+                callback.Continue(form.ShowDialog() == DialogResult.OK);
                 form.Dispose();
             });
 
