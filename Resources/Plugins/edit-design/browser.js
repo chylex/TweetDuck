@@ -95,7 +95,7 @@ enabled(){
         item.addClass("selected");
       }
       
-      item.click(function(){ console.profile("aaa");
+      item.click(function(){
         modal.find("[data-td-key='"+key+"']").removeClass("selected");
         item.addClass("selected");
         
