@@ -239,7 +239,7 @@ namespace TweetDck.Core{
             ForceClose();
         }
         
-        private void plugins_Reloaded(object sender, PluginLoadEventArgs e){
+        private void plugins_Reloaded(object sender, PluginErrorEventArgs e){
             browser.GetBrowser().Reload();
         }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace TweetDck.Plugins.Events{
-    class PluginLoadEventArgs : EventArgs{
+    class PluginErrorEventArgs : EventArgs{
         public bool Success{
             get{
                 return Errors.Count == 0;
@@ -11,7 +11,7 @@ namespace TweetDck.Plugins.Events{
 
         public IList<string> Errors;
 
-        public PluginLoadEventArgs(IList<string> errors){
+        public PluginErrorEventArgs(IList<string> errors){
             this.Errors = errors;
         }
     }

@@ -155,6 +155,7 @@ namespace TweetDck{
 
             PluginManager plugins = new PluginManager(PluginPath, UserConfig.Plugins);
             plugins.Reloaded += plugins_Reloaded;
+            plugins.Executed += plugins_Executed;
             plugins.PluginChangedState += (sender, args) => UserConfig.Save();
             plugins.Reload();
 
@@ -177,12 +178,18 @@ namespace TweetDck{
             }
         }
 
-        private static void plugins_Reloaded(object sender, PluginLoadEventArgs e){
+        private static void plugins_Reloaded(object sender, PluginErrorEventArgs e){
             if (!e.Success){
-                MessageBox.Show("The following plugins will not be available until the issues are resolved:\n"+string.Join("\n", e.Errors), "Error Loading Plugins", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("The following plugins will not be available until the issues are resolved:"+Environment.NewLine+string.Join(Environment.NewLine, e.Errors), "Error Loading Plugins", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             ((PluginManager)sender).SetConfig(UserConfig.Plugins);
+        }
+
+        private static void plugins_Executed(object sender, PluginErrorEventArgs e){
+            if (!e.Success){
+                MessageBox.Show("Failed to execute the following plugins:"+Environment.NewLine+string.Join(Environment.NewLine, e.Errors), "Error Executing Plugins", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private static string GetDataStoragePath(){

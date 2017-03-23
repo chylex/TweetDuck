@@ -82,7 +82,7 @@ namespace TweetDck.Core.Other{
             flowLayoutPlugins_Resize(flowLayoutPlugins, new EventArgs());
         }
 
-        private void pluginManager_Reloaded(object sender, PluginLoadEventArgs e){
+        private void pluginManager_Reloaded(object sender, PluginErrorEventArgs e){
             tabBtnOfficial.Text = "Official: "+pluginManager.CountPluginByGroup(PluginGroup.Official);
             tabBtnCustom.Text = "Custom: "+pluginManager.CountPluginByGroup(PluginGroup.Custom);
         }

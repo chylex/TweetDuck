@@ -20,7 +20,7 @@ namespace TweetDck.Plugins{
             this.manager.PluginChangedState += manager_PluginChangedState;
         }
 
-        private void manager_Reloaded(object sender, PluginLoadEventArgs e){
+        private void manager_Reloaded(object sender, PluginErrorEventArgs e){
             fileCache.Clear();
         }
 

@@ -22,7 +22,8 @@ namespace TweetDck.Plugins{
         public PluginConfig Config { get; private set; }
         public PluginBridge Bridge { get; private set; }
         
-        public event EventHandler<PluginLoadEventArgs> Reloaded;
+        public event EventHandler<PluginErrorEventArgs> Reloaded;
+        public event EventHandler<PluginErrorEventArgs> Executed;
         public event EventHandler<PluginChangedStateEventArgs> PluginChangedState;
 
         private readonly string rootPath;
@@ -99,7 +100,7 @@ namespace TweetDck.Plugins{
             }
 
             if (Reloaded != null){
-                Reloaded(this, new PluginLoadEventArgs(loadErrors));
+                Reloaded(this, new PluginErrorEventArgs(loadErrors));
             }
         }
 
@@ -107,6 +108,8 @@ namespace TweetDck.Plugins{
             if (includeDisabled){
                 ScriptLoader.ExecuteScript(frame, PluginScriptGenerator.GenerateConfig(Config), "gen:pluginconfig");
             }
+
+            List<string> failedPlugins = new List<string>(1);
 
             foreach(Plugin plugin in Plugins){
                 string path = plugin.GetScriptPath(environment);
@@ -116,8 +119,8 @@ namespace TweetDck.Plugins{
 
                 try{
                     script = File.ReadAllText(path);
-                }catch{
-                    // TODO
+                }catch(Exception e){
+                    failedPlugins.Add(plugin.Identifier+" ("+Path.GetFileName(path)+"): "+e.Message);
                     continue;
                 }
 
@@ -132,6 +135,10 @@ namespace TweetDck.Plugins{
                 }
 
                 ScriptLoader.ExecuteScript(frame, PluginScriptGenerator.GeneratePlugin(plugin.Identifier, script, token, environment), "plugin:"+plugin);
+            }
+
+            if (Executed != null){
+                Executed(this, new PluginErrorEventArgs(failedPlugins));
             }
         }
 
