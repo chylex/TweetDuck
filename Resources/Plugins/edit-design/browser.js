@@ -1,7 +1,6 @@
 enabled(){
   // elements & data
-  this.css = window.TDPF_createCustomStyle(this);
-  
+  this.css = null;
   this.htmlModal = null;
   this.config = null;
   
@@ -81,8 +80,33 @@ enabled(){
   };
   
   // modal dialog setup
+  var me = this;
+  
   var customDesignModal = TD.components.BaseModal.extend(function(){
-    this.setAndShowContainer($("#td-design-plugin-modal"), false);
+    let modal = $("#td-design-plugin-modal");
+    this.setAndShowContainer(modal, false);
+    
+    modal.find("[data-td-key]").each(function(){
+      let item = $(this);
+      let key = item.attr("data-td-key");
+      let value = item.attr("data-td-value");
+      
+      if (value == me.config[key]){
+        item.addClass("selected");
+      }
+      
+      item.click(function(){ console.profile("aaa");
+        modal.find("[data-td-key='"+key+"']").removeClass("selected");
+        item.addClass("selected");
+        
+        me.config[key] = value;
+        
+        setTimeout(function(){
+          me.saveConfig();
+          me.reinjectAll();
+        }, 1); // delays the slight lag caused by saving and reinjection
+      });
+    });
   }).methods({
     _render: () => $(this.htmlModal),
     destroy: function(){
@@ -96,9 +120,11 @@ enabled(){
   };
   
   this.resetDesign = function(){
-    for(let index = this.css.element.cssRules.length; index >= 0; index--){
-      this.css.element.deleteRule(index);
+    if (this.css){
+      this.css.remove();
     }
+    
+    this.css = window.TDPF_createCustomStyle(this);
   };
   
   this.reinjectAll = function(){
@@ -115,8 +141,11 @@ ready(){
 }
 
 disabled(){
-  this.css.remove();
   this.resetLayout();
+  
+  if (this.css){
+    this.css.remove();
+  }
   
   $("[data-action='settings-menu']").off("click", this.onSettingsMenuClickedEvent);
   $("#td-design-plugin-modal").remove();
