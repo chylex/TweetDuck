@@ -165,7 +165,7 @@ enabled(){
     this.resetLayout();
     this.resetDesign();
     
-    this.css.insert(".txt-base-smallest, .txt-base-largest { font-size: "+this.config.fontSize+" !important }");
+    this.css.insert(".txt-base-smallest:not(.icon), .txt-base-largest:not(.icon) { font-size: "+this.config.fontSize+" !important }");
     this.css.insert(".avatar { border-radius: "+this.config.avatarRadius+"% !important }");
     
     if (this.config.columnWidth[0] === '/'){

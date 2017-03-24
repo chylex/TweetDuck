@@ -27,7 +27,7 @@ run(){
   
   var loadConfigObject = config => {
     let css = window.TDPF_createCustomStyle(this);
-    css.insert(".txt-base-smallest, .txt-base-largest { font-size: "+config.fontSize+" !important }");
+    css.insert(".txt-base-smallest:not(.icon), .txt-base-largest:not(.icon) { font-size: "+config.fontSize+" !important }");
     css.insert(".avatar { border-radius: "+config.avatarRadius+"% !important }");
   };
 }
