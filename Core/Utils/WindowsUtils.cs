@@ -8,9 +8,6 @@ using System.Windows.Forms;
 
 namespace TweetDck.Core.Utils{
     static class WindowsUtils{
-        private static readonly Regex RegexStripHtmlStyles = new Regex(@"\s?(?:style|class)="".*?""");
-        private static readonly Regex RegexOffsetClipboardHtml = new Regex(@"(?<=EndHTML:|EndFragment:)(\d+)");
-
         public static bool CheckFolderWritePermission(string path){
             string testFile = Path.Combine(path, ".test");
 
@@ -58,10 +55,10 @@ namespace TweetDck.Core.Utils{
             string originalText = Clipboard.GetText(TextDataFormat.UnicodeText);
             string originalHtml = Clipboard.GetText(TextDataFormat.Html);
 
-            string updatedHtml = RegexStripHtmlStyles.Replace(originalHtml, string.Empty);
+            string updatedHtml = ClipboardRegexes.RegexStripHtmlStyles.Replace(originalHtml, string.Empty);
 
             int removed = originalHtml.Length-updatedHtml.Length;
-            updatedHtml = RegexOffsetClipboardHtml.Replace(updatedHtml, match => (int.Parse(match.Value)-removed).ToString().PadLeft(match.Value.Length, '0'));
+            updatedHtml = ClipboardRegexes.RegexOffsetClipboardHtml.Replace(updatedHtml, match => (int.Parse(match.Value)-removed).ToString().PadLeft(match.Value.Length, '0'));
 
             DataObject obj = new DataObject();
             obj.SetText(originalText, TextDataFormat.UnicodeText);
@@ -85,6 +82,11 @@ namespace TweetDck.Core.Utils{
             }catch(ExternalException e){
                 Program.Reporter.HandleException("Clipboard Error", Program.BrandName+" could not access the clipboard as it is currently used by another process.", true, e);
             }
+        }
+
+        private static class ClipboardRegexes{ // delays construction of regular expressions until needed
+            public static readonly Regex RegexStripHtmlStyles = new Regex(@"\s?(?:style|class)="".*?""");
+            public static readonly Regex RegexOffsetClipboardHtml = new Regex(@"(?<=EndHTML:|EndFragment:)(\d+)");
         }
     }
 }
