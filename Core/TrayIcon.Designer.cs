@@ -28,7 +28,6 @@
             // 
             // notifyIcon
             // 
-            this.notifyIcon.Icon = global::TweetDck.Properties.Resources.icon_tray;
             this.notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.trayIcon_MouseClick);
             //
             // TrayIcon

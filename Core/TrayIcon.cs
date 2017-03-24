@@ -17,7 +17,12 @@ namespace TweetDck.Core{
             }
 
             set{
+                if (value){
+                    notifyIcon.Icon = Properties.Resources.icon_tray;
+                }
+                
                 notifyIcon.Visible = value;
+                hasNotifications = false;
             }
         }
 
@@ -27,7 +32,7 @@ namespace TweetDck.Core{
             }
 
             set{
-                if (hasNotifications != value){
+                if (hasNotifications != value && Visible){
                     notifyIcon.Icon = value ? Properties.Resources.icon_tray_new : Properties.Resources.icon_tray;
                     hasNotifications = value;
                 }

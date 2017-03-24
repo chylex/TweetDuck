@@ -28,10 +28,6 @@
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
-            // trayIcon
-            // 
-            this.trayIcon.Visible = false;
-            // 
             // FormBrowser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
