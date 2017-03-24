@@ -55,6 +55,10 @@ namespace TweetDck.Core{
             this.notifyIcon.Text = Program.BrandName;
         }
 
+        public TrayIcon(IContainer container) : this(){
+            container.Add(this);
+        }
+
         // event handlers
 
         private void trayIcon_MouseClick(object sender, MouseEventArgs e){

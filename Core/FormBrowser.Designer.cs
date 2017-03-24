@@ -24,7 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            this.trayIcon = new TweetDck.Core.TrayIcon();
+            this.trayIcon = new TweetDck.Core.TrayIcon(this.components);
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
