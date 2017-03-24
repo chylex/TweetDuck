@@ -99,7 +99,6 @@ namespace TweetDck.Core.Other.Settings.Export{
                             case "config":
                                 if (flags.HasFlag(ExportFileFlags.Config)){
                                     entry.WriteToFile(Program.ConfigFilePath);
-                                    Program.ReloadConfig();
                                 }
 
                                 break;
@@ -136,7 +135,7 @@ namespace TweetDck.Core.Other.Settings.Export{
                     Program.Restart(new string[]{ Arguments.ArgImportCookies });
                 }
                 else{
-                    plugins.Reload();
+                    Program.ReloadConfig();
                 }
 
                 return true;

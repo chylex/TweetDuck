@@ -8,7 +8,7 @@ using TweetDck.Plugins.Events;
 using TweetDck.Resources;
 
 namespace TweetDck.Plugins{
-    class PluginManager{
+    sealed class PluginManager{
         public const string PluginBrowserScriptFile = "plugins.browser.js";
         public const string PluginNotificationScriptFile = "plugins.notification.js";
         public const string PluginGlobalScriptFile = "plugins.js";
@@ -37,21 +37,28 @@ namespace TweetDck.Plugins{
             this.rootPath = path;
             this.SetConfig(config);
             this.Bridge = new PluginBridge(this);
+
+            Program.UserConfigReplaced += Program_UserConfigReplaced;
         }
 
-        public void SetConfig(PluginConfig config){
-            if (this.Config != null){
-                this.Config.InternalPluginChangedState -= Config_InternalPluginChangedState;
-            }
-
-            this.Config = config;
-            this.Config.InternalPluginChangedState += Config_InternalPluginChangedState;
+        private void Program_UserConfigReplaced(object sender, EventArgs e){
+            SetConfig(Program.UserConfig.Plugins);
+            Reload();
         }
 
         private void Config_InternalPluginChangedState(object sender, PluginChangedStateEventArgs e){
             if (PluginChangedState != null){
                 PluginChangedState(this, e);
             }
+        }
+
+        private void SetConfig(PluginConfig config){
+            if (this.Config != null){
+                this.Config.InternalPluginChangedState -= Config_InternalPluginChangedState;
+            }
+
+            this.Config = config;
+            this.Config.InternalPluginChangedState += Config_InternalPluginChangedState;
         }
 
         public bool IsPluginInstalled(string identifier){

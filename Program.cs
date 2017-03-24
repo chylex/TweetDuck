@@ -47,6 +47,8 @@ namespace TweetDck{
         public static UserConfig UserConfig { get; private set; }
         public static Reporter Reporter { get; private set; }
 
+        public static event EventHandler UserConfigReplaced;
+
         [STAThread]
         private static void Main(){
             Application.EnableVisualStyles();
@@ -154,7 +156,6 @@ namespace TweetDck{
             PluginManager plugins = new PluginManager(PluginPath, UserConfig.Plugins);
             plugins.Reloaded += plugins_Reloaded;
             plugins.Executed += plugins_Executed;
-            plugins.PluginChangedState += (sender, args) => UserConfig.Save();
             plugins.Reload();
 
             FormBrowser mainForm = new FormBrowser(plugins, new UpdaterSettings{
@@ -177,16 +178,14 @@ namespace TweetDck{
         }
 
         private static void plugins_Reloaded(object sender, PluginErrorEventArgs e){
-            if (!e.Success){
+            if (e.HasErrors){
                 string doubleNL = Environment.NewLine+Environment.NewLine;
                 MessageBox.Show("The following plugins will not be available until the issues are resolved:"+doubleNL+string.Join(doubleNL, e.Errors), "Error Loading Plugins", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            ((PluginManager)sender).SetConfig(UserConfig.Plugins);
         }
 
         private static void plugins_Executed(object sender, PluginErrorEventArgs e){
-            if (!e.Success){
+            if (e.HasErrors){
                 string doubleNL = Environment.NewLine+Environment.NewLine;
                 MessageBox.Show("Failed to execute the following plugins:"+doubleNL+string.Join(doubleNL, e.Errors), "Error Executing Plugins", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -212,6 +211,10 @@ namespace TweetDck{
 
         public static void ReloadConfig(){
             UserConfig = UserConfig.Load(ConfigFilePath);
+
+            if (UserConfigReplaced != null){
+                UserConfigReplaced(UserConfig, new EventArgs());
+            }
         }
 
         public static void ResetConfig(){

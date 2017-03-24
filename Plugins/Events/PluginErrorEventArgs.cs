@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace TweetDck.Plugins.Events{
     class PluginErrorEventArgs : EventArgs{
-        public bool Success{
+        public bool HasErrors{
             get{
-                return Errors.Count == 0;
+                return Errors.Count > 0;
             }
         }
 
