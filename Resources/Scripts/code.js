@@ -55,6 +55,7 @@
       
       html.css("border", "0");
       html.find("footer").last().remove(); // apparently withTweetActions breaks for certain tweets, nice
+      html.find(".js-media").last().remove(); // and quoted tweets still show media previews, nice nice
       html.find(".js-quote-detail").removeClass("is-actionable");
       
       var url = html.find("time").first().children("a").first().attr("href") || "";
