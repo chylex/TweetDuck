@@ -1,20 +1,14 @@
 ﻿using System;
-using System.Drawing;
 using System.IO;
 using System.Media;
-using System.Windows.Forms;
-using TweetDck.Core.Other;
 
 namespace TweetDck.Core.Notification{
-    class SoundNotification : IDisposable{
-        private readonly FormBrowser browserForm;
+    sealed class SoundNotification : IDisposable{
 
         private SoundPlayer notificationSound;
         private bool ignoreNotificationSoundError;
 
-        public SoundNotification(FormBrowser browserForm){
-            this.browserForm = browserForm;
-        }
+        public event EventHandler<PlaybackErrorEventArgs> PlaybackError;
 
         public void Play(string file){
             if (notificationSound == null){
@@ -39,27 +33,29 @@ namespace TweetDck.Core.Notification{
             }
         }
 
+
+
         private void OnNotificationSoundError(string message){
-            if (!ignoreNotificationSoundError){
-                ignoreNotificationSoundError = true;
-
-                using(FormMessage form = new FormMessage("Notification Sound Error", "Could not play custom notification sound."+Environment.NewLine+message, MessageBoxIcon.Error)){
-                    form.AddButton("Ignore");
-
-                    Button btnOpenSettings = form.AddButton("Open Settings");
-                    btnOpenSettings.Width += 16;
-                    btnOpenSettings.Location = new Point(btnOpenSettings.Location.X-16, btnOpenSettings.Location.Y);
-
-                    if (form.ShowDialog() == DialogResult.OK && form.ClickedButton == btnOpenSettings){
-                        browserForm.OpenSettings(FormSettings.TabIndexNotification);
-                    }
-                }
+            if (!ignoreNotificationSoundError && PlaybackError != null){
+                PlaybackErrorEventArgs args = new PlaybackErrorEventArgs(message);
+                PlaybackError(this, args);
+                ignoreNotificationSoundError = args.Ignore;
             }
         }
 
         public void Dispose(){
             if (notificationSound != null){
                 notificationSound.Dispose();
+            }
+        }
+
+        public class PlaybackErrorEventArgs : EventArgs{
+            public string Message { get; private set; }
+            public bool Ignore { get; set; }
+
+            public PlaybackErrorEventArgs(string message){
+                this.Message = message;
+                this.Ignore = false;
             }
         }
     }

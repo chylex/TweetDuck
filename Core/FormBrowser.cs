@@ -273,6 +273,22 @@ namespace TweetDck.Core{
             Config.Save();
         }
 
+        private void soundNotification_PlaybackError(object sender, SoundNotification.PlaybackErrorEventArgs e){
+            e.Ignore = true;
+
+            using(FormMessage form = new FormMessage("Notification Sound Error", "Could not play custom notification sound."+Environment.NewLine+e.Message, MessageBoxIcon.Error)){
+                form.AddButton("Ignore");
+
+                Button btnOpenSettings = form.AddButton("Open Settings");
+                btnOpenSettings.Width += 16;
+                btnOpenSettings.Location = new Point(btnOpenSettings.Location.X-16, btnOpenSettings.Location.Y);
+
+                if (form.ShowDialog() == DialogResult.OK && form.ClickedButton == btnOpenSettings){
+                    OpenSettings(FormSettings.TabIndexNotification);
+                }
+            }
+        }
+
         protected override void WndProc(ref Message m){
             if (isLoaded && m.Msg == Program.WindowRestoreMessage){
                 using(Process process = Process.GetCurrentProcess()){
@@ -392,7 +408,8 @@ namespace TweetDck.Core{
             }
 
             if (soundNotification == null){
-                soundNotification = new SoundNotification(this);
+                soundNotification = new SoundNotification();
+                soundNotification.PlaybackError += soundNotification_PlaybackError;
             }
 
             soundNotification.Play(Config.NotificationSoundPath);
