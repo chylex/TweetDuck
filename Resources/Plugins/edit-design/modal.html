@@ -1,4 +1,4 @@
-<div class="js-modal-panel mdl s-tall-fixed is-inverted-dark">
+<div class="td-modal-panel js-modal-panel mdl s-tall-fixed is-inverted-dark">
   <header class="js-mdl-header mdl-header js-drag-handle">
     <h3 class="mdl-header-title js-header-title">TweetDuck - Layout &amp; Design</h3>
     <a href="#" class="mdl-dismiss js-dismiss link-normal-dark">
@@ -64,6 +64,28 @@
         </div>
         
         <div class="l-column mdl-column">
+          
+          <!-- DESIGN -->
+          
+          <label class="txt-uppercase touch-larger-label">
+            <b>Layout &amp; Design</b>
+          </label>
+          <label class="checkbox">
+            <input data-td-key="hideTweetActions" class="js-theme-checkbox touch-larger-label" type="checkbox">
+            Hide Tweet Actions
+          </label>
+          <label class="checkbox">
+            <input data-td-key="moveTweetActionsToRight" class="js-theme-checkbox touch-larger-label" type="checkbox">
+            Tweet Actions on the Right Side
+          </label>
+          <label class="checkbox">
+            <input data-td-key="smallComposeTextSize" class="js-theme-checkbox touch-larger-label" type="checkbox">
+            Small Compose Tweet Font Size
+          </label>
+          <label class="checkbox">
+            <input data-td-key="roundedScrollBars" class="js-theme-checkbox touch-larger-label" type="checkbox">
+            Rounded Scroll Bars
+          </label>
         </div>
         
         <div class="l-column mdl-column">
@@ -109,6 +131,11 @@
   
   /* Containers */
   
+  .td-modal-panel {
+    width: 693px;
+    height: 374px;
+  }
+  
   .td-modal-inner-cols {
     padding: 0 6px;
   }
@@ -116,6 +143,10 @@
   .td-modal-inner-cols .l-column {
     padding: 15px 9px;
     box-sizing: border-box;
+  }
+  
+  .td-modal-inner-cols .l-column:nth-child(2) {
+    width: 250px;
   }
   
   .td-modal-inner-full {

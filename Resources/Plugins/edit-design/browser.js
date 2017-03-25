@@ -7,6 +7,10 @@ enabled(){
   this.defaultConfig = {
     columnWidth: "310px",
     fontSize: "12px",
+    hideTweetActions: true,
+    moveTweetActionsToRight: true,
+    smallComposeTextSize: false,
+    roundedScrollBars: false,
     avatarRadius: 10
   };
   
@@ -167,9 +171,6 @@ enabled(){
   });
   
   // css and layout injection
-  this.resetLayout = function(){
-  };
-  
   this.resetDesign = function(){
     if (this.css){
       this.css.remove();
@@ -179,11 +180,32 @@ enabled(){
   };
   
   this.reinjectAll = function(){
-    this.resetLayout();
     this.resetDesign();
     
     this.css.insert(".txt-base-smallest:not(.icon), .txt-base-largest:not(.icon) { font-size: "+this.config.fontSize+" !important }");
     this.css.insert(".avatar { border-radius: "+this.config.avatarRadius+"% !important }");
+    
+    if (this.config.hideTweetActions){
+      this.css.insert(".tweet-action { opacity: 0; }");
+      this.css.insert(".is-favorite .tweet-action, .is-retweet .tweet-action { opacity: 0.5; visibility: visible !important; }");
+      this.css.insert(".tweet:hover .tweet-action, .is-favorite .tweet-action[rel='favorite'], .is-retweet .tweet-action[rel='retweet'] { opacity: 1; visibility: visible !important; }");
+    }
+    
+    if (this.config.moveTweetActionsToRight){
+      this.css.insert(".tweet-actions { float: right !important; width: auto !important; }");
+      this.css.insert(".tweet-actions > li:nth-child(4) { margin-right: 2px !important; }");
+    }
+    
+    if (this.config.smallComposeTextSize){
+      this.css.insert(".compose-text { font-size: 12px !important; height: 120px !important; }");
+    }
+    
+    if (!this.config.roundedScrollBars){
+      this.css.insert(".scroll-styled-v::-webkit-scrollbar { width: 8px }");
+      this.css.insert(".scroll-styled-h::-webkit-scrollbar { height: 8px }");
+      this.css.insert(".scroll-styled-v::-webkit-scrollbar-thumb { border-radius: 0 }");
+      this.css.insert(".scroll-styled-h::-webkit-scrollbar-thumb { border-radius: 0 }");
+    }
     
     if (this.config.columnWidth[0] === '/'){
       let cols = this.config.columnWidth.slice(1);
@@ -217,6 +239,12 @@ enabled(){
       default: TD.settings.setFontSize(parseInt(this.config.fontSize, 10) >= 16 ? "largest" : "smallest"); break;
     }
   };
+  
+  this.uiShowActionsMenuEvent = function(){
+    if (this.config.moveTweetActionsToRight){
+      $(".js-dropdown.pos-r").toggleClass("pos-r pos-l");
+    }
+  };
 }
 
 ready(){
@@ -235,17 +263,20 @@ ready(){
   
   this.onAppReady();
   
-  // DOM
+  // layout events
+  $(document).on("uiShowActionsMenu", this.uiShowActionsMenuEvent);
+  
+  // modal
   $("[data-action='settings-menu']").on("click", this.onSettingsMenuClickedEvent);
   $(".js-app").append('<div id="td-design-plugin-modal" class="js-modal settings-modal ovl scroll-v scroll-styled-v"></div>');
 }
 
 disabled(){
-  this.resetLayout();
-  
   if (this.css){
     this.css.remove();
   }
+  
+  $(document).off("uiShowActionsMenu", this.uiShowActionsMenuEvent);
   
   $("[data-action='settings-menu']").off("click", this.onSettingsMenuClickedEvent);
   $("#td-design-plugin-modal").remove();
