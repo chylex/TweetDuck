@@ -57,6 +57,7 @@ namespace TweetDck.Core.Other.Settings{
             labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value.ToString(CultureInfo.InvariantCulture)+" px";
 
             tbCustomSound.Text = Config.NotificationSoundPath;
+            tbCustomSound_TextChanged(tbCustomSound, new EventArgs());
 
             Disposed += (sender, args) => this.notification.Dispose();
         }
@@ -166,7 +167,6 @@ namespace TweetDck.Core.Other.Settings{
         }
 
         private void tbCustomSound_TextChanged(object sender, EventArgs e){
-            // also runs when the control is created, i.e. when Ready is false
 
             bool fileExists = string.IsNullOrEmpty(tbCustomSound.Text) || File.Exists(tbCustomSound.Text);
             tbCustomSound.ForeColor = fileExists ? SystemColors.WindowText : Color.Maroon;
