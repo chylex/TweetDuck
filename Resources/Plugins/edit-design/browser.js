@@ -11,6 +11,7 @@ enabled(){
     moveTweetActionsToRight: true,
     smallComposeTextSize: false,
     roundedScrollBars: false,
+    optimizeAnimations: true,
     avatarRadius: 10
   };
   
@@ -206,6 +207,11 @@ enabled(){
       this.css.insert(".scroll-styled-h:not(.antiscroll-inner)::-webkit-scrollbar { height: 8px }");
       this.css.insert(".scroll-styled-v::-webkit-scrollbar-thumb { border-radius: 0 }");
       this.css.insert(".scroll-styled-h::-webkit-scrollbar-thumb { border-radius: 0 }");
+    }
+    
+    if (this.config.optimizeAnimations){
+      this.css.insert(".app-content { will-change: transform }");
+      this.css.insert(".column-holder { will-change: transform }");
     }
     
     if (this.config.columnWidth[0] === '/'){
