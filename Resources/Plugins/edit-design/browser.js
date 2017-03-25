@@ -154,6 +154,7 @@ enabled(){
       }
     });
     
+    // THEMES
     modal.find("[data-td-theme='"+TD.settings.getTheme()+"']").prop("checked", true);
     
     modal.find("[data-td-theme]").change(function(){
@@ -187,17 +188,17 @@ enabled(){
     
     if (this.config.hideTweetActions){
       this.css.insert(".tweet-action { opacity: 0; }");
-      this.css.insert(".is-favorite .tweet-action, .is-retweet .tweet-action { opacity: 0.5; visibility: visible !important; }");
-      this.css.insert(".tweet:hover .tweet-action, .is-favorite .tweet-action[rel='favorite'], .is-retweet .tweet-action[rel='retweet'] { opacity: 1; visibility: visible !important; }");
+      this.css.insert(".is-favorite .tweet-action, .is-retweet .tweet-action { opacity: 0.5; visibility: visible !important }");
+      this.css.insert(".tweet:hover .tweet-action, .is-favorite .tweet-action[rel='favorite'], .is-retweet .tweet-action[rel='retweet'] { opacity: 1; visibility: visible !important }");
     }
     
     if (this.config.moveTweetActionsToRight){
-      this.css.insert(".tweet-actions { float: right !important; width: auto !important; }");
-      this.css.insert(".tweet-actions > li:nth-child(4) { margin-right: 2px !important; }");
+      this.css.insert(".tweet-actions { float: right !important; width: auto !important }");
+      this.css.insert(".tweet-actions > li:nth-child(4) { margin-right: 2px !important }");
     }
     
     if (this.config.smallComposeTextSize){
-      this.css.insert(".compose-text { font-size: 12px !important; height: 120px !important; }");
+      this.css.insert(".compose-text { font-size: 12px !important; height: 120px !important }");
     }
     
     if (!this.config.roundedScrollBars){
