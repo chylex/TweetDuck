@@ -111,15 +111,30 @@ enabled(){
     
     modal.find("[data-td-key]").each(function(){
       let item = $(this);
+      let tag = item.prop("tagName");
       let key = item.attr("data-td-key");
       
-      if (item.prop("tagName") === "SELECT"){
+      // INPUTS
+      if (tag === "INPUT"){
+        let type = item.attr("type");
+        
+        if (type === "checkbox"){
+          item.prop("checked", me.config[key]);
+          
+          item.change(function(){
+            updateKey(key, item.prop("checked"));
+          });
+        }
+      }
+      // SELECTS
+      else if (tag === "SELECT"){
         item.val(me.config[key]);
         
         item.change(function(){
           updateKey(key, item.val());
         });
       }
+      // CUSTOM ELEMENTS
       else{
         let value = item.attr("data-td-value");
         
@@ -138,8 +153,10 @@ enabled(){
     modal.find("[data-td-theme='"+TD.settings.getTheme()+"']").prop("checked", true);
     
     modal.find("[data-td-theme]").change(function(){
-      TD.settings.setTheme($(this).attr("data-td-theme"));
-      $(document).trigger("uiToggleTheme");
+      setTimeout(function(){
+        TD.settings.setTheme($(this).attr("data-td-theme"));
+        $(document).trigger("uiToggleTheme");
+      }, 1);
     });
   }).methods({
     _render: () => $(this.htmlModal),
