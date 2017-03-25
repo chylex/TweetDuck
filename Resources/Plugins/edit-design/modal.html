@@ -16,13 +16,13 @@
             <b>Theme</b>
           </label>
           <label class="radio">
-            <input data-td-theme="dark" class="js-theme-radio touch-larger-label" name="theme" type="radio"> Dark
+            <input data-td-theme="dark" class="js-theme-radio touch-larger-label" name="theme" type="radio">
+            Dark
           </label>
           <label class="radio">
-            <input data-td-theme="light" class="js-theme-radio touch-larger-label" name="theme" type="radio"> Light
+            <input data-td-theme="light" class="js-theme-radio touch-larger-label" name="theme" type="radio">
+            Light
           </label>
-        </div>
-        <div class="l-column mdl-column">
           
           <!-- COLUMN SIZE -->
           
@@ -46,8 +46,6 @@
             </optgroup>
             <option disabled></option>
           </select>
-        </div>
-        <div class="l-column mdl-column">
           
           <!-- FONT SIZE -->
           
@@ -64,30 +62,34 @@
             <option value="20px" data-td-font-size="largest">Extreme (20px)</option>
           </select>
         </div>
-      </div>
+        
+        <div class="l-column mdl-column">
+        </div>
+        
+        <div class="l-column mdl-column">
       
-      <!-- AVATAR SHAPE -->
-      
-      <div class="td-modal-inner-full">
-        <label class="txt-uppercase txt-center touch-larger-label">
-          <b>Avatar shape</b>
-        </label>
-        <div class="td-avatar-shape-container">
-          <div class="td-avatar-shape-item-outer" data-td-key="avatarRadius" data-td-value="2">
-            <div class="td-avatar-shape" style="border-radius:2%"></div>
-            <label>Square</label>
-          </div>
-          <div class="td-avatar-shape-item-outer" data-td-key="avatarRadius" data-td-value="10">
-            <div class="td-avatar-shape" style="border-radius:10%"></div>
-            <label>Default</label>
-          </div>
-          <div class="td-avatar-shape-item-outer" data-td-key="avatarRadius" data-td-value="30">
-            <div class="td-avatar-shape" style="border-radius:30%"></div>
-            <label>Rounded</label>
-          </div>
-          <div class="td-avatar-shape-item-outer" data-td-key="avatarRadius" data-td-value="50">
-            <div class="td-avatar-shape" style="border-radius:50%"></div>
-            <label>Circle</label>
+          <!-- AVATAR SHAPE -->
+        
+          <label class="txt-uppercase touch-larger-label">
+            <b>Avatar shape</b>
+          </label>
+          <div class="td-avatar-shape-container">
+            <div class="td-avatar-shape-item-outer" data-td-key="avatarRadius" data-td-value="2">
+              <div class="td-avatar-shape" style="border-radius:2%"></div>
+              <label>Square</label>
+            </div>
+            <div class="td-avatar-shape-item-outer" data-td-key="avatarRadius" data-td-value="10">
+              <div class="td-avatar-shape" style="border-radius:10%"></div>
+              <label>Default</label>
+            </div>
+            <div class="td-avatar-shape-item-outer" data-td-key="avatarRadius" data-td-value="30">
+              <div class="td-avatar-shape" style="border-radius:30%"></div>
+              <label>Round</label>
+            </div>
+            <div class="td-avatar-shape-item-outer" data-td-key="avatarRadius" data-td-value="50">
+              <div class="td-avatar-shape" style="border-radius:50%"></div>
+              <label>Circle</label>
+            </div>
           </div>
         </div>
       </div>
@@ -126,6 +128,14 @@
   
   /* Elements */
   
+  .td-modal-content label {
+    margin-top: 18px;
+  }
+  
+  .td-modal-content label:first-child {
+    margin-top: 0;
+  }
+  
   .td-modal-content label.radio {
     display: inline-block;
     margin: 6px 16px 5px 4px;
@@ -140,8 +150,8 @@
   
   .td-avatar-shape-item-outer {
     display: inline-block;
-    margin: 0 12px;
-    padding: 20px 20px 10px;
+    margin: 0 4px 10px;
+    padding: 16px 14px 8px;
     box-sizing: border-box;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
     border: 2px solid #F5F8FA;
