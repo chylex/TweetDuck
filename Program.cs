@@ -15,7 +15,6 @@ using TweetDck.Core.Handling;
 using TweetDck.Core.Other;
 using TweetDck.Updates;
 
-[assembly: CLSCompliant(true)]
 namespace TweetDck{
     static class Program{
         public const string BrandName = "TweetDuck";

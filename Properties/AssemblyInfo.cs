@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Resources;
 using TweetDck;
@@ -37,6 +38,8 @@ using TweetDck;
 [assembly: AssemblyFileVersion(Program.VersionFull)]
 
 [assembly: NeutralResourcesLanguageAttribute("en")]
+
+[assembly: CLSCompliant(false)]
 
 #if DEBUG
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("UnitTests")]
