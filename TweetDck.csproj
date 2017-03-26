@@ -187,6 +187,12 @@
     <Compile Include="Core\Other\Settings\TabSettingsGeneral.Designer.cs">
       <DependentUpon>TabSettingsGeneral.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\Other\Settings\TabSettingsSounds.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Core\Other\Settings\TabSettingsSounds.Designer.cs">
+      <DependentUpon>TabSettingsSounds.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\Other\Settings\TabSettingsNotifications.cs">
       <SubType>UserControl</SubType>
     </Compile>

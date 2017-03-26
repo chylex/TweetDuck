@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Drawing;
 using System.Globalization;
-using System.IO;
 using System.Windows.Forms;
 using TweetDck.Core.Controls;
 using TweetDck.Core.Notification;
@@ -56,9 +54,6 @@ namespace TweetDck.Core.Other.Settings{
             trackBarEdgeDistance.SetValueSafe(Config.NotificationEdgeDistance);
             labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value.ToString(CultureInfo.InvariantCulture)+" px";
 
-            tbCustomSound.Text = Config.NotificationSoundPath;
-            tbCustomSound_TextChanged(tbCustomSound, new EventArgs());
-
             Disposed += (sender, args) => this.notification.Dispose();
         }
 
@@ -80,14 +75,6 @@ namespace TweetDck.Core.Other.Settings{
 
             comboBoxDisplay.SelectedValueChanged += comboBoxDisplay_SelectedValueChanged;
             trackBarEdgeDistance.ValueChanged += trackBarEdgeDistance_ValueChanged;
-
-            tbCustomSound.TextChanged += tbCustomSound_TextChanged;
-            btnBrowseSound.Click += btnBrowseSound_Click;
-            btnResetSound.Click += btnResetSound_Click;
-        }
-
-        public override void OnClosing(){
-            Config.NotificationSoundPath = tbCustomSound.Text;
         }
 
         private void TabSettingsNotifications_ParentChanged(object sender, EventArgs e){
@@ -164,29 +151,6 @@ namespace TweetDck.Core.Other.Settings{
             labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value.ToString(CultureInfo.InvariantCulture)+" px";
             Config.NotificationEdgeDistance = trackBarEdgeDistance.Value;
             notification.ShowNotificationForSettings(false);
-        }
-
-        private void tbCustomSound_TextChanged(object sender, EventArgs e){
-
-            bool fileExists = string.IsNullOrEmpty(tbCustomSound.Text) || File.Exists(tbCustomSound.Text);
-            tbCustomSound.ForeColor = fileExists ? SystemColors.WindowText : Color.Maroon;
-        }
-
-        private void btnBrowseSound_Click(object sender, EventArgs e){
-            using(OpenFileDialog dialog = new OpenFileDialog{
-                AutoUpgradeEnabled = true,
-                DereferenceLinks = true,
-                Title = "Custom Notification Sound",
-                Filter = "Wave file (*.wav)|*.wav"
-            }){
-                if (dialog.ShowDialog() == DialogResult.OK){
-                    tbCustomSound.Text = dialog.FileName;
-                }
-            }
-        }
-
-        private void btnResetSound_Click(object sender, EventArgs e){
-            tbCustomSound.Text = string.Empty;
         }
     }
 }
