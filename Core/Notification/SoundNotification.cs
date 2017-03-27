@@ -63,6 +63,8 @@ namespace TweetDck.Core.Notification{
             else if (media.Error != null){
                 OnNotificationSoundError(media.Error);
             }
+
+            Marshal.ReleaseComObject(media);
         }
 
         private void player_MediaError(object pMediaObject){
@@ -74,10 +76,13 @@ namespace TweetDck.Core.Notification{
             else if (media.Error != null){
                 OnNotificationSoundError(media.Error);
             }
+
+            Marshal.ReleaseComObject(media);
         }
 
         private void OnNotificationSoundError(IWMPErrorItem error){
             OnNotificationSoundError(error.errorCode == -1072885353 ? "Invalid media file." : error.errorDescription);
+            Marshal.ReleaseComObject(error);
         }
 
         private void OnNotificationSoundError(string message){
