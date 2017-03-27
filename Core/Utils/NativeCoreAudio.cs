@@ -5,7 +5,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 
 namespace TweetDck.Core.Utils{
-    internal static class NativeCoreAudio{
+    static class NativeCoreAudio{
         private const int EDATAFLOW_RENDER = 0;
         private const int EROLE_MULTIMEDIA = 1;
 
