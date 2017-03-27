@@ -206,6 +206,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Core\Notification\Screenshot\TweetScreenshotManager.cs" />
+    <Compile Include="Core\Utils\NativeCoreAudio.cs" />
     <Compile Include="Core\Utils\TwoKeyDictionary.cs" />
     <Compile Include="Core\Utils\WindowState.cs" />
     <Compile Include="Core\Utils\WindowsUtils.cs" />

@@ -1,20 +1,11 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using TweetDck.Core.Utils;
 using WMPLib;
 
 namespace TweetDck.Core.Notification{
     sealed class SoundNotification : IDisposable{ // TODO test on windows server
         public const string SupportedFormats = "*.wav;*.mp3;*.mp2;*.m4a;*.mid;*.midi;*.rmi;*.wma;*.aif;*.aifc;*.aiff;*.snd;*.au";
-
-        public int Volume{
-            get{
-                return player.settings.volume;
-            }
-
-            set{
-                player.settings.volume = value;
-            }
-        }
 
         public event EventHandler<PlaybackErrorEventArgs> PlaybackError;
 
@@ -22,11 +13,18 @@ namespace TweetDck.Core.Notification{
         private bool wasTryingToPlay;
         private bool ignorePlaybackError;
 
+        // changing the player volume also affects the value in the Windows mixer
+        // however, the initial value is always 50 or some other stupid shit
+        // so we have to tell the player to set its volume to whatever the mixer is set to
+        // using the most code required for the least functionality with a sorry excuse for an API
+        // thanks, Microsoft
+
         public SoundNotification(){
             player = new WindowsMediaPlayer();
             player.settings.autoStart = false;
             player.settings.enableErrorDialogs = false;
             player.settings.invokeURLs = false;
+            player.settings.volume = (int)Math.Floor(100.0*NativeCoreAudio.GetMixerVolumeForCurrentProcess());
             player.MediaChange += player_MediaChange;
             player.MediaError += player_MediaError;
         }
