@@ -6,18 +6,18 @@ using TweetDck.Core.Notification;
 
 namespace TweetDck.Core.Other.Settings{
     partial class TabSettingsSounds : BaseTabSettings{
-        private readonly SoundNotification sound;
+        private readonly SoundNotification soundNotification;
 
         public TabSettingsSounds(){
             InitializeComponent();
-            
-            sound = new SoundNotification();
-            sound.PlaybackError += sound_PlaybackError;
+
+            soundNotification = new SoundNotification();
+            soundNotification.PlaybackError += sound_PlaybackError;
 
             tbCustomSound.Text = Config.NotificationSoundPath;
             tbCustomSound_TextChanged(tbCustomSound, new EventArgs());
 
-            Disposed += (sender, args) => sound.Dispose();
+            Disposed += (sender, args) => soundNotification.Dispose();
         }
 
         public override void OnReady(){
@@ -39,7 +39,7 @@ namespace TweetDck.Core.Other.Settings{
         }
 
         private void btnPlaySound_Click(object sender, EventArgs e){
-            sound.Play(tbCustomSound.Text);
+            soundNotification.Play(tbCustomSound.Text);
         }
 
         private void sound_PlaybackError(object sender, SoundNotification.PlaybackErrorEventArgs e){
