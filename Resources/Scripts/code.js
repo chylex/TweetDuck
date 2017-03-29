@@ -586,6 +586,13 @@
   })();
   
   //
+  // Block: Fix youtu.be previews not showing up for https links.
+  //
+  TD.services.TwitterMedia.YOUTUBE_TINY_RE = new RegExp(TD.services.TwitterMedia.YOUTUBE_TINY_RE.source.replace("http:", "https?:"));
+  TD.services.TwitterMedia.YOUTUBE_RE = new RegExp(TD.services.TwitterMedia.YOUTUBE_LONG_RE.source+"|"+TD.services.TwitterMedia.YOUTUBE_TINY_RE.source);
+  TD.services.TwitterMedia.SERVICES["youtube"] = TD.services.TwitterMedia.YOUTUBE_RE;
+  
+  //
   // Block: Finish initialization and load plugins.
   //
   onAppReady.push(function(){
