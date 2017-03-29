@@ -247,7 +247,7 @@ enabled(){
     }
   };
   
-  this.uiShowActionsMenuEvent = function(){
+  this.uiShowActionsMenuEvent = () => {
     if (this.config.moveTweetActionsToRight){
       $(".js-dropdown.pos-r").toggleClass("pos-r pos-l");
     }
