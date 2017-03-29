@@ -301,10 +301,11 @@
         var isReply = !isDetail && (parent.hasClass("js-replies-to") || parent.hasClass("js-replies-before"));
         
         selectedTweet = selectedTweet.clone();
-        selectedTweet.children().first().addClass($(document.documentElement).attr("class")).css("padding-bottom", "12px");
+        selectedTweet.children().first().addClass($(document.documentElement).attr("class")).css("padding-bottom", "0");
         
-        setImportantProperty(selectedTweet.find(".js-quote-detail"), "margin-bottom", "0");
-        setImportantProperty(selectedTweet.find(".js-media-preview-container"), "margin-bottom", "0");
+        setImportantProperty(selectedTweet.find(".js-tweet-text"), "margin-bottom", "8px");
+        setImportantProperty(selectedTweet.find(".js-quote-detail"), "margin-bottom", "10px");
+        setImportantProperty(selectedTweet.find(".js-media-preview-container"), "margin-bottom", "10px");
         
         if (isDetail){
           setImportantProperty(selectedTweet.find(".js-tweet-media"), "margin-bottom", "0");
