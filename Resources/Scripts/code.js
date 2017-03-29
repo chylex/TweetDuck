@@ -306,6 +306,7 @@
         setImportantProperty(selectedTweet.find(".js-tweet-text"), "margin-bottom", "8px");
         setImportantProperty(selectedTweet.find(".js-quote-detail"), "margin-bottom", "10px");
         setImportantProperty(selectedTweet.find(".js-media-preview-container"), "margin-bottom", "10px");
+        setImportantProperty(selectedTweet.find(".js-poll-link").next(), "margin-bottom", "8px");
         
         if (isDetail){
           setImportantProperty(selectedTweet.find(".js-tweet-media"), "margin-bottom", "0");
@@ -319,7 +320,6 @@
         
         if (isReply){
           selectedTweet.find(".is-conversation").removeClass("is-conversation");
-          selectedTweet.find(".timeline-poll-container").first().remove(); // fix for timeline polls plugin
         }
         
         selectedTweet.find(".js-poll-link").remove();
