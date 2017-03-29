@@ -28,18 +28,17 @@ namespace TweetDck.Updates{
         public FormUpdateDownload(UpdateInfo info){
             InitializeComponent();
 
-            this.webClient = new WebClient{ Proxy = null };
-            this.webClient.Headers[HttpRequestHeader.UserAgent] = BrowserUtils.HeaderUserAgent;
+            Text = "Updating "+Program.BrandName;
+            labelDescription.Text = "Downloading version "+info.VersionTag+"...";
 
             this.updateInfo = info;
             this.UpdateStatus = Status.Waiting;
 
-            webClient.DownloadProgressChanged += webClient_DownloadProgressChanged;
-            webClient.DownloadFileCompleted += webClient_DownloadFileCompleted;
-
-            Text = "Updating "+Program.BrandName;
-            labelDescription.Text = "Downloading version "+info.VersionTag+"...";
-
+            this.webClient = new WebClient{ Proxy = null };
+            this.webClient.Headers[HttpRequestHeader.UserAgent] = BrowserUtils.HeaderUserAgent;
+            this.webClient.DownloadProgressChanged += webClient_DownloadProgressChanged;
+            this.webClient.DownloadFileCompleted += webClient_DownloadFileCompleted;
+            
             Disposed += (sender, args) => this.webClient.Dispose();
         }
 
@@ -48,15 +47,24 @@ namespace TweetDck.Updates{
         }
 
         private void btnCancel_Click(object sender, EventArgs e){
-            webClient.CancelAsync();
-            btnCancel.Enabled = false;
+            if (webClient.IsBusy){
+                webClient.CancelAsync();
+                btnCancel.Enabled = false;
+            }
+            else{
+                UpdateStatus = Status.Cancelled;
+                Close();
+            }
         }
 
         private void FormUpdateDownload_FormClosing(object sender, FormClosingEventArgs e){
             if (UpdateStatus == Status.Waiting){
-                e.Cancel = true;
-                webClient.CancelAsync();
                 UpdateStatus = e.CloseReason == CloseReason.UserClosing ? Status.Cancelled : Status.Manual; // manual will exit the app
+
+                if (webClient.IsBusy){
+                    webClient.CancelAsync();
+                    e.Cancel = true;
+                }
             }
         }
 
