@@ -3,15 +3,16 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using TweetDck.Core.Notification;
+using TweetDck.Core.Notification.Sound;
 
 namespace TweetDck.Core.Other.Settings{
     partial class TabSettingsSounds : BaseTabSettings{
-        private readonly SoundNotification soundNotification;
+        private readonly ISoundNotificationPlayer soundNotification;
 
         public TabSettingsSounds(){
             InitializeComponent();
 
-            soundNotification = new SoundNotification();
+            soundNotification = SoundNotification.New();
             soundNotification.PlaybackError += sound_PlaybackError;
 
             tbCustomSound.Text = Config.NotificationSoundPath;
@@ -42,7 +43,7 @@ namespace TweetDck.Core.Other.Settings{
             soundNotification.Play(tbCustomSound.Text);
         }
 
-        private void sound_PlaybackError(object sender, SoundNotification.PlaybackErrorEventArgs e){
+        private void sound_PlaybackError(object sender, PlaybackErrorEventArgs e){
             MessageBox.Show("Could not play custom notification sound."+Environment.NewLine+e.Message, "Notification Sound Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
@@ -51,7 +52,7 @@ namespace TweetDck.Core.Other.Settings{
                 AutoUpgradeEnabled = true,
                 DereferenceLinks = true,
                 Title = "Custom Notification Sound",
-                Filter = "Sound file ("+SoundNotification.SupportedFormats+")|"+SoundNotification.SupportedFormats+"|All files (*.*)|*.*"
+                Filter = "Sound file ("+soundNotification.SupportedFormats+")|"+soundNotification.SupportedFormats+"|All files (*.*)|*.*"
             }){
                 if (dialog.ShowDialog() == DialogResult.OK){
                     tbCustomSound.Text = dialog.FileName;

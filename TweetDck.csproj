@@ -123,6 +123,10 @@
       <DependentUpon>FormNotificationTweet.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\Notification\SoundNotification.cs" />
+    <Compile Include="Core\Notification\Sound\SoundPlayerImplFallback.cs" />
+    <Compile Include="Core\Notification\Sound\SoundPlayerImplWMP.cs" />
+    <Compile Include="Core\Notification\Sound\ISoundNotificationPlayer.cs" />
+    <Compile Include="Core\Notification\Sound\PlaybackErrorEventArgs.cs" />
     <Compile Include="Core\Notification\TweetNotification.cs" />
     <Compile Include="Core\Other\FormAbout.cs">
       <SubType>Form</SubType>

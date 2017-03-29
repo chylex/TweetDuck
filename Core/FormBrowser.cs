@@ -18,6 +18,7 @@ using TweetDck.Core.Notification;
 using TweetDck.Core.Notification.Screenshot;
 using TweetDck.Updates.Events;
 using System.Diagnostics;
+using TweetDck.Core.Notification.Sound;
 
 namespace TweetDck.Core{
     sealed partial class FormBrowser : Form{
@@ -43,7 +44,7 @@ namespace TweetDck.Core{
         private FormWindowState prevState;
 
         private TweetScreenshotManager notificationScreenshotManager;
-        private SoundNotification soundNotification;
+        private ISoundNotificationPlayer soundNotification;
 
         public FormBrowser(PluginManager pluginManager, UpdaterSettings updaterSettings){
             InitializeComponent();
@@ -273,7 +274,7 @@ namespace TweetDck.Core{
             Config.Save();
         }
 
-        private void soundNotification_PlaybackError(object sender, SoundNotification.PlaybackErrorEventArgs e){
+        private void soundNotification_PlaybackError(object sender, PlaybackErrorEventArgs e){
             e.Ignore = true;
 
             using(FormMessage form = new FormMessage("Notification Sound Error", "Could not play custom notification sound."+Environment.NewLine+e.Message, MessageBoxIcon.Error)){
@@ -408,7 +409,7 @@ namespace TweetDck.Core{
             }
 
             if (soundNotification == null){
-                soundNotification = new SoundNotification();
+                soundNotification = SoundNotification.New();
                 soundNotification.PlaybackError += soundNotification_PlaybackError;
             }
 

@@ -1,114 +1,27 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using TweetDck.Core.Utils;
-using WMPLib;
+﻿using System.Runtime.InteropServices;
+using TweetDck.Core.Notification.Sound;
 
 namespace TweetDck.Core.Notification{
-    sealed class SoundNotification : IDisposable{ // TODO test on windows server
-        public const string SupportedFormats = "*.wav;*.mp3;*.mp2;*.m4a;*.mid;*.midi;*.rmi;*.wma;*.aif;*.aifc;*.aiff;*.snd;*.au";
+    static class SoundNotification{
+        private static bool? IsWMPAvailable;
 
-        public event EventHandler<PlaybackErrorEventArgs> PlaybackError;
-
-        private readonly WindowsMediaPlayer player;
-        private bool wasTryingToPlay;
-        private bool ignorePlaybackError;
-
-        // changing the player volume also affects the value in the Windows mixer
-        // however, the initial value is always 50 or some other stupid shit
-        // so we have to tell the player to set its volume to whatever the mixer is set to
-        // using the most code required for the least functionality with a sorry excuse for an API
-        // thanks, Microsoft
-
-        public SoundNotification(){
-            player = new WindowsMediaPlayer();
-            player.settings.autoStart = false;
-            player.settings.enableErrorDialogs = false;
-            player.settings.invokeURLs = false;
-            player.settings.volume = (int)Math.Floor(100.0*NativeCoreAudio.GetMixerVolumeForCurrentProcess());
-            player.MediaChange += player_MediaChange;
-            player.MediaError += player_MediaError;
-        }
-
-        public void Play(string file){
-            wasTryingToPlay = true;
-
-            if (player.URL != file){
-                player.close();
-                player.URL = file;
-                ignorePlaybackError = false;
-            }
-            else{
-                player.controls.stop();
-            }
-            
-            player.controls.play();
-        }
-
-        public void Stop(){
-            player.controls.stop();
-        }
-
-        private void player_MediaChange(object item){
-            IWMPMedia2 media = item as IWMPMedia2;
-
-            if (media == null){
-                OnNotificationSoundError("Unknown error.");
-                return;
-            }
-            // ReSharper disable once CompareOfFloatsByEqualityOperator
-            else if (media.Error == null && media.duration == 0.0){
-                OnNotificationSoundError("File does not contain an audio track.");
-            }
-            else if (media.Error != null){
-                OnNotificationSoundError(media.Error);
-            }
-
-            Marshal.ReleaseComObject(media);
-        }
-
-        private void player_MediaError(object pMediaObject){
-            IWMPMedia2 media = pMediaObject as IWMPMedia2;
-
-            if (media == null){
-                OnNotificationSoundError("Unknown error.");
-                return;
-            }
-            else if (media.Error != null){
-                OnNotificationSoundError(media.Error);
-            }
-
-            Marshal.ReleaseComObject(media);
-        }
-
-        private void OnNotificationSoundError(IWMPErrorItem error){
-            OnNotificationSoundError(error.errorCode == -1072885353 ? "Invalid media file." : error.errorDescription);
-            Marshal.ReleaseComObject(error);
-        }
-
-        private void OnNotificationSoundError(string message){
-            if (wasTryingToPlay){
-                wasTryingToPlay = false;
-
-                if (!ignorePlaybackError && PlaybackError != null){
-                    PlaybackErrorEventArgs args = new PlaybackErrorEventArgs(message);
-                    PlaybackError(this, args);
-                    ignorePlaybackError = args.Ignore;
+        public static ISoundNotificationPlayer New(){
+            if (IsWMPAvailable.HasValue){
+                if (IsWMPAvailable.Value){
+                    return new SoundPlayerImplWMP();
+                }
+                else{
+                    return new SoundPlayerImplFallback();
                 }
             }
-        }
 
-        public void Dispose(){
-            player.close();
-            Marshal.ReleaseComObject(player);
-        }
-
-        public class PlaybackErrorEventArgs : EventArgs{
-            public string Message { get; private set; }
-            public bool Ignore { get; set; }
-
-            public PlaybackErrorEventArgs(string message){
-                this.Message = message;
-                this.Ignore = false;
+            try{
+                SoundPlayerImplWMP implWMP = new SoundPlayerImplWMP();
+                IsWMPAvailable = true;
+                return implWMP;
+            }catch(COMException){
+                IsWMPAvailable = false;
+                return new SoundPlayerImplFallback();
             }
         }
     }
