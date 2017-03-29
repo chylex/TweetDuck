@@ -53,6 +53,7 @@ namespace TweetDck.Core.Notification{
 
             if (media == null){
                 OnNotificationSoundError("Unknown error.");
+                return;
             }
             // ReSharper disable once CompareOfFloatsByEqualityOperator
             else if (media.Error == null && media.duration == 0.0){
@@ -70,6 +71,7 @@ namespace TweetDck.Core.Notification{
 
             if (media == null){
                 OnNotificationSoundError("Unknown error.");
+                return;
             }
             else if (media.Error != null){
                 OnNotificationSoundError(media.Error);
