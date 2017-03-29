@@ -323,6 +323,7 @@
         }
         
         selectedTweet.find(".js-poll-link").remove();
+        selectedTweet.find(".td-screenshot-remove").remove();
         
         var testTweet = selectedTweet.clone().css({
           position: "absolute",
