@@ -310,7 +310,7 @@
           setImportantProperty(selectedTweet.find(".js-tweet-media"), "margin-bottom", "0");
           selectedTweet.find(".js-translate-call-to-action").first().remove();
           selectedTweet.find(".js-tweet").first().nextAll().remove();
-          selectedTweet.find("footer").last().prev().addBack().remove(); // footer & date
+          selectedTweet.find("footer").last().prevUntil(":not(.txt-mute.txt-small)").addBack().remove(); // footer, date, location
         }
         else{
           selectedTweet.find("footer").last().remove();
