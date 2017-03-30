@@ -13,15 +13,15 @@ namespace TweetDck.Core.Handling {
                 TextBox input = null;
 
                 if (dialogType == CefJsDialogType.Alert){
-                    form.AddButton("OK");
+                    form.AcceptButton = form.AddButton("OK");
                 }
                 else if (dialogType == CefJsDialogType.Confirm){
-                    form.AddButton("No", DialogResult.No);
-                    form.AddButton("Yes");
+                    form.CancelButton = form.AddButton("No", DialogResult.No);
+                    form.AcceptButton = form.AddButton("Yes");
                 }
                 else if (dialogType == CefJsDialogType.Prompt){
-                    form.AddButton("Cancel", DialogResult.Cancel);
-                    form.AddButton("OK");
+                    form.CancelButton = form.AddButton("Cancel", DialogResult.Cancel);
+                    form.AcceptButton = form.AddButton("OK");
 
                     input = new TextBox{
                         Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
@@ -30,6 +30,7 @@ namespace TweetDck.Core.Handling {
                     };
 
                     form.Controls.Add(input);
+                    form.ActiveControl = input;
                     form.Height += input.Size.Height+input.Margin.Vertical;
                 }
 
