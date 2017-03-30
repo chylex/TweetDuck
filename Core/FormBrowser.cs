@@ -278,7 +278,7 @@ namespace TweetDck.Core{
             e.Ignore = true;
 
             using(FormMessage form = new FormMessage("Notification Sound Error", "Could not play custom notification sound."+Environment.NewLine+e.Message, MessageBoxIcon.Error)){
-                form.AddButton("Ignore");
+                form.CancelButton = form.AddButton("Ignore");
 
                 Button btnOpenSettings = form.AddButton("Open Settings");
                 btnOpenSettings.Width += 16;

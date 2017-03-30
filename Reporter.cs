@@ -47,8 +47,13 @@ namespace TweetDck{
             bool loggedSuccessfully = Log(e.ToString());
 
             FormMessage form = new FormMessage(caption, message+"\r\nError: "+e.Message, canIgnore ? MessageBoxIcon.Warning : MessageBoxIcon.Error);
-            form.AddButton("Exit");
-            form.AddButton("Ignore", DialogResult.Ignore).Enabled = canIgnore;
+            
+            Button btnExit = form.AddButton("Exit");
+            Button btnIgnore = form.AddButton("Ignore", DialogResult.Ignore);
+
+            btnIgnore.Enabled = canIgnore;
+            form.ActiveControl = canIgnore ? btnIgnore : btnExit;
+            form.CancelButton = btnIgnore;
 
             Button btnOpenLog = new Button{
                 Anchor = AnchorStyles.Bottom | AnchorStyles.Left,
@@ -83,7 +88,7 @@ namespace TweetDck{
             Application.SetCompatibleTextRenderingDefault(false);
 
             FormMessage form = new FormMessage(caption, message, MessageBoxIcon.Error);
-            form.AddButton("Exit");
+            form.ActiveControl = form.AddButton("Exit");
             form.ShowDialog();
 
             try{
