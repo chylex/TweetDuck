@@ -6,6 +6,22 @@ namespace TweetDck.Core.Other{
     sealed partial class FormMessage : Form{
         public Button ClickedButton { get; private set; }
 
+        public int ActionPanelY{
+            get{
+                return panelActions.Location.Y;
+            }
+        }
+
+        private int ClientWidth{
+            get{
+                return ClientSize.Width;
+            }
+
+            set{
+                ClientSize = new Size(value, ClientSize.Height);
+            }
+        }
+
         private readonly Icon icon;
         private readonly bool isReady;
 
@@ -19,7 +35,7 @@ namespace TweetDck.Core.Other{
 
             this.prevLabelWidth = labelMessage.Width;
             this.prevLabelHeight = labelMessage.Height;
-            this.minFormWidth = 20;
+            this.minFormWidth = 40;
 
             switch(messageIcon){
                 case MessageBoxIcon.Information:
@@ -40,7 +56,7 @@ namespace TweetDck.Core.Other{
 
                 default:
                     icon = null;
-                    labelMessage.Location = new Point(labelMessage.Location.X-37, labelMessage.Location.Y);
+                    labelMessage.Location = new Point(labelMessage.Location.X-38, labelMessage.Location.Y);
                     break;
             }
 
@@ -51,17 +67,14 @@ namespace TweetDck.Core.Other{
         }
 
         private void FormMessage_SizeChanged(object sender, EventArgs e){
-            for(int index = 0; index < buttonCount; index++){
-                Control control = panelActions.Controls[index];
-                control.Location = new Point(Width-110-index*96, control.Location.Y);
-            }
+            RecalculateButtonLocation();
         }
 
         public Button AddButton(string title, DialogResult result = DialogResult.OK){
             Button button = new Button{
                 Anchor = AnchorStyles.Bottom,
                 Font = SystemFonts.MessageBoxFont,
-                Location = new Point(Width-110-buttonCount*96, 12),
+                Location = new Point(0, 12),
                 Size = new Size(88, 26),
                 TabIndex = buttonCount,
                 Text = title,
@@ -75,11 +88,12 @@ namespace TweetDck.Core.Other{
             };
 
             panelActions.Controls.Add(button);
+            ++buttonCount;
 
             minFormWidth += 96;
-            Width = Math.Max(realFormWidth, minFormWidth);
+            ClientWidth = Math.Max(realFormWidth, minFormWidth);
+            RecalculateButtonLocation();
 
-            ++buttonCount;
             return button;
         }
 
@@ -87,7 +101,14 @@ namespace TweetDck.Core.Other{
             panelActions.Controls.Add(control);
 
             minFormWidth += control.Width+control.Margin.Horizontal;
-            Width = Math.Max(realFormWidth, minFormWidth);
+            ClientWidth = Math.Max(realFormWidth, minFormWidth);
+        }
+        
+        private void RecalculateButtonLocation(){
+            for(int index = 0; index < buttonCount; index++){
+                Control control = panelActions.Controls[index];
+                control.Location = new Point(ClientWidth-97-index*96, control.Location.Y);
+            }
         }
 
         private void labelMessage_SizeChanged(object sender, EventArgs e){
@@ -106,8 +127,8 @@ namespace TweetDck.Core.Other{
                 prevLabelHeight -= 8;
             }
 
-            realFormWidth = Width-(icon == null ? 67+(labelMessage.Margin.Left-labelMessage.Margin.Right) : 46)+labelMessage.Margin.Right+labelMessage.Width-prevLabelWidth;
-            Width = Math.Max(realFormWidth, minFormWidth);
+            realFormWidth = ClientWidth-(icon == null ? 50 : 0)+labelMessage.Width-prevLabelWidth;
+            ClientWidth = Math.Max(realFormWidth, minFormWidth);
             Height += labelMessage.Height-prevLabelHeight;
 
             prevLabelWidth = labelMessage.Width;
