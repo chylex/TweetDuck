@@ -114,6 +114,10 @@ enabled(){
     let modal = $("#td-design-plugin-modal");
     this.setAndShowContainer(modal, false);
     
+    let getTextForCustom = function(key){
+      return "Custom ("+me.config[key]+")";
+    };
+    
     modal.find("[data-td-key]").each(function(){
       let item = $(this);
       let tag = item.prop("tagName");
@@ -133,10 +137,29 @@ enabled(){
       }
       // SELECTS
       else if (tag === "SELECT"){
-        item.val(me.config[key]);
+        if (!item.val(me.config[key]).val()){
+          let custom = item.find("option[value='custom']");
+          
+          if (custom.length === 1){
+            item.val("custom");
+            custom.text(getTextForCustom(key));
+          }
+        }
         
-        item.change(function(){
-          updateKey(key, item.val());
+        item.change(function(){ // TODO change doesn't fire when Custom is already selected
+          let val = item.val();
+          
+          if (val === "custom"){
+            val = prompt("Enter custom value:");
+            
+            if (val){
+              updateKey(key, val);
+              item.find("option[value='custom']").text(getTextForCustom(key));
+            }
+          }
+          else{
+            updateKey(key, item.val());
+          }
         });
       }
       // CUSTOM ELEMENTS
