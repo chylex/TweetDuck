@@ -9,8 +9,9 @@ enabled(){
     fontSize: "12px",
     hideTweetActions: true,
     moveTweetActionsToRight: true,
-    smallComposeTextSize: false,
+    revertReplies: false,
     roundedScrollBars: false,
+    smallComposeTextSize: false,
     optimizeAnimations: true,
     avatarRadius: 10
   };
@@ -32,6 +33,8 @@ enabled(){
     if (window.TD_APP_READY){
       this.onAppReady();
     }
+    
+    this.injectDeciderReplyHook(this.tmpConfig.revertReplies);
   };
   
   this.onAppReady = () => {
@@ -114,6 +117,11 @@ enabled(){
     let modal = $("#td-design-plugin-modal");
     this.setAndShowContainer(modal, false);
     
+    // RELOAD
+    this.reloadPage = false;
+    modal.find("[data-td-reload]").click(() => this.reloadPage = true);
+    
+    // UI EVENTS
     let getTextForCustom = function(key){
       return "Custom ("+me.config[key]+")";
     };
@@ -190,13 +198,30 @@ enabled(){
   }).methods({
     _render: () => $(this.htmlModal),
     destroy: function(){
+      if (this.reloadPage){
+        location.reload();
+        return;
+      }
+      
       $("#td-design-plugin-modal").hide();
       this.supr();
     }
   });
   
+  // decider injections
+  this.injectDeciderReplyHook = enable => {
+    let prevFunc = TD.decider.updateFromBackend;
+    
+    TD.decider.updateFromBackend = function(data){
+      data["simplified_replies"] = !enable;
+      return prevFunc.apply(this, arguments);
+    };
+    
+    TD.decider.updateForGuestId();
+  };
+  
   // css and layout injection
-  this.resetDesign = function(){
+  this.resetDesign = () => {
     if (this.css){
       this.css.remove();
     }
@@ -204,7 +229,7 @@ enabled(){
     this.css = window.TDPF_createCustomStyle(this);
   };
   
-  this.reinjectAll = function(){
+  this.reinjectAll = () => {
     this.resetDesign();
     
     this.css.insert(".txt-base-smallest:not(.icon), .txt-base-largest:not(.icon) { font-size: "+this.config.fontSize+" !important }");
