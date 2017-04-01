@@ -49,19 +49,26 @@
     }
     
     setState(plugin, enable){
+      let reloading = plugin.obj.$pluginSettings.requiresPageReload;
+      
       if (enable && this.isDisabled(plugin)){
-        this.disabled.splice(this.disabled.indexOf(plugin.id), 1);
-        plugin.obj.enabled();
-        this.runWhenReady(plugin);
+        if (reloading){
+          location.reload();
+        }
+        else{
+          this.disabled.splice(this.disabled.indexOf(plugin.id), 1);
+          plugin.obj.enabled();
+          this.runWhenReady(plugin);
+        }
       }
       else if (!enable && !this.isDisabled(plugin)){
-        this.disabled.push(plugin.id);
-        plugin.obj.disabled();
-      }
-      else return;
-
-      if (plugin.obj.$pluginSettings.requiresPageReload){
-        window.location.reload();
+        if (reloading){
+          location.reload();
+        }
+        else{
+          this.disabled.push(plugin.id);
+          plugin.obj.disabled();
+        }
       }
     }
     
