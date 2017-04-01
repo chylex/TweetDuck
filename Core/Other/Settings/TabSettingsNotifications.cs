@@ -6,6 +6,8 @@ using TweetDck.Core.Notification;
 
 namespace TweetDck.Core.Other.Settings{
     partial class TabSettingsNotifications : BaseTabSettings{
+        private static readonly int[] IdlePauseSeconds = { 0, 30, 60, 120, 300 };
+
         private readonly FormNotificationMain notification;
 
         public TabSettingsNotifications(FormNotificationMain notification){
@@ -37,6 +39,13 @@ namespace TweetDck.Core.Other.Settings{
 
             trackBarDuration.SetValueSafe(Config.NotificationDurationValue);
             labelDurationValue.Text = Config.NotificationDurationValue+" ms/c";
+
+            comboBoxIdlePause.Items.Add("Disabled");
+            comboBoxIdlePause.Items.Add("30 seconds");
+            comboBoxIdlePause.Items.Add("1 minute");
+            comboBoxIdlePause.Items.Add("2 minutes");
+            comboBoxIdlePause.Items.Add("5 minutes");
+            comboBoxIdlePause.SelectedIndex = Math.Max(0, Array.FindIndex(IdlePauseSeconds, val => val == Config.NotificationIdlePauseSeconds));
 
             comboBoxDisplay.Items.Add("(Same As "+Program.BrandName+")");
 
@@ -72,6 +81,8 @@ namespace TweetDck.Core.Other.Settings{
             checkNotificationTimer.CheckedChanged += checkNotificationTimer_CheckedChanged;
             checkTimerCountDown.CheckedChanged += checkTimerCountDown_CheckedChanged;
             checkNonIntrusive.CheckedChanged += checkNonIntrusive_CheckedChanged;
+
+            comboBoxIdlePause.SelectedValueChanged += comboBoxIdlePause_SelectedValueChanged;
 
             comboBoxDisplay.SelectedValueChanged += comboBoxDisplay_SelectedValueChanged;
             trackBarEdgeDistance.ValueChanged += trackBarEdgeDistance_ValueChanged;
@@ -140,6 +151,10 @@ namespace TweetDck.Core.Other.Settings{
 
         private void checkNonIntrusive_CheckedChanged(object sender, EventArgs e){
             Config.NotificationNonIntrusiveMode = checkNonIntrusive.Checked;
+        }
+
+        private void comboBoxIdlePause_SelectedValueChanged(object sender, EventArgs e){
+            Config.NotificationIdlePauseSeconds = IdlePauseSeconds[comboBoxIdlePause.SelectedIndex];
         }
 
         private void comboBoxDisplay_SelectedValueChanged(object sender, EventArgs e){

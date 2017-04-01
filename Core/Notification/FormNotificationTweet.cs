@@ -52,6 +52,13 @@ namespace TweetDck.Core.Notification{
             }
         }
 
+        private void timerIdlePauseCheck_Tick(object sender, EventArgs e){
+            if (NativeMethods.GetIdleSeconds() < Program.UserConfig.NotificationIdlePauseSeconds){
+                ResumeNotification();
+                timerIdlePauseCheck.Stop();
+            }
+        }
+
         // notification methods
 
         public override void ShowNotification(TweetNotification notification){
@@ -87,15 +94,26 @@ namespace TweetDck.Core.Notification{
         }
 
         private void LoadNextNotification(){
-            if (Program.UserConfig.NotificationNonIntrusiveMode && !IsNotificationVisible && IsCursorOverNotificationArea && NativeMethods.GetIdleSeconds() < NonIntrusiveIdleLimit){
-                if (!timerCursorCheck.Enabled){
-                    PauseNotification();
-                    timerCursorCheck.Start();
+            if (!IsNotificationVisible){
+                if (Program.UserConfig.NotificationNonIntrusiveMode && IsCursorOverNotificationArea && NativeMethods.GetIdleSeconds() < NonIntrusiveIdleLimit){
+                    if (!timerCursorCheck.Enabled){
+                        PauseNotification();
+                        timerCursorCheck.Start();
+                    }
+
+                    return;
+                }
+                else if (Program.UserConfig.NotificationIdlePauseSeconds > 0 && NativeMethods.GetIdleSeconds() >= Program.UserConfig.NotificationIdlePauseSeconds){
+                    if (!timerIdlePauseCheck.Enabled){
+                        PauseNotification();
+                        timerIdlePauseCheck.Start();
+                    }
+
+                    return;
                 }
             }
-            else{
-                LoadTweet(tweetQueue.Dequeue());
-            }
+            
+            LoadTweet(tweetQueue.Dequeue());
         }
 
         protected override void UpdateTitle(){

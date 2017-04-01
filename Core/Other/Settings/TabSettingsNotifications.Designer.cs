@@ -43,6 +43,8 @@
             this.labelDurationValue = new System.Windows.Forms.Label();
             this.trackBarDuration = new System.Windows.Forms.TrackBar();
             this.groupUserInterface = new System.Windows.Forms.GroupBox();
+            this.labelIdlePause = new System.Windows.Forms.Label();
+            this.comboBoxIdlePause = new System.Windows.Forms.ComboBox();
             this.checkNonIntrusive = new System.Windows.Forms.CheckBox();
             this.checkTimerCountDown = new System.Windows.Forms.CheckBox();
             this.checkNotificationTimer = new System.Windows.Forms.CheckBox();
@@ -192,7 +194,7 @@
             this.groupNotificationDuration.Controls.Add(this.tableLayoutDurationButtons);
             this.groupNotificationDuration.Controls.Add(this.labelDurationValue);
             this.groupNotificationDuration.Controls.Add(this.trackBarDuration);
-            this.groupNotificationDuration.Location = new System.Drawing.Point(9, 106);
+            this.groupNotificationDuration.Location = new System.Drawing.Point(9, 160);
             this.groupNotificationDuration.Name = "groupNotificationDuration";
             this.groupNotificationDuration.Size = new System.Drawing.Size(183, 89);
             this.groupNotificationDuration.TabIndex = 9;
@@ -290,15 +292,39 @@
             // 
             // groupUserInterface
             // 
+            this.groupUserInterface.Controls.Add(this.labelIdlePause);
+            this.groupUserInterface.Controls.Add(this.comboBoxIdlePause);
             this.groupUserInterface.Controls.Add(this.checkNonIntrusive);
             this.groupUserInterface.Controls.Add(this.checkTimerCountDown);
             this.groupUserInterface.Controls.Add(this.checkNotificationTimer);
             this.groupUserInterface.Location = new System.Drawing.Point(9, 9);
             this.groupUserInterface.Name = "groupUserInterface";
-            this.groupUserInterface.Size = new System.Drawing.Size(183, 91);
+            this.groupUserInterface.Size = new System.Drawing.Size(183, 145);
             this.groupUserInterface.TabIndex = 10;
             this.groupUserInterface.TabStop = false;
             this.groupUserInterface.Text = "General";
+            // 
+            // labelIdlePause
+            // 
+            this.labelIdlePause.AutoSize = true;
+            this.labelIdlePause.Location = new System.Drawing.Point(3, 99);
+            this.labelIdlePause.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
+            this.labelIdlePause.Name = "labelIdlePause";
+            this.labelIdlePause.Size = new System.Drawing.Size(89, 13);
+            this.labelIdlePause.TabIndex = 10;
+            this.labelIdlePause.Text = "Pause When Idle";
+            // 
+            // comboBoxIdlePause
+            // 
+            this.comboBoxIdlePause.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxIdlePause.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxIdlePause.FormattingEnabled = true;
+            this.comboBoxIdlePause.Location = new System.Drawing.Point(6, 115);
+            this.comboBoxIdlePause.Name = "comboBoxIdlePause";
+            this.comboBoxIdlePause.Size = new System.Drawing.Size(171, 21);
+            this.comboBoxIdlePause.TabIndex = 9;
+            this.toolTip.SetToolTip(this.comboBoxIdlePause, "Pauses new notifications after going idle for a set amount of time.");
             // 
             // checkNonIntrusive
             // 
@@ -383,5 +409,7 @@
         private TweetDck.Core.Controls.FlatButton btnDurationLong;
         private TweetDck.Core.Controls.FlatButton btnDurationShort;
         private System.Windows.Forms.CheckBox checkNonIntrusive;
+        private System.Windows.Forms.Label labelIdlePause;
+        private System.Windows.Forms.ComboBox comboBoxIdlePause;
     }
 }

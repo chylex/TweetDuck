@@ -31,12 +31,18 @@ namespace TweetDck.Core.Notification {
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             this.timerCursorCheck = new System.Windows.Forms.Timer(this.components);
+            this.timerIdlePauseCheck = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // timerCursorCheck
             // 
             this.timerCursorCheck.Interval = 200;
             this.timerCursorCheck.Tick += new System.EventHandler(this.timerCursorCheck_Tick);
+            // 
+            // timerIdlePauseCheck
+            // 
+            this.timerIdlePauseCheck.Interval = 750;
+            this.timerIdlePauseCheck.Tick += new System.EventHandler(this.timerIdlePauseCheck_Tick);
             // 
             // FormNotificationTweet
             // 
@@ -48,5 +54,6 @@ namespace TweetDck.Core.Notification {
         #endregion
 
         private System.Windows.Forms.Timer timerCursorCheck;
+        private System.Windows.Forms.Timer timerIdlePauseCheck;
     }
 }
