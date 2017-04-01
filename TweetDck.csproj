@@ -374,10 +374,10 @@ ren "$(TargetDir)LICENSE.md" "LICENSE.txt"
 xcopy "$(ProjectDir)Libraries\CEFSHARP-LICENSE.txt" "$(TargetDir)" /Y
 xcopy "$(ProjectDir)packages\Microsoft.VC120.CRT.JetBrains.12.0.21005.2\DotFiles\msvcp120.dll" "$(TargetDir)" /Y
 xcopy "$(ProjectDir)packages\Microsoft.VC120.CRT.JetBrains.12.0.21005.2\DotFiles\msvcr120.dll" "$(TargetDir)" /Y
-rmdir "$(TargetDir)scripts"
+rmdir "$(TargetDir)scripts" /S /Q
 mkdir "$(TargetDir)scripts"
 xcopy "$(ProjectDir)Resources\Scripts\*" "$(TargetDir)scripts\" /E /Y
-rmdir "$(TargetDir)plugins"
+rmdir "$(TargetDir)plugins" /S /Q
 mkdir "$(TargetDir)plugins"
 mkdir "$(TargetDir)plugins\official"
 mkdir "$(TargetDir)plugins\user"
