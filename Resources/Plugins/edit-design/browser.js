@@ -300,6 +300,13 @@ enabled(){
       case "15px": TD.settings.setFontSize("large"); break;
       default: TD.settings.setFontSize(parseInt(this.config.fontSize, 10) >= 16 ? "largest" : "smallest"); break;
     }
+    
+    $TDP.injectIntoNotificationsBefore(this.$token, "css", "</head>", [
+      "<style type='text/css'>",
+      ".txt-base-smallest:not(.icon), .txt-base-largest:not(.icon) { font-size: "+this.config.fontSize+" !important }",
+      ".avatar { border-radius: "+this.config.avatarRadius+"% !important }",
+      "</style>"
+    ].join(""));
   };
   
   this.uiShowActionsMenuEvent = () => {
