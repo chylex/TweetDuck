@@ -164,12 +164,15 @@ namespace TweetDck.Core.Notification{
             }
         }
 
+        protected virtual string GetTweetHTML(TweetNotification tweet){
+            string bodyClasses = browser.Bounds.Contains(PointToClient(Cursor.Position)) ? "td-hover" : string.Empty;
+            return tweet.GenerateHtml(bodyClasses);
+        }
+
         protected virtual void LoadTweet(TweetNotification tweet){
             CurrentUrl = tweet.Url;
             CurrentQuotedTweetUrl = string.Empty; // load from JS
-
-            string bodyClasses = browser.Bounds.Contains(PointToClient(Cursor.Position)) ? "td-hover" : string.Empty;
-            browser.LoadHtml(tweet.GenerateHtml(bodyClasses), "http://tweetdeck.twitter.com/?"+DateTime.Now.Ticks);
+            browser.LoadHtml(GetTweetHTML(tweet), "http://tweetdeck.twitter.com/?"+DateTime.Now.Ticks);
         }
 
         protected virtual void SetNotificationSize(int width, int height){

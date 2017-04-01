@@ -200,6 +200,16 @@ namespace TweetDck.Core.Notification{
             }
         }
 
+        protected override string GetTweetHTML(TweetNotification tweet){
+            string html = base.GetTweetHTML(tweet);
+
+            foreach(InjectedHTML injection in plugins.Bridge.NotificationInjections){
+                html = injection.Inject(html);
+            }
+
+            return html;
+        }
+
         protected override void LoadTweet(TweetNotification tweet){
             timerProgress.Stop();
             totalTime = timeLeft = tweet.GetDisplayDuration(Program.UserConfig.NotificationDurationValue);

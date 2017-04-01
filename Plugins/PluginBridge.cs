@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using TweetDck.Core.Utils;
@@ -13,6 +14,13 @@ namespace TweetDck.Plugins{
 
         private readonly PluginManager manager;
         private readonly TwoKeyDictionary<int, string, string> fileCache = new TwoKeyDictionary<int, string, string>(4, 2);
+        private readonly TwoKeyDictionary<int, string, InjectedHTML> notificationInjections = new TwoKeyDictionary<int,string,InjectedHTML>(4, 1);
+
+        public IEnumerable<InjectedHTML> NotificationInjections{
+            get{
+                return notificationInjections.InnerValues;
+            }
+        }
 
         public PluginBridge(PluginManager manager){
             this.manager = manager;
@@ -20,15 +28,22 @@ namespace TweetDck.Plugins{
             this.manager.PluginChangedState += manager_PluginChangedState;
         }
 
+        // Event handlers
+
         private void manager_Reloaded(object sender, PluginErrorEventArgs e){
             fileCache.Clear();
         }
 
         private void manager_PluginChangedState(object sender, PluginChangedStateEventArgs e){
             if (!e.IsEnabled){
-                fileCache.Remove(manager.GetTokenFromPlugin(e.Plugin));
+                int token = manager.GetTokenFromPlugin(e.Plugin);
+
+                fileCache.Remove(token);
+                notificationInjections.Remove(token);
             }
         }
+
+        // Utility methods
 
         private string GetFullPathOrThrow(int token, PluginFolder folder, string path){
             Plugin plugin = manager.GetPluginFromToken(token);
@@ -97,6 +112,14 @@ namespace TweetDck.Plugins{
 
         public bool CheckFileExistsRoot(int token, string path){
             return File.Exists(GetFullPathOrThrow(token, PluginFolder.Root, path));
+        }
+
+        public void InjectIntoNotificationsBefore(int token, string key, string search, string html){
+            notificationInjections[token, key] = new InjectedHTML(InjectedHTML.Position.Before, search, html);
+        }
+
+        public void InjectIntoNotificationsAfter(int token, string key, string search, string html){
+            notificationInjections[token, key] = new InjectedHTML(InjectedHTML.Position.After, search, html);
         }
     }
 }
