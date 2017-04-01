@@ -31,6 +31,16 @@ namespace TweetDck.Core.Utils{
             }
         }
 
+        public IEnumerable<V> InnerValues{
+            get{
+                foreach(Dictionary<K2, V> innerDict in dict.Values){
+                    foreach(V value in innerDict.Values){
+                        yield return value;
+                    }
+                }
+            }
+        }
+
         // Members
 
         public void Add(K1 outerKey, K2 innerKey, V value){ // throws on duplicate

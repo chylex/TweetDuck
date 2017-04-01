@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TweetDck.Core.Utils;
 using System.Collections.Generic;
@@ -63,6 +64,21 @@ namespace UnitTests.Core.Utils{
 
             dict["xxxxx", 150] = "new key and entry";
             Assert.AreEqual("new key and entry", dict["xxxxx", 150]);
+        }
+
+        [TestMethod]
+        public void TestInnerValues(){
+            CollectionAssert.AreEqual(new string[]{
+                "x",
+                "y",
+                "z",
+                "test 1",
+                "test 2",
+                "test 3",
+                "test 4",
+                "",
+                ""
+            }, CreateDict().InnerValues.ToList());
         }
 
         [TestMethod]
