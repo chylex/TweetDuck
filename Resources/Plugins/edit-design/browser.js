@@ -262,6 +262,9 @@ enabled(){
       this.css.insert(".scroll-styled-h:not(.antiscroll-inner)::-webkit-scrollbar { height: 8px }");
       this.css.insert(".scroll-styled-v::-webkit-scrollbar-thumb { border-radius: 0 }");
       this.css.insert(".scroll-styled-h::-webkit-scrollbar-thumb { border-radius: 0 }");
+      this.css.insert(".antiscroll-scrollbar { border-radius: 0 }");
+      this.css.insert(".antiscroll-scrollbar-vertical { margin-top: 0 }");
+      this.css.insert(".antiscroll-scrollbar-horizontal { margin-left: 0 }");
     }
     
     if (this.config.optimizeAnimations){
