@@ -1,3 +1,9 @@
+constructor(){
+  super({
+    requiresPageReload: true
+  })
+}
+
 enabled(){
   // elements & data
   this.css = null;
@@ -218,6 +224,7 @@ enabled(){
     };
     
     TD.decider.updateForGuestId();
+    this.$pluginSettings.requiresPageReload = enable;
   };
   
   // css and layout injection
