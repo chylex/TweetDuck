@@ -59,7 +59,6 @@ Type: files; Name: "{app}\CefSharp.BrowserSubprocess.exe"
 Type: files; Name: "{app}\td-log.txt"
 Type: files; Name: "{app}\debug.log"
 Type: files; Name: "{localappdata}\{#MyAppName}\ChromeDWriteFontCache"
-Type: filesandordirs; Name: "{app}\plugins\official\design-revert"
 
 [UninstallDelete]
 Type: files; Name: "{app}\*.*"

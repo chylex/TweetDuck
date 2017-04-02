@@ -41,6 +41,10 @@ Source: "..\bin\x86\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesu
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall shellexec skipifsilent
 
+[InstallDelete]
+Type: filesandordirs; Name: "{app}\plugins\official\design-revert"
+Type: filesandordirs; Name: "{app}\portable\storage\TD_Plugins\official\design-revert"
+
 [Code]
 var UpdatePath: String;
 

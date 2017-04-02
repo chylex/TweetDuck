@@ -50,6 +50,8 @@ Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChang
 
 [InstallDelete]
 Type: files; Name: "{app}\td-log.txt"
+Type: filesandordirs; Name: "{app}\plugins\official\design-revert"
+Type: filesandordirs; Name: "{localappdata}\TD_Plugins\official\design-revert"
 
 [UninstallDelete]
 Type: files; Name: "{app}\debug.log"
