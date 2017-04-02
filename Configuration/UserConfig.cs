@@ -121,7 +121,6 @@ namespace TweetDck.Configuration{
             NotificationDurationValue = 25;
             EnableUpdateCheck = true;
             ExpandLinksOnHover = true;
-            ShowScreenshotBorder = true;
             EnableTrayHighlight = true;
             Plugins = new PluginConfig();
             PluginsWindow = new WindowState();
@@ -167,7 +166,6 @@ namespace TweetDck.Configuration{
             }
 
             if (fileVersion == 5){
-                ShowScreenshotBorder = true;
                 ++fileVersion;
             }
 
