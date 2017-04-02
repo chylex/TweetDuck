@@ -1,29 +1,46 @@
 ﻿using System;
 using System.Windows.Forms;
+using TweetDck.Core.Controls;
 
 namespace TweetDck.Core.Notification.Screenshot{
     sealed class TweetScreenshotManager : IDisposable{
-        private readonly FormNotificationScreenshotable screenshot;
+        private readonly Form owner;
         private readonly Timer timeout;
+        private readonly Timer disposer;
+        
+        private FormNotificationScreenshotable screenshot;
 
         public TweetScreenshotManager(Form owner){
-            this.screenshot = new FormNotificationScreenshotable(Callback, owner){
-                CanMoveWindow = () => false
-            };
+            this.owner = owner;
 
-            this.timeout = new Timer{
-                Interval = 10000
-            };
-
+            this.timeout = new Timer{ Interval = 5000 };
             this.timeout.Tick += timeout_Tick;
+
+            this.disposer = new Timer{ Interval = 1 };
+            this.disposer.Tick += disposer_Tick;
         }
 
         private void timeout_Tick(object sender, EventArgs e){
             timeout.Stop();
-            screenshot.Reset();
+            screenshot.Location = ControlExtensions.InvisibleLocation;
+            disposer.Start();
+        }
+
+        private void disposer_Tick(object sender, EventArgs e){
+            disposer.Stop();
+            screenshot.Dispose();
+            screenshot = null;
         }
 
         public void Trigger(string html, int width, int height){
+            if (screenshot != null){
+                return;
+            }
+
+            screenshot = new FormNotificationScreenshotable(Callback, owner){
+                CanMoveWindow = () => false
+            };
+
             screenshot.LoadNotificationForScreenshot(new TweetNotification(html, string.Empty, 0), width, height);
             screenshot.Show();
             timeout.Start();
@@ -35,12 +52,18 @@ namespace TweetDck.Core.Notification.Screenshot{
             }
 
             timeout.Stop();
-            screenshot.TakeScreenshotAndHide();
+            screenshot.TakeScreenshot();
+            screenshot.Location = ControlExtensions.InvisibleLocation;
+            disposer.Start();
         }
 
         public void Dispose(){
-            screenshot.Dispose();
             timeout.Dispose();
+            disposer.Dispose();
+
+            if (screenshot != null){
+                screenshot.Dispose();
+            }
         }
     }
 }

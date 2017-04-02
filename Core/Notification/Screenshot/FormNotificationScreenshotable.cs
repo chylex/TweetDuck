@@ -27,7 +27,7 @@ namespace TweetDck.Core.Notification.Screenshot{
             SetNotificationSize(width, height);
         }
 
-        public void TakeScreenshotAndHide(){
+        public void TakeScreenshot(){
             MoveToVisibleLocation();
             
             bool border = Program.UserConfig.ShowScreenshotBorder;
@@ -47,13 +47,6 @@ namespace TweetDck.Core.Notification.Screenshot{
                     Clipboard.SetImage(bmp);
                 }
             }
-
-            Reset();
-        }
-
-        public void Reset(){
-            Location = ControlExtensions.InvisibleLocation;
-            browser.LoadHtml("", "about:blank");
         }
     }
 }
