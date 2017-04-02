@@ -305,16 +305,23 @@
         
         setImportantProperty(selectedTweet.find(".js-tweet-text"), "margin-bottom", "8px");
         setImportantProperty(selectedTweet.find(".js-quote-detail"), "margin-bottom", "10px");
-        setImportantProperty(selectedTweet.find(".js-media-preview-container"), "margin-bottom", "10px");
         setImportantProperty(selectedTweet.find(".js-poll-link").next(), "margin-bottom", "8px");
         
         if (isDetail){
-          setImportantProperty(selectedTweet.find(".js-tweet-media"), "margin-bottom", "0");
+          if (selectedTweet.find("[class*='media-grid-']").length > 0){
+            setImportantProperty(selectedTweet.find(".js-tweet-media"), "margin-bottom", "10px");
+          }
+          else{
+            setImportantProperty(selectedTweet.find(".js-tweet-media"), "margin-bottom", "6px");
+          }
+          
+          setImportantProperty(selectedTweet.find(".js-media-preview-container"), "margin-bottom", "4px");
           selectedTweet.find(".js-translate-call-to-action").first().remove();
           selectedTweet.find(".js-tweet").first().nextAll().remove();
           selectedTweet.find("footer").last().prevUntil(":not(.txt-mute.txt-small)").addBack().remove(); // footer, date, location
         }
         else{
+          setImportantProperty(selectedTweet.find(".js-media-preview-container"), "margin-bottom", "10px");
           selectedTweet.find("footer").last().remove();
         }
         
