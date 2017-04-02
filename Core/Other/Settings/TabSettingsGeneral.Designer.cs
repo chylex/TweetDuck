@@ -96,7 +96,8 @@
             this.checkScreenshotBorder.Size = new System.Drawing.Size(169, 17);
             this.checkScreenshotBorder.TabIndex = 16;
             this.checkScreenshotBorder.Text = "Include Border In Screenshots";
-            this.toolTip.SetToolTip(this.checkScreenshotBorder, "Shows the window border in tweet screenshots.");
+            this.toolTip.SetToolTip(this.checkScreenshotBorder, "Shows the window border in tweet screenshots.\r\nMay be glitchy in some cases, espe" +
+        "cially on Windows 10.");
             this.checkScreenshotBorder.UseVisualStyleBackColor = true;
             // 
             // groupTray
