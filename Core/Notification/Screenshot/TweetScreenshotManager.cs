@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Uncomment to keep screenshot windows visible for debugging
+// #define NO_HIDE_SCREENSHOTS
+
+using System;
 using System.Windows.Forms;
 using TweetDck.Core.Controls;
 
@@ -53,8 +56,13 @@ namespace TweetDck.Core.Notification.Screenshot{
 
             timeout.Stop();
             screenshot.TakeScreenshot();
+
+            #if !(DEBUG && NO_HIDE_SCREENSHOTS)
             screenshot.Location = ControlExtensions.InvisibleLocation;
             disposer.Start();
+            #else
+            screenshot.FormClosed += (sender, args) => disposer.Start();
+            #endif
         }
 
         public void Dispose(){
