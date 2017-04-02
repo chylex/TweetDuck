@@ -147,6 +147,10 @@ namespace TweetDck{
                 settings.CefCommandLineArgs["disable-gpu"] = "1";
                 settings.CefCommandLineArgs["disable-gpu-vsync"] = "1";
             }
+            
+            settings.CefCommandLineArgs["disable-extensions"] = "1";
+            settings.CefCommandLineArgs["disable-plugins-discovery"] = "1";
+            settings.CefCommandLineArgs["enable-system-flash"] = "0";
 
             Cef.Initialize(settings, false, new BrowserProcessHandler());
 
