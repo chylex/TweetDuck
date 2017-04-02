@@ -257,17 +257,22 @@
       if (e.type === "mouseenter"){
         var me = $(this);
         
-        if (!me[0].hasAttribute("data-tweet-id") || !highlightedColumnObj && !updateHighlightedColumn(me.closest("section.js-column"))){
+        if (!me[0].hasAttribute("data-account-key") || (!highlightedColumnObj && !updateHighlightedColumn(me.closest("section.js-column")))){
           return;
         }
         
         var tweet = highlightedColumnObj.findChirp(me.attr("data-tweet-id")) || highlightedColumnObj.findChirp(me.attr("data-key"));
+        
+        if (tweet){
+          if (tweet.chirpType === TD.services.ChirpBase.TWEET){
+            var link = tweet.getChirpURL();
+            var embedded = tweet.quotedTweet ? tweet.quotedTweet.getChirpURL() : "";
 
-        if (tweet && tweet.chirpType === TD.services.ChirpBase.TWEET){
-          var link = tweet.getChirpURL();
-          var embedded = tweet.quotedTweet ? tweet.quotedTweet.getChirpURL() : "";
-          
-          updateHighlightedTweet(me, tweet, link || "", embedded || "");
+            updateHighlightedTweet(me, tweet, link || "", embedded || "");
+          }
+          else{
+            updateHighlightedTweet(me, tweet, "", "");
+          }
         }
       }
       else if (e.type === "mouseleave"){
