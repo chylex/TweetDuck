@@ -74,7 +74,7 @@
   var getNotificationHeadContents = function(){
     var tags = [];
     
-    $(document.head).children("link[rel='stylesheet'],meta[charset],meta[http-equiv]").each(function(){
+    $(document.head).children("link[rel='stylesheet']:not([title]),link[title='"+TD.settings.getTheme()+"'],meta[charset],meta[http-equiv]").each(function(){
       tags.push($(this)[0].outerHTML);
     });
     
