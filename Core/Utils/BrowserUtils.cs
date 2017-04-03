@@ -6,6 +6,7 @@ using System.Net;
 using System.Windows.Forms;
 using CefSharp;
 using System.Text.RegularExpressions;
+using System.Drawing;
 
 namespace TweetDck.Core.Utils{
     static class BrowserUtils{
@@ -27,6 +28,9 @@ namespace TweetDck.Core.Utils{
                return Program.BrandName+" "+Application.ProductVersion; 
             }
         }
+
+        public static readonly Color BackgroundColor = Color.FromArgb(28, 99, 153);
+        public const string BackgroundColorFix = "let e=document.createElement('style');document.head.appendChild(e);e.innerHTML='body::before{background:#1c6399!important}'";
 
         public static readonly string[] DictionaryWords = {
             "tweetdeck", "TweetDeck", "tweetduck", "TweetDuck", "TD"

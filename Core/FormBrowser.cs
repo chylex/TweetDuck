@@ -83,7 +83,10 @@ namespace TweetDck.Core{
             this.browser.LoadError += browser_LoadError;
             this.browser.RegisterAsyncJsObject("$TD", new TweetDeckBridge(this, notification));
             this.browser.RegisterAsyncJsObject("$TDP", plugins.Bridge);
-
+            
+            browser.BrowserSettings.BackgroundColor = (uint)BrowserUtils.BackgroundColor.ToArgb();
+            browser.Dock = DockStyle.None;
+            browser.Location = ControlExtensions.InvisibleLocation;
             Controls.Add(browser);
 
             Controls.Add(new MenuStrip{ Visible = false }); // fixes Alt freezing the program in Win 10 Anniversary Update
@@ -112,6 +115,8 @@ namespace TweetDck.Core{
             this.updates = new UpdateHandler(browser, this, updaterSettings);
             this.updates.UpdateAccepted += updates_UpdateAccepted;
             this.updates.UpdateDismissed += updates_UpdateDismissed;
+
+            RestoreWindow();
         }
 
         private void ShowChildForm(Form form){
@@ -126,10 +131,17 @@ namespace TweetDck.Core{
 
         // window setup
 
-        private void SetupWindow(){
+        private void RestoreWindow(){
             Config.BrowserWindow.Restore(this, true);
             prevState = WindowState;
-            isLoaded = true;
+        }
+
+        private void OnLoaded(){
+            if (!isLoaded){
+                browser.Location = Point.Empty;
+                browser.Dock = DockStyle.Fill;
+                isLoaded = true;
+            }
         }
 
         private void UpdateTrayIcon(){
@@ -144,13 +156,15 @@ namespace TweetDck.Core{
                     browser.AddWordToDictionary(word);
                 }
 
-                BeginInvoke(new Action(SetupWindow));
+                BeginInvoke(new Action(OnLoaded));
                 browser.LoadingStateChanged -= browser_LoadingStateChanged;
             }
         }
 
         private void browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             if (e.Frame.IsMain && BrowserUtils.IsTweetDeckWebsite(e.Frame)){
+                e.Frame.ExecuteJavaScriptAsync(BrowserUtils.BackgroundColorFix);
+
                 UpdateProperties();
                 ScriptLoader.ExecuteFile(e.Frame, "code.js");
                 ReinjectCustomCSS(Config.CustomBrowserCSS);
@@ -229,9 +243,8 @@ namespace TweetDck.Core{
         }
 
         private void trayIcon_ClickRestore(object sender, EventArgs e){
-            isLoaded = false;
             Show();
-            SetupWindow();
+            RestoreWindow();
             Activate();
             UpdateTrayIcon();
         }

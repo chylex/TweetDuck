@@ -32,6 +32,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = TweetDck.Core.Utils.BrowserUtils.BackgroundColor;
             this.ClientSize = new System.Drawing.Size(324, 386);
             this.Icon = Properties.Resources.icon;
             this.Location = TweetDck.Core.Controls.ControlExtensions.InvisibleLocation;
