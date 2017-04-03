@@ -7,11 +7,10 @@ namespace TweetDck.Core.Handling{
             newBrowser = null;
 
             switch(targetDisposition){
-                case WindowOpenDisposition.SingletonTab: // TODO remove when CefSharp is updated to 57; enums don't line up in 55
                 case WindowOpenDisposition.NewBackgroundTab:
                 case WindowOpenDisposition.NewForegroundTab:
                 case WindowOpenDisposition.NewPopup:
-                // TODO case WindowOpenDisposition.NewWindow:
+                case WindowOpenDisposition.NewWindow:
                     BrowserUtils.OpenExternalBrowser(targetUrl);
                     return true;
 
