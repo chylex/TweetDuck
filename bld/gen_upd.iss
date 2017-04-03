@@ -8,7 +8,7 @@
 
 #define MyAppID "8C25A716-7E11-4AAD-9992-8B5D0C78AE06"
 #define MyAppVersion GetFileVersion("..\bin\x86\Release\TweetDuck.exe")
-#define CefVersion "3.2883.1552.0"
+#define CefVersion GetFileVersion("..\bin\x86\Release\libcef.dll")
 
 [Setup]
 AppId={{{#MyAppID}}
