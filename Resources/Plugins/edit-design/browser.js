@@ -239,6 +239,9 @@ enabled(){
   this.reinjectAll = () => {
     this.resetDesign();
     
+    this.css.insert("#general_settings .cf { display: none !important }");
+    this.css.insert("#general_settings .divider-bar::after { display: inline-block; padding-top: 10px; line-height: 17px; content: 'Use the new | Edit layout & design | option in the Settings to modify TweetDeck theme, column width, font size, and other features.' }");
+    
     this.css.insert(".txt-base-smallest:not(.icon), .txt-base-largest:not(.icon) { font-size: "+this.config.fontSize+" !important }");
     this.css.insert(".avatar { border-radius: "+this.config.avatarRadius+"% !important }");
     
