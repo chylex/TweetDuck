@@ -101,7 +101,7 @@ namespace TweetDck.Core.Notification{
                 build.Append(' ').Append(bodyClasses);
             }
 
-            build.Append('\'').Append(isExample ? " td-example-notification" : "").Append("><div class='app-columns-container'><div class='column scroll-styled-v' style='width:100%;overflow-y:auto'>");
+            build.Append('\'').Append(isExample ? " td-example-notification" : "").Append("><div class='app-columns-container'><div class='column scroll-styled-v' style='width:100%;overflow-y:auto;border-top:0;padding-top:1px'>");
             build.Append(html);
             build.Append("</div></div></body>");
             build.Append("</html>");
