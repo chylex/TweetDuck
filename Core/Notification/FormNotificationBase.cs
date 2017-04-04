@@ -68,7 +68,7 @@ namespace TweetDck.Core.Notification{
         
         public Func<bool> CanMoveWindow = () => true;
 
-        private readonly Form owner;
+        protected readonly Form owner;
         protected readonly ChromiumWebBrowser browser;
 
         private int pauseCounter;
