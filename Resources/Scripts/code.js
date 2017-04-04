@@ -40,6 +40,21 @@
   };
   
   //
+  // Function: Retrieves a property of an element with a specified class.
+  //
+  var getClassStyleProperty = function(cls, property){
+    let column = document.createElement("div");
+    column.classList.add(cls);
+    column.style.display = "none";
+    
+    document.body.appendChild(column);
+    let value = window.getComputedStyle(column).getPropertyValue(property);
+    document.body.removeChild(column);
+    
+    return value;
+  };
+  
+  //
   // Function: Event callback for a new tweet.
   //
   var onNewTweet = function(column, tweet){
@@ -79,6 +94,7 @@
     });
     
     tags.push("<style type='text/css'>");
+    tags.push("body { background-color: "+getClassStyleProperty("column", "background-color")+" }");
     tags.push("a[data-full-url]{ word-break: break-all }");
     tags.push(".txt-base-smallest .badge-verified:before { height: 13px !important }");
     tags.push("</style>");

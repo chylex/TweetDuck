@@ -9,7 +9,7 @@ namespace TweetDck.Core.Notification{
 
         private const string DefaultFontSizeClass = "medium";
         private const string DefaultHeadTag = @"<meta charset='utf-8'><meta http-equiv='X-UA-Compatible' content='chrome=1'><link rel='stylesheet' href='https://ton.twimg.com/tweetdeck-web/web/css/font.5ef884f9f9.css'><link rel='stylesheet' href='https://ton.twimg.com/tweetdeck-web/web/css/app-dark.5631e0dd42.css'>";
-        private const string CustomCSS = @".scroll-styled-v::-webkit-scrollbar{width:8px}.scroll-styled-v::-webkit-scrollbar-thumb{border-radius:0}#td-skip{opacity:0;cursor:pointer;transition:opacity 0.15s ease}.td-hover #td-skip{opacity:0.75}#td-skip:hover{opacity:1}";
+        private const string CustomCSS = @"body:before{content:none}body{overflow-y:auto}.scroll-styled-v::-webkit-scrollbar{width:7px}.scroll-styled-v::-webkit-scrollbar-thumb{border-radius:0}.scroll-styled-v::-webkit-scrollbar-track{border-left:0}#td-skip{opacity:0;cursor:pointer;transition:opacity 0.15s ease}.td-hover #td-skip{opacity:0.75}#td-skip:hover{opacity:1}";
 
         public static int FontSizeLevel{
             get{
@@ -90,15 +90,15 @@ namespace TweetDck.Core.Notification{
             }
             
             build.Append("</head>");
-            build.Append("<body class='hearty");
+            build.Append("<body class='hearty scroll-styled-v");
 
             if (!string.IsNullOrEmpty(bodyClasses)){
                 build.Append(' ').Append(bodyClasses);
             }
 
-            build.Append('\'').Append(isExample ? " td-example-notification" : "").Append("><div class='app-columns-container'><div class='column scroll-styled-v' style='width:100%;overflow-y:auto;border-top:0;padding-top:1px'>");
+            build.Append('\'').Append(isExample ? " td-example-notification" : "").Append("><div class='column' style='width:100%;height:auto;overflow:initial;'>");
             build.Append(html);
-            build.Append("</div></div></body>");
+            build.Append("</div></body>");
             build.Append("</html>");
             return build.ToString();
         }
