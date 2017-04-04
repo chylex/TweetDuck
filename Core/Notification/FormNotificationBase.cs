@@ -103,13 +103,16 @@ namespace TweetDck.Core.Notification{
                 LifeSpanHandler = new LifeSpanHandler()
             };
 
+            this.browser.Dock = DockStyle.None;
+            this.browser.ClientSize = ClientSize;
+
             #if DEBUG
             this.browser.ConsoleMessage += BrowserUtils.HandleConsoleMessage;
             #endif
 
             this.browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
 
-            panelBrowser.Controls.Add(browser);
+            Controls.Add(browser);
 
             Disposed += (sender, args) => {
                 this.browser.Dispose();
@@ -176,8 +179,7 @@ namespace TweetDck.Core.Notification{
         }
 
         protected virtual void SetNotificationSize(int width, int height){
-            ClientSize = new Size(width, height);
-            panelBrowser.Height = height;
+            browser.ClientSize = ClientSize = new Size(width, height);
         }
 
         protected void MoveToVisibleLocation(){

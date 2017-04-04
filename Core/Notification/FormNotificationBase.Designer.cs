@@ -24,20 +24,8 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            this.panelBrowser = new System.Windows.Forms.Panel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
-            // 
-            // panelBrowser
-            // 
-            this.panelBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelBrowser.BackColor = System.Drawing.Color.White;
-            this.panelBrowser.Location = new System.Drawing.Point(0, 0);
-            this.panelBrowser.Margin = new System.Windows.Forms.Padding(0);
-            this.panelBrowser.Name = "panelBrowser";
-            this.panelBrowser.Size = new System.Drawing.Size(284, 122);
-            this.panelBrowser.TabIndex = 0;
             // 
             // FormNotification
             // 
@@ -45,7 +33,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(284, 122);
-            this.Controls.Add(this.panelBrowser);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Location = TweetDck.Core.Controls.ControlExtensions.InvisibleLocation;
             this.MaximizeBox = false;
@@ -60,7 +47,6 @@
 
         #endregion
 
-        protected System.Windows.Forms.Panel panelBrowser;
         private System.Windows.Forms.ToolTip toolTip;
     }
 }

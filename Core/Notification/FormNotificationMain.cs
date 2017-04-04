@@ -228,7 +228,7 @@ namespace TweetDck.Core.Notification{
                 progressBarTimer.Visible = false;
             }
 
-            panelBrowser.Height = height;
+            browser.ClientSize = new Size(width, height);
         }
         
         private void PrepareAndDisplayWindow(){
