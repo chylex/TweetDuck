@@ -72,11 +72,16 @@
   // Function: Retrieves the tags to be put into <head> for notification HTML code.
   //
   var getNotificationHeadContents = function(){
-    var tags = [];
+    let tags = [];
     
     $(document.head).children("link[rel='stylesheet']:not([title]),link[title='"+TD.settings.getTheme()+"'],meta[charset],meta[http-equiv]").each(function(){
       tags.push($(this)[0].outerHTML);
     });
+    
+    tags.push("<style type='text/css'>");
+    tags.push("a[data-full-url]{ word-break: break-all }");
+    tags.push(".txt-base-smallest .badge-verified:before { height: 13px !important }");
+    tags.push("</style>");
     
     return tags.join("");
   };

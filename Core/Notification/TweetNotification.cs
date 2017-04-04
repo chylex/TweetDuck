@@ -9,8 +9,6 @@ namespace TweetDck.Core.Notification{
 
         private const string DefaultFontSizeClass = "medium";
         private const string DefaultHeadTag = @"<meta charset='utf-8'><meta http-equiv='X-UA-Compatible' content='chrome=1'><link rel='stylesheet' href='https://ton.twimg.com/tweetdeck-web/web/css/font.5ef884f9f9.css'><link rel='stylesheet' href='https://ton.twimg.com/tweetdeck-web/web/css/app-dark.5631e0dd42.css'>";
-
-        private const string FixedCSS = @"a[data-full-url]{word-break:break-all}.txt-base-smallest .badge-verified:before{height:13px!important}";
         private const string CustomCSS = @".scroll-styled-v::-webkit-scrollbar{width:8px}.scroll-styled-v::-webkit-scrollbar-thumb{border-radius:0}#td-skip{opacity:0;cursor:pointer;transition:opacity 0.15s ease}.td-hover #td-skip{opacity:0.75}#td-skip:hover{opacity:1}";
 
         public static int FontSizeLevel{
@@ -84,14 +82,11 @@ namespace TweetDck.Core.Notification{
             build.Append("<head>").Append(HeadTag ?? DefaultHeadTag);
             
             if (enableCustomCSS){
-                build.Append("<style type='text/css'>").Append(FixedCSS).Append(CustomCSS).Append("</style>");
+                build.Append("<style type='text/css'>").Append(CustomCSS).Append("</style>");
 
                 if (!string.IsNullOrEmpty(Program.UserConfig.CustomNotificationCSS)){
                     build.Append("<style type='text/css'>").Append(Program.UserConfig.CustomNotificationCSS).Append("</style>");
                 }
-            }
-            else{
-                build.Append("<style type='text/css'>").Append(FixedCSS).Append("</style>");
             }
             
             build.Append("</head>");
