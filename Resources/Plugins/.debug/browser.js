@@ -18,30 +18,29 @@ enabled(){
       
       // ===================================
       // N key - simulate popup notification
+      // S key - simulate sound notification
       // ===================================
       
-      if (e.keyCode === 78){
+      if (e.keyCode === 78 || e.keyCode === 83){
         var col = TD.controller.columnManager.getAllOrdered()[0];
-
+        
+        var prevPopup = col.model.getHasNotification();
+        var prevSound = col.model.getHasSound();
+        
+        col.model.setHasNotification(e.keyCode === 78);
+        col.model.setHasSound(e.keyCode === 83);
+        
         $.publish("/notifications/new",[{
           column: col,
           items: [
             col.updateArray[Math.floor(Math.random()*col.updateArray.length)]
           ]
         }]);
-      }
-      
-      // ===================================
-      // S key - simulate sound notification
-      // ===================================
-      
-      else if (e.keyCode === 83){
-        if ($TDX.hasCustomNotificationSound){
-          $TD.onTweetSound();
-        }
-        else{
-          document.getElementById("update-sound").play();
-        }
+        
+        setTimeout(function(){
+          col.model.setHasNotification(prevPopup);
+          col.model.setHasSound(prevSound);
+        }, 1);
       }
     }
   };
