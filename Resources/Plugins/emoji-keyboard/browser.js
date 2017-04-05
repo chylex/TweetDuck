@@ -84,9 +84,17 @@ enabled(){
     
     keyboard.addEventListener("click", function(e){
       if (e.target.tagName === "IMG"){
-        input.val(input.val()+e.target.getAttribute("alt"));
+        var val = input.val();
+        var inserted = e.target.getAttribute("alt");
+        var posStart = input[0].selectionStart;
+        var posEnd = input[0].selectionEnd;
+        
+        input.val(val.slice(0, posStart)+inserted+val.slice(posStart));
         input.trigger("change");
         input.focus();
+        
+        input[0].selectionStart = posStart+inserted.length;
+        input[0].selectionEnd = posEnd+inserted.length;
       }
       
       e.stopPropagation();
