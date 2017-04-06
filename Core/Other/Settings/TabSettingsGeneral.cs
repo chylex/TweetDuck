@@ -24,7 +24,6 @@ namespace TweetDck.Core.Other.Settings{
 
             checkExpandLinks.Checked = Config.ExpandLinksOnHover;
             checkSpellCheck.Checked = Config.EnableSpellCheck;
-            checkScreenshotBorder.Checked = Config.ShowScreenshotBorder;
             checkTrayHighlight.Checked = Config.EnableTrayHighlight;
 
             checkUpdateNotifications.Checked = Config.EnableUpdateCheck;
@@ -33,7 +32,6 @@ namespace TweetDck.Core.Other.Settings{
         public override void OnReady(){
             checkExpandLinks.CheckedChanged += checkExpandLinks_CheckedChanged;
             checkSpellCheck.CheckedChanged += checkSpellCheck_CheckedChanged;
-            checkScreenshotBorder.CheckedChanged += checkScreenshotBorder_CheckedChanged;
 
             comboBoxTrayType.SelectedIndexChanged += comboBoxTrayType_SelectedIndexChanged;
             checkTrayHighlight.CheckedChanged += checkTrayHighlight_CheckedChanged;
@@ -49,10 +47,6 @@ namespace TweetDck.Core.Other.Settings{
         private void checkSpellCheck_CheckedChanged(object sender, EventArgs e){
             Config.EnableSpellCheck = checkSpellCheck.Checked;
             PromptRestart();
-        }
-
-        private void checkScreenshotBorder_CheckedChanged(object sender, EventArgs e){
-            Config.ShowScreenshotBorder = checkScreenshotBorder.Checked;
         }
 
         private void comboBoxTrayType_SelectedIndexChanged(object sender, EventArgs e){

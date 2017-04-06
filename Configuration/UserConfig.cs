@@ -32,7 +32,6 @@ namespace TweetDck.Configuration{
 
         public bool EnableSpellCheck { get; set; }
         public bool ExpandLinksOnHover { get; set; }
-        public bool ShowScreenshotBorder { get; set; }
         public bool EnableTrayHighlight { get; set; }
 
         public bool EnableUpdateCheck { get; set; }

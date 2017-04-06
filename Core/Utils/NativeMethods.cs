@@ -51,13 +51,10 @@ namespace TweetDck.Core.Utils{
         private static extern bool GetLastInputInfo(ref LASTINPUTINFO info);
 
         [DllImport("user32.dll")]
-        private static extern IntPtr GetWindowDC(IntPtr hWnd);
+        public static extern IntPtr GetDC(IntPtr hWnd);
 
         [DllImport("user32.dll")]
-        private static extern IntPtr GetDC(IntPtr hWnd);
-
-        [DllImport("user32.dll")]
-        private static extern bool ReleaseDC(IntPtr hWnd, IntPtr hDC);
+        public static extern bool ReleaseDC(IntPtr hWnd, IntPtr hDC);
 
         [DllImport("gdi32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -108,10 +105,6 @@ namespace TweetDck.Core.Utils{
             return Math.Max(0, seconds); // ignore rollover after several weeks of uptime
         }
 
-        public static IntPtr GetDeviceContext(Form form, bool includeBorder){
-            return includeBorder ? GetWindowDC(form.Handle) : GetDC(form.Handle);
-        }
-
         public static void RenderSourceIntoBitmap(IntPtr source, Bitmap target){
             using(Graphics graphics = Graphics.FromImage(target)){
                 IntPtr graphicsHandle = graphics.GetHdc();
@@ -122,10 +115,6 @@ namespace TweetDck.Core.Utils{
                     graphics.ReleaseHdc(graphicsHandle);
                 }
             }
-        }
-
-        public static void ReleaseDeviceContext(Form form, IntPtr ctx){
-            ReleaseDC(form.Handle, ctx);
         }
     }
 }
