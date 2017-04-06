@@ -40,7 +40,7 @@
             this.textBoxArgs.Multiline = true;
             this.textBoxArgs.Name = "textBoxArgs";
             this.textBoxArgs.Size = new System.Drawing.Size(460, 193);
-            this.textBoxArgs.TabIndex = 0;
+            this.textBoxArgs.TabIndex = 1;
             // 
             // btnCancel
             // 
@@ -49,7 +49,7 @@
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnCancel.Size = new System.Drawing.Size(56, 23);
-            this.btnCancel.TabIndex = 1;
+            this.btnCancel.TabIndex = 3;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -74,7 +74,7 @@
             this.btnHelp.Name = "btnHelp";
             this.btnHelp.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnHelp.Size = new System.Drawing.Size(124, 23);
-            this.btnHelp.TabIndex = 3;
+            this.btnHelp.TabIndex = 4;
             this.btnHelp.Text = "List of Chromium Args";
             this.btnHelp.UseVisualStyleBackColor = true;
             this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
@@ -86,7 +86,7 @@
             this.labelWarning.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.labelWarning.Name = "labelWarning";
             this.labelWarning.Size = new System.Drawing.Size(423, 13);
-            this.labelWarning.TabIndex = 4;
+            this.labelWarning.TabIndex = 0;
             this.labelWarning.Text = "Warning: Some arguments may cause the program to stop working, edit at your own r" +
     "isk.";
             // 

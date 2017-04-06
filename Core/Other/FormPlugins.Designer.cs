@@ -76,7 +76,7 @@
             this.tabPanelPlugins.Location = new System.Drawing.Point(12, 12);
             this.tabPanelPlugins.Name = "tabPanelPlugins";
             this.tabPanelPlugins.Size = new System.Drawing.Size(680, 421);
-            this.tabPanelPlugins.TabIndex = 4;
+            this.tabPanelPlugins.TabIndex = 0;
             // 
             // FormPlugins
             // 

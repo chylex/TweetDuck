@@ -42,7 +42,7 @@
             this.groupCustomSound.Location = new System.Drawing.Point(9, 9);
             this.groupCustomSound.Name = "groupCustomSound";
             this.groupCustomSound.Size = new System.Drawing.Size(372, 75);
-            this.groupCustomSound.TabIndex = 11;
+            this.groupCustomSound.TabIndex = 0;
             this.groupCustomSound.TabStop = false;
             this.groupCustomSound.Text = "Custom Sound Notification";
             // 
@@ -53,7 +53,7 @@
             this.btnPlaySound.Name = "btnPlaySound";
             this.btnPlaySound.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnPlaySound.Size = new System.Drawing.Size(43, 23);
-            this.btnPlaySound.TabIndex = 3;
+            this.btnPlaySound.TabIndex = 2;
             this.btnPlaySound.Text = "Play";
             this.btnPlaySound.UseVisualStyleBackColor = true;
             // 
@@ -64,7 +64,7 @@
             this.btnResetSound.Name = "btnResetSound";
             this.btnResetSound.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnResetSound.Size = new System.Drawing.Size(51, 23);
-            this.btnResetSound.TabIndex = 2;
+            this.btnResetSound.TabIndex = 3;
             this.btnResetSound.Text = "Reset";
             this.btnResetSound.UseVisualStyleBackColor = true;
             // 

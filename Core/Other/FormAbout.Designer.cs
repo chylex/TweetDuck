@@ -57,7 +57,7 @@ namespace TweetDck.Core.Other {
             this.labelDescription.Location = new System.Drawing.Point(114, 12);
             this.labelDescription.Name = "labelDescription";
             this.labelDescription.Size = new System.Drawing.Size(232, 109);
-            this.labelDescription.TabIndex = 1;
+            this.labelDescription.TabIndex = 0;
             // 
             // labelTips
             // 
@@ -68,7 +68,8 @@ namespace TweetDck.Core.Other {
             this.labelTips.Margin = new System.Windows.Forms.Padding(0);
             this.labelTips.Name = "labelTips";
             this.labelTips.Size = new System.Drawing.Size(99, 16);
-            this.labelTips.TabIndex = 3;
+            this.labelTips.TabIndex = 1;
+            this.labelTips.TabStop = true;
             this.labelTips.Text = "Tips && Tricks";
             this.labelTips.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.labelTips.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OnLinkClicked);
@@ -83,7 +84,8 @@ namespace TweetDck.Core.Other {
             this.labelWebsite.Margin = new System.Windows.Forms.Padding(0);
             this.labelWebsite.Name = "labelWebsite";
             this.labelWebsite.Size = new System.Drawing.Size(117, 16);
-            this.labelWebsite.TabIndex = 2;
+            this.labelWebsite.TabIndex = 0;
+            this.labelWebsite.TabStop = true;
             this.labelWebsite.Text = "Official Website";
             this.labelWebsite.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.labelWebsite.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OnLinkClicked);
@@ -104,7 +106,7 @@ namespace TweetDck.Core.Other {
             this.tablePanelLinks.RowCount = 1;
             this.tablePanelLinks.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tablePanelLinks.Size = new System.Drawing.Size(334, 16);
-            this.tablePanelLinks.TabIndex = 4;
+            this.tablePanelLinks.TabIndex = 1;
             // 
             // labelIssues
             // 
@@ -115,7 +117,8 @@ namespace TweetDck.Core.Other {
             this.labelIssues.Margin = new System.Windows.Forms.Padding(0);
             this.labelIssues.Name = "labelIssues";
             this.labelIssues.Size = new System.Drawing.Size(118, 16);
-            this.labelIssues.TabIndex = 4;
+            this.labelIssues.TabIndex = 2;
+            this.labelIssues.TabStop = true;
             this.labelIssues.Text = "Report an Issue";
             this.labelIssues.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.labelIssues.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OnLinkClicked);

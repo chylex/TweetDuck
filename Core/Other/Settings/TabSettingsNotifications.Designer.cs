@@ -71,8 +71,8 @@
             this.groupNotificationLocation.Controls.Add(this.trackBarEdgeDistance);
             this.groupNotificationLocation.Location = new System.Drawing.Point(198, 9);
             this.groupNotificationLocation.Name = "groupNotificationLocation";
-            this.groupNotificationLocation.Size = new System.Drawing.Size(183, 264);
-            this.groupNotificationLocation.TabIndex = 1;
+            this.groupNotificationLocation.Size = new System.Drawing.Size(183, 256);
+            this.groupNotificationLocation.TabIndex = 2;
             this.groupNotificationLocation.TabStop = false;
             this.groupNotificationLocation.Text = "Location";
             // 
@@ -83,18 +83,18 @@
             this.labelEdgeDistanceValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelEdgeDistanceValue.Name = "labelEdgeDistanceValue";
             this.labelEdgeDistanceValue.Size = new System.Drawing.Size(34, 13);
-            this.labelEdgeDistanceValue.TabIndex = 11;
+            this.labelEdgeDistanceValue.TabIndex = 9;
             this.labelEdgeDistanceValue.Text = "0 px";
             this.labelEdgeDistanceValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelDisplay
             // 
             this.labelDisplay.AutoSize = true;
-            this.labelDisplay.Location = new System.Drawing.Point(3, 148);
+            this.labelDisplay.Location = new System.Drawing.Point(5, 144);
             this.labelDisplay.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelDisplay.Name = "labelDisplay";
             this.labelDisplay.Size = new System.Drawing.Size(41, 13);
-            this.labelDisplay.TabIndex = 8;
+            this.labelDisplay.TabIndex = 5;
             this.labelDisplay.Text = "Display";
             // 
             // comboBoxDisplay
@@ -103,25 +103,26 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxDisplay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxDisplay.FormattingEnabled = true;
-            this.comboBoxDisplay.Location = new System.Drawing.Point(6, 164);
+            this.comboBoxDisplay.Location = new System.Drawing.Point(8, 160);
             this.comboBoxDisplay.Name = "comboBoxDisplay";
             this.comboBoxDisplay.Size = new System.Drawing.Size(171, 21);
-            this.comboBoxDisplay.TabIndex = 7;
+            this.comboBoxDisplay.TabIndex = 6;
             // 
             // labelEdgeDistance
             // 
             this.labelEdgeDistance.AutoSize = true;
-            this.labelEdgeDistance.Location = new System.Drawing.Point(3, 197);
+            this.labelEdgeDistance.Location = new System.Drawing.Point(5, 193);
             this.labelEdgeDistance.Margin = new System.Windows.Forms.Padding(3, 9, 3, 0);
             this.labelEdgeDistance.Name = "labelEdgeDistance";
             this.labelEdgeDistance.Size = new System.Drawing.Size(103, 13);
-            this.labelEdgeDistance.TabIndex = 6;
+            this.labelEdgeDistance.TabIndex = 7;
             this.labelEdgeDistance.Text = "Distance From Edge";
             // 
             // radioLocCustom
             // 
             this.radioLocCustom.AutoSize = true;
-            this.radioLocCustom.Location = new System.Drawing.Point(7, 116);
+            this.radioLocCustom.Location = new System.Drawing.Point(8, 112);
+            this.radioLocCustom.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.radioLocCustom.Name = "radioLocCustom";
             this.radioLocCustom.Size = new System.Drawing.Size(60, 17);
             this.radioLocCustom.TabIndex = 4;
@@ -133,7 +134,8 @@
             // radioLocBR
             // 
             this.radioLocBR.AutoSize = true;
-            this.radioLocBR.Location = new System.Drawing.Point(7, 92);
+            this.radioLocBR.Location = new System.Drawing.Point(8, 89);
+            this.radioLocBR.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.radioLocBR.Name = "radioLocBR";
             this.radioLocBR.Size = new System.Drawing.Size(86, 17);
             this.radioLocBR.TabIndex = 3;
@@ -144,7 +146,8 @@
             // radioLocBL
             // 
             this.radioLocBL.AutoSize = true;
-            this.radioLocBL.Location = new System.Drawing.Point(7, 68);
+            this.radioLocBL.Location = new System.Drawing.Point(8, 66);
+            this.radioLocBL.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.radioLocBL.Name = "radioLocBL";
             this.radioLocBL.Size = new System.Drawing.Size(79, 17);
             this.radioLocBL.TabIndex = 2;
@@ -155,7 +158,8 @@
             // radioLocTR
             // 
             this.radioLocTR.AutoSize = true;
-            this.radioLocTR.Location = new System.Drawing.Point(7, 44);
+            this.radioLocTR.Location = new System.Drawing.Point(8, 43);
+            this.radioLocTR.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.radioLocTR.Name = "radioLocTR";
             this.radioLocTR.Size = new System.Drawing.Size(72, 17);
             this.radioLocTR.TabIndex = 1;
@@ -166,7 +170,8 @@
             // radioLocTL
             // 
             this.radioLocTL.AutoSize = true;
-            this.radioLocTL.Location = new System.Drawing.Point(7, 20);
+            this.radioLocTL.Location = new System.Drawing.Point(8, 20);
+            this.radioLocTL.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.radioLocTL.Name = "radioLocTL";
             this.radioLocTL.Size = new System.Drawing.Size(65, 17);
             this.radioLocTL.TabIndex = 0;
@@ -179,13 +184,13 @@
             this.trackBarEdgeDistance.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBarEdgeDistance.LargeChange = 8;
-            this.trackBarEdgeDistance.Location = new System.Drawing.Point(6, 213);
+            this.trackBarEdgeDistance.Location = new System.Drawing.Point(8, 209);
             this.trackBarEdgeDistance.Maximum = 40;
             this.trackBarEdgeDistance.Minimum = 8;
             this.trackBarEdgeDistance.Name = "trackBarEdgeDistance";
             this.trackBarEdgeDistance.Size = new System.Drawing.Size(141, 45);
             this.trackBarEdgeDistance.SmallChange = 2;
-            this.trackBarEdgeDistance.TabIndex = 5;
+            this.trackBarEdgeDistance.TabIndex = 8;
             this.trackBarEdgeDistance.TickFrequency = 4;
             this.trackBarEdgeDistance.Value = 8;
             // 
@@ -197,7 +202,7 @@
             this.groupNotificationDuration.Location = new System.Drawing.Point(9, 160);
             this.groupNotificationDuration.Name = "groupNotificationDuration";
             this.groupNotificationDuration.Size = new System.Drawing.Size(183, 89);
-            this.groupNotificationDuration.TabIndex = 9;
+            this.groupNotificationDuration.TabIndex = 1;
             this.groupNotificationDuration.TabStop = false;
             this.groupNotificationDuration.Text = "Duration";
             // 
@@ -217,7 +222,7 @@
             this.tableLayoutDurationButtons.RowCount = 1;
             this.tableLayoutDurationButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutDurationButtons.Size = new System.Drawing.Size(171, 27);
-            this.tableLayoutDurationButtons.TabIndex = 5;
+            this.tableLayoutDurationButtons.TabIndex = 2;
             // 
             // btnDurationMedium
             // 
@@ -230,7 +235,7 @@
             this.btnDurationMedium.Margin = new System.Windows.Forms.Padding(1);
             this.btnDurationMedium.Name = "btnDurationMedium";
             this.btnDurationMedium.Size = new System.Drawing.Size(59, 25);
-            this.btnDurationMedium.TabIndex = 2;
+            this.btnDurationMedium.TabIndex = 1;
             this.btnDurationMedium.Text = "Medium";
             this.btnDurationMedium.UseVisualStyleBackColor = true;
             // 
@@ -245,7 +250,7 @@
             this.btnDurationLong.Margin = new System.Windows.Forms.Padding(1);
             this.btnDurationLong.Name = "btnDurationLong";
             this.btnDurationLong.Size = new System.Drawing.Size(54, 25);
-            this.btnDurationLong.TabIndex = 1;
+            this.btnDurationLong.TabIndex = 2;
             this.btnDurationLong.Text = "Long";
             this.btnDurationLong.UseVisualStyleBackColor = true;
             // 
@@ -272,7 +277,7 @@
             this.labelDurationValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelDurationValue.Name = "labelDurationValue";
             this.labelDurationValue.Size = new System.Drawing.Size(48, 13);
-            this.labelDurationValue.TabIndex = 13;
+            this.labelDurationValue.TabIndex = 1;
             this.labelDurationValue.Text = "0 ms/c";
             this.labelDurationValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.toolTip.SetToolTip(this.labelDurationValue, "Milliseconds per character.");
@@ -286,7 +291,7 @@
             this.trackBarDuration.Minimum = 10;
             this.trackBarDuration.Name = "trackBarDuration";
             this.trackBarDuration.Size = new System.Drawing.Size(128, 45);
-            this.trackBarDuration.TabIndex = 12;
+            this.trackBarDuration.TabIndex = 0;
             this.trackBarDuration.TickFrequency = 5;
             this.trackBarDuration.Value = 25;
             // 
@@ -300,7 +305,7 @@
             this.groupUserInterface.Location = new System.Drawing.Point(9, 9);
             this.groupUserInterface.Name = "groupUserInterface";
             this.groupUserInterface.Size = new System.Drawing.Size(183, 145);
-            this.groupUserInterface.TabIndex = 10;
+            this.groupUserInterface.TabIndex = 0;
             this.groupUserInterface.TabStop = false;
             this.groupUserInterface.Text = "General";
             // 
@@ -311,7 +316,7 @@
             this.labelIdlePause.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelIdlePause.Name = "labelIdlePause";
             this.labelIdlePause.Size = new System.Drawing.Size(89, 13);
-            this.labelIdlePause.TabIndex = 10;
+            this.labelIdlePause.TabIndex = 3;
             this.labelIdlePause.Text = "Pause When Idle";
             // 
             // comboBoxIdlePause
@@ -323,16 +328,17 @@
             this.comboBoxIdlePause.Location = new System.Drawing.Point(6, 115);
             this.comboBoxIdlePause.Name = "comboBoxIdlePause";
             this.comboBoxIdlePause.Size = new System.Drawing.Size(171, 21);
-            this.comboBoxIdlePause.TabIndex = 9;
+            this.comboBoxIdlePause.TabIndex = 4;
             this.toolTip.SetToolTip(this.comboBoxIdlePause, "Pauses new notifications after going idle for a set amount of time.");
             // 
             // checkNonIntrusive
             // 
             this.checkNonIntrusive.AutoSize = true;
-            this.checkNonIntrusive.Location = new System.Drawing.Point(6, 67);
+            this.checkNonIntrusive.Location = new System.Drawing.Point(9, 67);
+            this.checkNonIntrusive.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.checkNonIntrusive.Name = "checkNonIntrusive";
             this.checkNonIntrusive.Size = new System.Drawing.Size(128, 17);
-            this.checkNonIntrusive.TabIndex = 7;
+            this.checkNonIntrusive.TabIndex = 2;
             this.checkNonIntrusive.Text = "Non-Intrusive Popups";
             this.toolTip.SetToolTip(this.checkNonIntrusive, "When not idle and the cursor is within the notification window area,\r\nit will be " +
         "delayed until the cursor moves away to prevent accidental clicks.");
@@ -341,10 +347,11 @@
             // checkTimerCountDown
             // 
             this.checkTimerCountDown.AutoSize = true;
-            this.checkTimerCountDown.Location = new System.Drawing.Point(6, 44);
+            this.checkTimerCountDown.Location = new System.Drawing.Point(9, 44);
+            this.checkTimerCountDown.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.checkTimerCountDown.Name = "checkTimerCountDown";
             this.checkTimerCountDown.Size = new System.Drawing.Size(119, 17);
-            this.checkTimerCountDown.TabIndex = 6;
+            this.checkTimerCountDown.TabIndex = 1;
             this.checkTimerCountDown.Text = "Timer Counts Down";
             this.toolTip.SetToolTip(this.checkTimerCountDown, "The notification timer counts down instead of up.");
             this.checkTimerCountDown.UseVisualStyleBackColor = true;
@@ -352,11 +359,11 @@
             // checkNotificationTimer
             // 
             this.checkNotificationTimer.AutoSize = true;
-            this.checkNotificationTimer.Location = new System.Drawing.Point(6, 21);
-            this.checkNotificationTimer.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.checkNotificationTimer.Location = new System.Drawing.Point(9, 21);
+            this.checkNotificationTimer.Margin = new System.Windows.Forms.Padding(6, 5, 3, 3);
             this.checkNotificationTimer.Name = "checkNotificationTimer";
             this.checkNotificationTimer.Size = new System.Drawing.Size(145, 17);
-            this.checkNotificationTimer.TabIndex = 4;
+            this.checkNotificationTimer.TabIndex = 0;
             this.checkNotificationTimer.Text = "Display Notification Timer";
             this.toolTip.SetToolTip(this.checkNotificationTimer, "Shows how much time is left before the current notification disappears.");
             this.checkNotificationTimer.UseVisualStyleBackColor = true;

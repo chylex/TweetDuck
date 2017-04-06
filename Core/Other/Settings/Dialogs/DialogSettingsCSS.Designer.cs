@@ -52,7 +52,7 @@
             this.textBoxBrowserCSS.Name = "textBoxBrowserCSS";
             this.textBoxBrowserCSS.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBoxBrowserCSS.Size = new System.Drawing.Size(373, 253);
-            this.textBoxBrowserCSS.TabIndex = 0;
+            this.textBoxBrowserCSS.TabIndex = 1;
             this.textBoxBrowserCSS.WordWrap = false;
             this.textBoxBrowserCSS.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxBrowserCSS_KeyUp);
             // 
@@ -63,7 +63,7 @@
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnCancel.Size = new System.Drawing.Size(56, 23);
-            this.btnCancel.TabIndex = 1;
+            this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -75,7 +75,7 @@
             this.btnApply.Name = "btnApply";
             this.btnApply.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnApply.Size = new System.Drawing.Size(56, 23);
-            this.btnApply.TabIndex = 2;
+            this.btnApply.TabIndex = 1;
             this.btnApply.Text = "Apply";
             this.btnApply.UseVisualStyleBackColor = true;
             this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
@@ -102,7 +102,7 @@
             this.splitContainer.Size = new System.Drawing.Size(760, 269);
             this.splitContainer.SplitterDistance = 373;
             this.splitContainer.SplitterWidth = 5;
-            this.splitContainer.TabIndex = 5;
+            this.splitContainer.TabIndex = 0;
             // 
             // labelBrowser
             // 
@@ -111,7 +111,7 @@
             this.labelBrowser.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelBrowser.Name = "labelBrowser";
             this.labelBrowser.Size = new System.Drawing.Size(45, 13);
-            this.labelBrowser.TabIndex = 1;
+            this.labelBrowser.TabIndex = 0;
             this.labelBrowser.Text = "Browser";
             // 
             // labelNotification
@@ -121,7 +121,7 @@
             this.labelNotification.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelNotification.Name = "labelNotification";
             this.labelNotification.Size = new System.Drawing.Size(60, 13);
-            this.labelNotification.TabIndex = 2;
+            this.labelNotification.TabIndex = 0;
             this.labelNotification.Text = "Notification";
             // 
             // textBoxNotificationCSS
@@ -135,7 +135,7 @@
             this.textBoxNotificationCSS.Multiline = true;
             this.textBoxNotificationCSS.Name = "textBoxNotificationCSS";
             this.textBoxNotificationCSS.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxNotificationCSS.Size = new System.Drawing.Size(373, 253);
+            this.textBoxNotificationCSS.Size = new System.Drawing.Size(372, 253);
             this.textBoxNotificationCSS.TabIndex = 1;
             this.textBoxNotificationCSS.WordWrap = false;
             // 
@@ -146,7 +146,7 @@
             this.labelWarning.Location = new System.Drawing.Point(91, 292);
             this.labelWarning.Name = "labelWarning";
             this.labelWarning.Size = new System.Drawing.Size(341, 13);
-            this.labelWarning.TabIndex = 6;
+            this.labelWarning.TabIndex = 3;
             this.labelWarning.Text = "The code is not validated, please make sure there are no syntax errors.";
             // 
             // btnOpenWiki
@@ -157,7 +157,7 @@
             this.btnOpenWiki.Name = "btnOpenWiki";
             this.btnOpenWiki.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnOpenWiki.Size = new System.Drawing.Size(73, 23);
-            this.btnOpenWiki.TabIndex = 7;
+            this.btnOpenWiki.TabIndex = 4;
             this.btnOpenWiki.Text = "Open Wiki";
             this.btnOpenWiki.UseVisualStyleBackColor = true;
             this.btnOpenWiki.Click += new System.EventHandler(this.btnOpenWiki_Click);

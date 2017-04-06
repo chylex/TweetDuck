@@ -42,7 +42,7 @@
             this.btnToggleState.Location = new System.Drawing.Point(459, 80);
             this.btnToggleState.Name = "btnToggleState";
             this.btnToggleState.Size = new System.Drawing.Size(65, 23);
-            this.btnToggleState.TabIndex = 0;
+            this.btnToggleState.TabIndex = 5;
             this.btnToggleState.Text = "Disable";
             this.btnToggleState.UseVisualStyleBackColor = true;
             this.btnToggleState.Click += new System.EventHandler(this.btnToggleState_Click);
@@ -54,7 +54,7 @@
             this.labelName.Location = new System.Drawing.Point(7, 7);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(61, 24);
-            this.labelName.TabIndex = 1;
+            this.labelName.TabIndex = 0;
             this.labelName.Text = "Name";
             this.labelName.UseMnemonic = false;
             // 
@@ -80,7 +80,7 @@
             this.labelDescription.Margin = new System.Windows.Forms.Padding(0);
             this.labelDescription.Name = "labelDescription";
             this.labelDescription.Size = new System.Drawing.Size(13, 39);
-            this.labelDescription.TabIndex = 3;
+            this.labelDescription.TabIndex = 0;
             this.labelDescription.Text = "a\r\nb\r\nc";
             this.labelDescription.UseMnemonic = false;
             // 
@@ -91,7 +91,7 @@
             this.labelAuthor.Margin = new System.Windows.Forms.Padding(3, 0, 32, 0);
             this.labelAuthor.Name = "labelAuthor";
             this.labelAuthor.Size = new System.Drawing.Size(38, 13);
-            this.labelAuthor.TabIndex = 3;
+            this.labelAuthor.TabIndex = 0;
             this.labelAuthor.Text = "Author";
             this.labelAuthor.UseMnemonic = false;
             // 
@@ -104,7 +104,7 @@
             this.flowLayoutInfo.Location = new System.Drawing.Point(11, 85);
             this.flowLayoutInfo.Name = "flowLayoutInfo";
             this.flowLayoutInfo.Size = new System.Drawing.Size(368, 18);
-            this.flowLayoutInfo.TabIndex = 4;
+            this.flowLayoutInfo.TabIndex = 3;
             this.flowLayoutInfo.WrapContents = false;
             // 
             // labelWebsite
@@ -116,7 +116,7 @@
             this.labelWebsite.Location = new System.Drawing.Point(76, 0);
             this.labelWebsite.Name = "labelWebsite";
             this.labelWebsite.Size = new System.Drawing.Size(46, 13);
-            this.labelWebsite.TabIndex = 5;
+            this.labelWebsite.TabIndex = 1;
             this.labelWebsite.Text = "Website";
             this.labelWebsite.UseMnemonic = false;
             this.labelWebsite.Click += new System.EventHandler(this.labelWebsite_Click);
@@ -129,7 +129,7 @@
             this.labelVersion.Margin = new System.Windows.Forms.Padding(3, 9, 3, 0);
             this.labelVersion.Name = "labelVersion";
             this.labelVersion.Size = new System.Drawing.Size(513, 13);
-            this.labelVersion.TabIndex = 5;
+            this.labelVersion.TabIndex = 1;
             this.labelVersion.Text = "Version";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.labelVersion.UseMnemonic = false;
@@ -140,7 +140,7 @@
             this.btnOpenConfig.Location = new System.Drawing.Point(385, 80);
             this.btnOpenConfig.Name = "btnOpenConfig";
             this.btnOpenConfig.Size = new System.Drawing.Size(68, 23);
-            this.btnOpenConfig.TabIndex = 6;
+            this.btnOpenConfig.TabIndex = 4;
             this.btnOpenConfig.Text = "Configure";
             this.btnOpenConfig.UseVisualStyleBackColor = true;
             this.btnOpenConfig.Click += new System.EventHandler(this.btnOpenConfig_Click);
