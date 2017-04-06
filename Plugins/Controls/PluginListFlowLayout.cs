@@ -2,7 +2,7 @@
 using TweetDck.Core.Utils;
 
 namespace TweetDck.Plugins.Controls{
-    sealed partial class PluginListFlowLayout : FlowLayoutPanel{
+    sealed class PluginListFlowLayout : FlowLayoutPanel{
         public PluginListFlowLayout(){
             FlowDirection = FlowDirection.TopDown;
             WrapContents = false;

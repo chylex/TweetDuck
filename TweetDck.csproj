@@ -232,9 +232,6 @@
     <Compile Include="Plugins\Controls\PluginListFlowLayout.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Plugins\Controls\PluginListFlowLayout.Designer.cs">
-      <DependentUpon>PluginListFlowLayout.cs</DependentUpon>
-    </Compile>
     <Compile Include="Plugins\Enums\PluginFolder.cs" />
     <Compile Include="Plugins\Plugin.cs" />
     <Compile Include="Plugins\Events\PluginChangedStateEventArgs.cs" />
