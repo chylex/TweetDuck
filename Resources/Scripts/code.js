@@ -648,6 +648,15 @@
   TD.services.TwitterMedia.SERVICES["youtube"] = TD.services.TwitterMedia.YOUTUBE_RE;
   
   //
+  // Block: Fix DM reply input box not getting focused after opening a conversation.
+  //
+  TD.components.ConversationDetailView.prototype.showChirp = appendToFunction(TD.components.ConversationDetailView.prototype.showChirp, function(){
+    setTimeout(function(){
+      $(".js-reply-tweetbox").first().focus();
+    }, 100);
+  });
+  
+  //
   // Block: Disable TweetDeck metrics.
   //
   TD.metrics.inflate = function(){};
