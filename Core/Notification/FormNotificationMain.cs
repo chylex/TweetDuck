@@ -165,6 +165,8 @@ namespace TweetDck.Core.Notification{
             else{
                 PrepareAndDisplayWindow();
             }
+
+            UpdateTitle();
         }
 
         public override void HideNotification(bool loadBlank){

@@ -19,6 +19,7 @@ namespace TweetDck.Configuration{
         // START OF CONFIGURATION
 
         public WindowState BrowserWindow { get; set; }
+        public bool DisplayNotificationColumn { get; set; }
         public bool DisplayNotificationTimer { get; set; }
         public bool NotificationTimerCountDown { get; set; }
         public bool NotificationNonIntrusiveMode { get; set; }

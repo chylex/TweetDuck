@@ -57,10 +57,10 @@ namespace TweetDck.Core.Bridge{
             form.InvokeAsyncSafe(form.OpenContextMenu);
         }
 
-        public void OnTweetPopup(string tweetHtml, string tweetUrl, int tweetCharacters){
+        public void OnTweetPopup(string columnName, string tweetHtml, string tweetUrl, int tweetCharacters){
             notification.InvokeAsyncSafe(() => {
                 form.OnTweetNotification();
-                notification.ShowNotification(new TweetNotification(tweetHtml, tweetUrl, tweetCharacters));
+                notification.ShowNotification(new TweetNotification(columnName, tweetHtml, tweetUrl, tweetCharacters));
             });
         }
 

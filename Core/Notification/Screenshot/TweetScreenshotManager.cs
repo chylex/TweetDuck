@@ -44,7 +44,7 @@ namespace TweetDck.Core.Notification.Screenshot{
                 CanMoveWindow = () => false
             };
 
-            screenshot.LoadNotificationForScreenshot(new TweetNotification(html, string.Empty, 0), width, height);
+            screenshot.LoadNotificationForScreenshot(new TweetNotification(string.Empty, html, string.Empty, 0), width, height);
             screenshot.Show();
             timeout.Start();
         }

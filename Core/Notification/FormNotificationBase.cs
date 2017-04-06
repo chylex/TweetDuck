@@ -71,6 +71,7 @@ namespace TweetDck.Core.Notification{
         protected readonly Form owner;
         protected readonly ChromiumWebBrowser browser;
 
+        private string currentColumn;
         private int pauseCounter;
 
         public bool IsPaused{
@@ -151,6 +152,7 @@ namespace TweetDck.Core.Notification{
             }
 
             Location = ControlExtensions.InvisibleLocation;
+            currentColumn = null;
         }
 
         public virtual void FinishCurrentNotification(){}
@@ -175,6 +177,7 @@ namespace TweetDck.Core.Notification{
         protected virtual void LoadTweet(TweetNotification tweet){
             CurrentUrl = tweet.Url;
             CurrentQuotedTweetUrl = string.Empty; // load from JS
+            currentColumn = tweet.Column;
             browser.LoadHtml(GetTweetHTML(tweet), "http://tweetdeck.twitter.com/?"+DateTime.Now.Ticks);
         }
 
@@ -196,7 +199,7 @@ namespace TweetDck.Core.Notification{
         }
 
         protected virtual void UpdateTitle(){
-            Text = Program.BrandName;
+            Text = string.IsNullOrEmpty(currentColumn) || !Program.UserConfig.DisplayNotificationColumn ? Program.BrandName : Program.BrandName+" - "+currentColumn;
         }
 
         public void DisplayTooltip(string text){

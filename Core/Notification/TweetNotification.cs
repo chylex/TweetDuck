@@ -35,7 +35,7 @@ namespace TweetDck.Core.Notification{
                     #endif
                 }
 
-                return new TweetNotification(ExampleTweetHTML, "", 95, true);
+                return new TweetNotification("Home", ExampleTweetHTML, "", 95, true);
             }
         }
 
@@ -51,20 +51,28 @@ namespace TweetDck.Core.Notification{
             TopLeft, TopRight, BottomLeft, BottomRight, Custom
         }
 
+        public string Column{
+            get{
+                return column;
+            }
+        }
+
         public string Url{
             get{
                 return url;
             }
         }
 
+        private readonly string column;
         private readonly string html;
         private readonly string url;
         private readonly int characters;
         private readonly bool isExample;
 
-        public TweetNotification(string html, string url, int characters) : this(html, url, characters, false){}
+        public TweetNotification(string column, string html, string url, int characters) : this(column, html, url, characters, false){}
 
-        private TweetNotification(string html, string url, int characters, bool isExample){
+        private TweetNotification(string column, string html, string url, int characters, bool isExample){
+            this.column = column;
             this.html = html;
             this.url = url;
             this.characters = characters;

@@ -54,7 +54,8 @@ namespace TweetDck.Core.Other.Settings{
             }
 
             comboBoxDisplay.SelectedIndex = Math.Min(comboBoxDisplay.Items.Count-1, Config.NotificationDisplay);
-
+            
+            checkColumnName.Checked = Config.DisplayNotificationColumn;
             checkNotificationTimer.Checked = Config.DisplayNotificationTimer;
             checkTimerCountDown.Enabled = checkNotificationTimer.Checked;
             checkTimerCountDown.Checked = Config.NotificationTimerCountDown;
@@ -78,6 +79,7 @@ namespace TweetDck.Core.Other.Settings{
             btnDurationMedium.Click += btnDurationMedium_Click;
             btnDurationLong.Click += btnDurationLong_Click;
 
+            checkColumnName.CheckedChanged += checkColumnName_CheckedChanged;
             checkNotificationTimer.CheckedChanged += checkNotificationTimer_CheckedChanged;
             checkTimerCountDown.CheckedChanged += checkTimerCountDown_CheckedChanged;
             checkNonIntrusive.CheckedChanged += checkNonIntrusive_CheckedChanged;
@@ -136,6 +138,11 @@ namespace TweetDck.Core.Other.Settings{
 
         private void btnDurationLong_Click(object sender, EventArgs e){
             trackBarDuration.Value = 35;
+        }
+
+        private void checkColumnName_CheckedChanged(object sender, EventArgs e){
+            Config.DisplayNotificationColumn = checkColumnName.Checked;
+            notification.ShowNotificationForSettings(false);
         }
 
         private void checkNotificationTimer_CheckedChanged(object sender, EventArgs e){

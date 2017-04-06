@@ -117,7 +117,11 @@ namespace TweetDck.Core.Notification{
         }
 
         protected override void UpdateTitle(){
-            Text = tweetQueue.Count > 0 ? Program.BrandName+" ("+tweetQueue.Count+" more left)" : Program.BrandName;
+            base.UpdateTitle();
+
+            if (tweetQueue.Count > 0){
+                Text = Text+" ("+tweetQueue.Count+" more left)";
+            }
         }
 
         protected override void OnNotificationReady(){

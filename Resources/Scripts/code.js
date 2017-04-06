@@ -20,6 +20,29 @@
   var app = $(document.body).children(".js-app");
   
   //
+  // Constant: Column types mapped to their titles.
+  //
+  const columnTypes = {
+    "col_home": "Home",
+    "col_timeline" : "Home",
+    "col_mentions": "Mentions",
+    "col_me": "Mentions",
+    "col_inbox": "Messages",
+    "col_messages": "Messages",
+    "col_interactions": "Notifications",
+    "col_followers": "Followers",
+    "col_activity": "Activity",
+    "col_favorites": "Likes",
+    "col_usertweets": "User",
+    "col_search": "Search",
+    "col_list": "List",
+    "col_customtimeline": "Timeline",
+    "col_dataminr": "Dataminr",
+    "col_livevideo": "Live video",
+    "col_scheduled": "Scheduled"
+  };
+  
+  //
   // Function: Prepends code at the beginning of a function. If the prepended function returns true, execution of the original function is cancelled.
   //
   var prependToFunction = function(func, extension){
@@ -59,7 +82,7 @@
   //
   var onNewTweet = function(column, tweet){
     if (column.model.getHasNotification()){
-      var html = $(tweet.render({
+      let html = $(tweet.render({
         withFooter: false,
         withTweetActions: false,
         withMediaPreview: true,
@@ -73,9 +96,8 @@
       html.find(".js-media").last().remove(); // and quoted tweets still show media previews, nice nice
       html.find(".js-quote-detail").removeClass("is-actionable");
       
-      var url = html.find("time").first().children("a").first().attr("href") || "";
-      
-      $TD.onTweetPopup(html.html(), url, tweet.text.length); // TODO column
+      let url = html.find("time").first().children("a").first().attr("href") || "";
+      $TD.onTweetPopup(columnTypes[column.getColumnType()] || "", html.html(), url, tweet.text.length);
     }
     
     if (column.model.getHasSound()){
