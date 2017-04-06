@@ -626,6 +626,21 @@
   TD.services.TwitterMedia.SERVICES["youtube"] = TD.services.TwitterMedia.YOUTUBE_RE;
   
   //
+  // Block: Disable TweetDeck metrics.
+  //
+  TD.metrics.inflate = function(){};
+  TD.metrics.inflateMetricTriple = function(){};
+  TD.metrics.log = function(){};
+  TD.metrics.makeKey = function(){};
+  TD.metrics.send = function(){};
+  
+  onAppReady.push(function(){
+    let data = $._data(window);
+    delete data.events["metric"];
+    delete data.events["metricsFlush"];
+  });
+  
+  //
   // Block: Register the TD.ready event, finish initialization, and load plugins.
   //
   $(document).one("TD.ready", function(){
