@@ -79,6 +79,7 @@ namespace TweetDck.Core{
             #endif
 
             this.browser.LoadingStateChanged += browser_LoadingStateChanged;
+            this.browser.FrameLoadStart += browser_FrameLoadStart;
             this.browser.FrameLoadEnd += browser_FrameLoadEnd;
             this.browser.LoadError += browser_LoadError;
             this.browser.RegisterAsyncJsObject("$TD", new TweetDeckBridge(this, notification));
@@ -158,6 +159,12 @@ namespace TweetDck.Core{
 
                 BeginInvoke(new Action(OnLoaded));
                 browser.LoadingStateChanged -= browser_LoadingStateChanged;
+            }
+        }
+
+        private void browser_FrameLoadStart(object sender, FrameLoadStartEventArgs e){
+            if (e.Frame.IsMain && BrowserUtils.IsTwitterWebsite(e.Frame)){
+                ScriptLoader.ExecuteFile(e.Frame, "twitter.js");
             }
         }
 

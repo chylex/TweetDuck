@@ -684,4 +684,8 @@
       window.TD_PLUGINS.onReady();
     }
   });
+  
+  $(document).on("uiLoginFormImpression", function(){
+    location.href = $("a.btn", ".js-login-form").first().attr("href");
+  });
 })($, $TD, $TDX, TD);
