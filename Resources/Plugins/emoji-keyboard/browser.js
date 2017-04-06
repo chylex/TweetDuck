@@ -58,6 +58,7 @@ enabled(){
     this.currentKeyboard = null;
     
     $(".emoji-keyboard-popup-btn").removeClass("is-selected");
+    $(".js-compose-text").first().focus();
   };
   
   var generateEmojiHTML = skinTone => {
