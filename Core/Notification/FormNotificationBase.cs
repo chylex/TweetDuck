@@ -206,7 +206,7 @@ namespace TweetDck.Core.Notification{
             else{
                 Point position = PointToClient(Cursor.Position);
                 position.Offset(20, 5);
-                toolTip.Show(text, this, position); // TODO figure out flickering when moving the mouse
+                toolTip.Show(text, this, position);
             }
         }
     }

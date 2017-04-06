@@ -36,7 +36,7 @@ enabled(){
   var loadConfigObject = obj => {
     this.tmpConfig = obj || {};
     
-    if (window.TD_APP_READY){
+    if (TD.ready){
       this.onAppReady();
     }
     

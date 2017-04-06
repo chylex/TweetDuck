@@ -95,7 +95,7 @@
     
     tags.push("<style type='text/css'>");
     tags.push("body { background-color: "+getClassStyleProperty("column", "background-color")+" }");
-    tags.push("a[data-full-url]{ word-break: break-all }");
+    tags.push("a[data-full-url] { word-break: break-all }");
     tags.push(".txt-base-smallest .badge-verified:before { height: 13px !important }");
     tags.push("</style>");
     
@@ -626,30 +626,16 @@
   TD.services.TwitterMedia.SERVICES["youtube"] = TD.services.TwitterMedia.YOUTUBE_RE;
   
   //
-  // Block: Finish initialization and load plugins.
+  // Block: Register the TD.ready event, finish initialization, and load plugins.
   //
-  onAppReady.push(function(){
+  $(document).one("TD.ready", function(){
+    onAppReady.forEach(func => func());
+    
     $TD.loadFontSizeClass(TD.settings.getFontSize());
     $TD.loadNotificationHeadContents(getNotificationHeadContents());
     
     if (window.TD_PLUGINS){
       window.TD_PLUGINS.onReady();
     }
-  });
-  
-  //
-  // Block: Observe the main app element and call the ready event whenever the contents are loaded.
-  //
-  new MutationObserver(function(){
-    if (window.TD_APP_READY && app.hasClass("is-hidden")){
-      window.TD_APP_READY = false;
-    }
-    else if (!window.TD_APP_READY && !app.hasClass("is-hidden")){
-      onAppReady.forEach(func => func());
-      window.TD_APP_READY = true;
-    }
-  }).observe(app[0], {
-    attributes: true,
-    attributeFilter: [ "class" ]
   });
 })($, $TD, $TDX, TD);

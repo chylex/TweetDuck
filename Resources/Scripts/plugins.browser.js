@@ -40,7 +40,7 @@
     }
     
     runWhenReady(plugin){
-      if (window.TD_APP_READY){
+      if (TD.ready){
         plugin.obj.ready();
       }
       else{
