@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 
 namespace TweetDck.Core.Controls{
-    sealed partial class TabButton : FlatButton{
+    sealed class TabButton : FlatButton{
         public Action Callback { get; private set; }
 
         public void SetupButton(int locationX, int sizeWidth, string title, Action callback){

@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 
 namespace TweetDck.Core.Controls{
-    sealed partial class FlatProgressBar : ProgressBar{
+    sealed class FlatProgressBar : ProgressBar{
         private readonly SolidBrush brush;
 
         public FlatProgressBar(){

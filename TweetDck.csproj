@@ -77,14 +77,8 @@
     <Compile Include="Core\Controls\FlatProgressBar.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Core\Controls\FlatProgressBar.Designer.cs">
-      <DependentUpon>FlatProgressBar.cs</DependentUpon>
-    </Compile>
     <Compile Include="Core\Controls\TabButton.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Core\Controls\TabButton.Designer.cs">
-      <DependentUpon>TabButton.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\Controls\TabPanel.cs">
       <SubType>UserControl</SubType>
