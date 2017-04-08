@@ -18,6 +18,8 @@ enabled(){
     [ "1F3FF", "#8A6859" ],
   ];
   
+  this.emojiURL = "https://ton.twimg.com/tweetdeck-web/web/assets/emoji/";
+  
   this.emojiHTML1 = ""; // no skin tones, prepended
   this.emojiHTML2 = {}; // contains emojis with skin tones
   this.emojiHTML3 = ""; // no skin tones, appended
@@ -30,7 +32,7 @@ enabled(){
   this.css.insert(".emoji-keyboard { position: absolute; width: 15.35em; background-color: white; border-radius: 2px 2px 3px 3px; font-size: 24px; z-index: 9999 }");
   this.css.insert(".emoji-keyboard-list { height: 10.14em; padding: 0.1em; box-sizing: border-box; overflow-y: auto }");
   this.css.insert(".emoji-keyboard-list .separator { height: 26px }");
-  this.css.insert(".emoji-keyboard-list .emoji { padding: 0.1em !important; cursor: pointer }");
+  this.css.insert(".emoji-keyboard-list img { padding: 0.1em !important; width: 1em; height: 1em; vertical-align: -0.1em; cursor: pointer }");
   this.css.insert(".emoji-keyboard-skintones { height: 1.3em; text-align: center; background-color: #292f33; border-radius: 0 0 2px 2px }");
   this.css.insert(".emoji-keyboard-skintones div { width: 0.8em; height: 0.8em; margin: 0.25em 0.1em; border-radius: 50%; display: inline-block; box-sizing: border-box; cursor: pointer }");
   this.css.insert(".emoji-keyboard-skintones .sel { border: 2px solid rgba(0, 0, 0, 0.35); box-shadow: 0 0 2px 0 rgba(255, 255, 255, 0.65), 0 0 1px 0 rgba(255, 255, 255, 0.4) inset }");
@@ -62,15 +64,15 @@ enabled(){
   };
   
   var generateEmojiHTML = skinTone => {
-    return this.emojiHTML1+this.emojiHTML2[skinTone]+this.emojiHTML3;
+    return (this.emojiHTML1+this.emojiHTML2[skinTone]+this.emojiHTML3).replace(/u#/g, this.emojiURL);
   };
   
   var selectSkinTone = skinTone => {
     let selectedEle = this.currentKeyboard.children[1].querySelector("[data-tone='"+this.selectedSkinTone+"']");
     selectedEle && selectedEle.classList.remove("sel");
     
-    this.selectedSkinTone = skinTone;
-    this.currentKeyboard.children[0].innerHTML = generateEmojiHTML(skinTone);
+    this.selectedSkinTone = skinTone; console.time("a"); // TODO
+    this.currentKeyboard.children[0].innerHTML = generateEmojiHTML(skinTone); console.timeEnd("a");
     this.currentKeyboard.children[1].querySelector("[data-tone='"+this.selectedSkinTone+"']").classList.add("sel");
   };
   
@@ -265,16 +267,17 @@ ready(){
     
     // final processing
     
-    let replaceSeparators = str => str.replace(/___/g, "<div class='separator'></div>");
+    let urlRegex = new RegExp(this.emojiURL.replace(/\./g, "\\."), "g");
+    let process = str => TD.util.cleanWithEmoji(str).replace(/ class=\"emoji\" draggable=\"false\"/g, "").replace(urlRegex, "u#").replace(/___/g, "<div class='separator'></div>");
     
     let start = "<p style='font-size:13px;color:#444;margin:4px;text-align:center'>Please, note that most emoji will not show up properly in the text box above, but they will display in the tweet.</p>";
-    this.emojiHTML1 = start+replaceSeparators(TD.util.cleanWithEmoji(generated1.join("")));
+    this.emojiHTML1 = start+process(generated1.join(""));
     
     for(let skinTone of this.skinToneList){
-      this.emojiHTML2[skinTone] = replaceSeparators(TD.util.cleanWithEmoji(generated2[skinTone].join("")));
+      this.emojiHTML2[skinTone] = process(generated2[skinTone].join(""));
     }
     
-    this.emojiHTML3 = replaceSeparators(TD.util.cleanWithEmoji(generated3.join("")));
+    this.emojiHTML3 = process(generated3.join(""));
   }).catch(err => {
     $TD.alert("error", "Problem loading emoji keyboard: "+err.message);
   });
