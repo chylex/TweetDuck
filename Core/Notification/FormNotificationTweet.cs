@@ -8,6 +8,7 @@ using TweetDck.Core.Utils;
 namespace TweetDck.Core.Notification{
     sealed partial class FormNotificationTweet : FormNotificationMain{
         private const int NonIntrusiveIdleLimit = 30;
+        private const int TrimMinimum = 32;
 
         private bool IsCursorOverNotificationArea{
             get{
@@ -16,6 +17,7 @@ namespace TweetDck.Core.Notification{
         }
 
         private readonly Queue<TweetNotification> tweetQueue = new Queue<TweetNotification>(4);
+        private bool needsTrim;
 
         public FormNotificationTweet(FormBrowser owner, PluginManager pluginManager) : base(owner, pluginManager, true){
             InitializeComponent();
@@ -31,6 +33,14 @@ namespace TweetDck.Core.Notification{
         private void FormNotificationTweet_FormClosing(object sender, FormClosingEventArgs e){
             if (e.CloseReason == CloseReason.UserClosing){
                 tweetQueue.Clear(); // already canceled
+                TrimQueue();
+            }
+        }
+
+        private void TrimQueue(){
+            if (needsTrim){
+                tweetQueue.TrimExcess();
+                needsTrim = false;
             }
         }
 
@@ -73,6 +83,8 @@ namespace TweetDck.Core.Notification{
                     LoadNextNotification();
                 }
             }
+
+            needsTrim |= tweetQueue.Count >= TrimMinimum;
         }
 
         public override void FinishCurrentNotification(){
@@ -81,6 +93,7 @@ namespace TweetDck.Core.Notification{
             }
             else{
                 HideNotification(true);
+                TrimQueue();
             }
         }
 
