@@ -71,8 +71,8 @@ enabled(){
     let selectedEle = this.currentKeyboard.children[1].querySelector("[data-tone='"+this.selectedSkinTone+"']");
     selectedEle && selectedEle.classList.remove("sel");
     
-    this.selectedSkinTone = skinTone; console.time("a"); // TODO
-    this.currentKeyboard.children[0].innerHTML = generateEmojiHTML(skinTone); console.timeEnd("a");
+    this.selectedSkinTone = skinTone;
+    this.currentKeyboard.children[0].innerHTML = generateEmojiHTML(skinTone);
     this.currentKeyboard.children[1].querySelector("[data-tone='"+this.selectedSkinTone+"']").classList.add("sel");
   };
   
