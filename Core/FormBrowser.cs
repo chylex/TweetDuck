@@ -18,6 +18,7 @@ using TweetDck.Core.Notification;
 using TweetDck.Core.Notification.Screenshot;
 using TweetDck.Updates.Events;
 using System.Diagnostics;
+using System.Linq;
 using TweetDck.Core.Notification.Sound;
 
 namespace TweetDck.Core{
@@ -36,11 +37,7 @@ namespace TweetDck.Core{
         private readonly FormNotificationTweet notification;
         private readonly ContextMenu contextMenu;
 
-        private FormSettings currentFormSettings;
-        private FormAbout currentFormAbout;
-        private FormPlugins currentFormPlugins;
         private bool isLoaded;
-
         private FormWindowState prevState;
 
         private TweetScreenshotManager notificationScreenshotManager;
@@ -118,6 +115,16 @@ namespace TweetDck.Core{
             this.updates.UpdateDismissed += updates_UpdateDismissed;
 
             RestoreWindow();
+        }
+
+        private bool TryBringToFront<T>() where T : Form{
+            T form = Application.OpenForms.OfType<T>().FirstOrDefault();
+
+            if (form != null){
+                form.BringToFront();
+                return true;
+            }
+            else return false;
         }
 
         private void ShowChildForm(Form form){
@@ -368,17 +375,12 @@ namespace TweetDck.Core{
         }
 
         public void OpenSettings(int tabIndex){
-            if (currentFormSettings != null){
-                currentFormSettings.BringToFront();
-            }
-            else{
+            if (!TryBringToFront<FormSettings>()){
                 bool prevEnableUpdateCheck = Config.EnableUpdateCheck;
 
-                currentFormSettings = new FormSettings(this, plugins, updates, tabIndex);
+                FormSettings form = new FormSettings(this, plugins, updates, tabIndex);
 
-                currentFormSettings.FormClosed += (sender, args) => {
-                    currentFormSettings = null;
-
+                form.FormClosed += (sender, args) => {
                     if (!prevEnableUpdateCheck && Config.EnableUpdateCheck){
                         updates.DismissUpdate(string.Empty);
                         updates.Check(false);
@@ -389,31 +391,22 @@ namespace TweetDck.Core{
                     }
 
                     UpdateProperties(PropertyBridge.Properties.ExpandLinksOnHover | PropertyBridge.Properties.HasCustomNotificationSound);
+                    form.Dispose();
                 };
 
-                ShowChildForm(currentFormSettings);
+                ShowChildForm(form);
             }
         }
 
         public void OpenAbout(){
-            if (currentFormAbout != null){
-                currentFormAbout.BringToFront();
-            }
-            else{
-                currentFormAbout = new FormAbout();
-                currentFormAbout.FormClosed += (sender, args) => currentFormAbout = null;
-                ShowChildForm(currentFormAbout);
+            if (!TryBringToFront<FormAbout>()){
+                ShowChildForm(new FormAbout());
             }
         }
 
         public void OpenPlugins(){
-            if (currentFormPlugins != null){
-                currentFormPlugins.BringToFront();
-            }
-            else{
-                currentFormPlugins = new FormPlugins(plugins);
-                currentFormPlugins.FormClosed += (sender, args) => currentFormPlugins = null;
-                ShowChildForm(currentFormPlugins);
+            if (!TryBringToFront<FormPlugins>()){
+                ShowChildForm(new FormPlugins(plugins));
             }
         }
 
