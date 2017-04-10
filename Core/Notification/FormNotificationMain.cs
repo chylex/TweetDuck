@@ -95,9 +95,10 @@ namespace TweetDck.Core.Notification{
             }
         }
 
-        private IntPtr MouseHookProc(int nCode, IntPtr wParam, IntPtr lParam){
-            if (wParam.ToInt32() == NativeMethods.WM_MOUSEWHEEL && browser.Bounds.Contains(PointToClient(Cursor.Position)) && !ContainsFocus && !owner.ContainsFocus){
+        private IntPtr MouseHookProc(int nCode, IntPtr wParam, IntPtr lParam){ System.Diagnostics.Debug.WriteLine(nCode);
+            if (nCode == 0 && wParam.ToInt32() == NativeMethods.WM_MOUSEWHEEL && browser.Bounds.Contains(PointToClient(Cursor.Position)) && !ContainsFocus && !owner.ContainsFocus){
                 browser.SendMouseWheelEvent(0, 0, 0, NativeMethods.GetHookWheelDelta(lParam), CefEventFlags.None);
+                return new IntPtr(-1);
             }
 
             return NativeMethods.CallNextHookEx(mouseHook, nCode, wParam, lParam);
