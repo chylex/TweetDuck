@@ -71,6 +71,8 @@ namespace TweetDck.Core.Notification{
         protected readonly Form owner;
         protected readonly ChromiumWebBrowser browser;
 
+        private readonly ResourceHandlerNotification resourceHandler = new ResourceHandlerNotification();
+
         private string currentColumn;
         private int pauseCounter;
 
@@ -106,12 +108,14 @@ namespace TweetDck.Core.Notification{
 
             this.browser.Dock = DockStyle.None;
             this.browser.ClientSize = ClientSize;
+            this.browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
 
             #if DEBUG
             this.browser.ConsoleMessage += BrowserUtils.HandleConsoleMessage;
             #endif
 
-            this.browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
+            DefaultResourceHandlerFactory handlerFactory = (DefaultResourceHandlerFactory)browser.ResourceHandlerFactory;
+            handlerFactory.RegisterHandler("https://tweetdeck.twitter.com", this.resourceHandler);
 
             Controls.Add(browser);
 
@@ -148,7 +152,7 @@ namespace TweetDck.Core.Notification{
 
         public virtual void HideNotification(bool loadBlank){
             if (loadBlank){
-                browser.LoadHtml("", "about:blank");
+                browser.Load("about:blank");
             }
 
             Location = ControlExtensions.InvisibleLocation;
@@ -178,7 +182,9 @@ namespace TweetDck.Core.Notification{
             CurrentUrl = tweet.Url;
             CurrentQuotedTweetUrl = string.Empty; // load from JS
             currentColumn = tweet.Column;
-            browser.LoadHtml(GetTweetHTML(tweet), "http://tweetdeck.twitter.com/?"+DateTime.Now.Ticks);
+
+            resourceHandler.SetHTML(GetTweetHTML(tweet));
+            browser.Load("https://tweetdeck.twitter.com");
         }
 
         protected virtual void SetNotificationSize(int width, int height){

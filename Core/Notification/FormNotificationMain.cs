@@ -108,7 +108,7 @@ namespace TweetDck.Core.Notification{
 
         private void FormNotification_FormClosing(object sender, FormClosingEventArgs e){
             if (e.CloseReason == CloseReason.UserClosing){
-                HideNotification(false);
+                HideNotification(true);
                 e.Cancel = true;
             }
         }

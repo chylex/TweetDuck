@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using CefSharp;
 using TweetDck.Core.Bridge;
-using TweetDck.Core.Controls;
 using TweetDck.Resources;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -20,8 +18,12 @@ namespace TweetDck.Core.Notification.Screenshot{
             };
         }
 
+        protected override string GetTweetHTML(TweetNotification tweet){
+            return tweet.GenerateHtml(enableCustomCSS: false);
+        }
+
         public void LoadNotificationForScreenshot(TweetNotification tweet, int width, int height){
-            browser.LoadHtml(tweet.GenerateHtml(enableCustomCSS: false), "http://tweetdeck.twitter.com/?"+DateTime.Now.Ticks);
+            LoadTweet(tweet);
             SetNotificationSize(width, height);
         }
 
