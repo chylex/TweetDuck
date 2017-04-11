@@ -35,7 +35,7 @@ namespace TweetDck.Core.Notification{
                     #endif
                 }
 
-                return new TweetNotification("Home", ExampleTweetHTML, "", 95, true);
+                return new TweetNotification("Home", ExampleTweetHTML, 95, string.Empty, string.Empty, true);
             }
         }
 
@@ -57,24 +57,32 @@ namespace TweetDck.Core.Notification{
             }
         }
 
-        public string Url{
+        public string TweetUrl{
             get{
-                return url;
+                return tweetUrl;
+            }
+        }
+
+        public string QuoteUrl{
+            get{
+                return quoteUrl;
             }
         }
 
         private readonly string column;
         private readonly string html;
-        private readonly string url;
         private readonly int characters;
+        private readonly string tweetUrl;
+        private readonly string quoteUrl;
         private readonly bool isExample;
 
-        public TweetNotification(string column, string html, string url, int characters) : this(column, html, url, characters, false){}
+        public TweetNotification(string column, string html, int characters, string tweetUrl, string quoteUrl) : this(column, html, characters, tweetUrl, quoteUrl, false){}
 
-        private TweetNotification(string column, string html, string url, int characters, bool isExample){
+        private TweetNotification(string column, string html, int characters, string tweetUrl, string quoteUrl, bool isExample){
             this.column = column;
             this.html = html;
-            this.url = url;
+            this.tweetUrl = tweetUrl;
+            this.quoteUrl = quoteUrl;
             this.characters = characters;
             this.isExample = isExample;
         }

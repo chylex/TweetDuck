@@ -96,10 +96,12 @@
       html.find(".js-media").last().remove(); // and quoted tweets still show media previews, nice nice
       html.find(".js-quote-detail").removeClass("is-actionable");
       
-      let url = html.find("time").first().children("a").first().attr("href") || "";
-      let length = tweet.text.length+(tweet.quotedTweet ? tweet.quotedTweet.text.length : 0);
+      let source = tweet.getRelatedTweet();
+      let duration = source ? source.text.length+(source.quotedTweet ? source.quotedTweet.text.length : 0) : tweet.text.length;
+      let tweetUrl = source ? source.getChirpURL() : "";
+      let quoteUrl = source && source.quotedTweet ? source.quotedTweet.getChirpURL() : "";
       
-      $TD.onTweetPopup(columnTypes[column.getColumnType()] || "", html.html(), url, length);
+      $TD.onTweetPopup(columnTypes[column.getColumnType()] || "", html.html(), duration, tweetUrl, quoteUrl);
     }
     
     if (column.model.getHasSound()){

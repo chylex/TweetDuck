@@ -49,18 +49,14 @@ namespace TweetDck.Core.Bridge{
             });
         }
 
-        public void SetNotificationQuotedTweet(string link){
-            notification.InvokeAsyncSafe(() => notification.CurrentQuotedTweetUrl = link);
-        }
-
         public void OpenContextMenu(){
             form.InvokeAsyncSafe(form.OpenContextMenu);
         }
 
-        public void OnTweetPopup(string columnName, string tweetHtml, string tweetUrl, int tweetCharacters){
+        public void OnTweetPopup(string columnName, string tweetHtml, int tweetCharacters, string tweetUrl, string quoteUrl){
             notification.InvokeAsyncSafe(() => {
                 form.OnTweetNotification();
-                notification.ShowNotification(new TweetNotification(columnName, tweetHtml, tweetUrl, tweetCharacters));
+                notification.ShowNotification(new TweetNotification(columnName, tweetHtml, tweetCharacters, tweetUrl, quoteUrl));
             });
         }
 

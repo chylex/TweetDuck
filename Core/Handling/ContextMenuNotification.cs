@@ -33,10 +33,10 @@ namespace TweetDck.Core.Handling{
                 model.SetChecked((CefMenuCommand)MenuFreeze, form.FreezeTimer);
                 model.AddSeparator();
 
-                if (!string.IsNullOrEmpty(form.CurrentUrl)){
+                if (!string.IsNullOrEmpty(form.CurrentTweetUrl)){
                     model.AddItem((CefMenuCommand)MenuCopyTweetUrl, "Copy tweet address");
 
-                    if (!string.IsNullOrEmpty(form.CurrentQuotedTweetUrl)){
+                    if (!string.IsNullOrEmpty(form.CurrentQuoteUrl)){
                         model.AddItem((CefMenuCommand)MenuCopyQuotedTweetUrl, "Copy quoted tweet address");
                     }
 
@@ -68,11 +68,11 @@ namespace TweetDck.Core.Handling{
                     return true;
 
                 case MenuCopyTweetUrl:
-                    SetClipboardText(form.CurrentUrl);
+                    SetClipboardText(form.CurrentTweetUrl);
                     return true;
 
                 case MenuCopyQuotedTweetUrl:
-                    SetClipboardText(form.CurrentQuotedTweetUrl);
+                    SetClipboardText(form.CurrentQuoteUrl);
                     return true;
             }
 
