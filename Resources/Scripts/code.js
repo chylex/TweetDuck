@@ -97,7 +97,9 @@
       html.find(".js-quote-detail").removeClass("is-actionable");
       
       let url = html.find("time").first().children("a").first().attr("href") || "";
-      $TD.onTweetPopup(columnTypes[column.getColumnType()] || "", html.html(), url, tweet.text.length);
+      let length = tweet.text.length+(tweet.quotedTweet ? tweet.quotedTweet.text.length : 0);
+      
+      $TD.onTweetPopup(columnTypes[column.getColumnType()] || "", html.html(), url, length);
     }
     
     if (column.model.getHasSound()){
