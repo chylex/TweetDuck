@@ -106,7 +106,7 @@ namespace TweetDck.Core.Notification{
             }
             
             build.Append("</head>");
-            build.Append("<body class='hearty scroll-styled-v");
+            build.Append("<body class='scroll-styled-v");
 
             if (!string.IsNullOrEmpty(bodyClasses)){
                 build.Append(' ').Append(bodyClasses);
