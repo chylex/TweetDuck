@@ -96,6 +96,10 @@
       html.find(".js-media").last().remove(); // and quoted tweets still show media previews, nice nice
       html.find(".js-quote-detail").removeClass("is-actionable");
       
+      html.find("a[href='#']").each(function(){ // remove <a> tags around links that don't lead anywhere (such as account names the tweet replied to)
+        this.outerHTML = this.innerHTML;
+      });
+      
       let source = tweet.getRelatedTweet();
       let duration = source ? source.text.length+(source.quotedTweet ? source.quotedTweet.text.length : 0) : tweet.text.length;
       let tweetUrl = source ? source.getChirpURL() : "";
