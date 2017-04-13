@@ -2,7 +2,7 @@
 using TweetDck.Configuration;
 
 namespace TweetDck.Core.Other.Settings{
-    partial class BaseTabSettings : UserControl{
+    class BaseTabSettings : UserControl{
         protected static UserConfig Config{
             get{
                 return Program.UserConfig;

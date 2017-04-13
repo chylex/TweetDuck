@@ -8,10 +8,11 @@ namespace TweetDck.Core.Bridge{
             ExpandLinksOnHover = 1,
             MuteNotifications = 2,
             HasCustomNotificationSound = 4,
-            All = ExpandLinksOnHover | MuteNotifications | HasCustomNotificationSound
+            AllBrowser = ExpandLinksOnHover | MuteNotifications | HasCustomNotificationSound,
+            AllNotification = ExpandLinksOnHover
         }
 
-        public static string GenerateScript(Properties properties = Properties.All){
+        public static string GenerateScript(Properties properties){
             StringBuilder build = new StringBuilder();
             build.Append("(function(c){");
 

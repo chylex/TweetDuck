@@ -179,7 +179,7 @@ namespace TweetDck.Core{
             if (e.Frame.IsMain && BrowserUtils.IsTweetDeckWebsite(e.Frame)){
                 e.Frame.ExecuteJavaScriptAsync(BrowserUtils.BackgroundColorFix);
 
-                UpdateProperties();
+                UpdateProperties(PropertyBridge.Properties.AllBrowser);
                 ScriptLoader.ExecuteFile(e.Frame, "code.js");
                 ReinjectCustomCSS(Config.CustomBrowserCSS);
 
@@ -356,7 +356,7 @@ namespace TweetDck.Core{
             browser.ExecuteScriptAsync("TDGF_reinjectCustomCSS", css == null ? string.Empty : css.Replace(Environment.NewLine, " "));
         }
 
-        public void UpdateProperties(PropertyBridge.Properties properties = PropertyBridge.Properties.All){
+        public void UpdateProperties(PropertyBridge.Properties properties){
             browser.ExecuteScriptAsync(PropertyBridge.GenerateScript(properties));
         }
 

@@ -178,9 +178,6 @@
     <Compile Include="Core\Other\Settings\BaseTabSettings.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Core\Other\Settings\BaseTabSettings.Designer.cs">
-      <DependentUpon>BaseTabSettings.cs</DependentUpon>
-    </Compile>
     <Compile Include="Core\Other\Settings\TabSettingsGeneral.cs">
       <SubType>UserControl</SubType>
     </Compile>
