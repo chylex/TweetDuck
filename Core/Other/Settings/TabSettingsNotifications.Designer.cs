@@ -43,13 +43,14 @@
             this.labelDurationValue = new System.Windows.Forms.Label();
             this.trackBarDuration = new System.Windows.Forms.TrackBar();
             this.groupUserInterface = new System.Windows.Forms.GroupBox();
+            this.checkSkipOnLinkClick = new System.Windows.Forms.CheckBox();
             this.checkColumnName = new System.Windows.Forms.CheckBox();
             this.labelIdlePause = new System.Windows.Forms.Label();
             this.comboBoxIdlePause = new System.Windows.Forms.ComboBox();
             this.checkNonIntrusive = new System.Windows.Forms.CheckBox();
-            this.checkTimerCountDown = new System.Windows.Forms.CheckBox();
-            this.checkNotificationTimer = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.checkNotificationTimer = new System.Windows.Forms.CheckBox();
+            this.checkTimerCountDown = new System.Windows.Forms.CheckBox();
             this.groupNotificationLocation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).BeginInit();
             this.groupNotificationDuration.SuspendLayout();
@@ -72,7 +73,7 @@
             this.groupNotificationLocation.Controls.Add(this.trackBarEdgeDistance);
             this.groupNotificationLocation.Location = new System.Drawing.Point(198, 9);
             this.groupNotificationLocation.Name = "groupNotificationLocation";
-            this.groupNotificationLocation.Size = new System.Drawing.Size(183, 264);
+            this.groupNotificationLocation.Size = new System.Drawing.Size(183, 282);
             this.groupNotificationLocation.TabIndex = 2;
             this.groupNotificationLocation.TabStop = false;
             this.groupNotificationLocation.Text = "Location";
@@ -80,7 +81,7 @@
             // labelEdgeDistanceValue
             // 
             this.labelEdgeDistanceValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelEdgeDistanceValue.Location = new System.Drawing.Point(143, 214);
+            this.labelEdgeDistanceValue.Location = new System.Drawing.Point(143, 217);
             this.labelEdgeDistanceValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelEdgeDistanceValue.Name = "labelEdgeDistanceValue";
             this.labelEdgeDistanceValue.Size = new System.Drawing.Size(34, 13);
@@ -112,8 +113,8 @@
             // labelEdgeDistance
             // 
             this.labelEdgeDistance.AutoSize = true;
-            this.labelEdgeDistance.Location = new System.Drawing.Point(5, 193);
-            this.labelEdgeDistance.Margin = new System.Windows.Forms.Padding(3, 9, 3, 0);
+            this.labelEdgeDistance.Location = new System.Drawing.Point(5, 196);
+            this.labelEdgeDistance.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelEdgeDistance.Name = "labelEdgeDistance";
             this.labelEdgeDistance.Size = new System.Drawing.Size(103, 13);
             this.labelEdgeDistance.TabIndex = 7;
@@ -185,7 +186,7 @@
             this.trackBarEdgeDistance.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBarEdgeDistance.LargeChange = 8;
-            this.trackBarEdgeDistance.Location = new System.Drawing.Point(8, 209);
+            this.trackBarEdgeDistance.Location = new System.Drawing.Point(8, 212);
             this.trackBarEdgeDistance.Maximum = 40;
             this.trackBarEdgeDistance.Minimum = 8;
             this.trackBarEdgeDistance.Name = "trackBarEdgeDistance";
@@ -200,7 +201,7 @@
             this.groupNotificationDuration.Controls.Add(this.tableLayoutDurationButtons);
             this.groupNotificationDuration.Controls.Add(this.labelDurationValue);
             this.groupNotificationDuration.Controls.Add(this.trackBarDuration);
-            this.groupNotificationDuration.Location = new System.Drawing.Point(9, 184);
+            this.groupNotificationDuration.Location = new System.Drawing.Point(9, 202);
             this.groupNotificationDuration.Name = "groupNotificationDuration";
             this.groupNotificationDuration.Size = new System.Drawing.Size(183, 89);
             this.groupNotificationDuration.TabIndex = 1;
@@ -298,6 +299,7 @@
             // 
             // groupUserInterface
             // 
+            this.groupUserInterface.Controls.Add(this.checkSkipOnLinkClick);
             this.groupUserInterface.Controls.Add(this.checkColumnName);
             this.groupUserInterface.Controls.Add(this.labelIdlePause);
             this.groupUserInterface.Controls.Add(this.comboBoxIdlePause);
@@ -306,10 +308,22 @@
             this.groupUserInterface.Controls.Add(this.checkNotificationTimer);
             this.groupUserInterface.Location = new System.Drawing.Point(9, 9);
             this.groupUserInterface.Name = "groupUserInterface";
-            this.groupUserInterface.Size = new System.Drawing.Size(183, 169);
+            this.groupUserInterface.Size = new System.Drawing.Size(183, 187);
             this.groupUserInterface.TabIndex = 0;
             this.groupUserInterface.TabStop = false;
             this.groupUserInterface.Text = "General";
+            // 
+            // checkSkipOnLinkClick
+            // 
+            this.checkSkipOnLinkClick.AutoSize = true;
+            this.checkSkipOnLinkClick.Location = new System.Drawing.Point(9, 90);
+            this.checkSkipOnLinkClick.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
+            this.checkSkipOnLinkClick.Name = "checkSkipOnLinkClick";
+            this.checkSkipOnLinkClick.Size = new System.Drawing.Size(113, 17);
+            this.checkSkipOnLinkClick.TabIndex = 3;
+            this.checkSkipOnLinkClick.Text = "Skip On Link Click";
+            this.toolTip.SetToolTip(this.checkSkipOnLinkClick, "Skips current notification when a link\r\ninside the notification is clicked.");
+            this.checkSkipOnLinkClick.UseVisualStyleBackColor = true;
             // 
             // checkColumnName
             // 
@@ -318,7 +332,7 @@
             this.checkColumnName.Margin = new System.Windows.Forms.Padding(6, 5, 3, 3);
             this.checkColumnName.Name = "checkColumnName";
             this.checkColumnName.Size = new System.Drawing.Size(129, 17);
-            this.checkColumnName.TabIndex = 5;
+            this.checkColumnName.TabIndex = 0;
             this.checkColumnName.Text = "Display Column Name";
             this.toolTip.SetToolTip(this.checkColumnName, "Shows column name each notification originated\r\nfrom in the notification window t" +
         "itle.");
@@ -328,7 +342,7 @@
             // 
             this.labelIdlePause.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelIdlePause.AutoSize = true;
-            this.labelIdlePause.Location = new System.Drawing.Point(3, 123);
+            this.labelIdlePause.Location = new System.Drawing.Point(3, 141);
             this.labelIdlePause.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelIdlePause.Name = "labelIdlePause";
             this.labelIdlePause.Size = new System.Drawing.Size(89, 13);
@@ -341,7 +355,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxIdlePause.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxIdlePause.FormattingEnabled = true;
-            this.comboBoxIdlePause.Location = new System.Drawing.Point(6, 139);
+            this.comboBoxIdlePause.Location = new System.Drawing.Point(6, 157);
             this.comboBoxIdlePause.Name = "comboBoxIdlePause";
             this.comboBoxIdlePause.Size = new System.Drawing.Size(171, 21);
             this.comboBoxIdlePause.TabIndex = 4;
@@ -350,27 +364,15 @@
             // checkNonIntrusive
             // 
             this.checkNonIntrusive.AutoSize = true;
-            this.checkNonIntrusive.Location = new System.Drawing.Point(9, 90);
+            this.checkNonIntrusive.Location = new System.Drawing.Point(9, 113);
             this.checkNonIntrusive.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.checkNonIntrusive.Name = "checkNonIntrusive";
             this.checkNonIntrusive.Size = new System.Drawing.Size(128, 17);
-            this.checkNonIntrusive.TabIndex = 2;
+            this.checkNonIntrusive.TabIndex = 4;
             this.checkNonIntrusive.Text = "Non-Intrusive Popups";
             this.toolTip.SetToolTip(this.checkNonIntrusive, "When not idle and the cursor is within the notification window area,\r\nit will be " +
         "delayed until the cursor moves away to prevent accidental clicks.");
             this.checkNonIntrusive.UseVisualStyleBackColor = true;
-            // 
-            // checkTimerCountDown
-            // 
-            this.checkTimerCountDown.AutoSize = true;
-            this.checkTimerCountDown.Location = new System.Drawing.Point(9, 67);
-            this.checkTimerCountDown.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
-            this.checkTimerCountDown.Name = "checkTimerCountDown";
-            this.checkTimerCountDown.Size = new System.Drawing.Size(119, 17);
-            this.checkTimerCountDown.TabIndex = 1;
-            this.checkTimerCountDown.Text = "Timer Counts Down";
-            this.toolTip.SetToolTip(this.checkTimerCountDown, "The notification timer counts down instead of up.");
-            this.checkTimerCountDown.UseVisualStyleBackColor = true;
             // 
             // checkNotificationTimer
             // 
@@ -379,10 +381,21 @@
             this.checkNotificationTimer.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.checkNotificationTimer.Name = "checkNotificationTimer";
             this.checkNotificationTimer.Size = new System.Drawing.Size(145, 17);
-            this.checkNotificationTimer.TabIndex = 0;
+            this.checkNotificationTimer.TabIndex = 1;
             this.checkNotificationTimer.Text = "Display Notification Timer";
-            this.toolTip.SetToolTip(this.checkNotificationTimer, "Shows how much time is left before the current notification disappears.");
             this.checkNotificationTimer.UseVisualStyleBackColor = true;
+            // 
+            // checkTimerCountDown
+            // 
+            this.checkTimerCountDown.AutoSize = true;
+            this.checkTimerCountDown.Location = new System.Drawing.Point(9, 67);
+            this.checkTimerCountDown.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
+            this.checkTimerCountDown.Name = "checkTimerCountDown";
+            this.checkTimerCountDown.Size = new System.Drawing.Size(119, 17);
+            this.checkTimerCountDown.TabIndex = 2;
+            this.checkTimerCountDown.Text = "Timer Counts Down";
+            this.toolTip.SetToolTip(this.checkTimerCountDown, "The notification timer counts down instead of up.");
+            this.checkTimerCountDown.UseVisualStyleBackColor = true;
             // 
             // TabSettingsNotifications
             // 
@@ -421,10 +434,8 @@
         private System.Windows.Forms.RadioButton radioLocTL;
         private System.Windows.Forms.GroupBox groupNotificationDuration;
         private System.Windows.Forms.GroupBox groupUserInterface;
-        private System.Windows.Forms.CheckBox checkNotificationTimer;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Label labelEdgeDistanceValue;
-        private System.Windows.Forms.CheckBox checkTimerCountDown;
         private System.Windows.Forms.Label labelDurationValue;
         private System.Windows.Forms.TrackBar trackBarDuration;
         private System.Windows.Forms.TableLayoutPanel tableLayoutDurationButtons;
@@ -435,5 +446,8 @@
         private System.Windows.Forms.Label labelIdlePause;
         private System.Windows.Forms.ComboBox comboBoxIdlePause;
         private System.Windows.Forms.CheckBox checkColumnName;
+        private System.Windows.Forms.CheckBox checkSkipOnLinkClick;
+        private System.Windows.Forms.CheckBox checkTimerCountDown;
+        private System.Windows.Forms.CheckBox checkNotificationTimer;
     }
 }

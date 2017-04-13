@@ -59,6 +59,7 @@ namespace TweetDck.Core.Other.Settings{
             checkNotificationTimer.Checked = Config.DisplayNotificationTimer;
             checkTimerCountDown.Enabled = checkNotificationTimer.Checked;
             checkTimerCountDown.Checked = Config.NotificationTimerCountDown;
+            checkSkipOnLinkClick.Checked = Config.NotificationSkipOnLinkClick;
             checkNonIntrusive.Checked = Config.NotificationNonIntrusiveMode;
 
             trackBarEdgeDistance.SetValueSafe(Config.NotificationEdgeDistance);
@@ -82,6 +83,7 @@ namespace TweetDck.Core.Other.Settings{
             checkColumnName.CheckedChanged += checkColumnName_CheckedChanged;
             checkNotificationTimer.CheckedChanged += checkNotificationTimer_CheckedChanged;
             checkTimerCountDown.CheckedChanged += checkTimerCountDown_CheckedChanged;
+            checkSkipOnLinkClick.CheckedChanged += checkSkipOnLinkClick_CheckedChanged;
             checkNonIntrusive.CheckedChanged += checkNonIntrusive_CheckedChanged;
 
             comboBoxIdlePause.SelectedValueChanged += comboBoxIdlePause_SelectedValueChanged;
@@ -154,6 +156,10 @@ namespace TweetDck.Core.Other.Settings{
         private void checkTimerCountDown_CheckedChanged(object sender, EventArgs e){
             Config.NotificationTimerCountDown = checkTimerCountDown.Checked;
             notification.ShowNotificationForSettings(true);
+        }
+
+        private void checkSkipOnLinkClick_CheckedChanged(object sender, EventArgs e){
+            Config.NotificationSkipOnLinkClick = checkSkipOnLinkClick.Checked;
         }
 
         private void checkNonIntrusive_CheckedChanged(object sender, EventArgs e){

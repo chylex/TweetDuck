@@ -22,6 +22,7 @@ namespace TweetDck.Configuration{
         public bool DisplayNotificationColumn { get; set; }
         public bool DisplayNotificationTimer { get; set; }
         public bool NotificationTimerCountDown { get; set; }
+        public bool NotificationSkipOnLinkClick { get; set; }
         public bool NotificationNonIntrusiveMode { get; set; }
 
         public TweetNotification.Position NotificationPosition { get; set; }

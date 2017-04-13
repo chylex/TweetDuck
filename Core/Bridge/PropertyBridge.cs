@@ -8,8 +8,9 @@ namespace TweetDck.Core.Bridge{
             ExpandLinksOnHover = 1,
             MuteNotifications = 2,
             HasCustomNotificationSound = 4,
+            SkipOnLinkClick = 8,
             AllBrowser = ExpandLinksOnHover | MuteNotifications | HasCustomNotificationSound,
-            AllNotification = ExpandLinksOnHover
+            AllNotification = ExpandLinksOnHover | SkipOnLinkClick
         }
 
         public static string GenerateScript(Properties properties){
@@ -26,6 +27,10 @@ namespace TweetDck.Core.Bridge{
 
             if (properties.HasFlag(Properties.HasCustomNotificationSound)){
                 build.Append("c.hasCustomNotificationSound=").Append(Program.UserConfig.NotificationSoundPath.Length > 0 ? "true;" : "false;");
+            }
+
+            if (properties.HasFlag(Properties.SkipOnLinkClick)){
+                build.Append("c.skipOnLinkClick=").Append(Program.UserConfig.NotificationSkipOnLinkClick ? "true;" : "false;");
             }
 
             build.Append("})(window.$TDX=window.$TDX||{})");

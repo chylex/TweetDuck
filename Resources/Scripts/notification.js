@@ -19,6 +19,14 @@
   addEventListener(links, "click", function(e){
     $TD.openBrowser(e.currentTarget.getAttribute("href"));
     e.preventDefault();
+    
+    if ($TDX.skipOnLinkClick){
+      let parentClasses = e.currentTarget.parentNode.classList;
+      
+      if (parentClasses.contains("js-tweet-text") || parentClasses.contains("js-quoted-tweet-text") || parentClasses.contains("js-timestamp")){
+        $TD.loadNextNotification();
+      }
+    }
   });
   
   //
