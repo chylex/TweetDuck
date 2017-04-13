@@ -92,7 +92,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupCustomSound);
             this.Name = "TabSettingsSounds";
-            this.Size = new System.Drawing.Size(478, 282);
+            this.Size = new System.Drawing.Size(478, 300);
             this.groupCustomSound.ResumeLayout(false);
             this.groupCustomSound.PerformLayout();
             this.ResumeLayout(false);

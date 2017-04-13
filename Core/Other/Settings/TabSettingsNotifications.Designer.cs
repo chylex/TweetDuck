@@ -392,7 +392,7 @@
             this.Controls.Add(this.groupNotificationDuration);
             this.Controls.Add(this.groupNotificationLocation);
             this.Name = "TabSettingsNotifications";
-            this.Size = new System.Drawing.Size(478, 282);
+            this.Size = new System.Drawing.Size(478, 300);
             this.ParentChanged += new System.EventHandler(this.TabSettingsNotifications_ParentChanged);
             this.groupNotificationLocation.ResumeLayout(false);
             this.groupNotificationLocation.PerformLayout();

@@ -133,7 +133,7 @@
             // 
             this.btnReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnReset.AutoSize = true;
-            this.btnReset.Location = new System.Drawing.Point(190, 250);
+            this.btnReset.Location = new System.Drawing.Point(190, 268);
             this.btnReset.Name = "btnReset";
             this.btnReset.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnReset.Size = new System.Drawing.Size(102, 23);
@@ -145,7 +145,7 @@
             // 
             this.btnImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnImport.AutoSize = true;
-            this.btnImport.Location = new System.Drawing.Point(100, 250);
+            this.btnImport.Location = new System.Drawing.Point(100, 268);
             this.btnImport.Name = "btnImport";
             this.btnImport.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnImport.Size = new System.Drawing.Size(84, 23);
@@ -158,7 +158,7 @@
             this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnExport.AutoSize = true;
             this.btnExport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnExport.Location = new System.Drawing.Point(9, 250);
+            this.btnExport.Location = new System.Drawing.Point(9, 268);
             this.btnExport.Name = "btnExport";
             this.btnExport.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnExport.Size = new System.Drawing.Size(85, 23);
@@ -212,7 +212,7 @@
             this.Controls.Add(this.btnImport);
             this.Controls.Add(this.btnExport);
             this.Name = "TabSettingsAdvanced";
-            this.Size = new System.Drawing.Size(478, 282);
+            this.Size = new System.Drawing.Size(478, 300);
             this.groupPerformance.ResumeLayout(false);
             this.groupPerformance.PerformLayout();
             this.groupConfiguration.ResumeLayout(false);

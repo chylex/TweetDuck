@@ -163,7 +163,7 @@
             this.Controls.Add(this.groupInterface);
             this.Controls.Add(this.groupTray);
             this.Name = "TabSettingsGeneral";
-            this.Size = new System.Drawing.Size(478, 282);
+            this.Size = new System.Drawing.Size(478, 300);
             this.groupTray.ResumeLayout(false);
             this.groupTray.PerformLayout();
             this.groupInterface.ResumeLayout(false);

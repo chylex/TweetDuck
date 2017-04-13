@@ -32,7 +32,7 @@
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.AutoSize = true;
-            this.btnClose.Location = new System.Drawing.Point(443, 331);
+            this.btnClose.Location = new System.Drawing.Point(443, 349);
             this.btnClose.Name = "btnClose";
             this.btnClose.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnClose.Size = new System.Drawing.Size(49, 23);
@@ -43,8 +43,9 @@
             // 
             // labelTip
             // 
+            this.labelTip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelTip.AutoSize = true;
-            this.labelTip.Location = new System.Drawing.Point(12, 333);
+            this.labelTip.Location = new System.Drawing.Point(12, 351);
             this.labelTip.Name = "labelTip";
             this.labelTip.Size = new System.Drawing.Size(310, 13);
             this.labelTip.TabIndex = 5;
@@ -57,19 +58,19 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabPanel.Location = new System.Drawing.Point(12, 12);
             this.tabPanel.Name = "tabPanel";
-            this.tabPanel.Size = new System.Drawing.Size(480, 313);
+            this.tabPanel.Size = new System.Drawing.Size(480, 331);
             this.tabPanel.TabIndex = 3;
             // 
             // FormSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(504, 366);
+            this.ClientSize = new System.Drawing.Size(504, 384);
             this.Controls.Add(this.labelTip);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.tabPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = Properties.Resources.icon;
+            this.Icon = global::TweetDck.Properties.Resources.icon;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormSettings";
