@@ -35,7 +35,7 @@ namespace TweetDck.Core.Handling{
             response.StatusCode = 200;
             response.StatusText = "OK";
             response.ResponseHeaders = headers;
-            responseLength = dataIn.Length;
+            responseLength = dataIn != null ? dataIn.Length : -1;
         }
 
         bool IResourceHandler.ReadResponse(Stream dataOut, out int bytesRead, ICallback callback){
