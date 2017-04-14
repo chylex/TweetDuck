@@ -9,6 +9,7 @@ namespace TweetDck.Core.Utils{
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Local")]
     static class NativeMethods{
         public static readonly IntPtr HWND_BROADCAST = new IntPtr(0xFFFF);
+        public static readonly IntPtr HOOK_HANDLED = new IntPtr(-1);
 
         public const int HWND_TOPMOST = -1;
         public const uint SWP_NOACTIVATE = 0x0010;

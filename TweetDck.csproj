@@ -328,6 +328,7 @@
     <Content Include="Resources\Scripts\code.js" />
     <Content Include="Resources\Scripts\notification.js" />
     <Content Include="Resources\Scripts\pages\error.html" />
+    <Content Include="Resources\Scripts\pages\example.html" />
     <Content Include="Resources\Scripts\plugins.browser.js" />
     <Content Include="Resources\Scripts\plugins.js" />
     <Content Include="Resources\Scripts\plugins.notification.js" />
