@@ -94,7 +94,7 @@
       html.css("border", "0");
       html.find("footer").last().remove(); // apparently withTweetActions breaks for certain tweets, nice
       html.find(".js-media").last().remove(); // and quoted tweets still show media previews, nice nice
-      html.find(".js-quote-detail").removeClass("is-actionable");
+      html.find(".js-quote-detail").removeClass("is-actionable"); // prevent quoted tweets from changing the cursor
       
       html.find("a[href='#']").each(function(){ // remove <a> tags around links that don't lead anywhere (such as account names the tweet replied to)
         this.outerHTML = this.innerHTML;
@@ -124,9 +124,9 @@
     });
     
     tags.push("<style type='text/css'>");
-    tags.push("body { background-color: "+getClassStyleProperty("column", "background-color")+" }");
-    tags.push("a[data-full-url] { word-break: break-all }");
-    tags.push(".txt-base-smallest .badge-verified:before { height: 13px !important }");
+    tags.push("body { background-color: "+getClassStyleProperty("column", "background-color")+" }"); // set background color
+    tags.push("a[data-full-url] { word-break: break-all }"); // break long urls
+    tags.push(".txt-base-smallest .badge-verified:before { height: 13px !important }"); // fix cut off badge icon
     tags.push("</style>");
     
     return tags.join("");
@@ -693,6 +693,9 @@
     }
   });
   
+  //
+  // Block: Skip the initial pre-login page.
+  //
   $(document).on("uiLoginFormImpression", function(){
     location.href = $("a.btn", ".js-login-form").first().attr("href");
   });
