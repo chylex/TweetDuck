@@ -66,7 +66,6 @@ namespace TweetDck.Core{
 
             this.browser = new ChromiumWebBrowser("https://tweetdeck.twitter.com/"){
                 MenuHandler = new ContextMenuBrowser(this),
-                DialogHandler = new FileDialogHandler(this),
                 JsDialogHandler = new JavaScriptDialogHandler(),
                 LifeSpanHandler = new LifeSpanHandler()
             };
@@ -446,16 +445,6 @@ namespace TweetDck.Core{
                 position.Offset(20, 10);
                 toolTip.Show(text, this, position);
             }
-        }
-
-        public void OnImagePasted(){
-            browser.ExecuteScriptAsync("TDGF_tryPasteImage()");
-        }
-
-        public void TriggerImageUpload(int offsetX, int offsetY){
-            IBrowserHost host = browser.GetBrowser().GetHost();
-            host.SendMouseClickEvent(offsetX, offsetY, MouseButtonType.Left, false, 1, CefEventFlags.None);
-            host.SendMouseClickEvent(offsetX, offsetY, MouseButtonType.Left, true, 1, CefEventFlags.None);
         }
 
         public void TriggerTweetScreenshot(){

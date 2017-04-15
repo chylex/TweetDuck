@@ -405,72 +405,19 @@
   //
   // Block: Paste images when tweeting.
   //
-  (function(){
-    var lastPasteElement;
-    var prevScrollTop;
+  onAppReady.push(function(){
+    var uploader = $._data(document, "events")["uiComposeAddImageClick"][0].handler.context;
     
-    var getScroller = function(){
-      return $(".js-drawer").find(".js-compose-scroller").first().children().first();
-    };
-    
-    var clickUpload = function(){
-      $(document).one("uiFilesAdded", function(){
-        getScroller().scrollTop(prevScrollTop);
-        $(".js-drawer").find(".js-compose-text").first()[0].focus();
-      });
-      
-      var button = $(".js-add-image-button").first();
-      
-      var scroller = getScroller();
-      prevScrollTop = scroller.scrollTop();
-      
-      scroller.scrollTop(0);
-      scroller.scrollTop(button.offset().top); // scrolls the button into view
-      
-      var buttonPos = button.children().first().offset(); // finds the camera icon offset
-      $TD.clickUploadImage(Math.floor(buttonPos.left), Math.floor(buttonPos.top));
-    };
-    
-    app.delegate(".js-compose-text,.js-reply-tweetbox", "paste", function(){
-      lastPasteElement = $(this);
-      $TD.tryPasteImage();
-    });
-
-    window.TDGF_tryPasteImage = function(){
-      if (lastPasteElement){
-        var parent = lastPasteElement.parent();
-
-        if (parent.siblings(".js-add-image-button").length === 0){
-          var pop = parent.closest(".js-inline-reply,.rpl").find(".js-inline-compose-pop,.js-reply-popout");
-
-          if (pop.length === 0){
-            lastPasteElement = null;
-            return;
-          }
-          
-          pop.click();
-          
-          var drawer = $(".js-drawer");
-          var counter = 0;
-          
-          var interval = setInterval(function(){
-            if (drawer.offset().left >= 195){
-              clickUpload();
-              clearInterval(interval);
-            }
-            else if (++counter >= 10){
-              clearInterval(interval);
-            }
-          }, 51);
+    app.delegate(".js-compose-text,.js-reply-tweetbox", "paste", function(e){
+      for(let item of e.originalEvent.clipboardData.items){
+        if (item.type.startsWith("image/")){
+          $(this).closest(".rpl").find(".js-reply-popout").click(); // popout direct messages
+          uploader.addFilesToUpload([ item.getAsFile() ]);
+          break;
         }
-        else{
-          clickUpload();
-        }
-        
-        lastPasteElement = null;
       }
-    };
-  })();
+    });
+  });
   
   //
   // Block: Support for extra mouse buttons.

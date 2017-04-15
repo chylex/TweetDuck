@@ -1,8 +1,4 @@
-﻿using System;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using TweetDck.Core.Controls;
 using TweetDck.Core.Notification;
 using TweetDck.Core.Utils;
@@ -12,10 +8,9 @@ namespace TweetDck.Core.Bridge{
         public static string LastRightClickedLink = string.Empty;
         public static string LastHighlightedTweet = string.Empty;
         public static string LastHighlightedQuotedTweet = string.Empty;
-        public static string ClipboardImagePath = string.Empty;
 
         public static void ResetStaticProperties(){
-            LastRightClickedLink = LastHighlightedTweet = LastHighlightedQuotedTweet = ClipboardImagePath = string.Empty;
+            LastRightClickedLink = LastHighlightedTweet = LastHighlightedQuotedTweet = string.Empty;
         }
 
         private readonly FormBrowser form;
@@ -78,30 +73,6 @@ namespace TweetDck.Core.Bridge{
 
         public void LoadNextNotification(){
             notification.InvokeAsyncSafe(notification.FinishCurrentNotification);
-        }
-
-        public void TryPasteImage(){
-            form.InvokeSafe(() => {
-                if (Clipboard.ContainsImage()){
-                    Image img = Clipboard.GetImage();
-                    if (img == null)return;
-
-                    try{
-                        Directory.CreateDirectory(Program.TemporaryPath);
-
-                        ClipboardImagePath = Path.Combine(Program.TemporaryPath, "TD-Img-"+DateTime.Now.Ticks+".png");
-                        img.Save(ClipboardImagePath, ImageFormat.Png);
-
-                        form.OnImagePasted();
-                    }catch(Exception e){
-                        Program.Reporter.HandleException("Clipboard Image Error", "Could not paste image from clipboard.", true, e);
-                    }
-                }
-            });
-        }
-
-        public void ClickUploadImage(int offsetX, int offsetY){
-            form.InvokeAsyncSafe(() => form.TriggerImageUpload(offsetX, offsetY));
         }
 
         public void ScreenshotTweet(string html, int width, int height){

@@ -28,7 +28,6 @@ namespace TweetDck{
 
         public static readonly string ProgramPath = AppDomain.CurrentDomain.BaseDirectory;
         public static readonly string StoragePath = IsPortable ? Path.Combine(ProgramPath, "portable", "storage") : GetDataStoragePath();
-        public static readonly string TemporaryPath = IsPortable ? Path.Combine(ProgramPath, "portable", "tmp") : Path.Combine(Path.GetTempPath(), BrandName+'_'+Path.GetRandomFileName().Substring(0, 6));
 
         public static readonly string PluginDataPath = Path.Combine(StoragePath, "TD_Plugins");
         public static readonly string ConfigFilePath = Path.Combine(StoragePath, "TD_UserConfig.cfg");
@@ -259,14 +258,6 @@ namespace TweetDck{
             if (HasCleanedUp)return;
 
             UserConfig.Save();
-
-            try{
-                Directory.Delete(TemporaryPath, true);
-            }catch(DirectoryNotFoundException){
-            }catch(Exception e){
-                // welp, too bad
-                Debug.WriteLine(e.ToString());
-            }
 
             Cef.Shutdown();
             BrowserCache.Exit();
