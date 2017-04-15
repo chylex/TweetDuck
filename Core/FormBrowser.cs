@@ -38,6 +38,7 @@ namespace TweetDck.Core{
         private readonly ContextMenu contextMenu;
 
         private bool isLoaded;
+        private bool isBrowserReady;
         private FormWindowState prevState;
 
         private TweetScreenshotManager notificationScreenshotManager;
@@ -141,13 +142,14 @@ namespace TweetDck.Core{
         private void RestoreWindow(){
             Config.BrowserWindow.Restore(this, true);
             prevState = WindowState;
+            isLoaded = true;
         }
 
-        private void OnLoaded(){
-            if (!isLoaded){
+        private void OnBrowserReady(){
+            if (!isBrowserReady){
                 browser.Location = Point.Empty;
                 browser.Dock = DockStyle.Fill;
-                isLoaded = true;
+                isBrowserReady = true;
             }
         }
 
@@ -163,7 +165,7 @@ namespace TweetDck.Core{
                     browser.AddWordToDictionary(word);
                 }
 
-                BeginInvoke(new Action(OnLoaded));
+                BeginInvoke(new Action(OnBrowserReady));
                 browser.LoadingStateChanged -= browser_LoadingStateChanged;
             }
         }
@@ -327,7 +329,7 @@ namespace TweetDck.Core{
                 return;
             }
 
-            if (isLoaded && m.Msg == 0x210 && (m.WParam.ToInt32() & 0xFFFF) == 0x020B){ // WM_PARENTNOTIFY, WM_XBUTTONDOWN
+            if (isBrowserReady && m.Msg == 0x210 && (m.WParam.ToInt32() & 0xFFFF) == 0x020B){ // WM_PARENTNOTIFY, WM_XBUTTONDOWN
                 browser.ExecuteScriptAsync("TDGF_onMouseClickExtra", (m.WParam.ToInt32() >> 16) & 0xFFFF);
                 return;
             }
