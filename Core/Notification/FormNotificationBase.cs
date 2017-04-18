@@ -191,21 +191,21 @@ namespace TweetDck.Core.Notification{
             browser.ClientSize = ClientSize = new Size(width, height);
         }
 
-        protected void MoveToVisibleLocation(){
-            bool needsReactivating = Location == ControlExtensions.InvisibleLocation;
-            Location = PrimaryLocation;
-
-            if (needsReactivating){
-                NativeMethods.SetFormPos(this, NativeMethods.HWND_TOPMOST, NativeMethods.SWP_NOACTIVATE);
-            }
-        }
-
         protected virtual void OnNotificationReady(){
             MoveToVisibleLocation();
         }
 
         protected virtual void UpdateTitle(){
             Text = string.IsNullOrEmpty(currentColumn) || !Program.UserConfig.DisplayNotificationColumn ? Program.BrandName : Program.BrandName+" - "+currentColumn;
+        }
+
+        public void MoveToVisibleLocation(){
+            bool needsReactivating = Location == ControlExtensions.InvisibleLocation;
+            Location = PrimaryLocation;
+
+            if (needsReactivating){
+                NativeMethods.SetFormPos(this, NativeMethods.HWND_TOPMOST, NativeMethods.SWP_NOACTIVATE);
+            }
         }
 
         public void DisplayTooltip(string text){

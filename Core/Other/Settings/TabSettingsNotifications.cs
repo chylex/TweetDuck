@@ -37,6 +37,8 @@ namespace TweetDck.Core.Other.Settings{
                 case TweetNotification.Position.Custom: radioLocCustom.Checked = true; break;
             }
 
+            comboBoxDisplay.Enabled = trackBarEdgeDistance.Enabled = !radioLocCustom.Checked;
+
             trackBarDuration.SetValueSafe(Config.NotificationDurationValue);
             labelDurationValue.Text = Config.NotificationDurationValue+" ms/c";
 
@@ -73,7 +75,7 @@ namespace TweetDck.Core.Other.Settings{
             radioLocTR.CheckedChanged += radioLoc_CheckedChanged;
             radioLocBL.CheckedChanged += radioLoc_CheckedChanged;
             radioLocBR.CheckedChanged += radioLoc_CheckedChanged;
-            radioLocCustom.CheckedChanged += radioLoc_CheckedChanged;
+            radioLocCustom.Click += radioLocCustom_Click;
 
             trackBarDuration.ValueChanged += trackBarDuration_ValueChanged;
             btnDurationShort.Click += btnDurationShort_Click;
@@ -111,16 +113,30 @@ namespace TweetDck.Core.Other.Settings{
             else if (radioLocTR.Checked)Config.NotificationPosition = TweetNotification.Position.TopRight;
             else if (radioLocBL.Checked)Config.NotificationPosition = TweetNotification.Position.BottomLeft;
             else if (radioLocBR.Checked)Config.NotificationPosition = TweetNotification.Position.BottomRight;
-            else if (radioLocCustom.Checked){
-                if (!Config.IsCustomNotificationPositionSet){
-                    Config.CustomNotificationPosition = notification.Location;
-                }
 
-                Config.NotificationPosition = TweetNotification.Position.Custom;
+            comboBoxDisplay.Enabled = trackBarEdgeDistance.Enabled = true;
+            notification.ShowNotificationForSettings(false);
+        }
+
+        private void radioLocCustom_Click(object sender, EventArgs e){
+            if (!Config.IsCustomNotificationPositionSet){
+                Config.CustomNotificationPosition = notification.Location;
             }
 
-            comboBoxDisplay.Enabled = trackBarEdgeDistance.Enabled = !radioLocCustom.Checked;
+            Config.NotificationPosition = TweetNotification.Position.Custom;
+
+            comboBoxDisplay.Enabled = trackBarEdgeDistance.Enabled = false;
             notification.ShowNotificationForSettings(false);
+
+            if (notification.IsFullyOutsideView() && MessageBox.Show("The notification seems to be outside of view, would you like to reset its position?", "Notification is outside view", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
+                Config.NotificationPosition = TweetNotification.Position.TopRight;
+                notification.MoveToVisibleLocation();
+
+                Config.CustomNotificationPosition = notification.Location;
+
+                Config.NotificationPosition = TweetNotification.Position.Custom;
+                notification.MoveToVisibleLocation();
+            }
         }
 
         private void trackBarDuration_ValueChanged(object sender, EventArgs e){
