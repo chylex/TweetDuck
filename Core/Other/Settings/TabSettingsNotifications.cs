@@ -17,7 +17,7 @@ namespace TweetDck.Core.Other.Settings{
             this.notification.CanMoveWindow = () => radioLocCustom.Checked;
 
             this.notification.Move += (sender, args) => {
-                if (radioLocCustom.Checked){
+                if (radioLocCustom.Checked && this.notification.Location != ControlExtensions.InvisibleLocation){
                     Config.CustomNotificationPosition = this.notification.Location;
                 }
             };
