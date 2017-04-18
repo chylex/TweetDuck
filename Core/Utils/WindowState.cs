@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
+using TweetDck.Core.Controls;
 
 namespace TweetDck.Core.Utils{
     [Serializable]
@@ -20,7 +20,7 @@ namespace TweetDck.Core.Utils{
                 form.WindowState = isMaximized ? FormWindowState.Maximized : FormWindowState.Normal;
             }
 
-            if ((rect == Rectangle.Empty && firstTimeFullscreen) || !Screen.AllScreens.Any(screen => screen.WorkingArea.IntersectsWith(form.Bounds))){
+            if ((rect == Rectangle.Empty && firstTimeFullscreen) || form.IsFullyOutsideView()){
                 form.DesktopBounds = Screen.PrimaryScreen.WorkingArea;
                 form.WindowState = FormWindowState.Maximized;
                 Save(form);

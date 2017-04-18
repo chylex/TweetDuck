@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using TweetDck.Core.Utils;
 
@@ -18,6 +19,10 @@ namespace TweetDck.Core.Controls{
 
         public static void InvokeAsyncSafe(this Control control, Action func){
             control.BeginInvoke(func);
+        }
+
+        public static bool IsFullyOutsideView(this Form form){
+            return !Screen.AllScreens.Any(screen => screen.WorkingArea.IntersectsWith(form.Bounds));
         }
 
         public static void MoveToCenter(this Form targetForm, Form parentForm){
