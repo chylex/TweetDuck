@@ -36,20 +36,28 @@ namespace TweetDck.Core.Notification.Sound{
         void ISoundNotificationPlayer.Play(string file){
             wasTryingToPlay = true;
 
-            if (player.URL != file){
-                player.close();
-                player.URL = file;
-                ignorePlaybackError = false;
-            }
-            else{
-                player.controls.stop();
-            }
+            try{
+                if (player.URL != file){
+                    player.close();
+                    player.URL = file;
+                    ignorePlaybackError = false;
+                }
+                else{
+                    player.controls.stop();
+                }
             
-            player.controls.play();
+                player.controls.play();
+            }catch(Exception e){
+                OnNotificationSoundError("An error occurred in Windows Media Player: "+e.Message);
+            }
         }
 
         void ISoundNotificationPlayer.Stop(){
-            player.controls.stop();
+            try{
+                player.controls.stop();
+            }catch{
+                // ignore
+            }
         }
 
         void IDisposable.Dispose(){
