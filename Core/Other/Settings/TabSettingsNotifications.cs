@@ -38,7 +38,8 @@ namespace TweetDck.Core.Other.Settings{
             }
 
             comboBoxDisplay.Enabled = trackBarEdgeDistance.Enabled = !radioLocCustom.Checked;
-
+            
+            toolTip.SetToolTip(trackBarDuration, toolTip.GetToolTip(labelDurationValue));
             trackBarDuration.SetValueSafe(Config.NotificationDurationValue);
             labelDurationValue.Text = Config.NotificationDurationValue+" ms/c";
 
