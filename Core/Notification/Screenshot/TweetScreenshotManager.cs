@@ -61,6 +61,7 @@ namespace TweetDck.Core.Notification.Screenshot{
             screenshot.Location = ControlExtensions.InvisibleLocation;
             disposer.Start();
             #else
+            screenshot.MoveToVisibleLocation();
             screenshot.FormClosed += (sender, args) => disposer.Start();
             #endif
         }
