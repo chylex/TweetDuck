@@ -547,6 +547,9 @@
     styleOfficial.sheet.insertRule(".txt-base-smallest .badge-verified:before { height: 13px !important; }", 0); // fix cut off badge icon
     styleOfficial.sheet.insertRule(".keyboard-shortcut-list { vertical-align: top; }", 0); // fix keyboard navigation alignment
     
+    styleOfficial.sheet.insertRule(".js-accounts-column-holder { bottom: 4px; }", 0); // fix white bar on the bottom
+    styleOfficial.sheet.insertRule(".drawer[data-drawer='accountSettings'] { background-color: #ccd6dd; }", 0); // fix white bar on the bottom
+    
     styleOfficial.sheet.insertRule(".is-video a:not([href*='youtu']), .is-gif .js-media-gif-container { cursor: alias; }", 0); // change cursor on unsupported videos
     styleOfficial.sheet.insertRule(".is-video a:not([href*='youtu']) .icon-bg-dot, .is-gif .icon-bg-dot { color: #bd3d37; }", 0); // change play icon color on unsupported videos
     
