@@ -546,6 +546,7 @@
     styleOfficial.sheet.insertRule(".column-nav-link .attribution { position: absolute; }", 0); // fix cut off account names
     styleOfficial.sheet.insertRule(".txt-base-smallest .badge-verified:before { height: 13px !important; }", 0); // fix cut off badge icon
     styleOfficial.sheet.insertRule(".keyboard-shortcut-list { vertical-align: top; }", 0); // fix keyboard navigation alignment
+    styleOfficial.sheet.insertRule(".app-columns-container::-webkit-scrollbar-track { border-left: 0 }", 0); // remove weird border in the column container scrollbar
     
     styleOfficial.sheet.insertRule(".js-accounts-column-holder { bottom: 4px; }", 0); // fix white bar on the bottom
     styleOfficial.sheet.insertRule(".drawer[data-drawer='accountSettings'] { background-color: #ccd6dd; }", 0); // fix white bar on the bottom
