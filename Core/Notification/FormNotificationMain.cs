@@ -46,6 +46,7 @@ namespace TweetDck.Core.Notification{
         
         private readonly NativeMethods.HookProc mouseHookDelegate;
         private IntPtr mouseHook;
+        private bool blockXButtonUp;
 
         private bool? prevDisplayTimer;
         private int? prevFontSize;
@@ -79,7 +80,7 @@ namespace TweetDck.Core.Notification{
             browser.FrameLoadEnd += Browser_FrameLoadEnd;
 
             mouseHookDelegate = MouseHookProc;
-            Disposed += (sender, args) => StopMouseHook();
+            Disposed += (sender, args) => StopMouseHook(true);
         }
 
         // mouse wheel hook
@@ -90,17 +91,44 @@ namespace TweetDck.Core.Notification{
             }
         }
 
-        private void StopMouseHook(){
-            if (mouseHook != IntPtr.Zero){
+        private void StopMouseHook(bool force){
+            if (mouseHook != IntPtr.Zero && (force || !blockXButtonUp)){
                 NativeMethods.UnhookWindowsHookEx(mouseHook);
                 mouseHook = IntPtr.Zero;
+                blockXButtonUp = false;
             }
         }
 
         private IntPtr MouseHookProc(int nCode, IntPtr wParam, IntPtr lParam){
-            if (nCode == 0 && wParam.ToInt32() == NativeMethods.WM_MOUSEWHEEL && browser.Bounds.Contains(PointToClient(Cursor.Position)) && !ContainsFocus && !owner.ContainsFocus){
-                browser.SendMouseWheelEvent(0, 0, 0, NativeMethods.GetHookWheelDelta(lParam), CefEventFlags.None);
-                return NativeMethods.HOOK_HANDLED;
+            if (nCode == 0){
+                int eventType = wParam.ToInt32();
+
+                if (eventType == NativeMethods.WM_MOUSEWHEEL && browser.Bounds.Contains(PointToClient(Cursor.Position)) && !ContainsFocus && !owner.ContainsFocus){
+                    browser.SendMouseWheelEvent(0, 0, 0, NativeMethods.GetMouseHookData(lParam), CefEventFlags.None);
+                    return NativeMethods.HOOK_HANDLED;
+                }
+                else if (eventType == NativeMethods.WM_XBUTTONDOWN && DesktopBounds.Contains(Cursor.Position)){
+                    int extraButton = NativeMethods.GetMouseHookData(lParam);
+
+                    if (extraButton == 2){ // forward button
+                        this.InvokeAsyncSafe(FinishCurrentNotification);
+                    }
+                    else if (extraButton == 1){ // back button
+                        this.InvokeAsyncSafe(Close);
+                    }
+                    
+                    blockXButtonUp = true;
+                    return NativeMethods.HOOK_HANDLED;
+                }
+                else if (eventType == NativeMethods.WM_XBUTTONUP && blockXButtonUp){
+                    blockXButtonUp = false;
+
+                    if (!Visible){
+                        StopMouseHook(false);
+                    }
+
+                    return NativeMethods.HOOK_HANDLED;
+                }
             }
 
             return NativeMethods.CallNextHookEx(mouseHook, nCode, wParam, lParam);
@@ -179,7 +207,7 @@ namespace TweetDck.Core.Notification{
             timerProgress.Stop();
             totalTime = 0;
 
-            StopMouseHook();
+            StopMouseHook(false);
         }
 
         public override void FinishCurrentNotification(){
@@ -190,7 +218,7 @@ namespace TweetDck.Core.Notification{
             if (!IsPaused){
                 pausedDuringNotification = IsNotificationVisible;
                 timerProgress.Stop();
-                StopMouseHook();
+                StopMouseHook(true);
             }
 
             base.PauseNotification();

@@ -20,6 +20,7 @@ namespace TweetDck.Core.Utils{
         public const int WM_MOUSE_LL = 14;
         public const int WM_MOUSEWHEEL = 0x020A;
         public const int WM_XBUTTONDOWN = 0x020B;
+        public const int WM_XBUTTONUP = 0x020C;
         public const int WM_PARENTNOTIFY = 0x0210;
         
         [StructLayout(LayoutKind.Sequential)]
@@ -86,7 +87,7 @@ namespace TweetDck.Core.Utils{
             SetWindowPos(form.Handle.ToInt32(), hWndOrder, form.Left, form.Top, form.Width, form.Height, flags);
         }
 
-        public static int GetHookWheelDelta(IntPtr ptr){
+        public static int GetMouseHookData(IntPtr ptr){
             return Marshal.PtrToStructure<MSLLHOOKSTRUCT>(ptr).mouseData >> 16;
         }
 
