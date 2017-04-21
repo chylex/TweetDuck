@@ -19,6 +19,8 @@ namespace TweetDck.Core.Utils{
 
         public const int WM_MOUSE_LL = 14;
         public const int WM_MOUSEWHEEL = 0x020A;
+        public const int WM_XBUTTONDOWN = 0x020B;
+        public const int WM_PARENTNOTIFY = 0x0210;
         
         [StructLayout(LayoutKind.Sequential)]
         private struct LASTINPUTINFO{
