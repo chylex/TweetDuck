@@ -14,7 +14,7 @@ namespace TweetDck.Configuration{
     sealed class UserConfig{
         private static readonly IFormatter Formatter = new BinaryFormatter();
 
-        private const int CurrentFileVersion = 7;
+        private const int CurrentFileVersion = 8;
 
         // START OF CONFIGURATION
 
@@ -68,6 +68,28 @@ namespace TweetDck.Configuration{
             }
         }
 
+        public int ZoomLevel{
+            get{
+                return zoomLevel;
+            }
+
+            set{
+                if (zoomLevel == value)return;
+
+                zoomLevel = value;
+
+                if (ZoomLevelChanged != null){
+                    ZoomLevelChanged(this, new EventArgs());
+                }
+            }
+        }
+
+        public double ZoomMultiplier{
+            get{
+                return zoomLevel/100.0;
+            }
+        }
+
         public string NotificationSoundPath{
             get{
                 return string.IsNullOrEmpty(notificationSoundPath) ? string.Empty : notificationSoundPath;
@@ -100,6 +122,9 @@ namespace TweetDck.Configuration{
         public event EventHandler MuteToggled;
         
         [field:NonSerialized]
+        public event EventHandler ZoomLevelChanged;
+        
+        [field:NonSerialized]
         public event EventHandler TrayBehaviorChanged;
 
         [NonSerialized]
@@ -107,6 +132,7 @@ namespace TweetDck.Configuration{
 
         private int fileVersion;
         private bool muteNotifications;
+        private int zoomLevel;
         private string notificationSoundPath;
         private TrayIcon.Behavior trayBehavior;
 
@@ -114,6 +140,7 @@ namespace TweetDck.Configuration{
             this.file = file;
 
             BrowserWindow = new WindowState();
+            ZoomLevel = 100;
             DisplayNotificationTimer = true;
             NotificationNonIntrusiveMode = true;
             NotificationPosition = TweetNotification.Position.TopRight;
@@ -172,6 +199,11 @@ namespace TweetDck.Configuration{
 
             if (fileVersion == 6){
                 NotificationNonIntrusiveMode = true;
+                ++fileVersion;
+            }
+
+            if (fileVersion == 7){
+                ZoomLevel = 100;
                 ++fileVersion;
             }
 

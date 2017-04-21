@@ -350,7 +350,7 @@
     
     window.TDGF_triggerScreenshot = function(){
       if (selectedTweet){
-        var tweetWidth = selectedTweet.width();
+        var tweetWidth = Math.floor(selectedTweet.width());
         var parent = selectedTweet.parent();
         
         var isDetail = parent.hasClass("js-tweet-detail");
@@ -394,7 +394,7 @@
           width: tweetWidth+"px"
         }).appendTo(document.body);
         
-        var realHeight = testTweet.height();
+        var realHeight = Math.floor(testTweet.height());
         testTweet.remove();
         
         $TD.screenshotTweet(selectedTweet.html(), tweetWidth, realHeight);

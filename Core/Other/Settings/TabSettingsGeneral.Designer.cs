@@ -34,9 +34,14 @@
             this.groupTray = new System.Windows.Forms.GroupBox();
             this.labelTrayIcon = new System.Windows.Forms.Label();
             this.groupInterface = new System.Windows.Forms.GroupBox();
+            this.labelZoomValue = new System.Windows.Forms.Label();
+            this.trackBarZoom = new System.Windows.Forms.TrackBar();
+            this.labelZoom = new System.Windows.Forms.Label();
             this.groupUpdates = new System.Windows.Forms.GroupBox();
+            this.zoomUpdateTimer = new System.Windows.Forms.Timer(this.components);
             this.groupTray.SuspendLayout();
             this.groupInterface.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).BeginInit();
             this.groupUpdates.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -116,7 +121,7 @@
             this.groupTray.Controls.Add(this.checkTrayHighlight);
             this.groupTray.Controls.Add(this.labelTrayIcon);
             this.groupTray.Controls.Add(this.comboBoxTrayType);
-            this.groupTray.Location = new System.Drawing.Point(9, 82);
+            this.groupTray.Location = new System.Drawing.Point(9, 145);
             this.groupTray.Name = "groupTray";
             this.groupTray.Size = new System.Drawing.Size(183, 93);
             this.groupTray.TabIndex = 1;
@@ -135,14 +140,56 @@
             // 
             // groupInterface
             // 
+            this.groupInterface.Controls.Add(this.labelZoomValue);
+            this.groupInterface.Controls.Add(this.trackBarZoom);
+            this.groupInterface.Controls.Add(this.labelZoom);
             this.groupInterface.Controls.Add(this.checkSpellCheck);
             this.groupInterface.Controls.Add(this.checkExpandLinks);
             this.groupInterface.Location = new System.Drawing.Point(9, 9);
             this.groupInterface.Name = "groupInterface";
-            this.groupInterface.Size = new System.Drawing.Size(183, 67);
+            this.groupInterface.Size = new System.Drawing.Size(183, 130);
             this.groupInterface.TabIndex = 0;
             this.groupInterface.TabStop = false;
             this.groupInterface.Text = "User Interface";
+            // 
+            // labelZoomValue
+            // 
+            this.labelZoomValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelZoomValue.BackColor = System.Drawing.Color.Transparent;
+            this.labelZoomValue.Location = new System.Drawing.Point(139, 93);
+            this.labelZoomValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.labelZoomValue.Name = "labelZoomValue";
+            this.labelZoomValue.Size = new System.Drawing.Size(38, 13);
+            this.labelZoomValue.TabIndex = 4;
+            this.labelZoomValue.Text = "100%";
+            this.labelZoomValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.toolTip.SetToolTip(this.labelZoomValue, "Changes the zoom level.\r\nAlso affects notifications and screenshots.");
+            // 
+            // trackBarZoom
+            // 
+            this.trackBarZoom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackBarZoom.AutoSize = false;
+            this.trackBarZoom.LargeChange = 25;
+            this.trackBarZoom.Location = new System.Drawing.Point(6, 92);
+            this.trackBarZoom.Maximum = 200;
+            this.trackBarZoom.Minimum = 50;
+            this.trackBarZoom.Name = "trackBarZoom";
+            this.trackBarZoom.Size = new System.Drawing.Size(141, 30);
+            this.trackBarZoom.SmallChange = 5;
+            this.trackBarZoom.TabIndex = 3;
+            this.trackBarZoom.TickFrequency = 25;
+            this.trackBarZoom.Value = 100;
+            // 
+            // labelZoom
+            // 
+            this.labelZoom.AutoSize = true;
+            this.labelZoom.Location = new System.Drawing.Point(5, 76);
+            this.labelZoom.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
+            this.labelZoom.Name = "labelZoom";
+            this.labelZoom.Size = new System.Drawing.Size(34, 13);
+            this.labelZoom.TabIndex = 2;
+            this.labelZoom.Text = "Zoom";
             // 
             // groupUpdates
             // 
@@ -154,6 +201,11 @@
             this.groupUpdates.TabIndex = 2;
             this.groupUpdates.TabStop = false;
             this.groupUpdates.Text = "Updates";
+            // 
+            // zoomUpdateTimer
+            // 
+            this.zoomUpdateTimer.Interval = 250;
+            this.zoomUpdateTimer.Tick += new System.EventHandler(this.zoomUpdateTimer_Tick);
             // 
             // TabSettingsGeneral
             // 
@@ -168,6 +220,7 @@
             this.groupTray.PerformLayout();
             this.groupInterface.ResumeLayout(false);
             this.groupInterface.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).EndInit();
             this.groupUpdates.ResumeLayout(false);
             this.groupUpdates.PerformLayout();
             this.ResumeLayout(false);
@@ -187,5 +240,9 @@
         private System.Windows.Forms.GroupBox groupUpdates;
         private System.Windows.Forms.CheckBox checkUpdateNotifications;
         private System.Windows.Forms.Button btnCheckUpdates;
+        private System.Windows.Forms.Label labelZoom;
+        private System.Windows.Forms.Label labelZoomValue;
+        private System.Windows.Forms.TrackBar trackBarZoom;
+        private System.Windows.Forms.Timer zoomUpdateTimer;
     }
 }

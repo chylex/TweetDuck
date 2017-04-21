@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using TweetDck.Core.Controls;
 using TweetDck.Updates;
 using TweetDck.Updates.Events;
 
@@ -21,6 +22,10 @@ namespace TweetDck.Core.Other.Settings{
             comboBoxTrayType.Items.Add("Close to Tray");
             comboBoxTrayType.Items.Add("Combined");
             comboBoxTrayType.SelectedIndex = Math.Min(Math.Max((int)Config.TrayBehavior, 0), comboBoxTrayType.Items.Count-1);
+            
+            toolTip.SetToolTip(trackBarZoom, toolTip.GetToolTip(labelZoomValue));
+            trackBarZoom.SetValueSafe(Config.ZoomLevel);
+            labelZoomValue.Text = trackBarZoom.Value+"%";
 
             checkExpandLinks.Checked = Config.ExpandLinksOnHover;
             checkSpellCheck.Checked = Config.EnableSpellCheck;
@@ -32,12 +37,17 @@ namespace TweetDck.Core.Other.Settings{
         public override void OnReady(){
             checkExpandLinks.CheckedChanged += checkExpandLinks_CheckedChanged;
             checkSpellCheck.CheckedChanged += checkSpellCheck_CheckedChanged;
+            trackBarZoom.ValueChanged += trackBarZoom_ValueChanged;
 
             comboBoxTrayType.SelectedIndexChanged += comboBoxTrayType_SelectedIndexChanged;
             checkTrayHighlight.CheckedChanged += checkTrayHighlight_CheckedChanged;
 
             checkUpdateNotifications.CheckedChanged += checkUpdateNotifications_CheckedChanged;
             btnCheckUpdates.Click += btnCheckUpdates_Click;
+        }
+
+        public override void OnClosing(){
+            Config.ZoomLevel = trackBarZoom.Value;
         }
 
         private void checkExpandLinks_CheckedChanged(object sender, EventArgs e){
@@ -47,6 +57,17 @@ namespace TweetDck.Core.Other.Settings{
         private void checkSpellCheck_CheckedChanged(object sender, EventArgs e){
             Config.EnableSpellCheck = checkSpellCheck.Checked;
             PromptRestart();
+        }
+
+        private void trackBarZoom_ValueChanged(object sender, EventArgs e){
+            if (trackBarZoom.Value % trackBarZoom.SmallChange != 0){
+                trackBarZoom.Value = trackBarZoom.SmallChange*(int)Math.Floor(((double)trackBarZoom.Value/trackBarZoom.SmallChange)+0.5);
+            }
+            else{
+                zoomUpdateTimer.Stop();
+                zoomUpdateTimer.Start();
+                labelZoomValue.Text = trackBarZoom.Value+"%";
+            }
         }
 
         private void comboBoxTrayType_SelectedIndexChanged(object sender, EventArgs e){
@@ -81,6 +102,11 @@ namespace TweetDck.Core.Other.Settings{
                     MessageBox.Show("Your version of "+Program.BrandName+" is up to date.", "No Updates Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
+        }
+
+        private void zoomUpdateTimer_Tick(object sender, EventArgs e){
+            Config.ZoomLevel = trackBarZoom.Value;
+            zoomUpdateTimer.Stop();
         }
     }
 }

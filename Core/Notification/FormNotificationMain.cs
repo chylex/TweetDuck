@@ -26,14 +26,16 @@ namespace TweetDck.Core.Notification{
         private static int BaseClientWidth{
             get{
                 int level = TweetNotification.FontSizeLevel;
-                return level == 0 ? 284 : (int)Math.Round(284.0*(1.0+0.05*level));
+                int width = level == 0 ? 284 : (int)Math.Round(284.0*(1.0+0.05*level));
+                return (int)Math.Round(width*Program.UserConfig.ZoomMultiplier);
             }
         }
 
         private static int BaseClientHeight{
             get{
                 int level = TweetNotification.FontSizeLevel;
-                return level == 0 ? 118 : (int)Math.Round(118.0*(1.0+0.075*level));
+                int height = level == 0 ? 118 : (int)Math.Round(118.0*(1.0+0.075*level));
+                return (int)Math.Round(height*Program.UserConfig.ZoomMultiplier);
             }
         }
         

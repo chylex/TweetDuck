@@ -109,6 +109,7 @@ namespace TweetDck.Core{
             UpdateTrayIcon();
 
             Config.MuteToggled += Config_MuteToggled;
+            Config.ZoomLevelChanged += Config_ZoomLevelChanged;
 
             this.updates = new UpdateHandler(browser, this, updaterSettings);
             this.updates.UpdateAccepted += updates_UpdateAccepted;
@@ -171,8 +172,14 @@ namespace TweetDck.Core{
         }
 
         private void browser_FrameLoadStart(object sender, FrameLoadStartEventArgs e){
-            if (e.Frame.IsMain && BrowserUtils.IsTwitterWebsite(e.Frame)){
-                ScriptLoader.ExecuteFile(e.Frame, "twitter.js");
+            if (e.Frame.IsMain){
+                if (Config.ZoomLevel != 100){
+                    BrowserUtils.SetZoomLevel(browser.GetBrowser(), Config.ZoomLevel);
+                }
+
+                if (BrowserUtils.IsTwitterWebsite(e.Frame)){
+                    ScriptLoader.ExecuteFile(e.Frame, "twitter.js");
+                }
             }
         }
 
@@ -251,6 +258,10 @@ namespace TweetDck.Core{
 
         private void Config_MuteToggled(object sender, EventArgs e){
             UpdateProperties(PropertyBridge.Properties.MuteNotifications);
+        }
+
+        private void Config_ZoomLevelChanged(object sender, EventArgs e){
+            BrowserUtils.SetZoomLevel(browser.GetBrowser(), Config.ZoomLevel);
         }
 
         private void Config_TrayBehaviorChanged(object sender, EventArgs e){

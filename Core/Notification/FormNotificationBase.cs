@@ -188,7 +188,7 @@ namespace TweetDck.Core.Notification{
         }
 
         protected virtual void SetNotificationSize(int width, int height){
-            browser.ClientSize = ClientSize = new Size(width, height);
+            browser.ClientSize = ClientSize = new Size((int)Math.Round(width*Program.UserConfig.ZoomMultiplier), (int)Math.Round(height*Program.UserConfig.ZoomMultiplier));
         }
 
         protected virtual void OnNotificationReady(){

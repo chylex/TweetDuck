@@ -88,6 +88,10 @@ namespace TweetDck.Core.Utils{
             client.DownloadFileAsync(new Uri(url), target);
         }
 
+        public static void SetZoomLevel(IBrowser browser, int percentage){
+            browser.GetHost().SetZoomLevel(Math.Log(percentage/100.0, 1.2));
+        }
+
         public static bool IsTweetDeckWebsite(IFrame frame){
             return frame.Url.Contains("//tweetdeck.twitter.com/");
         }
