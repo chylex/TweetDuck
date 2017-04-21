@@ -342,7 +342,7 @@
             // 
             this.labelIdlePause.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelIdlePause.AutoSize = true;
-            this.labelIdlePause.Location = new System.Drawing.Point(3, 141);
+            this.labelIdlePause.Location = new System.Drawing.Point(5, 141);
             this.labelIdlePause.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelIdlePause.Name = "labelIdlePause";
             this.labelIdlePause.Size = new System.Drawing.Size(89, 13);
