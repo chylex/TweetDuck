@@ -48,9 +48,9 @@
             this.labelIdlePause = new System.Windows.Forms.Label();
             this.comboBoxIdlePause = new System.Windows.Forms.ComboBox();
             this.checkNonIntrusive = new System.Windows.Forms.CheckBox();
-            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.checkNotificationTimer = new System.Windows.Forms.CheckBox();
             this.checkTimerCountDown = new System.Windows.Forms.CheckBox();
+            this.checkNotificationTimer = new System.Windows.Forms.CheckBox();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.groupNotificationLocation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).BeginInit();
             this.groupNotificationDuration.SuspendLayout();
@@ -105,7 +105,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxDisplay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxDisplay.FormattingEnabled = true;
-            this.comboBoxDisplay.Location = new System.Drawing.Point(8, 160);
+            this.comboBoxDisplay.Location = new System.Drawing.Point(6, 160);
             this.comboBoxDisplay.Name = "comboBoxDisplay";
             this.comboBoxDisplay.Size = new System.Drawing.Size(171, 21);
             this.comboBoxDisplay.TabIndex = 6;
@@ -185,12 +185,13 @@
             // 
             this.trackBarEdgeDistance.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackBarEdgeDistance.AutoSize = false;
             this.trackBarEdgeDistance.LargeChange = 8;
             this.trackBarEdgeDistance.Location = new System.Drawing.Point(8, 212);
             this.trackBarEdgeDistance.Maximum = 40;
             this.trackBarEdgeDistance.Minimum = 8;
             this.trackBarEdgeDistance.Name = "trackBarEdgeDistance";
-            this.trackBarEdgeDistance.Size = new System.Drawing.Size(141, 45);
+            this.trackBarEdgeDistance.Size = new System.Drawing.Size(141, 30);
             this.trackBarEdgeDistance.SmallChange = 2;
             this.trackBarEdgeDistance.TabIndex = 8;
             this.trackBarEdgeDistance.TickFrequency = 4;
@@ -288,11 +289,12 @@
             // 
             this.trackBarDuration.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackBarDuration.AutoSize = false;
             this.trackBarDuration.Location = new System.Drawing.Point(6, 19);
             this.trackBarDuration.Maximum = 60;
             this.trackBarDuration.Minimum = 10;
             this.trackBarDuration.Name = "trackBarDuration";
-            this.trackBarDuration.Size = new System.Drawing.Size(128, 45);
+            this.trackBarDuration.Size = new System.Drawing.Size(128, 30);
             this.trackBarDuration.TabIndex = 0;
             this.trackBarDuration.TickFrequency = 5;
             this.trackBarDuration.Value = 25;
@@ -374,17 +376,6 @@
         "delayed until the cursor moves away to prevent accidental clicks.");
             this.checkNonIntrusive.UseVisualStyleBackColor = true;
             // 
-            // checkNotificationTimer
-            // 
-            this.checkNotificationTimer.AutoSize = true;
-            this.checkNotificationTimer.Location = new System.Drawing.Point(9, 44);
-            this.checkNotificationTimer.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
-            this.checkNotificationTimer.Name = "checkNotificationTimer";
-            this.checkNotificationTimer.Size = new System.Drawing.Size(145, 17);
-            this.checkNotificationTimer.TabIndex = 1;
-            this.checkNotificationTimer.Text = "Display Notification Timer";
-            this.checkNotificationTimer.UseVisualStyleBackColor = true;
-            // 
             // checkTimerCountDown
             // 
             this.checkTimerCountDown.AutoSize = true;
@@ -396,6 +387,17 @@
             this.checkTimerCountDown.Text = "Timer Counts Down";
             this.toolTip.SetToolTip(this.checkTimerCountDown, "The notification timer counts down instead of up.");
             this.checkTimerCountDown.UseVisualStyleBackColor = true;
+            // 
+            // checkNotificationTimer
+            // 
+            this.checkNotificationTimer.AutoSize = true;
+            this.checkNotificationTimer.Location = new System.Drawing.Point(9, 44);
+            this.checkNotificationTimer.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
+            this.checkNotificationTimer.Name = "checkNotificationTimer";
+            this.checkNotificationTimer.Size = new System.Drawing.Size(145, 17);
+            this.checkNotificationTimer.TabIndex = 1;
+            this.checkNotificationTimer.Text = "Display Notification Timer";
+            this.checkNotificationTimer.UseVisualStyleBackColor = true;
             // 
             // TabSettingsNotifications
             // 
@@ -411,7 +413,6 @@
             this.groupNotificationLocation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).EndInit();
             this.groupNotificationDuration.ResumeLayout(false);
-            this.groupNotificationDuration.PerformLayout();
             this.tableLayoutDurationButtons.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarDuration)).EndInit();
             this.groupUserInterface.ResumeLayout(false);
