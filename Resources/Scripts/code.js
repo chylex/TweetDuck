@@ -544,7 +544,7 @@
     
     styleOfficial.sheet.insertRule("a[data-full-url] { word-break: break-all; }", 0); // break long urls
     styleOfficial.sheet.insertRule(".column-nav-link .attribution { position: absolute; }", 0); // fix cut off account names
-    styleOfficial.sheet.insertRule(".txt-base-smallest .badge-verified:before { height: 13px !important; }", 0); // fix cut off badge icon
+    styleOfficial.sheet.insertRule(".txt-base-smallest .sprite-verified-mini { width: 13px !important; height: 13px !important; background-position: -223px -99px !important; }", 0); // fix cut off badge icon when zoomed in
     styleOfficial.sheet.insertRule(".keyboard-shortcut-list { vertical-align: top; }", 0); // fix keyboard navigation alignment
     styleOfficial.sheet.insertRule(".sprite-logo { background-position: -5px -46px !important; }", 0); // fix TweetDeck logo on certain zoom levels
     styleOfficial.sheet.insertRule(".app-columns-container::-webkit-scrollbar-track { border-left: 0 }", 0); // remove weird border in the column container scrollbar
