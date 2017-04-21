@@ -16,7 +16,7 @@ namespace TweetDck.Core.Notification.Screenshot{
         public TweetScreenshotManager(Form owner){
             this.owner = owner;
 
-            this.timeout = new Timer{ Interval = 5000 };
+            this.timeout = new Timer{ Interval = 8000 };
             this.timeout.Tick += timeout_Tick;
 
             this.disposer = new Timer{ Interval = 1 };
