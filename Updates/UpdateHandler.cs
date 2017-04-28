@@ -1,6 +1,6 @@
-﻿using System;
-using CefSharp;
+﻿using CefSharp;
 using CefSharp.WinForms;
+using System;
 using TweetDck.Core;
 using TweetDck.Core.Controls;
 using TweetDck.Core.Utils;

@@ -1,18 +1,18 @@
-﻿using System;
+﻿using CefSharp;
+using System;
 using System.Diagnostics;
 using System.IO;
-using System.Windows.Forms;
-using CefSharp;
-using TweetDck.Configuration;
-using TweetDck.Core;
-using TweetDck.Core.Utils;
 using System.Linq;
 using System.Threading;
-using TweetDck.Plugins;
-using TweetDck.Plugins.Events;
-using TweetDck.Core.Other.Settings.Export;
+using System.Windows.Forms;
+using TweetDck.Configuration;
+using TweetDck.Core;
 using TweetDck.Core.Handling;
 using TweetDck.Core.Other;
+using TweetDck.Core.Other.Settings.Export;
+using TweetDck.Core.Utils;
+using TweetDck.Plugins;
+using TweetDck.Plugins.Events;
 using TweetDck.Updates;
 
 namespace TweetDck{

@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Windows.Forms;
-using TweetDck.Core.Bridge;
-using TweetDck.Resources;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Windows.Forms;
+using TweetDck.Core.Bridge;
 using TweetDck.Core.Utils;
+using TweetDck.Resources;
 
 namespace TweetDck.Core.Notification.Screenshot{
     sealed class FormNotificationScreenshotable : FormNotificationBase{

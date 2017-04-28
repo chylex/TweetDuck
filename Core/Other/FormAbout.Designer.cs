@@ -1,5 +1,3 @@
-﻿using TweetDck.Core.Controls;
-
 namespace TweetDck.Core.Other {
     sealed partial class FormAbout {
         /// <summary>

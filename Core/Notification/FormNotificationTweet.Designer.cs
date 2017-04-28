@@ -1,9 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace TweetDck.Core.Notification {
     partial class FormNotificationTweet {
         /// <summary>

@@ -1,12 +1,12 @@
-﻿using System;
+﻿using CefSharp;
+using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Net;
-using System.Windows.Forms;
-using CefSharp;
 using System.Text.RegularExpressions;
-using System.Drawing;
+using System.Windows.Forms;
 
 namespace TweetDck.Core.Utils{
     static class BrowserUtils{

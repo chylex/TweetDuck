@@ -1,9 +1,9 @@
-﻿using System;
+﻿using CefSharp;
+using CefSharp.WinForms;
+using System;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using CefSharp;
-using CefSharp.WinForms;
 
 namespace TweetDck.Resources{
     static class ScriptLoader{
