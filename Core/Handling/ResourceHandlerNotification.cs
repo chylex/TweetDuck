@@ -9,10 +9,7 @@ namespace TweetDck.Core.Handling{
         private MemoryStream dataIn;
 
         public void SetHTML(string html){
-            if (dataIn != null){
-                dataIn.Dispose();
-            }
-
+            dataIn?.Dispose();
             dataIn = ResourceHandler.GetMemoryStream(html, Encoding.UTF8);
         }
 
@@ -35,7 +32,7 @@ namespace TweetDck.Core.Handling{
             response.StatusCode = 200;
             response.StatusText = "OK";
             response.ResponseHeaders = headers;
-            responseLength = dataIn != null ? dataIn.Length : -1;
+            responseLength = dataIn?.Length ?? -1;
         }
 
         bool IResourceHandler.ReadResponse(Stream dataOut, out int bytesRead, ICallback callback){

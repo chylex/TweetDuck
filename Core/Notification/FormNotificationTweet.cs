@@ -10,11 +10,7 @@ namespace TweetDck.Core.Notification{
         private const int NonIntrusiveIdleLimit = 30;
         private const int TrimMinimum = 32;
 
-        private bool IsCursorOverNotificationArea{
-            get{
-                return new Rectangle(PrimaryLocation, Size).Contains(Cursor.Position);
-            }
-        }
+        private bool IsCursorOverNotificationArea => new Rectangle(PrimaryLocation, Size).Contains(Cursor.Position);
 
         private readonly Queue<TweetNotification> tweetQueue = new Queue<TweetNotification>(4);
         private bool needsTrim;

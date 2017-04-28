@@ -5,11 +5,7 @@ using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Other.Settings.Dialogs{
     sealed partial class DialogSettingsCefArgs : Form{
-        public string CefArgs{
-            get{
-                return textBoxArgs.Text;
-            }
-        }
+        public string CefArgs => textBoxArgs.Text;
 
         public DialogSettingsCefArgs(){
             InitializeComponent();

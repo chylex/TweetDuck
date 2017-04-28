@@ -9,18 +9,9 @@ namespace TweetDck.Core.Utils{
         private static readonly string DisabledLibEGL = LibEGL+".bak";
         private static readonly string DisabledLibGLES = LibGLES+".bak";
 
-        public static bool IsEnabled{
-            get{
-                return File.Exists(LibEGL) && File.Exists(LibGLES);
-            }
-        }
+        public static bool IsEnabled => File.Exists(LibEGL) && File.Exists(LibGLES);
+        public static bool CanEnable => File.Exists(DisabledLibEGL) && File.Exists(DisabledLibGLES);
 
-        public static bool CanEnable{
-            get{
-                return File.Exists(DisabledLibEGL) && File.Exists(DisabledLibGLES);
-            }
-        }
-        
         public static bool Enable(){
             if (IsEnabled)return false;
 

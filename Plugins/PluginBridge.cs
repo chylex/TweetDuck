@@ -16,11 +16,7 @@ namespace TweetDck.Plugins{
         private readonly TwoKeyDictionary<int, string, string> fileCache = new TwoKeyDictionary<int, string, string>(4, 2);
         private readonly TwoKeyDictionary<int, string, InjectedHTML> notificationInjections = new TwoKeyDictionary<int,string,InjectedHTML>(4, 1);
 
-        public IEnumerable<InjectedHTML> NotificationInjections{
-            get{
-                return notificationInjections.InnerValues;
-            }
-        }
+        public IEnumerable<InjectedHTML> NotificationInjections => notificationInjections.InnerValues;
 
         public PluginBridge(PluginManager manager){
             this.manager = manager;
@@ -63,10 +59,8 @@ namespace TweetDck.Plugins{
 
         private string ReadFileUnsafe(int token, string cacheKey, string fullPath, bool readCached){
             cacheKey = SanitizeCacheKey(cacheKey);
-
-            string cachedContents;
             
-            if (readCached && fileCache.TryGetValue(token, cacheKey, out cachedContents)){
+            if (readCached && fileCache.TryGetValue(token, cacheKey, out string cachedContents)){
                 return cachedContents;
             }
 

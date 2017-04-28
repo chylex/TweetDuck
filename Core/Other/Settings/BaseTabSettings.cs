@@ -3,11 +3,7 @@ using TweetDck.Configuration;
 
 namespace TweetDck.Core.Other.Settings{
     class BaseTabSettings : UserControl{
-        protected static UserConfig Config{
-            get{
-                return Program.UserConfig;
-            }
-        }
+        protected static UserConfig Config => Program.UserConfig;
 
         public BaseTabSettings(){
             Padding = new Padding(6);

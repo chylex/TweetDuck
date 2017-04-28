@@ -213,10 +213,7 @@ namespace TweetDck{
 
         public static void ReloadConfig(){
             UserConfig = UserConfig.Load(ConfigFilePath);
-
-            if (UserConfigReplaced != null){
-                UserConfigReplaced(UserConfig, new EventArgs());
-            }
+            UserConfigReplaced?.Invoke(UserConfig, new EventArgs());
         }
 
         public static void ResetConfig(){

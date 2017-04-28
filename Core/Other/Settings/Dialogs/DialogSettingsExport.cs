@@ -13,9 +13,7 @@ namespace TweetDck.Core.Other.Settings.Dialogs{
         }
 
         public ExportFileFlags Flags{
-            get{
-                return selectedFlags;
-            }
+            get => selectedFlags;
 
             set{
                 // this will call events and SetFlag, which also updates the UI

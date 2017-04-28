@@ -7,51 +7,41 @@ using TweetDck.Plugins.Enums;
 
 namespace TweetDck.Plugins{
     class Plugin{
-        public string Identifier { get { return identifier; } }
-        public string Name { get { return metadata["NAME"]; } }
-        public string Description { get { return metadata["DESCRIPTION"]; } }
-        public string Author { get { return metadata["AUTHOR"]; } }
-        public string Version { get { return metadata["VERSION"]; } }
-        public string Website { get { return metadata["WEBSITE"]; } }
-        public string ConfigFile { get { return metadata["CONFIGFILE"]; } }
-        public string ConfigDefault { get { return metadata["CONFIGDEFAULT"]; } }
-        public string RequiredVersion { get { return metadata["REQUIRES"]; } }
-        public PluginGroup Group { get; private set; }
+        public string Identifier { get; }
+        public PluginGroup Group { get; }
         public PluginEnvironment Environments { get; private set; }
 
+        public string Name => metadata["NAME"];
+        public string Description => metadata["DESCRIPTION"];
+        public string Author => metadata["AUTHOR"];
+        public string Version => metadata["VERSION"];
+        public string Website => metadata["WEBSITE"];
+        public string ConfigFile => metadata["CONFIGFILE"];
+        public string ConfigDefault => metadata["CONFIGDEFAULT"];
+        public string RequiredVersion => metadata["REQUIRES"];
+
         public bool CanRun{
-            get{
-                return canRun ?? (canRun = CheckRequiredVersion(RequiredVersion)).Value;
-            }
+            get => canRun ?? (canRun = CheckRequiredVersion(RequiredVersion)).Value;
         }
 
         public bool HasConfig{
-            get{
-                return ConfigFile.Length > 0 && GetFullPathIfSafe(PluginFolder.Data, ConfigFile).Length > 0;
-            }
+            get => ConfigFile.Length > 0 && GetFullPathIfSafe(PluginFolder.Data, ConfigFile).Length > 0;
         }
 
         public string ConfigPath{
-            get{
-                return HasConfig ? Path.Combine(GetPluginFolder(PluginFolder.Data), ConfigFile) : string.Empty;
-            }
+            get => HasConfig ? Path.Combine(GetPluginFolder(PluginFolder.Data), ConfigFile) : string.Empty;
         }
 
         public bool HasDefaultConfig{
-            get{
-                return ConfigDefault.Length > 0 && GetFullPathIfSafe(PluginFolder.Root, ConfigDefault).Length > 0;
-            }
+            get => ConfigDefault.Length > 0 && GetFullPathIfSafe(PluginFolder.Root, ConfigDefault).Length > 0;
         }
 
         public string DefaultConfigPath{
-            get{
-                return HasDefaultConfig ? Path.Combine(GetPluginFolder(PluginFolder.Root), ConfigDefault) : string.Empty;
-            }
+            get => HasDefaultConfig ? Path.Combine(GetPluginFolder(PluginFolder.Root), ConfigDefault) : string.Empty;
         }
 
         private readonly string pathRoot;
         private readonly string pathData;
-        private readonly string identifier;
         private readonly Dictionary<string, string> metadata = new Dictionary<string, string>(4){
             { "NAME", "" },
             { "DESCRIPTION", "" },
@@ -72,7 +62,7 @@ namespace TweetDck.Plugins{
             this.pathRoot = path;
             this.pathData = Path.Combine(Program.PluginDataPath, group.GetIdentifierPrefix(), name);
 
-            this.identifier = group.GetIdentifierPrefix()+name;
+            this.Identifier = group.GetIdentifierPrefix()+name;
             this.Group = group;
             this.Environments = PluginEnvironment.None;
         }
@@ -103,7 +93,7 @@ namespace TweetDck.Plugins{
                     Directory.CreateDirectory(dataFolder);
                     File.Copy(defaultConfigPath, configPath, false);
                 }catch(Exception e){
-                    Program.Reporter.HandleException("Plugin Loading Error", "Could not generate a configuration file for '"+identifier+"' plugin.", true, e);
+                    Program.Reporter.HandleException("Plugin Loading Error", "Could not generate a configuration file for '"+Identifier+"' plugin.", true, e);
                 }
             }
         }
@@ -154,12 +144,12 @@ namespace TweetDck.Plugins{
         }
 
         public override int GetHashCode(){
-            return identifier.GetHashCode();
+            return Identifier.GetHashCode();
         }
 
         public override bool Equals(object obj){
             Plugin plugin = obj as Plugin;
-            return plugin != null && plugin.identifier.Equals(identifier);
+            return plugin != null && plugin.Identifier.Equals(Identifier);
         }
 
         public static Plugin CreateFromFolder(string path, PluginGroup group, out string error){
@@ -236,9 +226,7 @@ namespace TweetDck.Plugins{
                 return false;
             }
 
-            Version ver;
-
-            if (plugin.RequiredVersion.Length == 0 || !(plugin.RequiredVersion.Equals("*") || System.Version.TryParse(plugin.RequiredVersion, out ver))){
+            if (plugin.RequiredVersion.Length == 0 || !(plugin.RequiredVersion.Equals("*") || System.Version.TryParse(plugin.RequiredVersion, out Version _))){
                 error = "Plugin contains invalid version: "+plugin.RequiredVersion;
                 return false;
             }

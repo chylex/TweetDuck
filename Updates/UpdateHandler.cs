@@ -9,11 +9,7 @@ using TweetDck.Updates.Events;
 
 namespace TweetDck.Updates{
     sealed class UpdateHandler{
-        private static bool IsSystemSupported{
-            get{
-                return true; // Environment.OSVersion.Version >= new Version("6.1"); // 6.1 NT version = Windows 7
-            }
-        }
+        private static bool IsSystemSupported => true; // Environment.OSVersion.Version >= new Version("6.1"); // 6.1 NT version = Windows 7
 
         private readonly ChromiumWebBrowser browser;
         private readonly FormBrowser form;
@@ -61,10 +57,7 @@ namespace TweetDck.Updates{
 
         public void DismissUpdate(string tag){
             settings.DismissedUpdate = tag;
-
-            if (UpdateDismissed != null){
-                UpdateDismissed(this, new UpdateDismissedEventArgs(tag));
-            }
+            UpdateDismissed?.Invoke(this, new UpdateDismissedEventArgs(tag));
         }
 
         private void TriggerUpdateAcceptedEvent(UpdateAcceptedEventArgs args){
@@ -76,10 +69,7 @@ namespace TweetDck.Updates{
         private void TriggerUpdateDismissedEvent(UpdateDismissedEventArgs args){
             form.InvokeAsyncSafe(() => {
                 settings.DismissedUpdate = args.VersionTag;
-                
-                if (UpdateDismissed != null){
-                    UpdateDismissed(this, args);
-                }
+                UpdateDismissed?.Invoke(this, args);
             });
         }
 

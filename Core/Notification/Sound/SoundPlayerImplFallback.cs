@@ -4,11 +4,7 @@ using System.Media;
 
 namespace TweetDck.Core.Notification.Sound{
     sealed class SoundPlayerImplFallback : ISoundNotificationPlayer{
-        string ISoundNotificationPlayer.SupportedFormats{
-            get{
-                return "*.wav";
-            }
-        }
+        string ISoundNotificationPlayer.SupportedFormats => "*.wav";
 
         public event EventHandler<PlaybackErrorEventArgs> PlaybackError;
 

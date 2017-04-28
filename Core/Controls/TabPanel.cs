@@ -6,20 +6,10 @@ using System.Windows.Forms;
 
 namespace TweetDck.Core.Controls{
     sealed partial class TabPanel : UserControl{
-        public IEnumerable<TabButton> Buttons{
-            get{
-                return panelButtons.Controls.Cast<TabButton>();
-            }
-        }
+        public Panel Content => panelContent;
+        public IEnumerable<TabButton> Buttons => panelButtons.Controls.Cast<TabButton>();
 
         public TabButton ActiveButton { get; private set; }
-
-        // ReSharper disable once ConvertToAutoPropertyWithPrivateSetter
-        public Panel Content{
-            get{
-                return panelContent;
-            }
-        }
 
         private int btnWidth;
 

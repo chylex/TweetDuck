@@ -12,9 +12,7 @@ namespace TweetDck.Core{
         public event EventHandler ClickClose;
 
         public bool Visible{
-            get{
-                return notifyIcon.Visible;
-            }
+            get => notifyIcon.Visible;
 
             set{
                 if (value){
@@ -72,9 +70,7 @@ namespace TweetDck.Core{
         }
 
         private void menuItemRestore_Click(object sender, EventArgs e){
-            if (ClickRestore != null){
-                ClickRestore(this, e);
-            }
+            ClickRestore?.Invoke(this, e);
         }
 
         private void menuItemMuteNotifications_Click(object sender, EventArgs e){
@@ -83,9 +79,7 @@ namespace TweetDck.Core{
         }
 
         private void menuItemClose_Click(object sender, EventArgs e){
-            if (ClickClose != null){
-                ClickClose(this, e);
-            }
+            ClickClose?.Invoke(this, e);
         }
     }
 

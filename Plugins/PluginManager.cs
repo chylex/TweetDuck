@@ -15,12 +15,12 @@ namespace TweetDck.Plugins{
 
         private const int InvalidToken = 0;
 
-        public string PathOfficialPlugins { get { return Path.Combine(rootPath, "official"); } }
-        public string PathCustomPlugins { get { return Path.Combine(rootPath, "user"); } }
+        public string PathOfficialPlugins => Path.Combine(rootPath, "official");
+        public string PathCustomPlugins => Path.Combine(rootPath, "user");
 
-        public IEnumerable<Plugin> Plugins { get { return plugins; } }
+        public IEnumerable<Plugin> Plugins => plugins;
         public PluginConfig Config { get; private set; }
-        public PluginBridge Bridge { get; private set; }
+        public PluginBridge Bridge { get; }
         
         public event EventHandler<PluginErrorEventArgs> Reloaded;
         public event EventHandler<PluginErrorEventArgs> Executed;
@@ -47,9 +47,7 @@ namespace TweetDck.Plugins{
         }
 
         private void Config_InternalPluginChangedState(object sender, PluginChangedStateEventArgs e){
-            if (PluginChangedState != null){
-                PluginChangedState(this, e);
-            }
+            PluginChangedState?.Invoke(this, e);
         }
 
         private void SetConfig(PluginConfig config){
@@ -88,8 +86,7 @@ namespace TweetDck.Plugins{
         }
 
         public Plugin GetPluginFromToken(int token){
-            Plugin plugin;
-            return tokens.TryGetValue(token, out plugin) ? plugin : null;
+            return tokens.TryGetValue(token, out Plugin plugin) ? plugin : null;
         }
 
         public void Reload(){
@@ -106,9 +103,7 @@ namespace TweetDck.Plugins{
                 plugins.Add(plugin);
             }
 
-            if (Reloaded != null){
-                Reloaded(this, new PluginErrorEventArgs(loadErrors));
-            }
+            Reloaded?.Invoke(this, new PluginErrorEventArgs(loadErrors));
         }
 
         public void ExecutePlugins(IFrame frame, PluginEnvironment environment, bool includeDisabled){
@@ -144,9 +139,7 @@ namespace TweetDck.Plugins{
                 ScriptLoader.ExecuteScript(frame, PluginScriptGenerator.GeneratePlugin(plugin.Identifier, script, token, environment), "plugin:"+plugin);
             }
 
-            if (Executed != null){
-                Executed(this, new PluginErrorEventArgs(failedPlugins));
-            }
+            Executed?.Invoke(this, new PluginErrorEventArgs(failedPlugins));
         }
 
         private IEnumerable<Plugin> LoadPluginsFrom(string path, PluginGroup group){
@@ -155,8 +148,7 @@ namespace TweetDck.Plugins{
             }
 
             foreach(string fullDir in Directory.EnumerateDirectories(path, "*", SearchOption.TopDirectoryOnly)){
-                string error;
-                Plugin plugin = Plugin.CreateFromFolder(fullDir, group, out error);
+                Plugin plugin = Plugin.CreateFromFolder(fullDir, group, out string error);
 
                 if (plugin == null){
                     loadErrors.Add(group.GetIdentifierPrefix()+Path.GetFileName(fullDir)+": "+error);

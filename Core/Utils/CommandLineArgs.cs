@@ -35,11 +35,7 @@ namespace TweetDck.Core.Utils{
         private readonly HashSet<string> flags = new HashSet<string>();
         private readonly Dictionary<string, string> values = new Dictionary<string, string>();
 
-        public int Count{
-            get{
-                return flags.Count+values.Count;
-            }
-        }
+        public int Count => flags.Count+values.Count;
 
         public void AddFlag(string flag){
             flags.Add(flag.ToLowerInvariant());
@@ -62,8 +58,7 @@ namespace TweetDck.Core.Utils{
         }
 
         public string GetValue(string key, string defaultValue){
-            string val;
-            return values.TryGetValue(key.ToLowerInvariant(), out val) ? val : defaultValue;
+            return values.TryGetValue(key.ToLowerInvariant(), out string val) ? val : defaultValue;
         }
 
         public void RemoveValue(string key){

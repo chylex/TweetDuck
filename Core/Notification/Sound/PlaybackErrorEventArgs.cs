@@ -2,7 +2,7 @@ using System;
 
 namespace TweetDck.Core.Notification.Sound{
     sealed class PlaybackErrorEventArgs : EventArgs{
-        public string Message { get; private set; }
+        public string Message { get; }
         public bool Ignore { get; set; }
 
         public PlaybackErrorEventArgs(string message){

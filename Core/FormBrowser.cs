@@ -23,11 +23,7 @@ using TweetDck.Core.Notification.Sound;
 
 namespace TweetDck.Core{
     sealed partial class FormBrowser : Form{
-        private static UserConfig Config{
-            get{
-                return Program.UserConfig;
-            }
-        }
+        private static UserConfig Config => Program.UserConfig;
 
         public string UpdateInstallerPath { get; private set; }
 
@@ -93,13 +89,8 @@ namespace TweetDck.Core{
                 browser.Dispose();
                 contextMenu.Dispose();
 
-                if (notificationScreenshotManager != null){
-                    notificationScreenshotManager.Dispose();
-                }
-
-                if (soundNotification != null){
-                    soundNotification.Dispose();
-                }
+                notificationScreenshotManager?.Dispose();
+                soundNotification?.Dispose();
             };
 
             this.trayIcon.ClickRestore += trayIcon_ClickRestore;
@@ -365,7 +356,7 @@ namespace TweetDck.Core{
         // javascript calls
 
         public void ReinjectCustomCSS(string css){
-            browser.ExecuteScriptAsync("TDGF_reinjectCustomCSS", css == null ? string.Empty : css.Replace(Environment.NewLine, " "));
+            browser.ExecuteScriptAsync("TDGF_reinjectCustomCSS", css?.Replace(Environment.NewLine, " ") ?? string.Empty);
         }
 
         public void UpdateProperties(PropertyBridge.Properties properties){

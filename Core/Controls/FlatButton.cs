@@ -3,11 +3,7 @@ using System.Windows.Forms;
 
 namespace TweetDck.Core.Controls{
     class FlatButton : Button{
-        protected override bool ShowFocusCues{
-            get{
-                return false;
-            }
-        }
+        protected override bool ShowFocusCues => false;
 
         public FlatButton(){
             GotFocus += FlatButton_GotFocus;

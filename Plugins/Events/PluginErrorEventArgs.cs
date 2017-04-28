@@ -3,11 +3,7 @@ using System.Collections.Generic;
 
 namespace TweetDck.Plugins.Events{
     class PluginErrorEventArgs : EventArgs{
-        public bool HasErrors{
-            get{
-                return Errors.Count > 0;
-            }
-        }
+        public bool HasErrors => Errors.Count > 0;
 
         public IList<string> Errors;
 

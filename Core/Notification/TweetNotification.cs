@@ -51,23 +51,9 @@ namespace TweetDck.Core.Notification{
             TopLeft, TopRight, BottomLeft, BottomRight, Custom
         }
 
-        public string Column{
-            get{
-                return column;
-            }
-        }
-
-        public string TweetUrl{
-            get{
-                return tweetUrl;
-            }
-        }
-
-        public string QuoteUrl{
-            get{
-                return quoteUrl;
-            }
-        }
+        public string Column => column;
+        public string TweetUrl => tweetUrl;
+        public string QuoteUrl => quoteUrl;
 
         private readonly string column;
         private readonly string html;

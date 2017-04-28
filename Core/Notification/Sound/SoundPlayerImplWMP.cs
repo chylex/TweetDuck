@@ -5,11 +5,7 @@ using WMPLib;
 
 namespace TweetDck.Core.Notification.Sound{
     sealed class SoundPlayerImplWMP : ISoundNotificationPlayer{
-        string ISoundNotificationPlayer.SupportedFormats{
-            get{
-                return "*.wav;*.mp3;*.mp2;*.m4a;*.mid;*.midi;*.rmi;*.wma;*.aif;*.aifc;*.aiff;*.snd;*.au";
-            }
-        }
+        string ISoundNotificationPlayer.SupportedFormats => "*.wav;*.mp3;*.mp2;*.m4a;*.mid;*.midi;*.rmi;*.wma;*.aif;*.aifc;*.aiff;*.snd;*.au";
 
         public event EventHandler<PlaybackErrorEventArgs> PlaybackError;
 

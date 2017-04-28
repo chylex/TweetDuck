@@ -5,11 +5,7 @@ namespace TweetDck.Updates{
         public readonly string VersionTag;
         public readonly string DownloadUrl;
 
-        public string FileName{
-            get{
-                return BrowserUtils.GetFileNameFromUrl(DownloadUrl) ?? Program.BrandName+".Update.exe";
-            }
-        }
+        public string FileName => BrowserUtils.GetFileNameFromUrl(DownloadUrl) ?? Program.BrandName+".Update.exe";
 
         public UpdateInfo(string versionTag, string downloadUrl){
             this.VersionTag = versionTag;

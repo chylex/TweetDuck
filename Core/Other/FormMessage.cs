@@ -6,20 +6,11 @@ namespace TweetDck.Core.Other{
     sealed partial class FormMessage : Form{
         public Button ClickedButton { get; private set; }
 
-        public int ActionPanelY{
-            get{
-                return panelActions.Location.Y;
-            }
-        }
+        public int ActionPanelY => panelActions.Location.Y;
 
         private int ClientWidth{
-            get{
-                return ClientSize.Width;
-            }
-
-            set{
-                ClientSize = new Size(value, ClientSize.Height);
-            }
+            get => ClientSize.Width;
+            set => ClientSize = new Size(value, ClientSize.Height);
         }
 
         private readonly Icon icon;

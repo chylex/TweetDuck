@@ -69,10 +69,7 @@ namespace TweetDck.Core.Notification.Screenshot{
         public void Dispose(){
             timeout.Dispose();
             disposer.Dispose();
-
-            if (screenshot != null){
-                screenshot.Dispose();
-            }
+            screenshot?.Dispose();
         }
     }
 }

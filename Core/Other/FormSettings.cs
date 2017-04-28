@@ -31,9 +31,7 @@ namespace TweetDck.Core.Other{
         }
 
         private void SelectTab<T>(Func<T> constructor) where T : BaseTabSettings{
-            BaseTabSettings control;
-
-            if (tabs.TryGetValue(typeof(T), out control)){
+            if (tabs.TryGetValue(typeof(T), out BaseTabSettings control)){
                 tabPanel.ReplaceContent(control);
             }
             else{

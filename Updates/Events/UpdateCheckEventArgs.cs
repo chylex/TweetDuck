@@ -2,9 +2,9 @@ using System;
 
 namespace TweetDck.Updates.Events{
     class UpdateCheckEventArgs : EventArgs{
-        public int EventId { get; private set; }
-        public bool UpdateAvailable { get; private set; }
-        public string LatestVersion { get; private set; }
+        public int EventId { get; }
+        public bool UpdateAvailable { get; }
+        public string LatestVersion { get; }
 
         public UpdateCheckEventArgs(int eventId, bool updateAvailable, string latestVersion){
             EventId = eventId;

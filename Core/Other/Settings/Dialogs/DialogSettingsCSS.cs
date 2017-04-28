@@ -5,17 +5,8 @@ using TweetDck.Core.Utils;
 
 namespace TweetDck.Core.Other.Settings.Dialogs{
     sealed partial class DialogSettingsCSS : Form{
-        public string BrowserCSS{
-            get{
-                return textBoxBrowserCSS.Text;
-            }
-        }
-        
-        public string NotificationCSS{
-            get{
-                return textBoxNotificationCSS.Text;
-            }
-        }
+        public string BrowserCSS => textBoxBrowserCSS.Text;
+        public string NotificationCSS => textBoxNotificationCSS.Text;
 
         private readonly Action<string> reinjectBrowserCSS;
 

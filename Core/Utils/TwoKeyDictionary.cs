@@ -21,9 +21,7 @@ namespace TweetDck.Core.Utils{
             }
 
             set{
-                Dictionary<K2, V> innerDict;
-
-                if (!dict.TryGetValue(outerKey, out innerDict)){
+                if (!dict.TryGetValue(outerKey, out Dictionary<K2, V> innerDict)){
                     dict.Add(outerKey, innerDict = new Dictionary<K2, V>(innerCapacity));
                 }
 
@@ -44,9 +42,7 @@ namespace TweetDck.Core.Utils{
         // Members
 
         public void Add(K1 outerKey, K2 innerKey, V value){ // throws on duplicate
-            Dictionary<K2, V> innerDict;
-
-            if (!dict.TryGetValue(outerKey, out innerDict)){
+            if (!dict.TryGetValue(outerKey, out Dictionary<K2, V> innerDict)){
                 dict.Add(outerKey, innerDict = new Dictionary<K2, V>(innerCapacity));
             }
 
@@ -54,7 +50,7 @@ namespace TweetDck.Core.Utils{
         }
         
         public void Clear(){
-            this.dict.Clear();
+            dict.Clear();
         }
 
         public void Clear(K1 outerKey){ // throws on missing key, but keeps the key unlike Remove(K1)
@@ -83,10 +79,8 @@ namespace TweetDck.Core.Utils{
         }
         
         public bool Remove(K1 outerKey, K2 innerKey){
-            Dictionary<K2, V> innerDict;
-
-            if (dict.TryGetValue(outerKey, out innerDict) && innerDict.Remove(innerKey)){
-                if (innerDict.Count == 0){
+            if (dict.TryGetValue(outerKey, out Dictionary<K2, V> innerDict) && innerDict.Remove(innerKey)){
+                if (innerDict.Count == 0) {
                     dict.Remove(outerKey);
                 }
 
@@ -96,9 +90,7 @@ namespace TweetDck.Core.Utils{
         }
 
         public bool TryGetValue(K1 outerKey, K2 innerKey, out V value){
-            Dictionary<K2, V> innerDict;
-            
-            if (dict.TryGetValue(outerKey, out innerDict)){
+            if (dict.TryGetValue(outerKey, out Dictionary<K2, V> innerDict)){
                 return innerDict.TryGetValue(innerKey, out value);
             }
             else{

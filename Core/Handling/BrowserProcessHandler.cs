@@ -5,8 +5,7 @@ namespace TweetDck.Core.Handling{
     class BrowserProcessHandler : IBrowserProcessHandler{
         void IBrowserProcessHandler.OnContextInitialized(){
             using(IRequestContext ctx = Cef.GetGlobalRequestContext()){
-                string err;
-                ctx.SetPreference("browser.enable_spellchecking", Program.UserConfig.EnableSpellCheck, out err);
+                ctx.SetPreference("browser.enable_spellchecking", Program.UserConfig.EnableSpellCheck, out string _);
             }
         }
 

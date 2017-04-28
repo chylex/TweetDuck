@@ -4,11 +4,7 @@ namespace TweetDck.Core.Utils{
     static class CommandLineArgsParser{
         private static Regex splitRegex;
 
-        private static Regex SplitRegex{
-            get{
-                return splitRegex ?? (splitRegex = new Regex(@"([^=\s]+(?:=(?:[^ ]*""[^""]*?""[^ ]*|[^ ]*))?)", RegexOptions.Compiled));
-            }
-        }
+        private static Regex SplitRegex => splitRegex ?? (splitRegex = new Regex(@"([^=\s]+(?:=(?:[^ ]*""[^""]*?""[^ ]*|[^ ]*))?)", RegexOptions.Compiled));
 
         public static CommandLineArgs ReadCefArguments(string argumentString){
             CommandLineArgs args = new CommandLineArgs();

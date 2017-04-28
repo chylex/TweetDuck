@@ -23,11 +23,7 @@ namespace TweetDck.Core.Utils{
             }
         }
 
-        public static string HeaderUserAgent{
-            get{
-               return Program.BrandName+" "+Application.ProductVersion; 
-            }
-        }
+        public static string HeaderUserAgent => Program.BrandName+" "+Application.ProductVersion;
 
         public static readonly Color BackgroundColor = Color.FromArgb(28, 99, 153);
         public const string BackgroundColorFix = "let e=document.createElement('style');document.head.appendChild(e);e.innerHTML='body::before{background:#1c6399!important}'";
@@ -37,9 +33,7 @@ namespace TweetDck.Core.Utils{
         };
 
         public static bool IsValidUrl(string url){
-            Uri uri;
-            
-            if (Uri.TryCreate(url, UriKind.Absolute, out uri)){
+            if (Uri.TryCreate(url, UriKind.Absolute, out Uri uri)){
                 string scheme = uri.Scheme;
                 return scheme == Uri.UriSchemeHttp || scheme == Uri.UriSchemeHttps || scheme == Uri.UriSchemeFtp || scheme == Uri.UriSchemeMailto;
             }

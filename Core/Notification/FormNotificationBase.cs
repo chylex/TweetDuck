@@ -50,23 +50,15 @@ namespace TweetDck.Core.Notification{
             }
         }
 
-        public bool IsNotificationVisible{
-            get{
-                return Location != ControlExtensions.InvisibleLocation;
-            }
-        }
+        public bool IsNotificationVisible => Location != ControlExtensions.InvisibleLocation;
 
         public new Point Location{
-            get{
-                return base.Location;
-            }
-
-            set{
-                Visible = (base.Location = value) != ControlExtensions.InvisibleLocation;
-            }
+            get => base.Location;
+            set => Visible = (base.Location = value) != ControlExtensions.InvisibleLocation;
         }
         
         public Func<bool> CanMoveWindow = () => true;
+        protected override bool ShowWithoutActivation => true;
 
         protected readonly Form owner;
         protected readonly ChromiumWebBrowser browser;
@@ -76,17 +68,7 @@ namespace TweetDck.Core.Notification{
         private string currentColumn;
         private int pauseCounter;
 
-        public bool IsPaused{
-            get{
-                return pauseCounter > 0;
-            }
-        }
-
-        protected override bool ShowWithoutActivation{
-            get{
-                return true;
-            }
-        }
+        public bool IsPaused => pauseCounter > 0;
 
         public bool FreezeTimer { get; set; }
         public bool ContextMenuOpen { get; set; }
@@ -143,8 +125,8 @@ namespace TweetDck.Core.Notification{
         }
 
         private void Browser_IsBrowserInitializedChanged(object sender, IsBrowserInitializedChangedEventArgs e){
-            if (e.IsBrowserInitialized && Initialized != null){
-                Initialized(this, new EventArgs());
+            if (e.IsBrowserInitialized){
+                Initialized?.Invoke(this, new EventArgs());
             }
         }
 

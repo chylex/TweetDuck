@@ -7,11 +7,7 @@ using TweetDck.Core.Utils;
 namespace UnitTests.Core.Utils{
     [TestClass]
     public class TestInjectedHTML{
-        private static IEnumerable<InjectedHTML.Position> Positions{
-            get{
-                return Enum.GetValues(typeof(InjectedHTML.Position)).Cast<InjectedHTML.Position>();
-            }
-        }
+        private static IEnumerable<InjectedHTML.Position> Positions => Enum.GetValues(typeof(InjectedHTML.Position)).Cast<InjectedHTML.Position>();
 
         [TestMethod]
         public void TestFailedMatches(){

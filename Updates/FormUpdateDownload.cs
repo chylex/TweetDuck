@@ -10,11 +10,7 @@ namespace TweetDck.Updates{
     sealed partial class FormUpdateDownload : Form{
         private const double BytesToKB = 1024.0;
 
-        public string InstallerPath{
-            get{
-                return Path.Combine(Path.GetTempPath(), updateInfo.FileName);
-            }
-        }
+        public string InstallerPath => Path.Combine(Path.GetTempPath(), updateInfo.FileName);
 
         public enum Status{
             Waiting, Failed, Cancelled, Manual, Succeeded

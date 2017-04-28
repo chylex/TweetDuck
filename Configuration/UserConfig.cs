@@ -46,72 +46,44 @@ namespace TweetDck.Configuration{
         public string CustomBrowserCSS { get; set; }
         public string CustomNotificationCSS { get; set; }
 
-        public bool IsCustomNotificationPositionSet{
-            get{
-                return CustomNotificationPosition != ControlExtensions.InvisibleLocation;
-            }
+        public bool IsCustomNotificationPositionSet => CustomNotificationPosition != ControlExtensions.InvisibleLocation;
+
+        public string NotificationSoundPath{
+            get => string.IsNullOrEmpty(notificationSoundPath) ? string.Empty : notificationSoundPath;
+            set => notificationSoundPath = value;
         }
-        
+
         public bool MuteNotifications{
-            get{
-                return muteNotifications;
-            }
+            get => muteNotifications;
 
             set{
-                if (muteNotifications == value)return;
-
-                muteNotifications = value;
-
-                if (MuteToggled != null){
-                    MuteToggled(this, new EventArgs());
+                if (muteNotifications != value){
+                    muteNotifications = value;
+                    MuteToggled?.Invoke(this, new EventArgs());
                 }
             }
         }
 
         public int ZoomLevel{
-            get{
-                return zoomLevel;
-            }
+            get => zoomLevel;
 
             set{
-                if (zoomLevel == value)return;
-
-                zoomLevel = value;
-
-                if (ZoomLevelChanged != null){
-                    ZoomLevelChanged(this, new EventArgs());
+                if (zoomLevel != value){
+                    zoomLevel = value;
+                    ZoomLevelChanged?.Invoke(this, new EventArgs());
                 }
             }
         }
 
-        public double ZoomMultiplier{
-            get{
-                return zoomLevel/100.0;
-            }
-        }
-
-        public string NotificationSoundPath{
-            get{
-                return string.IsNullOrEmpty(notificationSoundPath) ? string.Empty : notificationSoundPath;
-            }
-
-            set{
-                notificationSoundPath = value;
-            }
-        }
+        public double ZoomMultiplier => zoomLevel/100.0;
 
         public TrayIcon.Behavior TrayBehavior{
-            get{
-                return trayBehavior;
-            }
+            get => trayBehavior;
 
             set{
-                if (trayBehavior == value)return;
-
-                trayBehavior = value;
-
-                if (TrayBehaviorChanged != null){
-                    TrayBehaviorChanged(this, new EventArgs());
+                if (trayBehavior != value){
+                    trayBehavior = value;
+                    TrayBehaviorChanged?.Invoke(this, new EventArgs());
                 }
             }
         }
@@ -247,11 +219,8 @@ namespace TweetDck.Configuration{
                             config.file = file;
                         }
                     }
-                    
-                    if (config != null){
-                        config.UpgradeFile();
-                    }
 
+                    config?.UpgradeFile();
                     break;
                 }catch(FileNotFoundException){
                 }catch(DirectoryNotFoundException){
