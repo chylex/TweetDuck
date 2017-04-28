@@ -105,6 +105,10 @@ namespace TweetDck.Core.Notification{
                 this.browser.Dispose();
                 this.owner.FormClosed -= owner_FormClosed;
             };
+            
+            if (WindowsUtils.ShouldAvoidToolWindow){
+                FormBorderStyle = FormBorderStyle.FixedSingle;
+            }
 
             // ReSharper disable once VirtualMemberCallInContructor
             UpdateTitle();

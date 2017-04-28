@@ -8,6 +8,13 @@ using System.Windows.Forms;
 
 namespace TweetDck.Core.Utils{
     static class WindowsUtils{
+        public static bool ShouldAvoidToolWindow { get; }
+
+        static WindowsUtils(){
+            Version ver = Environment.OSVersion.Version;
+            ShouldAvoidToolWindow = ver.Major == 6 && ver.Minor == 2; // windows 8/10
+        }
+
         public static bool CheckFolderWritePermission(string path){
             string testFile = Path.Combine(path, ".test");
 
