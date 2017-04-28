@@ -20,7 +20,7 @@ namespace TweetDck.Plugins{
         }
 
         public bool IsEnabled(Plugin plugin){
-            return !Disabled.Contains(plugin.Identifier) && plugin.CanRun;
+            return !Disabled.Contains(plugin.Identifier);
         }
 
         public void DisableOfficialFromConfig(string pluginName){

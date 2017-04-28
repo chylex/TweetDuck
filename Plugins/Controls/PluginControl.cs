@@ -61,7 +61,7 @@ namespace TweetDck.Plugins.Controls{
         }
 
         private void UpdatePluginState(){
-            bool isEnabled = plugin.CanRun && pluginManager.Config.IsEnabled(plugin);
+            bool isEnabled = pluginManager.Config.IsEnabled(plugin) && plugin.CanRun;
             Color textColor = isEnabled ? Color.Black : Color.FromArgb(90, 90, 90);
             
             labelVersion.ForeColor = textColor;

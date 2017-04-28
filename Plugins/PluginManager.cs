@@ -115,7 +115,7 @@ namespace TweetDck.Plugins{
 
             foreach(Plugin plugin in Plugins){
                 string path = plugin.GetScriptPath(environment);
-                if (string.IsNullOrEmpty(path) || !plugin.CanRun || (!includeDisabled && !Config.IsEnabled(plugin)))continue;
+                if (string.IsNullOrEmpty(path) || (!includeDisabled && !Config.IsEnabled(plugin)) || !plugin.CanRun)continue;
 
                 string script;
 
