@@ -54,6 +54,7 @@ enabled(){
   $TDP.checkFileExists(this.$token, configFile).then(exists => {
     if (!exists){
       loadConfigObject(null);
+      $TDP.writeFile(this.$token, configFile, JSON.stringify(this.defaultConfig));
     }
     else{
       $TDP.readFile(this.$token, configFile, true).then(contents => {
