@@ -29,8 +29,9 @@ namespace TweetDck{
         public static readonly string ProgramPath = AppDomain.CurrentDomain.BaseDirectory;
         public static readonly string StoragePath = IsPortable ? Path.Combine(ProgramPath, "portable", "storage") : GetDataStoragePath();
 
-        public static readonly string PluginDataPath = Path.Combine(StoragePath, "TD_Plugins");
         public static readonly string ConfigFilePath = Path.Combine(StoragePath, "TD_UserConfig.cfg");
+        public static readonly string PluginDataPath = Path.Combine(StoragePath, "TD_Plugins");
+        public static readonly string PluginConfigFilePath = Path.Combine(StoragePath, "TD_PluginConfig.cfg");
         private static readonly string ErrorLogFilePath = Path.Combine(StoragePath, "TD_Log.txt");
         private static readonly string ConsoleLogFilePath = Path.Combine(StoragePath, "TD_Console.txt");
         
@@ -155,7 +156,7 @@ namespace TweetDck{
 
             Application.ApplicationExit += (sender, args) => ExitCleanup();
 
-            PluginManager plugins = new PluginManager(PluginPath, UserConfig.Plugins);
+            PluginManager plugins = new PluginManager(PluginPath, PluginConfigFilePath);
             plugins.Reloaded += plugins_Reloaded;
             plugins.Executed += plugins_Executed;
             plugins.Reload();

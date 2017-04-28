@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using TweetDck.Plugins.Events;
 
 namespace TweetDck.Plugins{
@@ -11,7 +13,18 @@ namespace TweetDck.Plugins{
         public IEnumerable<string> DisabledPlugins => Disabled;
         public bool AnyDisabled => Disabled.Count > 0;
 
-        private readonly HashSet<string> Disabled = new HashSet<string>();
+        private readonly HashSet<string> Disabled = new HashSet<string>{
+            "official/clear-columns",
+            "official/reply-account"
+        };
+
+        public void ImportLegacy(PluginConfig config){
+            Disabled.Clear();
+            
+            foreach(string plugin in config.Disabled){
+                Disabled.Add(plugin);
+            }
+        }
 
         public void SetEnabled(Plugin plugin, bool enabled){
             if ((enabled && Disabled.Remove(plugin.Identifier)) || (!enabled && Disabled.Add(plugin.Identifier))){
@@ -23,8 +36,40 @@ namespace TweetDck.Plugins{
             return !Disabled.Contains(plugin.Identifier);
         }
 
-        public void DisableOfficialFromConfig(string pluginName){
-            Disabled.Add("official/"+pluginName);
+        public void Load(string file){
+            try{
+                using(FileStream stream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read))
+                using(StreamReader reader = new StreamReader(stream, Encoding.UTF8)){
+                    string line = reader.ReadLine();
+
+                    if (line == "#Disabled"){
+                        Disabled.Clear();
+
+                        while((line = reader.ReadLine()) != null){
+                            Disabled.Add(line);
+                        }
+                    }
+                }
+            }catch(FileNotFoundException){
+            }catch(DirectoryNotFoundException){
+            }catch(Exception e){
+                Program.Reporter.HandleException("Plugin Configuration Error", "Could not read the plugin configuration file. If you continue, the list of disabled plugins will be reset to default.", true, e);
+            }
+        }
+
+        public void Save(string file){
+            try{
+                using(FileStream stream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None))
+                using(StreamWriter writer = new StreamWriter(stream, Encoding.UTF8)){
+                    writer.WriteLine("#Disabled");
+
+                    foreach(string disabled in Disabled){
+                        writer.WriteLine(disabled);
+                    }
+                }
+            }catch(Exception e){
+                Program.Reporter.HandleException("Plugin Configuration Error", "Could not save the plugin configuration file.", true, e);
+            }
         }
     }
 }

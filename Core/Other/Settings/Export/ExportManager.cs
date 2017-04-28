@@ -31,6 +31,8 @@ namespace TweetDck.Core.Other.Settings.Export{
                     }
 
                     if (flags.HasFlag(ExportFileFlags.PluginData)){
+                        stream.WriteFile("plugin.config", Program.PluginConfigFilePath);
+
                         foreach(Plugin plugin in plugins.Plugins){
                             foreach(PathInfo path in EnumerateFilesRelative(plugin.GetPluginFolder(PluginFolder.Data))){
                                 try{
@@ -69,6 +71,7 @@ namespace TweetDck.Core.Other.Settings.Export{
                                 flags |= ExportFileFlags.Config;
                                 break;
 
+                            case "plugin.config":
                             case "plugin.data":
                                 flags |= ExportFileFlags.PluginData;
                                 break;
@@ -99,6 +102,13 @@ namespace TweetDck.Core.Other.Settings.Export{
                             case "config":
                                 if (flags.HasFlag(ExportFileFlags.Config)){
                                     entry.WriteToFile(Program.ConfigFilePath);
+                                }
+
+                                break;
+
+                            case "plugin.config":
+                                if (flags.HasFlag(ExportFileFlags.PluginData)){
+                                    entry.WriteToFile(Program.PluginConfigFilePath);
                                 }
 
                                 break;

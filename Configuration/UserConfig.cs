@@ -39,7 +39,7 @@ namespace TweetDck.Configuration{
         public bool EnableUpdateCheck { get; set; }
         public string DismissedUpdate { get; set; }
 
-        public PluginConfig Plugins { get; private set; }
+        [Obsolete] public PluginConfig Plugins { get; set; } // TODO remove eventually
         public WindowState PluginsWindow { get; set; }
 
         public string CustomCefArgs { get; set; }
@@ -122,11 +122,7 @@ namespace TweetDck.Configuration{
             EnableUpdateCheck = true;
             ExpandLinksOnHover = true;
             EnableTrayHighlight = true;
-            Plugins = new PluginConfig();
             PluginsWindow = new WindowState();
-
-            Plugins.DisableOfficialFromConfig("clear-columns");
-            Plugins.DisableOfficialFromConfig("reply-account");
         }
 
         private void UpgradeFile(){
@@ -148,7 +144,6 @@ namespace TweetDck.Configuration{
 
             if (fileVersion == 2){
                 BrowserWindow = new WindowState();
-                Plugins = new PluginConfig();
                 PluginsWindow = new WindowState();
                 ++fileVersion;
             }
@@ -160,8 +155,6 @@ namespace TweetDck.Configuration{
             }
 
             if (fileVersion == 4){
-                Plugins.DisableOfficialFromConfig("clear-columns");
-                Plugins.DisableOfficialFromConfig("reply-account");
                 ++fileVersion;
             }
 

@@ -19,7 +19,7 @@ namespace TweetDck.Plugins{
         public string PathCustomPlugins => Path.Combine(rootPath, "user");
 
         public IEnumerable<Plugin> Plugins => plugins;
-        public PluginConfig Config { get; private set; }
+        public PluginConfig Config { get; }
         public PluginBridge Bridge { get; }
         
         public event EventHandler<PluginErrorEventArgs> Reloaded;
@@ -27,36 +27,50 @@ namespace TweetDck.Plugins{
         public event EventHandler<PluginChangedStateEventArgs> PluginChangedState;
 
         private readonly string rootPath;
+        private readonly string configPath;
+
         private readonly HashSet<Plugin> plugins = new HashSet<Plugin>();
         private readonly Dictionary<int, Plugin> tokens = new Dictionary<int, Plugin>();
         private readonly Random rand = new Random();
 
         private List<string> loadErrors;
 
-        public PluginManager(string path, PluginConfig config){
-            this.rootPath = path;
-            this.SetConfig(config);
+        public PluginManager(string rootPath, string configPath){
+            this.rootPath = rootPath;
+            this.configPath = configPath;
+
+            this.Config = new PluginConfig();
             this.Bridge = new PluginBridge(this);
 
+            LoadConfig();
+            
+            Config.InternalPluginChangedState += Config_InternalPluginChangedState;
             Program.UserConfigReplaced += Program_UserConfigReplaced;
         }
 
+        private void LoadConfig(){
+            #pragma warning disable 612
+            if (Program.UserConfig.Plugins != null){
+                Config.ImportLegacy(Program.UserConfig.Plugins);
+                Config.Save(configPath);
+
+                Program.UserConfig.Plugins = null;
+                Program.UserConfig.Save();
+            }
+            #pragma warning restore 612
+            else{
+                Config.Load(configPath);
+            }
+        }
+
         private void Program_UserConfigReplaced(object sender, EventArgs e){
-            SetConfig(Program.UserConfig.Plugins);
+            LoadConfig();
             Reload();
         }
 
         private void Config_InternalPluginChangedState(object sender, PluginChangedStateEventArgs e){
             PluginChangedState?.Invoke(this, e);
-        }
-
-        private void SetConfig(PluginConfig config){
-            if (this.Config != null){
-                this.Config.InternalPluginChangedState -= Config_InternalPluginChangedState;
-            }
-
-            this.Config = config;
-            this.Config.InternalPluginChangedState += Config_InternalPluginChangedState;
+            Config.Save(configPath);
         }
 
         public bool IsPluginInstalled(string identifier){

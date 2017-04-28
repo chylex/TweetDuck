@@ -276,7 +276,6 @@ namespace TweetDck.Core{
 
         private void plugins_PluginChangedState(object sender, PluginChangedStateEventArgs e){
             browser.ExecuteScriptAsync("window.TDPF_setPluginState", e.Plugin, e.IsEnabled);
-            Config.Save();
         }
 
         private void updates_UpdateAccepted(object sender, UpdateAcceptedEventArgs e){
