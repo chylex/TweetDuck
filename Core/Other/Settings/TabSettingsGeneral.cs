@@ -28,6 +28,7 @@ namespace TweetDck.Core.Other.Settings{
             labelZoomValue.Text = trackBarZoom.Value+"%";
 
             checkExpandLinks.Checked = Config.ExpandLinksOnHover;
+            checkSwitchAccountSelectors.Checked = Config.SwitchAccountSelectors;
             checkSpellCheck.Checked = Config.EnableSpellCheck;
             checkTrayHighlight.Checked = Config.EnableTrayHighlight;
 
@@ -36,6 +37,7 @@ namespace TweetDck.Core.Other.Settings{
 
         public override void OnReady(){
             checkExpandLinks.CheckedChanged += checkExpandLinks_CheckedChanged;
+            checkSwitchAccountSelectors.CheckedChanged += checkSwitchAccountSelectors_CheckedChanged;
             checkSpellCheck.CheckedChanged += checkSpellCheck_CheckedChanged;
             trackBarZoom.ValueChanged += trackBarZoom_ValueChanged;
 
@@ -52,6 +54,10 @@ namespace TweetDck.Core.Other.Settings{
 
         private void checkExpandLinks_CheckedChanged(object sender, EventArgs e){
             Config.ExpandLinksOnHover = checkExpandLinks.Checked;
+        }
+
+        private void checkSwitchAccountSelectors_CheckedChanged(object sender, EventArgs e){
+            Config.SwitchAccountSelectors = checkSwitchAccountSelectors.Checked;
         }
 
         private void checkSpellCheck_CheckedChanged(object sender, EventArgs e){

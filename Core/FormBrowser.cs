@@ -392,7 +392,7 @@ namespace TweetDck.Core{
                         trayIcon.HasNotifications = false;
                     }
 
-                    UpdateProperties(PropertyBridge.Properties.ExpandLinksOnHover | PropertyBridge.Properties.HasCustomNotificationSound);
+                    UpdateProperties(PropertyBridge.Properties.ExpandLinksOnHover | PropertyBridge.Properties.SwitchAccountSelectors | PropertyBridge.Properties.HasCustomNotificationSound);
                     form.Dispose();
                 };
 

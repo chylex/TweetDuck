@@ -31,10 +31,11 @@
             this.checkSpellCheck = new System.Windows.Forms.CheckBox();
             this.checkUpdateNotifications = new System.Windows.Forms.CheckBox();
             this.btnCheckUpdates = new System.Windows.Forms.Button();
+            this.labelZoomValue = new System.Windows.Forms.Label();
+            this.checkSwitchAccountSelectors = new System.Windows.Forms.CheckBox();
             this.groupTray = new System.Windows.Forms.GroupBox();
             this.labelTrayIcon = new System.Windows.Forms.Label();
             this.groupInterface = new System.Windows.Forms.GroupBox();
-            this.labelZoomValue = new System.Windows.Forms.Label();
             this.trackBarZoom = new System.Windows.Forms.TrackBar();
             this.labelZoom = new System.Windows.Forms.Label();
             this.groupUpdates = new System.Windows.Forms.GroupBox();
@@ -84,11 +85,11 @@
             // checkSpellCheck
             // 
             this.checkSpellCheck.AutoSize = true;
-            this.checkSpellCheck.Location = new System.Drawing.Point(9, 44);
+            this.checkSpellCheck.Location = new System.Drawing.Point(9, 67);
             this.checkSpellCheck.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.checkSpellCheck.Name = "checkSpellCheck";
             this.checkSpellCheck.Size = new System.Drawing.Size(119, 17);
-            this.checkSpellCheck.TabIndex = 1;
+            this.checkSpellCheck.TabIndex = 2;
             this.checkSpellCheck.Text = "Enable Spell Check";
             this.toolTip.SetToolTip(this.checkSpellCheck, "Underlines words that are spelled incorrectly.");
             this.checkSpellCheck.UseVisualStyleBackColor = true;
@@ -116,12 +117,38 @@
             this.toolTip.SetToolTip(this.btnCheckUpdates, "Forces an update check, even for updates that had been dismissed.");
             this.btnCheckUpdates.UseVisualStyleBackColor = true;
             // 
+            // labelZoomValue
+            // 
+            this.labelZoomValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelZoomValue.BackColor = System.Drawing.Color.Transparent;
+            this.labelZoomValue.Location = new System.Drawing.Point(139, 116);
+            this.labelZoomValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.labelZoomValue.Name = "labelZoomValue";
+            this.labelZoomValue.Size = new System.Drawing.Size(38, 13);
+            this.labelZoomValue.TabIndex = 5;
+            this.labelZoomValue.Text = "100%";
+            this.labelZoomValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.toolTip.SetToolTip(this.labelZoomValue, "Changes the zoom level.\r\nAlso affects notifications and screenshots.");
+            // 
+            // checkSwitchAccountSelectors
+            // 
+            this.checkSwitchAccountSelectors.AutoSize = true;
+            this.checkSwitchAccountSelectors.Location = new System.Drawing.Point(9, 44);
+            this.checkSwitchAccountSelectors.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
+            this.checkSwitchAccountSelectors.Name = "checkSwitchAccountSelectors";
+            this.checkSwitchAccountSelectors.Size = new System.Drawing.Size(172, 17);
+            this.checkSwitchAccountSelectors.TabIndex = 1;
+            this.checkSwitchAccountSelectors.Text = "Shift Selects Multiple Accounts";
+            this.toolTip.SetToolTip(this.checkSwitchAccountSelectors, "When (re)tweeting, click to select a single account or hold Shift to\r\nselect mult" +
+        "iple accounts, instead of TweetDeck\'s default behavior.");
+            this.checkSwitchAccountSelectors.UseVisualStyleBackColor = true;
+            // 
             // groupTray
             // 
             this.groupTray.Controls.Add(this.checkTrayHighlight);
             this.groupTray.Controls.Add(this.labelTrayIcon);
             this.groupTray.Controls.Add(this.comboBoxTrayType);
-            this.groupTray.Location = new System.Drawing.Point(9, 145);
+            this.groupTray.Location = new System.Drawing.Point(9, 168);
             this.groupTray.Name = "groupTray";
             this.groupTray.Size = new System.Drawing.Size(183, 93);
             this.groupTray.TabIndex = 1;
@@ -140,6 +167,7 @@
             // 
             // groupInterface
             // 
+            this.groupInterface.Controls.Add(this.checkSwitchAccountSelectors);
             this.groupInterface.Controls.Add(this.labelZoomValue);
             this.groupInterface.Controls.Add(this.trackBarZoom);
             this.groupInterface.Controls.Add(this.labelZoom);
@@ -147,48 +175,37 @@
             this.groupInterface.Controls.Add(this.checkExpandLinks);
             this.groupInterface.Location = new System.Drawing.Point(9, 9);
             this.groupInterface.Name = "groupInterface";
-            this.groupInterface.Size = new System.Drawing.Size(183, 130);
+            this.groupInterface.Size = new System.Drawing.Size(183, 153);
             this.groupInterface.TabIndex = 0;
             this.groupInterface.TabStop = false;
             this.groupInterface.Text = "User Interface";
             // 
-            // labelZoomValue
-            // 
-            this.labelZoomValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelZoomValue.BackColor = System.Drawing.Color.Transparent;
-            this.labelZoomValue.Location = new System.Drawing.Point(139, 93);
-            this.labelZoomValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.labelZoomValue.Name = "labelZoomValue";
-            this.labelZoomValue.Size = new System.Drawing.Size(38, 13);
-            this.labelZoomValue.TabIndex = 4;
-            this.labelZoomValue.Text = "100%";
-            this.labelZoomValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.toolTip.SetToolTip(this.labelZoomValue, "Changes the zoom level.\r\nAlso affects notifications and screenshots.");
-            // 
             // trackBarZoom
             // 
-            this.trackBarZoom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.trackBarZoom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBarZoom.AutoSize = false;
             this.trackBarZoom.LargeChange = 25;
-            this.trackBarZoom.Location = new System.Drawing.Point(6, 92);
+            this.trackBarZoom.Location = new System.Drawing.Point(6, 115);
             this.trackBarZoom.Maximum = 200;
             this.trackBarZoom.Minimum = 50;
             this.trackBarZoom.Name = "trackBarZoom";
             this.trackBarZoom.Size = new System.Drawing.Size(141, 30);
             this.trackBarZoom.SmallChange = 5;
-            this.trackBarZoom.TabIndex = 3;
+            this.trackBarZoom.TabIndex = 4;
             this.trackBarZoom.TickFrequency = 25;
             this.trackBarZoom.Value = 100;
             // 
             // labelZoom
             // 
+            this.labelZoom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.labelZoom.AutoSize = true;
-            this.labelZoom.Location = new System.Drawing.Point(5, 76);
+            this.labelZoom.Location = new System.Drawing.Point(5, 99);
             this.labelZoom.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelZoom.Name = "labelZoom";
             this.labelZoom.Size = new System.Drawing.Size(34, 13);
-            this.labelZoom.TabIndex = 2;
+            this.labelZoom.TabIndex = 3;
             this.labelZoom.Text = "Zoom";
             // 
             // groupUpdates
@@ -244,5 +261,6 @@
         private System.Windows.Forms.Label labelZoomValue;
         private System.Windows.Forms.TrackBar trackBarZoom;
         private System.Windows.Forms.Timer zoomUpdateTimer;
+        private System.Windows.Forms.CheckBox checkSwitchAccountSelectors;
     }
 }

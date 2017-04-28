@@ -9,7 +9,8 @@ namespace TweetDck.Core.Bridge{
             MuteNotifications = 2,
             HasCustomNotificationSound = 4,
             SkipOnLinkClick = 8,
-            AllBrowser = ExpandLinksOnHover | MuteNotifications | HasCustomNotificationSound,
+            SwitchAccountSelectors = 16,
+            AllBrowser = ExpandLinksOnHover | SwitchAccountSelectors | MuteNotifications | HasCustomNotificationSound,
             AllNotification = ExpandLinksOnHover | SkipOnLinkClick
         }
 
@@ -19,6 +20,10 @@ namespace TweetDck.Core.Bridge{
 
             if (properties.HasFlag(Properties.ExpandLinksOnHover)){
                 build.Append("c.expandLinksOnHover=").Append(Program.UserConfig.ExpandLinksOnHover ? "true;" : "false;");
+            }
+
+            if (properties.HasFlag(Properties.SwitchAccountSelectors)){
+                build.Append("c.switchAccountSelectors=").Append(Program.UserConfig.SwitchAccountSelectors ? "true;" : "false;");
             }
 
             if (properties.HasFlag(Properties.MuteNotifications)){

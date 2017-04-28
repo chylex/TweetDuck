@@ -513,17 +513,18 @@
   // Block: Swap shift key functionality for selecting accounts.
   //
   onAppReady.push(function(){
-    $(".js-drawer[data-drawer='compose']").delegate(".js-account-list > .js-account-item", "click", function(e){
-      e.shiftKey = !e.shiftKey;
-    });
+    var toggleEventShiftKey = function(e){
+      if ($TDX.switchAccountSelectors){
+        e.shiftKey = !e.shiftKey;
+      }
+    };
+    
+    $(".js-drawer[data-drawer='compose']").delegate(".js-account-list > .js-account-item", "click", toggleEventShiftKey);
 
     TD.components.AccountSelector.prototype.refreshPostingAccounts = appendToFunction(TD.components.AccountSelector.prototype.refreshPostingAccounts, function(){
       if (!this.$node.attr("td-account-selector-hook")){
         this.$node.attr("td-account-selector-hook", "1");
-
-        this.$node.delegate(".js-account-item", "click", function(e){
-          e.shiftKey = !e.shiftKey;
-        });
+        this.$node.delegate(".js-account-item", "click", toggleEventShiftKey);
       }
     });
   });

@@ -14,7 +14,7 @@ namespace TweetDck.Configuration{
     sealed class UserConfig{
         private static readonly IFormatter Formatter = new BinaryFormatter();
 
-        private const int CurrentFileVersion = 8;
+        private const int CurrentFileVersion = 9;
 
         // START OF CONFIGURATION
 
@@ -34,6 +34,7 @@ namespace TweetDck.Configuration{
 
         public bool EnableSpellCheck { get; set; }
         public bool ExpandLinksOnHover { get; set; }
+        public bool SwitchAccountSelectors { get; set; }
         public bool EnableTrayHighlight { get; set; }
 
         public bool EnableUpdateCheck { get; set; }
@@ -121,6 +122,7 @@ namespace TweetDck.Configuration{
             NotificationDurationValue = 25;
             EnableUpdateCheck = true;
             ExpandLinksOnHover = true;
+            SwitchAccountSelectors = true;
             EnableTrayHighlight = true;
             PluginsWindow = new WindowState();
         }
@@ -169,6 +171,11 @@ namespace TweetDck.Configuration{
 
             if (fileVersion == 7){
                 ZoomLevel = 100;
+                ++fileVersion;
+            }
+
+            if (fileVersion == 8){
+                SwitchAccountSelectors = true;
                 ++fileVersion;
             }
 
