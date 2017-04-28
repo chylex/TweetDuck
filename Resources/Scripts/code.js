@@ -124,7 +124,7 @@
     });
     
     tags.push("<style type='text/css'>");
-    tags.push("body { background-color: "+getClassStyleProperty("column", "background-color")+" }"); // set background color
+    tags.push("body { background: "+getClassStyleProperty("column", "background-color")+" }"); // set background color
     tags.push("a[data-full-url] { word-break: break-all }"); // break long urls
     tags.push(".txt-base-smallest .badge-verified:before { height: 13px !important }"); // fix cut off badge icon
     tags.push("</style>");
