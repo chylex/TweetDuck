@@ -1,8 +1,8 @@
 # Build Instructions
 
-The program was build using Visual Studio 2013. After opening the solution, make sure you have **CefSharp.WinForms** and **Microsoft.VC120.CRT.JetBrains** included - if not, download them using NuGet.
+The program was built using Visual Studio 2017. After opening the solution, make sure you have **CefSharp.WinForms** and **Microsoft.VC120.CRT.JetBrains** included - if not, download them using NuGet.
 ```
-PM> Install-Package CefSharp.WinForms -Version 57.0.0-pre01
+PM> Install-Package CefSharp.WinForms -Version 57.0.0
 PM> Install-Package Microsoft.VC120.CRT.JetBrains
 ```
 
