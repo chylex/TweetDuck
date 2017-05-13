@@ -279,6 +279,12 @@ namespace TweetDck.Core{
         }
 
         private void updates_UpdateAccepted(object sender, UpdateAcceptedEventArgs e){
+            foreach(Form form in Application.OpenForms.Cast<Form>().Reverse()){
+                if (form is FormSettings || form is FormPlugins || form is FormAbout){
+                    form.Close();
+                }
+            }
+
             Hide();
 
             FormUpdateDownload downloadForm = new FormUpdateDownload(e.UpdateInfo);
