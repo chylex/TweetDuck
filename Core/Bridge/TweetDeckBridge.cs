@@ -83,6 +83,10 @@ namespace TweetDck.Core.Bridge{
             form.InvokeAsyncSafe(WindowsUtils.ClipboardStripHtmlStyles);
         }
 
+        public int GetIdleSeconds(){
+            return NativeMethods.GetIdleSeconds();
+        }
+
         public void OpenBrowser(string url){
             BrowserUtils.OpenExternalBrowser(url);
         }
