@@ -228,6 +228,73 @@ enabled(){
     this.$pluginSettings.requiresPageReload = enable;
   };
   
+  // animation optimization
+  this.optimizations = null;
+  this.optimizationTimer = null;
+  
+  let clearOptimizationTimer = () => {
+    if (this.optimizationTimer){
+      window.clearTimeout(this.optimizationTimer);
+      this.optimizationTimer = null;
+    }
+  };
+  
+  let runOptimizationTimer = timeout => {
+    if (!this.optimizationTimer){
+      this.optimizationTimer = window.setTimeout(optimizationTimerFunc, timeout);
+    }
+  };
+  
+  let optimizationTimerFunc = () => {
+    this.optimizationTimer = null;
+    
+    if (this.config.optimizeAnimations){
+      $TD.getIdleSeconds().then(s => {
+        if (s >= 16){
+          disableOptimizations();
+          runOptimizationTimer(2500);
+        }
+        else{
+          injectOptimizations();
+        }
+      });
+    }
+  };
+  
+  let injectOptimizations = force => {
+    if (!this.optimizations && (force || document.hasFocus())){
+      this.optimizations = window.TDPF_createCustomStyle(this);
+      this.optimizations.insert(".app-content { will-change: transform }");
+      this.optimizations.insert(".column-holder { will-change: transform }");
+    }
+    
+    clearOptimizationTimer();
+    runOptimizationTimer(10000);
+  };
+  
+  let disableOptimizations = () => {
+    if (this.optimizations){
+      this.optimizations.remove();
+      this.optimizations = null;
+    }
+  };
+  
+  this.onWindowFocusEvent = () => {
+    if (this.config.optimizeAnimations){
+      injectOptimizations(true);
+    }
+  };
+  
+  this.onWindowBlurEvent = () => {
+    if (this.config.optimizeAnimations){
+      disableOptimizations();
+      clearOptimizationTimer();
+    }
+  };
+  
+  $(window).on("focus", this.onWindowFocusEvent);
+  $(window).on("blur", this.onWindowBlurEvent);
+  
   // css and layout injection
   this.resetDesign = () => {
     if (this.css){
@@ -239,6 +306,15 @@ enabled(){
   
   this.reinjectAll = () => {
     this.resetDesign();
+    
+    clearOptimizationTimer();
+    
+    if (this.config.optimizeAnimations){
+      injectOptimizations();
+    }
+    else{
+      disableOptimizations();
+    }
     
     this.css.insert("#general_settings .cf { display: none !important }");
     this.css.insert("#general_settings .divider-bar::after { display: inline-block; padding-top: 10px; line-height: 17px; content: 'Use the new | Edit layout & design | option in the Settings to modify TweetDeck theme, column width, font size, and other features.' }");
@@ -269,11 +345,6 @@ enabled(){
       this.css.insert(".antiscroll-scrollbar { border-radius: 0 }");
       this.css.insert(".antiscroll-scrollbar-vertical { margin-top: 0 }");
       this.css.insert(".antiscroll-scrollbar-horizontal { margin-left: 0 }");
-    }
-    
-    if (this.config.optimizeAnimations){
-      this.css.insert(".app-content { will-change: transform }");
-      this.css.insert(".column-holder { will-change: transform }");
     }
     
     if (this.config.columnWidth[0] === '/'){
@@ -352,7 +423,17 @@ disabled(){
     this.css.remove();
   }
   
+  if (this.optimizations){
+    this.optimizations.remove();
+  }
+  
+  if (this.optimizationTimer){
+    window.clearTimeout(this.optimizationTimer);
+  }
+  
   $(document).off("uiShowActionsMenu", this.uiShowActionsMenuEvent);
+  $(window).off("focus", this.onWindowFocusEvent);
+  $(window).off("blur", this.onWindowBlurEvent);
   
   $("[data-action='settings-menu']").off("click", this.onSettingsMenuClickedEvent);
   $("#td-design-plugin-modal").remove();
