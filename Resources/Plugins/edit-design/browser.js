@@ -200,6 +200,7 @@ enabled(){
       setTimeout(function(){
         TD.settings.setTheme($(this).attr("data-td-theme"));
         $(document).trigger("uiToggleTheme");
+        me.reinjectAll();
       }, 1);
     });
   }).methods({
@@ -318,6 +319,17 @@ enabled(){
     
     this.css.insert(".txt-base-smallest:not(.icon), .txt-base-largest:not(.icon) { font-size: "+this.config.fontSize+" !important }");
     this.css.insert(".avatar { border-radius: "+this.config.avatarRadius+"% !important }");
+    
+    switch(TD.settings.getTheme()){
+      case "dark":
+        this.css.insert(".app-content, .app-columns-container { background-color: #444448 }");
+        break;
+        
+      case "light":
+        this.css.insert(".scroll-styled-v::-webkit-scrollbar-thumb, .scroll-styled-h::-webkit-scrollbar-thumb { background-color: #d2d6da }");
+        this.css.insert(".app-columns-container.scroll-styled-h::-webkit-scrollbar-thumb:not(:hover) { background-color: #a5aeb5 }");
+        break;
+    }
     
     if (this.config.hideTweetActions){
       this.css.insert(".tweet-action { opacity: 0; }");
