@@ -292,9 +292,6 @@ enabled(){
     }
   };
   
-  $(window).on("focus", this.onWindowFocusEvent);
-  $(window).on("blur", this.onWindowBlurEvent);
-  
   // css and layout injection
   this.resetDesign = () => {
     if (this.css){
@@ -409,6 +406,10 @@ ready(){
   }
   
   this.onAppReady();
+  
+  // optimization events
+  $(window).on("focus", this.onWindowFocusEvent);
+  $(window).on("blur", this.onWindowBlurEvent);
   
   // layout events
   $(document).on("uiShowActionsMenu", this.uiShowActionsMenuEvent);
