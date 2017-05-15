@@ -548,12 +548,11 @@
     styleOfficial.sheet.insertRule(".txt-base-smallest .sprite-verified-mini { width: 13px !important; height: 13px !important; background-position: -223px -99px !important; }", 0); // fix cut off badge icon when zoomed in
     styleOfficial.sheet.insertRule(".keyboard-shortcut-list { vertical-align: top; }", 0); // fix keyboard navigation alignment
     styleOfficial.sheet.insertRule(".sprite-logo { background-position: -5px -46px !important; }", 0); // fix TweetDeck logo on certain zoom levels
-    styleOfficial.sheet.insertRule(".app-columns-container::-webkit-scrollbar-track { border-left: 0 }", 0); // remove weird border in the column container scrollbar
-    styleOfficial.sheet.insertRule(".app-navigator .tooltip { display: none !important }", 0); // hide broken tooltips in the menu
-    styleOfficial.sheet.insertRule(".account-inline .username { vertical-align: 10% }", 0); // move usernames a bit higher
+    styleOfficial.sheet.insertRule(".app-navigator .tooltip { display: none !important; }", 0); // hide broken tooltips in the menu
+    styleOfficial.sheet.insertRule(".account-inline .username { vertical-align: 10%; }", 0); // move usernames a bit higher
     
-    styleOfficial.sheet.insertRule(".js-accounts-column-holder { bottom: 4px; }", 0); // fix white bar on the bottom
-    styleOfficial.sheet.insertRule(".drawer[data-drawer='accountSettings'] { background-color: #ccd6dd; }", 0); // fix white bar on the bottom
+    styleOfficial.sheet.insertRule(".app-columns-container::-webkit-scrollbar-track { border-left: 0; }", 0); // remove weird border in the column container scrollbar
+    styleOfficial.sheet.insertRule(".app-columns-container { bottom: 0 !important; }", 0); // move column container scrollbar to bottom to fit updated style
     
     styleOfficial.sheet.insertRule(".is-video a:not([href*='youtu']), .is-gif .js-media-gif-container { cursor: alias; }", 0); // change cursor on unsupported videos
     styleOfficial.sheet.insertRule(".is-video a:not([href*='youtu']) .icon-bg-dot, .is-gif .icon-bg-dot { color: #bd3d37; }", 0); // change play icon color on unsupported videos
