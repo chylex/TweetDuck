@@ -54,7 +54,14 @@ namespace TweetDck.Core.Notification{
 
         public new Point Location{
             get => base.Location;
-            set => Visible = (base.Location = value) != ControlExtensions.InvisibleLocation;
+
+            set{
+                Visible = (base.Location = value) != ControlExtensions.InvisibleLocation;
+                
+                if (WindowsUtils.ShouldAvoidToolWindow){
+                    FormBorderStyle = Visible ? FormBorderStyle.FixedSingle : FormBorderStyle.FixedToolWindow; // workaround for alt+tab
+                }
+            }
         }
         
         public Func<bool> CanMoveWindow = () => true;
@@ -105,10 +112,6 @@ namespace TweetDck.Core.Notification{
                 this.browser.Dispose();
                 this.owner.FormClosed -= owner_FormClosed;
             };
-            
-            if (WindowsUtils.ShouldAvoidToolWindow){
-                FormBorderStyle = FormBorderStyle.FixedSingle;
-            }
 
             // ReSharper disable once VirtualMemberCallInContructor
             UpdateTitle();
