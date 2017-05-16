@@ -1,31 +1,31 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetDck", "TweetDck.csproj", "{2389A7CD-E0D3-4706-8294-092929A33A2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetDuck.Browser", "subprocess\TweetDuck.Browser.csproj", "{B10B0017-819E-4F71-870F-8256B36A26AA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "tests\UnitTests.csproj", "{A958FA7A-4A2C-42A7-BFA0-159343483F4E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
-		Release|Any CPU = Release|Any CPU
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2389A7CD-E0D3-4706-8294-092929A33A2D}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{2389A7CD-E0D3-4706-8294-092929A33A2D}.Debug|x86.ActiveCfg = Debug|x86
 		{2389A7CD-E0D3-4706-8294-092929A33A2D}.Debug|x86.Build.0 = Debug|x86
 		{2389A7CD-E0D3-4706-8294-092929A33A2D}.Debug|x86.Deploy.0 = Debug|x86
-		{2389A7CD-E0D3-4706-8294-092929A33A2D}.Release|Any CPU.ActiveCfg = Release|x86
 		{2389A7CD-E0D3-4706-8294-092929A33A2D}.Release|x86.ActiveCfg = Release|x86
 		{2389A7CD-E0D3-4706-8294-092929A33A2D}.Release|x86.Build.0 = Release|x86
-		{A958FA7A-4A2C-42A7-BFA0-159343483F4E}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{A958FA7A-4A2C-42A7-BFA0-159343483F4E}.Debug|x86.ActiveCfg = Debug|x86
 		{A958FA7A-4A2C-42A7-BFA0-159343483F4E}.Debug|x86.Build.0 = Debug|x86
-		{A958FA7A-4A2C-42A7-BFA0-159343483F4E}.Release|Any CPU.ActiveCfg = Release|x86
 		{A958FA7A-4A2C-42A7-BFA0-159343483F4E}.Release|x86.ActiveCfg = Release|x86
+		{B10B0017-819E-4F71-870F-8256B36A26AA}.Debug|x86.ActiveCfg = Debug|x86
+		{B10B0017-819E-4F71-870F-8256B36A26AA}.Debug|x86.Build.0 = Debug|x86
+		{B10B0017-819E-4F71-870F-8256B36A26AA}.Release|x86.ActiveCfg = Release|x86
+		{B10B0017-819E-4F71-870F-8256B36A26AA}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -37,7 +37,7 @@ using TweetDck;
 [assembly: AssemblyVersion(Program.VersionFull)]
 [assembly: AssemblyFileVersion(Program.VersionFull)]
 
-[assembly: NeutralResourcesLanguageAttribute("en")]
+[assembly: NeutralResourcesLanguage("en")]
 
 [assembly: CLSCompliant(false)]
 

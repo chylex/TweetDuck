@@ -133,10 +133,10 @@ namespace TweetDck{
                 AcceptLanguageList = BrowserUtils.HeaderAcceptLanguage,
                 UserAgent = BrowserUtils.HeaderUserAgent,
                 Locale = Arguments.GetValue(Arguments.ArgLocale, string.Empty),
+                BrowserSubprocessPath = BrandName+".Browser.exe",
                 CachePath = StoragePath,
                 LogFile = ConsoleLogFilePath,
                 #if !DEBUG
-                BrowserSubprocessPath = BrandName+".Browser.exe",
                 LogSeverity = Arguments.HasFlag(Arguments.ArgLogging) ? LogSeverity.Info : LogSeverity.Disable
                 #endif
             };
