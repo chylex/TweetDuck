@@ -662,6 +662,17 @@
   });
   
   //
+  // Block: Fix DM notifications not showing if the conversation is open.
+  //
+  (function(prevFunc){
+    TD.services.TwitterConversation.prototype.getUnreadChirps = function(e){
+      return (e && e.sortIndex && !e.id && !this.notificationsDisabled)
+        ? this.messages.filter(t => t.chirpType === TD.services.ChirpBase.MESSAGE && !t.isOwnChirp() && !t.read && !t.belongsBelow(e)) // changed from belongsAbove
+        : prevFunc.apply(this, arguments);
+    };
+  })(TD.services.TwitterConversation.prototype.getUnreadChirps);
+  
+  //
   // Block: Disable TweetDeck metrics.
   //
   TD.metrics.inflate = function(){};
