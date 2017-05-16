@@ -134,8 +134,6 @@
     tags.push(".txt-base-smallest .badge-verified:before { height: 13px !important }"); // fix cut off badge icon
     tags.push(".activity-header { align-items: center !important; margin-bottom: 4px }"); // tweak alignment of avatar and text in notifications
     tags.push(".activity-header .tweet-timestamp { line-height: unset }"); // fix timestamp position in notifications
-    tags.push(".activity-header + .tweet .tweet-context { margin-left: -35px }"); // move tweet context under header to the right
-    tags.push(".activity-header + .tweet .tweet-context .obj-left { margin-right: 5px }"); // tweak reply icon margin
     tags.push("</style>");
     
     return tags.join("");
@@ -559,10 +557,8 @@
     styleOfficial.sheet.insertRule(".sprite-logo { background-position: -5px -46px !important; }", 0); // fix TweetDeck logo on certain zoom levels
     styleOfficial.sheet.insertRule(".app-navigator .tooltip { display: none !important; }", 0); // hide broken tooltips in the menu
     styleOfficial.sheet.insertRule(".account-inline .username { vertical-align: 10%; }", 0); // move usernames a bit higher
-    
-    styleOfficial.sheet.insertRule(".activity-header { align-items: center !important; }", 0); // tweak alignment of avatar and text in notifications
-    styleOfficial.sheet.insertRule(".activity-header + .tweet .tweet-context { margin-left: -35px }", 0); // move tweet context under header to the right
-    styleOfficial.sheet.insertRule(".activity-header + .tweet .tweet-context .obj-left { margin-right: 5px }", 0); // tweak reply icon margin
+    styleOfficial.sheet.insertRule(".activity-header { align-items: center !important; margin-bottom: 4px; }", 0); // tweak alignment of avatar and text in notifications
+    styleOfficial.sheet.insertRule(".activity-header .tweet-timestamp { line-height: unset }"); // fix timestamp position in notifications
     
     styleOfficial.sheet.insertRule(".app-columns-container::-webkit-scrollbar-track { border-left: 0; }", 0); // remove weird border in the column container scrollbar
     styleOfficial.sheet.insertRule(".app-columns-container { bottom: 0 !important; }", 0); // move column container scrollbar to bottom to fit updated style

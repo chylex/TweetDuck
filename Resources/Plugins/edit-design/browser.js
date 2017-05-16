@@ -361,6 +361,11 @@ enabled(){
       this.css.insert(".antiscroll-scrollbar-horizontal { margin-left: 0 }");
     }
     
+    if (this.config.revertReplies){
+      this.css.insert(".activity-header + .tweet .tweet-context { margin-left: -35px }");
+      this.css.insert(".activity-header + .tweet .tweet-context .obj-left { margin-right: 5px }");
+    }
+    
     if (this.config.columnWidth[0] === '/'){
       let cols = this.config.columnWidth.slice(1);
       
@@ -397,6 +402,7 @@ enabled(){
       "<style type='text/css'>",
       ".txt-base-smallest:not(.icon), .txt-base-largest:not(.icon) { font-size: "+this.config.fontSize+" !important }",
       ".avatar { border-radius: "+this.config.avatarRadius+"% !important }",
+      (this.config.revertReplies ? ".activity-header + .tweet .tweet-context { margin-left: -35px } .activity-header + .tweet .tweet-context .obj-left { margin-right: 5px }" : ""),
       "</style>"
     ].join(""));
   };
