@@ -80,43 +80,76 @@
   //
   // Function: Event callback for a new tweet.
   //
-  var onNewTweet = function(column, tweet){
-    if (column.model.getHasNotification()){
-      let html = $(tweet.render({
-        withFooter: false,
-        withTweetActions: false,
-        withMediaPreview: true,
-        isMediaPreviewOff: true,
-        isMediaPreviewSmall: false,
-        isMediaPreviewLarge: false
-      }));
-      
-      html.css("border", "0");
-      html.find("footer").last().remove(); // apparently withTweetActions breaks for certain tweets, nice
-      html.find(".js-media").last().remove(); // and quoted tweets still show media previews, nice nice
-      html.find(".js-quote-detail").removeClass("is-actionable"); // prevent quoted tweets from changing the cursor
-      
-      html.find("a[href='#']").each(function(){ // remove <a> tags around links that don't lead anywhere (such as account names the tweet replied to)
-        this.outerHTML = this.innerHTML;
-      });
-      
-      if (tweet.getChirpType().includes("list_member")){
-        html.find(".activity-header").first().css("margin-top", "2px");
-        html.find(".avatar").first().css("margin-bottom", "0");
+  var onNewTweet = (function(){
+    let recentTweets = new Set();
+    let recentTweetTimer = null;
+    
+    let startRecentTweetTimer = () => {
+      if (recentTweetTimer){
+        window.clearTimeout(recentTweetTimer);
       }
       
-      let source = tweet.getRelatedTweet();
-      let duration = source ? source.text.length+(source.quotedTweet ? source.quotedTweet.text.length : 0) : tweet.text.length;
-      let tweetUrl = source ? source.getChirpURL() : "";
-      let quoteUrl = source && source.quotedTweet ? source.quotedTweet.getChirpURL() : "";
-      
-      $TD.onTweetPopup(columnTypes[column.getColumnType()] || "", html.html(), duration, tweetUrl, quoteUrl);
-    }
+      recentTweetTimer = window.setTimeout(() => {
+        recentTweetTimer = null;
+        recentTweets.clear();
+      }, 10000);
+    };
     
-    if (column.model.getHasSound()){
-      $TD.onTweetSound();
-    }
-  };
+    let checkRecentTweet = id => {
+      if (recentTweets.size > 50){
+        recentTweets.clear();
+      }
+      else if (recentTweets.has(id)){
+        return true;
+      }
+      
+      recentTweets.add(id);
+      startRecentTweetTimer();
+      return false;
+    };
+    
+    return function(column, tweet){
+      if (checkRecentTweet(tweet.id)){
+        return;
+      }
+      
+      if (column.model.getHasNotification()){
+        let html = $(tweet.render({
+          withFooter: false,
+          withTweetActions: false,
+          withMediaPreview: true,
+          isMediaPreviewOff: true,
+          isMediaPreviewSmall: false,
+          isMediaPreviewLarge: false
+        }));
+
+        html.css("border", "0");
+        html.find("footer").last().remove(); // apparently withTweetActions breaks for certain tweets, nice
+        html.find(".js-media").last().remove(); // and quoted tweets still show media previews, nice nice
+        html.find(".js-quote-detail").removeClass("is-actionable"); // prevent quoted tweets from changing the cursor
+
+        html.find("a[href='#']").each(function(){ // remove <a> tags around links that don't lead anywhere (such as account names the tweet replied to)
+          this.outerHTML = this.innerHTML;
+        });
+
+        if (tweet.getChirpType().includes("list_member")){
+          html.find(".activity-header").first().css("margin-top", "2px");
+          html.find(".avatar").first().css("margin-bottom", "0");
+        }
+
+        let source = tweet.getRelatedTweet();
+        let duration = source ? source.text.length+(source.quotedTweet ? source.quotedTweet.text.length : 0) : tweet.text.length;
+        let tweetUrl = source ? source.getChirpURL() : "";
+        let quoteUrl = source && source.quotedTweet ? source.quotedTweet.getChirpURL() : "";
+
+        $TD.onTweetPopup(columnTypes[column.getColumnType()] || "", html.html(), duration, tweetUrl, quoteUrl);
+      }
+
+      if (column.model.getHasSound()){
+        $TD.onTweetSound();
+      }
+    };
+  })();
   
   //
   // Function: Retrieves the tags to be put into <head> for notification HTML code.
