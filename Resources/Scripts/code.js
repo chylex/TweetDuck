@@ -557,8 +557,9 @@
     styleOfficial.sheet.insertRule(".sprite-logo { background-position: -5px -46px !important; }", 0); // fix TweetDeck logo on certain zoom levels
     styleOfficial.sheet.insertRule(".app-navigator .tooltip { display: none !important; }", 0); // hide broken tooltips in the menu
     styleOfficial.sheet.insertRule(".account-inline .username { vertical-align: 10%; }", 0); // move usernames a bit higher
+    
     styleOfficial.sheet.insertRule(".activity-header { align-items: center !important; margin-bottom: 4px; }", 0); // tweak alignment of avatar and text in notifications
-    styleOfficial.sheet.insertRule(".activity-header .tweet-timestamp { line-height: unset }"); // fix timestamp position in notifications
+    styleOfficial.sheet.insertRule(".activity-header .tweet-timestamp { line-height: unset }", 0); // fix timestamp position in notifications
     
     styleOfficial.sheet.insertRule(".app-columns-container::-webkit-scrollbar-track { border-left: 0; }", 0); // remove weird border in the column container scrollbar
     styleOfficial.sheet.insertRule(".app-columns-container { bottom: 0 !important; }", 0); // move column container scrollbar to bottom to fit updated style
