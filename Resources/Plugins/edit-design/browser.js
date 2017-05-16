@@ -359,6 +359,7 @@ enabled(){
       this.css.insert(".antiscroll-scrollbar { border-radius: 0 }");
       this.css.insert(".antiscroll-scrollbar-vertical { margin-top: 0 }");
       this.css.insert(".antiscroll-scrollbar-horizontal { margin-left: 0 }");
+      this.css.insert(".app-columns-container::-webkit-scrollbar { height: 9px !important }");
     }
     
     if (this.config.revertReplies){
