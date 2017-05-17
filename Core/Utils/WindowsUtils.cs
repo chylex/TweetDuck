@@ -54,6 +54,21 @@ namespace TweetDuck.Core.Utils{
             return false;
         }
 
+        public static void TryDeleteFolderWhenAble(string path, int timeout){
+            new Thread(() => {
+                TrySleepUntil(() => {
+                    try{
+                        Directory.Delete(path, true);
+                        return true;
+                    }catch(DirectoryNotFoundException){
+                        return true;
+                    }catch{
+                        return false;
+                    }
+                }, timeout, 500);
+            }).Start();
+        }
+
         public static void ClipboardStripHtmlStyles(){
             if (!Clipboard.ContainsText(TextDataFormat.Html)){
                 return;
