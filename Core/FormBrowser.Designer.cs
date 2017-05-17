@@ -41,6 +41,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Activated += new System.EventHandler(this.FormBrowser_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormBrowser_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormBrowser_FormClosed);
             this.ResizeEnd += new System.EventHandler(this.FormBrowser_ResizeEnd);
             this.Resize += new System.EventHandler(this.FormBrowser_Resize);
             this.ResumeLayout(false);

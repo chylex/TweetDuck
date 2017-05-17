@@ -255,6 +255,7 @@
     <Compile Include="Core\Utils\NativeMethods.cs" />
     <Compile Include="Updates\Events\UpdateAcceptedEventArgs.cs" />
     <Compile Include="Updates\Events\UpdateCheckEventArgs.cs" />
+    <Compile Include="Updates\UpdateDownloadStatus.cs" />
     <Compile Include="Updates\UpdateHandler.cs" />
     <Compile Include="Updates\UpdateInfo.cs" />
     <Compile Include="Program.cs" />

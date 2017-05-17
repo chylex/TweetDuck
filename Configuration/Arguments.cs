@@ -12,6 +12,7 @@ namespace TweetDuck.Configuration{
         // internal args
         public const string ArgRestart = "-restart";
         public const string ArgImportCookies = "-importcookies";
+        public const string ArgUpdated = "-updated";
 
         // class data and methods
         private static readonly CommandLineArgs Current = CommandLineArgs.FromStringArray('-', Environment.GetCommandLineArgs());
@@ -28,7 +29,18 @@ namespace TweetDuck.Configuration{
             CommandLineArgs args = Current.Clone();
             args.RemoveFlag(ArgRestart);
             args.RemoveFlag(ArgImportCookies);
+            args.RemoveFlag(ArgUpdated);
             return args;
+        }
+
+        public static CommandLineArgs GetCurrentForInstaller(){
+            CommandLineArgs args = GetCurrentClean();
+            args.AddFlag(ArgUpdated);
+            return args;
+        }
+
+        public static string GetCurrentForInstallerCmd(){
+            return GetCurrentForInstaller().ToString().Replace("\"", "^\"");
         }
     }
 }

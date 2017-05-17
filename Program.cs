@@ -34,6 +34,7 @@ namespace TweetDuck{
         public static readonly string PluginConfigFilePath = Path.Combine(StoragePath, "TD_PluginConfig.cfg");
         private static readonly string ErrorLogFilePath = Path.Combine(StoragePath, "TD_Log.txt");
         private static readonly string ConsoleLogFilePath = Path.Combine(StoragePath, "TD_Console.txt");
+        private static readonly string InstallerPath = Path.Combine(StoragePath, "TD_Updates");
         
         public static readonly string ScriptPath = Path.Combine(ProgramPath, "scripts");
         public static readonly string PluginPath = Path.Combine(ProgramPath, "plugins");
@@ -126,6 +127,10 @@ namespace TweetDuck{
             if (Arguments.HasFlag(Arguments.ArgImportCookies)){
                 ExportManager.ImportCookies();
             }
+
+            if (Arguments.HasFlag(Arguments.ArgUpdated)){
+                WindowsUtils.TryDeleteFolderWhenAble(InstallerPath, 8000);
+            }
             
             CefSharpSettings.WcfEnabled = false;
 
@@ -163,7 +168,8 @@ namespace TweetDuck{
 
             FormBrowser mainForm = new FormBrowser(plugins, new UpdaterSettings{
                 AllowPreReleases = Arguments.HasFlag(Arguments.ArgDebugUpdates),
-                DismissedUpdate = UserConfig.DismissedUpdate
+                DismissedUpdate = UserConfig.DismissedUpdate,
+                InstallerDownloadFolder = InstallerPath
             });
 
             Application.Run(mainForm);
@@ -172,7 +178,7 @@ namespace TweetDuck{
                 ExitCleanup();
 
                 // ProgramPath has a trailing backslash
-                string updaterArgs = "/SP- /SILENT /CLOSEAPPLICATIONS /UPDATEPATH=\""+ProgramPath+"\" /RUNARGS=\""+Arguments.GetCurrentClean().ToString().Replace("\"", "^\"")+"\""+(IsPortable ? " /PORTABLE=1" : "");
+                string updaterArgs = "/SP- /SILENT /CLOSEAPPLICATIONS /UPDATEPATH=\""+ProgramPath+"\" /RUNARGS=\""+Arguments.GetCurrentForInstallerCmd()+"\""+(IsPortable ? " /PORTABLE=1" : "");
                 bool runElevated = !IsPortable || !WindowsUtils.CheckFolderWritePermission(ProgramPath);
 
                 WindowsUtils.StartProcess(mainForm.UpdateInstallerPath, updaterArgs, runElevated);

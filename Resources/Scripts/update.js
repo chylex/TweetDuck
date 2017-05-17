@@ -113,7 +113,7 @@
       ele.remove();
       
       if (download){
-        $TDU.onUpdateAccepted(version, download);
+        $TDU.onUpdateAccepted();
       }
       else{
         $TDU.openBrowser(updateDownloadFallback);
@@ -125,7 +125,7 @@
     });
 
     buttonDiv.children(".tdu-btn-dismiss,.tdu-btn-unsupported").click(function(){
-      $TDU.onUpdateDismissed(version);
+      $TDU.onUpdateDismissed();
       ele.slideUp(function(){ ele.remove(); });
     });
     
@@ -161,10 +161,13 @@
       if (hasUpdate){
         var obj = release.assets.find(asset => asset.name === updateFileName) || { browser_download_url: "" };
         displayNotification(tagName, obj.browser_download_url);
+        
+        if (eventID){ // ignore undefined and 0
+          $TDU.onUpdateCheckFinished(eventID, tagName, obj.browser_download_url);
+        }
       }
-      
-      if (eventID){ // ignore undefined and 0
-        $TDU.onUpdateCheckFinished(eventID, hasUpdate, tagName);
+      else if (eventID){ // ignore undefined and 0
+        $TDU.onUpdateCheckFinished(eventID, null, null);
       }
     });
   };

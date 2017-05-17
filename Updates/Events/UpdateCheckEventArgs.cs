@@ -3,13 +3,13 @@ using System;
 namespace TweetDuck.Updates.Events{
     class UpdateCheckEventArgs : EventArgs{
         public int EventId { get; }
-        public bool UpdateAvailable { get; }
-        public string LatestVersion { get; }
+        public UpdateInfo UpdateInfo { get; }
 
-        public UpdateCheckEventArgs(int eventId, bool updateAvailable, string latestVersion){
+        public bool UpdateAvailable => UpdateInfo != null;
+
+        public UpdateCheckEventArgs(int eventId, UpdateInfo updateInfo){
             EventId = eventId;
-            UpdateAvailable = updateAvailable;
-            LatestVersion = latestVersion;
+            UpdateInfo = updateInfo;
         }
     }
 }

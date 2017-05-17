@@ -247,6 +247,12 @@ namespace TweetDuck.Core{
             }
         }
 
+        private void FormBrowser_FormClosed(object sender, FormClosedEventArgs e){
+            if (isLoaded && UpdateInstallerPath == null){
+                updates.CleanupDownload();
+            }
+        }
+
         private void Config_MuteToggled(object sender, EventArgs e){
             UpdateProperties(PropertyBridge.Properties.MuteNotifications);
         }
@@ -284,24 +290,14 @@ namespace TweetDuck.Core{
                     form.Close();
                 }
             }
+            
+            updates.BeginUpdateDownload(this, e.UpdateInfo, update => {
+                if (update.DownloadStatus == UpdateDownloadStatus.Done){
+                    UpdateInstallerPath = update.InstallerPath;
+                }
 
-            Hide();
-
-            FormUpdateDownload downloadForm = new FormUpdateDownload(e.UpdateInfo);
-            downloadForm.MoveToCenter(this);
-            downloadForm.ShowDialog();
-            downloadForm.Dispose();
-
-            if (downloadForm.UpdateStatus == FormUpdateDownload.Status.Succeeded){
-                UpdateInstallerPath = downloadForm.InstallerPath;
                 ForceClose();
-            }
-            else if (downloadForm.UpdateStatus == FormUpdateDownload.Status.Manual){
-                ForceClose();
-            }
-            else{
-                Show();
-            }
+            });
         }
 
         private void updates_UpdateDismissed(object sender, UpdateDismissedEventArgs e){

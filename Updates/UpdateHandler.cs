@@ -1,6 +1,7 @@
 ﻿using CefSharp;
 using CefSharp.WinForms;
 using System;
+using System.Windows.Forms;
 using TweetDuck.Core;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
@@ -20,6 +21,7 @@ namespace TweetDuck.Updates{
         public event EventHandler<UpdateCheckEventArgs> CheckFinished;
 
         private int lastEventId;
+        private UpdateInfo lastUpdateInfo;
 
         public UpdateHandler(ChromiumWebBrowser browser, FormBrowser form, UpdaterSettings settings){
             this.browser = browser;
@@ -53,6 +55,40 @@ namespace TweetDuck.Updates{
             }
             
             return -1;
+        }
+
+        public void BeginUpdateDownload(Form ownerForm, UpdateInfo updateInfo, Action<UpdateInfo> onSuccess){
+            if (updateInfo.DownloadStatus == UpdateDownloadStatus.Done){
+                onSuccess(updateInfo);
+            }
+            else{
+                FormUpdateDownload downloadForm = new FormUpdateDownload(updateInfo);
+
+                downloadForm.VisibleChanged += (sender, args) => {
+                    downloadForm.MoveToCenter(ownerForm);
+                    ownerForm.Hide();
+                };
+
+                downloadForm.FormClosed += (sender, args) => {
+                    downloadForm.Dispose();
+                    
+                    if (downloadForm.DialogResult == DialogResult.OK){ // success or manual download
+                        onSuccess(updateInfo);
+                    }
+                    else{
+                        ownerForm.Show();
+                    }
+                };
+
+                downloadForm.Show();
+            }
+        }
+
+        public void CleanupDownload(){
+            if (lastUpdateInfo != null){
+                lastUpdateInfo.DeleteInstaller();
+                lastUpdateInfo = null;
+            }
         }
 
         public void DismissUpdate(string tag){
@@ -90,16 +126,27 @@ namespace TweetDuck.Updates{
                 owner.Check(false);
             }
 
-            public void OnUpdateCheckFinished(int eventId, bool isUpdateAvailable, string latestVersion){
-                owner.TriggerCheckFinishedEvent(new UpdateCheckEventArgs(eventId, isUpdateAvailable, latestVersion));
+            public void OnUpdateCheckFinished(int eventId, string versionTag, string downloadUrl){
+                if (versionTag != null && (owner.lastUpdateInfo == null || owner.lastUpdateInfo.VersionTag != versionTag)){
+                    owner.CleanupDownload();
+                    owner.lastUpdateInfo = new UpdateInfo(owner.settings, versionTag, downloadUrl);
+                    owner.lastUpdateInfo.BeginSilentDownload();
+                }
+
+                owner.TriggerCheckFinishedEvent(new UpdateCheckEventArgs(eventId, owner.lastUpdateInfo));
             }
 
-            public void OnUpdateAccepted(string versionTag, string downloadUrl){
-                owner.TriggerUpdateAcceptedEvent(new UpdateAcceptedEventArgs(new UpdateInfo(versionTag, downloadUrl)));
+            public void OnUpdateAccepted(){
+                if (owner.lastUpdateInfo != null){
+                    owner.TriggerUpdateAcceptedEvent(new UpdateAcceptedEventArgs(owner.lastUpdateInfo));
+                }
             }
 
-            public void OnUpdateDismissed(string versionTag){
-                owner.TriggerUpdateDismissedEvent(new UpdateDismissedEventArgs(versionTag));
+            public void OnUpdateDismissed(){
+                if (owner.lastUpdateInfo != null){
+                    owner.TriggerUpdateDismissedEvent(new UpdateDismissedEventArgs(owner.lastUpdateInfo.VersionTag));
+                    owner.CleanupDownload();
+                }
             }
 
             public void OpenBrowser(string url){
