@@ -13,6 +13,8 @@ namespace TweetDuck.Core.Utils{
 
         public const int HWND_TOPMOST = -1;
         public const uint SWP_NOACTIVATE = 0x0010;
+        public const int WS_DISABLED = 0x08000000;
+        public const int GWL_STYLE = -16;
 
         public const int SB_HORZ = 0;
         public const int BCM_SETSHIELD = 0x160C;
@@ -83,8 +85,23 @@ namespace TweetDuck.Core.Utils{
         [DllImport("user32.dll")]
         public static extern IntPtr CallNextHookEx(IntPtr idHook, int nCode, IntPtr wParam, IntPtr lParam);
 
+        [DllImport("user32.dll")]
+        private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32.dll")]
+        private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
         public static void SetFormPos(Form form, int hWndOrder, uint flags){
             SetWindowPos(form.Handle.ToInt32(), hWndOrder, form.Left, form.Top, form.Width, form.Height, flags);
+        }
+
+        public static void SetFormDisabled(Form form, bool disabled){
+            if (disabled){
+                SetWindowLong(form.Handle, GWL_STYLE, GetWindowLong(form.Handle, GWL_STYLE) | WS_DISABLED);
+            }
+            else{
+                SetWindowLong(form.Handle, GWL_STYLE, GetWindowLong(form.Handle, GWL_STYLE) & ~WS_DISABLED);
+            }
         }
 
         public static int GetMouseHookData(IntPtr ptr){

@@ -83,25 +83,46 @@ namespace TweetDuck.Core.Other.Settings{
         private void btnEditCefArgs_Click(object sender, EventArgs e){
             DialogSettingsCefArgs form = new DialogSettingsCefArgs();
 
-            if (form.ShowDialog(ParentForm) == DialogResult.OK){
-                Config.CustomCefArgs = form.CefArgs;
-                form.Dispose();
-                PromptRestart();
-            }
-            else{
-                form.Dispose();
-            }
+            form.VisibleChanged += (sender2, args2) => {
+                form.MoveToCenter(ParentForm);
+            };
+
+            form.FormClosed += (sender2, args2) => {
+                NativeMethods.SetFormDisabled(ParentForm, false);
+
+                if (form.DialogResult == DialogResult.OK){
+                    Config.CustomCefArgs = form.CefArgs;
+                    form.Dispose();
+                    PromptRestart();
+                }
+                else form.Dispose();
+            };
+            
+            form.Show(ParentForm);
+            NativeMethods.SetFormDisabled(ParentForm, true);
         }
 
         private void btnEditCSS_Click(object sender, EventArgs e){
-            using(DialogSettingsCSS form = new DialogSettingsCSS(reinjectBrowserCSS)){
-                if (form.ShowDialog(ParentForm) == DialogResult.OK){
+            DialogSettingsCSS form = new DialogSettingsCSS(reinjectBrowserCSS);
+
+            form.VisibleChanged += (sender2, args2) => {
+                form.MoveToCenter(ParentForm);
+            };
+
+            form.FormClosed += (sender2, args2) => {
+                NativeMethods.SetFormDisabled(ParentForm, false);
+
+                if (form.DialogResult == DialogResult.OK){
                     Config.CustomBrowserCSS = form.BrowserCSS;
                     Config.CustomNotificationCSS = form.NotificationCSS;
                 }
 
                 reinjectBrowserCSS(Config.CustomBrowserCSS); // reinject on cancel too, because the CSS is updated while typing
-            }
+                form.Dispose();
+            };
+            
+            form.Show(ParentForm);
+            NativeMethods.SetFormDisabled(ParentForm, true);
         }
 
         private void btnExport_Click(object sender, EventArgs e){
