@@ -3,16 +3,22 @@ using System.Drawing;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using TweetDck.Core;
-using TweetDck.Core.Controls;
-using TweetDck.Core.Notification;
-using TweetDck.Core.Utils;
-using TweetDck.Plugins;
+using TweetDuck.Core;
+using TweetDuck.Core.Controls;
+using TweetDuck.Core.Notification;
+using TweetDuck.Core.Utils;
+using TweetDuck.Plugins;
 
-namespace TweetDck.Configuration{
+namespace TweetDuck.Configuration{
     [Serializable]
     sealed class UserConfig{
-        private static readonly IFormatter Formatter = new BinaryFormatter();
+        private static readonly IFormatter Formatter = new BinaryFormatter{ Binder = new LegacyBinder() };
+
+        private class LegacyBinder : SerializationBinder{
+            public override Type BindToType(string assemblyName, string typeName){
+                return Type.GetType(string.Format("{0}, {1}", typeName.Replace("TweetDck", "TweetDuck"), assemblyName.Replace("TweetDck", "TweetDuck")));
+            }
+        }
 
         private const int CurrentFileVersion = 9;
 

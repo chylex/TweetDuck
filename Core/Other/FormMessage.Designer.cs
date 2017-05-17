@@ -1,4 +1,4 @@
-﻿namespace TweetDck.Core.Other {
+﻿namespace TweetDuck.Core.Other {
     partial class FormMessage {
         /// <summary>
         /// Required designer variable.

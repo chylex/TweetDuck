@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
-using TweetDck.Core.Notification.Sound;
+using TweetDuck.Core.Notification.Sound;
 
-namespace TweetDck.Core.Notification{
+namespace TweetDuck.Core.Notification{
     static class SoundNotification{
         private static bool? IsWMPAvailable;
 

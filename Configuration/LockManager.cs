@@ -2,9 +2,9 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using TweetDck.Core.Utils;
+using TweetDuck.Core.Utils;
 
-namespace TweetDck.Configuration{
+namespace TweetDuck.Configuration{
     sealed class LockManager{
         public enum Result{
             Success, HasProcess, Fail

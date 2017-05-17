@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace TweetDck.Core{
+namespace TweetDuck.Core{
     partial class TrayIcon : Component{
         public enum Behavior{ // keep order
             Disabled, DisplayOnly, MinimizeToTray, CloseToTray, Combined

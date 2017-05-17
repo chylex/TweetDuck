@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using TweetDck.Core.Utils;
+using TweetDuck.Core.Utils;
 
 namespace UnitTests.Core.Utils{
     [TestClass]

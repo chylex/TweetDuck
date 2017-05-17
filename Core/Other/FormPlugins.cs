@@ -3,13 +3,13 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using TweetDck.Core.Controls;
-using TweetDck.Plugins;
-using TweetDck.Plugins.Controls;
-using TweetDck.Plugins.Enums;
-using TweetDck.Plugins.Events;
+using TweetDuck.Core.Controls;
+using TweetDuck.Plugins;
+using TweetDuck.Plugins.Controls;
+using TweetDuck.Plugins.Enums;
+using TweetDuck.Plugins.Events;
 
-namespace TweetDck.Core.Other{
+namespace TweetDuck.Core.Other{
     sealed partial class FormPlugins : Form{
         private readonly PluginManager pluginManager;
         private readonly TabButton tabBtnOfficial, tabBtnCustom;

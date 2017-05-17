@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TweetDck.Core.Other.Settings.Export{
+namespace TweetDuck.Core.Other.Settings.Export{
     [Flags]
     enum ExportFileFlags{
         None = 0,

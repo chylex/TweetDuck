@@ -1,7 +1,7 @@
 ﻿using System.Text;
-using TweetDck.Plugins.Enums;
+using TweetDuck.Plugins.Enums;
 
-namespace TweetDck.Plugins{
+namespace TweetDuck.Plugins{
     static class PluginScriptGenerator{
         public static string GenerateConfig(PluginConfig config){
             return config.AnyDisabled ? "window.TD_PLUGINS.disabled = [\""+string.Join("\",\"", config.DisabledPlugins)+"\"];" : string.Empty;

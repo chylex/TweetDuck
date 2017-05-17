@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-namespace TweetDck.Core.Other.Settings.Export{
+namespace TweetDuck.Core.Other.Settings.Export{
     class CombinedFileStream : IDisposable{
         public const char KeySeparator = '|';
 

@@ -2,9 +2,9 @@
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using TweetDck.Core.Utils;
+using TweetDuck.Core.Utils;
 
-namespace TweetDck.Core.Controls{
+namespace TweetDuck.Core.Controls{
     static class ControlExtensions{
         public static readonly Point InvisibleLocation = new Point(-32000, -32000);
 

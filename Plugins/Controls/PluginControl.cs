@@ -3,9 +3,9 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using TweetDck.Core.Utils;
+using TweetDuck.Core.Utils;
 
-namespace TweetDck.Plugins.Controls{
+namespace TweetDuck.Plugins.Controls{
     partial class PluginControl : UserControl{
         private readonly PluginManager pluginManager;
         private readonly Plugin plugin;

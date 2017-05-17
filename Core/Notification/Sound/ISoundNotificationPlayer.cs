@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TweetDck.Core.Notification.Sound{
+namespace TweetDuck.Core.Notification.Sound{
     interface ISoundNotificationPlayer : IDisposable{
         string SupportedFormats { get; }
 

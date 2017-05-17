@@ -2,10 +2,10 @@
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using TweetDck.Configuration;
-using TweetDck.Core.Utils;
+using TweetDuck.Configuration;
+using TweetDuck.Core.Utils;
 
-namespace TweetDck.Core.Other.Settings.Dialogs{
+namespace TweetDuck.Core.Other.Settings.Dialogs{
     sealed partial class DialogSettingsRestart : Form{
         private const string DefaultLocale = "en-US";
 

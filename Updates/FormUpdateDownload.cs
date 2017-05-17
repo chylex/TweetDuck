@@ -3,10 +3,10 @@ using System.ComponentModel;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
-using TweetDck.Core.Controls;
-using TweetDck.Core.Utils;
+using TweetDuck.Core.Controls;
+using TweetDuck.Core.Utils;
 
-namespace TweetDck.Updates{
+namespace TweetDuck.Updates{
     sealed partial class FormUpdateDownload : Form{
         private const double BytesToKB = 1024.0;
 

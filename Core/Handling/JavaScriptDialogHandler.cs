@@ -2,10 +2,10 @@
 using CefSharp.WinForms;
 using System.Drawing;
 using System.Windows.Forms;
-using TweetDck.Core.Controls;
-using TweetDck.Core.Other;
+using TweetDuck.Core.Controls;
+using TweetDuck.Core.Other;
 
-namespace TweetDck.Core.Handling {
+namespace TweetDuck.Core.Handling {
     class JavaScriptDialogHandler : IJsDialogHandler{
         bool IJsDialogHandler.OnJSDialog(IWebBrowser browserControl, IBrowser browser, string originUrl, CefJsDialogType dialogType, string messageText, string defaultPromptText, IJsDialogCallback callback, ref bool suppressMessage){
             ((ChromiumWebBrowser)browserControl).InvokeSafe(() => {

@@ -1,4 +1,4 @@
-﻿namespace TweetDck.Core.Other {
+﻿namespace TweetDuck.Core.Other {
     sealed partial class FormSettings {
         /// <summary>
         /// Required designer variable.
@@ -25,7 +25,7 @@
         private void InitializeComponent() {
             this.btnClose = new System.Windows.Forms.Button();
             this.labelTip = new System.Windows.Forms.Label();
-            this.tabPanel = new TweetDck.Core.Controls.TabPanel();
+            this.tabPanel = new TweetDuck.Core.Controls.TabPanel();
             this.SuspendLayout();
             // 
             // btnClose
@@ -70,7 +70,7 @@
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.tabPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = global::TweetDck.Properties.Resources.icon;
+            this.Icon = global::TweetDuck.Properties.Resources.icon;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormSettings";

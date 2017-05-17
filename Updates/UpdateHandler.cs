@@ -1,13 +1,13 @@
 ﻿using CefSharp;
 using CefSharp.WinForms;
 using System;
-using TweetDck.Core;
-using TweetDck.Core.Controls;
-using TweetDck.Core.Utils;
-using TweetDck.Resources;
-using TweetDck.Updates.Events;
+using TweetDuck.Core;
+using TweetDuck.Core.Controls;
+using TweetDuck.Core.Utils;
+using TweetDuck.Resources;
+using TweetDuck.Updates.Events;
 
-namespace TweetDck.Updates{
+namespace TweetDuck.Updates{
     sealed class UpdateHandler{
         private static bool IsSystemSupported => true; // Environment.OSVersion.Version >= new Version("6.1"); // 6.1 NT version = Windows 7
 

@@ -1,4 +1,4 @@
-﻿namespace TweetDck.Core.Notification {
+﻿namespace TweetDuck.Core.Notification {
     partial class FormNotificationBase {
         /// <summary>
         /// Required designer variable.
@@ -34,7 +34,7 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(284, 122);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Location = TweetDck.Core.Controls.ControlExtensions.InvisibleLocation;
+            this.Location = TweetDuck.Core.Controls.ControlExtensions.InvisibleLocation;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormNotification";

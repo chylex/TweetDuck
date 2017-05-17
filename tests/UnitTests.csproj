@@ -57,9 +57,9 @@
     <Compile Include="TestUtils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TweetDck.csproj">
+    <ProjectReference Include="..\TweetDuck.csproj">
       <Project>{2389a7cd-e0d3-4706-8294-092929a33a2d}</Project>
-      <Name>TweetDck</Name>
+      <Name>TweetDuck</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

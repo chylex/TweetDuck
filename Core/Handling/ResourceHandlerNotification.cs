@@ -3,7 +3,7 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Text;
 
-namespace TweetDck.Core.Handling{
+namespace TweetDuck.Core.Handling{
     class ResourceHandlerNotification : IResourceHandler{
         private readonly NameValueCollection headers = new NameValueCollection(0);
         private MemoryStream dataIn;

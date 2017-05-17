@@ -3,11 +3,11 @@ using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using TweetDck.Core.Bridge;
-using TweetDck.Core.Controls;
-using TweetDck.Core.Utils;
+using TweetDuck.Core.Bridge;
+using TweetDuck.Core.Controls;
+using TweetDuck.Core.Utils;
 
-namespace TweetDck.Core.Handling{
+namespace TweetDuck.Core.Handling{
     abstract class ContextMenuBase : IContextMenuHandler{
         private static readonly Regex RegexTwitterAccount = new Regex(@"^https?://twitter\.com/([^/]+)/?$", RegexOptions.Compiled);
 

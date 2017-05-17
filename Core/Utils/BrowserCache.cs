@@ -4,7 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Linq;
 
-namespace TweetDck.Core.Utils{
+namespace TweetDuck.Core.Utils{
     static class BrowserCache{
         private static bool ClearOnExit { get; set; }
 

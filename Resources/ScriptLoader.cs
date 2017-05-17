@@ -5,7 +5,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
-namespace TweetDck.Resources{
+namespace TweetDuck.Resources{
     static class ScriptLoader{
         private const string UrlPrefix = "td:";
 

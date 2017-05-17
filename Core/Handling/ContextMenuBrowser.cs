@@ -1,10 +1,10 @@
 ﻿using CefSharp;
 using System.Windows.Forms;
-using TweetDck.Core.Bridge;
-using TweetDck.Core.Controls;
-using TweetDck.Core.Utils;
+using TweetDuck.Core.Bridge;
+using TweetDuck.Core.Controls;
+using TweetDuck.Core.Utils;
 
-namespace TweetDck.Core.Handling{
+namespace TweetDuck.Core.Handling{
     class ContextMenuBrowser : ContextMenuBase{
         private const int MenuGlobal = 26600;
         private const int MenuMute = 26601;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TweetDck.Core.Utils{
+namespace TweetDuck.Core.Utils{
     class InjectedHTML{
         public enum Position{
             Before, After

@@ -3,12 +3,12 @@ using CefSharp.WinForms;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using TweetDck.Configuration;
-using TweetDck.Core.Controls;
-using TweetDck.Core.Handling;
-using TweetDck.Core.Utils;
+using TweetDuck.Configuration;
+using TweetDuck.Core.Controls;
+using TweetDuck.Core.Handling;
+using TweetDuck.Core.Utils;
 
-namespace TweetDck.Core.Notification{
+namespace TweetDuck.Core.Notification{
     partial class FormNotificationBase : Form{
         protected Point PrimaryLocation{
             get{

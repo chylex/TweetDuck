@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using TweetDck.Plugins.Events;
+using TweetDuck.Plugins.Events;
 
-namespace TweetDck.Plugins{
+namespace TweetDuck.Plugins{
     [Serializable]
     sealed class PluginConfig{
         [field:NonSerialized]

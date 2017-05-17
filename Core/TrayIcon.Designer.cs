@@ -1,4 +1,4 @@
-﻿namespace TweetDck.Core {
+﻿namespace TweetDuck.Core {
     partial class TrayIcon {
         /// <summary> 
         /// Required designer variable.

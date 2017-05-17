@@ -2,11 +2,11 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
-using TweetDck.Core.Bridge;
-using TweetDck.Core.Utils;
-using TweetDck.Resources;
+using TweetDuck.Core.Bridge;
+using TweetDuck.Core.Utils;
+using TweetDuck.Resources;
 
-namespace TweetDck.Core.Notification.Screenshot{
+namespace TweetDuck.Core.Notification.Screenshot{
     sealed class FormNotificationScreenshotable : FormNotificationBase{
         public FormNotificationScreenshotable(Action callback, Form owner) : base(owner, false){
             browser.RegisterAsyncJsObject("$TD_NotificationScreenshot", new CallbackBridge(this, callback));

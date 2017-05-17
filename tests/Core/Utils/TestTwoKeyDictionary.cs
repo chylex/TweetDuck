@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TweetDck.Core.Utils;
+using TweetDuck.Core.Utils;
 using System.Collections.Generic;
 
 namespace UnitTests.Core.Utils{

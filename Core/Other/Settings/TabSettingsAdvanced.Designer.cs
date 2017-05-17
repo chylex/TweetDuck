@@ -1,4 +1,4 @@
-﻿namespace TweetDck.Core.Other.Settings {
+﻿namespace TweetDuck.Core.Other.Settings {
     partial class TabSettingsAdvanced {
         /// <summary> 
         /// Required designer variable.

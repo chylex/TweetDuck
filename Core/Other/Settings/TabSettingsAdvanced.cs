@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Forms;
-using TweetDck.Configuration;
-using TweetDck.Core.Controls;
-using TweetDck.Core.Other.Settings.Dialogs;
-using TweetDck.Core.Other.Settings.Export;
-using TweetDck.Core.Utils;
-using TweetDck.Plugins;
+using TweetDuck.Configuration;
+using TweetDuck.Core.Controls;
+using TweetDuck.Core.Other.Settings.Dialogs;
+using TweetDuck.Core.Other.Settings.Export;
+using TweetDuck.Core.Utils;
+using TweetDuck.Plugins;
 
-namespace TweetDck.Core.Other.Settings{
+namespace TweetDuck.Core.Other.Settings{
     partial class TabSettingsAdvanced : BaseTabSettings{
         private readonly Action<string> reinjectBrowserCSS;
         private readonly PluginManager plugins;

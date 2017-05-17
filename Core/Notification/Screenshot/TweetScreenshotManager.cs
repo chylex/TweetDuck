@@ -3,9 +3,9 @@
 
 using System;
 using System.Windows.Forms;
-using TweetDck.Core.Controls;
+using TweetDuck.Core.Controls;
 
-namespace TweetDck.Core.Notification.Screenshot{
+namespace TweetDuck.Core.Notification.Screenshot{
     sealed class TweetScreenshotManager : IDisposable{
         private readonly Form owner;
         private readonly Timer timeout;

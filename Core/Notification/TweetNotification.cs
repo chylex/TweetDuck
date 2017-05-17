@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Text;
-using TweetDck.Resources;
+using TweetDuck.Resources;
 
-namespace TweetDck.Core.Notification{
+namespace TweetDuck.Core.Notification{
     sealed class TweetNotification{
         private static string FontSizeClass { get; set; }
         private static string HeadTag { get; set; }

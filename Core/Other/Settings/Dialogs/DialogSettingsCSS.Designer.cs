@@ -1,4 +1,4 @@
-﻿namespace TweetDck.Core.Other.Settings.Dialogs {
+﻿namespace TweetDuck.Core.Other.Settings.Dialogs {
     partial class DialogSettingsCSS {
         /// <summary>
         /// Required designer variable.

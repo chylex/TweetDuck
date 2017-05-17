@@ -2,7 +2,7 @@
 using System.IO;
 using System.Media;
 
-namespace TweetDck.Core.Notification.Sound{
+namespace TweetDuck.Core.Notification.Sound{
     sealed class SoundPlayerImplFallback : ISoundNotificationPlayer{
         string ISoundNotificationPlayer.SupportedFormats => "*.wav";
 

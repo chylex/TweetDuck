@@ -1,4 +1,4 @@
-﻿namespace TweetDck.Core.Controls {
+﻿namespace TweetDuck.Core.Controls {
     partial class TabPanel {
         /// <summary> 
         /// Required designer variable.

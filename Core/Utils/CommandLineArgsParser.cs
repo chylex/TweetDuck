@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace TweetDck.Core.Utils{
+namespace TweetDuck.Core.Utils{
     static class CommandLineArgsParser{
         private static Regex splitRegex;
 

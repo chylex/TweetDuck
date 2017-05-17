@@ -2,10 +2,10 @@
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using TweetDck.Core.Notification;
-using TweetDck.Core.Notification.Sound;
+using TweetDuck.Core.Notification;
+using TweetDuck.Core.Notification.Sound;
 
-namespace TweetDck.Core.Other.Settings{
+namespace TweetDuck.Core.Other.Settings{
     partial class TabSettingsSounds : BaseTabSettings{
         private readonly ISoundNotificationPlayer soundNotification;
 

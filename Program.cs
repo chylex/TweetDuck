@@ -5,17 +5,17 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using TweetDck.Configuration;
-using TweetDck.Core;
-using TweetDck.Core.Handling;
-using TweetDck.Core.Other;
-using TweetDck.Core.Other.Settings.Export;
-using TweetDck.Core.Utils;
-using TweetDck.Plugins;
-using TweetDck.Plugins.Events;
-using TweetDck.Updates;
+using TweetDuck.Configuration;
+using TweetDuck.Core;
+using TweetDuck.Core.Handling;
+using TweetDuck.Core.Other;
+using TweetDuck.Core.Other.Settings.Export;
+using TweetDuck.Core.Utils;
+using TweetDuck.Plugins;
+using TweetDuck.Plugins.Events;
+using TweetDuck.Updates;
 
-namespace TweetDck{
+namespace TweetDuck{
     static class Program{
         public const string BrandName = "TweetDuck";
         public const string Website = "https://tweetduck.chylex.com";

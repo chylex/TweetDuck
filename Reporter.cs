@@ -5,9 +5,9 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using TweetDck.Core.Other;
+using TweetDuck.Core.Other;
 
-namespace TweetDck{
+namespace TweetDuck{
     class Reporter{
         private readonly string logFile;
 

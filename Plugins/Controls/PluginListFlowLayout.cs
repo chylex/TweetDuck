@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
-using TweetDck.Core.Utils;
+using TweetDuck.Core.Utils;
 
-namespace TweetDck.Plugins.Controls{
+namespace TweetDuck.Plugins.Controls{
     sealed class PluginListFlowLayout : FlowLayoutPanel{
         public PluginListFlowLayout(){
             FlowDirection = FlowDirection.TopDown;

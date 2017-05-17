@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using TweetDck.Configuration;
-using TweetDck.Plugins;
-using TweetDck.Plugins.Enums;
+using TweetDuck.Configuration;
+using TweetDuck.Plugins;
+using TweetDuck.Plugins.Enums;
 
-namespace TweetDck.Core.Other.Settings.Export{
+namespace TweetDuck.Core.Other.Settings.Export{
     sealed class ExportManager{
         private static readonly string CookiesPath = Path.Combine(Program.StoragePath, "Cookies");
         private static readonly string TempCookiesPath = Path.Combine(Program.StoragePath, "CookiesTmp");

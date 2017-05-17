@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace TweetDck.Core.Utils{
+namespace TweetDuck.Core.Utils{
     static class HardwareAcceleration{
         private static readonly string LibEGL = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "libEGL.dll");
         private static readonly string LibGLES = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "libGLESv2.dll");

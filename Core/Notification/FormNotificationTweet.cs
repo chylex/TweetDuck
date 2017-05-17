@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using TweetDck.Plugins;
+using TweetDuck.Plugins;
 using System.Windows.Forms;
-using TweetDck.Core.Utils;
+using TweetDuck.Core.Utils;
 
-namespace TweetDck.Core.Notification{
+namespace TweetDuck.Core.Notification{
     sealed partial class FormNotificationTweet : FormNotificationMain{
         private const int NonIntrusiveIdleLimit = 30;
         private const int TrimMinimum = 32;

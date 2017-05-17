@@ -5,23 +5,23 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using TweetDck.Configuration;
-using TweetDck.Core.Bridge;
-using TweetDck.Core.Controls;
-using TweetDck.Core.Handling;
-using TweetDck.Core.Notification;
-using TweetDck.Core.Notification.Screenshot;
-using TweetDck.Core.Notification.Sound;
-using TweetDck.Core.Other;
-using TweetDck.Core.Utils;
-using TweetDck.Plugins;
-using TweetDck.Plugins.Enums;
-using TweetDck.Plugins.Events;
-using TweetDck.Resources;
-using TweetDck.Updates;
-using TweetDck.Updates.Events;
+using TweetDuck.Configuration;
+using TweetDuck.Core.Bridge;
+using TweetDuck.Core.Controls;
+using TweetDuck.Core.Handling;
+using TweetDuck.Core.Notification;
+using TweetDuck.Core.Notification.Screenshot;
+using TweetDuck.Core.Notification.Sound;
+using TweetDuck.Core.Other;
+using TweetDuck.Core.Utils;
+using TweetDuck.Plugins;
+using TweetDuck.Plugins.Enums;
+using TweetDuck.Plugins.Events;
+using TweetDuck.Resources;
+using TweetDuck.Updates;
+using TweetDuck.Updates.Events;
 
-namespace TweetDck.Core{
+namespace TweetDuck.Core{
     sealed partial class FormBrowser : Form{
         private static UserConfig Config => Program.UserConfig;
 

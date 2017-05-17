@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace TweetDck.Core.Controls{
+namespace TweetDuck.Core.Controls{
     sealed class TabButton : FlatButton{
         public Action Callback { get; private set; }
 

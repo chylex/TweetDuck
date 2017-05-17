@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
-using TweetDck.Core.Utils;
+using TweetDuck.Core.Utils;
 
-namespace TweetDck.Core.Other{
+namespace TweetDuck.Core.Other{
     sealed partial class FormAbout : Form{
         private const string TipsLink = "https://github.com/chylex/TweetDuck/wiki";
         private const string IssuesLink = "https://github.com/chylex/TweetDuck/issues";

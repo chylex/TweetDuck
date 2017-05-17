@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
-using TweetDck.Core.Controls;
-using TweetDck.Core.Utils;
+using TweetDuck.Core.Controls;
+using TweetDuck.Core.Utils;
 
-namespace TweetDck.Core.Other.Settings.Dialogs{
+namespace TweetDuck.Core.Other.Settings.Dialogs{
     sealed partial class DialogSettingsCSS : Form{
         public string BrowserCSS => textBoxBrowserCSS.Text;
         public string NotificationCSS => textBoxNotificationCSS.Text;

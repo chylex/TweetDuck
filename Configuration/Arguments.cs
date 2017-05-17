@@ -1,7 +1,7 @@
 ﻿using System;
-using TweetDck.Core.Utils;
+using TweetDuck.Core.Utils;
 
-namespace TweetDck.Configuration{
+namespace TweetDuck.Configuration{
     static class Arguments{
         // public args
         public const string ArgDataFolder = "-datafolder";

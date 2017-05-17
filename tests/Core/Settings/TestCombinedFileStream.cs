@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
-using TweetDck.Core.Other.Settings.Export;
+using TweetDuck.Core.Other.Settings.Export;
 
 namespace UnitTests.Core.Settings{
     [TestClass]

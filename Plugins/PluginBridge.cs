@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using TweetDck.Core.Utils;
-using TweetDck.Plugins.Enums;
-using TweetDck.Plugins.Events;
+using TweetDuck.Core.Utils;
+using TweetDuck.Plugins.Enums;
+using TweetDuck.Plugins.Events;
 
-namespace TweetDck.Plugins{
+namespace TweetDuck.Plugins{
     class PluginBridge{
         private static string SanitizeCacheKey(string key){
             return key.Replace('\\', '/').Trim();

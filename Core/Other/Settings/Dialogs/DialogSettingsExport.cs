@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
-using TweetDck.Core.Other.Settings.Export;
+using TweetDuck.Core.Other.Settings.Export;
 
-namespace TweetDck.Core.Other.Settings.Dialogs{
+namespace TweetDuck.Core.Other.Settings.Dialogs{
     sealed partial class DialogSettingsExport : Form{
         public static DialogSettingsExport Import(ExportFileFlags flags){
             return new DialogSettingsExport(flags);

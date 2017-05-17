@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TweetDck.Plugins.Enums{
+namespace TweetDuck.Plugins.Enums{
     [Flags]
     enum PluginEnvironment{
         None = 0,

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Forms;
-using TweetDck.Core.Controls;
-using TweetDck.Core.Notification;
+using TweetDuck.Core.Controls;
+using TweetDuck.Core.Notification;
 
-namespace TweetDck.Core.Other.Settings{
+namespace TweetDuck.Core.Other.Settings{
     partial class TabSettingsNotifications : BaseTabSettings{
         private static readonly int[] IdlePauseSeconds = { 0, 30, 60, 120, 300 };
 

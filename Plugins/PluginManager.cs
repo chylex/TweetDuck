@@ -3,11 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using TweetDck.Plugins.Enums;
-using TweetDck.Plugins.Events;
-using TweetDck.Resources;
+using TweetDuck.Plugins.Enums;
+using TweetDuck.Plugins.Events;
+using TweetDuck.Resources;
 
-namespace TweetDck.Plugins{
+namespace TweetDuck.Plugins{
     sealed class PluginManager{
         public const string PluginBrowserScriptFile = "plugins.browser.js";
         public const string PluginNotificationScriptFile = "plugins.notification.js";

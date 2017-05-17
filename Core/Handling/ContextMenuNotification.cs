@@ -1,8 +1,8 @@
 ﻿using CefSharp;
-using TweetDck.Core.Controls;
-using TweetDck.Core.Notification;
+using TweetDuck.Core.Controls;
+using TweetDuck.Core.Notification;
 
-namespace TweetDck.Core.Handling{
+namespace TweetDuck.Core.Handling{
     class ContextMenuNotification : ContextMenuBase{
         private const int MenuSkipTweet = 26600;
         private const int MenuFreeze = 26601;

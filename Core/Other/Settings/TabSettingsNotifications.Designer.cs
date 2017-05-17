@@ -1,4 +1,4 @@
-﻿namespace TweetDck.Core.Other.Settings {
+﻿namespace TweetDuck.Core.Other.Settings {
     partial class TabSettingsNotifications {
         /// <summary> 
         /// Required designer variable.
@@ -37,9 +37,9 @@
             this.trackBarEdgeDistance = new System.Windows.Forms.TrackBar();
             this.groupNotificationDuration = new System.Windows.Forms.GroupBox();
             this.tableLayoutDurationButtons = new System.Windows.Forms.TableLayoutPanel();
-            this.btnDurationMedium = new TweetDck.Core.Controls.FlatButton();
-            this.btnDurationLong = new TweetDck.Core.Controls.FlatButton();
-            this.btnDurationShort = new TweetDck.Core.Controls.FlatButton();
+            this.btnDurationMedium = new TweetDuck.Core.Controls.FlatButton();
+            this.btnDurationLong = new TweetDuck.Core.Controls.FlatButton();
+            this.btnDurationShort = new TweetDuck.Core.Controls.FlatButton();
             this.labelDurationValue = new System.Windows.Forms.Label();
             this.trackBarDuration = new System.Windows.Forms.TrackBar();
             this.groupUserInterface = new System.Windows.Forms.GroupBox();
@@ -440,9 +440,9 @@
         private System.Windows.Forms.Label labelDurationValue;
         private System.Windows.Forms.TrackBar trackBarDuration;
         private System.Windows.Forms.TableLayoutPanel tableLayoutDurationButtons;
-        private TweetDck.Core.Controls.FlatButton btnDurationMedium;
-        private TweetDck.Core.Controls.FlatButton btnDurationLong;
-        private TweetDck.Core.Controls.FlatButton btnDurationShort;
+        private TweetDuck.Core.Controls.FlatButton btnDurationMedium;
+        private TweetDuck.Core.Controls.FlatButton btnDurationLong;
+        private TweetDuck.Core.Controls.FlatButton btnDurationShort;
         private System.Windows.Forms.CheckBox checkNonIntrusive;
         private System.Windows.Forms.Label labelIdlePause;
         private System.Windows.Forms.ComboBox comboBoxIdlePause;

@@ -1,4 +1,4 @@
-﻿namespace TweetDck.Core {
+﻿namespace TweetDuck.Core {
     sealed partial class FormBrowser {
         /// <summary>
         /// Required designer variable.
@@ -24,7 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            this.trayIcon = new TweetDck.Core.TrayIcon(this.components);
+            this.trayIcon = new TweetDuck.Core.TrayIcon(this.components);
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
@@ -32,10 +32,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = TweetDck.Core.Utils.BrowserUtils.BackgroundColor;
+            this.BackColor = TweetDuck.Core.Utils.BrowserUtils.BackgroundColor;
             this.ClientSize = new System.Drawing.Size(324, 386);
             this.Icon = Properties.Resources.icon;
-            this.Location = TweetDck.Core.Controls.ControlExtensions.InvisibleLocation;
+            this.Location = TweetDuck.Core.Controls.ControlExtensions.InvisibleLocation;
             this.MinimumSize = new System.Drawing.Size(340, 424);
             this.Name = "FormBrowser";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;

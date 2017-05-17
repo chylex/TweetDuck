@@ -1,9 +1,9 @@
 ﻿using System.Windows.Forms;
-using TweetDck.Core.Controls;
-using TweetDck.Core.Notification;
-using TweetDck.Core.Utils;
+using TweetDuck.Core.Controls;
+using TweetDuck.Core.Notification;
+using TweetDuck.Core.Utils;
 
-namespace TweetDck.Core.Bridge{
+namespace TweetDuck.Core.Bridge{
     sealed class TweetDeckBridge{
         public static string LastRightClickedLink = string.Empty;
         public static string LastHighlightedTweet = string.Empty;

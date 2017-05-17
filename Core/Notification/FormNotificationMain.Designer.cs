@@ -1,4 +1,4 @@
-﻿namespace TweetDck.Core.Notification {
+﻿namespace TweetDuck.Core.Notification {
     partial class FormNotificationMain {
         /// <summary>
         /// Required designer variable.
@@ -26,7 +26,7 @@
             this.components = new System.ComponentModel.Container();
             this.timerDisplayDelay = new System.Windows.Forms.Timer(this.components);
             this.timerProgress = new System.Windows.Forms.Timer(this.components);
-            this.progressBarTimer = new TweetDck.Core.Controls.FlatProgressBar();
+            this.progressBarTimer = new TweetDuck.Core.Controls.FlatProgressBar();
             this.SuspendLayout();
             // 
             // timerDisplayDelay

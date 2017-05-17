@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TweetDck.Updates.Events{
+namespace TweetDuck.Updates.Events{
     class UpdateDismissedEventArgs : EventArgs{
         public readonly string VersionTag;
 

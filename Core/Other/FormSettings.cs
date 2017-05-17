@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using TweetDck.Core.Other.Settings;
-using TweetDck.Plugins;
-using TweetDck.Updates;
+using TweetDuck.Core.Other.Settings;
+using TweetDuck.Plugins;
+using TweetDuck.Updates;
 
-namespace TweetDck.Core.Other{
+namespace TweetDuck.Core.Other{
     sealed partial class FormSettings : Form{
         public const int TabIndexNotification = 1;
 

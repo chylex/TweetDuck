@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace TweetDck.Core.Other{
+namespace TweetDuck.Core.Other{
     sealed partial class FormMessage : Form{
         public Button ClickedButton { get; private set; }
 

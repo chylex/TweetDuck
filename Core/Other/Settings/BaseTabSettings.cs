@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
-using TweetDck.Configuration;
+using TweetDuck.Configuration;
 
-namespace TweetDck.Core.Other.Settings{
+namespace TweetDuck.Core.Other.Settings{
     class BaseTabSettings : UserControl{
         protected static UserConfig Config => Program.UserConfig;
 

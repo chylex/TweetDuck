@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using TweetDck.Plugins.Enums;
+using TweetDuck.Plugins.Enums;
 
-namespace TweetDck.Plugins{
+namespace TweetDuck.Plugins{
     class Plugin{
         public string Identifier { get; }
         public PluginGroup Group { get; }

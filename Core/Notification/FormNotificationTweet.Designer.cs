@@ -1,4 +1,4 @@
-namespace TweetDck.Core.Notification {
+namespace TweetDuck.Core.Notification {
     partial class FormNotificationTweet {
         /// <summary>
         /// Required designer variable.

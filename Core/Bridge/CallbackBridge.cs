@@ -1,8 +1,8 @@
 using System;
 using System.Windows.Forms;
-using TweetDck.Core.Controls;
+using TweetDuck.Core.Controls;
 
-namespace TweetDck.Core.Bridge{
+namespace TweetDuck.Core.Bridge{
     sealed class CallbackBridge{
         private readonly Control owner;
         private readonly Action safeCallback;

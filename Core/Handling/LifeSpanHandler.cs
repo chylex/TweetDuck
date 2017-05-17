@@ -1,7 +1,7 @@
 ﻿using CefSharp;
-using TweetDck.Core.Utils;
+using TweetDuck.Core.Utils;
 
-namespace TweetDck.Core.Handling{
+namespace TweetDuck.Core.Handling{
     class LifeSpanHandler : ILifeSpanHandler{
         public bool OnBeforePopup(IWebBrowser browserControl, IBrowser browser, IFrame frame, string targetUrl, string targetFrameName, WindowOpenDisposition targetDisposition, bool userGesture, IPopupFeatures popupFeatures, IWindowInfo windowInfo, IBrowserSettings browserSettings, ref bool noJavascriptAccess, out IWebBrowser newBrowser){
             newBrowser = null;

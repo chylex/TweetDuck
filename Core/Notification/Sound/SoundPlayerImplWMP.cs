@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using TweetDck.Core.Utils;
+using TweetDuck.Core.Utils;
 using WMPLib;
 
-namespace TweetDck.Core.Notification.Sound{
+namespace TweetDuck.Core.Notification.Sound{
     sealed class SoundPlayerImplWMP : ISoundNotificationPlayer{
         string ISoundNotificationPlayer.SupportedFormats => "*.wav;*.mp3;*.mp2;*.m4a;*.mid;*.midi;*.rmi;*.wma;*.aif;*.aifc;*.aiff;*.snd;*.au";
 

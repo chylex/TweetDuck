@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using TweetDck.Core.Controls;
+using TweetDuck.Core.Controls;
 
-namespace TweetDck.Core.Utils{
+namespace TweetDuck.Core.Utils{
     [Serializable]
     class WindowState{
         private Rectangle rect;

@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace TweetDck.Core.Controls{
+namespace TweetDuck.Core.Controls{
     sealed partial class TabPanel : UserControl{
         public Panel Content => panelContent;
         public IEnumerable<TabButton> Buttons => panelButtons.Controls.Cast<TabButton>();

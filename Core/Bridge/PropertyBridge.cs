@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace TweetDck.Core.Bridge{
+namespace TweetDuck.Core.Bridge{
     static class PropertyBridge{
         [Flags]
         public enum Properties{

@@ -2,14 +2,14 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using TweetDck.Core.Bridge;
-using TweetDck.Core.Controls;
-using TweetDck.Core.Utils;
-using TweetDck.Plugins;
-using TweetDck.Plugins.Enums;
-using TweetDck.Resources;
+using TweetDuck.Core.Bridge;
+using TweetDuck.Core.Controls;
+using TweetDuck.Core.Utils;
+using TweetDuck.Plugins;
+using TweetDuck.Plugins.Enums;
+using TweetDuck.Resources;
 
-namespace TweetDck.Core.Notification{
+namespace TweetDuck.Core.Notification{
     partial class FormNotificationMain : FormNotificationBase{
         private const string NotificationScriptFile = "notification.js";
 

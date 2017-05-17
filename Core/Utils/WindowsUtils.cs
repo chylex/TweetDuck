@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace TweetDck.Core.Utils{
+namespace TweetDuck.Core.Utils{
     static class WindowsUtils{
         public static bool ShouldAvoidToolWindow { get; }
 

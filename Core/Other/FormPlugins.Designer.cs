@@ -1,4 +1,4 @@
-﻿namespace TweetDck.Core.Other {
+﻿namespace TweetDuck.Core.Other {
     partial class FormPlugins {
         /// <summary>
         /// Required designer variable.
@@ -26,7 +26,7 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.btnReload = new System.Windows.Forms.Button();
             this.btnOpenFolder = new System.Windows.Forms.Button();
-            this.tabPanelPlugins = new TweetDck.Core.Controls.TabPanel();
+            this.tabPanelPlugins = new TweetDuck.Core.Controls.TabPanel();
             this.SuspendLayout();
             // 
             // btnClose
@@ -87,7 +87,7 @@
             this.Controls.Add(this.btnOpenFolder);
             this.Controls.Add(this.btnReload);
             this.Controls.Add(this.btnClose);
-            this.Icon = global::TweetDck.Properties.Resources.icon;
+            this.Icon = global::TweetDuck.Properties.Resources.icon;
             this.MinimumSize = new System.Drawing.Size(480, 320);
             this.Name = "FormPlugins";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -101,6 +101,6 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnReload;
         private System.Windows.Forms.Button btnOpenFolder;
-        private TweetDck.Core.Controls.TabPanel tabPanelPlugins;
+        private TweetDuck.Core.Controls.TabPanel tabPanelPlugins;
     }
 }
