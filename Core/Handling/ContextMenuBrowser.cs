@@ -82,10 +82,10 @@ namespace TweetDuck.Core.Handling{
                 globalMenu.AddItem((CefMenuCommand)MenuPlugins, TitlePlugins);
                 globalMenu.AddItem((CefMenuCommand)MenuAbout, TitleAboutProgram);
 
-                #if DEBUG
-                globalMenu.AddSeparator();
-                AddDebugMenuItems(globalMenu);
-                #endif
+                if (HasDevTools){
+                    globalMenu.AddSeparator();
+                    AddDebugMenuItems(globalMenu);
+                }
             }
 
             RemoveSeparatorIfLast(model);

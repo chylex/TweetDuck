@@ -10,6 +10,7 @@ using TweetDuck.Core.Utils;
 namespace TweetDuck.Core.Handling{
     abstract class ContextMenuBase : IContextMenuHandler{
         private static readonly Regex RegexTwitterAccount = new Regex(@"^https?://twitter\.com/([^/]+)/?$", RegexOptions.Compiled);
+        protected static readonly bool HasDevTools = File.Exists(Path.Combine(Program.ProgramPath, "devtools_resources.pak"));
 
         private const int MenuOpenLinkUrl = 26500;
         private const int MenuCopyLinkUrl = 26501;
@@ -17,14 +18,7 @@ namespace TweetDuck.Core.Handling{
         private const int MenuOpenImage = 26503;
         private const int MenuSaveImage = 26504;
         private const int MenuCopyImageUrl = 26505;
-
-        #if DEBUG
         private const int MenuOpenDevTools = 26599;
-
-        protected void AddDebugMenuItems(IMenuModel model){
-            model.AddItem((CefMenuCommand)MenuOpenDevTools, "Open dev tools");
-        }
-        #endif
 
         private readonly Form form;
 
@@ -100,12 +94,10 @@ namespace TweetDuck.Core.Handling{
                     Match match = RegexTwitterAccount.Match(parameters.UnfilteredLinkUrl);
                     SetClipboardText(match.Success ? match.Groups[1].Value : parameters.UnfilteredLinkUrl);
                     break;
-
-                #if DEBUG
+                    
                 case MenuOpenDevTools:
                     browserControl.ShowDevTools();
                     break;
-                #endif
             }
 
             return false;
@@ -119,6 +111,10 @@ namespace TweetDuck.Core.Handling{
 
         protected void SetClipboardText(string text){
             form.InvokeAsyncSafe(() => WindowsUtils.SetClipboard(text, TextDataFormat.UnicodeText));
+        }
+        
+        protected void AddDebugMenuItems(IMenuModel model){
+            model.AddItem((CefMenuCommand)MenuOpenDevTools, "Open dev tools");
         }
 
         protected static void RemoveSeparatorIfLast(IMenuModel model){

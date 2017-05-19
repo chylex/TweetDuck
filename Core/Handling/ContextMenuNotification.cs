@@ -43,10 +43,10 @@ namespace TweetDuck.Core.Handling{
                     model.AddSeparator();
                 }
             }
-
-            #if DEBUG
-            AddDebugMenuItems(model);
-            #endif
+            
+            if (HasDevTools){
+                AddDebugMenuItems(model);
+            }
 
             RemoveSeparatorIfLast(model);
 
