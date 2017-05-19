@@ -1,11 +1,10 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
 namespace TweetDuck.Core.Utils{
     static class CommandLineArgsParser{
-        private static Regex splitRegex;
-
-        private static Regex SplitRegex => splitRegex ?? (splitRegex = new Regex(@"([^=\s]+(?:=(?:[^ ]*""[^""]*?""[^ ]*|[^ ]*))?)", RegexOptions.Compiled));
-
+        private static readonly Lazy<Regex> SplitRegex = new Lazy<Regex>(() => new Regex(@"([^=\s]+(?:=(?:[^ ]*""[^""]*?""[^ ]*|[^ ]*))?)", RegexOptions.Compiled), false);
+        
         public static CommandLineArgs ReadCefArguments(string argumentString){
             CommandLineArgs args = new CommandLineArgs();
 
@@ -13,7 +12,7 @@ namespace TweetDuck.Core.Utils{
                 return args;
             }
 
-            foreach(Match match in SplitRegex.Matches(argumentString)){
+            foreach(Match match in SplitRegex.Value.Matches(argumentString)){
                 string matchValue = match.Value;
 
                 int indexEquals = matchValue.IndexOf('=');

@@ -8,6 +8,9 @@ using System.Windows.Forms;
 
 namespace TweetDuck.Core.Utils{
     static class WindowsUtils{
+        private static readonly Lazy<Regex> RegexStripHtmlStyles = new Lazy<Regex>(() => new Regex(@"\s?(?:style|class)="".*?"""), false);
+        private static readonly Lazy<Regex> RegexOffsetClipboardHtml = new Lazy<Regex>(() => new Regex(@"(?<=EndHTML:|EndFragment:)(\d+)"), false);
+
         public static bool ShouldAvoidToolWindow { get; }
 
         static WindowsUtils(){
@@ -77,10 +80,10 @@ namespace TweetDuck.Core.Utils{
             string originalText = Clipboard.GetText(TextDataFormat.UnicodeText);
             string originalHtml = Clipboard.GetText(TextDataFormat.Html);
 
-            string updatedHtml = ClipboardRegexes.RegexStripHtmlStyles.Replace(originalHtml, string.Empty);
+            string updatedHtml = RegexStripHtmlStyles.Value.Replace(originalHtml, string.Empty);
 
             int removed = originalHtml.Length-updatedHtml.Length;
-            updatedHtml = ClipboardRegexes.RegexOffsetClipboardHtml.Replace(updatedHtml, match => (int.Parse(match.Value)-removed).ToString().PadLeft(match.Value.Length, '0'));
+            updatedHtml = RegexOffsetClipboardHtml.Value.Replace(updatedHtml, match => (int.Parse(match.Value)-removed).ToString().PadLeft(match.Value.Length, '0'));
 
             DataObject obj = new DataObject();
             obj.SetText(originalText, TextDataFormat.UnicodeText);
@@ -104,11 +107,6 @@ namespace TweetDuck.Core.Utils{
             }catch(ExternalException e){
                 Program.Reporter.HandleException("Clipboard Error", Program.BrandName+" could not access the clipboard as it is currently used by another process.", true, e);
             }
-        }
-
-        private static class ClipboardRegexes{ // delays construction of regular expressions until needed
-            public static readonly Regex RegexStripHtmlStyles = new Regex(@"\s?(?:style|class)="".*?""");
-            public static readonly Regex RegexOffsetClipboardHtml = new Regex(@"(?<=EndHTML:|EndFragment:)(\d+)");
         }
     }
 }

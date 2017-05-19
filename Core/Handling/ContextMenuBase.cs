@@ -9,7 +9,7 @@ using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Handling{
     abstract class ContextMenuBase : IContextMenuHandler{
-        private static readonly Regex RegexTwitterAccount = new Regex(@"^https?://twitter\.com/([^/]+)/?$", RegexOptions.Compiled);
+        private static readonly Lazy<Regex> RegexTwitterAccount = new Lazy<Regex>(() => new Regex(@"^https?://twitter\.com/([^/]+)/?$", RegexOptions.Compiled), false);
         protected static readonly bool HasDevTools = File.Exists(Path.Combine(Program.ProgramPath, "devtools_resources.pak"));
 
         private const int MenuOpenLinkUrl = 26500;
@@ -28,7 +28,7 @@ namespace TweetDuck.Core.Handling{
 
         public virtual void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model){
             if (parameters.TypeFlags.HasFlag(ContextMenuType.Link) && !parameters.UnfilteredLinkUrl.EndsWith("tweetdeck.twitter.com/#", StringComparison.Ordinal)){
-                if (RegexTwitterAccount.IsMatch(parameters.UnfilteredLinkUrl)){
+                if (RegexTwitterAccount.Value.IsMatch(parameters.UnfilteredLinkUrl)){
                     model.AddItem((CefMenuCommand)MenuOpenLinkUrl, "Open account in browser");
                     model.AddItem((CefMenuCommand)MenuCopyLinkUrl, "Copy account address");
                     model.AddItem((CefMenuCommand)MenuCopyUsername, "Copy account username");
@@ -91,7 +91,7 @@ namespace TweetDuck.Core.Handling{
                     break;
 
                 case MenuCopyUsername:
-                    Match match = RegexTwitterAccount.Match(parameters.UnfilteredLinkUrl);
+                    Match match = RegexTwitterAccount.Value.Match(parameters.UnfilteredLinkUrl);
                     SetClipboardText(match.Success ? match.Groups[1].Value : parameters.UnfilteredLinkUrl);
                     break;
                     
