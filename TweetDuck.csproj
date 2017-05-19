@@ -97,6 +97,7 @@
     <Compile Include="Core\FormBrowser.Designer.cs">
       <DependentUpon>FormBrowser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\Handling\RequestHandler.cs" />
     <Compile Include="Core\Handling\ResourceHandlerNotification.cs" />
     <Compile Include="Core\Notification\FormNotificationMain.cs">
       <SubType>Form</SubType>
