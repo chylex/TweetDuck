@@ -104,6 +104,13 @@ namespace TweetDuck.Core.Bridge{
             MessageBox.Show(contents, Program.BrandName+" Browser Message", MessageBoxButtons.OK, icon);
         }
 
+        public void CrashDebug(string message){
+            #if DEBUG
+            Log(message);
+            System.Diagnostics.Debugger.Break();
+            #endif
+        }
+
         public void Log(string data){
             System.Diagnostics.Debug.WriteLine(data);
         }

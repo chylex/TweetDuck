@@ -63,6 +63,22 @@
   };
   
   //
+  // Function: Returns true if an object has a specified property, otherwise returns false without throwing an error.
+  //
+  var ensurePropertyExists = function(obj, ...chain){
+    for(var index = 0; index < chain.length; index++){
+      if (!obj.hasOwnProperty(chain[index])){
+        $TD.crashDebug("Missing property "+chain[index]+" in chain [obj]."+chain.join("."));
+        return false;
+      }
+      
+      obj = obj[chain[index]];
+    }
+    
+    return true;
+  };
+  
+  //
   // Function: Retrieves a property of an element with a specified class.
   //
   var getClassStyleProperty = function(cls, property){
