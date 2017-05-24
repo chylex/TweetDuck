@@ -47,7 +47,7 @@ Source: "..\bin\x86\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesu
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Check: TDIsUninstallable
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Parameters: "{param:RUNARGS}"; Flags: nowait postinstall shellexec
+Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Parameters: "{code:TDGetRunArgs}"; Flags: nowait postinstall shellexec
 
 [InstallDelete]
 Type: files; Name: "{app}\*.xml"
@@ -69,6 +69,7 @@ Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\GPUCache"
 
 [Code]
 function TDIsUninstallable: Boolean; forward;
+function TDGetRunArgs(Param: String): String; forward;
 function TDFindUpdatePath: String; forward;
 function TDGetNetFrameworkVersion: Cardinal; forward;
 function TDGetAppVersionClean: String; forward;
@@ -162,6 +163,15 @@ end;
 function TDIsUninstallable: Boolean;
 begin
   Result := not IsPortable
+end;
+
+{ Returns a string used for arguments when running the app after update. }
+function TDGetRunArgs(Param: String): String;
+var Args: String;
+begin
+  Args := ExpandConstant('{param:RUNARGS}')
+  StringChangeEx(Args, '::', '"', True)
+  Result := Args
 end;
 
 { Returns a validated installation path (including trailing backslash) using the /UPDATEPATH parameter or installation info in registry. Returns empty string on failure. }

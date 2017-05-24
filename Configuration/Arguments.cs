@@ -40,7 +40,7 @@ namespace TweetDuck.Configuration{
         }
 
         public static string GetCurrentForInstallerCmd(){
-            return GetCurrentForInstaller().ToString().Replace("\"", "^\"");
+            return GetCurrentForInstaller().ToString().Replace("\"", "::");
         }
     }
 }
