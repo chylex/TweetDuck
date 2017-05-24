@@ -27,7 +27,7 @@ namespace TweetDuck.Core.Other.Settings.Export{
             try{
                 using(CombinedFileStream stream = new CombinedFileStream(new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None))){
                     if (flags.HasFlag(ExportFileFlags.Config)){
-                        stream.WriteFile("config", Program.ConfigFilePath);
+                        stream.WriteFile("config", Program.UserConfigFilePath);
                     }
 
                     if (flags.HasFlag(ExportFileFlags.PluginData)){
@@ -101,7 +101,7 @@ namespace TweetDuck.Core.Other.Settings.Export{
                         switch(entry.KeyName){
                             case "config":
                                 if (flags.HasFlag(ExportFileFlags.Config)){
-                                    entry.WriteToFile(Program.ConfigFilePath);
+                                    entry.WriteToFile(Program.UserConfigFilePath);
                                 }
 
                                 break;

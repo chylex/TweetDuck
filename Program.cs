@@ -29,7 +29,8 @@ namespace TweetDuck{
         public static readonly string ProgramPath = AppDomain.CurrentDomain.BaseDirectory;
         public static readonly string StoragePath = IsPortable ? Path.Combine(ProgramPath, "portable", "storage") : GetDataStoragePath();
 
-        public static readonly string ConfigFilePath = Path.Combine(StoragePath, "TD_UserConfig.cfg");
+        public static readonly string UserConfigFilePath = Path.Combine(StoragePath, "TD_UserConfig.cfg");
+        public static readonly string SystemConfigFilePath = Path.Combine(StoragePath, "TD_SystemConfig.cfg");
         public static readonly string PluginDataPath = Path.Combine(StoragePath, "TD_Plugins");
         public static readonly string PluginConfigFilePath = Path.Combine(StoragePath, "TD_PluginConfig.cfg");
         private static readonly string ErrorLogFilePath = Path.Combine(StoragePath, "TD_Log.txt");
@@ -45,6 +46,7 @@ namespace TweetDuck{
         private static bool HasCleanedUp;
         
         public static UserConfig UserConfig { get; private set; }
+        public static SystemConfig SystemConfig { get; private set; }
         public static Reporter Reporter { get; private set; }
 
         public static event EventHandler UserConfigReplaced;
@@ -123,6 +125,7 @@ namespace TweetDuck{
             }
 
             ReloadConfig();
+            SystemConfig = SystemConfig.Load(SystemConfigFilePath);
 
             if (Arguments.HasFlag(Arguments.ArgImportCookies)){
                 ExportManager.ImportCookies();
@@ -148,7 +151,7 @@ namespace TweetDuck{
 
             CommandLineArgsParser.ReadCefArguments(UserConfig.CustomCefArgs).ToDictionary(settings.CefCommandLineArgs);
 
-            if (!HardwareAcceleration.IsEnabled){
+            if (!SystemConfig.HardwareAcceleration){
                 settings.CefCommandLineArgs["disable-gpu"] = "1";
                 settings.CefCommandLineArgs["disable-gpu-vsync"] = "1";
             }
@@ -219,14 +222,14 @@ namespace TweetDuck{
         }
 
         public static void ReloadConfig(){
-            UserConfig = UserConfig.Load(ConfigFilePath);
+            UserConfig = UserConfig.Load(UserConfigFilePath);
             UserConfigReplaced?.Invoke(UserConfig, new EventArgs());
         }
 
         public static void ResetConfig(){
             try{
-                File.Delete(ConfigFilePath);
-                File.Delete(UserConfig.GetBackupFile(ConfigFilePath));
+                File.Delete(UserConfigFilePath);
+                File.Delete(UserConfig.GetBackupFile(UserConfigFilePath));
             }catch(Exception e){
                 Reporter.HandleException("Configuration Reset Error", "Could not delete configuration files to reset the settings.", true, e);
                 return;

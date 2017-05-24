@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="Configuration\Arguments.cs" />
     <Compile Include="Configuration\LockManager.cs" />
+    <Compile Include="Configuration\SystemConfig.cs" />
     <Compile Include="Configuration\UserConfig.cs" />
     <Compile Include="Core\Bridge\PropertyBridge.cs" />
     <Compile Include="Core\Controls\ControlExtensions.cs" />
@@ -253,7 +254,6 @@
     </Compile>
     <Compile Include="Core\Utils\BrowserCache.cs" />
     <Compile Include="Core\Utils\BrowserUtils.cs" />
-    <Compile Include="Core\Utils\HardwareAcceleration.cs" />
     <Compile Include="Core\Utils\NativeMethods.cs" />
     <Compile Include="Updates\Events\UpdateAcceptedEventArgs.cs" />
     <Compile Include="Updates\Events\UpdateCheckEventArgs.cs" />

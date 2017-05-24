@@ -19,7 +19,13 @@ namespace TweetDuck.Core.Other.Settings{
             this.reinjectBrowserCSS = reinjectBrowserCSS;
             this.plugins = plugins;
 
-            checkHardwareAcceleration.Checked = HardwareAcceleration.IsEnabled;
+            if (SystemConfig.IsHardwareAccelerationSupported){
+                checkHardwareAcceleration.Checked = Program.SystemConfig.HardwareAcceleration;
+            }
+            else{
+                checkHardwareAcceleration.Enabled = false;
+                checkHardwareAcceleration.Checked = false;
+            }
 
             BrowserCache.CalculateCacheSize(bytes => this.InvokeSafe(() => {
                 if (bytes == -1L){
@@ -56,28 +62,9 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void checkHardwareAcceleration_CheckedChanged(object sender, EventArgs e){
-            bool succeeded = false;
-
-            if (checkHardwareAcceleration.Checked){
-                if (HardwareAcceleration.CanEnable){
-                    succeeded = HardwareAcceleration.Enable();
-                }
-                else{
-                    MessageBox.Show("Cannot enable hardware acceleration, the libraries libEGL.dll and libGLESv2.dll could not be restored.", Program.BrandName+" Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else{
-                succeeded = HardwareAcceleration.Disable();
-            }
-
-            if (succeeded){
-                PromptRestart();
-            }
-            else{
-                checkHardwareAcceleration.CheckedChanged -= checkHardwareAcceleration_CheckedChanged;
-                checkHardwareAcceleration.Checked = HardwareAcceleration.IsEnabled;
-                checkHardwareAcceleration.CheckedChanged += checkHardwareAcceleration_CheckedChanged;
-            }
+            Program.SystemConfig.HardwareAcceleration = checkHardwareAcceleration.Checked;
+            Program.SystemConfig.Save();
+            PromptRestart();
         }
 
         private void btnEditCefArgs_Click(object sender, EventArgs e){
