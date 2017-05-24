@@ -51,24 +51,22 @@ namespace TweetDuck.Core.Notification{
             TopLeft, TopRight, BottomLeft, BottomRight, Custom
         }
 
-        public string Column => column;
-        public string TweetUrl => tweetUrl;
-        public string QuoteUrl => quoteUrl;
-
-        private readonly string column;
+        public string Column { get; }
+        public string TweetUrl { get; }
+        public string QuoteUrl { get; }
+        
         private readonly string html;
         private readonly int characters;
-        private readonly string tweetUrl;
-        private readonly string quoteUrl;
         private readonly bool isExample;
 
         public TweetNotification(string column, string html, int characters, string tweetUrl, string quoteUrl) : this(column, html, characters, tweetUrl, quoteUrl, false){}
 
         private TweetNotification(string column, string html, int characters, string tweetUrl, string quoteUrl, bool isExample){
-            this.column = column;
+            this.Column = column;
+            this.TweetUrl = tweetUrl;
+            this.QuoteUrl = quoteUrl;
+
             this.html = html;
-            this.tweetUrl = tweetUrl;
-            this.quoteUrl = quoteUrl;
             this.characters = characters;
             this.isExample = isExample;
         }
