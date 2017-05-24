@@ -204,13 +204,15 @@
   //
   // Block: Enable popup notifications.
   //
-  TD.controller.notifications.hasNotifications = function(){
-    return true;
-  };
+  if (ensurePropertyExists(TD, "controller", "notifications")){
+    TD.controller.notifications.hasNotifications = function(){
+      return true;
+    };
 
-  TD.controller.notifications.isPermissionGranted = function(){
-    return true;
-  };
+    TD.controller.notifications.isPermissionGranted = function(){
+      return true;
+    };
+  }
   
   $.subscribe("/notifications/new", function(obj){
     for(let index = obj.items.length-1; index >= 0; index--){
@@ -554,6 +556,10 @@
       }
     });
     
+    if (!ensurePropertyExists(TD, "vo", "Column", "prototype", "clear")){
+      return;
+    }
+    
     TD.vo.Column.prototype.clear = prependToFunction(TD.vo.Column.prototype.clear, function(){
       window.setTimeout(resetActiveFocus, 0); // unfocuses the Clear button, otherwise it steals keyboard input
       
@@ -576,7 +582,11 @@
     };
     
     $(".js-drawer[data-drawer='compose']").delegate(".js-account-list > .js-account-item", "click", toggleEventShiftKey);
-
+    
+    if (!ensurePropertyExists(TD, "components", "AccountSelector", "prototype", "refreshPostingAccounts")){
+      return;
+    }
+    
     TD.components.AccountSelector.prototype.refreshPostingAccounts = appendToFunction(TD.components.AccountSelector.prototype.refreshPostingAccounts, function(){
       if (!this.$node.attr("td-account-selector-hook")){
         this.$node.attr("td-account-selector-hook", "1");
@@ -631,6 +641,10 @@
   (function(){
     var cancelModal = false;
     
+    if (!ensurePropertyExists(TD, "components", "MediaGallery", "prototype", "_loadTweet") ||
+        !ensurePropertyExists(TD, "components", "BaseModal", "prototype", "setAndShowContainer") ||
+        !ensurePropertyExists(TD, "ui", "Column", "prototype", "playGifIfNotManuallyPaused"))return;
+    
     TD.components.MediaGallery.prototype._loadTweet = appendToFunction(TD.components.MediaGallery.prototype._loadTweet, function(){
       var media = this.chirp.getMedia().find(media => media.mediaId === this.clickedMediaEntityId);
 
@@ -662,38 +676,53 @@
   //
   // Block: Fix youtu.be previews not showing up for https links.
   //
-  TD.services.TwitterMedia.YOUTUBE_TINY_RE = new RegExp(TD.services.TwitterMedia.YOUTUBE_TINY_RE.source.replace("http:", "https?:"));
-  TD.services.TwitterMedia.YOUTUBE_RE = new RegExp(TD.services.TwitterMedia.YOUTUBE_LONG_RE.source+"|"+TD.services.TwitterMedia.YOUTUBE_TINY_RE.source);
-  TD.services.TwitterMedia.SERVICES["youtube"] = TD.services.TwitterMedia.YOUTUBE_RE;
+  if (ensurePropertyExists(TD, "services", "TwitterMedia")){
+    var media = TD.services.TwitterMedia;
+    
+    if (!ensurePropertyExists(media, "YOUTUBE_TINY_RE") ||
+        !ensurePropertyExists(media, "YOUTUBE_LONG_RE") ||
+        !ensurePropertyExists(media, "YOUTUBE_RE") ||
+        !ensurePropertyExists(media, "SERVICES", "youtube"))return;
+    
+    media.YOUTUBE_TINY_RE = new RegExp(media.YOUTUBE_TINY_RE.source.replace("http:", "https?:"));
+    media.YOUTUBE_RE = new RegExp(media.YOUTUBE_LONG_RE.source+"|"+media.YOUTUBE_TINY_RE.source);
+    media.SERVICES["youtube"] = media.YOUTUBE_RE;
+  }
   
   //
   // Block: Fix DM reply input box not getting focused after opening a conversation.
   //
-  TD.components.ConversationDetailView.prototype.showChirp = appendToFunction(TD.components.ConversationDetailView.prototype.showChirp, function(){
-    setTimeout(function(){
-      $(".js-reply-tweetbox").first().focus();
-    }, 100);
-  });
+  if (ensurePropertyExists(TD, "components", "ConversationDetailView", "prototype", "showChirp")){
+    TD.components.ConversationDetailView.prototype.showChirp = appendToFunction(TD.components.ConversationDetailView.prototype.showChirp, function(){
+      setTimeout(function(){
+        $(".js-reply-tweetbox").first().focus();
+      }, 100);
+    });
+  }
   
   //
   // Block: Fix DM notifications not showing if the conversation is open.
   //
-  (function(prevFunc){
+  if (ensurePropertyExists(TD, "services", "TwitterConversation", "prototype", "getUnreadChirps")){
+    var prevFunc = TD.services.TwitterConversation.prototype.getUnreadChirps;
+    
     TD.services.TwitterConversation.prototype.getUnreadChirps = function(e){
       return (e && e.sortIndex && !e.id && !this.notificationsDisabled)
         ? this.messages.filter(t => t.chirpType === TD.services.ChirpBase.MESSAGE && !t.isOwnChirp() && !t.read && !t.belongsBelow(e)) // changed from belongsAbove
         : prevFunc.apply(this, arguments);
     };
-  })(TD.services.TwitterConversation.prototype.getUnreadChirps);
+  }
   
   //
   // Block: Disable TweetDeck metrics.
   //
-  TD.metrics.inflate = function(){};
-  TD.metrics.inflateMetricTriple = function(){};
-  TD.metrics.log = function(){};
-  TD.metrics.makeKey = function(){};
-  TD.metrics.send = function(){};
+  if (ensurePropertyExists(TD, "metrics")){
+    TD.metrics.inflate = function(){};
+    TD.metrics.inflateMetricTriple = function(){};
+    TD.metrics.log = function(){};
+    TD.metrics.makeKey = function(){};
+    TD.metrics.send = function(){};
+  }
   
   onAppReady.push(function(){
     let data = $._data(window);
@@ -718,7 +747,9 @@
   //
   // Block: Skip the initial pre-login page.
   //
-  TD.controller.init.showLogin = function(){
-    location.href = "https://twitter.com/login?hide_message=true&redirect_after_login=https%3A%2F%2Ftweetdeck.twitter.com%2F%3Fvia_twitter_login%3Dtrue";
-  };
+  if (ensurePropertyExists(TD, "controller", "init", "showLogin")){
+    TD.controller.init.showLogin = function(){
+      location.href = "https://twitter.com/login?hide_message=true&redirect_after_login=https%3A%2F%2Ftweetdeck.twitter.com%2F%3Fvia_twitter_login%3Dtrue";
+    };
+  }
 })($, $TD, $TDX, TD);
