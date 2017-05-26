@@ -38,7 +38,7 @@ enabled(){
         $(document).off("mousemove", this.eventKeyUp);
       }
       
-      $("#clear-columns-btn-all").text(pressed ? "Reset all" : "Clear all");
+      $("#clear-columns-btn-all").text(pressed ? "Restore columns" : "Clear columns");
     }
   };
   
@@ -94,7 +94,7 @@ enabled(){
     '<dd class="keyboard-shortcut-definition" style="white-space:nowrap">',
     '<span class="text-like-keyboard-key">1</span> … <span class="text-like-keyboard-key">9</span> + <span class="text-like-keyboard-key">Del</span> Clear column 1－9',
     '</dd><dd class="keyboard-shortcut-definition">',
-    '<span class="text-like-keyboard-key">Alt</span> + <span class="text-like-keyboard-key">Del</span> Clear all',
+    '<span class="text-like-keyboard-key">Alt</span> + <span class="text-like-keyboard-key">Del</span> Clear all columns',
     '</dd></dl><dl'
   ].join(""));
   
@@ -116,9 +116,9 @@ ready(){
   
   // add clear all button
   $("nav.app-navigator").first().append([
-    '<a class="link-clean cf app-nav-link padding-h--10" data-title="Clear all" data-action="td-clearcolumns-doall">',
+    '<a class="link-clean cf app-nav-link padding-h--10" data-title="Clear columns" data-action="td-clearcolumns-doall">',
     '<div class="obj-left margin-l--2"><i class="icon icon-medium icon-clear-timeline"></i></div>',
-    '<div id="clear-columns-btn-all" class="nbfc padding-ts hide-condensed txt-size--16">Clear all</div>',
+    '<div id="clear-columns-btn-all" class="nbfc padding-ts hide-condensed txt-size--16">Clear columns</div>',
     '</a></nav>'
   ].join(""));
 }

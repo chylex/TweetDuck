@@ -530,7 +530,7 @@
   });
   
   //
-  // Block: Hold Shift to reset cleared column.
+  // Block: Hold Shift to restore cleared column.
   //
   (function(){
     var holdingShift = false;
@@ -538,7 +538,7 @@
     var updateShiftState = (pressed) => {
       if (pressed != holdingShift){
         holdingShift = pressed;
-        $("button[data-action='clear']").children("span").text(holdingShift ? "Reset" : "Clear");
+        $("button[data-action='clear']").children("span").text(holdingShift ? "Restore" : "Clear");
       }
     };
     
