@@ -84,7 +84,7 @@ enabled(){
   replaceMustache("column/column_header.mustache", "</header>", [
     '{{^isTemporary}}',
     '<a class="column-header-link" href="#" data-action="td-clearcolumns-dosingle" style="right:34px">',
-    '<i class="icon icon-clear-timeline"></i>',
+    '<i class="icon icon-clear-timeline js-show-tip" data-placement="bottom" data-original-title="Clear column (hold Shift to restore)"></i>',
     '</a>',
     '{{/isTemporary}}',
     '</header>'
@@ -116,11 +116,18 @@ ready(){
   
   // add clear all button
   $("nav.app-navigator").first().append([
-    '<a class="link-clean cf app-nav-link padding-h--10" data-title="Clear columns" data-action="td-clearcolumns-doall">',
+    '<a id="clear-columns-btn-all-parent" class="js-header-action link-clean cf app-nav-link padding-h--10" data-title="Clear columns (hold Shift to restore)" data-action="td-clearcolumns-doall">',
     '<div class="obj-left margin-l--2"><i class="icon icon-medium icon-clear-timeline"></i></div>',
     '<div id="clear-columns-btn-all" class="nbfc padding-ts hide-condensed txt-size--16">Clear columns</div>',
     '</a></nav>'
   ].join(""));
+  
+  // setup tooltip handling
+  var tooltipEvents = $._data($(".js-header-action")[0]).events;
+  
+  if (tooltipEvents.mouseover && tooltipEvents.mouseover.length && tooltipEvents.mouseout && tooltipEvents.mouseout.length){
+    $("#clear-columns-btn-all-parent").on("mouseover", tooltipEvents.mouseover[0].handler).on("mouseout", tooltipEvents.mouseout[0].handler);
+  }
 }
 
 disabled(){
