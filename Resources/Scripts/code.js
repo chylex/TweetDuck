@@ -623,6 +623,9 @@
     styleOfficial.sheet.insertRule(".app-columns-container::-webkit-scrollbar-track { border-left: 0; }", 0); // remove weird border in the column container scrollbar
     styleOfficial.sheet.insertRule(".app-columns-container { bottom: 0 !important; }", 0); // move column container scrollbar to bottom to fit updated style
     
+    styleOfficial.sheet.insertRule(".js-column-header .column-header-link { padding: 0; }", 0); // fix column header tooltip hover box
+    styleOfficial.sheet.insertRule(".js-column-header .column-header-link .icon { padding: 9px 4px; width: calc(1em + 8px); height: 100%; box-sizing: border-box; }", 0); // fix column header tooltip hover box
+    
     styleOfficial.sheet.insertRule(".is-video a:not([href*='youtu']), .is-gif .js-media-gif-container { cursor: alias; }", 0); // change cursor on unsupported videos
     styleOfficial.sheet.insertRule(".is-video a:not([href*='youtu']) .icon-bg-dot, .is-gif .icon-bg-dot { color: #bd3d37; }", 0); // change play icon color on unsupported videos
     
