@@ -617,6 +617,9 @@
     styleOfficial.sheet.insertRule(".app-navigator .tooltip { display: none !important; }", 0); // hide broken tooltips in the menu
     styleOfficial.sheet.insertRule(".account-inline .username { vertical-align: 10%; }", 0); // move usernames a bit higher
     
+    styleOfficial.sheet.insertRule(".column .column-header { height: 49px !important; }", 0); // fix one pixel space below column header
+    styleOfficial.sheet.insertRule(".column:not(.is-options-open) .column-header { border-bottom: none; }", 0); // fix one pixel space below column header
+    
     styleOfficial.sheet.insertRule(".activity-header { align-items: center !important; margin-bottom: 4px; }", 0); // tweak alignment of avatar and text in notifications
     styleOfficial.sheet.insertRule(".activity-header .tweet-timestamp { line-height: unset }", 0); // fix timestamp position in notifications
     
