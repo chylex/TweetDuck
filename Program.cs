@@ -29,16 +29,18 @@ namespace TweetDuck{
         public static readonly string ProgramPath = AppDomain.CurrentDomain.BaseDirectory;
         public static readonly string StoragePath = IsPortable ? Path.Combine(ProgramPath, "portable", "storage") : GetDataStoragePath();
 
-        public static readonly string UserConfigFilePath = Path.Combine(StoragePath, "TD_UserConfig.cfg");
-        public static readonly string SystemConfigFilePath = Path.Combine(StoragePath, "TD_SystemConfig.cfg");
-        public static readonly string PluginDataPath = Path.Combine(StoragePath, "TD_Plugins");
-        public static readonly string PluginConfigFilePath = Path.Combine(StoragePath, "TD_PluginConfig.cfg");
-        private static readonly string ErrorLogFilePath = Path.Combine(StoragePath, "TD_Log.txt");
-        private static readonly string ConsoleLogFilePath = Path.Combine(StoragePath, "TD_Console.txt");
-        private static readonly string InstallerPath = Path.Combine(StoragePath, "TD_Updates");
-        
         public static readonly string ScriptPath = Path.Combine(ProgramPath, "scripts");
         public static readonly string PluginPath = Path.Combine(ProgramPath, "plugins");
+
+        public static readonly string UserConfigFilePath = Path.Combine(StoragePath, "TD_UserConfig.cfg");
+        public static readonly string SystemConfigFilePath = Path.Combine(StoragePath, "TD_SystemConfig.cfg");
+        public static readonly string PluginConfigFilePath = Path.Combine(StoragePath, "TD_PluginConfig.cfg");
+
+        public static readonly string PluginDataPath = Path.Combine(StoragePath, "TD_Plugins");
+        private static readonly string InstallerPath = Path.Combine(StoragePath, "TD_Updates");
+
+        private static string ErrorLogFilePath => Path.Combine(StoragePath, "TD_Log.txt");
+        private static string ConsoleLogFilePath => Path.Combine(StoragePath, "TD_Console.txt");
 
         public static uint WindowRestoreMessage;
 
