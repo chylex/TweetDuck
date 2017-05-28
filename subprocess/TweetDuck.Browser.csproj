@@ -35,7 +35,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>call "$(DevEnvDir)..\..\VC\Auxiliary\Build\vcvars32.bat"
+editbin /largeaddressaware /TSAWARE "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
 </Project>
