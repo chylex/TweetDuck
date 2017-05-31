@@ -45,8 +45,7 @@ namespace TweetDuck.Configuration{
 
         public bool EnableUpdateCheck { get; set; }
         public string DismissedUpdate { get; set; }
-
-        [Obsolete] public PluginConfig Plugins { get; set; } // TODO remove eventually
+        
         public WindowState PluginsWindow { get; set; }
 
         public string CustomCefArgs { get; set; }

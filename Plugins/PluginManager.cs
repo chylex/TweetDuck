@@ -42,29 +42,14 @@ namespace TweetDuck.Plugins{
             this.Config = new PluginConfig();
             this.Bridge = new PluginBridge(this);
 
-            LoadConfig();
+            Config.Load(configPath);
             
             Config.InternalPluginChangedState += Config_InternalPluginChangedState;
             Program.UserConfigReplaced += Program_UserConfigReplaced;
         }
 
-        private void LoadConfig(){
-            #pragma warning disable 612
-            if (Program.UserConfig.Plugins != null){
-                Config.ImportLegacy(Program.UserConfig.Plugins);
-                Config.Save(configPath);
-
-                Program.UserConfig.Plugins = null;
-                Program.UserConfig.Save();
-            }
-            #pragma warning restore 612
-            else{
-                Config.Load(configPath);
-            }
-        }
-
         private void Program_UserConfigReplaced(object sender, EventArgs e){
-            LoadConfig();
+            Config.Load(configPath);
             Reload();
         }
 
