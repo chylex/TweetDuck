@@ -23,6 +23,8 @@ enabled(){
     avatarRadius: 10
   };
   
+  this.firstTimeLoad = null;
+  
   // modal dialog loading
   $TDP.readFileRoot(this.$token, "modal.html").then(contents => {
     this.htmlModal = contents;
@@ -32,30 +34,52 @@ enabled(){
   
   // configuration
   const configFile = "config.json";
+  
   this.tmpConfig = null;
+  this.currentStage = 0;
   
-  var loadConfigObject = obj => {
-    this.tmpConfig = obj || {};
-    
-    if (TD.ready){
-      this.onAppReady();
+  this.onStageReady = () => {
+    if (this.currentStage === 0){
+      this.currentStage = 1;
     }
-    
-    this.injectDeciderReplyHook(this.tmpConfig.revertReplies);
-  };
-  
-  this.onAppReady = () => {
-    if (this.tmpConfig !== null){
+    else if (this.tmpConfig !== null){
       this.config = $.extend(this.defaultConfig, this.tmpConfig);
       this.tmpConfig = null;
       this.reinjectAll();
+      
+      if (this.firstTimeLoad){
+        $TDP.writeFile(this.$token, configFile, JSON.stringify(this.config));
+      }
     }
   };
   
+  var loadConfigObject = obj => {
+    this.tmpConfig = obj || {};
+    this.firstTimeLoad = obj === null;
+    
+    this.onStageReady();
+    this.injectDeciderReplyHook(this.tmpConfig.revertReplies);
+  };
+  
+  $(document).one("dataSettingsValues", () => {
+    switch(TD.settings.getColumnWidth()){
+      case "wide": this.defaultConfig.columnWidth = "350px"; break;
+      case "narrow": this.defaultConfig.columnWidth = "270px"; break;
+    }
+
+    switch(TD.settings.getFontSize()){
+      case "small": this.defaultConfig.fontSize = "13px"; break;
+      case "medium": this.defaultConfig.fontSize = "14px"; break;
+      case "large": this.defaultConfig.fontSize = "15px"; break;
+      case "largest": this.defaultConfig.fontSize = "16px"; break;
+    }
+    
+    this.onStageReady();
+  });
+    
   $TDP.checkFileExists(this.$token, configFile).then(exists => {
     if (!exists){
       loadConfigObject(null);
-      $TDP.writeFile(this.$token, configFile, JSON.stringify(this.defaultConfig));
     }
     else{
       $TDP.readFile(this.$token, configFile, true).then(contents => {
@@ -416,21 +440,6 @@ enabled(){
 }
 
 ready(){
-  // configuration
-  switch(TD.settings.getColumnWidth()){
-    case "wide": this.defaultConfig.columnWidth = "350px"; break;
-    case "narrow": this.defaultConfig.columnWidth = "270px"; break;
-  }
-  
-  switch(TD.settings.getFontSize()){
-    case "small": this.defaultConfig.fontSize = "13px"; break;
-    case "medium": this.defaultConfig.fontSize = "14px"; break;
-    case "large": this.defaultConfig.fontSize = "15px"; break;
-    case "largest": this.defaultConfig.fontSize = "16px"; break;
-  }
-  
-  this.onAppReady();
-  
   // optimization events
   $(window).on("focus", this.onWindowFocusEvent);
   $(window).on("blur", this.onWindowBlurEvent);
