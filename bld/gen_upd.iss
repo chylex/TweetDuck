@@ -41,7 +41,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
 Source: "..\bin\x86\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x86\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Excludes: "*.xml,*.pdb,*.dll,*.pak,*.bin,*.dat,CefSharp.BrowserSubprocess.exe"
+Source: "..\bin\x86\Release\TweetLib.*.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\bin\x86\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Excludes: "*.xml,*.pdb,*.dll,*.pak,*.bin,*.dat,*.txt,CefSharp.BrowserSubprocess.exe"
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Check: TDIsUninstallable
