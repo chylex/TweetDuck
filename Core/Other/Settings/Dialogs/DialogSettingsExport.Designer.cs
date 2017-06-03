@@ -67,8 +67,7 @@
             this.cbConfig.Size = new System.Drawing.Size(106, 17);
             this.cbConfig.TabIndex = 0;
             this.cbConfig.Text = "Program Settings";
-            this.toolTip.SetToolTip(this.cbConfig, "Interface, notification, and update settings.\r\nIncludes a list of disabled plugin" +
-        "s.");
+            this.toolTip.SetToolTip(this.cbConfig, "Interface, notification, and update settings.");
             this.cbConfig.UseVisualStyleBackColor = true;
             this.cbConfig.CheckedChanged += new System.EventHandler(this.cbConfig_CheckedChanged);
             // 

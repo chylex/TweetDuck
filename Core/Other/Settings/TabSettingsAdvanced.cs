@@ -131,8 +131,8 @@ namespace TweetDuck.Core.Other.Settings{
                 OverwritePrompt = true,
                 DefaultExt = "tdsettings",
                 FileName = Program.BrandName+".tdsettings",
-                Title = "Export "+Program.BrandName+" Settings",
-                Filter = Program.BrandName+" Settings (*.tdsettings)|*.tdsettings"
+                Title = "Export "+Program.BrandName+" Profile",
+                Filter = Program.BrandName+" Profile (*.tdsettings)|*.tdsettings"
             }){
                 if (dialog.ShowDialog() != DialogResult.OK){
                     return;
@@ -146,7 +146,7 @@ namespace TweetDuck.Core.Other.Settings{
             ExportManager manager = new ExportManager(file, plugins);
             
             if (!manager.Export(flags)){
-                Program.Reporter.HandleException("Profile Export Error", "An exception happened while exporting "+Program.BrandName+" settings.", true, manager.LastException);
+                Program.Reporter.HandleException("Profile Export Error", "An exception happened while exporting "+Program.BrandName+" profile.", true, manager.LastException);
             }
         }
 
@@ -156,8 +156,8 @@ namespace TweetDuck.Core.Other.Settings{
             using(OpenFileDialog dialog = new OpenFileDialog{
                 AutoUpgradeEnabled = true,
                 DereferenceLinks = true,
-                Title = "Import "+Program.BrandName+" Settings",
-                Filter = Program.BrandName+" Settings (*.tdsettings)|*.tdsettings"
+                Title = "Import "+Program.BrandName+" Profile",
+                Filter = Program.BrandName+" Profile (*.tdsettings)|*.tdsettings"
             }){
                 if (dialog.ShowDialog() != DialogResult.OK){
                     return;
@@ -183,7 +183,7 @@ namespace TweetDuck.Core.Other.Settings{
                 }
             }
             else{
-                Program.Reporter.HandleException("Profile Import Error", "An exception happened while importing "+Program.BrandName+" settings.", true, manager.LastException);
+                Program.Reporter.HandleException("Profile Import Error", "An exception happened while importing "+Program.BrandName+" profile.", true, manager.LastException);
             }
         }
 
