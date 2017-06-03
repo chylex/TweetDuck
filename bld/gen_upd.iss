@@ -29,9 +29,9 @@ Uninstallable=TDIsUninstallable
 UninstallDisplayName={#MyAppName}
 UninstallDisplayIcon={app}\{#MyAppExeName}
 PrivilegesRequired=lowest
-Compression=lzma
-SolidCompression=yes
-InternalCompressLevel=max
+Compression=lzma/normal
+SolidCompression=True
+InternalCompressLevel=normal
 MinVersion=0,6.1
 
 #include <idp.iss>
