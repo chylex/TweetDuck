@@ -79,8 +79,8 @@ namespace TweetDuck.Core.Other.Settings{
 
                 if (form.DialogResult == DialogResult.OK){
                     Config.CustomCefArgs = form.CefArgs;
-                    form.Dispose();
                     PromptRestart();
+                    form.Dispose();
                 }
                 else form.Dispose();
             };

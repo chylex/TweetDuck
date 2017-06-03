@@ -31,7 +31,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
             }
 
             int count = CommandLineArgsParser.ReadCefArguments(CefArgs).Count;
-            string prompt = count == 0 && !string.IsNullOrWhiteSpace(prevArgs) ? "All arguments will be removed from the settings. Continue?" : count+(count == 1 ? " argument" : " arguments")+" will be added to the settings. Continue?";
+            string prompt = count == 0 && !string.IsNullOrWhiteSpace(prevArgs) ? "All current arguments will be removed. Continue?" : count+(count == 1 ? " argument was" : " arguments were")+" detected. Continue?";
 
             if (MessageBox.Show(prompt, "Confirm CEF Arguments", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.OK){
                 DialogResult = DialogResult.OK;
