@@ -233,7 +233,7 @@ namespace TweetDuck{
                 File.Delete(UserConfigFilePath);
                 File.Delete(UserConfig.GetBackupFile(UserConfigFilePath));
             }catch(Exception e){
-                Reporter.HandleException("Configuration Reset Error", "Could not delete configuration files to reset the settings.", true, e);
+                Reporter.HandleException("Configuration Reset Error", "Could not delete configuration files to reset the options.", true, e);
                 return;
             }
 

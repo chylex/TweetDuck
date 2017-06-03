@@ -16,7 +16,7 @@ namespace TweetDuck.Core.Other{
         public FormSettings(FormBrowser browser, PluginManager plugins, UpdateHandler updates, int startTabIndex = 0){
             InitializeComponent();
 
-            Text = Program.BrandName+" Settings";
+            Text = Program.BrandName+" Options";
 
             this.browser = browser;
             this.browser.PauseNotification();

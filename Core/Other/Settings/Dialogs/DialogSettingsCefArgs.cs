@@ -10,7 +10,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
         public DialogSettingsCefArgs(){
             InitializeComponent();
             
-            Text = Program.BrandName+" Settings - CEF Arguments";
+            Text = Program.BrandName+" Options - CEF Arguments";
             
             textBoxArgs.EnableMultilineShortcuts();
             textBoxArgs.Text = Program.UserConfig.CustomCefArgs ?? "";

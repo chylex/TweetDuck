@@ -237,7 +237,7 @@ namespace TweetDuck.Configuration{
                         Program.Reporter.Log(e.ToString());
                     }
                     else if (firstException != null){
-                        Program.Reporter.HandleException("Configuration Error", "Could not open the backup configuration file. If you continue, you may lose your settings and list of enabled plugins.", true, e);
+                        Program.Reporter.HandleException("Configuration Error", "Could not open the backup configuration file. If you continue, your program options will be reset.", true, e);
                     }
                 }
             }

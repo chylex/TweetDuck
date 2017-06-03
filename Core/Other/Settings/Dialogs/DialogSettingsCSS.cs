@@ -13,7 +13,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
         public DialogSettingsCSS(Action<string> reinjectBrowserCSS){
             InitializeComponent();
             
-            Text = Program.BrandName+" Settings - CSS";
+            Text = Program.BrandName+" Options - CSS";
 
             this.reinjectBrowserCSS = reinjectBrowserCSS;
             

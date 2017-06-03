@@ -312,7 +312,7 @@ namespace TweetDuck.Core{
             using(FormMessage form = new FormMessage("Notification Sound Error", "Could not play custom notification sound."+Environment.NewLine+e.Message, MessageBoxIcon.Error)){
                 form.CancelButton = form.AddButton("Ignore");
 
-                Button btnOpenSettings = form.AddButton("Open Settings");
+                Button btnOpenSettings = form.AddButton("View Options");
                 btnOpenSettings.Width += 16;
                 btnOpenSettings.Location = new Point(btnOpenSettings.Location.X-16, btnOpenSettings.Location.Y);
 

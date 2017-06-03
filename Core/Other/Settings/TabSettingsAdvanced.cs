@@ -188,7 +188,7 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void btnReset_Click(object sender, EventArgs e){
-            if (MessageBox.Show("This will reset all of your program settings. Plugins will not be affected. Do you want to proceed?", "Reset "+Program.BrandName+" Settings", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
+            if (MessageBox.Show("This will reset all of your program options. Plugins will not be affected. Do you want to proceed?", "Reset "+Program.BrandName+" Options", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
                 Program.ResetConfig();
                 ((FormSettings)ParentForm).ReloadUI();
             }
