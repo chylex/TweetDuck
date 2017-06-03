@@ -362,7 +362,7 @@
 xcopy "$(ProjectDir)LICENSE.md" "$(TargetDir)" /Y
 del "$(TargetDir)LICENSE.txt"
 ren "$(TargetDir)LICENSE.md" "LICENSE.txt"
-xcopy "$(ProjectDir)Libraries\CEFSHARP-LICENSE.txt" "$(TargetDir)" /Y
+xcopy "$(ProjectDir)bld\Resources\CEFSHARP-LICENSE.txt" "$(TargetDir)" /Y
 xcopy "$(ProjectDir)packages\Microsoft.VC120.CRT.JetBrains.12.0.21005.2\DotFiles\msvcp120.dll" "$(TargetDir)" /Y
 xcopy "$(ProjectDir)packages\Microsoft.VC120.CRT.JetBrains.12.0.21005.2\DotFiles\msvcr120.dll" "$(TargetDir)" /Y
 rmdir "$(TargetDir)scripts" /S /Q
@@ -373,8 +373,8 @@ mkdir "$(TargetDir)plugins"
 mkdir "$(TargetDir)plugins\official"
 mkdir "$(TargetDir)plugins\user"
 xcopy "$(ProjectDir)Resources\Plugins\*" "$(TargetDir)plugins\official\" /E /Y
-rmdir "$(ProjectDir)\bin\Debug"
-rmdir "$(ProjectDir)\bin\Release"
+rmdir "$(ProjectDir)bin\Debug"
+rmdir "$(ProjectDir)bin\Release"
 
 rmdir "$(TargetDir)plugins\official\.debug" /S /Q
 
