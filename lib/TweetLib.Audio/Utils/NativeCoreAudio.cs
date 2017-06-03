@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace TweetDuck.Core.Utils{
+namespace TweetLib.Audio.Utils{
     static class NativeCoreAudio{
         private const int EDATAFLOW_RENDER = 0;
         private const int EROLE_MULTIMEDIA = 1;

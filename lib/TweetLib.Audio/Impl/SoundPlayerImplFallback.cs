@@ -1,12 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Media;
+using TweetLib.Audio.Utils;
 
-namespace TweetDuck.Core.Notification.Sound{
-    sealed class SoundPlayerImplFallback : ISoundNotificationPlayer{
-        string ISoundNotificationPlayer.SupportedFormats => "*.wav";
+namespace TweetLib.Audio.Impl{
+    sealed class SoundPlayerImplFallback : AudioPlayer{
+        public override string SupportedFormats => "*.wav";
 
-        public event EventHandler<PlaybackErrorEventArgs> PlaybackError;
+        public override event EventHandler<PlaybackErrorEventArgs> PlaybackError;
 
         private readonly SoundPlayer player;
         private bool ignorePlaybackError;
@@ -17,7 +18,7 @@ namespace TweetDuck.Core.Notification.Sound{
             };
         }
 
-        void ISoundNotificationPlayer.Play(string file){
+        public override void Play(string file){
             if (player.SoundLocation != file){
                 player.SoundLocation = file;
                 ignorePlaybackError = false;
@@ -34,11 +35,11 @@ namespace TweetDuck.Core.Notification.Sound{
             }
         }
 
-        void ISoundNotificationPlayer.Stop(){
+        public override void Stop(){
             player.Stop();
         }
 
-        void IDisposable.Dispose(){
+        public override void Dispose(){
             player.Dispose();
         }
 

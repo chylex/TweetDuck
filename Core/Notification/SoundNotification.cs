@@ -1,28 +1,29 @@
-﻿using System.Runtime.InteropServices;
-using TweetDuck.Core.Notification.Sound;
+﻿using System;
+using TweetLib.Audio;
+using TweetLib.Audio.Utils;
 
 namespace TweetDuck.Core.Notification{
-    static class SoundNotification{
-        private static bool? IsWMPAvailable;
+    sealed class SoundNotification : IDisposable{
+        public string SupportedFormats => player.SupportedFormats;
+        public event EventHandler<PlaybackErrorEventArgs> PlaybackError;
 
-        public static ISoundNotificationPlayer New(){
-            if (IsWMPAvailable.HasValue){
-                if (IsWMPAvailable.Value){
-                    return new SoundPlayerImplWMP();
-                }
-                else{
-                    return new SoundPlayerImplFallback();
-                }
-            }
+        private readonly AudioPlayer player;
 
-            try{
-                SoundPlayerImplWMP implWMP = new SoundPlayerImplWMP();
-                IsWMPAvailable = true;
-                return implWMP;
-            }catch(COMException){
-                IsWMPAvailable = false;
-                return new SoundPlayerImplFallback();
-            }
+        public SoundNotification(){
+            this.player = AudioPlayer.New();
+            this.player.PlaybackError += Player_PlaybackError;
+        }
+
+        public void Play(string file){
+            player.Play(file);
+        }
+
+        private void Player_PlaybackError(object sender, PlaybackErrorEventArgs e){
+            PlaybackError?.Invoke(this, e);
+        }
+
+        public void Dispose(){
+            player.Dispose();
         }
     }
 }

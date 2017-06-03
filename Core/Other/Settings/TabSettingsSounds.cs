@@ -3,16 +3,16 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using TweetDuck.Core.Notification;
-using TweetDuck.Core.Notification.Sound;
+using TweetLib.Audio.Utils;
 
 namespace TweetDuck.Core.Other.Settings{
     partial class TabSettingsSounds : BaseTabSettings{
-        private readonly ISoundNotificationPlayer soundNotification;
+        private readonly SoundNotification soundNotification;
 
         public TabSettingsSounds(){
             InitializeComponent();
 
-            soundNotification = SoundNotification.New();
+            soundNotification = new SoundNotification();
             soundNotification.PlaybackError += sound_PlaybackError;
 
             tbCustomSound.Text = Config.NotificationSoundPath;

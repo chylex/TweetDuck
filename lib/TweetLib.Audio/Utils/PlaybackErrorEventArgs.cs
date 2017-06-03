@@ -1,7 +1,7 @@
 using System;
 
-namespace TweetDuck.Core.Notification.Sound{
-    sealed class PlaybackErrorEventArgs : EventArgs{
+namespace TweetLib.Audio.Utils{
+    public sealed class PlaybackErrorEventArgs : EventArgs{
         public string Message { get; }
         public bool Ignore { get; set; }
 

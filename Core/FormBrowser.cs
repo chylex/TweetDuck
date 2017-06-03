@@ -11,7 +11,6 @@ using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Notification.Screenshot;
-using TweetDuck.Core.Notification.Sound;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
@@ -20,6 +19,7 @@ using TweetDuck.Plugins.Events;
 using TweetDuck.Resources;
 using TweetDuck.Updates;
 using TweetDuck.Updates.Events;
+using TweetLib.Audio.Utils;
 
 namespace TweetDuck.Core{
     sealed partial class FormBrowser : Form{
@@ -38,7 +38,7 @@ namespace TweetDuck.Core{
         private FormWindowState prevState;
 
         private TweetScreenshotManager notificationScreenshotManager;
-        private ISoundNotificationPlayer soundNotification;
+        private SoundNotification soundNotification;
 
         public FormBrowser(PluginManager pluginManager, UpdaterSettings updaterSettings){
             InitializeComponent();
@@ -427,7 +427,7 @@ namespace TweetDuck.Core{
             }
 
             if (soundNotification == null){
-                soundNotification = SoundNotification.New();
+                soundNotification = new SoundNotification();
                 soundNotification.PlaybackError += soundNotification_PlaybackError;
             }
 

@@ -123,10 +123,6 @@
       <DependentUpon>FormNotificationTweet.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\Notification\SoundNotification.cs" />
-    <Compile Include="Core\Notification\Sound\SoundPlayerImplFallback.cs" />
-    <Compile Include="Core\Notification\Sound\SoundPlayerImplWMP.cs" />
-    <Compile Include="Core\Notification\Sound\ISoundNotificationPlayer.cs" />
-    <Compile Include="Core\Notification\Sound\PlaybackErrorEventArgs.cs" />
     <Compile Include="Core\Notification\TweetNotification.cs" />
     <Compile Include="Core\Other\FormAbout.cs">
       <SubType>Form</SubType>
@@ -208,7 +204,6 @@
     </Compile>
     <Compile Include="Core\Notification\Screenshot\TweetScreenshotManager.cs" />
     <Compile Include="Core\Utils\InjectedHTML.cs" />
-    <Compile Include="Core\Utils\NativeCoreAudio.cs" />
     <Compile Include="Core\Utils\TwoKeyDictionary.cs" />
     <Compile Include="Core\Utils\WindowState.cs" />
     <Compile Include="Core\Utils\WindowsUtils.cs" />
@@ -340,17 +335,10 @@
     <Content Include="Resources\Scripts\update.js" />
   </ItemGroup>
   <ItemGroup>
-    <COMReference Include="WMPLib">
-      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="lib\TweetLib.Audio\TweetLib.Audio.csproj">
+      <Project>{E9E1FD1B-F480-45B7-9970-BE2ECFD309AC}</Project>
+      <Name>TweetLib.Audio</Name>
+    </ProjectReference>
     <ProjectReference Include="subprocess\TweetDuck.Browser.csproj">
       <Project>{b10b0017-819e-4f71-870f-8256b36a26aa}</Project>
       <Name>TweetDuck.Browser</Name>

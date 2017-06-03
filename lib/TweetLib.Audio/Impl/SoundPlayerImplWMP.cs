@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using TweetDuck.Core.Utils;
+using TweetLib.Audio.Utils;
 using WMPLib;
 
-namespace TweetDuck.Core.Notification.Sound{
-    sealed class SoundPlayerImplWMP : ISoundNotificationPlayer{
-        string ISoundNotificationPlayer.SupportedFormats => "*.wav;*.mp3;*.mp2;*.m4a;*.mid;*.midi;*.rmi;*.wma;*.aif;*.aifc;*.aiff;*.snd;*.au";
+namespace TweetLib.Audio.Impl{
+    sealed class SoundPlayerImplWMP : AudioPlayer{
+        public override string SupportedFormats => "*.wav;*.mp3;*.mp2;*.m4a;*.mid;*.midi;*.rmi;*.wma;*.aif;*.aifc;*.aiff;*.snd;*.au";
 
-        public event EventHandler<PlaybackErrorEventArgs> PlaybackError;
+        public override event EventHandler<PlaybackErrorEventArgs> PlaybackError;
 
         private readonly WindowsMediaPlayer player;
         private bool wasTryingToPlay;
@@ -29,7 +29,7 @@ namespace TweetDuck.Core.Notification.Sound{
             player.MediaError += player_MediaError;
         }
 
-        void ISoundNotificationPlayer.Play(string file){
+        public override void Play(string file){
             wasTryingToPlay = true;
 
             try{
@@ -48,7 +48,7 @@ namespace TweetDuck.Core.Notification.Sound{
             }
         }
 
-        void ISoundNotificationPlayer.Stop(){
+        public override void Stop(){
             try{
                 player.controls.stop();
             }catch{
@@ -56,7 +56,7 @@ namespace TweetDuck.Core.Notification.Sound{
             }
         }
 
-        void IDisposable.Dispose(){
+        public override void Dispose(){
             player.close();
             Marshal.ReleaseComObject(player);
         }
