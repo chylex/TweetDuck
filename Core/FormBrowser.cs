@@ -317,7 +317,7 @@ namespace TweetDuck.Core{
                 btnOpenSettings.Location = new Point(btnOpenSettings.Location.X-16, btnOpenSettings.Location.Y);
 
                 if (form.ShowDialog() == DialogResult.OK && form.ClickedButton == btnOpenSettings){
-                    OpenSettings(FormSettings.TabIndexNotification);
+                    OpenSettings(FormSettings.TabIndexSounds);
                 }
             }
         }

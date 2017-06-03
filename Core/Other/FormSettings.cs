@@ -8,7 +8,7 @@ using TweetDuck.Updates;
 
 namespace TweetDuck.Core.Other{
     sealed partial class FormSettings : Form{
-        public const int TabIndexNotification = 1;
+        public const int TabIndexSounds = 2;
 
         private readonly FormBrowser browser;
         private readonly Dictionary<Type, BaseTabSettings> tabs = new Dictionary<Type, BaseTabSettings>(4);
