@@ -448,7 +448,6 @@
 1F463;footprints
 1F440;eyes
 1F441;eye
-1F441 FE0F 200D 1F5E8 FE0F;eye in speech bubble
 1F445;tongue
 1F444;mouth
 1F48B;kiss mark

@@ -52,10 +52,14 @@ Remove some emoji:
 > remove all non-gendered duplicates below here
 
   3030;wavy dash
-> removed copyright
-> removed registered trademark
-> removed trademark
+> remove copyright
+> remove registered trademark
+> remove trademark
   0023 FE0F 20E3;keycap
+  
+  1F441;eye
+> remove eye in speech bubble
+  1F445;tongue
 
 
 -------------------------

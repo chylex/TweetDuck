@@ -1,5 +1,6 @@
 enabled(){
   this.selectedSkinTone = "";
+  this.currentKeywords = [];
   
   this.skinToneList = [
     "", "1F3FB", "1F3FC", "1F3FD", "1F3FE", "1F3FF"
@@ -34,6 +35,8 @@ enabled(){
   this.css.insert(".emoji-keyboard-list { height: 10.14em; padding: 0.1em; box-sizing: border-box; overflow-y: auto }");
   this.css.insert(".emoji-keyboard-list .separator { height: 26px }");
   this.css.insert(".emoji-keyboard-list img { padding: 0.1em !important; width: 1em; height: 1em; vertical-align: -0.1em; cursor: pointer }");
+  this.css.insert(".emoji-keyboard-search { height: auto; padding: 4px 10px 8px; background-color: #292f33; border-radius: 2px 2px 0 0 }");
+  this.css.insert(".emoji-keyboard-search input { width: 100%; border-radius: 1px; }");
   this.css.insert(".emoji-keyboard-skintones { height: 1.3em; text-align: center; background-color: #292f33; border-radius: 0 0 2px 2px }");
   this.css.insert(".emoji-keyboard-skintones div { width: 0.8em; height: 0.8em; margin: 0.25em 0.1em; border-radius: 50%; display: inline-block; box-sizing: border-box; cursor: pointer }");
   this.css.insert(".emoji-keyboard-skintones .sel { border: 2px solid rgba(0, 0, 0, 0.35); box-shadow: 0 0 2px 0 rgba(255, 255, 255, 0.65), 0 0 1px 0 rgba(255, 255, 255, 0.4) inset }");
@@ -74,7 +77,7 @@ enabled(){
           html.push("<div class='separator'></div>");
         }
         else{
-          html.push(TD.util.cleanWithEmoji(emoji).replace(' class="emoji" draggable="false"', ` data-x="${this.emojiNames[index]}"`));
+          html.push(TD.util.cleanWithEmoji(emoji).replace(' class="emoji" draggable="false"', ''));
           index++;
         }
       }
@@ -83,13 +86,36 @@ enabled(){
     return html.join("");
   };
   
+  var updateFilters = () => {
+    let keywords = this.currentKeywords;
+    let container = $(this.currentKeyboard.children[1]);
+    
+    let emoji = container.children("img");
+    let info = container.children("p:first");
+    let separators = container.children("div");
+    
+    if (keywords.length === 0){
+      info.css("display", "block");
+      separators.css("display", "block");
+      emoji.css("display", "inline");
+    }
+    else{
+      info.css("display", "none");
+      separators.css("display", "none");
+      
+      emoji.css("display", "none");
+      emoji.filter(index => keywords.every(kw => me.emojiNames[index].includes(kw))).css("display", "inline");
+    }
+  };
+  
   var selectSkinTone = skinTone => {
-    let selectedEle = this.currentKeyboard.children[1].querySelector("[data-tone='"+this.selectedSkinTone+"']");
+    let selectedEle = this.currentKeyboard.children[2].querySelector("[data-tone='"+this.selectedSkinTone+"']");
     selectedEle && selectedEle.classList.remove("sel");
     
     this.selectedSkinTone = skinTone;
-    this.currentKeyboard.children[0].innerHTML = generateEmojiHTML(skinTone);
-    this.currentKeyboard.children[1].querySelector("[data-tone='"+this.selectedSkinTone+"']").classList.add("sel");
+    this.currentKeyboard.children[1].innerHTML = generateEmojiHTML(skinTone);
+    this.currentKeyboard.children[2].querySelector("[data-tone='"+this.selectedSkinTone+"']").classList.add("sel");
+    updateFilters();
   };
   
   this.generateKeyboard = (input, left, top) => {
@@ -119,9 +145,18 @@ enabled(){
       e.stopPropagation();
     });
     
+    var search = document.createElement("div");
+    search.innerHTML = "<input type='text' placeholder='Search...'>";
+    search.classList.add("emoji-keyboard-search");
+    
     var skintones = document.createElement("div");
     skintones.innerHTML = me.skinToneData.map(entry => "<div data-tone='"+entry[0]+"' style='background-color:"+entry[1]+"'></div>").join("");
     skintones.classList.add("emoji-keyboard-skintones");
+    
+    outer.appendChild(search);
+    outer.appendChild(keyboard);
+    outer.appendChild(skintones);
+    document.body.appendChild(outer);
     
     skintones.addEventListener("click", function(e){
       if (e.target.hasAttribute("data-tone")){
@@ -131,9 +166,22 @@ enabled(){
       e.stopPropagation();
     });
     
-    outer.appendChild(keyboard);
-    outer.appendChild(skintones);
-    document.body.appendChild(outer);
+    search.addEventListener("click", function(e){
+      e.stopPropagation();
+    });
+    
+    var searchInput = search.children[0];
+    searchInput.focus();
+    
+    searchInput.addEventListener("input", function(e){
+      me.currentKeywords = e.target.value.split(" ").filter(kw => kw.length > 0).map(kw => kw.toLowerCase());
+      updateFilters();
+      e.stopPropagation();
+    });
+    
+    searchInput.addEventListener("focus", function(){
+      $(this).select();
+    });
     
     this.currentKeyboard = outer;
     selectSkinTone(this.selectedSkinTone);
@@ -155,6 +203,7 @@ enabled(){
   this.emojiKeyboardButtonClickEvent = function(e){
     if (me.currentKeyboard){
       hideKeyboard();
+      $(this).blur();
     }
     else{
       var pos = $(this).offset();
@@ -163,7 +212,6 @@ enabled(){
       $(this).addClass("is-selected");
     }
     
-    $(this).blur();
     e.stopPropagation();
   };
   
@@ -179,13 +227,6 @@ enabled(){
       e.stopPropagation();
     }
   };
-  
-  /*
-   * TODO
-   * ----
-   * add emoji search if I can be bothered
-   * lazy emoji loading
-   */
 }
 
 ready(){
@@ -257,7 +298,7 @@ ready(){
       
       let semicolon = line.indexOf(';');
       let decl = line.slice(0, semicolon);
-      let desc = line.slice(semicolon+1);
+      let desc = line.slice(semicolon+1).toLowerCase();
       
       if (skinToneState === 1){
         let skinIndex = decl.indexOf('$');
