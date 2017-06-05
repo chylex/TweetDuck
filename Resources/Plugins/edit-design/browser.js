@@ -58,24 +58,30 @@ enabled(){
     this.firstTimeLoad = obj === null;
     
     this.onStageReady();
-    this.injectDeciderReplyHook(this.tmpConfig.revertReplies);
+    this.injectDeciderReplyHook(obj && obj.revertReplies);
   };
   
-  $(document).one("dataSettingsValues", () => {
-    switch(TD.settings.getColumnWidth()){
-      case "wide": this.defaultConfig.columnWidth = "350px"; break;
-      case "narrow": this.defaultConfig.columnWidth = "270px"; break;
-    }
-
-    switch(TD.settings.getFontSize()){
-      case "small": this.defaultConfig.fontSize = "13px"; break;
-      case "medium": this.defaultConfig.fontSize = "14px"; break;
-      case "large": this.defaultConfig.fontSize = "15px"; break;
-      case "largest": this.defaultConfig.fontSize = "16px"; break;
-    }
-    
+  if (this.wasLoadedBefore){
     this.onStageReady();
-  });
+  }
+  else{
+    $(document).one("dataSettingsValues", () => {
+      switch(TD.settings.getColumnWidth()){
+        case "wide": this.defaultConfig.columnWidth = "350px"; break;
+        case "narrow": this.defaultConfig.columnWidth = "270px"; break;
+      }
+
+      switch(TD.settings.getFontSize()){
+        case "small": this.defaultConfig.fontSize = "13px"; break;
+        case "medium": this.defaultConfig.fontSize = "14px"; break;
+        case "large": this.defaultConfig.fontSize = "15px"; break;
+        case "largest": this.defaultConfig.fontSize = "16px"; break;
+      }
+      
+      this.wasLoadedBefore = true;
+      this.onStageReady();
+    });
+  }
     
   $TDP.checkFileExists(this.$token, configFile).then(exists => {
     if (!exists){
@@ -306,13 +312,13 @@ enabled(){
   };
   
   this.onWindowFocusEvent = () => {
-    if (this.config.optimizeAnimations){
+    if (this.config && this.config.optimizeAnimations){
       injectOptimizations(true);
     }
   };
   
   this.onWindowBlurEvent = () => {
-    if (this.config.optimizeAnimations){
+    if (this.config && this.config.optimizeAnimations){
       disableOptimizations();
       clearOptimizationTimer();
     }
