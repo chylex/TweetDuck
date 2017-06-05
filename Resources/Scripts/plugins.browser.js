@@ -70,6 +70,12 @@
         else{
           this.disabled.push(plugin.id);
           plugin.obj.disabled();
+          
+          for(let key of Object.keys(plugin.obj)){
+            if (key[0] !== '$'){
+              delete plugin.obj[key];
+            }
+          }
         }
       }
     }

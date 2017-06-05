@@ -61,7 +61,7 @@ enabled(){
     this.injectDeciderReplyHook(obj && obj.revertReplies);
   };
   
-  if (this.wasLoadedBefore){
+  if (this.$$wasLoadedBefore){
     this.onStageReady();
   }
   else{
@@ -78,7 +78,7 @@ enabled(){
         case "largest": this.defaultConfig.fontSize = "16px"; break;
       }
       
-      this.wasLoadedBefore = true;
+      this.$$wasLoadedBefore = true;
       this.onStageReady();
     });
   }
