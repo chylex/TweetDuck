@@ -20,9 +20,10 @@ enabled(){
   
   this.emojiURL = "https://ton.twimg.com/tweetdeck-web/web/assets/emoji/";
   
-  this.emojiHTML1 = ""; // no skin tones, prepended
-  this.emojiHTML2 = {}; // contains emojis with skin tones
-  this.emojiHTML3 = ""; // no skin tones, appended
+  this.emojiData1 = []; // no skin tones, prepended
+  this.emojiData2 = {}; // contains emojis with skin tones
+  this.emojiData3 = []; // no skin tones, appended
+  this.emojiNames = [];
   
   var me = this;
   
@@ -64,7 +65,22 @@ enabled(){
   };
   
   var generateEmojiHTML = skinTone => {
-    return (this.emojiHTML1+this.emojiHTML2[skinTone]+this.emojiHTML3).replace(/u#/g, this.emojiURL);
+    let index = 0;
+    let html = [ "<p style='font-size:13px;color:#444;margin:4px;text-align:center'>Please, note that most emoji will not show up properly in the text box above, but they will display in the tweet.</p>" ];
+    
+    for(let array of [ this.emojiData1, this.emojiData2[skinTone], this.emojiData3 ]){
+      for(let emoji of array){
+        if (emoji === "___"){
+          html.push("<div class='separator'></div>");
+        }
+        else{
+          html.push(TD.util.cleanWithEmoji(emoji).replace(' class="emoji" draggable="false"', ` data-x="${this.emojiNames[index]}"`));
+          index++;
+        }
+      }
+    }
+    
+    return html.join("");
   };
   
   var selectSkinTone = skinTone => {
@@ -190,18 +206,18 @@ ready(){
   };
   
   $TDP.readFileRoot(this.$token, "emoji-ordering.txt").then(contents => {
-    let generated1 = [];
-    let generated2 = {};
-    let generated3 = [];
+    let names1 = [];
+    let names2 = [];
+    let names3 = [];
     
     for(let skinTone of this.skinToneList){
-      generated2[skinTone] = [];
+      this.emojiData2[skinTone] = [];
     }
     
     // declaration inserters
     
     let addDeclaration1 = decl => {
-      generated1.push(decl.split(" ").map(pt => convUnicode(parseInt(pt, 16))).join(""));
+      this.emojiData1.push(decl.split(" ").map(pt => convUnicode(parseInt(pt, 16))).join(""));
     };
     
     let addDeclaration2 = (tone, decl) => {
@@ -209,16 +225,16 @@ ready(){
       
       if (tone === null){
         for(let skinTone of this.skinToneList){
-          generated2[skinTone].push(gen);
+          this.emojiData2[skinTone].push(gen);
         }
       }
       else{
-        generated2[tone].push(gen);
+        this.emojiData2[tone].push(gen);
       }
     };
     
     let addDeclaration3 = decl => {
-      generated3.push(decl.split(" ").map(pt => convUnicode(parseInt(pt, 16))).join(""));
+      this.emojiData3.push(decl.split(" ").map(pt => convUnicode(parseInt(pt, 16))).join(""));
     };
     
     // line reading
@@ -228,9 +244,9 @@ ready(){
     for(let line of contents.split("\n")){
       if (line[0] === '@'){
         switch(skinToneState){
-          case 0: generated1.push("___"); break;
-          case 1: this.skinToneList.forEach(skinTone => generated2[skinTone].push("___")); break;
-          case 2: generated3.push("___"); break;
+          case 0: this.emojiData1.push("___"); break;
+          case 1: this.skinToneList.forEach(skinTone => this.emojiData2[skinTone].push("___")); break;
+          case 2: this.emojiData3.push("___"); break;
         }
         
         if (line[1] === '1'){
@@ -239,9 +255,15 @@ ready(){
         else if (line[1] === '2'){
           skinToneState = 2;
         }
+        
+        continue;
       }
-      else if (skinToneState === 1){
-        let decl = line.slice(0, line.indexOf(';'));
+      
+      let semicolon = line.indexOf(';');
+      let decl = line.slice(0, semicolon);
+      let desc = line.slice(semicolon+1);
+      
+      if (skinToneState === 1){
         let skinIndex = decl.indexOf('$');
 
         if (skinIndex !== -1){
@@ -249,35 +271,38 @@ ready(){
           let declPost = decl.slice(skinIndex+1);
           
           for(let skinTone of this.skinToneNonDefaultList){
-            generated2[skinTone].pop();
+            this.emojiData2[skinTone].pop();
             addDeclaration2(skinTone, declPre+skinTone+declPost);
           }
         }
         else{
           addDeclaration2(null, decl);
+          names2.push(desc);
         }
       }
       else if (skinToneState === 2){
-        addDeclaration3(line.slice(0, line.indexOf(';')));
+        addDeclaration3(decl);
+        names3.push(desc);
       }
       else if (skinToneState === 0){
-        addDeclaration1(line.slice(0, line.indexOf(';')));
+        addDeclaration1(decl);
+        names1.push(desc);
       }
     }
     
     // final processing
     
-    let urlRegex = new RegExp(this.emojiURL.replace(/\./g, "\\."), "g");
-    let process = str => TD.util.cleanWithEmoji(str).replace(/ class=\"emoji\" draggable=\"false\"/g, "").replace(urlRegex, "u#").replace(/___/g, "<div class='separator'></div>");
-    
-    let start = "<p style='font-size:13px;color:#444;margin:4px;text-align:center'>Please, note that most emoji will not show up properly in the text box above, but they will display in the tweet.</p>";
-    this.emojiHTML1 = start+process(generated1.join(""));
-    
-    for(let skinTone of this.skinToneList){
-      this.emojiHTML2[skinTone] = process(generated2[skinTone].join(""));
+    for(let name of names1){
+      this.emojiNames.push(name);
     }
     
-    this.emojiHTML3 = process(generated3.join(""));
+    for(let name of names2){
+      this.emojiNames.push(name);
+    }
+    
+    for(let name of names3){
+      this.emojiNames.push(name);
+    }
   }).catch(err => {
     $TD.alert("error", "Problem loading emoji keyboard: "+err.message);
   });
