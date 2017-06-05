@@ -1,1606 +1,1606 @@
-1F600; 😀 grinning face
-1F601; 😁 grinning face with smiling eyes
-1F602; 😂 face with tears of joy
-1F923; 🤣 rolling on the floor laughing
-1F603; 😃 smiling face with open mouth
-1F604; 😄 smiling face with open mouth & smiling eyes
-1F605; 😅 smiling face with open mouth & cold sweat
-1F606; 😆 smiling face with open mouth & closed eyes
-1F609; 😉 winking face
-1F60A; 😊 smiling face with smiling eyes
-1F60B; 😋 face savouring delicious food
-1F60E; 😎 smiling face with sunglasses
-1F60D; 😍 smiling face with heart-eyes
-1F618; 😘 face blowing a kiss
-1F617; 😗 kissing face
-1F619; 😙 kissing face with smiling eyes
-1F61A; 😚 kissing face with closed eyes
-263A; ☺ smiling face
-1F642; 🙂 slightly smiling face
-1F917; 🤗 hugging face
-1F914; 🤔 thinking face
-1F610; 😐 neutral face
-1F611; 😑 expressionless face
-1F636; 😶 face without mouth
-1F644; 🙄 face with rolling eyes
-1F60F; 😏 smirking face
-1F623; 😣 persevering face
-1F625; 😥 disappointed but relieved face
-1F62E; 😮 face with open mouth
-1F910; 🤐 zipper-mouth face
-1F62F; 😯 hushed face
-1F62A; 😪 sleepy face
-1F62B; 😫 tired face
-1F634; 😴 sleeping face
-1F60C; 😌 relieved face
-1F913; 🤓 nerd face
-1F61B; 😛 face with stuck-out tongue
-1F61C; 😜 face with stuck-out tongue & winking eye
-1F61D; 😝 face with stuck-out tongue & closed eyes
-1F924; 🤤 drooling face
-1F612; 😒 unamused face
-1F613; 😓 face with cold sweat
-1F614; 😔 pensive face
-1F615; 😕 confused face
-1F643; 🙃 upside-down face
-1F911; 🤑 money-mouth face
-1F632; 😲 astonished face
-2639; ☹ frowning face
-1F641; 🙁 slightly frowning face
-1F616; 😖 confounded face
-1F61E; 😞 disappointed face
-1F61F; 😟 worried face
-1F624; 😤 face with steam from nose
-1F622; 😢 crying face
-1F62D; 😭 loudly crying face
-1F626; 😦 frowning face with open mouth
-1F627; 😧 anguished face
-1F628; 😨 fearful face
-1F629; 😩 weary face
-1F62C; 😬 grimacing face
-1F630; 😰 face with open mouth & cold sweat
-1F631; 😱 face screaming in fear
-1F633; 😳 flushed face
-1F635; 😵 dizzy face
-1F621; 😡 pouting face
-1F620; 😠 angry face
-1F607; 😇 smiling face with halo
-1F920; 🤠 cowboy hat face
-1F921; 🤡 clown face
-1F925; 🤥 lying face
-1F637; 😷 face with medical mask
-1F912; 🤒 face with thermometer
-1F915; 🤕 face with head-bandage
-1F922; 🤢 nauseated face
-1F927; 🤧 sneezing face
-1F608; 😈 smiling face with horns
-1F47F; 👿 angry face with horns
-1F479; 👹 ogre
-1F47A; 👺 goblin
-1F480; 💀 skull
-2620; ☠ skull and crossbones
-1F47B; 👻 ghost
-1F47D; 👽 alien
-1F47E; 👾 alien monster
-1F916; 🤖 robot face
-1F4A9; 💩 pile of poo
-1F63A; 😺 smiling cat face with open mouth
-1F638; 😸 grinning cat face with smiling eyes
-1F639; 😹 cat face with tears of joy
-1F63B; 😻 smiling cat face with heart-eyes
-1F63C; 😼 cat face with wry smile
-1F63D; 😽 kissing cat face with closed eyes
-1F640; 🙀 weary cat face
-1F63F; 😿 crying cat face
-1F63E; 😾 pouting cat face
-1F648; 🙈 see-no-evil monkey
-1F649; 🙉 hear-no-evil monkey
-1F64A; 🙊 speak-no-evil monkey
+1F600;grinning face
+1F601;grinning face with smiling eyes
+1F602;face with tears of joy
+1F923;rolling on the floor laughing
+1F603;smiling face with open mouth
+1F604;smiling face with open mouth & smiling eyes
+1F605;smiling face with open mouth & cold sweat
+1F606;smiling face with open mouth & closed eyes
+1F609;winking face
+1F60A;smiling face with smiling eyes
+1F60B;face savouring delicious food
+1F60E;smiling face with sunglasses
+1F60D;smiling face with heart-eyes
+1F618;face blowing a kiss
+1F617;kissing face
+1F619;kissing face with smiling eyes
+1F61A;kissing face with closed eyes
+263A;smiling face
+1F642;slightly smiling face
+1F917;hugging face
+1F914;thinking face
+1F610;neutral face
+1F611;expressionless face
+1F636;face without mouth
+1F644;face with rolling eyes
+1F60F;smirking face
+1F623;persevering face
+1F625;disappointed but relieved face
+1F62E;face with open mouth
+1F910;zipper-mouth face
+1F62F;hushed face
+1F62A;sleepy face
+1F62B;tired face
+1F634;sleeping face
+1F60C;relieved face
+1F913;nerd face
+1F61B;face with stuck-out tongue
+1F61C;face with stuck-out tongue & winking eye
+1F61D;face with stuck-out tongue & closed eyes
+1F924;drooling face
+1F612;unamused face
+1F613;face with cold sweat
+1F614;pensive face
+1F615;confused face
+1F643;upside-down face
+1F911;money-mouth face
+1F632;astonished face
+2639;frowning face
+1F641;slightly frowning face
+1F616;confounded face
+1F61E;disappointed face
+1F61F;worried face
+1F624;face with steam from nose
+1F622;crying face
+1F62D;loudly crying face
+1F626;frowning face with open mouth
+1F627;anguished face
+1F628;fearful face
+1F629;weary face
+1F62C;grimacing face
+1F630;face with open mouth & cold sweat
+1F631;face screaming in fear
+1F633;flushed face
+1F635;dizzy face
+1F621;pouting face
+1F620;angry face
+1F607;smiling face with halo
+1F920;cowboy hat face
+1F921;clown face
+1F925;lying face
+1F637;face with medical mask
+1F912;face with thermometer
+1F915;face with head-bandage
+1F922;nauseated face
+1F927;sneezing face
+1F608;smiling face with horns
+1F47F;angry face with horns
+1F479;ogre
+1F47A;goblin
+1F480;skull
+2620;skull and crossbones
+1F47B;ghost
+1F47D;alien
+1F47E;alien monster
+1F916;robot face
+1F4A9;pile of poo
+1F63A;smiling cat face with open mouth
+1F638;grinning cat face with smiling eyes
+1F639;cat face with tears of joy
+1F63B;smiling cat face with heart-eyes
+1F63C;cat face with wry smile
+1F63D;kissing cat face with closed eyes
+1F640;weary cat face
+1F63F;crying cat face
+1F63E;pouting cat face
+1F648;see-no-evil monkey
+1F649;hear-no-evil monkey
+1F64A;speak-no-evil monkey
 @1 enable skin tones
-1F466; 👦 boy
-1F466 $; 👦🏻 boy
-1F467; 👧 girl
-1F467 $; 👧🏻 girl
-1F468; 👨 man
-1F468 $; 👨🏻 man
-1F469; 👩 woman
-1F469 $; 👩🏻 woman
-1F474; 👴 old man
-1F474 $; 👴🏻 old man
-1F475; 👵 old woman
-1F475 $; 👵🏻 old woman
-1F476; 👶 baby
-1F476 $; 👶🏻 baby
-1F47C; 👼 baby angel
-1F47C $; 👼🏻 baby angel
-1F468 200D 2695 FE0F; 👨‍⚕️ man health worker
-1F468 $ 200D 2695 FE0F; 👨🏻‍⚕️ man health worker
-1F469 200D 2695 FE0F; 👩‍⚕️ woman health worker
-1F469 $ 200D 2695 FE0F; 👩🏻‍⚕️ woman health worker
-1F468 200D 1F393; 👨‍🎓 man student
-1F468 $ 200D 1F393; 👨🏻‍🎓 man student
-1F469 200D 1F393; 👩‍🎓 woman student
-1F469 $ 200D 1F393; 👩🏻‍🎓 woman student
-1F468 200D 1F3EB; 👨‍🏫 man teacher
-1F468 $ 200D 1F3EB; 👨🏻‍🏫 man teacher
-1F469 200D 1F3EB; 👩‍🏫 woman teacher
-1F469 $ 200D 1F3EB; 👩🏻‍🏫 woman teacher
-1F468 200D 2696 FE0F; 👨‍⚖️ man judge
-1F468 $ 200D 2696 FE0F; 👨🏻‍⚖️ man judge
-1F469 200D 2696 FE0F; 👩‍⚖️ woman judge
-1F469 $ 200D 2696 FE0F; 👩🏻‍⚖️ woman judge
-1F468 200D 1F33E; 👨‍🌾 man farmer
-1F468 $ 200D 1F33E; 👨🏻‍🌾 man farmer
-1F469 200D 1F33E; 👩‍🌾 woman farmer
-1F469 $ 200D 1F33E; 👩🏻‍🌾 woman farmer
-1F468 200D 1F373; 👨‍🍳 man cook
-1F468 $ 200D 1F373; 👨🏻‍🍳 man cook
-1F469 200D 1F373; 👩‍🍳 woman cook
-1F469 $ 200D 1F373; 👩🏻‍🍳 woman cook
-1F468 200D 1F527; 👨‍🔧 man mechanic
-1F468 $ 200D 1F527; 👨🏻‍🔧 man mechanic
-1F469 200D 1F527; 👩‍🔧 woman mechanic
-1F469 $ 200D 1F527; 👩🏻‍🔧 woman mechanic
-1F468 200D 1F3ED; 👨‍🏭 man factory worker
-1F468 $ 200D 1F3ED; 👨🏻‍🏭 man factory worker
-1F469 200D 1F3ED; 👩‍🏭 woman factory worker
-1F469 $ 200D 1F3ED; 👩🏻‍🏭 woman factory worker
-1F468 200D 1F4BC; 👨‍💼 man office worker
-1F468 $ 200D 1F4BC; 👨🏻‍💼 man office worker
-1F469 200D 1F4BC; 👩‍💼 woman office worker
-1F469 $ 200D 1F4BC; 👩🏻‍💼 woman office worker
-1F468 200D 1F52C; 👨‍🔬 man scientist
-1F468 $ 200D 1F52C; 👨🏻‍🔬 man scientist
-1F469 200D 1F52C; 👩‍🔬 woman scientist
-1F469 $ 200D 1F52C; 👩🏻‍🔬 woman scientist
-1F468 200D 1F4BB; 👨‍💻 man technologist
-1F468 $ 200D 1F4BB; 👨🏻‍💻 man technologist
-1F469 200D 1F4BB; 👩‍💻 woman technologist
-1F469 $ 200D 1F4BB; 👩🏻‍💻 woman technologist
-1F468 200D 1F3A4; 👨‍🎤 man singer
-1F468 $ 200D 1F3A4; 👨🏻‍🎤 man singer
-1F469 200D 1F3A4; 👩‍🎤 woman singer
-1F469 $ 200D 1F3A4; 👩🏻‍🎤 woman singer
-1F468 200D 1F3A8; 👨‍🎨 man artist
-1F468 $ 200D 1F3A8; 👨🏻‍🎨 man artist
-1F469 200D 1F3A8; 👩‍🎨 woman artist
-1F469 $ 200D 1F3A8; 👩🏻‍🎨 woman artist
-1F468 200D 2708 FE0F; 👨‍✈️ man pilot
-1F468 $ 200D 2708 FE0F; 👨🏻‍✈️ man pilot
-1F469 200D 2708 FE0F; 👩‍✈️ woman pilot
-1F469 $ 200D 2708 FE0F; 👩🏻‍✈️ woman pilot
-1F468 200D 1F680; 👨‍🚀 man astronaut
-1F468 $ 200D 1F680; 👨🏻‍🚀 man astronaut
-1F469 200D 1F680; 👩‍🚀 woman astronaut
-1F469 $ 200D 1F680; 👩🏻‍🚀 woman astronaut
-1F468 200D 1F692; 👨‍🚒 man firefighter
-1F468 $ 200D 1F692; 👨🏻‍🚒 man firefighter
-1F469 200D 1F692; 👩‍🚒 woman firefighter
-1F469 $ 200D 1F692; 👩🏻‍🚒 woman firefighter !! deleted non-gendered duplicates below
-1F46E 200D 2642 FE0F; 👮‍♂️ man police officer
-1F46E $ 200D 2642 FE0F; 👮🏻‍♂️ man police officer
-1F46E 200D 2640 FE0F; 👮‍♀️ woman police officer
-1F46E $ 200D 2640 FE0F; 👮🏻‍♀️ woman police officer
-1F575 FE0F 200D 2642 FE0F; 🕵️‍♂️ man detective
-1F575 $ 200D 2642 FE0F; 🕵🏻‍♂️ man detective
-1F575 FE0F 200D 2640 FE0F; 🕵️‍♀️ woman detective
-1F575 $ 200D 2640 FE0F; 🕵🏻‍♀️ woman detective
-1F482 200D 2642 FE0F; 💂‍♂️ man guard
-1F482 $ 200D 2642 FE0F; 💂🏻‍♂️ man guard
-1F482 200D 2640 FE0F; 💂‍♀️ woman guard
-1F482 $ 200D 2640 FE0F; 💂🏻‍♀️ woman guard
-1F477 200D 2642 FE0F; 👷‍♂️ man construction worker
-1F477 $ 200D 2642 FE0F; 👷🏻‍♂️ man construction worker
-1F477 200D 2640 FE0F; 👷‍♀️ woman construction worker
-1F477 $ 200D 2640 FE0F; 👷🏻‍♀️ woman construction worker
-1F473 200D 2642 FE0F; 👳‍♂️ man wearing turban
-1F473 $ 200D 2642 FE0F; 👳🏻‍♂️ man wearing turban
-1F473 200D 2640 FE0F; 👳‍♀️ woman wearing turban
-1F473 $ 200D 2640 FE0F; 👳🏻‍♀️ woman wearing turban
-1F471 200D 2642 FE0F; 👱‍♂️ blond-haired man
-1F471 $ 200D 2642 FE0F; 👱🏻‍♂️ blond-haired man
-1F471 200D 2640 FE0F; 👱‍♀️ blond-haired woman
-1F471 $ 200D 2640 FE0F; 👱🏻‍♀️ blond-haired woman
-1F385; 🎅 Santa Claus
-1F385 $; 🎅🏻 Santa Claus
-1F936; 🤶 Mrs. Claus
-1F936 $; 🤶🏻 Mrs. Claus
-1F478; 👸 princess
-1F478 $; 👸🏻 princess
-1F934; 🤴 prince
-1F934 $; 🤴🏻 prince
-1F470; 👰 bride with veil
-1F470 $; 👰🏻 bride with veil
-1F935; 🤵 man in tuxedo
-1F935 $; 🤵🏻 man in tuxedo
-1F930; 🤰 pregnant woman
-1F930 $; 🤰🏻 pregnant woman
-1F472; 👲 man with Chinese cap
-1F472 $; 👲🏻 man with Chinese cap
-1F64D 200D 2642 FE0F; 🙍‍♂️ man frowning
-1F64D $ 200D 2642 FE0F; 🙍🏻‍♂️ man frowning
-1F64D 200D 2640 FE0F; 🙍‍♀️ woman frowning
-1F64D $ 200D 2640 FE0F; 🙍🏻‍♀️ woman frowning
-1F64E 200D 2642 FE0F; 🙎‍♂️ man pouting
-1F64E $ 200D 2642 FE0F; 🙎🏻‍♂️ man pouting
-1F64E 200D 2640 FE0F; 🙎‍♀️ woman pouting
-1F64E $ 200D 2640 FE0F; 🙎🏻‍♀️ woman pouting
-1F645 200D 2642 FE0F; 🙅‍♂️ man gesturing NO
-1F645 $ 200D 2642 FE0F; 🙅🏻‍♂️ man gesturing NO
-1F645 200D 2640 FE0F; 🙅‍♀️ woman gesturing NO
-1F645 $ 200D 2640 FE0F; 🙅🏻‍♀️ woman gesturing NO
-1F646 200D 2642 FE0F; 🙆‍♂️ man gesturing OK
-1F646 $ 200D 2642 FE0F; 🙆🏻‍♂️ man gesturing OK
-1F646 200D 2640 FE0F; 🙆‍♀️ woman gesturing OK
-1F646 $ 200D 2640 FE0F; 🙆🏻‍♀️ woman gesturing OK
-1F481 200D 2642 FE0F; 💁‍♂️ man tipping hand
-1F481 $ 200D 2642 FE0F; 💁🏻‍♂️ man tipping hand
-1F481 200D 2640 FE0F; 💁‍♀️ woman tipping hand
-1F481 $ 200D 2640 FE0F; 💁🏻‍♀️ woman tipping hand
-1F64B 200D 2642 FE0F; 🙋‍♂️ man raising hand
-1F64B $ 200D 2642 FE0F; 🙋🏻‍♂️ man raising hand
-1F64B 200D 2640 FE0F; 🙋‍♀️ woman raising hand
-1F64B $ 200D 2640 FE0F; 🙋🏻‍♀️ woman raising hand
-1F647 200D 2642 FE0F; 🙇‍♂️ man bowing
-1F647 $ 200D 2642 FE0F; 🙇🏻‍♂️ man bowing
-1F647 200D 2640 FE0F; 🙇‍♀️ woman bowing
-1F647 $ 200D 2640 FE0F; 🙇🏻‍♀️ woman bowing
-1F926 200D 2642 FE0F; 🤦‍♂️ man facepalming
-1F926 $ 200D 2642 FE0F; 🤦🏻‍♂️ man facepalming
-1F926 200D 2640 FE0F; 🤦‍♀️ woman facepalming
-1F926 $ 200D 2640 FE0F; 🤦🏻‍♀️ woman facepalming
-1F937 200D 2642 FE0F; 🤷‍♂️ man shrugging
-1F937 $ 200D 2642 FE0F; 🤷🏻‍♂️ man shrugging
-1F937 200D 2640 FE0F; 🤷‍♀️ woman shrugging
-1F937 $ 200D 2640 FE0F; 🤷🏻‍♀️ woman shrugging
-1F486 200D 2642 FE0F; 💆‍♂️ man getting massage
-1F486 $ 200D 2642 FE0F; 💆🏻‍♂️ man getting massage
-1F486 200D 2640 FE0F; 💆‍♀️ woman getting massage
-1F486 $ 200D 2640 FE0F; 💆🏻‍♀️ woman getting massage
-1F487 200D 2642 FE0F; 💇‍♂️ man getting haircut
-1F487 $ 200D 2642 FE0F; 💇🏻‍♂️ man getting haircut
-1F487 200D 2640 FE0F; 💇‍♀️ woman getting haircut
-1F487 $ 200D 2640 FE0F; 💇🏻‍♀️ woman getting haircut
-1F6B6 200D 2642 FE0F; 🚶‍♂️ man walking
-1F6B6 $ 200D 2642 FE0F; 🚶🏻‍♂️ man walking
-1F6B6 200D 2640 FE0F; 🚶‍♀️ woman walking
-1F6B6 $ 200D 2640 FE0F; 🚶🏻‍♀️ woman walking
-1F3C3 200D 2642 FE0F; 🏃‍♂️ man running
-1F3C3 $ 200D 2642 FE0F; 🏃🏻‍♂️ man running
-1F3C3 200D 2640 FE0F; 🏃‍♀️ woman running
-1F3C3 $ 200D 2640 FE0F; 🏃🏻‍♀️ woman running
-1F483; 💃 woman dancing
-1F483 $; 💃🏻 woman dancing
-1F57A; 🕺 man dancing
-1F57A $; 🕺🏻 man dancing
-1F46F 200D 2642 FE0F; 👯‍♂️ men with bunny ears partying
-1F46F 200D 2640 FE0F; 👯‍♀️ women with bunny ears partying
-1F574; 🕴 man in business suit levitating
-1F574 $; 🕴🏻 man in business suit levitating
-1F5E3; 🗣 speaking head
-1F464; 👤 bust in silhouette
-1F465; 👥 busts in silhouette
-1F93A; 🤺 person fencing
-1F3C7; 🏇 horse racing
-1F3C7 $; 🏇🏻 horse racing
-26F7; ⛷ skier
-1F3C2; 🏂 snowboarder
-1F3C2 $; 🏂🏻 snowboarder
-1F3CC FE0F 200D 2642 FE0F; 🏌️‍♂️ man golfing
-1F3CC $ 200D 2642 FE0F; 🏌🏻‍♂️ man golfing
-1F3CC FE0F 200D 2640 FE0F; 🏌️‍♀️ woman golfing
-1F3CC $ 200D 2640 FE0F; 🏌🏻‍♀️ woman golfing
-1F3C4 200D 2642 FE0F; 🏄‍♂️ man surfing
-1F3C4 $ 200D 2642 FE0F; 🏄🏻‍♂️ man surfing
-1F3C4 200D 2640 FE0F; 🏄‍♀️ woman surfing
-1F3C4 $ 200D 2640 FE0F; 🏄🏻‍♀️ woman surfing
-1F6A3 200D 2642 FE0F; 🚣‍♂️ man rowing boat
-1F6A3 $ 200D 2642 FE0F; 🚣🏻‍♂️ man rowing boat
-1F6A3 200D 2640 FE0F; 🚣‍♀️ woman rowing boat
-1F6A3 $ 200D 2640 FE0F; 🚣🏻‍♀️ woman rowing boat
-1F3CA 200D 2642 FE0F; 🏊‍♂️ man swimming
-1F3CA $ 200D 2642 FE0F; 🏊🏻‍♂️ man swimming
-1F3CA 200D 2640 FE0F; 🏊‍♀️ woman swimming
-1F3CA $ 200D 2640 FE0F; 🏊🏻‍♀️ woman swimming
-26F9 FE0F 200D 2642 FE0F; ⛹️‍♂️ man bouncing ball
-26F9 $ 200D 2642 FE0F; ⛹🏻‍♂️ man bouncing ball
-26F9 FE0F 200D 2640 FE0F; ⛹️‍♀️ woman bouncing ball
-26F9 $ 200D 2640 FE0F; ⛹🏻‍♀️ woman bouncing ball
-1F3CB FE0F 200D 2642 FE0F; 🏋️‍♂️ man lifting weights
-1F3CB $ 200D 2642 FE0F; 🏋🏻‍♂️ man lifting weights
-1F3CB FE0F 200D 2640 FE0F; 🏋️‍♀️ woman lifting weights
-1F3CB $ 200D 2640 FE0F; 🏋🏻‍♀️ woman lifting weights
-1F6B4 200D 2642 FE0F; 🚴‍♂️ man biking
-1F6B4 $ 200D 2642 FE0F; 🚴🏻‍♂️ man biking
-1F6B4 200D 2640 FE0F; 🚴‍♀️ woman biking
-1F6B4 $ 200D 2640 FE0F; 🚴🏻‍♀️ woman biking
-1F6B5 200D 2642 FE0F; 🚵‍♂️ man mountain biking
-1F6B5 $ 200D 2642 FE0F; 🚵🏻‍♂️ man mountain biking
-1F6B5 200D 2640 FE0F; 🚵‍♀️ woman mountain biking
-1F6B5 $ 200D 2640 FE0F; 🚵🏻‍♀️ woman mountain biking
-1F3CE; 🏎 racing car
-1F3CD; 🏍 motorcycle
-1F938 200D 2642 FE0F; 🤸‍♂️ man cartwheeling
-1F938 $ 200D 2642 FE0F; 🤸🏻‍♂️ man cartwheeling
-1F938 200D 2640 FE0F; 🤸‍♀️ woman cartwheeling
-1F938 $ 200D 2640 FE0F; 🤸🏻‍♀️ woman cartwheeling
-1F93C 200D 2642 FE0F; 🤼‍♂️ men wrestling
-1F93C 200D 2640 FE0F; 🤼‍♀️ women wrestling
-1F93D 200D 2642 FE0F; 🤽‍♂️ man playing water polo
-1F93D $ 200D 2642 FE0F; 🤽🏻‍♂️ man playing water polo
-1F93D 200D 2640 FE0F; 🤽‍♀️ woman playing water polo
-1F93D $ 200D 2640 FE0F; 🤽🏻‍♀️ woman playing water polo
-1F93E 200D 2642 FE0F; 🤾‍♂️ man playing handball
-1F93E $ 200D 2642 FE0F; 🤾🏻‍♂️ man playing handball
-1F93E 200D 2640 FE0F; 🤾‍♀️ woman playing handball
-1F93E $ 200D 2640 FE0F; 🤾🏻‍♀️ woman playing handball
-1F939 200D 2642 FE0F; 🤹‍♂️ man juggling
-1F939 $ 200D 2642 FE0F; 🤹🏻‍♂️ man juggling
-1F939 200D 2640 FE0F; 🤹‍♀️ woman juggling
-1F939 $ 200D 2640 FE0F; 🤹🏻‍♀️ woman juggling
-1F6CC; 🛌 person in bed !! moved
-1F6CC $; 🛌🏻 person in bed !! moved
-1F6C0; 🛀 person taking bath !! moved
-1F6C0 $; 🛀🏻 person taking bath !! moved
-1F46B; 👫 man and woman holding hands
-1F46C; 👬 two men holding hands
-1F46D; 👭 two women holding hands
-1F48F; 💏 kiss
-1F469 200D 2764 FE0F 200D 1F48B 200D 1F468; 👩‍❤️‍💋‍👨 kiss
-1F468 200D 2764 FE0F 200D 1F48B 200D 1F468; 👨‍❤️‍💋‍👨 kiss
-1F469 200D 2764 FE0F 200D 1F48B 200D 1F469; 👩‍❤️‍💋‍👩 kiss
-1F491; 💑 couple with heart
-1F469 200D 2764 FE0F 200D 1F468; 👩‍❤️‍👨 couple with heart
-1F468 200D 2764 FE0F 200D 1F468; 👨‍❤️‍👨 couple with heart
-1F469 200D 2764 FE0F 200D 1F469; 👩‍❤️‍👩 couple with heart
-1F46A; 👪 family
-1F468 200D 1F469 200D 1F466; 👨‍👩‍👦 family
-1F468 200D 1F469 200D 1F467; 👨‍👩‍👧 family
-1F468 200D 1F469 200D 1F467 200D 1F466; 👨‍👩‍👧‍👦 family
-1F468 200D 1F469 200D 1F466 200D 1F466; 👨‍👩‍👦‍👦 family
-1F468 200D 1F469 200D 1F467 200D 1F467; 👨‍👩‍👧‍👧 family
-1F468 200D 1F468 200D 1F466; 👨‍👨‍👦 family
-1F468 200D 1F468 200D 1F467; 👨‍👨‍👧 family
-1F468 200D 1F468 200D 1F467 200D 1F466; 👨‍👨‍👧‍👦 family
-1F468 200D 1F468 200D 1F466 200D 1F466; 👨‍👨‍👦‍👦 family
-1F468 200D 1F468 200D 1F467 200D 1F467; 👨‍👨‍👧‍👧 family
-1F469 200D 1F469 200D 1F466; 👩‍👩‍👦 family
-1F469 200D 1F469 200D 1F467; 👩‍👩‍👧 family
-1F469 200D 1F469 200D 1F467 200D 1F466; 👩‍👩‍👧‍👦 family
-1F469 200D 1F469 200D 1F466 200D 1F466; 👩‍👩‍👦‍👦 family
-1F469 200D 1F469 200D 1F467 200D 1F467; 👩‍👩‍👧‍👧 family
-1F468 200D 1F466; 👨‍👦 family
-1F468 200D 1F466 200D 1F466; 👨‍👦‍👦 family
-1F468 200D 1F467; 👨‍👧 family
-1F468 200D 1F467 200D 1F466; 👨‍👧‍👦 family
-1F468 200D 1F467 200D 1F467; 👨‍👧‍👧 family
-1F469 200D 1F466; 👩‍👦 family
-1F469 200D 1F466 200D 1F466; 👩‍👦‍👦 family
-1F469 200D 1F467; 👩‍👧 family
-1F469 200D 1F467 200D 1F466; 👩‍👧‍👦 family
-1F469 200D 1F467 200D 1F467; 👩‍👧‍👧 family
+1F466;boy
+1F466 $;boy
+1F467;girl
+1F467 $;girl
+1F468;man
+1F468 $;man
+1F469;woman
+1F469 $;woman
+1F474;old man
+1F474 $;old man
+1F475;old woman
+1F475 $;old woman
+1F476;baby
+1F476 $;baby
+1F47C;baby angel
+1F47C $;baby angel
+1F468 200D 2695 FE0F;man health worker
+1F468 $ 200D 2695 FE0F;man health worker
+1F469 200D 2695 FE0F;woman health worker
+1F469 $ 200D 2695 FE0F;woman health worker
+1F468 200D 1F393;man student
+1F468 $ 200D 1F393;man student
+1F469 200D 1F393;woman student
+1F469 $ 200D 1F393;woman student
+1F468 200D 1F3EB;man teacher
+1F468 $ 200D 1F3EB;man teacher
+1F469 200D 1F3EB;woman teacher
+1F469 $ 200D 1F3EB;woman teacher
+1F468 200D 2696 FE0F;man judge
+1F468 $ 200D 2696 FE0F;man judge
+1F469 200D 2696 FE0F;woman judge
+1F469 $ 200D 2696 FE0F;woman judge
+1F468 200D 1F33E;man farmer
+1F468 $ 200D 1F33E;man farmer
+1F469 200D 1F33E;woman farmer
+1F469 $ 200D 1F33E;woman farmer
+1F468 200D 1F373;man cook
+1F468 $ 200D 1F373;man cook
+1F469 200D 1F373;woman cook
+1F469 $ 200D 1F373;woman cook
+1F468 200D 1F527;man mechanic
+1F468 $ 200D 1F527;man mechanic
+1F469 200D 1F527;woman mechanic
+1F469 $ 200D 1F527;woman mechanic
+1F468 200D 1F3ED;man factory worker
+1F468 $ 200D 1F3ED;man factory worker
+1F469 200D 1F3ED;woman factory worker
+1F469 $ 200D 1F3ED;woman factory worker
+1F468 200D 1F4BC;man office worker
+1F468 $ 200D 1F4BC;man office worker
+1F469 200D 1F4BC;woman office worker
+1F469 $ 200D 1F4BC;woman office worker
+1F468 200D 1F52C;man scientist
+1F468 $ 200D 1F52C;man scientist
+1F469 200D 1F52C;woman scientist
+1F469 $ 200D 1F52C;woman scientist
+1F468 200D 1F4BB;man technologist
+1F468 $ 200D 1F4BB;man technologist
+1F469 200D 1F4BB;woman technologist
+1F469 $ 200D 1F4BB;woman technologist
+1F468 200D 1F3A4;man singer
+1F468 $ 200D 1F3A4;man singer
+1F469 200D 1F3A4;woman singer
+1F469 $ 200D 1F3A4;woman singer
+1F468 200D 1F3A8;man artist
+1F468 $ 200D 1F3A8;man artist
+1F469 200D 1F3A8;woman artist
+1F469 $ 200D 1F3A8;woman artist
+1F468 200D 2708 FE0F;man pilot
+1F468 $ 200D 2708 FE0F;man pilot
+1F469 200D 2708 FE0F;woman pilot
+1F469 $ 200D 2708 FE0F;woman pilot
+1F468 200D 1F680;man astronaut
+1F468 $ 200D 1F680;man astronaut
+1F469 200D 1F680;woman astronaut
+1F469 $ 200D 1F680;woman astronaut
+1F468 200D 1F692;man firefighter
+1F468 $ 200D 1F692;man firefighter
+1F469 200D 1F692;woman firefighter
+1F469 $ 200D 1F692;woman firefighter
+1F46E 200D 2642 FE0F;man police officer
+1F46E $ 200D 2642 FE0F;man police officer
+1F46E 200D 2640 FE0F;woman police officer
+1F46E $ 200D 2640 FE0F;woman police officer
+1F575 FE0F 200D 2642 FE0F;man detective
+1F575 $ 200D 2642 FE0F;man detective
+1F575 FE0F 200D 2640 FE0F;woman detective
+1F575 $ 200D 2640 FE0F;woman detective
+1F482 200D 2642 FE0F;man guard
+1F482 $ 200D 2642 FE0F;man guard
+1F482 200D 2640 FE0F;woman guard
+1F482 $ 200D 2640 FE0F;woman guard
+1F477 200D 2642 FE0F;man construction worker
+1F477 $ 200D 2642 FE0F;man construction worker
+1F477 200D 2640 FE0F;woman construction worker
+1F477 $ 200D 2640 FE0F;woman construction worker
+1F473 200D 2642 FE0F;man wearing turban
+1F473 $ 200D 2642 FE0F;man wearing turban
+1F473 200D 2640 FE0F;woman wearing turban
+1F473 $ 200D 2640 FE0F;woman wearing turban
+1F471 200D 2642 FE0F;blond-haired man
+1F471 $ 200D 2642 FE0F;blond-haired man
+1F471 200D 2640 FE0F;blond-haired woman
+1F471 $ 200D 2640 FE0F;blond-haired woman
+1F385;Santa Claus
+1F385 $;Santa Claus
+1F936;Mrs. Claus
+1F936 $;Mrs. Claus
+1F478;princess
+1F478 $;princess
+1F934;prince
+1F934 $;prince
+1F470;bride with veil
+1F470 $;bride with veil
+1F935;man in tuxedo
+1F935 $;man in tuxedo
+1F930;pregnant woman
+1F930 $;pregnant woman
+1F472;man with Chinese cap
+1F472 $;man with Chinese cap
+1F64D 200D 2642 FE0F;man frowning
+1F64D $ 200D 2642 FE0F;man frowning
+1F64D 200D 2640 FE0F;woman frowning
+1F64D $ 200D 2640 FE0F;woman frowning
+1F64E 200D 2642 FE0F;man pouting
+1F64E $ 200D 2642 FE0F;man pouting
+1F64E 200D 2640 FE0F;woman pouting
+1F64E $ 200D 2640 FE0F;woman pouting
+1F645 200D 2642 FE0F;man gesturing NO
+1F645 $ 200D 2642 FE0F;man gesturing NO
+1F645 200D 2640 FE0F;woman gesturing NO
+1F645 $ 200D 2640 FE0F;woman gesturing NO
+1F646 200D 2642 FE0F;man gesturing OK
+1F646 $ 200D 2642 FE0F;man gesturing OK
+1F646 200D 2640 FE0F;woman gesturing OK
+1F646 $ 200D 2640 FE0F;woman gesturing OK
+1F481 200D 2642 FE0F;man tipping hand
+1F481 $ 200D 2642 FE0F;man tipping hand
+1F481 200D 2640 FE0F;woman tipping hand
+1F481 $ 200D 2640 FE0F;woman tipping hand
+1F64B 200D 2642 FE0F;man raising hand
+1F64B $ 200D 2642 FE0F;man raising hand
+1F64B 200D 2640 FE0F;woman raising hand
+1F64B $ 200D 2640 FE0F;woman raising hand
+1F647 200D 2642 FE0F;man bowing
+1F647 $ 200D 2642 FE0F;man bowing
+1F647 200D 2640 FE0F;woman bowing
+1F647 $ 200D 2640 FE0F;woman bowing
+1F926 200D 2642 FE0F;man facepalming
+1F926 $ 200D 2642 FE0F;man facepalming
+1F926 200D 2640 FE0F;woman facepalming
+1F926 $ 200D 2640 FE0F;woman facepalming
+1F937 200D 2642 FE0F;man shrugging
+1F937 $ 200D 2642 FE0F;man shrugging
+1F937 200D 2640 FE0F;woman shrugging
+1F937 $ 200D 2640 FE0F;woman shrugging
+1F486 200D 2642 FE0F;man getting massage
+1F486 $ 200D 2642 FE0F;man getting massage
+1F486 200D 2640 FE0F;woman getting massage
+1F486 $ 200D 2640 FE0F;woman getting massage
+1F487 200D 2642 FE0F;man getting haircut
+1F487 $ 200D 2642 FE0F;man getting haircut
+1F487 200D 2640 FE0F;woman getting haircut
+1F487 $ 200D 2640 FE0F;woman getting haircut
+1F6B6 200D 2642 FE0F;man walking
+1F6B6 $ 200D 2642 FE0F;man walking
+1F6B6 200D 2640 FE0F;woman walking
+1F6B6 $ 200D 2640 FE0F;woman walking
+1F3C3 200D 2642 FE0F;man running
+1F3C3 $ 200D 2642 FE0F;man running
+1F3C3 200D 2640 FE0F;woman running
+1F3C3 $ 200D 2640 FE0F;woman running
+1F483;woman dancing
+1F483 $;woman dancing
+1F57A;man dancing
+1F57A $;man dancing
+1F46F 200D 2642 FE0F;men with bunny ears partying
+1F46F 200D 2640 FE0F;women with bunny ears partying
+1F574;man in business suit levitating
+1F574 $;man in business suit levitating
+1F5E3;speaking head
+1F464;bust in silhouette
+1F465;busts in silhouette
+1F93A;person fencing
+1F3C7;horse racing
+1F3C7 $;horse racing
+26F7;skier
+1F3C2;snowboarder
+1F3C2 $;snowboarder
+1F3CC FE0F 200D 2642 FE0F;man golfing
+1F3CC $ 200D 2642 FE0F;man golfing
+1F3CC FE0F 200D 2640 FE0F;woman golfing
+1F3CC $ 200D 2640 FE0F;woman golfing
+1F3C4 200D 2642 FE0F;man surfing
+1F3C4 $ 200D 2642 FE0F;man surfing
+1F3C4 200D 2640 FE0F;woman surfing
+1F3C4 $ 200D 2640 FE0F;woman surfing
+1F6A3 200D 2642 FE0F;man rowing boat
+1F6A3 $ 200D 2642 FE0F;man rowing boat
+1F6A3 200D 2640 FE0F;woman rowing boat
+1F6A3 $ 200D 2640 FE0F;woman rowing boat
+1F3CA 200D 2642 FE0F;man swimming
+1F3CA $ 200D 2642 FE0F;man swimming
+1F3CA 200D 2640 FE0F;woman swimming
+1F3CA $ 200D 2640 FE0F;woman swimming
+26F9 FE0F 200D 2642 FE0F;man bouncing ball
+26F9 $ 200D 2642 FE0F;man bouncing ball
+26F9 FE0F 200D 2640 FE0F;woman bouncing ball
+26F9 $ 200D 2640 FE0F;woman bouncing ball
+1F3CB FE0F 200D 2642 FE0F;man lifting weights
+1F3CB $ 200D 2642 FE0F;man lifting weights
+1F3CB FE0F 200D 2640 FE0F;woman lifting weights
+1F3CB $ 200D 2640 FE0F;woman lifting weights
+1F6B4 200D 2642 FE0F;man biking
+1F6B4 $ 200D 2642 FE0F;man biking
+1F6B4 200D 2640 FE0F;woman biking
+1F6B4 $ 200D 2640 FE0F;woman biking
+1F6B5 200D 2642 FE0F;man mountain biking
+1F6B5 $ 200D 2642 FE0F;man mountain biking
+1F6B5 200D 2640 FE0F;woman mountain biking
+1F6B5 $ 200D 2640 FE0F;woman mountain biking
+1F3CE;racing car
+1F3CD;motorcycle
+1F938 200D 2642 FE0F;man cartwheeling
+1F938 $ 200D 2642 FE0F;man cartwheeling
+1F938 200D 2640 FE0F;woman cartwheeling
+1F938 $ 200D 2640 FE0F;woman cartwheeling
+1F93C 200D 2642 FE0F;men wrestling
+1F93C 200D 2640 FE0F;women wrestling
+1F93D 200D 2642 FE0F;man playing water polo
+1F93D $ 200D 2642 FE0F;man playing water polo
+1F93D 200D 2640 FE0F;woman playing water polo
+1F93D $ 200D 2640 FE0F;woman playing water polo
+1F93E 200D 2642 FE0F;man playing handball
+1F93E $ 200D 2642 FE0F;man playing handball
+1F93E 200D 2640 FE0F;woman playing handball
+1F93E $ 200D 2640 FE0F;woman playing handball
+1F939 200D 2642 FE0F;man juggling
+1F939 $ 200D 2642 FE0F;man juggling
+1F939 200D 2640 FE0F;woman juggling
+1F939 $ 200D 2640 FE0F;woman juggling
+1F6CC;person in bed
+1F6CC $;person in bed
+1F6C0;person taking bath
+1F6C0 $;person taking bath
+1F46B;man and woman holding hands
+1F46C;two men holding hands
+1F46D;two women holding hands
+1F48F;kiss
+1F469 200D 2764 FE0F 200D 1F48B 200D 1F468;kiss
+1F468 200D 2764 FE0F 200D 1F48B 200D 1F468;kiss
+1F469 200D 2764 FE0F 200D 1F48B 200D 1F469;kiss
+1F491;couple with heart
+1F469 200D 2764 FE0F 200D 1F468;couple with heart
+1F468 200D 2764 FE0F 200D 1F468;couple with heart
+1F469 200D 2764 FE0F 200D 1F469;couple with heart
+1F46A;family
+1F468 200D 1F469 200D 1F466;family
+1F468 200D 1F469 200D 1F467;family
+1F468 200D 1F469 200D 1F467 200D 1F466;family
+1F468 200D 1F469 200D 1F466 200D 1F466;family
+1F468 200D 1F469 200D 1F467 200D 1F467;family
+1F468 200D 1F468 200D 1F466;family
+1F468 200D 1F468 200D 1F467;family
+1F468 200D 1F468 200D 1F467 200D 1F466;family
+1F468 200D 1F468 200D 1F466 200D 1F466;family
+1F468 200D 1F468 200D 1F467 200D 1F467;family
+1F469 200D 1F469 200D 1F466;family
+1F469 200D 1F469 200D 1F467;family
+1F469 200D 1F469 200D 1F467 200D 1F466;family
+1F469 200D 1F469 200D 1F466 200D 1F466;family
+1F469 200D 1F469 200D 1F467 200D 1F467;family
+1F468 200D 1F466;family
+1F468 200D 1F466 200D 1F466;family
+1F468 200D 1F467;family
+1F468 200D 1F467 200D 1F466;family
+1F468 200D 1F467 200D 1F467;family
+1F469 200D 1F466;family
+1F469 200D 1F466 200D 1F466;family
+1F469 200D 1F467;family
+1F469 200D 1F467 200D 1F466;family
+1F469 200D 1F467 200D 1F467;family
 @
-1F4AA; 💪 flexed biceps
-1F4AA $; 💪🏻 flexed biceps
-1F933; 🤳 selfie
-1F933 $; 🤳🏻 selfie
-1F448; 👈 backhand index pointing left
-1F448 $; 👈🏻 backhand index pointing left
-1F449; 👉 backhand index pointing right
-1F449 $; 👉🏻 backhand index pointing right
-261D; ☝ index pointing up
-261D $; ☝🏻 index pointing up
-1F446; 👆 backhand index pointing up
-1F446 $; 👆🏻 backhand index pointing up
-1F595; 🖕 middle finger
-1F595 $; 🖕🏻 middle finger
-1F447; 👇 backhand index pointing down
-1F447 $; 👇🏻 backhand index pointing down
-270C; ✌ victory hand
-270C $; ✌🏻 victory hand
-1F91E; 🤞 crossed fingers
-1F91E $; 🤞🏻 crossed fingers
-1F596; 🖖 vulcan salute
-1F596 $; 🖖🏻 vulcan salute
-1F918; 🤘 sign of the horns
-1F918 $; 🤘🏻 sign of the horns
-1F919; 🤙 call me hand
-1F919 $; 🤙🏻 call me hand
-1F590; 🖐 raised hand with fingers splayed
-1F590 $; 🖐🏻 raised hand with fingers splayed
-270B; ✋ raised hand
-270B $; ✋🏻 raised hand
-1F44C; 👌 OK hand
-1F44C $; 👌🏻 OK hand
-1F44D; 👍 thumbs up
-1F44D $; 👍🏻 thumbs up
-1F44E; 👎 thumbs down
-1F44E $; 👎🏻 thumbs down
-270A; ✊ raised fist
-270A $; ✊🏻 raised fist
-1F44A; 👊 oncoming fist
-1F44A $; 👊🏻 oncoming fist
-1F91B; 🤛 left-facing fist
-1F91B $; 🤛🏻 left-facing fist
-1F91C; 🤜 right-facing fist
-1F91C $; 🤜🏻 right-facing fist
-1F91A; 🤚 raised back of hand
-1F91A $; 🤚🏻 raised back of hand
-1F44B; 👋 waving hand
-1F44B $; 👋🏻 waving hand
-1F44F; 👏 clapping hands
-1F44F $; 👏🏻 clapping hands
-270D; ✍ writing hand
-270D $; ✍🏻 writing hand
-1F450; 👐 open hands
-1F450 $; 👐🏻 open hands
-1F64C; 🙌 raising hands
-1F64C $; 🙌🏻 raising hands
-1F64F; 🙏 folded hands
-1F64F $; 🙏🏻 folded hands
-1F485; 💅 nail polish
-1F485 $; 💅🏻 nail polish
-1F442; 👂 ear
-1F442 $; 👂🏻 ear
-1F443; 👃 nose
-1F443 $; 👃🏻 nose
-1F91D; 🤝 handshake !! moved
-1F463; 👣 footprints
-1F440; 👀 eyes
-1F441; 👁 eye
-1F441 FE0F 200D 1F5E8 FE0F; 👁️‍🗨️ eye in speech bubble
-1F445; 👅 tongue
-1F444; 👄 mouth
-1F48B; 💋 kiss mark
-1F498; 💘 heart with arrow
-2764; ❤ red heart
-1F493; 💓 beating heart
-1F494; 💔 broken heart
-1F495; 💕 two hearts
-1F496; 💖 sparkling heart
-1F497; 💗 growing heart
-1F499; 💙 blue heart
-1F49A; 💚 green heart
-1F49B; 💛 yellow heart
-1F49C; 💜 purple heart
-1F5A4; 🖤 black heart
-1F49D; 💝 heart with ribbon
-1F49E; 💞 revolving hearts
-1F49F; 💟 heart decoration
-2763; ❣ heavy heart exclamation
-1F48C; 💌 love letter
-1F4A4; 💤 zzz
-1F4A2; 💢 anger symbol
-1F4A3; 💣 bomb
-1F4A5; 💥 collision
-1F4A6; 💦 sweat droplets
-1F4A8; 💨 dashing away
-1F4AB; 💫 dizzy
-1F4AC; 💬 speech balloon
-1F5E8; 🗨 left speech bubble
-1F5EF; 🗯 right anger bubble
-1F4AD; 💭 thought balloon
-1F573; 🕳 hole
-1F453; 👓 glasses
-1F576; 🕶 sunglasses
-1F454; 👔 necktie
-1F455; 👕 t-shirt
-1F456; 👖 jeans
-1F457; 👗 dress
-1F458; 👘 kimono
-1F459; 👙 bikini
-1F45A; 👚 woman’s clothes
-1F45B; 👛 purse
-1F45C; 👜 handbag
-1F45D; 👝 clutch bag
-1F6CD; 🛍 shopping bags
-1F392; 🎒 school backpack
-1F45E; 👞 man’s shoe
-1F45F; 👟 running shoe
-1F460; 👠 high-heeled shoe
-1F461; 👡 woman’s sandal
-1F462; 👢 woman’s boot
-1F451; 👑 crown
-1F452; 👒 woman’s hat
-1F3A9; 🎩 top hat
-1F393; 🎓 graduation cap
-26D1; ⛑ rescue worker’s helmet
-1F4FF; 📿 prayer beads
-1F484; 💄 lipstick
-1F48D; 💍 ring
-1F48E; 💎 gem stone
+1F4AA;flexed biceps
+1F4AA $;flexed biceps
+1F933;selfie
+1F933 $;selfie
+1F448;backhand index pointing left
+1F448 $;backhand index pointing left
+1F449;backhand index pointing right
+1F449 $;backhand index pointing right
+261D;index pointing up
+261D $;index pointing up
+1F446;backhand index pointing up
+1F446 $;backhand index pointing up
+1F595;middle finger
+1F595 $;middle finger
+1F447;backhand index pointing down
+1F447 $;backhand index pointing down
+270C;victory hand
+270C $;victory hand
+1F91E;crossed fingers
+1F91E $;crossed fingers
+1F596;vulcan salute
+1F596 $;vulcan salute
+1F918;sign of the horns
+1F918 $;sign of the horns
+1F919;call me hand
+1F919 $;call me hand
+1F590;raised hand with fingers splayed
+1F590 $;raised hand with fingers splayed
+270B;raised hand
+270B $;raised hand
+1F44C;OK hand
+1F44C $;OK hand
+1F44D;thumbs up
+1F44D $;thumbs up
+1F44E;thumbs down
+1F44E $;thumbs down
+270A;raised fist
+270A $;raised fist
+1F44A;oncoming fist
+1F44A $;oncoming fist
+1F91B;left-facing fist
+1F91B $;left-facing fist
+1F91C;right-facing fist
+1F91C $;right-facing fist
+1F91A;raised back of hand
+1F91A $;raised back of hand
+1F44B;waving hand
+1F44B $;waving hand
+1F44F;clapping hands
+1F44F $;clapping hands
+270D;writing hand
+270D $;writing hand
+1F450;open hands
+1F450 $;open hands
+1F64C;raising hands
+1F64C $;raising hands
+1F64F;folded hands
+1F64F $;folded hands
+1F485;nail polish
+1F485 $;nail polish
+1F442;ear
+1F442 $;ear
+1F443;nose
+1F443 $;nose
+1F91D;handshake
+1F463;footprints
+1F440;eyes
+1F441;eye
+1F441 FE0F 200D 1F5E8 FE0F;eye in speech bubble
+1F445;tongue
+1F444;mouth
+1F48B;kiss mark
+1F498;heart with arrow
+2764;red heart
+1F493;beating heart
+1F494;broken heart
+1F495;two hearts
+1F496;sparkling heart
+1F497;growing heart
+1F499;blue heart
+1F49A;green heart
+1F49B;yellow heart
+1F49C;purple heart
+1F5A4;black heart
+1F49D;heart with ribbon
+1F49E;revolving hearts
+1F49F;heart decoration
+2763;heavy heart exclamation
+1F48C;love letter
+1F4A4;zzz
+1F4A2;anger symbol
+1F4A3;bomb
+1F4A5;collision
+1F4A6;sweat droplets
+1F4A8;dashing away
+1F4AB;dizzy
+1F4AC;speech balloon
+1F5E8;left speech bubble
+1F5EF;right anger bubble
+1F4AD;thought balloon
+1F573;hole
+1F453;glasses
+1F576;sunglasses
+1F454;necktie
+1F455;t-shirt
+1F456;jeans
+1F457;dress
+1F458;kimono
+1F459;bikini
+1F45A;woman’s clothes
+1F45B;purse
+1F45C;handbag
+1F45D;clutch bag
+1F6CD;shopping bags
+1F392;school backpack
+1F45E;man’s shoe
+1F45F;running shoe
+1F460;high-heeled shoe
+1F461;woman’s sandal
+1F462;woman’s boot
+1F451;crown
+1F452;woman’s hat
+1F3A9;top hat
+1F393;graduation cap
+26D1;rescue worker’s helmet
+1F4FF;prayer beads
+1F484;lipstick
+1F48D;ring
+1F48E;gem stone
 @2 no more skin tones beyond this point
-1F435; 🐵 monkey face
-1F412; 🐒 monkey
-1F98D; 🦍 gorilla
-1F436; 🐶 dog face
-1F415; 🐕 dog
-1F429; 🐩 poodle
-1F43A; 🐺 wolf face
-1F98A; 🦊 fox face
-1F431; 🐱 cat face
-1F408; 🐈 cat
-1F981; 🦁 lion face
-1F42F; 🐯 tiger face
-1F405; 🐅 tiger
-1F406; 🐆 leopard
-1F434; 🐴 horse face
-1F40E; 🐎 horse
-1F98C; 🦌 deer
-1F984; 🦄 unicorn face
-1F42E; 🐮 cow face
-1F402; 🐂 ox
-1F403; 🐃 water buffalo
-1F404; 🐄 cow
-1F437; 🐷 pig face
-1F416; 🐖 pig
-1F417; 🐗 boar
-1F43D; 🐽 pig nose
-1F40F; 🐏 ram
-1F411; 🐑 ewe
-1F410; 🐐 goat
-1F42A; 🐪 camel
-1F42B; 🐫 two-hump camel
-1F418; 🐘 elephant
-1F98F; 🦏 rhinoceros
-1F42D; 🐭 mouse face
-1F401; 🐁 mouse
-1F400; 🐀 rat
-1F439; 🐹 hamster face
-1F430; 🐰 rabbit face
-1F407; 🐇 rabbit
-1F43F; 🐿 chipmunk
-1F987; 🦇 bat
-1F43B; 🐻 bear face
-1F428; 🐨 koala
-1F43C; 🐼 panda face
-1F43E; 🐾 paw prints
-1F983; 🦃 turkey
-1F414; 🐔 chicken
-1F413; 🐓 rooster
-1F423; 🐣 hatching chick
-1F424; 🐤 baby chick
-1F425; 🐥 front-facing baby chick
-1F426; 🐦 bird
-1F427; 🐧 penguin
-1F54A; 🕊 dove
-1F985; 🦅 eagle
-1F986; 🦆 duck
-1F989; 🦉 owl
-1F438; 🐸 frog face
-1F40A; 🐊 crocodile
-1F422; 🐢 turtle
-1F98E; 🦎 lizard
-1F40D; 🐍 snake
-1F432; 🐲 dragon face
-1F409; 🐉 dragon
-1F433; 🐳 spouting whale
-1F40B; 🐋 whale
-1F42C; 🐬 dolphin
-1F41F; 🐟 fish
-1F420; 🐠 tropical fish
-1F421; 🐡 blowfish
-1F988; 🦈 shark
-1F419; 🐙 octopus
-1F41A; 🐚 spiral shell
-1F980; 🦀 crab
-1F990; 🦐 shrimp
-1F991; 🦑 squid
-1F98B; 🦋 butterfly
-1F40C; 🐌 snail
-1F41B; 🐛 bug
-1F41C; 🐜 ant
-1F41D; 🐝 honeybee
-1F41E; 🐞 lady beetle
-1F577; 🕷 spider
-1F578; 🕸 spider web
-1F982; 🦂 scorpion
+1F435;monkey face
+1F412;monkey
+1F98D;gorilla
+1F436;dog face
+1F415;dog
+1F429;poodle
+1F43A;wolf face
+1F98A;fox face
+1F431;cat face
+1F408;cat
+1F981;lion face
+1F42F;tiger face
+1F405;tiger
+1F406;leopard
+1F434;horse face
+1F40E;horse
+1F98C;deer
+1F984;unicorn face
+1F42E;cow face
+1F402;ox
+1F403;water buffalo
+1F404;cow
+1F437;pig face
+1F416;pig
+1F417;boar
+1F43D;pig nose
+1F40F;ram
+1F411;ewe
+1F410;goat
+1F42A;camel
+1F42B;two-hump camel
+1F418;elephant
+1F98F;rhinoceros
+1F42D;mouse face
+1F401;mouse
+1F400;rat
+1F439;hamster face
+1F430;rabbit face
+1F407;rabbit
+1F43F;chipmunk
+1F987;bat
+1F43B;bear face
+1F428;koala
+1F43C;panda face
+1F43E;paw prints
+1F983;turkey
+1F414;chicken
+1F413;rooster
+1F423;hatching chick
+1F424;baby chick
+1F425;front-facing baby chick
+1F426;bird
+1F427;penguin
+1F54A;dove
+1F985;eagle
+1F986;duck
+1F989;owl
+1F438;frog face
+1F40A;crocodile
+1F422;turtle
+1F98E;lizard
+1F40D;snake
+1F432;dragon face
+1F409;dragon
+1F433;spouting whale
+1F40B;whale
+1F42C;dolphin
+1F41F;fish
+1F420;tropical fish
+1F421;blowfish
+1F988;shark
+1F419;octopus
+1F41A;spiral shell
+1F980;crab
+1F990;shrimp
+1F991;squid
+1F98B;butterfly
+1F40C;snail
+1F41B;bug
+1F41C;ant
+1F41D;honeybee
+1F41E;lady beetle
+1F577;spider
+1F578;spider web
+1F982;scorpion
 @
-1F490; 💐 bouquet
-1F338; 🌸 cherry blossom
-1F4AE; 💮 white flower
-1F3F5; 🏵 rosette
-1F339; 🌹 rose
-1F940; 🥀 wilted flower
-1F33A; 🌺 hibiscus
-1F33B; 🌻 sunflower
-1F33C; 🌼 blossom
-1F337; 🌷 tulip
-1F331; 🌱 seedling
-1F332; 🌲 evergreen tree
-1F333; 🌳 deciduous tree
-1F334; 🌴 palm tree
-1F335; 🌵 cactus
-1F33E; 🌾 sheaf of rice
-1F33F; 🌿 herb
-2618; ☘ shamrock
-1F340; 🍀 four leaf clover
-1F341; 🍁 maple leaf
-1F342; 🍂 fallen leaf
-1F343; 🍃 leaf fluttering in wind
-1F347; 🍇 grapes
+1F490;bouquet
+1F338;cherry blossom
+1F4AE;white flower
+1F3F5;rosette
+1F339;rose
+1F940;wilted flower
+1F33A;hibiscus
+1F33B;sunflower
+1F33C;blossom
+1F337;tulip
+1F331;seedling
+1F332;evergreen tree
+1F333;deciduous tree
+1F334;palm tree
+1F335;cactus
+1F33E;sheaf of rice
+1F33F;herb
+2618;shamrock
+1F340;four leaf clover
+1F341;maple leaf
+1F342;fallen leaf
+1F343;leaf fluttering in wind
+1F347;grapes
 @
-1F348; 🍈 melon
-1F349; 🍉 watermelon
-1F34A; 🍊 tangerine
-1F34B; 🍋 lemon
-1F34C; 🍌 banana
-1F34D; 🍍 pineapple
-1F34E; 🍎 red apple
-1F34F; 🍏 green apple
-1F350; 🍐 pear
-1F351; 🍑 peach
-1F352; 🍒 cherries
-1F353; 🍓 strawberry
-1F95D; 🥝 kiwi fruit
-1F345; 🍅 tomato
-1F951; 🥑 avocado
-1F346; 🍆 eggplant
-1F954; 🥔 potato
-1F955; 🥕 carrot
-1F33D; 🌽 ear of corn
-1F336; 🌶 hot pepper
-1F952; 🥒 cucumber
-1F344; 🍄 mushroom
-1F95C; 🥜 peanuts
-1F330; 🌰 chestnut
-1F35E; 🍞 bread
-1F950; 🥐 croissant
-1F956; 🥖 baguette bread
-1F95E; 🥞 pancakes
-1F9C0; 🧀 cheese wedge
-1F356; 🍖 meat on bone
-1F357; 🍗 poultry leg
-1F953; 🥓 bacon
-1F354; 🍔 hamburger
-1F35F; 🍟 french fries
-1F355; 🍕 pizza
-1F32D; 🌭 hot dog
-1F32E; 🌮 taco
-1F32F; 🌯 burrito
-1F959; 🥙 stuffed flatbread
-1F95A; 🥚 egg
-1F373; 🍳 cooking
-1F958; 🥘 shallow pan of food
-1F372; 🍲 pot of food
-1F957; 🥗 green salad
-1F37F; 🍿 popcorn
-1F371; 🍱 bento box
-1F358; 🍘 rice cracker
-1F359; 🍙 rice ball
-1F35A; 🍚 cooked rice
-1F35B; 🍛 curry rice
-1F35C; 🍜 steaming bowl
-1F35D; 🍝 spaghetti
-1F360; 🍠 roasted sweet potato
-1F362; 🍢 oden
-1F363; 🍣 sushi
-1F364; 🍤 fried shrimp
-1F365; 🍥 fish cake with swirl
-1F361; 🍡 dango
-1F366; 🍦 soft ice cream
-1F367; 🍧 shaved ice
-1F368; 🍨 ice cream
-1F369; 🍩 doughnut
-1F36A; 🍪 cookie
-1F382; 🎂 birthday cake
-1F370; 🍰 shortcake
-1F36B; 🍫 chocolate bar
-1F36C; 🍬 candy
-1F36D; 🍭 lollipop
-1F36E; 🍮 custard
-1F36F; 🍯 honey pot
-1F37C; 🍼 baby bottle
-1F95B; 🥛 glass of milk
-2615; ☕ hot beverage
-1F375; 🍵 teacup without handle
-1F376; 🍶 sake
-1F37E; 🍾 bottle with popping cork
-1F377; 🍷 wine glass
-1F378; 🍸 cocktail glass
-1F379; 🍹 tropical drink
-1F37A; 🍺 beer mug
-1F37B; 🍻 clinking beer mugs
-1F942; 🥂 clinking glasses
-1F943; 🥃 tumbler glass
-1F37D; 🍽 fork and knife with plate
-1F374; 🍴 fork and knife
-1F944; 🥄 spoon
-1F52A; 🔪 kitchen knife
+1F348;melon
+1F349;watermelon
+1F34A;tangerine
+1F34B;lemon
+1F34C;banana
+1F34D;pineapple
+1F34E;red apple
+1F34F;green apple
+1F350;pear
+1F351;peach
+1F352;cherries
+1F353;strawberry
+1F95D;kiwi fruit
+1F345;tomato
+1F951;avocado
+1F346;eggplant
+1F954;potato
+1F955;carrot
+1F33D;ear of corn
+1F336;hot pepper
+1F952;cucumber
+1F344;mushroom
+1F95C;peanuts
+1F330;chestnut
+1F35E;bread
+1F950;croissant
+1F956;baguette bread
+1F95E;pancakes
+1F9C0;cheese wedge
+1F356;meat on bone
+1F357;poultry leg
+1F953;bacon
+1F354;hamburger
+1F35F;french fries
+1F355;pizza
+1F32D;hot dog
+1F32E;taco
+1F32F;burrito
+1F959;stuffed flatbread
+1F95A;egg
+1F373;cooking
+1F958;shallow pan of food
+1F372;pot of food
+1F957;green salad
+1F37F;popcorn
+1F371;bento box
+1F358;rice cracker
+1F359;rice ball
+1F35A;cooked rice
+1F35B;curry rice
+1F35C;steaming bowl
+1F35D;spaghetti
+1F360;roasted sweet potato
+1F362;oden
+1F363;sushi
+1F364;fried shrimp
+1F365;fish cake with swirl
+1F361;dango
+1F366;soft ice cream
+1F367;shaved ice
+1F368;ice cream
+1F369;doughnut
+1F36A;cookie
+1F382;birthday cake
+1F370;shortcake
+1F36B;chocolate bar
+1F36C;candy
+1F36D;lollipop
+1F36E;custard
+1F36F;honey pot
+1F37C;baby bottle
+1F95B;glass of milk
+2615;hot beverage
+1F375;teacup without handle
+1F376;sake
+1F37E;bottle with popping cork
+1F377;wine glass
+1F378;cocktail glass
+1F379;tropical drink
+1F37A;beer mug
+1F37B;clinking beer mugs
+1F942;clinking glasses
+1F943;tumbler glass
+1F37D;fork and knife with plate
+1F374;fork and knife
+1F944;spoon
+1F52A;kitchen knife
 @
-1F3FA; 🏺 amphora
-1F30D; 🌍 globe showing Europe-Africa
-1F30E; 🌎 globe showing Americas
-1F30F; 🌏 globe showing Asia-Australia
-1F310; 🌐 globe with meridians
-1F5FA; 🗺 world map
-1F5FE; 🗾 map of Japan
-1F3D4; 🏔 snow-capped mountain
-26F0; ⛰ mountain
-1F30B; 🌋 volcano
-1F5FB; 🗻 mount fuji
-1F3D5; 🏕 camping
-1F3D6; 🏖 beach with umbrella
-1F3DC; 🏜 desert
-1F3DD; 🏝 desert island
-1F3DE; 🏞 national park
-1F3DF; 🏟 stadium
-1F3DB; 🏛 classical building
-1F3D7; 🏗 building construction
-1F3D8; 🏘 house
-1F3D9; 🏙 cityscape
-1F3DA; 🏚 derelict house
-1F3E0; 🏠 house
-1F3E1; 🏡 house with garden
-1F3E2; 🏢 office building
-1F3E3; 🏣 Japanese post office
-1F3E4; 🏤 post office
-1F3E5; 🏥 hospital
-1F3E6; 🏦 bank
-1F3E8; 🏨 hotel
-1F3E9; 🏩 love hotel
-1F3EA; 🏪 convenience store
-1F3EB; 🏫 school
-1F3EC; 🏬 department store
-1F3ED; 🏭 factory
-1F3EF; 🏯 Japanese castle
-1F3F0; 🏰 castle
-1F492; 💒 wedding
-1F5FC; 🗼 Tokyo tower
-1F5FD; 🗽 Statue of Liberty
-26EA; ⛪ church
-1F54C; 🕌 mosque
-1F54D; 🕍 synagogue
-26E9; ⛩ shinto shrine
-1F54B; 🕋 kaaba
-26F2; ⛲ fountain
-26FA; ⛺ tent
-1F301; 🌁 foggy
-1F303; 🌃 night with stars
-1F304; 🌄 sunrise over mountains
-1F305; 🌅 sunrise
-1F306; 🌆 cityscape at dusk
-1F307; 🌇 sunset
-1F309; 🌉 bridge at night
-2668; ♨ hot springs
-1F30C; 🌌 milky way
-1F3A0; 🎠 carousel horse
-1F3A1; 🎡 ferris wheel
-1F3A2; 🎢 roller coaster
-1F488; 💈 barber pole
-1F3AA; 🎪 circus tent
-1F3AD; 🎭 performing arts
-1F5BC; 🖼 framed picture
-1F3A8; 🎨 artist palette
-1F3B0; 🎰 slot machine
-1F682; 🚂 locomotive
-1F683; 🚃 railway car
-1F684; 🚄 high-speed train
-1F685; 🚅 high-speed train with bullet nose
-1F686; 🚆 train
-1F687; 🚇 metro
-1F688; 🚈 light rail
-1F689; 🚉 station
-1F68A; 🚊 tram
-1F69D; 🚝 monorail
-1F69E; 🚞 mountain railway
-1F68B; 🚋 tram car
-1F68C; 🚌 bus
-1F68D; 🚍 oncoming bus
-1F68E; 🚎 trolleybus
-1F690; 🚐 minibus
-1F691; 🚑 ambulance
-1F692; 🚒 fire engine
-1F693; 🚓 police car
-1F694; 🚔 oncoming police car
-1F695; 🚕 taxi
-1F696; 🚖 oncoming taxi
-1F697; 🚗 automobile
-1F698; 🚘 oncoming automobile
-1F699; 🚙 sport utility vehicle
-1F69A; 🚚 delivery truck
-1F69B; 🚛 articulated lorry
-1F69C; 🚜 tractor
-1F6B2; 🚲 bicycle
-1F6F4; 🛴 kick scooter
-1F6F5; 🛵 motor scooter
-1F68F; 🚏 bus stop
-1F6E3; 🛣 motorway
-1F6E4; 🛤 railway track
-26FD; ⛽ fuel pump
-1F6A8; 🚨 police car light
-1F6A5; 🚥 horizontal traffic light
-1F6A6; 🚦 vertical traffic light
-1F6A7; 🚧 construction
-1F6D1; 🛑 stop sign
-2693; ⚓ anchor
-26F5; ⛵ sailboat
-1F6F6; 🛶 canoe
-1F6A4; 🚤 speedboat
-1F6F3; 🛳 passenger ship
-26F4; ⛴ ferry
-1F6E5; 🛥 motor boat
-1F6A2; 🚢 ship
-2708; ✈ airplane
-1F6E9; 🛩 small airplane
-1F6EB; 🛫 airplane departure
-1F6EC; 🛬 airplane arrival
-1F4BA; 💺 seat
-1F681; 🚁 helicopter
-1F69F; 🚟 suspension railway
-1F6A0; 🚠 mountain cableway
-1F6A1; 🚡 aerial tramway
-1F680; 🚀 rocket
-1F6F0; 🛰 satellite
-1F6CE; 🛎 bellhop bell
-1F6AA; 🚪 door
-1F6CF; 🛏 bed
-1F6CB; 🛋 couch and lamp
-1F6BD; 🚽 toilet
-1F6BF; 🚿 shower
-1F6C1; 🛁 bathtub
+1F3FA;amphora
+1F30D;globe showing Europe-Africa
+1F30E;globe showing Americas
+1F30F;globe showing Asia-Australia
+1F310;globe with meridians
+1F5FA;world map
+1F5FE;map of Japan
+1F3D4;snow-capped mountain
+26F0;mountain
+1F30B;volcano
+1F5FB;mount fuji
+1F3D5;camping
+1F3D6;beach with umbrella
+1F3DC;desert
+1F3DD;desert island
+1F3DE;national park
+1F3DF;stadium
+1F3DB;classical building
+1F3D7;building construction
+1F3D8;house
+1F3D9;cityscape
+1F3DA;derelict house
+1F3E0;house
+1F3E1;house with garden
+1F3E2;office building
+1F3E3;Japanese post office
+1F3E4;post office
+1F3E5;hospital
+1F3E6;bank
+1F3E8;hotel
+1F3E9;love hotel
+1F3EA;convenience store
+1F3EB;school
+1F3EC;department store
+1F3ED;factory
+1F3EF;Japanese castle
+1F3F0;castle
+1F492;wedding
+1F5FC;Tokyo tower
+1F5FD;Statue of Liberty
+26EA;church
+1F54C;mosque
+1F54D;synagogue
+26E9;shinto shrine
+1F54B;kaaba
+26F2;fountain
+26FA;tent
+1F301;foggy
+1F303;night with stars
+1F304;sunrise over mountains
+1F305;sunrise
+1F306;cityscape at dusk
+1F307;sunset
+1F309;bridge at night
+2668;hot springs
+1F30C;milky way
+1F3A0;carousel horse
+1F3A1;ferris wheel
+1F3A2;roller coaster
+1F488;barber pole
+1F3AA;circus tent
+1F3AD;performing arts
+1F5BC;framed picture
+1F3A8;artist palette
+1F3B0;slot machine
+1F682;locomotive
+1F683;railway car
+1F684;high-speed train
+1F685;high-speed train with bullet nose
+1F686;train
+1F687;metro
+1F688;light rail
+1F689;station
+1F68A;tram
+1F69D;monorail
+1F69E;mountain railway
+1F68B;tram car
+1F68C;bus
+1F68D;oncoming bus
+1F68E;trolleybus
+1F690;minibus
+1F691;ambulance
+1F692;fire engine
+1F693;police car
+1F694;oncoming police car
+1F695;taxi
+1F696;oncoming taxi
+1F697;automobile
+1F698;oncoming automobile
+1F699;sport utility vehicle
+1F69A;delivery truck
+1F69B;articulated lorry
+1F69C;tractor
+1F6B2;bicycle
+1F6F4;kick scooter
+1F6F5;motor scooter
+1F68F;bus stop
+1F6E3;motorway
+1F6E4;railway track
+26FD;fuel pump
+1F6A8;police car light
+1F6A5;horizontal traffic light
+1F6A6;vertical traffic light
+1F6A7;construction
+1F6D1;stop sign
+2693;anchor
+26F5;sailboat
+1F6F6;canoe
+1F6A4;speedboat
+1F6F3;passenger ship
+26F4;ferry
+1F6E5;motor boat
+1F6A2;ship
+2708;airplane
+1F6E9;small airplane
+1F6EB;airplane departure
+1F6EC;airplane arrival
+1F4BA;seat
+1F681;helicopter
+1F69F;suspension railway
+1F6A0;mountain cableway
+1F6A1;aerial tramway
+1F680;rocket
+1F6F0;satellite
+1F6CE;bellhop bell
+1F6AA;door
+1F6CF;bed
+1F6CB;couch and lamp
+1F6BD;toilet
+1F6BF;shower
+1F6C1;bathtub
 @
-231B; ⌛ hourglass
-23F3; ⏳ hourglass with flowing sand
-231A; ⌚ watch
-23F0; ⏰ alarm clock
-23F1; ⏱ stopwatch
-23F2; ⏲ timer clock
-1F570; 🕰 mantelpiece clock
-1F55B; 🕛 twelve o’clock
-1F567; 🕧 twelve-thirty
-1F550; 🕐 one o’clock
-1F55C; 🕜 one-thirty
-1F551; 🕑 two o’clock
-1F55D; 🕝 two-thirty
-1F552; 🕒 three o’clock
-1F55E; 🕞 three-thirty
-1F553; 🕓 four o’clock
-1F55F; 🕟 four-thirty
-1F554; 🕔 five o’clock
-1F560; 🕠 five-thirty
-1F555; 🕕 six o’clock
-1F561; 🕡 six-thirty
-1F556; 🕖 seven o’clock
-1F562; 🕢 seven-thirty
-1F557; 🕗 eight o’clock
-1F563; 🕣 eight-thirty
-1F558; 🕘 nine o’clock
-1F564; 🕤 nine-thirty
-1F559; 🕙 ten o’clock
-1F565; 🕥 ten-thirty
-1F55A; 🕚 eleven o’clock
-1F566; 🕦 eleven-thirty
-1F311; 🌑 new moon
-1F312; 🌒 waxing crescent moon
-1F313; 🌓 first quarter moon
-1F314; 🌔 waxing gibbous moon
-1F315; 🌕 full moon
-1F316; 🌖 waning gibbous moon
-1F317; 🌗 last quarter moon
-1F318; 🌘 waning crescent moon
-1F319; 🌙 crescent moon
-1F31A; 🌚 new moon face
-1F31B; 🌛 first quarter moon with face
-1F31C; 🌜 last quarter moon with face
-1F321; 🌡 thermometer
-2600; ☀ sun
-1F31D; 🌝 full moon with face
-1F31E; 🌞 sun with face
-2B50; ⭐ white medium star
-1F31F; 🌟 glowing star
-1F320; 🌠 shooting star
-2601; ☁ cloud
-26C5; ⛅ sun behind cloud
-26C8; ⛈ cloud with lightning and rain
-1F324; 🌤 sun behind small cloud
-1F325; 🌥 sun behind large cloud
-1F326; 🌦 sun behind rain cloud
-1F327; 🌧 cloud with rain
-1F328; 🌨 cloud with snow
-1F329; 🌩 cloud with lightning
-1F32A; 🌪 tornado
-1F32B; 🌫 fog
-1F32C; 🌬 wind face
-1F300; 🌀 cyclone
-1F308; 🌈 rainbow
-1F302; 🌂 closed umbrella
-2602; ☂ umbrella
-2614; ☔ umbrella with rain drops
-26F1; ⛱ umbrella on ground
-26A1; ⚡ high voltage
-2744; ❄ snowflake
-2603; ☃ snowman
-26C4; ⛄ snowman without snow
-2604; ☄ comet
-1F525; 🔥 fire
-1F4A7; 💧 droplet
-1F30A; 🌊 water wave
-1F383; 🎃 jack-o-lantern
-1F384; 🎄 Christmas tree
-1F386; 🎆 fireworks
-1F387; 🎇 sparkler
-2728; ✨ sparkles
-1F388; 🎈 balloon
-1F389; 🎉 party popper
-1F38A; 🎊 confetti ball
-1F38B; 🎋 tanabata tree
-1F38D; 🎍 pine decoration
-1F38E; 🎎 Japanese dolls
-1F38F; 🎏 carp streamer
-1F390; 🎐 wind chime
-1F391; 🎑 moon viewing ceremony
-1F380; 🎀 ribbon
-1F381; 🎁 wrapped gift
-1F397; 🎗 reminder ribbon
-1F39F; 🎟 admission tickets
-1F3AB; 🎫 ticket
-1F396; 🎖 military medal
-1F3C6; 🏆 trophy
-1F3C5; 🏅 sports medal
-1F947; 🥇 1st place medal
-1F948; 🥈 2nd place medal
-1F949; 🥉 3rd place medal
-26BD; ⚽ soccer ball
-26BE; ⚾ baseball
-1F3C0; 🏀 basketball
-1F3D0; 🏐 volleyball
-1F3C8; 🏈 american football
-1F3C9; 🏉 rugby football
-1F3BE; 🎾 tennis
-1F3B1; 🎱 pool 8 ball
-1F3B3; 🎳 bowling
-1F3CF; 🏏 cricket
-1F3D1; 🏑 field hockey
-1F3D2; 🏒 ice hockey
-1F3D3; 🏓 ping pong
-1F3F8; 🏸 badminton
-1F94A; 🥊 boxing glove
-1F94B; 🥋 martial arts uniform
-1F945; 🥅 goal net
-1F3AF; 🎯 direct hit
-26F3; ⛳ flag in hole
-26F8; ⛸ ice skate
-1F3A3; 🎣 fishing pole
-1F3BD; 🎽 running shirt
-1F3BF; 🎿 skis
-1F3AE; 🎮 video game
-1F579; 🕹 joystick
-1F3B2; 🎲 game die
-2660; ♠ spade suit
-2665; ♥ heart suit
-2666; ♦ diamond suit
-2663; ♣ club suit
-1F0CF; 🃏 joker
-1F004; 🀄 mahjong red dragon
-1F3B4; 🎴 flower playing cards
-1F507; 🔇 muted speaker
-1F508; 🔈 speaker low volume
-1F509; 🔉 speaker medium volume
-1F50A; 🔊 speaker high volume
-1F4E2; 📢 loudspeaker
-1F4E3; 📣 megaphone
-1F4EF; 📯 postal horn
-1F514; 🔔 bell
-1F515; 🔕 bell with slash
-1F3BC; 🎼 musical score
-1F3B5; 🎵 musical note
-1F3B6; 🎶 musical notes
-1F399; 🎙 studio microphone
-1F39A; 🎚 level slider
-1F39B; 🎛 control knobs
-1F3A4; 🎤 microphone
-1F3A7; 🎧 headphone
-1F4FB; 📻 radio
-1F3B7; 🎷 saxophone
-1F3B8; 🎸 guitar
-1F3B9; 🎹 musical keyboard
-1F3BA; 🎺 trumpet
-1F3BB; 🎻 violin
-1F941; 🥁 drum
-1F4F1; 📱 mobile phone
-1F4F2; 📲 mobile phone with arrow
-260E; ☎ telephone
-1F4DE; 📞 telephone receiver
-1F4DF; 📟 pager
-1F4E0; 📠 fax machine
-1F50B; 🔋 battery
-1F50C; 🔌 electric plug
-1F4BB; 💻 laptop computer
-1F5A5; 🖥 desktop computer
-1F5A8; 🖨 printer
-2328; ⌨ keyboard
-1F5B1; 🖱 computer mouse
-1F5B2; 🖲 trackball
-1F4BD; 💽 computer disk
-1F4BE; 💾 floppy disk
-1F4BF; 💿 optical disk
-1F4C0; 📀 dvd
-1F3A5; 🎥 movie camera
-1F39E; 🎞 film frames
-1F4FD; 📽 film projector
-1F3AC; 🎬 clapper board
-1F4FA; 📺 television
-1F4F7; 📷 camera
-1F4F8; 📸 camera with flash
-1F4F9; 📹 video camera
-1F4FC; 📼 videocassette
-1F50D; 🔍 left-pointing magnifying glass
-1F50E; 🔎 right-pointing magnifying glass
-1F52C; 🔬 microscope
-1F52D; 🔭 telescope
-1F4E1; 📡 satellite antenna
-1F56F; 🕯 candle
-1F4A1; 💡 light bulb
-1F526; 🔦 flashlight
-1F3EE; 🏮 red paper lantern
-1F4D4; 📔 notebook with decorative cover
-1F4D5; 📕 closed book
-1F4D6; 📖 open book
-1F4D7; 📗 green book
-1F4D8; 📘 blue book
-1F4D9; 📙 orange book
-1F4DA; 📚 books
-1F4D3; 📓 notebook
-1F4D2; 📒 ledger
-1F4C3; 📃 page with curl
-1F4DC; 📜 scroll
-1F4C4; 📄 page facing up
-1F4F0; 📰 newspaper
-1F5DE; 🗞 rolled-up newspaper
-1F4D1; 📑 bookmark tabs
-1F516; 🔖 bookmark
-1F3F7; 🏷 label
-1F4B0; 💰 money bag
-1F4B4; 💴 yen banknote
-1F4B5; 💵 dollar banknote
-1F4B6; 💶 euro banknote
-1F4B7; 💷 pound banknote
-1F4B8; 💸 money with wings
-1F4B3; 💳 credit card
-1F4B9; 💹 chart increasing with yen
-1F4B1; 💱 currency exchange
-1F4B2; 💲 heavy dollar sign
-2709; ✉ envelope
-1F4E7; 📧 e-mail
-1F4E8; 📨 incoming envelope
-1F4E9; 📩 envelope with arrow
-1F4E4; 📤 outbox tray
-1F4E5; 📥 inbox tray
-1F4E6; 📦 package
-1F4EB; 📫 closed mailbox with raised flag
-1F4EA; 📪 closed mailbox with lowered flag
-1F4EC; 📬 open mailbox with raised flag
-1F4ED; 📭 open mailbox with lowered flag
-1F4EE; 📮 postbox
-1F5F3; 🗳 ballot box with ballot
-270F; ✏ pencil
-2712; ✒ black nib
-1F58B; 🖋 fountain pen
-1F58A; 🖊 pen
-1F58C; 🖌 paintbrush
-1F58D; 🖍 crayon
-1F4DD; 📝 memo
-1F4BC; 💼 briefcase
-1F4C1; 📁 file folder
-1F4C2; 📂 open file folder
-1F5C2; 🗂 card index dividers
-1F4C5; 📅 calendar
-1F4C6; 📆 tear-off calendar
-1F5D2; 🗒 spiral notepad
-1F5D3; 🗓 spiral calendar
-1F4C7; 📇 card index
-1F4C8; 📈 chart increasing
-1F4C9; 📉 chart decreasing
-1F4CA; 📊 bar chart
-1F4CB; 📋 clipboard
-1F4CC; 📌 pushpin
-1F4CD; 📍 round pushpin
-1F4CE; 📎 paperclip
-1F587; 🖇 linked paperclips
-1F4CF; 📏 straight ruler
-1F4D0; 📐 triangular ruler
-2702; ✂ scissors
-1F5C3; 🗃 card file box
-1F5C4; 🗄 file cabinet
-1F5D1; 🗑 wastebasket
-1F512; 🔒 locked
-1F513; 🔓 unlocked
-1F50F; 🔏 locked with pen
-1F510; 🔐 locked with key
-1F511; 🔑 key
-1F5DD; 🗝 old key
-1F528; 🔨 hammer
-26CF; ⛏ pick
-2692; ⚒ hammer and pick
-1F6E0; 🛠 hammer and wrench
-1F5E1; 🗡 dagger
-2694; ⚔ crossed swords
-1F52B; 🔫 pistol
-1F3F9; 🏹 bow and arrow
-1F6E1; 🛡 shield
-1F527; 🔧 wrench
-1F529; 🔩 nut and bolt
-2699; ⚙ gear
-1F5DC; 🗜 clamp
-2697; ⚗ alembic
-2696; ⚖ balance scale
-1F517; 🔗 link
-26D3; ⛓ chains
-1F489; 💉 syringe
-1F48A; 💊 pill
-1F6AC; 🚬 cigarette
-26B0; ⚰ coffin
-26B1; ⚱ funeral urn
-1F5FF; 🗿 moai
-1F6E2; 🛢 oil drum
-1F52E; 🔮 crystal ball
-1F6D2; 🛒 shopping cart
+231B;hourglass
+23F3;hourglass with flowing sand
+231A;watch
+23F0;alarm clock
+23F1;stopwatch
+23F2;timer clock
+1F570;mantelpiece clock
+1F55B;twelve o’clock
+1F567;twelve-thirty
+1F550;one o’clock
+1F55C;one-thirty
+1F551;two o’clock
+1F55D;two-thirty
+1F552;three o’clock
+1F55E;three-thirty
+1F553;four o’clock
+1F55F;four-thirty
+1F554;five o’clock
+1F560;five-thirty
+1F555;six o’clock
+1F561;six-thirty
+1F556;seven o’clock
+1F562;seven-thirty
+1F557;eight o’clock
+1F563;eight-thirty
+1F558;nine o’clock
+1F564;nine-thirty
+1F559;ten o’clock
+1F565;ten-thirty
+1F55A;eleven o’clock
+1F566;eleven-thirty
+1F311;new moon
+1F312;waxing crescent moon
+1F313;first quarter moon
+1F314;waxing gibbous moon
+1F315;full moon
+1F316;waning gibbous moon
+1F317;last quarter moon
+1F318;waning crescent moon
+1F319;crescent moon
+1F31A;new moon face
+1F31B;first quarter moon with face
+1F31C;last quarter moon with face
+1F321;thermometer
+2600;sun
+1F31D;full moon with face
+1F31E;sun with face
+2B50;white medium star
+1F31F;glowing star
+1F320;shooting star
+2601;cloud
+26C5;sun behind cloud
+26C8;cloud with lightning and rain
+1F324;sun behind small cloud
+1F325;sun behind large cloud
+1F326;sun behind rain cloud
+1F327;cloud with rain
+1F328;cloud with snow
+1F329;cloud with lightning
+1F32A;tornado
+1F32B;fog
+1F32C;wind face
+1F300;cyclone
+1F308;rainbow
+1F302;closed umbrella
+2602;umbrella
+2614;umbrella with rain drops
+26F1;umbrella on ground
+26A1;high voltage
+2744;snowflake
+2603;snowman
+26C4;snowman without snow
+2604;comet
+1F525;fire
+1F4A7;droplet
+1F30A;water wave
+1F383;jack-o-lantern
+1F384;Christmas tree
+1F386;fireworks
+1F387;sparkler
+2728;sparkles
+1F388;balloon
+1F389;party popper
+1F38A;confetti ball
+1F38B;tanabata tree
+1F38D;pine decoration
+1F38E;Japanese dolls
+1F38F;carp streamer
+1F390;wind chime
+1F391;moon viewing ceremony
+1F380;ribbon
+1F381;wrapped gift
+1F397;reminder ribbon
+1F39F;admission tickets
+1F3AB;ticket
+1F396;military medal
+1F3C6;trophy
+1F3C5;sports medal
+1F947;1st place medal
+1F948;2nd place medal
+1F949;3rd place medal
+26BD;soccer ball
+26BE;baseball
+1F3C0;basketball
+1F3D0;volleyball
+1F3C8;american football
+1F3C9;rugby football
+1F3BE;tennis
+1F3B1;pool 8 ball
+1F3B3;bowling
+1F3CF;cricket
+1F3D1;field hockey
+1F3D2;ice hockey
+1F3D3;ping pong
+1F3F8;badminton
+1F94A;boxing glove
+1F94B;martial arts uniform
+1F945;goal net
+1F3AF;direct hit
+26F3;flag in hole
+26F8;ice skate
+1F3A3;fishing pole
+1F3BD;running shirt
+1F3BF;skis
+1F3AE;video game
+1F579;joystick
+1F3B2;game die
+2660;spade suit
+2665;heart suit
+2666;diamond suit
+2663;club suit
+1F0CF;joker
+1F004;mahjong red dragon
+1F3B4;flower playing cards
+1F507;muted speaker
+1F508;speaker low volume
+1F509;speaker medium volume
+1F50A;speaker high volume
+1F4E2;loudspeaker
+1F4E3;megaphone
+1F4EF;postal horn
+1F514;bell
+1F515;bell with slash
+1F3BC;musical score
+1F3B5;musical note
+1F3B6;musical notes
+1F399;studio microphone
+1F39A;level slider
+1F39B;control knobs
+1F3A4;microphone
+1F3A7;headphone
+1F4FB;radio
+1F3B7;saxophone
+1F3B8;guitar
+1F3B9;musical keyboard
+1F3BA;trumpet
+1F3BB;violin
+1F941;drum
+1F4F1;mobile phone
+1F4F2;mobile phone with arrow
+260E;telephone
+1F4DE;telephone receiver
+1F4DF;pager
+1F4E0;fax machine
+1F50B;battery
+1F50C;electric plug
+1F4BB;laptop computer
+1F5A5;desktop computer
+1F5A8;printer
+2328;keyboard
+1F5B1;computer mouse
+1F5B2;trackball
+1F4BD;computer disk
+1F4BE;floppy disk
+1F4BF;optical disk
+1F4C0;dvd
+1F3A5;movie camera
+1F39E;film frames
+1F4FD;film projector
+1F3AC;clapper board
+1F4FA;television
+1F4F7;camera
+1F4F8;camera with flash
+1F4F9;video camera
+1F4FC;videocassette
+1F50D;left-pointing magnifying glass
+1F50E;right-pointing magnifying glass
+1F52C;microscope
+1F52D;telescope
+1F4E1;satellite antenna
+1F56F;candle
+1F4A1;light bulb
+1F526;flashlight
+1F3EE;red paper lantern
+1F4D4;notebook with decorative cover
+1F4D5;closed book
+1F4D6;open book
+1F4D7;green book
+1F4D8;blue book
+1F4D9;orange book
+1F4DA;books
+1F4D3;notebook
+1F4D2;ledger
+1F4C3;page with curl
+1F4DC;scroll
+1F4C4;page facing up
+1F4F0;newspaper
+1F5DE;rolled-up newspaper
+1F4D1;bookmark tabs
+1F516;bookmark
+1F3F7;label
+1F4B0;money bag
+1F4B4;yen banknote
+1F4B5;dollar banknote
+1F4B6;euro banknote
+1F4B7;pound banknote
+1F4B8;money with wings
+1F4B3;credit card
+1F4B9;chart increasing with yen
+1F4B1;currency exchange
+1F4B2;heavy dollar sign
+2709;envelope
+1F4E7;e-mail
+1F4E8;incoming envelope
+1F4E9;envelope with arrow
+1F4E4;outbox tray
+1F4E5;inbox tray
+1F4E6;package
+1F4EB;closed mailbox with raised flag
+1F4EA;closed mailbox with lowered flag
+1F4EC;open mailbox with raised flag
+1F4ED;open mailbox with lowered flag
+1F4EE;postbox
+1F5F3;ballot box with ballot
+270F;pencil
+2712;black nib
+1F58B;fountain pen
+1F58A;pen
+1F58C;paintbrush
+1F58D;crayon
+1F4DD;memo
+1F4BC;briefcase
+1F4C1;file folder
+1F4C2;open file folder
+1F5C2;card index dividers
+1F4C5;calendar
+1F4C6;tear-off calendar
+1F5D2;spiral notepad
+1F5D3;spiral calendar
+1F4C7;card index
+1F4C8;chart increasing
+1F4C9;chart decreasing
+1F4CA;bar chart
+1F4CB;clipboard
+1F4CC;pushpin
+1F4CD;round pushpin
+1F4CE;paperclip
+1F587;linked paperclips
+1F4CF;straight ruler
+1F4D0;triangular ruler
+2702;scissors
+1F5C3;card file box
+1F5C4;file cabinet
+1F5D1;wastebasket
+1F512;locked
+1F513;unlocked
+1F50F;locked with pen
+1F510;locked with key
+1F511;key
+1F5DD;old key
+1F528;hammer
+26CF;pick
+2692;hammer and pick
+1F6E0;hammer and wrench
+1F5E1;dagger
+2694;crossed swords
+1F52B;pistol
+1F3F9;bow and arrow
+1F6E1;shield
+1F527;wrench
+1F529;nut and bolt
+2699;gear
+1F5DC;clamp
+2697;alembic
+2696;balance scale
+1F517;link
+26D3;chains
+1F489;syringe
+1F48A;pill
+1F6AC;cigarette
+26B0;coffin
+26B1;funeral urn
+1F5FF;moai
+1F6E2;oil drum
+1F52E;crystal ball
+1F6D2;shopping cart
 @
-1F3E7; 🏧 ATM sign
-1F6AE; 🚮 litter in bin sign
-1F6B0; 🚰 potable water
-267F; ♿ wheelchair symbol
-1F6B9; 🚹 men’s room
-1F6BA; 🚺 women’s room
-1F6BB; 🚻 restroom
-1F6BC; 🚼 baby symbol
-1F6BE; 🚾 water closet
-1F6C2; 🛂 passport control
-1F6C3; 🛃 customs
-1F6C4; 🛄 baggage claim
-1F6C5; 🛅 left luggage
-26A0; ⚠ warning
-1F6B8; 🚸 children crossing
-26D4; ⛔ no entry
-1F6AB; 🚫 prohibited
-1F6B3; 🚳 no bicycles
-1F6AD; 🚭 no smoking
-1F6AF; 🚯 no littering
-1F6B1; 🚱 non-potable water
-1F6B7; 🚷 no pedestrians
-1F4F5; 📵 no mobile phones
-1F51E; 🔞 no one under eighteen
-2622; ☢ radioactive
-2623; ☣ biohazard
-2B06; ⬆ up arrow
-2197; ↗ up-right arrow
-27A1; ➡ right arrow
-2198; ↘ down-right arrow
-2B07; ⬇ down arrow
-2199; ↙ down-left arrow
-2B05; ⬅ left arrow
-2196; ↖ up-left arrow
-2195; ↕ up-down arrow
-2194; ↔ left-right arrow
-21A9; ↩ right arrow curving left
-21AA; ↪ left arrow curving right
-2934; ⤴ right arrow curving up
-2935; ⤵ right arrow curving down
-1F503; 🔃 clockwise vertical arrows
-1F504; 🔄 anticlockwise arrows button
-1F519; 🔙 BACK arrow
-1F51A; 🔚 END arrow
-1F51B; 🔛 ON! arrow
-1F51C; 🔜 SOON arrow
-1F51D; 🔝 TOP arrow
-1F6D0; 🛐 place of worship
-269B; ⚛ atom symbol
-1F549; 🕉 om
-2721; ✡ star of David
-2638; ☸ wheel of dharma
-262F; ☯ yin yang
-271D; ✝ latin cross
-2626; ☦ orthodox cross
-262A; ☪ star and crescent
-262E; ☮ peace symbol
-1F54E; 🕎 menorah
-1F52F; 🔯 dotted six-pointed star
-2648; ♈ Aries
-2649; ♉ Taurus
-264A; ♊ Gemini
-264B; ♋ Cancer
-264C; ♌ Leo
-264D; ♍ Virgo
-264E; ♎ Libra
-264F; ♏ Scorpius
-2650; ♐ Sagittarius
-2651; ♑ Capricorn
-2652; ♒ Aquarius
-2653; ♓ Pisces
-26CE; ⛎ Ophiuchus
-1F500; 🔀 shuffle tracks button
-1F501; 🔁 repeat button
-1F502; 🔂 repeat single button
-25B6; ▶ play button
-23E9; ⏩ fast-forward button
-23ED; ⏭ next track button
-23EF; ⏯ play or pause button
-25C0; ◀ reverse button
-23EA; ⏪ fast reverse button
-23EE; ⏮ last track button
-1F53C; 🔼 up button
-23EB; ⏫ fast up button
-1F53D; 🔽 down button
-23EC; ⏬ fast down button
-23F8; ⏸ pause button
-23F9; ⏹ stop button
-23FA; ⏺ record button
-23CF; ⏏ eject button
-1F3A6; 🎦 cinema
-1F505; 🔅 dim button
-1F506; 🔆 bright button
-1F4F6; 📶 antenna bars
-1F4F3; 📳 vibration mode
-1F4F4; 📴 mobile phone off
-267B; ♻ recycling symbol
-1F4DB; 📛 name badge
-269C; ⚜ fleur-de-lis
-1F530; 🔰 Japanese symbol for beginner
-1F531; 🔱 trident emblem
-2B55; ⭕ heavy large circle
-2705; ✅ white heavy check mark
-2611; ☑ ballot box with check
-2714; ✔ heavy check mark
-2716; ✖ heavy multiplication x
-274C; ❌ cross mark
-274E; ❎ cross mark button
-2795; ➕ heavy plus sign
-2640; ♀ female sign
-2642; ♂ male sign
-2695; ⚕ medical symbol
-2796; ➖ heavy minus sign
-2797; ➗ heavy division sign
-27B0; ➰ curly loop
-27BF; ➿ double curly loop
-303D; 〽 part alternation mark
-2733; ✳ eight-spoked asterisk
-2734; ✴ eight-pointed star
-2747; ❇ sparkle
-203C; ‼ double exclamation mark
-2049; ⁉ exclamation question mark
-2753; ❓ question mark
-2754; ❔ white question mark
-2755; ❕ white exclamation mark
-2757; ❗ exclamation mark
-3030; 〰 wavy dash !! removed following copyright, registered, trademark symbols
-0023 FE0F 20E3; #️⃣ keycap
-002A FE0F 20E3; *️⃣ keycap
-0030 FE0F 20E3; 0️⃣ keycap
-0031 FE0F 20E3; 1️⃣ keycap
-0032 FE0F 20E3; 2️⃣ keycap
-0033 FE0F 20E3; 3️⃣ keycap
-0034 FE0F 20E3; 4️⃣ keycap
-0035 FE0F 20E3; 5️⃣ keycap
-0036 FE0F 20E3; 6️⃣ keycap
-0037 FE0F 20E3; 7️⃣ keycap
-0038 FE0F 20E3; 8️⃣ keycap
-0039 FE0F 20E3; 9️⃣ keycap
-1F51F; 🔟 keycap 10
-1F4AF; 💯 hundred points
-1F520; 🔠 input latin uppercase
-1F521; 🔡 input latin lowercase
-1F522; 🔢 input numbers
-1F523; 🔣 input symbols
-1F524; 🔤 input latin letters
-1F170; 🅰 A button (blood type)
-1F18E; 🆎 AB button (blood type)
-1F171; 🅱 B button (blood type)
-1F191; 🆑 CL button
-1F192; 🆒 COOL button
-1F193; 🆓 FREE button
-2139; ℹ information
-1F194; 🆔 ID button
-24C2; Ⓜ circled M
-1F195; 🆕 NEW button
-1F196; 🆖 NG button
-1F17E; 🅾 O button (blood type)
-1F197; 🆗 OK button
-1F17F; 🅿 P button
-1F198; 🆘 SOS button
-1F199; 🆙 UP! button
-1F19A; 🆚 VS button
-1F201; 🈁 Japanese “here” button
-1F202; 🈂 Japanese “service charge” button
-1F237; 🈷 Japanese “monthly amount” button
-1F236; 🈶 Japanese “not free of charge” button
-1F22F; 🈯 Japanese “reserved” button
-1F250; 🉐 Japanese “bargain” button
-1F239; 🈹 Japanese “discount” button
-1F21A; 🈚 Japanese “free of charge” button
-1F232; 🈲 Japanese “prohibited” button
-1F251; 🉑 Japanese “acceptable” button
-1F238; 🈸 Japanese “application” button
-1F234; 🈴 Japanese “passing grade” button
-1F233; 🈳 Japanese “vacancy” button
-3297; ㊗ Japanese “congratulations” button
-3299; ㊙ Japanese “secret” button
-1F23A; 🈺 Japanese “open for business” button
-1F235; 🈵 Japanese “no vacancy” button
-25AA; ▪ black small square
-25AB; ▫ white small square
-25FB; ◻ white medium square
-25FC; ◼ black medium square
-25FD; ◽ white medium-small square
-25FE; ◾ black medium-small square
-2B1B; ⬛ black large square
-2B1C; ⬜ white large square
-1F536; 🔶 large orange diamond
-1F537; 🔷 large blue diamond
-1F538; 🔸 small orange diamond
-1F539; 🔹 small blue diamond
-1F53A; 🔺 red triangle pointed up
-1F53B; 🔻 red triangle pointed down
-1F4A0; 💠 diamond with a dot
-1F518; 🔘 radio button
-1F532; 🔲 black square button
-1F533; 🔳 white square button
-26AA; ⚪ white circle
-26AB; ⚫ black circle
-1F534; 🔴 red circle
-1F535; 🔵 blue circle
-1F3C1; 🏁 chequered flag
-1F6A9; 🚩 triangular flag
-1F38C; 🎌 crossed flags
-1F3F4; 🏴 black flag
-1F3F3; 🏳 white flag
-1F3F3 FE0F 200D 1F308; 🏳️‍🌈 rainbow flag
+1F3E7;ATM sign
+1F6AE;litter in bin sign
+1F6B0;potable water
+267F;wheelchair symbol
+1F6B9;men’s room
+1F6BA;women’s room
+1F6BB;restroom
+1F6BC;baby symbol
+1F6BE;water closet
+1F6C2;passport control
+1F6C3;customs
+1F6C4;baggage claim
+1F6C5;left luggage
+26A0;warning
+1F6B8;children crossing
+26D4;no entry
+1F6AB;prohibited
+1F6B3;no bicycles
+1F6AD;no smoking
+1F6AF;no littering
+1F6B1;non-potable water
+1F6B7;no pedestrians
+1F4F5;no mobile phones
+1F51E;no one under eighteen
+2622;radioactive
+2623;biohazard
+2B06;up arrow
+2197;up-right arrow
+27A1;right arrow
+2198;down-right arrow
+2B07;down arrow
+2199;down-left arrow
+2B05;left arrow
+2196;up-left arrow
+2195;up-down arrow
+2194;left-right arrow
+21A9;right arrow curving left
+21AA;left arrow curving right
+2934;right arrow curving up
+2935;right arrow curving down
+1F503;clockwise vertical arrows
+1F504;anticlockwise arrows button
+1F519;BACK arrow
+1F51A;END arrow
+1F51B;ON! arrow
+1F51C;SOON arrow
+1F51D;TOP arrow
+1F6D0;place of worship
+269B;atom symbol
+1F549;om
+2721;star of David
+2638;wheel of dharma
+262F;yin yang
+271D;latin cross
+2626;orthodox cross
+262A;star and crescent
+262E;peace symbol
+1F54E;menorah
+1F52F;dotted six-pointed star
+2648;Aries
+2649;Taurus
+264A;Gemini
+264B;Cancer
+264C;Leo
+264D;Virgo
+264E;Libra
+264F;Scorpius
+2650;Sagittarius
+2651;Capricorn
+2652;Aquarius
+2653;Pisces
+26CE;Ophiuchus
+1F500;shuffle tracks button
+1F501;repeat button
+1F502;repeat single button
+25B6;play button
+23E9;fast-forward button
+23ED;next track button
+23EF;play or pause button
+25C0;reverse button
+23EA;fast reverse button
+23EE;last track button
+1F53C;up button
+23EB;fast up button
+1F53D;down button
+23EC;fast down button
+23F8;pause button
+23F9;stop button
+23FA;record button
+23CF;eject button
+1F3A6;cinema
+1F505;dim button
+1F506;bright button
+1F4F6;antenna bars
+1F4F3;vibration mode
+1F4F4;mobile phone off
+267B;recycling symbol
+1F4DB;name badge
+269C;fleur-de-lis
+1F530;Japanese symbol for beginner
+1F531;trident emblem
+2B55;heavy large circle
+2705;white heavy check mark
+2611;ballot box with check
+2714;heavy check mark
+2716;heavy multiplication x
+274C;cross mark
+274E;cross mark button
+2795;heavy plus sign
+2640;female sign
+2642;male sign
+2695;medical symbol
+2796;heavy minus sign
+2797;heavy division sign
+27B0;curly loop
+27BF;double curly loop
+303D;part alternation mark
+2733;eight-spoked asterisk
+2734;eight-pointed star
+2747;sparkle
+203C;double exclamation mark
+2049;exclamation question mark
+2753;question mark
+2754;white question mark
+2755;white exclamation mark
+2757;exclamation mark
+3030;wavy dash
+0023 FE0F 20E3;keycap
+002A FE0F 20E3;keycap
+0030 FE0F 20E3;keycap
+0031 FE0F 20E3;keycap
+0032 FE0F 20E3;keycap
+0033 FE0F 20E3;keycap
+0034 FE0F 20E3;keycap
+0035 FE0F 20E3;keycap
+0036 FE0F 20E3;keycap
+0037 FE0F 20E3;keycap
+0038 FE0F 20E3;keycap
+0039 FE0F 20E3;keycap
+1F51F;keycap 10
+1F4AF;hundred points
+1F520;input latin uppercase
+1F521;input latin lowercase
+1F522;input numbers
+1F523;input symbols
+1F524;input latin letters
+1F170;A button (blood type)
+1F18E;AB button (blood type)
+1F171;B button (blood type)
+1F191;CL button
+1F192;COOL button
+1F193;FREE button
+2139;information
+1F194;ID button
+24C2;circled M
+1F195;NEW button
+1F196;NG button
+1F17E;O button (blood type)
+1F197;OK button
+1F17F;P button
+1F198;SOS button
+1F199;UP! button
+1F19A;VS button
+1F201;Japanese “here” button
+1F202;Japanese “service charge” button
+1F237;Japanese “monthly amount” button
+1F236;Japanese “not free of charge” button
+1F22F;Japanese “reserved” button
+1F250;Japanese “bargain” button
+1F239;Japanese “discount” button
+1F21A;Japanese “free of charge” button
+1F232;Japanese “prohibited” button
+1F251;Japanese “acceptable” button
+1F238;Japanese “application” button
+1F234;Japanese “passing grade” button
+1F233;Japanese “vacancy” button
+3297;Japanese “congratulations” button
+3299;Japanese “secret” button
+1F23A;Japanese “open for business” button
+1F235;Japanese “no vacancy” button
+25AA;black small square
+25AB;white small square
+25FB;white medium square
+25FC;black medium square
+25FD;white medium-small square
+25FE;black medium-small square
+2B1B;black large square
+2B1C;white large square
+1F536;large orange diamond
+1F537;large blue diamond
+1F538;small orange diamond
+1F539;small blue diamond
+1F53A;red triangle pointed up
+1F53B;red triangle pointed down
+1F4A0;diamond with a dot
+1F518;radio button
+1F532;black square button
+1F533;white square button
+26AA;white circle
+26AB;black circle
+1F534;red circle
+1F535;blue circle
+1F3C1;chequered flag
+1F6A9;triangular flag
+1F38C;crossed flags
+1F3F4;black flag
+1F3F3;white flag
+1F3F3 FE0F 200D 1F308;rainbow flag
 @
-1F1E6 1F1E8; 🇦🇨 Ascension Island
-1F1E6 1F1E9; 🇦🇩 Andorra
-1F1E6 1F1EA; 🇦🇪 United Arab Emirates
-1F1E6 1F1EB; 🇦🇫 Afghanistan
-1F1E6 1F1EC; 🇦🇬 Antigua & Barbuda
-1F1E6 1F1EE; 🇦🇮 Anguilla
-1F1E6 1F1F1; 🇦🇱 Albania
-1F1E6 1F1F2; 🇦🇲 Armenia
-1F1E6 1F1F4; 🇦🇴 Angola
-1F1E6 1F1F6; 🇦🇶 Antarctica
-1F1E6 1F1F7; 🇦🇷 Argentina
-1F1E6 1F1F8; 🇦🇸 American Samoa
-1F1E6 1F1F9; 🇦🇹 Austria
-1F1E6 1F1FA; 🇦🇺 Australia
-1F1E6 1F1FC; 🇦🇼 Aruba
-1F1E6 1F1FD; 🇦🇽 Åland Islands
-1F1E6 1F1FF; 🇦🇿 Azerbaijan
-1F1E7 1F1E6; 🇧🇦 Bosnia & Herzegovina
-1F1E7 1F1E7; 🇧🇧 Barbados
-1F1E7 1F1E9; 🇧🇩 Bangladesh
-1F1E7 1F1EA; 🇧🇪 Belgium
-1F1E7 1F1EB; 🇧🇫 Burkina Faso
-1F1E7 1F1EC; 🇧🇬 Bulgaria
-1F1E7 1F1ED; 🇧🇭 Bahrain
-1F1E7 1F1EE; 🇧🇮 Burundi
-1F1E7 1F1EF; 🇧🇯 Benin
-1F1E7 1F1F1; 🇧🇱 St. Barthélemy
-1F1E7 1F1F2; 🇧🇲 Bermuda
-1F1E7 1F1F3; 🇧🇳 Brunei
-1F1E7 1F1F4; 🇧🇴 Bolivia
-1F1E7 1F1F6; 🇧🇶 Caribbean Netherlands
-1F1E7 1F1F7; 🇧🇷 Brazil
-1F1E7 1F1F8; 🇧🇸 Bahamas
-1F1E7 1F1F9; 🇧🇹 Bhutan
-1F1E7 1F1FB; 🇧🇻 Bouvet Island
-1F1E7 1F1FC; 🇧🇼 Botswana
-1F1E7 1F1FE; 🇧🇾 Belarus
-1F1E7 1F1FF; 🇧🇿 Belize
-1F1E8 1F1E6; 🇨🇦 Canada
-1F1E8 1F1E8; 🇨🇨 Cocos (Keeling) Islands
-1F1E8 1F1E9; 🇨🇩 Congo - Kinshasa
-1F1E8 1F1EB; 🇨🇫 Central African Republic
-1F1E8 1F1EC; 🇨🇬 Congo - Brazzaville
-1F1E8 1F1ED; 🇨🇭 Switzerland
-1F1E8 1F1EE; 🇨🇮 Côte d’Ivoire
-1F1E8 1F1F0; 🇨🇰 Cook Islands
-1F1E8 1F1F1; 🇨🇱 Chile
-1F1E8 1F1F2; 🇨🇲 Cameroon
-1F1E8 1F1F3; 🇨🇳 China
-1F1E8 1F1F4; 🇨🇴 Colombia
-1F1E8 1F1F5; 🇨🇵 Clipperton Island
-1F1E8 1F1F7; 🇨🇷 Costa Rica
-1F1E8 1F1FA; 🇨🇺 Cuba
-1F1E8 1F1FB; 🇨🇻 Cape Verde
-1F1E8 1F1FC; 🇨🇼 Curaçao
-1F1E8 1F1FD; 🇨🇽 Christmas Island
-1F1E8 1F1FE; 🇨🇾 Cyprus
-1F1E8 1F1FF; 🇨🇿 Czechia
-1F1E9 1F1EA; 🇩🇪 Germany
-1F1E9 1F1EC; 🇩🇬 Diego Garcia
-1F1E9 1F1EF; 🇩🇯 Djibouti
-1F1E9 1F1F0; 🇩🇰 Denmark
-1F1E9 1F1F2; 🇩🇲 Dominica
-1F1E9 1F1F4; 🇩🇴 Dominican Republic
-1F1E9 1F1FF; 🇩🇿 Algeria
-1F1EA 1F1E6; 🇪🇦 Ceuta & Melilla
-1F1EA 1F1E8; 🇪🇨 Ecuador
-1F1EA 1F1EA; 🇪🇪 Estonia
-1F1EA 1F1EC; 🇪🇬 Egypt
-1F1EA 1F1ED; 🇪🇭 Western Sahara
-1F1EA 1F1F7; 🇪🇷 Eritrea
-1F1EA 1F1F8; 🇪🇸 Spain
-1F1EA 1F1F9; 🇪🇹 Ethiopia
-1F1EA 1F1FA; 🇪🇺 European Union
-1F1EB 1F1EE; 🇫🇮 Finland
-1F1EB 1F1EF; 🇫🇯 Fiji
-1F1EB 1F1F0; 🇫🇰 Falkland Islands
-1F1EB 1F1F2; 🇫🇲 Micronesia
-1F1EB 1F1F4; 🇫🇴 Faroe Islands
-1F1EB 1F1F7; 🇫🇷 France
-1F1EC 1F1E6; 🇬🇦 Gabon
-1F1EC 1F1E7; 🇬🇧 United Kingdom
-1F1EC 1F1E9; 🇬🇩 Grenada
-1F1EC 1F1EA; 🇬🇪 Georgia
-1F1EC 1F1EB; 🇬🇫 French Guiana
-1F1EC 1F1EC; 🇬🇬 Guernsey
-1F1EC 1F1ED; 🇬🇭 Ghana
-1F1EC 1F1EE; 🇬🇮 Gibraltar
-1F1EC 1F1F1; 🇬🇱 Greenland
-1F1EC 1F1F2; 🇬🇲 Gambia
-1F1EC 1F1F3; 🇬🇳 Guinea
-1F1EC 1F1F5; 🇬🇵 Guadeloupe
-1F1EC 1F1F6; 🇬🇶 Equatorial Guinea
-1F1EC 1F1F7; 🇬🇷 Greece
-1F1EC 1F1F8; 🇬🇸 South Georgia & South Sandwich Islands
-1F1EC 1F1F9; 🇬🇹 Guatemala
-1F1EC 1F1FA; 🇬🇺 Guam
-1F1EC 1F1FC; 🇬🇼 Guinea-Bissau
-1F1EC 1F1FE; 🇬🇾 Guyana
-1F1ED 1F1F0; 🇭🇰 Hong Kong SAR China
-1F1ED 1F1F2; 🇭🇲 Heard & McDonald Islands
-1F1ED 1F1F3; 🇭🇳 Honduras
-1F1ED 1F1F7; 🇭🇷 Croatia
-1F1ED 1F1F9; 🇭🇹 Haiti
-1F1ED 1F1FA; 🇭🇺 Hungary
-1F1EE 1F1E8; 🇮🇨 Canary Islands
-1F1EE 1F1E9; 🇮🇩 Indonesia
-1F1EE 1F1EA; 🇮🇪 Ireland
-1F1EE 1F1F1; 🇮🇱 Israel
-1F1EE 1F1F2; 🇮🇲 Isle of Man
-1F1EE 1F1F3; 🇮🇳 India
-1F1EE 1F1F4; 🇮🇴 British Indian Ocean Territory
-1F1EE 1F1F6; 🇮🇶 Iraq
-1F1EE 1F1F7; 🇮🇷 Iran
-1F1EE 1F1F8; 🇮🇸 Iceland
-1F1EE 1F1F9; 🇮🇹 Italy
-1F1EF 1F1EA; 🇯🇪 Jersey
-1F1EF 1F1F2; 🇯🇲 Jamaica
-1F1EF 1F1F4; 🇯🇴 Jordan
-1F1EF 1F1F5; 🇯🇵 Japan
-1F1F0 1F1EA; 🇰🇪 Kenya
-1F1F0 1F1EC; 🇰🇬 Kyrgyzstan
-1F1F0 1F1ED; 🇰🇭 Cambodia
-1F1F0 1F1EE; 🇰🇮 Kiribati
-1F1F0 1F1F2; 🇰🇲 Comoros
-1F1F0 1F1F3; 🇰🇳 St. Kitts & Nevis
-1F1F0 1F1F5; 🇰🇵 North Korea
-1F1F0 1F1F7; 🇰🇷 South Korea
-1F1F0 1F1FC; 🇰🇼 Kuwait
-1F1F0 1F1FE; 🇰🇾 Cayman Islands
-1F1F0 1F1FF; 🇰🇿 Kazakhstan
-1F1F1 1F1E6; 🇱🇦 Laos
-1F1F1 1F1E7; 🇱🇧 Lebanon
-1F1F1 1F1E8; 🇱🇨 St. Lucia
-1F1F1 1F1EE; 🇱🇮 Liechtenstein
-1F1F1 1F1F0; 🇱🇰 Sri Lanka
-1F1F1 1F1F7; 🇱🇷 Liberia
-1F1F1 1F1F8; 🇱🇸 Lesotho
-1F1F1 1F1F9; 🇱🇹 Lithuania
-1F1F1 1F1FA; 🇱🇺 Luxembourg
-1F1F1 1F1FB; 🇱🇻 Latvia
-1F1F1 1F1FE; 🇱🇾 Libya
-1F1F2 1F1E6; 🇲🇦 Morocco
-1F1F2 1F1E8; 🇲🇨 Monaco
-1F1F2 1F1E9; 🇲🇩 Moldova
-1F1F2 1F1EA; 🇲🇪 Montenegro
-1F1F2 1F1EB; 🇲🇫 St. Martin
-1F1F2 1F1EC; 🇲🇬 Madagascar
-1F1F2 1F1ED; 🇲🇭 Marshall Islands
-1F1F2 1F1F0; 🇲🇰 Macedonia
-1F1F2 1F1F1; 🇲🇱 Mali
-1F1F2 1F1F2; 🇲🇲 Myanmar (Burma)
-1F1F2 1F1F3; 🇲🇳 Mongolia
-1F1F2 1F1F4; 🇲🇴 Macau SAR China
-1F1F2 1F1F5; 🇲🇵 Northern Mariana Islands
-1F1F2 1F1F6; 🇲🇶 Martinique
-1F1F2 1F1F7; 🇲🇷 Mauritania
-1F1F2 1F1F8; 🇲🇸 Montserrat
-1F1F2 1F1F9; 🇲🇹 Malta
-1F1F2 1F1FA; 🇲🇺 Mauritius
-1F1F2 1F1FB; 🇲🇻 Maldives
-1F1F2 1F1FC; 🇲🇼 Malawi
-1F1F2 1F1FD; 🇲🇽 Mexico
-1F1F2 1F1FE; 🇲🇾 Malaysia
-1F1F2 1F1FF; 🇲🇿 Mozambique
-1F1F3 1F1E6; 🇳🇦 Namibia
-1F1F3 1F1E8; 🇳🇨 New Caledonia
-1F1F3 1F1EA; 🇳🇪 Niger
-1F1F3 1F1EB; 🇳🇫 Norfolk Island
-1F1F3 1F1EC; 🇳🇬 Nigeria
-1F1F3 1F1EE; 🇳🇮 Nicaragua
-1F1F3 1F1F1; 🇳🇱 Netherlands
-1F1F3 1F1F4; 🇳🇴 Norway
-1F1F3 1F1F5; 🇳🇵 Nepal
-1F1F3 1F1F7; 🇳🇷 Nauru
-1F1F3 1F1FA; 🇳🇺 Niue
-1F1F3 1F1FF; 🇳🇿 New Zealand
-1F1F4 1F1F2; 🇴🇲 Oman
-1F1F5 1F1E6; 🇵🇦 Panama
-1F1F5 1F1EA; 🇵🇪 Peru
-1F1F5 1F1EB; 🇵🇫 French Polynesia
-1F1F5 1F1EC; 🇵🇬 Papua New Guinea
-1F1F5 1F1ED; 🇵🇭 Philippines
-1F1F5 1F1F0; 🇵🇰 Pakistan
-1F1F5 1F1F1; 🇵🇱 Poland
-1F1F5 1F1F2; 🇵🇲 St. Pierre & Miquelon
-1F1F5 1F1F3; 🇵🇳 Pitcairn Islands
-1F1F5 1F1F7; 🇵🇷 Puerto Rico
-1F1F5 1F1F8; 🇵🇸 Palestinian Territories
-1F1F5 1F1F9; 🇵🇹 Portugal
-1F1F5 1F1FC; 🇵🇼 Palau
-1F1F5 1F1FE; 🇵🇾 Paraguay
-1F1F6 1F1E6; 🇶🇦 Qatar
-1F1F7 1F1EA; 🇷🇪 Réunion
-1F1F7 1F1F4; 🇷🇴 Romania
-1F1F7 1F1F8; 🇷🇸 Serbia
-1F1F7 1F1FA; 🇷🇺 Russia
-1F1F7 1F1FC; 🇷🇼 Rwanda
-1F1F8 1F1E6; 🇸🇦 Saudi Arabia
-1F1F8 1F1E7; 🇸🇧 Solomon Islands
-1F1F8 1F1E8; 🇸🇨 Seychelles
-1F1F8 1F1E9; 🇸🇩 Sudan
-1F1F8 1F1EA; 🇸🇪 Sweden
-1F1F8 1F1EC; 🇸🇬 Singapore
-1F1F8 1F1ED; 🇸🇭 St. Helena
-1F1F8 1F1EE; 🇸🇮 Slovenia
-1F1F8 1F1EF; 🇸🇯 Svalbard & Jan Mayen
-1F1F8 1F1F0; 🇸🇰 Slovakia
-1F1F8 1F1F1; 🇸🇱 Sierra Leone
-1F1F8 1F1F2; 🇸🇲 San Marino
-1F1F8 1F1F3; 🇸🇳 Senegal
-1F1F8 1F1F4; 🇸🇴 Somalia
-1F1F8 1F1F7; 🇸🇷 Suriname
-1F1F8 1F1F8; 🇸🇸 South Sudan
-1F1F8 1F1F9; 🇸🇹 São Tomé & Príncipe
-1F1F8 1F1FB; 🇸🇻 El Salvador
-1F1F8 1F1FD; 🇸🇽 Sint Maarten
-1F1F8 1F1FE; 🇸🇾 Syria
-1F1F8 1F1FF; 🇸🇿 Swaziland
-1F1F9 1F1E6; 🇹🇦 Tristan da Cunha
-1F1F9 1F1E8; 🇹🇨 Turks & Caicos Islands
-1F1F9 1F1E9; 🇹🇩 Chad
-1F1F9 1F1EB; 🇹🇫 French Southern Territories
-1F1F9 1F1EC; 🇹🇬 Togo
-1F1F9 1F1ED; 🇹🇭 Thailand
-1F1F9 1F1EF; 🇹🇯 Tajikistan
-1F1F9 1F1F0; 🇹🇰 Tokelau
-1F1F9 1F1F1; 🇹🇱 Timor-Leste
-1F1F9 1F1F2; 🇹🇲 Turkmenistan
-1F1F9 1F1F3; 🇹🇳 Tunisia
-1F1F9 1F1F4; 🇹🇴 Tonga
-1F1F9 1F1F7; 🇹🇷 Turkey
-1F1F9 1F1F9; 🇹🇹 Trinidad & Tobago
-1F1F9 1F1FB; 🇹🇻 Tuvalu
-1F1F9 1F1FC; 🇹🇼 Taiwan
-1F1F9 1F1FF; 🇹🇿 Tanzania
-1F1FA 1F1E6; 🇺🇦 Ukraine
-1F1FA 1F1EC; 🇺🇬 Uganda
-1F1FA 1F1F2; 🇺🇲 U.S. Outlying Islands
-1F1FA 1F1F3; 🇺🇳 United Nations
-1F1FA 1F1F8; 🇺🇸 United States
-1F1FA 1F1FE; 🇺🇾 Uruguay
-1F1FA 1F1FF; 🇺🇿 Uzbekistan
-1F1FB 1F1E6; 🇻🇦 Vatican City
-1F1FB 1F1E8; 🇻🇨 St. Vincent & Grenadines
-1F1FB 1F1EA; 🇻🇪 Venezuela
-1F1FB 1F1EC; 🇻🇬 British Virgin Islands
-1F1FB 1F1EE; 🇻🇮 U.S. Virgin Islands
-1F1FB 1F1F3; 🇻🇳 Vietnam
-1F1FB 1F1FA; 🇻🇺 Vanuatu
-1F1FC 1F1EB; 🇼🇫 Wallis & Futuna
-1F1FC 1F1F8; 🇼🇸 Samoa
-1F1FD 1F1F0; 🇽🇰 Kosovo
-1F1FE 1F1EA; 🇾🇪 Yemen
-1F1FE 1F1F9; 🇾🇹 Mayotte
-1F1FF 1F1E6; 🇿🇦 South Africa
-1F1FF 1F1F2; 🇿🇲 Zambia
-1F1FF 1F1FC; 🇿🇼 Zimbabwe
+1F1E6 1F1E8;Ascension Island
+1F1E6 1F1E9;Andorra
+1F1E6 1F1EA;United Arab Emirates
+1F1E6 1F1EB;Afghanistan
+1F1E6 1F1EC;Antigua & Barbuda
+1F1E6 1F1EE;Anguilla
+1F1E6 1F1F1;Albania
+1F1E6 1F1F2;Armenia
+1F1E6 1F1F4;Angola
+1F1E6 1F1F6;Antarctica
+1F1E6 1F1F7;Argentina
+1F1E6 1F1F8;American Samoa
+1F1E6 1F1F9;Austria
+1F1E6 1F1FA;Australia
+1F1E6 1F1FC;Aruba
+1F1E6 1F1FD;Åland Islands
+1F1E6 1F1FF;Azerbaijan
+1F1E7 1F1E6;Bosnia & Herzegovina
+1F1E7 1F1E7;Barbados
+1F1E7 1F1E9;Bangladesh
+1F1E7 1F1EA;Belgium
+1F1E7 1F1EB;Burkina Faso
+1F1E7 1F1EC;Bulgaria
+1F1E7 1F1ED;Bahrain
+1F1E7 1F1EE;Burundi
+1F1E7 1F1EF;Benin
+1F1E7 1F1F1;St. Barthélemy
+1F1E7 1F1F2;Bermuda
+1F1E7 1F1F3;Brunei
+1F1E7 1F1F4;Bolivia
+1F1E7 1F1F6;Caribbean Netherlands
+1F1E7 1F1F7;Brazil
+1F1E7 1F1F8;Bahamas
+1F1E7 1F1F9;Bhutan
+1F1E7 1F1FB;Bouvet Island
+1F1E7 1F1FC;Botswana
+1F1E7 1F1FE;Belarus
+1F1E7 1F1FF;Belize
+1F1E8 1F1E6;Canada
+1F1E8 1F1E8;Cocos (Keeling) Islands
+1F1E8 1F1E9;Congo - Kinshasa
+1F1E8 1F1EB;Central African Republic
+1F1E8 1F1EC;Congo - Brazzaville
+1F1E8 1F1ED;Switzerland
+1F1E8 1F1EE;Côte d’Ivoire
+1F1E8 1F1F0;Cook Islands
+1F1E8 1F1F1;Chile
+1F1E8 1F1F2;Cameroon
+1F1E8 1F1F3;China
+1F1E8 1F1F4;Colombia
+1F1E8 1F1F5;Clipperton Island
+1F1E8 1F1F7;Costa Rica
+1F1E8 1F1FA;Cuba
+1F1E8 1F1FB;Cape Verde
+1F1E8 1F1FC;Curaçao
+1F1E8 1F1FD;Christmas Island
+1F1E8 1F1FE;Cyprus
+1F1E8 1F1FF;Czech Republic
+1F1E9 1F1EA;Germany
+1F1E9 1F1EC;Diego Garcia
+1F1E9 1F1EF;Djibouti
+1F1E9 1F1F0;Denmark
+1F1E9 1F1F2;Dominica
+1F1E9 1F1F4;Dominican Republic
+1F1E9 1F1FF;Algeria
+1F1EA 1F1E6;Ceuta & Melilla
+1F1EA 1F1E8;Ecuador
+1F1EA 1F1EA;Estonia
+1F1EA 1F1EC;Egypt
+1F1EA 1F1ED;Western Sahara
+1F1EA 1F1F7;Eritrea
+1F1EA 1F1F8;Spain
+1F1EA 1F1F9;Ethiopia
+1F1EA 1F1FA;European Union
+1F1EB 1F1EE;Finland
+1F1EB 1F1EF;Fiji
+1F1EB 1F1F0;Falkland Islands
+1F1EB 1F1F2;Micronesia
+1F1EB 1F1F4;Faroe Islands
+1F1EB 1F1F7;France
+1F1EC 1F1E6;Gabon
+1F1EC 1F1E7;United Kingdom
+1F1EC 1F1E9;Grenada
+1F1EC 1F1EA;Georgia
+1F1EC 1F1EB;French Guiana
+1F1EC 1F1EC;Guernsey
+1F1EC 1F1ED;Ghana
+1F1EC 1F1EE;Gibraltar
+1F1EC 1F1F1;Greenland
+1F1EC 1F1F2;Gambia
+1F1EC 1F1F3;Guinea
+1F1EC 1F1F5;Guadeloupe
+1F1EC 1F1F6;Equatorial Guinea
+1F1EC 1F1F7;Greece
+1F1EC 1F1F8;South Georgia & South Sandwich Islands
+1F1EC 1F1F9;Guatemala
+1F1EC 1F1FA;Guam
+1F1EC 1F1FC;Guinea-Bissau
+1F1EC 1F1FE;Guyana
+1F1ED 1F1F0;Hong Kong SAR China
+1F1ED 1F1F2;Heard & McDonald Islands
+1F1ED 1F1F3;Honduras
+1F1ED 1F1F7;Croatia
+1F1ED 1F1F9;Haiti
+1F1ED 1F1FA;Hungary
+1F1EE 1F1E8;Canary Islands
+1F1EE 1F1E9;Indonesia
+1F1EE 1F1EA;Ireland
+1F1EE 1F1F1;Israel
+1F1EE 1F1F2;Isle of Man
+1F1EE 1F1F3;India
+1F1EE 1F1F4;British Indian Ocean Territory
+1F1EE 1F1F6;Iraq
+1F1EE 1F1F7;Iran
+1F1EE 1F1F8;Iceland
+1F1EE 1F1F9;Italy
+1F1EF 1F1EA;Jersey
+1F1EF 1F1F2;Jamaica
+1F1EF 1F1F4;Jordan
+1F1EF 1F1F5;Japan
+1F1F0 1F1EA;Kenya
+1F1F0 1F1EC;Kyrgyzstan
+1F1F0 1F1ED;Cambodia
+1F1F0 1F1EE;Kiribati
+1F1F0 1F1F2;Comoros
+1F1F0 1F1F3;St. Kitts & Nevis
+1F1F0 1F1F5;North Korea
+1F1F0 1F1F7;South Korea
+1F1F0 1F1FC;Kuwait
+1F1F0 1F1FE;Cayman Islands
+1F1F0 1F1FF;Kazakhstan
+1F1F1 1F1E6;Laos
+1F1F1 1F1E7;Lebanon
+1F1F1 1F1E8;St. Lucia
+1F1F1 1F1EE;Liechtenstein
+1F1F1 1F1F0;Sri Lanka
+1F1F1 1F1F7;Liberia
+1F1F1 1F1F8;Lesotho
+1F1F1 1F1F9;Lithuania
+1F1F1 1F1FA;Luxembourg
+1F1F1 1F1FB;Latvia
+1F1F1 1F1FE;Libya
+1F1F2 1F1E6;Morocco
+1F1F2 1F1E8;Monaco
+1F1F2 1F1E9;Moldova
+1F1F2 1F1EA;Montenegro
+1F1F2 1F1EB;St. Martin
+1F1F2 1F1EC;Madagascar
+1F1F2 1F1ED;Marshall Islands
+1F1F2 1F1F0;Macedonia
+1F1F2 1F1F1;Mali
+1F1F2 1F1F2;Myanmar (Burma)
+1F1F2 1F1F3;Mongolia
+1F1F2 1F1F4;Macau SAR China
+1F1F2 1F1F5;Northern Mariana Islands
+1F1F2 1F1F6;Martinique
+1F1F2 1F1F7;Mauritania
+1F1F2 1F1F8;Montserrat
+1F1F2 1F1F9;Malta
+1F1F2 1F1FA;Mauritius
+1F1F2 1F1FB;Maldives
+1F1F2 1F1FC;Malawi
+1F1F2 1F1FD;Mexico
+1F1F2 1F1FE;Malaysia
+1F1F2 1F1FF;Mozambique
+1F1F3 1F1E6;Namibia
+1F1F3 1F1E8;New Caledonia
+1F1F3 1F1EA;Niger
+1F1F3 1F1EB;Norfolk Island
+1F1F3 1F1EC;Nigeria
+1F1F3 1F1EE;Nicaragua
+1F1F3 1F1F1;Netherlands
+1F1F3 1F1F4;Norway
+1F1F3 1F1F5;Nepal
+1F1F3 1F1F7;Nauru
+1F1F3 1F1FA;Niue
+1F1F3 1F1FF;New Zealand
+1F1F4 1F1F2;Oman
+1F1F5 1F1E6;Panama
+1F1F5 1F1EA;Peru
+1F1F5 1F1EB;French Polynesia
+1F1F5 1F1EC;Papua New Guinea
+1F1F5 1F1ED;Philippines
+1F1F5 1F1F0;Pakistan
+1F1F5 1F1F1;Poland
+1F1F5 1F1F2;St. Pierre & Miquelon
+1F1F5 1F1F3;Pitcairn Islands
+1F1F5 1F1F7;Puerto Rico
+1F1F5 1F1F8;Palestinian Territories
+1F1F5 1F1F9;Portugal
+1F1F5 1F1FC;Palau
+1F1F5 1F1FE;Paraguay
+1F1F6 1F1E6;Qatar
+1F1F7 1F1EA;Réunion
+1F1F7 1F1F4;Romania
+1F1F7 1F1F8;Serbia
+1F1F7 1F1FA;Russia
+1F1F7 1F1FC;Rwanda
+1F1F8 1F1E6;Saudi Arabia
+1F1F8 1F1E7;Solomon Islands
+1F1F8 1F1E8;Seychelles
+1F1F8 1F1E9;Sudan
+1F1F8 1F1EA;Sweden
+1F1F8 1F1EC;Singapore
+1F1F8 1F1ED;St. Helena
+1F1F8 1F1EE;Slovenia
+1F1F8 1F1EF;Svalbard & Jan Mayen
+1F1F8 1F1F0;Slovakia
+1F1F8 1F1F1;Sierra Leone
+1F1F8 1F1F2;San Marino
+1F1F8 1F1F3;Senegal
+1F1F8 1F1F4;Somalia
+1F1F8 1F1F7;Suriname
+1F1F8 1F1F8;South Sudan
+1F1F8 1F1F9;São Tomé & Príncipe
+1F1F8 1F1FB;El Salvador
+1F1F8 1F1FD;Sint Maarten
+1F1F8 1F1FE;Syria
+1F1F8 1F1FF;Swaziland
+1F1F9 1F1E6;Tristan da Cunha
+1F1F9 1F1E8;Turks & Caicos Islands
+1F1F9 1F1E9;Chad
+1F1F9 1F1EB;French Southern Territories
+1F1F9 1F1EC;Togo
+1F1F9 1F1ED;Thailand
+1F1F9 1F1EF;Tajikistan
+1F1F9 1F1F0;Tokelau
+1F1F9 1F1F1;Timor-Leste
+1F1F9 1F1F2;Turkmenistan
+1F1F9 1F1F3;Tunisia
+1F1F9 1F1F4;Tonga
+1F1F9 1F1F7;Turkey
+1F1F9 1F1F9;Trinidad & Tobago
+1F1F9 1F1FB;Tuvalu
+1F1F9 1F1FC;Taiwan
+1F1F9 1F1FF;Tanzania
+1F1FA 1F1E6;Ukraine
+1F1FA 1F1EC;Uganda
+1F1FA 1F1F2;U.S. Outlying Islands
+1F1FA 1F1F3;United Nations
+1F1FA 1F1F8;United States
+1F1FA 1F1FE;Uruguay
+1F1FA 1F1FF;Uzbekistan
+1F1FB 1F1E6;Vatican City
+1F1FB 1F1E8;St. Vincent & Grenadines
+1F1FB 1F1EA;Venezuela
+1F1FB 1F1EC;British Virgin Islands
+1F1FB 1F1EE;U.S. Virgin Islands
+1F1FB 1F1F3;Vietnam
+1F1FB 1F1FA;Vanuatu
+1F1FC 1F1EB;Wallis & Futuna
+1F1FC 1F1F8;Samoa
+1F1FD 1F1F0;Kosovo
+1F1FE 1F1EA;Yemen
+1F1FE 1F1F9;Mayotte
+1F1FF 1F1E6;South Africa
+1F1FF 1F1F2;Zambia
+1F1FF 1F1FC;Zimbabwe
