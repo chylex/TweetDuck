@@ -206,10 +206,6 @@ ready(){
   };
   
   $TDP.readFileRoot(this.$token, "emoji-ordering.txt").then(contents => {
-    let names1 = [];
-    let names2 = [];
-    let names3 = [];
-    
     for(let skinTone of this.skinToneList){
       this.emojiData2[skinTone] = [];
     }
@@ -277,31 +273,17 @@ ready(){
         }
         else{
           addDeclaration2(null, decl);
-          names2.push(desc);
+          this.emojiNames.push(desc);
         }
       }
       else if (skinToneState === 2){
         addDeclaration3(decl);
-        names3.push(desc);
+        this.emojiNames.push(desc);
       }
       else if (skinToneState === 0){
         addDeclaration1(decl);
-        names1.push(desc);
+        this.emojiNames.push(desc);
       }
-    }
-    
-    // final processing
-    
-    for(let name of names1){
-      this.emojiNames.push(name);
-    }
-    
-    for(let name of names2){
-      this.emojiNames.push(name);
-    }
-    
-    for(let name of names3){
-      this.emojiNames.push(name);
     }
   }).catch(err => {
     $TD.alert("error", "Problem loading emoji keyboard: "+err.message);
