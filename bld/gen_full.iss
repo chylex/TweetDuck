@@ -48,13 +48,10 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall shellexec skipifsilent
 
-[InstallDelete]
-Type: files; Name: "{app}\td-log.txt"
-Type: filesandordirs; Name: "{app}\plugins\official\design-revert"
-Type: filesandordirs; Name: "{localappdata}\TD_Plugins\official\design-revert"
-
 [UninstallDelete]
-Type: files; Name: "{app}\debug.log"
+Type: files; Name: "{app}\*.*"
+Type: filesandordirs; Name: "{app}\locales"
+Type: filesandordirs; Name: "{app}\scripts"
 Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\Cache"
 Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\GPUCache"
 

@@ -5,9 +5,7 @@ using System.Text;
 using TweetDuck.Plugins.Events;
 
 namespace TweetDuck.Plugins{
-    [Serializable]
     sealed class PluginConfig{
-        [field:NonSerialized]
         public event EventHandler<PluginChangedStateEventArgs> InternalPluginChangedState; // should only be accessed from PluginManager
 
         public IEnumerable<string> DisabledPlugins => Disabled;
@@ -17,14 +15,6 @@ namespace TweetDuck.Plugins{
             "official/clear-columns",
             "official/reply-account"
         };
-
-        public void ImportLegacy(PluginConfig config){
-            Disabled.Clear();
-            
-            foreach(string plugin in config.Disabled){
-                Disabled.Add(plugin);
-            }
-        }
 
         public void SetEnabled(Plugin plugin, bool enabled){
             if ((enabled && Disabled.Remove(plugin.Identifier)) || (!enabled && Disabled.Add(plugin.Identifier))){

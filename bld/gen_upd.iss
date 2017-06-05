@@ -50,16 +50,6 @@ Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Check: TDIsUnin
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Parameters: "{code:TDGetRunArgs}"; Flags: nowait postinstall shellexec
 
-[InstallDelete]
-Type: files; Name: "{app}\*.xml"
-Type: files; Name: "{app}\*.js"
-Type: files; Name: "{app}\d3dcompiler_43.dll"
-Type: files; Name: "{app}\widevinecdmadapter.dll"
-Type: files; Name: "{app}\CefSharp.BrowserSubprocess.exe"
-Type: files; Name: "{app}\td-log.txt"
-Type: files; Name: "{app}\debug.log"
-Type: files; Name: "{localappdata}\{#MyAppName}\ChromeDWriteFontCache"
-
 [UninstallDelete]
 Type: files; Name: "{app}\*.*"
 Type: filesandordirs; Name: "{app}\locales"
