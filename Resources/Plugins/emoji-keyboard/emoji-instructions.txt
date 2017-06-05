@@ -1,0 +1,66 @@
+Emoji list:   http://unicode.org/emoji/charts/emoji-ordering.html
+Emoji order:  http://unicode.org/emoji/charts/emoji-ordering.txt
+
+
+------------------------
+Remove unnecessary info:
+
+  Search:   \s;.+?#.+?\s
+  Replace:  ;
+  
+  Search:  U+
+  Replace:
+
+
+-----------------------------
+Replace skin tone variations:
+
+  Example:
+  
+    1F9D2;child
+    1F9D2 1F3FB; child: light skin tone
+    1F9D2 1F3FC; child: medium-light skin tone
+    1F9D2 1F3FD; child: medium skin tone
+    1F9D2 1F3FE; child: medium-dark skin tone
+    1F9D2 1F3FF; child: dark skin tone
+    
+    1F9D2;child
+    1F9D2 $;child
+  
+  TODO: Update this section with exact regexes
+
+
+----------------
+Move some emoji:
+  
+  1F443 $;nose
+> 1F91D;handshake
+  1F463;footprints
+  
+  1F939 $ 200D 2640 FE0F;woman juggling
+> 1F6CC;person in bed
+> 1F6CC $;person in bed
+> 1F6C0;person taking bath
+> 1F6C0 $;person taking bath
+  1F46B;man and woman holding hands
+
+
+------------------
+Remove some emoji:
+
+  1F469 $ 200D 1F692;woman firefighter
+> remove all non-gendered duplicates below here
+
+  3030;wavy dash
+> removed copyright
+> removed registered trademark
+> removed trademark
+  0023 FE0F 20E3;keycap
+
+
+-------------------------
+Add preprocessor symbols:
+
+  @ = group separator
+  @1 = enable skin tones below
+  @2 = disable skin tones below
