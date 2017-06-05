@@ -238,7 +238,7 @@ enabled(){
     _render: () => $(this.htmlModal),
     destroy: function(){
       if (this.reloadPage){
-        location.reload();
+        window.TDPF_requestReload();
         return;
       }
       
@@ -257,7 +257,7 @@ enabled(){
     };
     
     TD.decider.updateForGuestId();
-    this.$pluginSettings.requiresPageReload = enable;
+    this.$requiresReload = enable;
   };
   
   // animation optimization

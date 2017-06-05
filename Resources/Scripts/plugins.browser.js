@@ -1,12 +1,14 @@
 (function(){
+  var isReloading = false;
+  
   //
   // Class: Abstract plugin base class.
   //
   window.PluginBase = class{
     constructor(pluginSettings){
-      this.$pluginSettings = pluginSettings || {};
+      this.$requiresReload = !!(pluginSettings && pluginSettings.requiresPageReload);
     }
-
+    
     enabled(){}
     ready(){}
     disabled(){}
@@ -49,11 +51,11 @@
     }
     
     setState(plugin, enable){
-      let reloading = plugin.obj.$pluginSettings.requiresPageReload;
+      let reloading = plugin.obj.$requiresReload;
       
       if (enable && this.isDisabled(plugin)){
         if (reloading){
-          location.reload();
+          window.TDPF_requestReload();
         }
         else{
           this.disabled.splice(this.disabled.indexOf(plugin.id), 1);
@@ -63,7 +65,7 @@
       }
       else if (!enable && !this.isDisabled(plugin)){
         if (reloading){
-          location.reload();
+          window.TDPF_requestReload();
         }
         else{
           this.disabled.push(plugin.id);
@@ -83,5 +85,15 @@
   //
   window.TDPF_setPluginState = function(identifier, enable){
     window.TD_PLUGINS.setState(window.TD_PLUGINS.findObject(identifier), enable);
+  };
+  
+  //
+  // Block: Setup global function to reload the page.
+  //
+  window.TDPF_requestReload = function(){
+    if (!isReloading){
+      window.setTimeout(() => location.reload(), 1);
+      isReloading = true;
+    }
   };
 })();
