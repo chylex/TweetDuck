@@ -31,22 +31,24 @@ enabled(){
   this.css.insert(".template-list li .icon:hover { opacity: 1; }");
   this.css.insert(".template-list li .template-actions { float: right; }");
   
-  this.css.insert(".template-editor { height: 100%; flex: 0 0 320px; overflow-y: auto; background-color: #485865; }");
-  this.css.insert(".template-editor-form { flex: 1 1 auto; padding: 12px 16px; font-size: 14px; }");
-  this.css.insert(".template-editor-form .compose-text-title { margin: 16px 0 9px; }");
+  this.css.insert(".template-editor { height: 100%; flex: 0 0 auto; width: 25vw; min-width: 150px; max-width: 400px; background-color: #485865; }");
+  this.css.insert(".template-editor-form { flex: 1 1 auto; padding: 12px 16px; font-size: 14px; overflow-y: auto; }");
+  this.css.insert(".template-editor-form .compose-text-title { margin: 24px 0 9px; }");
   this.css.insert(".template-editor-form .compose-text-title:first-child { margin-top: 0; }");
   this.css.insert(".template-editor-form input, .template-editor-form textarea { color: #111; background-color: #fff; border: none; border-radius: 0; }");
   this.css.insert(".template-editor-form input:focus, .template-editor-form textarea:focus { box-shadow: inset 0 1px 3px rgba(17, 17, 17, 0.1), 0 0 8px rgba(80, 165, 230, 0.6); }");
-  this.css.insert(".template-editor-form input { margin-bottom: 16px; }");
-  this.css.insert(".template-editor-form textarea { height: 130px; font-size: 14px; padding: 10px; resize: none; }");
+  this.css.insert(".template-editor-form textarea { height: 146px; font-size: 14px; padding: 10px; resize: none; }");
   this.css.insert(".template-editor-form .template-editor-tips-button { cursor: pointer; }");
-  this.css.insert(".template-editor-form .template-editor-tips-button .icon { vertical-align: -10%; margin-left: 4px; }");
+  this.css.insert(".template-editor-form .template-editor-tips-button .icon { font-size: 12px; vertical-align: -5%; margin-left: 4px; }");
   this.css.insert(".template-editor-form .template-editor-tips { display: none; }");
+  this.css.insert(".template-editor-form .template-editor-tips p { margin: 0 0 10px; }");
+  this.css.insert(".template-editor-form .template-editor-tips li:nth-child(2n+1) { margin-top: 5px; padding-left: 6px; font-family: monospace; }");
+  this.css.insert(".template-editor-form .template-editor-tips li:nth-child(2n) { margin-top: 1px; padding-left: 14px; opacity: 0.66; }");
   
   // modal dialog
   
   var showTemplateModal = () => {
-    var html = `
+    let html = `
 <div class="templates-modal-wrap">
   <div class="templates-modal">
     <div class="template-list">
@@ -63,14 +65,30 @@ enabled(){
     <div class="template-editor">
       <div class="template-editor-form">
         <div class="compose-text-title">Template Name</div>
-        <input type="text">
+        <input name="template-name" type="text">
         
         <div class="compose-text-title">Contents</div>
-        <textarea class="compose-text txt-size--14 scroll-v scroll-styled-v scroll-styled-h scroll-alt padding-a--0"></textarea>
+        <textarea name="template-contents" class="compose-text scroll-v scroll-styled-v scroll-styled-h scroll-alt"></textarea>
 
-        <div class="compose-text-title template-editor-tips-button">Advanced <i class="icon icon-small icon-arrow-d"></i></div>
+        <div class="compose-text-title template-editor-tips-button">Advanced <i class="icon icon-arrow-d"></i></div>
         <div class="template-editor-tips">
-          <p>You can use the following tokens: TODO</p>
+          <p>You can use the following tokens. All tokens except for <span style="font-family: monospace">{ajax}</span> can only be used once.</p>
+          <ul>
+            <li>{cursor}</li>
+            <li>Location where the cursor is placed</li>
+            <li>{cursor#&lt;selectionlength&gt;}</li>
+            <li>Places cursor and selects a set amount of characters</li>
+            <li>{paste}</li>
+            <li>Paste text or an image from clipboard</li>
+            <li>{paste#text}</li>
+            <li>Paste only if clipboard has text</li>
+            <li>{paste#image}</li>
+            <li>Paste only if clipboard has an image</li>
+            <li>{ajax#&lt;url&gt;}</li>
+            <li>Replaced with the result of an ajax request</li>
+            <li>{ajax#&lt;eval&gt;#&lt;url&gt;}</li>
+            <li>Allows parsing the ajax request using <span style="font-family: monospace">$</span> as the placeholder for the result<br>Example: <span style="font-family: monospace">$.substring(0,5)</span></li>
+          </ul>
         </div>
       </div>
       
@@ -83,6 +101,13 @@ enabled(){
 </div>`;
     
     $(".js-app-content").prepend(html);
+    
+    let ele = $(".templates-modal-wrap").first();
+    
+    ele.on("click", ".template-editor-tips-button", function(e){
+      $(this).children(".icon").toggleClass("icon-arrow-d icon-arrow-u");
+      ele.find(".template-editor-tips").toggle();
+    });
   };
   
   // event handlers
