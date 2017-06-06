@@ -58,10 +58,16 @@ enabled(){
   // keyboard generation
   
   this.currentKeyboard = null;
+  this.currentSpanner = null;
   
   var hideKeyboard = () => {
     $(this.currentKeyboard).remove();
     this.currentKeyboard = null;
+    
+    $(this.currentSpanner).remove();
+    this.currentSpanner = null;
+    
+    this.composePanelScroller.trigger("scroll");
     
     $(".emoji-keyboard-popup-btn").removeClass("is-selected");
     $(".js-compose-text").first().focus();
@@ -156,7 +162,7 @@ enabled(){
     outer.appendChild(search);
     outer.appendChild(keyboard);
     outer.appendChild(skintones);
-    document.body.appendChild(outer);
+    $(".js-app").append(outer);
     
     skintones.addEventListener("click", function(e){
       if (e.target.hasAttribute("data-tone")){
@@ -185,17 +191,17 @@ enabled(){
     
     this.currentKeyboard = outer;
     selectSkinTone(this.selectedSkinTone);
+    
+    this.currentSpanner = document.createElement("div");
+    this.currentSpanner.style.height = ($(this.currentKeyboard).height()-10)+"px";
+    $(".emoji-keyboard-popup-btn").parent().after(this.currentSpanner);
+    
+    this.composePanelScroller.trigger("scroll");
   };
   
-  this.prevTryPasteImage = window.TDGF_tryPasteImage;
-  var prevTryPasteImageF = this.prevTryPasteImage;
-  
-  window.TDGF_tryPasteImage = function(){
-    if (me.currentKeyboard){
-      hideKeyboard();
-    }
-    
-    return prevTryPasteImageF.apply(this, arguments);
+  var getKeyboardTop = () => {
+    let button = $(".emoji-keyboard-popup-btn");
+    return button.offset().top+button.outerHeight()+me.composePanelScroller.scrollTop()+8;
   };
   
   // event handlers
@@ -206,13 +212,17 @@ enabled(){
       $(this).blur();
     }
     else{
-      var pos = $(this).offset();
-      me.generateKeyboard($(".js-compose-text").first(), pos.left, pos.top+$(this).outerHeight()+8);
-      
+      me.generateKeyboard($(".js-compose-text").first(), $(this).offset().left, getKeyboardTop());
       $(this).addClass("is-selected");
     }
     
     e.stopPropagation();
+  };
+  
+  this.composerScrollEvent = function(e){
+    if (me.currentKeyboard){
+      me.currentKeyboard.style.marginTop = (-$(this).scrollTop())+"px";
+    }
   };
   
   this.documentClickEvent = function(e){
@@ -227,12 +237,22 @@ enabled(){
       e.stopPropagation();
     }
   };
+  
+  this.uploadFilesEvent = function(e){
+    if (me.currentKeyboard){
+      me.currentKeyboard.style.top = getKeyboardTop()+"px";
+    }
+  }
 }
 
 ready(){
+  this.composePanelScroller = $(".js-compose-scroller", ".js-docked-compose").first().children().first();
+  this.composePanelScroller.on("scroll", this.composerScrollEvent);
+  
   $(".emoji-keyboard-popup-btn").on("click", this.emojiKeyboardButtonClickEvent);
   $(document).on("click", this.documentClickEvent);
   $(document).on("keydown", this.documentKeyEvent);
+  $(document).on("uiComposeImageAdded", this.uploadFilesEvent);
   
   // HTML generation
   
@@ -338,12 +358,17 @@ disabled(){
     $(this.currentKeyboard).remove();
   }
   
-  window.TDGF_tryPasteImage = this.prevTryPasteImage;
+  if (this.currentSpanner){
+    $(this.currentSpanner).remove();
+  }
+  
+  this.composePanelScroller.off("scroll", this.composerScrollEvent);
   
   $(".emoji-keyboard-popup-btn").off("click", this.emojiKeyboardButtonClickEvent);
   $(".emoji-keyboard-popup-btn").remove();
   
   $(document).off("click", this.documentClickEvent);
   $(document).off("keydown", this.documentKeyEvent);
+  $(document).off("uiComposeImageAdded", this.uploadFilesEvent);
   TD.mustaches["compose/docked_compose.mustache"] = this.prevComposeMustache;
 }
