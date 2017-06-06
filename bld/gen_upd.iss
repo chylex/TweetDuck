@@ -41,8 +41,10 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
 Source: "..\bin\x86\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x86\Release\TweetLib.*.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x86\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Excludes: "*.xml,*.pdb,*.dll,*.pak,*.bin,*.dat,*.txt,CefSharp.BrowserSubprocess.exe"
+Source: "..\bin\x86\Release\TweetDuck.*"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\bin\x86\Release\TweetLib.*"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\bin\x86\Release\scripts\*.*"; DestDir: "{app}\scripts"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\bin\x86\Release\plugins\*.*"; DestDir: "{app}\plugins"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Check: TDIsUninstallable
