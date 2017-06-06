@@ -1,0 +1,17 @@
+[name]
+Templates
+
+[description]
+- Adds a templating system for tweets
+
+[author]
+chylex
+
+[version]
+1.0
+
+[website]
+https://tweetduck.chylex.com
+
+[requires]
+1.5.3
