@@ -368,8 +368,9 @@ enabled(){
     
     if (this.config.hideTweetActions){
       this.css.insert(".tweet-action { opacity: 0; }");
+      this.css.insert(".tweet-actions.is-visible .tweet-action { opacity: 0.5; }");
       this.css.insert(".is-favorite .tweet-action, .is-retweet .tweet-action { opacity: 0.5; visibility: visible !important }");
-      this.css.insert(".tweet:hover .tweet-action, .is-favorite .tweet-action[rel='favorite'], .is-retweet .tweet-action[rel='retweet'] { opacity: 1; visibility: visible !important }");
+      this.css.insert(".tweet:hover .tweet-action, .tweet-action.is-selected, .is-favorite .tweet-action[rel='favorite'], .is-retweet .tweet-action[rel='retweet'] { opacity: 1 !important; visibility: visible !important }");
     }
     
     if (this.config.moveTweetActionsToRight){
