@@ -1,4 +1,36 @@
 enabled(){
+  let me = this;
+  
+  // configuration
+  
+  this.config = {
+    templates: {} // identifier: { name, contents }
+  };
+  
+  const configFile = "config.json";
+  
+  $TDP.checkFileExists(this.$token, configFile).then(exists => {
+    if (!exists){
+      $TDP.writeFile(this.$token, configFile, JSON.stringify(this.config));
+    }
+    else{
+      $TDP.readFile(this.$token, configFile, true).then(contents => {
+        try{
+          $.extend(true, this.config, JSON.parse(contents));
+        }catch(err){
+          // why :(
+        }
+      }).catch(err => {
+        $TD.alert("error", "Problem loading configuration for the template plugin: "+err.message);
+      });
+    }
+  });
+  
+  this.saveConfig = () => {
+    $TDP.writeFile(this.$token, configFile, JSON.stringify(this.config)).catch(err => {
+      $TD.alert("error", "Problem saving configuration for the template plugin: "+err.message);
+    });
+  };
   
   // button
   
@@ -24,8 +56,9 @@ enabled(){
   
   this.css.insert(".template-list { height: 100%; flex: 1 1 auto; }");
   this.css.insert(".template-list ul { list-style-type: none; font-size: 24px; color: #222; flex: 1 1 auto; padding: 12px; overflow-y: auto; }");
-  this.css.insert(".template-list li { display: block; width: 100%; padding: 4px 8px; box-sizing: border-box; cursor: pointer; }");
-  this.css.insert(".template-list li:hover { background-color: #d8d8d8; }");
+  this.css.insert(".template-list li { display: block; width: 100%; padding: 4px 8px; box-sizing: border-box; }");
+  this.css.insert(".template-list li[data-template] { cursor: pointer; }");
+  this.css.insert(".template-list li[data-template]:hover { background-color: #d8d8d8; }");
   this.css.insert(".template-list li span { white-space: nowrap; }");
   this.css.insert(".template-list li .icon { opacity: 0.6; margin-left: 4px; padding: 3px; }");
   this.css.insert(".template-list li .icon:hover { opacity: 1; }");
@@ -45,24 +78,25 @@ enabled(){
   this.css.insert(".template-editor-form .template-editor-tips li:nth-child(2n+1) { margin-top: 5px; padding-left: 6px; font-family: monospace; }");
   this.css.insert(".template-editor-form .template-editor-tips li:nth-child(2n) { margin-top: 1px; padding-left: 14px; opacity: 0.66; }");
   
+  this.css.insert(".invisible { display: none !important; }");
+  
   // modal dialog
+  
+  this.editingTemplate = null;
   
   var showTemplateModal = () => {
     let html = `
 <div class="templates-modal-wrap">
   <div class="templates-modal">
     <div class="template-list">
-      <ul>
-        <li><span class="template-name">Test template 1</span><span class="template-actions"><i class="icon icon-edit"></i><i class="icon icon-close"></i></span></li>
-        <li><span class="template-name">Test template 2</span><span class="template-actions"><i class="icon icon-edit"></i><i class="icon icon-close"></i></span></li>
-      </ul>
+      <ul></ul>
       
       <div class="templates-modal-bottom">
-        <button class="btn btn-positive"><i class="icon icon-plus icon-small padding-rs"></i><span class="label">New Template</span></button>
+        <button data-action="new-template" class="btn btn-positive"><i class="icon icon-plus icon-small padding-rs"></i><span class="label">New Template</span></button>
       </div>
     </div>
 
-    <div class="template-editor">
+    <div class="template-editor invisible">
       <div class="template-editor-form">
         <div class="compose-text-title">Template Name</div>
         <input name="template-name" type="text">
@@ -85,7 +119,7 @@ enabled(){
             <li>{paste#image}</li>
             <li>Paste only if clipboard has an image</li>
             <li>{ajax#&lt;url&gt;}</li>
-            <li>Replaced with the result of an ajax request</li>
+            <li>Replaced with the result of a cross-origin ajax request</li>
             <li>{ajax#&lt;eval&gt;#&lt;url&gt;}</li>
             <li>Allows parsing the ajax request using <span style="font-family: monospace">$</span> as the placeholder for the result<br>Example: <span style="font-family: monospace">$.substring(0,5)</span></li>
           </ul>
@@ -93,8 +127,8 @@ enabled(){
       </div>
       
       <div class="templates-modal-bottom">
-        <button class="btn"><i class="icon icon-close icon-small padding-rs"></i><span class="label">Cancel</span></button>
-        <button class="btn btn-positive"><i class="icon icon-check icon-small padding-rs"></i><span class="label">Confirm</span></button>
+        <button data-action="editor-cancel" class="btn"><i class="icon icon-close icon-small padding-rs"></i><span class="label">Cancel</span></button>
+        <button data-action="editor-confirm" class="btn btn-positive"><i class="icon icon-check icon-small padding-rs"></i><span class="label">Confirm</span></button>
       </div>
     </div>
   </div>
@@ -104,10 +138,107 @@ enabled(){
     
     let ele = $(".templates-modal-wrap").first();
     
+    ele.on("click", "li[data-template] i[data-action]", function(e){
+      let identifier = $(this).closest("li").attr("data-template");
+      
+      switch($(this).attr("data-action")){
+        case "edit-template":
+          let editor = $(".template-editor");
+          
+          if (editor.hasClass("invisible")){
+            toggleEditor();
+          }
+          
+          let template = me.config.templates[identifier];
+          $("[name='template-name']", editor).val(template.name);
+          $("[name='template-contents']", editor).val(template.contents);
+          
+          me.editingTemplate = identifier;
+          break;
+          
+        case "delete-template":
+          delete me.config.templates[identifier];
+          onTemplatesUpdated(true);
+          
+          if (me.editingTemplate === identifier){
+            me.editingTemplate = null;
+          }
+          
+          break;
+      }
+      
+      e.stopPropagation();
+    });
+    
     ele.on("click", ".template-editor-tips-button", function(e){
       $(this).children(".icon").toggleClass("icon-arrow-d icon-arrow-u");
       ele.find(".template-editor-tips").toggle();
     });
+    
+    ele.on("click", "button", function(e){
+      switch($(this).attr("data-action")){
+        case "new-template":
+          toggleEditor();
+          break;
+          
+        case "editor-cancel":
+          toggleEditor();
+          break;
+          
+        case "editor-confirm":
+          let editor = $(".template-editor");
+          
+          if (me.editingTemplate !== null){
+            delete me.config.templates[me.editingTemplate];
+          }
+          
+          let name = $("[name='template-name']", editor).val();
+          let identifier = name.toLowerCase().replace(/[^a-z0-9]/g, "")+"-"+(Math.random().toString(36).substring(2, 7));
+          
+          me.config.templates[identifier] = {
+            name: name,
+            contents: $("[name='template-contents']", editor).val()
+          };
+          
+          toggleEditor();
+          onTemplatesUpdated(true);
+          break;
+      }
+      
+      $(this).blur();
+    });
+    
+    onTemplatesUpdated(false);
+  };
+  
+  var toggleEditor = function(){
+    let editor = $(".template-editor");
+    $("[name]", editor).val("");
+    
+    if ($("button[data-action='new-template']", ".template-list").add(editor).toggleClass("invisible").hasClass("invisible")){
+      me.editingTemplate = null;
+    }
+  };
+  
+  var onTemplatesUpdated = (save) => {
+    let eles = [];
+    
+    for(let identifier of Object.keys(this.config.templates)){
+      eles.push(`<li data-template="${identifier}">
+<span class="template-name">${this.config.templates[identifier].name}</span>
+<span class="template-actions"><i class="icon icon-edit" data-action="edit-template"></i><i class="icon icon-close" data-action="delete-template"></i></span>
+</li>`);
+    }
+    
+    if (eles.length === 0){
+      eles.push("<li>No templates available</li>");
+    }
+    
+    $(".template-list").children("ul").html(eles.join(""));
+    
+    if (save){
+      this.saveConfig();
+    }
   };
   
   // event handlers
