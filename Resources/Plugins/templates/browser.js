@@ -80,6 +80,25 @@ enabled(){
   
   this.css.insert(".invisible { display: none !important; }");
   
+  // template implementation
+  
+  var useTemplate = (contents, append) => {
+    let ele = $(".js-compose-text");
+    
+    if (ele.length === 0){
+      return;
+    }
+    
+    // TODO
+    
+    ele.val(append ? ele.val()+contents : contents);
+    ele.focus();
+    
+    if (!append){
+      hideTemplateModal();
+    }
+  };
+  
   // modal dialog
   
   this.editingTemplate = null;
@@ -138,6 +157,11 @@ enabled(){
     
     let ele = $(".templates-modal-wrap").first();
     
+    ele.on("click", "li[data-template]", function(e){
+      let template = me.config.templates[$(this).attr("data-template")];
+      useTemplate(template.contents, e.shiftKey);
+    });
+    
     ele.on("click", "li[data-template] i[data-action]", function(e){
       let identifier = $(this).closest("li").attr("data-template");
       
@@ -178,6 +202,7 @@ enabled(){
     ele.on("click", "button", function(e){
       switch($(this).attr("data-action")){
         case "new-template":
+          
           toggleEditor();
           break;
           
@@ -200,6 +225,8 @@ enabled(){
             contents: $("[name='template-contents']", editor).val()
           };
           
+          // TODO check validity
+          
           toggleEditor();
           onTemplatesUpdated(true);
           break;
@@ -209,6 +236,10 @@ enabled(){
     });
     
     onTemplatesUpdated(false);
+  };
+  
+  var hideTemplateModal = function(){
+    $(".templates-modal-wrap").remove();
   };
   
   var toggleEditor = function(){
@@ -244,10 +275,8 @@ enabled(){
   // event handlers
   
   this.manageTemplatesButtonClickEvent = function(e){
-    let wrap = $(".templates-modal-wrap");
-    
-    if (wrap.length){
-      wrap.remove();
+    if ($(".templates-modal-wrap").length){
+      hideTemplateModal();
     }
     else{
       showTemplateModal();
@@ -255,10 +284,17 @@ enabled(){
     
     $(this).blur();
   };
+  
+  this.drawerToggleEvent = function(e, data){
+    if (data.activeDrawer === null){
+      hideTemplateModal();
+    }
+  };
 }
 
 ready(){
   $(".manage-templates-btn").on("click", this.manageTemplatesButtonClickEvent);
+  $(document).on("uiDrawerActive", this.drawerToggleEvent);
 }
 
 disabled(){
@@ -266,6 +302,8 @@ disabled(){
   
   $(".manage-templates-btn").remove();
   $(".templates-modal-wrap").remove();
+  
+  $(document).off("uiDrawerActive", this.drawerToggleEvent);
   
   TD.mustaches["compose/docked_compose.mustache"] = this.prevComposeMustache;
 }
