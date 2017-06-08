@@ -7,7 +7,7 @@ namespace TweetDuck.Core.Handling{
         }
 
         public override CefReturnValue OnBeforeResourceLoad(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IRequestCallback callback){
-            if (request.ResourceType == ResourceType.Script && request.Url.Contains("google_analytics.")){
+            if (request.ResourceType == ResourceType.Script && request.Url.Contains("analytics.")){
                 return CefReturnValue.Cancel;
             }
 
