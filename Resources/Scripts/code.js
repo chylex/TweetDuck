@@ -596,6 +596,26 @@
   });
   
   //
+  // Block: Make middle click on tweet reply icon open the compose drawer.
+  //
+  app.delegate(".js-reply-action", "mousedown", function(e){
+    if (e.which === 2){
+      if ($("[data-drawer='compose']").hasClass("is-hidden")){
+        $(document).trigger("uiDrawerShowDrawer", {
+          drawer: "compose",
+          withAnimation: true
+        });
+        
+        window.setTimeout(() => $(this).trigger("click"), 1);
+      }
+      
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+    }
+  });
+  
+  //
   // Block: Work around clipboard HTML formatting.
   //
   $(document).on("copy", function(e){
