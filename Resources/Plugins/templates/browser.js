@@ -82,7 +82,7 @@ enabled(){
   
   // template implementation
   
-  var readTemplateToken = (contents, token) => {
+  var readTemplateToken = (contents, token, replacement) => {
     let tokenStart = "{"+token;
     let currentIndex = -1;
     let startIndex = -1;
@@ -125,10 +125,25 @@ enabled(){
       }
       
       data.push(entry);
-      contents = contents.substring(0, currentIndex)+contents.substring(endIndex+1);
+      contents = contents.substring(0, currentIndex)+(replacement || "")+contents.substring(endIndex+1);
     }
     
     return [ contents, data ];
+  };
+  
+  var doAjaxRequest = (url, evaluator) => {
+    return new Promise((resolve, reject) => {
+      $.get(url, function(data){
+        if (evaluator){
+          resolve(eval(evaluator.replace(/\$/g, "'"+data.replace(/(["'\\\n\r\u2028\u2029])/g, "\\$1")+"'")));
+        }
+        else{
+          resolve(data);
+        }
+      }, "text").fail(function(){
+        resolve("");
+      });
+    });
   };
   
   var useTemplate = (contents, append) => {
@@ -136,17 +151,54 @@ enabled(){
     if (ele.length === 0)return;
     
     let value = append ? ele.val()+contents : contents;
-    let tokenCursor = null;
+    let tokensCursor = null;
+    let tokensAjax = null;
     
-    [value, tokenCursor] = readTemplateToken(value, "cursor");
+    [value, tokensCursor] = readTemplateToken(value, "cursor");
+    [value, tokensAjax] = readTemplateToken(value, "ajax", "(...)");
     
     ele.val(value);
     ele.focus();
     
-    if (tokenCursor.length === 1){
-      let [ index, length ] = tokenCursor[0];
+    if (tokensCursor.length === 1){
+      let [ index, length ] = tokensCursor[0];
       ele[0].selectionStart = index;
       ele[0].selectionEnd = index+(length | 0 || 0);
+    }
+    else{
+      ele[0].selectionStart = ele[0].selectionEnd = value.length;
+    }
+    
+    if (tokensAjax.length > 0){
+      let promises = [];
+      let indexOffset = 0;
+      
+      for(let token of tokensAjax){
+        let [ index, evaluator, url ] = token;
+        
+        if (!url){
+          url = evaluator;
+          evaluator = null;
+        }
+        
+        promises.push(doAjaxRequest(url, evaluator).then(result => {
+          let diff = result.length-5; // "(...)".length
+          let realIndex = indexOffset+index;
+          
+          let val = ele.val();
+          ele.val(val.substring(0, realIndex)+result+val.substring(realIndex+5));
+          
+          ele[0].selectionStart += diff;
+          ele[0].selectionEnd += diff;
+          indexOffset += diff;
+        }));
+      }
+      
+      ele.prop("disabled", true);
+      
+      Promise.all(promises).then(() => {
+        ele.prop("disabled", false);
+      });
     }
     
     if (!append){
