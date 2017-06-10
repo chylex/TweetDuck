@@ -133,15 +133,21 @@ enabled(){
   
   var useTemplate = (contents, append) => {
     let ele = $(".js-compose-text");
+    if (ele.length === 0)return;
     
-    if (ele.length === 0){
-      return;
-    }
+    let value = append ? ele.val()+contents : contents;
+    let tokenCursor = null;
     
-    // TODO
+    [value, tokenCursor] = readTemplateToken(value, "cursor");
     
-    ele.val(append ? ele.val()+contents : contents);
+    ele.val(value);
     ele.focus();
+    
+    if (tokenCursor.length === 1){
+      let [ index, length ] = tokenCursor[0];
+      ele[0].selectionStart = index;
+      ele[0].selectionEnd = index+(length | 0 || 0);
+    }
     
     if (!append){
       hideTemplateModal();
