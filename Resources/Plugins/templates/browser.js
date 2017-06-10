@@ -82,19 +82,29 @@ enabled(){
   
   // template implementation
   
-  var readTemplateToken = (contents, token, replacement) => {
-    let tokenStart = "{"+token;
+  var readTemplateTokens = (contents, tokenData) => {
     let currentIndex = -1;
     let startIndex = -1;
     let endIndex = -1;
     
     let data = [];
+    let tokenNames = Object.keys(tokenData);
     
-    while((currentIndex = contents.indexOf(tokenStart, currentIndex)) !== -1){
-      let entry = [ currentIndex ];
+    while((currentIndex = contents.indexOf('{', currentIndex)) !== -1){
+      startIndex = currentIndex+1;
       
-      startIndex = currentIndex+tokenStart.length;
+      for(; startIndex < contents.length; startIndex++){
+        if (!tokenNames.some(name => contents[startIndex] === name[startIndex-currentIndex-1])){
+          break;
+        }
+      }
+      
       endIndex = startIndex;
+      
+      let token = contents.substring(currentIndex+1, startIndex);
+      let replacement = tokenData[token] || "";
+      
+      let entry = [ token, currentIndex ];
       
       if (contents[endIndex] === '#'){
         ++endIndex;
@@ -125,7 +135,9 @@ enabled(){
       }
       
       data.push(entry);
-      contents = contents.substring(0, currentIndex)+(replacement || "")+contents.substring(endIndex+1);
+      
+      contents = contents.substring(0, currentIndex)+replacement+contents.substring(endIndex+1);
+      currentIndex += replacement.length;
     }
     
     return [ contents, data ];
@@ -151,53 +163,65 @@ enabled(){
     if (ele.length === 0)return;
     
     let value = append ? ele.val()+contents : contents;
-    let tokensCursor = null;
-    let tokensAjax = null;
+    let prevLength = value.length;
     
-    [value, tokensCursor] = readTemplateToken(value, "cursor");
-    [value, tokensAjax] = readTemplateToken(value, "ajax", "(...)");
+    let tokens = null;
+    
+    [value, tokens] = readTemplateTokens(value, {
+      "cursor": "",
+      "ajax": "(...)"
+    });
     
     ele.val(value);
     ele.focus();
     
-    if (tokensCursor.length === 1){
-      let [ index, length ] = tokensCursor[0];
-      ele[0].selectionStart = index;
-      ele[0].selectionEnd = index+(length | 0 || 0);
-    }
-    else{
-      ele[0].selectionStart = ele[0].selectionEnd = value.length;
+    ele[0].selectionStart = ele[0].selectionEnd = value.length;
+    
+    let promises = [];
+    let indexOffset = 0;
+    
+    for(let token of tokens){
+      switch(token[0]){
+        case "cursor":
+          let [, index1, length ] = token;
+          ele[0].selectionStart = index1;
+          ele[0].selectionEnd = index1+(length | 0 || 0);
+          break;
+          
+        case "ajax":
+          let [, index2, evaluator, url ] = token;
+          
+          if (!url){
+            url = evaluator;
+            evaluator = null;
+          }
+
+          promises.push(doAjaxRequest(url, evaluator).then(result => {
+            let diff = result.length-5; // "(...)".length
+            let realIndex = indexOffset+index2;
+            
+            let val = ele.val();
+            ele.val(val.substring(0, realIndex)+result+val.substring(realIndex+5));
+            
+            indexOffset += diff;
+          }));
+          
+          break;
+      }
     }
     
-    if (tokensAjax.length > 0){
-      let promises = [];
-      let indexOffset = 0;
-      
-      for(let token of tokensAjax){
-        let [ index, evaluator, url ] = token;
-        
-        if (!url){
-          url = evaluator;
-          evaluator = null;
-        }
-        
-        promises.push(doAjaxRequest(url, evaluator).then(result => {
-          let diff = result.length-5; // "(...)".length
-          let realIndex = indexOffset+index;
-          
-          let val = ele.val();
-          ele.val(val.substring(0, realIndex)+result+val.substring(realIndex+5));
-          
-          ele[0].selectionStart += diff;
-          ele[0].selectionEnd += diff;
-          indexOffset += diff;
-        }));
-      }
+    if (promises.length > 0){
+      let selStart = ele[0].selectionStart;
+      let selEnd = ele[0].selectionEnd;
       
       ele.prop("disabled", true);
       
       Promise.all(promises).then(() => {
         ele.prop("disabled", false);
+        ele.focus();
+        
+        ele[0].selectionStart = selStart+indexOffset;
+        ele[0].selectionEnd = selEnd+indexOffset;
       });
     }
     
