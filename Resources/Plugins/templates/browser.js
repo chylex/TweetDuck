@@ -82,6 +82,55 @@ enabled(){
   
   // template implementation
   
+  var readTemplateToken = (contents, token) => {
+    let tokenStart = "{"+token;
+    let currentIndex = -1;
+    let startIndex = -1;
+    let endIndex = -1;
+    
+    let data = [];
+    
+    while((currentIndex = contents.indexOf(tokenStart, currentIndex)) !== -1){
+      let entry = [ currentIndex ];
+      
+      startIndex = currentIndex+tokenStart.length;
+      endIndex = startIndex;
+      
+      if (contents[endIndex] === '#'){
+        ++endIndex;
+        
+        let bracketCount = 1;
+        
+        for(; endIndex < contents.length; endIndex++){
+          if (contents[endIndex] === '{'){
+            ++bracketCount;
+          }
+          else if (contents[endIndex] === '}'){
+            if (--bracketCount === 0){
+              entry.push(contents.substring(startIndex+1, endIndex));
+              break;
+            }
+          }
+          else if (contents[endIndex] === '#'){
+            entry.push(contents.substring(startIndex+1, endIndex));
+            startIndex = endIndex;
+          }
+          else if (contents[endIndex] === '\\'){
+            ++endIndex;
+          }
+        }
+      }
+      else if (contents[endIndex] !== '}'){
+        continue;
+      }
+      
+      data.push(entry);
+      contents = contents.substring(0, currentIndex)+contents.substring(endIndex+1);
+    }
+    
+    return [ contents, data ];
+  };
+  
   var useTemplate = (contents, append) => {
     let ele = $(".js-compose-text");
     
