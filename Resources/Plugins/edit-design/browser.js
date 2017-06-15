@@ -7,6 +7,7 @@ constructor(){
 enabled(){
   // elements & data
   this.css = null;
+  this.icons = null;
   this.htmlModal = null;
   this.config = null;
   
@@ -18,6 +19,7 @@ enabled(){
     revertReplies: false,
     themeColorTweaks: true,
     roundedScrollBars: false,
+    revertIcons: true,
     smallComposeTextSize: false,
     optimizeAnimations: true,
     avatarRadius: 10
@@ -331,6 +333,11 @@ enabled(){
     }
     
     this.css = window.TDPF_createCustomStyle(this);
+  
+    if (this.icons){
+      document.head.removeChild(this.icons);
+      this.icons = null;
+    }
   };
   
   this.reinjectAll = () => {
@@ -398,6 +405,97 @@ enabled(){
       this.css.insert(".activity-header + .tweet .tweet-context .obj-left { margin-right: 5px }");
     }
     
+    if (this.config.revertIcons){
+      this.icons = document.createElement("style");
+      this.icons.innerHTML = `
+@font-face {
+  font-family: 'tweetdeckold';
+  src: url("https://ton.twimg.com/tweetdeck-web/web/assets/fonts/tweetdeck-regular-webfont.5f4ea87976.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.icon-twitter-bird:before{content:"\\f000";font-family:tweetdeckold}
+.icon-mention:before{content:"\\f001";font-family:tweetdeckold}
+.icon-following:before{content:"\\f002";font-family:tweetdeckold}
+.icon-message:before{content:"\\f003";font-family:tweetdeckold}
+.icon-home:before{content:"\\f004";font-family:tweetdeckold}
+.icon-hashtag:before{content:"\\f005";font-family:tweetdeckold}
+.icon-reply:before{content:"\\f006";font-family:tweetdeckold}
+.icon-favorite:before{content:"\\f055";font-family:tweetdeckold}
+.icon-retweet:before{content:"\\f008";font-family:tweetdeckold}
+.icon-drafts:before{content:"\\f009";font-family:tweetdeckold}
+.icon-search:before{content:"\\f00a";font-family:tweetdeckold}
+.icon-trash:before{content:"\\f00c";font-family:tweetdeckold}
+.icon-close:before{content:"\\f00d";font-family:tweetdeckold}
+.icon-arrow-r:before,.Icon--caretRight:before{content:"\\f00e";font-family:tweetdeckold}
+.icon-arrow-l:before,.Icon--caretLeft:before{content:"\\f00f";font-family:tweetdeckold}
+.icon-protected:before{content:"\\f013";font-family:tweetdeckold}
+.icon-list:before{content:"\\f014";font-family:tweetdeckold}
+.icon-camera:before{content:"\\f015";font-family:tweetdeckold}
+.icon-more:before{content:"\\f016";font-family:tweetdeckold}
+.icon-settings:before{content:"\\f018";font-family:tweetdeckold}
+.icon-notifications:before{content:"\\f019";font-family:tweetdeckold}
+.icon-user-dd:before{content:"\\f01a";font-family:tweetdeckold}
+.icon-activity:before{content:"\\f01c";font-family:tweetdeckold}
+.icon-trending:before{content:"\\f01d";font-family:tweetdeckold}
+.icon-minus:before{content:"\\f01e";font-family:tweetdeckold}
+.icon-plus:before{content:"\\f01f";font-family:tweetdeckold}
+.icon-geo:before{content:"\\f020";font-family:tweetdeckold}
+.icon-check:before{content:"\\f021";font-family:tweetdeckold}
+.icon-schedule:before{content:"\\f022";font-family:tweetdeckold}
+.icon-dot:before{content:"\\f023";font-family:tweetdeckold}
+.icon-user:before{content:"\\f024";font-family:tweetdeckold}
+.icon-content:before{content:"\\f025";font-family:tweetdeckold}
+.icon-arrow-d:before,.Icon--caretDown:before{content:"\\f026";font-family:tweetdeckold}
+.icon-arrow-u:before{content:"\\f027";font-family:tweetdeckold}
+.icon-share:before{content:"\\f028";font-family:tweetdeckold}
+.icon-info:before{content:"\\f029";font-family:tweetdeckold}
+.icon-verified:before{content:"\\f02a";font-family:tweetdeckold}
+.icon-translator:before{content:"\\f02b";font-family:tweetdeckold}
+.icon-blocked:before{content:"\\f02c";font-family:tweetdeckold}
+.icon-constrain:before{content:"\\f02d";font-family:tweetdeckold}
+.icon-play-video:before{content:"\\f02e";font-family:tweetdeckold}
+.icon-empty:before{content:"\\f02f";font-family:tweetdeckold}
+.icon-clear-input:before{content:"\\f030";font-family:tweetdeckold}
+.icon-compose:before{content:"\\f031";font-family:tweetdeckold}
+.icon-mark-read:before{content:"\\f032";font-family:tweetdeckold}
+.icon-arrow-r-double:before{content:"\\f033";font-family:tweetdeckold}
+.icon-arrow-l-double:before{content:"\\f034";font-family:tweetdeckold}
+.icon-follow:before{content:"\\f035";font-family:tweetdeckold}
+.icon-image:before{content:"\\f036";font-family:tweetdeckold}
+.icon-popout:before{content:"\\f037";font-family:tweetdeckold}
+.icon-move:before{content:"\\f039";font-family:tweetdeckold}
+.icon-compose-grid:before{content:"\\f03a";font-family:tweetdeckold}
+.icon-compose-minigrid:before{content:"\\f03b";font-family:tweetdeckold}
+.icon-compose-list:before{content:"\\f03c";font-family:tweetdeckold}
+.icon-edit:before{content:"\\f040";font-family:tweetdeckold}
+.icon-clear-timeline:before{content:"\\f041";font-family:tweetdeckold}
+.icon-sliders:before{content:"\\f042";font-family:tweetdeckold}
+.icon-custom-timeline:before{content:"\\f043";font-family:tweetdeckold}
+.icon-compose-dm:before{content:"\\f044";font-family:tweetdeckold}
+.icon-bg-dot:before{content:"\\f045";font-family:tweetdeckold}
+.icon-user-team-mgr:before{content:"\\f046";font-family:tweetdeckold}
+.icon-user-switch:before{content:"\\f047";font-family:tweetdeckold}
+.icon-conversation:before{content:"\\f048";font-family:tweetdeckold}
+.icon-dataminr:before{content:"\\f049";font-family:tweetdeckold}
+.icon-link:before{content:"\\f04a";font-family:tweetdeckold}
+.icon-flash:before{content:"\\f050";font-family:tweetdeckold}
+.icon-pointer-u:before{content:"\\f051";font-family:tweetdeckold}
+.icon-analytics:before{content:"\\f054";font-family:tweetdeckold}
+.icon-heart:before{content:"\\f055";font-family:tweetdeckold}
+.icon-calendar:before{content:"\\f056";font-family:tweetdeckold}
+.icon-attachment:before{content:"\\f057";font-family:tweetdeckold}
+.icon-play:before{content:"\\f058";font-family:tweetdeckold}
+.icon-bookmark:before{content:"\\f059";font-family:tweetdeckold}
+.icon-play-badge:before{content:"\\f060";font-family:tweetdeckold}
+.icon-gif-badge:before{content:"\\f061";font-family:tweetdeckold}
+.icon-poll:before{content:"\\f062";font-family:tweetdeckold}
+`;
+      
+      document.head.appendChild(this.icons);
+    }
+    
     if (this.config.columnWidth[0] === '/'){
       let cols = this.config.columnWidth.slice(1);
       
@@ -462,6 +560,10 @@ ready(){
 disabled(){
   if (this.css){
     this.css.remove();
+  }
+  
+  if (this.icons){
+    document.head.removeChild(this.icons);
   }
   
   if (this.optimizations){
