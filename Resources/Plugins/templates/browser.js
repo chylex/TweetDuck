@@ -76,7 +76,8 @@ enabled(){
   this.css.insert(".template-editor-form .template-editor-tips-button { cursor: pointer; }");
   this.css.insert(".template-editor-form .template-editor-tips-button .icon { font-size: 12px; vertical-align: -5%; margin-left: 4px; }");
   this.css.insert(".template-editor-form .template-editor-tips { display: none; }");
-  this.css.insert(".template-editor-form .template-editor-tips p { margin: 0 0 10px; }");
+  this.css.insert(".template-editor-form .template-editor-tips p { margin: 10px 0; }");
+  this.css.insert(".template-editor-form .template-editor-tips p:first-child { margin-top: 0; }");
   this.css.insert(".template-editor-form .template-editor-tips li:nth-child(2n+1) { margin-top: 5px; padding-left: 6px; font-family: monospace; }");
   this.css.insert(".template-editor-form .template-editor-tips li:nth-child(2n) { margin-top: 1px; padding-left: 14px; opacity: 0.66; }");
   
@@ -85,14 +86,21 @@ enabled(){
   // template implementation
   
   var readTemplateTokens = (contents, tokenData) => {
-    let currentIndex = -1;
     let startIndex = -1;
     let endIndex = -1;
     
     let data = [];
     let tokenNames = Object.keys(tokenData);
     
-    while((currentIndex = contents.indexOf('{', currentIndex)) !== -1){
+    for(let currentIndex = 0; currentIndex < contents.length; currentIndex++){
+      if (contents[currentIndex] === '\\'){
+        contents = contents.substring(0, currentIndex)+contents.substring(currentIndex+1);
+        continue;
+      }
+      else if (contents[currentIndex] !== '{'){
+        continue;
+      }
+      
       startIndex = currentIndex+1;
       
       for(; startIndex < contents.length; startIndex++){
@@ -128,7 +136,7 @@ enabled(){
             startIndex = endIndex;
           }
           else if (contents[endIndex] === '\\'){
-            ++endIndex;
+            contents = contents.substring(0, endIndex)+contents.substring(endIndex+1);
           }
         }
       }
@@ -268,17 +276,14 @@ enabled(){
             <li>Location where the cursor is placed</li>
             <li>{cursor#&lt;selectionlength&gt;}</li>
             <li>Places cursor and selects a set amount of characters</li>
-            <li>{paste}</li>
-            <li>Paste text or an image from clipboard</li>
-            <li>{paste#text}</li>
-            <li>Paste only if clipboard has text</li>
-            <li>{paste#image}</li>
-            <li>Paste only if clipboard has an image</li>
             <li>{ajax#&lt;url&gt;}</li>
             <li>Replaced with the result of a cross-origin ajax request</li>
             <li>{ajax#&lt;eval&gt;#&lt;url&gt;}</li>
             <li>Allows parsing the ajax request using <span style="font-family: monospace">$</span> as the placeholder for the result<br>Example: <span style="font-family: monospace">$.substring(0,5)</span></li>
           </ul>
+          <p>To use special characters in the tweet text, escape them with a backslash:
+            <br><span style="font-family: monospace">&nbsp; \\{&nbsp; \\}&nbsp; \\#&nbsp; \\\\</span>
+          </p>
         </div>
       </div>
       
@@ -289,6 +294,17 @@ enabled(){
     </div>
   </div>
 </div>`;
+    
+/* TODO possibly implement this later
+
+<li>{paste}</li>
+<li>Paste text or an image from clipboard</li>
+<li>{paste#text}</li>
+<li>Paste only if clipboard has text</li>
+<li>{paste#image}</li>
+<li>Paste only if clipboard has an image</li>
+
+*/
     
     $(".js-app-content").prepend(html);
     
