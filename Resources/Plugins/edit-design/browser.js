@@ -533,6 +533,13 @@ enabled(){
       ".txt-base-smallest:not(.icon), .txt-base-largest:not(.icon) { font-size: "+this.config.fontSize+" !important }",
       ".avatar { border-radius: "+this.config.avatarRadius+"% !important }",
       (this.config.revertReplies ? ".activity-header + .tweet .tweet-context { margin-left: -35px } .activity-header + .tweet .tweet-context .obj-left { margin-right: 5px }" : ""),
+      (this.config.revertIcons ? `
+@font-face { font-family: 'tweetdeckold'; src: url(\"https://ton.twimg.com/tweetdeck-web/web/assets/fonts/tweetdeck-regular-webfont.5f4ea87976.woff\") format(\"woff\"); font-weight: normal; font-style: normal }
+.icon-reply:before{content:"\\f006";font-family:tweetdeckold}
+.icon-favorite:before{content:"\\f055";font-family:tweetdeckold}
+.icon-retweet:before{content:"\\f008";font-family:tweetdeckold}
+.icon-follow:before{content:"\\f035";font-family:tweetdeckold}
+.icon-user-dd:before{content:"\\f01a";font-family:tweetdeckold}` : ""),
       "</style>"
     ].join(""));
   };
