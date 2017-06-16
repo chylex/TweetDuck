@@ -188,6 +188,7 @@ enabled(){
     });
     
     ele.val(value);
+    ele.trigger("change");
     ele.focus();
     
     ele[0].selectionStart = ele[0].selectionEnd = value.length;
@@ -237,6 +238,7 @@ enabled(){
         }
         
         ele.prop("disabled", false);
+        ele.trigger("change");
         ele.focus();
         
         ele[0].selectionStart = selStart+indexOffset;
@@ -362,10 +364,6 @@ enabled(){
     ele.on("click", "button", function(e){
       switch($(this).attr("data-action")){
         case "new-template":
-          
-          toggleEditor();
-          break;
-          
         case "editor-cancel":
           toggleEditor();
           break;
