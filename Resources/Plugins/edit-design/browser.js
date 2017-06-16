@@ -491,7 +491,8 @@ enabled(){
 .icon-play-badge:before{content:"\\f060";font-family:tweetdeckold}
 .icon-gif-badge:before{content:"\\f061";font-family:tweetdeckold}
 .icon-poll:before{content:"\\f062";font-family:tweetdeckold}
-`;
+
+.column-header .column-type-icon { bottom: 26px !important }`;
       
       document.head.appendChild(this.icons);
     }
