@@ -153,17 +153,22 @@ enabled(){
     return [ contents, data ];
   };
   
-  var doAjaxRequest = (url, evaluator) => {
+  var doAjaxRequest = (index, url, evaluator) => {
     return new Promise((resolve, reject) => {
+      if (!url){
+        resolve([ index, "{ajax}" ]);
+        return;
+      }
+      
       $.get(url, function(data){
         if (evaluator){
-          resolve(eval(evaluator.replace(/\$/g, "'"+data.replace(/(["'\\\n\r\u2028\u2029])/g, "\\$1")+"'")));
+          resolve([ index, eval(evaluator.replace(/\$/g, "'"+data.replace(/(["'\\\n\r\u2028\u2029])/g, "\\$1")+"'"))]);
         }
         else{
-          resolve(data);
+          resolve([ index, data ]);
         }
       }, "text").fail(function(){
-        resolve("");
+        resolve([ index, "" ]);
       });
     });
   };
@@ -205,23 +210,8 @@ enabled(){
             url = evaluator;
             evaluator = null;
           }
-          
-          if (!url){
-            break;
-          }
 
-          promises.push(doAjaxRequest(url, evaluator).then(result => {
-            const placeholderLen = 5; // "(...)".length
-            
-            let diff = result.length-placeholderLen;
-            let realIndex = indexOffset+index2;
-            
-            let val = ele.val();
-            ele.val(val.substring(0, realIndex)+result+val.substring(realIndex+placeholderLen));
-            
-            indexOffset += diff;
-          }));
-          
+          promises.push(doAjaxRequest(index2, url, evaluator));
           break;
       }
     }
@@ -232,7 +222,20 @@ enabled(){
       
       ele.prop("disabled", true);
       
-      Promise.all(promises).then(() => {
+      Promise.all(promises).then(values => {
+        const placeholderLen = 5; // "(...)".length
+        let indexOffset = 0;
+        
+        for(let value of values){
+          let diff = value[1].length-placeholderLen;
+          let realIndex = indexOffset+value[0];
+          
+          let val = ele.val();
+          ele.val(val.substring(0, realIndex)+value[1]+val.substring(realIndex+placeholderLen));
+          
+          indexOffset += diff;
+        }
+        
         ele.prop("disabled", false);
         ele.focus();
         
