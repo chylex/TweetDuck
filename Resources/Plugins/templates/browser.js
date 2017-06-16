@@ -205,6 +205,10 @@ enabled(){
             url = evaluator;
             evaluator = null;
           }
+          
+          if (!url){
+            break;
+          }
 
           promises.push(doAjaxRequest(url, evaluator).then(result => {
             const placeholderLen = 5; // "(...)".length
@@ -373,12 +377,16 @@ enabled(){
           let name = $("[name='template-name']", editor).val();
           let identifier = name.toLowerCase().replace(/[^a-z0-9]/g, "")+"-"+(Math.random().toString(36).substring(2, 7));
           
+          if (name.trim().length === 0){
+            alert("Please, include a name for your template.");
+            $("[name='template-name']", editor).focus();
+            return;
+          }
+          
           me.config.templates[identifier] = {
             name: name,
             contents: $("[name='template-contents']", editor).val()
           };
-          
-          // TODO check validity
           
           toggleEditor();
           onTemplatesUpdated(true);
