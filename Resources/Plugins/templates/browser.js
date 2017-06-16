@@ -48,8 +48,10 @@ enabled(){
   // css
   
   this.css = window.TDPF_createCustomStyle(this);
+  this.css.insert(".manage-templates-btn.active { color: #fff; box-shadow: 0 0 2px 3px #50a5e6; outline: 0; }");
+  
   this.css.insert(".templates-modal-wrap { width: 100%; height: 100%; padding: 49px; position: absolute; z-index: 999; box-sizing: border-box; background-color: rgba(0, 0, 0, 0.5); }");
-  this.css.insert(".templates-modal { width: 100%; height: 100%; background-color: #fff; display: flex; }"); // TODO fix things when the columns are scrolled to left
+  this.css.insert(".templates-modal { width: 100%; height: 100%; background-color: #fff; display: flex; }");
   this.css.insert(".templates-modal > div { display: flex; flex-direction: column; }");
   this.css.insert(".templates-modal-bottom { flex: 0 0 auto; padding: 16px; text-align: right; }");
   this.css.insert(".templates-modal-bottom button { margin-left: 4px; }");
@@ -197,11 +199,13 @@ enabled(){
           }
 
           promises.push(doAjaxRequest(url, evaluator).then(result => {
-            let diff = result.length-5; // "(...)".length
+            const placeholderLen = 5; // "(...)".length
+            
+            let diff = result.length-placeholderLen;
             let realIndex = indexOffset+index2;
             
             let val = ele.val();
-            ele.val(val.substring(0, realIndex)+result+val.substring(realIndex+5));
+            ele.val(val.substring(0, realIndex)+result+val.substring(realIndex+placeholderLen));
             
             indexOffset += diff;
           }));
@@ -235,6 +239,8 @@ enabled(){
   this.editingTemplate = null;
   
   var showTemplateModal = () => {
+    $(".manage-templates-btn").addClass("active");
+    
     let html = `
 <div class="templates-modal-wrap">
   <div class="templates-modal">
@@ -371,6 +377,7 @@ enabled(){
   
   var hideTemplateModal = function(){
     $(".templates-modal-wrap").remove();
+    $(".manage-templates-btn").removeClass("active");
   };
   
   var toggleEditor = function(){
