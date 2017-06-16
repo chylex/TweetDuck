@@ -14,7 +14,6 @@ namespace UnitTests.Core.Utils{
             foreach(var pos in Positions){
                 Assert.AreEqual(string.Empty, new InjectedHTML(pos, "b", "b").Inject(string.Empty));
                 Assert.AreEqual("aaaa", new InjectedHTML(pos, "b", "b").Inject("aaaa"));
-                
             }
         }
 
