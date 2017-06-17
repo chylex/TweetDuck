@@ -637,6 +637,15 @@
     styleOfficial.sheet.insertRule(".app-navigator .tooltip { display: none !important; }", 0); // hide broken tooltips in the menu
     styleOfficial.sheet.insertRule(".account-inline .username { vertical-align: 10%; }", 0); // move usernames a bit higher
     
+    styleOfficial.sheet.insertRule(".btn-compose, .app-search-fake, .app-search-input { border-radius: 1px; }", 0); // use consistent menu button radius
+    styleOfficial.sheet.insertRule(".is-condensed .app-header-inner { padding-top: 10px !important; }", 0); // add extra padding to menu buttons when condensed
+    styleOfficial.sheet.insertRule(".is-condensed .btn-compose { padding: 8px !important; }", 0); // fix compose button icon when condensed
+    styleOfficial.sheet.insertRule(".app-header:not(.is-condensed) .nav-user-info { padding: 0 5px; }", 0); // add padding to user info
+    
+    styleOfficial.sheet.insertRule(".app-title { display: none; }", 0); // hide TweetDeck logo
+    styleOfficial.sheet.insertRule(".nav-user-info { bottom: 10px !important; }", 0); // move user info
+    styleOfficial.sheet.insertRule(".app-navigator { bottom: 50px !important; }", 0); // move navigation
+    
     styleOfficial.sheet.insertRule(".column .column-header { height: 49px !important; }", 0); // fix one pixel space below column header
     styleOfficial.sheet.insertRule(".column:not(.is-options-open) .column-header { border-bottom: none; }", 0); // fix one pixel space below column header
     
