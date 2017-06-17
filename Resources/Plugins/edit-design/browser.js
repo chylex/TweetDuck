@@ -500,8 +500,8 @@ enabled(){
     if (this.config.columnWidth[0] === '/'){
       let cols = this.config.columnWidth.slice(1);
       
-      this.css.insert(".column { width: calc((100vw - 205px) / "+cols+" - 8px) !important }");
-      this.css.insert(".is-condensed .column { width: calc((100vw - 55px) / "+cols+" - 8px) !important }");
+      this.css.insert(".column { width: calc((100vw - 205px) / "+cols+" - 6px) !important }");
+      this.css.insert(".is-condensed .column { width: calc((100vw - 55px) / "+cols+" - 6px) !important }");
     }
     else{
       this.css.insert(".column { width: "+this.config.columnWidth+" !important }");
