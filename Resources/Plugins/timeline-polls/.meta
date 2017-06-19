@@ -2,14 +2,13 @@
 Polls in timelines
 
 [description]
-- Adds poll result display directly into timelines
-- Experimental, may be buggy or break when TweetDeck updates
+- Adds poll results into timelines and quoted tweets
 
 [author]
 chylex
 
 [version]
-1.0.1
+1.1
 
 [website]
 https://tweetduck.chylex.com

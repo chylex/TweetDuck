@@ -1,25 +1,74 @@
-constructor(){
-  super({
-    requiresPageReload: true
-  });
-}
-
 enabled(){
-  // add a stylesheet
-  window.TDPF_createCustomStyle(this).insert(".column-detail .timeline-poll-container { display: none }");
-  
-  // setup layout injecting
-  var injectLayout = (mustache, onlyIfNotFound, search, replace) => {
-    if (TD.mustaches[mustache].indexOf(onlyIfNotFound) === -1){
-      TD.mustaches[mustache] = TD.mustaches[mustache].replace(search, replace);
-    }
+  this.reloadColumns = () => {
+    Object.values(TD.controller.columnManager.getAll()).forEach(column => column.reloadTweets());
   };
-
-  // add poll rendering to tweets
-  injectLayout("status/tweet_single.mustache", "status/poll", "{{/quotedTweetMissing}} {{#translation}}", "{{/quotedTweetMissing}} <div class='timeline-poll-container td-screenshot-remove'>{{#poll}}{{>duck/tweet_single/poll}}{{/poll}}</div> {{#translation}}");
-  TD.mustaches["duck/tweet_single/poll.mustache"] = '<div class="js-poll margin-tl"> {{#poll}}  <ul class="margin-b--12"> {{#choices}} <li class="position-rel margin-b--8 height-3"> <div class="poll-bar pin-top height-p--100 br-1 {{#isWinner}}poll-bar--winner{{/isWinner}} {{#hasTimeLeft}}br-left{{/hasTimeLeft}} width-p--{{percentage}}"/>  <div class="poll-label position-rel padding-a--4"> <span class="txt-bold txt-right inline-block width-5 padding-r--4">{{percentage}}%</span> {{{label}}} {{#isSelectedChoice}} <i class="icon icon-check txt-size-variable--11"></i> {{/isSelectedChoice}} </div> </li> {{/choices}} </ul> <span class="inline-block txt-small padding-ls txt-seamful-deep-gray"> {{{prettyCount}}} &middot; {{#hasTimeLeft}} {{{prettyTimeLeft}}} {{/hasTimeLeft}} {{^hasTimeLeft}} {{_i}}Final results{{/i}} {{/hasTimeLeft}} </span> {{/poll}} </div>';
+  
+  // styles
+  
+  this.css = window.TDPF_createCustomStyle(this);
+  this.css.insert("html[data-td-theme='dark'] .quoted-tweet .td-timeline-poll { color: #e1e8ed; }");
+  
+  // utility functions
+  
+  var hasPoll = function(tweet){
+    return tweet.hasPoll && tweet.hasPoll();
+  };
+  
+  var renderTweetPoll = function(tweet){
+    return `<div class='td-timeline-poll'>${TD.ui.template.render("status/poll", $.extend({}, tweet, {
+      chirp: tweet
+    }))}</div>`;
+  };
+  
+  var renderPollHook = function(tweet, html){
+    let ele = null;
+    
+    if (hasPoll(tweet)){
+      (ele || (ele = $(html))).find(".js-tweet-body").first().children("div").last().after(renderTweetPoll(tweet));
+    }
+    
+    if (tweet.quotedTweet && hasPoll(tweet.quotedTweet)){
+      (ele || (ele = $(html))).find(".js-quoted-tweet-text").first().after(renderTweetPoll(tweet.quotedTweet));
+    }
+    
+    return ele ? ele.prop("outerHTML") : html;
+  };
+  
+  // hooks
+  
+  var funcs = {
+    TwitterStatus: TD.services.TwitterStatus.prototype.render,
+    TwitterActionOnTweet: TD.services.TwitterActionOnTweet.prototype.render,
+    TweetDetailView: TD.components.TweetDetailView.prototype._renderChirp
+  };
+  
+  TD.services.TwitterStatus.prototype.render = function(e){
+    return renderPollHook(this, funcs.TwitterStatus.apply(this, arguments));
+  };
+  
+  TD.services.TwitterActionOnTweet.prototype.render = function(e){
+    return renderPollHook(this.targetTweet, funcs.TwitterActionOnTweet.apply(this, arguments));
+  };
+  
+  TD.components.TweetDetailView.prototype._renderChirp = function(){
+    let result = funcs.TweetDetailView.apply(this, arguments);
+    
+    if (this.mainChirp.quotedTweet && hasPoll(this.mainChirp.quotedTweet)){
+      $(this.$tweetDetail).find(".js-quoted-tweet-text").first().after(renderTweetPoll(this.mainChirp.quotedTweet));
+    }
+    
+    return result;
+  };
+  
+  this.prevRenderFuncs = funcs;
+  this.reloadColumns();
 }
 
 disabled(){
-  // not needed, plugin reloads the page when enabled or disabled
+  TD.services.TwitterStatus.prototype.render = this.prevRenderFuncs.TwitterStatus;
+  TD.services.TwitterActionOnTweet.prototype.render = this.prevRenderFuncs.TwitterActionOnTweet;
+  TD.components.TweetDetailView.prototype._renderChirp = this.prevRenderFuncs.TweetDetailView;
+  
+  this.css.remove();
+  this.reloadColumns();
 }
