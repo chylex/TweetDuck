@@ -8,7 +8,7 @@ enabled(){
     
     if (e.keyCode === 115){
       this.isDebugging = !this.isDebugging;
-      $(".app-title").first().css("background-color", this.isDebugging ? "#5A6B75" : "#292F33");
+      $(".nav-user-info").first().css("background-color", this.isDebugging ? "#5A6B75" : "#292F33");
     }
     
     // Debug mode handling
