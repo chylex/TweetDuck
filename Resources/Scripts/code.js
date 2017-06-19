@@ -651,6 +651,7 @@
     styleOfficial.sheet.insertRule(".app-title { display: none; }", 0); // hide TweetDeck logo
     styleOfficial.sheet.insertRule(".nav-user-info { bottom: 10px !important; }", 0); // move user info
     styleOfficial.sheet.insertRule(".app-navigator { bottom: 50px !important; }", 0); // move navigation
+    styleOfficial.sheet.insertRule(".column-navigator-overflow { bottom: 192px !important; }", 0); // move column list
     
     styleOfficial.sheet.insertRule(".column .column-header { height: 49px !important; }", 0); // fix one pixel space below column header
     styleOfficial.sheet.insertRule(".column:not(.is-options-open) .column-header { border-bottom: none; }", 0); // fix one pixel space below column header
