@@ -195,10 +195,16 @@
     $TD.loadFontSizeClass(name);
   });
   
-  TD.settings.setTheme = appendToFunction(TD.settings.setTheme, function(){
+  TD.settings.setTheme = appendToFunction(TD.settings.setTheme, function(name){
+    document.documentElement.setAttribute("data-td-theme", name);
+    
     setTimeout(function(){
       $TD.loadNotificationHeadContents(getNotificationHeadContents());
     }, 0);
+  });
+  
+  onAppReady.push(function(){
+    document.documentElement.setAttribute("data-td-theme", TD.settings.getTheme());
   });
   
   //
