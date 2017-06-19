@@ -19,8 +19,6 @@ enabled(){
     [ "1F3FF", "#8A6859" ],
   ];
   
-  this.emojiURL = "https://ton.twimg.com/tweetdeck-web/web/assets/emoji/";
-  
   this.emojiData1 = []; // no skin tones, prepended
   this.emojiData2 = {}; // contains emojis with skin tones
   this.emojiData3 = []; // no skin tones, appended
@@ -66,6 +64,8 @@ enabled(){
     
     $(this.currentSpanner).remove();
     this.currentSpanner = null;
+    
+    this.currentKeywords = [];
     
     this.composePanelScroller.trigger("scroll");
     
