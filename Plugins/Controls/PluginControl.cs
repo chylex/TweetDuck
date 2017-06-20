@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -32,7 +31,7 @@ namespace TweetDuck.Plugins.Controls{
                 labelDescription.Visible = false;
             }
 
-            panelDescription_Resize(panelDescription, new EventArgs());
+            panelDescription_Resize(panelDescription, null);
         }
 
         private void panelDescription_Resize(object sender, EventArgs e){

@@ -50,6 +50,10 @@ namespace TweetDuck.Core.Other{
 
             flowLayoutPlugins.ResumeLayout(true);
             flowLayoutPlugins_Resize(flowLayoutPlugins, new EventArgs());
+            
+            // sorry, I guess...
+            Padding = new Padding(Padding.Left, Padding.Top, Padding.Right+1, Padding.Bottom);
+            Padding = new Padding(Padding.Left, Padding.Top, Padding.Right-1, Padding.Bottom);
         }
 
         private void flowLayoutPlugins_Resize(object sender, EventArgs e){
@@ -67,7 +71,8 @@ namespace TweetDuck.Core.Other{
             foreach(Control control in flowLayoutPlugins.Controls){
                 control.Width = flowLayoutPlugins.Width-control.Margin.Horizontal-horizontalOffset;
             }
-
+            
+            lastControl.Visible = !showScrollBar;
             flowLayoutPlugins.Focus();
         }
 
