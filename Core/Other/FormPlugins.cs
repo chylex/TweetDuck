@@ -49,7 +49,6 @@ namespace TweetDuck.Core.Other{
             }
 
             flowLayoutPlugins.ResumeLayout(true);
-            flowLayoutPlugins_Resize(flowLayoutPlugins, new EventArgs());
             
             // sorry, I guess...
             Padding = new Padding(Padding.Left, Padding.Top, Padding.Right+1, Padding.Bottom);
