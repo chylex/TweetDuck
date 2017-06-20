@@ -83,15 +83,6 @@
     <Compile Include="Core\Controls\LabelVertical.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Core\Controls\TabButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Core\Controls\TabPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Core\Controls\TabPanel.Designer.cs">
-      <DependentUpon>TabPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="Core\Handling\BrowserProcessHandler.cs" />
     <Compile Include="Core\Handling\ContextMenuBase.cs" />
     <Compile Include="Core\Handling\ContextMenuBrowser.cs" />
