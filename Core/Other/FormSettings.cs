@@ -95,6 +95,7 @@ namespace TweetDuck.Core.Other{
             panelContents.Controls.Clear();
             panelContents.Controls.Add(tab.Control);
             panelContents.ResumeLayout(true);
+            panelContents.Focus();
 
             currentTab = tab;
         }
