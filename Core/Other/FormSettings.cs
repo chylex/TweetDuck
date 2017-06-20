@@ -49,6 +49,7 @@ namespace TweetDuck.Core.Other{
             const int btnHeight = 39;
 
             FlatButton btn = new FlatButton{
+                BackColor = SystemColors.Control,
                 FlatStyle = FlatStyle.Flat,
                 Location = new Point(0, (btnHeight+1)*(panelButtons.Controls.Count/2)),
                 Margin = new Padding(0),
@@ -58,14 +59,14 @@ namespace TweetDuck.Core.Other{
             };
 
             btn.FlatAppearance.BorderSize = 0;
-            btn.FlatAppearance.MouseDownBackColor = Color.White;
-            btn.FlatAppearance.MouseOverBackColor = Color.White;
+            btn.FlatAppearance.MouseDownBackColor = Color.FromArgb(179, 213, 232);
+            btn.FlatAppearance.MouseOverBackColor = Color.FromArgb(216, 230, 237);
             
             panelButtons.Controls.Add(btn);
 
             panelButtons.Controls.Add(new Panel{
                 BackColor = Color.DimGray,
-                Location = new Point(0, panelButtons.Controls[panelButtons.Controls.Count-1].Location.Y+btnHeight+1),
+                Location = new Point(0, panelButtons.Controls[panelButtons.Controls.Count-1].Location.Y+btnHeight),
                 Margin = new Padding(0),
                 Size = new Size(panelButtons.Width, 1)
             });
@@ -84,7 +85,7 @@ namespace TweetDuck.Core.Other{
                 currentTab.Button.BackColor = SystemColors.Control;
             }
             
-            tab.Button.BackColor = Color.White;
+            tab.Button.BackColor = tab.Button.FlatAppearance.MouseDownBackColor;
 
             if (!tab.IsInitialized){
                 tab.Control.OnReady();

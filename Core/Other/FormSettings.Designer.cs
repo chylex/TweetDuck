@@ -33,7 +33,7 @@
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.AutoSize = true;
-            this.btnClose.Location = new System.Drawing.Point(573, 349);
+            this.btnClose.Location = new System.Drawing.Point(449, 447);
             this.btnClose.Name = "btnClose";
             this.btnClose.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnClose.Size = new System.Drawing.Size(49, 23);
@@ -46,7 +46,7 @@
             // 
             this.labelTip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelTip.AutoSize = true;
-            this.labelTip.Location = new System.Drawing.Point(12, 351);
+            this.labelTip.Location = new System.Drawing.Point(12, 449);
             this.labelTip.Name = "labelTip";
             this.labelTip.Size = new System.Drawing.Size(310, 13);
             this.labelTip.TabIndex = 2;
@@ -62,23 +62,25 @@
             this.panelContents.Location = new System.Drawing.Point(135, 12);
             this.panelContents.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.panelContents.Name = "panelContents";
-            this.panelContents.Size = new System.Drawing.Size(487, 331);
+            this.panelContents.Size = new System.Drawing.Size(363, 429);
             this.panelContents.TabIndex = 1;
             // 
             // panelButtons
             // 
+            this.panelButtons.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.panelButtons.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelButtons.Location = new System.Drawing.Point(12, 12);
             this.panelButtons.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.panelButtons.Name = "panelButtons";
-            this.panelButtons.Size = new System.Drawing.Size(124, 331);
+            this.panelButtons.Size = new System.Drawing.Size(124, 429);
             this.panelButtons.TabIndex = 0;
             // 
             // FormSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(634, 384);
+            this.ClientSize = new System.Drawing.Size(510, 482);
             this.Controls.Add(this.panelContents);
             this.Controls.Add(this.panelButtons);
             this.Controls.Add(this.labelTip);
