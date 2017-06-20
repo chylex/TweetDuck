@@ -33,23 +33,26 @@
             this.btnCheckUpdates = new System.Windows.Forms.Button();
             this.labelZoomValue = new System.Windows.Forms.Label();
             this.checkSwitchAccountSelectors = new System.Windows.Forms.CheckBox();
-            this.groupTray = new System.Windows.Forms.GroupBox();
             this.labelTrayIcon = new System.Windows.Forms.Label();
-            this.groupInterface = new System.Windows.Forms.GroupBox();
             this.trackBarZoom = new System.Windows.Forms.TrackBar();
             this.labelZoom = new System.Windows.Forms.Label();
-            this.groupUpdates = new System.Windows.Forms.GroupBox();
             this.zoomUpdateTimer = new System.Windows.Forms.Timer(this.components);
-            this.groupTray.SuspendLayout();
-            this.groupInterface.SuspendLayout();
+            this.labelUI = new System.Windows.Forms.Label();
+            this.panelUI = new System.Windows.Forms.Panel();
+            this.labelTray = new System.Windows.Forms.Label();
+            this.panelUpdates = new System.Windows.Forms.Panel();
+            this.panelTray = new System.Windows.Forms.Panel();
+            this.labelUpdates = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).BeginInit();
-            this.groupUpdates.SuspendLayout();
+            this.panelUI.SuspendLayout();
+            this.panelUpdates.SuspendLayout();
+            this.panelTray.SuspendLayout();
             this.SuspendLayout();
             // 
             // checkExpandLinks
             // 
             this.checkExpandLinks.AutoSize = true;
-            this.checkExpandLinks.Location = new System.Drawing.Point(9, 21);
+            this.checkExpandLinks.Location = new System.Drawing.Point(6, 5);
             this.checkExpandLinks.Margin = new System.Windows.Forms.Padding(6, 5, 3, 3);
             this.checkExpandLinks.Name = "checkExpandLinks";
             this.checkExpandLinks.Size = new System.Drawing.Size(166, 17);
@@ -63,7 +66,8 @@
             // 
             this.comboBoxTrayType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTrayType.FormattingEnabled = true;
-            this.comboBoxTrayType.Location = new System.Drawing.Point(6, 19);
+            this.comboBoxTrayType.Location = new System.Drawing.Point(3, 5);
+            this.comboBoxTrayType.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.comboBoxTrayType.Name = "comboBoxTrayType";
             this.comboBoxTrayType.Size = new System.Drawing.Size(171, 21);
             this.comboBoxTrayType.TabIndex = 0;
@@ -72,7 +76,7 @@
             // checkTrayHighlight
             // 
             this.checkTrayHighlight.AutoSize = true;
-            this.checkTrayHighlight.Location = new System.Drawing.Point(9, 70);
+            this.checkTrayHighlight.Location = new System.Drawing.Point(6, 56);
             this.checkTrayHighlight.Margin = new System.Windows.Forms.Padding(6, 5, 3, 3);
             this.checkTrayHighlight.Name = "checkTrayHighlight";
             this.checkTrayHighlight.Size = new System.Drawing.Size(103, 17);
@@ -85,7 +89,7 @@
             // checkSpellCheck
             // 
             this.checkSpellCheck.AutoSize = true;
-            this.checkSpellCheck.Location = new System.Drawing.Point(9, 67);
+            this.checkSpellCheck.Location = new System.Drawing.Point(6, 51);
             this.checkSpellCheck.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.checkSpellCheck.Name = "checkSpellCheck";
             this.checkSpellCheck.Size = new System.Drawing.Size(119, 17);
@@ -97,7 +101,7 @@
             // checkUpdateNotifications
             // 
             this.checkUpdateNotifications.AutoSize = true;
-            this.checkUpdateNotifications.Location = new System.Drawing.Point(9, 21);
+            this.checkUpdateNotifications.Location = new System.Drawing.Point(6, 5);
             this.checkUpdateNotifications.Margin = new System.Windows.Forms.Padding(6, 5, 3, 3);
             this.checkUpdateNotifications.Name = "checkUpdateNotifications";
             this.checkUpdateNotifications.Size = new System.Drawing.Size(165, 17);
@@ -109,7 +113,7 @@
             // 
             // btnCheckUpdates
             // 
-            this.btnCheckUpdates.Location = new System.Drawing.Point(6, 44);
+            this.btnCheckUpdates.Location = new System.Drawing.Point(3, 28);
             this.btnCheckUpdates.Name = "btnCheckUpdates";
             this.btnCheckUpdates.Size = new System.Drawing.Size(171, 23);
             this.btnCheckUpdates.TabIndex = 1;
@@ -119,9 +123,8 @@
             // 
             // labelZoomValue
             // 
-            this.labelZoomValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelZoomValue.BackColor = System.Drawing.Color.Transparent;
-            this.labelZoomValue.Location = new System.Drawing.Point(139, 116);
+            this.labelZoomValue.Location = new System.Drawing.Point(136, 100);
             this.labelZoomValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelZoomValue.Name = "labelZoomValue";
             this.labelZoomValue.Size = new System.Drawing.Size(38, 13);
@@ -133,7 +136,7 @@
             // checkSwitchAccountSelectors
             // 
             this.checkSwitchAccountSelectors.AutoSize = true;
-            this.checkSwitchAccountSelectors.Location = new System.Drawing.Point(9, 44);
+            this.checkSwitchAccountSelectors.Location = new System.Drawing.Point(6, 28);
             this.checkSwitchAccountSelectors.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.checkSwitchAccountSelectors.Name = "checkSwitchAccountSelectors";
             this.checkSwitchAccountSelectors.Size = new System.Drawing.Size(172, 17);
@@ -143,50 +146,22 @@
         "iple accounts, instead of TweetDeck\'s default behavior.");
             this.checkSwitchAccountSelectors.UseVisualStyleBackColor = true;
             // 
-            // groupTray
-            // 
-            this.groupTray.Controls.Add(this.checkTrayHighlight);
-            this.groupTray.Controls.Add(this.labelTrayIcon);
-            this.groupTray.Controls.Add(this.comboBoxTrayType);
-            this.groupTray.Location = new System.Drawing.Point(9, 168);
-            this.groupTray.Name = "groupTray";
-            this.groupTray.Size = new System.Drawing.Size(183, 93);
-            this.groupTray.TabIndex = 1;
-            this.groupTray.TabStop = false;
-            this.groupTray.Text = "System Tray";
-            // 
             // labelTrayIcon
             // 
             this.labelTrayIcon.AutoSize = true;
-            this.labelTrayIcon.Location = new System.Drawing.Point(6, 52);
+            this.labelTrayIcon.Location = new System.Drawing.Point(3, 38);
             this.labelTrayIcon.Margin = new System.Windows.Forms.Padding(3, 9, 3, 0);
             this.labelTrayIcon.Name = "labelTrayIcon";
             this.labelTrayIcon.Size = new System.Drawing.Size(52, 13);
             this.labelTrayIcon.TabIndex = 1;
             this.labelTrayIcon.Text = "Tray Icon";
             // 
-            // groupInterface
-            // 
-            this.groupInterface.Controls.Add(this.checkSwitchAccountSelectors);
-            this.groupInterface.Controls.Add(this.labelZoomValue);
-            this.groupInterface.Controls.Add(this.trackBarZoom);
-            this.groupInterface.Controls.Add(this.labelZoom);
-            this.groupInterface.Controls.Add(this.checkSpellCheck);
-            this.groupInterface.Controls.Add(this.checkExpandLinks);
-            this.groupInterface.Location = new System.Drawing.Point(9, 9);
-            this.groupInterface.Name = "groupInterface";
-            this.groupInterface.Size = new System.Drawing.Size(183, 153);
-            this.groupInterface.TabIndex = 0;
-            this.groupInterface.TabStop = false;
-            this.groupInterface.Text = "User Interface";
-            // 
             // trackBarZoom
             // 
-            this.trackBarZoom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBarZoom.AutoSize = false;
+            this.trackBarZoom.BackColor = System.Drawing.SystemColors.Control;
             this.trackBarZoom.LargeChange = 25;
-            this.trackBarZoom.Location = new System.Drawing.Point(6, 115);
+            this.trackBarZoom.Location = new System.Drawing.Point(3, 99);
             this.trackBarZoom.Maximum = 200;
             this.trackBarZoom.Minimum = 50;
             this.trackBarZoom.Name = "trackBarZoom";
@@ -198,49 +173,111 @@
             // 
             // labelZoom
             // 
-            this.labelZoom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.labelZoom.AutoSize = true;
-            this.labelZoom.Location = new System.Drawing.Point(5, 99);
+            this.labelZoom.Location = new System.Drawing.Point(3, 83);
             this.labelZoom.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelZoom.Name = "labelZoom";
             this.labelZoom.Size = new System.Drawing.Size(34, 13);
             this.labelZoom.TabIndex = 3;
             this.labelZoom.Text = "Zoom";
             // 
-            // groupUpdates
-            // 
-            this.groupUpdates.Controls.Add(this.checkUpdateNotifications);
-            this.groupUpdates.Controls.Add(this.btnCheckUpdates);
-            this.groupUpdates.Location = new System.Drawing.Point(198, 9);
-            this.groupUpdates.Name = "groupUpdates";
-            this.groupUpdates.Size = new System.Drawing.Size(183, 75);
-            this.groupUpdates.TabIndex = 2;
-            this.groupUpdates.TabStop = false;
-            this.groupUpdates.Text = "Updates";
-            // 
             // zoomUpdateTimer
             // 
             this.zoomUpdateTimer.Interval = 250;
             this.zoomUpdateTimer.Tick += new System.EventHandler(this.zoomUpdateTimer_Tick);
             // 
+            // labelUI
+            // 
+            this.labelUI.AutoSize = true;
+            this.labelUI.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelUI.Location = new System.Drawing.Point(6, 8);
+            this.labelUI.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);
+            this.labelUI.Name = "labelUI";
+            this.labelUI.Size = new System.Drawing.Size(111, 20);
+            this.labelUI.TabIndex = 0;
+            this.labelUI.Text = "User Interface";
+            // 
+            // panelUI
+            // 
+            this.panelUI.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelUI.Controls.Add(this.checkExpandLinks);
+            this.panelUI.Controls.Add(this.checkSwitchAccountSelectors);
+            this.panelUI.Controls.Add(this.checkSpellCheck);
+            this.panelUI.Controls.Add(this.labelZoom);
+            this.panelUI.Controls.Add(this.labelZoomValue);
+            this.panelUI.Controls.Add(this.trackBarZoom);
+            this.panelUI.Location = new System.Drawing.Point(9, 31);
+            this.panelUI.Name = "panelUI";
+            this.panelUI.Size = new System.Drawing.Size(322, 134);
+            this.panelUI.TabIndex = 1;
+            // 
+            // labelTray
+            // 
+            this.labelTray.AutoSize = true;
+            this.labelTray.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelTray.Location = new System.Drawing.Point(5, 189);
+            this.labelTray.Margin = new System.Windows.Forms.Padding(0, 21, 0, 0);
+            this.labelTray.Name = "labelTray";
+            this.labelTray.Size = new System.Drawing.Size(96, 20);
+            this.labelTray.TabIndex = 2;
+            this.labelTray.Text = "System Tray";
+            // 
+            // panelUpdates
+            // 
+            this.panelUpdates.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelUpdates.Controls.Add(this.checkUpdateNotifications);
+            this.panelUpdates.Controls.Add(this.btnCheckUpdates);
+            this.panelUpdates.Location = new System.Drawing.Point(9, 335);
+            this.panelUpdates.Name = "panelUpdates";
+            this.panelUpdates.Size = new System.Drawing.Size(322, 55);
+            this.panelUpdates.TabIndex = 5;
+            // 
+            // panelTray
+            // 
+            this.panelTray.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelTray.Controls.Add(this.checkTrayHighlight);
+            this.panelTray.Controls.Add(this.comboBoxTrayType);
+            this.panelTray.Controls.Add(this.labelTrayIcon);
+            this.panelTray.Location = new System.Drawing.Point(9, 212);
+            this.panelTray.Name = "panelTray";
+            this.panelTray.Size = new System.Drawing.Size(322, 76);
+            this.panelTray.TabIndex = 3;
+            // 
+            // labelUpdates
+            // 
+            this.labelUpdates.AutoSize = true;
+            this.labelUpdates.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelUpdates.Location = new System.Drawing.Point(6, 312);
+            this.labelUpdates.Margin = new System.Windows.Forms.Padding(0, 21, 0, 0);
+            this.labelUpdates.Name = "labelUpdates";
+            this.labelUpdates.Size = new System.Drawing.Size(70, 20);
+            this.labelUpdates.TabIndex = 4;
+            this.labelUpdates.Text = "Updates";
+            // 
             // TabSettingsGeneral
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.groupUpdates);
-            this.Controls.Add(this.groupInterface);
-            this.Controls.Add(this.groupTray);
+            this.Controls.Add(this.labelUpdates);
+            this.Controls.Add(this.panelTray);
+            this.Controls.Add(this.panelUpdates);
+            this.Controls.Add(this.labelTray);
+            this.Controls.Add(this.panelUI);
+            this.Controls.Add(this.labelUI);
             this.Name = "TabSettingsGeneral";
-            this.Size = new System.Drawing.Size(478, 300);
-            this.groupTray.ResumeLayout(false);
-            this.groupTray.PerformLayout();
-            this.groupInterface.ResumeLayout(false);
-            this.groupInterface.PerformLayout();
+            this.Size = new System.Drawing.Size(340, 400);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).EndInit();
-            this.groupUpdates.ResumeLayout(false);
-            this.groupUpdates.PerformLayout();
+            this.panelUI.ResumeLayout(false);
+            this.panelUI.PerformLayout();
+            this.panelUpdates.ResumeLayout(false);
+            this.panelUpdates.PerformLayout();
+            this.panelTray.ResumeLayout(false);
+            this.panelTray.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -249,12 +286,9 @@
         private System.Windows.Forms.CheckBox checkExpandLinks;
         private System.Windows.Forms.ComboBox comboBoxTrayType;
         private System.Windows.Forms.ToolTip toolTip;
-        private System.Windows.Forms.GroupBox groupTray;
-        private System.Windows.Forms.GroupBox groupInterface;
         private System.Windows.Forms.Label labelTrayIcon;
         private System.Windows.Forms.CheckBox checkTrayHighlight;
         private System.Windows.Forms.CheckBox checkSpellCheck;
-        private System.Windows.Forms.GroupBox groupUpdates;
         private System.Windows.Forms.CheckBox checkUpdateNotifications;
         private System.Windows.Forms.Button btnCheckUpdates;
         private System.Windows.Forms.Label labelZoom;
@@ -262,5 +296,11 @@
         private System.Windows.Forms.TrackBar trackBarZoom;
         private System.Windows.Forms.Timer zoomUpdateTimer;
         private System.Windows.Forms.CheckBox checkSwitchAccountSelectors;
+        private System.Windows.Forms.Label labelUI;
+        private System.Windows.Forms.Panel panelUI;
+        private System.Windows.Forms.Label labelTray;
+        private System.Windows.Forms.Panel panelUpdates;
+        private System.Windows.Forms.Panel panelTray;
+        private System.Windows.Forms.Label labelUpdates;
     }
 }
