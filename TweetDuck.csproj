@@ -80,6 +80,9 @@
     <Compile Include="Core\Controls\FlatProgressBar.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Core\Controls\LabelVertical.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Core\Controls\TabButton.cs">
       <SubType>Component</SubType>
     </Compile>
