@@ -12,6 +12,7 @@ using TweetDuck.Core.Handling;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Notification.Screenshot;
 using TweetDuck.Core.Other;
+using TweetDuck.Core.Other.Settings;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
 using TweetDuck.Plugins.Enums;
@@ -317,7 +318,7 @@ namespace TweetDuck.Core{
                 btnOpenSettings.Location = new Point(btnOpenSettings.Location.X-16, btnOpenSettings.Location.Y);
 
                 if (form.ShowDialog() == DialogResult.OK && form.ClickedButton == btnOpenSettings){
-                    OpenSettings(FormSettings.TabIndexSounds);
+                    OpenSettings(typeof(TabSettingsSounds));
                 }
             }
         }
@@ -376,14 +377,14 @@ namespace TweetDuck.Core{
         }
 
         public void OpenSettings(){
-            OpenSettings(0);
+            OpenSettings(null);
         }
 
-        public void OpenSettings(int tabIndex){
+        public void OpenSettings(Type startTab){
             if (!TryBringToFront<FormSettings>()){
                 bool prevEnableUpdateCheck = Config.EnableUpdateCheck;
 
-                FormSettings form = new FormSettings(this, plugins, updates, tabIndex);
+                FormSettings form = new FormSettings(this, plugins, updates, startTab);
 
                 form.FormClosed += (sender, args) => {
                     if (!prevEnableUpdateCheck && Config.EnableUpdateCheck){
