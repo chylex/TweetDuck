@@ -26,7 +26,7 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.btnReload = new System.Windows.Forms.Button();
             this.btnOpenFolder = new System.Windows.Forms.Button();
-            this.tabPanelPlugins = new TweetDuck.Core.Controls.TabPanel();
+            this.flowLayoutPlugins = new TweetDuck.Plugins.Controls.PluginListFlowLayout();
             this.SuspendLayout();
             // 
             // btnClose
@@ -68,22 +68,26 @@
             this.btnOpenFolder.UseVisualStyleBackColor = true;
             this.btnOpenFolder.Click += new System.EventHandler(this.btnOpenFolder_Click);
             // 
-            // tabPanelPlugins
+            // flowLayoutPlugins
             // 
-            this.tabPanelPlugins.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.flowLayoutPlugins.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabPanelPlugins.Location = new System.Drawing.Point(12, 12);
-            this.tabPanelPlugins.Name = "tabPanelPlugins";
-            this.tabPanelPlugins.Size = new System.Drawing.Size(680, 421);
-            this.tabPanelPlugins.TabIndex = 0;
+            this.flowLayoutPlugins.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.flowLayoutPlugins.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPlugins.Location = new System.Drawing.Point(12, 12);
+            this.flowLayoutPlugins.Name = "flowLayoutPlugins";
+            this.flowLayoutPlugins.Size = new System.Drawing.Size(680, 421);
+            this.flowLayoutPlugins.TabIndex = 0;
+            this.flowLayoutPlugins.WrapContents = false;
+            this.flowLayoutPlugins.Resize += new System.EventHandler(this.flowLayoutPlugins_Resize);
             // 
             // FormPlugins
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(704, 474);
-            this.Controls.Add(this.tabPanelPlugins);
+            this.Controls.Add(this.flowLayoutPlugins);
             this.Controls.Add(this.btnOpenFolder);
             this.Controls.Add(this.btnReload);
             this.Controls.Add(this.btnClose);
@@ -101,6 +105,6 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnReload;
         private System.Windows.Forms.Button btnOpenFolder;
-        private TweetDuck.Core.Controls.TabPanel tabPanelPlugins;
+        private Plugins.Controls.PluginListFlowLayout flowLayoutPlugins;
     }
 }

@@ -3,19 +3,12 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using TweetDuck.Core.Controls;
 using TweetDuck.Plugins;
 using TweetDuck.Plugins.Controls;
-using TweetDuck.Plugins.Enums;
-using TweetDuck.Plugins.Events;
 
 namespace TweetDuck.Core.Other{
     sealed partial class FormPlugins : Form{
         private readonly PluginManager pluginManager;
-        private readonly TabButton tabBtnOfficial, tabBtnCustom;
-        private readonly PluginListFlowLayout flowLayoutPlugins;
-
-        private PluginGroup? selectedGroup;
 
         public FormPlugins(){
             InitializeComponent();
@@ -25,47 +18,23 @@ namespace TweetDuck.Core.Other{
 
         public FormPlugins(PluginManager pluginManager) : this(){
             this.pluginManager = pluginManager;
-            this.pluginManager.Reloaded += pluginManager_Reloaded;
-
-            this.flowLayoutPlugins = new PluginListFlowLayout();
-            this.flowLayoutPlugins.Resize += flowLayoutPlugins_Resize;
-
-            this.tabPanelPlugins.SetupTabPanel(90);
-            this.tabPanelPlugins.ReplaceContent(flowLayoutPlugins);
-
-            this.tabBtnOfficial = tabPanelPlugins.AddButton("", () => SelectGroup(PluginGroup.Official));
-            this.tabBtnCustom = tabPanelPlugins.AddButton("", () => SelectGroup(PluginGroup.Custom));
-
-            this.pluginManager_Reloaded(pluginManager, null);
 
             Shown += (sender, args) => {
                 Program.UserConfig.PluginsWindow.Restore(this, false);
-                this.tabPanelPlugins.SelectTab(tabBtnOfficial);
+                ReloadPluginTab();
             };
 
             FormClosed += (sender, args) => {
                 Program.UserConfig.PluginsWindow.Save(this);
                 Program.UserConfig.Save();
             };
-
-            Disposed += (sender, args) => this.pluginManager.Reloaded -= pluginManager_Reloaded;
-        }
-
-        private void SelectGroup(PluginGroup group){
-            if (selectedGroup.HasValue && selectedGroup == group)return;
-
-            selectedGroup = group;
-            
-            ReloadPluginTab();
         }
 
         public void ReloadPluginTab(){
-            if (!selectedGroup.HasValue)return;
-
             flowLayoutPlugins.SuspendLayout();
             flowLayoutPlugins.Controls.Clear();
 
-            Plugin[] plugins = pluginManager.GetPluginsByGroup(selectedGroup.Value).OrderBy(plugin => !plugin.CanRun ? 0 : pluginManager.Config.IsEnabled(plugin) ? 1 : 2).ThenBy(plugin => plugin.Name).ToArray();
+            Plugin[] plugins = pluginManager.Plugins.OrderBy(plugin => !plugin.CanRun ? 0 : pluginManager.Config.IsEnabled(plugin) ? 1 : 2).ThenBy(plugin => plugin.Name).ToArray();
 
             for(int index = 0; index < plugins.Length; index++){
                 flowLayoutPlugins.Controls.Add(new PluginControl(pluginManager, plugins[index]));
@@ -80,11 +49,6 @@ namespace TweetDuck.Core.Other{
 
             flowLayoutPlugins.ResumeLayout(true);
             flowLayoutPlugins_Resize(flowLayoutPlugins, new EventArgs());
-        }
-
-        private void pluginManager_Reloaded(object sender, PluginErrorEventArgs e){
-            tabBtnOfficial.Text = "Official: "+pluginManager.CountPluginByGroup(PluginGroup.Official);
-            tabBtnCustom.Text = "Custom: "+pluginManager.CountPluginByGroup(PluginGroup.Custom);
         }
 
         private void flowLayoutPlugins_Resize(object sender, EventArgs e){

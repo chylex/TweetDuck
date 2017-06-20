@@ -62,14 +62,6 @@ namespace TweetDuck.Plugins{
             return plugins.Any(plugin => plugin.Identifier.Equals(identifier));
         }
 
-        public IEnumerable<Plugin> GetPluginsByGroup(PluginGroup group){
-            return plugins.Where(plugin => plugin.Group == group);
-        }
-
-        public int CountPluginByGroup(PluginGroup group){
-            return plugins.Count(plugin => plugin.Group == group);
-        }
-
         public bool HasAnyPlugin(PluginEnvironment environment){
             return plugins.Any(plugin => plugin.Environments.HasFlag(environment));
         }
