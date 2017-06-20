@@ -9,7 +9,7 @@ using TweetDuck.Plugins.Controls;
 namespace TweetDuck.Core.Other{
     sealed partial class FormPlugins : Form{
         private readonly PluginManager pluginManager;
-
+        
         public FormPlugins(){
             InitializeComponent();
 
@@ -21,7 +21,7 @@ namespace TweetDuck.Core.Other{
 
             Shown += (sender, args) => {
                 Program.UserConfig.PluginsWindow.Restore(this, false);
-                ReloadPluginTab();
+                ReloadPluginList();
             };
 
             FormClosed += (sender, args) => {
@@ -30,21 +30,22 @@ namespace TweetDuck.Core.Other{
             };
         }
 
-        public void ReloadPluginTab(){
+        private int GetPluginOrderIndex(Plugin plugin){
+            return !plugin.CanRun ? 0 : pluginManager.Config.IsEnabled(plugin) ? 1 : 2;
+        }
+
+        private void ReloadPluginList(){
             flowLayoutPlugins.SuspendLayout();
             flowLayoutPlugins.Controls.Clear();
 
-            Plugin[] plugins = pluginManager.Plugins.OrderBy(plugin => !plugin.CanRun ? 0 : pluginManager.Config.IsEnabled(plugin) ? 1 : 2).ThenBy(plugin => plugin.Name).ToArray();
+            foreach(Plugin plugin in pluginManager.Plugins.OrderBy(GetPluginOrderIndex).ThenBy(plugin => plugin.Name)){
+                flowLayoutPlugins.Controls.Add(new PluginControl(pluginManager, plugin));
 
-            for(int index = 0; index < plugins.Length; index++){
-                flowLayoutPlugins.Controls.Add(new PluginControl(pluginManager, plugins[index]));
-
-                if (index < plugins.Length-1){
-                    flowLayoutPlugins.Controls.Add(new Panel{
-                        BackColor = Color.DimGray,
-                        Size = new Size(1, 1)
-                    });
-                }
+                flowLayoutPlugins.Controls.Add(new Panel{
+                    BackColor = Color.DimGray,
+                    Margin = new Padding(0),
+                    Size = new Size(1, 1)
+                });
             }
 
             flowLayoutPlugins.ResumeLayout(true);
@@ -77,7 +78,7 @@ namespace TweetDuck.Core.Other{
         private void btnReload_Click(object sender, EventArgs e){
             if (MessageBox.Show("This will also reload the browser window. Do you want to proceed?", "Reloading Plugins", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
                 pluginManager.Reload();
-                ReloadPluginTab();
+                ReloadPluginList();
             }
         }
 

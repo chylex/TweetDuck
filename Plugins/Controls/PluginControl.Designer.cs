@@ -32,6 +32,7 @@
             this.labelWebsite = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
             this.btnOpenConfig = new System.Windows.Forms.Button();
+            this.labelType = new TweetDuck.Core.Controls.LabelVertical();
             this.panelDescription.SuspendLayout();
             this.flowLayoutInfo.SuspendLayout();
             this.SuspendLayout();
@@ -39,7 +40,7 @@
             // btnToggleState
             // 
             this.btnToggleState.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnToggleState.Location = new System.Drawing.Point(459, 80);
+            this.btnToggleState.Location = new System.Drawing.Point(456, 80);
             this.btnToggleState.Name = "btnToggleState";
             this.btnToggleState.Size = new System.Drawing.Size(65, 23);
             this.btnToggleState.TabIndex = 5;
@@ -51,7 +52,7 @@
             // 
             this.labelName.AutoSize = true;
             this.labelName.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelName.Location = new System.Drawing.Point(7, 7);
+            this.labelName.Location = new System.Drawing.Point(24, 7);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(61, 24);
             this.labelName.TabIndex = 0;
@@ -65,9 +66,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelDescription.AutoScroll = true;
             this.panelDescription.Controls.Add(this.labelDescription);
-            this.panelDescription.Location = new System.Drawing.Point(11, 35);
+            this.panelDescription.Location = new System.Drawing.Point(28, 35);
             this.panelDescription.Name = "panelDescription";
-            this.panelDescription.Size = new System.Drawing.Size(513, 39);
+            this.panelDescription.Size = new System.Drawing.Size(493, 39);
             this.panelDescription.TabIndex = 2;
             this.panelDescription.Resize += new System.EventHandler(this.panelDescription_Resize);
             // 
@@ -101,9 +102,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutInfo.Controls.Add(this.labelAuthor);
             this.flowLayoutInfo.Controls.Add(this.labelWebsite);
-            this.flowLayoutInfo.Location = new System.Drawing.Point(11, 85);
+            this.flowLayoutInfo.Location = new System.Drawing.Point(28, 85);
             this.flowLayoutInfo.Name = "flowLayoutInfo";
-            this.flowLayoutInfo.Size = new System.Drawing.Size(368, 18);
+            this.flowLayoutInfo.Size = new System.Drawing.Size(348, 18);
             this.flowLayoutInfo.TabIndex = 3;
             this.flowLayoutInfo.WrapContents = false;
             // 
@@ -128,7 +129,7 @@
             this.labelVersion.Location = new System.Drawing.Point(14, 12);
             this.labelVersion.Margin = new System.Windows.Forms.Padding(3, 9, 3, 0);
             this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(513, 13);
+            this.labelVersion.Size = new System.Drawing.Size(510, 13);
             this.labelVersion.TabIndex = 1;
             this.labelVersion.Text = "Version";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -137,7 +138,7 @@
             // btnOpenConfig
             // 
             this.btnOpenConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpenConfig.Location = new System.Drawing.Point(385, 80);
+            this.btnOpenConfig.Location = new System.Drawing.Point(382, 80);
             this.btnOpenConfig.Name = "btnOpenConfig";
             this.btnOpenConfig.Size = new System.Drawing.Size(68, 23);
             this.btnOpenConfig.TabIndex = 4;
@@ -145,20 +146,35 @@
             this.btnOpenConfig.UseVisualStyleBackColor = true;
             this.btnOpenConfig.Click += new System.EventHandler(this.btnOpenConfig_Click);
             // 
+            // labelType
+            // 
+            this.labelType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelType.BackColor = System.Drawing.Color.DarkGray;
+            this.labelType.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelType.LineHeight = 9;
+            this.labelType.Location = new System.Drawing.Point(0, 0);
+            this.labelType.Name = "labelType";
+            this.labelType.Size = new System.Drawing.Size(18, 109);
+            this.labelType.TabIndex = 6;
+            this.labelType.Text = "TYPE";
+            // 
             // PluginControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.labelType);
             this.Controls.Add(this.btnOpenConfig);
             this.Controls.Add(this.flowLayoutInfo);
             this.Controls.Add(this.panelDescription);
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.btnToggleState);
             this.Controls.Add(this.labelVersion);
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.MaximumSize = new System.Drawing.Size(65535, 109);
             this.MinimumSize = new System.Drawing.Size(0, 61);
             this.Name = "PluginControl";
-            this.Padding = new System.Windows.Forms.Padding(3);
+            this.Padding = new System.Windows.Forms.Padding(3, 3, 6, 3);
             this.Size = new System.Drawing.Size(530, 109);
             this.panelDescription.ResumeLayout(false);
             this.panelDescription.PerformLayout();
@@ -180,5 +196,6 @@
         private System.Windows.Forms.Label labelWebsite;
         private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.Button btnOpenConfig;
+        private Core.Controls.LabelVertical labelType;
     }
 }

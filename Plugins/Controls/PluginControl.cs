@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using TweetDuck.Core.Utils;
+using TweetDuck.Plugins.Enums;
 
 namespace TweetDuck.Plugins.Controls{
     partial class PluginControl : UserControl{
@@ -67,6 +69,15 @@ namespace TweetDuck.Plugins.Controls{
             labelVersion.ForeColor = textColor;
             labelAuthor.ForeColor = textColor;
             labelWebsite.ForeColor = isEnabled ? Color.Blue : Color.FromArgb(90, 90, 249);
+
+            if (plugin.Group == PluginGroup.Official){
+                labelType.Text = "OFFICIAL";
+                labelType.BackColor = isEnabled ? Color.FromArgb(154, 195, 217) : Color.FromArgb(185, 185, 185);
+            }
+            else{
+                labelType.Text = "CUSTOM";
+                labelType.BackColor = isEnabled ? Color.FromArgb(208, 154, 217) : Color.FromArgb(185, 185, 185);
+            }
 
             if (plugin.CanRun){
                 labelName.ForeColor = textColor;
