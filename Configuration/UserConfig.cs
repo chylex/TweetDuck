@@ -7,7 +7,6 @@ using TweetDuck.Core;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Utils;
-using TweetDuck.Plugins;
 
 namespace TweetDuck.Configuration{
     [Serializable]
