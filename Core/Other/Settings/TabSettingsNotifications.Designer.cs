@@ -54,12 +54,16 @@
             this.panelLocation = new System.Windows.Forms.Panel();
             this.panelDuration = new System.Windows.Forms.Panel();
             this.labelDuration = new System.Windows.Forms.Label();
+            this.labelScrollSpeed = new System.Windows.Forms.Label();
+            this.labelScrollSpeedValue = new System.Windows.Forms.Label();
+            this.trackBarScrollSpeed = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).BeginInit();
             this.tableLayoutDurationButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarDuration)).BeginInit();
             this.panelGeneral.SuspendLayout();
             this.panelLocation.SuspendLayout();
             this.panelDuration.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarScrollSpeed)).BeginInit();
             this.SuspendLayout();
             // 
             // labelEdgeDistanceValue
@@ -365,6 +369,9 @@
             // 
             this.panelGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelGeneral.Controls.Add(this.labelScrollSpeedValue);
+            this.panelGeneral.Controls.Add(this.trackBarScrollSpeed);
+            this.panelGeneral.Controls.Add(this.labelScrollSpeed);
             this.panelGeneral.Controls.Add(this.checkSkipOnLinkClick);
             this.panelGeneral.Controls.Add(this.checkColumnName);
             this.panelGeneral.Controls.Add(this.checkNotificationTimer);
@@ -374,14 +381,14 @@
             this.panelGeneral.Controls.Add(this.checkNonIntrusive);
             this.panelGeneral.Location = new System.Drawing.Point(9, 31);
             this.panelGeneral.Name = "panelGeneral";
-            this.panelGeneral.Size = new System.Drawing.Size(322, 166);
+            this.panelGeneral.Size = new System.Drawing.Size(322, 232);
             this.panelGeneral.TabIndex = 1;
             // 
             // labelLocation
             // 
             this.labelLocation.AutoSize = true;
             this.labelLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelLocation.Location = new System.Drawing.Point(6, 221);
+            this.labelLocation.Location = new System.Drawing.Point(6, 287);
             this.labelLocation.Margin = new System.Windows.Forms.Padding(0, 21, 0, 0);
             this.labelLocation.Name = "labelLocation";
             this.labelLocation.Size = new System.Drawing.Size(70, 20);
@@ -402,7 +409,7 @@
             this.panelLocation.Controls.Add(this.radioLocBL);
             this.panelLocation.Controls.Add(this.radioLocCustom);
             this.panelLocation.Controls.Add(this.radioLocBR);
-            this.panelLocation.Location = new System.Drawing.Point(9, 244);
+            this.panelLocation.Location = new System.Drawing.Point(9, 310);
             this.panelLocation.Name = "panelLocation";
             this.panelLocation.Size = new System.Drawing.Size(322, 231);
             this.panelLocation.TabIndex = 3;
@@ -414,7 +421,7 @@
             this.panelDuration.Controls.Add(this.tableLayoutDurationButtons);
             this.panelDuration.Controls.Add(this.labelDurationValue);
             this.panelDuration.Controls.Add(this.trackBarDuration);
-            this.panelDuration.Location = new System.Drawing.Point(9, 522);
+            this.panelDuration.Location = new System.Drawing.Point(9, 588);
             this.panelDuration.Name = "panelDuration";
             this.panelDuration.Size = new System.Drawing.Size(322, 73);
             this.panelDuration.TabIndex = 5;
@@ -423,12 +430,49 @@
             // 
             this.labelDuration.AutoSize = true;
             this.labelDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelDuration.Location = new System.Drawing.Point(6, 499);
+            this.labelDuration.Location = new System.Drawing.Point(6, 565);
             this.labelDuration.Margin = new System.Windows.Forms.Padding(0, 21, 0, 0);
             this.labelDuration.Name = "labelDuration";
             this.labelDuration.Size = new System.Drawing.Size(70, 20);
             this.labelDuration.TabIndex = 4;
             this.labelDuration.Text = "Duration";
+            // 
+            // labelScrollSpeed
+            // 
+            this.labelScrollSpeed.AutoSize = true;
+            this.labelScrollSpeed.Location = new System.Drawing.Point(3, 177);
+            this.labelScrollSpeed.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
+            this.labelScrollSpeed.Name = "labelScrollSpeed";
+            this.labelScrollSpeed.Size = new System.Drawing.Size(67, 13);
+            this.labelScrollSpeed.TabIndex = 6;
+            this.labelScrollSpeed.Text = "Scroll Speed";
+            // 
+            // labelScrollSpeedValue
+            // 
+            this.labelScrollSpeedValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelScrollSpeedValue.Location = new System.Drawing.Point(120, 198);
+            this.labelScrollSpeedValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.labelScrollSpeedValue.Name = "labelScrollSpeedValue";
+            this.labelScrollSpeedValue.Size = new System.Drawing.Size(34, 13);
+            this.labelScrollSpeedValue.TabIndex = 11;
+            this.labelScrollSpeedValue.Text = "100%";
+            this.labelScrollSpeedValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // trackBarScrollSpeed
+            // 
+            this.trackBarScrollSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackBarScrollSpeed.AutoSize = false;
+            this.trackBarScrollSpeed.LargeChange = 25;
+            this.trackBarScrollSpeed.Location = new System.Drawing.Point(5, 193);
+            this.trackBarScrollSpeed.Maximum = 200;
+            this.trackBarScrollSpeed.Minimum = 25;
+            this.trackBarScrollSpeed.Name = "trackBarScrollSpeed";
+            this.trackBarScrollSpeed.Size = new System.Drawing.Size(121, 30);
+            this.trackBarScrollSpeed.SmallChange = 25;
+            this.trackBarScrollSpeed.TabIndex = 10;
+            this.trackBarScrollSpeed.TickFrequency = 25;
+            this.trackBarScrollSpeed.Value = 100;
             // 
             // TabSettingsNotifications
             // 
@@ -441,7 +485,7 @@
             this.Controls.Add(this.labelGeneral);
             this.Controls.Add(this.panelDuration);
             this.Name = "TabSettingsNotifications";
-            this.Size = new System.Drawing.Size(340, 605);
+            this.Size = new System.Drawing.Size(340, 674);
             this.ParentChanged += new System.EventHandler(this.TabSettingsNotifications_ParentChanged);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).EndInit();
             this.tableLayoutDurationButtons.ResumeLayout(false);
@@ -451,6 +495,7 @@
             this.panelLocation.ResumeLayout(false);
             this.panelLocation.PerformLayout();
             this.panelDuration.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarScrollSpeed)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -487,5 +532,8 @@
         private System.Windows.Forms.Panel panelLocation;
         private System.Windows.Forms.Panel panelDuration;
         private System.Windows.Forms.Label labelDuration;
+        private System.Windows.Forms.Label labelScrollSpeedValue;
+        private System.Windows.Forms.TrackBar trackBarScrollSpeed;
+        private System.Windows.Forms.Label labelScrollSpeed;
     }
 }

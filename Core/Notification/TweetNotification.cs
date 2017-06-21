@@ -31,7 +31,7 @@ namespace TweetDuck.Core.Notification{
                     ExampleTweetHTML = ScriptLoader.LoadResource("pages/example.html", true);
 
                     #if DEBUG
-                    ExampleTweetHTML = ExampleTweetHTML.Replace("</p>", @"</p><div style='margin-top:64px'>Scrollbar test padding...</div>");
+                    ExampleTweetHTML = ExampleTweetHTML.Replace("</p>", @"</p><div style='margin-top:256px'>Scrollbar test padding...</div>");
                     #endif
                 }
 

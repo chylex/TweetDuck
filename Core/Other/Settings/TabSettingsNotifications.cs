@@ -65,6 +65,9 @@ namespace TweetDuck.Core.Other.Settings{
             checkSkipOnLinkClick.Checked = Config.NotificationSkipOnLinkClick;
             checkNonIntrusive.Checked = Config.NotificationNonIntrusiveMode;
 
+            trackBarScrollSpeed.SetValueSafe(Config.NotificationScrollSpeed);
+            labelScrollSpeedValue.Text = trackBarScrollSpeed.Value.ToString(CultureInfo.InvariantCulture)+"%";
+
             trackBarEdgeDistance.SetValueSafe(Config.NotificationEdgeDistance);
             labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value.ToString(CultureInfo.InvariantCulture)+" px";
 
@@ -90,6 +93,7 @@ namespace TweetDuck.Core.Other.Settings{
             checkNonIntrusive.CheckedChanged += checkNonIntrusive_CheckedChanged;
 
             comboBoxIdlePause.SelectedValueChanged += comboBoxIdlePause_SelectedValueChanged;
+            trackBarScrollSpeed.ValueChanged += trackBarScrollSpeed_ValueChanged;
 
             comboBoxDisplay.SelectedValueChanged += comboBoxDisplay_SelectedValueChanged;
             trackBarEdgeDistance.ValueChanged += trackBarEdgeDistance_ValueChanged;
@@ -185,6 +189,13 @@ namespace TweetDuck.Core.Other.Settings{
 
         private void comboBoxIdlePause_SelectedValueChanged(object sender, EventArgs e){
             Config.NotificationIdlePauseSeconds = IdlePauseSeconds[comboBoxIdlePause.SelectedIndex];
+        }
+
+        private void trackBarScrollSpeed_ValueChanged(object sender, EventArgs e){
+            if (trackBarScrollSpeed.AlignValueToTick()){
+                labelScrollSpeedValue.Text = trackBarScrollSpeed.Value.ToString(CultureInfo.InvariantCulture)+"%";
+                Config.NotificationScrollSpeed = trackBarScrollSpeed.Value;
+            }
         }
 
         private void comboBoxDisplay_SelectedValueChanged(object sender, EventArgs e){

@@ -19,7 +19,7 @@ namespace TweetDuck.Configuration{
             }
         }
 
-        private const int CurrentFileVersion = 9;
+        private const int CurrentFileVersion = 10;
 
         // START OF CONFIGURATION
 
@@ -36,6 +36,7 @@ namespace TweetDuck.Configuration{
         public int NotificationDisplay { get; set; }
         public int NotificationIdlePauseSeconds { get; set; }
         public int NotificationDurationValue { get; set; }
+        public int NotificationScrollSpeed { get; set; }
 
         public bool EnableSpellCheck { get; set; }
         public bool ExpandLinksOnHover { get; set; }
@@ -124,6 +125,7 @@ namespace TweetDuck.Configuration{
             CustomNotificationPosition = ControlExtensions.InvisibleLocation;
             NotificationEdgeDistance = 8;
             NotificationDurationValue = 25;
+            NotificationScrollSpeed = 100;
             EnableUpdateCheck = true;
             ExpandLinksOnHover = true;
             SwitchAccountSelectors = true;
@@ -180,6 +182,11 @@ namespace TweetDuck.Configuration{
 
             if (fileVersion == 8){
                 SwitchAccountSelectors = true;
+                ++fileVersion;
+            }
+
+            if (fileVersion == 9){
+                NotificationScrollSpeed = 100;
                 ++fileVersion;
             }
 
