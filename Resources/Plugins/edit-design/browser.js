@@ -423,7 +423,7 @@ enabled(){
 .icon-hashtag:before{content:"\\f005";font-family:tweetdeckold}
 .icon-reply:before{content:"\\f006";font-family:tweetdeckold}
 .icon-favorite:before{content:"\\f055";font-family:tweetdeckold}
-.icon-retweet:before,.icon-retweet-filled:before{content:"\\f008";font-family:tweetdeckold}
+.icon-retweet:before{content:"\\f008";font-family:tweetdeckold}
 .icon-drafts:before{content:"\\f009";font-family:tweetdeckold}
 .icon-search:before{content:"\\f00a";font-family:tweetdeckold}
 .icon-trash:before{content:"\\f00c";font-family:tweetdeckold}
@@ -492,6 +492,11 @@ enabled(){
 .icon-gif-badge:before{content:"\\f061";font-family:tweetdeckold}
 .icon-poll:before{content:"\\f062";font-family:tweetdeckold}
 
+.icon-heart-filled:before{content:"\\f055";font-family:tweetdeckold}
+.icon-retweet-filled:before{content:"\\f008";font-family:tweetdeckold}
+.icon-list-filled:before{content:"\\f014";font-family:tweetdeckold}
+.icon-user-filled:before{content:"\\f035";font-family:tweetdeckold}
+
 .column-header .column-type-icon { bottom: 26px !important }
 .tweet-footer { margin-top: 6px !important }`;
       
@@ -543,9 +548,10 @@ ${this.config.revertReplies ? `
 ${this.config.revertIcons ? `
 @font-face { font-family: 'tweetdeckold'; src: url(\"https://ton.twimg.com/tweetdeck-web/web/assets/fonts/tweetdeck-regular-webfont.5f4ea87976.woff\") format(\"woff\"); font-weight: normal; font-style: normal }
 .icon-reply:before{content:"\\f006";font-family:tweetdeckold}
-.icon-favorite:before{content:"\\f055";font-family:tweetdeckold}
+.icon-heart-filled:before{content:"\\f055";font-family:tweetdeckold}
 .icon-retweet-filled:before{content:"\\f008";font-family:tweetdeckold}
-.icon-follow:before{content:"\\f035";font-family:tweetdeckold}
+.icon-list-filled:before{content:"\\f014";font-family:tweetdeckold}
+.icon-user-filled:before{content:"\\f035";font-family:tweetdeckold}
 .icon-user-dd:before{content:"\\f01a";font-family:tweetdeckold}
 ` : ``}
 </style>`);
