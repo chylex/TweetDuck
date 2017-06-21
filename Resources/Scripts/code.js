@@ -147,8 +147,13 @@
         html.find("a[href='#']").each(function(){ // remove <a> tags around links that don't lead anywhere (such as account names the tweet replied to)
           this.outerHTML = this.innerHTML;
         });
-
-        if (tweet.getChirpType().includes("list_member")){
+        
+        let type = tweet.getChirpType();
+        
+        if (type === "follow"){
+          html.find(".js-user-actions-menu").parent().remove();
+        }
+        else if (type.includes("list_member")){
           html.find(".activity-header").first().css("margin-top", "2px");
           html.find(".avatar").first().css("margin-bottom", "0");
         }
