@@ -683,6 +683,24 @@
   })();
   
   //
+  // Block: Let's make retweets lowercase again.
+  //
+  TD.mustaches["status/tweet_single.mustache"] = TD.mustaches["status/tweet_single.mustache"].replace("{{_i}} Retweeted{{/i}}", "{{_i}} retweeted{{/i}}");
+  
+  if (ensurePropertyExists(TD, "services", "TwitterActionRetweet", "prototype", "generateText")){
+    TD.services.TwitterActionRetweet.prototype.generateText = appendToFunction(TD.services.TwitterActionRetweet.prototype.generateText, function(){
+      this.text = this.text.replace(" Retweeted", " retweeted");
+      this.htmlText = this.htmlText.replace(" Retweeted", " retweeted");
+    });
+  }
+  
+  if (ensurePropertyExists(TD, "services", "TwitterActionRetweetedInteraction", "prototype", "generateText")){
+    TD.services.TwitterActionRetweetedInteraction.prototype.generateText = appendToFunction(TD.services.TwitterActionRetweetedInteraction.prototype.generateText, function(){
+      this.htmlText = this.htmlText.replace(" Retweeted", " retweeted").replace(" Retweet", " retweet");
+    });
+  }
+  
+  //
   // Block: Setup unsupported video element hook.
   //
   (function(){
