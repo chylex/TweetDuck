@@ -109,6 +109,7 @@ namespace TweetDuck.Core.Other{
             }
             
             panelContents.SuspendLayout();
+            panelContents.VerticalScroll.Value = 0; // https://gfycat.com/GrotesqueTastyAstarte
             panelContents.Controls.Clear();
             panelContents.Controls.Add(tab.Control);
             panelContents.ResumeLayout(true);
