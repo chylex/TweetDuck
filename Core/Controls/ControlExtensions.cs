@@ -47,6 +47,14 @@ namespace TweetDuck.Core.Controls{
             }
         }
 
+        public static bool AlignValueToTick(this TrackBar trackBar){
+            if (trackBar.Value % trackBar.SmallChange != 0){
+                trackBar.Value = trackBar.SmallChange*(int)Math.Floor(((double)trackBar.Value/trackBar.SmallChange)+0.5);
+                return false;
+            }
+            else return true;
+        }
+
         public static void SetElevated(this Button button){
             button.Text = " "+button.Text;
             button.FlatStyle = FlatStyle.System;

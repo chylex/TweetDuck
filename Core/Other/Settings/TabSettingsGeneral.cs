@@ -66,10 +66,7 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void trackBarZoom_ValueChanged(object sender, EventArgs e){
-            if (trackBarZoom.Value % trackBarZoom.SmallChange != 0){
-                trackBarZoom.Value = trackBarZoom.SmallChange*(int)Math.Floor(((double)trackBarZoom.Value/trackBarZoom.SmallChange)+0.5);
-            }
-            else{
+            if (trackBarZoom.AlignValueToTick()){
                 zoomUpdateTimer.Stop();
                 zoomUpdateTimer.Start();
                 labelZoomValue.Text = trackBarZoom.Value+"%";
