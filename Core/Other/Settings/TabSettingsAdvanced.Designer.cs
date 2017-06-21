@@ -33,9 +33,6 @@
             this.btnRestart = new System.Windows.Forms.Button();
             this.btnOpenAppFolder = new System.Windows.Forms.Button();
             this.btnOpenDataFolder = new System.Windows.Forms.Button();
-            this.btnReset = new System.Windows.Forms.Button();
-            this.btnImport = new System.Windows.Forms.Button();
-            this.btnExport = new System.Windows.Forms.Button();
             this.labelApp = new System.Windows.Forms.Label();
             this.panelApp = new System.Windows.Forms.Panel();
             this.labelPerformance = new System.Windows.Forms.Label();
@@ -132,43 +129,6 @@
             this.toolTip.SetToolTip(this.btnOpenDataFolder, "Opens the folder where your profile data is located.");
             this.btnOpenDataFolder.UseVisualStyleBackColor = true;
             // 
-            // btnReset
-            // 
-            this.btnReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnReset.AutoSize = true;
-            this.btnReset.Location = new System.Drawing.Point(190, 388);
-            this.btnReset.Name = "btnReset";
-            this.btnReset.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.btnReset.Size = new System.Drawing.Size(102, 23);
-            this.btnReset.TabIndex = 8;
-            this.btnReset.Text = "Restore Defaults";
-            this.btnReset.UseVisualStyleBackColor = true;
-            // 
-            // btnImport
-            // 
-            this.btnImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnImport.AutoSize = true;
-            this.btnImport.Location = new System.Drawing.Point(100, 388);
-            this.btnImport.Name = "btnImport";
-            this.btnImport.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.btnImport.Size = new System.Drawing.Size(84, 23);
-            this.btnImport.TabIndex = 7;
-            this.btnImport.Text = "Import Profile";
-            this.btnImport.UseVisualStyleBackColor = true;
-            // 
-            // btnExport
-            // 
-            this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnExport.AutoSize = true;
-            this.btnExport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnExport.Location = new System.Drawing.Point(9, 388);
-            this.btnExport.Name = "btnExport";
-            this.btnExport.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.btnExport.Size = new System.Drawing.Size(85, 23);
-            this.btnExport.TabIndex = 6;
-            this.btnExport.Text = "Export Profile";
-            this.btnExport.UseVisualStyleBackColor = true;
-            // 
             // labelApp
             // 
             this.labelApp.AutoSize = true;
@@ -247,11 +207,8 @@
             this.Controls.Add(this.labelPerformance);
             this.Controls.Add(this.panelApp);
             this.Controls.Add(this.labelApp);
-            this.Controls.Add(this.btnReset);
-            this.Controls.Add(this.btnImport);
-            this.Controls.Add(this.btnExport);
             this.Name = "TabSettingsAdvanced";
-            this.Size = new System.Drawing.Size(340, 420);
+            this.Size = new System.Drawing.Size(340, 364);
             this.panelApp.ResumeLayout(false);
             this.panelPerformance.ResumeLayout(false);
             this.panelPerformance.PerformLayout();
@@ -266,9 +223,6 @@
         private System.Windows.Forms.Button btnClearCache;
         private System.Windows.Forms.CheckBox checkHardwareAcceleration;
         private System.Windows.Forms.ToolTip toolTip;
-        private System.Windows.Forms.Button btnReset;
-        private System.Windows.Forms.Button btnImport;
-        private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.Button btnEditCefArgs;
         private System.Windows.Forms.Button btnEditCSS;
         private System.Windows.Forms.Button btnRestartArgs;

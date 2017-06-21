@@ -4,20 +4,16 @@ using System.Windows.Forms;
 using TweetDuck.Configuration;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Other.Settings.Dialogs;
-using TweetDuck.Core.Other.Settings.Export;
 using TweetDuck.Core.Utils;
-using TweetDuck.Plugins;
 
 namespace TweetDuck.Core.Other.Settings{
     partial class TabSettingsAdvanced : BaseTabSettings{
         private readonly Action<string> reinjectBrowserCSS;
-        private readonly PluginManager plugins;
 
-        public TabSettingsAdvanced(Action<string> reinjectBrowserCSS, PluginManager plugins){
+        public TabSettingsAdvanced(Action<string> reinjectBrowserCSS){
             InitializeComponent();
 
             this.reinjectBrowserCSS = reinjectBrowserCSS;
-            this.plugins = plugins;
 
             if (SystemConfig.IsHardwareAccelerationSupported){
                 checkHardwareAcceleration.Checked = Program.SystemConfig.HardwareAcceleration;
@@ -43,10 +39,6 @@ namespace TweetDuck.Core.Other.Settings{
 
             btnEditCefArgs.Click += btnEditCefArgs_Click;
             btnEditCSS.Click += btnEditCSS_Click;
-
-            btnExport.Click += btnExport_Click;
-            btnImport.Click += btnImport_Click;
-            btnReset.Click += btnReset_Click;
             
             btnOpenAppFolder.Click += btnOpenAppFolder_Click;
             btnOpenDataFolder.Click += btnOpenDataFolder_Click;
@@ -110,88 +102,6 @@ namespace TweetDuck.Core.Other.Settings{
             
             form.Show(ParentForm);
             NativeMethods.SetFormDisabled(ParentForm, true);
-        }
-
-        private void btnExport_Click(object sender, EventArgs e){
-            ExportFileFlags flags;
-
-            using(DialogSettingsExport dialog = DialogSettingsExport.Export()){
-                if (dialog.ShowDialog() != DialogResult.OK){
-                    return;
-                }
-
-                flags = dialog.Flags;
-            }
-
-            string file;
-
-            using(SaveFileDialog dialog = new SaveFileDialog{
-                AddExtension = true,
-                AutoUpgradeEnabled = true,
-                OverwritePrompt = true,
-                DefaultExt = "tdsettings",
-                FileName = Program.BrandName+".tdsettings",
-                Title = "Export "+Program.BrandName+" Profile",
-                Filter = Program.BrandName+" Profile (*.tdsettings)|*.tdsettings"
-            }){
-                if (dialog.ShowDialog() != DialogResult.OK){
-                    return;
-                }
-
-                file = dialog.FileName;
-            }
-
-            Program.UserConfig.Save();
-
-            ExportManager manager = new ExportManager(file, plugins);
-            
-            if (!manager.Export(flags)){
-                Program.Reporter.HandleException("Profile Export Error", "An exception happened while exporting "+Program.BrandName+" profile.", true, manager.LastException);
-            }
-        }
-
-        private void btnImport_Click(object sender, EventArgs e){
-            string file;
-
-            using(OpenFileDialog dialog = new OpenFileDialog{
-                AutoUpgradeEnabled = true,
-                DereferenceLinks = true,
-                Title = "Import "+Program.BrandName+" Profile",
-                Filter = Program.BrandName+" Profile (*.tdsettings)|*.tdsettings"
-            }){
-                if (dialog.ShowDialog() != DialogResult.OK){
-                    return;
-                }
-
-                file = dialog.FileName;
-            }
-
-            ExportManager manager = new ExportManager(file, plugins);
-            ExportFileFlags flags;
-
-            using(DialogSettingsExport dialog = DialogSettingsExport.Import(manager.GetImportFlags())){
-                if (dialog.ShowDialog() != DialogResult.OK){
-                    return;
-                }
-
-                flags = dialog.Flags;
-            }
-
-            if (manager.Import(flags)){
-                if (!manager.IsRestarting){
-                    ((FormSettings)ParentForm).ReloadUI();
-                }
-            }
-            else{
-                Program.Reporter.HandleException("Profile Import Error", "An exception happened while importing "+Program.BrandName+" profile.", true, manager.LastException);
-            }
-        }
-
-        private void btnReset_Click(object sender, EventArgs e){
-            if (MessageBox.Show("This will reset all of your program options. Plugins will not be affected. Do you want to proceed?", "Reset "+Program.BrandName+" Options", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
-                Program.ResetConfig();
-                ((FormSettings)ParentForm).ReloadUI();
-            }
         }
 
         private void btnOpenAppFolder_Click(object sender, EventArgs e){

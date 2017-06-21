@@ -24,9 +24,9 @@
         /// </summary>
         private void InitializeComponent() {
             this.btnClose = new System.Windows.Forms.Button();
-            this.labelTip = new System.Windows.Forms.Label();
             this.panelContents = new System.Windows.Forms.Panel();
             this.panelButtons = new System.Windows.Forms.Panel();
+            this.btnManageOptions = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnClose
@@ -41,16 +41,6 @@
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
-            // labelTip
-            // 
-            this.labelTip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelTip.AutoSize = true;
-            this.labelTip.Location = new System.Drawing.Point(12, 449);
-            this.labelTip.Name = "labelTip";
-            this.labelTip.Size = new System.Drawing.Size(310, 13);
-            this.labelTip.TabIndex = 2;
-            this.labelTip.Text = "Tip: Move your cursor over an option to see detailed explanation";
             // 
             // panelContents
             // 
@@ -76,14 +66,27 @@
             this.panelButtons.Size = new System.Drawing.Size(124, 429);
             this.panelButtons.TabIndex = 0;
             // 
+            // btnManageOptions
+            // 
+            this.btnManageOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnManageOptions.AutoSize = true;
+            this.btnManageOptions.Location = new System.Drawing.Point(12, 447);
+            this.btnManageOptions.Name = "btnManageOptions";
+            this.btnManageOptions.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.btnManageOptions.Size = new System.Drawing.Size(101, 23);
+            this.btnManageOptions.TabIndex = 4;
+            this.btnManageOptions.Text = "Manage Options";
+            this.btnManageOptions.UseVisualStyleBackColor = true;
+            this.btnManageOptions.Click += new System.EventHandler(this.btnManageOptions_Click);
+            // 
             // FormSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(510, 482);
+            this.Controls.Add(this.btnManageOptions);
             this.Controls.Add(this.panelContents);
             this.Controls.Add(this.panelButtons);
-            this.Controls.Add(this.labelTip);
             this.Controls.Add(this.btnClose);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = global::TweetDuck.Properties.Resources.icon;
@@ -99,8 +102,8 @@
 
         #endregion
         private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.Label labelTip;
         private System.Windows.Forms.Panel panelContents;
         private System.Windows.Forms.Panel panelButtons;
+        private System.Windows.Forms.Button btnManageOptions;
     }
 }

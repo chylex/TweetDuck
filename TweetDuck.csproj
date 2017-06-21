@@ -148,11 +148,11 @@
     <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsCefArgs.Designer.cs">
       <DependentUpon>DialogSettingsCefArgs.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsExport.cs">
+    <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsManage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsExport.Designer.cs">
-      <DependentUpon>DialogSettingsExport.cs</DependentUpon>
+    <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsManage.Designer.cs">
+      <DependentUpon>DialogSettingsManage.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsRestart.cs">
       <SubType>Form</SubType>

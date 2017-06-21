@@ -4,12 +4,15 @@ using System.Drawing;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Other.Settings;
+using TweetDuck.Core.Other.Settings.Dialogs;
 using TweetDuck.Plugins;
 using TweetDuck.Updates;
 
 namespace TweetDuck.Core.Other{
     sealed partial class FormSettings : Form{
         private readonly FormBrowser browser;
+        private readonly PluginManager plugins;
+
         private readonly Dictionary<Type, SettingsTab> tabs = new Dictionary<Type, SettingsTab>(4);
         private SettingsTab currentTab;
 
@@ -21,10 +24,12 @@ namespace TweetDuck.Core.Other{
             this.browser = browser;
             this.browser.PauseNotification();
 
+            this.plugins = plugins;
+
             AddButton("General", () => new TabSettingsGeneral(updates));
             AddButton("Notifications", () => new TabSettingsNotifications(browser.CreateNotificationForm(false)));
             AddButton("Sounds", () => new TabSettingsSounds());
-            AddButton("Advanced", () => new TabSettingsAdvanced(browser.ReinjectCustomCSS, plugins));
+            AddButton("Advanced", () => new TabSettingsAdvanced(browser.ReinjectCustomCSS));
 
             SelectTab(tabs[startTab ?? typeof(TabSettingsGeneral)]);
         }
@@ -39,6 +44,18 @@ namespace TweetDuck.Core.Other{
             
             Program.UserConfig.Save();
             browser.ResumeNotification();
+        }
+
+        private void btnManageOptions_Click(object sender, EventArgs e){
+            using(DialogSettingsManage dialog = new DialogSettingsManage(plugins)){
+                if (dialog.ShowDialog() == DialogResult.OK && dialog.ShouldReloadUI){
+                    foreach(SettingsTab tab in tabs.Values){
+                        tab.Control = null;
+                    }
+
+                    SelectTab(currentTab);
+                }
+            }
         }
 
         private void btnClose_Click(object sender, EventArgs e){
@@ -98,14 +115,6 @@ namespace TweetDuck.Core.Other{
             panelContents.Focus();
 
             currentTab = tab;
-        }
-
-        public void ReloadUI(){
-            foreach(SettingsTab tab in tabs.Values){
-                tab.Control = null;
-            }
-
-            SelectTab(currentTab);
         }
 
         private class SettingsTab{
