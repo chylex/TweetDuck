@@ -48,7 +48,7 @@
             // 
             this.btnClearCache.Location = new System.Drawing.Point(3, 28);
             this.btnClearCache.Name = "btnClearCache";
-            this.btnClearCache.Size = new System.Drawing.Size(171, 23);
+            this.btnClearCache.Size = new System.Drawing.Size(144, 23);
             this.btnClearCache.TabIndex = 1;
             this.btnClearCache.Text = "Clear Cache (calculating)";
             this.toolTip.SetToolTip(this.btnClearCache, "Clearing cache will free up space taken by downloaded images and other resources." +
@@ -72,7 +72,7 @@
             // 
             this.btnEditCefArgs.Location = new System.Drawing.Point(3, 3);
             this.btnEditCefArgs.Name = "btnEditCefArgs";
-            this.btnEditCefArgs.Size = new System.Drawing.Size(171, 23);
+            this.btnEditCefArgs.Size = new System.Drawing.Size(144, 23);
             this.btnEditCefArgs.TabIndex = 0;
             this.btnEditCefArgs.Text = "Edit CEF Arguments";
             this.toolTip.SetToolTip(this.btnEditCefArgs, "Set custom command line arguments for Chromium Embedded Framework.");
@@ -80,9 +80,9 @@
             // 
             // btnEditCSS
             // 
-            this.btnEditCSS.Location = new System.Drawing.Point(3, 32);
+            this.btnEditCSS.Location = new System.Drawing.Point(153, 3);
             this.btnEditCSS.Name = "btnEditCSS";
-            this.btnEditCSS.Size = new System.Drawing.Size(171, 23);
+            this.btnEditCSS.Size = new System.Drawing.Size(144, 23);
             this.btnEditCSS.TabIndex = 1;
             this.btnEditCSS.Text = "Edit CSS";
             this.toolTip.SetToolTip(this.btnEditCSS, "Set custom CSS for browser and notification windows.");
@@ -90,9 +90,9 @@
             // 
             // btnRestartArgs
             // 
-            this.btnRestartArgs.Location = new System.Drawing.Point(3, 90);
+            this.btnRestartArgs.Location = new System.Drawing.Point(153, 32);
             this.btnRestartArgs.Name = "btnRestartArgs";
-            this.btnRestartArgs.Size = new System.Drawing.Size(171, 23);
+            this.btnRestartArgs.Size = new System.Drawing.Size(144, 23);
             this.btnRestartArgs.TabIndex = 3;
             this.btnRestartArgs.Text = "Restart with Arguments";
             this.toolTip.SetToolTip(this.btnRestartArgs, "Restarts the program with customizable\r\ncommand line arguments.");
@@ -100,9 +100,9 @@
             // 
             // btnRestart
             // 
-            this.btnRestart.Location = new System.Drawing.Point(3, 61);
+            this.btnRestart.Location = new System.Drawing.Point(153, 3);
             this.btnRestart.Name = "btnRestart";
-            this.btnRestart.Size = new System.Drawing.Size(171, 23);
+            this.btnRestart.Size = new System.Drawing.Size(144, 23);
             this.btnRestart.TabIndex = 2;
             this.btnRestart.Text = "Restart the Program";
             this.toolTip.SetToolTip(this.btnRestart, "Restarts the program using the same command\r\nline arguments that were used at lau" +
@@ -113,7 +113,7 @@
             // 
             this.btnOpenAppFolder.Location = new System.Drawing.Point(3, 3);
             this.btnOpenAppFolder.Name = "btnOpenAppFolder";
-            this.btnOpenAppFolder.Size = new System.Drawing.Size(171, 23);
+            this.btnOpenAppFolder.Size = new System.Drawing.Size(144, 23);
             this.btnOpenAppFolder.TabIndex = 0;
             this.btnOpenAppFolder.Text = "Open Program Folder";
             this.toolTip.SetToolTip(this.btnOpenAppFolder, "Opens the folder where the app is located.");
@@ -123,7 +123,7 @@
             // 
             this.btnOpenDataFolder.Location = new System.Drawing.Point(3, 32);
             this.btnOpenDataFolder.Name = "btnOpenDataFolder";
-            this.btnOpenDataFolder.Size = new System.Drawing.Size(171, 23);
+            this.btnOpenDataFolder.Size = new System.Drawing.Size(144, 23);
             this.btnOpenDataFolder.TabIndex = 1;
             this.btnOpenDataFolder.Text = "Open Data Folder";
             this.toolTip.SetToolTip(this.btnOpenDataFolder, "Opens the folder where your profile data is located.");
@@ -150,14 +150,14 @@
             this.panelApp.Controls.Add(this.btnRestartArgs);
             this.panelApp.Location = new System.Drawing.Point(9, 31);
             this.panelApp.Name = "panelApp";
-            this.panelApp.Size = new System.Drawing.Size(322, 117);
+            this.panelApp.Size = new System.Drawing.Size(322, 59);
             this.panelApp.TabIndex = 1;
             // 
             // labelPerformance
             // 
             this.labelPerformance.AutoSize = true;
             this.labelPerformance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelPerformance.Location = new System.Drawing.Point(6, 172);
+            this.labelPerformance.Location = new System.Drawing.Point(6, 114);
             this.labelPerformance.Margin = new System.Windows.Forms.Padding(0, 21, 0, 0);
             this.labelPerformance.Name = "labelPerformance";
             this.labelPerformance.Size = new System.Drawing.Size(100, 20);
@@ -170,7 +170,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelPerformance.Controls.Add(this.checkHardwareAcceleration);
             this.panelPerformance.Controls.Add(this.btnClearCache);
-            this.panelPerformance.Location = new System.Drawing.Point(9, 195);
+            this.panelPerformance.Location = new System.Drawing.Point(9, 137);
             this.panelPerformance.Name = "panelPerformance";
             this.panelPerformance.Size = new System.Drawing.Size(322, 54);
             this.panelPerformance.TabIndex = 3;
@@ -181,16 +181,16 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelConfiguration.Controls.Add(this.btnEditCSS);
             this.panelConfiguration.Controls.Add(this.btnEditCefArgs);
-            this.panelConfiguration.Location = new System.Drawing.Point(9, 296);
+            this.panelConfiguration.Location = new System.Drawing.Point(9, 238);
             this.panelConfiguration.Name = "panelConfiguration";
-            this.panelConfiguration.Size = new System.Drawing.Size(322, 58);
+            this.panelConfiguration.Size = new System.Drawing.Size(322, 29);
             this.panelConfiguration.TabIndex = 5;
             // 
             // labelConfiguration
             // 
             this.labelConfiguration.AutoSize = true;
             this.labelConfiguration.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelConfiguration.Location = new System.Drawing.Point(6, 273);
+            this.labelConfiguration.Location = new System.Drawing.Point(6, 215);
             this.labelConfiguration.Margin = new System.Windows.Forms.Padding(0, 21, 0, 0);
             this.labelConfiguration.Name = "labelConfiguration";
             this.labelConfiguration.Size = new System.Drawing.Size(104, 20);
@@ -208,7 +208,7 @@
             this.Controls.Add(this.panelApp);
             this.Controls.Add(this.labelApp);
             this.Name = "TabSettingsAdvanced";
-            this.Size = new System.Drawing.Size(340, 364);
+            this.Size = new System.Drawing.Size(340, 277);
             this.panelApp.ResumeLayout(false);
             this.panelPerformance.ResumeLayout(false);
             this.panelPerformance.PerformLayout();

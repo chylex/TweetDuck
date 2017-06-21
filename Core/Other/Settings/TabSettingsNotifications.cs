@@ -53,7 +53,7 @@ namespace TweetDuck.Core.Other.Settings{
             comboBoxDisplay.Items.Add("(Same As "+Program.BrandName+")");
 
             foreach(Screen screen in Screen.AllScreens){
-                comboBoxDisplay.Items.Add(screen.DeviceName+" ("+screen.Bounds.Width+"x"+screen.Bounds.Height+")");
+                comboBoxDisplay.Items.Add(screen.DeviceName.TrimStart('\\', '.')+" ("+screen.Bounds.Width+"x"+screen.Bounds.Height+")");
             }
 
             comboBoxDisplay.SelectedIndex = Math.Min(comboBoxDisplay.Items.Count-1, Config.NotificationDisplay);

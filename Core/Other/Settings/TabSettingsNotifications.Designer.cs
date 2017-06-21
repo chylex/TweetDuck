@@ -50,26 +50,26 @@
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.labelGeneral = new System.Windows.Forms.Label();
             this.panelGeneral = new System.Windows.Forms.Panel();
+            this.labelScrollSpeedValue = new System.Windows.Forms.Label();
+            this.trackBarScrollSpeed = new System.Windows.Forms.TrackBar();
+            this.labelScrollSpeed = new System.Windows.Forms.Label();
             this.labelLocation = new System.Windows.Forms.Label();
             this.panelLocation = new System.Windows.Forms.Panel();
             this.panelDuration = new System.Windows.Forms.Panel();
             this.labelDuration = new System.Windows.Forms.Label();
-            this.labelScrollSpeed = new System.Windows.Forms.Label();
-            this.labelScrollSpeedValue = new System.Windows.Forms.Label();
-            this.trackBarScrollSpeed = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).BeginInit();
             this.tableLayoutDurationButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarDuration)).BeginInit();
             this.panelGeneral.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarScrollSpeed)).BeginInit();
             this.panelLocation.SuspendLayout();
             this.panelDuration.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarScrollSpeed)).BeginInit();
             this.SuspendLayout();
             // 
             // labelEdgeDistanceValue
             // 
             this.labelEdgeDistanceValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelEdgeDistanceValue.Location = new System.Drawing.Point(120, 201);
+            this.labelEdgeDistanceValue.Location = new System.Drawing.Point(147, 159);
             this.labelEdgeDistanceValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelEdgeDistanceValue.Name = "labelEdgeDistanceValue";
             this.labelEdgeDistanceValue.Size = new System.Drawing.Size(34, 13);
@@ -80,7 +80,7 @@
             // labelDisplay
             // 
             this.labelDisplay.AutoSize = true;
-            this.labelDisplay.Location = new System.Drawing.Point(3, 128);
+            this.labelDisplay.Location = new System.Drawing.Point(3, 86);
             this.labelDisplay.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelDisplay.Name = "labelDisplay";
             this.labelDisplay.Size = new System.Drawing.Size(41, 13);
@@ -93,15 +93,16 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxDisplay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxDisplay.FormattingEnabled = true;
-            this.comboBoxDisplay.Location = new System.Drawing.Point(3, 144);
+            this.comboBoxDisplay.Location = new System.Drawing.Point(5, 102);
+            this.comboBoxDisplay.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.comboBoxDisplay.Name = "comboBoxDisplay";
-            this.comboBoxDisplay.Size = new System.Drawing.Size(151, 21);
+            this.comboBoxDisplay.Size = new System.Drawing.Size(144, 21);
             this.comboBoxDisplay.TabIndex = 6;
             // 
             // labelEdgeDistance
             // 
             this.labelEdgeDistance.AutoSize = true;
-            this.labelEdgeDistance.Location = new System.Drawing.Point(3, 180);
+            this.labelEdgeDistance.Location = new System.Drawing.Point(3, 138);
             this.labelEdgeDistance.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelEdgeDistance.Name = "labelEdgeDistance";
             this.labelEdgeDistance.Size = new System.Drawing.Size(103, 13);
@@ -110,11 +111,11 @@
             // 
             // radioLocCustom
             // 
-            this.radioLocCustom.AutoSize = true;
-            this.radioLocCustom.Location = new System.Drawing.Point(5, 96);
-            this.radioLocCustom.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
+            this.radioLocCustom.Location = new System.Drawing.Point(5, 54);
+            this.radioLocCustom.Margin = new System.Windows.Forms.Padding(5, 6, 3, 3);
             this.radioLocCustom.Name = "radioLocCustom";
-            this.radioLocCustom.Size = new System.Drawing.Size(60, 17);
+            this.radioLocCustom.Padding = new System.Windows.Forms.Padding(66, 0, 0, 0);
+            this.radioLocCustom.Size = new System.Drawing.Size(192, 17);
             this.radioLocCustom.TabIndex = 4;
             this.radioLocCustom.TabStop = true;
             this.radioLocCustom.Text = "Custom";
@@ -123,11 +124,10 @@
             // 
             // radioLocBR
             // 
-            this.radioLocBR.AutoSize = true;
-            this.radioLocBR.Location = new System.Drawing.Point(5, 73);
-            this.radioLocBR.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
+            this.radioLocBR.Location = new System.Drawing.Point(105, 28);
+            this.radioLocBR.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.radioLocBR.Name = "radioLocBR";
-            this.radioLocBR.Size = new System.Drawing.Size(86, 17);
+            this.radioLocBR.Size = new System.Drawing.Size(92, 17);
             this.radioLocBR.TabIndex = 3;
             this.radioLocBR.TabStop = true;
             this.radioLocBR.Text = "Bottom Right";
@@ -135,11 +135,10 @@
             // 
             // radioLocBL
             // 
-            this.radioLocBL.AutoSize = true;
-            this.radioLocBL.Location = new System.Drawing.Point(5, 50);
-            this.radioLocBL.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
+            this.radioLocBL.Location = new System.Drawing.Point(5, 28);
+            this.radioLocBL.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.radioLocBL.Name = "radioLocBL";
-            this.radioLocBL.Size = new System.Drawing.Size(79, 17);
+            this.radioLocBL.Size = new System.Drawing.Size(92, 17);
             this.radioLocBL.TabIndex = 2;
             this.radioLocBL.TabStop = true;
             this.radioLocBL.Text = "Bottom Left";
@@ -147,11 +146,10 @@
             // 
             // radioLocTR
             // 
-            this.radioLocTR.AutoSize = true;
-            this.radioLocTR.Location = new System.Drawing.Point(5, 27);
-            this.radioLocTR.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
+            this.radioLocTR.Location = new System.Drawing.Point(105, 4);
+            this.radioLocTR.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.radioLocTR.Name = "radioLocTR";
-            this.radioLocTR.Size = new System.Drawing.Size(72, 17);
+            this.radioLocTR.Size = new System.Drawing.Size(92, 17);
             this.radioLocTR.TabIndex = 1;
             this.radioLocTR.TabStop = true;
             this.radioLocTR.Text = "Top Right";
@@ -159,11 +157,10 @@
             // 
             // radioLocTL
             // 
-            this.radioLocTL.AutoSize = true;
             this.radioLocTL.Location = new System.Drawing.Point(5, 4);
             this.radioLocTL.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.radioLocTL.Name = "radioLocTL";
-            this.radioLocTL.Size = new System.Drawing.Size(65, 17);
+            this.radioLocTL.Size = new System.Drawing.Size(92, 17);
             this.radioLocTL.TabIndex = 0;
             this.radioLocTL.TabStop = true;
             this.radioLocTL.Text = "Top Left";
@@ -175,11 +172,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBarEdgeDistance.AutoSize = false;
             this.trackBarEdgeDistance.LargeChange = 8;
-            this.trackBarEdgeDistance.Location = new System.Drawing.Point(5, 196);
+            this.trackBarEdgeDistance.Location = new System.Drawing.Point(5, 154);
             this.trackBarEdgeDistance.Maximum = 40;
             this.trackBarEdgeDistance.Minimum = 8;
             this.trackBarEdgeDistance.Name = "trackBarEdgeDistance";
-            this.trackBarEdgeDistance.Size = new System.Drawing.Size(121, 30);
+            this.trackBarEdgeDistance.Size = new System.Drawing.Size(148, 30);
             this.trackBarEdgeDistance.SmallChange = 2;
             this.trackBarEdgeDistance.TabIndex = 8;
             this.trackBarEdgeDistance.TickFrequency = 4;
@@ -250,7 +247,7 @@
             // 
             this.labelDurationValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelDurationValue.BackColor = System.Drawing.Color.Transparent;
-            this.labelDurationValue.Location = new System.Drawing.Point(106, 7);
+            this.labelDurationValue.Location = new System.Drawing.Point(147, 7);
             this.labelDurationValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelDurationValue.Name = "labelDurationValue";
             this.labelDurationValue.Size = new System.Drawing.Size(48, 13);
@@ -268,7 +265,7 @@
             this.trackBarDuration.Maximum = 60;
             this.trackBarDuration.Minimum = 10;
             this.trackBarDuration.Name = "trackBarDuration";
-            this.trackBarDuration.Size = new System.Drawing.Size(108, 30);
+            this.trackBarDuration.Size = new System.Drawing.Size(148, 30);
             this.trackBarDuration.TabIndex = 0;
             this.trackBarDuration.TickFrequency = 5;
             this.trackBarDuration.Value = 25;
@@ -305,17 +302,18 @@
             this.labelIdlePause.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelIdlePause.Name = "labelIdlePause";
             this.labelIdlePause.Size = new System.Drawing.Size(89, 13);
-            this.labelIdlePause.TabIndex = 3;
+            this.labelIdlePause.TabIndex = 5;
             this.labelIdlePause.Text = "Pause When Idle";
             // 
             // comboBoxIdlePause
             // 
             this.comboBoxIdlePause.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxIdlePause.FormattingEnabled = true;
-            this.comboBoxIdlePause.Location = new System.Drawing.Point(3, 141);
+            this.comboBoxIdlePause.Location = new System.Drawing.Point(5, 141);
+            this.comboBoxIdlePause.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.comboBoxIdlePause.Name = "comboBoxIdlePause";
-            this.comboBoxIdlePause.Size = new System.Drawing.Size(171, 21);
-            this.comboBoxIdlePause.TabIndex = 4;
+            this.comboBoxIdlePause.Size = new System.Drawing.Size(144, 21);
+            this.comboBoxIdlePause.TabIndex = 6;
             this.toolTip.SetToolTip(this.comboBoxIdlePause, "Pauses new notifications after going idle for a set amount of time.");
             // 
             // checkNonIntrusive
@@ -384,6 +382,43 @@
             this.panelGeneral.Size = new System.Drawing.Size(322, 232);
             this.panelGeneral.TabIndex = 1;
             // 
+            // labelScrollSpeedValue
+            // 
+            this.labelScrollSpeedValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelScrollSpeedValue.Location = new System.Drawing.Point(147, 198);
+            this.labelScrollSpeedValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.labelScrollSpeedValue.Name = "labelScrollSpeedValue";
+            this.labelScrollSpeedValue.Size = new System.Drawing.Size(34, 13);
+            this.labelScrollSpeedValue.TabIndex = 9;
+            this.labelScrollSpeedValue.Text = "100%";
+            this.labelScrollSpeedValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // trackBarScrollSpeed
+            // 
+            this.trackBarScrollSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackBarScrollSpeed.AutoSize = false;
+            this.trackBarScrollSpeed.LargeChange = 25;
+            this.trackBarScrollSpeed.Location = new System.Drawing.Point(5, 193);
+            this.trackBarScrollSpeed.Maximum = 200;
+            this.trackBarScrollSpeed.Minimum = 25;
+            this.trackBarScrollSpeed.Name = "trackBarScrollSpeed";
+            this.trackBarScrollSpeed.Size = new System.Drawing.Size(148, 30);
+            this.trackBarScrollSpeed.SmallChange = 25;
+            this.trackBarScrollSpeed.TabIndex = 8;
+            this.trackBarScrollSpeed.TickFrequency = 25;
+            this.trackBarScrollSpeed.Value = 100;
+            // 
+            // labelScrollSpeed
+            // 
+            this.labelScrollSpeed.AutoSize = true;
+            this.labelScrollSpeed.Location = new System.Drawing.Point(3, 177);
+            this.labelScrollSpeed.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
+            this.labelScrollSpeed.Name = "labelScrollSpeed";
+            this.labelScrollSpeed.Size = new System.Drawing.Size(67, 13);
+            this.labelScrollSpeed.TabIndex = 7;
+            this.labelScrollSpeed.Text = "Scroll Speed";
+            // 
             // labelLocation
             // 
             this.labelLocation.AutoSize = true;
@@ -411,7 +446,7 @@
             this.panelLocation.Controls.Add(this.radioLocBR);
             this.panelLocation.Location = new System.Drawing.Point(9, 310);
             this.panelLocation.Name = "panelLocation";
-            this.panelLocation.Size = new System.Drawing.Size(322, 231);
+            this.panelLocation.Size = new System.Drawing.Size(322, 192);
             this.panelLocation.TabIndex = 3;
             // 
             // panelDuration
@@ -421,7 +456,7 @@
             this.panelDuration.Controls.Add(this.tableLayoutDurationButtons);
             this.panelDuration.Controls.Add(this.labelDurationValue);
             this.panelDuration.Controls.Add(this.trackBarDuration);
-            this.panelDuration.Location = new System.Drawing.Point(9, 588);
+            this.panelDuration.Location = new System.Drawing.Point(9, 549);
             this.panelDuration.Name = "panelDuration";
             this.panelDuration.Size = new System.Drawing.Size(322, 73);
             this.panelDuration.TabIndex = 5;
@@ -430,49 +465,12 @@
             // 
             this.labelDuration.AutoSize = true;
             this.labelDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelDuration.Location = new System.Drawing.Point(6, 565);
+            this.labelDuration.Location = new System.Drawing.Point(6, 526);
             this.labelDuration.Margin = new System.Windows.Forms.Padding(0, 21, 0, 0);
             this.labelDuration.Name = "labelDuration";
             this.labelDuration.Size = new System.Drawing.Size(70, 20);
             this.labelDuration.TabIndex = 4;
             this.labelDuration.Text = "Duration";
-            // 
-            // labelScrollSpeed
-            // 
-            this.labelScrollSpeed.AutoSize = true;
-            this.labelScrollSpeed.Location = new System.Drawing.Point(3, 177);
-            this.labelScrollSpeed.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
-            this.labelScrollSpeed.Name = "labelScrollSpeed";
-            this.labelScrollSpeed.Size = new System.Drawing.Size(67, 13);
-            this.labelScrollSpeed.TabIndex = 6;
-            this.labelScrollSpeed.Text = "Scroll Speed";
-            // 
-            // labelScrollSpeedValue
-            // 
-            this.labelScrollSpeedValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelScrollSpeedValue.Location = new System.Drawing.Point(120, 198);
-            this.labelScrollSpeedValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.labelScrollSpeedValue.Name = "labelScrollSpeedValue";
-            this.labelScrollSpeedValue.Size = new System.Drawing.Size(34, 13);
-            this.labelScrollSpeedValue.TabIndex = 11;
-            this.labelScrollSpeedValue.Text = "100%";
-            this.labelScrollSpeedValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // trackBarScrollSpeed
-            // 
-            this.trackBarScrollSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBarScrollSpeed.AutoSize = false;
-            this.trackBarScrollSpeed.LargeChange = 25;
-            this.trackBarScrollSpeed.Location = new System.Drawing.Point(5, 193);
-            this.trackBarScrollSpeed.Maximum = 200;
-            this.trackBarScrollSpeed.Minimum = 25;
-            this.trackBarScrollSpeed.Name = "trackBarScrollSpeed";
-            this.trackBarScrollSpeed.Size = new System.Drawing.Size(121, 30);
-            this.trackBarScrollSpeed.SmallChange = 25;
-            this.trackBarScrollSpeed.TabIndex = 10;
-            this.trackBarScrollSpeed.TickFrequency = 25;
-            this.trackBarScrollSpeed.Value = 100;
             // 
             // TabSettingsNotifications
             // 
@@ -485,17 +483,17 @@
             this.Controls.Add(this.labelGeneral);
             this.Controls.Add(this.panelDuration);
             this.Name = "TabSettingsNotifications";
-            this.Size = new System.Drawing.Size(340, 674);
+            this.Size = new System.Drawing.Size(340, 631);
             this.ParentChanged += new System.EventHandler(this.TabSettingsNotifications_ParentChanged);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).EndInit();
             this.tableLayoutDurationButtons.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarDuration)).EndInit();
             this.panelGeneral.ResumeLayout(false);
             this.panelGeneral.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarScrollSpeed)).EndInit();
             this.panelLocation.ResumeLayout(false);
             this.panelLocation.PerformLayout();
             this.panelDuration.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarScrollSpeed)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

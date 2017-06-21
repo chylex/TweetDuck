@@ -66,10 +66,10 @@
             // 
             this.comboBoxTrayType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTrayType.FormattingEnabled = true;
-            this.comboBoxTrayType.Location = new System.Drawing.Point(3, 5);
-            this.comboBoxTrayType.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
+            this.comboBoxTrayType.Location = new System.Drawing.Point(5, 5);
+            this.comboBoxTrayType.Margin = new System.Windows.Forms.Padding(5, 5, 3, 3);
             this.comboBoxTrayType.Name = "comboBoxTrayType";
-            this.comboBoxTrayType.Size = new System.Drawing.Size(171, 21);
+            this.comboBoxTrayType.Size = new System.Drawing.Size(144, 21);
             this.comboBoxTrayType.TabIndex = 0;
             this.toolTip.SetToolTip(this.comboBoxTrayType, "Changes behavior of the Tray icon.\r\nRight-click the icon for an action menu.");
             // 
@@ -115,7 +115,7 @@
             // 
             this.btnCheckUpdates.Location = new System.Drawing.Point(3, 28);
             this.btnCheckUpdates.Name = "btnCheckUpdates";
-            this.btnCheckUpdates.Size = new System.Drawing.Size(171, 23);
+            this.btnCheckUpdates.Size = new System.Drawing.Size(144, 23);
             this.btnCheckUpdates.TabIndex = 1;
             this.btnCheckUpdates.Text = "Check Updates Now";
             this.toolTip.SetToolTip(this.btnCheckUpdates, "Forces an update check, even for updates that had been dismissed.");
@@ -124,7 +124,7 @@
             // labelZoomValue
             // 
             this.labelZoomValue.BackColor = System.Drawing.Color.Transparent;
-            this.labelZoomValue.Location = new System.Drawing.Point(136, 100);
+            this.labelZoomValue.Location = new System.Drawing.Point(141, 100);
             this.labelZoomValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelZoomValue.Name = "labelZoomValue";
             this.labelZoomValue.Size = new System.Drawing.Size(38, 13);
@@ -165,7 +165,7 @@
             this.trackBarZoom.Maximum = 200;
             this.trackBarZoom.Minimum = 50;
             this.trackBarZoom.Name = "trackBarZoom";
-            this.trackBarZoom.Size = new System.Drawing.Size(141, 30);
+            this.trackBarZoom.Size = new System.Drawing.Size(148, 30);
             this.trackBarZoom.SmallChange = 5;
             this.trackBarZoom.TabIndex = 4;
             this.trackBarZoom.TickFrequency = 25;
