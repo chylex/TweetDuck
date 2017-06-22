@@ -46,7 +46,7 @@
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
 
-p.tdu-title {
+.tdu-title {
   font-size: 17px;
   font-weight: bold;
   text-align: center;
@@ -54,20 +54,37 @@ p.tdu-title {
   margin: 8px auto 2px;
 }
 
-p.tdu-info {
+.tdu-info {
   font-size: 12px;
   text-align: center;
   margin: 3px auto 0;
 }
 
-div.tdu-buttons button {
+.tdu-buttons button {
   display: block;
   margin: 7px auto 0;
+  padding: 4px 10px;
   width: 80%;
   height: 30px;
+  border: 0;
   border-radius: 1px;
+  outline: none;
+  font-size: 14px;
+  color: #fff;
+  background-color: #419de0;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-  box-shadow: 1px 1px 1px rgba(17, 17, 17, 0.5);
+  box-shadow: 1px 1px 1px rgba(17, 17, 17, 0.5) !important;
+  transition: box-shadow 0.2s ease;
+}
+
+.tdu-buttons button:hover {
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.75);
+  box-shadow: 1px 1px 1px rgba(17, 17, 17, 0.75), 0 -2px 0 rgba(17, 17, 17, 0.33) inset !important;
+}
+
+.tdu-buttons button.tdu-btn-ignore, .tdu-buttons button.tdu-btn-later {
+  background-color: #607a8e;
+  color: #dfdfdf;
 }
 </style>
 `).appendTo(document.head);
@@ -85,8 +102,8 @@ div.tdu-buttons button {
   <p class='tdu-title'>Unsupported System</p>
   <p class='tdu-info'>You will not receive updates.</p>
   <div class='tdu-buttons'>
-    <button class='btn btn-positive tdu-btn-unsupported'>Read more</button>
-    <button class='btn btn-negative tdu-btn-ignore'>Dismiss</button>
+    <button class='tdu-btn-unsupported'>Read more</button>
+    <button class='tdu-btn-ignore'>Dismiss</button>
   </div>
 </div>
 ` : `
@@ -94,8 +111,8 @@ div.tdu-buttons button {
   <p class='tdu-title'>TweetDuck Update</p>
   <p class='tdu-info'>Version ${version} is now available.</p>
   <div class='tdu-buttons'>
-    <button class='btn btn-positive tdu-btn-download'>Update now</button>
-    <button class='btn btn-negative tdu-btn-ignore'>Ignore this update</button>
+    <button class='tdu-btn-download'>Update now</button>
+    <button class='tdu-btn-ignore'>Ignore this update</button>
   </div>
 </div>
 `).appendTo(document.body).css("display", existed ? "block" : "none");
@@ -105,7 +122,7 @@ div.tdu-buttons button {
       css.remove();
     };
     
-    var buttonDiv = ele.children("div.tdu-buttons").first();
+    var buttonDiv = ele.children(".tdu-buttons").first();
 
     buttonDiv.children(".tdu-btn-download").click(function(){
       hide();
