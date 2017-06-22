@@ -112,6 +112,7 @@
   <p class='tdu-info'>Version ${version} is now available.</p>
   <div class='tdu-buttons'>
     <button class='tdu-btn-download'>Update now</button>
+    <button class='tdu-btn-later'>Remind me later</button>
     <button class='tdu-btn-ignore'>Ignore this update</button>
   </div>
 </div>
@@ -133,6 +134,11 @@
       else{
         $TDU.openBrowser(updateDownloadFallback);
       }
+    });
+    
+    buttonDiv.children(".tdu-btn-later").click(function(){
+      clearTimeout(updateCheckTimeoutID);
+      ele.slideUp(hide);
     });
 
     buttonDiv.children(".tdu-btn-unsupported").click(function(){
