@@ -22,13 +22,56 @@
   //
   // Constant: Fallback url in case the update installer file is missing.
   //
-  const updateDownloadFallback = "https://tweetduck.chylex.com/#download";
+  const updateDownloadFallback = "https://tweetduck.chylex.com";
   
   //
   // Function: Creates the update notification element. Removes the old one if already exists.
   //
   var displayNotification = function(version, download){
     var outdated = version === "unsupported";
+    
+    var css = $("#tweetduck-update-css");
+    
+    if (!css.length){
+      css = $(`
+<style id='tweetduck-update-css'>
+#tweetduck-update {
+  position: absolute;
+  bottom: 0;
+  width: 200px;
+  height: 170px;
+  z-index: 9999;
+  color: #fff;
+  background-color: rgb(32, 94, 138);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+p.tdu-title {
+  font-size: 17px;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 0.2px;
+  margin: 8px auto 2px;
+}
+
+p.tdu-info {
+  font-size: 12px;
+  text-align: center;
+  margin: 3px auto 0;
+}
+
+div.tdu-buttons button {
+  display: block;
+  margin: 7px auto 0;
+  width: 80%;
+  height: 30px;
+  border-radius: 1px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  box-shadow: 1px 1px 1px rgba(17, 17, 17, 0.5);
+}
+</style>
+`).appendTo(document.head);
+    }
     
     var ele = $("#tweetduck-update");
     var existed = ele.length > 0;
@@ -37,80 +80,35 @@
       ele.remove();
     }
     
-    var html = outdated ? [
-      "<div id='tweetduck-update'>",
-      "<p class='tdu-title'>Unsupported System</p>",
-      "<p class='tdu-info'>You will not receive updates.</p>",
-      "<div class='tdu-buttons'>",
-      "<button class='btn btn-positive tdu-btn-unsupported'><span class='label'>Read More</span></button>",
-      "<button class='btn btn-negative tdu-btn-dismiss'><span class='label'>Dismiss</span></button>",
-      "</div>",
-      "</div>"
-    ] : [
-      "<div id='tweetduck-update'>",
-      "<p class='tdu-title'>TweetDuck Update</p>",
-      "<p class='tdu-info'>Version "+version+" is now available.</p>",
-      "<div class='tdu-buttons'>",
-      "<button class='btn btn-positive tdu-btn-download'><span class='label'>Download</span></button>",
-      "<button class='btn btn-negative tdu-btn-dismiss'><span class='label'>Dismiss</span></button>",
-      "</div>",
-      "</div>"
-    ];
-
-    $(document.body).append(html.join(""));
-
-    ele = $("#tweetduck-update");
-
+    ele = $(outdated ? `
+<div id='tweetduck-update'>
+  <p class='tdu-title'>Unsupported System</p>
+  <p class='tdu-info'>You will not receive updates.</p>
+  <div class='tdu-buttons'>
+    <button class='btn btn-positive tdu-btn-unsupported'>Read more</button>
+    <button class='btn btn-negative tdu-btn-ignore'>Dismiss</button>
+  </div>
+</div>
+` : `
+<div id='tweetduck-update'>
+  <p class='tdu-title'>TweetDuck Update</p>
+  <p class='tdu-info'>Version ${version} is now available.</p>
+  <div class='tdu-buttons'>
+    <button class='btn btn-positive tdu-btn-download'>Update now</button>
+    <button class='btn btn-negative tdu-btn-ignore'>Ignore this update</button>
+  </div>
+</div>
+`).appendTo(document.body).css("display", existed ? "block" : "none");
+    
+    var hide = function(){
+      ele.remove();
+      css.remove();
+    };
+    
     var buttonDiv = ele.children("div.tdu-buttons").first();
 
-    ele.css({
-      color: "#fff",
-      backgroundColor: "rgb(32,94,138)",
-      position: "absolute",
-      left: "4px",
-      bottom: "4px",
-      width: "192px",
-      height: "86px",
-      display: existed ? "block" : "none",
-      borderRadius: "2px",
-      zIndex: 9999
-    });
-
-    ele.children("p.tdu-title").first().css({
-      fontSize: "17px",
-      fontWeight: "bold",
-      textAlign: "center",
-      letterSpacing: "0.2px",
-      margin: "5px auto 2px"
-    });
-
-    ele.children("p.tdu-info").first().css({
-      fontSize: "12px",
-      textAlign: "center",
-      margin: "2px auto 6px"
-    });
-
-    buttonDiv.css({
-      textAlign: "center"
-    });
-
-    buttonDiv.children().css({
-      margin: "0 4px",
-      minHeight: "25px",
-      boxShadow: "1px 1px 1px rgba(17,17,17,0.5)"
-    });
-
-    buttonDiv.find("span").css({
-      verticalAlign: "baseline"
-    });
-
-    ele.find("span.tdu-data-tag").first().css({
-      cursor: "pointer",
-      textDecoration: "underline"
-    });
-
     buttonDiv.children(".tdu-btn-download").click(function(){
-      ele.remove();
+      hide();
       
       if (download){
         $TDU.onUpdateAccepted();
@@ -124,9 +122,9 @@
       $TDU.openBrowser("https://github.com/chylex/TweetDuck/wiki/Supported-Systems");
     });
 
-    buttonDiv.children(".tdu-btn-dismiss,.tdu-btn-unsupported").click(function(){
+    buttonDiv.children(".tdu-btn-ignore,.tdu-btn-unsupported").click(function(){
       $TDU.onUpdateDismissed();
-      ele.slideUp(function(){ ele.remove(); });
+      ele.slideUp(hide);
     });
     
     if (!existed){
