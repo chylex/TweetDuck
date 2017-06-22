@@ -113,7 +113,8 @@
             // 
             // btnCheckUpdates
             // 
-            this.btnCheckUpdates.Location = new System.Drawing.Point(3, 28);
+            this.btnCheckUpdates.Location = new System.Drawing.Point(5, 28);
+            this.btnCheckUpdates.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnCheckUpdates.Name = "btnCheckUpdates";
             this.btnCheckUpdates.Size = new System.Drawing.Size(144, 23);
             this.btnCheckUpdates.TabIndex = 1;

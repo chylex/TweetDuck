@@ -46,7 +46,8 @@
             // 
             // btnClearCache
             // 
-            this.btnClearCache.Location = new System.Drawing.Point(3, 28);
+            this.btnClearCache.Location = new System.Drawing.Point(5, 28);
+            this.btnClearCache.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnClearCache.Name = "btnClearCache";
             this.btnClearCache.Size = new System.Drawing.Size(144, 23);
             this.btnClearCache.TabIndex = 1;
@@ -70,7 +71,8 @@
             // 
             // btnEditCefArgs
             // 
-            this.btnEditCefArgs.Location = new System.Drawing.Point(3, 3);
+            this.btnEditCefArgs.Location = new System.Drawing.Point(5, 3);
+            this.btnEditCefArgs.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnEditCefArgs.Name = "btnEditCefArgs";
             this.btnEditCefArgs.Size = new System.Drawing.Size(144, 23);
             this.btnEditCefArgs.TabIndex = 0;
@@ -80,7 +82,7 @@
             // 
             // btnEditCSS
             // 
-            this.btnEditCSS.Location = new System.Drawing.Point(153, 3);
+            this.btnEditCSS.Location = new System.Drawing.Point(155, 3);
             this.btnEditCSS.Name = "btnEditCSS";
             this.btnEditCSS.Size = new System.Drawing.Size(144, 23);
             this.btnEditCSS.TabIndex = 1;
@@ -90,7 +92,7 @@
             // 
             // btnRestartArgs
             // 
-            this.btnRestartArgs.Location = new System.Drawing.Point(153, 32);
+            this.btnRestartArgs.Location = new System.Drawing.Point(155, 32);
             this.btnRestartArgs.Name = "btnRestartArgs";
             this.btnRestartArgs.Size = new System.Drawing.Size(144, 23);
             this.btnRestartArgs.TabIndex = 3;
@@ -100,7 +102,7 @@
             // 
             // btnRestart
             // 
-            this.btnRestart.Location = new System.Drawing.Point(153, 3);
+            this.btnRestart.Location = new System.Drawing.Point(155, 3);
             this.btnRestart.Name = "btnRestart";
             this.btnRestart.Size = new System.Drawing.Size(144, 23);
             this.btnRestart.TabIndex = 2;
@@ -111,7 +113,8 @@
             // 
             // btnOpenAppFolder
             // 
-            this.btnOpenAppFolder.Location = new System.Drawing.Point(3, 3);
+            this.btnOpenAppFolder.Location = new System.Drawing.Point(5, 3);
+            this.btnOpenAppFolder.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnOpenAppFolder.Name = "btnOpenAppFolder";
             this.btnOpenAppFolder.Size = new System.Drawing.Size(144, 23);
             this.btnOpenAppFolder.TabIndex = 0;
@@ -121,7 +124,8 @@
             // 
             // btnOpenDataFolder
             // 
-            this.btnOpenDataFolder.Location = new System.Drawing.Point(3, 32);
+            this.btnOpenDataFolder.Location = new System.Drawing.Point(5, 32);
+            this.btnOpenDataFolder.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnOpenDataFolder.Name = "btnOpenDataFolder";
             this.btnOpenDataFolder.Size = new System.Drawing.Size(144, 23);
             this.btnOpenDataFolder.TabIndex = 1;
