@@ -1,9 +1,21 @@
-﻿using System.Windows.Forms;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
 using TweetDuck.Configuration;
 
 namespace TweetDuck.Core.Other.Settings{
     class BaseTabSettings : UserControl{
         protected static UserConfig Config => Program.UserConfig;
+
+        public IEnumerable<Control> InteractiveControls{
+            get{
+                foreach(Panel panel in Controls.OfType<Panel>()){
+                    foreach(Control control in panel.Controls){
+                        yield return control;
+                    }
+                }
+            }
+        }
 
         public BaseTabSettings(){
             Padding = new Padding(6);

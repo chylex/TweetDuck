@@ -105,6 +105,10 @@ namespace TweetDuck.Core.Other{
             tab.Button.BackColor = tab.Button.FlatAppearance.MouseDownBackColor;
 
             if (!tab.IsInitialized){
+                foreach(Control control in tab.Control.InteractiveControls){
+                    control.MouseLeave += control_MouseLeave;
+                }
+
                 tab.Control.OnReady();
             }
             
@@ -116,6 +120,10 @@ namespace TweetDuck.Core.Other{
             panelContents.Focus();
 
             currentTab = tab;
+        }
+
+        private void control_MouseLeave(object sender, EventArgs e){
+            panelContents.Focus();
         }
 
         private class SettingsTab{
