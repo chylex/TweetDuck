@@ -31,7 +31,13 @@ enabled(){
       (ele || (ele = $(html))).find(".js-quoted-tweet-text").first().after(renderTweetPoll(tweet.quotedTweet));
     }
     
-    return ele ? ele.prop("outerHTML") : html;
+    if (ele){
+      ele.find(".js-card-container").css("display", "none");
+      return ele.prop("outerHTML");
+    }
+    else{
+      return html;
+    }
   };
   
   // hooks
