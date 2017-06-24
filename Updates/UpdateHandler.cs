@@ -2,7 +2,6 @@
 using CefSharp.WinForms;
 using System;
 using System.Windows.Forms;
-using TweetDuck.Core;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
 using TweetDuck.Resources;
@@ -13,7 +12,6 @@ namespace TweetDuck.Updates{
         private static bool IsSystemSupported => true; // Environment.OSVersion.Version >= new Version("6.1"); // 6.1 NT version = Windows 7
 
         private readonly ChromiumWebBrowser browser;
-        private readonly FormBrowser form;
         private readonly UpdaterSettings settings;
 
         public event EventHandler<UpdateAcceptedEventArgs> UpdateAccepted;
@@ -23,9 +21,8 @@ namespace TweetDuck.Updates{
         private int lastEventId;
         private UpdateInfo lastUpdateInfo;
 
-        public UpdateHandler(ChromiumWebBrowser browser, FormBrowser form, UpdaterSettings settings){
+        public UpdateHandler(ChromiumWebBrowser browser, UpdaterSettings settings){
             this.browser = browser;
-            this.form = form;
             this.settings = settings;
 
             browser.FrameLoadEnd += browser_FrameLoadEnd;
@@ -92,27 +89,20 @@ namespace TweetDuck.Updates{
         }
 
         public void DismissUpdate(string tag){
-            settings.DismissedUpdate = tag;
-            UpdateDismissed?.Invoke(this, new UpdateDismissedEventArgs(tag));
+            TriggerUpdateDismissedEvent(new UpdateDismissedEventArgs(tag));
         }
 
         private void TriggerUpdateAcceptedEvent(UpdateAcceptedEventArgs args){
-            if (UpdateAccepted != null){
-                form.InvokeAsyncSafe(() => UpdateAccepted(this, args));
-            }
+            UpdateAccepted?.Invoke(this, args);
         }
 
         private void TriggerUpdateDismissedEvent(UpdateDismissedEventArgs args){
-            form.InvokeAsyncSafe(() => {
-                settings.DismissedUpdate = args.VersionTag;
-                UpdateDismissed?.Invoke(this, args);
-            });
+            settings.DismissedUpdate = args.VersionTag;
+            UpdateDismissed?.Invoke(this, args);
         }
 
         private void TriggerCheckFinishedEvent(UpdateCheckEventArgs args){
-            if (CheckFinished != null){
-                form.InvokeAsyncSafe(() => CheckFinished(this, args));
-            }
+            CheckFinished?.Invoke(this, args);
         }
 
         public class Bridge{

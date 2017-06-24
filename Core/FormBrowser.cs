@@ -104,7 +104,7 @@ namespace TweetDuck.Core{
             Config.MuteToggled += Config_MuteToggled;
             Config.ZoomLevelChanged += Config_ZoomLevelChanged;
 
-            this.updates = new UpdateHandler(browser, this, updaterSettings);
+            this.updates = new UpdateHandler(browser, updaterSettings);
             this.updates.UpdateAccepted += updates_UpdateAccepted;
             this.updates.UpdateDismissed += updates_UpdateDismissed;
 
@@ -287,24 +287,28 @@ namespace TweetDuck.Core{
         }
 
         private void updates_UpdateAccepted(object sender, UpdateAcceptedEventArgs e){
-            foreach(Form form in Application.OpenForms.Cast<Form>().Reverse()){
-                if (form is FormSettings || form is FormPlugins || form is FormAbout){
-                    form.Close();
+            this.InvokeAsyncSafe(() => {
+                foreach(Form form in Application.OpenForms.Cast<Form>().Reverse()){
+                    if (form is FormSettings || form is FormPlugins || form is FormAbout){
+                        form.Close();
+                    }
                 }
-            }
             
-            updates.BeginUpdateDownload(this, e.UpdateInfo, update => {
-                if (update.DownloadStatus == UpdateDownloadStatus.Done){
-                    UpdateInstallerPath = update.InstallerPath;
-                }
+                updates.BeginUpdateDownload(this, e.UpdateInfo, update => {
+                    if (update.DownloadStatus == UpdateDownloadStatus.Done){
+                        UpdateInstallerPath = update.InstallerPath;
+                    }
 
-                ForceClose();
+                    ForceClose();
+                });
             });
         }
 
         private void updates_UpdateDismissed(object sender, UpdateDismissedEventArgs e){
-            Config.DismissedUpdate = e.VersionTag;
-            Config.Save();
+            this.InvokeAsyncSafe(() => {
+                Config.DismissedUpdate = e.VersionTag;
+                Config.Save();
+            });
         }
 
         private void soundNotification_PlaybackError(object sender, PlaybackErrorEventArgs e){

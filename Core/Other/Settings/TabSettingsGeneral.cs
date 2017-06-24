@@ -98,13 +98,15 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void updates_CheckFinished(object sender, UpdateCheckEventArgs e){
-            if (e.EventId == updateCheckEventId){
-                btnCheckUpdates.Enabled = true;
+            this.InvokeAsyncSafe(() => {
+                if (e.EventId == updateCheckEventId){
+                    btnCheckUpdates.Enabled = true;
 
-                if (!e.UpdateAvailable){
-                    MessageBox.Show("Your version of "+Program.BrandName+" is up to date.", "No Updates Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (!e.UpdateAvailable){
+                        MessageBox.Show("Your version of "+Program.BrandName+" is up to date.", "No Updates Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
-            }
+            });
         }
 
         private void zoomUpdateTimer_Tick(object sender, EventArgs e){
