@@ -93,6 +93,10 @@ namespace TweetDuck.Core.Utils{
             return client;
         }
 
+        public static int Scale(int baseValue, double scaleFactor){
+            return (int)Math.Round(baseValue*scaleFactor);
+        }
+
         public static void SetZoomLevel(IBrowser browser, int percentage){
             browser.GetHost().SetZoomLevel(Math.Log(percentage/100.0, 1.2));
         }

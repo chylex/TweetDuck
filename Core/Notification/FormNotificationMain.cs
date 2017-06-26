@@ -55,16 +55,16 @@ namespace TweetDuck.Core.Notification{
         private int BaseClientWidth{
             get{
                 int level = TweetNotification.FontSizeLevel;
-                int width = level == 0 ? 284 : (int)Math.Round(284.0*(1.0+0.05*level));
-                return (int)Math.Round(width*dpiScale*Program.UserConfig.ZoomMultiplier);
+                int width = level == 0 ? 284 : BrowserUtils.Scale(284, 1.0+0.05*level);
+                return BrowserUtils.Scale(width, SizeScale);
             }
         }
 
         private int BaseClientHeight{
             get{
                 int level = TweetNotification.FontSizeLevel;
-                int height = level == 0 ? 118 : (int)Math.Round(118.0*(1.0+0.075*level));
-                return (int)Math.Round(height*dpiScale*Program.UserConfig.ZoomMultiplier);
+                int height = level == 0 ? 118 : BrowserUtils.Scale(118, 1.0+0.075*level);
+                return BrowserUtils.Scale(height, SizeScale);
             }
         }
 
@@ -104,9 +104,7 @@ namespace TweetDuck.Core.Notification{
                 int eventType = wParam.ToInt32();
 
                 if (eventType == NativeMethods.WM_MOUSEWHEEL && browser.Bounds.Contains(PointToClient(Cursor.Position))){
-                    int distance = (int)Math.Round(NativeMethods.GetMouseHookData(lParam)*(Program.UserConfig.NotificationScrollSpeed/100.0));
-
-                    browser.SendMouseWheelEvent(0, 0, 0, distance, CefEventFlags.None);
+                    browser.SendMouseWheelEvent(0, 0, 0, BrowserUtils.Scale(NativeMethods.GetMouseHookData(lParam), Program.UserConfig.NotificationScrollSpeed/100.0), CefEventFlags.None);
                     return NativeMethods.HOOK_HANDLED;
                 }
                 else if (eventType == NativeMethods.WM_XBUTTONDOWN && DesktopBounds.Contains(Cursor.Position)){
@@ -177,7 +175,7 @@ namespace TweetDuck.Core.Notification{
 
             timeLeft -= timerProgress.Interval;
 
-            int value = (int)Math.Round(1025.0*(totalTime-timeLeft)/totalTime);
+            int value = BrowserUtils.Scale(1025, (totalTime-timeLeft)/(double)totalTime);
             progressBarTimer.SetValueInstant(Math.Min(1000, Math.Max(0, Program.UserConfig.NotificationTimerCountDown ? 1000-value : value)));
 
             if (timeLeft <= 0){

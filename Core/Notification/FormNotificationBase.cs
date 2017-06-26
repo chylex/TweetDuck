@@ -67,12 +67,13 @@ namespace TweetDuck.Core.Notification{
         public Func<bool> CanMoveWindow = () => true;
         protected override bool ShowWithoutActivation => true;
 
+        protected double SizeScale => dpiScale*Program.UserConfig.ZoomMultiplier;
+
         protected readonly Form owner;
         protected readonly ChromiumWebBrowser browser;
-
-        protected float dpiScale;
-
+        
         private readonly ResourceHandlerNotification resourceHandler = new ResourceHandlerNotification();
+        private readonly float dpiScale;
 
         private string currentColumn;
         private int pauseCounter;
@@ -181,7 +182,7 @@ namespace TweetDuck.Core.Notification{
         }
 
         protected virtual void SetNotificationSize(int width, int height){
-            browser.ClientSize = ClientSize = new Size((int)Math.Round(width*dpiScale*Program.UserConfig.ZoomMultiplier), (int)Math.Round(height*dpiScale*Program.UserConfig.ZoomMultiplier));
+            browser.ClientSize = ClientSize = new Size(BrowserUtils.Scale(width, SizeScale), BrowserUtils.Scale(height, SizeScale));
         }
 
         protected virtual void OnNotificationReady(){

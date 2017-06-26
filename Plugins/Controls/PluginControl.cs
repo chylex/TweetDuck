@@ -30,7 +30,7 @@ namespace TweetDuck.Plugins.Controls{
             this.labelAuthor.Text = plugin.Author;
             this.labelWebsite.Text = plugin.Website;
             
-            this.labelType.LineHeight = (int)Math.Round(9*dpiScale);
+            this.labelType.LineHeight = BrowserUtils.Scale(9, dpiScale);
 
             UpdatePluginState();
 
@@ -47,7 +47,7 @@ namespace TweetDuck.Plugins.Controls{
             }
             else{
                 labelDescription.MaximumSize = new Size(panelDescription.Width-SystemInformation.VerticalScrollBarWidth, 0);
-                Height = Math.Min(MinimumSize.Height+(int)Math.Round(9*dpiScale)+labelDescription.Height, MaximumSize.Height);
+                Height = Math.Min(MinimumSize.Height+BrowserUtils.Scale(9, dpiScale)+labelDescription.Height, MaximumSize.Height);
             }
         }
 

@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Other.Settings;
 using TweetDuck.Core.Other.Settings.Dialogs;
+using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
 using TweetDuck.Updates;
 
@@ -28,7 +29,7 @@ namespace TweetDuck.Core.Other{
 
             this.plugins = plugins;
             
-            this.buttonHeight = (int)Math.Round(39*this.GetDPIScale()) | 1;
+            this.buttonHeight = BrowserUtils.Scale(39, this.GetDPIScale()) | 1;
 
             AddButton("General", () => new TabSettingsGeneral(updates));
             AddButton("Notifications", () => new TabSettingsNotifications(browser.CreateNotificationForm(false)));
