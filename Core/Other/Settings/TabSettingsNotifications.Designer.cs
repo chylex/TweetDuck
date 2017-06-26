@@ -60,6 +60,7 @@
             this.labelTimer = new System.Windows.Forms.Label();
             this.labelMiscellaneous = new System.Windows.Forms.Label();
             this.panelMiscellaneous = new System.Windows.Forms.Panel();
+            this.durationUpdateTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).BeginInit();
             this.tableLayoutDurationButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarDuration)).BeginInit();
@@ -497,6 +498,11 @@
             this.panelMiscellaneous.Size = new System.Drawing.Size(322, 90);
             this.panelMiscellaneous.TabIndex = 7;
             // 
+            // durationUpdateTimer
+            // 
+            this.durationUpdateTimer.Interval = 200;
+            this.durationUpdateTimer.Tick += new System.EventHandler(this.durationUpdateTimer_Tick);
+            // 
             // TabSettingsNotifications
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -566,5 +572,6 @@
         private System.Windows.Forms.Label labelMiscellaneous;
         private System.Windows.Forms.Panel panelMiscellaneous;
         private System.Windows.Forms.Label labelDuration;
+        private System.Windows.Forms.Timer durationUpdateTimer;
     }
 }

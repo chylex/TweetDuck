@@ -145,10 +145,11 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void trackBarDuration_ValueChanged(object sender, EventArgs e){
+            durationUpdateTimer.Stop();
+            durationUpdateTimer.Start();
+
             Config.NotificationDurationValue = trackBarDuration.Value;
             labelDurationValue.Text = Config.NotificationDurationValue+" ms/c";
-
-            notification.ShowNotificationForSettings(true);
         }
 
         private void btnDurationShort_Click(object sender, EventArgs e){
@@ -207,6 +208,11 @@ namespace TweetDuck.Core.Other.Settings{
             labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value.ToString(CultureInfo.InvariantCulture)+" px";
             Config.NotificationEdgeDistance = trackBarEdgeDistance.Value;
             notification.ShowNotificationForSettings(false);
+        }
+
+        private void durationUpdateTimer_Tick(object sender, EventArgs e){
+            notification.ShowNotificationForSettings(true);
+            durationUpdateTimer.Stop();
         }
     }
 }
