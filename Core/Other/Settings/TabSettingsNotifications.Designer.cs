@@ -392,7 +392,7 @@
             this.trackBarScrollSpeed.Minimum = 25;
             this.trackBarScrollSpeed.Name = "trackBarScrollSpeed";
             this.trackBarScrollSpeed.Size = new System.Drawing.Size(148, 30);
-            this.trackBarScrollSpeed.SmallChange = 25;
+            this.trackBarScrollSpeed.SmallChange = 5;
             this.trackBarScrollSpeed.TabIndex = 2;
             this.trackBarScrollSpeed.TickFrequency = 25;
             this.trackBarScrollSpeed.Value = 100;
