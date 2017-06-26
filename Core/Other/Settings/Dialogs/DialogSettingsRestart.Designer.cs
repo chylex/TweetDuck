@@ -38,7 +38,6 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.AutoSize = true;
             this.btnCancel.Location = new System.Drawing.Point(160, 171);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
@@ -51,7 +50,6 @@
             // btnRestart
             // 
             this.btnRestart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRestart.AutoSize = true;
             this.btnRestart.Location = new System.Drawing.Point(97, 171);
             this.btnRestart.Name = "btnRestart";
             this.btnRestart.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);

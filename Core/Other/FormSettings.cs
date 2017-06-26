@@ -13,6 +13,8 @@ namespace TweetDuck.Core.Other{
         private readonly FormBrowser browser;
         private readonly PluginManager plugins;
 
+        private readonly int buttonHeight;
+
         private readonly Dictionary<Type, SettingsTab> tabs = new Dictionary<Type, SettingsTab>(4);
         private SettingsTab currentTab;
 
@@ -25,6 +27,8 @@ namespace TweetDuck.Core.Other{
             this.browser.PauseNotification();
 
             this.plugins = plugins;
+            
+            this.buttonHeight = (int)Math.Round(39*this.GetDPIScale()) | 1;
 
             AddButton("General", () => new TabSettingsGeneral(updates));
             AddButton("Notifications", () => new TabSettingsNotifications(browser.CreateNotificationForm(false)));
@@ -63,14 +67,12 @@ namespace TweetDuck.Core.Other{
         }
 
         private void AddButton<T>(string title, Func<T> constructor) where T : BaseTabSettings{
-            const int btnHeight = 39;
-
             FlatButton btn = new FlatButton{
                 BackColor = SystemColors.Control,
                 FlatStyle = FlatStyle.Flat,
-                Location = new Point(0, (btnHeight+1)*(panelButtons.Controls.Count/2)),
+                Location = new Point(0, (buttonHeight+1)*(panelButtons.Controls.Count/2)),
                 Margin = new Padding(0),
-                Size = new Size(panelButtons.Width, btnHeight),
+                Size = new Size(panelButtons.Width, buttonHeight),
                 Text = title,
                 UseVisualStyleBackColor = true
             };
@@ -83,7 +85,7 @@ namespace TweetDuck.Core.Other{
 
             panelButtons.Controls.Add(new Panel{
                 BackColor = Color.DimGray,
-                Location = new Point(0, panelButtons.Controls[panelButtons.Controls.Count-1].Location.Y+btnHeight),
+                Location = new Point(0, panelButtons.Controls[panelButtons.Controls.Count-1].Location.Y+buttonHeight),
                 Margin = new Padding(0),
                 Size = new Size(panelButtons.Width, 1)
             });

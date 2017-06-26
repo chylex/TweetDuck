@@ -161,7 +161,8 @@ namespace TweetDuck{
             settings.CefCommandLineArgs["disable-extensions"] = "1";
             settings.CefCommandLineArgs["disable-plugins-discovery"] = "1";
             settings.CefCommandLineArgs["enable-system-flash"] = "0";
-
+            
+            Cef.EnableHighDPISupport();
             Cef.Initialize(settings, false, new BrowserProcessHandler());
 
             Application.ApplicationExit += (sender, args) => ExitCleanup();

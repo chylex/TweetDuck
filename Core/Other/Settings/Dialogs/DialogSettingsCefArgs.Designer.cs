@@ -69,7 +69,6 @@
             // btnHelp
             // 
             this.btnHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnHelp.AutoSize = true;
             this.btnHelp.Location = new System.Drawing.Point(12, 227);
             this.btnHelp.Name = "btnHelp";
             this.btnHelp.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);

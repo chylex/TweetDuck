@@ -22,22 +22,6 @@ namespace TweetDuck.Core.Notification{
             NotificationJS = ScriptLoader.LoadResource(NotificationScriptFile);
             PluginJS = ScriptLoader.LoadResource(PluginManager.PluginNotificationScriptFile);
         }
-
-        private static int BaseClientWidth{
-            get{
-                int level = TweetNotification.FontSizeLevel;
-                int width = level == 0 ? 284 : (int)Math.Round(284.0*(1.0+0.05*level));
-                return (int)Math.Round(width*Program.UserConfig.ZoomMultiplier);
-            }
-        }
-
-        private static int BaseClientHeight{
-            get{
-                int level = TweetNotification.FontSizeLevel;
-                int height = level == 0 ? 118 : (int)Math.Round(118.0*(1.0+0.075*level));
-                return (int)Math.Round(height*Program.UserConfig.ZoomMultiplier);
-            }
-        }
         
         private readonly PluginManager plugins;
 
@@ -65,6 +49,22 @@ namespace TweetDuck.Core.Notification{
                     prevDisplayTimer = Program.UserConfig.DisplayNotificationTimer;
                     prevFontSize = TweetNotification.FontSizeLevel;
                 }
+            }
+        }
+
+        private int BaseClientWidth{
+            get{
+                int level = TweetNotification.FontSizeLevel;
+                int width = level == 0 ? 284 : (int)Math.Round(284.0*(1.0+0.05*level));
+                return (int)Math.Round(width*dpiScale*Program.UserConfig.ZoomMultiplier);
+            }
+        }
+
+        private int BaseClientHeight{
+            get{
+                int level = TweetNotification.FontSizeLevel;
+                int height = level == 0 ? 118 : (int)Math.Round(118.0*(1.0+0.075*level));
+                return (int)Math.Round(height*dpiScale*Program.UserConfig.ZoomMultiplier);
             }
         }
 

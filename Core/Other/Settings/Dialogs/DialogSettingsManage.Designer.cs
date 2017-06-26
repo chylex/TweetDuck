@@ -42,7 +42,6 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.AutoSize = true;
             this.btnCancel.Location = new System.Drawing.Point(176, 97);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
@@ -56,7 +55,6 @@
             // 
             this.btnContinue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnContinue.AutoSize = true;
-            this.btnContinue.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnContinue.Enabled = false;
             this.btnContinue.Location = new System.Drawing.Point(125, 97);
             this.btnContinue.Name = "btnContinue";

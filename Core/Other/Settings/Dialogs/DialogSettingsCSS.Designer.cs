@@ -42,16 +42,14 @@
             // 
             // textBoxBrowserCSS
             // 
-            this.textBoxBrowserCSS.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxBrowserCSS.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.textBoxBrowserCSS.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBoxBrowserCSS.Location = new System.Drawing.Point(0, 16);
             this.textBoxBrowserCSS.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.textBoxBrowserCSS.Multiline = true;
             this.textBoxBrowserCSS.Name = "textBoxBrowserCSS";
             this.textBoxBrowserCSS.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxBrowserCSS.Size = new System.Drawing.Size(373, 253);
+            this.textBoxBrowserCSS.Size = new System.Drawing.Size(378, 253);
             this.textBoxBrowserCSS.TabIndex = 1;
             this.textBoxBrowserCSS.WordWrap = false;
             this.textBoxBrowserCSS.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxBrowserCSS_KeyUp);
@@ -100,7 +98,7 @@
             this.splitContainer.Panel2.Controls.Add(this.textBoxNotificationCSS);
             this.splitContainer.Panel2MinSize = 64;
             this.splitContainer.Size = new System.Drawing.Size(760, 269);
-            this.splitContainer.SplitterDistance = 373;
+            this.splitContainer.SplitterDistance = 378;
             this.splitContainer.SplitterWidth = 5;
             this.splitContainer.TabIndex = 0;
             // 
@@ -126,16 +124,14 @@
             // 
             // textBoxNotificationCSS
             // 
-            this.textBoxNotificationCSS.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxNotificationCSS.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.textBoxNotificationCSS.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBoxNotificationCSS.Location = new System.Drawing.Point(0, 16);
             this.textBoxNotificationCSS.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.textBoxNotificationCSS.Multiline = true;
             this.textBoxNotificationCSS.Name = "textBoxNotificationCSS";
             this.textBoxNotificationCSS.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxNotificationCSS.Size = new System.Drawing.Size(372, 253);
+            this.textBoxNotificationCSS.Size = new System.Drawing.Size(377, 253);
             this.textBoxNotificationCSS.TabIndex = 1;
             this.textBoxNotificationCSS.WordWrap = false;
             // 
@@ -152,7 +148,6 @@
             // btnOpenWiki
             // 
             this.btnOpenWiki.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnOpenWiki.AutoSize = true;
             this.btnOpenWiki.Location = new System.Drawing.Point(12, 287);
             this.btnOpenWiki.Name = "btnOpenWiki";
             this.btnOpenWiki.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);

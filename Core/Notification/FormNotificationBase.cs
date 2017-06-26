@@ -70,6 +70,8 @@ namespace TweetDuck.Core.Notification{
         protected readonly Form owner;
         protected readonly ChromiumWebBrowser browser;
 
+        protected float dpiScale;
+
         private readonly ResourceHandlerNotification resourceHandler = new ResourceHandlerNotification();
 
         private string currentColumn;
@@ -102,6 +104,8 @@ namespace TweetDuck.Core.Notification{
             #if DEBUG
             this.browser.ConsoleMessage += BrowserUtils.HandleConsoleMessage;
             #endif
+
+            this.dpiScale = this.GetDPIScale();
 
             DefaultResourceHandlerFactory handlerFactory = (DefaultResourceHandlerFactory)browser.ResourceHandlerFactory;
             handlerFactory.RegisterHandler("https://tweetdeck.twitter.com", this.resourceHandler);
@@ -177,7 +181,7 @@ namespace TweetDuck.Core.Notification{
         }
 
         protected virtual void SetNotificationSize(int width, int height){
-            browser.ClientSize = ClientSize = new Size((int)Math.Round(width*Program.UserConfig.ZoomMultiplier), (int)Math.Round(height*Program.UserConfig.ZoomMultiplier));
+            browser.ClientSize = ClientSize = new Size((int)Math.Round(width*dpiScale*Program.UserConfig.ZoomMultiplier), (int)Math.Round(height*dpiScale*Program.UserConfig.ZoomMultiplier));
         }
 
         protected virtual void OnNotificationReady(){

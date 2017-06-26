@@ -152,7 +152,6 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.labelType.BackColor = System.Drawing.Color.DarkGray;
             this.labelType.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelType.LineHeight = 9;
             this.labelType.Location = new System.Drawing.Point(0, 0);
             this.labelType.Name = "labelType";
             this.labelType.Size = new System.Drawing.Size(18, 109);

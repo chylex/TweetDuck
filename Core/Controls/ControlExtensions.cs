@@ -21,6 +21,12 @@ namespace TweetDuck.Core.Controls{
             control.BeginInvoke(func);
         }
 
+        public static float GetDPIScale(this Control control){
+            using(Graphics graphics = control.CreateGraphics()){
+                return graphics.DpiY/96F;
+            }
+        }
+
         public static bool IsFullyOutsideView(this Form form){
             return !Screen.AllScreens.Any(screen => screen.WorkingArea.IntersectsWith(form.Bounds));
         }

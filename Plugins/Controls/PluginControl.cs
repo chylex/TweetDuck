@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins.Enums;
 
@@ -10,6 +11,8 @@ namespace TweetDuck.Plugins.Controls{
     partial class PluginControl : UserControl{
         private readonly PluginManager pluginManager;
         private readonly Plugin plugin;
+
+        private readonly float dpiScale;
 
         public PluginControl(){
             InitializeComponent();
@@ -19,11 +22,15 @@ namespace TweetDuck.Plugins.Controls{
             this.pluginManager = pluginManager;
             this.plugin = plugin;
 
+            this.dpiScale = this.GetDPIScale();
+
             this.labelName.Text = plugin.Name;
             this.labelDescription.Text = plugin.CanRun ? plugin.Description : "This plugin requires "+Program.BrandName+" "+plugin.RequiredVersion+" or newer.";
             this.labelVersion.Text = plugin.Version;
             this.labelAuthor.Text = plugin.Author;
             this.labelWebsite.Text = plugin.Website;
+            
+            this.labelType.LineHeight = (int)Math.Round(9*dpiScale);
 
             UpdatePluginState();
 
@@ -40,7 +47,7 @@ namespace TweetDuck.Plugins.Controls{
             }
             else{
                 labelDescription.MaximumSize = new Size(panelDescription.Width-SystemInformation.VerticalScrollBarWidth, 0);
-                Height = Math.Min(MinimumSize.Height+9+labelDescription.Height, MaximumSize.Height);
+                Height = Math.Min(MinimumSize.Height+(int)Math.Round(9*dpiScale)+labelDescription.Height, MaximumSize.Height);
             }
         }
 
