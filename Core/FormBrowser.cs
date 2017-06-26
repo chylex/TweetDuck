@@ -208,10 +208,21 @@ namespace TweetDuck.Core{
             }
         }
 
+        private void timerResize_Tick(object sender, EventArgs e){
+            FormBrowser_ResizeEnd(this, e); // also stops timer
+        }
+
         private void FormBrowser_Activated(object sender, EventArgs e){
             if (!isLoaded)return;
 
             trayIcon.HasNotifications = false;
+        }
+
+        private void FormBrowser_LocationChanged(object sender, EventArgs e){
+            if (!isLoaded)return;
+            
+            timerResize.Stop();
+            timerResize.Start();
         }
 
         private void FormBrowser_Resize(object sender, EventArgs e){
@@ -229,11 +240,17 @@ namespace TweetDuck.Core{
                     FormBrowser_ResizeEnd(sender, e);
                 }
             }
+            else{
+                timerResize.Stop();
+                timerResize.Start();
+            }
         }
 
         private void FormBrowser_ResizeEnd(object sender, EventArgs e){ // also triggers when the window moves
             if (!isLoaded)return;
 
+            timerResize.Stop();
+            
             if (Location != ControlExtensions.InvisibleLocation){
                 Config.BrowserWindow.Save(this);
                 Config.Save();
