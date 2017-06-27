@@ -12,7 +12,7 @@ namespace UnitTests.Core.Utils{
 
         [TestMethod]
         public void TestValidString(){
-            CommandLineArgs args = CommandLineArgsParser.ReadCefArguments("--aaa --bbb --first-value=123 --SECOND-VALUE=\"a b c d e\" --ccc");
+            CommandLineArgs args = CommandLineArgsParser.ReadCefArguments("--aaa --bbb --first-value=123 --SECOND-VALUE=\"a b c d e\"\r\n--ccc");
             // cef has no flags, flag arguments have a value of 1
             // the processing removes all dashes in front of each key
 

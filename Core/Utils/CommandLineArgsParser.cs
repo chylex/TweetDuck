@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace TweetDuck.Core.Utils{
     static class CommandLineArgsParser{
-        private static readonly Lazy<Regex> SplitRegex = new Lazy<Regex>(() => new Regex(@"([^=\s]+(?:=(?:[^ ]*""[^""]*?""[^ ]*|[^ ]*))?)", RegexOptions.Compiled), false);
+        private static readonly Lazy<Regex> SplitRegex = new Lazy<Regex>(() => new Regex(@"([^=\s]+(?:=(?:\S*""[^""]*?""\S*|\S*))?)", RegexOptions.Compiled), false);
         
         public static CommandLineArgs ReadCefArguments(string argumentString){
             CommandLineArgs args = new CommandLineArgs();
