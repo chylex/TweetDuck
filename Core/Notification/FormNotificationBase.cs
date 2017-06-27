@@ -64,7 +64,7 @@ namespace TweetDuck.Core.Notification{
             }
         }
         
-        public Func<bool> CanMoveWindow = () => true;
+        public Func<bool> CanMoveWindow { get; set; } = () => true;
         protected override bool ShowWithoutActivation => true;
 
         protected double SizeScale => dpiScale*Program.UserConfig.ZoomMultiplier;

@@ -24,19 +24,22 @@ namespace TweetDuck.Configuration{
         // START OF CONFIGURATION
 
         public WindowState BrowserWindow { get; set; }
+        public WindowState PluginsWindow { get; set; }
+
         public bool DisplayNotificationColumn { get; set; }
         public bool DisplayNotificationTimer { get; set; }
         public bool NotificationTimerCountDown { get; set; }
         public bool NotificationSkipOnLinkClick { get; set; }
         public bool NotificationNonIntrusiveMode { get; set; }
 
+        public int NotificationIdlePauseSeconds { get; set; }
+        public int NotificationDurationValue { get; set; }
+        public int NotificationScrollSpeed { get; set; }
+
         public TweetNotification.Position NotificationPosition { get; set; }
         public Point CustomNotificationPosition { get; set; }
         public int NotificationEdgeDistance { get; set; }
         public int NotificationDisplay { get; set; }
-        public int NotificationIdlePauseSeconds { get; set; }
-        public int NotificationDurationValue { get; set; }
-        public int NotificationScrollSpeed { get; set; }
 
         public bool EnableSpellCheck { get; set; }
         public bool ExpandLinksOnHover { get; set; }
@@ -45,8 +48,6 @@ namespace TweetDuck.Configuration{
 
         public bool EnableUpdateCheck { get; set; }
         public string DismissedUpdate { get; set; }
-        
-        public WindowState PluginsWindow { get; set; }
 
         public string CustomCefArgs { get; set; }
         public string CustomBrowserCSS { get; set; }

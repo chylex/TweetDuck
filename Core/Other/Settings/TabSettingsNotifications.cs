@@ -15,15 +15,12 @@ namespace TweetDuck.Core.Other.Settings{
 
             this.notification = notification;
             this.notification.CanMoveWindow = () => radioLocCustom.Checked;
-
-            this.notification.Move += (sender, args) => {
-                if (radioLocCustom.Checked && this.notification.Location != ControlExtensions.InvisibleLocation){
-                    Config.CustomNotificationPosition = this.notification.Location;
-                }
-            };
             
             this.notification.Initialized += (sender, args) => {
-                this.InvokeAsyncSafe(() => this.notification.ShowNotificationForSettings(true));
+                this.InvokeAsyncSafe(() => {
+                    this.notification.ShowNotificationForSettings(true);
+                    this.notification.Move += notification_Move;
+                });
             };
 
             this.notification.Activated += notification_Activated;
@@ -111,6 +108,12 @@ namespace TweetDuck.Core.Other.Settings{
         private void notification_Activated(object sender, EventArgs e){
             notification.Hide();
             notification.Activated -= notification_Activated;
+        }
+
+        private void notification_Move(object sender, EventArgs e){
+            if (radioLocCustom.Checked && notification.Location != ControlExtensions.InvisibleLocation){
+                Config.CustomNotificationPosition = notification.Location;
+            }
         }
 
         private void radioLoc_CheckedChanged(object sender, EventArgs e){
