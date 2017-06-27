@@ -496,9 +496,14 @@
       return $(selector, parent).click().length;
     };
     
-    var tryCloseModal = function(){
+    var tryCloseModal1 = function(){
       var modal = $("#open-modal");
       return modal.is(":visible") && tryClickSelector("a[rel=dismiss]", modal);
+    };
+    
+    var tryCloseModal2 = function(){
+      var modal = $(".js-modals-container");
+      return modal.length && tryClickSelector("a.mdl-dismiss", modal);
     };
     
     var tryCloseHighlightedColumn = function(){
@@ -510,7 +515,8 @@
     
     window.TDGF_onMouseClickExtra = function(button){
       if (button === 1){ // back button
-        tryCloseModal() ||
+        tryCloseModal1() ||
+        tryCloseModal2() ||
         tryClickSelector(".js-inline-compose-close") ||
         tryCloseHighlightedColumn() ||
         tryClickSelector(".js-app-content.is-open .js-drawer-close:visible") ||
