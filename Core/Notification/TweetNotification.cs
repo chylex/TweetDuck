@@ -51,6 +51,10 @@ namespace TweetDuck.Core.Notification{
             TopLeft, TopRight, BottomLeft, BottomRight, Custom
         }
 
+        public enum Size{
+            Auto, Custom
+        }
+
         public string Column { get; }
         public string TweetUrl { get; }
         public string QuoteUrl { get; }

@@ -19,7 +19,7 @@ namespace TweetDuck.Configuration{
             }
         }
 
-        private const int CurrentFileVersion = 10;
+        private const int CurrentFileVersion = 11;
 
         // START OF CONFIGURATION
 
@@ -41,6 +41,9 @@ namespace TweetDuck.Configuration{
         public int NotificationEdgeDistance { get; set; }
         public int NotificationDisplay { get; set; }
 
+        public TweetNotification.Size NotificationSize { get; set; }
+        public Size CustomNotificationSize { get; set; }
+
         public bool EnableSpellCheck { get; set; }
         public bool ExpandLinksOnHover { get; set; }
         public bool SwitchAccountSelectors { get; set; }
@@ -54,6 +57,7 @@ namespace TweetDuck.Configuration{
         public string CustomNotificationCSS { get; set; }
 
         public bool IsCustomNotificationPositionSet => CustomNotificationPosition != ControlExtensions.InvisibleLocation;
+        public bool IsCustomNotificationSizeSet => CustomNotificationSize != Size.Empty;
 
         public string NotificationSoundPath{
             get => string.IsNullOrEmpty(notificationSoundPath) ? string.Empty : notificationSoundPath;
@@ -124,6 +128,7 @@ namespace TweetDuck.Configuration{
             NotificationNonIntrusiveMode = true;
             NotificationPosition = TweetNotification.Position.TopRight;
             CustomNotificationPosition = ControlExtensions.InvisibleLocation;
+            NotificationSize = TweetNotification.Size.Auto;
             NotificationEdgeDistance = 8;
             NotificationDurationValue = 25;
             NotificationScrollSpeed = 100;
@@ -188,6 +193,11 @@ namespace TweetDuck.Configuration{
 
             if (fileVersion == 9){
                 NotificationScrollSpeed = 100;
+                ++fileVersion;
+            }
+
+            if (fileVersion == 10){
+                NotificationSize = TweetNotification.Size.Auto;
                 ++fileVersion;
             }
 

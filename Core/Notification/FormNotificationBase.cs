@@ -57,11 +57,13 @@ namespace TweetDuck.Core.Notification{
 
             set{
                 Visible = (base.Location = value) != ControlExtensions.InvisibleLocation;
-                
-                if (WindowsUtils.ShouldAvoidToolWindow){
-                    FormBorderStyle = Visible ? FormBorderStyle.FixedSingle : FormBorderStyle.FixedToolWindow; // workaround for alt+tab
-                }
+                FormBorderStyle = GetBorderStyle(CanResizeWindow);
             }
+        }
+
+        public bool CanResizeWindow{
+            get => FormBorderStyle == FormBorderStyle.Sizable || FormBorderStyle == FormBorderStyle.SizableToolWindow;
+            set => FormBorderStyle = GetBorderStyle(value);
         }
         
         public Func<bool> CanMoveWindow { get; set; } = () => true;
@@ -210,6 +212,15 @@ namespace TweetDuck.Core.Notification{
                 Point position = PointToClient(Cursor.Position);
                 position.Offset(20, 5);
                 toolTip.Show(text, this, position);
+            }
+        }
+
+        private FormBorderStyle GetBorderStyle(bool sizable){
+            if (WindowsUtils.ShouldAvoidToolWindow && Visible){ // Visible = workaround for alt+tab
+                return sizable ? FormBorderStyle.Sizable : FormBorderStyle.FixedSingle;
+            }
+            else{
+                return sizable ? FormBorderStyle.SizableToolWindow : FormBorderStyle.FixedToolWindow;
             }
         }
     }

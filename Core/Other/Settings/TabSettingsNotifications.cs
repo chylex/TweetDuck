@@ -14,12 +14,12 @@ namespace TweetDuck.Core.Other.Settings{
             InitializeComponent();
 
             this.notification = notification;
-            this.notification.CanMoveWindow = () => radioLocCustom.Checked;
             
             this.notification.Initialized += (sender, args) => {
                 this.InvokeAsyncSafe(() => {
                     this.notification.ShowNotificationForSettings(true);
                     this.notification.Move += notification_Move;
+                    this.notification.ResizeEnd += notification_ResizeEnd;
                 });
             };
 
@@ -35,6 +35,11 @@ namespace TweetDuck.Core.Other.Settings{
             }
 
             comboBoxDisplay.Enabled = trackBarEdgeDistance.Enabled = !radioLocCustom.Checked;
+
+            switch(Config.NotificationSize){
+                case TweetNotification.Size.Auto: radioSizeAuto.Checked = true; break;
+                case TweetNotification.Size.Custom: radioSizeCustom.Checked = true; break;
+            }
             
             toolTip.SetToolTip(trackBarDuration, toolTip.GetToolTip(labelDurationValue));
             trackBarDuration.SetValueSafe(Config.NotificationDurationValue);
@@ -67,6 +72,9 @@ namespace TweetDuck.Core.Other.Settings{
 
             trackBarEdgeDistance.SetValueSafe(Config.NotificationEdgeDistance);
             labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value.ToString(CultureInfo.InvariantCulture)+" px";
+            
+            this.notification.CanMoveWindow = () => radioLocCustom.Checked;
+            this.notification.CanResizeWindow = radioSizeCustom.Checked;
 
             Disposed += (sender, args) => this.notification.Dispose();
         }
@@ -77,6 +85,9 @@ namespace TweetDuck.Core.Other.Settings{
             radioLocBL.CheckedChanged += radioLoc_CheckedChanged;
             radioLocBR.CheckedChanged += radioLoc_CheckedChanged;
             radioLocCustom.Click += radioLocCustom_Click;
+
+            radioSizeAuto.CheckedChanged += radioSize_CheckedChanged;
+            radioSizeCustom.Click += radioSizeCustom_Click;
 
             trackBarDuration.ValueChanged += trackBarDuration_ValueChanged;
             btnDurationShort.Click += btnDurationShort_Click;
@@ -116,6 +127,13 @@ namespace TweetDuck.Core.Other.Settings{
             }
         }
 
+        private void notification_ResizeEnd(object sender, EventArgs e){
+            if (radioSizeCustom.Checked){
+                Config.CustomNotificationSize = notification.BrowserSize;
+                notification.ShowNotificationForSettings(false);
+            }
+        }
+
         private void radioLoc_CheckedChanged(object sender, EventArgs e){
             if (radioLocTL.Checked)Config.NotificationPosition = TweetNotification.Position.TopLeft;
             else if (radioLocTR.Checked)Config.NotificationPosition = TweetNotification.Position.TopRight;
@@ -145,6 +163,24 @@ namespace TweetDuck.Core.Other.Settings{
                 Config.NotificationPosition = TweetNotification.Position.Custom;
                 notification.MoveToVisibleLocation();
             }
+        }
+
+        private void radioSize_CheckedChanged(object sender, EventArgs e){
+            if (radioSizeAuto.Checked)Config.NotificationSize = TweetNotification.Size.Auto;
+            
+            notification.ShowNotificationForSettings(false);
+            notification.CanResizeWindow = false; // must be after ShowNotificationForSettings
+        }
+        
+        private void radioSizeCustom_Click(object sender, EventArgs e){
+            if (!Config.IsCustomNotificationSizeSet){
+                Config.CustomNotificationSize = notification.BrowserSize;
+            }
+
+            Config.NotificationSize = TweetNotification.Size.Custom;
+
+            notification.CanResizeWindow = true;
+            notification.ShowNotificationForSettings(false);
         }
 
         private void trackBarDuration_ValueChanged(object sender, EventArgs e){

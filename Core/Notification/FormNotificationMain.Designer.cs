@@ -49,7 +49,7 @@
             this.progressBarTimer.Margin = new System.Windows.Forms.Padding(0);
             this.progressBarTimer.Maximum = 1000;
             this.progressBarTimer.Name = "progressBarTimer";
-            this.progressBarTimer.Size = new System.Drawing.Size(284, 4);
+            this.progressBarTimer.Size = new System.Drawing.Size(284, TimerBarHeight);
             this.progressBarTimer.TabIndex = 1;
             // 
             // FormNotification

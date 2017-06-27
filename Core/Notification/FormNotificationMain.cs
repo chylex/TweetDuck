@@ -12,6 +12,7 @@ using TweetDuck.Resources;
 namespace TweetDuck.Core.Notification{
     partial class FormNotificationMain : FormNotificationBase{
         private const string NotificationScriptFile = "notification.js";
+        private const int TimerBarHeight = 4;
 
         private static readonly string NotificationScriptIdentifier = ScriptLoader.GetRootIdentifier(NotificationScriptFile);
         private static readonly string PluginScriptIdentifier = ScriptLoader.GetRootIdentifier(PluginManager.PluginNotificationScriptFile);
@@ -35,9 +36,9 @@ namespace TweetDuck.Core.Notification{
         private bool? prevDisplayTimer;
         private int? prevFontSize;
 
-        private bool RequiresResize{
+        public bool RequiresResize{
             get{
-                return !prevDisplayTimer.HasValue || !prevFontSize.HasValue || prevDisplayTimer != Program.UserConfig.DisplayNotificationTimer || prevFontSize != TweetNotification.FontSizeLevel;
+                return !prevDisplayTimer.HasValue || !prevFontSize.HasValue || prevDisplayTimer != Program.UserConfig.DisplayNotificationTimer || prevFontSize != TweetNotification.FontSizeLevel || CanResizeWindow;
             }
 
             set{
@@ -54,18 +55,30 @@ namespace TweetDuck.Core.Notification{
 
         private int BaseClientWidth{
             get{
-                int level = TweetNotification.FontSizeLevel;
-                int width = level == 0 ? 284 : BrowserUtils.Scale(284, 1.0+0.05*level);
-                return BrowserUtils.Scale(width, SizeScale);
+                switch(Program.UserConfig.NotificationSize){
+                    default:
+                        return BrowserUtils.Scale(284, SizeScale*(1.0+0.05*TweetNotification.FontSizeLevel));
+
+                    case TweetNotification.Size.Custom:
+                        return Program.UserConfig.CustomNotificationSize.Width;
+                }
             }
         }
 
         private int BaseClientHeight{
             get{
-                int level = TweetNotification.FontSizeLevel;
-                int height = level == 0 ? 118 : BrowserUtils.Scale(118, 1.0+0.075*level);
-                return BrowserUtils.Scale(height, SizeScale);
+                switch(Program.UserConfig.NotificationSize){
+                    default:
+                        return BrowserUtils.Scale(118, SizeScale*(1.0+0.075*TweetNotification.FontSizeLevel));
+
+                    case TweetNotification.Size.Custom:
+                        return Program.UserConfig.CustomNotificationSize.Height;
+                }
             }
+        }
+
+        public Size BrowserSize{
+            get => Program.UserConfig.DisplayNotificationTimer ? new Size(ClientSize.Width, ClientSize.Height-TimerBarHeight) : ClientSize;
         }
 
         public FormNotificationMain(FormBrowser owner, PluginManager pluginManager, bool enableContextMenu) : base(owner, enableContextMenu){
@@ -253,7 +266,7 @@ namespace TweetDuck.Core.Notification{
 
         protected override void SetNotificationSize(int width, int height){
             if (Program.UserConfig.DisplayNotificationTimer){
-                ClientSize = new Size(width, height+4);
+                ClientSize = new Size(width, height+TimerBarHeight);
                 progressBarTimer.Visible = true;
             }
             else{

@@ -416,8 +416,10 @@ namespace TweetDuck.Core{
                     if (!Config.EnableTrayHighlight){
                         trayIcon.HasNotifications = false;
                     }
-
+                    
                     UpdateProperties(PropertyBridge.Properties.ExpandLinksOnHover | PropertyBridge.Properties.SwitchAccountSelectors | PropertyBridge.Properties.HasCustomNotificationSound);
+
+                    notification.RequiresResize = true;
                     form.Dispose();
                 };
 
