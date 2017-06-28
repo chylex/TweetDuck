@@ -172,12 +172,13 @@ namespace TweetDuck{
             plugins.Executed += plugins_Executed;
             plugins.Reload();
 
-            FormBrowser mainForm = new FormBrowser(plugins, new UpdaterSettings{
+            UpdaterSettings updaterSettings = new UpdaterSettings{
                 AllowPreReleases = Arguments.HasFlag(Arguments.ArgDebugUpdates),
                 DismissedUpdate = UserConfig.DismissedUpdate,
                 InstallerDownloadFolder = InstallerPath
-            });
+            };
 
+            FormBrowser mainForm = new FormBrowser(plugins, updaterSettings);
             Application.Run(mainForm);
 
             if (mainForm.UpdateInstallerPath != null){
@@ -241,11 +242,7 @@ namespace TweetDuck{
             ReloadConfig();
         }
 
-        public static void Restart(){
-            Restart(new string[0]);
-        }
-
-        public static void Restart(string[] extraArgs){
+        public static void Restart(params string[] extraArgs){
             CommandLineArgs args = Arguments.GetCurrentClean();
             CommandLineArgs.ReadStringArray('-', extraArgs, args);
             RestartWithArgs(args);

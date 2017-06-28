@@ -142,7 +142,7 @@ namespace TweetDuck.Core.Other.Settings.Export{
                 }
 
                 if (IsRestarting){
-                    Program.Restart(new string[]{ Arguments.ArgImportCookies });
+                    Program.Restart(Arguments.ArgImportCookies);
                 }
                 else{
                     Program.ReloadConfig();
