@@ -42,6 +42,13 @@ namespace TweetDuck.Core.Utils{
             args["disable-extensions"] = "1";
             args["disable-plugins-discovery"] = "1";
             args["enable-system-flash"] = "0";
+
+            if (args.TryGetValue("js-flags", out string jsFlags)){
+                args["js-flags"] = "--expose-gc "+jsFlags;
+            }
+            else{
+                args["js-flags"] = "--expose-gc";
+            }
         }
 
         public static bool IsValidUrl(string url){
