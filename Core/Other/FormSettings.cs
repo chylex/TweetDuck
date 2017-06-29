@@ -109,7 +109,12 @@ namespace TweetDuck.Core.Other{
 
             if (!tab.IsInitialized){
                 foreach(Control control in tab.Control.InteractiveControls){
-                    control.MouseLeave += control_MouseLeave;
+                    if (control is ComboBox){
+                        control.MouseLeave += control_MouseLeave;
+                    }
+                    else if (control is TrackBar){
+                        control.MouseWheel += control_MouseWheel;
+                    }
                 }
 
                 tab.Control.OnReady();
@@ -126,6 +131,11 @@ namespace TweetDuck.Core.Other{
         }
 
         private void control_MouseLeave(object sender, EventArgs e){
+            panelContents.Focus();
+        }
+
+        private void control_MouseWheel(object sender, MouseEventArgs e){
+            ((HandledMouseEventArgs)e).Handled = true;
             panelContents.Focus();
         }
 
