@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using TweetDuck.Core.Controls;
+using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Other{
     sealed partial class FormMessage : Form{
@@ -13,8 +15,13 @@ namespace TweetDuck.Core.Other{
             set => ClientSize = new Size(value, ClientSize.Height);
         }
 
+        private int ButtonDistance{
+            get => BrowserUtils.Scale(96, dpiScale);
+        }
+
         private readonly Icon icon;
         private readonly bool isReady;
+        private readonly float dpiScale;
 
         private int realFormWidth, minFormWidth;
         private int buttonCount;
@@ -24,9 +31,11 @@ namespace TweetDuck.Core.Other{
         public FormMessage(string caption, string text, MessageBoxIcon messageIcon){
             InitializeComponent();
 
+            this.dpiScale = this.GetDPIScale();
+
             this.prevLabelWidth = labelMessage.Width;
             this.prevLabelHeight = labelMessage.Height;
-            this.minFormWidth = 40;
+            this.minFormWidth = BrowserUtils.Scale(40, dpiScale);
 
             switch(messageIcon){
                 case MessageBoxIcon.Information:
@@ -66,7 +75,7 @@ namespace TweetDuck.Core.Other{
                 Anchor = AnchorStyles.Bottom,
                 Font = SystemFonts.MessageBoxFont,
                 Location = new Point(0, 12),
-                Size = new Size(88, 26),
+                Size = new Size(BrowserUtils.Scale(88, dpiScale), BrowserUtils.Scale(26, dpiScale)),
                 TabIndex = buttonCount,
                 Text = title,
                 UseVisualStyleBackColor = true
@@ -81,7 +90,7 @@ namespace TweetDuck.Core.Other{
             panelActions.Controls.Add(button);
             ++buttonCount;
 
-            minFormWidth += 96;
+            minFormWidth += ButtonDistance;
             ClientWidth = Math.Max(realFormWidth, minFormWidth);
             RecalculateButtonLocation();
 
@@ -90,15 +99,20 @@ namespace TweetDuck.Core.Other{
 
         public void AddActionControl(Control control){
             panelActions.Controls.Add(control);
+            
+            control.Size = new Size(BrowserUtils.Scale(control.Width, dpiScale), BrowserUtils.Scale(control.Height, dpiScale));
 
             minFormWidth += control.Width+control.Margin.Horizontal;
             ClientWidth = Math.Max(realFormWidth, minFormWidth);
         }
         
         private void RecalculateButtonLocation(){
+            int dist = ButtonDistance;
+            int start = ClientWidth-dist-BrowserUtils.Scale(1, dpiScale);
+
             for(int index = 0; index < buttonCount; index++){
                 Control control = panelActions.Controls[index];
-                control.Location = new Point(ClientWidth-97-index*96, control.Location.Y);
+                control.Location = new Point(start-index*dist, control.Location.Y);
             }
         }
 
@@ -108,14 +122,15 @@ namespace TweetDuck.Core.Other{
             }
 
             bool isMultiline = labelMessage.Height > labelMessage.MinimumSize.Height;
+            int labelOffset = BrowserUtils.Scale(8, dpiScale);
 
             if (isMultiline && !wasLabelMultiline){
-                labelMessage.Location = new Point(labelMessage.Location.X, labelMessage.Location.Y-8);
-                prevLabelHeight += 8;
+                labelMessage.Location = new Point(labelMessage.Location.X, labelMessage.Location.Y-labelOffset);
+                prevLabelHeight += labelOffset;
             }
             else if (!isMultiline && wasLabelMultiline){
-                labelMessage.Location = new Point(labelMessage.Location.X, labelMessage.Location.Y+8);
-                prevLabelHeight -= 8;
+                labelMessage.Location = new Point(labelMessage.Location.X, labelMessage.Location.Y+labelOffset);
+                prevLabelHeight -= labelOffset;
             }
 
             realFormWidth = ClientWidth-(icon == null ? 50 : 0)+labelMessage.Width-prevLabelWidth;

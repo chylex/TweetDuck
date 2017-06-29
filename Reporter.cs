@@ -46,7 +46,7 @@ namespace TweetDuck{
         public void HandleException(string caption, string message, bool canIgnore, Exception e){
             bool loggedSuccessfully = Log(e.ToString());
 
-            FormMessage form = new FormMessage(caption, message+"\r\nError: "+e.Message, canIgnore ? MessageBoxIcon.Warning : MessageBoxIcon.Error);
+            FormMessage form = new FormMessage(caption, message+Environment.NewLine+"Error: "+e.Message, canIgnore ? MessageBoxIcon.Warning : MessageBoxIcon.Error);
             
             Button btnExit = form.AddButton("Exit");
             Button btnIgnore = form.AddButton("Ignore", DialogResult.Ignore);
@@ -59,9 +59,9 @@ namespace TweetDuck{
                 Anchor = AnchorStyles.Bottom | AnchorStyles.Left,
                 Enabled = loggedSuccessfully,
                 Font = SystemFonts.MessageBoxFont,
-                Location = new Point(6, 12),
+                Location = new Point(9, 12),
                 Margin = new Padding(0, 0, 48, 0),
-                Size = new Size(88, 26),
+                Size = new Size(106, 26),
                 Text = "Show Error Log",
                 UseVisualStyleBackColor = true
             };
