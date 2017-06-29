@@ -47,6 +47,12 @@ namespace TweetDuck.Core.Controls{
             }
         }
 
+        public static void SetValueSafe(this NumericUpDown numUpDown, int value){
+            if (value >= numUpDown.Minimum && value <= numUpDown.Maximum){
+                numUpDown.Value = value;
+            }
+        }
+
         public static void SetValueSafe(this TrackBar trackBar, int value){
             if (value >= trackBar.Minimum && value <= trackBar.Maximum){
                 trackBar.Value = value;
