@@ -56,6 +56,9 @@ namespace TweetDuck.Configuration{
         public string CustomBrowserCSS { get; set; }
         public string CustomNotificationCSS { get; set; }
 
+        public bool EnableBrowserGCReload { get; set; }
+        public int BrowserMemoryThreshold { get; set; }
+
         public bool IsCustomNotificationPositionSet => CustomNotificationPosition != ControlExtensions.InvisibleLocation;
         public bool IsCustomNotificationSizeSet => CustomNotificationSize != Size.Empty;
 
@@ -132,6 +135,7 @@ namespace TweetDuck.Configuration{
             NotificationEdgeDistance = 8;
             NotificationDurationValue = 25;
             NotificationScrollSpeed = 100;
+            BrowserMemoryThreshold = 350;
             EnableUpdateCheck = true;
             ExpandLinksOnHover = true;
             SwitchAccountSelectors = true;
@@ -198,6 +202,7 @@ namespace TweetDuck.Configuration{
 
             if (fileVersion == 10){
                 NotificationSize = TweetNotification.Size.Auto;
+                BrowserMemoryThreshold = 350;
                 ++fileVersion;
             }
 
