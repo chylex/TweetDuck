@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Management;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -75,6 +76,20 @@ namespace TweetDuck.Core.Utils{
                     }
                 }, timeout, 500);
             }).Start();
+        }
+
+        public static bool IsChildProcess(int pid){
+            try{
+                using(ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT ParentProcessId FROM Win32_Process WHERE ProcessId = "+pid)){
+                    foreach(ManagementBaseObject obj in searcher.Get()){
+                        return (uint)obj["ParentProcessId"] == CurrentProcessID;
+                    }
+                }
+
+                return false;
+            }catch{
+                return false;
+            }
         }
 
         public static void ClipboardStripHtmlStyles(){
