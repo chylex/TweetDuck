@@ -12,7 +12,6 @@ namespace TweetDuck.Core.Utils{
 
         public static void Forget(int identifier){
             PIDs.Remove(identifier);
-            Debug.WriteLine("rip "+identifier);
         }
         
         public static Process FindProcess(IBrowser browser){
