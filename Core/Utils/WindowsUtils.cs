@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Management;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -11,9 +12,14 @@ namespace TweetDuck.Core.Utils{
         private static readonly Lazy<Regex> RegexStripHtmlStyles = new Lazy<Regex>(() => new Regex(@"\s?(?:style|class)="".*?"""), false);
         private static readonly Lazy<Regex> RegexOffsetClipboardHtml = new Lazy<Regex>(() => new Regex(@"(?<=EndHTML:|EndFragment:)(\d+)"), false);
 
+        public static int CurrentProcessID { get; }
         public static bool ShouldAvoidToolWindow { get; }
 
         static WindowsUtils(){
+            using(Process me = Process.GetCurrentProcess()){
+                CurrentProcessID = me.Id;
+            }
+
             Version ver = Environment.OSVersion.Version;
             ShouldAvoidToolWindow = ver.Major == 6 && ver.Minor == 2; // windows 8/10
         }
@@ -70,6 +76,20 @@ namespace TweetDuck.Core.Utils{
                     }
                 }, timeout, 500);
             }).Start();
+        }
+
+        public static bool IsChildProcess(int pid){
+            try{
+                using(ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT ParentProcessId FROM Win32_Process WHERE ProcessId = "+pid)){
+                    foreach(ManagementBaseObject obj in searcher.Get()){
+                        return (uint)obj["ParentProcessId"] == CurrentProcessID;
+                    }
+                }
+
+                return false;
+            }catch{
+                return false;
+            }
         }
 
         public static void ClipboardStripHtmlStyles(){

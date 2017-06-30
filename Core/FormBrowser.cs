@@ -345,16 +345,13 @@ namespace TweetDuck.Core{
         }
 
         protected override void WndProc(ref Message m){
-            if (isLoaded && m.Msg == Program.WindowRestoreMessage){
-                using(Process process = Process.GetCurrentProcess()){
-                    if (process.Id == m.WParam.ToInt32()){
-                        trayIcon_ClickRestore(trayIcon, new EventArgs());
-                    }
+            if (isLoaded){
+                if (m.Msg == Program.WindowRestoreMessage && WindowsUtils.CurrentProcessID == m.WParam.ToInt32()){
+                    trayIcon_ClickRestore(trayIcon, new EventArgs());
+                    return;
                 }
-
-                return;
             }
-
+            
             if (isBrowserReady && m.Msg == NativeMethods.WM_PARENTNOTIFY && (m.WParam.ToInt32() & 0xFFFF) == NativeMethods.WM_XBUTTONDOWN){
                 browser.ExecuteScriptAsync("TDGF_onMouseClickExtra", (m.WParam.ToInt32() >> 16) & 0xFFFF);
                 return;
