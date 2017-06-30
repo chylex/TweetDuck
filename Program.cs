@@ -43,6 +43,7 @@ namespace TweetDuck{
         private static string ConsoleLogFilePath => Path.Combine(StoragePath, "TD_Console.txt");
 
         public static uint WindowRestoreMessage;
+        public static uint SubProcessMessage;
 
         private static readonly LockManager LockManager = new LockManager(Path.Combine(StoragePath, ".lock"));
         private static bool HasCleanedUp;
@@ -59,6 +60,7 @@ namespace TweetDuck{
             Application.SetCompatibleTextRenderingDefault(false);
 
             WindowRestoreMessage = NativeMethods.RegisterWindowMessage("TweetDuckRestore");
+            SubProcessMessage = NativeMethods.RegisterWindowMessage("TweetDuckSubProcess");
 
             if (!WindowsUtils.CheckFolderWritePermission(StoragePath)){
                 MessageBox.Show(BrandName+" does not have write permissions to the storage folder: "+StoragePath, "Permission Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);

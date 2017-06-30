@@ -1,7 +1,6 @@
 ﻿using CefSharp;
 using CefSharp.WinForms;
 using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -346,8 +345,20 @@ namespace TweetDuck.Core{
 
         protected override void WndProc(ref Message m){
             if (isLoaded){
-                if (m.Msg == Program.WindowRestoreMessage && WindowsUtils.CurrentProcessID == m.WParam.ToInt32()){
-                    trayIcon_ClickRestore(trayIcon, new EventArgs());
+                if (m.Msg == Program.WindowRestoreMessage){
+                    if (WindowsUtils.CurrentProcessID == m.WParam.ToInt32()){
+                        trayIcon_ClickRestore(trayIcon, new EventArgs());
+                    }
+
+                    return;
+                }
+                else if (m.Msg == Program.SubProcessMessage){
+                    int processId = m.WParam.ToInt32();
+
+                    if (WindowsUtils.IsChildProcess(processId)){ // child process is checked in two places for safety
+                        BrowserProcesses.Link(m.LParam.ToInt32(), processId);
+                    }
+
                     return;
                 }
             }

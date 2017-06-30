@@ -195,6 +195,7 @@
       <DependentUpon>TabSettingsNotifications.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\Bridge\CallbackBridge.cs" />
+    <Compile Include="Core\Utils\BrowserProcesses.cs" />
     <Compile Include="Core\Utils\CommandLineArgs.cs" />
     <Compile Include="Core\Utils\CommandLineArgsParser.cs" />
     <Compile Include="Core\Notification\Screenshot\FormNotificationScreenshotable.cs">
