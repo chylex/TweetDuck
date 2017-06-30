@@ -21,7 +21,7 @@ namespace TweetDuck.Configuration{
 
         private void CreateLockFileStream(){
             lockStream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.Read);
-            WriteIntToStream(lockStream, GetCurrentProcessId());
+            WriteIntToStream(lockStream, WindowsUtils.CurrentProcessID);
             lockStream.Flush(true);
         }
 
@@ -165,12 +165,6 @@ namespace TweetDuck.Configuration{
             byte[] bytes = new byte[4];
             stream.Read(bytes, 0, 4);
             return BitConverter.ToInt32(bytes, 0);
-        }
-
-        private static int GetCurrentProcessId(){
-            using(Process process = Process.GetCurrentProcess()){
-                return process.Id;
-            }
         }
     }
 }

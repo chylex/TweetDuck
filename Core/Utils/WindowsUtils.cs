@@ -11,9 +11,14 @@ namespace TweetDuck.Core.Utils{
         private static readonly Lazy<Regex> RegexStripHtmlStyles = new Lazy<Regex>(() => new Regex(@"\s?(?:style|class)="".*?"""), false);
         private static readonly Lazy<Regex> RegexOffsetClipboardHtml = new Lazy<Regex>(() => new Regex(@"(?<=EndHTML:|EndFragment:)(\d+)"), false);
 
+        public static int CurrentProcessID { get; }
         public static bool ShouldAvoidToolWindow { get; }
 
         static WindowsUtils(){
+            using(Process me = Process.GetCurrentProcess()){
+                CurrentProcessID = me.Id;
+            }
+
             Version ver = Environment.OSVersion.Version;
             ShouldAvoidToolWindow = ver.Major == 6 && ver.Minor == 2; // windows 8/10
         }
