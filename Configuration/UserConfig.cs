@@ -19,7 +19,7 @@ namespace TweetDuck.Configuration{
             }
         }
 
-        private const int CurrentFileVersion = 11;
+        private const int CurrentFileVersion = 12;
 
         // START OF CONFIGURATION
 
@@ -202,6 +202,9 @@ namespace TweetDuck.Configuration{
 
             if (fileVersion == 10){
                 NotificationSize = TweetNotification.Size.Auto;
+            }
+
+            if (fileVersion == 11){
                 BrowserMemoryThreshold = 350;
                 ++fileVersion;
             }

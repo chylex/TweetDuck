@@ -24,7 +24,6 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TabSettingsAdvanced));
             this.btnClearCache = new System.Windows.Forms.Button();
             this.checkHardwareAcceleration = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
@@ -35,17 +34,17 @@
             this.btnOpenAppFolder = new System.Windows.Forms.Button();
             this.btnOpenDataFolder = new System.Windows.Forms.Button();
             this.checkBrowserGCReload = new System.Windows.Forms.CheckBox();
+            this.numMemoryThreshold = new TweetDuck.Core.Controls.NumericUpDownEx();
             this.labelApp = new System.Windows.Forms.Label();
             this.panelApp = new System.Windows.Forms.Panel();
             this.labelPerformance = new System.Windows.Forms.Label();
             this.panelPerformance = new System.Windows.Forms.Panel();
-            this.numMemoryThreshold = new TweetDuck.Core.Controls.NumericUpDownEx();
             this.labelMemoryUsage = new System.Windows.Forms.Label();
             this.panelConfiguration = new System.Windows.Forms.Panel();
             this.labelConfiguration = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.numMemoryThreshold)).BeginInit();
             this.panelApp.SuspendLayout();
             this.panelPerformance.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numMemoryThreshold)).BeginInit();
             this.panelConfiguration.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -147,8 +146,37 @@
             this.checkBrowserGCReload.Size = new System.Drawing.Size(190, 17);
             this.checkBrowserGCReload.TabIndex = 4;
             this.checkBrowserGCReload.Text = "Enable Browser Memory Threshold";
-            this.toolTip.SetToolTip(this.checkBrowserGCReload, resources.GetString("checkBrowserGCReload.ToolTip"));
             this.checkBrowserGCReload.UseVisualStyleBackColor = true;
+            // 
+            // numMemoryThreshold
+            // 
+            this.numMemoryThreshold.Increment = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.numMemoryThreshold.Location = new System.Drawing.Point(202, 82);
+            this.numMemoryThreshold.Maximum = new decimal(new int[] {
+            3000,
+            0,
+            0,
+            0});
+            this.numMemoryThreshold.Minimum = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            this.numMemoryThreshold.Name = "numMemoryThreshold";
+            this.numMemoryThreshold.Size = new System.Drawing.Size(97, 20);
+            this.numMemoryThreshold.TabIndex = 3;
+            this.numMemoryThreshold.TextSuffix = " MB";
+            this.toolTip.SetToolTip(this.numMemoryThreshold, "Minimum amount of memory usage by the browser process to trigger the cleanup.\r\nTh" +
+        "is is not a limit, the usage is allowed to exceed this value.");
+            this.numMemoryThreshold.Value = new decimal(new int[] {
+            350,
+            0,
+            0,
+            0});
             // 
             // labelApp
             // 
@@ -199,36 +227,6 @@
             this.panelPerformance.Size = new System.Drawing.Size(322, 105);
             this.panelPerformance.TabIndex = 3;
             // 
-            // numMemoryThreshold
-            // 
-            this.numMemoryThreshold.Increment = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.numMemoryThreshold.Location = new System.Drawing.Point(202, 82);
-            this.numMemoryThreshold.Maximum = new decimal(new int[] {
-            3000,
-            0,
-            0,
-            0});
-            this.numMemoryThreshold.Minimum = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
-            this.numMemoryThreshold.Name = "numMemoryThreshold";
-            this.numMemoryThreshold.Size = new System.Drawing.Size(97, 20);
-            this.numMemoryThreshold.TabIndex = 3;
-            this.numMemoryThreshold.TextSuffix = " MB";
-            this.toolTip.SetToolTip(this.numMemoryThreshold, "Minimum amount of memory usage by the browser process to trigger the cleanup.\r\nTh" +
-        "is is not a limit, the usage is allowed to exceed this value.");
-            this.numMemoryThreshold.Value = new decimal(new int[] {
-            350,
-            0,
-            0,
-            0});
-            // 
             // labelMemoryUsage
             // 
             this.labelMemoryUsage.AutoSize = true;
@@ -273,10 +271,10 @@
             this.Controls.Add(this.labelApp);
             this.Name = "TabSettingsAdvanced";
             this.Size = new System.Drawing.Size(340, 328);
+            ((System.ComponentModel.ISupportInitialize)(this.numMemoryThreshold)).EndInit();
             this.panelApp.ResumeLayout(false);
             this.panelPerformance.ResumeLayout(false);
             this.panelPerformance.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numMemoryThreshold)).EndInit();
             this.panelConfiguration.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

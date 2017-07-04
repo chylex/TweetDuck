@@ -32,6 +32,7 @@ namespace TweetDuck.Core{
         private readonly UpdateHandler updates;
         private readonly FormNotificationTweet notification;
         private readonly ContextMenu contextMenu;
+        private readonly MemoryUsageTracker memoryUsageTracker;
 
         private bool isLoaded;
         private bool isBrowserReady;
@@ -50,6 +51,7 @@ namespace TweetDuck.Core{
             this.plugins.PluginChangedState += plugins_PluginChangedState;
 
             this.contextMenu = ContextMenuBrowser.CreateMenu(this);
+            this.memoryUsageTracker = new MemoryUsageTracker("TDGF_tryRunCleanup");
 
             this.notification = new FormNotificationTweet(this, plugins){
                 #if DEBUG
@@ -87,6 +89,8 @@ namespace TweetDuck.Core{
             Controls.Add(new MenuStrip{ Visible = false }); // fixes Alt freezing the program in Win 10 Anniversary Update
 
             Disposed += (sender, args) => {
+                memoryUsageTracker.Dispose();
+
                 browser.Dispose();
                 contextMenu.Dispose();
 
@@ -165,6 +169,8 @@ namespace TweetDuck.Core{
 
         private void browser_FrameLoadStart(object sender, FrameLoadStartEventArgs e){
             if (e.Frame.IsMain){
+                memoryUsageTracker.Stop();
+
                 if (Config.ZoomLevel != 100){
                     BrowserUtils.SetZoomLevel(browser.GetBrowser(), Config.ZoomLevel);
                 }
@@ -190,6 +196,10 @@ namespace TweetDuck.Core{
                 }
 
                 TweetDeckBridge.ResetStaticProperties();
+
+                if (Config.EnableBrowserGCReload){
+                    memoryUsageTracker.Start(this, e.Browser, Config.BrowserMemoryThreshold);
+                }
             }
         }
 
@@ -423,6 +433,13 @@ namespace TweetDuck.Core{
 
                     if (!Config.EnableTrayHighlight){
                         trayIcon.HasNotifications = false;
+                    }
+
+                    if (Config.EnableBrowserGCReload){
+                        memoryUsageTracker.Start(this, browser.GetBrowser(), Config.BrowserMemoryThreshold);
+                    }
+                    else{
+                        memoryUsageTracker.Stop();
                     }
                     
                     UpdateProperties(PropertyBridge.Properties.ExpandLinksOnHover | PropertyBridge.Properties.SwitchAccountSelectors | PropertyBridge.Properties.HasCustomNotificationSound);
