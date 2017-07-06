@@ -205,6 +205,7 @@
     <Compile Include="Data\InjectedHTML.cs" />
     <Compile Include="Data\Serialization\ISerializedObject.cs" />
     <Compile Include="Data\Serialization\ITypeConverter.cs" />
+    <Compile Include="Data\Serialization\SingleTypeConverter.cs" />
     <Compile Include="Data\TwoKeyDictionary.cs" />
     <Compile Include="Data\WindowState.cs" />
     <Compile Include="Core\Utils\WindowsUtils.cs" />

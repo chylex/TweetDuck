@@ -13,15 +13,15 @@ namespace TweetDuck.Data.Serialization{
         private static readonly ITypeConverter BasicSerializerObj = new BasicSerializer();
         
         private readonly Dictionary<string, PropertyInfo> props;
-        private readonly Dictionary<Type, ITypeConverter> serializers;
+        private readonly Dictionary<Type, ITypeConverter> converters;
 
         public FileSerializer(){
             this.props = typeof(T).GetProperties(BindingFlags.Instance | BindingFlags.Public).Where(prop => prop.CanWrite).ToDictionary(prop => prop.Name);
-            this.serializers = new Dictionary<Type, ITypeConverter>();
+            this.converters = new Dictionary<Type, ITypeConverter>();
         }
 
-        public void RegisterSerializer(Type type, ITypeConverter serializer){
-            serializers[type] = serializer;
+        public void RegisterTypeConverter(Type type, ITypeConverter converter){
+            converters[type] = converter;
         }
 
         public void Write(string file, T obj){
@@ -30,7 +30,7 @@ namespace TweetDuck.Data.Serialization{
                     Type type = prop.Value.PropertyType;
                     object value = prop.Value.GetValue(obj);
                     
-                    if (!serializers.TryGetValue(type, out ITypeConverter serializer)) {
+                    if (!converters.TryGetValue(type, out ITypeConverter serializer)) {
                         serializer = BasicSerializerObj;
                     }
 
@@ -60,7 +60,7 @@ namespace TweetDuck.Data.Serialization{
                     string value = line.Substring(space+1).Replace(NewLineCustom, Environment.NewLine);
 
                     if (props.TryGetValue(property, out PropertyInfo info)){
-                        if (!serializers.TryGetValue(info.PropertyType, out ITypeConverter serializer)) {
+                        if (!converters.TryGetValue(info.PropertyType, out ITypeConverter serializer)) {
                             serializer = BasicSerializerObj;
                         }
 
