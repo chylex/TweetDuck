@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using TweetDuck.Core.Utils;
+using TweetDuck.Data;
 using TweetDuck.Plugins.Enums;
 using TweetDuck.Plugins.Events;
 

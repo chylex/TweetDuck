@@ -6,7 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using TweetDuck.Core;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Notification;
-using TweetDuck.Core.Utils;
+using TweetDuck.Data;
 
 namespace TweetDuck.Configuration{
     [Serializable]

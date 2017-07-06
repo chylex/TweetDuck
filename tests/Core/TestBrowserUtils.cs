@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TweetDuck.Core.Utils;
 
-namespace UnitTests.Core.Utils{
+namespace UnitTests.Core{
     [TestClass]
     public class TestBrowserUtils{
         [TestMethod]

@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 
-namespace TweetDuck.Core.Utils{
+namespace TweetDuck.Data{
     [Serializable]
     class WindowState{
         private Rectangle rect;

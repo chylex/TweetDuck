@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TweetDuck.Core.Utils;
+using TweetDuck.Data;
 
-namespace UnitTests.Core.Utils{
+namespace UnitTests.Data{
     [TestClass]
     public class TestInjectedHTML{
         private static IEnumerable<InjectedHTML.Position> Positions => Enum.GetValues(typeof(InjectedHTML.Position)).Cast<InjectedHTML.Position>();

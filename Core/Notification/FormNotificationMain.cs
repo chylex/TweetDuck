@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
+using TweetDuck.Data;
 using TweetDuck.Plugins;
 using TweetDuck.Plugins.Enums;
 using TweetDuck.Resources;

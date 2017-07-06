@@ -19,7 +19,7 @@ using TweetDuck.Plugins.Events;
 using TweetDuck.Resources;
 using TweetDuck.Updates;
 using TweetDuck.Updates.Events;
-using TweetLib.Audio.Utils;
+using TweetLib.Audio;
 
 namespace TweetDuck.Core{
     sealed partial class FormBrowser : Form{

@@ -1,6 +1,5 @@
 ﻿using System;
 using TweetLib.Audio;
-using TweetLib.Audio.Utils;
 
 namespace TweetDuck.Core.Notification{
     sealed class SoundNotification : IDisposable{

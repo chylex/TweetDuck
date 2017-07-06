@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using TweetDuck.Core.Utils;
+﻿using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TweetDuck.Data;
 
-namespace UnitTests.Core.Utils{
+namespace UnitTests.Data{
     [TestClass]
     public class TestCommandLineArgs{
         [TestMethod]

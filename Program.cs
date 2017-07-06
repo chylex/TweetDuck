@@ -11,6 +11,7 @@ using TweetDuck.Core.Handling;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Other.Settings.Export;
 using TweetDuck.Core.Utils;
+using TweetDuck.Data;
 using TweetDuck.Plugins;
 using TweetDuck.Plugins.Events;
 using TweetDuck.Updates;

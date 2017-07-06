@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-namespace TweetDuck.Core.Utils{
+namespace TweetDuck.Data{
     class CommandLineArgs{
         public static CommandLineArgs FromStringArray(char entryChar, string[] array){
             CommandLineArgs args = new CommandLineArgs();

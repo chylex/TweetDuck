@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using TweetLib.Audio.Impl;
-using TweetLib.Audio.Utils;
 
 namespace TweetLib.Audio{
     public abstract class AudioPlayer : IDisposable{

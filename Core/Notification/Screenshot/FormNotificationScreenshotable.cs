@@ -4,6 +4,7 @@ using System.Drawing.Imaging;
 using System.Windows.Forms;
 using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Utils;
+using TweetDuck.Data;
 using TweetDuck.Plugins;
 using TweetDuck.Resources;
 

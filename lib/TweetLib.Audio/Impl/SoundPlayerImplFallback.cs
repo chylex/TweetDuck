@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Media;
-using TweetLib.Audio.Utils;
 
 namespace TweetLib.Audio.Impl{
     sealed class SoundPlayerImplFallback : AudioPlayer{

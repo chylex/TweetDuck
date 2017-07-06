@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TweetDuck.Core.Utils;
-using System.Collections.Generic;
+using TweetDuck.Data;
 
-namespace UnitTests.Core.Utils{
+namespace UnitTests.Data{
     [TestClass]
     public class TestTwoKeyDictionary{
         private static TwoKeyDictionary<string, int, string> CreateDict(){
