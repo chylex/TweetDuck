@@ -384,7 +384,7 @@ namespace TweetDuck.Core{
         }
 
         public void ReloadToTweetDeck(){
-            browser.ExecuteScriptAsync("window.location.href = 'https://tweetdeck.twitter.com'");
+            browser.ExecuteScriptAsync($"window.location.href = '{BrowserUtils.TweetDeckURL}'");
         }
 
         // callback handlers

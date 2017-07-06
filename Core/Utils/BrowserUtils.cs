@@ -10,6 +10,8 @@ using System.Windows.Forms;
 
 namespace TweetDuck.Core.Utils{
     static class BrowserUtils{
+        public const string TweetDeckURL = "https://tweetdeck.twitter.com";
+
         public static string HeaderAcceptLanguage{
             get{
                 string culture = CultureInfo.CurrentCulture.Name;
