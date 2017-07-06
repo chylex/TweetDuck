@@ -4,17 +4,20 @@
 using System;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
+using TweetDuck.Plugins;
 
 namespace TweetDuck.Core.Notification.Screenshot{
     sealed class TweetScreenshotManager : IDisposable{
         private readonly Form owner;
+        private readonly PluginManager plugins;
         private readonly Timer timeout;
         private readonly Timer disposer;
         
         private FormNotificationScreenshotable screenshot;
 
-        public TweetScreenshotManager(Form owner){
+        public TweetScreenshotManager(Form owner, PluginManager pluginManager){
             this.owner = owner;
+            this.plugins = pluginManager;
 
             this.timeout = new Timer{ Interval = 8000 };
             this.timeout.Tick += timeout_Tick;
@@ -40,7 +43,7 @@ namespace TweetDuck.Core.Notification.Screenshot{
                 return;
             }
 
-            screenshot = new FormNotificationScreenshotable(Callback, owner){
+            screenshot = new FormNotificationScreenshotable(Callback, owner, plugins){
                 CanMoveWindow = () => false
             };
 

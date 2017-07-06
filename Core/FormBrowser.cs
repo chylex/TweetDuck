@@ -456,7 +456,7 @@ namespace TweetDuck.Core{
 
         public void OnTweetScreenshotReady(string html, int width, int height){
             if (notificationScreenshotManager == null){
-                notificationScreenshotManager = new TweetScreenshotManager(this);
+                notificationScreenshotManager = new TweetScreenshotManager(this, plugins);
             }
 
             notificationScreenshotManager.Trigger(html, width, height);
