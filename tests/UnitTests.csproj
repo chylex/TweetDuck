@@ -51,6 +51,7 @@
     <Compile Include="Core\TestBrowserUtils.cs" />
     <Compile Include="Data\TestCommandLineArgs.cs" />
     <Compile Include="Core\TestCommandLineArgsParser.cs" />
+    <Compile Include="Data\TestFileSerializer.cs" />
     <Compile Include="Data\TestInjectedHTML.cs" />
     <Compile Include="Data\TestTwoKeyDictionary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
