@@ -49,6 +49,10 @@ namespace TweetDuck.Data.Serialization{
 
         public void Read(string file, T obj){
             using(StreamReader reader = new StreamReader(new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read))){
+                if (reader.Peek() == 0){
+                    throw new FormatException("Input appears to be a binary file.");
+                }
+
                 foreach(string line in reader.ReadToEnd().Split(new string[]{ NewLineReal }, StringSplitOptions.RemoveEmptyEntries)){
                     int space = line.IndexOf(' ');
 

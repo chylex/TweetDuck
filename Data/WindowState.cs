@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
+using TweetDuck.Data.Serialization;
 
 namespace TweetDuck.Data{
-    [Serializable]
+    [Serializable] // TODO remove attribute with UserConfigLegacy
     class WindowState{
         private Rectangle rect;
         private bool isMaximized;
@@ -26,5 +28,17 @@ namespace TweetDuck.Data{
                 Save(form);
             }
         }
+
+        public static readonly SingleTypeConverter<WindowState> Converter = new SingleTypeConverter<WindowState>{
+            ConvertToString = value => $"{(value.isMaximized ? 'M' : '_')}{value.rect.X} {value.rect.Y} {value.rect.Width} {value.rect.Height}",
+            ConvertToObject = value => {
+                int[] elements = value.Substring(1).Split(' ').Select(int.Parse).ToArray();
+                
+                return new WindowState{
+                    rect = new Rectangle(elements[0], elements[1], elements[2], elements[3]),
+                    isMaximized = value[0] == 'M'
+                };
+            }
+        };
     }
 }

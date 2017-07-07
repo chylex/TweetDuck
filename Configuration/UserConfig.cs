@@ -1,26 +1,37 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Linq;
 using TweetDuck.Core;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Notification;
 using TweetDuck.Data;
+using TweetDuck.Data.Serialization;
 
 namespace TweetDuck.Configuration{
-    [Serializable]
-    sealed class UserConfig{
-        private static readonly IFormatter Formatter = new BinaryFormatter{ Binder = new LegacyBinder() };
+    sealed class UserConfig : ISerializedObject{
+        private static readonly FileSerializer<UserConfig> Serializer = new FileSerializer<UserConfig>();
 
-        private class LegacyBinder : SerializationBinder{
-            public override Type BindToType(string assemblyName, string typeName){
-                return Type.GetType(string.Format("{0}, {1}", typeName.Replace("TweetDck", "TweetDuck"), assemblyName.Replace("TweetDck", "TweetDuck")));
-            }
+        static UserConfig(){
+            Serializer.RegisterTypeConverter(typeof(WindowState), WindowState.Converter);
+
+            Serializer.RegisterTypeConverter(typeof(Point), new SingleTypeConverter<Point>{
+                ConvertToString = value => $"{value.X} {value.Y}",
+                ConvertToObject = value => {
+                    int[] elements = value.Split(' ').Select(int.Parse).ToArray();
+                    return new Point(elements[0], elements[1]);
+                }
+            });
+            
+            Serializer.RegisterTypeConverter(typeof(Size), new SingleTypeConverter<Size>{
+                ConvertToString = value => $"{value.Width} {value.Height}",
+                ConvertToObject = value => {
+                    int[] elements = value.Split(' ').Select(int.Parse).ToArray();
+                    return new Size(elements[0], elements[1]);
+                }
+            });
         }
-
-        private const int CurrentFileVersion = 11;
-
+        
         // START OF CONFIGURATION
 
         public WindowState BrowserWindow { get; set; }
@@ -101,25 +112,18 @@ namespace TweetDuck.Configuration{
 
         // END OF CONFIGURATION
         
-        [field:NonSerialized]
         public event EventHandler MuteToggled;
-        
-        [field:NonSerialized]
         public event EventHandler ZoomLevelChanged;
-        
-        [field:NonSerialized]
         public event EventHandler TrayBehaviorChanged;
-
-        [NonSerialized]
-        private string file;
-
-        private int fileVersion;
+        
+        private readonly string file;
+        
         private bool muteNotifications;
         private int zoomLevel;
         private string notificationSoundPath;
         private TrayIcon.Behavior trayBehavior;
 
-        private UserConfig(string file){
+        public UserConfig(string file){ // TODO make private after removing UserConfigLegacy
             this.file = file;
 
             BrowserWindow = new WindowState();
@@ -139,71 +143,8 @@ namespace TweetDuck.Configuration{
             PluginsWindow = new WindowState();
         }
 
-        private void UpgradeFile(){
-            if (fileVersion == CurrentFileVersion){
-                return;
-            }
-
-            // if outdated, cycle through all versions
-            if (fileVersion == 0){
-                DisplayNotificationTimer = true;
-                EnableUpdateCheck = true;
-                ++fileVersion;
-            }
-
-            if (fileVersion == 1){
-                ExpandLinksOnHover = true;
-                ++fileVersion;
-            }
-
-            if (fileVersion == 2){
-                BrowserWindow = new WindowState();
-                PluginsWindow = new WindowState();
-                ++fileVersion;
-            }
-
-            if (fileVersion == 3){
-                EnableTrayHighlight = true;
-                NotificationDurationValue = 25;
-                ++fileVersion;
-            }
-
-            if (fileVersion == 4){
-                ++fileVersion;
-            }
-
-            if (fileVersion == 5){
-                ++fileVersion;
-            }
-
-            if (fileVersion == 6){
-                NotificationNonIntrusiveMode = true;
-                ++fileVersion;
-            }
-
-            if (fileVersion == 7){
-                ZoomLevel = 100;
-                ++fileVersion;
-            }
-
-            if (fileVersion == 8){
-                SwitchAccountSelectors = true;
-                ++fileVersion;
-            }
-
-            if (fileVersion == 9){
-                NotificationScrollSpeed = 100;
-                ++fileVersion;
-            }
-
-            if (fileVersion == 10){
-                NotificationSize = TweetNotification.Size.Auto;
-                ++fileVersion;
-            }
-
-            // update the version
-            fileVersion = CurrentFileVersion;
-            Save();
+        bool ISerializedObject.OnReadUnknownProperty(string property, string value){
+            return false;
         }
 
         public bool Save(){
@@ -219,10 +160,7 @@ namespace TweetDuck.Configuration{
                     File.Move(file, backupFile);
                 }
 
-                using(Stream stream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None)){
-                    Formatter.Serialize(stream, this);
-                }
-
+                Serializer.Write(file, this);
                 return true;
             }catch(Exception e){
                 Program.Reporter.HandleException("Configuration Error", "Could not save the configuration file.", true, e);
@@ -231,22 +169,20 @@ namespace TweetDuck.Configuration{
         }
         
         public static UserConfig Load(string file){
-            UserConfig config = null;
             Exception firstException = null;
 
             for(int attempt = 0; attempt < 2; attempt++){
                 try{
-                    using(Stream stream = new FileStream(attempt == 0 ? file : GetBackupFile(file), FileMode.Open, FileAccess.Read, FileShare.Read)){
-                        if ((config = Formatter.Deserialize(stream) as UserConfig) != null){
-                            config.file = file;
-                        }
-                    }
-
-                    config?.UpgradeFile();
-                    break;
+                    UserConfig config = new UserConfig(file);
+                    Serializer.Read(attempt == 0 ? file : GetBackupFile(file), config);
+                    return config;
                 }catch(FileNotFoundException){
                 }catch(DirectoryNotFoundException){
                     break;
+                }catch(FormatException){
+                    UserConfig config = UserConfigLegacy.Load(file);
+                    config.Save();
+                    return config;
                 }catch(Exception e){
                     if (attempt == 0){
                         firstException = e;
@@ -258,11 +194,11 @@ namespace TweetDuck.Configuration{
                 }
             }
 
-            if (firstException != null && config == null){
+            if (firstException != null){
                 Program.Reporter.HandleException("Configuration Error", "Could not open the configuration file.", true, firstException);
             }
 
-            return config ?? new UserConfig(file);
+            return new UserConfig(file);
         }
 
         public static string GetBackupFile(string file){
