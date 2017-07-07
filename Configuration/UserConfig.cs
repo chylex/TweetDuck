@@ -32,115 +32,102 @@ namespace TweetDuck.Configuration{
             });
         }
         
-        // START OF CONFIGURATION
+        // CONFIGURATION DATA
 
-        public WindowState BrowserWindow { get; set; }
-        public WindowState PluginsWindow { get; set; }
+        public WindowState BrowserWindow { get; set; } = new WindowState();
+        public WindowState PluginsWindow { get; set; } = new WindowState();
 
-        public bool DisplayNotificationColumn { get; set; }
-        public bool DisplayNotificationTimer { get; set; }
-        public bool NotificationTimerCountDown { get; set; }
-        public bool NotificationSkipOnLinkClick { get; set; }
-        public bool NotificationNonIntrusiveMode { get; set; }
+        public bool ExpandLinksOnHover     { get; set; } = true;
+        public bool SwitchAccountSelectors { get; set; } = true;
+        public bool EnableSpellCheck       { get; set; } = false;
+        private int _zoomLevel                           = 100;
+        private bool _muteNotifications;
+        
+        private TrayIcon.Behavior _trayBehavior          = TrayIcon.Behavior.Disabled;
+        public bool EnableTrayHighlight    { get; set; } = true;
 
-        public int NotificationIdlePauseSeconds { get; set; }
-        public int NotificationDurationValue { get; set; }
-        public int NotificationScrollSpeed { get; set; }
+        public bool EnableUpdateCheck { get; set; } = true;
+        public string DismissedUpdate { get; set; } = null;
 
-        public TweetNotification.Position NotificationPosition { get; set; }
-        public Point CustomNotificationPosition { get; set; }
-        public int NotificationEdgeDistance { get; set; }
-        public int NotificationDisplay { get; set; }
+        public bool DisplayNotificationColumn    { get; set; } = false;
+        public bool NotificationSkipOnLinkClick  { get; set; } = false;
+        public bool NotificationNonIntrusiveMode { get; set; } = true;
+        public int NotificationIdlePauseSeconds  { get; set; } = 0;
 
-        public TweetNotification.Size NotificationSize { get; set; }
-        public Size CustomNotificationSize { get; set; }
+        public bool DisplayNotificationTimer     { get; set; } = true;
+        public bool NotificationTimerCountDown   { get; set; } = false;
+        public int NotificationDurationValue     { get; set; } = 25;
 
-        public bool EnableSpellCheck { get; set; }
-        public bool ExpandLinksOnHover { get; set; }
-        public bool SwitchAccountSelectors { get; set; }
-        public bool EnableTrayHighlight { get; set; }
+        public TweetNotification.Position NotificationPosition { get; set; } = TweetNotification.Position.TopRight;
+        public Point CustomNotificationPosition                { get; set; } = ControlExtensions.InvisibleLocation;
+        public int NotificationDisplay                         { get; set; } = 0;
+        public int NotificationEdgeDistance                    { get; set; } = 8;
 
-        public bool EnableUpdateCheck { get; set; }
-        public string DismissedUpdate { get; set; }
+        public TweetNotification.Size NotificationSize { get; set; } = TweetNotification.Size.Auto;
+        public Size CustomNotificationSize             { get; set; } = Size.Empty;
+        public int NotificationScrollSpeed             { get; set; } = 10;
 
-        public string CustomCefArgs { get; set; }
-        public string CustomBrowserCSS { get; set; }
-        public string CustomNotificationCSS { get; set; }
+        private string _notificationSoundPath;
+
+        public string CustomCefArgs         { get; set; } = null;
+        public string CustomBrowserCSS      { get; set; } = null;
+        public string CustomNotificationCSS { get; set; } = null;
+
+        // SPECIAL PROPERTIES
 
         public bool IsCustomNotificationPositionSet => CustomNotificationPosition != ControlExtensions.InvisibleLocation;
         public bool IsCustomNotificationSizeSet => CustomNotificationSize != Size.Empty;
 
         public string NotificationSoundPath{
-            get => string.IsNullOrEmpty(notificationSoundPath) ? string.Empty : notificationSoundPath;
-            set => notificationSoundPath = value;
+            get => string.IsNullOrEmpty(_notificationSoundPath) ? string.Empty : _notificationSoundPath;
+            set => _notificationSoundPath = value;
         }
 
         public bool MuteNotifications{
-            get => muteNotifications;
+            get => _muteNotifications;
 
             set{
-                if (muteNotifications != value){
-                    muteNotifications = value;
+                if (_muteNotifications != value){
+                    _muteNotifications = value;
                     MuteToggled?.Invoke(this, new EventArgs());
                 }
             }
         }
 
         public int ZoomLevel{
-            get => zoomLevel;
+            get => _zoomLevel;
 
             set{
-                if (zoomLevel != value){
-                    zoomLevel = value;
+                if (_zoomLevel != value){
+                    _zoomLevel = value;
                     ZoomLevelChanged?.Invoke(this, new EventArgs());
                 }
             }
         }
 
-        public double ZoomMultiplier => zoomLevel/100.0;
+        public double ZoomMultiplier => _zoomLevel/100.0;
 
         public TrayIcon.Behavior TrayBehavior{
-            get => trayBehavior;
+            get => _trayBehavior;
 
             set{
-                if (trayBehavior != value){
-                    trayBehavior = value;
+                if (_trayBehavior != value){
+                    _trayBehavior = value;
                     TrayBehaviorChanged?.Invoke(this, new EventArgs());
                 }
             }
         }
 
-        // END OF CONFIGURATION
+        // EVENTS
         
         public event EventHandler MuteToggled;
         public event EventHandler ZoomLevelChanged;
         public event EventHandler TrayBehaviorChanged;
         
         private readonly string file;
-        
-        private bool muteNotifications;
-        private int zoomLevel;
-        private string notificationSoundPath;
-        private TrayIcon.Behavior trayBehavior;
 
         public UserConfig(string file){ // TODO make private after removing UserConfigLegacy
             this.file = file;
-
-            BrowserWindow = new WindowState();
-            ZoomLevel = 100;
-            DisplayNotificationTimer = true;
-            NotificationNonIntrusiveMode = true;
-            NotificationPosition = TweetNotification.Position.TopRight;
-            CustomNotificationPosition = ControlExtensions.InvisibleLocation;
-            NotificationSize = TweetNotification.Size.Auto;
-            NotificationEdgeDistance = 8;
-            NotificationDurationValue = 25;
-            NotificationScrollSpeed = 100;
-            EnableUpdateCheck = true;
-            ExpandLinksOnHover = true;
-            SwitchAccountSelectors = true;
-            EnableTrayHighlight = true;
-            PluginsWindow = new WindowState();
         }
 
         bool ISerializedObject.OnReadUnknownProperty(string property, string value){
