@@ -70,7 +70,7 @@ namespace TweetDuck.Core.Controls{
         public static void SetElevated(this Button button){
             button.Text = " "+button.Text;
             button.FlatStyle = FlatStyle.System;
-            NativeMethods.SendMessage(button.Handle, NativeMethods.BCM_SETSHIELD, 0, new IntPtr(1));
+            NativeMethods.SendMessage(button.Handle, NativeMethods.BCM_SETSHIELD, new UIntPtr(0), new IntPtr(1));
         }
 
         public static void EnableMultilineShortcuts(this TextBox textBox){

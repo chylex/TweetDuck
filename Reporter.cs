@@ -84,9 +84,10 @@ namespace TweetDuck{
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            FormMessage form = new FormMessage(caption, message, MessageBoxIcon.Error);
-            form.ActiveControl = form.AddButton("Exit");
-            form.ShowDialog();
+            using(FormMessage form = new FormMessage(caption, message, MessageBoxIcon.Error)){
+                form.ActiveControl = form.AddButton("Exit");
+                form.ShowDialog();
+            }
 
             try{
                 Process.GetCurrentProcess().Kill();

@@ -109,7 +109,7 @@ namespace TweetDuck{
 
                 if (lockResult == LockManager.Result.HasProcess){
                     if (LockManager.LockingProcess.MainWindowHandle == IntPtr.Zero){ // restore if the original process is in tray
-                        NativeMethods.PostMessage(NativeMethods.HWND_BROADCAST, WindowRestoreMessage, LockManager.LockingProcess.Id, IntPtr.Zero);
+                        NativeMethods.PostMessage(NativeMethods.HWND_BROADCAST, WindowRestoreMessage, new UIntPtr((uint)LockManager.LockingProcess.Id), IntPtr.Zero);
 
                         if (WindowsUtils.TrySleepUntil(() => {
                             LockManager.LockingProcess.Refresh();
