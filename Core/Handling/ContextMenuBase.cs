@@ -134,11 +134,7 @@ namespace TweetDuck.Core.Handling{
             int dot = url.LastIndexOf('.');
 
             if (dot != -1){
-                int colon = url.IndexOf(':', dot);
-            
-                if (colon != -1){
-                    url = url.Substring(0, colon);
-                }
+                url = StringUtils.ExtractBefore(url, ':', dot);
             }
 
             // return file name

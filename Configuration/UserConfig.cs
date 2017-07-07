@@ -5,6 +5,7 @@ using System.Linq;
 using TweetDuck.Core;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Notification;
+using TweetDuck.Core.Utils;
 using TweetDuck.Data;
 using TweetDuck.Data.Serialization;
 
@@ -18,7 +19,7 @@ namespace TweetDuck.Configuration{
             Serializer.RegisterTypeConverter(typeof(Point), new SingleTypeConverter<Point>{
                 ConvertToString = value => $"{value.X} {value.Y}",
                 ConvertToObject = value => {
-                    int[] elements = value.Split(' ').Select(int.Parse).ToArray();
+                    int[] elements = StringUtils.ParseInts(value, ' ');
                     return new Point(elements[0], elements[1]);
                 }
             });
@@ -26,7 +27,7 @@ namespace TweetDuck.Configuration{
             Serializer.RegisterTypeConverter(typeof(Size), new SingleTypeConverter<Size>{
                 ConvertToString = value => $"{value.Width} {value.Height}",
                 ConvertToObject = value => {
-                    int[] elements = value.Split(' ').Select(int.Parse).ToArray();
+                    int[] elements = StringUtils.ParseInts(value, ' ');
                     return new Size(elements[0], elements[1]);
                 }
             });

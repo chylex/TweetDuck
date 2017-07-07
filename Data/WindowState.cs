@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
+using TweetDuck.Core.Utils;
 using TweetDuck.Data.Serialization;
 
 namespace TweetDuck.Data{
@@ -32,7 +32,7 @@ namespace TweetDuck.Data{
         public static readonly SingleTypeConverter<WindowState> Converter = new SingleTypeConverter<WindowState>{
             ConvertToString = value => $"{(value.isMaximized ? 'M' : '_')}{value.rect.X} {value.rect.Y} {value.rect.Width} {value.rect.Height}",
             ConvertToObject = value => {
-                int[] elements = value.Substring(1).Split(' ').Select(int.Parse).ToArray();
+                int[] elements = StringUtils.ParseInts(value.Substring(1), ' ');
                 
                 return new WindowState{
                     rect = new Rectangle(elements[0], elements[1], elements[2], elements[3]),
