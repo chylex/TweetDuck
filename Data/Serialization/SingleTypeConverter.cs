@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace TweetDuck.Data.Serialization{
-    class SingleTypeConverter<T> : ITypeConverter{
+    sealed class SingleTypeConverter<T> : ITypeConverter{
         public delegate string FuncConvertToString<U>(U value);
         public delegate U FuncConvertToObject<U>(string value);
 

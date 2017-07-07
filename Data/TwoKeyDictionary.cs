@@ -2,7 +2,7 @@
 using System.Linq;
 
 namespace TweetDuck.Data{
-    class TwoKeyDictionary<K1, K2, V>{
+    sealed class TwoKeyDictionary<K1, K2, V>{
         private readonly Dictionary<K1, Dictionary<K2, V>> dict;
         private readonly int innerCapacity;
 

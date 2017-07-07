@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using TweetDuck.Core.Other;
 
 namespace TweetDuck{
-    class Reporter{
+    sealed class Reporter{
         private readonly string logFile;
 
         public Reporter(string logFile){

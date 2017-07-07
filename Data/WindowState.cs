@@ -7,7 +7,7 @@ using TweetDuck.Data.Serialization;
 
 namespace TweetDuck.Data{
     [Serializable] // TODO remove attribute with UserConfigLegacy
-    class WindowState{
+    sealed class WindowState{
         private Rectangle rect;
         private bool isMaximized;
 

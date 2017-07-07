@@ -19,7 +19,7 @@ namespace TweetDuck.Plugins{
 
 /* PluginGen
 
-(function(%params, $i, $d){
+(function(%params, $d){
   let tmp = {
     id: '%id',
     obj: new class extends PluginBase{%contents}

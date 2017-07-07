@@ -6,11 +6,11 @@ using System.Reflection;
 using System.Runtime.Serialization;
 
 namespace TweetDuck.Data.Serialization{
-    class FileSerializer<T> where T : ISerializedObject{
+    sealed class FileSerializer<T> where T : ISerializedObject{
         private const string NewLineReal = "\r\n";
         private const string NewLineCustom = "\r~\n";
 
-        private static readonly ITypeConverter BasicSerializerObj = new BasicSerializer();
+        private static readonly ITypeConverter BasicSerializerObj = new BasicTypeConverter();
         
         private readonly Dictionary<string, PropertyInfo> props;
         private readonly Dictionary<Type, ITypeConverter> converters;
@@ -82,7 +82,7 @@ namespace TweetDuck.Data.Serialization{
             }
         }
 
-        private class BasicSerializer : ITypeConverter{
+        private class BasicTypeConverter : ITypeConverter{
             bool ITypeConverter.TryWriteType(Type type, object value, out string converted){
                 switch(Type.GetTypeCode(type)){
                     case TypeCode.Boolean:

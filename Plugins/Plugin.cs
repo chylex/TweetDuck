@@ -6,7 +6,7 @@ using System.Text;
 using TweetDuck.Plugins.Enums;
 
 namespace TweetDuck.Plugins{
-    class Plugin{
+    sealed class Plugin{
         public string Identifier { get; }
         public PluginGroup Group { get; }
         public PluginEnvironment Environments { get; private set; }

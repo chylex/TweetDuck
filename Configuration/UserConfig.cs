@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using TweetDuck.Core;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Notification;

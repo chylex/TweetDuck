@@ -4,7 +4,7 @@ using System.Text;
 using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Data{
-    class CombinedFileStream : IDisposable{
+    sealed class CombinedFileStream : IDisposable{
         public const char KeySeparator = '|';
 
         private readonly Stream stream;

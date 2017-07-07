@@ -2,7 +2,7 @@
 using System.Text;
 
 namespace TweetDuck.Data{
-    class CommandLineArgs{
+    sealed class CommandLineArgs{
         public static CommandLineArgs FromStringArray(char entryChar, string[] array){
             CommandLineArgs args = new CommandLineArgs();
             ReadStringArray(entryChar, array, args);

@@ -7,7 +7,7 @@ using TweetDuck.Plugins.Enums;
 using TweetDuck.Plugins.Events;
 
 namespace TweetDuck.Plugins{
-    class PluginBridge{
+    sealed class PluginBridge{
         private static string SanitizeCacheKey(string key){
             return key.Replace('\\', '/').Trim();
         }
