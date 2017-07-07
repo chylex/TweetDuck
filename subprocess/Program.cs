@@ -26,7 +26,7 @@ namespace TweetDuck.Browser{
                 base.OnBrowserCreated(wrapper);
                 
                 using(Process me = Process.GetCurrentProcess()){
-                    NativeMethods.PostMessage(NativeMethods.HWND_BROADCAST, NativeMethods.RegisterWindowMessage("TweetDuckSubProcess"), me.Id, wrapper.BrowserId);
+                    NativeMethods.PostMessage(NativeMethods.HWND_BROADCAST, NativeMethods.RegisterWindowMessage("TweetDuckSubProcess"), new UIntPtr((uint)me.Id), new IntPtr(wrapper.BrowserId));
                 }
             }
         }

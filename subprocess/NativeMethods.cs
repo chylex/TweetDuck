@@ -6,7 +6,7 @@ namespace TweetDuck.Browser{
         public static readonly IntPtr HWND_BROADCAST = new IntPtr(0xFFFF);
         
         [DllImport("user32.dll")]
-        public static extern bool PostMessage(IntPtr hWnd, uint msg, int wParam, int lParam);
+        public static extern bool PostMessage(IntPtr hWnd, uint msg, UIntPtr wParam, IntPtr lParam);
 
         [DllImport("user32.dll")]
         public static extern uint RegisterWindowMessage(string messageName);
