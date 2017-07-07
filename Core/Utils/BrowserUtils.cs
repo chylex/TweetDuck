@@ -2,7 +2,6 @@
 using System;
 using System.Diagnostics;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
@@ -13,7 +12,7 @@ namespace TweetDuck.Core.Utils{
 
         public static string HeaderAcceptLanguage{
             get{
-                string culture = CultureInfo.CurrentCulture.Name;
+                string culture = Program.Culture.Name;
 
                 if (culture == "en"){
                     return "en-us,en";

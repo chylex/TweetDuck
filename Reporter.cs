@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -32,7 +31,7 @@ namespace TweetDuck{
                 build.Append("Please, report all issues to: https://github.com/chylex/TweetDuck/issues\r\n\r\n");
             }
 
-            build.Append("[").Append(DateTime.Now.ToString("G", CultureInfo.CurrentCulture)).Append("]\r\n");
+            build.Append("[").Append(DateTime.Now.ToString("G", Program.Culture)).Append("]\r\n");
             build.Append(data).Append("\r\n\r\n");
 
             try{

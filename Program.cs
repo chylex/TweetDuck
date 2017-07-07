@@ -1,6 +1,7 @@
 ﻿using CefSharp;
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -51,8 +52,14 @@ namespace TweetDuck{
         public static UserConfig UserConfig { get; private set; }
         public static SystemConfig SystemConfig { get; private set; }
         public static Reporter Reporter { get; private set; }
+        public static CultureInfo Culture { get; }
 
         public static event EventHandler UserConfigReplaced;
+
+        static Program(){
+            Culture = CultureInfo.CurrentCulture;
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
 
         [STAThread]
         private static void Main(){
