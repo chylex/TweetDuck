@@ -51,7 +51,7 @@ namespace TweetDuck{
         
         public static UserConfig UserConfig { get; private set; }
         public static SystemConfig SystemConfig { get; private set; }
-        public static Reporter Reporter { get; private set; }
+        public static Reporter Reporter { get; }
         public static CultureInfo Culture { get; }
 
         public static event EventHandler UserConfigReplaced;
@@ -61,21 +61,22 @@ namespace TweetDuck{
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
 
+            Reporter = new Reporter(ErrorLogFilePath);
+            Reporter.SetupUnhandledExceptionHandler(BrandName+" Has Failed :(");
+        }
+
         [STAThread]
         private static void Main(){
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
+            
             WindowRestoreMessage = NativeMethods.RegisterWindowMessage("TweetDuckRestore");
 
             if (!WindowsUtils.CheckFolderWritePermission(StoragePath)){
                 MessageBox.Show(BrandName+" does not have write permissions to the storage folder: "+StoragePath, "Permission Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            Reporter = new Reporter(ErrorLogFilePath);
-            Reporter.SetupUnhandledExceptionHandler(BrandName+" Has Failed :(");
-
+            
             if (Arguments.HasFlag(Arguments.ArgRestart)){
                 for(int attempt = 0; attempt < 21; attempt++){
                     LockManager.Result lockResult = LockManager.Lock();

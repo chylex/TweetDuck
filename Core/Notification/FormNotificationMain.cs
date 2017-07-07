@@ -18,12 +18,8 @@ namespace TweetDuck.Core.Notification{
         private static readonly string NotificationScriptIdentifier = ScriptLoader.GetRootIdentifier(NotificationScriptFile);
         private static readonly string PluginScriptIdentifier = ScriptLoader.GetRootIdentifier(PluginManager.PluginNotificationScriptFile);
 
-        private static readonly string NotificationJS, PluginJS;
-
-        static FormNotificationMain(){
-            NotificationJS = ScriptLoader.LoadResource(NotificationScriptFile);
-            PluginJS = ScriptLoader.LoadResource(PluginManager.PluginNotificationScriptFile);
-        }
+        private static readonly string NotificationJS = ScriptLoader.LoadResource(NotificationScriptFile);
+        private static readonly string PluginJS = ScriptLoader.LoadResource(PluginManager.PluginNotificationScriptFile);
         
         private readonly PluginManager plugins;
 

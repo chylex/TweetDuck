@@ -56,7 +56,7 @@ namespace TweetLib.Audio.Impl{
             }
         }
 
-        public override void Dispose(){
+        protected override void Dispose(bool disposing){
             player.close();
             Marshal.ReleaseComObject(player);
         }

@@ -113,7 +113,7 @@ namespace TweetDuck.Core.Handling{
             form.InvokeAsyncSafe(() => WindowsUtils.SetClipboard(text, TextDataFormat.UnicodeText));
         }
         
-        protected void AddDebugMenuItems(IMenuModel model){
+        protected static void AddDebugMenuItems(IMenuModel model){
             model.AddItem((CefMenuCommand)MenuOpenDevTools, "Open dev tools");
         }
 

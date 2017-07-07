@@ -198,7 +198,7 @@ namespace TweetDuck.Core{
                 return;
             }
 
-            if (!e.FailedUrl.StartsWith("http://td/")){
+            if (!e.FailedUrl.StartsWith("http://td/", StringComparison.Ordinal)){
                 string errorPage = ScriptLoader.LoadResource("pages/error.html", true);
 
                 if (errorPage != null){

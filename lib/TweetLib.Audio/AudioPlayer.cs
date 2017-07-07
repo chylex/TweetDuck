@@ -31,6 +31,11 @@ namespace TweetLib.Audio{
 
         public abstract void Play(string file);
         public abstract void Stop();
-        public abstract void Dispose();
+        protected abstract void Dispose(bool disposing);
+
+        public void Dispose(){
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
     }
 }

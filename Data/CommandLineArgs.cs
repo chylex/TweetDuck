@@ -38,31 +38,31 @@ namespace TweetDuck.Data{
         public int Count => flags.Count+values.Count;
 
         public void AddFlag(string flag){
-            flags.Add(flag.ToLowerInvariant());
+            flags.Add(flag.ToLower());
         }
 
         public bool HasFlag(string flag){
-            return flags.Contains(flag.ToLowerInvariant());
+            return flags.Contains(flag.ToLower());
         }
 
         public void RemoveFlag(string flag){
-            flags.Remove(flag.ToLowerInvariant());
+            flags.Remove(flag.ToLower());
         }
 
         public void SetValue(string key, string value){
-            values[key.ToLowerInvariant()] = value;
+            values[key.ToLower()] = value;
         }
 
         public bool HasValue(string key){
-            return values.ContainsKey(key.ToLowerInvariant());
+            return values.ContainsKey(key.ToLower());
         }
 
         public string GetValue(string key, string defaultValue){
-            return values.TryGetValue(key.ToLowerInvariant(), out string val) ? val : defaultValue;
+            return values.TryGetValue(key.ToLower(), out string val) ? val : defaultValue;
         }
 
         public void RemoveValue(string key){
-            values.Remove(key.ToLowerInvariant());
+            values.Remove(key.ToLower());
         }
 
         public CommandLineArgs Clone(){

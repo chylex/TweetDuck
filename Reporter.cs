@@ -16,9 +16,7 @@ namespace TweetDuck{
 
         public void SetupUnhandledExceptionHandler(string caption){
             AppDomain.CurrentDomain.UnhandledException += (sender, args) => {
-                Exception ex = args.ExceptionObject as Exception;
-
-                if (ex != null){
+                if (args.ExceptionObject is Exception ex) {
                     HandleException(caption, "An unhandled exception has occurred.", false, ex);
                 }
             };

@@ -14,7 +14,7 @@ namespace TweetDuck.Core.Utils{
         }
         
         public static string ConvertPascalCaseToScreamingSnakeCase(string str){
-            return Regex.Replace(str, @"(\p{Ll})(\P{Ll})|(\P{Ll})(\P{Ll}\p{Ll})", "$1$3_$2$4").ToUpperInvariant();
+            return Regex.Replace(str, @"(\p{Ll})(\P{Ll})|(\P{Ll})(\P{Ll}\p{Ll})", "$1$3_$2$4").ToUpper();
         }
     }
 }

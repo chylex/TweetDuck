@@ -18,7 +18,7 @@ namespace TweetDuck.Core.Utils{
                     return "en-us,en";
                 }
                 else{
-                    return culture.ToLowerInvariant()+",en;q=0.9";
+                    return culture.ToLower()+",en;q=0.9";
                 }
             }
         }

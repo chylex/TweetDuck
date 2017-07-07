@@ -38,7 +38,7 @@ namespace TweetLib.Audio.Impl{
             player.Stop();
         }
 
-        public override void Dispose(){
+        protected override void Dispose(bool disposing){
             player.Dispose();
         }
 
