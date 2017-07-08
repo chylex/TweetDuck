@@ -56,8 +56,7 @@
             this.btnClearCache.Size = new System.Drawing.Size(144, 23);
             this.btnClearCache.TabIndex = 1;
             this.btnClearCache.Text = "Clear Cache (calculating)";
-            this.toolTip.SetToolTip(this.btnClearCache, "Clearing cache will free up space taken by downloaded images and other resources." +
-        "");
+            this.toolTip.SetToolTip(this.btnClearCache, "Clearing cache will free up space taken by downloaded images and other resources.");
             this.btnClearCache.UseVisualStyleBackColor = true;
             // 
             // checkHardwareAcceleration
@@ -69,8 +68,7 @@
             this.checkHardwareAcceleration.Size = new System.Drawing.Size(134, 17);
             this.checkHardwareAcceleration.TabIndex = 0;
             this.checkHardwareAcceleration.Text = "Hardware Acceleration";
-            this.toolTip.SetToolTip(this.checkHardwareAcceleration, "Uses your graphics card to improve performance.\r\nDisable if you experience issues" +
-        " with rendering.");
+            this.toolTip.SetToolTip(this.checkHardwareAcceleration, "Uses your graphics card to improve performance.\r\nDisable if you experience issues with rendering.");
             this.checkHardwareAcceleration.UseVisualStyleBackColor = true;
             // 
             // btnEditCefArgs
@@ -111,8 +109,7 @@
             this.btnRestart.Size = new System.Drawing.Size(144, 23);
             this.btnRestart.TabIndex = 2;
             this.btnRestart.Text = "Restart the Program";
-            this.toolTip.SetToolTip(this.btnRestart, "Restarts the program using the same command\r\nline arguments that were used at lau" +
-        "nch.");
+            this.toolTip.SetToolTip(this.btnRestart, "Restarts the program using the same command\r\nline arguments that were used at launch.");
             this.btnRestart.UseVisualStyleBackColor = true;
             // 
             // btnOpenAppFolder
@@ -159,8 +156,7 @@
             this.numMemoryThreshold.Size = new System.Drawing.Size(97, 20);
             this.numMemoryThreshold.TabIndex = 4;
             this.numMemoryThreshold.TextSuffix = " MB";
-            this.toolTip.SetToolTip(this.numMemoryThreshold, "Minimum amount of memory usage by the browser process to trigger the cleanup.\r\nTh" +
-        "is is not a limit, the usage is allowed to exceed this value.");
+            this.toolTip.SetToolTip(this.numMemoryThreshold, "Minimum amount of memory usage by the browser process to trigger the cleanup.\r\nThis is not a limit, the usage is allowed to exceed this value.");
             this.numMemoryThreshold.Value = new decimal(new int[] {
             350,
             0,

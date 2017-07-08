@@ -58,8 +58,7 @@
             this.checkExpandLinks.Size = new System.Drawing.Size(166, 17);
             this.checkExpandLinks.TabIndex = 0;
             this.checkExpandLinks.Text = "Expand Links When Hovered";
-            this.toolTip.SetToolTip(this.checkExpandLinks, "Expands links inside the tweets. If disabled,\r\nthe full links show up in a toolti" +
-        "p instead.");
+            this.toolTip.SetToolTip(this.checkExpandLinks, "Expands links inside the tweets. If disabled,\r\nthe full links show up in a tooltip instead.");
             this.checkExpandLinks.UseVisualStyleBackColor = true;
             // 
             // comboBoxTrayType
@@ -82,8 +81,7 @@
             this.checkTrayHighlight.Size = new System.Drawing.Size(103, 17);
             this.checkTrayHighlight.TabIndex = 2;
             this.checkTrayHighlight.Text = "Enable Highlight";
-            this.toolTip.SetToolTip(this.checkTrayHighlight, "Highlights the tray icon if there are new tweets.\r\nOnly works for columns with po" +
-        "pup or audio notifications.\r\nThe icon resets when the main window is restored.");
+            this.toolTip.SetToolTip(this.checkTrayHighlight, "Highlights the tray icon if there are new tweets.\r\nOnly works for columns with popup or audio notifications.\r\nThe icon resets when the main window is restored.");
             this.checkTrayHighlight.UseVisualStyleBackColor = true;
             // 
             // checkSpellCheck
@@ -107,8 +105,7 @@
             this.checkUpdateNotifications.Size = new System.Drawing.Size(165, 17);
             this.checkUpdateNotifications.TabIndex = 0;
             this.checkUpdateNotifications.Text = "Check Updates Automatically";
-            this.toolTip.SetToolTip(this.checkUpdateNotifications, "Checks for updates every hour.\r\nIf an update is dismissed, it will not appear aga" +
-        "in.");
+            this.toolTip.SetToolTip(this.checkUpdateNotifications, "Checks for updates every hour.\r\nIf an update is dismissed, it will not appear again.");
             this.checkUpdateNotifications.UseVisualStyleBackColor = true;
             // 
             // btnCheckUpdates
@@ -143,8 +140,7 @@
             this.checkSwitchAccountSelectors.Size = new System.Drawing.Size(172, 17);
             this.checkSwitchAccountSelectors.TabIndex = 1;
             this.checkSwitchAccountSelectors.Text = "Shift Selects Multiple Accounts";
-            this.toolTip.SetToolTip(this.checkSwitchAccountSelectors, "When (re)tweeting, click to select a single account or hold Shift to\r\nselect mult" +
-        "iple accounts, instead of TweetDeck\'s default behavior.");
+            this.toolTip.SetToolTip(this.checkSwitchAccountSelectors, "When (re)tweeting, click to select a single account or hold Shift to\r\nselect multiple accounts, instead of TweetDeck\'s default behavior.");
             this.checkSwitchAccountSelectors.UseVisualStyleBackColor = true;
             // 
             // labelTrayIcon

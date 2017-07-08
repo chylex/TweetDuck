@@ -291,8 +291,7 @@
             this.checkColumnName.Size = new System.Drawing.Size(129, 17);
             this.checkColumnName.TabIndex = 0;
             this.checkColumnName.Text = "Display Column Name";
-            this.toolTip.SetToolTip(this.checkColumnName, "Shows column name each notification originated\r\nfrom in the notification window t" +
-        "itle.");
+            this.toolTip.SetToolTip(this.checkColumnName, "Shows column name each notification originated\r\nfrom in the notification window title.");
             this.checkColumnName.UseVisualStyleBackColor = true;
             // 
             // labelIdlePause
@@ -325,8 +324,7 @@
             this.checkNonIntrusive.Size = new System.Drawing.Size(128, 17);
             this.checkNonIntrusive.TabIndex = 2;
             this.checkNonIntrusive.Text = "Non-Intrusive Popups";
-            this.toolTip.SetToolTip(this.checkNonIntrusive, "When not idle and the cursor is within the notification window area,\r\nit will be " +
-        "delayed until the cursor moves away to prevent accidental clicks.");
+            this.toolTip.SetToolTip(this.checkNonIntrusive, "When not idle and the cursor is within the notification window area,\r\nit will be delayed until the cursor moves away to prevent accidental clicks.");
             this.checkNonIntrusive.UseVisualStyleBackColor = true;
             // 
             // checkTimerCountDown
