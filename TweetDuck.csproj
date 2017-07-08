@@ -165,6 +165,7 @@
     <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsRestart.Designer.cs">
       <DependentUpon>DialogSettingsRestart.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\Utils\BrowserProcesses.cs" />
     <Compile Include="Core\Utils\StringUtils.cs" />
     <Compile Include="Data\CombinedFileStream.cs" />
     <Compile Include="Core\Other\Settings\Export\ExportFileFlags.cs" />
