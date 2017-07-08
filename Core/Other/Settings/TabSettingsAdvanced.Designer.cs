@@ -33,12 +33,16 @@
             this.btnRestart = new System.Windows.Forms.Button();
             this.btnOpenAppFolder = new System.Windows.Forms.Button();
             this.btnOpenDataFolder = new System.Windows.Forms.Button();
+            this.checkBrowserGCReload = new System.Windows.Forms.CheckBox();
+            this.numMemoryThreshold = new TweetDuck.Core.Controls.NumericUpDownEx();
             this.labelApp = new System.Windows.Forms.Label();
             this.panelApp = new System.Windows.Forms.Panel();
             this.labelPerformance = new System.Windows.Forms.Label();
             this.panelPerformance = new System.Windows.Forms.Panel();
+            this.labelMemoryUsage = new System.Windows.Forms.Label();
             this.panelConfiguration = new System.Windows.Forms.Panel();
             this.labelConfiguration = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.numMemoryThreshold)).BeginInit();
             this.panelApp.SuspendLayout();
             this.panelPerformance.SuspendLayout();
             this.panelConfiguration.SuspendLayout();
@@ -133,6 +137,47 @@
             this.toolTip.SetToolTip(this.btnOpenDataFolder, "Opens the folder where your profile data is located.");
             this.btnOpenDataFolder.UseVisualStyleBackColor = true;
             // 
+            // checkBrowserGCReload
+            // 
+            this.checkBrowserGCReload.AutoSize = true;
+            this.checkBrowserGCReload.Location = new System.Drawing.Point(6, 84);
+            this.checkBrowserGCReload.Margin = new System.Windows.Forms.Padding(6, 5, 3, 3);
+            this.checkBrowserGCReload.Name = "checkBrowserGCReload";
+            this.checkBrowserGCReload.Size = new System.Drawing.Size(190, 17);
+            this.checkBrowserGCReload.TabIndex = 4;
+            this.checkBrowserGCReload.Text = "Enable Browser Memory Threshold";
+            this.checkBrowserGCReload.UseVisualStyleBackColor = true;
+            // 
+            // numMemoryThreshold
+            // 
+            this.numMemoryThreshold.Increment = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.numMemoryThreshold.Location = new System.Drawing.Point(202, 82);
+            this.numMemoryThreshold.Maximum = new decimal(new int[] {
+            3000,
+            0,
+            0,
+            0});
+            this.numMemoryThreshold.Minimum = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            this.numMemoryThreshold.Name = "numMemoryThreshold";
+            this.numMemoryThreshold.Size = new System.Drawing.Size(97, 20);
+            this.numMemoryThreshold.TabIndex = 3;
+            this.numMemoryThreshold.TextSuffix = " MB";
+            this.toolTip.SetToolTip(this.numMemoryThreshold, "Minimum amount of memory usage by the browser process to trigger the cleanup.\r\nTh" +
+        "is is not a limit, the usage is allowed to exceed this value.");
+            this.numMemoryThreshold.Value = new decimal(new int[] {
+            350,
+            0,
+            0,
+            0});
+            // 
             // labelApp
             // 
             this.labelApp.AutoSize = true;
@@ -172,12 +217,25 @@
             // 
             this.panelPerformance.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelPerformance.Controls.Add(this.checkBrowserGCReload);
+            this.panelPerformance.Controls.Add(this.numMemoryThreshold);
+            this.panelPerformance.Controls.Add(this.labelMemoryUsage);
             this.panelPerformance.Controls.Add(this.checkHardwareAcceleration);
             this.panelPerformance.Controls.Add(this.btnClearCache);
             this.panelPerformance.Location = new System.Drawing.Point(9, 137);
             this.panelPerformance.Name = "panelPerformance";
-            this.panelPerformance.Size = new System.Drawing.Size(322, 54);
+            this.panelPerformance.Size = new System.Drawing.Size(322, 105);
             this.panelPerformance.TabIndex = 3;
+            // 
+            // labelMemoryUsage
+            // 
+            this.labelMemoryUsage.AutoSize = true;
+            this.labelMemoryUsage.Location = new System.Drawing.Point(3, 66);
+            this.labelMemoryUsage.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
+            this.labelMemoryUsage.Name = "labelMemoryUsage";
+            this.labelMemoryUsage.Size = new System.Drawing.Size(78, 13);
+            this.labelMemoryUsage.TabIndex = 2;
+            this.labelMemoryUsage.Text = "Memory Usage";
             // 
             // panelConfiguration
             // 
@@ -185,7 +243,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelConfiguration.Controls.Add(this.btnEditCSS);
             this.panelConfiguration.Controls.Add(this.btnEditCefArgs);
-            this.panelConfiguration.Location = new System.Drawing.Point(9, 238);
+            this.panelConfiguration.Location = new System.Drawing.Point(9, 289);
             this.panelConfiguration.Name = "panelConfiguration";
             this.panelConfiguration.Size = new System.Drawing.Size(322, 29);
             this.panelConfiguration.TabIndex = 5;
@@ -194,7 +252,7 @@
             // 
             this.labelConfiguration.AutoSize = true;
             this.labelConfiguration.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelConfiguration.Location = new System.Drawing.Point(6, 215);
+            this.labelConfiguration.Location = new System.Drawing.Point(6, 266);
             this.labelConfiguration.Margin = new System.Windows.Forms.Padding(0, 21, 0, 0);
             this.labelConfiguration.Name = "labelConfiguration";
             this.labelConfiguration.Size = new System.Drawing.Size(104, 20);
@@ -212,7 +270,8 @@
             this.Controls.Add(this.panelApp);
             this.Controls.Add(this.labelApp);
             this.Name = "TabSettingsAdvanced";
-            this.Size = new System.Drawing.Size(340, 277);
+            this.Size = new System.Drawing.Size(340, 328);
+            ((System.ComponentModel.ISupportInitialize)(this.numMemoryThreshold)).EndInit();
             this.panelApp.ResumeLayout(false);
             this.panelPerformance.ResumeLayout(false);
             this.panelPerformance.PerformLayout();
@@ -239,5 +298,8 @@
         private System.Windows.Forms.Panel panelPerformance;
         private System.Windows.Forms.Panel panelConfiguration;
         private System.Windows.Forms.Label labelConfiguration;
+        private System.Windows.Forms.Label labelMemoryUsage;
+        private Controls.NumericUpDownEx numMemoryThreshold;
+        private System.Windows.Forms.CheckBox checkBrowserGCReload;
     }
 }

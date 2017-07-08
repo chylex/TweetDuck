@@ -45,6 +45,7 @@ namespace TweetDuck{
         private static string ConsoleLogFilePath => Path.Combine(StoragePath, "TD_Console.txt");
 
         public static uint WindowRestoreMessage;
+        public static uint SubProcessMessage;
 
         private static readonly LockManager LockManager = new LockManager(Path.Combine(StoragePath, ".lock"));
         private static bool HasCleanedUp;
@@ -71,6 +72,7 @@ namespace TweetDuck{
             Application.SetCompatibleTextRenderingDefault(false);
             
             WindowRestoreMessage = NativeMethods.RegisterWindowMessage("TweetDuckRestore");
+            SubProcessMessage = NativeMethods.RegisterWindowMessage("TweetDuckSubProcess");
 
             if (!WindowsUtils.CheckFolderWritePermission(StoragePath)){
                 MessageBox.Show(BrandName+" does not have write permissions to the storage folder: "+StoragePath, "Permission Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -161,15 +163,7 @@ namespace TweetDuck{
             };
 
             CommandLineArgsParser.ReadCefArguments(UserConfig.CustomCefArgs).ToDictionary(settings.CefCommandLineArgs);
-
-            if (!SystemConfig.HardwareAcceleration){
-                settings.CefCommandLineArgs["disable-gpu"] = "1";
-                settings.CefCommandLineArgs["disable-gpu-vsync"] = "1";
-            }
-            
-            settings.CefCommandLineArgs["disable-extensions"] = "1";
-            settings.CefCommandLineArgs["disable-plugins-discovery"] = "1";
-            settings.CefCommandLineArgs["enable-system-flash"] = "0";
+            BrowserUtils.SetupCefArgs(settings.CefCommandLineArgs);
             
             Cef.EnableHighDPISupport();
             Cef.Initialize(settings, false, new BrowserProcessHandler());

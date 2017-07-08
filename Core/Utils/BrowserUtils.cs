@@ -1,5 +1,6 @@
 ﻿using CefSharp;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -31,6 +32,24 @@ namespace TweetDuck.Core.Utils{
         public static readonly string[] DictionaryWords = {
             "tweetdeck", "TweetDeck", "tweetduck", "TweetDuck", "TD"
         };
+
+        public static void SetupCefArgs(IDictionary<string, string> args){
+            if (!Program.SystemConfig.HardwareAcceleration){
+                args["disable-gpu"] = "1";
+                args["disable-gpu-vsync"] = "1";
+            }
+            
+            args["disable-extensions"] = "1";
+            args["disable-plugins-discovery"] = "1";
+            args["enable-system-flash"] = "0";
+
+            if (args.TryGetValue("js-flags", out string jsFlags)){
+                args["js-flags"] = "--expose-gc "+jsFlags;
+            }
+            else{
+                args["js-flags"] = "--expose-gc";
+            }
+        }
 
         public static bool IsValidUrl(string url){
             if (Uri.TryCreate(url, UriKind.Absolute, out Uri uri)){

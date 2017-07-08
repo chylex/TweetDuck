@@ -785,6 +785,40 @@
   }
   
   //
+  // Block: Memory cleanup check and execution.
+  //
+  window.TDGF_tryRunCleanup = function(){
+    // all textareas are empty
+    if ($("textarea").is(function(){
+      return $(this).val().length > 0;
+    })){
+      return false;
+    }
+    
+    // no modals are visible
+    if ($("#open-modal").is(":visible") || !$(".js-modals-container").is(":empty")){
+      return false;
+    }
+    
+    // all columns are in a default state
+    if ($("section.js-column").is(".is-shifted-1,.is-shifted-2")){
+      return false;
+    }
+    
+    // all columns are scrolled to top
+    if ($(".js-column-scroller").is(function(){
+      return $(this).scrollTop() > 0;
+    })){
+      return false;
+    }
+    
+    // cleanup
+    window.gc && window.gc();
+    window.location.reload();
+    return true;
+  };
+  
+  //
   // Block: Disable TweetDeck metrics.
   //
   if (ensurePropertyExists(TD, "metrics")){

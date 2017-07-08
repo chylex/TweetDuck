@@ -23,6 +23,10 @@ namespace TweetDuck.Core.Other.Settings{
                 checkHardwareAcceleration.Checked = false;
             }
 
+            checkBrowserGCReload.Checked = Config.EnableBrowserGCReload;
+            numMemoryThreshold.Enabled = checkBrowserGCReload.Checked;
+            numMemoryThreshold.SetValueSafe(Config.BrowserMemoryThreshold);
+
             BrowserCache.CalculateCacheSize(bytes => this.InvokeSafe(() => {
                 if (bytes == -1L){
                     btnClearCache.Text = "Clear Cache (unknown size)";
@@ -36,6 +40,9 @@ namespace TweetDuck.Core.Other.Settings{
         public override void OnReady(){
             btnClearCache.Click += btnClearCache_Click;
             checkHardwareAcceleration.CheckedChanged += checkHardwareAcceleration_CheckedChanged;
+
+            checkBrowserGCReload.CheckedChanged += checkBrowserGCReload_CheckedChanged;
+            numMemoryThreshold.ValueChanged += numMemoryThreshold_ValueChanged;
 
             btnEditCefArgs.Click += btnEditCefArgs_Click;
             btnEditCSS.Click += btnEditCSS_Click;
@@ -57,6 +64,15 @@ namespace TweetDuck.Core.Other.Settings{
             Program.SystemConfig.HardwareAcceleration = checkHardwareAcceleration.Checked;
             Program.SystemConfig.Save();
             PromptRestart();
+        }
+
+        private void checkBrowserGCReload_CheckedChanged(object sender, EventArgs e){
+            Config.EnableBrowserGCReload = checkBrowserGCReload.Checked;
+            numMemoryThreshold.Enabled = checkBrowserGCReload.Checked;
+        }
+
+        private void numMemoryThreshold_ValueChanged(object sender, EventArgs e){
+            Config.BrowserMemoryThreshold = (int)numMemoryThreshold.Value;
         }
 
         private void btnEditCefArgs_Click(object sender, EventArgs e){

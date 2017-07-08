@@ -73,6 +73,9 @@ namespace TweetDuck.Configuration{
         public string CustomBrowserCSS      { get; set; } = null;
         public string CustomNotificationCSS { get; set; } = null;
 
+        public bool EnableBrowserGCReload { get; set; } = false;
+        public int BrowserMemoryThreshold { get; set; } = 350;
+        
         // SPECIAL PROPERTIES
 
         public bool IsCustomNotificationPositionSet => CustomNotificationPosition != ControlExtensions.InvisibleLocation;
