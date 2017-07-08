@@ -482,6 +482,8 @@
         if (item.type.startsWith("image/")){
           $(this).closest(".rpl").find(".js-reply-popout").click(); // popout direct messages
           uploader.addFilesToUpload([ item.getAsFile() ]);
+          
+          $(".js-compose-text", ".js-docked-compose").focus();
           break;
         }
       }
