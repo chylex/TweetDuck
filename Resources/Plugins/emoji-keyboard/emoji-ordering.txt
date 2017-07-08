@@ -1,14 +1,14 @@
 1F600;grinning face
-1F601;grinning face with smiling eyes
+1F601;beaming face with smiling eyes
 1F602;face with tears of joy
 1F923;rolling on the floor laughing
-1F603;smiling face with open mouth
-1F604;smiling face with open mouth & smiling eyes
-1F605;smiling face with open mouth & cold sweat
-1F606;smiling face with open mouth & closed eyes
+1F603;grinning face with big eyes
+1F604;grinning face with smiling eyes
+1F605;grinning face with sweat
+1F606;grinning squinting face
 1F609;winking face
 1F60A;smiling face with smiling eyes
-1F60B;face savouring delicious food
+1F60B;face savoring food
 1F60E;smiling face with sunglasses
 1F60D;smiling face with heart-eyes
 1F618;face blowing a kiss
@@ -18,14 +18,16 @@
 263A;smiling face
 1F642;slightly smiling face
 1F917;hugging face
+1F929;star-struck
 1F914;thinking face
+1F928;face with raised eyebrow
 1F610;neutral face
 1F611;expressionless face
 1F636;face without mouth
 1F644;face with rolling eyes
 1F60F;smirking face
 1F623;persevering face
-1F625;disappointed but relieved face
+1F625;sad but relieved face
 1F62E;face with open mouth
 1F910;zipper-mouth face
 1F62F;hushed face
@@ -33,13 +35,12 @@
 1F62B;tired face
 1F634;sleeping face
 1F60C;relieved face
-1F913;nerd face
-1F61B;face with stuck-out tongue
-1F61C;face with stuck-out tongue & winking eye
-1F61D;face with stuck-out tongue & closed eyes
+1F61B;face with tongue
+1F61C;winking face with tongue
+1F61D;squinting face with tongue
 1F924;drooling face
 1F612;unamused face
-1F613;face with cold sweat
+1F613;downcast face with sweat
 1F614;pensive face
 1F615;confused face
 1F643;upside-down face
@@ -57,22 +58,30 @@
 1F627;anguished face
 1F628;fearful face
 1F629;weary face
+1F92F;exploding head
 1F62C;grimacing face
-1F630;face with open mouth & cold sweat
+1F630;anxious face with sweat
 1F631;face screaming in fear
 1F633;flushed face
+1F92A;crazy face
 1F635;dizzy face
 1F621;pouting face
 1F620;angry face
-1F607;smiling face with halo
-1F920;cowboy hat face
-1F921;clown face
-1F925;lying face
+1F92C;face with symbols on mouth
 1F637;face with medical mask
 1F912;face with thermometer
 1F915;face with head-bandage
 1F922;nauseated face
+1F92E;face vomiting
 1F927;sneezing face
+1F607;smiling face with halo
+1F920;cowboy hat face
+1F921;clown face
+1F925;lying face
+1F92B;shushing face
+1F92D;face with hand over mouth
+1F9D0;face with monocle
+1F913;nerd face
 1F608;smiling face with horns
 1F47F;angry face with horns
 1F479;ogre
@@ -84,35 +93,40 @@
 1F47E;alien monster
 1F916;robot face
 1F4A9;pile of poo
-1F63A;smiling cat face with open mouth
+1F63A;grinning cat face
 1F638;grinning cat face with smiling eyes
 1F639;cat face with tears of joy
 1F63B;smiling cat face with heart-eyes
 1F63C;cat face with wry smile
-1F63D;kissing cat face with closed eyes
+1F63D;kissing cat face
 1F640;weary cat face
 1F63F;crying cat face
 1F63E;pouting cat face
 1F648;see-no-evil monkey
 1F649;hear-no-evil monkey
 1F64A;speak-no-evil monkey
-@1 enable skin tones
+@
+#1 enable skin tones
+1F476;baby
+1F476 $;baby
+1F9D2;child
+1F9D2 $;child
 1F466;boy
 1F466 $;boy
 1F467;girl
 1F467 $;girl
+1F9D1;adult
+1F9D1 $;adult
 1F468;man
 1F468 $;man
 1F469;woman
 1F469 $;woman
+1F9D3;older adult
+1F9D3 $;older adult
 1F474;old man
 1F474 $;old man
 1F475;old woman
 1F475 $;old woman
-1F476;baby
-1F476 $;baby
-1F47C;baby angel
-1F47C $;baby angel
 1F468 200D 2695 FE0F;man health worker
 1F468 $ 200D 2695 FE0F;man health worker
 1F469 200D 2695 FE0F;woman health worker
@@ -193,30 +207,62 @@
 1F477 $ 200D 2642 FE0F;man construction worker
 1F477 200D 2640 FE0F;woman construction worker
 1F477 $ 200D 2640 FE0F;woman construction worker
+1F934;prince
+1F934 $;prince
+1F478;princess
+1F478 $;princess
 1F473 200D 2642 FE0F;man wearing turban
 1F473 $ 200D 2642 FE0F;man wearing turban
 1F473 200D 2640 FE0F;woman wearing turban
 1F473 $ 200D 2640 FE0F;woman wearing turban
+1F472;man with Chinese cap
+1F472 $;man with Chinese cap
+1F9D5;woman with headscarf
+1F9D5 $;woman with headscarf
+1F9D4;bearded person
+1F9D4 $;bearded person
 1F471 200D 2642 FE0F;blond-haired man
 1F471 $ 200D 2642 FE0F;blond-haired man
 1F471 200D 2640 FE0F;blond-haired woman
 1F471 $ 200D 2640 FE0F;blond-haired woman
+1F935;man in tuxedo
+1F935 $;man in tuxedo
+1F470;bride with veil
+1F470 $;bride with veil
+1F930;pregnant woman
+1F930 $;pregnant woman
+1F931;breast-feeding
+1F931 $;breast-feeding
+1F47C;baby angel
+1F47C $;baby angel
 1F385;Santa Claus
 1F385 $;Santa Claus
 1F936;Mrs. Claus
 1F936 $;Mrs. Claus
-1F478;princess
-1F478 $;princess
-1F934;prince
-1F934 $;prince
-1F470;bride with veil
-1F470 $;bride with veil
-1F935;man in tuxedo
-1F935 $;man in tuxedo
-1F930;pregnant woman
-1F930 $;pregnant woman
-1F472;man with Chinese cap
-1F472 $;man with Chinese cap
+1F9D9 200D 2640 FE0F;woman mage
+1F9D9 $ 200D 2640 FE0F;woman mage
+1F9D9 200D 2642 FE0F;man mage
+1F9D9 $ 200D 2642 FE0F;man mage
+1F9DA 200D 2640 FE0F;woman fairy
+1F9DA $ 200D 2640 FE0F;woman fairy
+1F9DA 200D 2642 FE0F;man fairy
+1F9DA $ 200D 2642 FE0F;man fairy
+1F9DB 200D 2640 FE0F;woman vampire
+1F9DB $ 200D 2640 FE0F;woman vampire
+1F9DB 200D 2642 FE0F;man vampire
+1F9DB $ 200D 2642 FE0F;man vampire
+1F9DC 200D 2640 FE0F;mermaid
+1F9DC $ 200D 2640 FE0F;mermaid
+1F9DC 200D 2642 FE0F;merman
+1F9DC $ 200D 2642 FE0F;merman
+1F9DD 200D 2640 FE0F;woman elf
+1F9DD $ 200D 2640 FE0F;woman elf
+1F9DD 200D 2642 FE0F;man elf
+1F9DD $ 200D 2642 FE0F;man elf
+1F9DE 200D 2640 FE0F;woman genie
+1F9DE 200D 2642 FE0F;man genie
+1F9DF 200D 2640 FE0F;woman zombie
+1F9DF 200D 2642 FE0F;man zombie
 1F64D 200D 2642 FE0F;man frowning
 1F64D $ 200D 2642 FE0F;man frowning
 1F64D 200D 2640 FE0F;woman frowning
@@ -273,10 +319,26 @@
 1F483 $;woman dancing
 1F57A;man dancing
 1F57A $;man dancing
-1F46F 200D 2642 FE0F;men with bunny ears partying
-1F46F 200D 2640 FE0F;women with bunny ears partying
-1F574;man in business suit levitating
-1F574 $;man in business suit levitating
+1F46F 200D 2642 FE0F;men with bunny ears
+1F46F 200D 2640 FE0F;women with bunny ears
+1F9D6 200D 2640 FE0F;woman in steamy room
+1F9D6 $ 200D 2640 FE0F;woman in steamy room
+1F9D6 200D 2642 FE0F;man in steamy room
+1F9D6 $ 200D 2642 FE0F;man in steamy room
+1F9D7 200D 2640 FE0F;woman climbing
+1F9D7 $ 200D 2640 FE0F;woman climbing
+1F9D7 200D 2642 FE0F;man climbing
+1F9D7 $ 200D 2642 FE0F;man climbing
+1F9D8 200D 2640 FE0F;woman in lotus position
+1F9D8 $ 200D 2640 FE0F;woman in lotus position
+1F9D8 200D 2642 FE0F;man in lotus position
+1F9D8 $ 200D 2642 FE0F;man in lotus position
+1F6C0;person taking bath
+1F6C0 $;person taking bath
+1F6CC;person in bed
+1F6CC $;person in bed
+1F574;man in suit levitating
+1F574 $;man in suit levitating
 1F5E3;speaking head
 1F464;bust in silhouette
 1F465;busts in silhouette
@@ -338,52 +400,48 @@
 1F939 $ 200D 2642 FE0F;man juggling
 1F939 200D 2640 FE0F;woman juggling
 1F939 $ 200D 2640 FE0F;woman juggling
-1F6CC;person in bed
-1F6CC $;person in bed
-1F6C0;person taking bath
-1F6C0 $;person taking bath
 1F46B;man and woman holding hands
 1F46C;two men holding hands
 1F46D;two women holding hands
 1F48F;kiss
-1F469 200D 2764 FE0F 200D 1F48B 200D 1F468;kiss
-1F468 200D 2764 FE0F 200D 1F48B 200D 1F468;kiss
-1F469 200D 2764 FE0F 200D 1F48B 200D 1F469;kiss
+1F469 200D 2764 FE0F 200D 1F48B 200D 1F468;kiss woman man
+1F468 200D 2764 FE0F 200D 1F48B 200D 1F468;kiss man man
+1F469 200D 2764 FE0F 200D 1F48B 200D 1F469;kiss woman woman
 1F491;couple with heart
-1F469 200D 2764 FE0F 200D 1F468;couple with heart
-1F468 200D 2764 FE0F 200D 1F468;couple with heart
-1F469 200D 2764 FE0F 200D 1F469;couple with heart
+1F469 200D 2764 FE0F 200D 1F468;couple with heart woman man
+1F468 200D 2764 FE0F 200D 1F468;couple with heart man man
+1F469 200D 2764 FE0F 200D 1F469;couple with heart woman woman
 1F46A;family
-1F468 200D 1F469 200D 1F466;family
-1F468 200D 1F469 200D 1F467;family
-1F468 200D 1F469 200D 1F467 200D 1F466;family
-1F468 200D 1F469 200D 1F466 200D 1F466;family
-1F468 200D 1F469 200D 1F467 200D 1F467;family
-1F468 200D 1F468 200D 1F466;family
-1F468 200D 1F468 200D 1F467;family
-1F468 200D 1F468 200D 1F467 200D 1F466;family
-1F468 200D 1F468 200D 1F466 200D 1F466;family
-1F468 200D 1F468 200D 1F467 200D 1F467;family
-1F469 200D 1F469 200D 1F466;family
-1F469 200D 1F469 200D 1F467;family
-1F469 200D 1F469 200D 1F467 200D 1F466;family
-1F469 200D 1F469 200D 1F466 200D 1F466;family
-1F469 200D 1F469 200D 1F467 200D 1F467;family
-1F468 200D 1F466;family
-1F468 200D 1F466 200D 1F466;family
-1F468 200D 1F467;family
-1F468 200D 1F467 200D 1F466;family
-1F468 200D 1F467 200D 1F467;family
-1F469 200D 1F466;family
-1F469 200D 1F466 200D 1F466;family
-1F469 200D 1F467;family
-1F469 200D 1F467 200D 1F466;family
-1F469 200D 1F467 200D 1F467;family
+1F468 200D 1F469 200D 1F466;family man woman boy
+1F468 200D 1F469 200D 1F467;family man woman girl
+1F468 200D 1F469 200D 1F467 200D 1F466;family man woman girl boy
+1F468 200D 1F469 200D 1F466 200D 1F466;family man woman boy boy
+1F468 200D 1F469 200D 1F467 200D 1F467;family man woman girl girl
+1F468 200D 1F468 200D 1F466;family man man boy
+1F468 200D 1F468 200D 1F467;family man man girl
+1F468 200D 1F468 200D 1F467 200D 1F466;family man man girl boy
+1F468 200D 1F468 200D 1F466 200D 1F466;family man man boy boy
+1F468 200D 1F468 200D 1F467 200D 1F467;family man man girl girl
+1F469 200D 1F469 200D 1F466;family woman woman boy
+1F469 200D 1F469 200D 1F467;family woman woman girl
+1F469 200D 1F469 200D 1F467 200D 1F466;family woman woman girl boy
+1F469 200D 1F469 200D 1F466 200D 1F466;family woman woman boy boy
+1F469 200D 1F469 200D 1F467 200D 1F467;family woman woman girl girl
+1F468 200D 1F466;family man boy
+1F468 200D 1F466 200D 1F466;family man boy boy
+1F468 200D 1F467;family man girl
+1F468 200D 1F467 200D 1F466;family man girl boy
+1F468 200D 1F467 200D 1F467;family man girl girl
+1F469 200D 1F466;family woman boy
+1F469 200D 1F466 200D 1F466;family woman boy boy
+1F469 200D 1F467;family woman girl
+1F469 200D 1F467 200D 1F466;family woman girl boy
+1F469 200D 1F467 200D 1F467;family woman girl girl
 @
-1F4AA;flexed biceps
-1F4AA $;flexed biceps
 1F933;selfie
 1F933 $;selfie
+1F4AA;flexed biceps
+1F4AA $;flexed biceps
 1F448;backhand index pointing left
 1F448 $;backhand index pointing left
 1F449;backhand index pointing right
@@ -406,8 +464,8 @@
 1F918 $;sign of the horns
 1F919;call me hand
 1F919 $;call me hand
-1F590;raised hand with fingers splayed
-1F590 $;raised hand with fingers splayed
+1F590;hand with fingers splayed
+1F590 $;hand with fingers splayed
 270B;raised hand
 270B $;raised hand
 1F44C;OK hand
@@ -428,14 +486,18 @@
 1F91A $;raised back of hand
 1F44B;waving hand
 1F44B $;waving hand
-1F44F;clapping hands
-1F44F $;clapping hands
+1F91F;love-you gesture
+1F91F $;love-you gesture
 270D;writing hand
 270D $;writing hand
+1F44F;clapping hands
+1F44F $;clapping hands
 1F450;open hands
 1F450 $;open hands
 1F64C;raising hands
 1F64C $;raising hands
+1F932;palms up together
+1F932 $;palms up together
 1F64F;folded hands
 1F64F $;folded hands
 1F485;nail polish
@@ -444,10 +506,12 @@
 1F442 $;ear
 1F443;nose
 1F443 $;nose
+#2 no more skin tones beyond this point
 1F91D;handshake
 1F463;footprints
 1F440;eyes
 1F441;eye
+1F9E0;brain
 1F445;tongue
 1F444;mouth
 1F48B;kiss mark
@@ -461,6 +525,7 @@
 1F499;blue heart
 1F49A;green heart
 1F49B;yellow heart
+1F9E1;orange heart
 1F49C;purple heart
 1F5A4;black heart
 1F49D;heart with ribbon
@@ -485,6 +550,10 @@
 1F454;necktie
 1F455;t-shirt
 1F456;jeans
+1F9E3;scarf
+1F9E4;gloves
+1F9E5;coat
+1F9E6;socks
 1F457;dress
 1F458;kimono
 1F459;bikini
@@ -503,12 +572,13 @@
 1F452;woman’s hat
 1F3A9;top hat
 1F393;graduation cap
+1F9E2;billed cap
 26D1;rescue worker’s helmet
 1F4FF;prayer beads
 1F484;lipstick
 1F48D;ring
 1F48E;gem stone
-@2 no more skin tones beyond this point
+@
 1F435;monkey face
 1F412;monkey
 1F98D;gorilla
@@ -525,8 +595,9 @@
 1F406;leopard
 1F434;horse face
 1F40E;horse
-1F98C;deer
 1F984;unicorn face
+1F993;zebra
+1F98C;deer
 1F42E;cow face
 1F402;ox
 1F403;water buffalo
@@ -540,6 +611,7 @@
 1F410;goat
 1F42A;camel
 1F42B;two-hump camel
+1F992;giraffe
 1F418;elephant
 1F98F;rhinoceros
 1F42D;mouse face
@@ -549,6 +621,7 @@
 1F430;rabbit face
 1F407;rabbit
 1F43F;chipmunk
+1F994;hedgehog
 1F987;bat
 1F43B;bear face
 1F428;koala
@@ -573,6 +646,8 @@
 1F40D;snake
 1F432;dragon face
 1F409;dragon
+1F995;sauropod
+1F996;T-Rex
 1F433;spouting whale
 1F40B;whale
 1F42C;dolphin
@@ -585,12 +660,13 @@
 1F980;crab
 1F990;shrimp
 1F991;squid
-1F98B;butterfly
 1F40C;snail
+1F98B;butterfly
 1F41B;bug
 1F41C;ant
 1F41D;honeybee
 1F41E;lady beetle
+1F997;cricket
 1F577;spider
 1F578;spider web
 1F982;scorpion
@@ -618,7 +694,6 @@
 1F342;fallen leaf
 1F343;leaf fluttering in wind
 1F347;grapes
-@
 1F348;melon
 1F349;watermelon
 1F34A;tangerine
@@ -633,6 +708,7 @@
 1F353;strawberry
 1F95D;kiwi fruit
 1F345;tomato
+1F965;coconut
 1F951;avocado
 1F346;eggplant
 1F954;potato
@@ -640,21 +716,25 @@
 1F33D;ear of corn
 1F336;hot pepper
 1F952;cucumber
+1F966;broccoli
 1F344;mushroom
 1F95C;peanuts
 1F330;chestnut
 1F35E;bread
 1F950;croissant
 1F956;baguette bread
+1F968;pretzel
 1F95E;pancakes
 1F9C0;cheese wedge
 1F356;meat on bone
 1F357;poultry leg
+1F969;cut of meat
 1F953;bacon
 1F354;hamburger
 1F35F;french fries
 1F355;pizza
 1F32D;hot dog
+1F96A;sandwich
 1F32E;taco
 1F32F;burrito
 1F959;stuffed flatbread
@@ -662,8 +742,10 @@
 1F373;cooking
 1F958;shallow pan of food
 1F372;pot of food
+1F963;bowl with spoon
 1F957;green salad
 1F37F;popcorn
+1F96B;canned food
 1F371;bento box
 1F358;rice cracker
 1F359;rice ball
@@ -677,6 +759,9 @@
 1F364;fried shrimp
 1F365;fish cake with swirl
 1F361;dango
+1F95F;dumpling
+1F960;fortune cookie
+1F961;takeout box
 1F366;soft ice cream
 1F367;shaved ice
 1F368;ice cream
@@ -684,6 +769,7 @@
 1F36A;cookie
 1F382;birthday cake
 1F370;shortcake
+1F967;pie
 1F36B;chocolate bar
 1F36C;candy
 1F36D;lollipop
@@ -702,6 +788,8 @@
 1F37B;clinking beer mugs
 1F942;clinking glasses
 1F943;tumbler glass
+1F964;cup with straw
+1F962;chopsticks
 1F37D;fork and knife with plate
 1F374;fork and knife
 1F944;spoon
@@ -726,7 +814,7 @@
 1F3DF;stadium
 1F3DB;classical building
 1F3D7;building construction
-1F3D8;house
+1F3D8;houses
 1F3D9;cityscape
 1F3DA;derelict house
 1F3E0;house
@@ -775,7 +863,7 @@
 1F682;locomotive
 1F683;railway car
 1F684;high-speed train
-1F685;high-speed train with bullet nose
+1F685;bullet train
 1F686;train
 1F687;metro
 1F688;light rail
@@ -829,8 +917,9 @@
 1F69F;suspension railway
 1F6A0;mountain cableway
 1F6A1;aerial tramway
-1F680;rocket
 1F6F0;satellite
+1F680;rocket
+1F6F8;flying saucer
 1F6CE;bellhop bell
 1F6AA;door
 1F6CF;bed
@@ -839,36 +928,36 @@
 1F6BF;shower
 1F6C1;bathtub
 @
-231B;hourglass
-23F3;hourglass with flowing sand
+231B;hourglass done
+23F3;hourglass not done
 231A;watch
 23F0;alarm clock
 23F1;stopwatch
 23F2;timer clock
 1F570;mantelpiece clock
-1F55B;twelve o’clock
+1F55B;twelve clock
 1F567;twelve-thirty
-1F550;one o’clock
+1F550;one clock
 1F55C;one-thirty
-1F551;two o’clock
+1F551;two clock
 1F55D;two-thirty
-1F552;three o’clock
+1F552;three clock
 1F55E;three-thirty
-1F553;four o’clock
+1F553;four clock
 1F55F;four-thirty
-1F554;five o’clock
+1F554;five clock
 1F560;five-thirty
-1F555;six o’clock
+1F555;six clock
 1F561;six-thirty
-1F556;seven o’clock
+1F556;seven clock
 1F562;seven-thirty
-1F557;eight o’clock
+1F557;eight clock
 1F563;eight-thirty
-1F558;nine o’clock
+1F558;nine clock
 1F564;nine-thirty
-1F559;ten o’clock
+1F559;ten clock
 1F565;ten-thirty
-1F55A;eleven o’clock
+1F55A;eleven clock
 1F566;eleven-thirty
 1F311;new moon
 1F312;waxing crescent moon
@@ -880,11 +969,11 @@
 1F318;waning crescent moon
 1F319;crescent moon
 1F31A;new moon face
-1F31B;first quarter moon with face
-1F31C;last quarter moon with face
+1F31B;first quarter moon face
+1F31C;last quarter moon face
 1F321;thermometer
 2600;sun
-1F31D;full moon with face
+1F31D;full moon face
 1F31E;sun with face
 2B50;white medium star
 1F31F;glowing star
@@ -949,7 +1038,7 @@
 1F3BE;tennis
 1F3B1;pool 8 ball
 1F3B3;bowling
-1F3CF;cricket
+1F3CF;cricket game
 1F3D1;field hockey
 1F3D2;ice hockey
 1F3D3;ping pong
@@ -963,6 +1052,8 @@
 1F3A3;fishing pole
 1F3BD;running shirt
 1F3BF;skis
+1F6F7;sled
+1F94C;curling stone
 1F3AE;video game
 1F579;joystick
 1F3B2;game die
@@ -1024,8 +1115,8 @@
 1F4F8;camera with flash
 1F4F9;video camera
 1F4FC;videocassette
-1F50D;left-pointing magnifying glass
-1F50E;right-pointing magnifying glass
+1F50D;magnifying glass tilted left
+1F50E;magnifying glass tilted right
 1F52C;microscope
 1F52D;telescope
 1F4E1;satellite antenna
@@ -1177,7 +1268,7 @@
 2934;right arrow curving up
 2935;right arrow curving down
 1F503;clockwise vertical arrows
-1F504;anticlockwise arrows button
+1F504;counterclockwise arrows button
 1F519;BACK arrow
 1F51A;END arrow
 1F51B;ON! arrow
@@ -1232,11 +1323,14 @@
 1F4F6;antenna bars
 1F4F3;vibration mode
 1F4F4;mobile phone off
+2640;female sign
+2642;male sign
+2695;medical symbol
 267B;recycling symbol
-1F4DB;name badge
 269C;fleur-de-lis
-1F530;Japanese symbol for beginner
 1F531;trident emblem
+1F4DB;name badge
+1F530;Japanese symbol for beginner
 2B55;heavy large circle
 2705;white heavy check mark
 2611;ballot box with check
@@ -1245,9 +1339,6 @@
 274C;cross mark
 274E;cross mark button
 2795;heavy plus sign
-2640;female sign
-2642;male sign
-2695;medical symbol
 2796;heavy minus sign
 2797;heavy division sign
 27B0;curly loop
@@ -1263,18 +1354,18 @@
 2755;white exclamation mark
 2757;exclamation mark
 3030;wavy dash
-0023 FE0F 20E3;keycap
-002A FE0F 20E3;keycap
-0030 FE0F 20E3;keycap
-0031 FE0F 20E3;keycap
-0032 FE0F 20E3;keycap
-0033 FE0F 20E3;keycap
-0034 FE0F 20E3;keycap
-0035 FE0F 20E3;keycap
-0036 FE0F 20E3;keycap
-0037 FE0F 20E3;keycap
-0038 FE0F 20E3;keycap
-0039 FE0F 20E3;keycap
+0023 FE0F 20E3;keycap #
+002A FE0F 20E3;keycap *
+0030 FE0F 20E3;keycap 0
+0031 FE0F 20E3;keycap 1
+0032 FE0F 20E3;keycap 2
+0033 FE0F 20E3;keycap 3
+0034 FE0F 20E3;keycap 4
+0035 FE0F 20E3;keycap 5
+0036 FE0F 20E3;keycap 6
+0037 FE0F 20E3;keycap 7
+0038 FE0F 20E3;keycap 8
+0039 FE0F 20E3;keycap 9
 1F51F;keycap 10
 1F4AF;hundred points
 1F520;input latin uppercase
@@ -1299,23 +1390,23 @@
 1F198;SOS button
 1F199;UP! button
 1F19A;VS button
-1F201;Japanese “here” button
-1F202;Japanese “service charge” button
-1F237;Japanese “monthly amount” button
-1F236;Japanese “not free of charge” button
-1F22F;Japanese “reserved” button
-1F250;Japanese “bargain” button
-1F239;Japanese “discount” button
-1F21A;Japanese “free of charge” button
-1F232;Japanese “prohibited” button
-1F251;Japanese “acceptable” button
-1F238;Japanese “application” button
-1F234;Japanese “passing grade” button
-1F233;Japanese “vacancy” button
-3297;Japanese “congratulations” button
-3299;Japanese “secret” button
-1F23A;Japanese “open for business” button
-1F235;Japanese “no vacancy” button
+1F201;Japanese here button
+1F202;Japanese service charge button
+1F237;Japanese monthly amount button
+1F236;Japanese not free of charge button
+1F22F;Japanese reserved button
+1F250;Japanese bargain button
+1F239;Japanese discount button
+1F21A;Japanese free of charge button
+1F232;Japanese prohibited button
+1F251;Japanese acceptable button
+1F238;Japanese application button
+1F234;Japanese passing grade button
+1F233;Japanese vacancy button
+3297;Japanese congratulations button
+3299;Japanese secret button
+1F23A;Japanese open for business button
+1F235;Japanese no vacancy button
 25AA;black small square
 25AB;white small square
 25FB;white medium square
@@ -1349,7 +1440,7 @@
 1F1E6 1F1E9;Andorra
 1F1E6 1F1EA;United Arab Emirates
 1F1E6 1F1EB;Afghanistan
-1F1E6 1F1EC;Antigua & Barbuda
+1F1E6 1F1EC;Antigua Barbuda
 1F1E6 1F1EE;Anguilla
 1F1E6 1F1F1;Albania
 1F1E6 1F1F2;Armenia
@@ -1362,7 +1453,7 @@
 1F1E6 1F1FC;Aruba
 1F1E6 1F1FD;Åland Islands
 1F1E6 1F1FF;Azerbaijan
-1F1E7 1F1E6;Bosnia & Herzegovina
+1F1E7 1F1E6;Bosnia Herzegovina
 1F1E7 1F1E7;Barbados
 1F1E7 1F1E9;Bangladesh
 1F1E7 1F1EA;Belgium
@@ -1402,7 +1493,7 @@
 1F1E8 1F1FC;Curaçao
 1F1E8 1F1FD;Christmas Island
 1F1E8 1F1FE;Cyprus
-1F1E8 1F1FF;Czech Republic
+1F1E8 1F1FF;Czechia
 1F1E9 1F1EA;Germany
 1F1E9 1F1EC;Diego Garcia
 1F1E9 1F1EF;Djibouti
@@ -1410,7 +1501,7 @@
 1F1E9 1F1F2;Dominica
 1F1E9 1F1F4;Dominican Republic
 1F1E9 1F1FF;Algeria
-1F1EA 1F1E6;Ceuta & Melilla
+1F1EA 1F1E6;Ceuta Melilla
 1F1EA 1F1E8;Ecuador
 1F1EA 1F1EA;Estonia
 1F1EA 1F1EC;Egypt
@@ -1439,13 +1530,13 @@
 1F1EC 1F1F5;Guadeloupe
 1F1EC 1F1F6;Equatorial Guinea
 1F1EC 1F1F7;Greece
-1F1EC 1F1F8;South Georgia & South Sandwich Islands
+1F1EC 1F1F8;South Georgia South Sandwich Islands
 1F1EC 1F1F9;Guatemala
 1F1EC 1F1FA;Guam
 1F1EC 1F1FC;Guinea-Bissau
 1F1EC 1F1FE;Guyana
 1F1ED 1F1F0;Hong Kong SAR China
-1F1ED 1F1F2;Heard & McDonald Islands
+1F1ED 1F1F2;Heard McDonald Islands
 1F1ED 1F1F3;Honduras
 1F1ED 1F1F7;Croatia
 1F1ED 1F1F9;Haiti
@@ -1470,7 +1561,7 @@
 1F1F0 1F1ED;Cambodia
 1F1F0 1F1EE;Kiribati
 1F1F0 1F1F2;Comoros
-1F1F0 1F1F3;St. Kitts & Nevis
+1F1F0 1F1F3;St. Kitts Nevis
 1F1F0 1F1F5;North Korea
 1F1F0 1F1F7;South Korea
 1F1F0 1F1FC;Kuwait
@@ -1530,7 +1621,7 @@
 1F1F5 1F1ED;Philippines
 1F1F5 1F1F0;Pakistan
 1F1F5 1F1F1;Poland
-1F1F5 1F1F2;St. Pierre & Miquelon
+1F1F5 1F1F2;St. Pierre Miquelon
 1F1F5 1F1F3;Pitcairn Islands
 1F1F5 1F1F7;Puerto Rico
 1F1F5 1F1F8;Palestinian Territories
@@ -1551,7 +1642,7 @@
 1F1F8 1F1EC;Singapore
 1F1F8 1F1ED;St. Helena
 1F1F8 1F1EE;Slovenia
-1F1F8 1F1EF;Svalbard & Jan Mayen
+1F1F8 1F1EF;Svalbard Jan Mayen
 1F1F8 1F1F0;Slovakia
 1F1F8 1F1F1;Sierra Leone
 1F1F8 1F1F2;San Marino
@@ -1559,13 +1650,13 @@
 1F1F8 1F1F4;Somalia
 1F1F8 1F1F7;Suriname
 1F1F8 1F1F8;South Sudan
-1F1F8 1F1F9;São Tomé & Príncipe
+1F1F8 1F1F9;São Tomé Príncipe
 1F1F8 1F1FB;El Salvador
 1F1F8 1F1FD;Sint Maarten
 1F1F8 1F1FE;Syria
 1F1F8 1F1FF;Swaziland
 1F1F9 1F1E6;Tristan da Cunha
-1F1F9 1F1E8;Turks & Caicos Islands
+1F1F9 1F1E8;Turks Caicos Islands
 1F1F9 1F1E9;Chad
 1F1F9 1F1EB;French Southern Territories
 1F1F9 1F1EC;Togo
@@ -1577,7 +1668,7 @@
 1F1F9 1F1F3;Tunisia
 1F1F9 1F1F4;Tonga
 1F1F9 1F1F7;Turkey
-1F1F9 1F1F9;Trinidad & Tobago
+1F1F9 1F1F9;Trinidad Tobago
 1F1F9 1F1FB;Tuvalu
 1F1F9 1F1FC;Taiwan
 1F1F9 1F1FF;Tanzania
@@ -1589,13 +1680,13 @@
 1F1FA 1F1FE;Uruguay
 1F1FA 1F1FF;Uzbekistan
 1F1FB 1F1E6;Vatican City
-1F1FB 1F1E8;St. Vincent & Grenadines
+1F1FB 1F1E8;St. Vincent Grenadines
 1F1FB 1F1EA;Venezuela
 1F1FB 1F1EC;British Virgin Islands
 1F1FB 1F1EE;U.S. Virgin Islands
 1F1FB 1F1F3;Vietnam
 1F1FB 1F1FA;Vanuatu
-1F1FC 1F1EB;Wallis & Futuna
+1F1FC 1F1EB;Wallis Futuna
 1F1FC 1F1F8;Samoa
 1F1FD 1F1F0;Kosovo
 1F1FE 1F1EA;Yemen
@@ -1603,3 +1694,6 @@
 1F1FF 1F1E6;South Africa
 1F1FF 1F1F2;Zambia
 1F1FF 1F1FC;Zimbabwe
+1F3F4 E0067 E0062 E0065 E006E E0067 E007F;England
+1F3F4 E0067 E0062 E0073 E0063 E0074 E007F;Scotland
+1F3F4 E0067 E0062 E0077 E006C E0073 E007F;Wales

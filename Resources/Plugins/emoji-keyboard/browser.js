@@ -306,6 +306,9 @@ ready(){
           case 2: this.emojiData3.push("___"); break;
         }
         
+        continue;
+      }
+      else if (line[0] === '#'){
         if (line[1] === '1'){
           skinToneState = 1;
         }

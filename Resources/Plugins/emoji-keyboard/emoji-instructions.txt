@@ -1,6 +1,9 @@
 Emoji list:   http://unicode.org/emoji/charts/emoji-ordering.html
 Emoji order:  http://unicode.org/emoji/charts/emoji-ordering.txt
 
+The instructions contain search & replace regexes. Make sure your editor supports LF characters (\n).
+For Brackets, use Find -> Replace in Files with any regex that includes LF.
+
 
 ------------------------
 Remove unnecessary info:
@@ -8,8 +11,8 @@ Remove unnecessary info:
   Search:   \s;.+?#.+?\s
   Replace:  ;
   
-  Search:  U+
-  Replace:
+  Search:   U\+
+  Replace:  
 
 
 -----------------------------
@@ -27,7 +30,18 @@ Replace skin tone variations:
     1F9D2;child
     1F9D2 $;child
   
-  TODO: Update this section with exact regexes
+  
+  Search:   1F3FB
+  Replace:  $
+  
+  Search:   ^.*1F3F[C-F].*$
+  Replace:  
+  
+  Search:   tone\n\n\n\n
+  Replace:  
+  
+  Search:   : light skin.*$
+  Replace:  
 
 
 ----------------
@@ -36,20 +50,10 @@ Move some emoji:
   1F443 $;nose
 > 1F91D;handshake
   1F463;footprints
-  
-  1F939 $ 200D 2640 FE0F;woman juggling
-> 1F6CC;person in bed
-> 1F6CC $;person in bed
-> 1F6C0;person taking bath
-> 1F6C0 $;person taking bath
-  1F46B;man and woman holding hands
 
 
-------------------
-Remove some emoji:
-
-  1F469 $ 200D 1F692;woman firefighter
-> remove all non-gendered duplicates below here
+-------------------------
+Remove unsupported emoji:
 
   3030;wavy dash
 > remove copyright
@@ -59,12 +63,81 @@ Remove some emoji:
   
   1F441;eye
 > remove eye in speech bubble
-  1F445;tongue
+  1F9E0;brain
+  
+  (more may be present after an emoji update)
 
 
--------------------------
-Add preprocessor symbols:
+-------------------------------
+Remove non-gendered duplicates:
 
-  @ = group separator
-  @1 = enable skin tones below
-  @2 = disable skin tones below
+  Search:   ^(1F(46E|575|482|477|473|471|9D9|9DA|9DB|9DC|9DD|9DE|9DF|64D|64E|645|646|481|64B|647|926|937|486|487|6B6|3C3|46F|9D6|9D7|9D8|3CC|3C4|6A3|3CA|3CB|6B4|6B5|938|93C|93D|93E|939)|26F9)(\s\$;|;).*?\n
+  Replace:  
+  
+  (new ones may be added with an emoji update)
+
+
+-----------------------------------
+Add skin tone preprocessor symbols:
+
+  #1 = enable skin tones below
+      find and replace '$;light skin ' with #1
+      
+  #2 = disable skin tones below
+      find the last entry containing '$' and insert #2 below
+  
+  
+----------------------
+Add separator symbols:
+
+  1F64A;speak-no-evil monkey
+> @
+  1F476;baby
+
+  1F469 200D 1F467 200D 1F467;family: woman, girl, girl
+> @
+  1F933;selfie
+  
+  
+  1F48E;gem stone
+> @
+  1F435;monkey face
+  
+  
+  1F982;scorpion
+> @
+  1F490;bouquet
+  
+  
+  1F52A;kitchen knife
+> @
+  1F3FA;amphora
+  
+  
+  1F6C1;bathtub
+> @
+  231B;hourglass done
+  
+  
+  1F6D2;shopping cart
+> @
+  1F3E7;ATM sign
+  
+  
+  1F3F3 FE0F 200D 1F308;rainbow flag
+> @
+  1F1E6 1F1E8;Ascension Island
+
+
+--------------
+Final cleanup:
+
+  Search:   & |,|“|”|o’
+  Replace:  
+  
+  ---
+  Make sure all emoji are formatted correctly and there are no empty lines (no line at the end of file).
+  
+  Test emoji search by searching for the first and last emoji. If broken, a single emoji could be formatted wrong, or an emoji is not supported by Twitter (such as the 'eye in speech bubble' which causes two images to display and messes up the offsets).
+  
+  If there is an error in 'td:plugin:official/emoji-keyboard' when typing into the search bar, add a breakpoint to the erroring line and check if 'me.emojiNames.length' equals 'emoji.length'.
