@@ -157,7 +157,7 @@
             0});
             this.numMemoryThreshold.Name = "numMemoryThreshold";
             this.numMemoryThreshold.Size = new System.Drawing.Size(97, 20);
-            this.numMemoryThreshold.TabIndex = 3;
+            this.numMemoryThreshold.TabIndex = 4;
             this.numMemoryThreshold.TextSuffix = " MB";
             this.toolTip.SetToolTip(this.numMemoryThreshold, "Minimum amount of memory usage by the browser process to trigger the cleanup.\r\nTh" +
         "is is not a limit, the usage is allowed to exceed this value.");
@@ -174,7 +174,7 @@
             this.checkBrowserGCReload.Margin = new System.Windows.Forms.Padding(6, 5, 3, 3);
             this.checkBrowserGCReload.Name = "checkBrowserGCReload";
             this.checkBrowserGCReload.Size = new System.Drawing.Size(190, 17);
-            this.checkBrowserGCReload.TabIndex = 4;
+            this.checkBrowserGCReload.TabIndex = 3;
             this.checkBrowserGCReload.Text = "Enable Browser Memory Threshold";
             this.toolTip.SetToolTip(this.checkBrowserGCReload, "Automatically reloads TweetDeck to save memory. This option only works\r\nif the browser is in a \'default state\', i.e. all modals and drawers are closed,\r\nand all columns are scrolled to top. Some notifications may be lost.");
             this.checkBrowserGCReload.UseVisualStyleBackColor = true;
