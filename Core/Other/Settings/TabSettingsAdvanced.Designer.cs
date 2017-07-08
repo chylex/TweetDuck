@@ -33,8 +33,8 @@
             this.btnRestart = new System.Windows.Forms.Button();
             this.btnOpenAppFolder = new System.Windows.Forms.Button();
             this.btnOpenDataFolder = new System.Windows.Forms.Button();
-            this.checkBrowserGCReload = new System.Windows.Forms.CheckBox();
             this.numMemoryThreshold = new TweetDuck.Core.Controls.NumericUpDownEx();
+            this.checkBrowserGCReload = new System.Windows.Forms.CheckBox();
             this.labelApp = new System.Windows.Forms.Label();
             this.panelApp = new System.Windows.Forms.Panel();
             this.labelPerformance = new System.Windows.Forms.Label();
@@ -137,17 +137,6 @@
             this.toolTip.SetToolTip(this.btnOpenDataFolder, "Opens the folder where your profile data is located.");
             this.btnOpenDataFolder.UseVisualStyleBackColor = true;
             // 
-            // checkBrowserGCReload
-            // 
-            this.checkBrowserGCReload.AutoSize = true;
-            this.checkBrowserGCReload.Location = new System.Drawing.Point(6, 84);
-            this.checkBrowserGCReload.Margin = new System.Windows.Forms.Padding(6, 5, 3, 3);
-            this.checkBrowserGCReload.Name = "checkBrowserGCReload";
-            this.checkBrowserGCReload.Size = new System.Drawing.Size(190, 17);
-            this.checkBrowserGCReload.TabIndex = 4;
-            this.checkBrowserGCReload.Text = "Enable Browser Memory Threshold";
-            this.checkBrowserGCReload.UseVisualStyleBackColor = true;
-            // 
             // numMemoryThreshold
             // 
             this.numMemoryThreshold.Increment = new decimal(new int[] {
@@ -177,6 +166,18 @@
             0,
             0,
             0});
+            // 
+            // checkBrowserGCReload
+            // 
+            this.checkBrowserGCReload.AutoSize = true;
+            this.checkBrowserGCReload.Location = new System.Drawing.Point(6, 84);
+            this.checkBrowserGCReload.Margin = new System.Windows.Forms.Padding(6, 5, 3, 3);
+            this.checkBrowserGCReload.Name = "checkBrowserGCReload";
+            this.checkBrowserGCReload.Size = new System.Drawing.Size(190, 17);
+            this.checkBrowserGCReload.TabIndex = 4;
+            this.checkBrowserGCReload.Text = "Enable Browser Memory Threshold";
+            this.toolTip.SetToolTip(this.checkBrowserGCReload, "Automatically reloads TweetDeck to save memory. This option only works\r\nif the browser is in a \'default state\', i.e. all modals and drawers are closed,\r\nand all columns are scrolled to top. Some notifications may be lost.");
+            this.checkBrowserGCReload.UseVisualStyleBackColor = true;
             // 
             // labelApp
             // 
