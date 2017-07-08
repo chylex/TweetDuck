@@ -340,7 +340,7 @@ namespace TweetDuck.Core{
         private void soundNotification_PlaybackError(object sender, PlaybackErrorEventArgs e){
             e.Ignore = true;
 
-            using(FormMessage form = new FormMessage("Notification Sound Error", "Could not play custom notification sound."+Environment.NewLine+e.Message, MessageBoxIcon.Error)){
+            using(FormMessage form = new FormMessage("Notification Sound Error", "Could not play custom notification sound.\n"+e.Message, MessageBoxIcon.Error)){
                 form.CancelButton = form.AddButton("Ignore");
 
                 Button btnOpenSettings = form.AddButton("View Options");

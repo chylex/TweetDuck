@@ -63,7 +63,7 @@ namespace TweetDuck.Core.Other{
             this.isReady = true;
 
             this.Text = caption;
-            this.labelMessage.Text = text;
+            this.labelMessage.Text = text.Replace("\n", Environment.NewLine); // TODO replace all \r\n
         }
 
         private void FormMessage_SizeChanged(object sender, EventArgs e){
