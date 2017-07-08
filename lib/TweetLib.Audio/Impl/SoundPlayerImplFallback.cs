@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Media;
-using TweetLib.Audio.Utils;
 
 namespace TweetLib.Audio.Impl{
     sealed class SoundPlayerImplFallback : AudioPlayer{
@@ -39,7 +38,7 @@ namespace TweetLib.Audio.Impl{
             player.Stop();
         }
 
-        public override void Dispose(){
+        protected override void Dispose(bool disposing){
             player.Dispose();
         }
 

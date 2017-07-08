@@ -1,9 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.IO;
-using TweetDuck.Core.Other.Settings.Export;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TweetDuck.Data;
 
-namespace UnitTests.Core.Settings{
+namespace UnitTests.Data{
     [TestClass]
     public class TestCombinedFileStream{
         [TestMethod]

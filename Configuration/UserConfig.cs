@@ -1,217 +1,140 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using TweetDuck.Core;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Utils;
+using TweetDuck.Data;
+using TweetDuck.Data.Serialization;
 
 namespace TweetDuck.Configuration{
-    [Serializable]
-    sealed class UserConfig{
-        private static readonly IFormatter Formatter = new BinaryFormatter{ Binder = new LegacyBinder() };
+    sealed class UserConfig : ISerializedObject{
+        private static readonly FileSerializer<UserConfig> Serializer = new FileSerializer<UserConfig>();
 
-        private class LegacyBinder : SerializationBinder{
-            public override Type BindToType(string assemblyName, string typeName){
-                return Type.GetType(string.Format("{0}, {1}", typeName.Replace("TweetDck", "TweetDuck"), assemblyName.Replace("TweetDck", "TweetDuck")));
-            }
+        static UserConfig(){
+            Serializer.RegisterTypeConverter(typeof(WindowState), WindowState.Converter);
+
+            Serializer.RegisterTypeConverter(typeof(Point), new SingleTypeConverter<Point>{
+                ConvertToString = value => $"{value.X} {value.Y}",
+                ConvertToObject = value => {
+                    int[] elements = StringUtils.ParseInts(value, ' ');
+                    return new Point(elements[0], elements[1]);
+                }
+            });
+            
+            Serializer.RegisterTypeConverter(typeof(Size), new SingleTypeConverter<Size>{
+                ConvertToString = value => $"{value.Width} {value.Height}",
+                ConvertToObject = value => {
+                    int[] elements = StringUtils.ParseInts(value, ' ');
+                    return new Size(elements[0], elements[1]);
+                }
+            });
         }
+        
+        // CONFIGURATION DATA
 
-        private const int CurrentFileVersion = 12;
+        public WindowState BrowserWindow { get; set; } = new WindowState();
+        public WindowState PluginsWindow { get; set; } = new WindowState();
 
-        // START OF CONFIGURATION
+        public bool ExpandLinksOnHover     { get; set; } = true;
+        public bool SwitchAccountSelectors { get; set; } = true;
+        public bool EnableSpellCheck       { get; set; } = false;
+        private int _zoomLevel                           = 100;
+        private bool _muteNotifications;
+        
+        private TrayIcon.Behavior _trayBehavior          = TrayIcon.Behavior.Disabled;
+        public bool EnableTrayHighlight    { get; set; } = true;
 
-        public WindowState BrowserWindow { get; set; }
-        public WindowState PluginsWindow { get; set; }
+        public bool EnableUpdateCheck { get; set; } = true;
+        public string DismissedUpdate { get; set; } = null;
 
-        public bool DisplayNotificationColumn { get; set; }
-        public bool DisplayNotificationTimer { get; set; }
-        public bool NotificationTimerCountDown { get; set; }
-        public bool NotificationSkipOnLinkClick { get; set; }
-        public bool NotificationNonIntrusiveMode { get; set; }
+        public bool DisplayNotificationColumn    { get; set; } = false;
+        public bool NotificationSkipOnLinkClick  { get; set; } = false;
+        public bool NotificationNonIntrusiveMode { get; set; } = true;
+        public int NotificationIdlePauseSeconds  { get; set; } = 0;
 
-        public int NotificationIdlePauseSeconds { get; set; }
-        public int NotificationDurationValue { get; set; }
-        public int NotificationScrollSpeed { get; set; }
+        public bool DisplayNotificationTimer     { get; set; } = true;
+        public bool NotificationTimerCountDown   { get; set; } = false;
+        public int NotificationDurationValue     { get; set; } = 25;
 
-        public TweetNotification.Position NotificationPosition { get; set; }
-        public Point CustomNotificationPosition { get; set; }
-        public int NotificationEdgeDistance { get; set; }
-        public int NotificationDisplay { get; set; }
+        public TweetNotification.Position NotificationPosition { get; set; } = TweetNotification.Position.TopRight;
+        public Point CustomNotificationPosition                { get; set; } = ControlExtensions.InvisibleLocation;
+        public int NotificationDisplay                         { get; set; } = 0;
+        public int NotificationEdgeDistance                    { get; set; } = 8;
 
-        public TweetNotification.Size NotificationSize { get; set; }
-        public Size CustomNotificationSize { get; set; }
+        public TweetNotification.Size NotificationSize { get; set; } = TweetNotification.Size.Auto;
+        public Size CustomNotificationSize             { get; set; } = Size.Empty;
+        public int NotificationScrollSpeed             { get; set; } = 10;
 
-        public bool EnableSpellCheck { get; set; }
-        public bool ExpandLinksOnHover { get; set; }
-        public bool SwitchAccountSelectors { get; set; }
-        public bool EnableTrayHighlight { get; set; }
+        private string _notificationSoundPath;
 
-        public bool EnableUpdateCheck { get; set; }
-        public string DismissedUpdate { get; set; }
+        public string CustomCefArgs         { get; set; } = null;
+        public string CustomBrowserCSS      { get; set; } = null;
+        public string CustomNotificationCSS { get; set; } = null;
 
-        public string CustomCefArgs { get; set; }
-        public string CustomBrowserCSS { get; set; }
-        public string CustomNotificationCSS { get; set; }
-
-        public bool EnableBrowserGCReload { get; set; }
-        public int BrowserMemoryThreshold { get; set; }
+        public bool EnableBrowserGCReload { get; set; } = false;
+        public int BrowserMemoryThreshold { get; set; } = 350;
+        
+        // SPECIAL PROPERTIES
 
         public bool IsCustomNotificationPositionSet => CustomNotificationPosition != ControlExtensions.InvisibleLocation;
         public bool IsCustomNotificationSizeSet => CustomNotificationSize != Size.Empty;
 
         public string NotificationSoundPath{
-            get => string.IsNullOrEmpty(notificationSoundPath) ? string.Empty : notificationSoundPath;
-            set => notificationSoundPath = value;
+            get => string.IsNullOrEmpty(_notificationSoundPath) ? string.Empty : _notificationSoundPath;
+            set => _notificationSoundPath = value;
         }
 
         public bool MuteNotifications{
-            get => muteNotifications;
+            get => _muteNotifications;
 
             set{
-                if (muteNotifications != value){
-                    muteNotifications = value;
+                if (_muteNotifications != value){
+                    _muteNotifications = value;
                     MuteToggled?.Invoke(this, new EventArgs());
                 }
             }
         }
 
         public int ZoomLevel{
-            get => zoomLevel;
+            get => _zoomLevel;
 
             set{
-                if (zoomLevel != value){
-                    zoomLevel = value;
+                if (_zoomLevel != value){
+                    _zoomLevel = value;
                     ZoomLevelChanged?.Invoke(this, new EventArgs());
                 }
             }
         }
 
-        public double ZoomMultiplier => zoomLevel/100.0;
+        public double ZoomMultiplier => _zoomLevel/100.0;
 
         public TrayIcon.Behavior TrayBehavior{
-            get => trayBehavior;
+            get => _trayBehavior;
 
             set{
-                if (trayBehavior != value){
-                    trayBehavior = value;
+                if (_trayBehavior != value){
+                    _trayBehavior = value;
                     TrayBehaviorChanged?.Invoke(this, new EventArgs());
                 }
             }
         }
 
-        // END OF CONFIGURATION
+        // EVENTS
         
-        [field:NonSerialized]
         public event EventHandler MuteToggled;
-        
-        [field:NonSerialized]
         public event EventHandler ZoomLevelChanged;
-        
-        [field:NonSerialized]
         public event EventHandler TrayBehaviorChanged;
+        
+        private readonly string file;
 
-        [NonSerialized]
-        private string file;
-
-        private int fileVersion;
-        private bool muteNotifications;
-        private int zoomLevel;
-        private string notificationSoundPath;
-        private TrayIcon.Behavior trayBehavior;
-
-        private UserConfig(string file){
+        public UserConfig(string file){ // TODO make private after removing UserConfigLegacy
             this.file = file;
-
-            BrowserWindow = new WindowState();
-            ZoomLevel = 100;
-            DisplayNotificationTimer = true;
-            NotificationNonIntrusiveMode = true;
-            NotificationPosition = TweetNotification.Position.TopRight;
-            CustomNotificationPosition = ControlExtensions.InvisibleLocation;
-            NotificationSize = TweetNotification.Size.Auto;
-            NotificationEdgeDistance = 8;
-            NotificationDurationValue = 25;
-            NotificationScrollSpeed = 100;
-            BrowserMemoryThreshold = 350;
-            EnableUpdateCheck = true;
-            ExpandLinksOnHover = true;
-            SwitchAccountSelectors = true;
-            EnableTrayHighlight = true;
-            PluginsWindow = new WindowState();
         }
 
-        private void UpgradeFile(){
-            if (fileVersion == CurrentFileVersion){
-                return;
-            }
-
-            // if outdated, cycle through all versions
-            if (fileVersion == 0){
-                DisplayNotificationTimer = true;
-                EnableUpdateCheck = true;
-                ++fileVersion;
-            }
-
-            if (fileVersion == 1){
-                ExpandLinksOnHover = true;
-                ++fileVersion;
-            }
-
-            if (fileVersion == 2){
-                BrowserWindow = new WindowState();
-                PluginsWindow = new WindowState();
-                ++fileVersion;
-            }
-
-            if (fileVersion == 3){
-                EnableTrayHighlight = true;
-                NotificationDurationValue = 25;
-                ++fileVersion;
-            }
-
-            if (fileVersion == 4){
-                ++fileVersion;
-            }
-
-            if (fileVersion == 5){
-                ++fileVersion;
-            }
-
-            if (fileVersion == 6){
-                NotificationNonIntrusiveMode = true;
-                ++fileVersion;
-            }
-
-            if (fileVersion == 7){
-                ZoomLevel = 100;
-                ++fileVersion;
-            }
-
-            if (fileVersion == 8){
-                SwitchAccountSelectors = true;
-                ++fileVersion;
-            }
-
-            if (fileVersion == 9){
-                NotificationScrollSpeed = 100;
-                ++fileVersion;
-            }
-
-            if (fileVersion == 10){
-                NotificationSize = TweetNotification.Size.Auto;
-            }
-
-            if (fileVersion == 11){
-                BrowserMemoryThreshold = 350;
-                ++fileVersion;
-            }
-
-            // update the version
-            fileVersion = CurrentFileVersion;
-            Save();
+        bool ISerializedObject.OnReadUnknownProperty(string property, string value){
+            return false;
         }
 
         public bool Save(){
@@ -227,10 +150,7 @@ namespace TweetDuck.Configuration{
                     File.Move(file, backupFile);
                 }
 
-                using(Stream stream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None)){
-                    Formatter.Serialize(stream, this);
-                }
-
+                Serializer.Write(file, this);
                 return true;
             }catch(Exception e){
                 Program.Reporter.HandleException("Configuration Error", "Could not save the configuration file.", true, e);
@@ -239,22 +159,20 @@ namespace TweetDuck.Configuration{
         }
         
         public static UserConfig Load(string file){
-            UserConfig config = null;
             Exception firstException = null;
 
             for(int attempt = 0; attempt < 2; attempt++){
                 try{
-                    using(Stream stream = new FileStream(attempt == 0 ? file : GetBackupFile(file), FileMode.Open, FileAccess.Read, FileShare.Read)){
-                        if ((config = Formatter.Deserialize(stream) as UserConfig) != null){
-                            config.file = file;
-                        }
-                    }
-
-                    config?.UpgradeFile();
-                    break;
+                    UserConfig config = new UserConfig(file);
+                    Serializer.Read(attempt == 0 ? file : GetBackupFile(file), config);
+                    return config;
                 }catch(FileNotFoundException){
                 }catch(DirectoryNotFoundException){
                     break;
+                }catch(FormatException){
+                    UserConfig config = UserConfigLegacy.Load(file);
+                    config.Save();
+                    return config;
                 }catch(Exception e){
                     if (attempt == 0){
                         firstException = e;
@@ -266,11 +184,11 @@ namespace TweetDuck.Configuration{
                 }
             }
 
-            if (firstException != null && config == null){
+            if (firstException != null){
                 Program.Reporter.HandleException("Configuration Error", "Could not open the configuration file.", true, firstException);
             }
 
-            return config ?? new UserConfig(file);
+            return new UserConfig(file);
         }
 
         public static string GetBackupFile(string file){

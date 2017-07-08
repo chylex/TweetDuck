@@ -4,11 +4,17 @@ using System.Drawing.Imaging;
 using System.Windows.Forms;
 using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Utils;
+using TweetDuck.Data;
+using TweetDuck.Plugins;
 using TweetDuck.Resources;
 
 namespace TweetDuck.Core.Notification.Screenshot{
     sealed class FormNotificationScreenshotable : FormNotificationBase{
-        public FormNotificationScreenshotable(Action callback, Form owner) : base(owner, false){
+        private readonly PluginManager plugins;
+
+        public FormNotificationScreenshotable(Action callback, Form owner, PluginManager pluginManager) : base(owner, false){
+            this.plugins = pluginManager;
+
             browser.RegisterAsyncJsObject("$TD_NotificationScreenshot", new CallbackBridge(this, callback));
 
             browser.FrameLoadEnd += (sender, args) => {
@@ -17,9 +23,15 @@ namespace TweetDuck.Core.Notification.Screenshot{
                 }
             };
         }
-
+        
         protected override string GetTweetHTML(TweetNotification tweet){
-            return tweet.GenerateHtml(enableCustomCSS: false);
+            string html = tweet.GenerateHtml("td-screenshot", false);
+
+            foreach(InjectedHTML injection in plugins.Bridge.NotificationInjections){
+                html = injection.Inject(html);
+            }
+
+            return html;
         }
 
         public void LoadNotificationForScreenshot(TweetNotification tweet, int width, int height){

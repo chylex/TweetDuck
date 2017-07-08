@@ -3,7 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using TweetDuck.Core.Notification;
-using TweetLib.Audio.Utils;
+using TweetLib.Audio;
 
 namespace TweetDuck.Core.Other.Settings{
     partial class TabSettingsSounds : BaseTabSettings{

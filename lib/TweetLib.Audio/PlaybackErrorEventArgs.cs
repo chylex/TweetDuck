@@ -1,6 +1,6 @@
 using System;
 
-namespace TweetLib.Audio.Utils{
+namespace TweetLib.Audio{
     public sealed class PlaybackErrorEventArgs : EventArgs{
         public string Message { get; }
         public bool Ignore { get; set; }

@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using TweetDuck.Configuration;
-using TweetDuck.Core.Utils;
+using TweetDuck.Data;
 
 namespace TweetDuck.Core.Other.Settings.Dialogs{
     sealed partial class DialogSettingsRestart : Form{

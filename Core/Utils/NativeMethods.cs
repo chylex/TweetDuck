@@ -67,10 +67,10 @@ namespace TweetDuck.Core.Utils{
         private static extern bool BitBlt(IntPtr hdc, int nXDest, int nYDest, int nWidth, int nHeight, IntPtr hdcSrc, int nXSrc, int nYSrc, uint dwRop);
 
         [DllImport("user32.dll")]
-        public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, int wParam, IntPtr lParam);
+        public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, UIntPtr wParam, IntPtr lParam);
         
         [DllImport("user32.dll")]
-        public static extern bool PostMessage(IntPtr hWnd, uint msg, int wParam, IntPtr lParam);
+        public static extern bool PostMessage(IntPtr hWnd, uint msg, UIntPtr wParam, IntPtr lParam);
 
         [DllImport("user32.dll")]
         public static extern uint RegisterWindowMessage(string messageName);

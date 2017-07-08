@@ -1,6 +1,7 @@
 ﻿using CefSharp;
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -11,6 +12,7 @@ using TweetDuck.Core.Handling;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Other.Settings.Export;
 using TweetDuck.Core.Utils;
+using TweetDuck.Data;
 using TweetDuck.Plugins;
 using TweetDuck.Plugins.Events;
 using TweetDuck.Updates;
@@ -50,15 +52,25 @@ namespace TweetDuck{
         
         public static UserConfig UserConfig { get; private set; }
         public static SystemConfig SystemConfig { get; private set; }
-        public static Reporter Reporter { get; private set; }
+        public static Reporter Reporter { get; }
+        public static CultureInfo Culture { get; }
 
         public static event EventHandler UserConfigReplaced;
+
+        static Program(){
+            Culture = CultureInfo.CurrentCulture;
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
+
+            Reporter = new Reporter(ErrorLogFilePath);
+            Reporter.SetupUnhandledExceptionHandler(BrandName+" Has Failed :(");
+        }
 
         [STAThread]
         private static void Main(){
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
+            
             WindowRestoreMessage = NativeMethods.RegisterWindowMessage("TweetDuckRestore");
             SubProcessMessage = NativeMethods.RegisterWindowMessage("TweetDuckSubProcess");
 
@@ -66,10 +78,7 @@ namespace TweetDuck{
                 MessageBox.Show(BrandName+" does not have write permissions to the storage folder: "+StoragePath, "Permission Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            Reporter = new Reporter(ErrorLogFilePath);
-            Reporter.SetupUnhandledExceptionHandler(BrandName+" Has Failed :(");
-
+            
             if (Arguments.HasFlag(Arguments.ArgRestart)){
                 for(int attempt = 0; attempt < 21; attempt++){
                     LockManager.Result lockResult = LockManager.Lock();
@@ -102,7 +111,7 @@ namespace TweetDuck{
 
                 if (lockResult == LockManager.Result.HasProcess){
                     if (LockManager.LockingProcess.MainWindowHandle == IntPtr.Zero){ // restore if the original process is in tray
-                        NativeMethods.PostMessage(NativeMethods.HWND_BROADCAST, WindowRestoreMessage, LockManager.LockingProcess.Id, IntPtr.Zero);
+                        NativeMethods.PostMessage(NativeMethods.HWND_BROADCAST, WindowRestoreMessage, new UIntPtr((uint)LockManager.LockingProcess.Id), IntPtr.Zero);
 
                         if (WindowsUtils.TrySleepUntil(() => {
                             LockManager.LockingProcess.Refresh();

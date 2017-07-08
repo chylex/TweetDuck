@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace TweetDuck.Core.Utils{
-    class TwoKeyDictionary<K1, K2, V>{
+namespace TweetDuck.Data{
+    sealed class TwoKeyDictionary<K1, K2, V>{
         private readonly Dictionary<K1, Dictionary<K2, V>> dict;
         private readonly int innerCapacity;
 

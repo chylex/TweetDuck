@@ -28,8 +28,7 @@ namespace TweetDuck.Plugins{
 
         public void Load(string file){
             try{
-                using(FileStream stream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read))
-                using(StreamReader reader = new StreamReader(stream, Encoding.UTF8)){
+                using(StreamReader reader = new StreamReader(new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read), Encoding.UTF8)){
                     string line = reader.ReadLine();
 
                     if (line == "#Disabled"){
@@ -49,8 +48,7 @@ namespace TweetDuck.Plugins{
 
         public void Save(string file){
             try{
-                using(FileStream stream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None))
-                using(StreamWriter writer = new StreamWriter(stream, Encoding.UTF8)){
+                using(StreamWriter writer = new StreamWriter(new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None), Encoding.UTF8)){
                     writer.WriteLine("#Disabled");
 
                     foreach(string disabled in Disabled){

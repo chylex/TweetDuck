@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using TweetDuck.Core.Utils;
+using TweetDuck.Data;
 using TweetDuck.Plugins.Enums;
 using TweetDuck.Plugins.Events;
 
 namespace TweetDuck.Plugins{
-    class PluginBridge{
+    sealed class PluginBridge{
         private static string SanitizeCacheKey(string key){
             return key.Replace('\\', '/').Trim();
         }
@@ -47,9 +47,9 @@ namespace TweetDuck.Plugins{
 
             if (fullPath.Length == 0){
                 switch(folder){
-                    case PluginFolder.Data: throw new Exception("File path has to be relative to the plugin data folder.");
-                    case PluginFolder.Root: throw new Exception("File path has to be relative to the plugin root folder.");
-                    default: throw new Exception("Invalid folder type "+folder+", this is a "+Program.BrandName+" error.");
+                    case PluginFolder.Data: throw new ArgumentException("File path has to be relative to the plugin data folder.");
+                    case PluginFolder.Root: throw new ArgumentException("File path has to be relative to the plugin root folder.");
+                    default: throw new ArgumentException("Invalid folder type "+folder+", this is a "+Program.BrandName+" error.");
                 }
             }
             else{
@@ -67,9 +67,9 @@ namespace TweetDuck.Plugins{
             try{
                 return fileCache[token, cacheKey] = File.ReadAllText(fullPath, Encoding.UTF8);
             }catch(FileNotFoundException){
-                throw new Exception("File not found.");
+                throw new FileNotFoundException("File not found.");
             }catch(DirectoryNotFoundException){
-                throw new Exception("Directory not found.");
+                throw new DirectoryNotFoundException("Directory not found.");
             }
         }
 

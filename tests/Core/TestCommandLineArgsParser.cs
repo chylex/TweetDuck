@@ -1,7 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TweetDuck.Core.Utils;
+using TweetDuck.Data;
 
-namespace UnitTests.Core.Utils{
+namespace UnitTests.Core{
     [TestClass]
     public class TestCommandLineArgsParser{
         [TestMethod]

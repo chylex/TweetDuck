@@ -6,7 +6,7 @@ using System.Text;
 using TweetDuck.Plugins.Enums;
 
 namespace TweetDuck.Plugins{
-    class Plugin{
+    sealed class Plugin{
         public string Identifier { get; }
         public PluginGroup Group { get; }
         public PluginEnvironment Environments { get; private set; }
@@ -132,8 +132,7 @@ namespace TweetDuck.Plugins{
         }
 
         public override bool Equals(object obj){
-            Plugin plugin = obj as Plugin;
-            return plugin != null && plugin.Identifier.Equals(Identifier);
+            return obj is Plugin plugin && plugin.Identifier.Equals(Identifier);
         }
 
         public static Plugin CreateFromFolder(string path, PluginGroup group, out string error){
@@ -184,7 +183,7 @@ namespace TweetDuck.Plugins{
                         plugin.metadata[currentTag] = currentContents;
                     }
 
-                    currentTag = line.Substring(1, line.Length-2).ToUpperInvariant();
+                    currentTag = line.Substring(1, line.Length-2).ToUpper();
                     currentContents = "";
 
                     if (line.Equals(endTag[0])){

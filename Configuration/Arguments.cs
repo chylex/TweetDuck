@@ -1,5 +1,5 @@
 ﻿using System;
-using TweetDuck.Core.Utils;
+using TweetDuck.Data;
 
 namespace TweetDuck.Configuration{
     static class Arguments{

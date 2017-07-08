@@ -3,23 +3,23 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Net;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace TweetDuck.Core.Utils{
     static class BrowserUtils{
+        public const string TweetDeckURL = "https://tweetdeck.twitter.com";
+
         public static string HeaderAcceptLanguage{
             get{
-                string culture = CultureInfo.CurrentCulture.Name;
+                string culture = Program.Culture.Name;
 
                 if (culture == "en"){
                     return "en-us,en";
                 }
                 else{
-                    return culture.ToLowerInvariant()+",en;q=0.9";
+                    return culture.ToLower()+",en;q=0.9";
                 }
             }
         }
@@ -80,12 +80,8 @@ namespace TweetDuck.Core.Utils{
             return string.IsNullOrEmpty(file) ? null : file;
         }
 
-        public static string ConvertPascalCaseToScreamingSnakeCase(string str){
-            return Regex.Replace(str, @"(\p{Ll})(\P{Ll})|(\P{Ll})(\P{Ll}\p{Ll})", "$1$3_$2$4").ToUpperInvariant();
-        }
-
         public static string GetErrorName(CefErrorCode code){
-            return ConvertPascalCaseToScreamingSnakeCase(Enum.GetName(typeof(CefErrorCode), code) ?? string.Empty);
+            return StringUtils.ConvertPascalCaseToScreamingSnakeCase(Enum.GetName(typeof(CefErrorCode), code) ?? string.Empty);
         }
 
         public static WebClient DownloadFileAsync(string url, string target, Action onSuccess, Action<Exception> onFailure){

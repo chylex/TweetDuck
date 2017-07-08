@@ -1,7 +1,7 @@
 ﻿using System;
 
-namespace TweetDuck.Core.Utils{
-    class InjectedHTML{
+namespace TweetDuck.Data{
+    sealed class InjectedHTML{
         public enum Position{
             Before, After
         }

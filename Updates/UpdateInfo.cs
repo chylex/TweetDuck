@@ -4,7 +4,7 @@ using System.Net;
 using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Updates{
-    class UpdateInfo{
+    sealed class UpdateInfo{
         public string VersionTag { get; }
         public string InstallerPath { get; }
 

@@ -113,7 +113,7 @@ namespace TweetDuck.Core.Handling{
             form.InvokeAsyncSafe(() => WindowsUtils.SetClipboard(text, TextDataFormat.UnicodeText));
         }
         
-        protected void AddDebugMenuItems(IMenuModel model){
+        protected static void AddDebugMenuItems(IMenuModel model){
             model.AddItem((CefMenuCommand)MenuOpenDevTools, "Open dev tools");
         }
 
@@ -134,11 +134,7 @@ namespace TweetDuck.Core.Handling{
             int dot = url.LastIndexOf('.');
 
             if (dot != -1){
-                int colon = url.IndexOf(':', dot);
-            
-                if (colon != -1){
-                    url = url.Substring(0, colon);
-                }
+                url = StringUtils.ExtractBefore(url, ':', dot);
             }
 
             // return file name

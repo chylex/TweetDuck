@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using TweetDuck.Configuration;
+using TweetDuck.Data;
 using TweetDuck.Plugins;
 using TweetDuck.Plugins.Enums;
 

@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using TweetDuck.Plugins.Enums;
+﻿using TweetDuck.Plugins.Enums;
 
 namespace TweetDuck.Plugins{
     static class PluginScriptGenerator{
@@ -11,7 +10,7 @@ namespace TweetDuck.Plugins{
             return PluginGen
                 .Replace("%params", environment.GetScriptVariables())
                 .Replace("%id", pluginIdentifier)
-                .Replace("%token", pluginToken.ToString(CultureInfo.InvariantCulture))
+                .Replace("%token", pluginToken.ToString())
                 .Replace("%contents", pluginContents);
         }
 
@@ -19,7 +18,7 @@ namespace TweetDuck.Plugins{
 
 /* PluginGen
 
-(function(%params, $i, $d){
+(function(%params, $d){
   let tmp = {
     id: '%id',
     obj: new class extends PluginBase{%contents}

@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using TweetDuck.Core.Other;
 
 namespace TweetDuck{
-    class Reporter{
+    sealed class Reporter{
         private readonly string logFile;
 
         public Reporter(string logFile){
@@ -17,9 +16,7 @@ namespace TweetDuck{
 
         public void SetupUnhandledExceptionHandler(string caption){
             AppDomain.CurrentDomain.UnhandledException += (sender, args) => {
-                Exception ex = args.ExceptionObject as Exception;
-
-                if (ex != null){
+                if (args.ExceptionObject is Exception ex) {
                     HandleException(caption, "An unhandled exception has occurred.", false, ex);
                 }
             };
@@ -32,7 +29,7 @@ namespace TweetDuck{
                 build.Append("Please, report all issues to: https://github.com/chylex/TweetDuck/issues\r\n\r\n");
             }
 
-            build.Append("[").Append(DateTime.Now.ToString("G", CultureInfo.CurrentCulture)).Append("]\r\n");
+            build.Append("[").Append(DateTime.Now.ToString("G", Program.Culture)).Append("]\r\n");
             build.Append(data).Append("\r\n\r\n");
 
             try{
@@ -87,9 +84,10 @@ namespace TweetDuck{
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            FormMessage form = new FormMessage(caption, message, MessageBoxIcon.Error);
-            form.ActiveControl = form.AddButton("Exit");
-            form.ShowDialog();
+            using(FormMessage form = new FormMessage(caption, message, MessageBoxIcon.Error)){
+                form.ActiveControl = form.AddButton("Exit");
+                form.ShowDialog();
+            }
 
             try{
                 Process.GetCurrentProcess().Kill();

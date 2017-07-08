@@ -68,10 +68,10 @@ namespace TweetDuck.Core.Other.Settings{
             checkNonIntrusive.Checked = Config.NotificationNonIntrusiveMode;
 
             trackBarScrollSpeed.SetValueSafe(Config.NotificationScrollSpeed);
-            labelScrollSpeedValue.Text = trackBarScrollSpeed.Value.ToString(CultureInfo.InvariantCulture)+"%";
+            labelScrollSpeedValue.Text = trackBarScrollSpeed.Value+"%";
 
             trackBarEdgeDistance.SetValueSafe(Config.NotificationEdgeDistance);
-            labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value.ToString(CultureInfo.InvariantCulture)+" px";
+            labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value+" px";
             
             this.notification.CanMoveWindow = () => radioLocCustom.Checked;
             this.notification.CanResizeWindow = radioSizeCustom.Checked;
@@ -233,7 +233,7 @@ namespace TweetDuck.Core.Other.Settings{
 
         private void trackBarScrollSpeed_ValueChanged(object sender, EventArgs e){
             if (trackBarScrollSpeed.AlignValueToTick()){
-                labelScrollSpeedValue.Text = trackBarScrollSpeed.Value.ToString(CultureInfo.InvariantCulture)+"%";
+                labelScrollSpeedValue.Text = trackBarScrollSpeed.Value+"%";
                 Config.NotificationScrollSpeed = trackBarScrollSpeed.Value;
             }
         }
@@ -244,7 +244,7 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void trackBarEdgeDistance_ValueChanged(object sender, EventArgs e){
-            labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value.ToString(CultureInfo.InvariantCulture)+" px";
+            labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value+" px";
             Config.NotificationEdgeDistance = trackBarEdgeDistance.Value;
             notification.ShowNotificationForSettings(false);
         }

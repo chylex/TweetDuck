@@ -77,6 +77,7 @@
             this.tbCustomSound.Name = "tbCustomSound";
             this.tbCustomSound.Size = new System.Drawing.Size(316, 20);
             this.tbCustomSound.TabIndex = 0;
+            this.toolTip.SetToolTip(this.tbCustomSound, "When empty, the default TweetDeck sound notification is used.");
             // 
             // labelSoundNotification
             // 

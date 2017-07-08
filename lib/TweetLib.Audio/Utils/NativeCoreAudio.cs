@@ -82,9 +82,7 @@ namespace TweetLib.Audio.Utils{
             ISimpleAudioVolume volumeObj = null;
 
             for(int index = sessions.GetCount()-1; index >= 0; index--){
-                IAudioSessionControl2 ctl = sessions.GetSession(index) as IAudioSessionControl2;
-
-                if (ctl != null){
+                if (sessions.GetSession(index) is IAudioSessionControl2 ctl){
                     string identifier = ctl.GetSessionIdentifier();
 
                     if (identifier != null && identifier.Contains(name)){

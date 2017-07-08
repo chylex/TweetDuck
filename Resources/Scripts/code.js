@@ -498,7 +498,7 @@
     
     var tryCloseModal1 = function(){
       var modal = $("#open-modal");
-      return modal.is(":visible") && tryClickSelector("a[rel=dismiss]", modal);
+      return modal.is(":visible") && tryClickSelector("a.mdl-dismiss", modal);
     };
     
     var tryCloseModal2 = function(){

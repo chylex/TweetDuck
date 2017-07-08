@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using TweetDuck.Data;
 
 namespace TweetDuck.Core.Utils{
     static class CommandLineArgsParser{

@@ -73,6 +73,7 @@
     <Compile Include="Configuration\LockManager.cs" />
     <Compile Include="Configuration\SystemConfig.cs" />
     <Compile Include="Configuration\UserConfig.cs" />
+    <Compile Include="Configuration\UserConfigLegacy.cs" />
     <Compile Include="Core\Bridge\PropertyBridge.cs" />
     <Compile Include="Core\Controls\ControlExtensions.cs" />
     <Compile Include="Core\Controls\FlatButton.cs">
@@ -164,7 +165,8 @@
     <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsRestart.Designer.cs">
       <DependentUpon>DialogSettingsRestart.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Other\Settings\Export\CombinedFileStream.cs" />
+    <Compile Include="Core\Utils\StringUtils.cs" />
+    <Compile Include="Data\CombinedFileStream.cs" />
     <Compile Include="Core\Other\Settings\Export\ExportFileFlags.cs" />
     <Compile Include="Core\Other\Settings\Export\ExportManager.cs" />
     <Compile Include="Core\Other\Settings\TabSettingsAdvanced.cs">
@@ -195,17 +197,20 @@
       <DependentUpon>TabSettingsNotifications.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\Bridge\CallbackBridge.cs" />
-    <Compile Include="Core\Utils\BrowserProcesses.cs" />
-    <Compile Include="Core\Utils\CommandLineArgs.cs" />
+    <Compile Include="Data\CommandLineArgs.cs" />
     <Compile Include="Core\Utils\CommandLineArgsParser.cs" />
     <Compile Include="Core\Notification\Screenshot\FormNotificationScreenshotable.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Core\Notification\Screenshot\TweetScreenshotManager.cs" />
-    <Compile Include="Core\Utils\InjectedHTML.cs" />
+    <Compile Include="Data\Serialization\FileSerializer.cs" />
+    <Compile Include="Data\InjectedHTML.cs" />
+    <Compile Include="Data\Serialization\ISerializedObject.cs" />
+    <Compile Include="Data\Serialization\ITypeConverter.cs" />
+    <Compile Include="Data\Serialization\SingleTypeConverter.cs" />
+    <Compile Include="Data\TwoKeyDictionary.cs" />
+    <Compile Include="Data\WindowState.cs" />
     <Compile Include="Core\Utils\MemoryUsageTracker.cs" />
-    <Compile Include="Core\Utils\TwoKeyDictionary.cs" />
-    <Compile Include="Core\Utils\WindowState.cs" />
     <Compile Include="Core\Utils\WindowsUtils.cs" />
     <Compile Include="Core\Bridge\TweetDeckBridge.cs" />
     <Compile Include="Core\Other\FormSettings.cs">

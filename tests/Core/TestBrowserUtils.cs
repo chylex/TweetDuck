@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TweetDuck.Core.Utils;
 
-namespace UnitTests.Core.Utils{
+namespace UnitTests.Core{
     [TestClass]
     public class TestBrowserUtils{
         [TestMethod]
@@ -45,16 +45,6 @@ namespace UnitTests.Core.Utils{
             Assert.AreEqual("index.", BrowserUtils.GetFileNameFromUrl("http://test.com/index."));
 
             Assert.IsNull(BrowserUtils.GetFileNameFromUrl("http://test.com/"));
-        }
-
-        [TestMethod]
-        public void TestConvertPascalCaseToScreamingSnakeCase(){
-            Assert.AreEqual("HELP", BrowserUtils.ConvertPascalCaseToScreamingSnakeCase("Help"));
-            Assert.AreEqual("HELP_ME", BrowserUtils.ConvertPascalCaseToScreamingSnakeCase("HelpMe"));
-            Assert.AreEqual("HELP_ME_PLEASE", BrowserUtils.ConvertPascalCaseToScreamingSnakeCase("HelpMePlease"));
-
-            Assert.AreEqual("HTML_CODE", BrowserUtils.ConvertPascalCaseToScreamingSnakeCase("HTMLCode"));
-            Assert.AreEqual("CHECK_OUT_MY_HTML_CODE", BrowserUtils.ConvertPascalCaseToScreamingSnakeCase("CheckOutMyHTMLCode"));
         }
     }
 }

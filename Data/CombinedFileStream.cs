@@ -1,9 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using TweetDuck.Core.Utils;
 
-namespace TweetDuck.Core.Other.Settings.Export{
-    class CombinedFileStream : IDisposable{
+namespace TweetDuck.Data{
+    sealed class CombinedFileStream : IDisposable{
         public const char KeySeparator = '|';
 
         private readonly Stream stream;
@@ -79,8 +80,7 @@ namespace TweetDuck.Core.Other.Settings.Export{
             stream.Position += BitConverter.ToInt32(contentLength, 0);
 
             string keyName = Encoding.UTF8.GetString(name);
-            int separatorIndex = keyName.IndexOf(KeySeparator);
-            return separatorIndex == -1 ? keyName : keyName.Substring(0, separatorIndex);
+            return StringUtils.ExtractBefore(keyName, KeySeparator);
         }
 
         public void Flush(){
@@ -96,8 +96,7 @@ namespace TweetDuck.Core.Other.Settings.Export{
 
             public string KeyName{
                 get{
-                    int index = Identifier.IndexOf(KeySeparator);
-                    return index == -1 ? Identifier : Identifier.Substring(0, index);
+                    return StringUtils.ExtractBefore(Identifier, KeySeparator);
                 }
             }
 

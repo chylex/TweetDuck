@@ -19,7 +19,7 @@ using TweetDuck.Plugins.Events;
 using TweetDuck.Resources;
 using TweetDuck.Updates;
 using TweetDuck.Updates.Events;
-using TweetLib.Audio.Utils;
+using TweetLib.Audio;
 
 namespace TweetDuck.Core{
     sealed partial class FormBrowser : Form{
@@ -208,7 +208,7 @@ namespace TweetDuck.Core{
                 return;
             }
 
-            if (!e.FailedUrl.StartsWith("http://td/")){
+            if (!e.FailedUrl.StartsWith("http://td/", StringComparison.Ordinal)){
                 string errorPage = ScriptLoader.LoadResource("pages/error.html", true);
 
                 if (errorPage != null){
@@ -406,7 +406,7 @@ namespace TweetDuck.Core{
         }
 
         public void ReloadToTweetDeck(){
-            browser.ExecuteScriptAsync("gc&&gc();window.location.href='https://tweetdeck.twitter.com'");
+            browser.ExecuteScriptAsync($"gc&&gc();window.location.href='{BrowserUtils.TweetDeckURL}'");
         }
 
         // callback handlers
@@ -485,7 +485,7 @@ namespace TweetDuck.Core{
 
         public void OnTweetScreenshotReady(string html, int width, int height){
             if (notificationScreenshotManager == null){
-                notificationScreenshotManager = new TweetScreenshotManager(this);
+                notificationScreenshotManager = new TweetScreenshotManager(this, plugins);
             }
 
             notificationScreenshotManager.Trigger(html, width, height);
