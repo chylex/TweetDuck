@@ -106,6 +106,18 @@ namespace TweetDuck.Core.Other{
             ClientWidth = Math.Max(realFormWidth, minFormWidth);
             RecalculateButtonLocation();
 
+            if (type.HasFlag(ControlType.Accept)){
+                AcceptButton = button;
+            }
+
+            if (type.HasFlag(ControlType.Cancel)){
+                CancelButton = button;
+            }
+
+            if (type.HasFlag(ControlType.Focused)){
+                ActiveControl = button;
+            }
+
             return button;
         }
 
