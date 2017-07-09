@@ -6,7 +6,7 @@ using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Other{
     [Flags]
-    public enum ControlType{
+    enum ControlType{
         None = 0,
         Accept = 1, // triggered by pressing enter when a non-button is focused
         Cancel = 2, // triggered by closing the dialog without pressing a button
@@ -14,6 +14,50 @@ namespace TweetDuck.Core.Other{
     }
 
     sealed partial class FormMessage : Form{
+        public const string OK = "OK";
+        public const string Yes = "Yes";
+        public const string No = "No";
+        public const string Cancel = "Cancel";
+        public const string Retry = "Retry";
+        public const string Ignore = "Ignore";
+        public const string Exit = "Exit";
+
+        public static bool Information(string caption, string text, string buttonAccept, string buttonCancel = null){
+            return Show(caption, text, MessageBoxIcon.Information, buttonAccept, buttonCancel);
+        }
+
+        public static bool Warning(string caption, string text, string buttonAccept, string buttonCancel = null){
+            return Show(caption, text, MessageBoxIcon.Warning, buttonAccept, buttonCancel);
+        }
+
+        public static bool Error(string caption, string text, string buttonAccept, string buttonCancel = null){
+            return Show(caption, text, MessageBoxIcon.Error, buttonAccept, buttonCancel);
+        }
+
+        public static bool Question(string caption, string text, string buttonAccept, string buttonCancel = null){
+            return Show(caption, text, MessageBoxIcon.Question, buttonAccept, buttonCancel);
+        }
+
+        public static bool Show(string caption, string text, MessageBoxIcon icon, string button){
+            return Show(caption, text, icon, button, null);
+        }
+
+        public static bool Show(string caption, string text, MessageBoxIcon icon, string buttonAccept, string buttonCancel){
+            using(FormMessage message = new FormMessage(caption, text, icon)){
+                if (buttonCancel == null){
+                    message.AddButton(buttonAccept, DialogResult.OK, ControlType.Cancel | ControlType.Focused);
+                }
+                else{
+                    message.AddButton(buttonCancel, DialogResult.Cancel, ControlType.Cancel);
+                    message.AddButton(buttonAccept, DialogResult.OK, ControlType.Accept | ControlType.Focused);
+                }
+
+                return message.ShowDialog() == DialogResult.OK;
+            }
+        }
+
+        // Instance
+
         public Button ClickedButton { get; private set; }
 
         public int ActionPanelY => panelActions.Location.Y;
