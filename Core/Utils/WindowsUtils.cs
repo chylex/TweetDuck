@@ -24,6 +24,17 @@ namespace TweetDuck.Core.Utils{
             ShouldAvoidToolWindow = ver.Major == 6 && ver.Minor == 2; // windows 8/10
         }
 
+        public static void CreateDirectoryForFile(string file){
+            string dir = Path.GetDirectoryName(file);
+
+            if (dir == null){
+                throw new ArgumentException("Invalid file path: "+file);
+            }
+            else if (dir.Length > 0){
+                Directory.CreateDirectory(dir);
+            }
+        }
+
         public static bool CheckFolderWritePermission(string path){
             string testFile = Path.Combine(path, ".test");
 

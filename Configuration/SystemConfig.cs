@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Configuration{
     sealed class SystemConfig{
@@ -31,10 +32,7 @@ namespace TweetDuck.Configuration{
 
         public bool Save(){
             try{
-                string directory = Path.GetDirectoryName(file);
-                if (directory == null)return false;
-
-                Directory.CreateDirectory(directory);
+                WindowsUtils.CreateDirectoryForFile(file);
 
                 using(Stream stream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None)){
                     WriteToStream(stream);

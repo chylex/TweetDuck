@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using TweetDuck.Core.Utils;
 using TweetDuck.Data;
 using TweetDuck.Plugins.Enums;
 using TweetDuck.Plugins.Events;
@@ -78,9 +79,7 @@ namespace TweetDuck.Plugins{
         public void WriteFile(int token, string path, string contents){
             string fullPath = GetFullPathOrThrow(token, PluginFolder.Data, path);
 
-            // ReSharper disable once AssignNullToNotNullAttribute
-            Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
-
+            WindowsUtils.CreateDirectoryForFile(fullPath);
             File.WriteAllText(fullPath, contents, Encoding.UTF8);
             fileCache[token, SanitizeCacheKey(path)] = contents;
         }

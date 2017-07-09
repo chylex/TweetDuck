@@ -120,11 +120,7 @@ namespace TweetDuck.Data{
 
             public void WriteToFile(string path, bool createDirectory){
                 if (createDirectory){
-                    string dir = Path.GetDirectoryName(path);
-
-                    if (!string.IsNullOrEmpty(dir)){
-                        Directory.CreateDirectory(dir);
-                    }
+                    WindowsUtils.CreateDirectoryForFile(path);
                 }
 
                 File.WriteAllBytes(path, contents);

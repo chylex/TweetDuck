@@ -139,10 +139,7 @@ namespace TweetDuck.Configuration{
 
         public bool Save(){
             try{
-                string directory = Path.GetDirectoryName(file);
-                if (directory == null)return false;
-
-                Directory.CreateDirectory(directory);
+                WindowsUtils.CreateDirectoryForFile(file);
 
                 if (File.Exists(file)){
                     string backupFile = GetBackupFile(file);
