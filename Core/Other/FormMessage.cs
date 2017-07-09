@@ -212,7 +212,7 @@ namespace TweetDuck.Core.Other{
 
         protected override void OnPaint(PaintEventArgs e){
             if (icon != null){
-                e.Graphics.DrawIcon(icon, 25, 26);
+                e.Graphics.DrawIcon(icon, BrowserUtils.Scale(25, dpiScale), BrowserUtils.Scale(26, dpiScale));
             }
 
             base.OnPaint(e);
