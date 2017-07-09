@@ -154,7 +154,7 @@ namespace TweetDuck.Core.Other.Settings{
             comboBoxDisplay.Enabled = trackBarEdgeDistance.Enabled = false;
             notification.ShowNotificationForSettings(false);
 
-            if (notification.IsFullyOutsideView() && MessageBox.Show("The notification seems to be outside of view, would you like to reset its position?", "Notification is outside view", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
+            if (notification.IsFullyOutsideView() && FormMessage.Question("Notification is outside view", "The notification seems to be outside of view, would you like to reset its position?", FormMessage.Yes, FormMessage.No)){
                 Config.NotificationPosition = TweetNotification.Position.TopRight;
                 notification.MoveToVisibleLocation();
 

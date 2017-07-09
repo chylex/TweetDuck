@@ -75,7 +75,7 @@ namespace TweetDuck{
             SubProcessMessage = NativeMethods.RegisterWindowMessage("TweetDuckSubProcess");
 
             if (!WindowsUtils.CheckFolderWritePermission(StoragePath)){
-                MessageBox.Show(BrandName+" does not have write permissions to the storage folder: "+StoragePath, "Permission Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                FormMessage.Warning("Permission Error", BrandName+" does not have write permissions to the storage folder: "+StoragePath, FormMessage.OK);
                 return;
             }
             
@@ -87,21 +87,16 @@ namespace TweetDuck{
                         break;
                     }
                     else if (lockResult == LockManager.Result.Fail){
-                        MessageBox.Show("An unknown error occurred accessing the data folder. Please, make sure "+BrandName+" is not already running. If the problem persists, try restarting your system.", BrandName+" Has Failed :(", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        FormMessage.Error(BrandName+" Has Failed :(", "An unknown error occurred accessing the data folder. Please, make sure "+BrandName+" is not already running. If the problem persists, try restarting your system.", FormMessage.OK);
                         return;
                     }
                     else if (attempt == 20){
-                        using(FormMessage form = new FormMessage(BrandName+" Cannot Restart", BrandName+" is taking too long to close.", MessageBoxIcon.Warning)){
-                            form.CancelButton = form.AddButton("Exit");
-                            form.ActiveControl = form.AddButton("Retry", DialogResult.Retry);
-
-                            if (form.ShowDialog() == DialogResult.Retry){
-                                attempt /= 2;
-                                continue;
-                            }
-
-                            return;
+                        if (FormMessage.Warning(BrandName+" Cannot Restart", BrandName+" is taking too long to close.", FormMessage.Retry, FormMessage.Exit)){
+                            attempt /= 2;
+                            continue;
                         }
+
+                        return;
                     }
                     else Thread.Sleep(500);
                 }
@@ -121,9 +116,9 @@ namespace TweetDuck{
                         }
                     }
                     
-                    if (MessageBox.Show("Another instance of "+BrandName+" is already running.\r\nDo you want to close it?", BrandName+" is Already Running", MessageBoxButtons.YesNo, MessageBoxIcon.Error, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
+                    if (FormMessage.Error(BrandName+" is Already Running", "Another instance of "+BrandName+" is already running.\nDo you want to close it?", FormMessage.Yes, FormMessage.No)){
                         if (!LockManager.CloseLockingProcess(10000, 5000)){
-                            MessageBox.Show("Could not close the other process.", BrandName+" Has Failed :(", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            FormMessage.Error(BrandName+" Has Failed :(", "Could not close the other process.", FormMessage.OK);
                             return;
                         }
 
@@ -132,7 +127,7 @@ namespace TweetDuck{
                     else return;
                 }
                 else if (lockResult != LockManager.Result.Success){
-                    MessageBox.Show("An unknown error occurred accessing the data folder. Please, make sure "+BrandName+" is not already running. If the problem persists, try restarting your system.", BrandName+" Has Failed :(", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    FormMessage.Error(BrandName+" Has Failed :(", "An unknown error occurred accessing the data folder. Please, make sure "+BrandName+" is not already running. If the problem persists, try restarting your system.", BrandName+" Has Failed :(", FormMessage.OK);
                     return;
                 }
             }
@@ -198,15 +193,13 @@ namespace TweetDuck{
 
         private static void plugins_Reloaded(object sender, PluginErrorEventArgs e){
             if (e.HasErrors){
-                string doubleNL = Environment.NewLine+Environment.NewLine;
-                MessageBox.Show("The following plugins will not be available until the issues are resolved:"+doubleNL+string.Join(doubleNL, e.Errors), "Error Loading Plugins", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FormMessage.Error("Error Loading Plugins", "The following plugins will not be available until the issues are resolved:\n\n"+string.Join("\n\n", e.Errors), FormMessage.OK);
             }
         }
 
         private static void plugins_Executed(object sender, PluginErrorEventArgs e){
             if (e.HasErrors){
-                string doubleNL = Environment.NewLine+Environment.NewLine;
-                MessageBox.Show("Failed to execute the following plugins:"+doubleNL+string.Join(doubleNL, e.Errors), "Error Executing Plugins", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FormMessage.Error("Error Executing Plugins", "Failed to execute the following plugins:\n\n"+string.Join("\n\n", e.Errors), FormMessage.OK);
             }
         }
 

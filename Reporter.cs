@@ -45,8 +45,8 @@ namespace TweetDuck{
 
             FormMessage form = new FormMessage(caption, message+"\nError: "+e.Message, canIgnore ? MessageBoxIcon.Warning : MessageBoxIcon.Error);
             
-            Button btnExit = form.AddButton("Exit");
-            Button btnIgnore = form.AddButton("Ignore", DialogResult.Ignore, ControlType.Cancel);
+            Button btnExit = form.AddButton(FormMessage.Exit);
+            Button btnIgnore = form.AddButton(FormMessage.Ignore, DialogResult.Ignore, ControlType.Cancel);
 
             btnIgnore.Enabled = canIgnore;
             form.ActiveControl = canIgnore ? btnIgnore : btnExit;
@@ -83,10 +83,7 @@ namespace TweetDuck{
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            using(FormMessage form = new FormMessage(caption, message, MessageBoxIcon.Error)){
-                form.AddButton("Exit", ControlType.Focused);
-                form.ShowDialog();
-            }
+            FormMessage.Error(caption, message, "Exit");
 
             try{
                 Process.GetCurrentProcess().Kill();

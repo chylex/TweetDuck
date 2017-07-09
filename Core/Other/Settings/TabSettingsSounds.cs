@@ -44,7 +44,7 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void sound_PlaybackError(object sender, PlaybackErrorEventArgs e){
-            MessageBox.Show("Could not play custom notification sound."+Environment.NewLine+e.Message, "Notification Sound Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            FormMessage.Error("Notification Sound Error", "Could not play custom notification sound.\n"+e.Message, FormMessage.OK);
         }
 
         private void btnBrowseSound_Click(object sender, EventArgs e){

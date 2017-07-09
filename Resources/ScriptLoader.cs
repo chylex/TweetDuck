@@ -3,7 +3,7 @@ using CefSharp.WinForms;
 using System;
 using System.IO;
 using System.Text;
-using System.Windows.Forms;
+using TweetDuck.Core.Other;
 
 namespace TweetDuck.Resources{
     static class ScriptLoader{
@@ -14,7 +14,7 @@ namespace TweetDuck.Resources{
                 return File.ReadAllText(Path.Combine(Program.ScriptPath, name), Encoding.UTF8);
             }catch(Exception ex){
                 if (!silent){
-                    MessageBox.Show("Unfortunately, "+Program.BrandName+" could not load the "+name+" file. The program will continue running with limited functionality.\r\n\r\n"+ex.Message, Program.BrandName+" Has Failed :(", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    FormMessage.Error(Program.BrandName+" Has Failed :(", "Unfortunately, "+Program.BrandName+" could not load the "+name+" file. The program will continue running with limited functionality.\n\n"+ex.Message, FormMessage.OK);
                 }
 
                 return null;

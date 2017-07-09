@@ -13,15 +13,15 @@ namespace TweetDuck.Core.Handling {
                 TextBox input = null;
 
                 if (dialogType == CefJsDialogType.Alert){
-                    form.AddButton("OK", ControlType.Accept | ControlType.Focused);
+                    form.AddButton(FormMessage.OK, ControlType.Accept | ControlType.Focused);
                 }
                 else if (dialogType == CefJsDialogType.Confirm){
-                    form.AddButton("No", DialogResult.No, ControlType.Cancel);
-                    form.AddButton("Yes", ControlType.Focused);
+                    form.AddButton(FormMessage.No, DialogResult.No, ControlType.Cancel);
+                    form.AddButton(FormMessage.Yes, ControlType.Focused);
                 }
                 else if (dialogType == CefJsDialogType.Prompt){
-                    form.AddButton("Cancel", DialogResult.Cancel, ControlType.Cancel);
-                    form.AddButton("OK", ControlType.Accept | ControlType.Focused);
+                    form.AddButton(FormMessage.Cancel, DialogResult.Cancel, ControlType.Cancel);
+                    form.AddButton(FormMessage.OK, ControlType.Accept | ControlType.Focused);
 
                     input = new TextBox{
                         Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,

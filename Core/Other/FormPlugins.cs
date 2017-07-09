@@ -80,7 +80,7 @@ namespace TweetDuck.Core.Other{
         }
 
         private void btnReload_Click(object sender, EventArgs e){
-            if (MessageBox.Show("This will also reload the browser window. Do you want to proceed?", "Reloading Plugins", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
+            if (FormMessage.Warning("Reloading Plugins", "This will also reload the browser window. Do you want to proceed?", FormMessage.Yes, FormMessage.No)){
                 pluginManager.Reload();
                 ReloadPluginList();
             }

@@ -56,8 +56,7 @@ namespace TweetDuck.Core.Other.Settings{
         private void btnClearCache_Click(object sender, EventArgs e){
             btnClearCache.Enabled = false;
             BrowserCache.SetClearOnExit();
-
-            MessageBox.Show("Cache will be automatically cleared when "+Program.BrandName+" exits.", "Clear Cache", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            FormMessage.Information("Clear Cache", "Cache will be automatically cleared when "+Program.BrandName+" exits.", FormMessage.OK);
         }
 
         private void checkHardwareAcceleration_CheckedChanged(object sender, EventArgs e){

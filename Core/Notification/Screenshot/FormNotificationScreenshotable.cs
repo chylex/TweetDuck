@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
 using TweetDuck.Core.Bridge;
+using TweetDuck.Core.Other;
 using TweetDuck.Core.Utils;
 using TweetDuck.Data;
 using TweetDuck.Plugins;
@@ -43,7 +44,7 @@ namespace TweetDuck.Core.Notification.Screenshot{
             IntPtr context = NativeMethods.GetDC(this.Handle);
 
             if (context == IntPtr.Zero){
-                MessageBox.Show("Could not retrieve a graphics context handle for the notification window to take the screenshot.", "Screenshot Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FormMessage.Error("Screenshot Failed", "Could not retrieve a graphics context handle for the notification window to take the screenshot.", FormMessage.OK);
             }
             else{
                 using(Bitmap bmp = new Bitmap(ClientSize.Width, ClientSize.Height, PixelFormat.Format32bppRgb)){

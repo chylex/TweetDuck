@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Updates;
 using TweetDuck.Updates.Events;
@@ -89,7 +88,7 @@ namespace TweetDuck.Core.Other.Settings{
             updateCheckEventId = updates.Check(true);
 
             if (updateCheckEventId == -1){
-                MessageBox.Show("Sorry, your system is no longer supported.", "Unsupported System", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                FormMessage.Warning("Unsupported System", "Sorry, your system is no longer supported.", FormMessage.OK);
             }
             else{
                 btnCheckUpdates.Enabled = false;
@@ -103,7 +102,7 @@ namespace TweetDuck.Core.Other.Settings{
                     btnCheckUpdates.Enabled = true;
 
                     if (!e.UpdateAvailable){
-                        MessageBox.Show("Your version of "+Program.BrandName+" is up to date.", "No Updates Available", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        FormMessage.Information("No Updates Available", "Your version of "+Program.BrandName+" is up to date.", FormMessage.OK);
                     }
                 }
             });

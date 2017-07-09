@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
+using TweetDuck.Core.Other;
 
 namespace TweetDuck.Core.Utils{
     static class BrowserUtils{
@@ -67,7 +68,7 @@ namespace TweetDuck.Core.Utils{
                 OpenExternalBrowserUnsafe(url);
             }
             else{
-                MessageBox.Show("A potentially malicious URL was blocked from opening:"+Environment.NewLine+url, "Blocked URL", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                FormMessage.Warning("Blocked URL", "A potentially malicious URL was blocked from opening:\n"+url, FormMessage.OK);
             }
         }
 

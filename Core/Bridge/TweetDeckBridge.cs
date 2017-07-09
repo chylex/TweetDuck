@@ -1,6 +1,7 @@
 ﻿using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Notification;
+using TweetDuck.Core.Other;
 using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Bridge{
@@ -101,7 +102,7 @@ namespace TweetDuck.Core.Bridge{
                 default: icon = MessageBoxIcon.None; break;
             }
 
-            MessageBox.Show(contents, Program.BrandName+" Browser Message", MessageBoxButtons.OK, icon);
+            FormMessage.Show(Program.BrandName+" Browser Message", contents, icon, FormMessage.OK);
         }
 
         public void CrashDebug(string message){

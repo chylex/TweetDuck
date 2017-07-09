@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
+using TweetDuck.Core.Other;
 using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Handling{
@@ -80,7 +81,7 @@ namespace TweetDuck.Core.Handling{
 
                     if (saveTarget != null){
                         BrowserUtils.DownloadFileAsync(parameters.SourceUrl, saveTarget, null, ex => {
-                            MessageBox.Show("An error occurred while downloading the image: "+ex.Message, Program.BrandName+" Has Failed :(", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            FormMessage.Error(Program.BrandName+" Has Failed :(", "An error occurred while downloading the image: "+ex.Message, FormMessage.OK);
                         });
                     }
 

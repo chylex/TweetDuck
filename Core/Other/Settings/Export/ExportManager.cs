@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 using TweetDuck.Configuration;
 using TweetDuck.Data;
 using TweetDuck.Plugins;
@@ -39,7 +38,7 @@ namespace TweetDuck.Core.Other.Settings.Export{
                                 try{
                                     stream.WriteFile(new string[]{ "plugin.data", plugin.Identifier, path.Relative }, path.Full);
                                 }catch(ArgumentOutOfRangeException e){
-                                    MessageBox.Show("Could not include a plugin file in the export. "+e.Message, "Export Profile", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    FormMessage.Warning("Export Profile", "Could not include a plugin file in the export. "+e.Message, FormMessage.OK);
                                 }
                             }
                         }
@@ -139,7 +138,7 @@ namespace TweetDuck.Core.Other.Settings.Export{
                 }
 
                 if (missingPlugins.Count > 0){
-                    MessageBox.Show("Detected missing plugins when importing plugin data:"+Environment.NewLine+string.Join(Environment.NewLine, missingPlugins), "Importing "+Program.BrandName+" Profile", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    FormMessage.Information("Importing "+Program.BrandName+" Profile", "Detected missing plugins when importing plugin data:\n"+string.Join("\n", missingPlugins), FormMessage.OK);
                 }
 
                 if (IsRestarting){

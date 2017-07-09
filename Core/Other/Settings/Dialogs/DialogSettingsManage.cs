@@ -58,7 +58,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                 case State.Deciding:
                     // Reset
                     if (radioReset.Checked){
-                        if (MessageBox.Show("This will reset all of your program options. Plugins will not be affected. Do you want to proceed?", "Reset "+Program.BrandName+" Options", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes){
+                        if (FormMessage.Warning("Reset "+Program.BrandName+" Options", "This will reset all of your program options. Plugins will not be affected. Do you want to proceed?", FormMessage.Yes, FormMessage.No)){
                             Program.ResetConfig();
 
                             ShouldReloadUI = true;
