@@ -9,19 +9,19 @@ namespace TweetDuck.Core.Handling {
     class JavaScriptDialogHandler : IJsDialogHandler{
         bool IJsDialogHandler.OnJSDialog(IWebBrowser browserControl, IBrowser browser, string originUrl, CefJsDialogType dialogType, string messageText, string defaultPromptText, IJsDialogCallback callback, ref bool suppressMessage){
             ((ChromiumWebBrowser)browserControl).InvokeSafe(() => {
-                FormMessage form = new FormMessage(Program.BrandName, messageText.Replace("\r", ""), MessageBoxIcon.None);
+                FormMessage form = new FormMessage(Program.BrandName, messageText, MessageBoxIcon.None);
                 TextBox input = null;
 
                 if (dialogType == CefJsDialogType.Alert){
-                    form.AcceptButton = form.AddButton("OK");
+                    form.AddButton("OK", ControlType.Accept | ControlType.Focused);
                 }
                 else if (dialogType == CefJsDialogType.Confirm){
-                    form.CancelButton = form.AddButton("No", DialogResult.No);
-                    form.AcceptButton = form.AddButton("Yes");
+                    form.AddButton("No", DialogResult.No, ControlType.Cancel);
+                    form.AddButton("Yes", ControlType.Focused);
                 }
                 else if (dialogType == CefJsDialogType.Prompt){
-                    form.CancelButton = form.AddButton("Cancel", DialogResult.Cancel);
-                    form.AcceptButton = form.AddButton("OK");
+                    form.AddButton("Cancel", DialogResult.Cancel, ControlType.Cancel);
+                    form.AddButton("OK", ControlType.Accept | ControlType.Focused);
 
                     input = new TextBox{
                         Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,

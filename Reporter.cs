@@ -43,14 +43,13 @@ namespace TweetDuck{
         public void HandleException(string caption, string message, bool canIgnore, Exception e){
             bool loggedSuccessfully = Log(e.ToString());
 
-            FormMessage form = new FormMessage(caption, message+"\nError: "+e.Message.Replace("\r", ""), canIgnore ? MessageBoxIcon.Warning : MessageBoxIcon.Error);
+            FormMessage form = new FormMessage(caption, message+"\nError: "+e.Message, canIgnore ? MessageBoxIcon.Warning : MessageBoxIcon.Error);
             
             Button btnExit = form.AddButton("Exit");
-            Button btnIgnore = form.AddButton("Ignore", DialogResult.Ignore);
+            Button btnIgnore = form.AddButton("Ignore", DialogResult.Ignore, ControlType.Cancel);
 
             btnIgnore.Enabled = canIgnore;
             form.ActiveControl = canIgnore ? btnIgnore : btnExit;
-            form.CancelButton = btnIgnore;
 
             Button btnOpenLog = new Button{
                 Anchor = AnchorStyles.Bottom | AnchorStyles.Left,
@@ -85,7 +84,7 @@ namespace TweetDuck{
             Application.SetCompatibleTextRenderingDefault(false);
 
             using(FormMessage form = new FormMessage(caption, message, MessageBoxIcon.Error)){
-                form.ActiveControl = form.AddButton("Exit");
+                form.AddButton("Exit", ControlType.Focused);
                 form.ShowDialog();
             }
 

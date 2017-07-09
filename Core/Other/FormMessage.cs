@@ -5,6 +5,14 @@ using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Other{
+    [Flags]
+    public enum ControlType{
+        None = 0,
+        Accept = 1, // triggered by pressing enter when a non-button is focused
+        Cancel = 2, // triggered by closing the dialog without pressing a button
+        Focused = 4 // active control after the dialog is showed
+    }
+
     sealed partial class FormMessage : Form{
         public Button ClickedButton { get; private set; }
 
@@ -63,14 +71,18 @@ namespace TweetDuck.Core.Other{
             this.isReady = true;
 
             this.Text = caption;
-            this.labelMessage.Text = text.Replace("\n", Environment.NewLine); // TODO replace all \r\n
+            this.labelMessage.Text = text.Replace("\r", "").Replace("\n", Environment.NewLine);
         }
 
         private void FormMessage_SizeChanged(object sender, EventArgs e){
             RecalculateButtonLocation();
         }
 
-        public Button AddButton(string title, DialogResult result = DialogResult.OK){
+        public Button AddButton(string title, ControlType type){
+            return AddButton(title, DialogResult.OK, type);
+        }
+
+        public Button AddButton(string title, DialogResult result = DialogResult.OK, ControlType type = ControlType.None){
             Button button = new Button{
                 Anchor = AnchorStyles.Bottom,
                 Font = SystemFonts.MessageBoxFont,
