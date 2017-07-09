@@ -102,7 +102,7 @@ namespace TweetDuck.Core.Other.Settings{
                     btnCheckUpdates.Enabled = true;
 
                     if (!e.UpdateAvailable){
-                        FormMessage.Information("No Updates Available", "Your version of "+Program.BrandName+" is up to date.", FormMessage.OK);
+                        FormMessage.Information("No Updates Available", "Your version of TweetDuck is up to date.", FormMessage.OK);
                     }
                 }
             });

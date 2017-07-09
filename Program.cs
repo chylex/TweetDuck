@@ -63,7 +63,7 @@ namespace TweetDuck{
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
 
             Reporter = new Reporter(ErrorLogFilePath);
-            Reporter.SetupUnhandledExceptionHandler(BrandName+" Has Failed :(");
+            Reporter.SetupUnhandledExceptionHandler("TweetDuck Has Failed :(");
         }
 
         [STAThread]
@@ -75,7 +75,7 @@ namespace TweetDuck{
             SubProcessMessage = NativeMethods.RegisterWindowMessage("TweetDuckSubProcess");
 
             if (!WindowsUtils.CheckFolderWritePermission(StoragePath)){
-                FormMessage.Warning("Permission Error", BrandName+" does not have write permissions to the storage folder: "+StoragePath, FormMessage.OK);
+                FormMessage.Warning("Permission Error", "TweetDuck does not have write permissions to the storage folder: "+StoragePath, FormMessage.OK);
                 return;
             }
             
@@ -87,11 +87,11 @@ namespace TweetDuck{
                         break;
                     }
                     else if (lockResult == LockManager.Result.Fail){
-                        FormMessage.Error(BrandName+" Has Failed :(", "An unknown error occurred accessing the data folder. Please, make sure "+BrandName+" is not already running. If the problem persists, try restarting your system.", FormMessage.OK);
+                        FormMessage.Error("TweetDuck Has Failed :(", "An unknown error occurred accessing the data folder. Please, make sure TweetDuck is not already running. If the problem persists, try restarting your system.", FormMessage.OK);
                         return;
                     }
                     else if (attempt == 20){
-                        if (FormMessage.Warning(BrandName+" Cannot Restart", BrandName+" is taking too long to close.", FormMessage.Retry, FormMessage.Exit)){
+                        if (FormMessage.Warning("TweetDuck Cannot Restart", "TweetDuck is taking too long to close.", FormMessage.Retry, FormMessage.Exit)){
                             attempt /= 2;
                             continue;
                         }
@@ -116,9 +116,9 @@ namespace TweetDuck{
                         }
                     }
                     
-                    if (FormMessage.Error(BrandName+" is Already Running", "Another instance of "+BrandName+" is already running.\nDo you want to close it?", FormMessage.Yes, FormMessage.No)){
+                    if (FormMessage.Error("TweetDuck is Already Running", "Another instance of TweetDuck is already running.\nDo you want to close it?", FormMessage.Yes, FormMessage.No)){
                         if (!LockManager.CloseLockingProcess(10000, 5000)){
-                            FormMessage.Error(BrandName+" Has Failed :(", "Could not close the other process.", FormMessage.OK);
+                            FormMessage.Error("TweetDuck Has Failed :(", "Could not close the other process.", FormMessage.OK);
                             return;
                         }
 
@@ -127,7 +127,7 @@ namespace TweetDuck{
                     else return;
                 }
                 else if (lockResult != LockManager.Result.Success){
-                    FormMessage.Error(BrandName+" Has Failed :(", "An unknown error occurred accessing the data folder. Please, make sure "+BrandName+" is not already running. If the problem persists, try restarting your system.", BrandName+" Has Failed :(", FormMessage.OK);
+                    FormMessage.Error("TweetDuck Has Failed :(", "An unknown error occurred accessing the data folder. Please, make sure TweetDuck is not already running. If the problem persists, try restarting your system.", FormMessage.OK);
                     return;
                 }
             }

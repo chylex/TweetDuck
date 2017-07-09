@@ -25,7 +25,7 @@ namespace TweetDuck.Plugins.Controls{
             this.dpiScale = this.GetDPIScale();
 
             this.labelName.Text = plugin.Name;
-            this.labelDescription.Text = plugin.CanRun ? plugin.Description : "This plugin requires "+Program.BrandName+" "+plugin.RequiredVersion+" or newer.";
+            this.labelDescription.Text = plugin.CanRun ? plugin.Description : "This plugin requires TweetDuck "+plugin.RequiredVersion+" or newer.";
             this.labelVersion.Text = plugin.Version;
             this.labelAuthor.Text = plugin.Author;
             this.labelWebsite.Text = plugin.Website;

@@ -138,7 +138,7 @@ namespace TweetDuck.Core.Other.Settings.Export{
                 }
 
                 if (missingPlugins.Count > 0){
-                    FormMessage.Information("Importing "+Program.BrandName+" Profile", "Detected missing plugins when importing plugin data:\n"+string.Join("\n", missingPlugins), FormMessage.OK);
+                    FormMessage.Information("Importing TweetDuck Profile", "Detected missing plugins when importing plugin data:\n"+string.Join("\n", missingPlugins), FormMessage.OK);
                 }
 
                 if (IsRestarting){

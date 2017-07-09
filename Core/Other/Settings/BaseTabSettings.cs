@@ -25,7 +25,7 @@ namespace TweetDuck.Core.Other.Settings{
         public virtual void OnClosing(){}
 
         protected static void PromptRestart(){
-            if (FormMessage.Information(Program.BrandName+" Options", "The application must restart for the option to take place. Do you want to restart now?", FormMessage.Yes, FormMessage.No)){
+            if (FormMessage.Information("TweetDuck Options", "The application must restart for the option to take place. Do you want to restart now?", FormMessage.Yes, FormMessage.No)){
                 Program.Restart();
             }
         }

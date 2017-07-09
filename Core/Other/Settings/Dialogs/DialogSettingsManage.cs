@@ -58,7 +58,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                 case State.Deciding:
                     // Reset
                     if (radioReset.Checked){
-                        if (FormMessage.Warning("Reset "+Program.BrandName+" Options", "This will reset all of your program options. Plugins will not be affected. Do you want to proceed?", FormMessage.Yes, FormMessage.No)){
+                        if (FormMessage.Warning("Reset TweetDuck Options", "This will reset all of your program options. Plugins will not be affected. Do you want to proceed?", FormMessage.Yes, FormMessage.No)){
                             Program.ResetConfig();
 
                             ShouldReloadUI = true;
@@ -74,8 +74,8 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                         using(OpenFileDialog dialog = new OpenFileDialog{
                             AutoUpgradeEnabled = true,
                             DereferenceLinks = true,
-                            Title = "Import "+Program.BrandName+" Profile",
-                            Filter = Program.BrandName+" Profile (*.tdsettings)|*.tdsettings"
+                            Title = "Import TweetDuck Profile",
+                            Filter = "TweetDuck Profile (*.tdsettings)|*.tdsettings"
                         }){
                             if (dialog.ShowDialog() != DialogResult.OK){
                                 return;
@@ -116,7 +116,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                         }
                     }
                     else{
-                        Program.Reporter.HandleException("Profile Import Error", "An exception happened while importing "+Program.BrandName+" profile.", true, importManager.LastException);
+                        Program.Reporter.HandleException("Profile Import Error", "An exception happened while importing TweetDuck profile.", true, importManager.LastException);
                     }
                     
                     DialogResult = DialogResult.OK;
@@ -129,9 +129,9 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                         AutoUpgradeEnabled = true,
                         OverwritePrompt = true,
                         DefaultExt = "tdsettings",
-                        FileName = Program.BrandName+".tdsettings",
-                        Title = "Export "+Program.BrandName+" Profile",
-                        Filter = Program.BrandName+" Profile (*.tdsettings)|*.tdsettings"
+                        FileName = "TweetDuck.tdsettings",
+                        Title = "Export TweetDuck Profile",
+                        Filter = "TweetDuck Profile (*.tdsettings)|*.tdsettings"
                     }){
                         if (dialog.ShowDialog() != DialogResult.OK){
                             return;
@@ -144,7 +144,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                     ExportManager manager = new ExportManager(file, plugins);
 
                     if (!manager.Export(Flags)){
-                        Program.Reporter.HandleException("Profile Export Error", "An exception happened while exporting "+Program.BrandName+" profile.", true, manager.LastException);
+                        Program.Reporter.HandleException("Profile Export Error", "An exception happened while exporting TweetDuck profile.", true, manager.LastException);
                     }
 
                     DialogResult = DialogResult.OK;

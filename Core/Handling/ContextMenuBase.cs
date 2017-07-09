@@ -81,7 +81,7 @@ namespace TweetDuck.Core.Handling{
 
                     if (saveTarget != null){
                         BrowserUtils.DownloadFileAsync(parameters.SourceUrl, saveTarget, null, ex => {
-                            FormMessage.Error(Program.BrandName+" Has Failed :(", "An error occurred while downloading the image: "+ex.Message, FormMessage.OK);
+                            FormMessage.Error("Image Download", "An error occurred while downloading the image: "+ex.Message, FormMessage.OK);
                         });
                     }
 

@@ -14,7 +14,7 @@ namespace TweetDuck.Resources{
                 return File.ReadAllText(Path.Combine(Program.ScriptPath, name), Encoding.UTF8);
             }catch(Exception ex){
                 if (!silent){
-                    FormMessage.Error(Program.BrandName+" Has Failed :(", "Unfortunately, "+Program.BrandName+" could not load the "+name+" file. The program will continue running with limited functionality.\n\n"+ex.Message, FormMessage.OK);
+                    FormMessage.Error("TweetDuck Has Failed :(", "Unfortunately, TweetDuck could not load the "+name+" file. The program will continue running with limited functionality.\n\n"+ex.Message, FormMessage.OK);
                 }
 
                 return null;

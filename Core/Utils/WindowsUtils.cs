@@ -125,7 +125,7 @@ namespace TweetDuck.Core.Utils{
             try{
                 Clipboard.SetDataObject(obj);
             }catch(ExternalException e){
-                Program.Reporter.HandleException("Clipboard Error", Program.BrandName+" could not access the clipboard as it is currently used by another process.", true, e);
+                Program.Reporter.HandleException("Clipboard Error", "TweetDuck could not access the clipboard as it is currently used by another process.", true, e);
             }
         }
     }

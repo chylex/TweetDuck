@@ -102,7 +102,7 @@ namespace TweetDuck.Core.Bridge{
                 default: icon = MessageBoxIcon.None; break;
             }
 
-            FormMessage.Show(Program.BrandName+" Browser Message", contents, icon, FormMessage.OK);
+            FormMessage.Show("TweetDuck Browser Message", contents, icon, FormMessage.OK);
         }
 
         public void CrashDebug(string message){

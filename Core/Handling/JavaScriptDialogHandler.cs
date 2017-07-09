@@ -9,17 +9,20 @@ namespace TweetDuck.Core.Handling {
     class JavaScriptDialogHandler : IJsDialogHandler{
         bool IJsDialogHandler.OnJSDialog(IWebBrowser browserControl, IBrowser browser, string originUrl, CefJsDialogType dialogType, string messageText, string defaultPromptText, IJsDialogCallback callback, ref bool suppressMessage){
             ((ChromiumWebBrowser)browserControl).InvokeSafe(() => {
-                FormMessage form = new FormMessage(Program.BrandName, messageText, MessageBoxIcon.None);
+                FormMessage form;
                 TextBox input = null;
 
                 if (dialogType == CefJsDialogType.Alert){
+                    form = new FormMessage("TweetDuck Browser Message", messageText, MessageBoxIcon.None);
                     form.AddButton(FormMessage.OK, ControlType.Accept | ControlType.Focused);
                 }
                 else if (dialogType == CefJsDialogType.Confirm){
+                    form = new FormMessage("TweetDuck Browser Confirmation", messageText, MessageBoxIcon.None);
                     form.AddButton(FormMessage.No, DialogResult.No, ControlType.Cancel);
                     form.AddButton(FormMessage.Yes, ControlType.Focused);
                 }
                 else if (dialogType == CefJsDialogType.Prompt){
+                    form = new FormMessage("TweetDuck Browser Prompt", messageText, MessageBoxIcon.None);
                     form.AddButton(FormMessage.Cancel, DialogResult.Cancel, ControlType.Cancel);
                     form.AddButton(FormMessage.OK, ControlType.Accept | ControlType.Focused);
 
@@ -32,6 +35,10 @@ namespace TweetDuck.Core.Handling {
                     form.Controls.Add(input);
                     form.ActiveControl = input;
                     form.Height += input.Size.Height+input.Margin.Vertical;
+                }
+                else{
+                    callback.Continue(false);
+                    return;
                 }
 
                 bool success = form.ShowDialog() == DialogResult.OK;

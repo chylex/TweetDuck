@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Notification;
@@ -52,7 +51,7 @@ namespace TweetDuck.Core.Other.Settings{
             comboBoxIdlePause.Items.Add("5 minutes");
             comboBoxIdlePause.SelectedIndex = Math.Max(0, Array.FindIndex(IdlePauseSeconds, val => val == Config.NotificationIdlePauseSeconds));
 
-            comboBoxDisplay.Items.Add("(Same As "+Program.BrandName+")");
+            comboBoxDisplay.Items.Add("(Same as TweetDuck)");
 
             foreach(Screen screen in Screen.AllScreens){
                 comboBoxDisplay.Items.Add(screen.DeviceName.TrimStart('\\', '.')+" ("+screen.Bounds.Width+"x"+screen.Bounds.Height+")");

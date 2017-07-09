@@ -11,7 +11,7 @@ namespace TweetDuck.Core.Other{
 
             Text = "About "+Program.BrandName+" "+Program.VersionTag;
 
-            labelDescription.Text = Program.BrandName+" was created by chylex as a replacement to the discontinued official TweetDeck client for Windows.\n\nThe program is available for free under the open source MIT license.";
+            labelDescription.Text = "TweetDuck was created by chylex as a replacement to the discontinued official TweetDeck client for Windows.\n\nThe program is available for free under the open source MIT license.";
             
             labelWebsite.Links.Add(new LinkLabel.Link(0, labelWebsite.Text.Length, Program.Website));
             labelTips.Links.Add(new LinkLabel.Link(0, labelTips.Text.Length, TipsLink));
