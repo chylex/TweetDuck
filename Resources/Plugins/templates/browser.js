@@ -53,8 +53,10 @@ enabled(){
   this.css.insert(".templates-modal-wrap { width: 100%; height: 100%; padding: 49px; position: absolute; z-index: 999; box-sizing: border-box; background-color: rgba(0, 0, 0, 0.5); }");
   this.css.insert(".templates-modal { width: 100%; height: 100%; background-color: #fff; display: flex; }");
   this.css.insert(".templates-modal > div { display: flex; flex-direction: column; }");
-  this.css.insert(".templates-modal-bottom { flex: 0 0 auto; padding: 16px; text-align: right; }");
-  this.css.insert(".templates-modal-bottom button { margin-left: 4px; }");
+  
+  this.css.insert(".templates-modal-bottom { flex: 0 0 auto; padding: 16px; }");
+  this.css.insert(".template-list .templates-modal-bottom { display: flex; justify-content: space-between; }");
+  this.css.insert(".template-editor .templates-modal-bottom { text-align: right; }");
   
   this.css.insert(".template-list { height: 100%; flex: 1 1 auto; }");
   this.css.insert(".template-list ul { list-style-type: none; font-size: 24px; color: #222; flex: 1 1 auto; padding: 12px; overflow-y: auto; }");
@@ -265,6 +267,7 @@ enabled(){
       <ul></ul>
       
       <div class="templates-modal-bottom">
+        <button data-action="close" class="btn" style="background-color:#d2d2d2;border-color:#ccd0d2"><i class="icon icon-close icon-small padding-rs"></i><span class="label">Close</span></button>
         <button data-action="new-template" class="btn btn-positive"><i class="icon icon-plus icon-small padding-rs"></i><span class="label">New Template</span></button>
       </div>
     </div>
@@ -298,7 +301,7 @@ enabled(){
       
       <div class="templates-modal-bottom">
         <button data-action="editor-cancel" class="btn"><i class="icon icon-close icon-small padding-rs"></i><span class="label">Cancel</span></button>
-        <button data-action="editor-confirm" class="btn btn-positive"><i class="icon icon-check icon-small padding-rs"></i><span class="label">Confirm</span></button>
+        <button data-action="editor-confirm" class="btn btn-positive" style="margin-left:4px"><i class="icon icon-check icon-small padding-rs"></i><span class="label">Confirm</span></button>
       </div>
     </div>
   </div>
@@ -391,6 +394,10 @@ enabled(){
           
           toggleEditor();
           onTemplatesUpdated(true);
+          break;
+        
+        case "close":
+          hideTemplateModal();
           break;
       }
       
