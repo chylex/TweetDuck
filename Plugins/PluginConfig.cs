@@ -40,6 +40,7 @@ namespace TweetDuck.Plugins{
                     }
                 }
             }catch(FileNotFoundException){
+                Save(file);
             }catch(DirectoryNotFoundException){
             }catch(Exception e){
                 Program.Reporter.HandleException("Plugin Configuration Error", "Could not read the plugin configuration file. If you continue, the list of disabled plugins will be reset to default.", true, e);
