@@ -39,6 +39,7 @@ namespace TweetDuck.Configuration{
 
         public bool ExpandLinksOnHover     { get; set; } = true;
         public bool SwitchAccountSelectors { get; set; } = true;
+        public bool BestImageQuality       { get; set; } = true;
         public bool EnableSpellCheck       { get; set; } = false;
         private int _zoomLevel                           = 100;
         private bool _muteNotifications;
@@ -80,6 +81,8 @@ namespace TweetDuck.Configuration{
 
         public bool IsCustomNotificationPositionSet => CustomNotificationPosition != ControlExtensions.InvisibleLocation;
         public bool IsCustomNotificationSizeSet => CustomNotificationSize != Size.Empty;
+
+        public TwitterUtils.ImageQuality TwitterImageQuality => BestImageQuality ? TwitterUtils.ImageQuality.Orig : TwitterUtils.ImageQuality.Default;
 
         public string NotificationSoundPath{
             get => string.IsNullOrEmpty(_notificationSoundPath) ? string.Empty : _notificationSoundPath;

@@ -16,7 +16,7 @@ namespace TweetDuck.Core.Utils{
         };
 
         public enum ImageQuality{
-            Large, Orig
+            Default, Orig
         }
 
         public static bool IsTweetDeckWebsite(IFrame frame){
@@ -33,16 +33,18 @@ namespace TweetDuck.Core.Utils{
         }
 
         public static string GetImageLink(string url, ImageQuality quality){
-            string result = ExtractImageBaseLink(url);
+            if (quality == ImageQuality.Orig){
+                string result = ExtractImageBaseLink(url);
 
-            if (result != url){
-                switch(quality){
-                    case ImageQuality.Large: result += ":large"; break;
-                    case ImageQuality.Orig: result += ":orig"; break;
+                if (result != url){
+                    result += ":orig";
                 }
-            }
 
-            return result;
+                return result;
+            }
+            else{
+                return url;
+            }
         }
 
         public static void DownloadImage(string url, ImageQuality quality){

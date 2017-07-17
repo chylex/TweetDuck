@@ -5,13 +5,14 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
-using TweetDuck.Core.Other;
 using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Handling{
     abstract class ContextMenuBase : IContextMenuHandler{
         private static readonly Lazy<Regex> RegexTwitterAccount = new Lazy<Regex>(() => new Regex(@"^https?://twitter\.com/([^/]+)/?$", RegexOptions.Compiled), false);
         protected static readonly bool HasDevTools = File.Exists(Path.Combine(Program.ProgramPath, "devtools_resources.pak"));
+
+        private static TwitterUtils.ImageQuality ImageQuality => Program.UserConfig.TwitterImageQuality;
 
         private const int MenuOpenLinkUrl = 26500;
         private const int MenuCopyLinkUrl = 26501;
@@ -61,34 +62,15 @@ namespace TweetDuck.Core.Handling{
                     break;
 
                 case MenuOpenImage:
-                    BrowserUtils.OpenExternalBrowser(parameters.SourceUrl);
+                    BrowserUtils.OpenExternalBrowser(TwitterUtils.GetImageLink(parameters.SourceUrl, ImageQuality));
                     break;
 
                 case MenuSaveImage:
-                    string fileName = GetImageFileName(parameters.SourceUrl);
-                    string extension = Path.GetExtension(fileName);
-                    string saveTarget;
-
-                    using(SaveFileDialog dialog = new SaveFileDialog{
-                        AutoUpgradeEnabled = true,
-                        OverwritePrompt = true,
-                        Title = "Save image",
-                        FileName = fileName,
-                        Filter = "Image ("+(string.IsNullOrEmpty(extension) ? "unknown" : extension)+")|*.*"
-                    }){
-                        saveTarget = dialog.ShowDialog() == DialogResult.OK ? dialog.FileName : null;
-                    }
-
-                    if (saveTarget != null){
-                        BrowserUtils.DownloadFileAsync(parameters.SourceUrl, saveTarget, null, ex => {
-                            FormMessage.Error("Image Download", "An error occurred while downloading the image: "+ex.Message, FormMessage.OK);
-                        });
-                    }
-
+                    TwitterUtils.DownloadImage(parameters.SourceUrl, ImageQuality);
                     break;
 
                 case MenuCopyImageUrl:
-                    SetClipboardText(parameters.SourceUrl);
+                    SetClipboardText(TwitterUtils.GetImageLink(parameters.SourceUrl, ImageQuality));
                     break;
 
                 case MenuCopyUsername:
@@ -128,18 +110,6 @@ namespace TweetDuck.Core.Handling{
             if (model.Count > 0 && model.GetTypeAt(model.Count-1) != MenuItemType.Separator){ // do not add separators if there is nothing to separate
                 model.AddSeparator();
             }
-        }
-
-        private static string GetImageFileName(string url){
-            // twimg adds a colon after file extension
-            int dot = url.LastIndexOf('.');
-
-            if (dot != -1){
-                url = StringUtils.ExtractBefore(url, ':', dot);
-            }
-
-            // return file name
-            return BrowserUtils.GetFileNameFromUrl(url) ?? "unknown";
         }
     }
 }

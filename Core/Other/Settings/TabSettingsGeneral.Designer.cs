@@ -43,6 +43,7 @@
             this.panelUpdates = new System.Windows.Forms.Panel();
             this.panelTray = new System.Windows.Forms.Panel();
             this.labelUpdates = new System.Windows.Forms.Label();
+            this.checkBestImageQuality = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).BeginInit();
             this.panelUI.SuspendLayout();
             this.panelUpdates.SuspendLayout();
@@ -87,11 +88,11 @@
             // checkSpellCheck
             // 
             this.checkSpellCheck.AutoSize = true;
-            this.checkSpellCheck.Location = new System.Drawing.Point(6, 51);
+            this.checkSpellCheck.Location = new System.Drawing.Point(6, 74);
             this.checkSpellCheck.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.checkSpellCheck.Name = "checkSpellCheck";
             this.checkSpellCheck.Size = new System.Drawing.Size(119, 17);
-            this.checkSpellCheck.TabIndex = 2;
+            this.checkSpellCheck.TabIndex = 3;
             this.checkSpellCheck.Text = "Enable Spell Check";
             this.toolTip.SetToolTip(this.checkSpellCheck, "Underlines words that are spelled incorrectly.");
             this.checkSpellCheck.UseVisualStyleBackColor = true;
@@ -122,11 +123,11 @@
             // labelZoomValue
             // 
             this.labelZoomValue.BackColor = System.Drawing.Color.Transparent;
-            this.labelZoomValue.Location = new System.Drawing.Point(141, 100);
+            this.labelZoomValue.Location = new System.Drawing.Point(141, 123);
             this.labelZoomValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelZoomValue.Name = "labelZoomValue";
             this.labelZoomValue.Size = new System.Drawing.Size(38, 13);
-            this.labelZoomValue.TabIndex = 5;
+            this.labelZoomValue.TabIndex = 6;
             this.labelZoomValue.Text = "100%";
             this.labelZoomValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.toolTip.SetToolTip(this.labelZoomValue, "Changes the zoom level.\r\nAlso affects notifications and screenshots.");
@@ -158,24 +159,24 @@
             this.trackBarZoom.AutoSize = false;
             this.trackBarZoom.BackColor = System.Drawing.SystemColors.Control;
             this.trackBarZoom.LargeChange = 25;
-            this.trackBarZoom.Location = new System.Drawing.Point(3, 99);
+            this.trackBarZoom.Location = new System.Drawing.Point(3, 122);
             this.trackBarZoom.Maximum = 200;
             this.trackBarZoom.Minimum = 50;
             this.trackBarZoom.Name = "trackBarZoom";
             this.trackBarZoom.Size = new System.Drawing.Size(148, 30);
             this.trackBarZoom.SmallChange = 5;
-            this.trackBarZoom.TabIndex = 4;
+            this.trackBarZoom.TabIndex = 5;
             this.trackBarZoom.TickFrequency = 25;
             this.trackBarZoom.Value = 100;
             // 
             // labelZoom
             // 
             this.labelZoom.AutoSize = true;
-            this.labelZoom.Location = new System.Drawing.Point(3, 83);
+            this.labelZoom.Location = new System.Drawing.Point(3, 106);
             this.labelZoom.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelZoom.Name = "labelZoom";
             this.labelZoom.Size = new System.Drawing.Size(34, 13);
-            this.labelZoom.TabIndex = 3;
+            this.labelZoom.TabIndex = 4;
             this.labelZoom.Text = "Zoom";
             // 
             // zoomUpdateTimer
@@ -198,6 +199,7 @@
             // 
             this.panelUI.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelUI.Controls.Add(this.checkBestImageQuality);
             this.panelUI.Controls.Add(this.checkExpandLinks);
             this.panelUI.Controls.Add(this.checkSwitchAccountSelectors);
             this.panelUI.Controls.Add(this.checkSpellCheck);
@@ -206,14 +208,14 @@
             this.panelUI.Controls.Add(this.trackBarZoom);
             this.panelUI.Location = new System.Drawing.Point(9, 31);
             this.panelUI.Name = "panelUI";
-            this.panelUI.Size = new System.Drawing.Size(322, 134);
+            this.panelUI.Size = new System.Drawing.Size(322, 157);
             this.panelUI.TabIndex = 1;
             // 
             // labelTray
             // 
             this.labelTray.AutoSize = true;
             this.labelTray.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelTray.Location = new System.Drawing.Point(5, 189);
+            this.labelTray.Location = new System.Drawing.Point(6, 212);
             this.labelTray.Margin = new System.Windows.Forms.Padding(0, 21, 0, 0);
             this.labelTray.Name = "labelTray";
             this.labelTray.Size = new System.Drawing.Size(96, 20);
@@ -226,7 +228,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelUpdates.Controls.Add(this.checkUpdateNotifications);
             this.panelUpdates.Controls.Add(this.btnCheckUpdates);
-            this.panelUpdates.Location = new System.Drawing.Point(9, 335);
+            this.panelUpdates.Location = new System.Drawing.Point(9, 358);
             this.panelUpdates.Name = "panelUpdates";
             this.panelUpdates.Size = new System.Drawing.Size(322, 55);
             this.panelUpdates.TabIndex = 5;
@@ -238,7 +240,7 @@
             this.panelTray.Controls.Add(this.checkTrayHighlight);
             this.panelTray.Controls.Add(this.comboBoxTrayType);
             this.panelTray.Controls.Add(this.labelTrayIcon);
-            this.panelTray.Location = new System.Drawing.Point(9, 212);
+            this.panelTray.Location = new System.Drawing.Point(9, 235);
             this.panelTray.Name = "panelTray";
             this.panelTray.Size = new System.Drawing.Size(322, 76);
             this.panelTray.TabIndex = 3;
@@ -247,12 +249,24 @@
             // 
             this.labelUpdates.AutoSize = true;
             this.labelUpdates.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelUpdates.Location = new System.Drawing.Point(6, 312);
+            this.labelUpdates.Location = new System.Drawing.Point(6, 335);
             this.labelUpdates.Margin = new System.Windows.Forms.Padding(0, 21, 0, 0);
             this.labelUpdates.Name = "labelUpdates";
             this.labelUpdates.Size = new System.Drawing.Size(70, 20);
             this.labelUpdates.TabIndex = 4;
             this.labelUpdates.Text = "Updates";
+            // 
+            // checkBestImageQuality
+            // 
+            this.checkBestImageQuality.AutoSize = true;
+            this.checkBestImageQuality.Location = new System.Drawing.Point(6, 51);
+            this.checkBestImageQuality.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
+            this.checkBestImageQuality.Name = "checkBestImageQuality";
+            this.checkBestImageQuality.Size = new System.Drawing.Size(114, 17);
+            this.checkBestImageQuality.TabIndex = 2;
+            this.checkBestImageQuality.Text = "Best Image Quality";
+            this.toolTip.SetToolTip(this.checkBestImageQuality, "When right-clicking a tweet image, the context menu options\r\nwill use links to the original image size (:orig in the URL).");
+            this.checkBestImageQuality.UseVisualStyleBackColor = true;
             // 
             // TabSettingsGeneral
             // 
@@ -265,7 +279,7 @@
             this.Controls.Add(this.panelUI);
             this.Controls.Add(this.labelUI);
             this.Name = "TabSettingsGeneral";
-            this.Size = new System.Drawing.Size(340, 400);
+            this.Size = new System.Drawing.Size(340, 422);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).EndInit();
             this.panelUI.ResumeLayout(false);
             this.panelUI.PerformLayout();
@@ -299,5 +313,6 @@
         private System.Windows.Forms.Panel panelUpdates;
         private System.Windows.Forms.Panel panelTray;
         private System.Windows.Forms.Label labelUpdates;
+        private System.Windows.Forms.CheckBox checkBestImageQuality;
     }
 }
