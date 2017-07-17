@@ -111,7 +111,7 @@ namespace TweetDuck.Core.Notification{
             this.dpiScale = this.GetDPIScale();
 
             DefaultResourceHandlerFactory handlerFactory = (DefaultResourceHandlerFactory)browser.ResourceHandlerFactory;
-            handlerFactory.RegisterHandler(BrowserUtils.TweetDeckURL, this.resourceHandler);
+            handlerFactory.RegisterHandler(TwitterUtils.TweetDeckURL, this.resourceHandler);
 
             Controls.Add(browser);
 
@@ -183,7 +183,7 @@ namespace TweetDuck.Core.Notification{
             currentColumn = tweet.Column;
 
             resourceHandler.SetHTML(GetTweetHTML(tweet));
-            browser.Load(BrowserUtils.TweetDeckURL);
+            browser.Load(TwitterUtils.TweetDeckURL);
         }
 
         protected virtual void SetNotificationSize(int width, int height){

@@ -167,6 +167,7 @@
     </Compile>
     <Compile Include="Core\Utils\BrowserProcesses.cs" />
     <Compile Include="Core\Utils\StringUtils.cs" />
+    <Compile Include="Core\Utils\TwitterUtils.cs" />
     <Compile Include="Data\CombinedFileStream.cs" />
     <Compile Include="Core\Other\Settings\Export\ExportFileFlags.cs" />
     <Compile Include="Core\Other\Settings\Export\ExportManager.cs" />

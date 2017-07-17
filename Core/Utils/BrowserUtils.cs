@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
@@ -10,8 +9,6 @@ using TweetDuck.Core.Other;
 
 namespace TweetDuck.Core.Utils{
     static class BrowserUtils{
-        public const string TweetDeckURL = "https://tweetdeck.twitter.com";
-
         public static string HeaderAcceptLanguage{
             get{
                 string culture = Program.Culture.Name;
@@ -26,13 +23,6 @@ namespace TweetDuck.Core.Utils{
         }
 
         public static string HeaderUserAgent => Program.BrandName+" "+Application.ProductVersion;
-
-        public static readonly Color BackgroundColor = Color.FromArgb(28, 99, 153);
-        public const string BackgroundColorFix = "let e=document.createElement('style');document.head.appendChild(e);e.innerHTML='body::before{background:#1c6399!important}'";
-
-        public static readonly string[] DictionaryWords = {
-            "tweetdeck", "TweetDeck", "tweetduck", "TweetDuck", "TD"
-        };
 
         public static void SetupCefArgs(IDictionary<string, string> args){
             if (!Program.SystemConfig.HardwareAcceleration){
@@ -115,14 +105,6 @@ namespace TweetDuck.Core.Utils{
 
         public static void SetZoomLevel(IBrowser browser, int percentage){
             browser.GetHost().SetZoomLevel(Math.Log(percentage/100.0, 1.2));
-        }
-
-        public static bool IsTweetDeckWebsite(IFrame frame){
-            return frame.Url.Contains("//tweetdeck.twitter.com/");
-        }
-
-        public static bool IsTwitterWebsite(IFrame frame){
-            return frame.Url.Contains("//twitter.com/");
         }
 
         #if DEBUG

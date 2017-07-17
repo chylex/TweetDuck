@@ -81,7 +81,7 @@ namespace TweetDuck.Core{
             this.browser.RegisterAsyncJsObject("$TD", new TweetDeckBridge(this, notification));
             this.browser.RegisterAsyncJsObject("$TDP", plugins.Bridge);
             
-            browser.BrowserSettings.BackgroundColor = (uint)BrowserUtils.BackgroundColor.ToArgb();
+            browser.BrowserSettings.BackgroundColor = (uint)TwitterUtils.BackgroundColor.ToArgb();
             browser.Dock = DockStyle.None;
             browser.Location = ControlExtensions.InvisibleLocation;
             Controls.Add(browser);
@@ -158,7 +158,7 @@ namespace TweetDuck.Core{
 
         private void browser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e){
             if (!e.IsLoading){
-                foreach(string word in BrowserUtils.DictionaryWords){
+                foreach(string word in TwitterUtils.DictionaryWords){
                     browser.AddWordToDictionary(word);
                 }
 
@@ -175,15 +175,15 @@ namespace TweetDuck.Core{
                     BrowserUtils.SetZoomLevel(browser.GetBrowser(), Config.ZoomLevel);
                 }
 
-                if (BrowserUtils.IsTwitterWebsite(e.Frame)){
+                if (TwitterUtils.IsTwitterWebsite(e.Frame)){
                     ScriptLoader.ExecuteFile(e.Frame, "twitter.js");
                 }
             }
         }
 
         private void browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
-            if (e.Frame.IsMain && BrowserUtils.IsTweetDeckWebsite(e.Frame)){
-                e.Frame.ExecuteJavaScriptAsync(BrowserUtils.BackgroundColorFix);
+            if (e.Frame.IsMain && TwitterUtils.IsTweetDeckWebsite(e.Frame)){
+                e.Frame.ExecuteJavaScriptAsync(TwitterUtils.BackgroundColorFix);
 
                 UpdateProperties(PropertyBridge.Properties.AllBrowser);
                 ScriptLoader.ExecuteFile(e.Frame, "code.js");
@@ -406,7 +406,7 @@ namespace TweetDuck.Core{
         }
 
         public void ReloadToTweetDeck(){
-            browser.ExecuteScriptAsync($"gc&&gc();window.location.href='{BrowserUtils.TweetDeckURL}'");
+            browser.ExecuteScriptAsync($"gc&&gc();window.location.href='{TwitterUtils.TweetDeckURL}'");
         }
 
         // callback handlers

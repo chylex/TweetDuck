@@ -30,7 +30,7 @@ namespace TweetDuck.Updates{
         }
 
         private void browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
-            if (e.Frame.IsMain && BrowserUtils.IsTweetDeckWebsite(e.Frame)){
+            if (e.Frame.IsMain && TwitterUtils.IsTweetDeckWebsite(e.Frame)){
                 ScriptLoader.ExecuteFile(e.Frame, "update.js");
                 Check(false);
             }
