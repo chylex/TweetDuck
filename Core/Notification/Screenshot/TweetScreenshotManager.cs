@@ -8,14 +8,14 @@ using TweetDuck.Plugins;
 
 namespace TweetDuck.Core.Notification.Screenshot{
     sealed class TweetScreenshotManager : IDisposable{
-        private readonly Form owner;
+        private readonly FormBrowser owner;
         private readonly PluginManager plugins;
         private readonly Timer timeout;
         private readonly Timer disposer;
         
         private FormNotificationScreenshotable screenshot;
 
-        public TweetScreenshotManager(Form owner, PluginManager pluginManager){
+        public TweetScreenshotManager(FormBrowser owner, PluginManager pluginManager){
             this.owner = owner;
             this.plugins = pluginManager;
 
@@ -28,8 +28,7 @@ namespace TweetDuck.Core.Notification.Screenshot{
 
         private void timeout_Tick(object sender, EventArgs e){
             timeout.Stop();
-            screenshot.Location = ControlExtensions.InvisibleLocation;
-            disposer.Start();
+            OnFinished();
         }
 
         private void disposer_Tick(object sender, EventArgs e){
@@ -50,6 +49,10 @@ namespace TweetDuck.Core.Notification.Screenshot{
             screenshot.LoadNotificationForScreenshot(new TweetNotification(string.Empty, html, 0, string.Empty, string.Empty), width, height);
             screenshot.Show();
             timeout.Start();
+
+            #if !(DEBUG && NO_HIDE_SCREENSHOTS)
+            owner.IsWaiting = true;
+            #endif
         }
 
         private void Callback(){
@@ -61,12 +64,17 @@ namespace TweetDuck.Core.Notification.Screenshot{
             screenshot.TakeScreenshot();
 
             #if !(DEBUG && NO_HIDE_SCREENSHOTS)
-            screenshot.Location = ControlExtensions.InvisibleLocation;
-            disposer.Start();
+            OnFinished();
             #else
             screenshot.MoveToVisibleLocation();
             screenshot.FormClosed += (sender, args) => disposer.Start();
             #endif
+        }
+
+        private void OnFinished(){
+            screenshot.Location = ControlExtensions.InvisibleLocation;
+            owner.IsWaiting = false;
+            disposer.Start();
         }
 
         public void Dispose(){

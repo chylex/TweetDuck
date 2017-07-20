@@ -25,6 +25,23 @@ namespace TweetDuck.Core{
     sealed partial class FormBrowser : Form{
         private static UserConfig Config => Program.UserConfig;
 
+        public bool IsWaiting{
+            set{
+                if (value){
+                    browser.Enabled = false;
+                    Cursor = Cursors.WaitCursor;
+                }
+                else{
+                    browser.Enabled = true;
+                    Cursor = Cursors.Default;
+
+                    if (Focused){ // re-focus browser only if the window or a child is activated
+                        browser.Focus();
+                    }
+                }
+            }
+        }
+
         public string UpdateInstallerPath { get; private set; }
 
         private readonly ChromiumWebBrowser browser;
@@ -225,6 +242,10 @@ namespace TweetDuck.Core{
             if (!isLoaded)return;
 
             trayIcon.HasNotifications = false;
+
+            if (!browser.Enabled){      // when taking a screenshot, the window is unfocused and
+                browser.Enabled = true; // the browser is disabled; if the user clicks back into
+            }                           // the window, enable the browser again
         }
 
         private void FormBrowser_LocationChanged(object sender, EventArgs e){
