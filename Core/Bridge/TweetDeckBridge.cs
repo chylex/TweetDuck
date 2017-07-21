@@ -10,9 +10,11 @@ namespace TweetDuck.Core.Bridge{
         public static string LastRightClickedImage = string.Empty;
         public static string LastHighlightedTweet = string.Empty;
         public static string LastHighlightedQuotedTweet = string.Empty;
+        public static string[] LastHighlightedTweetImages = new string[0];
 
         public static void ResetStaticProperties(){
             LastRightClickedLink = LastRightClickedImage = LastHighlightedTweet = LastHighlightedQuotedTweet = string.Empty;
+            LastHighlightedTweetImages = new string[0];
         }
 
         private readonly FormBrowser form;
@@ -43,10 +45,11 @@ namespace TweetDuck.Core.Bridge{
             form.InvokeAsyncSafe(() => LastRightClickedImage = link);
         }
 
-        public void SetLastHighlightedTweet(string link, string quotedLink){
+        public void SetLastHighlightedTweet(string link, string quotedLink, string imageList){
             form.InvokeAsyncSafe(() => {
                 LastHighlightedTweet = link;
                 LastHighlightedQuotedTweet = quotedLink;
+                LastHighlightedTweetImages = imageList.Split(';');
             });
         }
 

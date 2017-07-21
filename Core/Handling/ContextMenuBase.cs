@@ -25,12 +25,15 @@ namespace TweetDuck.Core.Handling{
         private const int MenuOpenLinkUrl = 26500;
         private const int MenuCopyLinkUrl = 26501;
         private const int MenuCopyUsername = 26502;
-        private const int MenuOpenImage = 26503;
-        private const int MenuSaveImage = 26504;
-        private const int MenuCopyImageUrl = 26505;
+        private const int MenuOpenImageUrl = 26503;
+        private const int MenuCopyImageUrl = 26504;
+        private const int MenuSaveImage = 26505;
+        private const int MenuSaveAllImages = 26506;
         private const int MenuOpenDevTools = 26599;
 
         private readonly Form form;
+        
+        private string[] lastHighlightedTweetImageList;
 
         protected ContextMenuBase(Form form){
             this.form = form;
@@ -38,6 +41,7 @@ namespace TweetDuck.Core.Handling{
 
         public virtual void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model){
             bool hasTweetImage = !string.IsNullOrEmpty(TweetDeckBridge.LastRightClickedImage);
+            lastHighlightedTweetImageList = TweetDeckBridge.LastHighlightedTweetImages;
 
             if (parameters.TypeFlags.HasFlag(ContextMenuType.Link) && !parameters.UnfilteredLinkUrl.EndsWith("tweetdeck.twitter.com/#", StringComparison.Ordinal) && !hasTweetImage){
                 if (RegexTwitterAccount.Value.IsMatch(parameters.UnfilteredLinkUrl)){
@@ -54,9 +58,14 @@ namespace TweetDuck.Core.Handling{
             }
 
             if ((parameters.TypeFlags.HasFlag(ContextMenuType.Media) && parameters.HasImageContents) || hasTweetImage){
-                model.AddItem((CefMenuCommand)MenuOpenImage, "Open image in browser");
-                model.AddItem((CefMenuCommand)MenuSaveImage, "Save image as...");
+                model.AddItem((CefMenuCommand)MenuOpenImageUrl, "Open image in browser");
                 model.AddItem((CefMenuCommand)MenuCopyImageUrl, "Copy image address");
+                model.AddItem((CefMenuCommand)MenuSaveImage, "Save image as...");
+
+                if (lastHighlightedTweetImageList.Length > 1){
+                    model.AddItem((CefMenuCommand)MenuSaveAllImages, "Save all images as...");
+                }
+
                 model.AddSeparator();
             }
         }
@@ -71,12 +80,16 @@ namespace TweetDuck.Core.Handling{
                     SetClipboardText(GetLink(parameters));
                     break;
 
-                case MenuOpenImage:
+                case MenuOpenImageUrl:
                     BrowserUtils.OpenExternalBrowser(TwitterUtils.GetImageLink(GetImage(parameters), ImageQuality));
                     break;
 
                 case MenuSaveImage:
                     TwitterUtils.DownloadImage(GetImage(parameters), ImageQuality);
+                    break;
+
+                case MenuSaveAllImages:
+                    TwitterUtils.DownloadImages(lastHighlightedTweetImageList, ImageQuality);
                     break;
 
                 case MenuCopyImageUrl:

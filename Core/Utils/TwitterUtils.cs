@@ -1,4 +1,5 @@
-﻿using CefSharp;
+﻿using System;
+using CefSharp;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -46,22 +47,42 @@ namespace TweetDuck.Core.Utils{
                 return url;
             }
         }
-
+        
         public static void DownloadImage(string url, ImageQuality quality){
-            string file = BrowserUtils.GetFileNameFromUrl(ExtractImageBaseLink(url));
+            DownloadImages(new string[]{ url }, quality);
+        }
+
+        public static void DownloadImages(string[] urls, ImageQuality quality){
+            if (urls.Length == 0){
+                return;
+            }
+
+            string file = BrowserUtils.GetFileNameFromUrl(ExtractImageBaseLink(urls[0]));
             string ext = Path.GetExtension(file); // includes dot
             
             using(SaveFileDialog dialog = new SaveFileDialog{
                 AutoUpgradeEnabled = true,
-                OverwritePrompt = true,
+                OverwritePrompt = urls.Length == 1,
                 Title = "Save image",
                 FileName = file,
-                Filter = string.IsNullOrEmpty(ext) ? "Image (unknown)|*.*" : $"Image (*{ext})|*{ext}"
+                Filter = (urls.Length == 1 ? "Image" : "Images")+(string.IsNullOrEmpty(ext) ? " (unknown)|*.*" : $" (*{ext})|*{ext}")
             }){
                 if (dialog.ShowDialog() == DialogResult.OK){
-                    BrowserUtils.DownloadFileAsync(GetImageLink(url, quality), dialog.FileName, null, ex => {
+                    void OnFailure(Exception ex){
                         FormMessage.Error("Image Download", "An error occurred while downloading the image: "+ex.Message, FormMessage.OK);
-                    });
+                    }
+
+                    if (urls.Length == 1){
+                        BrowserUtils.DownloadFileAsync(GetImageLink(urls[0], quality), dialog.FileName, null, OnFailure);
+                    }
+                    else{
+                        string pathBase = Path.ChangeExtension(dialog.FileName, null);
+                        string pathExt = Path.GetExtension(dialog.FileName);
+
+                        for(int index = 0; index < urls.Length; index++){
+                            BrowserUtils.DownloadFileAsync(GetImageLink(urls[index], quality), pathBase+(index+1)+pathExt, null, OnFailure);
+                        }
+                    }
                 }
             }
         }
