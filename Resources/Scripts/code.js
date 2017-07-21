@@ -330,7 +330,14 @@
   });
   
   $(document.body).delegate("a.js-media-image-link", "contextmenu", function(){
-    $TD.setLastRightClickedImage($(this)[0].style.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/, "$1"));
+    let me = $(this)[0];
+    
+    if (me.firstElementChild){
+      $TD.setLastRightClickedImage(me.firstElementChild.getAttribute("src"));
+    }
+    else{
+      $TD.setLastRightClickedImage(me.style.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/, "$1"));
+    }
   });
   
   //
