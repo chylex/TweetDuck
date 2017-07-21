@@ -43,6 +43,10 @@ namespace TweetDuck.Core.Handling{
             bool hasTweetImage = !string.IsNullOrEmpty(TweetDeckBridge.LastRightClickedImage);
             lastHighlightedTweetImageList = TweetDeckBridge.LastHighlightedTweetImages;
 
+            if (!TwitterUtils.IsTweetDeckWebsite(frame) || browser.IsLoading){
+                lastHighlightedTweetImageList = StringUtils.EmptyArray;
+            }
+
             if (parameters.TypeFlags.HasFlag(ContextMenuType.Link) && !parameters.UnfilteredLinkUrl.EndsWith("tweetdeck.twitter.com/#", StringComparison.Ordinal) && !hasTweetImage){
                 if (RegexTwitterAccount.Value.IsMatch(parameters.UnfilteredLinkUrl)){
                     model.AddItem((CefMenuCommand)MenuOpenLinkUrl, "Open account in browser");
