@@ -103,7 +103,7 @@ namespace TweetDuck.Data{
             public string[] KeyValue{
                 get{
                     int index = Identifier.IndexOf(KeySeparator);
-                    return index == -1 ? new string[0] : Identifier.Substring(index+1).Split(KeySeparator);
+                    return index == -1 ? StringUtils.EmptyArray : Identifier.Substring(index+1).Split(KeySeparator);
                 }
             }
 

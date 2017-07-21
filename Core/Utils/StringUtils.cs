@@ -4,6 +4,8 @@ using System.Text.RegularExpressions;
 
 namespace TweetDuck.Core.Utils{
     static class StringUtils{
+        public static readonly string[] EmptyArray = new string[0];
+
         public static string ExtractBefore(string str, char search, int startIndex = 0){
             int index = str.IndexOf(search, startIndex);
             return index == -1 ? str : str.Substring(0, index);

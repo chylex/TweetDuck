@@ -10,11 +10,11 @@ namespace TweetDuck.Core.Bridge{
         public static string LastRightClickedImage = string.Empty;
         public static string LastHighlightedTweet = string.Empty;
         public static string LastHighlightedQuotedTweet = string.Empty;
-        public static string[] LastHighlightedTweetImages = new string[0];
+        public static string[] LastHighlightedTweetImages = StringUtils.EmptyArray;
 
         public static void ResetStaticProperties(){
             LastRightClickedLink = LastRightClickedImage = LastHighlightedTweet = LastHighlightedQuotedTweet = string.Empty;
-            LastHighlightedTweetImages = new string[0];
+            LastHighlightedTweetImages = StringUtils.EmptyArray;
         }
 
         private readonly FormBrowser form;
