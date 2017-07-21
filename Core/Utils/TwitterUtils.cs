@@ -49,14 +49,14 @@ namespace TweetDuck.Core.Utils{
 
         public static void DownloadImage(string url, ImageQuality quality){
             string file = BrowserUtils.GetFileNameFromUrl(ExtractImageBaseLink(url));
-            string ext = Path.GetExtension(file);
+            string ext = Path.GetExtension(file); // includes dot
             
             using(SaveFileDialog dialog = new SaveFileDialog{
                 AutoUpgradeEnabled = true,
                 OverwritePrompt = true,
                 Title = "Save image",
                 FileName = file,
-                Filter = "Image ("+(string.IsNullOrEmpty(ext) ? "unknown" : ext)+")|*.*"
+                Filter = string.IsNullOrEmpty(ext) ? "Image (unknown)|*.*" : $"Image (*{ext})|*{ext}"
             }){
                 if (dialog.ShowDialog() == DialogResult.OK){
                     BrowserUtils.DownloadFileAsync(GetImageLink(url, quality), dialog.FileName, null, ex => {
