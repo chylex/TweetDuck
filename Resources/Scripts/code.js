@@ -323,10 +323,14 @@
   })();
   
   //
-  // Block: Allow bypassing of t.co in context menus.
+  // Block: Allow bypassing of t.co and include media previews in context menus.
   //
   $(document.body).delegate("a", "contextmenu", function(){
     $TD.setLastRightClickedLink($(this).attr("data-full-url") || "");
+  });
+  
+  $(document.body).delegate("a.js-media-image-link", "contextmenu", function(){
+    $TD.setLastRightClickedImage($(this)[0].style.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/, "$1"));
   });
   
   //

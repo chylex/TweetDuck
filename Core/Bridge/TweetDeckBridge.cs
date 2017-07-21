@@ -7,11 +7,12 @@ using TweetDuck.Core.Utils;
 namespace TweetDuck.Core.Bridge{
     sealed class TweetDeckBridge{
         public static string LastRightClickedLink = string.Empty;
+        public static string LastRightClickedImage = string.Empty;
         public static string LastHighlightedTweet = string.Empty;
         public static string LastHighlightedQuotedTweet = string.Empty;
 
         public static void ResetStaticProperties(){
-            LastRightClickedLink = LastHighlightedTweet = LastHighlightedQuotedTweet = string.Empty;
+            LastRightClickedLink = LastRightClickedImage = LastHighlightedTweet = LastHighlightedQuotedTweet = string.Empty;
         }
 
         private readonly FormBrowser form;
@@ -36,6 +37,10 @@ namespace TweetDuck.Core.Bridge{
 
         public void SetLastRightClickedLink(string link){
             form.InvokeAsyncSafe(() => LastRightClickedLink = link);
+        }
+
+        public void SetLastRightClickedImage(string link){
+            form.InvokeAsyncSafe(() => LastRightClickedImage = link);
         }
 
         public void SetLastHighlightedTweet(string link, string quotedLink){

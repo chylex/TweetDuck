@@ -14,6 +14,14 @@ namespace TweetDuck.Core.Handling{
 
         private static TwitterUtils.ImageQuality ImageQuality => Program.UserConfig.TwitterImageQuality;
 
+        private static string GetLink(IContextMenuParams parameters){
+            return string.IsNullOrEmpty(TweetDeckBridge.LastRightClickedLink) ? parameters.UnfilteredLinkUrl : TweetDeckBridge.LastRightClickedLink;
+        }
+
+        private static string GetImage(IContextMenuParams parameters){
+            return string.IsNullOrEmpty(TweetDeckBridge.LastRightClickedImage) ? parameters.SourceUrl : TweetDeckBridge.LastRightClickedImage;
+        }
+
         private const int MenuOpenLinkUrl = 26500;
         private const int MenuCopyLinkUrl = 26501;
         private const int MenuCopyUsername = 26502;
@@ -29,7 +37,9 @@ namespace TweetDuck.Core.Handling{
         }
 
         public virtual void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model){
-            if (parameters.TypeFlags.HasFlag(ContextMenuType.Link) && !parameters.UnfilteredLinkUrl.EndsWith("tweetdeck.twitter.com/#", StringComparison.Ordinal)){
+            bool hasTweetImage = !string.IsNullOrEmpty(TweetDeckBridge.LastRightClickedImage);
+
+            if (parameters.TypeFlags.HasFlag(ContextMenuType.Link) && !parameters.UnfilteredLinkUrl.EndsWith("tweetdeck.twitter.com/#", StringComparison.Ordinal) && !hasTweetImage){
                 if (RegexTwitterAccount.Value.IsMatch(parameters.UnfilteredLinkUrl)){
                     model.AddItem((CefMenuCommand)MenuOpenLinkUrl, "Open account in browser");
                     model.AddItem((CefMenuCommand)MenuCopyLinkUrl, "Copy account address");
@@ -43,7 +53,7 @@ namespace TweetDuck.Core.Handling{
                 model.AddSeparator();
             }
 
-            if (parameters.TypeFlags.HasFlag(ContextMenuType.Media) && parameters.HasImageContents){
+            if ((parameters.TypeFlags.HasFlag(ContextMenuType.Media) && parameters.HasImageContents) || hasTweetImage){
                 model.AddItem((CefMenuCommand)MenuOpenImage, "Open image in browser");
                 model.AddItem((CefMenuCommand)MenuSaveImage, "Save image as...");
                 model.AddItem((CefMenuCommand)MenuCopyImageUrl, "Copy image address");
@@ -58,19 +68,19 @@ namespace TweetDuck.Core.Handling{
                     break;
 
                 case MenuCopyLinkUrl:
-                    SetClipboardText(string.IsNullOrEmpty(TweetDeckBridge.LastRightClickedLink) ? parameters.UnfilteredLinkUrl : TweetDeckBridge.LastRightClickedLink);
+                    SetClipboardText(GetLink(parameters));
                     break;
 
                 case MenuOpenImage:
-                    BrowserUtils.OpenExternalBrowser(TwitterUtils.GetImageLink(parameters.SourceUrl, ImageQuality));
+                    BrowserUtils.OpenExternalBrowser(TwitterUtils.GetImageLink(GetImage(parameters), ImageQuality));
                     break;
 
                 case MenuSaveImage:
-                    TwitterUtils.DownloadImage(parameters.SourceUrl, ImageQuality);
+                    TwitterUtils.DownloadImage(GetImage(parameters), ImageQuality);
                     break;
 
                 case MenuCopyImageUrl:
-                    SetClipboardText(TwitterUtils.GetImageLink(parameters.SourceUrl, ImageQuality));
+                    SetClipboardText(TwitterUtils.GetImageLink(GetImage(parameters), ImageQuality));
                     break;
 
                 case MenuCopyUsername:
@@ -86,7 +96,10 @@ namespace TweetDuck.Core.Handling{
             return false;
         }
 
-        public virtual void OnContextMenuDismissed(IWebBrowser browserControl, IBrowser browser, IFrame frame){}
+        public virtual void OnContextMenuDismissed(IWebBrowser browserControl, IBrowser browser, IFrame frame){
+            TweetDeckBridge.LastRightClickedLink = string.Empty;
+            TweetDeckBridge.LastRightClickedImage = string.Empty;
+        }
 
         public virtual bool RunContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model, IRunContextMenuCallback callback){
             return false;
