@@ -87,7 +87,7 @@ namespace TweetDuck.Core.Other{
 
             this.prevLabelWidth = labelMessage.Width;
             this.prevLabelHeight = labelMessage.Height;
-            this.minFormWidth = BrowserUtils.Scale(40, dpiScale);
+            this.minFormWidth = BrowserUtils.Scale(42, dpiScale);
 
             switch(messageIcon){
                 case MessageBoxIcon.Information:
@@ -108,7 +108,7 @@ namespace TweetDuck.Core.Other{
 
                 default:
                     icon = null;
-                    labelMessage.Location = new Point(labelMessage.Location.X-38, labelMessage.Location.Y);
+                    labelMessage.Location = new Point(BrowserUtils.Scale(19, dpiScale), labelMessage.Location.Y); // 19 instead of 9 due to larger height
                     break;
             }
 
@@ -176,7 +176,7 @@ namespace TweetDuck.Core.Other{
         
         private void RecalculateButtonLocation(){
             int dist = ButtonDistance;
-            int start = ClientWidth-dist-BrowserUtils.Scale(1, dpiScale);
+            int start = ClientWidth-dist;
 
             for(int index = 0; index < buttonCount; index++){
                 Control control = panelActions.Controls[index];
@@ -201,7 +201,7 @@ namespace TweetDuck.Core.Other{
                 prevLabelHeight -= labelOffset;
             }
 
-            realFormWidth = ClientWidth-(icon == null ? 50 : 0)+labelMessage.Width-prevLabelWidth;
+            realFormWidth = ClientWidth-(icon == null ? BrowserUtils.Scale(50, dpiScale) : 0)+labelMessage.Width-prevLabelWidth;
             ClientWidth = Math.Max(realFormWidth, minFormWidth);
             Height += labelMessage.Height-prevLabelHeight;
 
@@ -212,7 +212,7 @@ namespace TweetDuck.Core.Other{
 
         protected override void OnPaint(PaintEventArgs e){
             if (icon != null){
-                e.Graphics.DrawIcon(icon, BrowserUtils.Scale(25, dpiScale), BrowserUtils.Scale(26, dpiScale));
+                e.Graphics.DrawIcon(icon, BrowserUtils.Scale(25, dpiScale), 1+BrowserUtils.Scale(25, dpiScale));
             }
 
             base.OnPaint(e);
