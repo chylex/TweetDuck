@@ -10,16 +10,12 @@ namespace UnitTests.Data{
             A, B, C, D, E
         }
 
-        private class SerializationTestBasic : ISerializedObject{
+        private class SerializationTestBasic{
             public bool TestBool { get; set; }
             public int TestInt { get; set; }
             public string TestString { get; set; }
             public string TestStringNull { get; set; }
             public TestEnum TestEnum { get; set; }
-
-            bool ISerializedObject.OnReadUnknownProperty(string property, string value){
-                return false;
-            }
         }
 
         [TestMethod]
