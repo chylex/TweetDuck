@@ -676,6 +676,9 @@
     addRule(".sprite-logo { background-position: -5px -46px !important; }"); // fix TweetDeck logo on certain zoom levels
     addRule(".app-navigator .tooltip { display: none !important; }"); // hide broken tooltips in the menu
     
+    addRule(".btn, .mdl, .mdl-content, .app-search-fake, .app-search-input, .popover, .dropdown-menu, .lst-modal, .media-item { border-radius: 1px !important }"); // square-ify buttons, inputs, dialogs, menus, and media previews
+    addRule(".prf-header { border-radius: 0 }"); // fix user account header border
+    
     addRule(".is-condensed .app-header-inner { padding-top: 10px !important; }"); // add extra padding to menu buttons when condensed
     addRule(".is-condensed .btn-compose { padding: 8px !important; }"); // fix compose button icon when condensed
     addRule(".app-header:not(.is-condensed) .nav-user-info { padding: 0 5px; }"); // add padding to user info
