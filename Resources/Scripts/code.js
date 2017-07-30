@@ -530,13 +530,15 @@
     
     window.TDGF_onMouseClickExtra = function(button){
       if (button === 1){ // back button
+        tryClickSelector(".is-shifted-2 .js-tweet-social-proof-back", ".js-modal-panel") ||
+        tryClickSelector(".is-shifted-1 .js-column-back", ".js-modal-panel") ||
         tryCloseModal1() ||
         tryCloseModal2() ||
         tryClickSelector(".js-inline-compose-close") ||
         tryCloseHighlightedColumn() ||
         tryClickSelector(".js-app-content.is-open .js-drawer-close:visible") ||
         tryClickSelector(".is-shifted-2 .js-tweet-social-proof-back, .is-shifted-2 .js-dm-participants-back") ||
-        $(".js-column-back").click();
+        $(".is-shifted-1 .js-column-back").click();
       }
       else if (button === 2){ // forward button
         if (highlightedTweetEle){
