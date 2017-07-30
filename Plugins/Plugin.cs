@@ -42,7 +42,7 @@ namespace TweetDuck.Plugins{
 
         private readonly string pathRoot;
         private readonly string pathData;
-        private readonly Dictionary<string, string> metadata = new Dictionary<string, string>(4){
+        private readonly Dictionary<string, string> metadata = new Dictionary<string, string>(8){
             { "NAME", "" },
             { "DESCRIPTION", "" },
             { "AUTHOR", "(anonymous)" },

@@ -129,6 +129,8 @@ namespace TweetDuck.Configuration{
         public event EventHandler MuteToggled;
         public event EventHandler ZoomLevelChanged;
         public event EventHandler TrayBehaviorChanged;
+
+        // END OF CONFIG
         
         private readonly string file;
 
