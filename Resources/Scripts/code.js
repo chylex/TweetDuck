@@ -604,16 +604,18 @@
   })();
   
   //
-  // Block: Swap shift key functionality for selecting accounts.
+  // Block: Swap shift key functionality for selecting accounts, and refocus the textbox afterwards.
   //
   onAppReady.push(function(){
-    var toggleEventShiftKey = function(e){
+    var onAccountClick = function(e){
       if ($TDX.switchAccountSelectors){
         e.shiftKey = !e.shiftKey;
       }
+      
+      $(".js-compose-text", ".js-docked-compose").focus();
     };
     
-    $(".js-drawer[data-drawer='compose']").delegate(".js-account-list > .js-account-item", "click", toggleEventShiftKey);
+    $(".js-drawer[data-drawer='compose']").delegate(".js-account-list > .js-account-item", "click", onAccountClick);
     
     if (!ensurePropertyExists(TD, "components", "AccountSelector", "prototype", "refreshPostingAccounts")){
       return;
@@ -622,7 +624,7 @@
     TD.components.AccountSelector.prototype.refreshPostingAccounts = appendToFunction(TD.components.AccountSelector.prototype.refreshPostingAccounts, function(){
       if (!this.$node.attr("td-account-selector-hook")){
         this.$node.attr("td-account-selector-hook", "1");
-        this.$node.delegate(".js-account-item", "click", toggleEventShiftKey);
+        this.$node.delegate(".js-account-item", "click", onAccountClick);
       }
     });
   });
