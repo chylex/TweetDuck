@@ -13,16 +13,16 @@ namespace TweetDuck.Core.Handling {
                 TextBox input = null;
 
                 if (dialogType == CefJsDialogType.Alert){
-                    form = new FormMessage("TweetDuck Browser Message", messageText, MessageBoxIcon.None);
+                    form = new FormMessage("Browser Message", messageText, MessageBoxIcon.None);
                     form.AddButton(FormMessage.OK, ControlType.Accept | ControlType.Focused);
                 }
                 else if (dialogType == CefJsDialogType.Confirm){
-                    form = new FormMessage("TweetDuck Browser Confirmation", messageText, MessageBoxIcon.None);
+                    form = new FormMessage("Browser Confirmation", messageText, MessageBoxIcon.None);
                     form.AddButton(FormMessage.No, DialogResult.No, ControlType.Cancel);
                     form.AddButton(FormMessage.Yes, ControlType.Focused);
                 }
                 else if (dialogType == CefJsDialogType.Prompt){
-                    form = new FormMessage("TweetDuck Browser Prompt", messageText, MessageBoxIcon.None);
+                    form = new FormMessage("Browser Prompt", messageText, MessageBoxIcon.None);
                     form.AddButton(FormMessage.Cancel, DialogResult.Cancel, ControlType.Cancel);
                     form.AddButton(FormMessage.OK, ControlType.Accept | ControlType.Focused);
 
