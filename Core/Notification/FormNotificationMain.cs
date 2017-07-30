@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
+using TweetDuck.Core.Handling;
 using TweetDuck.Core.Utils;
 using TweetDuck.Data;
 using TweetDuck.Plugins;
@@ -82,7 +83,9 @@ namespace TweetDuck.Core.Notification{
             InitializeComponent();
 
             this.plugins = pluginManager;
-
+            
+            browser.KeyboardHandler = new KeyboardHandlerNotification(this);
+            
             browser.RegisterAsyncJsObject("$TD", new TweetDeckBridge(owner, this));
             browser.RegisterAsyncJsObject("$TDP", plugins.Bridge);
 
