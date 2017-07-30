@@ -667,39 +667,38 @@
       styleOfficial.sheet.insertRule(rule, 0);
     };
     
-    addRule("a[data-full-url] { word-break: break-all; }", 0); // break long urls
-    addRule(".keyboard-shortcut-list { vertical-align: top; }", 0); // fix keyboard navigation alignment
-    addRule(".account-inline .username { vertical-align: 10%; }", 0); // move usernames a bit higher
+    addRule("a[data-full-url] { word-break: break-all; }"); // break long urls
+    addRule(".keyboard-shortcut-list { vertical-align: top; }"); // fix keyboard navigation alignment
+    addRule(".account-inline .username { vertical-align: 10%; }"); // move usernames a bit higher
     
-    addRule(".column-nav-link .attribution { position: absolute; }", 0); // fix cut off account names
-    addRule(".txt-base-smallest .sprite-verified-mini { width: 13px !important; height: 13px !important; background-position: -223px -99px !important; }", 0); // fix cut off badge icon when zoomed in
-    addRule(".sprite-logo { background-position: -5px -46px !important; }", 0); // fix TweetDeck logo on certain zoom levels
-    addRule(".app-navigator .tooltip { display: none !important; }", 0); // hide broken tooltips in the menu
+    addRule(".column-nav-link .attribution { position: absolute; }"); // fix cut off account names
+    addRule(".txt-base-smallest .sprite-verified-mini { width: 13px !important; height: 13px !important; background-position: -223px -99px !important; }"); // fix cut off badge icon when zoomed in
+    addRule(".sprite-logo { background-position: -5px -46px !important; }"); // fix TweetDeck logo on certain zoom levels
+    addRule(".app-navigator .tooltip { display: none !important; }"); // hide broken tooltips in the menu
     
-    addRule(".btn-compose, .app-search-fake, .app-search-input { border-radius: 1px; }", 0); // use consistent menu button radius
-    addRule(".is-condensed .app-header-inner { padding-top: 10px !important; }", 0); // add extra padding to menu buttons when condensed
-    addRule(".is-condensed .btn-compose { padding: 8px !important; }", 0); // fix compose button icon when condensed
-    addRule(".app-header:not(.is-condensed) .nav-user-info { padding: 0 5px; }", 0); // add padding to user info
+    addRule(".is-condensed .app-header-inner { padding-top: 10px !important; }"); // add extra padding to menu buttons when condensed
+    addRule(".is-condensed .btn-compose { padding: 8px !important; }"); // fix compose button icon when condensed
+    addRule(".app-header:not(.is-condensed) .nav-user-info { padding: 0 5px; }"); // add padding to user info
     
-    addRule(".app-title { display: none; }", 0); // hide TweetDeck logo
-    addRule(".nav-user-info { bottom: 10px !important; }", 0); // move user info
-    addRule(".app-navigator { bottom: 50px !important; }", 0); // move navigation
-    addRule(".column-navigator-overflow { bottom: 192px !important; }", 0); // move column list
+    addRule(".app-title { display: none; }"); // hide TweetDeck logo
+    addRule(".nav-user-info { bottom: 10px !important; }"); // move user info
+    addRule(".app-navigator { bottom: 50px !important; }"); // move navigation
+    addRule(".column-navigator-overflow { bottom: 192px !important; }"); // move column list
     
-    addRule(".column .column-header { height: 49px !important; }", 0); // fix one pixel space below column header
-    addRule(".column:not(.is-options-open) .column-header { border-bottom: none; }", 0); // fix one pixel space below column header
+    addRule(".column .column-header { height: 49px !important; }"); // fix one pixel space below column header
+    addRule(".column:not(.is-options-open) .column-header { border-bottom: none; }"); // fix one pixel space below column header
     
-    addRule(".activity-header { align-items: center !important; margin-bottom: 4px; }", 0); // tweak alignment of avatar and text in notifications
-    addRule(".activity-header .tweet-timestamp { line-height: unset }", 0); // fix timestamp position in notifications
+    addRule(".activity-header { align-items: center !important; margin-bottom: 4px; }"); // tweak alignment of avatar and text in notifications
+    addRule(".activity-header .tweet-timestamp { line-height: unset }"); // fix timestamp position in notifications
     
-    addRule(".app-columns-container::-webkit-scrollbar-track { border-left: 0; }", 0); // remove weird border in the column container scrollbar
-    addRule(".app-columns-container { bottom: 0 !important; }", 0); // move column container scrollbar to bottom to fit updated style
+    addRule(".app-columns-container::-webkit-scrollbar-track { border-left: 0; }"); // remove weird border in the column container scrollbar
+    addRule(".app-columns-container { bottom: 0 !important; }"); // move column container scrollbar to bottom to fit updated style
     
-    addRule(".js-column-header .column-header-link { padding: 0; }", 0); // fix column header tooltip hover box
-    addRule(".js-column-header .column-header-link .icon { padding: 9px 4px; width: calc(1em + 8px); height: 100%; box-sizing: border-box; }", 0); // fix column header tooltip hover box
+    addRule(".js-column-header .column-header-link { padding: 0; }"); // fix column header tooltip hover box
+    addRule(".js-column-header .column-header-link .icon { padding: 9px 4px; width: calc(1em + 8px); height: 100%; box-sizing: border-box; }"); // fix column header tooltip hover box
     
-    addRule(".is-video a:not([href*='youtu']), .is-gif .js-media-gif-container { cursor: alias; }", 0); // change cursor on unsupported videos
-    addRule(".is-video a:not([href*='youtu']) .icon-bg-dot, .is-gif .icon-bg-dot { color: #bd3d37; }", 0); // change play icon color on unsupported videos
+    addRule(".is-video a:not([href*='youtu']), .is-gif .js-media-gif-container { cursor: alias; }"); // change cursor on unsupported videos
+    addRule(".is-video a:not([href*='youtu']) .icon-bg-dot, .is-gif .icon-bg-dot { color: #bd3d37; }"); // change play icon color on unsupported videos
     
     window.TDGF_reinjectCustomCSS = function(styles){
       $("#tweetduck-custom-css").remove();
