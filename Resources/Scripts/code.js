@@ -56,7 +56,7 @@
   //
   var appendToFunction = function(func, extension){
     return function(){
-      var res = func.apply(this, arguments);
+      let res = func.apply(this, arguments);
       extension.apply(this, arguments);
       return res;
     };
@@ -66,7 +66,7 @@
   // Function: Returns true if an object has a specified property, otherwise returns false without throwing an error.
   //
   var ensurePropertyExists = function(obj, ...chain){
-    for(var index = 0; index < chain.length; index++){
+    for(let index = 0; index < chain.length; index++){
       if (!obj.hasOwnProperty(chain[index])){
         $TD.crashDebug("Missing property "+chain[index]+" in chain [obj]."+chain.join("."));
         return false;
@@ -237,12 +237,12 @@
   onAppReady.push(function(){
     $("[data-action='settings-menu']").click(function(){
       setTimeout(function(){
-        var menu = $(".js-dropdown-content").children("ul").first();
+        let menu = $(".js-dropdown-content").children("ul").first();
         if (menu.length === 0)return;
         
         menu.children(".drp-h-divider").last().before('<li class="is-selectable" data-std><a href="#" data-action="tweetduck">TweetDuck</a></li>');
         
-        var button = menu.children("[data-std]");
+        let button = menu.children("[data-std]");
 
         button.on("click", "a", function(){
           $TD.openContextMenu();
@@ -272,7 +272,7 @@
       var me = $(this);
 
       if (e.type === "mouseenter"){
-        var text = me.text();
+        let text = me.text();
         
         if (text.charCodeAt(text.length-1) !== 8230){ // horizontal ellipsis
           return;
@@ -280,7 +280,7 @@
         
         if ($TDX.expandLinksOnHover){
           tooltipTimer = window.setTimeout(function(){
-            var expanded = me.attr("data-full-url");
+            let expanded = me.attr("data-full-url");
             expanded = cutStart(expanded, "https://");
             expanded = cutStart(expanded, "http://");
             expanded = cutStart(expanded, "www.");
@@ -298,7 +298,7 @@
       }
       else if (e.type === "mouseleave"){
         if ($TDX.expandLinksOnHover){
-          var prevText = me.attr("td-prev-text");
+          let prevText = me.attr("td-prev-text");
 
           if (prevText){
             me.text(prevText);
@@ -344,7 +344,7 @@
   // Block: Hook into the notification sound effect.
   //
   (function(){
-    var soundEle = document.getElementById("update-sound");
+    let soundEle = document.getElementById("update-sound");
     
     soundEle.play = prependToFunction(soundEle.play, function(){
       return $TDX.muteNotifications || $TDX.hasCustomNotificationSound;
@@ -386,19 +386,19 @@
     
     app.delegate("article.js-stream-item", "mouseenter mouseleave", function(e){
       if (e.type === "mouseenter"){
-        var me = $(this);
+        let me = $(this);
         
         if (!me[0].hasAttribute("data-account-key") || (!highlightedColumnObj && !updateHighlightedColumn(me.closest("section.js-column")))){
           return;
         }
         
-        var tweet = highlightedColumnObj.findChirp(me.attr("data-tweet-id")) || highlightedColumnObj.findChirp(me.attr("data-key"));
+        let tweet = highlightedColumnObj.findChirp(me.attr("data-tweet-id")) || highlightedColumnObj.findChirp(me.attr("data-key"));
         
         if (tweet){
           if (tweet.chirpType === TD.services.ChirpBase.TWEET){
-            var link = tweet.getChirpURL();
-            var embedded = tweet.quotedTweet ? tweet.quotedTweet.getChirpURL() : "";
-            var images = tweet.hasImage() ? tweet.getMedia().filter(item => !item.isAnimatedGif).map(item => item.entity.media_url_https+":small").join(";") : "";
+            let link = tweet.getChirpURL();
+            let embedded = tweet.quotedTweet ? tweet.quotedTweet.getChirpURL() : "";
+            let images = tweet.hasImage() ? tweet.getMedia().filter(item => !item.isAnimatedGif).map(item => item.entity.media_url_https+":small").join(";") : "";
             // TODO maybe handle embedded images too?
             
             updateHighlightedTweet(me, tweet, link || "", embedded || "", images);
@@ -432,11 +432,11 @@
     
     window.TDGF_triggerScreenshot = function(){
       if (selectedTweet){
-        var tweetWidth = Math.floor(selectedTweet.width());
-        var parent = selectedTweet.parent();
+        let tweetWidth = Math.floor(selectedTweet.width());
+        let parent = selectedTweet.parent();
         
-        var isDetail = parent.hasClass("js-tweet-detail");
-        var isReply = !isDetail && (parent.hasClass("js-replies-to") || parent.hasClass("js-replies-before"));
+        let isDetail = parent.hasClass("js-tweet-detail");
+        let isReply = !isDetail && (parent.hasClass("js-replies-to") || parent.hasClass("js-replies-before"));
         
         selectedTweet = selectedTweet.clone();
         selectedTweet.children().first().addClass($(document.documentElement).attr("class")).css("padding-bottom", "0");
@@ -470,13 +470,13 @@
         selectedTweet.find(".js-poll-link").remove();
         selectedTweet.find(".td-screenshot-remove").remove();
         
-        var testTweet = selectedTweet.clone().css({
+        let testTweet = selectedTweet.clone().css({
           position: "absolute",
           left: "-999px",
           width: tweetWidth+"px"
         }).appendTo(document.body);
         
-        var realHeight = Math.floor(testTweet.height());
+        let realHeight = Math.floor(testTweet.height());
         testTweet.remove();
         
         $TD.screenshotTweet(selectedTweet.html(), tweetWidth, realHeight);
@@ -512,18 +512,18 @@
     };
     
     var tryCloseModal1 = function(){
-      var modal = $("#open-modal");
+      let modal = $("#open-modal");
       return modal.is(":visible") && tryClickSelector("a.mdl-dismiss", modal);
     };
     
     var tryCloseModal2 = function(){
-      var modal = $(".js-modals-container");
+      let modal = $(".js-modals-container");
       return modal.length && tryClickSelector("a.mdl-dismiss", modal);
     };
     
     var tryCloseHighlightedColumn = function(){
       if (highlightedColumnEle){
-        var column = highlightedColumnEle.closest(".js-column");
+        let column = highlightedColumnEle.closest(".js-column");
         return (column.is(".is-shifted-2") && tryClickSelector(".js-tweet-social-proof-back", column)) || (column.is(".is-shifted-1") && tryClickSelector(".js-column-back", column));
       }
     };
@@ -551,7 +551,7 @@
   //
   $(document).on("dataTweetSent", function(e, data){
     if (data.response.state && data.response.state === "scheduled"){
-      var column = Object.values(TD.controller.columnManager.getAll()).find(column => column.model.state.type === "scheduled");
+      let column = Object.values(TD.controller.columnManager.getAll()).find(column => column.model.state.type === "scheduled");
 
       if (column){
         setTimeout(function(){
@@ -658,41 +658,46 @@
   // Block: Inject custom CSS and layout into the page.
   //
   (function(){
-    var styleOfficial = document.createElement("style");
+    let styleOfficial = document.createElement("style");
     document.head.appendChild(styleOfficial);
     
-    styleOfficial.sheet.insertRule("a[data-full-url] { word-break: break-all; }", 0); // break long urls
-    styleOfficial.sheet.insertRule(".column-nav-link .attribution { position: absolute; }", 0); // fix cut off account names
-    styleOfficial.sheet.insertRule(".txt-base-smallest .sprite-verified-mini { width: 13px !important; height: 13px !important; background-position: -223px -99px !important; }", 0); // fix cut off badge icon when zoomed in
-    styleOfficial.sheet.insertRule(".keyboard-shortcut-list { vertical-align: top; }", 0); // fix keyboard navigation alignment
-    styleOfficial.sheet.insertRule(".sprite-logo { background-position: -5px -46px !important; }", 0); // fix TweetDeck logo on certain zoom levels
-    styleOfficial.sheet.insertRule(".app-navigator .tooltip { display: none !important; }", 0); // hide broken tooltips in the menu
-    styleOfficial.sheet.insertRule(".account-inline .username { vertical-align: 10%; }", 0); // move usernames a bit higher
+    let addRule = (rule) => {
+      styleOfficial.sheet.insertRule(rule, 0);
+    };
     
-    styleOfficial.sheet.insertRule(".btn-compose, .app-search-fake, .app-search-input { border-radius: 1px; }", 0); // use consistent menu button radius
-    styleOfficial.sheet.insertRule(".is-condensed .app-header-inner { padding-top: 10px !important; }", 0); // add extra padding to menu buttons when condensed
-    styleOfficial.sheet.insertRule(".is-condensed .btn-compose { padding: 8px !important; }", 0); // fix compose button icon when condensed
-    styleOfficial.sheet.insertRule(".app-header:not(.is-condensed) .nav-user-info { padding: 0 5px; }", 0); // add padding to user info
+    addRule("a[data-full-url] { word-break: break-all; }", 0); // break long urls
+    addRule(".keyboard-shortcut-list { vertical-align: top; }", 0); // fix keyboard navigation alignment
+    addRule(".account-inline .username { vertical-align: 10%; }", 0); // move usernames a bit higher
     
-    styleOfficial.sheet.insertRule(".app-title { display: none; }", 0); // hide TweetDeck logo
-    styleOfficial.sheet.insertRule(".nav-user-info { bottom: 10px !important; }", 0); // move user info
-    styleOfficial.sheet.insertRule(".app-navigator { bottom: 50px !important; }", 0); // move navigation
-    styleOfficial.sheet.insertRule(".column-navigator-overflow { bottom: 192px !important; }", 0); // move column list
+    addRule(".column-nav-link .attribution { position: absolute; }", 0); // fix cut off account names
+    addRule(".txt-base-smallest .sprite-verified-mini { width: 13px !important; height: 13px !important; background-position: -223px -99px !important; }", 0); // fix cut off badge icon when zoomed in
+    addRule(".sprite-logo { background-position: -5px -46px !important; }", 0); // fix TweetDeck logo on certain zoom levels
+    addRule(".app-navigator .tooltip { display: none !important; }", 0); // hide broken tooltips in the menu
     
-    styleOfficial.sheet.insertRule(".column .column-header { height: 49px !important; }", 0); // fix one pixel space below column header
-    styleOfficial.sheet.insertRule(".column:not(.is-options-open) .column-header { border-bottom: none; }", 0); // fix one pixel space below column header
+    addRule(".btn-compose, .app-search-fake, .app-search-input { border-radius: 1px; }", 0); // use consistent menu button radius
+    addRule(".is-condensed .app-header-inner { padding-top: 10px !important; }", 0); // add extra padding to menu buttons when condensed
+    addRule(".is-condensed .btn-compose { padding: 8px !important; }", 0); // fix compose button icon when condensed
+    addRule(".app-header:not(.is-condensed) .nav-user-info { padding: 0 5px; }", 0); // add padding to user info
     
-    styleOfficial.sheet.insertRule(".activity-header { align-items: center !important; margin-bottom: 4px; }", 0); // tweak alignment of avatar and text in notifications
-    styleOfficial.sheet.insertRule(".activity-header .tweet-timestamp { line-height: unset }", 0); // fix timestamp position in notifications
+    addRule(".app-title { display: none; }", 0); // hide TweetDeck logo
+    addRule(".nav-user-info { bottom: 10px !important; }", 0); // move user info
+    addRule(".app-navigator { bottom: 50px !important; }", 0); // move navigation
+    addRule(".column-navigator-overflow { bottom: 192px !important; }", 0); // move column list
     
-    styleOfficial.sheet.insertRule(".app-columns-container::-webkit-scrollbar-track { border-left: 0; }", 0); // remove weird border in the column container scrollbar
-    styleOfficial.sheet.insertRule(".app-columns-container { bottom: 0 !important; }", 0); // move column container scrollbar to bottom to fit updated style
+    addRule(".column .column-header { height: 49px !important; }", 0); // fix one pixel space below column header
+    addRule(".column:not(.is-options-open) .column-header { border-bottom: none; }", 0); // fix one pixel space below column header
     
-    styleOfficial.sheet.insertRule(".js-column-header .column-header-link { padding: 0; }", 0); // fix column header tooltip hover box
-    styleOfficial.sheet.insertRule(".js-column-header .column-header-link .icon { padding: 9px 4px; width: calc(1em + 8px); height: 100%; box-sizing: border-box; }", 0); // fix column header tooltip hover box
+    addRule(".activity-header { align-items: center !important; margin-bottom: 4px; }", 0); // tweak alignment of avatar and text in notifications
+    addRule(".activity-header .tweet-timestamp { line-height: unset }", 0); // fix timestamp position in notifications
     
-    styleOfficial.sheet.insertRule(".is-video a:not([href*='youtu']), .is-gif .js-media-gif-container { cursor: alias; }", 0); // change cursor on unsupported videos
-    styleOfficial.sheet.insertRule(".is-video a:not([href*='youtu']) .icon-bg-dot, .is-gif .icon-bg-dot { color: #bd3d37; }", 0); // change play icon color on unsupported videos
+    addRule(".app-columns-container::-webkit-scrollbar-track { border-left: 0; }", 0); // remove weird border in the column container scrollbar
+    addRule(".app-columns-container { bottom: 0 !important; }", 0); // move column container scrollbar to bottom to fit updated style
+    
+    addRule(".js-column-header .column-header-link { padding: 0; }", 0); // fix column header tooltip hover box
+    addRule(".js-column-header .column-header-link .icon { padding: 9px 4px; width: calc(1em + 8px); height: 100%; box-sizing: border-box; }", 0); // fix column header tooltip hover box
+    
+    addRule(".is-video a:not([href*='youtu']), .is-gif .js-media-gif-container { cursor: alias; }", 0); // change cursor on unsupported videos
+    addRule(".is-video a:not([href*='youtu']) .icon-bg-dot, .is-gif .icon-bg-dot { color: #bd3d37; }", 0); // change play icon color on unsupported videos
     
     window.TDGF_reinjectCustomCSS = function(styles){
       $("#tweetduck-custom-css").remove();
@@ -732,7 +737,7 @@
         !ensurePropertyExists(TD, "ui", "Column", "prototype", "playGifIfNotManuallyPaused"))return;
     
     TD.components.MediaGallery.prototype._loadTweet = appendToFunction(TD.components.MediaGallery.prototype._loadTweet, function(){
-      var media = this.chirp.getMedia().find(media => media.mediaId === this.clickedMediaEntityId);
+      let media = this.chirp.getMedia().find(media => media.mediaId === this.clickedMediaEntityId);
 
       if (media && media.isVideo && media.service !== "youtube"){
         $TD.openBrowser(this.clickedLink);
@@ -751,8 +756,8 @@
     TD.mustaches["status/media_thumb.mustache"] = TD.mustaches["status/media_thumb.mustache"].replace("is-gif", "is-gif is-paused");
     
     app.delegate(".js-gif-play", "click", function(e){
-      var parent = $(e.target).closest(".js-tweet").first();
-      var link = (parent.hasClass("tweet-detail") ? parent.find("a[rel='url']") : parent.find("time").first().children("a")).first();
+      let parent = $(e.target).closest(".js-tweet").first();
+      let link = (parent.hasClass("tweet-detail") ? parent.find("a[rel='url']") : parent.find("time").first().children("a")).first();
       
       $TD.openBrowser(link.attr("href"));
       e.stopPropagation();
@@ -763,7 +768,7 @@
   // Block: Fix youtu.be previews not showing up for https links.
   //
   if (ensurePropertyExists(TD, "services", "TwitterMedia")){
-    var media = TD.services.TwitterMedia;
+    let media = TD.services.TwitterMedia;
     
     if (!ensurePropertyExists(media, "YOUTUBE_TINY_RE") ||
         !ensurePropertyExists(media, "YOUTUBE_LONG_RE") ||
@@ -855,6 +860,7 @@
   //
   $(document).one("TD.ready", function(){
     onAppReady.forEach(func => func());
+    onAppReady = null;
     
     $TD.loadFontSizeClass(TD.settings.getFontSize());
     $TD.loadNotificationHeadContents(getNotificationHeadContents());
