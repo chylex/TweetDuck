@@ -672,6 +672,7 @@
     addRule("a[data-full-url] { word-break: break-all; }"); // break long urls
     addRule(".keyboard-shortcut-list { vertical-align: top; }"); // fix keyboard navigation alignment
     addRule(".account-inline .username { vertical-align: 10%; }"); // move usernames a bit higher
+    addRule(".character-count-compose { width: 40px !important; }"); // fix strangely wide character count element
     
     addRule(".column-nav-link .attribution { position: absolute; }"); // fix cut off account names
     addRule(".txt-base-smallest .sprite-verified-mini { width: 13px !important; height: 13px !important; background-position: -223px -99px !important; }"); // fix cut off badge icon when zoomed in
