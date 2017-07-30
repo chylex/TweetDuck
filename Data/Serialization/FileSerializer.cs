@@ -6,11 +6,14 @@ using System.Reflection;
 using System.Runtime.Serialization;
 
 namespace TweetDuck.Data.Serialization{
-    sealed class FileSerializer<T> where T : ISerializedObject{
+    sealed class FileSerializer<T>{
         private const string NewLineReal = "\r\n";
         private const string NewLineCustom = "\r~\n";
 
         private static readonly ITypeConverter BasicSerializerObj = new BasicTypeConverter();
+        
+        public delegate bool OnReadUnknownPropertyHandler(T obj, string property, string value);
+        public OnReadUnknownPropertyHandler OnReadUnknownProperty { get; set; }
         
         private readonly Dictionary<string, PropertyInfo> props;
         private readonly Dictionary<Type, ITypeConverter> converters;
@@ -49,7 +52,7 @@ namespace TweetDuck.Data.Serialization{
 
         public void Read(string file, T obj){
             using(StreamReader reader = new StreamReader(new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read))){
-                if (reader.Peek() == 0){
+                if (reader.Peek() <= 1){
                     throw new FormatException("Input appears to be a binary file.");
                 }
 
@@ -75,7 +78,7 @@ namespace TweetDuck.Data.Serialization{
                             throw new SerializationException($"Invalid file format, cannot convert value: {value} (property: {property})");
                         }
                     }
-                    else if (!obj.OnReadUnknownProperty(property, value)){
+                    else if (!(OnReadUnknownProperty?.Invoke(obj, property, value) ?? false)){
                         throw new SerializationException($"Invalid file format, unknown property: {property}+");
                     }
                 }

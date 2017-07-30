@@ -2,11 +2,8 @@
 
 namespace TweetDuck.Data.Serialization{
     sealed class SingleTypeConverter<T> : ITypeConverter{
-        public delegate string FuncConvertToString<U>(U value);
-        public delegate U FuncConvertToObject<U>(string value);
-
-        public FuncConvertToString<T> ConvertToString { get; set; }
-        public FuncConvertToObject<T> ConvertToObject { get; set; }
+        public Func<T, string> ConvertToString { get; set; }
+        public Func<string, T> ConvertToObject { get; set; }
 
         bool ITypeConverter.TryWriteType(Type type, object value, out string converted){
             try{
