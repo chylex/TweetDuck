@@ -690,6 +690,7 @@
     
     addRule(".column .column-header { height: 49px !important; }"); // fix one pixel space below column header
     addRule(".column:not(.is-options-open) .column-header { border-bottom: none; }"); // fix one pixel space below column header
+    addRule(".is-options-open .column-type-icon { bottom: 27px; }"); // fix one pixel space below column header
     
     addRule(".activity-header { align-items: center !important; margin-bottom: 4px; }"); // tweak alignment of avatar and text in notifications
     addRule(".activity-header .tweet-timestamp { line-height: unset }"); // fix timestamp position in notifications

@@ -497,7 +497,8 @@ enabled(){
 .icon-list-filled:before{content:"\\f014";font-family:tweetdeckold}
 .icon-user-filled:before{content:"\\f035";font-family:tweetdeckold}
 
-.column-header .column-type-icon { bottom: 26px !important }
+.column-type-icon { bottom: 26px !important }
+.is-options-open .column-type-icon { bottom: 25px !important }
 .tweet-footer { margin-top: 6px !important }`;
       
       document.head.appendChild(this.icons);
