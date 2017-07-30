@@ -673,8 +673,6 @@
     
     addRule(".column-nav-link .attribution { position: absolute; }"); // fix cut off account names
     addRule(".txt-base-smallest .sprite-verified-mini { width: 13px !important; height: 13px !important; background-position: -223px -99px !important; }"); // fix cut off badge icon when zoomed in
-    addRule(".sprite-logo { background-position: -5px -46px !important; }"); // fix TweetDeck logo on certain zoom levels
-    addRule(".app-navigator .tooltip { display: none !important; }"); // hide broken tooltips in the menu
     
     addRule(".btn, .mdl, .mdl-content, .app-search-fake, .app-search-input, .popover, .dropdown-menu, .lst-modal, .media-item { border-radius: 1px !important }"); // square-ify buttons, inputs, dialogs, menus, and media previews
     addRule(".prf-header { border-radius: 0 }"); // fix user account header border
@@ -687,6 +685,7 @@
     addRule(".nav-user-info { bottom: 10px !important; }"); // move user info
     addRule(".app-navigator { bottom: 50px !important; }"); // move navigation
     addRule(".column-navigator-overflow { bottom: 192px !important; }"); // move column list
+    addRule(".app-navigator .tooltip { display: none !important; }"); // hide broken tooltips in the menu
     
     addRule(".column .column-header { height: 49px !important; }"); // fix one pixel space below column header
     addRule(".column:not(.is-options-open) .column-header { border-bottom: none; }"); // fix one pixel space below column header
