@@ -706,6 +706,13 @@
     addRule(".dropdown-menu, .list-item-last { border-radius: 0 !important }"); // square-ify dropdowns
     addRule(".prf-header { border-radius: 0 }"); // fix user account header border
     
+    addRule(".scroll-styled-v::-webkit-scrollbar-thumb, .scroll-styled-h::-webkit-scrollbar-thumb, .antiscroll-scrollbar { border-radius: 0 }"); // square-ify scroll bars
+    addRule(".antiscroll-scrollbar-vertical { margin-top: 0 }"); // square-ify scroll bars
+    addRule(".antiscroll-scrollbar-horizontal { margin-left: 0 }"); // square-ify scroll bars
+    addRule(".scroll-styled-v:not(.antiscroll-inner)::-webkit-scrollbar { width: 8px }"); // square-ify scroll bars
+    addRule(".scroll-styled-h:not(.antiscroll-inner)::-webkit-scrollbar { height: 8px }"); // square-ify scroll bars
+    addRule(".app-columns-container::-webkit-scrollbar { height: 9px !important }"); // square-ify scroll bars
+    
     addRule(".is-condensed .app-header-inner { padding-top: 10px !important; }"); // add extra padding to menu buttons when condensed
     addRule(".is-condensed .btn-compose { padding: 8px !important; }"); // fix compose button icon when condensed
     addRule(".app-header:not(.is-condensed) .nav-user-info { padding: 0 5px; }"); // add padding to user info

@@ -18,7 +18,6 @@ enabled(){
     moveTweetActionsToRight: true,
     revertReplies: false,
     themeColorTweaks: true,
-    roundedScrollBars: false,
     revertIcons: true,
     smallComposeTextSize: false,
     optimizeAnimations: true,
@@ -387,17 +386,6 @@ enabled(){
     
     if (this.config.smallComposeTextSize){
       this.css.insert(".compose-text { font-size: 12px !important; height: 120px !important }");
-    }
-    
-    if (!this.config.roundedScrollBars){
-      this.css.insert(".scroll-styled-v:not(.antiscroll-inner)::-webkit-scrollbar { width: 8px }");
-      this.css.insert(".scroll-styled-h:not(.antiscroll-inner)::-webkit-scrollbar { height: 8px }");
-      this.css.insert(".scroll-styled-v::-webkit-scrollbar-thumb { border-radius: 0 }");
-      this.css.insert(".scroll-styled-h::-webkit-scrollbar-thumb { border-radius: 0 }");
-      this.css.insert(".antiscroll-scrollbar { border-radius: 0 }");
-      this.css.insert(".antiscroll-scrollbar-vertical { margin-top: 0 }");
-      this.css.insert(".antiscroll-scrollbar-horizontal { margin-left: 0 }");
-      this.css.insert(".app-columns-container::-webkit-scrollbar { height: 9px !important }");
     }
     
     if (this.config.revertReplies){
