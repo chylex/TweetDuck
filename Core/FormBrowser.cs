@@ -463,7 +463,7 @@ namespace TweetDuck.Core{
                         memoryUsageTracker.Stop();
                     }
                     
-                    UpdateProperties(PropertyBridge.Properties.ExpandLinksOnHover | PropertyBridge.Properties.SwitchAccountSelectors | PropertyBridge.Properties.HasCustomNotificationSound);
+                    UpdateProperties(PropertyBridge.Properties.ExpandLinksOnHover | PropertyBridge.Properties.SwitchAccountSelectors | PropertyBridge.Properties.HasCustomNotificationSound | PropertyBridge.Properties.NotificationMediaPreviews);
 
                     notification.RequiresResize = true;
                     form.Dispose();

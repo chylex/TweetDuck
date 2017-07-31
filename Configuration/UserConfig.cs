@@ -53,6 +53,7 @@ namespace TweetDuck.Configuration{
         public string DismissedUpdate { get; set; } = null;
 
         public bool DisplayNotificationColumn    { get; set; } = false;
+        public bool NotificationMediaPreviews    { get; set; } = true;
         public bool NotificationSkipOnLinkClick  { get; set; } = false;
         public bool NotificationNonIntrusiveMode { get; set; } = true;
         public int NotificationIdlePauseSeconds  { get; set; } = 0;

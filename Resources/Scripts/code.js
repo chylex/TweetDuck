@@ -124,26 +124,48 @@
       return false;
     };
     
+    let fixMedia = (html, media) => {
+      return html.find(".js-media a[data-media-entity-id='"+media.mediaId+"']").css("background-image", 'url("'+media.thumb()+'")').removeClass("is-zoomable");
+    };
+    
     return function(column, tweet){
       if (checkRecentTweet(tweet.id)){
         return;
       }
       
       if (column.model.getHasNotification()){
+        let previews = $TDX.notificationMediaPreviews;
+        
         let html = $(tweet.render({
           withFooter: false,
           withTweetActions: false,
           withMediaPreview: true,
-          isMediaPreviewOff: true,
-          isMediaPreviewSmall: false,
-          isMediaPreviewLarge: false
+          isMediaPreviewOff: !previews,
+          isMediaPreviewSmall: previews,
+          isMediaPreviewLarge: false,
+          isMediaPreviewCompact: false,
+          isMediaPreviewInQuoted: previews,
+          thumbSizeClass: "media-size-medium"
         }));
-
+        
         html.css("border", "0");
         html.find("footer").last().remove(); // apparently withTweetActions breaks for certain tweets, nice
-        html.find(".js-media").last().remove(); // and quoted tweets still show media previews, nice nice
-        html.find(".js-quote-detail").removeClass("is-actionable"); // prevent quoted tweets from changing the cursor
-
+        html.find(".js-quote-detail").removeClass("is-actionable margin-b--8"); // prevent quoted tweets from changing the cursor and reduce bottom margin
+        
+        if (previews){
+          html.find(".reverse-image-search").remove();
+          
+          for(let media of tweet.getMedia()){
+            fixMedia(html, media);
+          }
+          
+          if (tweet.quotedTweet){
+            for(let media of tweet.quotedTweet.getMedia()){
+              fixMedia(html, media).addClass("media-size-medium");
+            }
+          }
+        }
+        
         html.find("a[href='#']").each(function(){ // remove <a> tags around links that don't lead anywhere (such as account names the tweet replied to)
           this.outerHTML = this.innerHTML;
         });

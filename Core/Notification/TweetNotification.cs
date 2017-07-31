@@ -9,7 +9,7 @@ namespace TweetDuck.Core.Notification{
 
         private const string DefaultFontSizeClass = "medium";
         private const string DefaultHeadTag = @"<meta charset='utf-8'><meta http-equiv='X-UA-Compatible' content='chrome=1'><link rel='stylesheet' href='https://ton.twimg.com/tweetdeck-web/web/css/font.5ef884f9f9.css'><link rel='stylesheet' href='https://ton.twimg.com/tweetdeck-web/web/css/app-dark.5631e0dd42.css'><style type='text/css'>body{background:#222426}</style>";
-        private const string CustomCSS = @"body:before{content:none}body{overflow-y:auto}.scroll-styled-v::-webkit-scrollbar{width:7px}.scroll-styled-v::-webkit-scrollbar-thumb{border-radius:0}.scroll-styled-v::-webkit-scrollbar-track{border-left:0}#td-skip{opacity:0;cursor:pointer;transition:opacity 0.15s ease}.td-hover #td-skip{opacity:0.75}#td-skip:hover{opacity:1}";
+        private const string CustomCSS = @"body:before{content:none}body{overflow-y:auto}.scroll-styled-v::-webkit-scrollbar{width:7px}.scroll-styled-v::-webkit-scrollbar-thumb{border-radius:0}.scroll-styled-v::-webkit-scrollbar-track{border-left:0}#td-skip{opacity:0;cursor:pointer;transition:opacity 0.15s ease}.td-hover #td-skip{opacity:0.75}#td-skip:hover{opacity:1}.media-size-medium{height:calc(100vh - 16px)!important;max-height:240px;border-radius:1px!important}.js-quote-detail .media-size-medium{height:calc(100vh - 28px)!important;}.js-media.margin-vm, .js-media-preview-container.margin-vm{margin-bottom:0!important}";
 
         public static int FontSizeLevel{
             get{

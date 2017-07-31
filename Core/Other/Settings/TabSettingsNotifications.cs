@@ -63,6 +63,7 @@ namespace TweetDuck.Core.Other.Settings{
             checkNotificationTimer.Checked = Config.DisplayNotificationTimer;
             checkTimerCountDown.Enabled = checkNotificationTimer.Checked;
             checkTimerCountDown.Checked = Config.NotificationTimerCountDown;
+            checkMediaPreviews.Checked = Config.NotificationMediaPreviews;
             checkSkipOnLinkClick.Checked = Config.NotificationSkipOnLinkClick;
             checkNonIntrusive.Checked = Config.NotificationNonIntrusiveMode;
 
@@ -96,6 +97,7 @@ namespace TweetDuck.Core.Other.Settings{
             checkColumnName.CheckedChanged += checkColumnName_CheckedChanged;
             checkNotificationTimer.CheckedChanged += checkNotificationTimer_CheckedChanged;
             checkTimerCountDown.CheckedChanged += checkTimerCountDown_CheckedChanged;
+            checkMediaPreviews.CheckedChanged += checkMediaPreviews_CheckedChanged;
             checkSkipOnLinkClick.CheckedChanged += checkSkipOnLinkClick_CheckedChanged;
             checkNonIntrusive.CheckedChanged += checkNonIntrusive_CheckedChanged;
 
@@ -216,6 +218,10 @@ namespace TweetDuck.Core.Other.Settings{
         private void checkTimerCountDown_CheckedChanged(object sender, EventArgs e){
             Config.NotificationTimerCountDown = checkTimerCountDown.Checked;
             notification.ShowNotificationForSettings(true);
+        }
+
+        private void checkMediaPreviews_CheckedChanged(object sender, EventArgs e){
+            Config.NotificationMediaPreviews = checkMediaPreviews.Checked;
         }
 
         private void checkSkipOnLinkClick_CheckedChanged(object sender, EventArgs e){

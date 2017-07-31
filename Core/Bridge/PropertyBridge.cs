@@ -10,7 +10,8 @@ namespace TweetDuck.Core.Bridge{
             HasCustomNotificationSound = 4,
             SkipOnLinkClick = 8,
             SwitchAccountSelectors = 16,
-            AllBrowser = ExpandLinksOnHover | SwitchAccountSelectors | MuteNotifications | HasCustomNotificationSound,
+            NotificationMediaPreviews = 32,
+            AllBrowser = ExpandLinksOnHover | SwitchAccountSelectors | MuteNotifications | HasCustomNotificationSound | NotificationMediaPreviews,
             AllNotification = ExpandLinksOnHover | SkipOnLinkClick
         }
 
@@ -32,6 +33,10 @@ namespace TweetDuck.Core.Bridge{
 
             if (properties.HasFlag(Properties.HasCustomNotificationSound)){
                 build.Append("c.hasCustomNotificationSound=").Append(Program.UserConfig.NotificationSoundPath.Length > 0 ? "true;" : "false;");
+            }
+
+            if (properties.HasFlag(Properties.NotificationMediaPreviews)){
+                build.Append("c.notificationMediaPreviews=").Append(Program.UserConfig.NotificationMediaPreviews ? "true;" : "false;");
             }
 
             if (properties.HasFlag(Properties.SkipOnLinkClick)){
