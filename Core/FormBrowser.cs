@@ -203,7 +203,7 @@ namespace TweetDuck.Core{
             if (e.Frame.IsMain && TwitterUtils.IsTweetDeckWebsite(e.Frame)){
                 e.Frame.ExecuteJavaScriptAsync(TwitterUtils.BackgroundColorFix);
 
-                UpdateProperties(PropertyBridge.Properties.AllBrowser);
+                UpdateProperties(PropertyBridge.Environment.Browser);
                 ScriptLoader.ExecuteFile(e.Frame, "code.js");
                 ReinjectCustomCSS(Config.CustomBrowserCSS);
 
@@ -304,7 +304,7 @@ namespace TweetDuck.Core{
         }
 
         private void Config_MuteToggled(object sender, EventArgs e){
-            UpdateProperties(PropertyBridge.Properties.MuteNotifications);
+            UpdateProperties(PropertyBridge.Environment.Browser);
         }
 
         private void Config_ZoomLevelChanged(object sender, EventArgs e){
@@ -423,8 +423,8 @@ namespace TweetDuck.Core{
             browser.ExecuteScriptAsync("TDGF_reinjectCustomCSS", css?.Replace(Environment.NewLine, " ") ?? string.Empty);
         }
 
-        public void UpdateProperties(PropertyBridge.Properties properties){
-            browser.ExecuteScriptAsync(PropertyBridge.GenerateScript(properties));
+        public void UpdateProperties(PropertyBridge.Environment environment){
+            browser.ExecuteScriptAsync(PropertyBridge.GenerateScript(environment));
         }
 
         public void ReloadToTweetDeck(){
@@ -464,7 +464,7 @@ namespace TweetDuck.Core{
                         memoryUsageTracker.Stop();
                     }
                     
-                    UpdateProperties(PropertyBridge.Properties.ExpandLinksOnHover | PropertyBridge.Properties.SwitchAccountSelectors | PropertyBridge.Properties.HasCustomNotificationSound | PropertyBridge.Properties.NotificationMediaPreviews);
+                    UpdateProperties(PropertyBridge.Environment.Browser);
 
                     notification.RequiresResize = true;
                     form.Dispose();

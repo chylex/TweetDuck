@@ -1,50 +1,32 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 
 namespace TweetDuck.Core.Bridge{
     static class PropertyBridge{
-        [Flags]
-        public enum Properties{
-            ExpandLinksOnHover = 1,
-            MuteNotifications = 2,
-            HasCustomNotificationSound = 4,
-            SkipOnLinkClick = 8,
-            SwitchAccountSelectors = 16,
-            NotificationMediaPreviews = 32,
-            AllBrowser = ExpandLinksOnHover | SwitchAccountSelectors | MuteNotifications | HasCustomNotificationSound | NotificationMediaPreviews,
-            AllNotification = ExpandLinksOnHover | SkipOnLinkClick
+        public enum Environment{
+            Browser, Notification
         }
 
-        public static string GenerateScript(Properties properties){
-            StringBuilder build = new StringBuilder();
-            build.Append("(function(c){");
-
-            if (properties.HasFlag(Properties.ExpandLinksOnHover)){
-                build.Append("c.expandLinksOnHover=").Append(Program.UserConfig.ExpandLinksOnHover ? "true;" : "false;");
+        public static string GenerateScript(Environment environment){
+            string Bool(bool value){
+                return value ? "true," : "false,";
             }
 
-            if (properties.HasFlag(Properties.SwitchAccountSelectors)){
-                build.Append("c.switchAccountSelectors=").Append(Program.UserConfig.SwitchAccountSelectors ? "true;" : "false;");
+            StringBuilder build = new StringBuilder().Append("window.$TDX={");
+
+            build.Append("expandLinksOnHover:").Append(Bool(Program.UserConfig.ExpandLinksOnHover));
+            
+            if (environment == Environment.Browser){
+                build.Append("switchAccountSelectors:").Append(Bool(Program.UserConfig.SwitchAccountSelectors));
+                build.Append("muteNotifications:").Append(Bool(Program.UserConfig.MuteNotifications));
+                build.Append("hasCustomNotificationSound:").Append(Bool(Program.UserConfig.NotificationSoundPath.Length > 0));
+                build.Append("notificationMediaPreviews:").Append(Bool(Program.UserConfig.NotificationMediaPreviews));
             }
 
-            if (properties.HasFlag(Properties.MuteNotifications)){
-                build.Append("c.muteNotifications=").Append(Program.UserConfig.MuteNotifications ? "true;" : "false;");
+            if (environment == Environment.Notification){
+                build.Append("skipOnLinkClick:").Append(Bool(Program.UserConfig.NotificationSkipOnLinkClick));
             }
-
-            if (properties.HasFlag(Properties.HasCustomNotificationSound)){
-                build.Append("c.hasCustomNotificationSound=").Append(Program.UserConfig.NotificationSoundPath.Length > 0 ? "true;" : "false;");
-            }
-
-            if (properties.HasFlag(Properties.NotificationMediaPreviews)){
-                build.Append("c.notificationMediaPreviews=").Append(Program.UserConfig.NotificationMediaPreviews ? "true;" : "false;");
-            }
-
-            if (properties.HasFlag(Properties.SkipOnLinkClick)){
-                build.Append("c.skipOnLinkClick=").Append(Program.UserConfig.NotificationSkipOnLinkClick ? "true;" : "false;");
-            }
-
-            build.Append("})(window.$TDX=window.$TDX||{})");
-            return build.ToString();
+            
+            return build.Append("}").ToString();
         }
     }
 }
