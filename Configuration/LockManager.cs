@@ -2,28 +2,26 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Configuration{
     sealed class LockManager{
+        private const int RetryDelay = 250;
+
         public enum Result{
             Success, HasProcess, Fail
         }
 
-        public Process LockingProcess { get; private set; }
-
         private readonly string file;
         private FileStream lockStream;
+        private Process lockingProcess;
 
         public LockManager(string file){
             this.file = file;
         }
 
-        private void CreateLockFileStream(){
-            lockStream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.Read);
-            WriteIntToStream(lockStream, WindowsUtils.CurrentProcessID);
-            lockStream.Flush(true);
-        }
+        // Lock file
 
         private bool ReleaseLockFileStream(){
             if (lockStream != null){
@@ -37,8 +35,10 @@ namespace TweetDuck.Configuration{
         }
 
         private Result TryCreateLockFile(){
-            if (lockStream != null){
-                throw new InvalidOperationException("Lock file already exists.");
+            void CreateLockFileStream(){
+                lockStream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.Read);
+                lockStream.Write(BitConverter.GetBytes(WindowsUtils.CurrentProcessID), 0, sizeof(int));
+                lockStream.Flush(true);
             }
 
             try{
@@ -60,6 +60,8 @@ namespace TweetDuck.Configuration{
             }
         }
 
+        // Lock management
+
         public Result Lock(){
             if (lockStream != null){
                 return Result.Success;
@@ -72,7 +74,9 @@ namespace TweetDuck.Configuration{
                     int pid;
 
                     using(FileStream fileStream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)){
-                        pid = ReadIntFromStream(fileStream);
+                        byte[] bytes = new byte[sizeof(int)];
+                        fileStream.Read(bytes, 0, bytes.Length);
+                        pid = BitConverter.ToInt32(bytes, 0);
                     }
 
                     try{
@@ -80,7 +84,7 @@ namespace TweetDuck.Configuration{
 
                         using(Process currentProcess = Process.GetCurrentProcess()){
                             if (foundProcess.MainModule.FileVersionInfo.InternalName == currentProcess.MainModule.FileVersionInfo.InternalName){
-                                LockingProcess = foundProcess;
+                                lockingProcess = foundProcess;
                             }
                             else{
                                 foundProcess.Close();
@@ -91,7 +95,7 @@ namespace TweetDuck.Configuration{
                         // Process.MainModule can throw exceptions in some cases
                     }
 
-                    return LockingProcess == null ? Result.Fail : Result.HasProcess;
+                    return lockingProcess == null ? Result.Fail : Result.HasProcess;
                 }catch{
                     return Result.Fail;
                 }
@@ -100,45 +104,72 @@ namespace TweetDuck.Configuration{
             return initialResult;
         }
 
-        public bool Unlock(){
-            bool result = true;
+        public Result LockWait(int timeout){
+            for(int elapsed = 0; elapsed < timeout; elapsed += RetryDelay){
+                Result result = Lock();
 
+                if (result == Result.HasProcess){
+                    Thread.Sleep(RetryDelay);
+                }
+                else{
+                    return result;
+                }
+            }
+
+            return Lock();
+        }
+
+        public bool Unlock(){
             if (ReleaseLockFileStream()){
                 try{
                     File.Delete(file);
                 }catch(Exception e){
                     Program.Reporter.Log(e.ToString());
-                    result = false;
+                    return false;
                 }
             }
 
-            return result;
+            return true;
+        }
+
+        // Locking process
+
+        public bool RestoreLockingProcess(int failTimeout){
+            if (lockingProcess != null){
+                if (lockingProcess.MainWindowHandle == IntPtr.Zero){ // restore if the original process is in tray
+                    NativeMethods.PostMessage(NativeMethods.HWND_BROADCAST, Program.WindowRestoreMessage, new UIntPtr((uint)lockingProcess.Id), IntPtr.Zero);
+
+                    if (WindowsUtils.TrySleepUntil(() => CheckLockingProcessExited() || (lockingProcess.MainWindowHandle != IntPtr.Zero && lockingProcess.Responding), failTimeout, RetryDelay)){
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         public bool CloseLockingProcess(int closeTimeout, int killTimeout){
-            if (LockingProcess != null){
+            if (lockingProcess != null){
                 try{
-                    if (LockingProcess.CloseMainWindow()){
-                        WindowsUtils.TrySleepUntil(CheckLockingProcessExited, closeTimeout, 250);
+                    if (lockingProcess.CloseMainWindow()){
+                        WindowsUtils.TrySleepUntil(CheckLockingProcessExited, closeTimeout, RetryDelay);
                     }
 
-                    if (!LockingProcess.HasExited){
-                        LockingProcess.Kill();
-                        WindowsUtils.TrySleepUntil(CheckLockingProcessExited, killTimeout, 250);
+                    if (!lockingProcess.HasExited){
+                        lockingProcess.Kill();
+                        WindowsUtils.TrySleepUntil(CheckLockingProcessExited, killTimeout, RetryDelay);
                     }
 
-                    if (LockingProcess.HasExited){
-                        LockingProcess.Dispose();
-                        LockingProcess = null;
+                    if (lockingProcess.HasExited){
+                        lockingProcess.Dispose();
+                        lockingProcess = null;
                         return true;
                     }
                 }catch(Exception ex){
                     if (ex is InvalidOperationException || ex is Win32Exception){
-                        if (LockingProcess != null){
-                            LockingProcess.Refresh();
-
-                            bool hasExited = LockingProcess.HasExited;
-                            LockingProcess.Dispose();
+                        if (lockingProcess != null){
+                            bool hasExited = CheckLockingProcessExited();
+                            lockingProcess.Dispose();
                             return hasExited;
                         }
                     }
@@ -150,21 +181,8 @@ namespace TweetDuck.Configuration{
         }
 
         private bool CheckLockingProcessExited(){
-            LockingProcess.Refresh();
-            return LockingProcess.HasExited;
-        }
-
-        // Utility functions
-
-        private static void WriteIntToStream(Stream stream, int value){
-            byte[] id = BitConverter.GetBytes(value);
-            stream.Write(id, 0, id.Length);
-        }
-
-        private static int ReadIntFromStream(Stream stream){
-            byte[] bytes = new byte[4];
-            stream.Read(bytes, 0, 4);
-            return BitConverter.ToInt32(bytes, 0);
+            lockingProcess.Refresh();
+            return lockingProcess.HasExited;
         }
     }
 }

@@ -34,12 +34,12 @@ namespace TweetDuck{
         public static readonly string ScriptPath = Path.Combine(ProgramPath, "scripts");
         public static readonly string PluginPath = Path.Combine(ProgramPath, "plugins");
 
-        public static readonly string UserConfigFilePath = Path.Combine(StoragePath, "TD_UserConfig.cfg");
-        public static readonly string SystemConfigFilePath = Path.Combine(StoragePath, "TD_SystemConfig.cfg");
-        public static readonly string PluginConfigFilePath = Path.Combine(StoragePath, "TD_PluginConfig.cfg");
-
         public static readonly string PluginDataPath = Path.Combine(StoragePath, "TD_Plugins");
         private static readonly string InstallerPath = Path.Combine(StoragePath, "TD_Updates");
+
+        public static string UserConfigFilePath => Path.Combine(StoragePath, "TD_UserConfig.cfg");
+        public static string SystemConfigFilePath => Path.Combine(StoragePath, "TD_SystemConfig.cfg");
+        public static string PluginConfigFilePath => Path.Combine(StoragePath, "TD_PluginConfig.cfg");
 
         private static string ErrorLogFilePath => Path.Combine(StoragePath, "TD_Log.txt");
         private static string ConsoleLogFilePath => Path.Combine(StoragePath, "TD_Console.txt");
@@ -80,53 +80,36 @@ namespace TweetDuck{
             }
             
             if (Arguments.HasFlag(Arguments.ArgRestart)){
-                for(int attempt = 0; attempt < 21; attempt++){
-                    LockManager.Result lockResult = LockManager.Lock();
+                LockManager.Result lockResult = LockManager.LockWait(10000);
 
-                    if (lockResult == LockManager.Result.Success){
-                        break;
-                    }
-                    else if (lockResult == LockManager.Result.Fail){
+                while(lockResult != LockManager.Result.Success){
+                    if (lockResult == LockManager.Result.Fail){
                         FormMessage.Error("TweetDuck Has Failed :(", "An unknown error occurred accessing the data folder. Please, make sure TweetDuck is not already running. If the problem persists, try restarting your system.", FormMessage.OK);
                         return;
                     }
-                    else if (attempt == 20){
-                        if (FormMessage.Warning("TweetDuck Cannot Restart", "TweetDuck is taking too long to close.", FormMessage.Retry, FormMessage.Exit)){
-                            attempt /= 2;
-                            continue;
-                        }
-
+                    else if (!FormMessage.Warning("TweetDuck Cannot Restart", "TweetDuck is taking too long to close.", FormMessage.Retry, FormMessage.Exit)){
                         return;
                     }
-                    else Thread.Sleep(500);
+
+                    lockResult = LockManager.LockWait(5000);
                 }
             }
             else{
                 LockManager.Result lockResult = LockManager.Lock();
-
+                
                 if (lockResult == LockManager.Result.HasProcess){
-                    if (LockManager.LockingProcess.MainWindowHandle == IntPtr.Zero){ // restore if the original process is in tray
-                        NativeMethods.PostMessage(NativeMethods.HWND_BROADCAST, WindowRestoreMessage, new UIntPtr((uint)LockManager.LockingProcess.Id), IntPtr.Zero);
-
-                        if (WindowsUtils.TrySleepUntil(() => {
-                            LockManager.LockingProcess.Refresh();
-                            return LockManager.LockingProcess.HasExited || (LockManager.LockingProcess.MainWindowHandle != IntPtr.Zero && LockManager.LockingProcess.Responding);
-                        }, 2000, 250)){
-                            return;
-                        }
-                    }
-                    
-                    if (FormMessage.Error("TweetDuck is Already Running", "Another instance of TweetDuck is already running.\nDo you want to close it?", FormMessage.Yes, FormMessage.No)){
+                    if (!LockManager.RestoreLockingProcess(2000) && FormMessage.Error("TweetDuck is Already Running", "Another instance of TweetDuck is already running.\nDo you want to close it?", FormMessage.Yes, FormMessage.No)){
                         if (!LockManager.CloseLockingProcess(10000, 5000)){
                             FormMessage.Error("TweetDuck Has Failed :(", "Could not close the other process.", FormMessage.OK);
                             return;
                         }
 
-                        LockManager.Lock();
+                        lockResult = LockManager.Lock();
                     }
                     else return;
                 }
-                else if (lockResult != LockManager.Result.Success){
+
+                if (lockResult != LockManager.Result.Success){
                     FormMessage.Error("TweetDuck Has Failed :(", "An unknown error occurred accessing the data folder. Please, make sure TweetDuck is not already running. If the problem persists, try restarting your system.", FormMessage.OK);
                     return;
                 }
