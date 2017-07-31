@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
+using CefSharp;
 using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Utils;
@@ -18,9 +19,11 @@ namespace TweetDuck.Core.Notification.Screenshot{
 
             browser.RegisterAsyncJsObject("$TD_NotificationScreenshot", new CallbackBridge(this, callback));
 
-            browser.FrameLoadEnd += (sender, args) => {
-                if (args.Frame.IsMain && browser.Address != "about:blank"){
-                    ScriptLoader.ExecuteScript(args.Frame, "window.setTimeout($TD_NotificationScreenshot.trigger, 67)", "gen:screenshot");
+            browser.LoadingStateChanged += (sender, args) => {
+                if (!args.IsLoading){
+                    using(IFrame frame = args.Browser.MainFrame){
+                        ScriptLoader.ExecuteScript(frame, "window.setTimeout($TD_NotificationScreenshot.trigger, 129)", "gen:screenshot");
+                    }
                 }
             };
         }
