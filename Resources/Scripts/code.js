@@ -702,16 +702,16 @@
     addRule(".column-nav-link .attribution { position: absolute; }"); // fix cut off account names
     addRule(".txt-base-smallest .sprite-verified-mini { width: 13px !important; height: 13px !important; background-position: -223px -99px !important; }"); // fix cut off badge icon when zoomed in
     
-    addRule(".btn, .mdl, .mdl-content, .app-search-fake, .app-search-input, .popover, .lst-modal, .media-item { border-radius: 1px !important }"); // square-ify buttons, inputs, dialogs, menus, and media previews
-    addRule(".dropdown-menu, .list-item-last { border-radius: 0 !important }"); // square-ify dropdowns
-    addRule(".prf-header { border-radius: 0 }"); // fix user account header border
+    addRule(".btn, .mdl, .mdl-content, .app-search-fake, .app-search-input, .popover, .lst-modal, .media-item { border-radius: 1px !important; }"); // square-ify buttons, inputs, dialogs, menus, and media previews
+    addRule(".dropdown-menu, .list-item-last { border-radius: 0 !important; }"); // square-ify dropdowns
+    addRule(".prf-header { border-radius: 0; }"); // fix user account header border
     
-    addRule(".scroll-styled-v::-webkit-scrollbar-thumb, .scroll-styled-h::-webkit-scrollbar-thumb, .antiscroll-scrollbar { border-radius: 0 }"); // square-ify scroll bars
-    addRule(".antiscroll-scrollbar-vertical { margin-top: 0 }"); // square-ify scroll bars
-    addRule(".antiscroll-scrollbar-horizontal { margin-left: 0 }"); // square-ify scroll bars
-    addRule(".scroll-styled-v:not(.antiscroll-inner)::-webkit-scrollbar { width: 8px }"); // square-ify scroll bars
-    addRule(".scroll-styled-h:not(.antiscroll-inner)::-webkit-scrollbar { height: 8px }"); // square-ify scroll bars
-    addRule(".app-columns-container::-webkit-scrollbar { height: 9px !important }"); // square-ify scroll bars
+    addRule(".scroll-styled-v::-webkit-scrollbar-thumb, .scroll-styled-h::-webkit-scrollbar-thumb, .antiscroll-scrollbar { border-radius: 0; }"); // square-ify scroll bars
+    addRule(".antiscroll-scrollbar-vertical { margin-top: 0; }"); // square-ify scroll bars
+    addRule(".antiscroll-scrollbar-horizontal { margin-left: 0; }"); // square-ify scroll bars
+    addRule(".scroll-styled-v:not(.antiscroll-inner)::-webkit-scrollbar { width: 8px; }"); // square-ify scroll bars
+    addRule(".scroll-styled-h:not(.antiscroll-inner)::-webkit-scrollbar { height: 8px; }"); // square-ify scroll bars
+    addRule(".app-columns-container::-webkit-scrollbar { height: 9px !important; }"); // square-ify scroll bars
     
     addRule(".is-condensed .app-header-inner { padding-top: 10px !important; }"); // add extra padding to menu buttons when condensed
     addRule(".is-condensed .btn-compose { padding: 8px !important; }"); // fix compose button icon when condensed
@@ -728,7 +728,7 @@
     addRule(".is-options-open .column-type-icon { bottom: 27px; }"); // fix one pixel space below column header
     
     addRule(".activity-header { align-items: center !important; margin-bottom: 4px; }"); // tweak alignment of avatar and text in notifications
-    addRule(".activity-header .tweet-timestamp { line-height: unset }"); // fix timestamp position in notifications
+    addRule(".activity-header .tweet-timestamp { line-height: unset; }"); // fix timestamp position in notifications
     
     addRule(".app-columns-container::-webkit-scrollbar-track { border-left: 0; }"); // remove weird border in the column container scrollbar
     addRule(".app-columns-container { bottom: 0 !important; }"); // move column container scrollbar to bottom to fit updated style
