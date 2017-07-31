@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
+using TweetDuck.Data;
 
 namespace TweetDuck.Core.Other.Settings.Dialogs{
     sealed partial class DialogSettingsCefArgs : Form{
@@ -30,7 +31,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                 return;
             }
 
-            int count = CommandLineArgsParser.ReadCefArguments(CefArgs).Count;
+            int count = CommandLineArgs.ReadCefArguments(CefArgs).Count;
             string prompt = count == 0 && !string.IsNullOrWhiteSpace(prevArgs) ? "All current arguments will be removed. Continue?" : count+(count == 1 ? " argument was" : " arguments were")+" detected. Continue?";
 
             if (FormMessage.Question("Confirm CEF Arguments", prompt, FormMessage.OK, FormMessage.Cancel)){

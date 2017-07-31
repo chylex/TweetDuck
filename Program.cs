@@ -140,7 +140,7 @@ namespace TweetDuck{
                 #endif
             };
 
-            CommandLineArgsParser.ReadCefArguments(UserConfig.CustomCefArgs).ToDictionary(settings.CefCommandLineArgs);
+            CommandLineArgs.ReadCefArguments(UserConfig.CustomCefArgs).ToDictionary(settings.CefCommandLineArgs);
             BrowserUtils.SetupCefArgs(settings.CefCommandLineArgs);
             
             Cef.EnableHighDPISupport();

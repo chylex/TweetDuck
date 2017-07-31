@@ -201,7 +201,6 @@
     </Compile>
     <Compile Include="Core\Bridge\CallbackBridge.cs" />
     <Compile Include="Data\CommandLineArgs.cs" />
-    <Compile Include="Core\Utils\CommandLineArgsParser.cs" />
     <Compile Include="Core\Notification\Screenshot\FormNotificationScreenshotable.cs">
       <SubType>Form</SubType>
     </Compile>
