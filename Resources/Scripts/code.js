@@ -232,6 +232,9 @@
   
   onAppReady.push(function(){
     document.documentElement.setAttribute("data-td-theme", TD.settings.getTheme());
+    
+    $TD.loadFontSizeClass(TD.settings.getFontSize());
+    $TD.loadNotificationHeadContents(getNotificationHeadContents());
   });
   
   //
@@ -699,7 +702,8 @@
     addRule(".column-nav-link .attribution { position: absolute; }"); // fix cut off account names
     addRule(".txt-base-smallest .sprite-verified-mini { width: 13px !important; height: 13px !important; background-position: -223px -99px !important; }"); // fix cut off badge icon when zoomed in
     
-    addRule(".btn, .mdl, .mdl-content, .app-search-fake, .app-search-input, .popover, .dropdown-menu, .lst-modal, .media-item { border-radius: 1px !important }"); // square-ify buttons, inputs, dialogs, menus, and media previews
+    addRule(".btn, .mdl, .mdl-content, .app-search-fake, .app-search-input, .popover, .lst-modal, .media-item { border-radius: 1px !important }"); // square-ify buttons, inputs, dialogs, menus, and media previews
+    addRule(".dropdown-menu, .list-item-last { border-radius: 0 !important }"); // square-ify dropdowns
     addRule(".prf-header { border-radius: 0 }"); // fix user account header border
     
     addRule(".is-condensed .app-header-inner { padding-top: 10px !important; }"); // add extra padding to menu buttons when condensed
@@ -890,9 +894,6 @@
   $(document).one("TD.ready", function(){
     onAppReady.forEach(func => func());
     onAppReady = null;
-    
-    $TD.loadFontSizeClass(TD.settings.getFontSize());
-    $TD.loadNotificationHeadContents(getNotificationHeadContents());
     
     if (window.TD_PLUGINS){
       window.TD_PLUGINS.onReady();
