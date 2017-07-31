@@ -98,6 +98,7 @@ namespace TweetDuck.Core.Notification{
 
             this.browser = new ChromiumWebBrowser("about:blank"){
                 MenuHandler = new ContextMenuNotification(this, enableContextMenu),
+                JsDialogHandler = new JavaScriptDialogHandler(),
                 LifeSpanHandler = new LifeSpanHandler()
             };
 
