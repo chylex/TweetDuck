@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TweetDuck.Data;
 
@@ -138,6 +139,32 @@ namespace UnitTests.Data{
             Assert.AreEqual("test", TestUtils.ReadText("cfs_dir_test_file.txt"));
 
             Directory.Delete("cfs_directory", true);
+        }
+
+        [TestMethod]
+        public void TestLongIdentifierSuccess(){
+            TestUtils.WriteText("cfs_long_identifier_fail_in", "test");
+
+            string identifier = string.Join("", Enumerable.Repeat("x", 255));
+
+            using(CombinedFileStream cfs = new CombinedFileStream(TestUtils.WriteFile("cfs_long_identifier_success"))){
+                cfs.WriteFile(identifier, "cfs_long_identifier_fail_in");
+                cfs.Flush();
+            }
+
+            using(CombinedFileStream cfs = new CombinedFileStream(TestUtils.ReadFile("cfs_long_identifier_success"))){
+                Assert.AreEqual(identifier, cfs.ReadFile().Identifier);
+            }
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void TestLongIdentifierFail(){
+            TestUtils.WriteText("cfs_long_identifier_fail_in", "test");
+
+            using(CombinedFileStream cfs = new CombinedFileStream(TestUtils.WriteFile("cfs_long_identifier_fail"))){
+                cfs.WriteFile(string.Join("", Enumerable.Repeat("x", 256)), "cfs_long_identifier_fail_in");
+            }
         }
     }
 }
