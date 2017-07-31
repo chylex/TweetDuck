@@ -8,7 +8,7 @@ using System.Threading;
 using System.Windows.Forms;
 using TweetDuck.Configuration;
 using TweetDuck.Core;
-using TweetDuck.Core.Handling;
+using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Other.Settings.Export;
 using TweetDuck.Core.Utils;

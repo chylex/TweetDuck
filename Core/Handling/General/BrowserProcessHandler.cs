@@ -1,7 +1,7 @@
-﻿using CefSharp;
-using System;
+﻿using System;
+using CefSharp;
 
-namespace TweetDuck.Core.Handling{
+namespace TweetDuck.Core.Handling.General{
     class BrowserProcessHandler : IBrowserProcessHandler{
         void IBrowserProcessHandler.OnContextInitialized(){
             using(IRequestContext ctx = Cef.GetGlobalRequestContext()){

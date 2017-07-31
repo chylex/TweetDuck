@@ -1,8 +1,8 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using CefSharp;
 
-namespace TweetDuck.Core.Handling{
-    abstract class RequestHandler : IRequestHandler{
+namespace TweetDuck.Core.Handling.General{
+    abstract class RequestHandlerBase : IRequestHandler{
         // Browser
 
         public virtual void OnRenderViewReady(IWebBrowser browserControl, IBrowser browser){}

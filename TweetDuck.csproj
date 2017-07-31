@@ -88,7 +88,7 @@
     <Compile Include="Core\Controls\NumericUpDownEx.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Core\Handling\BrowserProcessHandler.cs" />
+    <Compile Include="Core\Handling\General\BrowserProcessHandler.cs" />
     <Compile Include="Core\Handling\ContextMenuBase.cs" />
     <Compile Include="Core\Handling\ContextMenuBrowser.cs" />
     <Compile Include="Core\FormBrowser.cs">
@@ -99,7 +99,7 @@
     </Compile>
     <Compile Include="Core\Handling\KeyboardHandlerNotification.cs" />
     <Compile Include="Core\Handling\RequestHandlerBrowser.cs" />
-    <Compile Include="Core\Handling\RequestHandler.cs" />
+    <Compile Include="Core\Handling\General\RequestHandlerBase.cs" />
     <Compile Include="Core\Handling\ResourceHandlerNotification.cs" />
     <Compile Include="Core\Notification\FormNotificationMain.cs">
       <SubType>Form</SubType>
@@ -114,8 +114,8 @@
       <DependentUpon>FormNotificationBase.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\Handling\ContextMenuNotification.cs" />
-    <Compile Include="Core\Handling\JavaScriptDialogHandler.cs" />
-    <Compile Include="Core\Handling\LifeSpanHandler.cs" />
+    <Compile Include="Core\Handling\General\JavaScriptDialogHandler.cs" />
+    <Compile Include="Core\Handling\General\LifeSpanHandler.cs" />
     <Compile Include="Core\Notification\FormNotificationTweet.cs">
       <SubType>Form</SubType>
     </Compile>

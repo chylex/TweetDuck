@@ -1,11 +1,11 @@
-﻿using CefSharp;
-using CefSharp.WinForms;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
+using CefSharp;
+using CefSharp.WinForms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Other;
 
-namespace TweetDuck.Core.Handling {
+namespace TweetDuck.Core.Handling.General{
     class JavaScriptDialogHandler : IJsDialogHandler{
         bool IJsDialogHandler.OnJSDialog(IWebBrowser browserControl, IBrowser browser, string originUrl, CefJsDialogType dialogType, string messageText, string defaultPromptText, IJsDialogCallback callback, ref bool suppressMessage){
             ((ChromiumWebBrowser)browserControl).InvokeSafe(() => {

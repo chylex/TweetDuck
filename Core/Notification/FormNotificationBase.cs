@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using TweetDuck.Configuration;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling;
+using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Notification{
