@@ -12,7 +12,7 @@ namespace TweetDuck.Core.Handling {
         }
 
         bool IKeyboardHandler.OnPreKeyEvent(IWebBrowser browserControl, IBrowser browser, KeyType type, int windowsKeyCode, int nativeKeyCode, CefEventFlags modifiers, bool isSystemKey, ref bool isKeyboardShortcut){
-            if (type == KeyType.RawKeyDown){
+            if (type == KeyType.RawKeyDown && !browser.FocusedFrame.Url.StartsWith("chrome-devtools://")){
                 switch((Keys)windowsKeyCode){
                     case Keys.Enter:
                         notification.InvokeAsyncSafe(notification.FinishCurrentNotification);
