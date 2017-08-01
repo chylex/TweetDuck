@@ -4,6 +4,7 @@ using CefSharp;
 using CefSharp.WinForms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Other;
+using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Handling.General{
     class JavaScriptDialogHandler : IJsDialogHandler{
@@ -26,10 +27,12 @@ namespace TweetDuck.Core.Handling.General{
                     form.AddButton(FormMessage.Cancel, DialogResult.Cancel, ControlType.Cancel);
                     form.AddButton(FormMessage.OK, ControlType.Accept | ControlType.Focused);
 
+                    float dpiScale = form.GetDPIScale();
+
                     input = new TextBox{
                         Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
-                        Location = new Point(22, form.ActionPanelY-46),
-                        Size = new Size(form.ClientSize.Width-44, 20)
+                        Location = new Point(BrowserUtils.Scale(22, dpiScale), form.ActionPanelY-BrowserUtils.Scale(46, dpiScale)),
+                        Size = new Size(form.ClientSize.Width-BrowserUtils.Scale(44, dpiScale), 20)
                     };
 
                     form.Controls.Add(input);
