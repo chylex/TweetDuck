@@ -14,7 +14,7 @@ enabled(){
     revertIcons: true,
     smallComposeTextSize: false,
     optimizeAnimations: true,
-    avatarRadius: 10
+    avatarRadius: 2
   };
   
   this.firstTimeLoad = null;
