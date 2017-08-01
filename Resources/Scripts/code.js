@@ -165,6 +165,9 @@
             }
           }
         }
+        else if (tweet instanceof TD.services.TwitterActionOnTweet){
+          html.find(".js-media").remove();
+        }
         
         html.find("a[href='#']").each(function(){ // remove <a> tags around links that don't lead anywhere (such as account names the tweet replied to)
           this.outerHTML = this.innerHTML;
