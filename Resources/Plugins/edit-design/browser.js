@@ -1,9 +1,3 @@
-constructor(){
-  super({
-    requiresPageReload: true
-  })
-}
-
 enabled(){
   // elements & data
   this.css = null;
@@ -16,7 +10,6 @@ enabled(){
     fontSize: "12px",
     hideTweetActions: true,
     moveTweetActionsToRight: true,
-    revertReplies: false,
     themeColorTweaks: true,
     revertIcons: true,
     smallComposeTextSize: false,
@@ -59,7 +52,6 @@ enabled(){
     this.firstTimeLoad = obj === null;
     
     this.onStageReady();
-    this.injectDeciderReplyHook(obj && obj.revertReplies);
   };
   
   if (this.$$wasLoadedBefore){
@@ -248,19 +240,6 @@ enabled(){
     }
   });
   
-  // decider injections
-  this.injectDeciderReplyHook = enable => {
-    let prevFunc = TD.decider.updateFromBackend;
-    
-    TD.decider.updateFromBackend = function(data){
-      data["simplified_replies"] = !enable;
-      return prevFunc.apply(this, arguments);
-    };
-    
-    TD.decider.updateForGuestId();
-    this.$requiresReload = enable;
-  };
-  
   // animation optimization
   this.optimizations = null;
   this.optimizationTimer = null;
@@ -386,11 +365,6 @@ enabled(){
     
     if (this.config.smallComposeTextSize){
       this.css.insert(".compose-text { font-size: 12px !important; height: 120px !important }");
-    }
-    
-    if (this.config.revertReplies){
-      this.css.insert(".activity-header + .tweet .tweet-context { margin-left: -35px }");
-      this.css.insert(".activity-header + .tweet .tweet-context .obj-left { margin-right: 5px }");
     }
     
     if (this.config.revertIcons){
@@ -528,11 +502,6 @@ enabled(){
 <style type='text/css'>
 .txt-base-smallest:not(.icon), .txt-base-largest:not(.icon) { font-size: ${this.config.fontSize} !important }
 .avatar { border-radius: ${this.config.avatarRadius}% !important }
-
-${this.config.revertReplies ? `
-.activity-header + .tweet .tweet-context { margin-left: -35px }
-.activity-header + .tweet .tweet-context .obj-left { margin-right: 5px }
-` : ``}
 
 ${this.config.revertIcons ? `
 @font-face { font-family: 'tweetdeckold'; src: url(\"https://ton.twimg.com/tweetdeck-web/web/assets/fonts/tweetdeck-regular-webfont.5f4ea87976.woff\") format(\"woff\"); font-weight: normal; font-style: normal }
