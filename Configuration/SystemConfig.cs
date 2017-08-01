@@ -47,19 +47,8 @@ namespace TweetDuck.Configuration{
             
             try{
                 Serializer.Read(file, config);
-                return config;
             }catch(FileNotFoundException){
             }catch(DirectoryNotFoundException){
-            }catch(FormatException){
-                try{
-                    using(Stream stream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read)){
-                        config.HardwareAcceleration = stream.ReadByte() > 0;
-                    }
-
-                    config.Save();
-                }catch(Exception e){
-                    Program.Reporter.HandleException("Configuration Error", "Could not update the system configuration file.", true, e);
-                }
             }catch(Exception e){
                 Program.Reporter.HandleException("Configuration Error", "Could not open the system configuration file. If you continue, you will lose system specific configuration such as Hardware Acceleration.", true, e);
             }

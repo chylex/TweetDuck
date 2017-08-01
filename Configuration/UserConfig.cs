@@ -137,7 +137,7 @@ namespace TweetDuck.Configuration{
         
         private readonly string file;
 
-        public UserConfig(string file){ // TODO make private after removing UserConfigLegacy
+        private UserConfig(string file){
             this.file = file;
         }
 
@@ -170,17 +170,18 @@ namespace TweetDuck.Configuration{
                 }catch(FileNotFoundException){
                 }catch(DirectoryNotFoundException){
                     break;
-                }catch(FormatException){
-                    UserConfig config = UserConfigLegacy.Load(file);
-                    config.Save();
-                    return config;
                 }catch(Exception e){
                     if (attempt == 0){
                         firstException = e;
                         Program.Reporter.Log(e.ToString());
                     }
+                    else if (firstException is FormatException){
+                        Program.Reporter.HandleException("Configuration Error", "The configuration file is outdated or corrupted. If you continue, your program options will be reset.", true, e);
+                        return new UserConfig(file);
+                    }
                     else if (firstException != null){
                         Program.Reporter.HandleException("Configuration Error", "Could not open the backup configuration file. If you continue, your program options will be reset.", true, e);
+                        return new UserConfig(file);
                     }
                 }
             }

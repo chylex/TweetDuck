@@ -73,7 +73,6 @@
     <Compile Include="Configuration\LockManager.cs" />
     <Compile Include="Configuration\SystemConfig.cs" />
     <Compile Include="Configuration\UserConfig.cs" />
-    <Compile Include="Configuration\UserConfigLegacy.cs" />
     <Compile Include="Core\Bridge\PropertyBridge.cs" />
     <Compile Include="Core\Controls\ControlExtensions.cs" />
     <Compile Include="Core\Controls\FlatButton.cs">
