@@ -28,8 +28,8 @@ namespace TweetDuck.Core.Handling.General{
 
                     input = new TextBox{
                         Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
-                        Location = new Point(27, form.ActionPanelY-46),
-                        Size = new Size(form.ClientSize.Width-54, 20)
+                        Location = new Point(22, form.ActionPanelY-46),
+                        Size = new Size(form.ClientSize.Width-44, 20)
                     };
 
                     form.Controls.Add(input);
