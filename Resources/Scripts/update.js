@@ -131,11 +131,15 @@
 }
 
 #tweetduck-changelog p {
-  margin: 0 0 2px 30px;
+  margin: 8px 8px 0 6px;
+}
+
+#tweetduck-changelog p.li {
+  margin: 0 8px 2px 30px;
   display: list-item;
 }
 
-#tweetduck-changelog p.l2 {
+#tweetduck-changelog .l2 {
   margin-left: 50px;
 }
 
@@ -268,13 +272,15 @@
     return md.replace(/&/g, "&amp;")
              .replace(/</g, "&lt;")
              .replace(/>/g, "&gt;")
+             .replace(/^##? (.*?)$/gm, "<h2>$1</h2>")
              .replace(/^### (.*?)$/gm, "<h3>$1</h3>")
-             .replace(/^- (.*?)$/gm, "<p>$1</p>")
-             .replace(/^  - (.*?)$/gm, "<p class='l2'>$1</p>")
+             .replace(/^- (.*?)$/gm, "<p class='li'>$1</p>")
+             .replace(/^  - (.*?)$/gm, "<p class='li l2'>$1</p>")
              .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
              .replace(/\*(.*?)\*/g, "<em>$1</em>")
              .replace(/`(.*?)`/g, "<code>$1</code>")
              .replace(/\[(.*?)\]\((.*?)\)/g, "<a href='$2'>$1</a>")
+             .replace(/^([a-z0-9].*?)$/gmi, "<p>$1</p>")
              .replace(/\n\r?\n/g, "<br>");
   };
   
