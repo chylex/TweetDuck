@@ -8,25 +8,25 @@ namespace TweetDuck.Core.Bridge{
 
         public static string GenerateScript(Environment environment){
             string Bool(bool value){
-                return value ? "true," : "false,";
+                return value ? "true;" : "false;";
             }
 
-            StringBuilder build = new StringBuilder().Append("window.$TDX={");
+            StringBuilder build = new StringBuilder().Append("(function(x){");
 
-            build.Append("expandLinksOnHover:").Append(Bool(Program.UserConfig.ExpandLinksOnHover));
+            build.Append("x.expandLinksOnHover=").Append(Bool(Program.UserConfig.ExpandLinksOnHover));
             
             if (environment == Environment.Browser){
-                build.Append("switchAccountSelectors:").Append(Bool(Program.UserConfig.SwitchAccountSelectors));
-                build.Append("muteNotifications:").Append(Bool(Program.UserConfig.MuteNotifications));
-                build.Append("hasCustomNotificationSound:").Append(Bool(Program.UserConfig.NotificationSoundPath.Length > 0));
-                build.Append("notificationMediaPreviews:").Append(Bool(Program.UserConfig.NotificationMediaPreviews));
+                build.Append("x.switchAccountSelectors=").Append(Bool(Program.UserConfig.SwitchAccountSelectors));
+                build.Append("x.muteNotifications=").Append(Bool(Program.UserConfig.MuteNotifications));
+                build.Append("x.hasCustomNotificationSound=").Append(Bool(Program.UserConfig.NotificationSoundPath.Length > 0));
+                build.Append("x.notificationMediaPreviews=").Append(Bool(Program.UserConfig.NotificationMediaPreviews));
             }
 
             if (environment == Environment.Notification){
-                build.Append("skipOnLinkClick:").Append(Bool(Program.UserConfig.NotificationSkipOnLinkClick));
+                build.Append("x.skipOnLinkClick=").Append(Bool(Program.UserConfig.NotificationSkipOnLinkClick));
             }
             
-            return build.Append("}").ToString();
+            return build.Append("})(window.$TDX=window.$TDX||{})").ToString();
         }
     }
 }
