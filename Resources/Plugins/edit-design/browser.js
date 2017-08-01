@@ -120,9 +120,7 @@ enabled(){
       let itemEditDesign = $('<li class="is-selectable"><a href="#" data-action>Edit layout &amp; design</a></li>');
       itemTD.after(itemEditDesign);
       
-      itemEditDesign.on("click", "a", function(){
-        new customDesignModal();
-      });
+      itemEditDesign.on("click", "a", this.openEditDesignDialog);
       
       itemEditDesign.hover(function(){
         $(this).addClass("is-selected");
@@ -240,6 +238,8 @@ enabled(){
     }
   });
   
+  this.openEditDesignDialog = () => new customDesignModal();
+  
   // animation optimization
   this.optimizations = null;
   this.optimizationTimer = null;
@@ -331,7 +331,7 @@ enabled(){
     }
     
     this.css.insert("#general_settings .cf { display: none !important }");
-    this.css.insert("#general_settings .divider-bar::after { display: inline-block; padding-top: 10px; line-height: 17px; content: 'Use the new | Edit layout & design | option in the Settings to modify TweetDeck theme, column width, font size, and other features.' }");
+    this.css.insert("#settings-modal .js-setting-list li:nth-child(3) { border-bottom: 1px solid #ccd6dd }");
     
     this.css.insert(".txt-base-smallest:not(.icon), .txt-base-largest:not(.icon) { font-size: "+this.config.fontSize+" !important }");
     this.css.insert(".avatar { border-radius: "+this.config.avatarRadius+"% !important }");
@@ -533,6 +533,32 @@ ready(){
   // modal
   $("[data-action='settings-menu']").on("click", this.onSettingsMenuClickedEvent);
   $(".js-app").append('<div id="td-design-plugin-modal" class="js-modal settings-modal ovl scroll-v scroll-styled-v"></div>');
+  
+  // global settings override
+  var me = this;
+  
+  this.prevFuncSettingsGetInfo = TD.components.GlobalSettings.prototype.getInfo;
+  this.prevFuncSettingsSwitchTab = TD.components.GlobalSettings.prototype.switchTab;
+  
+  TD.components.GlobalSettings.prototype.getInfo = function(){
+    let data = me.prevFuncSettingsGetInfo.apply(this, arguments);
+    
+    data.tabs.push({
+      title: "Layout & Design",
+      action: "tdp-edit-design"
+    });
+    
+    return data;
+  };
+  
+  TD.components.GlobalSettings.prototype.switchTab = function(tab){
+    if (tab === "tdp-edit-design"){
+      me.openEditDesignDialog();
+    }
+    else{
+      return me.prevFuncSettingsSwitchTab.apply(this, arguments);
+    }
+  };
 }
 
 disabled(){
@@ -555,6 +581,9 @@ disabled(){
   $(document).off("uiShowActionsMenu", this.uiShowActionsMenuEvent);
   $(window).off("focus", this.onWindowFocusEvent);
   $(window).off("blur", this.onWindowBlurEvent);
+  
+  TD.components.GlobalSettings.prototype.getInfo = this.prevFuncSettingsGetInfo;
+  TD.components.GlobalSettings.prototype.switchTab = this.prevFuncSettingsSwitchTab;
   
   $("[data-action='settings-menu']").off("click", this.onSettingsMenuClickedEvent);
   $("#td-design-plugin-modal").remove();
