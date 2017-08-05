@@ -8,6 +8,8 @@ using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Other.Settings{
     partial class TabSettingsAdvanced : BaseTabSettings{
+        private static SystemConfig SysConfig => Program.SystemConfig;
+
         private readonly Action<string> reinjectBrowserCSS;
 
         public TabSettingsAdvanced(Action<string> reinjectBrowserCSS){
@@ -16,16 +18,16 @@ namespace TweetDuck.Core.Other.Settings{
             this.reinjectBrowserCSS = reinjectBrowserCSS;
 
             if (SystemConfig.IsHardwareAccelerationSupported){
-                checkHardwareAcceleration.Checked = Program.SystemConfig.HardwareAcceleration;
+                checkHardwareAcceleration.Checked = SysConfig.HardwareAcceleration;
             }
             else{
                 checkHardwareAcceleration.Enabled = false;
                 checkHardwareAcceleration.Checked = false;
             }
 
-            checkBrowserGCReload.Checked = Config.EnableBrowserGCReload;
+            checkBrowserGCReload.Checked = SysConfig.EnableBrowserGCReload;
             numMemoryThreshold.Enabled = checkBrowserGCReload.Checked;
-            numMemoryThreshold.SetValueSafe(Config.BrowserMemoryThreshold);
+            numMemoryThreshold.SetValueSafe(SysConfig.BrowserMemoryThreshold);
 
             BrowserCache.CalculateCacheSize(bytes => this.InvokeSafe(() => {
                 if (bytes == -1L){
@@ -53,6 +55,10 @@ namespace TweetDuck.Core.Other.Settings{
             btnRestartArgs.Click += btnRestartArgs_Click;
         }
 
+        public override void OnClosing(){
+            SysConfig.Save();
+        }
+
         private void btnClearCache_Click(object sender, EventArgs e){
             btnClearCache.Enabled = false;
             BrowserCache.SetClearOnExit();
@@ -60,18 +66,17 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void checkHardwareAcceleration_CheckedChanged(object sender, EventArgs e){
-            Program.SystemConfig.HardwareAcceleration = checkHardwareAcceleration.Checked;
-            Program.SystemConfig.Save();
-            PromptRestart();
+            SysConfig.HardwareAcceleration = checkHardwareAcceleration.Checked;
+            PromptRestart(); // calls OnClosing
         }
 
         private void checkBrowserGCReload_CheckedChanged(object sender, EventArgs e){
-            Config.EnableBrowserGCReload = checkBrowserGCReload.Checked;
+            SysConfig.EnableBrowserGCReload = checkBrowserGCReload.Checked;
             numMemoryThreshold.Enabled = checkBrowserGCReload.Checked;
         }
 
         private void numMemoryThreshold_ValueChanged(object sender, EventArgs e){
-            Config.BrowserMemoryThreshold = (int)numMemoryThreshold.Value;
+            SysConfig.BrowserMemoryThreshold = (int)numMemoryThreshold.Value;
         }
 
         private void btnEditCefArgs_Click(object sender, EventArgs e){

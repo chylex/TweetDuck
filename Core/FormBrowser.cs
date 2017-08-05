@@ -216,8 +216,8 @@ namespace TweetDuck.Core{
 
                 TweetDeckBridge.ResetStaticProperties();
 
-                if (Config.EnableBrowserGCReload){
-                    memoryUsageTracker.Start(this, e.Browser, Config.BrowserMemoryThreshold);
+                if (Program.SystemConfig.EnableBrowserGCReload){
+                    memoryUsageTracker.Start(this, e.Browser, Program.SystemConfig.BrowserMemoryThreshold);
                 }
             }
         }
@@ -458,8 +458,8 @@ namespace TweetDuck.Core{
                         trayIcon.HasNotifications = false;
                     }
 
-                    if (Config.EnableBrowserGCReload){
-                        memoryUsageTracker.Start(this, browser.GetBrowser(), Config.BrowserMemoryThreshold);
+                    if (Program.SystemConfig.EnableBrowserGCReload){
+                        memoryUsageTracker.Start(this, browser.GetBrowser(), Program.SystemConfig.BrowserMemoryThreshold);
                     }
                     else{
                         memoryUsageTracker.Stop();

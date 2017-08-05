@@ -114,9 +114,9 @@ namespace TweetDuck{
                     return;
                 }
             }
-
-            ReloadConfig();
+            
             SystemConfig = SystemConfig.Load(SystemConfigFilePath);
+            ReloadConfig();
 
             if (Arguments.HasFlag(Arguments.ArgImportCookies)){
                 ExportManager.ImportCookies();
