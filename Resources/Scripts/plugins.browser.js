@@ -98,7 +98,7 @@
   //
   window.TDPF_requestReload = function(){
     if (!isReloading){
-      window.setTimeout(() => location.reload(), 1);
+      window.setTimeout(window.TDGF_reload, 1);
       isReloading = true;
     }
   };

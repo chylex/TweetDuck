@@ -328,7 +328,7 @@ namespace TweetDuck.Core{
         }
         
         private void plugins_Reloaded(object sender, PluginErrorEventArgs e){
-            browser.GetBrowser().Reload();
+            ReloadToTweetDeck();
         }
 
         private void plugins_PluginChangedState(object sender, PluginChangedStateEventArgs e){
@@ -429,7 +429,7 @@ namespace TweetDuck.Core{
         }
 
         public void ReloadToTweetDeck(){
-            browser.ExecuteScriptAsync($"gc&&gc();window.location.href='{TwitterUtils.TweetDeckURL}'");
+            browser.ExecuteScriptAsync($"if(window.TDGF_reload)window.TDGF_reload();else window.location.href='{TwitterUtils.TweetDeckURL}'");
         }
 
         // callback handlers

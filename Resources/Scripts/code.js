@@ -854,8 +854,19 @@
   }
   
   //
-  // Block: Memory cleanup check and execution.
+  // Block: Custom reload function with memory cleanup.
   //
+  window.TDGF_reload = function(){
+    let session = TD.storage.feedController.getAll()
+                    .filter(feed => !!feed.getTopSortIndex())
+                    .reduce((obj, feed) => (obj[feed.privateState.key] = feed.getTopSortIndex(), obj), {});
+    
+    $TD.setSessionData("gc", JSON.stringify(session)).then(() => {
+      window.gc && window.gc();
+      window.location.reload();
+    });
+  };
+  
   window.TDGF_tryRunCleanup = function(){
     // all textareas are empty
     if ($("textarea").is(function(){
@@ -882,8 +893,7 @@
     }
     
     // cleanup
-    window.gc && window.gc();
-    window.location.reload();
+    window.TDGF_reload();
     return true;
   };
   
