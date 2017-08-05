@@ -391,12 +391,12 @@
       return !!highlightedColumnObj;
     };
     
-    var updateHighlightedTweet = function(ele, obj, link, embeddedLink, imageList){
+    var updateHighlightedTweet = function(ele, obj, link, embeddedLink, author, imageList){
       highlightedTweetEle = ele;
       highlightedTweetObj = obj;
       
       if (lastTweet !== link){
-        $TD.setLastHighlightedTweet(link, embeddedLink, imageList);
+        $TD.setLastHighlightedTweet(link, embeddedLink, author, imageList);
         lastTweet = link;
       }
     };
@@ -426,18 +426,19 @@
           if (tweet.chirpType === TD.services.ChirpBase.TWEET){
             let link = tweet.getChirpURL();
             let embedded = tweet.quotedTweet ? tweet.quotedTweet.getChirpURL() : "";
+            let username = tweet.getMainUser().screenName;
             let images = tweet.hasImage() ? tweet.getMedia().filter(item => !item.isAnimatedGif).map(item => item.entity.media_url_https+":small").join(";") : "";
             // TODO maybe handle embedded images too?
             
-            updateHighlightedTweet(me, tweet, link || "", embedded || "", images);
+            updateHighlightedTweet(me, tweet, link || "", embedded || "", username, images);
           }
           else{
-            updateHighlightedTweet(me, tweet, "", "", "");
+            updateHighlightedTweet(me, tweet, "", "", "", "");
           }
         }
       }
       else if (e.type === "mouseleave"){
-        updateHighlightedTweet(null, null, "", "", "");
+        updateHighlightedTweet(null, null, "", "", "", "");
       }
     });
   })();

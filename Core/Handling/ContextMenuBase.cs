@@ -32,6 +32,7 @@ namespace TweetDuck.Core.Handling{
 
         private readonly Form form;
         
+        private string lastHighlightedTweetAuthor;
         private string[] lastHighlightedTweetImageList;
 
         protected ContextMenuBase(Form form){
@@ -40,9 +41,11 @@ namespace TweetDuck.Core.Handling{
 
         public virtual void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model){
             bool hasTweetImage = !string.IsNullOrEmpty(TweetDeckBridge.LastRightClickedImage);
+            lastHighlightedTweetAuthor = TweetDeckBridge.LastHighlightedTweetAuthor;
             lastHighlightedTweetImageList = TweetDeckBridge.LastHighlightedTweetImages;
 
             if (!TwitterUtils.IsTweetDeckWebsite(frame) || browser.IsLoading){
+                lastHighlightedTweetAuthor = string.Empty;
                 lastHighlightedTweetImageList = StringUtils.EmptyArray;
             }
 
@@ -88,11 +91,11 @@ namespace TweetDuck.Core.Handling{
                     break;
 
                 case MenuSaveImage:
-                    TwitterUtils.DownloadImage(GetImage(parameters), ImageQuality);
+                    TwitterUtils.DownloadImage(GetImage(parameters), lastHighlightedTweetAuthor, ImageQuality);
                     break;
 
                 case MenuSaveAllImages:
-                    TwitterUtils.DownloadImages(lastHighlightedTweetImageList, ImageQuality);
+                    TwitterUtils.DownloadImages(lastHighlightedTweetImageList, lastHighlightedTweetAuthor, ImageQuality);
                     break;
 
                 case MenuCopyImageUrl:

@@ -2,6 +2,7 @@
 using CefSharp;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using TweetDuck.Core.Other;
@@ -52,23 +53,32 @@ namespace TweetDuck.Core.Utils{
             }
         }
         
-        public static void DownloadImage(string url, ImageQuality quality){
-            DownloadImages(new string[]{ url }, quality);
+        public static void DownloadImage(string url, string username, ImageQuality quality){
+            DownloadImages(new string[]{ url }, username, quality);
         }
 
-        public static void DownloadImages(string[] urls, ImageQuality quality){
+        public static void DownloadImages(string[] urls, string username, ImageQuality quality){
             if (urls.Length == 0){
                 return;
             }
 
-            string file = BrowserUtils.GetFileNameFromUrl(ExtractImageBaseLink(urls[0]));
+            string firstImageLink = GetImageLink(urls[0], quality);
+            int qualityIndex = firstImageLink.LastIndexOf(':');
+
+            string file = BrowserUtils.GetFileNameFromUrl(ExtractImageBaseLink(firstImageLink));
             string ext = Path.GetExtension(file); // includes dot
+
+            string[] fileNameParts = {
+                username,
+                Path.ChangeExtension(file, null),
+                qualityIndex == -1 ? string.Empty : firstImageLink.Substring(qualityIndex+1)
+            };
             
             using(SaveFileDialog dialog = new SaveFileDialog{
                 AutoUpgradeEnabled = true,
                 OverwritePrompt = urls.Length == 1,
                 Title = "Save image",
-                FileName = file,
+                FileName = $"{string.Join(" ", fileNameParts.Where(part => part.Length > 0))}{ext}",
                 Filter = (urls.Length == 1 ? "Image" : "Images")+(string.IsNullOrEmpty(ext) ? " (unknown)|*.*" : $" (*{ext})|*{ext}")
             }){
                 if (dialog.ShowDialog() == DialogResult.OK){
@@ -77,14 +87,14 @@ namespace TweetDuck.Core.Utils{
                     }
 
                     if (urls.Length == 1){
-                        BrowserUtils.DownloadFileAsync(GetImageLink(urls[0], quality), dialog.FileName, null, OnFailure);
+                        BrowserUtils.DownloadFileAsync(firstImageLink, dialog.FileName, null, OnFailure);
                     }
                     else{
                         string pathBase = Path.ChangeExtension(dialog.FileName, null);
                         string pathExt = Path.GetExtension(dialog.FileName);
 
                         for(int index = 0; index < urls.Length; index++){
-                            BrowserUtils.DownloadFileAsync(GetImageLink(urls[index], quality), pathBase+(index+1)+pathExt, null, OnFailure);
+                            BrowserUtils.DownloadFileAsync(GetImageLink(urls[index], quality), $"{pathBase} {index+1}{pathExt}", null, OnFailure);
                         }
                     }
                 }
