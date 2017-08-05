@@ -522,7 +522,12 @@
     app.delegate(".js-compose-text,.js-reply-tweetbox", "paste", function(e){
       for(let item of e.originalEvent.clipboardData.items){
         if (item.type.startsWith("image/")){
-          $(this).closest(".rpl").find(".js-reply-popout").click(); // popout direct messages
+          if (!$(this).closest(".rpl").find(".js-reply-popout").click().length){ // popout direct messages
+            if ($(".js-add-image-button").is(".is-disabled")){ // tweetdeck does not check upload count properly
+              return;
+            }
+          }
+          
           uploader.addFilesToUpload([ item.getAsFile() ]);
           
           $(".js-compose-text", ".js-docked-compose").focus();
