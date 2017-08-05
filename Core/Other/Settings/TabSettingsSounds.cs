@@ -34,7 +34,7 @@ namespace TweetDuck.Core.Other.Settings{
 
         private void tbCustomSound_TextChanged(object sender, EventArgs e){
             bool isEmpty = string.IsNullOrEmpty(tbCustomSound.Text);
-            tbCustomSound.ForeColor = isEmpty || File.Exists(tbCustomSound.Text) ? SystemColors.WindowText : Color.Maroon;
+            tbCustomSound.ForeColor = isEmpty || File.Exists(tbCustomSound.Text) ? SystemColors.WindowText : Color.Red;
             btnPlaySound.Enabled = !isEmpty;
             btnResetSound.Enabled = !isEmpty;
         }
