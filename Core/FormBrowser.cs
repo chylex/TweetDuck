@@ -204,6 +204,7 @@ namespace TweetDuck.Core{
                 e.Frame.ExecuteJavaScriptAsync(TwitterUtils.BackgroundColorFix);
 
                 UpdateProperties(PropertyBridge.Environment.Browser);
+                TweetDeckBridge.RestoreSessionData(e.Frame);
                 ScriptLoader.ExecuteFile(e.Frame, "code.js");
                 ReinjectCustomCSS(Config.CustomBrowserCSS);
 

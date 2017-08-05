@@ -908,6 +908,8 @@
     onAppReady.forEach(func => func());
     onAppReady = null;
     
+    delete window.TD_SESSION;
+    
     if (window.TD_PLUGINS){
       window.TD_PLUGINS.onReady();
     }
