@@ -459,6 +459,7 @@ enabled(){
 .icon-list-filled:before{content:"\\f014";font-family:tweetdeckold}
 .icon-user-filled:before{content:"\\f035";font-family:tweetdeckold}
 
+.drawer .btn .icon, .app-header .btn .icon { line-height: 1em !important }
 .column-type-icon { bottom: 26px !important }
 .is-options-open .column-type-icon { bottom: 25px !important }
 .tweet-footer { margin-top: 6px !important }`;
