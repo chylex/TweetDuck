@@ -172,7 +172,7 @@
             this.checkBrowserGCReload.Size = new System.Drawing.Size(190, 17);
             this.checkBrowserGCReload.TabIndex = 3;
             this.checkBrowserGCReload.Text = "Enable Browser Memory Threshold";
-            this.toolTip.SetToolTip(this.checkBrowserGCReload, "Automatically reloads TweetDeck to save memory. This option only works\r\nif the browser is in a \'default state\', i.e. all modals and drawers are closed,\r\nand all columns are scrolled to top. Some notifications may be lost.");
+            this.toolTip.SetToolTip(this.checkBrowserGCReload, "Automatically reloads TweetDeck to save memory. This option only works\r\nif the browser is in a \'default state\', i.e. all modals and drawers are closed,\r\nand all columns are scrolled to top.");
             this.checkBrowserGCReload.UseVisualStyleBackColor = true;
             // 
             // labelApp
