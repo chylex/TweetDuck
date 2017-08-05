@@ -897,6 +897,58 @@
     return true;
   };
   
+  if (window.TD_SESSION && window.TD_SESSION.gc){
+    var state;
+    
+    try{
+      state = JSON.parse(window.TD_SESSION.gc);
+    }catch(err){
+      $TD.crashDebug("Invalid session gc data: "+window.TD_SESSION.gc);
+      state = {};
+    }
+    
+    var showMissedNotifications = function(){
+      let tweets = [];
+      let columns = {};
+      
+      let tmp = new TD.services.ChirpBase;
+      
+      for(let column of Object.values(TD.controller.columnManager.getAll())){
+        for(let feed of column.getFeeds()){
+          if (feed.privateState.key in state){
+            tmp.sortIndex = state[feed.privateState.key];
+            
+            for(let tweet of [].concat.apply([], column.updateArray.map(function(chirp){
+              return chirp.getUnreadChirps(tmp);
+            }))){
+              tweets.push(tweet);
+              columns[tweet.id] = column;
+            }
+          }
+        }
+      }
+      
+      tweets.sort(TD.util.chirpReverseColumnSort);
+      
+      for(let tweet of tweets){
+        onNewTweet(columns[tweet.id], tweet);
+      }
+    };
+    
+    $(document).one("dataColumnsLoaded", function(){
+      let columns = Object.values(TD.controller.columnManager.getAll());
+      let remaining = columns.length;
+
+      for(let column of columns){
+        column.ui.getChirpContainer().one("dataColumnFeedUpdated", () => {
+          if (--remaining === 0){
+            setTimeout(showMissedNotifications, 1);
+          }
+        });
+      }
+    });
+  }
+  
   //
   // Block: Disable TweetDeck metrics.
   //
