@@ -68,7 +68,7 @@
             this.checkHardwareAcceleration.Size = new System.Drawing.Size(134, 17);
             this.checkHardwareAcceleration.TabIndex = 0;
             this.checkHardwareAcceleration.Text = "Hardware Acceleration";
-            this.toolTip.SetToolTip(this.checkHardwareAcceleration, "Uses your graphics card to improve performance.\r\nDisable if you experience issues with rendering.");
+            this.toolTip.SetToolTip(this.checkHardwareAcceleration, "Uses graphics card to improve performance. Disable if you experience\r\nvisual glitches. This option will not be exported in a profile.");
             this.checkHardwareAcceleration.UseVisualStyleBackColor = true;
             // 
             // btnEditCefArgs
@@ -172,7 +172,7 @@
             this.checkBrowserGCReload.Size = new System.Drawing.Size(190, 17);
             this.checkBrowserGCReload.TabIndex = 3;
             this.checkBrowserGCReload.Text = "Enable Browser Memory Threshold";
-            this.toolTip.SetToolTip(this.checkBrowserGCReload, "Automatically reloads TweetDeck to save memory. This option only works\r\nif the browser is in a \'default state\', i.e. all modals and drawers are closed,\r\nand all columns are scrolled to top.");
+            this.toolTip.SetToolTip(this.checkBrowserGCReload, "Automatically reloads TweetDeck to save memory. This option only works if\r\nthe browser is in a \'default state\', i.e. all modals and drawers are closed, and\r\nall columns are scrolled to top. This option will not be exported in a profile.");
             this.checkBrowserGCReload.UseVisualStyleBackColor = true;
             // 
             // labelApp
