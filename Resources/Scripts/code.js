@@ -108,7 +108,7 @@
       recentTweetTimer = window.setTimeout(() => {
         recentTweetTimer = null;
         recentTweets.clear();
-      }, 10000);
+      }, 20000);
     };
     
     let checkRecentTweet = id => {
