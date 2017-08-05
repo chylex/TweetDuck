@@ -142,26 +142,14 @@
             0,
             0});
             this.numMemoryThreshold.Location = new System.Drawing.Point(202, 82);
-            this.numMemoryThreshold.Maximum = new decimal(new int[] {
-            3000,
-            0,
-            0,
-            0});
-            this.numMemoryThreshold.Minimum = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
+            this.numMemoryThreshold.Maximum = 2000;
+            this.numMemoryThreshold.Minimum = 200;
             this.numMemoryThreshold.Name = "numMemoryThreshold";
             this.numMemoryThreshold.Size = new System.Drawing.Size(97, 20);
             this.numMemoryThreshold.TabIndex = 4;
             this.numMemoryThreshold.TextSuffix = " MB";
             this.toolTip.SetToolTip(this.numMemoryThreshold, "Minimum amount of memory usage by the browser process to trigger the cleanup.\r\nThis is not a limit, the usage is allowed to exceed this value.");
-            this.numMemoryThreshold.Value = new decimal(new int[] {
-            350,
-            0,
-            0,
-            0});
+            this.numMemoryThreshold.Value = 400;
             // 
             // checkBrowserGCReload
             // 
