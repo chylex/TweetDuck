@@ -6,7 +6,7 @@ using TweetDuck.Data.Serialization;
 namespace TweetDuck.Configuration{
     sealed class SystemConfig{
         private static readonly FileSerializer<SystemConfig> Serializer = new FileSerializer<SystemConfig>{
-            OnReadUnknownProperty = (obj, property, value) => false
+            // HandleUnknownProperties = (obj, data) => {}
         };
 
         public static readonly bool IsHardwareAccelerationSupported = File.Exists(Path.Combine(Program.ProgramPath, "libEGL.dll")) &&

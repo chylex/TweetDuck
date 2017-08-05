@@ -10,9 +10,10 @@ using TweetDuck.Data.Serialization;
 
 namespace TweetDuck.Configuration{
     sealed class UserConfig{
-        private static readonly FileSerializer<UserConfig> Serializer = new FileSerializer<UserConfig>{
-            OnReadUnknownProperty = (obj, property, value) => false
-        };
+        private static readonly FileSerializer<UserConfig> Serializer = new FileSerializer<UserConfig>{ HandleUnknownProperties = HandleUnknownProperties };
+
+        private static void HandleUnknownProperties(UserConfig obj, Dictionary<string, string> data){
+        }
 
         static UserConfig(){
             Serializer.RegisterTypeConverter(typeof(WindowState), WindowState.Converter);
