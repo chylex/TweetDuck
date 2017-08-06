@@ -225,6 +225,10 @@ enabled(){
     }
   };
   
+  this.composerSendingEvent = function(e){
+    hideKeyboard();
+  };
+  
   this.documentClickEvent = function(e){
     if (me.currentKeyboard && !e.target.classList.contains("js-compose-text")){
       hideKeyboard();
@@ -246,6 +250,8 @@ enabled(){
 }
 
 ready(){
+  this.composeDrawer = $("[data-drawer='compose']");
+  
   this.composePanelScroller = $(".js-compose-scroller", ".js-docked-compose").first().children().first();
   this.composePanelScroller.on("scroll", this.composerScrollEvent);
   
@@ -253,6 +259,7 @@ ready(){
   $(document).on("click", this.documentClickEvent);
   $(document).on("keydown", this.documentKeyEvent);
   $(document).on("uiComposeImageAdded", this.uploadFilesEvent);
+  this.composeDrawer.on("uiComposeTweetSending", this.composerSendingEvent);
   
   // HTML generation
   
@@ -373,5 +380,7 @@ disabled(){
   $(document).off("click", this.documentClickEvent);
   $(document).off("keydown", this.documentKeyEvent);
   $(document).off("uiComposeImageAdded", this.uploadFilesEvent);
+  this.composeDrawer.off("uiComposeTweetSending", this.composerSendingEvent);
+  
   TD.mustaches["compose/docked_compose.mustache"] = this.prevComposeMustache;
 }
