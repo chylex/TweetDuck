@@ -34,7 +34,7 @@ namespace TweetDuck.Core.Utils{
         }
 
         private static string ExtractImageBaseLink(string url){
-            int dot = url.LastIndexOf('.');
+            int dot = url.LastIndexOf('/');
             return dot == -1 ? url : StringUtils.ExtractBefore(url, ':', dot);
         }
 
@@ -63,15 +63,17 @@ namespace TweetDuck.Core.Utils{
             }
 
             string firstImageLink = GetImageLink(urls[0], quality);
-            int qualityIndex = firstImageLink.LastIndexOf(':');
+            int qualityIndex = firstImageLink.IndexOf(':', firstImageLink.LastIndexOf('/'));
 
             string file = BrowserUtils.GetFileNameFromUrl(ExtractImageBaseLink(firstImageLink));
             string ext = Path.GetExtension(file); // includes dot
 
-            string[] fileNameParts = {
+            string[] fileNameParts = qualityIndex == -1 ? new string[]{
+                Path.ChangeExtension(file, null)
+            } : new string[]{
                 username,
                 Path.ChangeExtension(file, null),
-                qualityIndex == -1 ? string.Empty : firstImageLink.Substring(qualityIndex+1)
+                firstImageLink.Substring(qualityIndex+1)
             };
             
             using(SaveFileDialog dialog = new SaveFileDialog{

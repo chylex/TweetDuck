@@ -26,6 +26,9 @@ namespace UnitTests.Core{
 
         [TestMethod]
         public void TestImageQualityLink(){
+            Assert.AreEqual("https://pbs.twimg.com/profile_images/123", TwitterUtils.GetImageLink("https://pbs.twimg.com/profile_images/123", TwitterUtils.ImageQuality.Default));
+            Assert.AreEqual("https://pbs.twimg.com/profile_images/123", TwitterUtils.GetImageLink("https://pbs.twimg.com/profile_images/123", TwitterUtils.ImageQuality.Orig));
+
             Assert.AreEqual("https://pbs.twimg.com/profile_images/123.jpg", TwitterUtils.GetImageLink("https://pbs.twimg.com/profile_images/123.jpg", TwitterUtils.ImageQuality.Default));
             Assert.AreEqual("https://pbs.twimg.com/profile_images/123.jpg", TwitterUtils.GetImageLink("https://pbs.twimg.com/profile_images/123.jpg", TwitterUtils.ImageQuality.Orig));
 
