@@ -32,6 +32,9 @@ namespace UnitTests.Core{
             Assert.AreEqual("https://pbs.twimg.com/profile_images/123.jpg", TwitterUtils.GetImageLink("https://pbs.twimg.com/profile_images/123.jpg", TwitterUtils.ImageQuality.Default));
             Assert.AreEqual("https://pbs.twimg.com/profile_images/123.jpg", TwitterUtils.GetImageLink("https://pbs.twimg.com/profile_images/123.jpg", TwitterUtils.ImageQuality.Orig));
 
+            Assert.AreEqual("https://pbs.twimg.com/media/123.jpg", TwitterUtils.GetImageLink("https://pbs.twimg.com/media/123.jpg", TwitterUtils.ImageQuality.Default));
+            Assert.AreEqual("https://pbs.twimg.com/media/123.jpg:orig", TwitterUtils.GetImageLink("https://pbs.twimg.com/media/123.jpg", TwitterUtils.ImageQuality.Orig));
+
             Assert.AreEqual("https://pbs.twimg.com/media/123.jpg:small", TwitterUtils.GetImageLink("https://pbs.twimg.com/media/123.jpg:small", TwitterUtils.ImageQuality.Default));
             Assert.AreEqual("https://pbs.twimg.com/media/123.jpg:orig", TwitterUtils.GetImageLink("https://pbs.twimg.com/media/123.jpg:small", TwitterUtils.ImageQuality.Orig));
 

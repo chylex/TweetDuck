@@ -42,7 +42,7 @@ namespace TweetDuck.Core.Utils{
             if (quality == ImageQuality.Orig){
                 string result = ExtractImageBaseLink(url);
 
-                if (result != url){
+                if (result != url || url.Contains("//pbs.twimg.com/media/")){
                     result += ":orig";
                 }
 
