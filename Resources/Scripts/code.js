@@ -97,30 +97,30 @@
   // Function: Event callback for a new tweet.
   //
   var onNewTweet = (function(){
+    let recentMessages = new Set();
     let recentTweets = new Set();
     let recentTweetTimer = null;
     
-    let startRecentTweetTimer = () => {
-      if (recentTweetTimer){
-        window.clearTimeout(recentTweetTimer);
-      }
-      
-      recentTweetTimer = window.setTimeout(() => {
-        recentTweetTimer = null;
-        recentTweets.clear();
-      }, 20000);
+    let resetRecentTweets = () => {
+      recentTweetTimer = null;
+      recentTweets.clear();
     };
     
-    let checkRecentTweet = id => {
-      if (recentTweets.size > 50){
-        recentTweets.clear();
-      }
-      else if (recentTweets.has(id)){
+    let startRecentTweetTimer = () => {
+      recentTweetTimer && window.clearTimeout(recentTweetTimer);
+      recentTweetTimer = window.setTimeout(resetRecentTweets, 20000);
+    };
+    
+    let checkTweetCache = (set, id) => {
+      if (set.has(id)){
         return true;
       }
       
-      recentTweets.add(id);
-      startRecentTweetTimer();
+      if (set.size > 50){
+        set.clear();
+      }
+      
+      set.add(id);
       return false;
     };
     
@@ -129,9 +129,16 @@
     };
     
     return function(column, tweet){
-      if (checkRecentTweet(tweet.id)){
+      if (tweet instanceof TD.services.TwitterConversation){
+        if (checkTweetCache(recentMessages, tweet.id)){
+          return;
+        }
+      }
+      else if (checkTweetCache(recentTweets, tweet.id)){
         return;
       }
+      
+      startRecentTweetTimer();
       
       if (column.model.getHasNotification()){
         let previews = $TDX.notificationMediaPreviews;
