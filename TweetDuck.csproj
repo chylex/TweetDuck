@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="packages\CefSharp.WinForms.57.0.0\build\CefSharp.WinForms.props" Condition="Exists('packages\CefSharp.WinForms.57.0.0\build\CefSharp.WinForms.props')" />
   <Import Project="packages\CefSharp.Common.57.0.0\build\CefSharp.Common.props" Condition="Exists('packages\CefSharp.Common.57.0.0\build\CefSharp.Common.props')" />
@@ -352,8 +352,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>del "$(TargetPath).config"
-xcopy "$(ProjectDir)LICENSE.md" "$(TargetDir)" /Y
+    <PostBuildEvent>xcopy "$(ProjectDir)LICENSE.md" "$(TargetDir)" /Y
 del "$(TargetDir)LICENSE.txt"
 ren "$(TargetDir)LICENSE.md" "LICENSE.txt"
 xcopy "$(ProjectDir)bld\Resources\CEFSHARP-LICENSE.txt" "$(TargetDir)" /Y
@@ -378,7 +377,6 @@ if $(ConfigurationName) == Debug (
   xcopy "$(ProjectDir)Resources\Plugins\.debug\*" "$(TargetDir)plugins\user\.debug\" /E /Y
 )</PostBuildEvent>
   </PropertyGroup>
-  <Import Project="packages\cef.redist.x64.3.2987.1601\build\cef.redist.x64.targets" Condition="Exists('packages\cef.redist.x64.3.2987.1601\build\cef.redist.x64.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
@@ -390,14 +388,15 @@ if $(ConfigurationName) == Debug (
     <Error Condition="!Exists('packages\CefSharp.WinForms.57.0.0\build\CefSharp.WinForms.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.WinForms.57.0.0\build\CefSharp.WinForms.props'))" />
     <Error Condition="!Exists('packages\CefSharp.WinForms.57.0.0\build\CefSharp.WinForms.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.WinForms.57.0.0\build\CefSharp.WinForms.targets'))" />
   </Target>
+  <Import Project="packages\cef.redist.x64.3.2987.1601\build\cef.redist.x64.targets" Condition="Exists('packages\cef.redist.x64.3.2987.1601\build\cef.redist.x64.targets')" />
   <Import Project="packages\cef.redist.x86.3.2987.1601\build\cef.redist.x86.targets" Condition="Exists('packages\cef.redist.x86.3.2987.1601\build\cef.redist.x86.targets')" />
   <Import Project="packages\CefSharp.Common.57.0.0\build\CefSharp.Common.targets" Condition="Exists('packages\CefSharp.Common.57.0.0\build\CefSharp.Common.targets')" />
   <Import Project="packages\CefSharp.WinForms.57.0.0\build\CefSharp.WinForms.targets" Condition="Exists('packages\CefSharp.WinForms.57.0.0\build\CefSharp.WinForms.targets')" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
+  <Target Name="AfterBuild" Condition="$(ConfigurationName) == Release">
+    <Exec Command='del "$(TargetDir)*.pdb"' />
+    <Exec Command='del "$(TargetDir)*.xml"' />
+    <Delete Files="$(TargetDir)CefSharp.BrowserSubprocess.exe" />
+    <Delete Files="$(TargetDir)devtools_resources.pak" />
+    <Delete Files="$(TargetDir)widevinecdmadapter.dll" />
   </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
