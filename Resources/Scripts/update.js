@@ -125,6 +125,10 @@
   font-size: 23px;
 }
 
+#tweetduck-changelog h2 + br {
+  display: none;
+}
+
 #tweetduck-changelog h3 {
   margin: 0 0 5px 7px;
   font-size: 18px;
@@ -281,7 +285,7 @@
              .replace(/`(.*?)`/g, "<code>$1</code>")
              .replace(/\[(.*?)\]\((.*?)\)/g, "<a href='$2'>$1</a>")
              .replace(/^([a-z0-9].*?)$/gmi, "<p>$1</p>")
-             .replace(/\n\r?\n/g, "<br>");
+             .replace(/\n\r?\n\r?/g, "<br>");
   };
   
   //
