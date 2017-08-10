@@ -370,6 +370,7 @@ rmdir "$(ProjectDir)bin\Debug"
 rmdir "$(ProjectDir)bin\Release"
 
 rmdir "$(TargetDir)plugins\official\.debug" /S /Q
+del "$(TargetDir)plugins\official\emoji-keyboard\emoji-instructions.txt"
 
 if $(ConfigurationName) == Debug (
   rmdir "$(TargetDir)plugins\official\.debug" /S /Q
