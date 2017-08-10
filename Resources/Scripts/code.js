@@ -129,7 +129,7 @@
     };
     
     return function(column, tweet){
-      if (tweet instanceof TD.services.TwitterConversation){
+      if (tweet instanceof TD.services.TwitterConversation || tweet instanceof TD.services.TwitterConversationMessageEvent){
         if (checkTweetCache(recentMessages, tweet.id)){
           return;
         }
