@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
+using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Other.Media{
     class VideoPlayer{
@@ -9,6 +10,7 @@ namespace TweetDuck.Core.Other.Media{
 
         private readonly Form owner;
         private Process currentProcess;
+        private string lastUrl;
 
         public VideoPlayer(Form owner){
             this.owner = owner;
@@ -16,6 +18,8 @@ namespace TweetDuck.Core.Other.Media{
 
         public void Launch(string url){
             Close();
+
+            lastUrl = url;
 
             try{
                 if ((currentProcess = Process.Start(new ProcessStartInfo{
@@ -55,11 +59,14 @@ namespace TweetDuck.Core.Other.Media{
         private void process_Exited(object sender, EventArgs e){
             switch(currentProcess.ExitCode){
                 case 2: // CODE_LAUNCH_FAIL
-                    // TODO
+                    if (FormMessage.Error("Video Playback Error", "Error launching video player, this may be caused by missing Windows Media Player. Do you want to open the video in a browser?", FormMessage.Yes, FormMessage.No)){
+                        BrowserUtils.OpenExternalBrowser(lastUrl);
+                    }
+
                     break;
 
                 case 3: // CODE_MEDIA_ERROR
-                    // TODO
+                    FormMessage.Error("Video Playback Error", "The video could not be loaded or rendered correctly.", FormMessage.OK);
                     break;
             }
 

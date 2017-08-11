@@ -714,6 +714,7 @@
     addRule(".keyboard-shortcut-list { vertical-align: top; }"); // fix keyboard navigation alignment
     addRule(".account-inline .username { vertical-align: 10%; }"); // move usernames a bit higher
     addRule(".character-count-compose { width: 40px !important; }"); // fix strangely wide character count element
+    addRule(".is-video a:not([href*='youtu']) .icon-bg-dot, .is-gif .icon-bg-dot { color: #9f51cf; }"); // change play icon on mp4s
     
     addRule(".column-nav-link .attribution { position: absolute; }"); // fix cut off account names
     addRule(".txt-base-smallest .sprite-verified-mini { width: 13px !important; height: 13px !important; background-position: -223px -99px !important; }"); // fix cut off badge icon when zoomed in
@@ -757,9 +758,6 @@
     
     addRule(".js-column-header .column-header-link { padding: 0; }"); // fix column header tooltip hover box
     addRule(".js-column-header .column-header-link .icon { padding: 9px 4px; width: calc(1em + 8px); height: 100%; box-sizing: border-box; }"); // fix column header tooltip hover box
-    
-    addRule(".is-video a:not([href*='youtu']), .is-gif .js-media-gif-container { cursor: alias; }"); // change cursor on unsupported videos
-    addRule(".is-video a:not([href*='youtu']) .icon-bg-dot, .is-gif .icon-bg-dot { color: #bd3d37; }"); // change play icon color on unsupported videos
     
     window.TDGF_reinjectCustomCSS = function(styles){
       $("#tweetduck-custom-css").remove();
@@ -826,15 +824,7 @@
       let media = this.chirp.getMedia().find(media => media.mediaId === this.clickedMediaEntityId);
 
       if (media && media.isVideo && media.service !== "youtube"){
-        let data = media.chooseVideoVariant();
-        
-        if (data.content_type === "video/mp4"){
-          playVideo(data.url);
-        }
-        else{
-          $TD.openBrowser(this.clickedLink);
-        }
-        
+        playVideo(media.chooseVideoVariant().url);
         cancelModal = true;
       }
     });
