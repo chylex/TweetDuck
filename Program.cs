@@ -13,8 +13,6 @@ using TweetDuck.Core.Other;
 using TweetDuck.Core.Other.Settings.Export;
 using TweetDuck.Core.Utils;
 using TweetDuck.Data;
-using TweetDuck.Plugins;
-using TweetDuck.Plugins.Events;
 using TweetDuck.Updates;
 
 namespace TweetDuck{
@@ -150,18 +148,13 @@ namespace TweetDuck{
 
             Application.ApplicationExit += (sender, args) => ExitCleanup();
 
-            PluginManager plugins = new PluginManager(PluginPath, PluginConfigFilePath);
-            plugins.Reloaded += plugins_Reloaded;
-            plugins.Executed += plugins_Executed;
-            plugins.Reload();
-
             UpdaterSettings updaterSettings = new UpdaterSettings{
                 AllowPreReleases = Arguments.HasFlag(Arguments.ArgDebugUpdates),
                 DismissedUpdate = UserConfig.DismissedUpdate,
                 InstallerDownloadFolder = InstallerPath
             };
 
-            FormBrowser mainForm = new FormBrowser(plugins, updaterSettings);
+            FormBrowser mainForm = new FormBrowser(updaterSettings);
             Application.Run(mainForm);
 
             if (mainForm.UpdateInstallerPath != null){
@@ -173,18 +166,6 @@ namespace TweetDuck{
 
                 WindowsUtils.StartProcess(mainForm.UpdateInstallerPath, updaterArgs, runElevated);
                 Application.Exit();
-            }
-        }
-
-        private static void plugins_Reloaded(object sender, PluginErrorEventArgs e){
-            if (e.HasErrors){
-                FormMessage.Error("Error Loading Plugins", "The following plugins will not be available until the issues are resolved:\n\n"+string.Join("\n\n", e.Errors), FormMessage.OK);
-            }
-        }
-
-        private static void plugins_Executed(object sender, PluginErrorEventArgs e){
-            if (e.HasErrors){
-                FormMessage.Error("Error Executing Plugins", "Failed to execute the following plugins:\n\n"+string.Join("\n\n", e.Errors), FormMessage.OK);
             }
         }
 

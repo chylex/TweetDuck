@@ -2,7 +2,6 @@
 using CefSharp.WinForms;
 using System;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 using TweetDuck.Configuration;
 using TweetDuck.Core.Bridge;
@@ -61,14 +60,16 @@ namespace TweetDuck.Core{
         private SoundNotification soundNotification;
         private VideoPlayer videoPlayer;
 
-        public FormBrowser(PluginManager pluginManager, UpdaterSettings updaterSettings){
+        public FormBrowser(UpdaterSettings updaterSettings){
             InitializeComponent();
 
             Text = Program.BrandName;
 
-            this.plugins = pluginManager;
+            this.plugins = new PluginManager(Program.PluginPath, Program.PluginConfigFilePath);
             this.plugins.Reloaded += plugins_Reloaded;
+            this.plugins.Executed += plugins_Executed;
             this.plugins.PluginChangedState += plugins_PluginChangedState;
+            this.plugins.Reload();
 
             this.contextMenu = ContextMenuBrowser.CreateMenu(this);
             this.memoryUsageTracker = new MemoryUsageTracker("TDGF_tryRunCleanup");
@@ -132,16 +133,6 @@ namespace TweetDuck.Core{
             this.updates.UpdateDismissed += updates_UpdateDismissed;
 
             RestoreWindow();
-        }
-
-        private bool TryBringToFront<T>() where T : Form{
-            T form = Application.OpenForms.OfType<T>().FirstOrDefault();
-
-            if (form != null){
-                form.BringToFront();
-                return true;
-            }
-            else return false;
         }
 
         private void ShowChildForm(Form form){
@@ -325,7 +316,17 @@ namespace TweetDuck.Core{
         }
         
         private void plugins_Reloaded(object sender, PluginErrorEventArgs e){
+            if (e.HasErrors){
+                FormMessage.Error("Error Loading Plugins", "The following plugins will not be available until the issues are resolved:\n\n"+string.Join("\n\n", e.Errors), FormMessage.OK);
+            }
+
             ReloadToTweetDeck();
+        }
+        
+        private static void plugins_Executed(object sender, PluginErrorEventArgs e){
+            if (e.HasErrors){
+                FormMessage.Error("Error Executing Plugins", "Failed to execute the following plugins:\n\n"+string.Join("\n\n", e.Errors), FormMessage.OK);
+            }
         }
 
         private void plugins_PluginChangedState(object sender, PluginChangedStateEventArgs e){
@@ -334,11 +335,7 @@ namespace TweetDuck.Core{
 
         private void updates_UpdateAccepted(object sender, UpdateAcceptedEventArgs e){
             this.InvokeAsyncSafe(() => {
-                foreach(Form form in Application.OpenForms.Cast<Form>().Reverse()){
-                    if (form is FormSettings || form is FormPlugins || form is FormAbout){
-                        form.Close();
-                    }
-                }
+                FormManager.CloseAllDialogs();
             
                 updates.BeginUpdateDownload(this, e.UpdateInfo, update => {
                     if (update.DownloadStatus == UpdateDownloadStatus.Done){
@@ -450,7 +447,7 @@ namespace TweetDuck.Core{
         }
 
         public void OpenSettings(Type startTab){
-            if (!TryBringToFront<FormSettings>()){
+            if (!FormManager.TryBringToFront<FormSettings>()){
                 bool prevEnableUpdateCheck = Config.EnableUpdateCheck;
 
                 FormSettings form = new FormSettings(this, plugins, updates, startTab);
@@ -483,13 +480,13 @@ namespace TweetDuck.Core{
         }
 
         public void OpenAbout(){
-            if (!TryBringToFront<FormAbout>()){
+            if (!FormManager.TryBringToFront<FormAbout>()){
                 ShowChildForm(new FormAbout());
             }
         }
 
         public void OpenPlugins(){
-            if (!TryBringToFront<FormPlugins>()){
+            if (!FormManager.TryBringToFront<FormPlugins>()){
                 ShowChildForm(new FormPlugins(plugins));
             }
         }
