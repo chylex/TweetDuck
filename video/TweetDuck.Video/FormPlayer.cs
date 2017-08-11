@@ -8,7 +8,8 @@ namespace TweetDuck.Video{
     partial class FormPlayer : Form{
         private readonly IntPtr ownerHandle;
         private readonly string videoUrl;
-
+        
+        private readonly ControlWMP player;
         private bool isPaused;
 
         public FormPlayer(IntPtr handle, string url){
@@ -16,6 +17,14 @@ namespace TweetDuck.Video{
 
             this.ownerHandle = handle;
             this.videoUrl = url;
+            
+            player = new ControlWMP{
+                Dock = DockStyle.Fill
+            };
+
+            player.BeginInit();
+            Controls.Add(player);
+            player.EndInit();
 
             player.Ocx.enableContextMenu = false;
             player.Ocx.uiMode = "none";
