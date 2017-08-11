@@ -47,7 +47,9 @@ namespace TweetDuck.Video{
                 tablePanel.Visible = ClientRectangle.Contains(PointToClient(Cursor.Position)) || tablePanel.ContainsFocus;
 
                 if (tablePanel.Visible){
-                    int value = (int)Math.Floor(progressSeek.Maximum*player.Ocx.controls.currentPosition/player.Ocx.currentMedia.duration);
+                    labelTime.Text = $"{player.Ocx.controls.currentPositionString} / {player.Ocx.currentMedia.durationString}";
+
+                    int value = (int)Math.Round(progressSeek.Maximum*player.Ocx.controls.currentPosition/player.Ocx.currentMedia.duration);
 
                     if (value >= progressSeek.Maximum){
                         progressSeek.Value = progressSeek.Maximum;
@@ -75,6 +77,10 @@ namespace TweetDuck.Video{
         private void player_MediaError(object pMediaObject){
             Marshal.ReleaseComObject(pMediaObject);
             Environment.Exit(Program.CODE_MEDIA_ERROR);
+        }
+
+        private void progressSeek_Click(object sender, EventArgs e){
+            player.Ocx.controls.currentPosition = player.Ocx.currentMedia.duration*progressSeek.PointToClient(Cursor.Position).X/progressSeek.Width;
         }
 
         private void trackBarVolume_ValueChanged(object sender, EventArgs e){
