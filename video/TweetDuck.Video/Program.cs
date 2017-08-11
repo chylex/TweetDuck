@@ -1,17 +1,36 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace TweetDuck.Video{
     static class Program{
+        public const int CODE_INVALID_ARGS = 1;
+        public const int CODE_LAUNCH_FAIL = 2;
+        public const int CODE_MEDIA_ERROR = 3;
+        public const int CODE_OWNER_GONE = 4;
+
         [STAThread]
-        private static void Main(){
+        private static int Main(string[] args){
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            IntPtr ownerHandle;
+            string videoUrl;
+
             try{
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new FormPlayer());
-            }catch(Exception){
+                ownerHandle = new IntPtr(int.Parse(args[0], NumberStyles.Integer, CultureInfo.InvariantCulture));
+                videoUrl = new Uri(args[1], UriKind.Absolute).AbsoluteUri;
+            }catch{
+                return CODE_INVALID_ARGS;
+            }
+
+            try{
+                Application.Run(new FormPlayer(ownerHandle, videoUrl));
+                return 0;
+            }catch(Exception e){
                 // TODO
-                Environment.Exit(2);
+                Console.Out.WriteLine(e.Message);
+                return CODE_LAUNCH_FAIL;
             }
         }
     }

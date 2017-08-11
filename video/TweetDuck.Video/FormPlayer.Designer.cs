@@ -23,7 +23,9 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.player = new ControlWMP();
+            this.components = new System.ComponentModel.Container();
+            this.player = new TweetDuck.Video.ControlWMP();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.player)).BeginInit();
             this.SuspendLayout();
             // 
@@ -36,6 +38,11 @@
             this.player.Size = new System.Drawing.Size(120, 120);
             this.player.TabIndex = 0;
             // 
+            // timer
+            // 
+            this.timer.Interval = 10;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
             // FormPlayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -43,11 +50,13 @@
             this.ClientSize = new System.Drawing.Size(120, 120);
             this.Controls.Add(this.player);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Location = new System.Drawing.Point(-32000, -32000);
             this.Name = "FormPlayer";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "TweetDuck Video";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.FormPlayer_Load);
             ((System.ComponentModel.ISupportInitialize)(this.player)).EndInit();
             this.ResumeLayout(false);
@@ -57,6 +66,7 @@
         #endregion
 
         private ControlWMP player;
+        private System.Windows.Forms.Timer timer;
     }
 }
 
