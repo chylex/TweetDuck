@@ -20,12 +20,16 @@ namespace TweetDuck.Video{
             player.Ocx.enableContextMenu = false;
             player.Ocx.uiMode = "none";
             player.Ocx.settings.setMode("loop", true);
-
+            
             player.Ocx.MediaChange += player_MediaChange;
             player.Ocx.MediaError += player_MediaError;
 
+            trackBarVolume.Value = 25; // changes player volume
+
             Application.AddMessageFilter(new MessageFilter(this));
         }
+
+        // Events
 
         private void FormPlayer_Load(object sender, EventArgs e){
             player.Ocx.URL = videoUrl;
@@ -39,6 +43,8 @@ namespace TweetDuck.Video{
 
                 ClientSize = new Size(Math.Min(media.imageSourceWidth, width*3/4), Math.Min(media.imageSourceHeight, height*3/4));
                 Location = new Point(rect.Left+(width-ClientSize.Width)/2, rect.Top+(height-ClientSize.Height+SystemInformation.CaptionHeight)/2);
+
+                trackBarVolume.Visible = ClientRectangle.Contains(PointToClient(Cursor.Position)) || trackBarVolume.Focused;
             }
             else{
                 Environment.Exit(Program.CODE_OWNER_GONE);
@@ -55,6 +61,14 @@ namespace TweetDuck.Video{
         private void player_MediaError(object pMediaObject){
             Marshal.ReleaseComObject(pMediaObject);
             Environment.Exit(Program.CODE_MEDIA_ERROR);
+        }
+
+        private void trackBarVolume_ValueChanged(object sender, EventArgs e){
+            player.Ocx.settings.volume = trackBarVolume.Value;
+        }
+
+        private void trackBarVolume_MouseUp(object sender, MouseEventArgs e){
+            player.Focus();
         }
 
         // Controls & messages
@@ -79,8 +93,12 @@ namespace TweetDuck.Video{
 
             bool IMessageFilter.PreFilterMessage(ref Message m){
                 if (m.Msg == 0x0201){ // WM_LBUTTONDOWN
-                    form.TogglePause();
-                    return true;
+                    Point cursor = form.PointToClient(Cursor.Position);
+
+                    if (!(cursor.X >= form.trackBarVolume.Location.X && cursor.Y >= form.trackBarVolume.Location.Y)){
+                        form.TogglePause();
+                        return true;
+                    }
                 }
                 else if (m.Msg == 0x0203 || (m.Msg == 0x0100 && m.WParam.ToInt32() == 0x20)){ // WM_LBUTTONDBLCLK, WM_KEYDOWN, VK_SPACE
                     form.TogglePause();
