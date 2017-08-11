@@ -320,7 +320,9 @@ namespace TweetDuck.Core{
                 FormMessage.Error("Error Loading Plugins", "The following plugins will not be available until the issues are resolved:\n\n"+string.Join("\n\n", e.Errors), FormMessage.OK);
             }
 
-            ReloadToTweetDeck();
+            if (isLoaded){
+                ReloadToTweetDeck();
+            }
         }
         
         private static void plugins_Executed(object sender, PluginErrorEventArgs e){
