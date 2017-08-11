@@ -8,6 +8,17 @@ namespace TweetDuck.Core.Other.Media{
     class VideoPlayer{
         private readonly string PlayerExe = Path.Combine(Program.ProgramPath, "TweetDuck.Video.exe");
 
+        public bool Running{
+            get{
+                if (currentProcess == null){
+                    return false;
+                }
+
+                currentProcess.Refresh();
+                return !currentProcess.HasExited;
+            }
+        }
+
         private readonly Form owner;
         private Process currentProcess;
         private string lastUrl;

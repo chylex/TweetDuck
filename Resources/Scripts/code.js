@@ -791,7 +791,7 @@
   //
   (function(){
     var playVideo = function(url){
-      $('<div class="ovl" style="display:block"></div>').click(function(){
+      $('<div class="ovl" style="display:block"></div>').on("click contextmenu", function(){
         $TD.playVideo(null);
         $(this).remove();
       }).appendTo(app);

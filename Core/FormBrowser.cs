@@ -398,7 +398,7 @@ namespace TweetDuck.Core{
                 }
             }
             
-            if (isBrowserReady && m.Msg == NativeMethods.WM_PARENTNOTIFY && (m.WParam.ToInt32() & 0xFFFF) == NativeMethods.WM_XBUTTONDOWN){
+            if (isBrowserReady && m.Msg == NativeMethods.WM_PARENTNOTIFY && (m.WParam.ToInt32() & 0xFFFF) == NativeMethods.WM_XBUTTONDOWN && !(videoPlayer?.Running ?? false)){
                 browser.ExecuteScriptAsync("TDGF_onMouseClickExtra", (m.WParam.ToInt32() >> 16) & 0xFFFF);
                 return;
             }
@@ -509,16 +509,16 @@ namespace TweetDuck.Core{
         }
 
         public void PlayVideo(string url){
+            if (string.IsNullOrEmpty(url)){
+                videoPlayer?.Close();
+                return;
+            }
+
             if (videoPlayer == null){
                 videoPlayer = new VideoPlayer(this);
             }
-
-            if (!string.IsNullOrEmpty(url)){
-                videoPlayer.Launch(url);
-            }
-            else{
-                videoPlayer.Close();
-            }
+            
+            videoPlayer.Launch(url);
         }
 
         public void OnTweetScreenshotReady(string html, int width, int height){
