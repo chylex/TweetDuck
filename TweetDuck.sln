@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "tests\UnitTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetLib.Audio", "lib\TweetLib.Audio\TweetLib.Audio.csproj", "{E9E1FD1B-F480-45B7-9970-BE2ECFD309AC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetDuck.Video", "video\TweetDuck.Video\TweetDuck.Video.csproj", "{278B2D11-402D-44B6-B6A1-8FA67DB65565}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -32,6 +34,10 @@ Global
 		{E9E1FD1B-F480-45B7-9970-BE2ECFD309AC}.Debug|x86.Build.0 = Debug|x86
 		{E9E1FD1B-F480-45B7-9970-BE2ECFD309AC}.Release|x86.ActiveCfg = Release|x86
 		{E9E1FD1B-F480-45B7-9970-BE2ECFD309AC}.Release|x86.Build.0 = Release|x86
+		{278B2D11-402D-44B6-B6A1-8FA67DB65565}.Debug|x86.ActiveCfg = Debug|x86
+		{278B2D11-402D-44B6-B6A1-8FA67DB65565}.Debug|x86.Build.0 = Debug|x86
+		{278B2D11-402D-44B6-B6A1-8FA67DB65565}.Release|x86.ActiveCfg = Release|x86
+		{278B2D11-402D-44B6-B6A1-8FA67DB65565}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
