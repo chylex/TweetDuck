@@ -87,7 +87,7 @@ namespace TweetDuck.Core.Other.Settings{
             };
 
             form.FormClosed += (sender2, args2) => {
-                NativeMethods.SetFormDisabled(ParentForm, false);
+                RestoreParentForm();
 
                 if (form.DialogResult == DialogResult.OK){
                     Config.CustomCefArgs = form.CefArgs;
@@ -109,7 +109,7 @@ namespace TweetDuck.Core.Other.Settings{
             };
 
             form.FormClosed += (sender2, args2) => {
-                NativeMethods.SetFormDisabled(ParentForm, false);
+                RestoreParentForm();
 
                 if (form.DialogResult == DialogResult.OK){
                     Config.CustomBrowserCSS = form.BrowserCSS;
@@ -141,6 +141,12 @@ namespace TweetDuck.Core.Other.Settings{
                 if (dialog.ShowDialog() == DialogResult.OK){
                     Program.RestartWithArgs(dialog.Args);
                 }
+            }
+        }
+
+        private void RestoreParentForm(){
+            if (ParentForm != null){ // when the parent is closed first, ParentForm is null in FormClosed event
+                NativeMethods.SetFormDisabled(ParentForm, false);
             }
         }
     }
