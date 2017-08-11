@@ -17,6 +17,7 @@ namespace TweetDuck.Video{
 
             player.Ocx.enableContextMenu = false;
             player.Ocx.uiMode = "none";
+            player.Ocx.settings.setMode("loop", true);
 
             player.Ocx.MediaChange += player_MediaChange;
             player.Ocx.MediaError += player_MediaError;
@@ -33,7 +34,7 @@ namespace TweetDuck.Video{
                 IWMPMedia media = player.Ocx.currentMedia;
 
                 ClientSize = new Size(Math.Min(media.imageSourceWidth, width*3/4), Math.Min(media.imageSourceHeight, height*3/4));
-                Location = new Point(rect.Left+(width-ClientSize.Width)/2, rect.Top+(height-ClientSize.Height)/2);
+                Location = new Point(rect.Left+(width-ClientSize.Width)/2, rect.Top+(height-ClientSize.Height+SystemInformation.CaptionHeight)/2);
             }
             else{
                 Environment.Exit(Program.CODE_OWNER_GONE);
@@ -42,6 +43,8 @@ namespace TweetDuck.Video{
 
         private void player_MediaChange(object item){
             timer.Start();
+            Cursor.Current = Cursors.Hand;
+            NativeMethods.SetWindowOwner(Handle, ownerHandle);
             Marshal.ReleaseComObject(item);
         }
 

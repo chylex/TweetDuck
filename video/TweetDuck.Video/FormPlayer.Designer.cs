@@ -56,7 +56,6 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "TweetDuck Video";
-            this.TopMost = true;
             this.Load += new System.EventHandler(this.FormPlayer_Load);
             ((System.ComponentModel.ISupportInitialize)(this.player)).EndInit();
             this.ResumeLayout(false);

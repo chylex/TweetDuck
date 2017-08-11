@@ -26,12 +26,13 @@ namespace TweetDuck.Video{
 
             try{
                 Application.Run(new FormPlayer(ownerHandle, videoUrl));
-                return 0;
             }catch(Exception e){
                 // TODO
                 Console.Out.WriteLine(e.Message);
                 return CODE_LAUNCH_FAIL;
             }
+
+            return 0;
         }
     }
 }
