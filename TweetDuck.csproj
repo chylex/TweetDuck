@@ -142,6 +142,7 @@
     <Compile Include="Core\Other\FormPlugins.Designer.cs">
       <DependentUpon>FormPlugins.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\Other\Media\VideoPlayer.cs" />
     <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsCSS.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -344,6 +345,10 @@
     <ProjectReference Include="subprocess\TweetDuck.Browser.csproj">
       <Project>{b10b0017-819e-4f71-870f-8256b36a26aa}</Project>
       <Name>TweetDuck.Browser</Name>
+    </ProjectReference>
+    <ProjectReference Include="video\TweetDuck.Video\TweetDuck.Video.csproj">
+      <Project>{278b2d11-402d-44b6-b6a1-8fa67db65565}</Project>
+      <Name>TweetDuck.Video</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

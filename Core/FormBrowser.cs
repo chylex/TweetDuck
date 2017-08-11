@@ -12,6 +12,7 @@ using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Notification.Screenshot;
 using TweetDuck.Core.Other;
+using TweetDuck.Core.Other.Media;
 using TweetDuck.Core.Other.Settings;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
@@ -58,6 +59,7 @@ namespace TweetDuck.Core{
 
         private TweetScreenshotManager notificationScreenshotManager;
         private SoundNotification soundNotification;
+        private VideoPlayer videoPlayer;
 
         public FormBrowser(PluginManager pluginManager, UpdaterSettings updaterSettings){
             InitializeComponent();
@@ -504,6 +506,19 @@ namespace TweetDuck.Core{
             }
 
             soundNotification.Play(Config.NotificationSoundPath);
+        }
+
+        public void PlayVideo(string url){
+            if (videoPlayer == null){
+                videoPlayer = new VideoPlayer(this);
+            }
+
+            if (!string.IsNullOrEmpty(url)){
+                videoPlayer.Launch(url);
+            }
+            else{
+                videoPlayer.Close();
+            }
         }
 
         public void OnTweetScreenshotReady(string html, int width, int height){
