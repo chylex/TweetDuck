@@ -814,6 +814,9 @@
       e.stopPropagation();
     });
     
+    TD.mustaches["status/media_thumb.mustache"] = TD.mustaches["status/media_thumb.mustache"].replace("is-gif", "is-gif is-paused");
+    TD.mustaches["media/native_video.mustache"] = '<div class="js-media-gif-container media-item nbfc is-video" style="background-image:url({{imageSrc}})"><video class="js-media-gif media-item-gif full-width block {{#isPossiblySensitive}}is-invisible{{/isPossiblySensitive}}" loop src="{{videoUrl}}"></video><a class="js-gif-play pin-all is-actionable">{{> media/video_overlay}}</a></div>';
+    
     if (!ensurePropertyExists(TD, "components", "MediaGallery", "prototype", "_loadTweet") ||
         !ensurePropertyExists(TD, "components", "BaseModal", "prototype", "setAndShowContainer") ||
         !ensurePropertyExists(TD, "ui", "Column", "prototype", "playGifIfNotManuallyPaused"))return;
@@ -837,7 +840,6 @@
     });
     
     TD.ui.Column.prototype.playGifIfNotManuallyPaused = function(){};
-    TD.mustaches["status/media_thumb.mustache"] = TD.mustaches["status/media_thumb.mustache"].replace("is-gif", "is-gif is-paused");
   })();
   
   //
