@@ -12,7 +12,7 @@ namespace TweetDuck.Video{
         private readonly ControlWMP player;
         private bool isPaused;
 
-        public FormPlayer(IntPtr handle, string url){
+        public FormPlayer(IntPtr handle, int volume, string url){
             InitializeComponent();
 
             this.ownerHandle = handle;
@@ -32,8 +32,8 @@ namespace TweetDuck.Video{
             
             player.Ocx.MediaChange += player_MediaChange;
             player.Ocx.MediaError += player_MediaError;
-
-            trackBarVolume.Value = 25; // changes player volume
+            
+            trackBarVolume.Value = volume; // changes player volume too if non-default
 
             Application.AddMessageFilter(new MessageFilter(this));
         }
@@ -44,7 +44,19 @@ namespace TweetDuck.Video{
             player.Ocx.URL = videoUrl;
         }
 
-        private void timer_Tick(object sender, EventArgs e){
+        private void player_MediaChange(object item){
+            timerSync.Start();
+            Cursor.Current = Cursors.Default;
+            NativeMethods.SetWindowOwner(Handle, ownerHandle);
+            Marshal.ReleaseComObject(item);
+        }
+
+        private void player_MediaError(object pMediaObject){
+            Marshal.ReleaseComObject(pMediaObject);
+            Environment.Exit(Program.CODE_MEDIA_ERROR);
+        }
+
+        private void timerSync_Tick(object sender, EventArgs e){
             if (NativeMethods.GetWindowRect(ownerHandle, out NativeMethods.RECT rect)){
                 int width = rect.Right-rect.Left+1;
                 int height = rect.Bottom-rect.Top+1;
@@ -76,16 +88,9 @@ namespace TweetDuck.Video{
             }
         }
 
-        private void player_MediaChange(object item){
-            timer.Start();
-            Cursor.Current = Cursors.Default;
-            NativeMethods.SetWindowOwner(Handle, ownerHandle);
-            Marshal.ReleaseComObject(item);
-        }
-
-        private void player_MediaError(object pMediaObject){
-            Marshal.ReleaseComObject(pMediaObject);
-            Environment.Exit(Program.CODE_MEDIA_ERROR);
+        private void timerData_Tick(object sender, EventArgs e){
+            timerData.Stop();
+            NativeMethods.PostMessage(NativeMethods.HWND_BROADCAST, Program.VideoPlayerMessage, new UIntPtr((uint)trackBarVolume.Value), ownerHandle);
         }
 
         private void progressSeek_Click(object sender, EventArgs e){
@@ -94,6 +99,11 @@ namespace TweetDuck.Video{
 
         private void trackBarVolume_ValueChanged(object sender, EventArgs e){
             player.Ocx.settings.volume = trackBarVolume.Value;
+
+            if (timerSync.Enabled){
+                timerData.Stop();
+                timerData.Start();
+            }
         }
 
         private void trackBarVolume_MouseUp(object sender, MouseEventArgs e){

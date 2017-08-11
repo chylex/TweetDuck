@@ -35,7 +35,7 @@ namespace TweetDuck.Core.Other.Media{
             try{
                 if ((currentProcess = Process.Start(new ProcessStartInfo{
                     FileName = PlayerExe,
-                    Arguments = $"{owner.Handle} \"{url}\"",
+                    Arguments = $"{owner.Handle} {Program.UserConfig.VideoPlayerVolume} \"{url}\"",
                     UseShellExecute = false,
                     RedirectStandardOutput = true
                 })) != null){

@@ -396,6 +396,16 @@ namespace TweetDuck.Core{
 
                     return;
                 }
+                else if (m.Msg == Program.VideoPlayerMessage){
+                    int volume = m.WParam.ToInt32();
+
+                    if (Handle == m.LParam && volume != Config.VideoPlayerVolume){
+                        Config.VideoPlayerVolume = volume;
+                        Config.Save();
+                    }
+
+                    return;
+                }
             }
             
             if (isBrowserReady && m.Msg == NativeMethods.WM_PARENTNOTIFY && (m.WParam.ToInt32() & 0xFFFF) == NativeMethods.WM_XBUTTONDOWN && !(videoPlayer?.Running ?? false)){

@@ -24,19 +24,20 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.timerSync = new System.Windows.Forms.Timer(this.components);
             this.trackBarVolume = new System.Windows.Forms.TrackBar();
             this.tablePanel = new System.Windows.Forms.TableLayoutPanel();
             this.progressSeek = new TweetDuck.Video.FlatProgressBar();
             this.labelTime = new System.Windows.Forms.Label();
+            this.timerData = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).BeginInit();
             this.tablePanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // timer
+            // timerSync
             // 
-            this.timer.Interval = 10;
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            this.timerSync.Interval = 10;
+            this.timerSync.Tick += new System.EventHandler(this.timerSync_Tick);
             // 
             // trackBarVolume
             // 
@@ -52,6 +53,7 @@
             this.trackBarVolume.TabIndex = 2;
             this.trackBarVolume.TickFrequency = 10;
             this.trackBarVolume.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBarVolume.Value = 50;
             this.trackBarVolume.ValueChanged += new System.EventHandler(this.trackBarVolume_ValueChanged);
             this.trackBarVolume.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBarVolume_MouseUp);
             // 
@@ -97,6 +99,11 @@
             this.labelTime.TabIndex = 1;
             this.labelTime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // timerData
+            // 
+            this.timerData.Interval = 500;
+            this.timerData.Tick += new System.EventHandler(this.timerData_Tick);
+            // 
             // FormPlayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -123,11 +130,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.Timer timerSync;
         private System.Windows.Forms.TrackBar trackBarVolume;
         private System.Windows.Forms.TableLayoutPanel tablePanel;
         private FlatProgressBar progressSeek;
         private System.Windows.Forms.Label labelTime;
+        private System.Windows.Forms.Timer timerData;
     }
 }
 
