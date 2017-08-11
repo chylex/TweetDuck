@@ -9,6 +9,8 @@ namespace TweetDuck.Video{
         private readonly IntPtr ownerHandle;
         private readonly string videoUrl;
 
+        private bool isPaused;
+
         public FormPlayer(IntPtr handle, string url){
             InitializeComponent();
 
@@ -21,6 +23,8 @@ namespace TweetDuck.Video{
 
             player.Ocx.MediaChange += player_MediaChange;
             player.Ocx.MediaError += player_MediaError;
+
+            Application.AddMessageFilter(new MessageFilter(this));
         }
 
         private void FormPlayer_Load(object sender, EventArgs e){
@@ -43,7 +47,7 @@ namespace TweetDuck.Video{
 
         private void player_MediaChange(object item){
             timer.Start();
-            Cursor.Current = Cursors.Hand;
+            Cursor.Current = Cursors.Default;
             NativeMethods.SetWindowOwner(Handle, ownerHandle);
             Marshal.ReleaseComObject(item);
         }
@@ -51,6 +55,39 @@ namespace TweetDuck.Video{
         private void player_MediaError(object pMediaObject){
             Marshal.ReleaseComObject(pMediaObject);
             Environment.Exit(Program.CODE_MEDIA_ERROR);
+        }
+
+        // Controls & messages
+
+        private void TogglePause(){
+            if (isPaused){
+                player.Ocx.controls.play();
+            }
+            else{
+                player.Ocx.controls.pause();
+            }
+
+            isPaused = !isPaused;
+        }
+
+        internal class MessageFilter : IMessageFilter{
+            private readonly FormPlayer form;
+
+            public MessageFilter(FormPlayer form){
+                this.form = form;
+            }
+
+            bool IMessageFilter.PreFilterMessage(ref Message m){
+                if (m.Msg == 0x0201){ // WM_LBUTTONDOWN
+                    form.TogglePause();
+                    return true;
+                }
+                else if (m.Msg == 0x0203){ // WM_LBUTTONDBLCLK
+                    form.TogglePause();
+                }
+
+                return false;
+            }
         }
     }
 }
