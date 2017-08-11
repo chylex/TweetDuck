@@ -82,7 +82,7 @@ namespace TweetDuck.Video{
                     form.TogglePause();
                     return true;
                 }
-                else if (m.Msg == 0x0203){ // WM_LBUTTONDBLCLK
+                else if (m.Msg == 0x0203 || (m.Msg == 0x0100 && m.WParam.ToInt32() == 0x20)){ // WM_LBUTTONDBLCLK, WM_KEYDOWN, VK_SPACE
                     form.TogglePause();
                 }
 
