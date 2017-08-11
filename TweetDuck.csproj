@@ -142,6 +142,7 @@
     <Compile Include="Core\Other\FormPlugins.Designer.cs">
       <DependentUpon>FormPlugins.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\Other\Media\VideoPlayer.cs" />
     <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsCSS.cs">
       <SubType>Form</SubType>
     </Compile>

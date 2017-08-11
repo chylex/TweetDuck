@@ -4,6 +4,7 @@ using System.Windows.Forms;
 
 namespace TweetDuck.Video{
     static class Program{
+        // referenced in VideoPlayer
         public const int CODE_INVALID_ARGS = 1;
         public const int CODE_LAUNCH_FAIL = 2;
         public const int CODE_MEDIA_ERROR = 3;

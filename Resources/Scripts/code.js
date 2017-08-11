@@ -789,20 +789,52 @@
   }
   
   //
-  // Block: Setup unsupported video element hook.
+  // Block: Setup video player hooks.
   //
   (function(){
-    var cancelModal = false;
+    var playVideo = function(url){
+      $('<div class="ovl" style="display:block"></div>').click(function(){
+        $TD.playVideo(null);
+        $(this).remove();
+      }).appendTo(app);
+      
+      $TD.playVideo(url);
+    };
+    
+    app.delegate(".js-gif-play", "click", function(e){
+      let src = $(this).closest(".js-media-gif-container").find("video").attr("src");
+      
+      if (src){
+        playVideo(src);
+      }
+      else{
+        let parent = $(e.target).closest(".js-tweet").first();
+        let link = (parent.hasClass("tweet-detail") ? parent.find("a[rel='url']") : parent.find("time").first().children("a")).first();
+        $TD.openBrowser(link.attr("href"));
+      }
+      
+      e.stopPropagation();
+    });
     
     if (!ensurePropertyExists(TD, "components", "MediaGallery", "prototype", "_loadTweet") ||
         !ensurePropertyExists(TD, "components", "BaseModal", "prototype", "setAndShowContainer") ||
         !ensurePropertyExists(TD, "ui", "Column", "prototype", "playGifIfNotManuallyPaused"))return;
     
+    var cancelModal = false;
+    
     TD.components.MediaGallery.prototype._loadTweet = appendToFunction(TD.components.MediaGallery.prototype._loadTweet, function(){
       let media = this.chirp.getMedia().find(media => media.mediaId === this.clickedMediaEntityId);
 
       if (media && media.isVideo && media.service !== "youtube"){
-        $TD.openBrowser(this.clickedLink);
+        let data = media.chooseVideoVariant();
+        
+        if (data.content_type === "video/mp4"){
+          playVideo(data.url);
+        }
+        else{
+          $TD.openBrowser(this.clickedLink);
+        }
+        
         cancelModal = true;
       }
     });
@@ -816,14 +848,6 @@
     
     TD.ui.Column.prototype.playGifIfNotManuallyPaused = function(){};
     TD.mustaches["status/media_thumb.mustache"] = TD.mustaches["status/media_thumb.mustache"].replace("is-gif", "is-gif is-paused");
-    
-    app.delegate(".js-gif-play", "click", function(e){
-      let parent = $(e.target).closest(".js-tweet").first();
-      let link = (parent.hasClass("tweet-detail") ? parent.find("a[rel='url']") : parent.find("time").first().children("a")).first();
-      
-      $TD.openBrowser(link.attr("href"));
-      e.stopPropagation();
-    });
   })();
   
   //
