@@ -28,7 +28,7 @@ namespace TweetDuck.Video{
         }
 
         private void timer_Tick(object sender, EventArgs e){
-            if (NativeMethods.GetWindowRect(ownerHandle, out NativeMethods.RECT rect) && rect.Top != -32000){
+            if (NativeMethods.GetWindowRect(ownerHandle, out NativeMethods.RECT rect)){
                 int width = rect.Right-rect.Left+1;
                 int height = rect.Bottom-rect.Top+1;
                 IWMPMedia media = player.Ocx.currentMedia;

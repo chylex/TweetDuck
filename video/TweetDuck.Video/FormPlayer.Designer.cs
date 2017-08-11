@@ -48,9 +48,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(120, 120);
+            this.ControlBox = false;
             this.Controls.Add(this.player);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Location = new System.Drawing.Point(-32000, -32000);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FormPlayer";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
