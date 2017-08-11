@@ -43,11 +43,11 @@
             this.trackBarVolume.AutoSize = false;
             this.trackBarVolume.BackColor = System.Drawing.SystemColors.Control;
             this.trackBarVolume.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trackBarVolume.Location = new System.Drawing.Point(190, 5);
+            this.trackBarVolume.Location = new System.Drawing.Point(158, 5);
             this.trackBarVolume.Margin = new System.Windows.Forms.Padding(3, 5, 3, 3);
             this.trackBarVolume.Maximum = 100;
             this.trackBarVolume.Name = "trackBarVolume";
-            this.trackBarVolume.Size = new System.Drawing.Size(43, 26);
+            this.trackBarVolume.Size = new System.Drawing.Size(94, 26);
             this.trackBarVolume.SmallChange = 5;
             this.trackBarVolume.TabIndex = 2;
             this.trackBarVolume.TickFrequency = 10;
@@ -59,9 +59,9 @@
             // 
             this.tablePanel.BackColor = System.Drawing.SystemColors.Control;
             this.tablePanel.ColumnCount = 3;
-            this.tablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 75F));
-            this.tablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tablePanel.Controls.Add(this.trackBarVolume, 2, 0);
             this.tablePanel.Controls.Add(this.progressSeek, 0, 0);
             this.tablePanel.Controls.Add(this.labelTime, 1, 0);
@@ -70,7 +70,7 @@
             this.tablePanel.Name = "tablePanel";
             this.tablePanel.RowCount = 1;
             this.tablePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tablePanel.Size = new System.Drawing.Size(236, 34);
+            this.tablePanel.Size = new System.Drawing.Size(255, 34);
             this.tablePanel.TabIndex = 1;
             // 
             // progressSeek
@@ -82,7 +82,7 @@
             this.progressSeek.Margin = new System.Windows.Forms.Padding(9, 10, 9, 11);
             this.progressSeek.Maximum = 5000;
             this.progressSeek.Name = "progressSeek";
-            this.progressSeek.Size = new System.Drawing.Size(94, 13);
+            this.progressSeek.Size = new System.Drawing.Size(62, 13);
             this.progressSeek.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressSeek.TabIndex = 0;
             this.progressSeek.Click += new System.EventHandler(this.progressSeek_Click);
@@ -90,7 +90,7 @@
             // labelTime
             // 
             this.labelTime.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelTime.Location = new System.Drawing.Point(112, 2);
+            this.labelTime.Location = new System.Drawing.Point(80, 2);
             this.labelTime.Margin = new System.Windows.Forms.Padding(0, 2, 0, 5);
             this.labelTime.Name = "labelTime";
             this.labelTime.Size = new System.Drawing.Size(75, 27);
@@ -102,7 +102,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(236, 120);
+            this.ClientSize = new System.Drawing.Size(255, 120);
             this.ControlBox = false;
             this.Controls.Add(this.tablePanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
