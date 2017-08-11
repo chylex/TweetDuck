@@ -44,7 +44,21 @@ namespace TweetDuck.Video{
                 ClientSize = new Size(Math.Min(media.imageSourceWidth, width*3/4), Math.Min(media.imageSourceHeight, height*3/4));
                 Location = new Point(rect.Left+(width-ClientSize.Width)/2, rect.Top+(height-ClientSize.Height+SystemInformation.CaptionHeight)/2);
 
-                trackBarVolume.Visible = ClientRectangle.Contains(PointToClient(Cursor.Position)) || trackBarVolume.Focused;
+                tablePanel.Visible = ClientRectangle.Contains(PointToClient(Cursor.Position)) || tablePanel.ContainsFocus;
+
+                if (tablePanel.Visible){
+                    int value = (int)Math.Floor(progressSeek.Maximum*player.Ocx.controls.currentPosition/player.Ocx.currentMedia.duration);
+
+                    if (value >= progressSeek.Maximum){
+                        progressSeek.Value = progressSeek.Maximum;
+                        progressSeek.Value = progressSeek.Maximum-1;
+                        progressSeek.Value = progressSeek.Maximum;
+                    }
+                    else{
+                        progressSeek.Value = value+1;
+                        progressSeek.Value = value;
+                    }
+                }
             }
             else{
                 Environment.Exit(Program.CODE_OWNER_GONE);
@@ -95,7 +109,7 @@ namespace TweetDuck.Video{
                 if (m.Msg == 0x0201){ // WM_LBUTTONDOWN
                     Point cursor = form.PointToClient(Cursor.Position);
 
-                    if (!(cursor.X >= form.trackBarVolume.Location.X && cursor.Y >= form.trackBarVolume.Location.Y)){
+                    if (cursor.Y < form.tablePanel.Location.Y){
                         form.TogglePause();
                         return true;
                     }

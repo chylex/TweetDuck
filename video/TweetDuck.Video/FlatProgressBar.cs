@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace TweetDuck.Core.Controls{
+namespace TweetDuck.Video{
     sealed class FlatProgressBar : ProgressBar{
         private readonly SolidBrush brush;
 
@@ -10,10 +10,6 @@ namespace TweetDuck.Core.Controls{
 
             SetStyle(ControlStyles.UserPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-        }
-
-        public void SetValueInstant(int value){
-            ControlExtensions.SetValueInstant(this, value);
         }
 
         protected override void OnPaint(PaintEventArgs e){
