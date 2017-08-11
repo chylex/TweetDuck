@@ -33,7 +33,6 @@ namespace TweetDuck.Video{
             try{
                 Application.Run(new FormPlayer(ownerHandle, defaultVolume, videoUrl));
             }catch(Exception e){
-                // TODO
                 Console.Out.WriteLine(e.Message);
                 return CODE_LAUNCH_FAIL;
             }

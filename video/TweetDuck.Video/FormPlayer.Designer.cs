@@ -55,6 +55,7 @@
             this.trackBarVolume.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBarVolume.Value = 50;
             this.trackBarVolume.ValueChanged += new System.EventHandler(this.trackBarVolume_ValueChanged);
+            this.trackBarVolume.MouseDown += new System.Windows.Forms.MouseEventHandler(this.trackBarVolume_MouseDown);
             this.trackBarVolume.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBarVolume_MouseUp);
             // 
             // tablePanel

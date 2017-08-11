@@ -11,6 +11,7 @@ namespace TweetDuck.Video{
         
         private readonly ControlWMP player;
         private bool isPaused;
+        private bool isDragging;
 
         public FormPlayer(IntPtr handle, int volume, string url){
             InitializeComponent();
@@ -52,6 +53,8 @@ namespace TweetDuck.Video{
         }
 
         private void player_MediaError(object pMediaObject){
+            Console.Out.WriteLine(((IWMPMedia2)pMediaObject).Error.errorDescription);
+
             Marshal.ReleaseComObject(pMediaObject);
             Environment.Exit(Program.CODE_MEDIA_ERROR);
         }
@@ -65,7 +68,7 @@ namespace TweetDuck.Video{
                 ClientSize = new Size(Math.Min(media.imageSourceWidth, width*3/4), Math.Min(media.imageSourceHeight, height*3/4));
                 Location = new Point(rect.Left+(width-ClientSize.Width)/2, rect.Top+(height-ClientSize.Height+SystemInformation.CaptionHeight)/2);
 
-                tablePanel.Visible = ClientRectangle.Contains(PointToClient(Cursor.Position)) || tablePanel.ContainsFocus;
+                tablePanel.Visible = ClientRectangle.Contains(PointToClient(Cursor.Position)) || isDragging;
 
                 if (tablePanel.Visible){
                     labelTime.Text = $"{player.Ocx.controls.currentPositionString} / {player.Ocx.currentMedia.durationString}";
@@ -106,8 +109,12 @@ namespace TweetDuck.Video{
             }
         }
 
+        private void trackBarVolume_MouseDown(object sender, MouseEventArgs e){
+            isDragging = true;
+        }
+
         private void trackBarVolume_MouseUp(object sender, MouseEventArgs e){
-            player.Focus();
+            isDragging = false;
         }
 
         // Controls & messages

@@ -77,7 +77,10 @@ namespace TweetDuck.Core.Other.Management{
                     break;
 
                 case 3: // CODE_MEDIA_ERROR
-                    FormMessage.Error("Video Playback Error", "The video could not be loaded or rendered correctly.", FormMessage.OK);
+                    if (FormMessage.Error("Video Playback Error", "The video could not be loaded, most likely due to unknown format. Do you want to open the video in a browser?", FormMessage.Yes, FormMessage.No)){
+                        BrowserUtils.OpenExternalBrowser(lastUrl);
+                    }
+
                     break;
             }
 
