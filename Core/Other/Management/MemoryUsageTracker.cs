@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using CefSharp;
 using Timer = System.Timers.Timer;
 
-namespace TweetDuck.Core.Utils{
+namespace TweetDuck.Core.Other.Management{
     sealed class MemoryUsageTracker : IDisposable{
         private const int IntervalMemoryCheck = 60000*30; // 30 minutes
         private const int IntervalCleanupAttempt = 60000*5; // 5 minutes

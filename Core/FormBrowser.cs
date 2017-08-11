@@ -12,7 +12,7 @@ using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Notification.Screenshot;
 using TweetDuck.Core.Other;
-using TweetDuck.Core.Other.Media;
+using TweetDuck.Core.Other.Management;
 using TweetDuck.Core.Other.Settings;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;

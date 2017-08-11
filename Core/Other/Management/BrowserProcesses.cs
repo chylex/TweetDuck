@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using CefSharp;
+using TweetDuck.Core.Utils;
 
-namespace TweetDuck.Core.Utils{
+namespace TweetDuck.Core.Other.Management{
     static class BrowserProcesses{
         private static readonly Dictionary<int, int> PIDs = new Dictionary<int, int>();
 

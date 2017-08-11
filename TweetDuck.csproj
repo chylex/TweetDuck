@@ -142,7 +142,7 @@
     <Compile Include="Core\Other\FormPlugins.Designer.cs">
       <DependentUpon>FormPlugins.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Other\Media\VideoPlayer.cs" />
+    <Compile Include="Core\Other\Management\VideoPlayer.cs" />
     <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsCSS.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -167,7 +167,7 @@
     <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsRestart.Designer.cs">
       <DependentUpon>DialogSettingsRestart.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Utils\BrowserProcesses.cs" />
+    <Compile Include="Core\Other\Management\BrowserProcesses.cs" />
     <Compile Include="Core\Utils\StringUtils.cs" />
     <Compile Include="Core\Utils\TwitterUtils.cs" />
     <Compile Include="Data\CombinedFileStream.cs" />
@@ -212,7 +212,7 @@
     <Compile Include="Data\Serialization\SingleTypeConverter.cs" />
     <Compile Include="Data\TwoKeyDictionary.cs" />
     <Compile Include="Data\WindowState.cs" />
-    <Compile Include="Core\Utils\MemoryUsageTracker.cs" />
+    <Compile Include="Core\Other\Management\MemoryUsageTracker.cs" />
     <Compile Include="Core\Utils\WindowsUtils.cs" />
     <Compile Include="Core\Bridge\TweetDeckBridge.cs" />
     <Compile Include="Core\Other\FormSettings.cs">

@@ -4,8 +4,8 @@ using System.IO;
 using System.Windows.Forms;
 using TweetDuck.Core.Utils;
 
-namespace TweetDuck.Core.Other.Media{
-    class VideoPlayer{
+namespace TweetDuck.Core.Other.Management{
+    sealed class VideoPlayer{
         private readonly string PlayerExe = Path.Combine(Program.ProgramPath, "TweetDuck.Video.exe");
 
         public bool Running{
