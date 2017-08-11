@@ -8,7 +8,7 @@ namespace TweetDuck.Plugins{
 
         public static string GeneratePlugin(string pluginIdentifier, string pluginContents, int pluginToken, PluginEnvironment environment){
             return PluginGen
-                .Replace("%params", environment.GetScriptVariables())
+                .Replace("%params", environment.GetPluginScriptVariables())
                 .Replace("%id", pluginIdentifier)
                 .Replace("%token", pluginToken.ToString())
                 .Replace("%contents", pluginContents);

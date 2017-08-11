@@ -84,7 +84,7 @@ namespace TweetDuck.Plugins{
 
         public string GetScriptPath(PluginEnvironment environment){
             if (Environments.HasFlag(environment)){
-                string file = environment.GetScriptFile();
+                string file = environment.GetPluginScriptFile();
                 return file != null ? Path.Combine(pathRoot, file) : string.Empty;
             }
             else{
@@ -152,7 +152,7 @@ namespace TweetDuck.Plugins{
 
         private static bool LoadEnvironments(string path, Plugin plugin, out string error){
             foreach(string file in Directory.EnumerateFiles(path, "*.js", SearchOption.TopDirectoryOnly).Select(Path.GetFileName)){
-                plugin.Environments |= PluginEnvironmentExtensions.Values.FirstOrDefault(env => file.Equals(env.GetScriptFile(), StringComparison.Ordinal));
+                plugin.Environments |= PluginEnvironmentExtensions.Values.FirstOrDefault(env => file.Equals(env.GetPluginScriptFile(), StringComparison.Ordinal));
             }
 
             if (plugin.Environments == PluginEnvironment.None){

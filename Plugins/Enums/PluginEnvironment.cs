@@ -17,7 +17,20 @@ namespace TweetDuck.Plugins.Enums{
             }
         }
 
-        public static string GetScriptFile(this PluginEnvironment environment){
+        public static bool IncludesDisabledPlugins(this PluginEnvironment environment){
+            return environment == PluginEnvironment.Browser;
+        }
+
+        public static string GetScriptIdentifier(this PluginEnvironment environment){
+            switch(environment){
+                case PluginEnvironment.None: return "root:plugins";
+                case PluginEnvironment.Browser: return "root:plugins.browser";
+                case PluginEnvironment.Notification: return "root:plugins.notification";
+                default: return null;
+            }
+        }
+
+        public static string GetPluginScriptFile(this PluginEnvironment environment){
             switch(environment){
                 case PluginEnvironment.Browser: return "browser.js";
                 case PluginEnvironment.Notification: return "notification.js";
@@ -25,7 +38,7 @@ namespace TweetDuck.Plugins.Enums{
             }
         }
 
-        public static string GetScriptVariables(this PluginEnvironment environment){
+        public static string GetPluginScriptVariables(this PluginEnvironment environment){
             switch(environment){
                 case PluginEnvironment.Browser: return "$,$TD,$TDP,TD";
                 case PluginEnvironment.Notification: return "$TD,$TDP";

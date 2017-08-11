@@ -17,10 +17,7 @@ namespace TweetDuck.Core.Notification{
         private const int TimerBarHeight = 4;
 
         private static readonly string NotificationScriptIdentifier = ScriptLoader.GetRootIdentifier(NotificationScriptFile);
-        private static readonly string PluginScriptIdentifier = ScriptLoader.GetRootIdentifier(PluginManager.PluginNotificationScriptFile);
-
         private static readonly string NotificationJS = ScriptLoader.LoadResource(NotificationScriptFile);
-        private static readonly string PluginJS = ScriptLoader.LoadResource(PluginManager.PluginNotificationScriptFile);
         
         private readonly PluginManager plugins;
 
@@ -169,12 +166,7 @@ namespace TweetDuck.Core.Notification{
             if (e.Frame.IsMain && NotificationJS != null && browser.Address != "about:blank"){
                 e.Frame.ExecuteJavaScriptAsync(PropertyBridge.GenerateScript(PropertyBridge.Environment.Notification));
                 ScriptLoader.ExecuteScript(e.Frame, NotificationJS, NotificationScriptIdentifier);
-
-                if (plugins.HasAnyPlugin(PluginEnvironment.Notification)){
-                    ScriptLoader.ExecuteScript(e.Frame, PluginJS, PluginScriptIdentifier);
-                    ScriptLoader.ExecuteFile(e.Frame, PluginManager.PluginGlobalScriptFile);
-                    plugins.ExecutePlugins(e.Frame, PluginEnvironment.Notification, false);
-                }
+                plugins.ExecutePlugins(e.Frame, PluginEnvironment.Notification);
             }
         }
 

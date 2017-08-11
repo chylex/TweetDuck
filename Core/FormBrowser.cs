@@ -209,12 +209,7 @@ namespace TweetDuck.Core{
                 TweetDeckBridge.RestoreSessionData(e.Frame);
                 ScriptLoader.ExecuteFile(e.Frame, "code.js");
                 ReinjectCustomCSS(Config.CustomBrowserCSS);
-
-                if (plugins.HasAnyPlugin(PluginEnvironment.Browser)){
-                    ScriptLoader.ExecuteFile(e.Frame, PluginManager.PluginBrowserScriptFile);
-                    ScriptLoader.ExecuteFile(e.Frame, PluginManager.PluginGlobalScriptFile);
-                    plugins.ExecutePlugins(e.Frame, PluginEnvironment.Browser, true);
-                }
+                plugins.ExecutePlugins(e.Frame, PluginEnvironment.Browser);
 
                 TweetDeckBridge.ResetStaticProperties();
 

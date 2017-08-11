@@ -9,11 +9,13 @@ using TweetDuck.Resources;
 
 namespace TweetDuck.Plugins{
     sealed class PluginManager{
-        public const string PluginBrowserScriptFile = "plugins.browser.js";
-        public const string PluginNotificationScriptFile = "plugins.notification.js";
-        public const string PluginGlobalScriptFile = "plugins.js";
-
         private const int InvalidToken = 0;
+
+        private static readonly Dictionary<PluginEnvironment, string> PluginSetupScripts = new Dictionary<PluginEnvironment, string>(4){
+            { PluginEnvironment.None, ScriptLoader.LoadResource("plugins.js") },
+            { PluginEnvironment.Browser, ScriptLoader.LoadResource("plugins.browser.js") },
+            { PluginEnvironment.Notification, ScriptLoader.LoadResource("plugins.notification.js") }
+        };
 
         public string PathOfficialPlugins => Path.Combine(rootPath, "official");
         public string PathCustomPlugins => Path.Combine(rootPath, "user");
@@ -97,7 +99,17 @@ namespace TweetDuck.Plugins{
             Reloaded?.Invoke(this, new PluginErrorEventArgs(loadErrors));
         }
 
-        public void ExecutePlugins(IFrame frame, PluginEnvironment environment, bool includeDisabled){
+        public void ExecutePlugins(IFrame frame, PluginEnvironment environment){
+            if (HasAnyPlugin(environment)){
+                ScriptLoader.ExecuteScript(frame, PluginSetupScripts[environment], environment.GetScriptIdentifier());
+                ScriptLoader.ExecuteScript(frame, PluginSetupScripts[PluginEnvironment.None], PluginEnvironment.None.GetScriptIdentifier());
+                ExecutePluginScripts(frame, environment);
+            }
+        }
+
+        private void ExecutePluginScripts(IFrame frame, PluginEnvironment environment){
+            bool includeDisabled = environment.IncludesDisabledPlugins();
+
             if (includeDisabled){
                 ScriptLoader.ExecuteScript(frame, PluginScriptGenerator.GenerateConfig(Config), "gen:pluginconfig");
             }
