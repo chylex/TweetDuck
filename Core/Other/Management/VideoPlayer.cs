@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
+using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Other.Management{
@@ -19,7 +20,7 @@ namespace TweetDuck.Core.Other.Management{
             }
         }
 
-        public event EventHandler ProcessExitedGracelessly;
+        public event EventHandler ProcessExited;
 
         private readonly Form owner;
         private Process currentProcess;
@@ -27,6 +28,7 @@ namespace TweetDuck.Core.Other.Management{
 
         public VideoPlayer(Form owner){
             this.owner = owner;
+            this.owner.FormClosing += owner_FormClosing;
         }
 
         public void Launch(string url){
@@ -66,6 +68,14 @@ namespace TweetDuck.Core.Other.Management{
 
                 currentProcess.Dispose();
                 currentProcess = null;
+
+                owner.InvokeAsyncSafe(TriggerProcessExitEventUnsafe);
+            }
+        }
+
+        private void owner_FormClosing(object sender, FormClosingEventArgs e){
+            if (currentProcess != null){
+                currentProcess.Exited -= process_Exited;
             }
         }
 
@@ -86,12 +96,14 @@ namespace TweetDuck.Core.Other.Management{
                     break;
             }
 
-            if (currentProcess.ExitCode != 0){
-                ProcessExitedGracelessly?.Invoke(this, new EventArgs());
-            }
-
             currentProcess.Dispose();
             currentProcess = null;
+            
+            owner.InvokeAsyncSafe(TriggerProcessExitEventUnsafe);
+        }
+
+        private void TriggerProcessExitEventUnsafe(){
+            ProcessExited?.Invoke(this, new EventArgs());
         }
     }
 }

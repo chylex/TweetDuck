@@ -405,7 +405,6 @@ namespace TweetDuck.Core{
             if (isBrowserReady && m.Msg == NativeMethods.WM_PARENTNOTIFY && (m.WParam.ToInt32() & 0xFFFF) == NativeMethods.WM_XBUTTONDOWN){
                 if (videoPlayer != null && videoPlayer.Running){
                     videoPlayer.Close();
-                    HideVideoOverlay();
                 }
                 else{
                     browser.ExecuteScriptAsync("TDGF_onMouseClickExtra", (m.WParam.ToInt32() >> 16) & 0xFFFF);
@@ -527,7 +526,11 @@ namespace TweetDuck.Core{
 
             if (videoPlayer == null){
                 videoPlayer = new VideoPlayer(this);
-                videoPlayer.ProcessExitedGracelessly += (sender, args) => HideVideoOverlay();
+
+                videoPlayer.ProcessExited += (sender, args) => {
+                    browser.GetBrowser().GetHost().SendFocusEvent(true);
+                    HideVideoOverlay();
+                };
             }
             
             videoPlayer.Launch(url);

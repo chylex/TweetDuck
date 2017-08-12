@@ -6,10 +6,13 @@ using WMPLib;
 
 namespace TweetDuck.Video{
     partial class FormPlayer : Form{
+        protected override bool ShowWithoutActivation => true;
+
         private readonly IntPtr ownerHandle;
         private readonly string videoUrl;
         
         private readonly ControlWMP player;
+        private bool wasCursorInside;
         private bool isPaused;
         private bool isDragging;
 
@@ -67,10 +70,12 @@ namespace TweetDuck.Video{
                 int height = rect.Bottom-rect.Top+1;
                 IWMPMedia media = Player.currentMedia;
 
+                bool isCursorInside = ClientRectangle.Contains(PointToClient(Cursor.Position));
+
                 ClientSize = new Size(Math.Min(media.imageSourceWidth, width*3/4), Math.Min(media.imageSourceHeight, height*3/4));
                 Location = new Point(rect.Left+(width-ClientSize.Width)/2, rect.Top+(height-ClientSize.Height+SystemInformation.CaptionHeight)/2);
 
-                tablePanel.Visible = ClientRectangle.Contains(PointToClient(Cursor.Position)) || isDragging;
+                tablePanel.Visible = isCursorInside || isDragging;
 
                 if (tablePanel.Visible){
                     labelTime.Text = $"{Player.controls.currentPositionString} / {Player.currentMedia.durationString}";
@@ -92,6 +97,17 @@ namespace TweetDuck.Video{
                     Player.controls.stop();
                     Player.controls.currentPosition = 0;
                     Player.controls.play();
+                }
+                
+                if (isCursorInside && !wasCursorInside){
+                    wasCursorInside = true;
+                }
+                else if (!isCursorInside && wasCursorInside){
+                    wasCursorInside = false;
+
+                    if (!Player.fullScreen){
+                        NativeMethods.SetForegroundWindow(ownerHandle);
+                    }
                 }
             }
             else{
@@ -143,23 +159,33 @@ namespace TweetDuck.Video{
         internal class MessageFilter : IMessageFilter{
             private readonly FormPlayer form;
 
+            private bool IsCursorOverVideo{
+                get{
+                    Point cursor = form.PointToClient(Cursor.Position);
+                    return cursor.Y < form.tablePanel.Location.Y;
+                }
+            }
+
             public MessageFilter(FormPlayer form){
                 this.form = form;
             }
 
             bool IMessageFilter.PreFilterMessage(ref Message m){
                 if (m.Msg == 0x0201){ // WM_LBUTTONDOWN
-                    Point cursor = form.PointToClient(Cursor.Position);
-
-                    if (cursor.Y < form.tablePanel.Location.Y){
+                    if (IsCursorOverVideo){
                         form.TogglePause();
                         return true;
                     }
                 }
                 else if (m.Msg == 0x0203 || (m.Msg == 0x0100 && m.WParam.ToInt32() == 0x20)){ // WM_LBUTTONDBLCLK, WM_KEYDOWN, VK_SPACE
-                    form.TogglePause();
+                    if (IsCursorOverVideo){
+                        form.TogglePause();
+                        form.Player.fullScreen = !form.Player.fullScreen;
+                        return true;
+                    }
                 }
                 else if (m.Msg == 0x020B && ((m.WParam.ToInt32() >> 16) & 0xFFFF) == 1){ // WM_XBUTTONDOWN
+                    NativeMethods.SetForegroundWindow(form.ownerHandle);
                     Environment.Exit(Program.CODE_USER_REQUESTED);
                 }
 
