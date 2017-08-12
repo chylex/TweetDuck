@@ -36,7 +36,7 @@
             // 
             // timerSync
             // 
-            this.timerSync.Interval = 10;
+            this.timerSync.Interval = 15;
             this.timerSync.Tick += new System.EventHandler(this.timerSync_Tick);
             // 
             // trackBarVolume

@@ -68,7 +68,9 @@ namespace TweetDuck.Video{
             if (NativeMethods.GetWindowRect(ownerHandle, out NativeMethods.RECT rect)){
                 int width = rect.Right-rect.Left+1;
                 int height = rect.Bottom-rect.Top+1;
+
                 IWMPMedia media = Player.currentMedia;
+                IWMPControls controls = Player.controls;
 
                 bool isCursorInside = ClientRectangle.Contains(PointToClient(Cursor.Position));
 
@@ -78,9 +80,9 @@ namespace TweetDuck.Video{
                 tablePanel.Visible = isCursorInside || isDragging;
 
                 if (tablePanel.Visible){
-                    labelTime.Text = $"{Player.controls.currentPositionString} / {Player.currentMedia.durationString}";
+                    labelTime.Text = $"{controls.currentPositionString} / {media.durationString}";
 
-                    int value = (int)Math.Round(progressSeek.Maximum*Player.controls.currentPosition/Player.currentMedia.duration);
+                    int value = (int)Math.Round(progressSeek.Maximum*controls.currentPosition/media.duration);
 
                     if (value >= progressSeek.Maximum){
                         progressSeek.Value = progressSeek.Maximum;
@@ -93,10 +95,10 @@ namespace TweetDuck.Video{
                     }
                 }
 
-                if (Player.controls.currentPosition > Player.currentMedia.duration){ // pausing near the end of the video causes WMP to play beyond the end of the video wtf
-                    Player.controls.stop();
-                    Player.controls.currentPosition = 0;
-                    Player.controls.play();
+                if (controls.currentPosition > media.duration){ // pausing near the end of the video causes WMP to play beyond the end of the video wtf
+                    controls.stop();
+                    controls.currentPosition = 0;
+                    controls.play();
                 }
                 
                 if (isCursorInside && !wasCursorInside){
@@ -109,6 +111,9 @@ namespace TweetDuck.Video{
                         NativeMethods.SetForegroundWindow(ownerHandle);
                     }
                 }
+
+                Marshal.ReleaseComObject(media);
+                Marshal.ReleaseComObject(controls);
             }
             else{
                 Environment.Exit(Program.CODE_OWNER_GONE);
@@ -122,12 +127,21 @@ namespace TweetDuck.Video{
 
         private void progressSeek_MouseDown(object sender, MouseEventArgs e){
             if (e.Button == MouseButtons.Left){
-                Player.controls.currentPosition = Player.currentMedia.duration*progressSeek.PointToClient(Cursor.Position).X/progressSeek.Width;
+                IWMPMedia media = Player.currentMedia;
+                IWMPControls controls = Player.controls;
+
+                controls.currentPosition = media.duration*progressSeek.PointToClient(Cursor.Position).X/progressSeek.Width;
+
+                Marshal.ReleaseComObject(media);
+                Marshal.ReleaseComObject(controls);
             }
         }
 
         private void trackBarVolume_ValueChanged(object sender, EventArgs e){
-            Player.settings.volume = trackBarVolume.Value;
+            IWMPSettings settings = Player.settings;
+            settings.volume = trackBarVolume.Value;
+            
+            Marshal.ReleaseComObject(settings);
 
             if (timerSync.Enabled){
                 timerData.Stop();
@@ -146,14 +160,17 @@ namespace TweetDuck.Video{
         // Controls & messages
 
         private void TogglePause(){
+            IWMPControls controls = Player.controls;
+
             if (isPaused){
-                Player.controls.play();
+                controls.play();
             }
             else{
-                Player.controls.pause();
+                controls.pause();
             }
 
             isPaused = !isPaused;
+            Marshal.ReleaseComObject(controls);
         }
 
         internal class MessageFilter : IMessageFilter{
