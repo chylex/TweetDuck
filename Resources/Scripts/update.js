@@ -143,8 +143,8 @@
   display: list-item;
 }
 
-#tweetduck-changelog .l2 {
-  margin-left: 50px;
+#tweetduck-changelog p.l2 {
+  margin-left: 50px !important;
 }
 
 #tweetduck-changelog a {
@@ -283,7 +283,7 @@
              .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
              .replace(/\*(.*?)\*/g, "<em>$1</em>")
              .replace(/`(.*?)`/g, "<code>$1</code>")
-             .replace(/\[(.*?)\]\((.*?)\)/g, "<a href='$2'>$1</a>")
+             .replace(/\[(.*?)\]\((.*?)\)/g, "<a href='$2' target='_blank'>$1</a>")
              .replace(/^([a-z0-9].*?)$/gmi, "<p>$1</p>")
              .replace(/\n\r?\n\r?/g, "<br>");
   };
