@@ -104,8 +104,10 @@ namespace TweetDuck.Video{
             NativeMethods.PostMessage(NativeMethods.HWND_BROADCAST, Program.VideoPlayerMessage, new UIntPtr((uint)trackBarVolume.Value), ownerHandle);
         }
 
-        private void progressSeek_Click(object sender, EventArgs e){
-            Player.controls.currentPosition = Player.currentMedia.duration*progressSeek.PointToClient(Cursor.Position).X/progressSeek.Width;
+        private void progressSeek_MouseDown(object sender, MouseEventArgs e){
+            if (e.Button == MouseButtons.Left){
+                Player.controls.currentPosition = Player.currentMedia.duration*progressSeek.PointToClient(Cursor.Position).X/progressSeek.Width;
+            }
         }
 
         private void trackBarVolume_ValueChanged(object sender, EventArgs e){

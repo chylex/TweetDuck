@@ -88,7 +88,7 @@
             this.progressSeek.Size = new System.Drawing.Size(62, 13);
             this.progressSeek.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressSeek.TabIndex = 0;
-            this.progressSeek.Click += new System.EventHandler(this.progressSeek_Click);
+            this.progressSeek.MouseDown += new System.Windows.Forms.MouseEventHandler(this.progressSeek_MouseDown);
             // 
             // labelTime
             // 
