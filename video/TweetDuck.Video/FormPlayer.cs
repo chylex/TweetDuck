@@ -157,6 +157,9 @@ namespace TweetDuck.Video{
                 else if (m.Msg == 0x0203 || (m.Msg == 0x0100 && m.WParam.ToInt32() == 0x20)){ // WM_LBUTTONDBLCLK, WM_KEYDOWN, VK_SPACE
                     form.TogglePause();
                 }
+                else if (m.Msg == 0x020B && ((m.WParam.ToInt32() >> 16) & 0xFFFF) == 1){ // WM_XBUTTONDOWN
+                    Environment.Exit(Program.CODE_USER_REQUESTED);
+                }
 
                 return false;
             }

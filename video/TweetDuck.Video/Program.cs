@@ -10,6 +10,7 @@ namespace TweetDuck.Video{
         public const int CODE_LAUNCH_FAIL = 3;
         public const int CODE_MEDIA_ERROR = 4;
         public const int CODE_OWNER_GONE = 5;
+        public const int CODE_USER_REQUESTED = 6;
 
         private static uint? message;
         public static uint VideoPlayerMessage => message ?? (message = NativeMethods.RegisterWindowMessage("TweetDuckVideoPlayer")).Value;
