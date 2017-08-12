@@ -21,7 +21,6 @@ DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 OutputBaseFilename={#MyAppName}
 VersionInfoVersion={#MyAppVersion}
-LicenseFile=.\Resources\LICENSE
 SetupIconFile=.\Resources\icon.ico
 Uninstallable=TDIsUninstallable
 UninstallDisplayName={#MyAppName}

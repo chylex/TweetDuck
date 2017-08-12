@@ -21,7 +21,6 @@ DefaultDirName={sd}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 OutputBaseFilename={#MyAppName}.Portable
 VersionInfoVersion={#MyAppVersion}
-LicenseFile=.\Resources\LICENSE
 SetupIconFile=.\Resources\icon.ico
 Uninstallable=no
 UsePreviousAppDir=no
