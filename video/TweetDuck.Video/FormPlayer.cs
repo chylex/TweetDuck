@@ -204,12 +204,16 @@ namespace TweetDuck.Video{
                         return true;
                     }
                 }
-                else if (m.Msg == 0x0203 || (m.Msg == 0x0100 && m.WParam.ToInt32() == 0x20)){ // WM_LBUTTONDBLCLK, WM_KEYDOWN, VK_SPACE
+                else if (m.Msg == 0x0203){ // WM_LBUTTONDBLCLK
                     if (IsCursorOverVideo){
                         form.TogglePause();
                         form.Player.fullScreen = !form.Player.fullScreen;
                         return true;
                     }
+                }
+                else if (m.Msg == 0x0100 && m.WParam.ToInt32() == 0x20){ // WM_KEYDOWN, VK_SPACE
+                    form.TogglePause();
+                    return true;
                 }
                 else if (m.Msg == 0x020B && ((m.WParam.ToInt32() >> 16) & 0xFFFF) == 1){ // WM_XBUTTONDOWN
                     NativeMethods.SetForegroundWindow(form.ownerHandle);
