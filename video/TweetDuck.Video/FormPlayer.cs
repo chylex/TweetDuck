@@ -13,6 +13,8 @@ namespace TweetDuck.Video{
         private bool isPaused;
         private bool isDragging;
 
+        private WindowsMediaPlayer Player => player.Ocx;
+
         public FormPlayer(IntPtr handle, int volume, string url){
             InitializeComponent();
 
@@ -27,12 +29,12 @@ namespace TweetDuck.Video{
             Controls.Add(player);
             player.EndInit();
 
-            player.Ocx.enableContextMenu = false;
-            player.Ocx.uiMode = "none";
-            player.Ocx.settings.setMode("loop", true);
+            Player.enableContextMenu = false;
+            Player.uiMode = "none";
+            Player.settings.setMode("loop", true);
             
-            player.Ocx.MediaChange += player_MediaChange;
-            player.Ocx.MediaError += player_MediaError;
+            Player.MediaChange += player_MediaChange;
+            Player.MediaError += player_MediaError;
             
             trackBarVolume.Value = volume; // changes player volume too if non-default
 
@@ -42,7 +44,7 @@ namespace TweetDuck.Video{
         // Events
 
         private void FormPlayer_Load(object sender, EventArgs e){
-            player.Ocx.URL = videoUrl;
+            Player.URL = videoUrl;
         }
 
         private void player_MediaChange(object item){
@@ -63,7 +65,7 @@ namespace TweetDuck.Video{
             if (NativeMethods.GetWindowRect(ownerHandle, out NativeMethods.RECT rect)){
                 int width = rect.Right-rect.Left+1;
                 int height = rect.Bottom-rect.Top+1;
-                IWMPMedia media = player.Ocx.currentMedia;
+                IWMPMedia media = Player.currentMedia;
 
                 ClientSize = new Size(Math.Min(media.imageSourceWidth, width*3/4), Math.Min(media.imageSourceHeight, height*3/4));
                 Location = new Point(rect.Left+(width-ClientSize.Width)/2, rect.Top+(height-ClientSize.Height+SystemInformation.CaptionHeight)/2);
@@ -71,9 +73,9 @@ namespace TweetDuck.Video{
                 tablePanel.Visible = ClientRectangle.Contains(PointToClient(Cursor.Position)) || isDragging;
 
                 if (tablePanel.Visible){
-                    labelTime.Text = $"{player.Ocx.controls.currentPositionString} / {player.Ocx.currentMedia.durationString}";
+                    labelTime.Text = $"{Player.controls.currentPositionString} / {Player.currentMedia.durationString}";
 
-                    int value = (int)Math.Round(progressSeek.Maximum*player.Ocx.controls.currentPosition/player.Ocx.currentMedia.duration);
+                    int value = (int)Math.Round(progressSeek.Maximum*Player.controls.currentPosition/Player.currentMedia.duration);
 
                     if (value >= progressSeek.Maximum){
                         progressSeek.Value = progressSeek.Maximum;
@@ -84,6 +86,12 @@ namespace TweetDuck.Video{
                         progressSeek.Value = value+1;
                         progressSeek.Value = value;
                     }
+                }
+
+                if (Player.controls.currentPosition > Player.currentMedia.duration){ // pausing near the end of the video causes WMP to play beyond the end of the video wtf
+                    Player.controls.stop();
+                    Player.controls.currentPosition = 0;
+                    Player.controls.play();
                 }
             }
             else{
@@ -97,11 +105,11 @@ namespace TweetDuck.Video{
         }
 
         private void progressSeek_Click(object sender, EventArgs e){
-            player.Ocx.controls.currentPosition = player.Ocx.currentMedia.duration*progressSeek.PointToClient(Cursor.Position).X/progressSeek.Width;
+            Player.controls.currentPosition = Player.currentMedia.duration*progressSeek.PointToClient(Cursor.Position).X/progressSeek.Width;
         }
 
         private void trackBarVolume_ValueChanged(object sender, EventArgs e){
-            player.Ocx.settings.volume = trackBarVolume.Value;
+            Player.settings.volume = trackBarVolume.Value;
 
             if (timerSync.Enabled){
                 timerData.Stop();
@@ -121,10 +129,10 @@ namespace TweetDuck.Video{
 
         private void TogglePause(){
             if (isPaused){
-                player.Ocx.controls.play();
+                Player.controls.play();
             }
             else{
-                player.Ocx.controls.pause();
+                Player.controls.pause();
             }
 
             isPaused = !isPaused;
