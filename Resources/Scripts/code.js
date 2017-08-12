@@ -759,6 +759,10 @@
     addRule(".js-column-header .column-header-link { padding: 0; }"); // fix column header tooltip hover box
     addRule(".js-column-header .column-header-link .icon { padding: 9px 4px; width: calc(1em + 8px); height: 100%; box-sizing: border-box; }"); // fix column header tooltip hover box
     
+    addRule("#td-compose-drawer-pin { margin: 17px 3px 0 0; transition: transform 0.1s ease; fill: #fff; float: right; cursor: pointer; }"); // replace 'stay open' checkbox with a pin icon
+    addRule(".js-docked-compose footer { display: none; }"); // replace 'stay open' checkbox with a pin icon
+    addRule(".compose-content { bottom: 0 !important; }"); // replace 'stay open' checkbox with a pin icon
+    
     window.TDGF_reinjectCustomCSS = function(styles){
       $("#tweetduck-custom-css").remove();
       
@@ -857,6 +861,34 @@
     media.YOUTUBE_RE = new RegExp(media.YOUTUBE_LONG_RE.source+"|"+media.YOUTUBE_TINY_RE.source);
     media.SERVICES["youtube"] = media.YOUTUBE_RE;
   }
+  
+  //
+  // Block: Add a pin icon to make tweet compose drawer stay open.
+  //
+  onAppReady.push(function(){
+    let ele = $(`<svg id="td-compose-drawer-pin" viewBox="0 0 24 24" class="icon js-show-tip" data-original-title="Stay Open" data-tooltip-position="left">
+       <path d="M9.884,16.959l3.272,0.001l-0.82,4.568l-1.635,0l-0.817,-4.569Z"/>
+       <rect x="8.694" y="7.208" width="5.652" height="7.445"/>
+       <path d="M16.877,17.448c0,-1.908 -1.549,-3.456 -3.456,-3.456l-3.802,0c-1.907,0 -3.456,1.548 -3.456,3.456l10.714,0Z"/>
+       <path d="M6.572,5.676l2.182,2.183l5.532,0l2.182,-2.183l0,-1.455l-9.896,0l0,1.455Z"/>
+       </svg>`
+    ).appendTo(".js-docked-compose .js-compose-header");
+    
+    ele.click(function(){
+      if (TD.settings.getComposeStayOpen()){
+        ele.css("transform", "rotate(0deg)");
+        TD.settings.setComposeStayOpen(false);
+      }
+      else{
+        ele.css("transform", "rotate(90deg)");
+        TD.settings.setComposeStayOpen(true);
+      }
+    });
+    
+    if (TD.settings.getComposeStayOpen()){
+      ele.css("transform", "rotate(90deg)");
+    }
+  });
   
   //
   // Block: Fix DM reply input box not getting focused after opening a conversation.
