@@ -5,10 +5,11 @@ using System.Windows.Forms;
 namespace TweetDuck.Video{
     static class Program{
         // referenced in VideoPlayer
-        public const int CODE_INVALID_ARGS = 1;
-        public const int CODE_LAUNCH_FAIL = 2;
-        public const int CODE_MEDIA_ERROR = 3;
-        public const int CODE_OWNER_GONE = 4;
+        // set by task manager -- public const int CODE_PROCESS_KILLED = 1;
+        public const int CODE_INVALID_ARGS = 2;
+        public const int CODE_LAUNCH_FAIL = 3;
+        public const int CODE_MEDIA_ERROR = 4;
+        public const int CODE_OWNER_GONE = 5;
 
         private static uint? message;
         public static uint VideoPlayerMessage => message ?? (message = NativeMethods.RegisterWindowMessage("TweetDuckVideoPlayer")).Value;

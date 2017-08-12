@@ -19,6 +19,8 @@ namespace TweetDuck.Core.Other.Management{
             }
         }
 
+        public event EventHandler ProcessExitedGracelessly;
+
         private readonly Form owner;
         private Process currentProcess;
         private string lastUrl;
@@ -69,19 +71,23 @@ namespace TweetDuck.Core.Other.Management{
 
         private void process_Exited(object sender, EventArgs e){
             switch(currentProcess.ExitCode){
-                case 2: // CODE_LAUNCH_FAIL
+                case 3: // CODE_LAUNCH_FAIL
                     if (FormMessage.Error("Video Playback Error", "Error launching video player, this may be caused by missing Windows Media Player. Do you want to open the video in a browser?", FormMessage.Yes, FormMessage.No)){
                         BrowserUtils.OpenExternalBrowser(lastUrl);
                     }
 
                     break;
 
-                case 3: // CODE_MEDIA_ERROR
+                case 4: // CODE_MEDIA_ERROR
                     if (FormMessage.Error("Video Playback Error", "The video could not be loaded, most likely due to unknown format. Do you want to open the video in a browser?", FormMessage.Yes, FormMessage.No)){
                         BrowserUtils.OpenExternalBrowser(lastUrl);
                     }
 
                     break;
+            }
+
+            if (currentProcess.ExitCode != 0){
+                ProcessExitedGracelessly?.Invoke(this, new EventArgs());
             }
 
             currentProcess.Dispose();

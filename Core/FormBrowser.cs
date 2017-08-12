@@ -527,6 +527,7 @@ namespace TweetDuck.Core{
 
             if (videoPlayer == null){
                 videoPlayer = new VideoPlayer(this);
+                videoPlayer.ProcessExitedGracelessly += (sender, args) => HideVideoOverlay();
             }
             
             videoPlayer.Launch(url);
