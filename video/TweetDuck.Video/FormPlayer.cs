@@ -34,9 +34,11 @@ namespace TweetDuck.Video{
 
             Player.enableContextMenu = false;
             Player.uiMode = "none";
+            Player.settings.autoStart = false;
+            Player.settings.enableErrorDialogs = false;
             Player.settings.setMode("loop", true);
-            
-            Player.MediaChange += player_MediaChange;
+
+            Player.PlayStateChange += player_PlayStateChange;
             Player.MediaError += player_MediaError;
             
             trackBarVolume.Value = volume; // changes player volume too if non-default
@@ -50,11 +52,19 @@ namespace TweetDuck.Video{
             Player.URL = videoUrl;
         }
 
-        private void player_MediaChange(object item){
-            timerSync.Start();
-            Cursor.Current = Cursors.Default;
-            NativeMethods.SetWindowOwner(Handle, ownerHandle);
-            Marshal.ReleaseComObject(item);
+        private void player_PlayStateChange(int newState){
+            WMPPlayState state = (WMPPlayState)newState;
+
+            if (state == WMPPlayState.wmppsReady){
+                Player.controls.play();
+            }
+            else if (state == WMPPlayState.wmppsPlaying){
+                Player.PlayStateChange -= player_PlayStateChange;
+                
+                timerSync.Start();
+                NativeMethods.SetWindowOwner(Handle, ownerHandle);
+                Cursor.Current = Cursors.Default;
+            }
         }
 
         private void player_MediaError(object pMediaObject){

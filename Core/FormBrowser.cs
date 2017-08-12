@@ -117,6 +117,7 @@ namespace TweetDuck.Core{
 
                 notificationScreenshotManager?.Dispose();
                 soundNotification?.Dispose();
+                videoPlayer?.Dispose();
             };
 
             this.trayIcon.ClickRestore += trayIcon_ClickRestore;

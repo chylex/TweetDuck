@@ -6,7 +6,7 @@ using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Other.Management{
-    sealed class VideoPlayer{
+    sealed class VideoPlayer : IDisposable{
         private readonly string PlayerExe = Path.Combine(Program.ProgramPath, "TweetDuck.Video.exe");
 
         public bool Running{
@@ -71,6 +71,11 @@ namespace TweetDuck.Core.Other.Management{
 
                 owner.InvokeAsyncSafe(TriggerProcessExitEventUnsafe);
             }
+        }
+
+        public void Dispose(){
+            ProcessExited = null;
+            Close();
         }
 
         private void owner_FormClosing(object sender, FormClosingEventArgs e){
