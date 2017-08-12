@@ -800,7 +800,7 @@
     };
     
     app.delegate(".js-gif-play", "click", function(e){
-      let src = $(this).closest(".js-media-gif-container").find("video").attr("src");
+      let src = !e.ctrlKey && $(this).closest(".js-media-gif-container").find("video").attr("src");
       
       if (src){
         playVideo(src);
