@@ -406,4 +406,7 @@ if $(ConfigurationName) == Debug (
     <Delete Files="$(TargetDir)devtools_resources.pak" />
     <Delete Files="$(TargetDir)widevinecdmadapter.dll" />
   </Target>
+  <PropertyGroup>
+    <PreBuildEvent>powershell Get-Process TweetDuck.Browser ^| Where-Object {$_.Path -eq '$(TargetDir)TweetDuck.Browser.exe'} ^| Stop-Process</PreBuildEvent>
+  </PropertyGroup>
 </Project>
