@@ -39,6 +39,10 @@ enabled(){
   this.css.insert(".emoji-keyboard-skintones div { width: 0.8em; height: 0.8em; margin: 0.25em 0.1em; border-radius: 50%; display: inline-block; box-sizing: border-box; cursor: pointer }");
   this.css.insert(".emoji-keyboard-skintones .sel { border: 2px solid rgba(0, 0, 0, 0.35); box-shadow: 0 0 2px 0 rgba(255, 255, 255, 0.65), 0 0 1px 0 rgba(255, 255, 255, 0.4) inset }");
   this.css.insert(".emoji-keyboard-skintones :hover { border: 2px solid rgba(0, 0, 0, 0.25); box-shadow: 0 0 1px 0 rgba(255, 255, 255, 0.65), 0 0 1px 0 rgba(255, 255, 255, 0.25) inset }");
+  this.css.insert("#emoji-keyboard-tweet-input { padding: 2px 0 !important; line-height: 18px }");
+  this.css.insert("#emoji-keyboard-tweet-input img { padding: 0.1em !important; width: 1em; height: 1em; vertical-align: -0.25em }");
+  this.css.insert("#emoji-keyboard-tweet-input:empty::before { content: \"What's happening?\"; display: inline-block; color: #ced8de }");
+  this.css.insert(".js-docked-compose .js-compose-text:not(.debug) { position: absolute; z-index: -9999; left: 0; opacity: 0 }");
   
   // layout
   
@@ -124,7 +128,7 @@ enabled(){
     updateFilters();
   };
   
-  this.generateKeyboard = (input, left, top) => {
+  this.generateKeyboard = (left, top) => {
     var outer = document.createElement("div");
     outer.classList.add("emoji-keyboard");
     outer.style.left = left+"px";
@@ -134,18 +138,10 @@ enabled(){
     keyboard.classList.add("emoji-keyboard-list");
     
     keyboard.addEventListener("click", function(e){
-      if (e.target.tagName === "IMG"){
-        var val = input.val();
-        var inserted = e.target.getAttribute("alt");
-        var posStart = input[0].selectionStart;
-        var posEnd = input[0].selectionEnd;
-        
-        input.val(val.slice(0, posStart)+inserted+val.slice(posStart));
-        input.trigger("change");
-        input.focus();
-        
-        input[0].selectionStart = posStart+inserted.length;
-        input[0].selectionEnd = posEnd+inserted.length;
+      let ele = e.target;
+      
+      if (ele.tagName === "IMG"){
+        insertEmoji(ele.getAttribute("src"), ele.getAttribute("alt"));
       }
       
       e.stopPropagation();
@@ -204,6 +200,26 @@ enabled(){
     return button.offset().top+button.outerHeight()+me.composePanelScroller.scrollTop()+8;
   };
   
+  var focusWithCaretAtEnd = () => {
+    let range = document.createRange();
+    range.selectNodeContents(me.composeInputNew[0]);
+    range.collapse(false);
+    
+    let sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  };
+  
+  var insertEmoji = (src, alt) => {
+    let sel = window.getSelection();
+    
+    if (!sel.anchorNode || $(sel.anchorNode).closest("#emoji-keyboard-tweet-input").length === 0){
+      focusWithCaretAtEnd();
+    }
+    
+    document.execCommand("insertHTML", false, `<img src="${src}" alt="${alt}">`);
+  };
+  
   // event handlers
   
   this.emojiKeyboardButtonClickEvent = function(e){
@@ -212,7 +228,7 @@ enabled(){
       $(this).blur();
     }
     else{
-      me.generateKeyboard($(".js-compose-text").first(), $(this).offset().left, getKeyboardTop());
+      me.generateKeyboard($(this).offset().left, getKeyboardTop());
       $(this).addClass("is-selected");
     }
     
@@ -230,7 +246,7 @@ enabled(){
   };
   
   this.documentClickEvent = function(e){
-    if (me.currentKeyboard && !e.target.classList.contains("js-compose-text")){
+    if (me.currentKeyboard && !e.target.classList.contains("compose-text")){
       hideKeyboard();
     }
   };
@@ -246,7 +262,77 @@ enabled(){
     if (me.currentKeyboard){
       me.currentKeyboard.style.top = getKeyboardTop()+"px";
     }
-  }
+  };
+  
+  var prevOldInputVal = "";
+  
+  this.composeOldInputFocusEvent = function(){
+    let ele = $(this);
+    let val = ele.val();
+    
+    if (val != prevOldInputVal){
+      prevOldInputVal = val;
+      
+      setTimeout(function(){
+        let selStart = ele[0].selectionStart;
+        let selEnd = ele[0].selectionEnd;
+        
+        me.composeInputNew.text(val);
+        me.composeInputNew.focus();
+        
+        let sel = window.getSelection();
+        let range = document.createRange();
+        range.setStart(me.composeInputNew[0].firstChild, selStart);
+        range.setEnd(me.composeInputNew[0].firstChild, selEnd);
+        
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }, 1);
+    }
+    else{
+      focusWithCaretAtEnd();
+    }
+  };
+  
+  var allowedShortcuts = [ 65 /* A */, 67 /* C */, 86 /* V */, 89 /* Y */, 90 /* Z */ ];
+  
+  this.composeInputKeyEvent = function(e){
+    if (e.type === "keydown" && (e.ctrlKey || e.metaKey)){
+      if (e.keyCode === 13){
+        $(".js-send-button", ".js-docked-compose").click();
+      }
+      else if (e.keyCode >= 48 && !allowedShortcuts.includes(e.keyCode)){
+        e.preventDefault();
+        return;
+      }
+    }
+    
+    e.stopPropagation();
+  };
+  
+  this.composeInputUpdateEvent = function(){
+    let clone = $(this).clone();
+    
+    clone.children("div").each(function(){
+      let ele = $(this)[0];
+      ele.outerHTML = "\n"+ele.innerHTML;
+    });
+    
+    clone.children("img").each(function(){
+      let ele = $(this)[0];
+      ele.outerHTML = ele.getAttribute("alt");
+    });
+    
+    me.composeInputOrig.val(prevOldInputVal = clone.text());
+    me.composeInputOrig.trigger("change");
+  };
+  
+  this.composeInputPasteEvent = function(e){
+    e.preventDefault();
+    
+    let text = e.originalEvent.clipboardData.getData("text/plain");
+    text && document.execCommand("insertText", false, text);
+  };
 }
 
 ready(){
@@ -260,6 +346,17 @@ ready(){
   $(document).on("keydown", this.documentKeyEvent);
   $(document).on("uiComposeImageAdded", this.uploadFilesEvent);
   this.composeDrawer.on("uiComposeTweetSending", this.composerSendingEvent);
+  
+  // Editor
+  
+  this.composeInputOrig = $(".js-compose-text", ".js-docked-compose").first();
+  this.composeInputNew = $('<div id="emoji-keyboard-tweet-input" contenteditable="true" class="compose-text txt-size--14 scroll-v scroll-styled-v scroll-styled-h scroll-alt td-detect-image-paste"></div>').insertAfter(this.composeInputOrig);
+  
+  this.composeInputOrig.on("focus", this.composeOldInputFocusEvent);
+  
+  this.composeInputNew.on("keydown keypress keyup", this.composeInputKeyEvent);
+  this.composeInputNew.on("input", this.composeInputUpdateEvent);
+  this.composeInputNew.on("paste", this.composeInputPasteEvent);
   
   // HTML generation
   
@@ -280,12 +377,14 @@ ready(){
     
     // declaration inserters
     
+    let mapUnicode = pt => convUnicode(parseInt(pt, 16));
+    
     let addDeclaration1 = decl => {
-      this.emojiData1.push(decl.split(" ").map(pt => convUnicode(parseInt(pt, 16))).join(""));
+      this.emojiData1.push(decl.split(" ").map(mapUnicode).join(""));
     };
     
     let addDeclaration2 = (tone, decl) => {
-      let gen = decl.split(" ").map(pt => convUnicode(parseInt(pt, 16))).join("");
+      let gen = decl.split(" ").map(mapUnicode).join("");
       
       if (tone === null){
         for(let skinTone of this.skinToneList){
@@ -298,7 +397,7 @@ ready(){
     };
     
     let addDeclaration3 = decl => {
-      this.emojiData3.push(decl.split(" ").map(pt => convUnicode(parseInt(pt, 16))).join(""));
+      this.emojiData3.push(decl.split(" ").map(mapUnicode).join(""));
     };
     
     // line reading
@@ -372,6 +471,9 @@ disabled(){
     $(this.currentSpanner).remove();
   }
   
+  this.composeInputNew.remove();
+  
+  this.composeInputOrig.off("focus", this.composeOldInputFocusEvent);
   this.composePanelScroller.off("scroll", this.composerScrollEvent);
   
   $(".emoji-keyboard-popup-btn").off("click", this.emojiKeyboardButtonClickEvent);

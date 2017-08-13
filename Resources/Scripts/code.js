@@ -526,7 +526,7 @@
   onAppReady.push(function(){
     var uploader = $._data(document, "events")["uiComposeAddImageClick"][0].handler.context;
     
-    app.delegate(".js-compose-text,.js-reply-tweetbox", "paste", function(e){
+    app.delegate(".js-compose-text,.js-reply-tweetbox,.td-detect-image-paste", "paste", function(e){
       for(let item of e.originalEvent.clipboardData.items){
         if (item.type.startsWith("image/")){
           if (!$(this).closest(".rpl").find(".js-reply-popout").click().length){ // popout direct messages
