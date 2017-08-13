@@ -27,7 +27,7 @@
             this.timerSync = new System.Windows.Forms.Timer(this.components);
             this.trackBarVolume = new System.Windows.Forms.TrackBar();
             this.tablePanel = new System.Windows.Forms.TableLayoutPanel();
-            this.progressSeek = new TweetDuck.Video.FlatProgressBar();
+            this.progressSeek = new TweetDuck.Video.Controls.SeekBar();
             this.labelTime = new System.Windows.Forms.Label();
             this.timerData = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).BeginInit();
@@ -134,7 +134,7 @@
         private System.Windows.Forms.Timer timerSync;
         private System.Windows.Forms.TrackBar trackBarVolume;
         private System.Windows.Forms.TableLayoutPanel tablePanel;
-        private FlatProgressBar progressSeek;
+        private Controls.SeekBar progressSeek;
         private System.Windows.Forms.Label labelTime;
         private System.Windows.Forms.Timer timerData;
     }

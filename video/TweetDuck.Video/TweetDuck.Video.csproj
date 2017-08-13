@@ -44,10 +44,10 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ControlWMP.cs">
+    <Compile Include="Controls\ControlWMP.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FlatProgressBar.cs">
+    <Compile Include="Controls\SeekBar.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FormPlayer.cs">

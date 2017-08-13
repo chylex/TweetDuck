@@ -1,11 +1,11 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace TweetDuck.Video{
-    sealed class FlatProgressBar : ProgressBar{
+namespace TweetDuck.Video.Controls{
+    sealed class SeekBar : ProgressBar{
         private readonly SolidBrush brush;
 
-        public FlatProgressBar(){
+        public SeekBar(){
             brush = new SolidBrush(Color.White);
 
             SetStyle(ControlStyles.UserPaint, true);
