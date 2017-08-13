@@ -46,8 +46,8 @@ namespace TweetLib.Communication{
             }
         }
 
-        public void Write(string data){
-            writerStream.WriteLine(data);
+        public void Write(string key){
+            writerStream.WriteLine(key);
             writerStream.Flush();
         }
 
@@ -95,8 +95,8 @@ namespace TweetLib.Communication{
                 int separatorIndex = line.IndexOf(Separator, StringComparison.Ordinal);
 
                 if (separatorIndex == -1){
-                    Key = string.Empty;
-                    Data = line;
+                    Key = line;
+                    Data = string.Empty;
                 }
                 else{
                     Key = line.Substring(0, separatorIndex);
