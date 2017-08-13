@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
+using TweetLib.Communication;
 
 namespace TweetDuck.Core.Other.Management{
     sealed class VideoPlayer : IDisposable{
@@ -23,8 +24,11 @@ namespace TweetDuck.Core.Other.Management{
         public event EventHandler ProcessExited;
 
         private readonly Form owner;
-        private Process currentProcess;
         private string lastUrl;
+
+        private Process currentProcess;
+        private DuplexPipe.Server currentPipe;
+        private bool isClosing;
 
         public VideoPlayer(Form owner){
             this.owner = owner;
@@ -32,14 +36,20 @@ namespace TweetDuck.Core.Other.Management{
         }
 
         public void Launch(string url){
-            Close();
+            if (Running){
+                Destroy();
+                isClosing = false;
+            }
 
             lastUrl = url;
 
             try{
+                currentPipe = DuplexPipe.CreateServer();
+                currentPipe.DataIn += currentPipe_DataIn;
+
                 if ((currentProcess = Process.Start(new ProcessStartInfo{
                     FileName = PlayerExe,
-                    Arguments = $"{owner.Handle} {Program.UserConfig.VideoPlayerVolume} \"{url}\"",
+                    Arguments = $"{owner.Handle} {Program.UserConfig.VideoPlayerVolume} \"{url}\" \"{currentPipe.GenerateToken()}\"",
                     UseShellExecute = false,
                     RedirectStandardOutput = true
                 })) != null){
@@ -51,15 +61,61 @@ namespace TweetDuck.Core.Other.Management{
                     currentProcess.OutputDataReceived += (sender, args) => Debug.WriteLine("VideoPlayer: "+args.Data);
                     #endif
                 }
+
+                currentPipe.DisposeToken();
             }catch(Exception e){
                 Program.Reporter.HandleException("Video Playback Error", "Error launching video player.", true, e);
             }
         }
 
+        private void currentPipe_DataIn(object sender, DuplexPipe.PipeReadEventArgs e){
+            owner.InvokeSafe(() => {
+                switch(e.Key){
+                    case "vol":
+                        if (int.TryParse(e.Data, out int volume) && volume != Program.UserConfig.VideoPlayerVolume){
+                            Program.UserConfig.VideoPlayerVolume = volume;
+                            Program.UserConfig.Save();
+                        }
+
+                        break;
+
+                    case "rip":
+                        currentPipe.Dispose();
+                        currentPipe = null;
+                    
+                        currentProcess.Dispose();
+                        currentProcess = null;
+
+                        isClosing = false;
+                        TriggerProcessExitEventUnsafe();
+                        break;
+                }
+            });
+        }
+
         public void Close(){
             if (currentProcess != null){
-                currentProcess.Exited -= process_Exited;
+                if (isClosing){
+                    Destroy();
+                    isClosing = false;
+                }
+                else{
+                    isClosing = true;
+                    currentProcess.Exited -= process_Exited;
+                    currentPipe.Write("die");
+                }
+            }
+        }
 
+        public void Dispose(){
+            ProcessExited = null;
+
+            isClosing = true;
+            Destroy();
+        }
+
+        private void Destroy(){
+            if (currentProcess != null){
                 try{
                     currentProcess.Kill();
                 }catch{
@@ -68,14 +124,12 @@ namespace TweetDuck.Core.Other.Management{
 
                 currentProcess.Dispose();
                 currentProcess = null;
+                
+                currentPipe.Dispose();
+                currentPipe = null;
 
-                owner.InvokeAsyncSafe(TriggerProcessExitEventUnsafe);
+                TriggerProcessExitEventUnsafe();
             }
-        }
-
-        public void Dispose(){
-            ProcessExited = null;
-            Close();
         }
 
         private void owner_FormClosing(object sender, FormClosingEventArgs e){
@@ -103,6 +157,9 @@ namespace TweetDuck.Core.Other.Management{
 
             currentProcess.Dispose();
             currentProcess = null;
+
+            currentPipe.Dispose();
+            currentPipe = null;
             
             owner.InvokeAsyncSafe(TriggerProcessExitEventUnsafe);
         }

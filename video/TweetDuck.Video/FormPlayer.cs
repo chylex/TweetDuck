@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using TweetDuck.Video.Controls;
@@ -12,6 +13,7 @@ namespace TweetDuck.Video{
 
         private readonly IntPtr ownerHandle;
         private readonly string videoUrl;
+        private readonly DuplexPipe pipe;
         
         private readonly ControlWMP player;
         private bool wasCursorInside;
@@ -20,11 +22,13 @@ namespace TweetDuck.Video{
 
         private WindowsMediaPlayer Player => player.Ocx;
 
-        public FormPlayer(IntPtr handle, int volume, string url){
+        public FormPlayer(IntPtr handle, int volume, string url, string token){
             InitializeComponent();
 
             this.ownerHandle = handle;
             this.videoUrl = url;
+            this.pipe = DuplexPipe.CreateClient(token);
+            this.pipe.DataIn += pipe_DataIn;
             
             player = new ControlWMP{
                 Dock = DockStyle.Fill
@@ -52,6 +56,18 @@ namespace TweetDuck.Video{
 
         private void FormPlayer_Load(object sender, EventArgs e){
             Player.URL = videoUrl;
+        }
+
+        private void pipe_DataIn(object sender, DuplexPipe.PipeReadEventArgs e){
+            switch(e.Key){
+                case "die":
+                    timerSync.Stop();
+                    Visible = false;
+                    pipe.Write("rip");
+
+                    Close();
+                    break;
+            }
         }
 
         private void player_PlayStateChange(int newState){
@@ -134,7 +150,7 @@ namespace TweetDuck.Video{
 
         private void timerData_Tick(object sender, EventArgs e){
             timerData.Stop();
-            Comms.BroadcastMessage(Program.VideoPlayerMessage, new UIntPtr((uint)trackBarVolume.Value), ownerHandle);
+            pipe.Write("vol", trackBarVolume.Value.ToString(CultureInfo.InvariantCulture));
         }
 
         private void progressSeek_MouseDown(object sender, MouseEventArgs e){

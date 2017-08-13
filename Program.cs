@@ -45,7 +45,6 @@ namespace TweetDuck{
 
         public static uint WindowRestoreMessage;
         public static uint SubProcessMessage;
-        public static uint VideoPlayerMessage;
 
         private static readonly LockManager LockManager = new LockManager(Path.Combine(StoragePath, ".lock"));
         private static bool HasCleanedUp;
@@ -77,7 +76,6 @@ namespace TweetDuck{
             
             WindowRestoreMessage = Comms.RegisterMessage("TweetDuckRestore");
             SubProcessMessage = Comms.RegisterMessage("TweetDuckSubProcess");
-            VideoPlayerMessage = Comms.RegisterMessage("TweetDuckVideoPlayer");
 
             if (!WindowsUtils.CheckFolderWritePermission(StoragePath)){
                 FormMessage.Warning("Permission Error", "TweetDuck does not have write permissions to the storage folder: "+StoragePath, FormMessage.OK);

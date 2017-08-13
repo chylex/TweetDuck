@@ -13,9 +13,6 @@ namespace TweetDuck.Video{
         public const int CODE_OWNER_GONE = 5;
         public const int CODE_USER_REQUESTED = 6;
 
-        private static uint? message;
-        public static uint VideoPlayerMessage => message ?? (message = Comms.RegisterMessage("TweetDuckVideoPlayer")).Value;
-
         [STAThread]
         private static int Main(string[] args){
             Application.EnableVisualStyles();
@@ -24,17 +21,19 @@ namespace TweetDuck.Video{
             IntPtr ownerHandle;
             int defaultVolume;
             string videoUrl;
+            string pipeToken;
 
             try{
                 ownerHandle = new IntPtr(int.Parse(args[0], NumberStyles.Integer, CultureInfo.InvariantCulture));
                 defaultVolume = int.Parse(args[1], NumberStyles.Integer, CultureInfo.InvariantCulture);
                 videoUrl = new Uri(args[2], UriKind.Absolute).AbsoluteUri;
+                pipeToken = args[3];
             }catch{
                 return CODE_INVALID_ARGS;
             }
 
             try{
-                Application.Run(new FormPlayer(ownerHandle, defaultVolume, videoUrl));
+                Application.Run(new FormPlayer(ownerHandle, defaultVolume, videoUrl, pipeToken));
             }catch(Exception e){
                 Console.Out.WriteLine(e.Message);
                 return CODE_LAUNCH_FAIL;

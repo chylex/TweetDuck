@@ -797,7 +797,6 @@
     var playVideo = function(url){
       $('<div id="td-video-player-overlay" class="ovl" style="display:block"></div>').on("click contextmenu", function(){
         $TD.playVideo(null);
-        $(this).remove();
       }).appendTo(app);
       
       $TD.playVideo(url);
