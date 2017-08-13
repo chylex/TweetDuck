@@ -62,6 +62,10 @@ namespace TweetDuck{
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
 
+            #if DEBUG
+            CultureInfo.DefaultThreadCurrentUICulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-us"); // force english exceptions
+            #endif
+
             Reporter = new Reporter(ErrorLogFilePath);
             Reporter.SetupUnhandledExceptionHandler("TweetDuck Has Failed :(");
         }
