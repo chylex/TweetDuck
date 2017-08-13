@@ -8,7 +8,6 @@ namespace TweetDuck.Core.Utils{
     [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local")]
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Local")]
     static class NativeMethods{
-        public static readonly IntPtr HWND_BROADCAST = new IntPtr(0xFFFF);
         public static readonly IntPtr HOOK_HANDLED = new IntPtr(-1);
 
         public const int HWND_TOPMOST = -1;
@@ -65,16 +64,7 @@ namespace TweetDuck.Core.Utils{
         [DllImport("gdi32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool BitBlt(IntPtr hdc, int nXDest, int nYDest, int nWidth, int nHeight, IntPtr hdcSrc, int nXSrc, int nYSrc, uint dwRop);
-
-        [DllImport("user32.dll")]
-        public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, UIntPtr wParam, IntPtr lParam);
         
-        [DllImport("user32.dll")]
-        public static extern bool PostMessage(IntPtr hWnd, uint msg, UIntPtr wParam, IntPtr lParam);
-
-        [DllImport("user32.dll")]
-        public static extern uint RegisterWindowMessage(string messageName);
-
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool ShowScrollBar(IntPtr hWnd, int wBar, bool bShow);

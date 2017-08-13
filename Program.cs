@@ -1,4 +1,4 @@
-﻿using CefSharp;
+using CefSharp;
 using System;
 using System.Diagnostics;
 using System.Globalization;
@@ -14,6 +14,7 @@ using TweetDuck.Core.Other.Settings.Export;
 using TweetDuck.Core.Utils;
 using TweetDuck.Data;
 using TweetDuck.Updates;
+using TweetLib.Communication;
 
 namespace TweetDuck{
     static class Program{
@@ -70,9 +71,9 @@ namespace TweetDuck{
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             
-            WindowRestoreMessage = NativeMethods.RegisterWindowMessage("TweetDuckRestore");
-            SubProcessMessage = NativeMethods.RegisterWindowMessage("TweetDuckSubProcess");
-            VideoPlayerMessage = NativeMethods.RegisterWindowMessage("TweetDuckVideoPlayer");
+            WindowRestoreMessage = Comms.RegisterMessage("TweetDuckRestore");
+            SubProcessMessage = Comms.RegisterMessage("TweetDuckSubProcess");
+            VideoPlayerMessage = Comms.RegisterMessage("TweetDuckVideoPlayer");
 
             if (!WindowsUtils.CheckFolderWritePermission(StoragePath)){
                 FormMessage.Warning("Permission Error", "TweetDuck does not have write permissions to the storage folder: "+StoragePath, FormMessage.OK);
