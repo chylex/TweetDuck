@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using TweetDuck.Core.Utils;
+using TweetLib.Communication;
 
 namespace TweetDuck.Configuration{
     sealed class LockManager{
@@ -137,7 +138,7 @@ namespace TweetDuck.Configuration{
         public bool RestoreLockingProcess(int failTimeout){
             if (lockingProcess != null){
                 if (lockingProcess.MainWindowHandle == IntPtr.Zero){ // restore if the original process is in tray
-                    NativeMethods.PostMessage(NativeMethods.HWND_BROADCAST, Program.WindowRestoreMessage, new UIntPtr((uint)lockingProcess.Id), IntPtr.Zero);
+                    Comms.BroadcastMessage(Program.WindowRestoreMessage, (uint)lockingProcess.Id, 0);
 
                     if (WindowsUtils.TrySleepUntil(() => CheckLockingProcessExited() || (lockingProcess.MainWindowHandle != IntPtr.Zero && lockingProcess.Responding), failTimeout, RetryDelay)){
                         return true;

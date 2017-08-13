@@ -3,15 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace TweetDuck.Video{
     static class NativeMethods{
-        public static readonly IntPtr HWND_BROADCAST = new IntPtr(0xFFFF);
-
         private const int GWL_HWNDPARENT = -8;
-        
-        [DllImport("user32.dll")]
-        public static extern bool PostMessage(IntPtr hWnd, uint msg, UIntPtr wParam, IntPtr lParam);
-
-        [DllImport("user32.dll")]
-        public static extern uint RegisterWindowMessage(string messageName);
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]

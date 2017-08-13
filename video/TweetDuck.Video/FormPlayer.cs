@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using TweetLib.Communication;
 using WMPLib;
 
 namespace TweetDuck.Video{
@@ -132,7 +133,7 @@ namespace TweetDuck.Video{
 
         private void timerData_Tick(object sender, EventArgs e){
             timerData.Stop();
-            NativeMethods.PostMessage(NativeMethods.HWND_BROADCAST, Program.VideoPlayerMessage, new UIntPtr((uint)trackBarVolume.Value), ownerHandle);
+            Comms.BroadcastMessage(Program.VideoPlayerMessage, new UIntPtr((uint)trackBarVolume.Value), ownerHandle);
         }
 
         private void progressSeek_MouseDown(object sender, MouseEventArgs e){

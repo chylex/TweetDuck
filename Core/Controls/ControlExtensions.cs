@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using TweetDuck.Core.Utils;
+using TweetLib.Communication;
 
 namespace TweetDuck.Core.Controls{
     static class ControlExtensions{
@@ -70,7 +71,7 @@ namespace TweetDuck.Core.Controls{
         public static void SetElevated(this Button button){
             button.Text = " "+button.Text;
             button.FlatStyle = FlatStyle.System;
-            NativeMethods.SendMessage(button.Handle, NativeMethods.BCM_SETSHIELD, new UIntPtr(0), new IntPtr(1));
+            Comms.SendMessage(button.Handle, NativeMethods.BCM_SETSHIELD, 0, 1);
         }
 
         public static void EnableMultilineShortcuts(this TextBox textBox){

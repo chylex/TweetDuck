@@ -351,6 +351,10 @@
       <Project>{278b2d11-402d-44b6-b6a1-8fa67db65565}</Project>
       <Name>TweetDuck.Video</Name>
     </ProjectReference>
+    <ProjectReference Include="lib\TweetLib.Communication\TweetLib.Communication.csproj">
+      <Project>{72473763-4b9d-4fb6-a923-9364b2680f06}</Project>
+      <Name>TweetLib.Communication</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

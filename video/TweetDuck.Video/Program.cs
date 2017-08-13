@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Forms;
+using TweetLib.Communication;
 
 namespace TweetDuck.Video{
     static class Program{
@@ -13,7 +14,7 @@ namespace TweetDuck.Video{
         public const int CODE_USER_REQUESTED = 6;
 
         private static uint? message;
-        public static uint VideoPlayerMessage => message ?? (message = NativeMethods.RegisterWindowMessage("TweetDuckVideoPlayer")).Value;
+        public static uint VideoPlayerMessage => message ?? (message = Comms.RegisterMessage("TweetDuckVideoPlayer")).Value;
 
         [STAThread]
         private static int Main(string[] args){
