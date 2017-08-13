@@ -5,6 +5,8 @@ using System.Threading;
 
 namespace TweetLib.Communication{
     public abstract class DuplexPipe : IDisposable{
+        private const string Separator = "\x1F";
+
         public static Server CreateServer(){
             return new Server();
         }
@@ -49,6 +51,11 @@ namespace TweetLib.Communication{
             writerStream.Flush();
         }
 
+        public void Write(string key, string data){
+            writerStream.WriteLine(string.Concat(key, Separator, data));
+            writerStream.Flush();
+        }
+
         public void Dispose(){
             try{
                 readerThread.Abort();
@@ -81,9 +88,21 @@ namespace TweetLib.Communication{
         }
 
         public sealed class PipeReadEventArgs : EventArgs{
+            public string Key { get; }
             public string Data { get; }
+            
+            internal PipeReadEventArgs(string line){
+                int separatorIndex = line.IndexOf(Separator, StringComparison.Ordinal);
 
-            internal PipeReadEventArgs(string data) => Data = data;
+                if (separatorIndex == -1){
+                    Key = string.Empty;
+                    Data = line;
+                }
+                else{
+                    Key = line.Substring(0, separatorIndex);
+                    Data = line.Substring(separatorIndex+1);
+                }
+            }
         }
     }
 }
