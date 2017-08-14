@@ -141,7 +141,8 @@
       startRecentTweetTimer();
       
       if (column.model.getHasNotification()){
-        let previews = $TDX.notificationMediaPreviews;
+        let sensitive = (tweet.getRelatedTweet() && tweet.getRelatedTweet().possiblySensitive || (tweet.quotedTweet && tweet.quotedTweet.possiblySensitive));
+        let previews = $TDX.notificationMediaPreviews && !sensitive;
         
         let html = $(tweet.render({
           withFooter: false,
@@ -184,12 +185,19 @@
         
         if (type === "follow"){
           html.find(".js-user-actions-menu").parent().remove();
+          html.find(".account-bio").removeClass("padding-t--5").css("padding-top", "2px");
         }
         else if (type.includes("list_member")){
-          html.find(".activity-header").first().css("margin-top", "2px");
+          html.find(".activity-header").css("margin-top", "2px");
           html.find(".avatar").first().css("margin-bottom", "0");
         }
-
+        
+        if (sensitive){
+          html.find(".media-badge").each(function(){
+            $(this)[0].lastChild.textContent += " (possibly sensitive)";
+          });
+        }
+        
         let source = tweet.getRelatedTweet();
         let duration = source ? source.text.length+(source.quotedTweet ? source.quotedTweet.text.length : 0) : tweet.text.length;
         let tweetUrl = source ? source.getChirpURL() : "";
