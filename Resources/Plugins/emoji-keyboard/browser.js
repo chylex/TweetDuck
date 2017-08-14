@@ -57,10 +57,10 @@ enabled(){
   this.prevComposeMustache = TD.mustaches["compose/docked_compose.mustache"];
   TD.mustaches["compose/docked_compose.mustache"] = TD.mustaches["compose/docked_compose.mustache"].replace('<div class="cf margin-t--12 margin-b--30">', '<div class="cf margin-t--12 margin-b--30">'+buttonHTML);
   
-  var dockedComposePanel = $(".js-docked-compose");
+  var maybeDockedComposePanel = $(".js-docked-compose");
   
-  if (dockedComposePanel.length){
-    dockedComposePanel.find(".cf.margin-t--12.margin-b--30").first().append(buttonHTML);
+  if (maybeDockedComposePanel.length){
+    maybeDockedComposePanel.find(".cf.margin-t--12.margin-b--30").first().append(buttonHTML);
   }
   
   // keyboard generation
@@ -68,7 +68,7 @@ enabled(){
   this.currentKeyboard = null;
   this.currentSpanner = null;
   
-  var hideKeyboard = () => {
+  var hideKeyboard = (refocus) => {
     $(this.currentKeyboard).remove();
     this.currentKeyboard = null;
     
@@ -80,7 +80,15 @@ enabled(){
     this.composePanelScroller.trigger("scroll");
     
     $(".emoji-keyboard-popup-btn").removeClass("is-selected");
-    $(".js-compose-text").first().focus();
+    
+    if (refocus){
+      if ($(".compose-text-container", ".js-docked-compose").hasClass("td-emoji-keyboard-swap")){
+        $("#emoji-keyboard-tweet-input").focus();
+      }
+      else{
+        $(".js-compose-text", ".js-docked-compose").focus();
+      }
+    }
   };
   
   var generateEmojiHTML = skinTone => {
@@ -219,9 +227,7 @@ enabled(){
   var insertEmoji = (src, alt) => {
     replaceEditor(true);
     
-    let sel = window.getSelection();
-    
-    if (!sel.anchorNode || $(sel.anchorNode).closest("#emoji-keyboard-tweet-input").length === 0){
+    if (!hasSelectionInEditor()){
       focusWithCaretAtEnd();
     }
     
@@ -261,7 +267,7 @@ enabled(){
   
   this.documentKeyEvent = function(e){
     if (me.currentKeyboard && e.keyCode === 27){ // escape
-      hideKeyboard();
+      hideKeyboard(true);
       e.stopPropagation();
     }
   };
@@ -277,18 +283,34 @@ enabled(){
   var prevOldInputVal = "";
   var isEditorActive = false;
   
+  var hasSelectionInEditor = function(){
+    let sel = window.getSelection();
+    return sel.anchorNode && $(sel.anchorNode).closest("#emoji-keyboard-tweet-input").length;
+  };
+  
   var migrateEditorText = function(){
     let selStart = me.composeInputOrig[0].selectionStart;
     let selEnd = me.composeInputOrig[0].selectionEnd;
+    
+    let val = me.composeInputOrig.val();
+    let splitStart = val.substring(0, selStart).split("\n");
+    let splitEnd = val.substring(0, selEnd).split("\n");
 
-    me.composeInputNew.text(me.composeInputOrig.val());
-    me.composeInputNew.focus();
-
+    me.composeInputNew.text(val);
+    me.composeInputNew.html(me.composeInputNew.text().replace(/^(.*?)$/gm, "<div>$1</div>").replace(/<div><\/div>/g, "<div><br></div>"));
+    
     let sel = window.getSelection();
     let range = document.createRange();
-    range.setStart(me.composeInputNew[0].firstChild, selStart);
-    range.setEnd(me.composeInputNew[0].firstChild, selEnd);
-
+    
+    if (me.composeInputNew[0].children.length === 0){
+      focusWithCaretAtEnd();
+    }
+    else{
+      me.composeInputNew.focus();
+      range.setStart(me.composeInputNew[0].children[splitStart.length-1].firstChild, splitStart.length > 1 ? selStart-val.lastIndexOf("\n", selStart)-1 : selStart);
+      range.setEnd(me.composeInputNew[0].children[splitEnd.length-1].firstChild, splitEnd.length > 1 ? selEnd-val.lastIndexOf("\n", selEnd)-1 : selEnd);
+    }
+    
     sel.removeAllRanges();
     sel.addRange(range);
   };
@@ -296,7 +318,6 @@ enabled(){
   var replaceEditor = function(useCustom){
     if (useCustom && !isEditorActive){
       isEditorActive = true;
-      migrateEditorText();
     }
     else if (!useCustom && isEditorActive){
       isEditorActive = false;
@@ -304,6 +325,13 @@ enabled(){
     else return;
     
     $(".compose-text-container", ".js-docked-compose").toggleClass("td-emoji-keyboard-swap", isEditorActive);
+    
+    if (isEditorActive){
+      migrateEditorText();
+    }
+    else{
+      me.composeInputOrig.focus();
+    }
   };
   
   this.composeOldInputFocusEvent = function(){
@@ -313,7 +341,10 @@ enabled(){
     
     let val = $(this).val();
     
-    if (val != prevOldInputVal){
+    if (val.length === 0){
+      replaceEditor(false);
+    }
+    else if (val != prevOldInputVal){
       setTimeout(migrateEditorText, 1);
     }
     else{
@@ -327,7 +358,7 @@ enabled(){
   
   this.composeInputKeyEvent = function(e){
     if (e.type === "keydown" && (e.ctrlKey || e.metaKey)){
-      if (e.keyCode === 13){
+      if (e.keyCode === 13){ // enter
         $(".js-send-button", ".js-docked-compose").click();
       }
       else if (e.keyCode >= 48 && !allowedShortcuts.includes(e.keyCode)){
@@ -336,7 +367,9 @@ enabled(){
       }
     }
     
-    e.stopPropagation();
+    if (e.keyCode !== 27){ // escape
+      e.stopPropagation();
+    }
   };
   
   this.composeInputUpdateEvent = function(){
@@ -357,8 +390,25 @@ enabled(){
     
     if (prevOldInputVal.length === 0){
       replaceEditor(false);
-      me.composeInputOrig.focus();
     }
+    
+    /* TODO if (!emoji.length){
+      let sel = window.getSelection();
+      let selStart = -1, selEnd = -1;
+      
+      if ($(sel.anchorNode).closest("#emoji-keyboard-tweet-input").length && sel.rangeCount === 1){
+        let range = sel.getRangeAt(0);
+        // TODO figure out offset
+      }
+      
+      replaceEditor(false);
+      me.composeInputOrig.focus();
+      
+      if (selStart !== -1){
+        me.composeInputOrig[0].selectionStart = selStart;
+        me.composeInputOrig[0].selectionEnd = selEnd;
+      }
+    }*/
   };
   
   this.composeInputPasteEvent = function(e){ // contenteditable with <img alt> handles copying just fine
