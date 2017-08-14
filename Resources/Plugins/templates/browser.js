@@ -267,7 +267,7 @@ enabled(){
       <ul></ul>
       
       <div class="templates-modal-bottom">
-        <button data-action="close" class="btn" style="background-color:#d2d2d2;border-color:#ccd0d2"><i class="icon icon-close icon-small padding-rs"></i><span class="label">Close</span></button>
+        <button data-action="close" class="btn"><i class="icon icon-close icon-small padding-rs"></i><span class="label">Close</span></button>
         <button data-action="new-template" class="btn btn-positive"><i class="icon icon-plus icon-small padding-rs"></i><span class="label">New Template</span></button>
       </div>
     </div>

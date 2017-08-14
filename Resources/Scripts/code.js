@@ -728,7 +728,7 @@
     addRule(".txt-base-smallest .sprite-verified-mini { width: 13px !important; height: 13px !important; background-position: -223px -99px !important; }"); // fix cut off badge icon when zoomed in
     
     addRule(".btn, .mdl, .mdl-content, .app-search-fake, .app-search-input, .popover, .lst-modal, .media-item, .tooltip-inner { border-radius: 1px !important; }"); // square-ify buttons, inputs, dialogs, menus, media previews
-    addRule(".dropdown-menu, .list-item-last, .quoted-tweet { border-radius: 0 !important; }"); // square-ify dropdowns, quoted tweets, and account selectors
+    addRule(".compose-text-container, .dropdown-menu, .list-item-last, .quoted-tweet { border-radius: 0 !important; }"); // square-ify dropdowns, quoted tweets, and account selectors
     addRule(".prf-header { border-radius: 0; }"); // fix user account header border
     
     addRule(".accs li, .accs img { border-radius: 0 !important; }"); // square-ify retweet account selector
