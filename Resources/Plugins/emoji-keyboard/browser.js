@@ -30,19 +30,25 @@ enabled(){
   
   this.css = window.TDPF_createCustomStyle(this);
   this.css.insert(".emoji-keyboard { position: absolute; width: 15.35em; background-color: white; border-radius: 1px; font-size: 24px; z-index: 9999 }");
+  
   this.css.insert(".emoji-keyboard-list { height: 10.14em; padding: 0.1em; box-sizing: border-box; overflow-y: auto }");
   this.css.insert(".emoji-keyboard-list .separator { height: 26px }");
   this.css.insert(".emoji-keyboard-list img { padding: 0.1em !important; width: 1em; height: 1em; vertical-align: -0.1em; cursor: pointer }");
+  
   this.css.insert(".emoji-keyboard-search { height: auto; padding: 4px 10px 8px; background-color: #292f33; border-radius: 1px 1px 0 0 }");
   this.css.insert(".emoji-keyboard-search input { width: 100%; border-radius: 1px; }");
+  
   this.css.insert(".emoji-keyboard-skintones { height: 1.3em; text-align: center; background-color: #292f33; border-radius: 0 0 1px 1px }");
   this.css.insert(".emoji-keyboard-skintones div { width: 0.8em; height: 0.8em; margin: 0.25em 0.1em; border-radius: 50%; display: inline-block; box-sizing: border-box; cursor: pointer }");
   this.css.insert(".emoji-keyboard-skintones .sel { border: 2px solid rgba(0, 0, 0, 0.35); box-shadow: 0 0 2px 0 rgba(255, 255, 255, 0.65), 0 0 1px 0 rgba(255, 255, 255, 0.4) inset }");
   this.css.insert(".emoji-keyboard-skintones :hover { border: 2px solid rgba(0, 0, 0, 0.25); box-shadow: 0 0 1px 0 rgba(255, 255, 255, 0.65), 0 0 1px 0 rgba(255, 255, 255, 0.25) inset }");
-  this.css.insert("#emoji-keyboard-tweet-input { padding: 2px 0 !important; line-height: 18px }");
+  
+  this.css.insert("#emoji-keyboard-tweet-input { padding: 0 !important; line-height: 18px }");
   this.css.insert("#emoji-keyboard-tweet-input img { padding: 0.1em !important; width: 1em; height: 1em; vertical-align: -0.25em }");
   this.css.insert("#emoji-keyboard-tweet-input:empty::before { content: \"What's happening?\"; display: inline-block; color: #ced8de }");
-  this.css.insert(".js-docked-compose .js-compose-text:not(.debug) { position: absolute; z-index: -9999; left: 0; opacity: 0 }");
+  
+  this.css.insert(".js-docked-compose .compose-text-container.td-emoji-keyboard-swap .js-compose-text { position: absolute; z-index: -9999; left: 0; opacity: 0 }");
+  this.css.insert(".compose-text-container:not(.td-emoji-keyboard-swap) #emoji-keyboard-tweet-input { display: none; }");
   
   // layout
   
@@ -211,6 +217,8 @@ enabled(){
   };
   
   var insertEmoji = (src, alt) => {
+    replaceEditor(true);
+    
     let sel = window.getSelection();
     
     if (!sel.anchorNode || $(sel.anchorNode).closest("#emoji-keyboard-tweet-input").length === 0){
@@ -220,7 +228,7 @@ enabled(){
     document.execCommand("insertHTML", false, `<img src="${src}" alt="${alt}">`);
   };
   
-  // event handlers
+  // general event handlers
   
   this.emojiKeyboardButtonClickEvent = function(e){
     if (me.currentKeyboard){
@@ -246,7 +254,7 @@ enabled(){
   };
   
   this.documentClickEvent = function(e){
-    if (me.currentKeyboard && !e.target.classList.contains("compose-text")){
+    if (me.currentKeyboard && $(e.target).closest(".compose-text-container").length === 0){
       hideKeyboard();
     }
   };
@@ -264,34 +272,55 @@ enabled(){
     }
   };
   
+  // editor event handlers
+  
   var prevOldInputVal = "";
+  var isEditorActive = false;
+  
+  var migrateEditorText = function(){
+    let selStart = me.composeInputOrig[0].selectionStart;
+    let selEnd = me.composeInputOrig[0].selectionEnd;
+
+    me.composeInputNew.text(me.composeInputOrig.val());
+    me.composeInputNew.focus();
+
+    let sel = window.getSelection();
+    let range = document.createRange();
+    range.setStart(me.composeInputNew[0].firstChild, selStart);
+    range.setEnd(me.composeInputNew[0].firstChild, selEnd);
+
+    sel.removeAllRanges();
+    sel.addRange(range);
+  };
+  
+  var replaceEditor = function(useCustom){
+    if (useCustom && !isEditorActive){
+      isEditorActive = true;
+      migrateEditorText();
+    }
+    else if (!useCustom && isEditorActive){
+      isEditorActive = false;
+    }
+    else return;
+    
+    $(".compose-text-container", ".js-docked-compose").toggleClass("td-emoji-keyboard-swap", isEditorActive);
+  };
   
   this.composeOldInputFocusEvent = function(){
-    let ele = $(this);
-    let val = ele.val();
+    if (!isEditorActive){
+      return;
+    }
+    
+    let val = $(this).val();
     
     if (val != prevOldInputVal){
-      prevOldInputVal = val;
-      
-      setTimeout(function(){
-        let selStart = ele[0].selectionStart;
-        let selEnd = ele[0].selectionEnd;
-        
-        me.composeInputNew.text(val);
-        me.composeInputNew.focus();
-        
-        let sel = window.getSelection();
-        let range = document.createRange();
-        range.setStart(me.composeInputNew[0].firstChild, selStart);
-        range.setEnd(me.composeInputNew[0].firstChild, selEnd);
-        
-        sel.removeAllRanges();
-        sel.addRange(range);
-      }, 1);
+      setTimeout(migrateEditorText, 1);
     }
     else{
       focusWithCaretAtEnd();
     }
+    
+    prevOldInputVal = val;
   };
   
   var allowedShortcuts = [ 65 /* A */, 67 /* C */, 86 /* V */, 89 /* Y */, 90 /* Z */ ];
@@ -325,14 +354,21 @@ enabled(){
     
     me.composeInputOrig.val(prevOldInputVal = clone.text());
     me.composeInputOrig.trigger("change");
+    
+    if (prevOldInputVal.length === 0){
+      replaceEditor(false);
+      me.composeInputOrig.focus();
+    }
   };
   
-  this.composeInputPasteEvent = function(e){
+  this.composeInputPasteEvent = function(e){ // contenteditable with <img alt> handles copying just fine
     e.preventDefault();
     
     let text = e.originalEvent.clipboardData.getData("text/plain");
     text && document.execCommand("insertText", false, text);
   };
+  
+  // TODO handle @ and hashtags
 }
 
 ready(){
