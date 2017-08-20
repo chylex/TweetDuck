@@ -757,6 +757,7 @@
     
     addRule(".activity-header { align-items: center !important; margin-bottom: 4px; }"); // tweak alignment of avatar and text in notifications
     addRule(".activity-header .tweet-timestamp { line-height: unset; }"); // fix timestamp position in notifications
+    addRule(".account-bio.padding-t--5 { padding-top: 2px !important; }"); // decrease padding on follow notifications
     
     addRule("html[data-td-theme='light'] .stream-item:not(:hover) .js-user-actions-menu { color: #000; border-color: #000; opacity: 0.25; }"); // make follow notification button nicer
     addRule("html[data-td-theme='dark'] .stream-item:not(:hover) .js-user-actions-menu { color: #fff; border-color: #fff; opacity: 0.25; }"); // make follow notification button nicer
