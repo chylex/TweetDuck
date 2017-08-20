@@ -770,6 +770,7 @@
     addRule("#td-compose-drawer-pin { margin: 17px 4px 0 0; transition: transform 0.1s ease; fill: #fff; float: right; cursor: pointer; }"); // replace 'stay open' checkbox with a pin icon
     addRule(".js-docked-compose footer { display: none; }"); // replace 'stay open' checkbox with a pin icon
     addRule(".compose-content { bottom: 0 !important; }"); // replace 'stay open' checkbox with a pin icon
+    addRule(".js-drawer-close { margin: 20px 0 0 !important; }"); // fix close drawer button because twitter is fucking incompetent
     
     window.TDGF_reinjectCustomCSS = function(styles){
       $("#tweetduck-custom-css").remove();
