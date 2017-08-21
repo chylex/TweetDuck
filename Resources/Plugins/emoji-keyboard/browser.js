@@ -1,4 +1,6 @@
 enabled(){
+  this.ENABLE_CUSTOM_KEYBOARD = false;
+  
   this.selectedSkinTone = "";
   this.currentKeywords = [];
   
@@ -49,6 +51,8 @@ enabled(){
   
   this.css.insert(".js-docked-compose .compose-text-container.td-emoji-keyboard-swap .js-compose-text { position: absolute; z-index: -9999; left: 0; opacity: 0 }");
   this.css.insert(".compose-text-container:not(.td-emoji-keyboard-swap) #emoji-keyboard-tweet-input { display: none; }");
+  
+  this.css.insert(".js-compose-text { font-family: \"Twitter Color Emoji\", Helvetica, Arial, Verdana, sans-serif; }");
   
   // layout
   
@@ -225,13 +229,29 @@ enabled(){
   };
   
   var insertEmoji = (src, alt) => {
-    replaceEditor(true);
-    
-    if (!hasSelectionInEditor()){
-      focusWithCaretAtEnd();
+    if (this.ENABLE_CUSTOM_KEYBOARD){
+      replaceEditor(true);
+
+      if (!hasSelectionInEditor()){
+        focusWithCaretAtEnd();
+      }
+
+      document.execCommand("insertHTML", false, `<img src="${src}" alt="${alt}">`);
     }
-    
-    document.execCommand("insertHTML", false, `<img src="${src}" alt="${alt}">`);
+    else{
+      let input = $(".js-compose-text", ".js-docked-compose");
+      
+      let val = input.val();
+      let posStart = input[0].selectionStart;
+      let posEnd = input[0].selectionEnd;
+      
+      input.val(val.slice(0, posStart)+alt+val.slice(posEnd));
+      input.trigger("change");
+      input.focus();
+      
+      input[0].selectionStart = posStart+alt.length;
+      input[0].selectionEnd = posStart+alt.length;
+    }
   };
   
   // general event handlers
@@ -278,7 +298,7 @@ enabled(){
     }
   };
   
-  // editor event handlers
+  // new editor event handlers
   
   var prevOldInputVal = "";
   var isEditorActive = false;
@@ -438,11 +458,13 @@ ready(){
   this.composeInputOrig = $(".js-compose-text", ".js-docked-compose").first();
   this.composeInputNew = $('<div id="emoji-keyboard-tweet-input" contenteditable="true" class="compose-text txt-size--14 scroll-v scroll-styled-v scroll-styled-h scroll-alt td-detect-image-paste"></div>').insertAfter(this.composeInputOrig);
   
-  this.composeInputOrig.on("focus", this.composeOldInputFocusEvent);
-  
-  this.composeInputNew.on("keydown keypress keyup", this.composeInputKeyEvent);
-  this.composeInputNew.on("input", this.composeInputUpdateEvent);
-  this.composeInputNew.on("paste", this.composeInputPasteEvent);
+  if (this.ENABLE_CUSTOM_KEYBOARD){
+    this.composeInputOrig.on("focus", this.composeOldInputFocusEvent);
+
+    this.composeInputNew.on("keydown keypress keyup", this.composeInputKeyEvent);
+    this.composeInputNew.on("input", this.composeInputUpdateEvent);
+    this.composeInputNew.on("paste", this.composeInputPasteEvent);
+  }
   
   // HTML generation
   
