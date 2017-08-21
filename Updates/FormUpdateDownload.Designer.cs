@@ -24,7 +24,6 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormUpdateDownload));
             this.btnCancel = new System.Windows.Forms.Button();
             this.labelDescription = new System.Windows.Forms.Label();
             this.timerDownloadCheck = new System.Windows.Forms.Timer(this.components);
@@ -65,7 +64,7 @@
             this.Controls.Add(this.btnCancel);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = Properties.Resources.icon;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormUpdateDownload";
