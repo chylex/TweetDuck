@@ -60,6 +60,10 @@ namespace TweetDuck.Video{
 
         private void pipe_DataIn(object sender, DuplexPipe.PipeReadEventArgs e){
             switch(e.Key){
+                case "pause":
+                    TogglePause();
+                    break;
+
                 case "die":
                     timerSync.Stop();
                     Visible = false;

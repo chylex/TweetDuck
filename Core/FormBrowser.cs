@@ -87,6 +87,7 @@ namespace TweetDuck.Core{
             this.browser = new ChromiumWebBrowser("https://tweetdeck.twitter.com/"){
                 MenuHandler = new ContextMenuBrowser(this),
                 JsDialogHandler = new JavaScriptDialogHandler(),
+                KeyboardHandler = new KeyboardHandlerBrowser(this),
                 LifeSpanHandler = new LifeSpanHandler(),
                 RequestHandler = new RequestHandlerBrowser()
             };
@@ -525,6 +526,15 @@ namespace TweetDuck.Core{
             }
             
             videoPlayer.Launch(url);
+        }
+
+        public bool ToggleVideoPause(){
+            if (videoPlayer != null && videoPlayer.Running){
+                videoPlayer.TogglePause();
+                return true;
+            }
+
+            return false;
         }
 
         public void HideVideoOverlay(){

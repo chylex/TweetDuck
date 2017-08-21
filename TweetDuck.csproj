@@ -98,6 +98,7 @@
     <Compile Include="Core\FormBrowser.Designer.cs">
       <DependentUpon>FormBrowser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\Handling\KeyboardHandlerBrowser.cs" />
     <Compile Include="Core\Handling\KeyboardHandlerNotification.cs" />
     <Compile Include="Core\Handling\RequestHandlerBrowser.cs" />
     <Compile Include="Core\Handling\General\RequestHandlerBase.cs" />

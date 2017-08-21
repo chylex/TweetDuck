@@ -68,6 +68,10 @@ namespace TweetDuck.Core.Other.Management{
             }
         }
 
+        public void TogglePause(){
+            currentPipe?.Write("pause");
+        }
+
         private void currentPipe_DataIn(object sender, DuplexPipe.PipeReadEventArgs e){
             owner.InvokeSafe(() => {
                 switch(e.Key){
