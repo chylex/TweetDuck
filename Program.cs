@@ -22,9 +22,7 @@ namespace TweetDuck{
         public const string Website = "https://tweetduck.chylex.com";
 
         public const string VersionTag = "1.8.7";
-        public const string VersionFull = "1.8.7";
 
-        public static readonly Version Version = new Version(VersionTag);
         public static readonly bool IsPortable = File.Exists("makeportable");
 
         public static readonly string ProgramPath = AppDomain.CurrentDomain.BaseDirectory;
@@ -48,7 +46,7 @@ namespace TweetDuck{
 
         private static readonly LockManager LockManager = new LockManager(Path.Combine(StoragePath, ".lock"));
         private static bool HasCleanedUp;
-        
+
         public static UserConfig UserConfig { get; private set; }
         public static SystemConfig SystemConfig { get; private set; }
         public static Reporter Reporter { get; }

@@ -7,6 +7,9 @@ using TweetDuck.Plugins.Enums;
 
 namespace TweetDuck.Plugins{
     sealed class Plugin{
+        private static readonly Version AppVersion = new Version(Program.VersionTag);
+        private const string VersionWildcard = "*";
+
         public string Identifier { get; }
         public PluginGroup Group { get; }
         public PluginEnvironment Environments { get; private set; }
@@ -50,7 +53,7 @@ namespace TweetDuck.Plugins{
             { "WEBSITE", "" },
             { "CONFIGFILE", "" },
             { "CONFIGDEFAULT", "" },
-            { "REQUIRES", "*" }
+            { "REQUIRES", VersionWildcard }
         };
 
         private bool? canRun;
@@ -209,7 +212,7 @@ namespace TweetDuck.Plugins{
                 return false;
             }
 
-            if (plugin.RequiredVersion.Length == 0 || !(plugin.RequiredVersion.Equals("*") || System.Version.TryParse(plugin.RequiredVersion, out Version _))){
+            if (plugin.RequiredVersion.Length == 0 || !(plugin.RequiredVersion == VersionWildcard || System.Version.TryParse(plugin.RequiredVersion, out Version _))){
                 error = "Plugin contains invalid version: "+plugin.RequiredVersion;
                 return false;
             }
@@ -221,7 +224,7 @@ namespace TweetDuck.Plugins{
         }
 
         private static bool CheckRequiredVersion(string requires){
-            return requires.Equals("*", StringComparison.Ordinal) || Program.Version >= new Version(requires);
+            return requires == VersionWildcard || AppVersion >= new Version(requires);
         }
     }
 }
