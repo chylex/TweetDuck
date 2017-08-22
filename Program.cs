@@ -116,8 +116,8 @@ namespace TweetDuck{
                 }
             }
             
-            SystemConfig = SystemConfig.Load(SystemConfigFilePath);
             ReloadConfig();
+            SystemConfig = SystemConfig.Load(SystemConfigFilePath);
 
             if (Arguments.HasFlag(Arguments.ArgImportCookies)){
                 ExportManager.ImportCookies();

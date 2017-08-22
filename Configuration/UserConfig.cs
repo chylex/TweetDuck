@@ -14,16 +14,6 @@ namespace TweetDuck.Configuration{
         private static readonly FileSerializer<UserConfig> Serializer = new FileSerializer<UserConfig>{ HandleUnknownProperties = HandleUnknownProperties };
 
         private static void HandleUnknownProperties(UserConfig obj, Dictionary<string, string> data){
-            if (data.TryGetValue("EnableBrowserGCReload", out string propGCReload) && data.TryGetValue("BrowserMemoryThreshold", out string propMemThreshold)){
-                if (bool.TryParse(propGCReload, out bool isGCReloadEnabled) && isGCReloadEnabled && int.TryParse(propMemThreshold, out int memThreshold)){
-                    // SystemConfig initialization was moved before UserConfig to allow for this
-                    // TODO remove the migration soon
-                    Program.SystemConfig.EnableBrowserGCReload = true;
-                    Program.SystemConfig.BrowserMemoryThreshold = memThreshold;
-                    Program.SystemConfig.Save();
-                }
-            }
-
             data.Remove("EnableBrowserGCReload");
             data.Remove("BrowserMemoryThreshold");
 
