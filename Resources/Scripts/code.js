@@ -112,9 +112,7 @@
     };
     
     let checkTweetCache = (set, id) => {
-      if (set.has(id)){
-        return true;
-      }
+      return true if set.has(id);
       
       if (set.size > 50){
         set.clear();
@@ -130,12 +128,10 @@
     
     return function(column, tweet){
       if (tweet instanceof TD.services.TwitterConversation || tweet instanceof TD.services.TwitterConversationMessageEvent){
-        if (checkTweetCache(recentMessages, tweet.id)){
-          return;
-        }
+        return if checkTweetCache(recentMessages, tweet.id);
       }
-      else if (checkTweetCache(recentTweets, tweet.id)){
-        return;
+      else{
+        return if checkTweetCache(recentTweets, tweet.id);
       }
       
       startRecentTweetTimer();
@@ -430,26 +426,22 @@
     app.delegate("article.js-stream-item", "mouseenter mouseleave", function(e){
       if (e.type === "mouseenter"){
         let me = $(this);
-        
-        if (!me[0].hasAttribute("data-account-key") || (!highlightedColumnObj && !updateHighlightedColumn(me.closest("section.js-column")))){
-          return;
-        }
+        return if !me[0].hasAttribute("data-account-key") || (!highlightedColumnObj && !updateHighlightedColumn(me.closest("section.js-column")));
         
         let tweet = highlightedColumnObj.findChirp(me.attr("data-tweet-id")) || highlightedColumnObj.findChirp(me.attr("data-key"));
+        return if !tweet;
         
-        if (tweet){
-          if (tweet.chirpType === TD.services.ChirpBase.TWEET){
-            let link = tweet.getChirpURL();
-            let embedded = tweet.quotedTweet ? tweet.quotedTweet.getChirpURL() : "";
-            let username = tweet.getMainUser().screenName;
-            let images = tweet.hasImage() ? tweet.getMedia().filter(item => !item.isAnimatedGif).map(item => item.entity.media_url_https+":small").join(";") : "";
-            // TODO maybe handle embedded images too?
-            
-            updateHighlightedTweet(me, tweet, link || "", embedded || "", username, images);
-          }
-          else{
-            updateHighlightedTweet(me, tweet, "", "", "", "");
-          }
+        if (tweet.chirpType === TD.services.ChirpBase.TWEET){
+          let link = tweet.getChirpURL();
+          let embedded = tweet.quotedTweet ? tweet.quotedTweet.getChirpURL() : "";
+          let username = tweet.getMainUser().screenName;
+          let images = tweet.hasImage() ? tweet.getMedia().filter(item => !item.isAnimatedGif).map(item => item.entity.media_url_https+":small").join(";") : "";
+          // TODO maybe handle embedded images too?
+
+          updateHighlightedTweet(me, tweet, link || "", embedded || "", username, images);
+        }
+        else{
+          updateHighlightedTweet(me, tweet, "", "", "", "");
         }
       }
       else if (e.type === "mouseleave"){
@@ -938,20 +930,16 @@
   };
   
   window.TDGF_tryRunCleanup = function(){
+    // no modals are visible
+    return false if $("#open-modal").is(":visible") || !$(".js-modals-container").is(":empty");
+    
+    // all columns are in a default state
+    return false if $("section.js-column").is(".is-shifted-1,.is-shifted-2");
+    
     // all textareas are empty
     if ($("textarea").is(function(){
       return $(this).val().length > 0;
     })){
-      return false;
-    }
-    
-    // no modals are visible
-    if ($("#open-modal").is(":visible") || !$(".js-modals-container").is(":empty")){
-      return false;
-    }
-    
-    // all columns are in a default state
-    if ($("section.js-column").is(".is-shifted-1,.is-shifted-2")){
       return false;
     }
     
