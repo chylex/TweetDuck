@@ -44,7 +44,7 @@
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnCancel.Size = new System.Drawing.Size(56, 23);
-            this.btnCancel.TabIndex = 7;
+            this.btnCancel.TabIndex = 9;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -56,7 +56,7 @@
             this.btnRestart.Name = "btnRestart";
             this.btnRestart.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnRestart.Size = new System.Drawing.Size(57, 23);
-            this.btnRestart.TabIndex = 6;
+            this.btnRestart.TabIndex = 8;
             this.btnRestart.Text = "Restart";
             this.btnRestart.UseVisualStyleBackColor = true;
             this.btnRestart.Click += new System.EventHandler(this.btnRestart_Click);
@@ -114,7 +114,7 @@
             this.tbShortcutTarget.Name = "tbShortcutTarget";
             this.tbShortcutTarget.ReadOnly = true;
             this.tbShortcutTarget.Size = new System.Drawing.Size(257, 20);
-            this.tbShortcutTarget.TabIndex = 10;
+            this.tbShortcutTarget.TabIndex = 7;
             this.tbShortcutTarget.Click += new System.EventHandler(this.tbShortcutTarget_Click);
             // 
             // labelLocale
@@ -144,7 +144,7 @@
             this.labelShortcutTarget.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelShortcutTarget.Name = "labelShortcutTarget";
             this.labelShortcutTarget.Size = new System.Drawing.Size(155, 13);
-            this.labelShortcutTarget.TabIndex = 9;
+            this.labelShortcutTarget.TabIndex = 6;
             this.labelShortcutTarget.Text = "Shortcut Target (click to select)";
             // 
             // DialogSettingsRestart
