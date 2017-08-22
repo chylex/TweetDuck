@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Forms;
-using TweetLib.Communication;
 
 namespace TweetDuck.Video{
     static class Program{

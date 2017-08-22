@@ -10,7 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "tests\UnitTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetLib.Audio", "lib\TweetLib.Audio\TweetLib.Audio.csproj", "{E9E1FD1B-F480-45B7-9970-BE2ECFD309AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetDuck.Video", "video\TweetDuck.Video\TweetDuck.Video.csproj", "{278B2D11-402D-44B6-B6A1-8FA67DB65565}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetDuck.Video", "video\TweetDuck.Video.csproj", "{278B2D11-402D-44B6-B6A1-8FA67DB65565}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetLib.Communication", "lib\TweetLib.Communication\TweetLib.Communication.csproj", "{72473763-4B9D-4FB6-A923-9364B2680F06}"
 EndProject

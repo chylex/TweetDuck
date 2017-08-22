@@ -75,7 +75,7 @@
     <Content Include="Resources\icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\lib\TweetLib.Communication\TweetLib.Communication.csproj">
+    <ProjectReference Include="..\lib\TweetLib.Communication\TweetLib.Communication.csproj">
       <Project>{72473763-4b9d-4fb6-a923-9364b2680f06}</Project>
       <Name>TweetLib.Windows</Name>
     </ProjectReference>
