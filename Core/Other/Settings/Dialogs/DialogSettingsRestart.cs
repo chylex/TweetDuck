@@ -24,7 +24,14 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
             cbLogging.Checked = currentArgs.HasFlag(Arguments.ArgLogging);
             cbDebugUpdates.Checked = currentArgs.HasFlag(Arguments.ArgDebugUpdates);
             comboLocale.SelectedItem = currentArgs.GetValue(Arguments.ArgLocale, DefaultLocale);
-            tbDataFolder.Text = currentArgs.GetValue(Arguments.ArgDataFolder, string.Empty);
+
+            if (Program.IsPortable){
+                tbDataFolder.Text = "Not available in portable version";
+                tbDataFolder.Enabled = false;
+            }
+            else{
+                tbDataFolder.Text = currentArgs.GetValue(Arguments.ArgDataFolder, string.Empty);
+            }
 
             Text = Program.BrandName+" Arguments";
         }

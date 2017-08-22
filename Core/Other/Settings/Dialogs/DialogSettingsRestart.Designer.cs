@@ -67,7 +67,7 @@
             this.cbLogging.Size = new System.Drawing.Size(64, 17);
             this.cbLogging.TabIndex = 0;
             this.cbLogging.Text = "Logging";
-            this.toolTip.SetToolTip(this.cbLogging, "Logging JavaScript output into a\r\ndebug.txt file in the data folder.");
+            this.toolTip.SetToolTip(this.cbLogging, "Logging JavaScript output into TD_Console.txt file in the data folder.");
             this.cbLogging.UseVisualStyleBackColor = true;
             // 
             // cbDebugUpdates
@@ -100,6 +100,7 @@
             this.comboLocale.Name = "comboLocale";
             this.comboLocale.Size = new System.Drawing.Size(201, 21);
             this.comboLocale.TabIndex = 3;
+            this.toolTip.SetToolTip(this.comboLocale, "Language used for spell checking.");
             // 
             // labelDataFolder
             // 
@@ -119,6 +120,7 @@
             this.tbDataFolder.Name = "tbDataFolder";
             this.tbDataFolder.Size = new System.Drawing.Size(201, 20);
             this.tbDataFolder.TabIndex = 5;
+            this.toolTip.SetToolTip(this.tbDataFolder, "Path to the data folder. Must be either an absolute path,\r\nor a simple folder name that will be created in LocalAppData.");
             // 
             // DialogSettingsRestart
             // 
