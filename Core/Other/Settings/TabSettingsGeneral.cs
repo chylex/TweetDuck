@@ -91,7 +91,6 @@ namespace TweetDuck.Core.Other.Settings{
 
         private void btnCheckUpdates_Click(object sender, EventArgs e){
             Config.DismissedUpdate = null;
-            Config.Save();
 
             btnCheckUpdates.Enabled = false;
             updateCheckEventId = updates.Check(true);
