@@ -1,12 +1,10 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
 using TweetDuck.Data.Serialization;
 
 namespace TweetDuck.Data{
-    [Serializable] // TODO remove attribute with UserConfigLegacy
     sealed class WindowState{
         private Rectangle rect;
         private bool isMaximized;
