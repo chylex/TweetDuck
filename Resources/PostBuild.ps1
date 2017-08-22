@@ -13,7 +13,7 @@ function Rewrite-File{
 
 ForEach($file in Get-ChildItem -Include *.js -Recurse){
   $lines = Get-Content -Path $file.FullName
-  $lines = ($lines | % { $_.TrimStart() }) -Replace '^(.*?)((?<=^|[;{}()])\s?//(?:\s.*|$))?$', '$1'
+  $lines = ($lines | % { $_.TrimStart() }) -Replace '^(.*?)((?<=^|[;{}()])\s?//(?:\s.*|$))?$', '$1' -Replace '(?<!\w)return(\s.*?)? if (.*?);', 'if ($2)return$1;'
   ,$lines | Rewrite-File $file
 }
 
