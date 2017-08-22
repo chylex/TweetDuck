@@ -9,8 +9,6 @@ using TweetDuck.Updates.Events;
 
 namespace TweetDuck.Updates{
     sealed class UpdateHandler{
-        private static bool IsSystemSupported => true; // Environment.OSVersion.Version >= new Version("6.1"); // 6.1 NT version = Windows 7
-
         private readonly ChromiumWebBrowser browser;
         private readonly UpdaterSettings settings;
 
@@ -37,21 +35,14 @@ namespace TweetDuck.Updates{
         }
 
         public int Check(bool force){
-            if (IsSystemSupported){
-                if (Program.UserConfig.EnableUpdateCheck || force){
-                    string dismissedUpdate = force || settings.DismissedUpdate == null ? string.Empty : settings.DismissedUpdate;
+            if (Program.UserConfig.EnableUpdateCheck || force){
+                string dismissedUpdate = force || settings.DismissedUpdate == null ? string.Empty : settings.DismissedUpdate;
 
-                    browser.ExecuteScriptAsync("TDUF_runUpdateCheck", ++lastEventId, Program.VersionTag, dismissedUpdate, settings.AllowPreReleases);
-                    return lastEventId;
-                }
+                browser.ExecuteScriptAsync("TDUF_runUpdateCheck", ++lastEventId, Program.VersionTag, dismissedUpdate, settings.AllowPreReleases);
+                return lastEventId;
+            }
 
-                return 0;
-            }
-            else if (settings.DismissedUpdate != "unsupported"){
-                browser.ExecuteScriptAsync("TDUF_displayNotification", "unsupported");
-            }
-            
-            return -1;
+            return 0;
         }
 
         public void BeginUpdateDownload(Form ownerForm, UpdateInfo updateInfo, Action<UpdateInfo> onSuccess){

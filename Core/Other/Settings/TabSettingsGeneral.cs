@@ -91,15 +91,10 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void btnCheckUpdates_Click(object sender, EventArgs e){
-            updateCheckEventId = updates.Check(true);
+            btnCheckUpdates.Enabled = false;
 
-            if (updateCheckEventId == -1){
-                FormMessage.Warning("Unsupported System", "Sorry, your system is no longer supported.", FormMessage.OK);
-            }
-            else{
-                btnCheckUpdates.Enabled = false;
-                updates.DismissUpdate(string.Empty);
-            }
+            updates.DismissUpdate(string.Empty);
+            updateCheckEventId = updates.Check(true);
         }
 
         private void updates_CheckFinished(object sender, UpdateCheckEventArgs e){

@@ -28,8 +28,6 @@
   // Function: Creates the update notification element. Removes the old one if already exists.
   //
   var displayNotification = function(version, download, changelog){
-    var outdated = version === "unsupported";
-    
     // styles
     var css = $("#tweetduck-update-css");
     
@@ -183,16 +181,7 @@
       ele.remove();
     }
     
-    ele = $(outdated ? `
-<div id='tweetduck-update'>
-  <p class='tdu-title'>Unsupported System</p>
-  <p class='tdu-info'>You will not receive updates</p>
-  <div class='tdu-buttons'>
-    <button class='tdu-btn-unsupported'>Read more</button>
-    <button class='tdu-btn-ignore'>Dismiss</button>
-  </div>
-</div>
-` : `
+    ele = $(`
 <div id='tweetduck-update'>
   <p class='tdu-title'>T&#8202;weetDuck Update ${version}</p>
   <p class='tdu-info tdu-showlog'>View update information</p>
@@ -244,11 +233,7 @@
       slide();
     });
 
-    buttonDiv.children(".tdu-btn-unsupported").click(function(){
-      $TDU.openBrowser("https://github.com/chylex/TweetDuck/wiki/Supported-Systems");
-    });
-
-    buttonDiv.children(".tdu-btn-ignore,.tdu-btn-unsupported").click(function(){
+    buttonDiv.children(".tdu-btn-ignore").click(function(){
       $TDU.onUpdateDismissed();
       slide();
     });
@@ -318,6 +303,5 @@
   //
   // Block: Setup global functions.
   //
-  window.TDUF_displayNotification = displayNotification;
   window.TDUF_runUpdateCheck = runUpdateCheck;
 })($, $TDU);
