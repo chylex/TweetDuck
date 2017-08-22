@@ -142,7 +142,7 @@
       
       if (column.model.getHasNotification()){
         let sensitive = (tweet.getRelatedTweet() && tweet.getRelatedTweet().possiblySensitive || (tweet.quotedTweet && tweet.quotedTweet.possiblySensitive));
-        let previews = $TDX.notificationMediaPreviews && !sensitive;
+        let previews = $TDX.notificationMediaPreviews && (!sensitive || TD.settings.getDisplaySensitiveMedia());
         
         let html = $(tweet.render({
           withFooter: false,
