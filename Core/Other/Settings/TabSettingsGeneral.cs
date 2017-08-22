@@ -1,7 +1,6 @@
 ﻿using System;
 using TweetDuck.Core.Controls;
 using TweetDuck.Updates;
-using TweetDuck.Updates.Events;
 
 namespace TweetDuck.Core.Other.Settings{
     partial class TabSettingsGeneral : BaseTabSettings{
@@ -91,18 +90,19 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void btnCheckUpdates_Click(object sender, EventArgs e){
-            btnCheckUpdates.Enabled = false;
+            Config.DismissedUpdate = null;
+            Config.Save();
 
-            updates.DismissUpdate(string.Empty);
+            btnCheckUpdates.Enabled = false;
             updateCheckEventId = updates.Check(true);
         }
 
-        private void updates_CheckFinished(object sender, UpdateCheckEventArgs e){
+        private void updates_CheckFinished(object sender, UpdateEventArgs e){
             this.InvokeAsyncSafe(() => {
                 if (e.EventId == updateCheckEventId){
                     btnCheckUpdates.Enabled = true;
 
-                    if (!e.UpdateAvailable){
+                    if (!e.IsUpdateAvailable){
                         FormMessage.Information("No Updates Available", "Your version of TweetDuck is up to date.", FormMessage.OK);
                     }
                 }

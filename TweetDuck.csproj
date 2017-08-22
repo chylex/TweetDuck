@@ -243,7 +243,6 @@
     <Compile Include="Plugins\PluginManager.cs" />
     <Compile Include="Plugins\PluginScriptGenerator.cs" />
     <Compile Include="Reporter.cs" />
-    <Compile Include="Updates\Events\UpdateDismissedEventArgs.cs" />
     <Compile Include="Updates\FormUpdateDownload.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -259,8 +258,6 @@
     <Compile Include="Core\Utils\BrowserCache.cs" />
     <Compile Include="Core\Utils\BrowserUtils.cs" />
     <Compile Include="Core\Utils\NativeMethods.cs" />
-    <Compile Include="Updates\Events\UpdateAcceptedEventArgs.cs" />
-    <Compile Include="Updates\Events\UpdateCheckEventArgs.cs" />
     <Compile Include="Updates\UpdateDownloadStatus.cs" />
     <Compile Include="Updates\UpdateHandler.cs" />
     <Compile Include="Updates\UpdateInfo.cs" />
@@ -272,6 +269,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\ScriptLoader.cs" />
+    <Compile Include="Updates\UpdateEventArgs.cs" />
     <Compile Include="Updates\UpdaterSettings.cs" />
   </ItemGroup>
   <ItemGroup>

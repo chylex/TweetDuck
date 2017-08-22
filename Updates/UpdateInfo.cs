@@ -5,6 +5,7 @@ using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Updates{
     sealed class UpdateInfo{
+        public int EventId { get; }
         public string VersionTag { get; }
         public string InstallerPath { get; }
 
@@ -15,10 +16,11 @@ namespace TweetDuck.Updates{
         private readonly string downloadUrl;
         private WebClient currentDownload;
 
-        public UpdateInfo(UpdaterSettings settings, string versionTag, string downloadUrl){
+        public UpdateInfo(UpdaterSettings settings, int eventId, string versionTag, string downloadUrl){
             this.installerFolder = settings.InstallerDownloadFolder;
             this.downloadUrl = downloadUrl;
 
+            this.EventId = eventId;
             this.VersionTag = versionTag;
             this.InstallerPath = Path.Combine(installerFolder, "TweetDuck."+versionTag+".exe");
         }

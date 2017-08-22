@@ -5,16 +5,15 @@ using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
 using TweetDuck.Resources;
-using TweetDuck.Updates.Events;
 
 namespace TweetDuck.Updates{
     sealed class UpdateHandler{
         private readonly ChromiumWebBrowser browser;
         private readonly UpdaterSettings settings;
 
-        public event EventHandler<UpdateAcceptedEventArgs> UpdateAccepted;
-        public event EventHandler<UpdateDismissedEventArgs> UpdateDismissed;
-        public event EventHandler<UpdateCheckEventArgs> CheckFinished;
+        public event EventHandler<UpdateEventArgs> UpdateAccepted;
+        public event EventHandler<UpdateEventArgs> UpdateDismissed;
+        public event EventHandler<UpdateEventArgs> CheckFinished;
 
         private int lastEventId;
         private UpdateInfo lastUpdateInfo;
@@ -36,9 +35,11 @@ namespace TweetDuck.Updates{
 
         public int Check(bool force){
             if (Program.UserConfig.EnableUpdateCheck || force){
-                string dismissedUpdate = force || settings.DismissedUpdate == null ? string.Empty : settings.DismissedUpdate;
+                if (force){
+                    settings.DismissedUpdate = null;
+                }
 
-                browser.ExecuteScriptAsync("TDUF_runUpdateCheck", ++lastEventId, Program.VersionTag, dismissedUpdate, settings.AllowPreReleases);
+                browser.ExecuteScriptAsync("TDUF_runUpdateCheck", ++lastEventId, Program.VersionTag, settings.DismissedUpdate ?? string.Empty, settings.AllowPreReleases);
                 return lastEventId;
             }
 
@@ -79,20 +80,16 @@ namespace TweetDuck.Updates{
             }
         }
 
-        public void DismissUpdate(string tag){
-            TriggerUpdateDismissedEvent(new UpdateDismissedEventArgs(tag));
-        }
-
-        private void TriggerUpdateAcceptedEvent(UpdateAcceptedEventArgs args){
+        private void TriggerUpdateAcceptedEvent(UpdateEventArgs args){
             UpdateAccepted?.Invoke(this, args);
         }
 
-        private void TriggerUpdateDismissedEvent(UpdateDismissedEventArgs args){
-            settings.DismissedUpdate = args.VersionTag;
+        private void TriggerUpdateDismissedEvent(UpdateEventArgs args){
+            settings.DismissedUpdate = args.UpdateInfo.VersionTag;
             UpdateDismissed?.Invoke(this, args);
         }
 
-        private void TriggerCheckFinishedEvent(UpdateCheckEventArgs args){
+        private void TriggerCheckFinishedEvent(UpdateEventArgs args){
             CheckFinished?.Invoke(this, args);
         }
 
@@ -110,22 +107,22 @@ namespace TweetDuck.Updates{
             public void OnUpdateCheckFinished(int eventId, string versionTag, string downloadUrl){
                 if (versionTag != null && (owner.lastUpdateInfo == null || owner.lastUpdateInfo.VersionTag != versionTag)){
                     owner.CleanupDownload();
-                    owner.lastUpdateInfo = new UpdateInfo(owner.settings, versionTag, downloadUrl);
+                    owner.lastUpdateInfo = new UpdateInfo(owner.settings, eventId, versionTag, downloadUrl);
                     owner.lastUpdateInfo.BeginSilentDownload();
                 }
 
-                owner.TriggerCheckFinishedEvent(new UpdateCheckEventArgs(eventId, owner.lastUpdateInfo));
+                owner.TriggerCheckFinishedEvent(new UpdateEventArgs(eventId, owner.lastUpdateInfo));
             }
 
             public void OnUpdateAccepted(){
                 if (owner.lastUpdateInfo != null){
-                    owner.TriggerUpdateAcceptedEvent(new UpdateAcceptedEventArgs(owner.lastUpdateInfo));
+                    owner.TriggerUpdateAcceptedEvent(new UpdateEventArgs(owner.lastUpdateInfo));
                 }
             }
 
             public void OnUpdateDismissed(){
                 if (owner.lastUpdateInfo != null){
-                    owner.TriggerUpdateDismissedEvent(new UpdateDismissedEventArgs(owner.lastUpdateInfo.VersionTag));
+                    owner.TriggerUpdateDismissedEvent(new UpdateEventArgs(owner.lastUpdateInfo));
                     owner.CleanupDownload();
                 }
             }

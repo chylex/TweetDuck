@@ -19,7 +19,6 @@ using TweetDuck.Plugins.Enums;
 using TweetDuck.Plugins.Events;
 using TweetDuck.Resources;
 using TweetDuck.Updates;
-using TweetDuck.Updates.Events;
 using TweetLib.Audio;
 
 namespace TweetDuck.Core{
@@ -337,7 +336,7 @@ namespace TweetDuck.Core{
             browser.ExecuteScriptAsync("window.TDPF_setPluginState", e.Plugin, e.IsEnabled);
         }
 
-        private void updates_UpdateAccepted(object sender, UpdateAcceptedEventArgs e){
+        private void updates_UpdateAccepted(object sender, UpdateEventArgs e){
             this.InvokeAsyncSafe(() => {
                 FormManager.CloseAllDialogs();
             
@@ -351,9 +350,9 @@ namespace TweetDuck.Core{
             });
         }
 
-        private void updates_UpdateDismissed(object sender, UpdateDismissedEventArgs e){
+        private void updates_UpdateDismissed(object sender, UpdateEventArgs e){
             this.InvokeAsyncSafe(() => {
-                Config.DismissedUpdate = e.VersionTag;
+                Config.DismissedUpdate = e.UpdateInfo.VersionTag;
                 Config.Save();
             });
         }
@@ -454,8 +453,10 @@ namespace TweetDuck.Core{
 
                 form.FormClosed += (sender, args) => {
                     if (!prevEnableUpdateCheck && Config.EnableUpdateCheck){
-                        updates.DismissUpdate(string.Empty);
-                        updates.Check(false);
+                        Config.DismissedUpdate = null;
+                        Config.Save();
+                        
+                        updates.Check(true);
                     }
 
                     if (!Config.EnableTrayHighlight){
