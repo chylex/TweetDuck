@@ -87,6 +87,7 @@
             // 
             this.comboLocale.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboLocale.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboLocale.FormattingEnabled = true;
             this.comboLocale.Location = new System.Drawing.Point(15, 83);
             this.comboLocale.Name = "comboLocale";
