@@ -25,18 +25,25 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
             cbDebugUpdates.Checked = currentArgs.HasFlag(Arguments.ArgDebugUpdates);
             comboLocale.SelectedItem = currentArgs.GetValue(Arguments.ArgLocale, DefaultLocale);
 
+            cbLogging.CheckedChanged += control_Change;
+            cbDebugUpdates.CheckedChanged += control_Change;
+            comboLocale.SelectedValueChanged += control_Change;
+
             if (Program.IsPortable){
                 tbDataFolder.Text = "Not available in portable version";
                 tbDataFolder.Enabled = false;
             }
             else{
                 tbDataFolder.Text = currentArgs.GetValue(Arguments.ArgDataFolder, string.Empty);
+                tbDataFolder.TextChanged += control_Change;
             }
+
+            control_Change(this, new EventArgs());
 
             Text = Program.BrandName+" Arguments";
         }
 
-        private void btnRestart_Click(object sender, EventArgs e){
+        private void control_Change(object sender, EventArgs e){
             Args = new CommandLineArgs();
             
             if (cbLogging.Checked){
@@ -57,6 +64,17 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                 Args.SetValue(Arguments.ArgDataFolder, tbDataFolder.Text);
             }
 
+            tbShortcutTarget.Text = $@"""{Application.ExecutablePath}""{(Args.Count > 0 ? " " : "")}{Args}";
+            tbShortcutTarget.Select(tbShortcutTarget.Text.Length, 0);
+        }
+
+        private void tbShortcutTarget_Click(object sender, EventArgs e){
+            if (tbShortcutTarget.SelectionLength == 0){
+                tbShortcutTarget.SelectAll();
+            }
+        }
+
+        private void btnRestart_Click(object sender, EventArgs e){
             DialogResult = DialogResult.OK;
             Close();
         }
