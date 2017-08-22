@@ -35,7 +35,7 @@ namespace TweetDuck.Core.Notification{
                     #endif
                 }
 
-                return new TweetNotification("Home", ExampleTweetHTML, 95, string.Empty, string.Empty, true);
+                return new TweetNotification(string.Empty, string.Empty, "Home", ExampleTweetHTML, 95, string.Empty, string.Empty, true);
             }
         }
 
@@ -55,7 +55,10 @@ namespace TweetDuck.Core.Notification{
             Auto, Custom
         }
 
-        public string Column { get; }
+        public string ColumnKey { get; }
+        public string ChirpId { get; }
+
+        public string ColumnTitle { get; }
         public string TweetUrl { get; }
         public string QuoteUrl { get; }
         
@@ -63,10 +66,13 @@ namespace TweetDuck.Core.Notification{
         private readonly int characters;
         private readonly bool isExample;
 
-        public TweetNotification(string column, string html, int characters, string tweetUrl, string quoteUrl) : this(column, html, characters, tweetUrl, quoteUrl, false){}
+        public TweetNotification(string columnKey, string chirpId, string title, string html, int characters, string tweetUrl, string quoteUrl) : this(columnKey, chirpId, title, html, characters, tweetUrl, quoteUrl, false){}
 
-        private TweetNotification(string column, string html, int characters, string tweetUrl, string quoteUrl, bool isExample){
-            this.Column = column;
+        private TweetNotification(string columnKey, string chirpId, string title, string html, int characters, string tweetUrl, string quoteUrl, bool isExample){
+            this.ColumnKey = columnKey;
+            this.ChirpId = chirpId;
+
+            this.ColumnTitle = title;
             this.TweetUrl = tweetUrl;
             this.QuoteUrl = quoteUrl;
 

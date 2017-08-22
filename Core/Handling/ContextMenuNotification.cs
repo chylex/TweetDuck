@@ -4,10 +4,11 @@ using TweetDuck.Core.Notification;
 
 namespace TweetDuck.Core.Handling{
     class ContextMenuNotification : ContextMenuBase{
-        private const int MenuSkipTweet = 26600;
-        private const int MenuFreeze = 26601;
-        private const int MenuCopyTweetUrl = 26602;
-        private const int MenuCopyQuotedTweetUrl = 26603;
+        private const int MenuViewDetail = 26600;
+        private const int MenuSkipTweet = 26601;
+        private const int MenuFreeze = 26602;
+        private const int MenuCopyTweetUrl = 26603;
+        private const int MenuCopyQuotedTweetUrl = 26604;
 
         private readonly FormNotificationBase form;
         private readonly bool enableCustomMenu;
@@ -28,6 +29,7 @@ namespace TweetDuck.Core.Handling{
             base.OnBeforeContextMenu(browserControl, browser, frame, parameters, model);
 
             if (enableCustomMenu){
+                model.AddItem((CefMenuCommand)MenuViewDetail, "View detail");
                 model.AddItem((CefMenuCommand)MenuSkipTweet, "Skip tweet");
                 model.AddCheckItem((CefMenuCommand)MenuFreeze, "Freeze");
                 model.SetChecked((CefMenuCommand)MenuFreeze, form.FreezeTimer);
@@ -39,12 +41,11 @@ namespace TweetDuck.Core.Handling{
                     if (!string.IsNullOrEmpty(form.CurrentQuoteUrl)){
                         model.AddItem((CefMenuCommand)MenuCopyQuotedTweetUrl, "Copy quoted tweet address");
                     }
-
-                    model.AddSeparator();
                 }
             }
             
             if (HasDevTools){
+                model.AddSeparator();
                 AddDebugMenuItems(model);
             }
 
@@ -65,6 +66,10 @@ namespace TweetDuck.Core.Handling{
 
                 case MenuFreeze:
                     form.InvokeAsyncSafe(() => form.FreezeTimer = !form.FreezeTimer);
+                    return true;
+
+                case MenuViewDetail:
+                    form.InvokeSafe(() => form.ShowTweetDetail());
                     return true;
 
                 case MenuCopyTweetUrl:

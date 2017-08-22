@@ -542,6 +542,31 @@ namespace TweetDuck.Core{
             browser.ExecuteScriptAsync("$('#td-video-player-overlay').remove()");
         }
 
+        public void ShowTweetDetail(string columnKey, string chirpId){
+            Activate();
+
+            using(IFrame frame = browser.GetBrowser().MainFrame){
+                if (!TwitterUtils.IsTweetDeckWebsite(frame)){
+                    FormMessage.Error("View Tweet Detail", "TweetDeck is not currently loaded.", FormMessage.OK);
+                    return;
+                }
+            }
+
+            browser.EvaluateScriptAsync("window.TDGF_showTweetDetail", columnKey, chirpId).ContinueWith(task => {
+                JavascriptResponse response = task.Result;
+                
+                if (response.Success){
+                    switch(response.Result as int? ?? -1){
+                        case 0: this.InvokeAsyncSafe(notification.FinishCurrentNotification); return;
+                        case 1: FormMessage.Error("View Tweet Detail", "The column which contained the tweet no longer exists.", FormMessage.OK); return;
+                        case 2: FormMessage.Error("View Tweet Detail", "The tweet has been unloaded.", FormMessage.OK); return; // TODO load the tweet 
+                    }
+                }
+
+                FormMessage.Error("View Tweet Detail", "An unknown error occurred when trying to view tweet detail.", FormMessage.OK);
+            });
+        }
+
         public void OnTweetScreenshotReady(string html, int width, int height){
             if (notificationScreenshotManager == null){
                 notificationScreenshotManager = new TweetScreenshotManager(this, plugins);

@@ -199,7 +199,7 @@
         let tweetUrl = source ? source.getChirpURL() : "";
         let quoteUrl = source && source.quotedTweet ? source.quotedTweet.getChirpURL() : "";
 
-        $TD.onTweetPopup(columnTypes[column.getColumnType()] || "", html.html(), duration, tweetUrl, quoteUrl);
+        $TD.onTweetPopup(column.model.privateState.key, tweet.id, columnTypes[column.getColumnType()] || "", html.html(), duration, tweetUrl, quoteUrl);
       }
 
       if (column.model.getHasSound()){
@@ -207,6 +207,20 @@
       }
     };
   })();
+  
+  window.TDGF_showTweetDetail = function(columnKey, tweetId){
+    let column = TD.controller.columnManager.get(columnKey);
+    return 1 if !column; // column no longer exists
+    
+    let chirp = column.findMostInterestingChirp(tweetId);
+    return 2 if !chirp; // TODO figure out -- tweet is no longer in cache
+    
+    TD.ui.updates.showDetailView(column, chirp, column.findChirp(chirp));
+    TD.controller.columnManager.showColumn(columnKey);
+    
+    $(document).trigger("uiGridClearSelection");
+    return 0;
+  };
   
   //
   // Function: Retrieves the tags to be put into <head> for notification HTML code.

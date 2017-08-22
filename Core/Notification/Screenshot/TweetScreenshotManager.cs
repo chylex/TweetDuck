@@ -46,7 +46,7 @@ namespace TweetDuck.Core.Notification.Screenshot{
                 CanMoveWindow = () => false
             };
 
-            screenshot.LoadNotificationForScreenshot(new TweetNotification(string.Empty, html, 0, string.Empty, string.Empty), width, height);
+            screenshot.LoadNotificationForScreenshot(new TweetNotification(string.Empty, string.Empty, string.Empty, html, 0, string.Empty, string.Empty), width, height);
             screenshot.Show();
             timeout.Start();
 

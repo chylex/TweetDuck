@@ -14,7 +14,7 @@ namespace TweetDuck.Core.Notification.Screenshot{
     sealed class FormNotificationScreenshotable : FormNotificationBase{
         private readonly PluginManager plugins;
 
-        public FormNotificationScreenshotable(Action callback, Form owner, PluginManager pluginManager) : base(owner, false){
+        public FormNotificationScreenshotable(Action callback, FormBrowser owner, PluginManager pluginManager) : base(owner, false){
             this.plugins = pluginManager;
 
             browser.RegisterAsyncJsObject("$TD_NotificationScreenshot", new CallbackBridge(this, callback));
