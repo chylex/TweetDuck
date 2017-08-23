@@ -291,7 +291,7 @@
     $("[data-action='settings-menu']").click(function(){
       setTimeout(function(){
         let menu = $(".js-dropdown-content").children("ul").first();
-        if (menu.length === 0)return;
+        return if menu.length === 0;
         
         menu.children(".drp-h-divider").last().before('<li class="is-selectable" data-std><a href="#" data-action="tweetduck">TweetDuck</a></li>');
         
@@ -326,10 +326,7 @@
 
       if (e.type === "mouseenter"){
         let text = me.text();
-        
-        if (text.charCodeAt(text.length-1) !== 8230){ // horizontal ellipsis
-          return;
-        }
+        return if text.charCodeAt(text.length-1) !== 8230; // horizontal ellipsis
         
         if ($TDX.expandLinksOnHover){
           tooltipTimer = window.setTimeout(function(){
@@ -544,9 +541,7 @@
       for(let item of e.originalEvent.clipboardData.items){
         if (item.type.startsWith("image/")){
           if (!$(this).closest(".rpl").find(".js-reply-popout").click().length){ // popout direct messages
-            if ($(".js-add-image-button").is(".is-disabled")){ // tweetdeck does not check upload count properly
-              return;
-            }
+            return if $(".js-add-image-button").is(".is-disabled"); // tweetdeck does not check upload count properly
           }
           
           uploader.addFilesToUpload([ item.getAsFile() ]);
@@ -645,9 +640,7 @@
       }
     });
     
-    if (!ensurePropertyExists(TD, "vo", "Column", "prototype", "clear")){
-      return;
-    }
+    return if !ensurePropertyExists(TD, "vo", "Column", "prototype", "clear");
     
     TD.vo.Column.prototype.clear = prependToFunction(TD.vo.Column.prototype.clear, function(){
       window.setTimeout(resetActiveFocus, 0); // unfocuses the Clear button, otherwise it steals keyboard input

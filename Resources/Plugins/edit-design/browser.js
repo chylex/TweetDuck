@@ -102,16 +102,14 @@ enabled(){
   
   // settings click event
   this.onSettingsMenuClickedEvent = () => {
-    if (this.htmlModal === null || this.config === null){
-      return;
-    }
+    return if this.htmlModal === null || this.config === null;
     
     setTimeout(() => {
       let menu = $(".js-dropdown-content").children("ul").first();
-      if (menu.length === 0)return;
+      return if menu.length === 0;
       
       let itemTD = menu.children("[data-std]").first();
-      if (itemTD.length === 0)return;
+      return if itemTD.length === 0;
       
       if (!itemTD.prev().hasClass("drp-h-divider")){
         itemTD.before('<li class="drp-h-divider"></li>');

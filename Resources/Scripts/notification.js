@@ -51,13 +51,10 @@
       var me = e.currentTarget;
       
       var url = me.getAttribute("data-full-url");
-      if (!url)return;
+      return if !url;
       
       var text = me.textContent;
-        
-      if (text.charCodeAt(text.length-1) !== 8230){ // horizontal ellipsis
-        return;
-      }
+      return if text.charCodeAt(text.length-1) !== 8230; // horizontal ellipsis
 
       if ($TDX.expandLinksOnHover){
         tooltipTimer = window.setTimeout(function(){
@@ -79,7 +76,7 @@
     });
     
     addEventListener(links, "mouseleave", function(e){
-      if (!e.currentTarget.hasAttribute("data-full-url"))return;
+      return if !e.currentTarget.hasAttribute("data-full-url");
       
       if ($TDX.expandLinksOnHover){
         var prevText = e.currentTarget.getAttribute("td-prev-text");
@@ -100,7 +97,7 @@
     addEventListener(links, "mousemove", function(e){
       if (tooltipDisplayed && (prevMouseX !== e.clientX || prevMouseY !== e.clientY)){
         var url = e.currentTarget.getAttribute("data-full-url");
-        if (!url)return;
+        return if !url;
         
         $TD.displayTooltip(url, true);
         prevMouseX = e.clientX;
@@ -112,11 +109,7 @@
   //
   // Block: Setup a skip button.
   //
-  (function(){
-    if (document.body.hasAttribute("td-example-notification")){
-      return;
-    }
-    
+  if (!document.body.hasAttribute("td-example-notification")){
     document.body.insertAdjacentHTML("afterbegin", [
       '<svg id="td-skip" xmlns="http://www.w3.org/2000/svg" width="10" height="17" viewBox="0 0 350 600" style="position:fixed;left:30px;bottom:10px;z-index:1000">',
       '<path fill="#888" d="M0,151.656l102.208-102.22l247.777,247.775L102.208,544.986L0,442.758l145.546-145.547">',
@@ -126,7 +119,7 @@
     document.getElementById("td-skip").addEventListener("click", function(){
       $TD.loadNextNotification();
     });
-  })();
+  }
   
   //
   // Block: Setup a hover class on body.

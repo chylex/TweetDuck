@@ -355,9 +355,7 @@ enabled(){
   };
   
   this.composeOldInputFocusEvent = function(){
-    if (!isEditorActive){
-      return;
-    }
+    return if !isEditorActive;
     
     let val = $(this).val();
     
