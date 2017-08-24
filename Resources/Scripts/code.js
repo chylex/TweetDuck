@@ -725,6 +725,7 @@
     
     addRule(".column-nav-link .attribution { position: absolute; }"); // fix cut off account names
     addRule(".txt-base-smallest .sprite-verified-mini { width: 13px !important; height: 13px !important; background-position: -223px -99px !important; }"); // fix cut off badge icon when zoomed in
+    addRule(".txt-base-smallest .badge-verified:before { width: 13px !important; height: 13px !important; background-position: -223px -98px !important; }"); // fix cut off badge icon in notifications
     
     addRule(".btn, .mdl, .mdl-content, .app-search-fake, .app-search-input, .popover, .lst-modal, .media-item, .media-preview, .tooltip-inner { border-radius: 1px !important; }"); // square-ify buttons, inputs, dialogs, menus, media previews
     addRule(".compose-text-container, .dropdown-menu, .list-item-last, .quoted-tweet { border-radius: 0 !important; }"); // square-ify dropdowns, quoted tweets, and account selectors
