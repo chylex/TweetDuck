@@ -65,11 +65,7 @@ namespace TweetDuck.Video{
                     break;
 
                 case "die":
-                    timerSync.Stop();
-                    Visible = false;
-                    pipe.Write("rip");
-
-                    Close();
+                    StopVideo();
                     break;
             }
         }
@@ -197,6 +193,17 @@ namespace TweetDuck.Video{
                     TogglePause();
                     return true;
 
+                case Keys.Escape:
+                    if (Player.fullScreen){
+                        Player.fullScreen = false;
+                        NativeMethods.SetForegroundWindow(ownerHandle);
+                        return true;
+                    }
+                    else{
+                        StopVideo();
+                        return true;
+                    }
+                    
                 default:
                     return false;
             }
@@ -214,6 +221,14 @@ namespace TweetDuck.Video{
 
             isPaused = !isPaused;
             Marshal.ReleaseComObject(controls);
+        }
+
+        private void StopVideo(){
+            timerSync.Stop();
+            Visible = false;
+            pipe.Write("rip");
+
+            Close();
         }
 
         internal class MessageFilter : IMessageFilter{
