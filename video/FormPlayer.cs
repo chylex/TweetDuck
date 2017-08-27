@@ -150,7 +150,7 @@ namespace TweetDuck.Video{
 
         private void timerData_Tick(object sender, EventArgs e){
             timerData.Stop();
-            pipe.Write("vol", trackBarVolume.Value.ToString(CultureInfo.InvariantCulture));
+            pipe.Write("vol", trackBarVolume.Value.ToString());
         }
 
         private void progressSeek_MouseDown(object sender, MouseEventArgs e){

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace TweetDuck.Video{
@@ -17,14 +18,17 @@ namespace TweetDuck.Video{
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
+
             IntPtr ownerHandle;
             int defaultVolume;
             string videoUrl;
             string pipeToken;
 
             try{
-                ownerHandle = new IntPtr(int.Parse(args[0], NumberStyles.Integer, CultureInfo.InvariantCulture));
-                defaultVolume = int.Parse(args[1], NumberStyles.Integer, CultureInfo.InvariantCulture);
+                ownerHandle = new IntPtr(int.Parse(args[0], NumberStyles.Integer));
+                defaultVolume = int.Parse(args[1], NumberStyles.Integer);
                 videoUrl = new Uri(args[2], UriKind.Absolute).AbsoluteUri;
                 pipeToken = args[3];
             }catch{
