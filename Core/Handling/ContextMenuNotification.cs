@@ -4,11 +4,11 @@ using TweetDuck.Core.Notification;
 
 namespace TweetDuck.Core.Handling{
     class ContextMenuNotification : ContextMenuBase{
-        private const int MenuViewDetail = 26600;
-        private const int MenuSkipTweet = 26601;
-        private const int MenuFreeze = 26602;
-        private const int MenuCopyTweetUrl = 26603;
-        private const int MenuCopyQuotedTweetUrl = 26604;
+        private const CefMenuCommand MenuViewDetail         = (CefMenuCommand)26600;
+        private const CefMenuCommand MenuSkipTweet          = (CefMenuCommand)26601;
+        private const CefMenuCommand MenuFreeze             = (CefMenuCommand)26602;
+        private const CefMenuCommand MenuCopyTweetUrl       = (CefMenuCommand)26603;
+        private const CefMenuCommand MenuCopyQuotedTweetUrl = (CefMenuCommand)26604;
 
         private readonly FormNotificationBase form;
         private readonly bool enableCustomMenu;
@@ -29,17 +29,17 @@ namespace TweetDuck.Core.Handling{
             base.OnBeforeContextMenu(browserControl, browser, frame, parameters, model);
 
             if (enableCustomMenu){
-                model.AddItem((CefMenuCommand)MenuViewDetail, "View detail");
-                model.AddItem((CefMenuCommand)MenuSkipTweet, "Skip tweet");
-                model.AddCheckItem((CefMenuCommand)MenuFreeze, "Freeze");
-                model.SetChecked((CefMenuCommand)MenuFreeze, form.FreezeTimer);
-                model.AddSeparator();
+                model.AddItem(MenuViewDetail, "View detail");
+                model.AddItem(MenuSkipTweet, "Skip tweet");
+                model.AddCheckItem(MenuFreeze, "Freeze");
+                model.SetChecked(MenuFreeze, form.FreezeTimer);
 
                 if (!string.IsNullOrEmpty(form.CurrentTweetUrl)){
-                    model.AddItem((CefMenuCommand)MenuCopyTweetUrl, "Copy tweet address");
+                    model.AddSeparator();
+                    model.AddItem(MenuCopyTweetUrl, "Copy tweet address");
 
                     if (!string.IsNullOrEmpty(form.CurrentQuoteUrl)){
-                        model.AddItem((CefMenuCommand)MenuCopyQuotedTweetUrl, "Copy quoted tweet address");
+                        model.AddItem(MenuCopyQuotedTweetUrl, "Copy quoted tweet address");
                     }
                 }
             }
@@ -59,7 +59,7 @@ namespace TweetDuck.Core.Handling{
                 return true;
             }
 
-            switch((int)commandId){
+            switch(commandId){
                 case MenuSkipTweet:
                     form.InvokeAsyncSafe(form.FinishCurrentNotification);
                     return true;

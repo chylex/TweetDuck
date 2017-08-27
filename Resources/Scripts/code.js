@@ -376,17 +376,16 @@
   // Block: Allow bypassing of t.co and include media previews in context menus.
   //
   $(document.body).delegate("a", "contextmenu", function(){
-    $TD.setLastRightClickedLink($(this).attr("data-full-url") || "");
-  });
-  
-  $(document.body).delegate("a.js-media-image-link", "contextmenu", function(){
     let me = $(this)[0];
     
-    if (me.firstElementChild){
-      $TD.setLastRightClickedImage(me.firstElementChild.getAttribute("src"));
+    if (me.classList.contains("js-media-image-link") && highlightedTweetObj){
+      let media = (highlightedTweetObj.quotedTweet || highlightedTweetObj).getMedia().find(media => media.mediaId === me.getAttribute("data-media-entity-id"));
+      
+        $TD.setLastRightClickInfo("image", media.large());
+    }
     }
     else{
-      $TD.setLastRightClickedImage(me.style.backgroundImage.replace(/url\(['"]?(.*?)['"]?\)/, "$1"));
+      $TD.setLastRightClickInfo("link", me.getAttribute("data-full-url"));
     }
   });
   

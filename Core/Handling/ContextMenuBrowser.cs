@@ -6,17 +6,17 @@ using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Handling{
     class ContextMenuBrowser : ContextMenuBase{
-        private const int MenuGlobal = 26600;
-        private const int MenuMute = 26601;
-        private const int MenuSettings = 26602;
-        private const int MenuPlugins = 26003;
-        private const int MenuAbout = 26604;
+        private const CefMenuCommand MenuGlobal   = (CefMenuCommand)26600;
+        private const CefMenuCommand MenuMute     = (CefMenuCommand)26601;
+        private const CefMenuCommand MenuSettings = (CefMenuCommand)26602;
+        private const CefMenuCommand MenuPlugins  = (CefMenuCommand)26003;
+        private const CefMenuCommand MenuAbout    = (CefMenuCommand)26604;
         
-        private const int MenuOpenTweetUrl = 26610;
-        private const int MenuCopyTweetUrl = 26611;
-        private const int MenuOpenQuotedTweetUrl = 26612;
-        private const int MenuCopyQuotedTweetUrl = 26613;
-        private const int MenuScreenshotTweet = 26614;
+        private const CefMenuCommand MenuOpenTweetUrl       = (CefMenuCommand)26610;
+        private const CefMenuCommand MenuCopyTweetUrl       = (CefMenuCommand)26611;
+        private const CefMenuCommand MenuOpenQuotedTweetUrl = (CefMenuCommand)26612;
+        private const CefMenuCommand MenuCopyQuotedTweetUrl = (CefMenuCommand)26613;
+        private const CefMenuCommand MenuScreenshotTweet    = (CefMenuCommand)26614;
 
         private const string TitleReloadBrowser = "Reload browser";
         private const string TitleMuteNotifications = "Mute notifications";
@@ -55,14 +55,14 @@ namespace TweetDuck.Core.Handling{
             }
 
             if (!string.IsNullOrEmpty(lastHighlightedTweet) && (parameters.TypeFlags & (ContextMenuType.Editable | ContextMenuType.Selection)) == 0){
-                model.AddItem((CefMenuCommand)MenuOpenTweetUrl, "Open tweet in browser");
-                model.AddItem((CefMenuCommand)MenuCopyTweetUrl, "Copy tweet address");
-                model.AddItem((CefMenuCommand)MenuScreenshotTweet, "Screenshot tweet to clipboard");
+                model.AddItem(MenuOpenTweetUrl, "Open tweet in browser");
+                model.AddItem(MenuCopyTweetUrl, "Copy tweet address");
+                model.AddItem(MenuScreenshotTweet, "Screenshot tweet to clipboard");
 
                 if (!string.IsNullOrEmpty(lastHighlightedQuotedTweet)){
                     model.AddSeparator();
-                    model.AddItem((CefMenuCommand)MenuOpenQuotedTweetUrl, "Open quoted tweet in browser");
-                    model.AddItem((CefMenuCommand)MenuCopyQuotedTweetUrl, "Copy quoted tweet address");
+                    model.AddItem(MenuOpenQuotedTweetUrl, "Open quoted tweet in browser");
+                    model.AddItem(MenuCopyQuotedTweetUrl, "Copy quoted tweet address");
                 }
 
                 model.AddSeparator();
@@ -71,16 +71,16 @@ namespace TweetDuck.Core.Handling{
             if ((parameters.TypeFlags & (ContextMenuType.Editable | ContextMenuType.Selection)) == 0){
                 AddSeparator(model);
 
-                IMenuModel globalMenu = model.Count == 0 ? model : model.AddSubMenu((CefMenuCommand)MenuGlobal, Program.BrandName);
+                IMenuModel globalMenu = model.Count == 0 ? model : model.AddSubMenu(MenuGlobal, Program.BrandName);
             
                 globalMenu.AddItem(CefMenuCommand.Reload, TitleReloadBrowser);
-                globalMenu.AddCheckItem((CefMenuCommand)MenuMute, TitleMuteNotifications);
-                globalMenu.SetChecked((CefMenuCommand)MenuMute, Program.UserConfig.MuteNotifications);
+                globalMenu.AddCheckItem(MenuMute, TitleMuteNotifications);
+                globalMenu.SetChecked(MenuMute, Program.UserConfig.MuteNotifications);
                 globalMenu.AddSeparator();
 
-                globalMenu.AddItem((CefMenuCommand)MenuSettings, TitleSettings);
-                globalMenu.AddItem((CefMenuCommand)MenuPlugins, TitlePlugins);
-                globalMenu.AddItem((CefMenuCommand)MenuAbout, TitleAboutProgram);
+                globalMenu.AddItem(MenuSettings, TitleSettings);
+                globalMenu.AddItem(MenuPlugins, TitlePlugins);
+                globalMenu.AddItem(MenuAbout, TitleAboutProgram);
 
                 if (HasDevTools){
                     globalMenu.AddSeparator();
@@ -96,8 +96,8 @@ namespace TweetDuck.Core.Handling{
                 return true;
             }
 
-            switch((int)commandId){
-                case (int)CefMenuCommand.Reload:
+            switch(commandId){
+                case CefMenuCommand.Reload:
                     form.InvokeAsyncSafe(form.ReloadToTweetDeck);
                     return true;
 

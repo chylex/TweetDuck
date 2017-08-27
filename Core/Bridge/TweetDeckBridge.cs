@@ -3,6 +3,7 @@ using System.Text;
 using System.Windows.Forms;
 using CefSharp;
 using TweetDuck.Core.Controls;
+using TweetDuck.Core.Handling;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Utils;
@@ -10,8 +11,6 @@ using TweetDuck.Resources;
 
 namespace TweetDuck.Core.Bridge{
     sealed class TweetDeckBridge{
-        public static string LastRightClickedLink = string.Empty;
-        public static string LastRightClickedImage = string.Empty;
         public static string LastHighlightedTweet = string.Empty;
         public static string LastHighlightedQuotedTweet = string.Empty;
         public static string LastHighlightedTweetAuthor = string.Empty;
@@ -19,7 +18,7 @@ namespace TweetDuck.Core.Bridge{
         public static Dictionary<string, string> SessionData = new Dictionary<string, string>(2);
 
         public static void ResetStaticProperties(){
-            LastRightClickedLink = LastRightClickedImage = LastHighlightedTweet = LastHighlightedQuotedTweet = LastHighlightedTweetAuthor = string.Empty;
+            LastHighlightedTweet = LastHighlightedQuotedTweet = LastHighlightedTweetAuthor = string.Empty;
             LastHighlightedTweetImages = StringUtils.EmptyArray;
         }
 
@@ -56,12 +55,8 @@ namespace TweetDuck.Core.Bridge{
             });
         }
 
-        public void SetLastRightClickedLink(string link){
-            form.InvokeAsyncSafe(() => LastRightClickedLink = link);
-        }
-
-        public void SetLastRightClickedImage(string link){
-            form.InvokeAsyncSafe(() => LastRightClickedImage = link);
+        public void SetLastRightClickInfo(string type, string link){
+            form.InvokeAsyncSafe(() => ContextMenuBase.SetContextInfo(type, link));
         }
 
         public void SetLastHighlightedTweet(string link, string quotedLink, string author, string imageList){
