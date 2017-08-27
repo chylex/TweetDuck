@@ -235,7 +235,7 @@
     tags.push("<style type='text/css'>");
     tags.push("body { background: "+getClassStyleProperty("column", "background-color")+" }"); // set background color
     tags.push("a[data-full-url] { word-break: break-all }"); // break long urls
-    tags.push(".txt-base-smallest .badge-verified:before { height: 13px !important }"); // fix cut off badge icon
+    tags.push(".txt-base-smallest .badge-verified:before { width: 13px !important; height: 13px !important; background-position: -223px -98px !important; }"); // fix cut off badge icon
     tags.push(".activity-header { align-items: center !important; margin-bottom: 4px }"); // tweak alignment of avatar and text in notifications
     tags.push(".activity-header .tweet-timestamp { line-height: unset }"); // fix timestamp position in notifications
     tags.push("</style>");
