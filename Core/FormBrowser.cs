@@ -529,17 +529,17 @@ namespace TweetDuck.Core{
             videoPlayer.Launch(url);
         }
 
-        public bool ToggleVideoPause(){
+        public void HideVideoOverlay(){
+            browser.ExecuteScriptAsync("$('#td-video-player-overlay').remove()");
+        }
+
+        public bool ProcessBrowserKey(Keys key){
             if (videoPlayer != null && videoPlayer.Running){
-                videoPlayer.TogglePause();
+                videoPlayer.SendKeyEvent(key);
                 return true;
             }
 
             return false;
-        }
-
-        public void HideVideoOverlay(){
-            browser.ExecuteScriptAsync("$('#td-video-player-overlay').remove()");
         }
 
         public void ShowTweetDetail(string columnKey, string chirpId){

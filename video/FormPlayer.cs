@@ -60,8 +60,8 @@ namespace TweetDuck.Video{
 
         private void pipe_DataIn(object sender, DuplexPipe.PipeReadEventArgs e){
             switch(e.Key){
-                case "pause":
-                    TogglePause();
+                case "key":
+                    HandleKey((Keys)int.Parse(e.Data, NumberStyles.Integer));
                     break;
 
                 case "die":
@@ -191,6 +191,17 @@ namespace TweetDuck.Video{
 
         // Controls & messages
 
+        private bool HandleKey(Keys key){
+            switch(key){
+                case Keys.Space:
+                    TogglePause();
+                    return true;
+
+                default:
+                    return false;
+            }
+        }
+
         private void TogglePause(){
             IWMPControls controls = Player.controls;
 
@@ -233,9 +244,8 @@ namespace TweetDuck.Video{
                         return true;
                     }
                 }
-                else if (m.Msg == 0x0100 && m.WParam.ToInt32() == 0x20){ // WM_KEYDOWN, VK_SPACE
-                    form.TogglePause();
-                    return true;
+                else if (m.Msg == 0x0100){ // WM_KEYDOWN
+                    return form.HandleKey((Keys)m.WParam.ToInt32());
                 }
                 else if (m.Msg == 0x020B && ((m.WParam.ToInt32() >> 16) & 0xFFFF) == 1){ // WM_XBUTTONDOWN
                     NativeMethods.SetForegroundWindow(form.ownerHandle);
