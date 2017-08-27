@@ -30,6 +30,7 @@
             this.progressSeek = new TweetDuck.Video.Controls.SeekBar();
             this.labelTime = new System.Windows.Forms.Label();
             this.timerData = new System.Windows.Forms.Timer(this.components);
+            this.labelTooltip = new TweetDuck.Video.Controls.LabelTooltip();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).BeginInit();
             this.tablePanel.SuspendLayout();
             this.SuspendLayout();
@@ -105,6 +106,19 @@
             this.timerData.Interval = 500;
             this.timerData.Tick += new System.EventHandler(this.timerData_Tick);
             // 
+            // labelTooltip
+            // 
+            this.labelTooltip.AutoSize = true;
+            this.labelTooltip.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelTooltip.ForeColor = System.Drawing.Color.White;
+            this.labelTooltip.Location = new System.Drawing.Point(0, 0);
+            this.labelTooltip.Margin = new System.Windows.Forms.Padding(0, 4, 0, 0);
+            this.labelTooltip.Name = "labelTooltip";
+            this.labelTooltip.Padding = new System.Windows.Forms.Padding(4, 2, 2, 2);
+            this.labelTooltip.Size = new System.Drawing.Size(6, 20);
+            this.labelTooltip.TabIndex = 2;
+            this.labelTooltip.Visible = false;
+            // 
             // FormPlayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -112,6 +126,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(255, 120);
             this.ControlBox = false;
+            this.Controls.Add(this.labelTooltip);
             this.Controls.Add(this.tablePanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Location = new System.Drawing.Point(-32000, -32000);
@@ -126,6 +141,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).EndInit();
             this.tablePanel.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -137,6 +153,7 @@
         private Controls.SeekBar progressSeek;
         private System.Windows.Forms.Label labelTime;
         private System.Windows.Forms.Timer timerData;
+        private Controls.LabelTooltip labelTooltip;
     }
 }
 

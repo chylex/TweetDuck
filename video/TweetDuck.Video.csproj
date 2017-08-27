@@ -47,6 +47,9 @@
     <Compile Include="Controls\ControlWMP.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\LabelTooltip.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\SeekBar.cs">
       <SubType>Component</SubType>
     </Compile>
