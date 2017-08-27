@@ -82,6 +82,7 @@ namespace TweetDuck.Core.Notification{
         private TweetNotification currentNotification;
         private int pauseCounter;
         
+        public string CurrentChirpId => currentNotification?.ChirpId;
         public string CurrentTweetUrl => currentNotification?.TweetUrl;
         public string CurrentQuoteUrl => currentNotification?.QuoteUrl;
         public bool IsPaused => pauseCounter > 0;

@@ -196,10 +196,12 @@
         
         let source = tweet.getRelatedTweet();
         let duration = source ? source.text.length+(source.quotedTweet ? source.quotedTweet.text.length : 0) : tweet.text.length;
+        
+        let chirpId = source ? source.id : "";
         let tweetUrl = source ? source.getChirpURL() : "";
         let quoteUrl = source && source.quotedTweet ? source.quotedTweet.getChirpURL() : "";
 
-        $TD.onTweetPopup(column.model.privateState.key, tweet.id, columnTypes[column.getColumnType()] || "", html.html(), duration, tweetUrl, quoteUrl);
+        $TD.onTweetPopup(column.model.privateState.key, chirpId, columnTypes[column.getColumnType()] || "", html.html(), duration, tweetUrl, quoteUrl);
       }
 
       if (column.model.getHasSound()){
@@ -211,19 +213,36 @@
   //
   // Function: Shows tweet detail, used in notification context menu.
   //
-  window.TDGF_showTweetDetail = function(columnKey, tweetId){
-    let column = TD.controller.columnManager.get(columnKey);
-    return 1 if !column; // column no longer exists
+  (function(){
+    var showTweetDetailInternal = function(column, chirp){
+      TD.ui.updates.showDetailView(column, chirp, column.findChirp(chirp) || chirp);
+      TD.controller.columnManager.showColumn(column.model.privateState.key);
+
+      $(document).trigger("uiGridClearSelection");
+    };
     
-    let chirp = column.findMostInterestingChirp(tweetId);
-    return 2 if !chirp; // TODO figure out -- tweet is no longer in cache
-    
-    TD.ui.updates.showDetailView(column, chirp, column.findChirp(chirp));
-    TD.controller.columnManager.showColumn(columnKey);
-    
-    $(document).trigger("uiGridClearSelection");
-    return 0;
-  };
+    window.TDGF_showTweetDetail = function(columnKey, chirpId){
+      let column = TD.controller.columnManager.get(columnKey);
+      
+      if (!column){
+        $TD.alert("error", "The column which contained the tweet no longer exists.");
+        return;
+      }
+      
+      let chirp = column.findMostInterestingChirp(chirpId);
+      
+      if (chirp){
+        showTweetDetailInternal(column, chirp);
+      }
+      else{
+        TD.controller.clients.getPreferredClient().show(chirpId, function(chirp){
+          showTweetDetailInternal(column, chirp);
+        }, function(){
+          $TD.alert("error", "Could not retrieve the requested tweet.");
+        });
+      }
+    };
+  })();
   
   //
   // Function: Retrieves the tags to be put into <head> for notification HTML code.

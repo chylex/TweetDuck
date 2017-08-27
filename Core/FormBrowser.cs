@@ -552,19 +552,8 @@ namespace TweetDuck.Core{
                 }
             }
 
-            browser.EvaluateScriptAsync("window.TDGF_showTweetDetail", columnKey, chirpId).ContinueWith(task => {
-                JavascriptResponse response = task.Result;
-                
-                if (response.Success){
-                    switch(response.Result as int? ?? -1){
-                        case 0: this.InvokeAsyncSafe(notification.FinishCurrentNotification); return;
-                        case 1: FormMessage.Error("View Tweet Detail", "The column which contained the tweet no longer exists.", FormMessage.OK); return;
-                        case 2: FormMessage.Error("View Tweet Detail", "The tweet has been unloaded.", FormMessage.OK); return; // TODO load the tweet 
-                    }
-                }
-
-                FormMessage.Error("View Tweet Detail", "An unknown error occurred when trying to view tweet detail.", FormMessage.OK);
-            });
+            notification.FinishCurrentNotification();
+            browser.ExecuteScriptAsync("window.TDGF_showTweetDetail", columnKey, chirpId);
         }
 
         public void OnTweetScreenshotReady(string html, int width, int height){

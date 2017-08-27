@@ -29,7 +29,10 @@ namespace TweetDuck.Core.Handling{
             base.OnBeforeContextMenu(browserControl, browser, frame, parameters, model);
 
             if (enableCustomMenu){
-                model.AddItem(MenuViewDetail, "View detail");
+                if (!string.IsNullOrEmpty(form.CurrentChirpId)){
+                    model.AddItem(MenuViewDetail, "View detail");
+                }
+
                 model.AddItem(MenuSkipTweet, "Skip tweet");
                 model.AddCheckItem(MenuFreeze, "Freeze");
                 model.SetChecked(MenuFreeze, form.FreezeTimer);
@@ -69,7 +72,7 @@ namespace TweetDuck.Core.Handling{
                     return true;
 
                 case MenuViewDetail:
-                    form.InvokeSafe(() => form.ShowTweetDetail());
+                    form.InvokeSafe(form.ShowTweetDetail);
                     return true;
 
                 case MenuCopyTweetUrl:
