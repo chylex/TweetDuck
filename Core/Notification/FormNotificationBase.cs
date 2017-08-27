@@ -79,17 +79,15 @@ namespace TweetDuck.Core.Notification{
         private readonly ResourceHandlerNotification resourceHandler = new ResourceHandlerNotification();
         private readonly float dpiScale;
 
-        private string currentColumnKey;
-        private string currentChirpId;
-        private string currentColumnTitle;
+        private TweetNotification currentNotification;
         private int pauseCounter;
-
+        
+        public string CurrentTweetUrl => currentNotification?.TweetUrl;
+        public string CurrentQuoteUrl => currentNotification?.QuoteUrl;
         public bool IsPaused => pauseCounter > 0;
-
+        
         public bool FreezeTimer { get; set; }
         public bool ContextMenuOpen { get; set; }
-        public string CurrentTweetUrl { get; private set; }
-        public string CurrentQuoteUrl { get; private set; }
 
         public event EventHandler Initialized;
 
@@ -160,7 +158,7 @@ namespace TweetDuck.Core.Notification{
             }
 
             Location = ControlExtensions.InvisibleLocation;
-            currentColumnTitle = null;
+            currentNotification = null;
         }
 
         public virtual void FinishCurrentNotification(){}
@@ -183,13 +181,7 @@ namespace TweetDuck.Core.Notification{
         }
 
         protected virtual void LoadTweet(TweetNotification tweet){
-            CurrentTweetUrl = tweet.TweetUrl;
-            CurrentQuoteUrl = tweet.QuoteUrl;
-
-            currentColumnKey = tweet.ColumnKey;
-            currentChirpId = tweet.ChirpId;
-            currentColumnTitle = tweet.ColumnTitle;
-
+            currentNotification = tweet;
             resourceHandler.SetHTML(GetTweetHTML(tweet));
             browser.Load(TwitterUtils.TweetDeckURL);
         }
@@ -203,11 +195,12 @@ namespace TweetDuck.Core.Notification{
         }
 
         protected virtual void UpdateTitle(){
-            Text = string.IsNullOrEmpty(currentColumnTitle) || !Program.UserConfig.DisplayNotificationColumn ? Program.BrandName : Program.BrandName+" - "+currentColumnTitle;
+            string title = currentNotification?.ColumnTitle;
+            Text = string.IsNullOrEmpty(title) || !Program.UserConfig.DisplayNotificationColumn ? Program.BrandName : Program.BrandName+" - "+title;
         }
 
         public void ShowTweetDetail(){
-            owner.ShowTweetDetail(currentColumnKey, currentChirpId);
+            owner.ShowTweetDetail(currentNotification.ColumnKey, currentNotification.ChirpId);
         }
 
         public void MoveToVisibleLocation(){
