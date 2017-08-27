@@ -381,8 +381,15 @@
     if (me.classList.contains("js-media-image-link") && highlightedTweetObj){
       let media = (highlightedTweetObj.quotedTweet || highlightedTweetObj).getMedia().find(media => media.mediaId === me.getAttribute("data-media-entity-id"));
       
+      if ((media.isVideo && media.service === "twitter") || media.isAnimatedGif){
+        $TD.setLastRightClickInfo("video", media.chooseVideoVariant().url);
+      }
+      else{
         $TD.setLastRightClickInfo("image", media.large());
+      }
     }
+    else if (me.classList.contains("js-gif-play")){
+      $TD.setLastRightClickInfo("video", $(this).closest(".js-media-gif-container").find("video").attr("src"));
     }
     else{
       $TD.setLastRightClickInfo("link", me.getAttribute("data-full-url"));
@@ -838,7 +845,7 @@
     TD.components.MediaGallery.prototype._loadTweet = appendToFunction(TD.components.MediaGallery.prototype._loadTweet, function(){
       let media = this.chirp.getMedia().find(media => media.mediaId === this.clickedMediaEntityId);
 
-      if (media && media.isVideo && media.service !== "youtube"){
+      if (media && media.isVideo && media.service === "twitter"){
         playVideo(media.chooseVideoVariant().url);
         cancelModal = true;
       }

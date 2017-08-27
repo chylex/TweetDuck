@@ -33,14 +33,14 @@ namespace TweetDuck.Core.Utils{
             return frame.Url.Contains("//twitter.com/");
         }
 
-        private static string ExtractImageBaseLink(string url){
+        private static string ExtractMediaBaseLink(string url){
             int dot = url.LastIndexOf('/');
             return dot == -1 ? url : StringUtils.ExtractBefore(url, ':', dot);
         }
 
-        public static string GetImageLink(string url, ImageQuality quality){
+        public static string GetMediaLink(string url, ImageQuality quality){
             if (quality == ImageQuality.Orig){
-                string result = ExtractImageBaseLink(url);
+                string result = ExtractMediaBaseLink(url);
 
                 if (result != url || url.Contains("//pbs.twimg.com/media/")){
                     result += ":orig";
@@ -62,10 +62,10 @@ namespace TweetDuck.Core.Utils{
                 return;
             }
 
-            string firstImageLink = GetImageLink(urls[0], quality);
+            string firstImageLink = GetMediaLink(urls[0], quality);
             int qualityIndex = firstImageLink.IndexOf(':', firstImageLink.LastIndexOf('/'));
 
-            string file = BrowserUtils.GetFileNameFromUrl(ExtractImageBaseLink(firstImageLink));
+            string file = BrowserUtils.GetFileNameFromUrl(ExtractMediaBaseLink(firstImageLink));
             string ext = Path.GetExtension(file); // includes dot
 
             string[] fileNameParts = qualityIndex == -1 ? new string[]{
@@ -96,9 +96,28 @@ namespace TweetDuck.Core.Utils{
                         string pathExt = Path.GetExtension(dialog.FileName);
 
                         for(int index = 0; index < urls.Length; index++){
-                            BrowserUtils.DownloadFileAsync(GetImageLink(urls[index], quality), $"{pathBase} {index+1}{pathExt}", null, OnFailure);
+                            BrowserUtils.DownloadFileAsync(GetMediaLink(urls[index], quality), $"{pathBase} {index+1}{pathExt}", null, OnFailure);
                         }
                     }
+                }
+            }
+        }
+
+        public static void DownloadVideo(string url){
+            string filename = BrowserUtils.GetFileNameFromUrl(url);
+            string ext = Path.GetExtension(filename);
+
+            using(SaveFileDialog dialog = new SaveFileDialog{
+                AutoUpgradeEnabled = true,
+                OverwritePrompt = true,
+                Title = "Save video",
+                FileName = filename,
+                Filter = "Video"+(string.IsNullOrEmpty(ext) ? " (unknown)|*.*" : $" (*{ext})|*{ext}")
+            }){
+                if (dialog.ShowDialog() == DialogResult.OK){
+                    BrowserUtils.DownloadFileAsync(url, dialog.FileName, null, ex => {
+                        FormMessage.Error("Image Download", "An error occurred while downloading the image: "+ex.Message, FormMessage.OK);
+                    });
                 }
             }
         }

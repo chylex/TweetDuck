@@ -26,20 +26,20 @@ namespace UnitTests.Core{
 
         [TestMethod]
         public void TestImageQualityLink(){
-            Assert.AreEqual("https://pbs.twimg.com/profile_images/123", TwitterUtils.GetImageLink("https://pbs.twimg.com/profile_images/123", TwitterUtils.ImageQuality.Default));
-            Assert.AreEqual("https://pbs.twimg.com/profile_images/123", TwitterUtils.GetImageLink("https://pbs.twimg.com/profile_images/123", TwitterUtils.ImageQuality.Orig));
+            Assert.AreEqual("https://pbs.twimg.com/profile_images/123", TwitterUtils.GetMediaLink("https://pbs.twimg.com/profile_images/123", TwitterUtils.ImageQuality.Default));
+            Assert.AreEqual("https://pbs.twimg.com/profile_images/123", TwitterUtils.GetMediaLink("https://pbs.twimg.com/profile_images/123", TwitterUtils.ImageQuality.Orig));
 
-            Assert.AreEqual("https://pbs.twimg.com/profile_images/123.jpg", TwitterUtils.GetImageLink("https://pbs.twimg.com/profile_images/123.jpg", TwitterUtils.ImageQuality.Default));
-            Assert.AreEqual("https://pbs.twimg.com/profile_images/123.jpg", TwitterUtils.GetImageLink("https://pbs.twimg.com/profile_images/123.jpg", TwitterUtils.ImageQuality.Orig));
+            Assert.AreEqual("https://pbs.twimg.com/profile_images/123.jpg", TwitterUtils.GetMediaLink("https://pbs.twimg.com/profile_images/123.jpg", TwitterUtils.ImageQuality.Default));
+            Assert.AreEqual("https://pbs.twimg.com/profile_images/123.jpg", TwitterUtils.GetMediaLink("https://pbs.twimg.com/profile_images/123.jpg", TwitterUtils.ImageQuality.Orig));
 
-            Assert.AreEqual("https://pbs.twimg.com/media/123.jpg", TwitterUtils.GetImageLink("https://pbs.twimg.com/media/123.jpg", TwitterUtils.ImageQuality.Default));
-            Assert.AreEqual("https://pbs.twimg.com/media/123.jpg:orig", TwitterUtils.GetImageLink("https://pbs.twimg.com/media/123.jpg", TwitterUtils.ImageQuality.Orig));
+            Assert.AreEqual("https://pbs.twimg.com/media/123.jpg", TwitterUtils.GetMediaLink("https://pbs.twimg.com/media/123.jpg", TwitterUtils.ImageQuality.Default));
+            Assert.AreEqual("https://pbs.twimg.com/media/123.jpg:orig", TwitterUtils.GetMediaLink("https://pbs.twimg.com/media/123.jpg", TwitterUtils.ImageQuality.Orig));
 
-            Assert.AreEqual("https://pbs.twimg.com/media/123.jpg:small", TwitterUtils.GetImageLink("https://pbs.twimg.com/media/123.jpg:small", TwitterUtils.ImageQuality.Default));
-            Assert.AreEqual("https://pbs.twimg.com/media/123.jpg:orig", TwitterUtils.GetImageLink("https://pbs.twimg.com/media/123.jpg:small", TwitterUtils.ImageQuality.Orig));
+            Assert.AreEqual("https://pbs.twimg.com/media/123.jpg:small", TwitterUtils.GetMediaLink("https://pbs.twimg.com/media/123.jpg:small", TwitterUtils.ImageQuality.Default));
+            Assert.AreEqual("https://pbs.twimg.com/media/123.jpg:orig", TwitterUtils.GetMediaLink("https://pbs.twimg.com/media/123.jpg:small", TwitterUtils.ImageQuality.Orig));
 
-            Assert.AreEqual("https://pbs.twimg.com/media/123.jpg:large", TwitterUtils.GetImageLink("https://pbs.twimg.com/media/123.jpg:large", TwitterUtils.ImageQuality.Default));
-            Assert.AreEqual("https://pbs.twimg.com/media/123.jpg:orig", TwitterUtils.GetImageLink("https://pbs.twimg.com/media/123.jpg:large", TwitterUtils.ImageQuality.Orig));
+            Assert.AreEqual("https://pbs.twimg.com/media/123.jpg:large", TwitterUtils.GetMediaLink("https://pbs.twimg.com/media/123.jpg:large", TwitterUtils.ImageQuality.Default));
+            Assert.AreEqual("https://pbs.twimg.com/media/123.jpg:orig", TwitterUtils.GetMediaLink("https://pbs.twimg.com/media/123.jpg:large", TwitterUtils.ImageQuality.Orig));
         }
     }
 }

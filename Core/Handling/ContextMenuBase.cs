@@ -78,6 +78,10 @@ namespace TweetDuck.Core.Handling{
             }
 
             if (hasTweetVideo){
+                model.AddItem(MenuOpenMediaUrl, TextOpen("video"));
+                model.AddItem(MenuCopyMediaUrl, TextCopy("video"));
+                model.AddItem(MenuSaveMedia, TextSave("video"));
+                model.AddSeparator();
             }
             else if ((parameters.TypeFlags.HasFlag(ContextMenuType.Media) && parameters.HasImageContents) || hasTweetImage){
                 model.AddItem(MenuOpenMediaUrl, TextOpen("image"));
@@ -108,15 +112,20 @@ namespace TweetDuck.Core.Handling{
                     break;
 
                 case MenuOpenMediaUrl:
-                    BrowserUtils.OpenExternalBrowser(TwitterUtils.GetImageLink(GetMediaLink(parameters), ImageQuality));
+                    BrowserUtils.OpenExternalBrowser(TwitterUtils.GetMediaLink(GetMediaLink(parameters), ImageQuality));
                     break;
 
                 case MenuCopyMediaUrl:
-                    SetClipboardText(TwitterUtils.GetImageLink(GetMediaLink(parameters), ImageQuality));
+                    SetClipboardText(TwitterUtils.GetMediaLink(GetMediaLink(parameters), ImageQuality));
                     break;
 
                 case MenuSaveMedia:
+                    if (IsVideo){
+                        TwitterUtils.DownloadVideo(GetMediaLink(parameters));
+                    }
+                    else{
                         TwitterUtils.DownloadImage(GetMediaLink(parameters), lastHighlightedTweetAuthor, ImageQuality);
+                    }
 
                     break;
 
