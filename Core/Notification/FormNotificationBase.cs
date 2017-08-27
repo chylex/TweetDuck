@@ -91,7 +91,7 @@ namespace TweetDuck.Core.Notification{
 
         public event EventHandler Initialized;
 
-        public FormNotificationBase(FormBrowser owner, bool enableContextMenu){
+        protected FormNotificationBase(FormBrowser owner, bool enableContextMenu){
             InitializeComponent();
 
             this.owner = owner;
@@ -188,10 +188,6 @@ namespace TweetDuck.Core.Notification{
 
         protected virtual void SetNotificationSize(int width, int height){
             browser.ClientSize = ClientSize = new Size(BrowserUtils.Scale(width, SizeScale), BrowserUtils.Scale(height, SizeScale));
-        }
-
-        protected virtual void OnNotificationReady(){
-            MoveToVisibleLocation();
         }
 
         protected virtual void UpdateTitle(){

@@ -16,7 +16,6 @@ namespace TweetDuck.Core.Utils{
         public const int GWL_STYLE = -16;
 
         public const int SB_HORZ = 0;
-        public const int BCM_SETSHIELD = 0x160C;
 
         public const int WM_MOUSE_LL = 14;
         public const int WM_MOUSEWHEEL = 0x020A;

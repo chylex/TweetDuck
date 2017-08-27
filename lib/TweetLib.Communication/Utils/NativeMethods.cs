@@ -4,9 +4,6 @@ using System.Runtime.InteropServices;
 namespace TweetLib.Communication.Utils{
     static class NativeMethods{
         public static readonly IntPtr HWND_BROADCAST = new IntPtr(0xFFFF);
-
-        [DllImport("user32.dll")]
-        public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, UIntPtr wParam, IntPtr lParam);
         
         [DllImport("user32.dll")]
         public static extern bool PostMessage(IntPtr hWnd, uint msg, UIntPtr wParam, IntPtr lParam);

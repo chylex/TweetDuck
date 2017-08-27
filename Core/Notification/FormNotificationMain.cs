@@ -279,7 +279,7 @@ namespace TweetDuck.Core.Notification{
             StartMouseHook();
         }
 
-        protected override void OnNotificationReady(){
+        protected virtual void OnNotificationReady(){
             PrepareAndDisplayWindow();
             timerProgress.Start();
         }

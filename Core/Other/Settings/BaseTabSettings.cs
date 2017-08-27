@@ -17,7 +17,7 @@ namespace TweetDuck.Core.Other.Settings{
             }
         }
 
-        public BaseTabSettings(){
+        protected BaseTabSettings(){
             Padding = new Padding(6);
         }
 

@@ -208,6 +208,9 @@
     };
   })();
   
+  //
+  // Function: Shows tweet detail, used in notification context menu.
+  //
   window.TDGF_showTweetDetail = function(columnKey, tweetId){
     let column = TD.controller.columnManager.get(columnKey);
     return 1 if !column; // column no longer exists
