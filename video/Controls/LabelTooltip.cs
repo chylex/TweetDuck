@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -19,10 +18,14 @@ namespace TweetDuck.Video.Controls{
 
             control.MouseMove += (sender, args) => {
                 Form form = control.FindForm();
-                Debug.Assert(form != null);
+                System.Diagnostics.Debug.Assert(form != null);
                 
                 Text = tooltipFunc(args);
-                Location = form.PointToClient(control.Parent.PointToScreen(new Point(control.Location.X-Width/2+(followCursor ? args.X : control.Width/2), -Height+Margin.Top-Margin.Bottom)));;
+
+                Point loc = form.PointToClient(control.Parent.PointToScreen(new Point(control.Location.X+(followCursor ? args.X : control.Width/2), 0)));
+                loc.X = Math.Max(0, Math.Min(form.Width-Width, loc.X-Width/2));
+                loc.Y -= Height-Margin.Top+Margin.Bottom;
+                Location = loc;
             };
         }
 
