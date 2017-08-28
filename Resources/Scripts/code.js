@@ -222,6 +222,14 @@
     };
     
     window.TDGF_showTweetDetail = function(columnId, chirpId, fallbackUrl){
+      if (!TD.ready){
+        onAppReady.push(function(){
+          window.TDGF_showTweetDetail(columnId, chirpId, fallbackUrl);
+        });
+        
+        return;
+      }
+      
       let column = TD.controller.columnManager.getByApiid(columnId);
       
       if (!column){
