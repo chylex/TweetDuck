@@ -221,11 +221,14 @@
       $(document).trigger("uiGridClearSelection");
     };
     
-    window.TDGF_showTweetDetail = function(columnKey, chirpId){
-      let column = TD.controller.columnManager.get(columnKey);
+    window.TDGF_showTweetDetail = function(columnKey, chirpId, fallbackUrl){
+      let column = TD.controller.columnManager.get(columnKey); // TODO replace columnKey with something that stays after a reload
       
       if (!column){
-        $TD.alert("error", "The column which contained the tweet no longer exists.");
+        if (confirm("error|The column which contained the tweet no longer exists. Would you like to open the tweet in your browser instead?")){
+          $TD.openBrowser(fallbackUrl);
+        }
+        
         return;
       }
       
@@ -238,7 +241,9 @@
         TD.controller.clients.getPreferredClient().show(chirpId, function(chirp){
           showTweetDetailInternal(column, chirp);
         }, function(){
-          $TD.alert("error", "Could not retrieve the requested tweet.");
+          if (confirm("error|Could not retrieve the requested tweet. Would you like to open the tweet in your browser instead?")){
+            $TD.openBrowser(fallbackUrl);
+          }
         });
       }
     };
