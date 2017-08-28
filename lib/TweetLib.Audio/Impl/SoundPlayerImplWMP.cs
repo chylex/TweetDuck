@@ -15,13 +15,7 @@ namespace TweetLib.Audio.Impl{
         private bool ignorePlaybackError;
 
         private WindowsMediaPlayer Player => wmp.Ocx;
-
-        // changing the player volume also affects the value in the Windows mixer
-        // however, the initial value is always 50 or some other stupid shit
-        // so we have to tell the player to set its volume to whatever the mixer is set to
-        // using the most code required for the least functionality with a sorry excuse for an API
-        // thanks, Microsoft
-
+        
         public SoundPlayerImplWMP(){
             owner = new Form();
             wmp = new ControlWMP();
