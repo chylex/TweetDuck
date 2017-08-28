@@ -953,6 +953,44 @@
   }
   
   //
+  // Block: Detect and notify about connection issues.
+  //
+  (function(){
+    let onConnectionError = function(){
+      return if $("#tweetduck-conn-issues").length;
+      
+      let ele = $(`
+<div id="tweetduck-conn-issues" class="Layer NotificationListLayer">
+  <ul class="NotificationList">
+    <li class="Notification Notification--red" style="height:63px;">
+      <div class="Notification-inner">
+        <div class="Notification-icon"><span class="Icon Icon--medium Icon--circleError"></span></div>
+        <div class="Notification-content"><div class="Notification-body">Experiencing connection issues</div></div>
+        <button type="button" class="Notification-closeButton" aria-label="Close"><span class="Icon Icon--smallest Icon--close" aria-hidden="true"></span></button>
+      </div>
+    </li>
+  </ul>
+</div>
+`).appendTo(document.body);
+
+      ele.find("button").click(function(){
+        ele.fadeOut(200);
+      });
+    };
+    
+    let onConnectionFine = function(){
+      let ele = $("#tweetduck-conn-issues");
+      
+      ele.fadeOut(200, function(){
+        ele.remove();
+      });
+    };
+    
+    window.addEventListener("offline", onConnectionError);
+    window.addEventListener("online", onConnectionFine);
+  })();
+  
+  //
   // Block: Custom reload function with memory cleanup.
   //
   window.TDGF_reload = function(){
