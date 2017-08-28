@@ -29,6 +29,8 @@ namespace TweetDuck.Core.Other.Settings{
             checkSwitchAccountSelectors.Checked = Config.SwitchAccountSelectors;
             checkBestImageQuality.Checked = Config.BestImageQuality;
             checkSpellCheck.Checked = Config.EnableSpellCheck;
+
+            checkTrayHighlight.Enabled = Config.TrayBehavior.ShouldDisplayIcon();
             checkTrayHighlight.Checked = Config.EnableTrayHighlight;
 
             checkUpdateNotifications.Checked = Config.EnableUpdateCheck;
@@ -79,6 +81,7 @@ namespace TweetDuck.Core.Other.Settings{
 
         private void comboBoxTrayType_SelectedIndexChanged(object sender, EventArgs e){
             Config.TrayBehavior = (TrayIcon.Behavior)comboBoxTrayType.SelectedIndex;
+            checkTrayHighlight.Enabled = Config.TrayBehavior.ShouldDisplayIcon();
         }
 
         private void checkTrayHighlight_CheckedChanged(object sender, EventArgs e){
