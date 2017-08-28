@@ -58,6 +58,8 @@ namespace TweetDuck.Video{
                 return $"{(progress/60).ToString("00")}:{(progress%60).ToString("00")}";
             });
             
+            labelTooltip.AttachTooltip(trackBarVolume, false, args => $"Volume : {trackBarVolume.Value}%");
+
             labelTooltip.AttachTooltip(imageClose, false, "Close");
             labelTooltip.AttachTooltip(imageDownload, false, "Download");
             labelTooltip.AttachTooltip(imageResize, false, "Fullscreen");

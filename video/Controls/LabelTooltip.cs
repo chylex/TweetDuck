@@ -13,10 +13,9 @@ namespace TweetDuck.Video.Controls{
         }
 
         public void AttachTooltip(Control control, bool followCursor, Func<MouseEventArgs, string> tooltipFunc){
-            control.MouseEnter += control_MouseEnter;
-            control.MouseLeave += control_MouseLeave;
-
             control.MouseMove += (sender, args) => {
+                SuspendLayout();
+
                 Form form = control.FindForm();
                 System.Diagnostics.Debug.Assert(form != null);
                 
@@ -26,11 +25,12 @@ namespace TweetDuck.Video.Controls{
                 loc.X = Math.Max(0, Math.Min(form.Width-Width, loc.X-Width/2));
                 loc.Y -= Height-Margin.Top+Margin.Bottom;
                 Location = loc;
-            };
-        }
 
-        private void control_MouseEnter(object sender, EventArgs e){
-            Visible = true;
+                ResumeLayout();
+                Visible = true;
+            };
+
+            control.MouseLeave += control_MouseLeave;
         }
 
         private void control_MouseLeave(object sender, EventArgs e){
