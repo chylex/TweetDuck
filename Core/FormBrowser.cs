@@ -543,7 +543,7 @@ namespace TweetDuck.Core{
             return false;
         }
 
-        public void ShowTweetDetail(string columnKey, string chirpId, string fallbackUrl){
+        public void ShowTweetDetail(string columnId, string chirpId, string fallbackUrl){
             Activate();
 
             using(IFrame frame = browser.GetBrowser().MainFrame){
@@ -554,7 +554,7 @@ namespace TweetDuck.Core{
             }
 
             notification.FinishCurrentNotification();
-            browser.ExecuteScriptAsync("window.TDGF_showTweetDetail", columnKey, chirpId, fallbackUrl);
+            browser.ExecuteScriptAsync("window.TDGF_showTweetDetail", columnId, chirpId, fallbackUrl);
         }
 
         public void OnTweetScreenshotReady(string html, int width, int height){

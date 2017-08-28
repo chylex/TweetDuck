@@ -201,7 +201,7 @@
         let tweetUrl = source ? source.getChirpURL() : "";
         let quoteUrl = source && source.quotedTweet ? source.quotedTweet.getChirpURL() : "";
 
-        $TD.onTweetPopup(column.model.privateState.key, chirpId, columnTypes[column.getColumnType()] || "", html.html(), duration, tweetUrl, quoteUrl);
+        $TD.onTweetPopup(column.model.privateState.apiid, chirpId, columnTypes[column.getColumnType()] || "", html.html(), duration, tweetUrl, quoteUrl);
       }
 
       if (column.model.getHasSound()){
@@ -221,8 +221,8 @@
       $(document).trigger("uiGridClearSelection");
     };
     
-    window.TDGF_showTweetDetail = function(columnKey, chirpId, fallbackUrl){
-      let column = TD.controller.columnManager.get(columnKey); // TODO replace columnKey with something that stays after a reload
+    window.TDGF_showTweetDetail = function(columnId, chirpId, fallbackUrl){
+      let column = TD.controller.columnManager.getByApiid(columnId);
       
       if (!column){
         if (confirm("error|The column which contained the tweet no longer exists. Would you like to open the tweet in your browser instead?")){

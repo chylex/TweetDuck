@@ -55,7 +55,7 @@ namespace TweetDuck.Core.Notification{
             Auto, Custom
         }
 
-        public string ColumnKey { get; }
+        public string ColumnId { get; }
         public string ChirpId { get; }
 
         public string ColumnTitle { get; }
@@ -66,10 +66,10 @@ namespace TweetDuck.Core.Notification{
         private readonly int characters;
         private readonly bool isExample;
 
-        public TweetNotification(string columnKey, string chirpId, string title, string html, int characters, string tweetUrl, string quoteUrl) : this(columnKey, chirpId, title, html, characters, tweetUrl, quoteUrl, false){}
+        public TweetNotification(string columnId, string chirpId, string title, string html, int characters, string tweetUrl, string quoteUrl) : this(columnId, chirpId, title, html, characters, tweetUrl, quoteUrl, false){}
 
-        private TweetNotification(string columnKey, string chirpId, string title, string html, int characters, string tweetUrl, string quoteUrl, bool isExample){
-            this.ColumnKey = columnKey;
+        private TweetNotification(string columnId, string chirpId, string title, string html, int characters, string tweetUrl, string quoteUrl, bool isExample){
+            this.ColumnId = columnId;
             this.ChirpId = chirpId;
 
             this.ColumnTitle = title;
