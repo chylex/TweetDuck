@@ -83,10 +83,10 @@
             this.progressSeek.Dock = System.Windows.Forms.DockStyle.Fill;
             this.progressSeek.ForeColor = System.Drawing.Color.LimeGreen;
             this.progressSeek.Location = new System.Drawing.Point(9, 10);
-            this.progressSeek.Margin = new System.Windows.Forms.Padding(9, 10, 9, 11);
+            this.progressSeek.Margin = new System.Windows.Forms.Padding(9, 10, 8, 10);
             this.progressSeek.Maximum = 5000;
             this.progressSeek.Name = "progressSeek";
-            this.progressSeek.Size = new System.Drawing.Size(62, 13);
+            this.progressSeek.Size = new System.Drawing.Size(63, 14);
             this.progressSeek.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressSeek.TabIndex = 0;
             this.progressSeek.MouseDown += new System.Windows.Forms.MouseEventHandler(this.progressSeek_MouseDown);

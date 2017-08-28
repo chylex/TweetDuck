@@ -6,14 +6,20 @@ namespace TweetDuck.Video.Controls{
         private readonly SolidBrush brushFore;
         private readonly SolidBrush brushHover;
         private readonly SolidBrush brushOverlap;
+        private readonly SolidBrush brushBack;
 
         public SeekBar(){
             brushFore = new SolidBrush(Color.White);
             brushHover = new SolidBrush(Color.White);
             brushOverlap = new SolidBrush(Color.White);
+            brushBack = new SolidBrush(Color.White);
 
             SetStyle(ControlStyles.UserPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+        }
+
+        public double GetProgress(int clientX){
+            return clientX/(Width-1.0);
         }
 
         protected override void OnPaint(PaintEventArgs e){
@@ -21,14 +27,16 @@ namespace TweetDuck.Video.Controls{
                 brushFore.Color = ForeColor;
                 brushHover.Color = Color.FromArgb(128, ForeColor);
                 brushOverlap.Color = Color.FromArgb(80+ForeColor.R*11/16, 80+ForeColor.G*11/16, 80+ForeColor.B*11/16);
+                brushBack.Color = Parent.BackColor;
             }
             
             Rectangle rect = e.ClipRectangle;
             Point cursor = PointToClient(Cursor.Position);
-            int width = rect.Width;
+            int width = rect.Width-1;
             int progress = (int)(width*((double)Value/Maximum));
 
             rect.Width = progress;
+            rect.Height -= 1;
             e.Graphics.FillRectangle(brushFore, rect);
 
             if (cursor.X >= 0 && cursor.Y >= 0 && cursor.X <= width && cursor.Y <= rect.Height){
@@ -42,6 +50,17 @@ namespace TweetDuck.Video.Controls{
                     e.Graphics.FillRectangle(brushHover, rect);
                 }
             }
+
+            rect.X = width;
+            rect.Width = 1;
+            rect.Height += 1;
+            e.Graphics.FillRectangle(brushBack, rect);
+
+            rect.X = 0;
+            rect.Y = rect.Height-1;
+            rect.Width = width;
+            rect.Height = 1;
+            e.Graphics.FillRectangle(brushBack, rect);
         }
 
         protected override void Dispose(bool disposing){
@@ -51,6 +70,7 @@ namespace TweetDuck.Video.Controls{
                 brushFore.Dispose();
                 brushHover.Dispose();
                 brushOverlap.Dispose();
+                brushBack.Dispose();
             }
         }
     }

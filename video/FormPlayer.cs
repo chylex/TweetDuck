@@ -49,6 +49,15 @@ namespace TweetDuck.Video{
             
             trackBarVolume.Value = volume; // changes player volume too if non-default
 
+            labelTooltip.AttachTooltip(progressSeek, true, args => {
+                IWMPMedia media = Player.currentMedia;
+                int progress = (int)(media.duration*progressSeek.GetProgress(args.X));
+
+                Marshal.ReleaseComObject(media);
+
+                return $"{(progress/60).ToString("00")}:{(progress%60).ToString("00")}";
+            });
+
             Application.AddMessageFilter(new MessageFilter(this));
         }
 
@@ -158,7 +167,7 @@ namespace TweetDuck.Video{
                 IWMPMedia media = Player.currentMedia;
                 IWMPControls controls = Player.controls;
 
-                controls.currentPosition = media.duration*progressSeek.PointToClient(Cursor.Position).X/progressSeek.Width;
+                controls.currentPosition = media.duration*progressSeek.GetProgress(progressSeek.PointToClient(Cursor.Position).X);
 
                 Marshal.ReleaseComObject(media);
                 Marshal.ReleaseComObject(controls);
