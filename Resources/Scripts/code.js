@@ -426,13 +426,9 @@
   //
   // Block: Hook into the notification sound effect.
   //
-  (function(){
-    let soundEle = document.getElementById("update-sound");
-    
-    soundEle.play = prependToFunction(soundEle.play, function(){
-      return $TDX.muteNotifications || $TDX.hasCustomNotificationSound;
-    });
-  })();
+  HTMLAudioElement.prototype.play = prependToFunction(HTMLAudioElement.prototype.play, function(){
+    return $TDX.muteNotifications || $TDX.hasCustomNotificationSound;
+  });
   
   //
   // Block: Update highlighted column and tweet for context menu and other functionality.
