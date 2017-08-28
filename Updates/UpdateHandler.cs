@@ -93,7 +93,7 @@ namespace TweetDuck.Updates{
             CheckFinished?.Invoke(this, args);
         }
 
-        public class Bridge{
+        public sealed class Bridge{
             private readonly UpdateHandler owner;
 
             public Bridge(UpdateHandler owner){

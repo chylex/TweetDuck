@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace TweetDuck.Plugins.Events{
-    class PluginErrorEventArgs : EventArgs{
+    sealed class PluginErrorEventArgs : EventArgs{
         public bool HasErrors => Errors.Count > 0;
 
         public IList<string> Errors { get; }

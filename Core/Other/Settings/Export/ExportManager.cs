@@ -176,7 +176,7 @@ namespace TweetDuck.Core.Other.Settings.Export{
             }) : Enumerable.Empty<PathInfo>();
         }
 
-        private class PathInfo{
+        private sealed class PathInfo{
             public string Full { get; set; }
             public string Relative { get; set; }
         }

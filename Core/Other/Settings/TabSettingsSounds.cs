@@ -7,7 +7,7 @@ using TweetDuck.Core.Notification;
 using TweetLib.Audio;
 
 namespace TweetDuck.Core.Other.Settings{
-    partial class TabSettingsSounds : BaseTabSettings{
+    sealed partial class TabSettingsSounds : BaseTabSettings{
         private readonly SoundNotification soundNotification;
         private readonly bool supportsChangingVolume;
 

@@ -20,7 +20,7 @@ namespace TweetDuck.Browser{
             else return SubProcess.ExecuteProcess();
         }
 
-        private class RendererProcess : SubProcess{
+        private sealed class RendererProcess : SubProcess{
             public RendererProcess(string[] args) : base(args){}
 
             public override void OnBrowserCreated(CefBrowserWrapper wrapper){

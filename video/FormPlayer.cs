@@ -8,7 +8,7 @@ using TweetLib.Communication;
 using WMPLib;
 
 namespace TweetDuck.Video{
-    partial class FormPlayer : Form{
+    sealed partial class FormPlayer : Form{
         protected override bool ShowWithoutActivation => true;
 
         private readonly IntPtr ownerHandle;
@@ -258,7 +258,7 @@ namespace TweetDuck.Video{
             Close();
         }
 
-        internal class MessageFilter : IMessageFilter{
+        internal sealed class MessageFilter : IMessageFilter{
             private readonly FormPlayer form;
 
             private bool IsCursorOverVideo{

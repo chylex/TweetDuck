@@ -139,7 +139,7 @@ namespace TweetDuck.Core.Other{
             panelContents.Focus();
         }
 
-        private class SettingsTab{
+        private sealed class SettingsTab{
             public Button Button { get; }
 
             public BaseTabSettings Control{

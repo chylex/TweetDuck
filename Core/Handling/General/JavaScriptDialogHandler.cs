@@ -7,7 +7,7 @@ using TweetDuck.Core.Other;
 using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Handling.General{
-    class JavaScriptDialogHandler : IJsDialogHandler{
+    sealed class JavaScriptDialogHandler : IJsDialogHandler{
         bool IJsDialogHandler.OnJSDialog(IWebBrowser browserControl, IBrowser browser, string originUrl, CefJsDialogType dialogType, string messageText, string defaultPromptText, IJsDialogCallback callback, ref bool suppressMessage){
             ((ChromiumWebBrowser)browserControl).InvokeSafe(() => {
                 FormMessage form;

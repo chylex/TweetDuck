@@ -8,7 +8,7 @@ using TweetDuck.Core.Utils;
 using TweetDuck.Plugins.Enums;
 
 namespace TweetDuck.Plugins.Controls{
-    partial class PluginControl : UserControl{
+    sealed partial class PluginControl : UserControl{
         private readonly PluginManager pluginManager;
         private readonly Plugin plugin;
 

@@ -5,7 +5,7 @@ using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Handling{
-    class ContextMenuBrowser : ContextMenuBase{
+    sealed class ContextMenuBrowser : ContextMenuBase{
         private const CefMenuCommand MenuGlobal   = (CefMenuCommand)26600;
         private const CefMenuCommand MenuMute     = (CefMenuCommand)26601;
         private const CefMenuCommand MenuSettings = (CefMenuCommand)26602;

@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 
 namespace TweetDuck.Core.Controls{
-    class FlatButton : Button{
+    sealed class FlatButton : Button{
         protected override bool ShowFocusCues => false;
 
         public FlatButton(){

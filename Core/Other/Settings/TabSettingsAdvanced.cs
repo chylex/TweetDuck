@@ -7,7 +7,7 @@ using TweetDuck.Core.Other.Settings.Dialogs;
 using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Other.Settings{
-    partial class TabSettingsAdvanced : BaseTabSettings{
+    sealed partial class TabSettingsAdvanced : BaseTabSettings{
         private static SystemConfig SysConfig => Program.SystemConfig;
 
         private readonly Action<string> reinjectBrowserCSS;

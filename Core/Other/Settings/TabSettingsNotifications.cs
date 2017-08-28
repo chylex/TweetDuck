@@ -4,7 +4,7 @@ using TweetDuck.Core.Controls;
 using TweetDuck.Core.Notification;
 
 namespace TweetDuck.Core.Other.Settings{
-    partial class TabSettingsNotifications : BaseTabSettings{
+    sealed partial class TabSettingsNotifications : BaseTabSettings{
         private static readonly int[] IdlePauseSeconds = { 0, 30, 60, 120, 300 };
 
         private readonly FormNotificationMain notification;

@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace TweetDuck.Core{
-    partial class TrayIcon : Component{
+    sealed partial class TrayIcon : Component{
         public enum Behavior{ // keep order
             Disabled, DisplayOnly, MinimizeToTray, CloseToTray, Combined
         }

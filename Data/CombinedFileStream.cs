@@ -91,7 +91,7 @@ namespace TweetDuck.Data{
             stream.Dispose();
         }
 
-        public class Entry{
+        public sealed class Entry{
             public string Identifier { get; }
 
             public string KeyName{

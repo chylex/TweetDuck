@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace TweetDuck.Plugins.Events{
-    class PluginChangedStateEventArgs : EventArgs{
+    sealed class PluginChangedStateEventArgs : EventArgs{
         public Plugin Plugin { get; }
         public bool IsEnabled { get; }
 

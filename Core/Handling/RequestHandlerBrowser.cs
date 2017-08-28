@@ -2,7 +2,7 @@
 using TweetDuck.Core.Handling.General;
 
 namespace TweetDuck.Core.Handling{
-    class RequestHandlerBrowser : RequestHandlerBase{
+    sealed class RequestHandlerBrowser : RequestHandlerBase{
         public override void OnRenderProcessTerminated(IWebBrowser browserControl, IBrowser browser, CefTerminationStatus status){
             browser.Reload();
         }

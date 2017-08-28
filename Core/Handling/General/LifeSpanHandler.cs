@@ -2,7 +2,7 @@
 using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Handling.General{
-    class LifeSpanHandler : ILifeSpanHandler{
+    sealed class LifeSpanHandler : ILifeSpanHandler{
         public bool OnBeforePopup(IWebBrowser browserControl, IBrowser browser, IFrame frame, string targetUrl, string targetFrameName, WindowOpenDisposition targetDisposition, bool userGesture, IPopupFeatures popupFeatures, IWindowInfo windowInfo, IBrowserSettings browserSettings, ref bool noJavascriptAccess, out IWebBrowser newBrowser){
             newBrowser = null;
 

@@ -95,7 +95,7 @@ namespace TweetDuck.Data.Serialization{
             }
         }
 
-        private class BasicTypeConverter : ITypeConverter{
+        private sealed class BasicTypeConverter : ITypeConverter{
             bool ITypeConverter.TryWriteType(Type type, object value, out string converted){
                 switch(Type.GetTypeCode(type)){
                     case TypeCode.Boolean:

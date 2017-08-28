@@ -3,7 +3,7 @@ using TweetDuck.Core.Controls;
 using TweetDuck.Updates;
 
 namespace TweetDuck.Core.Other.Settings{
-    partial class TabSettingsGeneral : BaseTabSettings{
+    sealed partial class TabSettingsGeneral : BaseTabSettings{
         private readonly UpdateHandler updates;
         private int updateCheckEventId = -1;
 

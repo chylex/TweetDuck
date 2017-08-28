@@ -3,7 +3,7 @@ using TweetDuck.Core.Controls;
 using TweetDuck.Core.Notification;
 
 namespace TweetDuck.Core.Handling{
-    class ContextMenuNotification : ContextMenuBase{
+    sealed class ContextMenuNotification : ContextMenuBase{
         private const CefMenuCommand MenuViewDetail         = (CefMenuCommand)26600;
         private const CefMenuCommand MenuSkipTweet          = (CefMenuCommand)26601;
         private const CefMenuCommand MenuFreeze             = (CefMenuCommand)26602;

@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 
 namespace TweetDuck.Core.Handling{
-    class ResourceHandlerNotification : IResourceHandler{
+    sealed class ResourceHandlerNotification : IResourceHandler{
         private readonly NameValueCollection headers = new NameValueCollection(0);
         private MemoryStream dataIn;
 
