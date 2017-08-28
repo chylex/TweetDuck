@@ -150,7 +150,7 @@ namespace TweetDuck.Video{
                 else if (!isCursorInside && wasCursorInside){
                     wasCursorInside = false;
 
-                    if (!Player.fullScreen){
+                    if (!Player.fullScreen && Handle == NativeMethods.GetForegroundWindow()){
                         NativeMethods.SetForegroundWindow(ownerHandle);
                     }
                 }
