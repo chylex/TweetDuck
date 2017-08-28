@@ -30,7 +30,7 @@ namespace TweetLib.Audio{
         public abstract event EventHandler<PlaybackErrorEventArgs> PlaybackError;
 
         public abstract void Play(string file);
-        public abstract void Stop();
+        public abstract bool SetVolume(int volume);
         protected abstract void Dispose(bool disposing);
 
         public void Dispose(){

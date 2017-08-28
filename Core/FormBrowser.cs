@@ -508,6 +508,7 @@ namespace TweetDuck.Core{
                 soundNotification.PlaybackError += soundNotification_PlaybackError;
             }
 
+            soundNotification.SetVolume(Config.NotificationSoundVolume);
             soundNotification.Play(Config.NotificationSoundPath);
         }
 

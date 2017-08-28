@@ -34,8 +34,8 @@ namespace TweetLib.Audio.Impl{
             }
         }
 
-        public override void Stop(){
-            player.Stop();
+        public override bool SetVolume(int volume){
+            return false;
         }
 
         protected override void Dispose(bool disposing){

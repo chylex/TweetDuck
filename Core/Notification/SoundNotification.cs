@@ -17,6 +17,10 @@ namespace TweetDuck.Core.Notification{
             player.Play(file);
         }
 
+        public bool SetVolume(int volume){
+            return player.SetVolume(volume);
+        }
+
         private void Player_PlaybackError(object sender, PlaybackErrorEventArgs e){
             PlaybackError?.Invoke(this, e);
         }

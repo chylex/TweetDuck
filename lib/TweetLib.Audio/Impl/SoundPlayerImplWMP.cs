@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using TweetLib.Audio.Utils;
+using System.Windows.Forms;
 using WMPLib;
 
 namespace TweetLib.Audio.Impl{
@@ -9,9 +9,12 @@ namespace TweetLib.Audio.Impl{
 
         public override event EventHandler<PlaybackErrorEventArgs> PlaybackError;
 
-        private readonly WindowsMediaPlayer player;
+        private readonly Form owner;
+        private readonly ControlWMP wmp;
         private bool wasTryingToPlay;
         private bool ignorePlaybackError;
+
+        private WindowsMediaPlayer Player => wmp.Ocx;
 
         // changing the player volume also affects the value in the Windows mixer
         // however, the initial value is always 50 or some other stupid shit
@@ -20,45 +23,48 @@ namespace TweetLib.Audio.Impl{
         // thanks, Microsoft
 
         public SoundPlayerImplWMP(){
-            player = new WindowsMediaPlayer();
-            player.settings.autoStart = false;
-            player.settings.enableErrorDialogs = false;
-            player.settings.invokeURLs = false;
-            player.settings.volume = (int)Math.Floor(100.0*NativeCoreAudio.GetMixerVolumeForCurrentProcess());
-            player.MediaChange += player_MediaChange;
-            player.MediaError += player_MediaError;
+            owner = new Form();
+            wmp = new ControlWMP();
+            wmp.BeginInit();
+            owner.Controls.Add(wmp);
+            wmp.EndInit();
+            
+            Player.uiMode = "none";
+            Player.settings.autoStart = false;
+            Player.settings.enableErrorDialogs = false;
+            Player.settings.invokeURLs = false;
+            Player.settings.volume = 0;
+            Player.MediaChange += player_MediaChange;
+            Player.MediaError += player_MediaError;
         }
 
         public override void Play(string file){
             wasTryingToPlay = true;
 
             try{
-                if (player.URL != file){
-                    player.close();
-                    player.URL = file;
+                if (Player.URL != file){
+                    Player.close();
+                    Player.URL = file;
                     ignorePlaybackError = false;
                 }
                 else{
-                    player.controls.stop();
+                    Player.controls.stop();
                 }
             
-                player.controls.play();
+                Player.controls.play();
             }catch(Exception e){
                 OnNotificationSoundError("An error occurred in Windows Media Player: "+e.Message);
             }
         }
 
-        public override void Stop(){
-            try{
-                player.controls.stop();
-            }catch{
-                // ignore
-            }
+        public override bool SetVolume(int volume){
+            Player.settings.volume = volume;
+            return true;
         }
 
         protected override void Dispose(bool disposing){
-            player.close();
-            Marshal.ReleaseComObject(player);
+            wmp.Dispose();
+            owner.Dispose();
         }
 
         private void player_MediaChange(object item){
@@ -107,6 +113,17 @@ namespace TweetLib.Audio.Impl{
                     PlaybackError(this, args);
                     ignorePlaybackError = args.Ignore;
                 }
+            }
+        }
+
+        [Clsid("{6bf52a52-394a-11d3-b153-00c04f79faa6}")]
+        private sealed class ControlWMP : AxHost{
+            public WindowsMediaPlayer Ocx { get; private set; }
+
+            public ControlWMP() : base("6bf52a52-394a-11d3-b153-00c04f79faa6"){}
+
+            protected override void AttachInterfaces(){
+                Ocx = (WindowsMediaPlayer)GetOcx();
             }
         }
     }

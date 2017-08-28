@@ -26,10 +26,10 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AudioPlayer.cs" />
-    <Compile Include="Utils\NativeCoreAudio.cs" />
     <Compile Include="PlaybackErrorEventArgs.cs" />
     <Compile Include="Impl\SoundPlayerImplFallback.cs" />
     <Compile Include="Impl\SoundPlayerImplWMP.cs" />

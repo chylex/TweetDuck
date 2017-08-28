@@ -2,18 +2,26 @@
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using TweetDuck.Core.Controls;
 using TweetDuck.Core.Notification;
 using TweetLib.Audio;
 
 namespace TweetDuck.Core.Other.Settings{
     partial class TabSettingsSounds : BaseTabSettings{
         private readonly SoundNotification soundNotification;
+        private readonly bool supportsChangingVolume;
 
         public TabSettingsSounds(){
             InitializeComponent();
 
             soundNotification = new SoundNotification();
             soundNotification.PlaybackError += sound_PlaybackError;
+            
+            supportsChangingVolume = soundNotification.SetVolume(Config.NotificationSoundVolume);
+
+            trackBarVolume.Enabled = supportsChangingVolume && !string.IsNullOrEmpty(Config.NotificationSoundPath);
+            trackBarVolume.SetValueSafe(Config.NotificationSoundVolume);
+            labelVolumeValue.Text = trackBarVolume.Value+"%";
 
             tbCustomSound.Text = Config.NotificationSoundPath;
             tbCustomSound_TextChanged(tbCustomSound, new EventArgs());
@@ -37,6 +45,7 @@ namespace TweetDuck.Core.Other.Settings{
             tbCustomSound.ForeColor = isEmpty || File.Exists(tbCustomSound.Text) ? SystemColors.WindowText : Color.Red;
             btnPlaySound.Enabled = !isEmpty;
             btnResetSound.Enabled = !isEmpty;
+            trackBarVolume.Enabled = supportsChangingVolume && !isEmpty;
         }
 
         private void btnPlaySound_Click(object sender, EventArgs e){
@@ -62,6 +71,12 @@ namespace TweetDuck.Core.Other.Settings{
 
         private void btnResetSound_Click(object sender, EventArgs e){
             tbCustomSound.Text = string.Empty;
+        }
+
+        private void trackBarVolume_ValueChanged(object sender, EventArgs e){
+            Config.NotificationSoundVolume = trackBarVolume.Value;
+            soundNotification.SetVolume(Config.NotificationSoundVolume);
+            labelVolumeValue.Text = Config.NotificationSoundVolume+"%";
         }
     }
 }

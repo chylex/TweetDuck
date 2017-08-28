@@ -55,8 +55,8 @@ namespace TweetDuck.Configuration{
         private int _zoomLevel                           = 100;
         private bool _muteNotifications;
         
-        private TrayIcon.Behavior _trayBehavior          = TrayIcon.Behavior.Disabled;
-        public bool EnableTrayHighlight    { get; set; } = true;
+        private TrayIcon.Behavior _trayBehavior       = TrayIcon.Behavior.Disabled;
+        public bool EnableTrayHighlight { get; set; } = true;
 
         public bool EnableUpdateCheck { get; set; } = true;
         public string DismissedUpdate { get; set; } = null;
@@ -80,6 +80,7 @@ namespace TweetDuck.Configuration{
         public Size CustomNotificationSize             { get; set; } = Size.Empty;
         public int NotificationScrollSpeed             { get; set; } = 10;
 
+        public int NotificationSoundVolume { get; set; } = 100;
         private string _notificationSoundPath;
 
         public string CustomCefArgs         { get; set; } = null;
