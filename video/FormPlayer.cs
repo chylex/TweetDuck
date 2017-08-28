@@ -57,6 +57,10 @@ namespace TweetDuck.Video{
 
                 return $"{(progress/60).ToString("00")}:{(progress%60).ToString("00")}";
             });
+            
+            labelTooltip.AttachTooltip(imageClose, false, "Close");
+            labelTooltip.AttachTooltip(imageDownload, false, "Download");
+            labelTooltip.AttachTooltip(imageResize, false, "Fullscreen");
 
             Application.AddMessageFilter(new MessageFilter(this));
         }
@@ -192,6 +196,18 @@ namespace TweetDuck.Video{
 
         private void trackBarVolume_MouseUp(object sender, MouseEventArgs e){
             isDragging = false;
+        }
+
+        private void imageClose_Click(object sender, EventArgs e){
+            StopVideo();
+        }
+
+        private void imageDownload_Click(object sender, EventArgs e){
+            pipe.Write("download");
+        }
+
+        private void imageResize_Click(object sender, EventArgs e){
+            Player.fullScreen = true;
         }
 
         // Controls & messages

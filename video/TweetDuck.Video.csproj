@@ -62,6 +62,11 @@
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="WMPLib">
@@ -75,6 +80,9 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\btnResize.png" />
+    <None Include="Resources\btnDownload.png" />
+    <None Include="Resources\btnClose.png" />
     <Content Include="Resources\icon.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -82,6 +90,12 @@
       <Project>{72473763-4b9d-4fb6-a923-9364b2680f06}</Project>
       <Name>TweetLib.Windows</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

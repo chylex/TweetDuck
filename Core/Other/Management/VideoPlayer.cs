@@ -83,6 +83,10 @@ namespace TweetDuck.Core.Other.Management{
 
                         break;
 
+                    case "download":
+                        TwitterUtils.DownloadVideo(lastUrl);
+                        break;
+
                     case "rip":
                         currentPipe.Dispose();
                         currentPipe = null;
