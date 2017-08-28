@@ -60,6 +60,7 @@ namespace TweetDuck.Core.Other{
 
         public Button ClickedButton { get; private set; }
 
+        public bool HasIcon => icon != null;
         public int ActionPanelY => panelActions.Location.Y;
 
         private int ClientWidth{

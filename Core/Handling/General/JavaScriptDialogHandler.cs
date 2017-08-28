@@ -8,31 +8,51 @@ using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Handling.General{
     sealed class JavaScriptDialogHandler : IJsDialogHandler{
+        private static FormMessage CreateMessageForm(string caption, string text){
+            MessageBoxIcon icon = MessageBoxIcon.None;
+            int pipe = text.IndexOf('|');
+
+            if (pipe != -1){
+                switch(text.Substring(0, pipe)){
+                    case "error": icon = MessageBoxIcon.Error; break;
+                    case "warning": icon = MessageBoxIcon.Warning; break;
+                    case "info": icon = MessageBoxIcon.Information; break;
+                    case "question": icon = MessageBoxIcon.Question; break;
+                    default: return new FormMessage(caption, text, icon);
+                }
+
+                text = text.Substring(pipe+1);
+            }
+
+            return new FormMessage(caption, text, icon);
+        }
+
         bool IJsDialogHandler.OnJSDialog(IWebBrowser browserControl, IBrowser browser, string originUrl, CefJsDialogType dialogType, string messageText, string defaultPromptText, IJsDialogCallback callback, ref bool suppressMessage){
             ((ChromiumWebBrowser)browserControl).InvokeSafe(() => {
                 FormMessage form;
                 TextBox input = null;
 
                 if (dialogType == CefJsDialogType.Alert){
-                    form = new FormMessage("Browser Message", messageText, MessageBoxIcon.None);
+                    form = CreateMessageForm("Browser Message", messageText);
                     form.AddButton(FormMessage.OK, ControlType.Accept | ControlType.Focused);
                 }
                 else if (dialogType == CefJsDialogType.Confirm){
-                    form = new FormMessage("Browser Confirmation", messageText, MessageBoxIcon.None);
+                    form = CreateMessageForm("Browser Confirmation", messageText);
                     form.AddButton(FormMessage.No, DialogResult.No, ControlType.Cancel);
                     form.AddButton(FormMessage.Yes, ControlType.Focused);
                 }
                 else if (dialogType == CefJsDialogType.Prompt){
-                    form = new FormMessage("Browser Prompt", messageText, MessageBoxIcon.None);
+                    form = CreateMessageForm("Browser Prompt", messageText);
                     form.AddButton(FormMessage.Cancel, DialogResult.Cancel, ControlType.Cancel);
                     form.AddButton(FormMessage.OK, ControlType.Accept | ControlType.Focused);
 
                     float dpiScale = form.GetDPIScale();
+                    int inputPad = form.HasIcon ? 43 : 0;
 
                     input = new TextBox{
                         Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
-                        Location = new Point(BrowserUtils.Scale(22, dpiScale), form.ActionPanelY-BrowserUtils.Scale(46, dpiScale)),
-                        Size = new Size(form.ClientSize.Width-BrowserUtils.Scale(44, dpiScale), 20)
+                        Location = new Point(BrowserUtils.Scale(22+inputPad, dpiScale), form.ActionPanelY-BrowserUtils.Scale(46, dpiScale)),
+                        Size = new Size(form.ClientSize.Width-BrowserUtils.Scale(44+inputPad, dpiScale), 20)
                     };
 
                     form.Controls.Add(input);
