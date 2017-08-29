@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 using TweetDuck.Configuration;
 using TweetDuck.Core.Other.Settings.Export;
@@ -7,7 +8,7 @@ using TweetDuck.Plugins;
 namespace TweetDuck.Core.Other.Settings.Dialogs{
     sealed partial class DialogSettingsManage : Form{
         private enum State{
-            Deciding, Import, Export
+            Deciding, Reset, Import, Export
         }
 
         public ExportFileFlags Flags{
@@ -21,7 +22,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
             }
         }
 
-        public bool ShouldReloadUI { get; private set; }
+        public bool ShouldReloadBrowser { get; private set; }
         
         private readonly PluginManager plugins;
         private State currentState;
@@ -59,15 +60,10 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                 case State.Deciding:
                     // Reset
                     if (radioReset.Checked){
-                        if (FormMessage.Warning("Reset TweetDuck Options", "This will reset all of your program options. Plugins will not be affected. Do you want to proceed?", FormMessage.Yes, FormMessage.No)){
-                            Program.ResetConfig();
+                        currentState = State.Reset;
 
-                            ShouldReloadUI = true;
-                            DialogResult = DialogResult.OK;
-                            Close();
-                        }
-
-                        return;
+                        Text = "Restore Defaults";
+                        Flags = ExportFileFlags.Config;
                     }
 
                     // Import
@@ -110,6 +106,33 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                     panelExport.Visible = true;
                     break;
 
+                case State.Reset:
+                    if (FormMessage.Warning("Reset TweetDuck Options", "This will reset the selected items. Are you sure you want to proceed?", FormMessage.Yes, FormMessage.No)){
+                        if (Flags.HasFlag(ExportFileFlags.Config)){
+                            Program.ResetConfig();
+                        }
+
+                        if (Flags.HasFlag(ExportFileFlags.PluginData)){
+                            try{
+                                Directory.Delete(Program.PluginDataPath, true);
+                            }catch(Exception ex){
+                                Program.Reporter.HandleException("Plugin Data Reset Error", "Could not delete plugin data.", true, ex);
+                            }
+                        }
+
+                        if (Flags.HasFlag(ExportFileFlags.Session)){
+                            Program.Restart(Arguments.ArgDeleteCookies);
+                        }
+                        else{
+                            ShouldReloadBrowser = true;
+                        }
+
+                        DialogResult = DialogResult.OK;
+                        Close();
+                    }
+
+                    break;
+
                 case State.Import:
                     if (importManager.Import(Flags)){
                         Program.ReloadConfig();
@@ -118,7 +141,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                             Program.Restart(Arguments.ArgImportCookies);
                         }
                         else{
-                            ShouldReloadUI = true;
+                            ShouldReloadBrowser = true;
                         }
                     }
                     else{
@@ -170,6 +193,9 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
 
             if (currentState == State.Import){
                 btnContinue.Text = selectedFlags.HasFlag(ExportFileFlags.Session) ? "Import && Restart" : "Import Profile";
+            }
+            else if (currentState == State.Reset){
+                btnContinue.Text = selectedFlags.HasFlag(ExportFileFlags.Session) ? "Restore && Restart" : "Restore Defaults";
             }
         }
     }

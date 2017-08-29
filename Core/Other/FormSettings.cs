@@ -56,7 +56,7 @@ namespace TweetDuck.Core.Other{
         private void btnManageOptions_Click(object sender, EventArgs e){
             using(DialogSettingsManage dialog = new DialogSettingsManage(plugins)){
                 if (dialog.ShowDialog() == DialogResult.OK){
-                    ShouldReloadBrowser = dialog.ShouldReloadUI;
+                    ShouldReloadBrowser = dialog.ShouldReloadBrowser;
                     Close();
                 }
             }

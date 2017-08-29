@@ -161,6 +161,16 @@ namespace TweetDuck.Core.Other.Settings.Export{
             }
         }
 
+        public static void DeleteCookies(){
+            try{
+                if (File.Exists(CookiesPath)){
+                    File.Delete(CookiesPath);
+                }
+            }catch(Exception e){
+                Program.Reporter.HandleException("Session Reset Error", "Could not remove the cookie file to reset the login session.", true, e);
+            }
+        }
+
         private static IEnumerable<PathInfo> EnumerateFilesRelative(string root){
             return Directory.Exists(root) ? Directory.EnumerateFiles(root, "*.*", SearchOption.AllDirectories).Select(fullPath => new PathInfo{
                 Full = fullPath,

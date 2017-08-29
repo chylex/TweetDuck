@@ -120,6 +120,9 @@ namespace TweetDuck{
             if (Arguments.HasFlag(Arguments.ArgImportCookies)){
                 ExportManager.ImportCookies();
             }
+            else if (Arguments.HasFlag(Arguments.ArgDeleteCookies)){
+                ExportManager.DeleteCookies();
+            }
 
             if (Arguments.HasFlag(Arguments.ArgUpdated)){
                 WindowsUtils.TryDeleteFolderWhenAble(InstallerPath, 8000);
