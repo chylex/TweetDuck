@@ -470,7 +470,12 @@ namespace TweetDuck.Core{
                         memoryUsageTracker.Stop();
                     }
                     
-                    UpdateProperties(PropertyBridge.Environment.Browser);
+                    if (form.ShouldReloadBrowser){
+                        plugins.Reload(); // also reloads the browser
+                    }
+                    else{
+                        UpdateProperties(PropertyBridge.Environment.Browser);
+                    }
 
                     notification.RequiresResize = true;
                     form.Dispose();

@@ -19,6 +19,8 @@ namespace TweetDuck.Core.Other{
         private readonly Dictionary<Type, SettingsTab> tabs = new Dictionary<Type, SettingsTab>(4);
         private SettingsTab currentTab;
 
+        public bool ShouldReloadBrowser { get; private set; }
+
         public FormSettings(FormBrowser browser, PluginManager plugins, UpdateHandler updates, Type startTab){
             InitializeComponent();
 
@@ -54,6 +56,7 @@ namespace TweetDuck.Core.Other{
         private void btnManageOptions_Click(object sender, EventArgs e){
             using(DialogSettingsManage dialog = new DialogSettingsManage(plugins)){
                 if (dialog.ShowDialog() == DialogResult.OK){
+                    ShouldReloadBrowser = dialog.ShouldReloadUI;
                     Close();
                 }
             }

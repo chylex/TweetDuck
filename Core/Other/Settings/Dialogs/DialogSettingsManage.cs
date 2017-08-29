@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using TweetDuck.Configuration;
 using TweetDuck.Core.Other.Settings.Export;
 using TweetDuck.Plugins;
 
@@ -111,7 +112,12 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
 
                 case State.Import:
                     if (importManager.Import(Flags)){
-                        if (!importManager.IsRestarting){
+                        Program.ReloadConfig();
+
+                        if (importManager.IsRestarting){
+                            Program.Restart(Arguments.ArgImportCookies);
+                        }
+                        else{
                             ShouldReloadUI = true;
                         }
                     }

@@ -52,8 +52,6 @@ namespace TweetDuck{
         public static Reporter Reporter { get; }
         public static CultureInfo Culture { get; }
 
-        public static event EventHandler UserConfigReplaced;
-
         static Program(){
             Culture = CultureInfo.CurrentCulture;
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
@@ -190,7 +188,6 @@ namespace TweetDuck{
 
         public static void ReloadConfig(){
             UserConfig = UserConfig.Load(UserConfigFilePath);
-            UserConfigReplaced?.Invoke(UserConfig, new EventArgs());
         }
 
         public static void ResetConfig(){

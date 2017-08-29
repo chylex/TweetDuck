@@ -45,14 +45,7 @@ namespace TweetDuck.Plugins{
             this.Bridge = new PluginBridge(this);
 
             Config.Load(configPath);
-            
             Config.InternalPluginChangedState += Config_InternalPluginChangedState;
-            Program.UserConfigReplaced += Program_UserConfigReplaced;
-        }
-
-        private void Program_UserConfigReplaced(object sender, EventArgs e){
-            Config.Load(configPath);
-            Reload();
         }
 
         private void Config_InternalPluginChangedState(object sender, PluginChangedStateEventArgs e){
@@ -83,6 +76,8 @@ namespace TweetDuck.Plugins{
         }
 
         public void Reload(){
+            Config.Load(configPath);
+
             plugins.Clear();
             tokens.Clear();
 

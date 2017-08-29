@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using TweetDuck.Configuration;
 using TweetDuck.Data;
 using TweetDuck.Plugins;
 using TweetDuck.Plugins.Enums;
@@ -139,13 +138,6 @@ namespace TweetDuck.Core.Other.Settings.Export{
 
                 if (missingPlugins.Count > 0){
                     FormMessage.Information("Importing TweetDuck Profile", "Detected missing plugins when importing plugin data:\n"+string.Join("\n", missingPlugins), FormMessage.OK);
-                }
-
-                if (IsRestarting){
-                    Program.Restart(Arguments.ArgImportCookies);
-                }
-                else{
-                    Program.ReloadConfig();
                 }
 
                 return true;
