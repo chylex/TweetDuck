@@ -21,6 +21,7 @@ namespace TweetDuck.Browser{
         }
 
         private sealed class RendererProcess : SubProcess{
+            // ReSharper disable once ParameterTypeCanBeEnumerable.Local
             public RendererProcess(string[] args) : base(args){}
 
             public override void OnBrowserCreated(CefBrowserWrapper wrapper){

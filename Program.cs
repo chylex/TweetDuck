@@ -189,10 +189,6 @@ namespace TweetDuck{
             }
         }
 
-        public static void ReloadConfig(){
-            UserConfig.Reload();
-        }
-
         public static void ResetConfig(){
             try{
                 File.Delete(UserConfigFilePath);
@@ -202,7 +198,7 @@ namespace TweetDuck{
                 return;
             }
             
-            ReloadConfig();
+            UserConfig.Reload();
         }
 
         public static void Restart(params string[] extraArgs){

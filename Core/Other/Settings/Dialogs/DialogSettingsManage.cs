@@ -135,7 +135,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
 
                 case State.Import:
                     if (importManager.Import(Flags)){
-                        Program.ReloadConfig();
+                        Program.UserConfig.Reload();
 
                         if (importManager.IsRestarting){
                             Program.Restart(Arguments.ArgImportCookies);
