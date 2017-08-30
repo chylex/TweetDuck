@@ -87,7 +87,7 @@ enabled(){
   
   var generateEmojiHTML = skinTone => {
     let index = 0;
-    let html = [ "<p style='font-size:13px;color:#444;margin:4px;text-align:center'>Please, note that most emoji will not show up properly in the text box above, but they will display in the tweet.</p>" ];
+    let html = [ "<p style='font-size:13px;color:#444;margin:4px;text-align:center'>Please, note that some emoji may not show up correctly in the text box above, but they will display in the tweet.</p>" ];
     
     for(let array of [ this.emojiData1, this.emojiData2[skinTone], this.emojiData3 ]){
       for(let emoji of array){
