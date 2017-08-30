@@ -60,7 +60,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                 Args.SetValue(Arguments.ArgLocale, locale);
             }
 
-            if (!string.IsNullOrWhiteSpace(tbDataFolder.Text)){
+            if (!string.IsNullOrWhiteSpace(tbDataFolder.Text) && tbDataFolder.Enabled){
                 Args.SetValue(Arguments.ArgDataFolder, tbDataFolder.Text);
             }
 
