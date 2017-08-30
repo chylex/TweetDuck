@@ -139,7 +139,7 @@
             this.trackBarVolume.Maximum = 100;
             this.trackBarVolume.Name = "trackBarVolume";
             this.trackBarVolume.Size = new System.Drawing.Size(148, 30);
-            this.trackBarVolume.SmallChange = 5;
+            this.trackBarVolume.SmallChange = 1;
             this.trackBarVolume.TabIndex = 5;
             this.trackBarVolume.TickFrequency = 10;
             this.trackBarVolume.Value = 100;
