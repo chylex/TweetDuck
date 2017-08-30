@@ -45,13 +45,6 @@ enabled(){
   this.css.insert(".emoji-keyboard-skintones .sel { border: 2px solid rgba(0, 0, 0, 0.35); box-shadow: 0 0 2px 0 rgba(255, 255, 255, 0.65), 0 0 1px 0 rgba(255, 255, 255, 0.4) inset }");
   this.css.insert(".emoji-keyboard-skintones :hover { border: 2px solid rgba(0, 0, 0, 0.25); box-shadow: 0 0 1px 0 rgba(255, 255, 255, 0.65), 0 0 1px 0 rgba(255, 255, 255, 0.25) inset }");
   
-  this.css.insert("#emoji-keyboard-tweet-input { padding: 0 !important; line-height: 18px }");
-  this.css.insert("#emoji-keyboard-tweet-input img { padding: 0.1em !important; width: 1em; height: 1em; vertical-align: -0.25em }");
-  this.css.insert("#emoji-keyboard-tweet-input:empty::before { content: \"What's happening?\"; display: inline-block; color: #ced8de }");
-  
-  this.css.insert(".js-docked-compose .compose-text-container.td-emoji-keyboard-swap .js-compose-text { position: absolute; z-index: -9999; left: 0; opacity: 0 }");
-  this.css.insert(".compose-text-container:not(.td-emoji-keyboard-swap) #emoji-keyboard-tweet-input { display: none; }");
-  
   this.css.insert(".js-compose-text { font-family: \"Twitter Color Emoji\", Helvetica, Arial, Verdana, sans-serif; }");
   
   // layout
@@ -88,12 +81,7 @@ enabled(){
     $(".emoji-keyboard-popup-btn").removeClass("is-selected");
     
     if (refocus){
-      if ($(".compose-text-container", ".js-docked-compose").hasClass("td-emoji-keyboard-swap")){
-        $("#emoji-keyboard-tweet-input").focus();
-      }
-      else{
-        $(".js-compose-text", ".js-docked-compose").focus();
-      }
+      $(".js-compose-text", ".js-docked-compose").focus();
     }
   };
   
@@ -253,8 +241,8 @@ enabled(){
   
   this.emojiKeyboardButtonClickEvent = function(e){
     if (me.currentKeyboard){
-      hideKeyboard();
       $(this).blur();
+      hideKeyboard(true);
     }
     else{
       me.generateKeyboard($(this).offset().left, getKeyboardTop());
