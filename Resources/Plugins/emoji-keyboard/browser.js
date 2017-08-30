@@ -72,6 +72,8 @@ enabled(){
   this.currentKeyboard = null;
   this.currentSpanner = null;
   
+  var wasSearchFocused = false;
+  
   var hideKeyboard = (refocus) => {
     $(this.currentKeyboard).remove();
     this.currentKeyboard = null;
@@ -193,14 +195,22 @@ enabled(){
     var searchInput = search.children[0];
     searchInput.focus();
     
+    wasSearchFocused = false;
+    
     searchInput.addEventListener("input", function(e){
       me.currentKeywords = e.target.value.split(" ").filter(kw => kw.length > 0).map(kw => kw.toLowerCase());
       updateFilters();
+      
+      wasSearchFocused = $(this).val().length > 0;
       e.stopPropagation();
     });
     
-    searchInput.addEventListener("focus", function(){
+    searchInput.addEventListener("click", function(){
       $(this).select();
+    });
+    
+    searchInput.addEventListener("focus", function(){
+      wasSearchFocused = true;
     });
     
     this.currentKeyboard = outer;
@@ -227,10 +237,16 @@ enabled(){
 
     input.val(val.slice(0, posStart)+alt+val.slice(posEnd));
     input.trigger("change");
-    input.focus();
 
     input[0].selectionStart = posStart+alt.length;
     input[0].selectionEnd = posStart+alt.length;
+    
+    if (wasSearchFocused){
+      $(".emoji-keyboard-search").children("input").focus();
+    }
+    else{
+      input.focus();
+    }
   };
   
   // general event handlers
@@ -252,6 +268,10 @@ enabled(){
     if (me.currentKeyboard){
       me.currentKeyboard.style.marginTop = (-$(this).scrollTop())+"px";
     }
+  };
+  
+  this.composeInputFocusEvent = function(e){
+    wasSearchFocused = false;
   };
   
   this.composerSendingEvent = function(e){
@@ -285,6 +305,7 @@ ready(){
   this.composePanelScroller.on("scroll", this.composerScrollEvent);
   
   $(".emoji-keyboard-popup-btn").on("click", this.emojiKeyboardButtonClickEvent);
+  $(".js-compose-text", ".js-docked-compose").on("focus", this.composeInputFocusEvent);
   $(document).on("click", this.documentClickEvent);
   $(document).on("keydown", this.documentKeyEvent);
   $(document).on("uiComposeImageAdded", this.uploadFilesEvent);
@@ -408,6 +429,7 @@ disabled(){
   $(".emoji-keyboard-popup-btn").off("click", this.emojiKeyboardButtonClickEvent);
   $(".emoji-keyboard-popup-btn").remove();
   
+  $(".js-compose-text", ".js-docked-compose").off("focus", this.composeInputFocusEvent);
   $(document).off("click", this.documentClickEvent);
   $(document).off("keydown", this.documentKeyEvent);
   $(document).off("uiComposeImageAdded", this.uploadFilesEvent);
