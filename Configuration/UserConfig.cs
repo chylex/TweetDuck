@@ -165,6 +165,29 @@ namespace TweetDuck.Configuration{
                 return false;
             }
         }
+
+        public bool Reload(){
+            try{
+                LoadInternal(false);
+                return true;
+            }catch(FileNotFoundException){
+                try{
+                    Serializer.Write(file, new UserConfig(file));
+                    LoadInternal(false);
+                    return true;
+                }catch(Exception e){
+                    Program.Reporter.HandleException("Configuration Error", "Could not regenerate configuration file.", true, e);
+                    return false;
+                }
+            }catch(Exception e){
+                Program.Reporter.HandleException("Configuration Error", "Could not reload configuration file.", true, e);
+                return false;
+            }
+        }
+
+        private void LoadInternal(bool backup){
+            Serializer.Read(backup ? GetBackupFile(file) : file, this);
+        }
         
         public static UserConfig Load(string file){
             Exception firstException = null;
@@ -172,7 +195,7 @@ namespace TweetDuck.Configuration{
             for(int attempt = 0; attempt < 2; attempt++){
                 try{
                     UserConfig config = new UserConfig(file);
-                    Serializer.Read(attempt == 0 ? file : GetBackupFile(file), config);
+                    config.LoadInternal(attempt > 0);
                     return config;
                 }catch(FileNotFoundException){
                 }catch(DirectoryNotFoundException){

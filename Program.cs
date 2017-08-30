@@ -114,7 +114,7 @@ namespace TweetDuck{
                 }
             }
             
-            ReloadConfig();
+            UserConfig = UserConfig.Load(UserConfigFilePath);
             SystemConfig = SystemConfig.Load(SystemConfigFilePath);
 
             if (Arguments.HasFlag(Arguments.ArgImportCookies)){
@@ -190,7 +190,7 @@ namespace TweetDuck{
         }
 
         public static void ReloadConfig(){
-            UserConfig = UserConfig.Load(UserConfigFilePath);
+            UserConfig.Reload();
         }
 
         public static void ResetConfig(){
@@ -201,7 +201,7 @@ namespace TweetDuck{
                 Reporter.HandleException("Configuration Reset Error", "Could not delete configuration files to reset the options.", true, e);
                 return;
             }
-
+            
             ReloadConfig();
         }
 
