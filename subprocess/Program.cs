@@ -6,6 +6,8 @@ using TweetLib.Communication;
 
 namespace TweetDuck.Browser{
     static class Program{
+        internal const string Version = "1.2.0.0";
+
         private static int Main(string[] args){
             SubProcess.EnableHighDPISupport();
             
