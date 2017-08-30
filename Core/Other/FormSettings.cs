@@ -54,8 +54,17 @@ namespace TweetDuck.Core.Other{
         }
 
         private void btnManageOptions_Click(object sender, EventArgs e){
+            foreach(SettingsTab tab in tabs.Values){
+                if (tab.IsInitialized){
+                    tab.Control.OnClosing();
+                }
+            }
+
             using(DialogSettingsManage dialog = new DialogSettingsManage(plugins)){
                 if (dialog.ShowDialog() == DialogResult.OK){
+                    FormClosing -= FormSettings_FormClosing;
+                    browser.ResumeNotification();
+
                     ShouldReloadBrowser = dialog.ShouldReloadBrowser;
                     Close();
                 }
