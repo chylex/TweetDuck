@@ -90,7 +90,7 @@ namespace TweetDuck.Data.Serialization{
                 HandleUnknownProperties?.Invoke(obj, unknownProperties);
 
                 if (unknownProperties.Count > 0){
-                    throw new SerializationException($"Invalid file format, unknown properties: {string.Join(", ", unknownProperties.Keys)}+");
+                    throw new SerializationException($"Invalid file format, unknown properties: {string.Join(", ", unknownProperties.Keys)}");
                 }
             }
         }
