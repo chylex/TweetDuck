@@ -8,22 +8,24 @@ namespace TweetDuck.Plugins{
     sealed class PluginConfig{
         public event EventHandler<PluginChangedStateEventArgs> InternalPluginChangedState; // should only be accessed from PluginManager
 
-        public IEnumerable<string> DisabledPlugins => Disabled;
-        public bool AnyDisabled => Disabled.Count > 0;
+        public IEnumerable<string> DisabledPlugins => disabled;
+        public bool AnyDisabled => disabled.Count > 0;
 
-        private readonly HashSet<string> Disabled = new HashSet<string>{
+        private static readonly string[] DefaultDisabled = {
             "official/clear-columns",
             "official/reply-account"
         };
 
+        private readonly HashSet<string> disabled = new HashSet<string>();
+
         public void SetEnabled(Plugin plugin, bool enabled){
-            if ((enabled && Disabled.Remove(plugin.Identifier)) || (!enabled && Disabled.Add(plugin.Identifier))){
+            if ((enabled && disabled.Remove(plugin.Identifier)) || (!enabled && disabled.Add(plugin.Identifier))){
                 InternalPluginChangedState?.Invoke(this, new PluginChangedStateEventArgs(plugin, enabled));
             }
         }
 
         public bool IsEnabled(Plugin plugin){
-            return !Disabled.Contains(plugin.Identifier);
+            return !disabled.Contains(plugin.Identifier);
         }
 
         public void Load(string file){
@@ -32,14 +34,20 @@ namespace TweetDuck.Plugins{
                     string line = reader.ReadLine();
 
                     if (line == "#Disabled"){
-                        Disabled.Clear();
+                        disabled.Clear();
 
                         while((line = reader.ReadLine()) != null){
-                            Disabled.Add(line);
+                            disabled.Add(line);
                         }
                     }
                 }
             }catch(FileNotFoundException){
+                disabled.Clear();
+                
+                foreach(string identifier in DefaultDisabled){
+                    disabled.Add(identifier);
+                }
+
                 Save(file);
             }catch(DirectoryNotFoundException){
             }catch(Exception e){
@@ -52,8 +60,8 @@ namespace TweetDuck.Plugins{
                 using(StreamWriter writer = new StreamWriter(new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None), Encoding.UTF8)){
                     writer.WriteLine("#Disabled");
 
-                    foreach(string disabled in Disabled){
-                        writer.WriteLine(disabled);
+                    foreach(string identifier in disabled){
+                        writer.WriteLine(identifier);
                     }
                 }
             }catch(Exception e){

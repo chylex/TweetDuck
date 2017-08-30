@@ -4,8 +4,12 @@ using TweetDuck.Core.Other;
 
 namespace TweetDuck.Core{
     static class FormManager{
+        public static T TryFind<T>() where T : Form{
+            return Application.OpenForms.OfType<T>().FirstOrDefault();
+        }
+
         public static bool TryBringToFront<T>() where T : Form{
-            T form = Application.OpenForms.OfType<T>().FirstOrDefault();
+            T form = TryFind<T>();
 
             if (form != null){
                 form.BringToFront();

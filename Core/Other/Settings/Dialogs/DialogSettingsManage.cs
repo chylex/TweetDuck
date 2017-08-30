@@ -114,6 +114,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
 
                         if (Flags.HasFlag(ExportFileFlags.PluginData)){
                             try{
+                                File.Delete(Program.PluginConfigFilePath);
                                 Directory.Delete(Program.PluginDataPath, true);
                             }catch(Exception ex){
                                 Program.Reporter.HandleException("Plugin Data Reset Error", "Could not delete plugin data.", true, ex);

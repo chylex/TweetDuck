@@ -471,6 +471,7 @@ namespace TweetDuck.Core{
                     }
                     
                     if (form.ShouldReloadBrowser){
+                        FormManager.TryFind<FormPlugins>()?.Close();
                         plugins.Reload(); // also reloads the browser
                     }
                     else{
