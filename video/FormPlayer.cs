@@ -117,7 +117,7 @@ namespace TweetDuck.Video{
 
                 bool isCursorInside = ClientRectangle.Contains(PointToClient(Cursor.Position));
 
-                ClientSize = new Size(Math.Min(media.imageSourceWidth, width*3/4), Math.Min(media.imageSourceHeight, height*3/4));
+                ClientSize = new Size(Math.Max(MinimumSize.Width, Math.Min(media.imageSourceWidth, width*3/4)), Math.Max(MinimumSize.Height, Math.Min(media.imageSourceHeight, height*3/4)));
                 Location = new Point(rect.Left+(width-ClientSize.Width)/2, rect.Top+(height-ClientSize.Height+SystemInformation.CaptionHeight)/2);
 
                 tablePanel.Visible = isCursorInside || isDragging;
