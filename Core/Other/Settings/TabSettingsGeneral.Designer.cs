@@ -204,8 +204,8 @@
             this.panelUI.Controls.Add(this.checkSwitchAccountSelectors);
             this.panelUI.Controls.Add(this.checkSpellCheck);
             this.panelUI.Controls.Add(this.labelZoom);
-            this.panelUI.Controls.Add(this.labelZoomValue);
             this.panelUI.Controls.Add(this.trackBarZoom);
+            this.panelUI.Controls.Add(this.labelZoomValue);
             this.panelUI.Location = new System.Drawing.Point(9, 31);
             this.panelUI.Name = "panelUI";
             this.panelUI.Size = new System.Drawing.Size(322, 157);

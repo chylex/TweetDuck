@@ -110,12 +110,12 @@
             this.panelSoundNotification.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelSoundNotification.Controls.Add(this.labelVolume);
-            this.panelSoundNotification.Controls.Add(this.labelVolumeValue);
             this.panelSoundNotification.Controls.Add(this.trackBarVolume);
             this.panelSoundNotification.Controls.Add(this.btnPlaySound);
             this.panelSoundNotification.Controls.Add(this.tbCustomSound);
             this.panelSoundNotification.Controls.Add(this.btnResetSound);
             this.panelSoundNotification.Controls.Add(this.btnBrowseSound);
+            this.panelSoundNotification.Controls.Add(this.labelVolumeValue);
             this.panelSoundNotification.Location = new System.Drawing.Point(9, 31);
             this.panelSoundNotification.Name = "panelSoundNotification";
             this.panelSoundNotification.Size = new System.Drawing.Size(322, 119);

@@ -79,7 +79,7 @@
             this.labelEdgeDistanceValue.Location = new System.Drawing.Point(147, 129);
             this.labelEdgeDistanceValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelEdgeDistanceValue.Name = "labelEdgeDistanceValue";
-            this.labelEdgeDistanceValue.Size = new System.Drawing.Size(34, 13);
+            this.labelEdgeDistanceValue.Size = new System.Drawing.Size(40, 13);
             this.labelEdgeDistanceValue.TabIndex = 9;
             this.labelEdgeDistanceValue.Text = "0 px";
             this.labelEdgeDistanceValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -253,7 +253,7 @@
             this.labelDurationValue.Location = new System.Drawing.Point(147, 77);
             this.labelDurationValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelDurationValue.Name = "labelDurationValue";
-            this.labelDurationValue.Size = new System.Drawing.Size(48, 13);
+            this.labelDurationValue.Size = new System.Drawing.Size(52, 13);
             this.labelDurationValue.TabIndex = 4;
             this.labelDurationValue.Text = "0 ms/c";
             this.labelDurationValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -406,7 +406,7 @@
             this.labelScrollSpeedValue.Location = new System.Drawing.Point(147, 53);
             this.labelScrollSpeedValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelScrollSpeedValue.Name = "labelScrollSpeedValue";
-            this.labelScrollSpeedValue.Size = new System.Drawing.Size(34, 13);
+            this.labelScrollSpeedValue.Size = new System.Drawing.Size(38, 13);
             this.labelScrollSpeedValue.TabIndex = 4;
             this.labelScrollSpeedValue.Text = "100%";
             this.labelScrollSpeedValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -450,7 +450,6 @@
             // 
             this.panelLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelLocation.Controls.Add(this.labelEdgeDistanceValue);
             this.panelLocation.Controls.Add(this.radioLocTL);
             this.panelLocation.Controls.Add(this.labelDisplay);
             this.panelLocation.Controls.Add(this.trackBarEdgeDistance);
@@ -460,6 +459,7 @@
             this.panelLocation.Controls.Add(this.radioLocBL);
             this.panelLocation.Controls.Add(this.radioLocCustom);
             this.panelLocation.Controls.Add(this.radioLocBR);
+            this.panelLocation.Controls.Add(this.labelEdgeDistanceValue);
             this.panelLocation.Location = new System.Drawing.Point(9, 418);
             this.panelLocation.Name = "panelLocation";
             this.panelLocation.Size = new System.Drawing.Size(322, 165);
