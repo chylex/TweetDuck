@@ -193,6 +193,18 @@ enabled(){
       e.stopPropagation();
     });
     
+    searchInput.addEventListener("keydown", function(e){
+      if (e.keyCode === 13 && $(this).val().length){ // enter
+        let ele = $(".emoji-keyboard-list").children("img").filter(":visible").first();
+        
+        if (ele.length > 0){
+          insertEmoji(ele[0].getAttribute("src"), ele[0].getAttribute("alt"));
+        }
+        
+        e.preventDefault();
+      }
+    });
+    
     searchInput.addEventListener("click", function(){
       $(this).select();
     });
