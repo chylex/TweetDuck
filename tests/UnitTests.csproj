@@ -47,6 +47,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Configuration\TestUserConfig.cs" />
     <Compile Include="Core\TestStringUtils.cs" />
     <Compile Include="Core\TestTwitterUtils.cs" />
     <Compile Include="Data\TestCombinedFileStream.cs" />
