@@ -6,30 +6,30 @@ using TweetDuck.Data;
 
 namespace UnitTests.Data{
     [TestClass]
-    public class TestCombinedFileStream{
+    public class TestCombinedFileStream : UnitTestIO{
         [TestMethod]
         public void TestNoFiles(){
-            using(CombinedFileStream cfs = new CombinedFileStream(TestUtils.WriteFile("cfs_empty"))){
+            using(CombinedFileStream cfs = new CombinedFileStream(File.OpenWrite("cfs_empty"))){
                 cfs.Flush();
             }
 
             Assert.IsTrue(File.Exists("cfs_empty"));
 
-            using(CombinedFileStream cfs = new CombinedFileStream(TestUtils.ReadFile("cfs_empty"))){
+            using(CombinedFileStream cfs = new CombinedFileStream(File.OpenRead("cfs_empty"))){
                 Assert.IsNull(cfs.ReadFile());
             }
 
-            using(CombinedFileStream cfs = new CombinedFileStream(TestUtils.ReadFile("cfs_empty"))){
+            using(CombinedFileStream cfs = new CombinedFileStream(File.OpenRead("cfs_empty"))){
                 Assert.IsNull(cfs.SkipFile());
             }
         }
 
         [TestMethod]
         public void TestEmptyFiles(){
-            TestUtils.WriteText("cfs_input_empty_1", string.Empty);
-            TestUtils.WriteText("cfs_input_empty_2", string.Empty);
+            File.WriteAllText("cfs_input_empty_1", string.Empty);
+            File.WriteAllText("cfs_input_empty_2", string.Empty);
 
-            using(CombinedFileStream cfs = new CombinedFileStream(TestUtils.WriteFile("cfs_blank_files"))){
+            using(CombinedFileStream cfs = new CombinedFileStream(File.OpenWrite("cfs_blank_files"))){
                 cfs.WriteFile("id1", "cfs_input_empty_1");
                 cfs.WriteFile("id2", "cfs_input_empty_2");
                 cfs.WriteFile("id2_clone", "cfs_input_empty_2");
@@ -38,7 +38,7 @@ namespace UnitTests.Data{
 
             Assert.IsTrue(File.Exists("cfs_blank_files"));
 
-            using(CombinedFileStream cfs = new CombinedFileStream(TestUtils.ReadFile("cfs_blank_files"))){
+            using(CombinedFileStream cfs = new CombinedFileStream(File.OpenRead("cfs_blank_files"))){
                 CombinedFileStream.Entry entry1 = cfs.ReadFile();
                 string entry2key = cfs.SkipFile();
                 CombinedFileStream.Entry entry3 = cfs.ReadFile();
@@ -58,21 +58,19 @@ namespace UnitTests.Data{
 
                 entry1.WriteToFile("cfs_blank_file_1");
                 entry3.WriteToFile("cfs_blank_file_2");
-                TestUtils.DeleteFileOnExit("cfs_blank_file_1");
-                TestUtils.DeleteFileOnExit("cfs_blank_file_2");
             }
 
             Assert.IsTrue(File.Exists("cfs_blank_file_1"));
             Assert.IsTrue(File.Exists("cfs_blank_file_2"));
-            Assert.AreEqual(string.Empty, TestUtils.ReadText("cfs_blank_file_1"));
-            Assert.AreEqual(string.Empty, TestUtils.ReadText("cfs_blank_file_2"));
+            Assert.AreEqual(string.Empty, File.ReadAllText("cfs_blank_file_1"));
+            Assert.AreEqual(string.Empty, File.ReadAllText("cfs_blank_file_2"));
         }
 
         [TestMethod]
         public void TestTextFilesAndComplexKeys(){
-            TestUtils.WriteText("cfs_input_text_1", "Hello World!"+Environment.NewLine);
+            File.WriteAllText("cfs_input_text_1", "Hello World!"+Environment.NewLine);
 
-            using(CombinedFileStream cfs = new CombinedFileStream(TestUtils.WriteFile("cfs_text_files"))){
+            using(CombinedFileStream cfs = new CombinedFileStream(File.OpenWrite("cfs_text_files"))){
                 cfs.WriteFile(new string[]{ "key1", "a", "bb", "ccc", "dddd" }, "cfs_input_text_1");
                 cfs.WriteFile(new string[]{ "key2", "a", "bb", "ccc", "dddd" }, "cfs_input_text_1");
                 cfs.Flush();
@@ -80,7 +78,7 @@ namespace UnitTests.Data{
 
             Assert.IsTrue(File.Exists("cfs_text_files"));
 
-            using(CombinedFileStream cfs = new CombinedFileStream(TestUtils.ReadFile("cfs_text_files"))){
+            using(CombinedFileStream cfs = new CombinedFileStream(File.OpenRead("cfs_text_files"))){
                 CombinedFileStream.Entry entry = cfs.ReadFile();
 
                 Assert.AreEqual("key2", cfs.SkipFile());
@@ -92,11 +90,10 @@ namespace UnitTests.Data{
                 CollectionAssert.AreEqual(new string[]{ "a", "bb", "ccc", "dddd" }, entry.KeyValue);
 
                 entry.WriteToFile("cfs_text_file_1");
-                TestUtils.DeleteFileOnExit("cfs_text_file_1");
             }
 
             Assert.IsTrue(File.Exists("cfs_text_file_1"));
-            Assert.AreEqual("Hello World!"+Environment.NewLine, TestUtils.ReadText("cfs_text_file_1"));
+            Assert.AreEqual("Hello World!"+Environment.NewLine, File.ReadAllText("cfs_text_file_1"));
         }
 
         [TestMethod]
@@ -105,9 +102,9 @@ namespace UnitTests.Data{
                 Directory.Delete("cfs_directory", true);
             }
 
-            TestUtils.WriteText("cfs_input_dir_1", "test");
+            File.WriteAllText("cfs_input_dir_1", "test");
 
-            using(CombinedFileStream cfs = new CombinedFileStream(TestUtils.WriteFile("cfs_dir_test"))){
+            using(CombinedFileStream cfs = new CombinedFileStream(File.OpenWrite("cfs_dir_test"))){
                 cfs.WriteFile("key1", "cfs_input_dir_1");
                 cfs.WriteFile("key2", "cfs_input_dir_1");
                 cfs.WriteFile("key3", "cfs_input_dir_1");
@@ -117,7 +114,7 @@ namespace UnitTests.Data{
 
             Assert.IsTrue(File.Exists("cfs_dir_test"));
 
-            using(CombinedFileStream cfs = new CombinedFileStream(TestUtils.ReadFile("cfs_dir_test"))){
+            using(CombinedFileStream cfs = new CombinedFileStream(File.OpenRead("cfs_dir_test"))){
                 try{
                     cfs.ReadFile().WriteToFile("cfs_directory/cfs_dir_test_file", false);
                     Assert.Fail("WriteToFile did not trigger an exception.");
@@ -126,33 +123,31 @@ namespace UnitTests.Data{
                 cfs.ReadFile().WriteToFile("cfs_directory/cfs_dir_test_file", true);
                 cfs.ReadFile().WriteToFile("cfs_dir_test_file", true);
                 cfs.ReadFile().WriteToFile("cfs_dir_test_file.txt", true);
-                TestUtils.DeleteFileOnExit("cfs_dir_test_file");
-                TestUtils.DeleteFileOnExit("cfs_dir_test_file.txt");
             }
 
             Assert.IsTrue(Directory.Exists("cfs_directory"));
             Assert.IsTrue(File.Exists("cfs_directory/cfs_dir_test_file"));
             Assert.IsTrue(File.Exists("cfs_dir_test_file"));
             Assert.IsTrue(File.Exists("cfs_dir_test_file.txt"));
-            Assert.AreEqual("test", TestUtils.ReadText("cfs_directory/cfs_dir_test_file"));
-            Assert.AreEqual("test", TestUtils.ReadText("cfs_dir_test_file"));
-            Assert.AreEqual("test", TestUtils.ReadText("cfs_dir_test_file.txt"));
+            Assert.AreEqual("test", File.ReadAllText("cfs_directory/cfs_dir_test_file"));
+            Assert.AreEqual("test", File.ReadAllText("cfs_dir_test_file"));
+            Assert.AreEqual("test", File.ReadAllText("cfs_dir_test_file.txt"));
 
             Directory.Delete("cfs_directory", true);
         }
 
         [TestMethod]
         public void TestLongIdentifierSuccess(){
-            TestUtils.WriteText("cfs_long_identifier_fail_in", "test");
+            File.WriteAllText("cfs_long_identifier_fail_in", "test");
 
             string identifier = string.Join("", Enumerable.Repeat("x", 255));
 
-            using(CombinedFileStream cfs = new CombinedFileStream(TestUtils.WriteFile("cfs_long_identifier_success"))){
+            using(CombinedFileStream cfs = new CombinedFileStream(File.OpenWrite("cfs_long_identifier_success"))){
                 cfs.WriteFile(identifier, "cfs_long_identifier_fail_in");
                 cfs.Flush();
             }
 
-            using(CombinedFileStream cfs = new CombinedFileStream(TestUtils.ReadFile("cfs_long_identifier_success"))){
+            using(CombinedFileStream cfs = new CombinedFileStream(File.OpenRead("cfs_long_identifier_success"))){
                 Assert.AreEqual(identifier, cfs.ReadFile().Identifier);
             }
         }
@@ -160,9 +155,9 @@ namespace UnitTests.Data{
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void TestLongIdentifierFail(){
-            TestUtils.WriteText("cfs_long_identifier_fail_in", "test");
+            File.WriteAllText("cfs_long_identifier_fail_in", "test");
 
-            using(CombinedFileStream cfs = new CombinedFileStream(TestUtils.WriteFile("cfs_long_identifier_fail"))){
+            using(CombinedFileStream cfs = new CombinedFileStream(File.OpenWrite("cfs_long_identifier_fail"))){
                 cfs.WriteFile(string.Join("", Enumerable.Repeat("x", 256)), "cfs_long_identifier_fail_in");
             }
         }

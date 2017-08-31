@@ -5,7 +5,7 @@ using TweetDuck.Data.Serialization;
 
 namespace UnitTests.Data{
     [TestClass]
-    public class TestFileSerializer{
+    public class TestFileSerializer : UnitTestIO{
         private enum TestEnum{
             A, B, C, D, E
         }
@@ -31,9 +31,7 @@ namespace UnitTests.Data{
             };
 
             serializer.Write("serialized_basic", write);
-
             Assert.IsTrue(File.Exists("serialized_basic"));
-            TestUtils.DeleteFileOnExit("serialized_basic");
 
             SerializationTestBasic read = new SerializationTestBasic();
             serializer.Read("serialized_basic", read);
