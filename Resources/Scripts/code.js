@@ -460,6 +460,10 @@
       }
     };
     
+    var processMedia = function(media){
+      return media.filter(item => !item.isAnimatedGif).map(item => item.entity.media_url_https+":small").join(";");
+    };
+    
     app.delegate("section.js-column", "mouseenter mouseleave", function(e){
       if (e.type === "mouseenter"){
         if (!highlightedColumnObj){
@@ -483,8 +487,7 @@
           let tweetUrl = tweet.getChirpURL();
           let quoteUrl = tweet.quotedTweet ? tweet.quotedTweet.getChirpURL() : "";
           let authors = tweet.quotedTweet ? [ tweet.getMainUser().screenName, tweet.quotedTweet.getMainUser().screenName ].join(";") : tweet.getMainUser().screenName;
-          let imageList = tweet.hasImage() ? tweet.getMedia().filter(item => !item.isAnimatedGif).map(item => item.entity.media_url_https+":small").join(";") : "";
-          // TODO maybe handle embedded images too?
+          let imageList = tweet.quotedTweet ? processMedia(tweet.quotedTweet.getMedia()) : tweet.hasImage() ? processMedia(tweet.getMedia()) : "";
           
           updateHighlightedTweet(me, tweet, tweetUrl || "", quoteUrl || "", authors, imageList);
         }
