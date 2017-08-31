@@ -72,10 +72,10 @@ namespace TweetDuck.Core.Bridge{
             form.InvokeAsyncSafe(form.OpenContextMenu);
         }
 
-        public void OnTweetPopup(string columnKey, string chirpId, string columnName, string tweetHtml, int tweetCharacters, string tweetUrl, string quoteUrl){
+        public void OnTweetPopup(string columnId, string chirpId, string columnName, string tweetHtml, int tweetCharacters, string tweetUrl, string quoteUrl){
             notification.InvokeAsyncSafe(() => {
                 form.OnTweetNotification();
-                notification.ShowNotification(new TweetNotification(columnKey, chirpId, columnName, tweetHtml, tweetCharacters, tweetUrl, quoteUrl));
+                notification.ShowNotification(new TweetNotification(columnId, chirpId, columnName, tweetHtml, tweetCharacters, tweetUrl, quoteUrl));
             });
         }
 
