@@ -30,11 +30,11 @@ namespace UnitTests.Data{
                 TestEnum = TestEnum.D
             };
 
-            serializer.Write("serialized_basic", write);
-            Assert.IsTrue(File.Exists("serialized_basic"));
+            serializer.Write("basic_wr", write);
+            Assert.IsTrue(File.Exists("basic_wr"));
 
             SerializationTestBasic read = new SerializationTestBasic();
-            serializer.Read("serialized_basic", read);
+            serializer.Read("basic_wr", read);
 
             Assert.IsTrue(read.TestBool);
             Assert.AreEqual(-100, read.TestInt);
