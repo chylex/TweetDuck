@@ -450,13 +450,13 @@
       return !!highlightedColumnObj;
     };
     
-    var updateHighlightedTweet = function(ele, obj, link, embeddedLink, author, imageList){
+    var updateHighlightedTweet = function(ele, obj, tweetUrl, quoteUrl, authors, imageList){
       highlightedTweetEle = ele;
       highlightedTweetObj = obj;
       
-      if (lastTweet !== link){
-        $TD.setLastHighlightedTweet(link, embeddedLink, author, imageList);
-        lastTweet = link;
+      if (lastTweet !== tweetUrl){
+        $TD.setLastHighlightedTweet(tweetUrl, quoteUrl, authors, imageList);
+        lastTweet = tweetUrl;
       }
     };
     
@@ -480,13 +480,13 @@
         return if !tweet;
         
         if (tweet.chirpType === TD.services.ChirpBase.TWEET){
-          let link = tweet.getChirpURL();
-          let embedded = tweet.quotedTweet ? tweet.quotedTweet.getChirpURL() : "";
-          let username = tweet.getMainUser().screenName;
-          let images = tweet.hasImage() ? tweet.getMedia().filter(item => !item.isAnimatedGif).map(item => item.entity.media_url_https+":small").join(";") : "";
+          let tweetUrl = tweet.getChirpURL();
+          let quoteUrl = tweet.quotedTweet ? tweet.quotedTweet.getChirpURL() : "";
+          let authors = tweet.quotedTweet ? [ tweet.getMainUser().screenName, tweet.quotedTweet.getMainUser().screenName ].join(";") : tweet.getMainUser().screenName;
+          let imageList = tweet.hasImage() ? tweet.getMedia().filter(item => !item.isAnimatedGif).map(item => item.entity.media_url_https+":small").join(";") : "";
           // TODO maybe handle embedded images too?
-
-          updateHighlightedTweet(me, tweet, link || "", embedded || "", username, images);
+          
+          updateHighlightedTweet(me, tweet, tweetUrl || "", quoteUrl || "", authors, imageList);
         }
         else{
           updateHighlightedTweet(me, tweet, "", "", "", "");

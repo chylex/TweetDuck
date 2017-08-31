@@ -7,6 +7,7 @@ using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TweetDuck.Core.Handling{
     abstract class ContextMenuBase : IContextMenuHandler{
@@ -38,7 +39,7 @@ namespace TweetDuck.Core.Handling{
 
         private readonly Form form;
         
-        private string lastHighlightedTweetAuthor;
+        private string[] lastHighlightedTweetAuthors;
         private string[] lastHighlightedTweetImageList;
 
         protected ContextMenuBase(Form form){
@@ -47,13 +48,13 @@ namespace TweetDuck.Core.Handling{
 
         public virtual void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model){
             if (!TwitterUtils.IsTweetDeckWebsite(frame) || browser.IsLoading){
-                lastHighlightedTweetAuthor = string.Empty;
+                lastHighlightedTweetAuthors = StringUtils.EmptyArray;
                 lastHighlightedTweetImageList = StringUtils.EmptyArray;
                 ContextInfo = default(KeyValuePair<string, string>);
             }
             else{
-                lastHighlightedTweetAuthor = TweetDeckBridge.LastHighlightedTweetAuthor;
-                lastHighlightedTweetImageList = TweetDeckBridge.LastHighlightedTweetImages;
+                lastHighlightedTweetAuthors = TweetDeckBridge.LastHighlightedTweetAuthorsArray;
+                lastHighlightedTweetImageList = TweetDeckBridge.LastHighlightedTweetImagesArray;
             }
 
             bool hasTweetImage = IsImage;
@@ -124,13 +125,13 @@ namespace TweetDuck.Core.Handling{
                         TwitterUtils.DownloadVideo(GetMediaLink(parameters));
                     }
                     else{
-                        TwitterUtils.DownloadImage(GetMediaLink(parameters), lastHighlightedTweetAuthor, ImageQuality);
+                        TwitterUtils.DownloadImage(GetMediaLink(parameters), lastHighlightedTweetAuthors.LastOrDefault(), ImageQuality);
                     }
 
                     break;
 
                 case MenuSaveTweetImages:
-                    TwitterUtils.DownloadImages(lastHighlightedTweetImageList, lastHighlightedTweetAuthor, ImageQuality);
+                    TwitterUtils.DownloadImages(lastHighlightedTweetImageList, lastHighlightedTweetAuthors.LastOrDefault(), ImageQuality);
                     break;
                     
                 case MenuOpenDevTools:

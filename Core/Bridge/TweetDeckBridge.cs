@@ -13,13 +13,16 @@ namespace TweetDuck.Core.Bridge{
     sealed class TweetDeckBridge{
         public static string LastHighlightedTweetUrl = string.Empty;
         public static string LastHighlightedQuoteUrl = string.Empty;
-        public static string LastHighlightedTweetAuthor = string.Empty;
-        public static string[] LastHighlightedTweetImages = StringUtils.EmptyArray;
-        public static Dictionary<string, string> SessionData = new Dictionary<string, string>(2);
+        private static string LastHighlightedTweetAuthors = string.Empty;
+        private static string LastHighlightedTweetImages = string.Empty;
+
+        public static string[] LastHighlightedTweetAuthorsArray => LastHighlightedTweetAuthors.Split(';');
+        public static string[] LastHighlightedTweetImagesArray => LastHighlightedTweetImages.Split(';');
+
+        private static readonly Dictionary<string, string> SessionData = new Dictionary<string, string>(2);
 
         public static void ResetStaticProperties(){
-            LastHighlightedTweetUrl = LastHighlightedQuoteUrl = LastHighlightedTweetAuthor = string.Empty;
-            LastHighlightedTweetImages = StringUtils.EmptyArray;
+            LastHighlightedTweetUrl = LastHighlightedQuoteUrl = LastHighlightedTweetAuthors = LastHighlightedTweetImages = string.Empty;
         }
 
         public static void RestoreSessionData(IFrame frame){
@@ -59,12 +62,12 @@ namespace TweetDuck.Core.Bridge{
             form.InvokeAsyncSafe(() => ContextMenuBase.SetContextInfo(type, link));
         }
 
-        public void SetLastHighlightedTweet(string tweetUrl, string quoteUrl, string author, string imageList){
+        public void SetLastHighlightedTweet(string tweetUrl, string quoteUrl, string authors, string imageList){
             form.InvokeAsyncSafe(() => {
                 LastHighlightedTweetUrl = tweetUrl;
                 LastHighlightedQuoteUrl = quoteUrl;
-                LastHighlightedTweetAuthor = author;
-                LastHighlightedTweetImages = imageList.Split(';');
+                LastHighlightedTweetAuthors = authors;
+                LastHighlightedTweetImages = imageList;
             });
         }
 
