@@ -29,7 +29,7 @@ namespace TweetDuck.Core.Handling{
             base.OnBeforeContextMenu(browserControl, browser, frame, parameters, model);
 
             if (enableCustomMenu){
-                if (!string.IsNullOrEmpty(form.CurrentChirpId)){
+                if (form.CanViewDetail){
                     model.AddItem(MenuViewDetail, "View detail");
                 }
 
