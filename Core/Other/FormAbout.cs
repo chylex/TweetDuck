@@ -1,4 +1,6 @@
-﻿using System.Windows.Forms;
+﻿using System.ComponentModel;
+using System.Windows.Forms;
+using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Other{
@@ -20,6 +22,26 @@ namespace TweetDuck.Core.Other{
 
         private void OnLinkClicked(object sender, LinkLabelLinkClickedEventArgs e){
             BrowserUtils.OpenExternalBrowserUnsafe(e.Link.LinkData as string);
+        }
+
+        private void FormAbout_HelpRequested(object sender, HelpEventArgs hlpevent){
+            ShowGuide();
+        }
+
+        private void FormAbout_HelpButtonClicked(object sender, CancelEventArgs e){
+            e.Cancel = true;
+            ShowGuide();
+        }
+
+        private void ShowGuide(){
+            FormGuide form = new FormGuide();
+
+            form.VisibleChanged += (sender, args) => {
+                form.MoveToCenter(this);
+                Close();
+            };
+
+            form.Show();
         }
     }
 }

@@ -46,6 +46,12 @@ namespace TweetDuck.Core.Bridge{
             this.notification = notification;
         }
 
+        public void OnIntroductionClosed(bool showGuide){
+            form.InvokeAsyncSafe(() => {
+                form.OnIntroductionClosed(showGuide);
+            });
+        }
+
         public void LoadFontSizeClass(string fsClass){
             form.InvokeAsyncSafe(() => {
                TweetNotification.SetFontSizeClass(fsClass);

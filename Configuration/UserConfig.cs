@@ -44,6 +44,8 @@ namespace TweetDuck.Configuration{
         
         // CONFIGURATION DATA
 
+        public bool FirstRun { get; set; } = true;
+
         public WindowState BrowserWindow { get; set; } = new WindowState();
         public WindowState PluginsWindow { get; set; } = new WindowState();
 

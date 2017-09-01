@@ -131,11 +131,14 @@ namespace TweetDuck.Core.Other {
             this.Controls.Add(this.labelDescription);
             this.Controls.Add(this.pictureLogo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.HelpButton = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormAbout";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.FormAbout_HelpButtonClicked);
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.FormAbout_HelpRequested);
             ((System.ComponentModel.ISupportInitialize)(this.pictureLogo)).EndInit();
             this.tablePanelLinks.ResumeLayout(false);
             this.tablePanelLinks.PerformLayout();
