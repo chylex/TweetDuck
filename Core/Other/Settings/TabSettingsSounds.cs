@@ -24,7 +24,7 @@ namespace TweetDuck.Core.Other.Settings{
             labelVolumeValue.Text = trackBarVolume.Value+"%";
 
             tbCustomSound.Text = Config.NotificationSoundPath;
-            tbCustomSound_TextChanged(tbCustomSound, new EventArgs());
+            tbCustomSound_TextChanged(tbCustomSound, EventArgs.Empty);
 
             Disposed += (sender, args) => soundNotification.Dispose();
         }

@@ -145,7 +145,7 @@ namespace TweetDuck.Core.Notification{
 
         private void Browser_IsBrowserInitializedChanged(object sender, IsBrowserInitializedChangedEventArgs e){
             if (e.IsBrowserInitialized){
-                Initialized?.Invoke(this, new EventArgs());
+                Initialized?.Invoke(this, EventArgs.Empty);
 
                 int identifier = browser.GetBrowser().Identifier;
                 Disposed += (sender2, args2) => BrowserProcesses.Forget(identifier);

@@ -105,7 +105,7 @@ namespace TweetDuck.Configuration{
             set{
                 if (_muteNotifications != value){
                     _muteNotifications = value;
-                    MuteToggled?.Invoke(this, new EventArgs());
+                    MuteToggled?.Invoke(this, EventArgs.Empty);
                 }
             }
         }
@@ -116,7 +116,7 @@ namespace TweetDuck.Configuration{
             set{
                 if (_zoomLevel != value){
                     _zoomLevel = value;
-                    ZoomLevelChanged?.Invoke(this, new EventArgs());
+                    ZoomLevelChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
         }
@@ -129,7 +129,7 @@ namespace TweetDuck.Configuration{
             set{
                 if (_trayBehavior != value){
                     _trayBehavior = value;
-                    TrayBehaviorChanged?.Invoke(this, new EventArgs());
+                    TrayBehaviorChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
         }

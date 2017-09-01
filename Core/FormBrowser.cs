@@ -377,7 +377,7 @@ namespace TweetDuck.Core{
             if (isLoaded){
                 if (m.Msg == Program.WindowRestoreMessage){
                     if (WindowsUtils.CurrentProcessID == m.WParam.ToInt32()){
-                        trayIcon_ClickRestore(trayIcon, new EventArgs());
+                        trayIcon_ClickRestore(trayIcon, EventArgs.Empty);
                     }
 
                     return;
