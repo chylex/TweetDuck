@@ -408,7 +408,15 @@
   })();
   
   //
-  // Block: Allow bypassing of t.co and include media previews in context menus.
+  // Block: Bypass t.co when clicking links.
+  //
+  $(document.body).delegate("a[data-full-url]", "click", function(e){
+    $TD.openBrowser($(this).attr("data-full-url"));
+    e.preventDefault();
+  });
+  
+  //
+  // Block: Bypass t.co and include additional information in context menus.
   //
   $(document.body).delegate("a", "contextmenu", function(){
     let me = $(this)[0];
