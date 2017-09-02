@@ -460,6 +460,9 @@ enabled(){
 .drawer .btn .icon, .app-header .btn .icon { line-height: 1em !important }
 .column-header .column-type-icon { bottom: 26px !important }
 .is-options-open .column-type-icon { bottom: 25px !important }
+
+.tweet-action-item .icon-favorite-toggle { font-size: 16px !important; }
+.tweet-action-item .heartsprite { top: -260% !important; left: -260% !important; transform: scale(0.4, 0.39) translateY(0.5px) !important; }
 .tweet-footer { margin-top: 6px !important }`;
       
       document.head.appendChild(this.icons);
