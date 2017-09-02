@@ -7,7 +7,9 @@
 }
 
 #td-introduction-modal .mdl {
-  height: 315px;
+  width: 90%;
+  max-width: 680px;
+  height: 296px;
 }
 
 #td-introduction-modal .mdl-header-title {
@@ -15,11 +17,12 @@
 }
 
 #td-introduction-modal .mdl-content {
-  padding: 4px 0;
+  padding: 4px 16px;
+  overflow-y: auto;
 }
 
 #td-introduction-modal p {
-  padding: 12px 16px 0;
+  margin: 12px 0;
   font-size: 1.4rem;
 }
 
@@ -46,10 +49,10 @@
     </header>
     <div class="mdl-inner">
       <div class="mdl-content">
-        <p>Thanks for downloading TweetDuck!</p>
+        <p>Thank you for downloading TweetDuck!</p>
         <p>Right-click anywhere or click <strong>Settings &ndash; TweetDuck</strong> to access the main menu.</p>
         <p>If you are using TweetDuck for the first time, check out the <strong>guide</strong> that showcases many great features TweetDuck offers and answers some common questions.</p>
-        <p>You can also access the guide later by opening the main menu, selecting <strong>About TweetDuck</strong>, and clicking the help button.</p>
+        <p>You can also view the guide by opening the main menu, going to <strong>About TweetDuck</strong> and clicking the help button.</p>
       </div>
       <footer class="txt-right">
         <button class="btn btn-positive" data-guide><span class="label">Show Guide</span></button>
@@ -60,9 +63,13 @@
 </div>`).appendTo(".js-app");
     
     ele.find("button, a").click(function(){
-      $TD.onIntroductionClosed($(this)[0].hasAttribute("data-guide"));
-      ele.remove();
-      css.remove();
+      let showGuide = $(this)[0].hasAttribute("data-guide");
+      
+      ele.fadeOut(200, function(){
+        $TD.onIntroductionClosed(showGuide);
+        ele.remove();
+        css.remove();
+      });
     });
   });
 })($, $TD);
