@@ -173,7 +173,7 @@ namespace TweetDuck.Core.Other.Management{
         }
 
         private void TriggerProcessExitEventUnsafe(){
-            ProcessExited?.Invoke(this, new EventArgs());
+            ProcessExited?.Invoke(this, EventArgs.Empty);
         }
     }
 }

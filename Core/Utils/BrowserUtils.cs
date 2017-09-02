@@ -42,23 +42,42 @@ namespace TweetDuck.Core.Utils{
             }
         }
 
-        public static bool IsValidUrl(string url){
+        private const string TwitterTrackingUrl = "t.co";
+
+        public enum UrlCheckResult{
+            Invalid, Tracking, Fine
+        }
+
+        public static UrlCheckResult CheckUrl(string url){
             if (Uri.TryCreate(url, UriKind.Absolute, out Uri uri)){
                 string scheme = uri.Scheme;
-                return scheme == Uri.UriSchemeHttp || scheme == Uri.UriSchemeHttps || scheme == Uri.UriSchemeFtp || scheme == Uri.UriSchemeMailto;
+
+                if (scheme == Uri.UriSchemeHttps || scheme == Uri.UriSchemeHttp || scheme == Uri.UriSchemeFtp || scheme == Uri.UriSchemeMailto){
+                    return uri.Host == TwitterTrackingUrl ? UrlCheckResult.Tracking : UrlCheckResult.Fine;
+                }
             }
 
-            return false;
+            return UrlCheckResult.Invalid;
         }
 
         public static void OpenExternalBrowser(string url){
             if (string.IsNullOrWhiteSpace(url))return;
 
-            if (IsValidUrl(url)){
-                OpenExternalBrowserUnsafe(url);
-            }
-            else{
-                FormMessage.Warning("Blocked URL", "A potentially malicious URL was blocked from opening:\n"+url, FormMessage.OK);
+            switch(CheckUrl(url)){
+                case UrlCheckResult.Fine:
+                    OpenExternalBrowserUnsafe(url);
+                    break;
+
+                case UrlCheckResult.Tracking:
+                    if (FormMessage.Warning("Blocked URL", "TweetDuck has blocked a tracking url due to privacy concerns. Do you want to visit it anyway?\n"+url, FormMessage.Yes, FormMessage.No)){
+                        OpenExternalBrowserUnsafe(url);
+                    }
+
+                    break;
+
+                case UrlCheckResult.Invalid:
+                    FormMessage.Warning("Blocked URL", "A potentially malicious URL was blocked from opening:\n"+url, FormMessage.OK);
+                    break;
             }
         }
 

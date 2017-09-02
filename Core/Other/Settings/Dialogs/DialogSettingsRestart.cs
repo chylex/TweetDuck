@@ -38,7 +38,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                 tbDataFolder.TextChanged += control_Change;
             }
 
-            control_Change(this, new EventArgs());
+            control_Change(this, EventArgs.Empty);
 
             Text = Program.BrandName+" Arguments";
         }

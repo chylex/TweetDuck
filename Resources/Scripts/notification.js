@@ -14,14 +14,16 @@
   };
   
   //
-  // Block: Hook into links to bypass default open function.
+  // Block: Hook into links to bypass default open function and t.co.
   //
   addEventListener(links, "click", function(e){
-    $TD.openBrowser(e.currentTarget.getAttribute("href"));
+    let ele = e.currentTarget;
+    
+    $TD.openBrowser(ele.hasAttribute("data-full-url") ? ele.getAttribute("data-full-url") : ele.getAttribute("href"));
     e.preventDefault();
     
     if ($TDX.skipOnLinkClick){
-      let parentClasses = e.currentTarget.parentNode.classList;
+      let parentClasses = ele.parentNode.classList;
       
       if (parentClasses.contains("js-tweet-text") || parentClasses.contains("js-quoted-tweet-text") || parentClasses.contains("js-timestamp")){
         $TD.loadNextNotification();
@@ -33,7 +35,7 @@
   // Block: Allow bypassing of t.co in context menus.
   //
   addEventListener(links, "contextmenu", function(e){
-    $TD.setLastRightClickedLink(e.currentTarget.getAttribute("data-full-url") || "");
+    $TD.setLastRightClickInfo("link", e.currentTarget.getAttribute("data-full-url"));
   });
   
   //
