@@ -120,12 +120,12 @@ namespace TweetDuck.Core.Bridge{
             form.InvokeAsyncSafe(WindowsUtils.ClipboardStripHtmlStyles);
         }
 
-        public int GetIdleSeconds(){
-            return NativeMethods.GetIdleSeconds();
+        public void OpenBrowser(string url){
+            form.InvokeAsyncSafe(() => BrowserUtils.OpenExternalBrowser(url));
         }
 
-        public void OpenBrowser(string url){
-            BrowserUtils.OpenExternalBrowser(url);
+        public int GetIdleSeconds(){
+            return NativeMethods.GetIdleSeconds();
         }
 
         public void Alert(string type, string contents){

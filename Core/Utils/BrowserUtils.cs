@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
+using CefSharp.WinForms;
 using TweetDuck.Core.Other;
 
 namespace TweetDuck.Core.Utils{
@@ -40,6 +41,10 @@ namespace TweetDuck.Core.Utils{
             else{
                 args["js-flags"] = "--expose-gc";
             }
+        }
+
+        public static ChromiumWebBrowser AsControl(this IWebBrowser browserControl){
+            return (ChromiumWebBrowser)browserControl;
         }
 
         private const string TwitterTrackingUrl = "t.co";

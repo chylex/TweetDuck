@@ -13,7 +13,7 @@ namespace TweetDuck.Core.Handling{
         private readonly FormNotificationBase form;
         private readonly bool enableCustomMenu;
 
-        public ContextMenuNotification(FormNotificationBase form, bool enableCustomMenu) : base(form){
+        public ContextMenuNotification(FormNotificationBase form, bool enableCustomMenu){
             this.form = form;
             this.enableCustomMenu = enableCustomMenu;
         }
@@ -76,11 +76,11 @@ namespace TweetDuck.Core.Handling{
                     return true;
 
                 case MenuCopyTweetUrl:
-                    SetClipboardText(form.CurrentTweetUrl);
+                    SetClipboardText(form, form.CurrentTweetUrl);
                     return true;
 
                 case MenuCopyQuotedTweetUrl:
-                    SetClipboardText(form.CurrentQuoteUrl);
+                    SetClipboardText(form, form.CurrentQuoteUrl);
                     return true;
             }
 
