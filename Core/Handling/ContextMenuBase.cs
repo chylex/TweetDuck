@@ -100,7 +100,7 @@ namespace TweetDuck.Core.Handling{
         public virtual bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags){
             switch(commandId){
                 case MenuOpenLinkUrl:
-                    BrowserUtils.OpenExternalBrowser(parameters.LinkUrl);
+                    BrowserUtils.OpenExternalBrowser(IsLink ? ContextInfo.Value : parameters.LinkUrl);
                     break;
 
                 case MenuCopyLinkUrl:
