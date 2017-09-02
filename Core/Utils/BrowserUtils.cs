@@ -52,7 +52,7 @@ namespace TweetDuck.Core.Utils{
             if (Uri.TryCreate(url, UriKind.Absolute, out Uri uri)){
                 string scheme = uri.Scheme;
 
-                if (scheme == Uri.UriSchemeHttp || scheme == Uri.UriSchemeHttps || scheme == Uri.UriSchemeFtp || scheme == Uri.UriSchemeMailto){
+                if (scheme == Uri.UriSchemeHttps || scheme == Uri.UriSchemeHttp || scheme == Uri.UriSchemeFtp || scheme == Uri.UriSchemeMailto){
                     return uri.Host == TwitterTrackingUrl ? UrlCheckResult.Tracking : UrlCheckResult.Fine;
                 }
             }
