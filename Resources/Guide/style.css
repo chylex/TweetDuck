@@ -1,0 +1,55 @@
+body {
+  margin: 0;
+  font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
+  background-color: #222;
+  color: #ddd;
+}
+
+#guide {
+  width: 100%;
+  max-width: 1440px;
+  display: flex;
+  flex-wrap: wrap;
+  align-self: stretch;
+}
+
+#guide section {
+  flex: 1 1 0;
+  margin: 0 24px;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+}
+
+#guide h2 {
+  margin: 32px 0 10px;
+  font-size: 32px;
+  cursor: default;
+}
+
+#guide h2:first-child {
+  margin-top: 24px;
+}
+
+#guide h3 {
+  display: inline-block;
+  margin: 10px 0 12px;
+  padding: 0 8px;
+  font-size: 19px;
+  opacity: 0.75;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+#guide h3:hover {
+  opacity: 1;
+}
+
+#guide h3::before {
+  content: "▶";
+  display: inline-block;
+  font-size: 13px;
+  vertical-align: top;
+  margin-right: 6px;
+  padding-top: 2px;
+}
