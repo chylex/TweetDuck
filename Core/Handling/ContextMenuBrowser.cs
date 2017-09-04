@@ -29,7 +29,7 @@ namespace TweetDuck.Core.Handling{
         private string lastHighlightedTweetUrl;
         private string lastHighlightedQuoteUrl;
 
-        public ContextMenuBrowser(FormBrowser form) : base(form){
+        public ContextMenuBrowser(FormBrowser form){
             this.form = form;
         }
 
@@ -118,11 +118,11 @@ namespace TweetDuck.Core.Handling{
                     return true;
 
                 case MenuOpenTweetUrl:
-                    BrowserUtils.OpenExternalBrowser(lastHighlightedTweetUrl);
+                    OpenBrowser(form, lastHighlightedTweetUrl);
                     return true;
 
                 case MenuCopyTweetUrl:
-                    SetClipboardText(lastHighlightedTweetUrl);
+                    SetClipboardText(form, lastHighlightedTweetUrl);
                     return true;
 
                 case MenuScreenshotTweet:
@@ -130,11 +130,11 @@ namespace TweetDuck.Core.Handling{
                     return true;
 
                 case MenuOpenQuotedTweetUrl:
-                    BrowserUtils.OpenExternalBrowser(lastHighlightedQuoteUrl);
+                    OpenBrowser(form, lastHighlightedQuoteUrl);
                     return true;
 
                 case MenuCopyQuotedTweetUrl:
-                    SetClipboardText(lastHighlightedQuoteUrl);
+                    SetClipboardText(form, lastHighlightedQuoteUrl);
                     return true;
             }
 

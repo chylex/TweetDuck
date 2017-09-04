@@ -36,15 +36,9 @@ namespace TweetDuck.Core.Handling{
         private const CefMenuCommand MenuSaveMedia       = (CefMenuCommand)26505;
         private const CefMenuCommand MenuSaveTweetImages = (CefMenuCommand)26506;
         private const CefMenuCommand MenuOpenDevTools    = (CefMenuCommand)26599;
-
-        private readonly Form form;
         
         private string[] lastHighlightedTweetAuthors;
         private string[] lastHighlightedTweetImageList;
-
-        protected ContextMenuBase(Form form){
-            this.form = form;
-        }
 
         public virtual void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model){
             if (!TwitterUtils.IsTweetDeckWebsite(frame) || browser.IsLoading){
@@ -100,24 +94,24 @@ namespace TweetDuck.Core.Handling{
         public virtual bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags){
             switch(commandId){
                 case MenuOpenLinkUrl:
-                    BrowserUtils.OpenExternalBrowser(parameters.LinkUrl);
+                    OpenBrowser(browserControl.AsControl(), IsLink ? ContextInfo.Value : parameters.LinkUrl);
                     break;
 
                 case MenuCopyLinkUrl:
-                    SetClipboardText(IsLink ? ContextInfo.Value : parameters.UnfilteredLinkUrl);
+                    SetClipboardText(browserControl.AsControl(), IsLink ? ContextInfo.Value : parameters.UnfilteredLinkUrl);
                     break;
 
                 case MenuCopyUsername:
                     Match match = TwitterUtils.RegexAccount.Match(parameters.UnfilteredLinkUrl);
-                    SetClipboardText(match.Success ? match.Groups[1].Value : parameters.UnfilteredLinkUrl);
+                    SetClipboardText(browserControl.AsControl(), match.Success ? match.Groups[1].Value : parameters.UnfilteredLinkUrl);
                     break;
 
                 case MenuOpenMediaUrl:
-                    BrowserUtils.OpenExternalBrowser(TwitterUtils.GetMediaLink(GetMediaLink(parameters), ImageQuality));
+                    OpenBrowser(browserControl.AsControl(), TwitterUtils.GetMediaLink(GetMediaLink(parameters), ImageQuality));
                     break;
 
                 case MenuCopyMediaUrl:
-                    SetClipboardText(TwitterUtils.GetMediaLink(GetMediaLink(parameters), ImageQuality));
+                    SetClipboardText(browserControl.AsControl(), TwitterUtils.GetMediaLink(GetMediaLink(parameters), ImageQuality));
                     break;
 
                 case MenuSaveMedia:
@@ -150,8 +144,12 @@ namespace TweetDuck.Core.Handling{
             return false;
         }
 
-        protected void SetClipboardText(string text){
-            form.InvokeAsyncSafe(() => WindowsUtils.SetClipboard(text, TextDataFormat.UnicodeText));
+        protected void OpenBrowser(Control control, string url){
+            control.InvokeAsyncSafe(() => BrowserUtils.OpenExternalBrowser(url));
+        }
+
+        protected void SetClipboardText(Control control, string text){
+            control.InvokeAsyncSafe(() => WindowsUtils.SetClipboard(text, TextDataFormat.UnicodeText));
         }
         
         protected static void AddDebugMenuItems(IMenuModel model){

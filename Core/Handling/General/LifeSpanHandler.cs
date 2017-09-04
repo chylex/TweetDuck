@@ -1,4 +1,5 @@
 ﻿using CefSharp;
+using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Handling.General{
@@ -11,7 +12,7 @@ namespace TweetDuck.Core.Handling.General{
                 case WindowOpenDisposition.NewForegroundTab:
                 case WindowOpenDisposition.NewPopup:
                 case WindowOpenDisposition.NewWindow:
-                    BrowserUtils.OpenExternalBrowser(targetUrl);
+                    browserControl.AsControl().InvokeAsyncSafe(() => BrowserUtils.OpenExternalBrowser(targetUrl));
                     return true;
 
                 default:

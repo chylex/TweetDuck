@@ -356,10 +356,9 @@
     var prevMouseX = -1, prevMouseY = -1;
     var tooltipTimer, tooltipDisplayed;
     
-    $(document.body).delegate("a[data-full-url]", "mouseenter mouseleave mousemove", function(e){
-      var me = $(this);
-
-      if (e.type === "mouseenter"){
+    $(document.body).delegate("a[data-full-url]", {
+      mouseenter: function(){
+        let me = $(this);
         let text = me.text();
         return if text.charCodeAt(text.length-1) !== 8230; // horizontal ellipsis
         
@@ -380,14 +379,13 @@
             tooltipDisplayed = true;
           }, 400);
         }
-      }
-      else if (e.type === "mouseleave"){
-        if ($TDX.expandLinksOnHover){
-          let prevText = me.attr("td-prev-text");
-
-          if (prevText){
-            me.text(prevText);
-          }
+      },
+      
+      mouseleave: function(){
+        let me = $(this);
+        
+        if (me[0].hasAttribute("td-prev-text")){
+          me.text(me.attr("td-prev-text"));
         }
         
         window.clearTimeout(tooltipTimer);
@@ -396,10 +394,11 @@
           tooltipDisplayed = false;
           $TD.displayTooltip(null, false);
         }
-      }
-      else if (e.type === "mousemove"){
+      },
+      
+      mousemove: function(e){
         if (tooltipDisplayed && (prevMouseX !== e.clientX || prevMouseY !== e.clientY)){
-          $TD.displayTooltip(me.attr("data-full-url"), false);
+          $TD.displayTooltip($(this).attr("data-full-url"), false);
           prevMouseX = e.clientX;
           prevMouseY = e.clientY;
         }
@@ -472,19 +471,20 @@
       return media.filter(item => !item.isAnimatedGif).map(item => item.entity.media_url_https+":small").join(";");
     };
     
-    app.delegate("section.js-column", "mouseenter mouseleave", function(e){
-      if (e.type === "mouseenter"){
+    app.delegate("section.js-column", {
+      mouseenter: function(){
         if (!highlightedColumnObj){
           updateHighlightedColumn($(this));
         }
-      }
-      else if (e.type === "mouseleave"){
+      },
+      
+      mouseleave: function(){
         updateHighlightedColumn(null);
       }
     });
     
-    app.delegate("article.js-stream-item", "mouseenter mouseleave", function(e){
-      if (e.type === "mouseenter"){
+    app.delegate("article.js-stream-item", {
+      mouseenter: function(){
         let me = $(this);
         return if !me[0].hasAttribute("data-account-key") || (!highlightedColumnObj && !updateHighlightedColumn(me.closest("section.js-column")));
         
@@ -502,8 +502,9 @@
         else{
           updateHighlightedTweet(me, tweet, "", "", "", "");
         }
-      }
-      else if (e.type === "mouseleave"){
+      },
+      
+      mouseleave: function(){
         updateHighlightedTweet(null, null, "", "", "", "");
       }
     });
