@@ -407,15 +407,49 @@
   })();
   
   //
-  // Block: Bypass t.co when clicking links.
+  // Block: Bypass t.co when clicking links and media.
   //
   $(document.body).delegate("a[data-full-url]", "click", function(e){
     $TD.openBrowser($(this).attr("data-full-url"));
     e.preventDefault();
   });
   
+  if (ensurePropertyExists(TD, "services", "TwitterUser", "prototype", "fromJSONObject")){
+    let prevFunc = TD.services.TwitterUser.prototype.fromJSONObject;
+    
+    TD.services.TwitterUser.prototype.fromJSONObject = function(){
+      let obj = prevFunc.apply(this, arguments);
+      let e = arguments[0].entities;
+      
+      if (e && e.url && e.url.urls && e.url.urls.length && e.url.urls[0].expanded_url){
+        obj.url = e.url.urls[0].expanded_url;
+      }
+      
+      return obj;
+    };
+  }
+  
+  if (ensurePropertyExists(TD, "services", "TwitterMedia", "prototype", "fromMediaEntity")){
+    let prevFunc = TD.services.TwitterMedia.prototype.fromMediaEntity;
+    
+    TD.services.TwitterMedia.prototype.fromMediaEntity = function(){
+      let obj = prevFunc.apply(this, arguments);
+      let e = arguments[0];
+      
+      if (e.expanded_url){
+        if (obj.url === obj.shortUrl){
+          obj.shortUrl = e.expanded_url;
+        }
+        
+        obj.url = e.expanded_url;
+      }
+      
+      return obj;
+    };
+  }
+  
   //
-  // Block: Bypass t.co and include additional information in context menus.
+  // Block: Include additional information in context menus.
   //
   $(document.body).delegate("a", "contextmenu", function(){
     let me = $(this)[0];
@@ -716,9 +750,7 @@
     
     $(".js-drawer[data-drawer='compose']").delegate(".js-account-list > .js-account-item", "click", onAccountClick);
     
-    if (!ensurePropertyExists(TD, "components", "AccountSelector", "prototype", "refreshPostingAccounts")){
-      return;
-    }
+    return if !ensurePropertyExists(TD, "components", "AccountSelector", "prototype", "refreshPostingAccounts");
     
     TD.components.AccountSelector.prototype.refreshPostingAccounts = appendToFunction(TD.components.AccountSelector.prototype.refreshPostingAccounts, function(){
       if (!this.$node.attr("td-account-selector-hook")){
