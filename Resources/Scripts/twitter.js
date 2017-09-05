@@ -39,4 +39,25 @@
   };
   
   setTimeout(injectCSS, 1);
+  
+  //
+  // Block: Make login page links external.
+  //
+  if (location.pathname === "/login"){
+    document.addEventListener("DOMContentLoaded", function(){
+      let openLinkExternally = function(e){
+        let href = e.currentTarget.getAttribute("href");
+        $TD.openBrowser(href[0] === '/' ? location.origin+href : href);
+
+        e.preventDefault();
+        e.stopPropagation();
+      };
+
+      let links = document.getElementsByTagName("A");
+
+      for(let index = 0; index < links.length; index++){
+        links[index].addEventListener("click", openLinkExternally);
+      }
+    });
+  }
 })();
