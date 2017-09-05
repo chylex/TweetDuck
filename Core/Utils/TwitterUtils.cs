@@ -14,7 +14,7 @@ namespace TweetDuck.Core.Utils{
         public static readonly Color BackgroundColor = Color.FromArgb(28, 99, 153);
         public const string BackgroundColorFix = "let e=document.createElement('style');document.head.appendChild(e);e.innerHTML='body::before{background:#1c6399!important}'";
         
-        private static readonly Lazy<Regex> RegexAccountLazy = new Lazy<Regex>(() => new Regex(@"^https?://twitter\.com/([^/]+)/?$", RegexOptions.Compiled), false);
+        private static readonly Lazy<Regex> RegexAccountLazy = new Lazy<Regex>(() => new Regex(@"^https?://twitter\.com/(?!signup$|tos$|privacy$)([^/]+)/?$", RegexOptions.Compiled), false);
         public static Regex RegexAccount => RegexAccountLazy.Value;
 
         public static readonly string[] DictionaryWords = {
