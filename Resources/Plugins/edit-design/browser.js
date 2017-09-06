@@ -342,12 +342,12 @@ enabled(){
           this.css.insert(".app-content, .app-columns-container { background-color: #444448 }");
           this.css.insert(".column-drag-handle { opacity: 0.5 }");
           this.css.insert(".column-drag-handle:hover { opacity: 1 }");
-          this.css.insert(".scroll-styled-v::-webkit-scrollbar-thumb, .scroll-styled-h::-webkit-scrollbar-thumb { background-color: #666 }");
+          this.css.insert(".scroll-styled-v:not(.scroll-alt)::-webkit-scrollbar-thumb, .scroll-styled-h:not(.scroll-alt)::-webkit-scrollbar-thumb { background-color: #666 }");
           notificationScrollbarColor = "666";
           break;
 
         case "light":
-          this.css.insert(".scroll-styled-v::-webkit-scrollbar-thumb, .scroll-styled-h::-webkit-scrollbar-thumb { background-color: #d2d6da }");
+          this.css.insert(".scroll-styled-v:not(.scroll-alt)::-webkit-scrollbar-thumb, .scroll-styled-h:not(.scroll-alt)::-webkit-scrollbar-thumb { background-color: #d2d6da }");
           this.css.insert(".app-columns-container.scroll-styled-h::-webkit-scrollbar-thumb:not(:hover) { background-color: #a5aeb5 }");
           notificationScrollbarColor = "a5aeb5";
           break;
