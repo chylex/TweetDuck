@@ -981,6 +981,28 @@
   });
   
   //
+  // Block: Make temporary search column appear as the first one and clear the input box.
+  //
+  $(document).on("uiSearchNoTemporaryColumn", function(e, data){
+    if (data.query && data.searchScope !== "users" && !data.columnKey){
+      if ($TDX.openSearchInFirstColumn){
+        let order = TD.controller.columnManager._columnOrder;
+        
+        if (order.length > 1){
+          let columnKey = order[order.length-1];
+          
+          order.splice(order.length-1, 1);
+          order.splice(1, 0, columnKey);
+          TD.controller.columnManager.move(columnKey, "left");
+        }
+      }
+      
+      $(".js-app-search-input").val("");
+      $(".js-perform-search").blur();
+    }
+  });
+  
+  //
   // Block: Fix DM reply input box not getting focused after opening a conversation.
   //
   if (ensurePropertyExists(TD, "components", "ConversationDetailView", "prototype", "showChirp")){

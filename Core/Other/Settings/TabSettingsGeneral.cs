@@ -27,6 +27,7 @@ namespace TweetDuck.Core.Other.Settings{
 
             checkExpandLinks.Checked = Config.ExpandLinksOnHover;
             checkSwitchAccountSelectors.Checked = Config.SwitchAccountSelectors;
+            checkOpenSearchInFirstColumn.Checked = Config.OpenSearchInFirstColumn;
             checkBestImageQuality.Checked = Config.BestImageQuality;
             checkSpellCheck.Checked = Config.EnableSpellCheck;
 
@@ -39,6 +40,7 @@ namespace TweetDuck.Core.Other.Settings{
         public override void OnReady(){
             checkExpandLinks.CheckedChanged += checkExpandLinks_CheckedChanged;
             checkSwitchAccountSelectors.CheckedChanged += checkSwitchAccountSelectors_CheckedChanged;
+            checkOpenSearchInFirstColumn.CheckedChanged += checkOpenSearchInFirstColumn_CheckedChanged;
             checkBestImageQuality.CheckedChanged += checkBestImageQuality_CheckedChanged;
             checkSpellCheck.CheckedChanged += checkSpellCheck_CheckedChanged;
             trackBarZoom.ValueChanged += trackBarZoom_ValueChanged;
@@ -60,6 +62,10 @@ namespace TweetDuck.Core.Other.Settings{
 
         private void checkSwitchAccountSelectors_CheckedChanged(object sender, EventArgs e){
             Config.SwitchAccountSelectors = checkSwitchAccountSelectors.Checked;
+        }
+
+        private void checkOpenSearchInFirstColumn_CheckedChanged(object sender, EventArgs e){
+            Config.OpenSearchInFirstColumn = checkOpenSearchInFirstColumn.Checked;
         }
 
         private void checkBestImageQuality_CheckedChanged(object sender, EventArgs e){
