@@ -14,13 +14,6 @@ namespace TweetDuck.Core.Other.Settings{
             this.updates.CheckFinished += updates_CheckFinished;
             Disposed += (sender, args) => this.updates.CheckFinished -= updates_CheckFinished;
             
-            comboBoxTrayType.Items.Add("Disabled");
-            comboBoxTrayType.Items.Add("Display Icon Only");
-            comboBoxTrayType.Items.Add("Minimize to Tray");
-            comboBoxTrayType.Items.Add("Close to Tray");
-            comboBoxTrayType.Items.Add("Combined");
-            comboBoxTrayType.SelectedIndex = Math.Min(Math.Max((int)Config.TrayBehavior, 0), comboBoxTrayType.Items.Count-1);
-            
             toolTip.SetToolTip(trackBarZoom, toolTip.GetToolTip(labelZoomValue));
             trackBarZoom.SetValueSafe(Config.ZoomLevel);
             labelZoomValue.Text = trackBarZoom.Value+"%";
@@ -30,9 +23,6 @@ namespace TweetDuck.Core.Other.Settings{
             checkOpenSearchInFirstColumn.Checked = Config.OpenSearchInFirstColumn;
             checkBestImageQuality.Checked = Config.BestImageQuality;
             checkSpellCheck.Checked = Config.EnableSpellCheck;
-
-            checkTrayHighlight.Enabled = Config.TrayBehavior.ShouldDisplayIcon();
-            checkTrayHighlight.Checked = Config.EnableTrayHighlight;
 
             checkUpdateNotifications.Checked = Config.EnableUpdateCheck;
         }
@@ -44,9 +34,6 @@ namespace TweetDuck.Core.Other.Settings{
             checkBestImageQuality.CheckedChanged += checkBestImageQuality_CheckedChanged;
             checkSpellCheck.CheckedChanged += checkSpellCheck_CheckedChanged;
             trackBarZoom.ValueChanged += trackBarZoom_ValueChanged;
-
-            comboBoxTrayType.SelectedIndexChanged += comboBoxTrayType_SelectedIndexChanged;
-            checkTrayHighlight.CheckedChanged += checkTrayHighlight_CheckedChanged;
 
             checkUpdateNotifications.CheckedChanged += checkUpdateNotifications_CheckedChanged;
             btnCheckUpdates.Click += btnCheckUpdates_Click;
@@ -83,15 +70,6 @@ namespace TweetDuck.Core.Other.Settings{
                 zoomUpdateTimer.Start();
                 labelZoomValue.Text = trackBarZoom.Value+"%";
             }
-        }
-
-        private void comboBoxTrayType_SelectedIndexChanged(object sender, EventArgs e){
-            Config.TrayBehavior = (TrayIcon.Behavior)comboBoxTrayType.SelectedIndex;
-            checkTrayHighlight.Enabled = Config.TrayBehavior.ShouldDisplayIcon();
-        }
-
-        private void checkTrayHighlight_CheckedChanged(object sender, EventArgs e){
-            Config.EnableTrayHighlight = checkTrayHighlight.Checked;
         }
 
         private void checkUpdateNotifications_CheckedChanged(object sender, EventArgs e){

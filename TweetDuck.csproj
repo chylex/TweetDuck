@@ -170,6 +170,12 @@
       <DependentUpon>DialogSettingsRestart.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\Other\Management\BrowserProcesses.cs" />
+    <Compile Include="Core\Other\Settings\TabSettingsTray.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Core\Other\Settings\TabSettingsTray.Designer.cs">
+      <DependentUpon>TabSettingsTray.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\Utils\StringUtils.cs" />
     <Compile Include="Core\Utils\TwitterUtils.cs" />
     <Compile Include="Data\CombinedFileStream.cs" />
