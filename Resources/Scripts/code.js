@@ -409,9 +409,11 @@
   //
   // Block: Bypass t.co when clicking links and media.
   //
-  $(document.body).delegate("a[data-full-url]", "click", function(e){
-    $TD.openBrowser($(this).attr("data-full-url"));
-    e.preventDefault();
+  $(document.body).delegate("a[data-full-url]", "click auxclick", function(e){
+    if (e.button === 0 || e.button === 1){ // event.which seems to be borked in auxclick
+      $TD.openBrowser($(this).attr("data-full-url"));
+      e.preventDefault();
+    }
   });
   
   if (ensurePropertyExists(TD, "services", "TwitterUser", "prototype", "fromJSONObject")){
