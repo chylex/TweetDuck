@@ -85,6 +85,7 @@ namespace TweetDuck.Core{
 
             this.browser = new ChromiumWebBrowser("https://tweetdeck.twitter.com/"){
                 DialogHandler = new FileDialogHandler(),
+                DragHandler = new DragHandlerBrowser(),
                 MenuHandler = new ContextMenuBrowser(this),
                 JsDialogHandler = new JavaScriptDialogHandler(),
                 KeyboardHandler = new KeyboardHandlerBrowser(this),

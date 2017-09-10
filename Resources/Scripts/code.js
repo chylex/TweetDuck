@@ -684,6 +684,46 @@
   })();
   
   //
+  // Block: Allow drag & drop behavior for dropping links on columns to open their detail view.
+  //
+  (function(){
+    let tweetRegex = /^https?:\/\/twitter\.com\/[A-Za-z0-9_]+\/status\/(\d+)\/?$/;
+    let isDraggingValid = false;
+    
+    window.TDGF_onGlobalDragStart = function(type, data){
+      isDraggingValid = type === "link" && tweetRegex.test(data);
+    };
+    
+    app.delegate("section.js-column", {
+      dragover: function(e){
+        e.originalEvent.dataTransfer.dropEffect = isDraggingValid ? "move" : "none";
+        e.preventDefault();
+        e.stopPropagation();
+      },
+      
+      drop: function(e){
+        let match = tweetRegex.exec(e.originalEvent.dataTransfer.getData("URL"));
+        
+        if (match.length === 2){
+          let column = TD.controller.columnManager.get($(this).attr("data-column"));
+          
+          if (column){
+            TD.controller.clients.getPreferredClient().show(match[1], function(chirp){
+              TD.ui.updates.showDetailView(column, chirp, column.findChirp(chirp) || chirp);
+              $(document).trigger("uiGridClearSelection");
+            }, function(){
+              alert("error|Could not retrieve the requested tweet.");
+            });
+          }
+        }
+        
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    });
+  })();
+  
+  //
   // Block: Fix scheduled tweets not showing up sometimes.
   //
   $(document).on("dataTweetSent", function(e, data){
