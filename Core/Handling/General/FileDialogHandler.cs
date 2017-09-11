@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -20,7 +21,8 @@ namespace TweetDuck.Core.Handling.General{
                     Filter = $"All Supported Formats ({allFilters})|{allFilters}|All Files (*.*)|*.*"
                 }){
                     if (dialog.ShowDialog() == DialogResult.OK){
-                        callback.Continue(acceptFilters.FindIndex(filter => filter == Path.GetExtension(dialog.FileName)), dialog.FileNames.ToList());
+                        string ext = Path.GetExtension(dialog.FileName);
+                        callback.Continue(acceptFilters.FindIndex(filter => filter.Equals(ext, StringComparison.OrdinalIgnoreCase)), dialog.FileNames.ToList());
                     }
                     else{
                         callback.Cancel();
