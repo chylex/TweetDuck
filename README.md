@@ -16,7 +16,9 @@ PM> Install-Package Microsoft.VC120.CRT.JetBrains
 
 ### Debug
 
-It is recommended to create a separate data folder for debugging, otherwise you will not be able to run TweetDuck while debugging the solution. To do that, open **TweetDuck Properties**, click the **Debug** tab, make sure your **Configuration** is set to `Active (Debug)` (or just `Debug`), and insert this into the **Command line arguments** field:
+It is recommended to create a separate data folder for debugging, otherwise you will not be able to run TweetDuck while debugging the solution.
+
+To do that, open **TweetDuck Properties**, click the **Debug** tab, make sure your **Configuration** is set to `Active (Debug)` (or just `Debug`), and insert this into the **Command line arguments** field:
 ```
 -datafolder TweetDuckDebug
 ```
@@ -44,7 +46,7 @@ After the window closes, three installers will be generated inside the **bld/Out
   * This is a lightweight update installer that only contains the most important files that usually change across releases
   * It will automatically download and apply the full installer if the user's current version of CEF does not match (the download link is in `gen_upd.iss` and points to this repository by default)
 * **TweetDuck.Portable.exe**
-  * This is a portable installer that can be ran without administrator privileges
+  * This is a portable installer that does not need administrator privileges
   * It automatically creates a `makeportable` file in the program folder, which forces TweetDuck to run in portable mode
 
 Note: There is a small chance you will see a resource error when running `RUN BUILD.bat`. If that happens, close the console window (which will terminate all Inno Setup processes and leave corrupted installer files in the output folder), and run it again.
