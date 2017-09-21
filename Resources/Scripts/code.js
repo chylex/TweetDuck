@@ -587,6 +587,7 @@
         
         if (isReply){
           selectedTweet.find(".is-conversation").removeClass("is-conversation");
+          selectedTweet.find(".thread").remove();
         }
         
         selectedTweet.find(".js-poll-link").remove();
