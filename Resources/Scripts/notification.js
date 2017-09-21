@@ -42,10 +42,6 @@
   // Block: Expand shortened links on hover or display tooltip.
   //
   (function(){
-    var cutStart = function(str, search){
-      return str.startsWith(search) ? str.substr(search.length) : str;
-    };
-    
     var prevMouseX = -1, prevMouseY = -1;
     var tooltipTimer, tooltipDisplayed;
     
@@ -60,13 +56,8 @@
 
       if ($TDX.expandLinksOnHover){
         tooltipTimer = window.setTimeout(function(){
-          var expanded = url;
-          expanded = cutStart(expanded, "https://");
-          expanded = cutStart(expanded, "http://");
-          expanded = cutStart(expanded, "www.");
-
           me.setAttribute("td-prev-text", text);
-          me.innerHTML = expanded;
+          me.innerHTML = url.replace(/^https?:\/\/(www\.)?/, "");
         }, 200);
       }
       else{
@@ -112,11 +103,11 @@
   // Block: Setup a skip button.
   //
   if (!document.body.hasAttribute("td-example-notification")){
-    document.body.insertAdjacentHTML("afterbegin", [
-      '<svg id="td-skip" xmlns="http://www.w3.org/2000/svg" width="10" height="17" viewBox="0 0 350 600" style="position:fixed;left:30px;bottom:10px;z-index:1000">',
-      '<path fill="#888" d="M0,151.656l102.208-102.22l247.777,247.775L102.208,544.986L0,442.758l145.546-145.547">',
-      '</svg>'
-    ].join(""));
+    document.body.insertAdjacentHTML("afterbegin", `
+<svg id="td-skip" width="10" height="17" viewBox="0 0 350 600">
+  <path fill="#888" d="M0,151.656l102.208-102.22l247.777,247.775L102.208,544.986L0,442.758l145.546-145.547">
+</svg>
+`);
     
     document.getElementById("td-skip").addEventListener("click", function(){
       $TD.loadNextNotification();

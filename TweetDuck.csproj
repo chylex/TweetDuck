@@ -88,6 +88,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Core\FormManager.cs" />
+    <Compile Include="Core\Handling\DragHandlerBrowser.cs" />
     <Compile Include="Core\Handling\General\BrowserProcessHandler.cs" />
     <Compile Include="Core\Handling\ContextMenuBase.cs" />
     <Compile Include="Core\Handling\ContextMenuBrowser.cs" />
@@ -176,6 +177,12 @@
       <DependentUpon>DialogSettingsRestart.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\Other\Management\BrowserProcesses.cs" />
+    <Compile Include="Core\Other\Settings\TabSettingsTray.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Core\Other\Settings\TabSettingsTray.Designer.cs">
+      <DependentUpon>TabSettingsTray.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\Utils\StringUtils.cs" />
     <Compile Include="Core\Utils\TwitterUtils.cs" />
     <Compile Include="Data\CombinedFileStream.cs" />
@@ -339,6 +346,8 @@
     <Content Include="Resources\Scripts\plugins.browser.js" />
     <Content Include="Resources\Scripts\plugins.js" />
     <Content Include="Resources\Scripts\plugins.notification.js" />
+    <Content Include="Resources\Scripts\styles\browser.css" />
+    <Content Include="Resources\Scripts\styles\notification.css" />
     <Content Include="Resources\Scripts\twitter.js" />
     <Content Include="Resources\Scripts\update.js" />
   </ItemGroup>

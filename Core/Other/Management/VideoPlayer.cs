@@ -147,7 +147,15 @@ namespace TweetDuck.Core.Other.Management{
         }
 
         private void process_Exited(object sender, EventArgs e){
-            switch(currentProcess.ExitCode){
+            int exitCode = currentProcess.ExitCode;
+
+            currentProcess.Dispose();
+            currentProcess = null;
+
+            currentPipe.Dispose();
+            currentPipe = null;
+
+            switch(exitCode){
                 case 3: // CODE_LAUNCH_FAIL
                     if (FormMessage.Error("Video Playback Error", "Error launching video player, this may be caused by missing Windows Media Player. Do you want to open the video in a browser?", FormMessage.Yes, FormMessage.No)){
                         BrowserUtils.OpenExternalBrowser(lastUrl);
@@ -162,12 +170,6 @@ namespace TweetDuck.Core.Other.Management{
 
                     break;
             }
-
-            currentProcess.Dispose();
-            currentProcess = null;
-
-            currentPipe.Dispose();
-            currentPipe = null;
             
             owner.InvokeAsyncSafe(TriggerProcessExitEventUnsafe);
         }

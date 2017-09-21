@@ -270,7 +270,9 @@
     tags.push("<style type='text/css'>");
     tags.push("body { background: "+getClassStyleProperty("column", "background-color")+" }"); // set background color
     tags.push("a[data-full-url] { word-break: break-all }"); // break long urls
-    tags.push(".txt-base-smallest .badge-verified:before { width: 13px !important; height: 13px !important; background-position: -223px -98px !important; }"); // fix cut off badge icon
+    tags.push(".txt-base-smallest .badge-verified:before { width: 13px !important; height: 13px !important; background-position: -223px -98px !important }"); // fix cut off badge icon
+    tags.push(".media-item, .media-preview { border-radius: 1px !important }"); // square-ify media
+    tags.push(".quoted-tweet { border-radius: 0 !important }"); // square-ify quoted tweets
     tags.push(".activity-header { align-items: center !important; margin-bottom: 4px }"); // tweak alignment of avatar and text in notifications
     tags.push(".activity-header .tweet-timestamp { line-height: unset }"); // fix timestamp position in notifications
     tags.push("</style>");
@@ -328,9 +330,8 @@
         let menu = $(".js-dropdown-content").children("ul").first();
         return if menu.length === 0;
         
-        menu.children(".drp-h-divider").last().before('<li class="is-selectable" data-std><a href="#" data-action="tweetduck">TweetDuck</a></li>');
-        
-        let button = menu.children("[data-std]");
+        let button = $('<li class="is-selectable" data-tweetduck><a href="#" data-action>TweetDuck</a></li>');
+        button.insertBefore(menu.children(".drp-h-divider").last());
 
         button.on("click", "a", function(){
           $TD.openContextMenu();
@@ -349,10 +350,6 @@
   // Block: Expand shortened links on hover or display tooltip.
   //
   (function(){
-    var cutStart = function(str, search){
-      return str.startsWith(search) ? str.substr(search.length) : str;
-    };
-    
     var prevMouseX = -1, prevMouseY = -1;
     var tooltipTimer, tooltipDisplayed;
     
@@ -364,13 +361,8 @@
         
         if ($TDX.expandLinksOnHover){
           tooltipTimer = window.setTimeout(function(){
-            let expanded = me.attr("data-full-url");
-            expanded = cutStart(expanded, "https://");
-            expanded = cutStart(expanded, "http://");
-            expanded = cutStart(expanded, "www.");
-
             me.attr("td-prev-text", text);
-            me.text(expanded);
+            me.text(me.attr("data-full-url").replace(/^https?:\/\/(www\.)?/, ""));
           }, 200);
         }
         else{
@@ -407,15 +399,51 @@
   })();
   
   //
-  // Block: Bypass t.co when clicking links.
+  // Block: Bypass t.co when clicking links and media.
   //
-  $(document.body).delegate("a[data-full-url]", "click", function(e){
-    $TD.openBrowser($(this).attr("data-full-url"));
-    e.preventDefault();
+  $(document.body).delegate("a[data-full-url]", "click auxclick", function(e){
+    if (e.button === 0 || e.button === 1){ // event.which seems to be borked in auxclick
+      $TD.openBrowser($(this).attr("data-full-url"));
+      e.preventDefault();
+    }
   });
   
+  if (ensurePropertyExists(TD, "services", "TwitterUser", "prototype", "fromJSONObject")){
+    let prevFunc = TD.services.TwitterUser.prototype.fromJSONObject;
+    
+    TD.services.TwitterUser.prototype.fromJSONObject = function(){
+      let obj = prevFunc.apply(this, arguments);
+      let e = arguments[0].entities;
+      
+      if (e && e.url && e.url.urls && e.url.urls.length && e.url.urls[0].expanded_url){
+        obj.url = e.url.urls[0].expanded_url;
+      }
+      
+      return obj;
+    };
+  }
+  
+  if (ensurePropertyExists(TD, "services", "TwitterMedia", "prototype", "fromMediaEntity")){
+    let prevFunc = TD.services.TwitterMedia.prototype.fromMediaEntity;
+    
+    TD.services.TwitterMedia.prototype.fromMediaEntity = function(){
+      let obj = prevFunc.apply(this, arguments);
+      let e = arguments[0];
+      
+      if (e.expanded_url){
+        if (obj.url === obj.shortUrl){
+          obj.shortUrl = e.expanded_url;
+        }
+        
+        obj.url = e.expanded_url;
+      }
+      
+      return obj;
+    };
+  }
+  
   //
-  // Block: Bypass t.co and include additional information in context menus.
+  // Block: Include additional information in context menus.
   //
   $(document.body).delegate("a", "contextmenu", function(){
     let me = $(this)[0];
@@ -561,6 +589,7 @@
         
         if (isReply){
           selectedTweet.find(".is-conversation").removeClass("is-conversation");
+          selectedTweet.find(".thread").remove();
         }
         
         selectedTweet.find(".js-poll-link").remove();
@@ -648,6 +677,46 @@
   })();
   
   //
+  // Block: Allow drag & drop behavior for dropping links on columns to open their detail view.
+  //
+  (function(){
+    let tweetRegex = /^https?:\/\/twitter\.com\/[A-Za-z0-9_]+\/status\/(\d+)\/?$/;
+    let isDraggingValid = false;
+    
+    window.TDGF_onGlobalDragStart = function(type, data){
+      isDraggingValid = type === "link" && tweetRegex.test(data);
+    };
+    
+    app.delegate("section.js-column", {
+      dragover: function(e){
+        e.originalEvent.dataTransfer.dropEffect = isDraggingValid ? "move" : "none";
+        e.preventDefault();
+        e.stopPropagation();
+      },
+      
+      drop: function(e){
+        let match = tweetRegex.exec(e.originalEvent.dataTransfer.getData("URL"));
+        
+        if (match.length === 2){
+          let column = TD.controller.columnManager.get($(this).attr("data-column"));
+          
+          if (column){
+            TD.controller.clients.getPreferredClient().show(match[1], function(chirp){
+              TD.ui.updates.showDetailView(column, chirp, column.findChirp(chirp) || chirp);
+              $(document).trigger("uiGridClearSelection");
+            }, function(){
+              alert("error|Could not retrieve the requested tweet.");
+            });
+          }
+        }
+        
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    });
+  })();
+  
+  //
   // Block: Fix scheduled tweets not showing up sometimes.
   //
   $(document).on("dataTweetSent", function(e, data){
@@ -716,9 +785,7 @@
     
     $(".js-drawer[data-drawer='compose']").delegate(".js-account-list > .js-account-item", "click", onAccountClick);
     
-    if (!ensurePropertyExists(TD, "components", "AccountSelector", "prototype", "refreshPostingAccounts")){
-      return;
-    }
+    return if !ensurePropertyExists(TD, "components", "AccountSelector", "prototype", "refreshPostingAccounts");
     
     TD.components.AccountSelector.prototype.refreshPostingAccounts = appendToFunction(TD.components.AccountSelector.prototype.refreshPostingAccounts, function(){
       if (!this.$node.attr("td-account-selector-hook")){
@@ -759,74 +826,24 @@
   // Block: Inject custom CSS and layout into the page.
   //
   (function(){
-    let styleOfficial = document.createElement("style");
-    document.head.appendChild(styleOfficial);
-    
-    let addRule = (rule) => {
-      styleOfficial.sheet.insertRule(rule, 0);
+    var createStyle = function(id, styles){
+      let ele = document.createElement("style");
+      ele.id = id;
+      ele.innerText = styles;
+      document.head.appendChild(ele);
     };
     
-    addRule("a[data-full-url] { word-break: break-all; }"); // break long urls
-    addRule(".keyboard-shortcut-list { vertical-align: top; }"); // fix keyboard navigation alignment
-    addRule(".account-inline .username { vertical-align: 10%; }"); // move usernames a bit higher
-    addRule(".character-count-compose { width: 40px !important; }"); // fix strangely wide character count element
-    addRule(".is-video a:not([href*='youtu']) .icon-bg-dot, .is-gif .icon-bg-dot { color: #9f51cf; }"); // change play icon on mp4s
-    
-    addRule(".column-nav-link .attribution { position: absolute; }"); // fix cut off account names
-    addRule(".txt-base-smallest .sprite-verified-mini { width: 13px !important; height: 13px !important; background-position: -223px -99px !important; }"); // fix cut off badge icon when zoomed in
-    addRule(".txt-base-smallest .badge-verified:before { width: 13px !important; height: 13px !important; background-position: -223px -98px !important; }"); // fix cut off badge icon in notifications
-    
-    addRule(".btn, .mdl, .mdl-content, .app-search-fake, .app-search-input, .popover, .lst-modal, .media-item, .media-preview, .tooltip-inner { border-radius: 1px !important; }"); // square-ify buttons, dialogs, menus, media previews
-    addRule(".compose-text-container, .dropdown-menu, .list-item-last, .quoted-tweet, .input-group-button, input, textarea, select { border-radius: 0 !important; }"); // square-ify dropdowns, inputs, quoted tweets, and account selectors
-    addRule(".prf-header { border-radius: 0; }"); // fix user account header border
-    
-    addRule(".accs li, .accs img { border-radius: 0 !important; }"); // square-ify retweet account selector
-    addRule(".accs-header { padding-left: 0 !important; }"); // fix retweet account selector heading
-    
-    addRule(".scroll-styled-v::-webkit-scrollbar-thumb, .scroll-styled-h::-webkit-scrollbar-thumb, .antiscroll-scrollbar { border-radius: 0; }"); // square-ify scroll bars
-    addRule(".antiscroll-scrollbar-vertical { margin-top: 0; }"); // square-ify scroll bars
-    addRule(".antiscroll-scrollbar-horizontal { margin-left: 0; }"); // square-ify scroll bars
-    addRule(".scroll-styled-v:not(.antiscroll-inner)::-webkit-scrollbar { width: 8px; }"); // square-ify scroll bars
-    addRule(".scroll-styled-h:not(.antiscroll-inner)::-webkit-scrollbar { height: 8px; }"); // square-ify scroll bars
-    addRule(".app-columns-container::-webkit-scrollbar { height: 9px !important; }"); // square-ify scroll bars
-    
-    addRule(".is-condensed .app-header-inner { padding-top: 10px !important; }"); // add extra padding to menu buttons when condensed
-    addRule(".is-condensed .btn-compose { padding: 8px !important; }"); // fix compose button icon when condensed
-    addRule(".app-header:not(.is-condensed) .nav-user-info { padding: 0 5px; }"); // add padding to user info
-    
-    addRule(".app-title { display: none; }"); // hide TweetDeck logo
-    addRule(".nav-user-info { bottom: 10px !important; }"); // move user info
-    addRule(".app-navigator { bottom: 50px !important; }"); // move navigation
-    addRule(".column-navigator-overflow { bottom: 192px !important; }"); // move column list
-    addRule(".app-navigator .tooltip { display: none !important; }"); // hide broken tooltips in the menu
-    
-    addRule(".column .column-header { height: 49px !important; }"); // fix one pixel space below column header
-    addRule(".column:not(.is-options-open) .column-header { border-bottom: none; }"); // fix one pixel space below column header
-    addRule(".is-options-open .column-type-icon { bottom: 27px; }"); // fix one pixel space below column header
-    
-    addRule(".activity-header { align-items: center !important; margin-bottom: 4px; }"); // tweak alignment of avatar and text in notifications
-    addRule(".activity-header .tweet-timestamp { line-height: unset; }"); // fix timestamp position in notifications
-    addRule(".account-bio.padding-t--5 { padding-top: 2px !important; }"); // decrease padding on follow notifications
-    
-    addRule("html[data-td-theme='light'] .stream-item:not(:hover) .js-user-actions-menu { color: #000; border-color: #000; opacity: 0.25; }"); // make follow notification button nicer
-    addRule("html[data-td-theme='dark'] .stream-item:not(:hover) .js-user-actions-menu { color: #fff; border-color: #fff; opacity: 0.25; }"); // make follow notification button nicer
-    
-    addRule(".app-columns-container::-webkit-scrollbar-track { border-left: 0; }"); // remove weird border in the column container scrollbar
-    addRule(".app-columns-container { bottom: 0 !important; }"); // move column container scrollbar to bottom to fit updated style
-    
-    addRule(".js-column-header .column-header-link { padding: 0; }"); // fix column header tooltip hover box
-    addRule(".js-column-header .column-header-link .icon { padding: 9px 4px; width: calc(1em + 8px); height: 100%; box-sizing: border-box; }"); // fix column header tooltip hover box
-    
-    addRule("#td-compose-drawer-pin { margin: 17px 4px 0 0; transition: transform 0.1s ease; fill: #fff; float: right; cursor: pointer; }"); // replace 'stay open' checkbox with a pin icon
-    addRule(".js-docked-compose footer { display: none; }"); // replace 'stay open' checkbox with a pin icon
-    addRule(".compose-content { bottom: 0 !important; }"); // replace 'stay open' checkbox with a pin icon
-    addRule(".js-docked-compose .js-drawer-close { margin: 20px 0 0 !important; }"); // fix close drawer button because twitter is fucking incompetent
+    window.TDGF_injectBrowserCSS = function(styles){
+      if (!document.getElementById("tweetduck-browser-css")){
+        createStyle("tweetduck-browser-css", styles);
+      }
+    };
     
     window.TDGF_reinjectCustomCSS = function(styles){
       $("#tweetduck-custom-css").remove();
       
       if (styles && styles.length){
-        $(document.head).append("<style type='text/css' id='tweetduck-custom-css'>"+styles+"</style>");
+        createStyle("tweetduck-custom-css", styles);
       }
     };
   })();
@@ -949,6 +966,28 @@
   });
   
   //
+  // Block: Make temporary search column appear as the first one and clear the input box.
+  //
+  $(document).on("uiSearchNoTemporaryColumn", function(e, data){
+    if (data.query && data.searchScope !== "users" && !data.columnKey){
+      if ($TDX.openSearchInFirstColumn){
+        let order = TD.controller.columnManager._columnOrder;
+        
+        if (order.length > 1){
+          let columnKey = order[order.length-1];
+          
+          order.splice(order.length-1, 1);
+          order.splice(1, 0, columnKey);
+          TD.controller.columnManager.move(columnKey, "left");
+        }
+      }
+      
+      $(".js-app-search-input").val("");
+      $(".js-perform-search").blur();
+    }
+  });
+  
+  //
   // Block: Fix DM reply input box not getting focused after opening a conversation.
   //
   if (ensurePropertyExists(TD, "components", "ConversationDetailView", "prototype", "showChirp")){
@@ -1024,31 +1063,34 @@
     });
   };
   
-  window.TDGF_tryRunCleanup = function(){
-    // no modals are visible
-    return false if $("#open-modal").is(":visible") || !$(".js-modals-container").is(":empty");
+  (function(){
+    var lastActivity = Date.now();
     
-    // all columns are in a default state
-    return false if $("section.js-column").is(".is-shifted-1,.is-shifted-2");
+    $(document).click(function(e){
+      lastActivity = Date.now();
+    });
     
-    // all textareas are empty
-    if ($("textarea").is(function(){
-      return $(this).val().length > 0;
-    })){
-      return false;
-    }
-    
-    // all columns are scrolled to top
-    if ($(".js-column-scroller").is(function(){
-      return $(this).scrollTop() > 0;
-    })){
-      return false;
-    }
-    
-    // cleanup
-    window.TDGF_reload();
-    return true;
-  };
+    window.TDGF_tryRunCleanup = function(){
+      // no recent activity
+      return false if Date.now()-lastActivity < 15e3;
+      
+      // no modals are visible
+      return false if $(".js-modal").is(":visible") || !$(".js-modals-container").is(":empty");
+
+      // all columns are in a default state
+      return false if $("section.js-column").is(".is-shifted-1,.is-shifted-2");
+
+      // all textareas are empty
+      return false if Array.prototype.some.call(document.getElementsByTagName("textarea"), ele => ele.value.length > 0);
+
+      // all columns are scrolled to top
+      return false if Array.prototype.some.call(document.getElementsByClassName("js-column-scroller"), ele => ele.scrollTop > 0);
+
+      // cleanup
+      window.TDGF_reload();
+      return true;
+    };
+  })();
   
   if (window.TD_SESSION && window.TD_SESSION.gc){
     var state;

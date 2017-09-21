@@ -34,6 +34,7 @@ namespace TweetDuck.Core.Other{
             this.buttonHeight = BrowserUtils.Scale(39, this.GetDPIScale()) | 1;
 
             AddButton("General", () => new TabSettingsGeneral(updates));
+            AddButton("System Tray", () => new TabSettingsTray());
             AddButton("Notifications", () => new TabSettingsNotifications(browser.CreateNotificationForm(false)));
             AddButton("Sounds", () => new TabSettingsSounds());
             AddButton("Advanced", () => new TabSettingsAdvanced(browser.ReinjectCustomCSS));
@@ -128,11 +129,16 @@ namespace TweetDuck.Core.Other{
                 tab.Control.OnReady();
             }
             
+            panelContents.VerticalScroll.Enabled = false; // required to stop animation that would otherwise break everything
+            panelContents.PerformLayout();
+
             panelContents.SuspendLayout();
             panelContents.VerticalScroll.Value = 0; // https://gfycat.com/GrotesqueTastyAstarte
             panelContents.Controls.Clear();
             panelContents.Controls.Add(tab.Control);
             panelContents.ResumeLayout(true);
+
+            panelContents.VerticalScroll.Enabled = true;
             panelContents.Focus();
 
             currentTab = tab;

@@ -17,6 +17,7 @@ namespace TweetDuck.Core.Bridge{
             
             if (environment == Environment.Browser){
                 build.Append("x.switchAccountSelectors=").Append(Bool(Program.UserConfig.SwitchAccountSelectors));
+                build.Append("x.openSearchInFirstColumn=").Append(Bool(Program.UserConfig.OpenSearchInFirstColumn));
                 build.Append("x.muteNotifications=").Append(Bool(Program.UserConfig.MuteNotifications));
                 build.Append("x.hasCustomNotificationSound=").Append(Bool(Program.UserConfig.NotificationSoundPath.Length > 0));
                 build.Append("x.notificationMediaPreviews=").Append(Bool(Program.UserConfig.NotificationMediaPreviews));

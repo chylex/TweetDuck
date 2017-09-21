@@ -1,0 +1,234 @@
+/***********************/
+/* Redesign scrollbars */
+/***********************/
+
+.scroll-styled-v::-webkit-scrollbar-thumb, .scroll-styled-h::-webkit-scrollbar-thumb, .antiscroll-scrollbar {
+  border-radius: 0;
+}
+
+.antiscroll-scrollbar-vertical {
+  margin-top: 0;
+}
+
+.antiscroll-scrollbar-horizontal {
+  margin-left: 0;
+}
+
+.scroll-styled-v:not(.antiscroll-inner)::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scroll-styled-h:not(.antiscroll-inner)::-webkit-scrollbar {
+  height: 8px;
+}
+
+.app-columns-container::-webkit-scrollbar {
+  height: 9px !important;
+}
+
+.app-columns-container::-webkit-scrollbar-track {
+  border-left: 0;
+}
+
+.app-columns-container {
+  bottom: 0 !important;
+}
+
+/********************/
+/* Square-ify stuff */
+/********************/
+
+.btn, .mdl, .mdl-content, .app-search-fake, .app-search-input, .popover, .lst-modal, .media-item, .media-preview, .tooltip-inner {
+  border-radius: 1px !important;
+}
+
+.compose-text-container, .dropdown-menu, .list-item-last, .quoted-tweet, .input-group-button, input, textarea, select, .prf-header, .accs li, .accs img {
+  border-radius: 0 !important;
+}
+
+/***********************/
+/* Hide TweetDeck logo */
+/***********************/
+
+.app-title {
+  display: none;
+}
+
+.nav-user-info {
+  bottom: 10px !important;
+}
+
+.app-navigator {
+  bottom: 50px !important;
+}
+
+.column-navigator-overflow {
+  bottom: 192px !important;
+}
+
+/*************************************/
+/* Tweak collapsed left panel layout */
+/*************************************/
+
+.is-condensed .app-header-inner {
+  padding-top: 10px !important;
+}
+
+.is-condensed .btn-compose {
+  padding: 8px !important;
+}
+
+.app-header:not(.is-condensed) .nav-user-info {
+  padding: 0 5px;
+}
+
+/****************************************/
+/* Tweak notification layout and design */
+/****************************************/
+
+.activity-header {
+  align-items: center !important;
+  margin-bottom: 4px;
+}
+
+.activity-header .tweet-timestamp {
+  line-height: unset;
+}
+
+.account-bio.padding-t--5 {
+  /* follow notification padding */
+  padding-top: 2px !important;
+}
+
+html[data-td-theme='light'] .stream-item:not(:hover) .js-user-actions-menu {
+  color: #000;
+  border-color: #000;
+  opacity: 0.25;
+}
+
+html[data-td-theme='dark'] .stream-item:not(:hover) .js-user-actions-menu {
+  color: #fff;
+  border-color: #fff;
+  opacity: 0.25;
+}
+
+/***********************/
+/* Tweaks for features */
+/***********************/
+
+a[data-full-url] {
+  /* break long urls */
+  word-break: break-all;
+}
+
+.character-count-compose {
+  /* fix strangely wide character count element */
+  width: 40px !important;
+}
+
+.is-video a:not([href*='youtu']) .icon-bg-dot, .is-gif .icon-bg-dot {
+  /* change play icon on mp4s */
+  color: #9f51cf;
+}
+
+/***************************************/
+/* Replace 'Stay open' with a pin icon */
+/***************************************/
+
+#td-compose-drawer-pin {
+  margin: 17px 4px 0 0;
+  float: right;
+  fill: #fff;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.js-docked-compose footer {
+  display: none;
+}
+
+.compose-content {
+  bottom: 0 !important;
+}
+
+/*******************************************/
+/* Fix general visual issues or annoyances */
+/*******************************************/
+
+.account-inline .username {
+  /* move usernames a bit higher */
+  vertical-align: 10%;
+}
+
+.txt-base-smallest .sprite-verified-mini {
+  /* fix cut off badge when zoomed in */
+  width: 13px !important;
+  height: 13px !important;
+  background-position: -223px -99px !important;
+}
+
+.txt-base-smallest .badge-verified:before {
+  /* fix cut off badge in notifications */
+  width: 13px !important;
+  height: 13px !important;
+  background-position: -223px -98px !important;
+}
+
+.accs-header {
+  /* fix retweet account selector heading */
+  padding-left: 0 !important;
+}
+
+.keyboard-shortcut-list {
+  /* fix keyboard navigation alignment */
+  vertical-align: top;
+}
+
+/********************************************************************/
+/* Fix glaring visual issues because twitter is fucking incompetent */
+/********************************************************************/
+
+.column-nav-link .attribution {
+  /* fix cut off account names */
+  position: absolute;
+}
+
+.js-docked-compose .js-drawer-close {
+  /* fix close drawer button position */
+  margin: 20px 0 0 !important;
+}
+
+/************************************************/
+/* Fix tooltips in navigation and column header */
+/************************************************/
+
+.app-navigator .tooltip {
+  display: none !important;
+}
+
+.js-column-header .column-header-link {
+  padding: 0;
+}
+
+.js-column-header .column-header-link .icon {
+  width: calc(1em + 8px);
+  height: 100%;
+  padding: 9px 4px;
+  box-sizing: border-box;
+}
+
+/*******************************************/
+/* Fix one pixel space below column header */
+/*******************************************/
+
+.column .column-header {
+  height: 49px !important;
+}
+
+.column:not(.is-options-open) .column-header {
+  border-bottom: none;
+}
+
+.is-options-open .column-type-icon {
+  bottom: 27px;
+}

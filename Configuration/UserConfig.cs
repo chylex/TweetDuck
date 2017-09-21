@@ -49,11 +49,12 @@ namespace TweetDuck.Configuration{
         public WindowState BrowserWindow { get; set; } = new WindowState();
         public WindowState PluginsWindow { get; set; } = new WindowState();
 
-        public bool ExpandLinksOnHover     { get; set; } = true;
-        public bool SwitchAccountSelectors { get; set; } = true;
-        public bool BestImageQuality       { get; set; } = true;
-        public bool EnableSpellCheck       { get; set; } = false;
-        public int VideoPlayerVolume       { get; set; } = 50;
+        public bool ExpandLinksOnHover      { get; set; } = true;
+        public bool SwitchAccountSelectors  { get; set; } = true;
+        public bool OpenSearchInFirstColumn { get; set; } = true;
+        public bool BestImageQuality        { get; set; } = true;
+        public bool EnableSpellCheck        { get; set; } = false;
+        public int VideoPlayerVolume        { get; set; } = 50;
         private int _zoomLevel                           = 100;
         private bool _muteNotifications;
         

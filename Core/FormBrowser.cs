@@ -85,6 +85,7 @@ namespace TweetDuck.Core{
 
             this.browser = new ChromiumWebBrowser("https://tweetdeck.twitter.com/"){
                 DialogHandler = new FileDialogHandler(),
+                DragHandler = new DragHandlerBrowser(),
                 MenuHandler = new ContextMenuBrowser(this),
                 JsDialogHandler = new JavaScriptDialogHandler(),
                 KeyboardHandler = new KeyboardHandlerBrowser(this),
@@ -201,6 +202,7 @@ namespace TweetDuck.Core{
                 UpdateProperties(PropertyBridge.Environment.Browser);
                 TweetDeckBridge.RestoreSessionData(e.Frame);
                 ScriptLoader.ExecuteFile(e.Frame, "code.js");
+                InjectBrowserCSS();
                 ReinjectCustomCSS(Config.CustomBrowserCSS);
                 plugins.ExecutePlugins(e.Frame, PluginEnvironment.Browser);
 
@@ -427,6 +429,10 @@ namespace TweetDuck.Core{
         }
 
         // javascript calls
+
+        public void InjectBrowserCSS(){
+            browser.ExecuteScriptAsync("TDGF_injectBrowserCSS", ScriptLoader.LoadResource("styles/browser.css").TrimEnd());
+        }
 
         public void ReinjectCustomCSS(string css){
             browser.ExecuteScriptAsync("TDGF_reinjectCustomCSS", css?.Replace(Environment.NewLine, " ") ?? string.Empty);

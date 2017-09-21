@@ -108,7 +108,7 @@ enabled(){
       let menu = $(".js-dropdown-content").children("ul").first();
       return if menu.length === 0;
       
-      let itemTD = menu.children("[data-std]").first();
+      let itemTD = menu.children("[data-tweetduck]").first();
       return if itemTD.length === 0;
       
       if (!itemTD.prev().hasClass("drp-h-divider")){
@@ -116,7 +116,7 @@ enabled(){
       }
       
       let itemEditDesign = $('<li class="is-selectable"><a href="#" data-action>Edit layout &amp; design</a></li>');
-      itemTD.after(itemEditDesign);
+      itemEditDesign.insertAfter(itemTD);
       
       itemEditDesign.on("click", "a", this.openEditDesignDialog);
       
@@ -334,17 +334,22 @@ enabled(){
     this.css.insert(".txt-base-smallest:not(.icon), .txt-base-largest:not(.icon) { font-size: "+this.config.fontSize+" !important }");
     this.css.insert(".avatar { border-radius: "+this.config.avatarRadius+"% !important }");
     
+    let notificationScrollbarColor = null;
+    
     if (this.config.themeColorTweaks){
       switch(TD.settings.getTheme()){
         case "dark":
           this.css.insert(".app-content, .app-columns-container { background-color: #444448 }");
           this.css.insert(".column-drag-handle { opacity: 0.5 }");
           this.css.insert(".column-drag-handle:hover { opacity: 1 }");
+          this.css.insert(".scroll-styled-v:not(.scroll-alt)::-webkit-scrollbar-thumb, .scroll-styled-h:not(.scroll-alt)::-webkit-scrollbar-thumb { background-color: #666 }");
+          notificationScrollbarColor = "666";
           break;
 
         case "light":
-          this.css.insert(".scroll-styled-v::-webkit-scrollbar-thumb, .scroll-styled-h::-webkit-scrollbar-thumb { background-color: #d2d6da }");
+          this.css.insert(".scroll-styled-v:not(.scroll-alt)::-webkit-scrollbar-thumb, .scroll-styled-h:not(.scroll-alt)::-webkit-scrollbar-thumb { background-color: #d2d6da }");
           this.css.insert(".app-columns-container.scroll-styled-h::-webkit-scrollbar-thumb:not(:hover) { background-color: #a5aeb5 }");
+          notificationScrollbarColor = "a5aeb5";
           break;
       }
     }
@@ -513,6 +518,10 @@ ${this.config.revertIcons ? `
 .icon-list-filled:before{content:"\\f014";font-family:tweetdeckold}
 .icon-user-filled:before{content:"\\f035";font-family:tweetdeckold}
 .icon-user-dd:before{content:"\\f01a";font-family:tweetdeckold}
+` : ``}
+
+${notificationScrollbarColor ? `
+.scroll-styled-v::-webkit-scrollbar-thumb, .scroll-styled-h::-webkit-scrollbar-thumb { background-color: #${notificationScrollbarColor} }
 ` : ``}
 </style>`);
   };
