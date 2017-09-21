@@ -339,6 +339,8 @@
     <Content Include="Resources\Scripts\plugins.browser.js" />
     <Content Include="Resources\Scripts\plugins.js" />
     <Content Include="Resources\Scripts\plugins.notification.js" />
+    <Content Include="Resources\Scripts\styles\browser.css" />
+    <Content Include="Resources\Scripts\styles\notification.css" />
     <Content Include="Resources\Scripts\twitter.js" />
     <Content Include="Resources\Scripts\update.js" />
   </ItemGroup>

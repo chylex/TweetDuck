@@ -824,74 +824,24 @@
   // Block: Inject custom CSS and layout into the page.
   //
   (function(){
-    let styleOfficial = document.createElement("style");
-    document.head.appendChild(styleOfficial);
-    
-    let addRule = (rule) => {
-      styleOfficial.sheet.insertRule(rule, 0);
+    var createStyle = function(id, styles){
+      let ele = document.createElement("style");
+      ele.id = id;
+      ele.innerText = styles;
+      document.head.appendChild(ele);
     };
     
-    addRule("a[data-full-url] { word-break: break-all; }"); // break long urls
-    addRule(".keyboard-shortcut-list { vertical-align: top; }"); // fix keyboard navigation alignment
-    addRule(".account-inline .username { vertical-align: 10%; }"); // move usernames a bit higher
-    addRule(".character-count-compose { width: 40px !important; }"); // fix strangely wide character count element
-    addRule(".is-video a:not([href*='youtu']) .icon-bg-dot, .is-gif .icon-bg-dot { color: #9f51cf; }"); // change play icon on mp4s
-    
-    addRule(".column-nav-link .attribution { position: absolute; }"); // fix cut off account names
-    addRule(".txt-base-smallest .sprite-verified-mini { width: 13px !important; height: 13px !important; background-position: -223px -99px !important; }"); // fix cut off badge icon when zoomed in
-    addRule(".txt-base-smallest .badge-verified:before { width: 13px !important; height: 13px !important; background-position: -223px -98px !important; }"); // fix cut off badge icon in notifications
-    
-    addRule(".btn, .mdl, .mdl-content, .app-search-fake, .app-search-input, .popover, .lst-modal, .media-item, .media-preview, .tooltip-inner { border-radius: 1px !important; }"); // square-ify buttons, dialogs, menus, media previews
-    addRule(".compose-text-container, .dropdown-menu, .list-item-last, .quoted-tweet, .input-group-button, input, textarea, select { border-radius: 0 !important; }"); // square-ify dropdowns, inputs, quoted tweets, and account selectors
-    addRule(".prf-header { border-radius: 0; }"); // fix user account header border
-    
-    addRule(".accs li, .accs img { border-radius: 0 !important; }"); // square-ify retweet account selector
-    addRule(".accs-header { padding-left: 0 !important; }"); // fix retweet account selector heading
-    
-    addRule(".scroll-styled-v::-webkit-scrollbar-thumb, .scroll-styled-h::-webkit-scrollbar-thumb, .antiscroll-scrollbar { border-radius: 0; }"); // square-ify scroll bars
-    addRule(".antiscroll-scrollbar-vertical { margin-top: 0; }"); // square-ify scroll bars
-    addRule(".antiscroll-scrollbar-horizontal { margin-left: 0; }"); // square-ify scroll bars
-    addRule(".scroll-styled-v:not(.antiscroll-inner)::-webkit-scrollbar { width: 8px; }"); // square-ify scroll bars
-    addRule(".scroll-styled-h:not(.antiscroll-inner)::-webkit-scrollbar { height: 8px; }"); // square-ify scroll bars
-    addRule(".app-columns-container::-webkit-scrollbar { height: 9px !important; }"); // square-ify scroll bars
-    
-    addRule(".is-condensed .app-header-inner { padding-top: 10px !important; }"); // add extra padding to menu buttons when condensed
-    addRule(".is-condensed .btn-compose { padding: 8px !important; }"); // fix compose button icon when condensed
-    addRule(".app-header:not(.is-condensed) .nav-user-info { padding: 0 5px; }"); // add padding to user info
-    
-    addRule(".app-title { display: none; }"); // hide TweetDeck logo
-    addRule(".nav-user-info { bottom: 10px !important; }"); // move user info
-    addRule(".app-navigator { bottom: 50px !important; }"); // move navigation
-    addRule(".column-navigator-overflow { bottom: 192px !important; }"); // move column list
-    addRule(".app-navigator .tooltip { display: none !important; }"); // hide broken tooltips in the menu
-    
-    addRule(".column .column-header { height: 49px !important; }"); // fix one pixel space below column header
-    addRule(".column:not(.is-options-open) .column-header { border-bottom: none; }"); // fix one pixel space below column header
-    addRule(".is-options-open .column-type-icon { bottom: 27px; }"); // fix one pixel space below column header
-    
-    addRule(".activity-header { align-items: center !important; margin-bottom: 4px; }"); // tweak alignment of avatar and text in notifications
-    addRule(".activity-header .tweet-timestamp { line-height: unset; }"); // fix timestamp position in notifications
-    addRule(".account-bio.padding-t--5 { padding-top: 2px !important; }"); // decrease padding on follow notifications
-    
-    addRule("html[data-td-theme='light'] .stream-item:not(:hover) .js-user-actions-menu { color: #000; border-color: #000; opacity: 0.25; }"); // make follow notification button nicer
-    addRule("html[data-td-theme='dark'] .stream-item:not(:hover) .js-user-actions-menu { color: #fff; border-color: #fff; opacity: 0.25; }"); // make follow notification button nicer
-    
-    addRule(".app-columns-container::-webkit-scrollbar-track { border-left: 0; }"); // remove weird border in the column container scrollbar
-    addRule(".app-columns-container { bottom: 0 !important; }"); // move column container scrollbar to bottom to fit updated style
-    
-    addRule(".js-column-header .column-header-link { padding: 0; }"); // fix column header tooltip hover box
-    addRule(".js-column-header .column-header-link .icon { padding: 9px 4px; width: calc(1em + 8px); height: 100%; box-sizing: border-box; }"); // fix column header tooltip hover box
-    
-    addRule("#td-compose-drawer-pin { margin: 17px 4px 0 0; transition: transform 0.1s ease; fill: #fff; float: right; cursor: pointer; }"); // replace 'stay open' checkbox with a pin icon
-    addRule(".js-docked-compose footer { display: none; }"); // replace 'stay open' checkbox with a pin icon
-    addRule(".compose-content { bottom: 0 !important; }"); // replace 'stay open' checkbox with a pin icon
-    addRule(".js-docked-compose .js-drawer-close { margin: 20px 0 0 !important; }"); // fix close drawer button because twitter is fucking incompetent
+    window.TDGF_injectBrowserCSS = function(styles){
+      if (!document.getElementById("tweetduck-browser-css")){
+        createStyle("tweetduck-browser-css", styles);
+      }
+    };
     
     window.TDGF_reinjectCustomCSS = function(styles){
       $("#tweetduck-custom-css").remove();
       
       if (styles && styles.length){
-        $(document.head).append("<style type='text/css' id='tweetduck-custom-css'>"+styles+"</style>");
+        createStyle("tweetduck-custom-css", styles);
       }
     };
   })();
