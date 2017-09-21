@@ -328,9 +328,8 @@
         let menu = $(".js-dropdown-content").children("ul").first();
         return if menu.length === 0;
         
-        menu.children(".drp-h-divider").last().before('<li class="is-selectable" data-std><a href="#" data-action="tweetduck">TweetDuck</a></li>');
-        
-        let button = menu.children("[data-std]");
+        let button = $('<li class="is-selectable" data-tweetduck><a href="#" data-action>TweetDuck</a></li>');
+        button.insertBefore(menu.children(".drp-h-divider").last());
 
         button.on("click", "a", function(){
           $TD.openContextMenu();
@@ -349,10 +348,6 @@
   // Block: Expand shortened links on hover or display tooltip.
   //
   (function(){
-    var cutStart = function(str, search){
-      return str.startsWith(search) ? str.substr(search.length) : str;
-    };
-    
     var prevMouseX = -1, prevMouseY = -1;
     var tooltipTimer, tooltipDisplayed;
     
@@ -364,13 +359,8 @@
         
         if ($TDX.expandLinksOnHover){
           tooltipTimer = window.setTimeout(function(){
-            let expanded = me.attr("data-full-url");
-            expanded = cutStart(expanded, "https://");
-            expanded = cutStart(expanded, "http://");
-            expanded = cutStart(expanded, "www.");
-
             me.attr("td-prev-text", text);
-            me.text(expanded);
+            me.text(me.attr("data-full-url").replace(/^https?:\/\/(www\.)?/, ""));
           }, 200);
         }
         else{
@@ -1128,18 +1118,10 @@
     return false if $("section.js-column").is(".is-shifted-1,.is-shifted-2");
     
     // all textareas are empty
-    if ($("textarea").is(function(){
-      return $(this).val().length > 0;
-    })){
-      return false;
-    }
+    return false if Array.prototype.some.call(document.getElementsByTagName("textarea"), ele => ele.value.length > 0);
     
     // all columns are scrolled to top
-    if ($(".js-column-scroller").is(function(){
-      return $(this).scrollTop() > 0;
-    })){
-      return false;
-    }
+    return false if Array.prototype.some.call(document.getElementsByClassName("js-column-scroller"), ele => ele.scrollTop > 0);
     
     // cleanup
     window.TDGF_reload();

@@ -108,7 +108,7 @@ enabled(){
       let menu = $(".js-dropdown-content").children("ul").first();
       return if menu.length === 0;
       
-      let itemTD = menu.children("[data-std]").first();
+      let itemTD = menu.children("[data-tweetduck]").first();
       return if itemTD.length === 0;
       
       if (!itemTD.prev().hasClass("drp-h-divider")){
@@ -116,7 +116,7 @@ enabled(){
       }
       
       let itemEditDesign = $('<li class="is-selectable"><a href="#" data-action>Edit layout &amp; design</a></li>');
-      itemTD.after(itemEditDesign);
+      itemEditDesign.insertAfter(itemTD);
       
       itemEditDesign.on("click", "a", this.openEditDesignDialog);
       

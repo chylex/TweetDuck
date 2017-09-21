@@ -42,10 +42,6 @@
   // Block: Expand shortened links on hover or display tooltip.
   //
   (function(){
-    var cutStart = function(str, search){
-      return str.startsWith(search) ? str.substr(search.length) : str;
-    };
-    
     var prevMouseX = -1, prevMouseY = -1;
     var tooltipTimer, tooltipDisplayed;
     
@@ -60,13 +56,8 @@
 
       if ($TDX.expandLinksOnHover){
         tooltipTimer = window.setTimeout(function(){
-          var expanded = url;
-          expanded = cutStart(expanded, "https://");
-          expanded = cutStart(expanded, "http://");
-          expanded = cutStart(expanded, "www.");
-
           me.setAttribute("td-prev-text", text);
-          me.innerHTML = expanded;
+          me.innerHTML = url.replace(/^https?:\/\/(www\.)?/, "");
         }, 200);
       }
       else{
