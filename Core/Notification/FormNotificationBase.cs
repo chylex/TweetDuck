@@ -4,6 +4,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using TweetDuck.Configuration;
+using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling;
 using TweetDuck.Core.Handling.General;
@@ -12,6 +13,18 @@ using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Notification{
     partial class FormNotificationBase : Form{
+        protected static int FontSizeLevel{
+            get{
+                switch(TweetDeckBridge.FontSizeClass){
+                    case "largest": return 4;
+                    case "large": return 3;
+                    case "small": return 1;
+                    case "smallest": return 0;
+                    default: return 2;
+                }
+            }
+        }
+
         protected Point PrimaryLocation{
             get{
                 UserConfig config = Program.UserConfig;

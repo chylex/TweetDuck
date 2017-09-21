@@ -33,7 +33,7 @@ namespace TweetDuck.Core.Notification{
 
         public bool RequiresResize{
             get{
-                return !prevDisplayTimer.HasValue || !prevFontSize.HasValue || prevDisplayTimer != Program.UserConfig.DisplayNotificationTimer || prevFontSize != TweetNotification.FontSizeLevel || CanResizeWindow;
+                return !prevDisplayTimer.HasValue || !prevFontSize.HasValue || prevDisplayTimer != Program.UserConfig.DisplayNotificationTimer || prevFontSize != FontSizeLevel || CanResizeWindow;
             }
 
             set{
@@ -43,7 +43,7 @@ namespace TweetDuck.Core.Notification{
                 }
                 else{
                     prevDisplayTimer = Program.UserConfig.DisplayNotificationTimer;
-                    prevFontSize = TweetNotification.FontSizeLevel;
+                    prevFontSize = FontSizeLevel;
                 }
             }
         }
@@ -52,7 +52,7 @@ namespace TweetDuck.Core.Notification{
             get{
                 switch(Program.UserConfig.NotificationSize){
                     default:
-                        return BrowserUtils.Scale(284, SizeScale*(1.0+0.05*TweetNotification.FontSizeLevel));
+                        return BrowserUtils.Scale(284, SizeScale*(1.0+0.05*FontSizeLevel));
 
                     case TweetNotification.Size.Custom:
                         return Program.UserConfig.CustomNotificationSize.Width;
@@ -64,7 +64,7 @@ namespace TweetDuck.Core.Notification{
             get{
                 switch(Program.UserConfig.NotificationSize){
                     default:
-                        return BrowserUtils.Scale(122, SizeScale*(1.0+0.075*TweetNotification.FontSizeLevel));
+                        return BrowserUtils.Scale(122, SizeScale*(1.0+0.075*FontSizeLevel));
 
                     case TweetNotification.Size.Custom:
                         return Program.UserConfig.CustomNotificationSize.Height;

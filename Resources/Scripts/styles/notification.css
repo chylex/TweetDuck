@@ -1,0 +1,57 @@
+/* General */
+
+body:before {
+  content: none;
+}
+
+body {
+  overflow-y: auto;
+}
+
+.scroll-styled-v::-webkit-scrollbar {
+  width: 7px;
+}
+
+.scroll-styled-v::-webkit-scrollbar-thumb {
+  border-radius: 0;
+}
+
+.scroll-styled-v::-webkit-scrollbar-track {
+  border-left: 0;
+}
+
+/* Media */
+
+.media-size-medium {
+  max-height: 240px;
+  height: calc(100vh - 16px) !important;
+  border-radius: 1px !important;
+}
+
+.js-quote-detail .media-size-medium {
+  height: calc(100vh - 28px) !important;
+}
+
+.js-media.margin-vm, .js-media-preview-container.margin-vm {
+  margin-bottom: 0 !important;
+}
+
+/* Skip button */
+
+#td-skip {
+  position: fixed;
+  left: 30px;
+  bottom: 10px;
+  z-index: 1000;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.td-hover #td-skip {
+  opacity: 0.75;
+}
+
+#td-skip:hover {
+  opacity: 1;
+}

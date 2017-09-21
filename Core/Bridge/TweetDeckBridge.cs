@@ -11,6 +11,9 @@ using TweetDuck.Resources;
 
 namespace TweetDuck.Core.Bridge{
     sealed class TweetDeckBridge{
+        public static string FontSizeClass;
+        public static string NotificationHeadContents;
+
         public static string LastHighlightedTweetUrl = string.Empty;
         public static string LastHighlightedQuoteUrl = string.Empty;
         private static string LastHighlightedTweetAuthors = string.Empty;
@@ -22,6 +25,7 @@ namespace TweetDuck.Core.Bridge{
         private static readonly Dictionary<string, string> SessionData = new Dictionary<string, string>(2);
 
         public static void ResetStaticProperties(){
+            FontSizeClass = NotificationHeadContents = null;
             LastHighlightedTweetUrl = LastHighlightedQuoteUrl = LastHighlightedTweetAuthors = LastHighlightedTweetImages = string.Empty;
         }
 
@@ -47,15 +51,11 @@ namespace TweetDuck.Core.Bridge{
         }
 
         public void LoadFontSizeClass(string fsClass){
-            form.InvokeAsyncSafe(() => {
-               TweetNotification.SetFontSizeClass(fsClass);
-            });
+            form.InvokeAsyncSafe(() => FontSizeClass = fsClass);
         }
 
         public void LoadNotificationHeadContents(string headContents){
-            form.InvokeAsyncSafe(() => {
-               TweetNotification.SetHeadTag(headContents); 
-            });
+            form.InvokeAsyncSafe(() => NotificationHeadContents = headContents);
         }
 
         public void SetLastRightClickInfo(string type, string link){
