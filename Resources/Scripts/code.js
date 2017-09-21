@@ -1110,23 +1110,34 @@
     });
   };
   
-  window.TDGF_tryRunCleanup = function(){
-    // no modals are visible
-    return false if $("#open-modal").is(":visible") || !$(".js-modals-container").is(":empty");
+  (function(){
+    var lastActivity = Date.now();
     
-    // all columns are in a default state
-    return false if $("section.js-column").is(".is-shifted-1,.is-shifted-2");
+    $(document).click(function(e){
+      lastActivity = Date.now();
+    });
     
-    // all textareas are empty
-    return false if Array.prototype.some.call(document.getElementsByTagName("textarea"), ele => ele.value.length > 0);
-    
-    // all columns are scrolled to top
-    return false if Array.prototype.some.call(document.getElementsByClassName("js-column-scroller"), ele => ele.scrollTop > 0);
-    
-    // cleanup
-    window.TDGF_reload();
-    return true;
-  };
+    window.TDGF_tryRunCleanup = function(){
+      // no recent activity
+      return false if Date.now()-lastActivity < 15e3;
+      
+      // no modals are visible
+      return false if $(".js-modal").is(":visible") || !$(".js-modals-container").is(":empty");
+
+      // all columns are in a default state
+      return false if $("section.js-column").is(".is-shifted-1,.is-shifted-2");
+
+      // all textareas are empty
+      return false if Array.prototype.some.call(document.getElementsByTagName("textarea"), ele => ele.value.length > 0);
+
+      // all columns are scrolled to top
+      return false if Array.prototype.some.call(document.getElementsByClassName("js-column-scroller"), ele => ele.scrollTop > 0);
+
+      // cleanup
+      window.TDGF_reload();
+      return true;
+    };
+  })();
   
   if (window.TD_SESSION && window.TD_SESSION.gc){
     var state;
