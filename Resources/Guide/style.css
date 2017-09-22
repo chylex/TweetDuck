@@ -3,6 +3,7 @@ body {
   font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
   background-color: #222;
   color: #ddd;
+  overflow-y: scroll;
 }
 
 #guide {
@@ -38,13 +39,10 @@ body {
   padding: 0 8px;
   font-size: 19px;
   font-weight: bold;
+  color: #afdfff;
   cursor: pointer;
-  opacity: 0.75;
+  opacity: 0.8;
   transition: opacity 0.15s ease;
-}
-
-#guide summary:hover {
-  opacity: 1;
 }
 
 #guide summary::-webkit-details-marker {
@@ -62,10 +60,16 @@ body {
   transition: transform 0.1s ease;
 }
 
+#guide summary:hover, #guide details[open] summary {
+  opacity: 1;
+}
+
 #guide details[open] summary::before {
   transform: rotateZ(90deg) translate(0.5px, -3px);
 }
 
 #guide details > div {
+  margin-bottom: 24px;
   padding: 0 25px;
+  font-size: 17px;
 }
