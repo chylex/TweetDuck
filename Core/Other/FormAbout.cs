@@ -34,14 +34,8 @@ namespace TweetDuck.Core.Other{
         }
 
         private void ShowGuide(){
-            FormGuide form = new FormGuide();
-
-            form.VisibleChanged += (sender, args) => {
-                form.MoveToCenter(this);
-                Close();
-            };
-
-            form.Show();
+            new FormGuide().Show();
+            Close();
         }
     }
 }
