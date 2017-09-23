@@ -95,12 +95,21 @@ em {
   font-style: normal;
 }
 
+a {
+  color: #8bc6f8;
+  opacity: 0.85;
+}
+
+a:hover {
+  opacity: 1;
+}
+
 p, li {
   line-height: 130%;
 }
 
 ul {
-  padding-left: 24px;
+  padding-left: 26px;
 }
 
 ol {
