@@ -220,15 +220,58 @@
           <h2>Options</h2>
           
           <details>
-            <summary>How to configure TweetDuck and toggle various features</summary>
+            <summary>How to configure TweetDuck</summary>
+            <div>
+              <p>Open the <em>main menu</em> and select <em>Options</em>. Here you can configure various parts of TweetDuck; the dialog is split into several tabs:</p>
+              <ul>
+                <li><em>General</em> tab for user interface, zoom, and update options</li>
+                <li><em>System Tray</em> tab to enable and configure the tray icon</li>
+                <li><em>Notifications</em> tab to configure desktop notifications</li>
+                <li><em>Sounds</em> tab to set a custom sound notification</li>
+                <li><em>Advanced</em> tab for highly technical options</li>
+              </ul>
+              <p>You can move your cursor over most options to display a <em>tooltip with a detailed explanation</em> of what that option does.</p>
+            </div>
+          </details>
+          
+          <details>
+            <summary>How to view and manage plugins</summary>
+            <div>
+              <p>TweetDuck has several offical plugins that extend the website and notifications with new functionality.</p>
+              <p>Open the <em>main menu</em> and select <em>Plugins</em> to open the plugin list. Here you can see what each plugin does, and enable/disable them individually. </p>
+              <p>If you want to install a custom plugin, click <em>Open Plugin Folder</em>. A plugin is a folder that contains a <em>.meta</em> file and several others, make sure you copy and paste the folder itself into the opened plugin folder. To verify that you installed it correctly, click <em>Reload All</em> (which also reloads the website) and the plugin should appear.</p>
+              <p>Please, be careful when installing new plugins, and ensure that you get them from trustworthy sources. If you're unsure about a plugin, feel free to <a href="https://github.com/chylex/TweetDuck/issues/new" rel="nofollow">create an issue</a> and upload the plugin there (<a href="https://github.com" rel="nofollow">GitHub</a> account required).</p>
+            </div>
           </details>
           
           <details>
             <summary>How to backup your profile or move it to another computer</summary>
+            <div>
+              <ol>
+                <li>Open the <em>main menu</em>, select <em>Options</em>, and click <em>Manage Options</em> on the bottom left</li>
+                <li>Select <em>Export profile</em> and proceed with <em>Next</em></li>
+                <li>Select items you want to save in your profile (note that <em>Plugin Data</em> includes data from official plugins, such as those that let you customize the website or create tweet templates)</li>
+                <li>Click <em>Export Profile</em></li>
+              </ol>
+              <img src="img/options-manage.png" alt="" style="margin-right:6px">
+              <img src="img/options-manage-export.png" alt="">
+              <p>You can save your profile into a cloud storage (Dropbox, Google Drive, etc.) or an external drive, for example. When you want to restore it, follow the same steps but select <em>Import profile</em> and then select the file instead.</p>
+              <p>When importing a profile, you will be again able to pick which items you want to restore. You can for example export a full profile including your login session, but then only import program options and plugin data if you want to login to a different account.</p>
+            </div>
           </details>
           
           <details>
             <summary>How to restore default options</summary>
+            <div>
+              <ol>
+                <li>Open the <em>main menu</em>, select <em>Options</em>, and click <em>Manage Options</em> on the bottom left</li>
+                <li>Select <em>Restore defaults</em> and proceed with <em>Next</em></li>
+                <li>Select items you want reset (note that <em>Plugin Data</em> includes data from official plugins, such as those that let you customize the website or create tweet templates)</li>
+                <li>Click <em>Restore Defaults</em></li>
+              </ol>
+              <img src="img/options-manage.png" alt="" style="margin-right:6px">
+              <img src="img/options-manage-reset.png" alt="">
+            </div>
           </details>
         </article>
         
