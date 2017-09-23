@@ -43,8 +43,8 @@ body {
 
 #guide summary {
   display: inline-block;
-  margin: 5px 0 12px;
-  padding: 0 10px;
+  margin: 1px 0 12px;
+  padding: 4px 10px;
   font-size: 19px;
   font-weight: bold;
   color: #afdfff;
@@ -55,6 +55,10 @@ body {
 
 #guide summary::-webkit-details-marker {
   display: none;
+}
+
+#guide summary.webkit-workaround {
+  outline: none;
 }
 
 #guide summary::before {

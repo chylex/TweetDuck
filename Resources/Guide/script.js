@@ -45,4 +45,21 @@ document.addEventListener("DOMContentLoaded", function(){
       }
     }
   }
+  else if ("WebkitAppearance" in document.documentElement.style){
+    var elements = document.getElementsByTagName("summary");
+    
+    var onMouseDown = function(e){
+      e.target.classList.add("webkit-workaround");
+    };
+    
+    var onMouseUp = function(e){
+      e.target.classList.remove("webkit-workaround");
+      e.target.blur();
+    };
+    
+    for(var index = 0; index < elements.length; index++){
+      elements[index].addEventListener("mousedown", onMouseDown);
+      elements[index].addEventListener("mouseup", onMouseUp);
+    }
+  }
 });
