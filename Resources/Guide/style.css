@@ -24,13 +24,9 @@ body {
 }
 
 #guide h2 {
-  margin: 32px 0 10px;
+  margin: 20px 0 10px;
   font-size: 32px;
   cursor: default;
-}
-
-#guide h2:first-child {
-  margin-top: 24px;
 }
 
 #guide details {
@@ -43,7 +39,7 @@ body {
 
 #guide summary {
   display: inline-block;
-  margin: 1px 0 12px;
+  margin: 0 0 11px;
   padding: 4px 10px;
   font-size: 19px;
   font-weight: bold;
