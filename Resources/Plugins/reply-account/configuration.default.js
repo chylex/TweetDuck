@@ -1,13 +1,5 @@
 {
   /*
-   * WARNING
-   * -------
-   *
-   * Make sure you are editing 'configuration.js' and not the default configuration file, as the default one will be replaced with each update.
-   *
-   */
-  
-  /*
    * Simple way of configuring the plugin
    * ------------------------------------
    *
