@@ -236,15 +236,80 @@
           <h2>Efficiency</h2>
           
           <details>
-            <summary>How to use keyboard shortcuts to increase efficiency</summary>
+            <summary>How to use keyboard shortcuts</summary>
+            <div>
+              <ol>
+                <li>Click <em>Settings</em> in the left panel</li>
+                <li>Continue to <em>Keyboard shortcuts</em></li>
+                <li>Here you can see most available keyboard shortcuts you can use in the browser window</li>
+              </ol>
+              <img src="img/settings-dropdown.png" alt="">
+              <p>You can also often hold Ctrl or Shift to trigger alternative actions:</p>
+              <ul>
+                <li>When <em>selecting accounts</em>, hold <em>Shift</em> to select multiple accounts (can be configured in the Options)</li>
+                <li>When <em>clearing columns</em>, hold <em>Shift</em> to restore the column instead</li>
+                <li>When <em>clicking video thumbnails</em>, hold <em>Ctrl</em> to open them in your browser</li>
+              </ul>
+              <p>Finally, if you click into a desktop notification window, you can use these keyboard shortcuts:</p>
+              <ul>
+                <li><em>Enter</em> to skip the current notification</li>
+                <li><em>Escape</em> to close the window (skips all notifications in the queue)</li>
+                <li><em>Space</em> to pause/unpause the timer</li>
+              </ul>
+            </div>
           </details>
           
           <details>
             <summary>How to use the forward / back mouse buttons</summary>
+            <div>
+              <p>If you have a mouse that supports the forward and back buttons, you can use them in both the browser and a desktop notification. All you need to do is move the cursor over the window (even if it's not focused), and press one of the buttons.</p>
+              <p>In the browser:</p>
+              <ul>
+                <li>Press <em>forward</em> over a <em>tweet to open it in detail view</em> (unlike clicking, this will not trigger links or media thumbnails)</li>
+                <li>Press <em>back</em> anywhere to <em>close modal dialogs</em> or the <em>New Tweet panel</em>, or over a <em>column to return back from detail view</em> (if there are no dialogs or panels open, pressing the button outside a column will trigger it for all columns at once)</li>
+              </ul>
+              <p>In the desktop notification:</p>
+              <ul>
+                <li>Press <em>forward</em> to skip the current notification</li>
+                <li>Press <em>back</em> to close the window (skips all notifications in the queue)</li>
+              </ul>
+            </div>
+          </details>
+          
+          <details>
+            <summary>How to keep the New Tweet panel open</summary>
+            <div>
+              <p>Open the New Tweet panel, and click the <em>pin icon</em> on top. When the pin points to the left, the panel will stay open after tweeting or restarting TweetDuck.</p>
+              <img src="img/new-tweet-pin.png" alt="">
+            </div>
+          </details>
+          
+          <details>
+            <summary>How to instantly popout replies</summary>
+            <div>
+              <p><em>Middle-click the reply icon</em> to instantly open your reply in the New Tweet panel.</p>
+              <p>Middle-clicks are usually done by pressing your mouse wheel as if it was a button. When using a laptop touchpad or certain mice, the ways of triggering a middle click vary.</p>
+            </div>
           </details>
           
           <details>
             <summary>How to change which account will be pre-selected for replies</summary>
+            <div>
+              <p>By default, TweetDeck pre-selects the account mentioned in the column header. The ability to change this is provided by an official plugin which is disabled by default, as it's a bit more difficult to setup, but it can be very powerful. To enable the plugin:</p>
+              <ol>
+                <li>Open the <em>main menu</em> and select <em>Plugins</em></li>
+                <li>Find an entry that says <em>Custom reply account</em>, it will be somewhere near the bottom as the plugin is disabled by default</li>
+                <li>Click <em>Enable</em> on the right side to enable the plugin</li>
+              </ol>
+              <p>After you enable the plugin, it will use your preferred account for all replies by default. If that's your intention, you can simply enable the plugin and leave it, otherwise continue reading:</p>
+              <ol>
+                <li>Click <em>Configure</em> next to the plugin to open a folder with the configuration file
+                <li>Open <em>configuration.js</em> in a text editor that can edit and save JavaScript or any pure text files, therefore office suits or WordPad are not suitable; if you don't have any specific editor, use Notepad.</li>
+                <li>The configuration file includes very detailed instructions &ndash; you can use one of the <em>presets</em>, a <em>specific account</em> for all replies, or use JavaScript to <em>fully customize</em> the reply behavior</li>
+              </ol>
+              <p>After editing the configuration, return back to Plugins and click <em>Reload All</em> on the bottom left. Now you can close Plugins and test if replies work the way you want.</p>
+              <p>Note that this will not affect the Messages column, that one will always pre-select the account which received the private message.</p>
+            </div>
           </details>
         </article>
         
