@@ -78,12 +78,16 @@ body {
 
 #guide details > div {
   margin-bottom: 22px;
-  padding: 0 25px 2px;
+  padding: 0 25px 20px;
   font-size: 17px;
 }
 
 #guide details > div > *:first-child {
   margin-top: 0;
+}
+
+#guide details > div > *:last-child {
+  margin-bottom: 0;
 }
 
 em {
