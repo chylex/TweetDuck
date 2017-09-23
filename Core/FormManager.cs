@@ -20,7 +20,7 @@ namespace TweetDuck.Core{
 
         public static void CloseAllDialogs(){
             foreach(Form form in Application.OpenForms.Cast<Form>().Reverse()){
-                if (form is FormSettings || form is FormPlugins || form is FormAbout){
+                if (form is FormSettings || form is FormPlugins || form is FormAbout || form is FormGuide){
                     form.Close();
                 }
             }

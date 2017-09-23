@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TweetDuck Guide</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <script type="text/javascript" src="script.js"></script>
+  </head>
+  <body>
+    <div id="guide">
+      <section>
+
+        <article>
+          <h2>General</h2>
+          
+          <details>
+            <summary>How to open the main menu</summary>
+            <div>
+              <p>The main menu gives you access to the following items:</p>
+              <ul>
+                <li>Reload browser</li>
+                <li>Mute notifications</li>
+                <li>Options</li>
+                <li>Plugins</li>
+                <li>About TweetDuck</li>
+              </ul>
+              <p>You can open the main menu in multiple ways:</p>
+              <ul>
+                <li>Click <em>Settings</em> in the left panel, then select <em>TweetDuck</em></li>
+                <li><em>Right-click anywhere</em> and you will either see the listed options, or a <em>TweetDuck</em> entry that contains these options</li>
+              </ul>
+              <img src="img/settings-dropdown.png" alt="">
+            </div>
+          </details>
+          
+          <details>
+            <summary>How to customize the theme and layout</summary>
+            <div>
+              <ol>
+                <li>Click <em>Settings</em> in the left panel</li>
+                <li>Continue to <em>Edit layout &amp; design</em></li>
+                <li>Now you can customize many aspects of the website; note that unlike the default TweetDeck settings, the column width and font size can be configured here in much greater detail</li>
+              </ol>
+              <img src="img/settings-editdesign.png" alt="">
+              <p>This is done using an official plugin called <em>Edit layout &amp; design</em>, which is enabled by default. If the plugin is disabled, you can still access the default TweetDeck settings:</p>
+              <ol>
+                <li>Click <em>Settings</em> on the bottom left</li>
+                <li>Continue to <em>Settings</em> (again)</li>
+                <li>Here you can customize the theme, column width, and font size</li>
+              </ol>
+              <img src="img/settings-dropdown.png" alt="">
+            </div>
+          </details>
+          
+          <details>
+            <summary>How to add emoji to tweets</summary>
+            <div>
+              <p>When writing a new tweet, click the heart icon to open an emoji picker. If you're writing a reply, click the <em>Popout</em> icon first to bring the reply into the large panel.</p>
+              <p>Then you can immediately type into the <em>Search</em> field, which accepts keywords separated by space. Pressing <em>Enter</em> in the search field (when not empty) will insert the first result into your tweet. Pressing <em>Escape</em> closes the emoji picker.</p>
+              <p>You can also use your mouse to scroll through the emoji, click on the emoji to insert them, and change the skin tone.</p>
+              <p>Emoji are provided by an official plugin called <em>Emoji keyboard</em>, which is enabled by default. The heart icon will not show if the plugin is disabled.</p>
+              <img src="img/new-tweet-emoji.png" alt="">
+            </div>
+          </details>
+          
+          <details>
+            <summary>How to use tweet templates</summary>
+            <div>
+              <p>To create a simple template to use when writing a new tweet or reply:</p>
+              <ol>
+                <li>Click <em>Manage templates</em> in the New Tweet panel; if you're writing a reply, click the <em>Popout</em> icon first to bring the reply into the large panel</li>
+                <li>Click <em>New template</em> on the bottom right</li>
+                <li>Fill in the template name and contents</li>
+                <li>Click <em>Confirm</em> to create the template</li>
+              </ol>
+              <p>After you create a template, it will be added to the list. There are two icons next to each entry:</p>
+              <ul>
+                <li>Click the <em>pencil icon to edit</em> the template</li>
+                <li>Click the <em>cross icon to delete</em> the template</li>
+              </ul>
+              <p>To use the template, <em>click the template name</em> to replace your current tweet text with the template, or click while holding <em>Shift</em> to append the template to your tweet instead. You can use the Shift+click functionality to quickly chain multiple templates.</p>
+              <img src="img/new-tweet-template-basic.png" alt="">
+              <p>When writing a template, you can use special <em>tokens</em> listed in the <em>Advanced</em> section. Here is an example of one of the tokens:</p>
+              <img src="img/new-tweet-template-advanced.png" alt="">
+            </div>
+          </details>
+          
+          <details>
+            <summary>How to upload images from clipboard</summary>
+            <div>
+              <p>When writing a tweet/reply, press <em>Ctrl+V</em> to upload an image from clipboard. You can use this to quickly paste a selection from an image editor such as Paint, or after copying an image in your browser.</p>
+              <p>Make sure you're in the tweet input field before you press Ctrl+V, otherwise the keyboard shortcut won't trigger.</p>
+              <p>Note that this will only work when your clipboard contains the image itself; it will not work if you copy a file or URL.</p>
+            </div>
+          </details>
+        </article>
+        
+        <article>
+          <h2>Columns</h2>
+          
+          <details>
+            <summary>How to copy links to tweets</summary>
+            <div>
+              <p>When you right-click anywhere inside a tweet, you will be given these options:</p>
+              <ul>
+                <li>Open tweet in browser</li>
+                <li><em>Copy tweet address</em></li>
+                <li>Screenshot tweet to clipboard</li>
+              </ul>
+              <p>If the tweet contains a quote, you will also be able to directly open the quote or copy its address.</p>
+              <p>Note that these options will not appear when you right-click a private message.</p>
+            </div>
+          </details>
+          
+          <details>
+            <summary>How to download images and videos</summary>
+            <div>
+              <p>When you right-click an image or a video thumbnail with a purple play button, you will be given these options:</p>
+              <ul>
+                <li>Open image/video in browser</li>
+                <li>Copy image/video address</li>
+                <li><em>Save image/video as...</em></li>
+              </ul>
+              <p>TweetDuck will attempt to fetch the highest quality image when you click any of these options. You can disable that by going to the <em>main menu</em>, selecting <em>Options</em>, and then unchecking <em>Best Image Quality</em>.</p>
+              <p>Whenever possible, the username and quality are included in the filename by default, for convenience. After you select a folder and click Save, the image/video will be downloaded in the background. There is no notification for when the download finishes, but you will be notified if it fails.</p>
+            </div>
+          </details>
+          
+          <details>
+            <summary>How to take screenshots of individual tweets</summary>
+            <div>
+              <p>When you right-click anywhere inside a tweet, you will be given these options:</p>
+              <ul>
+                <li>Open tweet in browser</li>
+                <li>Copy tweet address</li>
+                <li><em>Screenshot tweet to clipboard</em></li>
+              </ul>
+              <p>Taking a screenshot may take several seconds, especially if it contains large images or previews. After taking a screenshot, you can paste it into an image editor such as Paint.</p>
+              <p>Note that these options will not appear when you right-click a private message.</p>
+            </div>
+          </details>
+          
+          <details>
+            <summary>How to clear and restore column contents</summary>
+            <div>
+              <p>TweetDeck lets you clear a column, which can help keep things organized by hiding tweets you have already read. To clear a column, click the <em>slider icon</em> on top of the column, and then click the <em>Clear</em> button.</p>
+              <p>If you need to revert this decision and restore a column, normally you would need to delete and re-create it, but in TweetDuck you can simply hold Shift which turns the Clear button into a <em>Restore</em> button.</p>
+              <img src="img/column-clear-preferences.png" alt="">
+              <p>If you clear columns frequently, you can enable an official plugin that lets you clear columns much quicker:</p>
+              <ol>
+                <li>Open the <em>main menu</em>, and select <em>Plugins</em> to open the list of available plugins</li>
+                <li>Find an entry that says <em>Clear columns</em>, it will be somewhere near the bottom as the plugin is disabled by default</li>
+                <li>Click <em>Enable</em> on the right side to enable the plugin and reload the browser</li>
+              </ol>
+              <p>Now you can clear...</p>
+              <ul>
+                <li>...a single column by clicking the <em>droplet icon</em> on top of each column</li>
+                <li>...a single column by holding the <em>1-9 number key</em> and pressing <em>Delete</em></li>
+                <li>...all columns by clicking <em>Clear columns</em> in the left panel</li>
+                <li>...all columns by pressing <em>Alt+Delete</em></li>
+              </ul>
+              <img src="img/column-clear-header.png" alt="">
+              <p>As mentioned before, hold Shift with any of these to restore the columns instead. Note that some keyboard layouts require using the Shift key when pressing number keys; if that is the case for you, please use the numpad or mouse instead.</p>
+            </div>
+          </details>
+        </article>
+        
+        <article>
+          <h2>Notifications</h2>
+          
+          <details>
+            <summary>How to enable desktop or sound notifications</summary>
+            <div>
+              <p>New columns have disabled notifications by default. To enable them, click the <em>slider icon</em> on top of the column, and expand the <em>Preferences</em> section.</p>
+              <p>Now you can toggle either, or both of the notification options:</p>
+              <img src="img/column-preferences.png" alt="">
+            </div>
+          </details>
+          
+          <details>
+            <summary>How to move or resize desktop notifications</summary>
+            <div>
+              <p>Open the <em>main menu</em>, select <em>Options</em>, and then click the <em>Notifications</em> tab. Here, you can customize many aspects of desktop notifications.</p>
+              <p>Scroll down to the <em>Location</em> section where you can customize where the notification shows up. You can either pick one of the 4 corners of your screen and the distance from the corner, or select <em>Custom</em> and then you'll be able to freely move the example notification window.</p>
+              <img src="img/options-notifications-location.png" alt="">
+              <p>Scroll down to the <em>Size</em> section to customize the size of the notification window. By default, TweetDuck sets the size based on your font size setting, the zoom level you can customize in the General tab, and your system DPI. If you pick <em>Custom</em>, you will be able to freely resize the example notification window.</p>
+              <img src="img/options-notifications-size.png" alt="">
+              <p>Note that moving and resizing the notification only works while you're inside the Options dialog, that is to prevent accidental clicks messing up your settings.</p>
+            </div>
+          </details>
+          
+          <details>
+            <summary>How to customize sound notifications</summary>
+            <div>
+              <p>Open the <em>main menu</em>, select <em>Options</em>, and then click the <em>Sounds</em> tab. Here, you can pick a sound file that will be used instead of the default TweetDeck sound notification.</p>
+              <p>Keep in mind that you're only linking to the sound file, so make sure not to delete the file afterwards, otherwise TweetDuck won't find it anymore.</p>
+              <img src="img/options-sounds.png" alt="">
+              <p>If you're unable to select MP3 files or other common audio file types, please ensure that you have Windows Media Player installed on your system, otherwise you will only be able to select basic WAV files.</p>
+            </div>
+          </details>
+          
+          <details>
+            <summary>How to temporarily mute all notifications</summary>
+            <div>
+              <p>There are two ways you can mute/unmute notifications:</p>
+              <ul>
+                <li>Open the <em>main menu</em> and click <em>Mute notifications</em></li>
+                <li>If you've enabled the <em>tray icon</em>, right-click it and then click <em>Mute notifications</em></li>
+              </ul>
+              <p>The option persists across restarts &ndash; if you mute notifications and then restart TweetDuck, don't forget to unmute the notifications again.</p>
+              <p>Unmuting notifications will display all missed desktop notifications (unless TweetDuck was restarted in the meantime).</p>
+            </div>
+          </details>
+        </article>
+        
+      </section>
+      <section>
+       
+        <article>
+          <h2>Options</h2>
+          
+          <details>
+            <summary>How to configure TweetDuck</summary>
+            <div>
+              <p>Open the <em>main menu</em> and select <em>Options</em>. Here you can configure various parts of TweetDuck; the dialog is split into several tabs:</p>
+              <ul>
+                <li><em>General</em> tab for user interface, zoom, and update options</li>
+                <li><em>System Tray</em> tab to enable and configure the tray icon</li>
+                <li><em>Notifications</em> tab to configure desktop notifications</li>
+                <li><em>Sounds</em> tab to set a custom sound notification</li>
+                <li><em>Advanced</em> tab for highly technical options</li>
+              </ul>
+              <p>You can move your cursor over most options to display a <em>tooltip with a detailed explanation</em> of what that option does.</p>
+            </div>
+          </details>
+          
+          <details>
+            <summary>How to view and manage plugins</summary>
+            <div>
+              <p>TweetDuck has several offical plugins that extend the website and notifications with new functionality.</p>
+              <p>Open the <em>main menu</em> and select <em>Plugins</em> to open the plugin list. Here you can see what each plugin does, and enable/disable them individually. </p>
+              <p>If you want to install a custom plugin, click <em>Open Plugin Folder</em>. A plugin is a folder that contains a <em>.meta</em> file and several others, make sure you copy and paste the folder itself into the opened plugin folder. To verify that you installed it correctly, click <em>Reload All</em> (which also reloads the website) and the plugin should appear.</p>
+              <p>Please, be careful when installing new plugins, and ensure that you get them from trustworthy sources. If you're unsure about a plugin, feel free to <a href="https://github.com/chylex/TweetDuck/issues/new" rel="nofollow">create an issue</a> and upload the plugin there (<a href="https://github.com" rel="nofollow">GitHub</a> account required).</p>
+            </div>
+          </details>
+          
+          <details>
+            <summary>How to backup your profile or move it to another computer</summary>
+            <div>
+              <ol>
+                <li>Open the <em>main menu</em>, select <em>Options</em>, and click <em>Manage Options</em> on the bottom left</li>
+                <li>Select <em>Export profile</em> and proceed with <em>Next</em></li>
+                <li>Select items you want to save in your profile (note that <em>Plugin Data</em> includes data from official plugins, such as those that let you customize the website or create tweet templates)</li>
+                <li>Click <em>Export Profile</em></li>
+              </ol>
+              <img src="img/options-manage.png" alt="" style="margin-right:6px">
+              <img src="img/options-manage-export.png" alt="">
+              <p>You can save your profile into a cloud storage (Dropbox, Google Drive, etc.) or an external drive, for example. When you want to restore it, follow the same steps but select <em>Import profile</em> and then select the file instead.</p>
+              <p>When importing a profile, you will be again able to pick which items you want to restore. You can for example export a full profile including your login session, but then only import program options and plugin data if you want to login to a different account.</p>
+            </div>
+          </details>
+          
+          <details>
+            <summary>How to restore default options</summary>
+            <div>
+              <ol>
+                <li>Open the <em>main menu</em>, select <em>Options</em>, and click <em>Manage Options</em> on the bottom left</li>
+                <li>Select <em>Restore defaults</em> and proceed with <em>Next</em></li>
+                <li>Select items you want reset (note that <em>Plugin Data</em> includes data from official plugins, such as those that let you customize the website or create tweet templates)</li>
+                <li>Click <em>Restore Defaults</em></li>
+              </ol>
+              <img src="img/options-manage.png" alt="" style="margin-right:6px">
+              <img src="img/options-manage-reset.png" alt="">
+            </div>
+          </details>
+        </article>
+        
+        <article>
+          <h2>Efficiency</h2>
+          
+          <details>
+            <summary>How to use keyboard shortcuts</summary>
+            <div>
+              <ol>
+                <li>Click <em>Settings</em> in the left panel</li>
+                <li>Continue to <em>Keyboard shortcuts</em></li>
+                <li>Here you can see most available keyboard shortcuts you can use in the browser window</li>
+              </ol>
+              <img src="img/settings-dropdown.png" alt="">
+              <p>You can also often hold Ctrl or Shift to trigger alternative actions:</p>
+              <ul>
+                <li>When <em>selecting accounts</em>, hold <em>Shift</em> to select multiple accounts (can be configured in the Options)</li>
+                <li>When <em>clearing columns</em>, hold <em>Shift</em> to restore the column instead</li>
+                <li>When <em>clicking video thumbnails</em>, hold <em>Ctrl</em> to open them in your browser</li>
+              </ul>
+              <p>Finally, if you click into a desktop notification window, you can use these keyboard shortcuts:</p>
+              <ul>
+                <li><em>Enter</em> to skip the current notification</li>
+                <li><em>Escape</em> to close the window (skips all notifications in the queue)</li>
+                <li><em>Space</em> to pause/unpause the timer</li>
+              </ul>
+            </div>
+          </details>
+          
+          <details>
+            <summary>How to use the forward / back mouse buttons</summary>
+            <div>
+              <p>If you have a mouse that supports the forward and back buttons, you can use them in both the browser and a desktop notification. All you need to do is move the cursor over the window (even if it's not focused), and press one of the buttons.</p>
+              <p>In the browser:</p>
+              <ul>
+                <li>Press <em>forward</em> over a <em>tweet to open it in detail view</em> (unlike clicking, this will not trigger links or media thumbnails)</li>
+                <li>Press <em>back</em> anywhere to <em>close modal dialogs</em> or the <em>New Tweet panel</em>, or over a <em>column to return back from detail view</em> (if there are no dialogs or panels open, pressing the button outside a column will trigger it for all columns at once)</li>
+              </ul>
+              <p>In the desktop notification:</p>
+              <ul>
+                <li>Press <em>forward</em> to skip the current notification</li>
+                <li>Press <em>back</em> to close the window (skips all notifications in the queue)</li>
+              </ul>
+            </div>
+          </details>
+          
+          <details>
+            <summary>How to keep the New Tweet panel open</summary>
+            <div>
+              <p>Open the New Tweet panel, and click the <em>pin icon</em> on top. When the pin points to the left, the panel will stay open after tweeting or restarting TweetDuck.</p>
+              <img src="img/new-tweet-pin.png" alt="">
+            </div>
+          </details>
+          
+          <details>
+            <summary>How to instantly popout replies</summary>
+            <div>
+              <p><em>Middle-click the reply icon</em> to instantly open your reply in the New Tweet panel.</p>
+              <p>Middle-clicks are usually done by pressing your mouse wheel as if it was a button. When using a laptop touchpad or certain mice, the ways of triggering a middle click vary.</p>
+            </div>
+          </details>
+          
+          <details>
+            <summary>How to change which account will be pre-selected for replies</summary>
+            <div>
+              <p>By default, TweetDeck pre-selects the account mentioned in the column header. The ability to change this is provided by an official plugin which is disabled by default, as it's a bit more difficult to setup, but it can be very powerful. To enable the plugin:</p>
+              <ol>
+                <li>Open the <em>main menu</em> and select <em>Plugins</em></li>
+                <li>Find an entry that says <em>Custom reply account</em>, it will be somewhere near the bottom as the plugin is disabled by default</li>
+                <li>Click <em>Enable</em> on the right side to enable the plugin</li>
+              </ol>
+              <p>After you enable the plugin, it will use your preferred account for all replies by default. If that's your intention, you can simply enable the plugin and leave it, otherwise continue reading:</p>
+              <ol>
+                <li>Click <em>Configure</em> next to the plugin to open a folder with the configuration file
+                <li>Open <em>configuration.js</em> in a text editor that can edit and save JavaScript or any pure text files, therefore office suits or WordPad are not suitable; if you don't have any specific editor, use Notepad.</li>
+                <li>The configuration file includes very detailed instructions &ndash; you can use one of the <em>presets</em>, a <em>specific account</em> for all replies, or use JavaScript to <em>fully customize</em> the reply behavior</li>
+              </ol>
+              <p>After editing the configuration, return back to Plugins and click <em>Reload All</em> on the bottom left. Now you can close Plugins and test if replies work the way you want.</p>
+              <p>Note that this will not affect the Messages column, that one will always pre-select the account which received the private message.</p>
+            </div>
+          </details>
+        </article>
+        
+        <article>
+          <h2>Advanced</h2>
+          
+          <details>
+            <summary>How to open Chrome Dev Tools</summary>
+            <div>
+              <ol>
+                <li>Open the <em>main menu</em>, select <em>Options</em>, and click the <em>Advanced</em> tab</li>
+                <li>Click <em>Open Program Folder</em></li>
+                <li>Download <a href="https://github.com/chylex/TweetDuck/raw/master/bld/Resources/devtools_resources.pak" rel="nofollow">devtools_resources.pak</a> and place it into the opened folder</li>
+                <li>Click <em>Restart the Program</em></li>
+                <li>Now, open the <em>main menu</em> again and you should see <em>Open dev tools</em>; you can also right-click inside a notification and see the same option (make sure to pause the notification first by clicking Freeze in the context menu)</li>
+              </ol>
+            </div>
+          </details>
+          
+          <details>
+            <summary>How to customize styles using CSS</summary>
+            <div>
+              <ol>
+                <li>Open the <em>main menu</em>, select <em>Options</em>, and click the <em>Advanced</em> tab</li>
+                <li>Click <em>Edit CSS</em></li>
+              </ol>
+              <p>Now you can write custom CSS into the <em>Browser</em> and <em>Notification</em> sections.</p>
+              <p>Note that the Browser section will immediately take effect as you type. You can also still access the browser and Dev Tools, as the dialog does not block the browser window.</p>
+              <p>Basic knowledge of HTML and CSS is recommended. Mozilla Development Network has a huge library of resources on both <a href="https://developer.mozilla.org/en-US/Learn/Getting_started_with_the_web/HTML_basics" rel="nofollow">HTML</a> and <a href="https://developer.mozilla.org/en-US/Learn/Getting_started_with_the_web/CSS_basics" rel="nofollow">CSS</a>.</p>
+            </div>
+          </details>
+          
+          <details>
+            <summary>How to develop plugins</summary>
+            <div>
+              <p>Before creating a plugin, you should have at least basic knowledge of <a href="https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web" rel="nofollow">web development</a> (namely HTML, CSS, JavaScript), and several JS libraries TweetDeck uses, such as <a href="https://learn.jquery.com" rel="nofollow">jQuery 2</a>, <a href="https://mustache.github.io" rel="nofollow">Mustache</a>, <a href="https://github.com/ded/klass" rel="nofollow">klass</a>, and <a href="https://flightjs.github.io/" rel="nofollow">Flight</a>.</p>
+              <p>Working with the TweetDeck source code involves a lot of reverse-engineering. You can visit <a href="https://github.com/DeckHack/discoveries" rel="nofollow">DeckHack</a> which is working to document its source code, and view <a href="https://github.com/chylex/TweetDuck/tree/master/Resources/Scripts" rel="nofollow">TweetDuck sources</a> which includes all scripts and official plugins.</p>
+              <p>Once you're ready to start creating your own plugins, visit the official <a href="https://github.com/chylex/TweetDuck/wiki/Plugins%EA%9E%89-1.-The-Basics" rel="nofollow">plugin development documentation</a> which will explain the structure of a plugin, and show you all TweetDuck-specific functionality you cannot normally use in browsers.</p>
+            </div>
+          </details>
+        </article>
+
+      </section>
+    </div>
+  </body>
+</html>

@@ -211,6 +211,10 @@ namespace TweetDuck.Core{
                 if (Program.SystemConfig.EnableBrowserGCReload){
                     memoryUsageTracker.Start(this, e.Browser, Program.SystemConfig.BrowserMemoryThreshold);
                 }
+
+                if (Config.FirstRun){
+                    ScriptLoader.ExecuteFile(e.Frame, "introduction.js");
+                }
             }
         }
 
@@ -443,6 +447,15 @@ namespace TweetDuck.Core{
         }
 
         // callback handlers
+        
+        public void OnIntroductionClosed(bool showGuide){
+            Config.FirstRun = false;
+            Config.Save();
+
+            if (showGuide){
+                ShowChildForm(new FormGuide());
+            }
+        }
 
         public void OpenContextMenu(){
             contextMenu.Show(this, PointToClient(Cursor.Position));

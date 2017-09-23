@@ -88,6 +88,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Core\FormManager.cs" />
+    <Compile Include="Core\Handling\ContextMenuGuide.cs" />
     <Compile Include="Core\Handling\DragHandlerBrowser.cs" />
     <Compile Include="Core\Handling\General\BrowserProcessHandler.cs" />
     <Compile Include="Core\Handling\ContextMenuBase.cs" />
@@ -132,6 +133,12 @@
     </Compile>
     <Compile Include="Core\Other\FormAbout.Designer.cs">
       <DependentUpon>FormAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Core\Other\FormGuide.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Core\Other\FormGuide.Designer.cs">
+      <DependentUpon>FormGuide.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\Other\FormMessage.cs">
       <SubType>Form</SubType>
@@ -333,6 +340,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Scripts\code.js" />
+    <Content Include="Resources\Scripts\introduction.js" />
     <Content Include="Resources\Scripts\notification.js" />
     <Content Include="Resources\Scripts\pages\error.html" />
     <Content Include="Resources\Scripts\pages\example.html" />
