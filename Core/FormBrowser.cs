@@ -448,9 +448,12 @@ namespace TweetDuck.Core{
 
         // callback handlers
         
-        public void OnIntroductionClosed(bool showGuide){
-            Config.FirstRun = false;
-            Config.Save();
+        public void OnIntroductionClosed(bool showGuide, bool allowDataCollection){
+            if (Config.FirstRun){
+                Config.FirstRun = false;
+                Config.AllowDataCollection = allowDataCollection;
+                Config.Save();
+            }
 
             if (showGuide){
                 ShowChildForm(new FormGuide());

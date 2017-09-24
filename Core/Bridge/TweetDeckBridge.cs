@@ -50,9 +50,9 @@ namespace TweetDuck.Core.Bridge{
             this.notification = notification;
         }
 
-        public void OnIntroductionClosed(bool showGuide){
+        public void OnIntroductionClosed(bool showGuide, bool allowDataCollection){
             form.InvokeAsyncSafe(() => {
-                form.OnIntroductionClosed(showGuide);
+                form.OnIntroductionClosed(showGuide, allowDataCollection);
             });
         }
 

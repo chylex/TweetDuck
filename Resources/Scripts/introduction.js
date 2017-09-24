@@ -38,6 +38,21 @@
 #td-introduction-modal button {
   margin-left: 8px;
 }
+
+#td-introduction-modal .anondata {
+  float: left;
+  margin: 5px 7px;
+}
+
+#td-introduction-modal .anondata input {
+  vertical-align: -10%;
+}
+
+#td-introduction-modal .anondata label {
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+}
 </style>`).appendTo(document.head);
     
     let ele = $(`
@@ -56,6 +71,11 @@
         <p>You can also view the guide by opening the main menu, going to <strong>About TweetDuck</strong> and clicking the help button.</p>
       </div>
       <footer class="txt-right">
+        <div class="anondata">
+          <input id="td-anonymous-data" type="checkbox" checked>
+          <label for="td-anonymous-data">Send anonymous usage data</label>
+          <label>&nbsp;(<a href="https://github.com/chylex/TweetDuck/wiki/Send-anonymous-data" rel="nofollow">learn more</a>)</label>
+        </div>
         <button class="btn btn-positive" data-guide><span class="label">Show Guide</span></button>
         <button class="btn btn-positive"><span class="label">Close</span</button>
       </footer>
@@ -63,11 +83,12 @@
   </div>
 </div>`).appendTo(".js-app");
     
-    ele.find("button, a").click(function(){
+    ele.find("button, a.mdl-dismiss").click(function(){
       let showGuide = $(this)[0].hasAttribute("data-guide");
+      let allowDataCollection = $("#td-anonymous-data").is(":checked");
       
       ele.fadeOut(200, function(){
-        $TD.onIntroductionClosed(showGuide);
+        $TD.onIntroductionClosed(showGuide, allowDataCollection);
         ele.remove();
         css.remove();
       });
