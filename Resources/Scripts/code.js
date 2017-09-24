@@ -495,8 +495,8 @@
       }
     };
     
-    var processMedia = function(media){
-      return media.filter(item => !item.isAnimatedGif).map(item => item.entity.media_url_https+":small").join(";");
+    var processMedia = function(chirp){
+      return chirp.getMedia().filter(item => !item.isAnimatedGif).map(item => item.entity.media_url_https+":small").join(";");
     };
     
     app.delegate("section.js-column", {
@@ -523,7 +523,7 @@
           let tweetUrl = tweet.getChirpURL();
           let quoteUrl = tweet.quotedTweet ? tweet.quotedTweet.getChirpURL() : "";
           let authors = tweet.quotedTweet ? [ tweet.getMainUser().screenName, tweet.quotedTweet.getMainUser().screenName ].join(";") : tweet.getMainUser().screenName;
-          let imageList = tweet.quotedTweet ? processMedia(tweet.quotedTweet.getMedia()) : tweet.hasImage() ? processMedia(tweet.getMedia()) : "";
+          let imageList = tweet.quotedTweet && tweet.quotedTweet.hasImage() ? processMedia(tweet.quotedTweet) : tweet.hasImage() ? processMedia(tweet) : "";
           
           updateHighlightedTweet(me, tweet, tweetUrl || "", quoteUrl || "", authors, imageList);
         }
