@@ -878,19 +878,38 @@
       $TD.playVideo(url);
     };
     
-    app.delegate(".js-gif-play", "click", function(e){
-      let src = !e.ctrlKey && $(this).closest(".js-media-gif-container").find("video").attr("src");
+    var getVideoTweetLink = function(obj){
+      let parent = obj.closest(".js-tweet").first();
+      let link = (parent.hasClass("tweet-detail") ? parent.find("a[rel='url']") : parent.find("time").first().children("a")).first();
+      return link.attr("href");
+    }
+    
+    app.delegate(".js-gif-play", {
+      click: function(e){
+        let src = !e.ctrlKey && $(this).closest(".js-media-gif-container").find("video").attr("src");
+        
+        if (src){
+          playVideo(src);
+        }
+        else{
+          $TD.openBrowser(getVideoTweetLink($(this)));
+        }
+        
+        e.stopPropagation();
+      },
       
-      if (src){
-        playVideo(src);
-      }
-      else{
-        let parent = $(e.target).closest(".js-tweet").first();
-        let link = (parent.hasClass("tweet-detail") ? parent.find("a[rel='url']") : parent.find("time").first().children("a")).first();
-        $TD.openBrowser(link.attr("href"));
-      }
+      mousedown: function(e){
+        if (e.button === 1){
+          e.preventDefault();
+        }
+      },
       
-      e.stopPropagation();
+      mouseup: function(e){
+        if (e.button === 1){
+          $TD.openBrowser(getVideoTweetLink($(this)));
+          e.preventDefault();
+        }
+      }
     });
     
     TD.mustaches["status/media_thumb.mustache"] = TD.mustaches["status/media_thumb.mustache"].replace("is-gif", "is-gif is-paused");
