@@ -184,6 +184,11 @@ a[data-full-url] {
   vertical-align: top;
 }
 
+.tweet-detail-wrapper .js-media-gif-container {
+  /* GIFs in detail view don't trigger the pointer cursor */
+  cursor: pointer;
+}
+
 /********************************************************************/
 /* Fix glaring visual issues because twitter is fucking incompetent */
 /********************************************************************/
