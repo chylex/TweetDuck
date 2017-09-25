@@ -30,6 +30,7 @@
             this.labelDataCollection = new System.Windows.Forms.Label();
             this.labelFeedback = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.btnSendFeedback = new System.Windows.Forms.Button();
             this.panelFeedback.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -37,12 +38,13 @@
             // 
             this.panelFeedback.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelFeedback.Controls.Add(this.btnSendFeedback);
             this.panelFeedback.Controls.Add(this.labelDataCollectionLink);
             this.panelFeedback.Controls.Add(this.checkDataCollection);
             this.panelFeedback.Controls.Add(this.labelDataCollection);
             this.panelFeedback.Location = new System.Drawing.Point(9, 31);
             this.panelFeedback.Name = "panelFeedback";
-            this.panelFeedback.Size = new System.Drawing.Size(322, 44);
+            this.panelFeedback.Size = new System.Drawing.Size(322, 80);
             this.panelFeedback.TabIndex = 1;
             // 
             // labelDataCollectionLink
@@ -50,7 +52,7 @@
             this.labelDataCollectionLink.AutoSize = true;
             this.labelDataCollectionLink.LinkArea = new System.Windows.Forms.LinkArea(1, 10);
             this.labelDataCollectionLink.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.labelDataCollectionLink.Location = new System.Drawing.Point(141, 24);
+            this.labelDataCollectionLink.Location = new System.Drawing.Point(141, 60);
             this.labelDataCollectionLink.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelDataCollectionLink.Name = "labelDataCollectionLink";
             this.labelDataCollectionLink.Size = new System.Drawing.Size(66, 17);
@@ -63,7 +65,7 @@
             // checkDataCollection
             // 
             this.checkDataCollection.AutoSize = true;
-            this.checkDataCollection.Location = new System.Drawing.Point(6, 23);
+            this.checkDataCollection.Location = new System.Drawing.Point(6, 59);
             this.checkDataCollection.Margin = new System.Windows.Forms.Padding(6, 5, 0, 3);
             this.checkDataCollection.Name = "checkDataCollection";
             this.checkDataCollection.Size = new System.Drawing.Size(135, 17);
@@ -74,8 +76,8 @@
             // labelDataCollection
             // 
             this.labelDataCollection.AutoSize = true;
-            this.labelDataCollection.Location = new System.Drawing.Point(3, 5);
-            this.labelDataCollection.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
+            this.labelDataCollection.Location = new System.Drawing.Point(3, 41);
+            this.labelDataCollection.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelDataCollection.Name = "labelDataCollection";
             this.labelDataCollection.Size = new System.Drawing.Size(79, 13);
             this.labelDataCollection.TabIndex = 1;
@@ -92,6 +94,18 @@
             this.labelFeedback.TabIndex = 0;
             this.labelFeedback.Text = "Feedback";
             // 
+            // btnSendFeedback
+            // 
+            this.btnSendFeedback.AutoSize = true;
+            this.btnSendFeedback.Location = new System.Drawing.Point(5, 3);
+            this.btnSendFeedback.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
+            this.btnSendFeedback.Name = "btnSendFeedback";
+            this.btnSendFeedback.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.btnSendFeedback.Size = new System.Drawing.Size(164, 23);
+            this.btnSendFeedback.TabIndex = 0;
+            this.btnSendFeedback.Text = "Send Feedback / Bug Report";
+            this.btnSendFeedback.UseVisualStyleBackColor = true;
+            // 
             // TabSettingsFeedback
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -99,7 +113,7 @@
             this.Controls.Add(this.panelFeedback);
             this.Controls.Add(this.labelFeedback);
             this.Name = "TabSettingsFeedback";
-            this.Size = new System.Drawing.Size(340, 86);
+            this.Size = new System.Drawing.Size(340, 122);
             this.panelFeedback.ResumeLayout(false);
             this.panelFeedback.PerformLayout();
             this.ResumeLayout(false);
@@ -115,5 +129,6 @@
         private System.Windows.Forms.Label labelFeedback;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.LinkLabel labelDataCollectionLink;
+        private System.Windows.Forms.Button btnSendFeedback;
     }
 }

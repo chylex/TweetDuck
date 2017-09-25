@@ -11,7 +11,12 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         public override void OnReady(){
+            btnSendFeedback.Click += btnSendFeedback_Click;
             checkDataCollection.CheckedChanged += checkDataCollection_CheckedChanged;
+        }
+
+        private void btnSendFeedback_Click(object sender, EventArgs e){
+            BrowserUtils.OpenExternalBrowserUnsafe("https://github.com/chylex/TweetDuck/issues/new");
         }
 
         private void checkDataCollection_CheckedChanged(object sender, EventArgs e){
