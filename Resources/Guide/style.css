@@ -23,6 +23,12 @@ body {
   flex-direction: column;
 }
 
+@media(max-width: 408px) {
+  #guide section {
+    min-width: calc(100vw - 48px);
+  }
+}
+
 #guide h2 {
   margin: 20px 0 10px;
   font-size: 32px;

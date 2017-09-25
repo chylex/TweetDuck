@@ -10,11 +10,13 @@ document.addEventListener("DOMContentLoaded", function(){
       if (parent.hasAttribute("open")){
         parent.removeAttribute("open");
         summary.setAttribute("aria-expanded", "false");
+        contents.setAttribute("aria-hidden", "true");
         contents.style.display = "none";
       }
       else{
         parent.setAttribute("open", "");
         summary.setAttribute("aria-expanded", "true");
+        contents.setAttribute("aria-hidden", "false");
         contents.style.display = "block";
       }
     };
@@ -41,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function(){
         summary.addEventListener("click", onClick);
         summary.addEventListener("keydown", onKey);
         
+        contents.setAttribute("aria-hidden", "true");
         contents.style.display = "none";
       }
     }
