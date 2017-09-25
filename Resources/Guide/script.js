@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function(){
+var init = function(){
   if (!("open" in document.getElementsByTagName("details")[0])){
     var elements = document.getElementsByTagName("details");
     
@@ -65,4 +65,11 @@ document.addEventListener("DOMContentLoaded", function(){
       elements[index].addEventListener("mouseup", onMouseUp);
     }
   }
-});
+};
+
+if (document.readyState !== "loading"){
+  init();
+}
+else{
+  document.addEventListener("DOMContentLoaded", init);
+}
