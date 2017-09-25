@@ -8,8 +8,8 @@
 
 #td-introduction-modal .mdl {
   width: 90%;
-  max-width: 680px;
-  height: 350px;
+  max-width: 800px;
+  height: 372px;
 }
 
 #td-introduction-modal .mdl-header-title {
@@ -17,7 +17,7 @@
 }
 
 #td-introduction-modal .mdl-content {
-  padding: 4px 16px;
+  padding: 4px 16px 0;
   overflow-y: auto;
 }
 
@@ -65,10 +65,10 @@
     <div class="mdl-inner">
       <div class="mdl-content">
         <p>Thank you for downloading TweetDuck!</p>
-        <p><strong>Right-click</strong> anywhere or click <strong>Settings &ndash; TweetDuck</strong> to access the main menu.</p>
-        <p>You can also right-click links, media, tweets, desktop notifications, etc. to access to their context menu.</p>
-        <p>If you are using TweetDuck for the first time, check out the <strong>guide</strong> that showcases many great features the app offers and answers some common questions.</p>
-        <p>You can also view the guide by opening the main menu, going to <strong>About TweetDuck</strong> and clicking the help button.</p>
+        <p><strong>Right-click anywhere</strong> or click <strong>Settings – TweetDuck</strong> in the left panel to open the main menu, where you can access the <strong>Options</strong>, <strong>Plugins</strong>, and more.</p>
+        <p>You can also right-click links, media, tweets, notifications, etc. to access their context menu.</p>
+        <p>If you're using TweetDuck for the first time, check out the <strong>guide</strong> that answers common questions and showcases important features. You can open the main menu, select <strong>About TweetDuck</strong>, and click the help button to view the guide later.</p>
+        <p>Before you continue, please consider helping development by allowing TweetDuck to send anonymous data in the future. You can always disable it in <strong>Options – Feedback</strong>.</p>
       </div>
       <footer class="txt-right">
         <div class="anondata">
