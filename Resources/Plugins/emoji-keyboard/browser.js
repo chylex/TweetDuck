@@ -337,6 +337,7 @@ enabled(){
           
           ele.val(val.substring(0, firstColon)+foundEmoji+val.substring(ele[0].selectionStart));
           ele[0].selectionEnd = ele[0].selectionStart = firstColon+foundEmoji.length;
+          ele.trigger("change");
           ele.focus();
           
           lastEmojiPosition = firstColon+foundEmoji.length;
@@ -347,8 +348,9 @@ enabled(){
         e.preventDefault();
         ele.val(val.substring(0, firstColon)+val.substring(ele[0].selectionStart));
         ele[0].selectionEnd = ele[0].selectionStart = firstColon;
+        ele.trigger("change");
         
-        me.generateKeyboard($(".emoji-keyboard-popup-btn").offset().left, getKeyboardTop());
+        $(".emoji-keyboard-popup-btn").click();
         $(".emoji-keyboard-search").children("input").focus();
         document.execCommand("insertText", false, keywords.join(" "));
       }
