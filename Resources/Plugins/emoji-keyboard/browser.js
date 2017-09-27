@@ -66,6 +66,7 @@ enabled(){
   this.currentSpanner = null;
   
   var wasSearchFocused = false;
+  var lastEmojiKeyword, lastEmojiPosition, lastEmojiLength;
   
   var hideKeyboard = (refocus) => {
     $(this.currentKeyboard).remove();
@@ -81,8 +82,14 @@ enabled(){
     $(".emoji-keyboard-popup-btn").removeClass("is-selected");
     
     if (refocus){
-      $(".js-compose-text", ".js-docked-compose").focus();
+      this.composeInput.focus();
+      
+      if (lastEmojiKeyword){
+        document.execCommand("insertText", false, lastEmojiKeyword);
+      }
     }
+    
+    lastEmojiKeyword = null;
   };
   
   var generateEmojiHTML = skinTone => {
@@ -229,7 +236,7 @@ enabled(){
   };
   
   var insertEmoji = (src, alt) => {
-    let input = $(".js-compose-text", ".js-docked-compose");
+    let input = this.composeInput;
 
     let val = input.val();
     let posStart = input[0].selectionStart;
@@ -240,6 +247,8 @@ enabled(){
 
     input[0].selectionStart = posStart+alt.length;
     input[0].selectionEnd = posStart+alt.length;
+    
+    lastEmojiKeyword = null;
     
     if (wasSearchFocused){
       $(".emoji-keyboard-search").children("input").focus();
@@ -267,6 +276,85 @@ enabled(){
   this.composerScrollEvent = function(e){
     if (me.currentKeyboard){
       me.currentKeyboard.style.marginTop = (-$(this).scrollTop())+"px";
+    }
+  };
+  
+  this.composeInputKeyDownEvent = function(e){
+    if (lastEmojiKeyword && (e.keyCode === 8 || e.keyCode === 27)){ // backspace, escape
+      let ele = $(this)[0];
+      
+      if (ele.selectionStart === lastEmojiPosition){
+        ele.selectionStart -= lastEmojiLength; // selects the emoji
+        document.execCommand("insertText", false, lastEmojiKeyword);
+
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      
+      lastEmojiKeyword = null;
+    }
+  };
+  
+  this.composeInputKeyPressEvent = function(e){
+    if (String.fromCharCode(e.which) === ':'){
+      let ele = $(this);
+      let val = ele.val();
+      
+      let firstColon = val.lastIndexOf(':', ele[0].selectionStart);
+      return if firstColon === -1;
+      
+      let search = val.substring(firstColon+1, ele[0].selectionStart);
+      return if !/^[a-z_]+$/i.test(search);
+      
+      let keywords = search.split("_").filter(kw => kw.length > 0).map(kw => kw.toLowerCase());
+      return if keywords.length === 0;
+      
+      let foundName = me.emojiNames.filter(name => keywords.every(kw => name.includes(kw)));
+      
+      if (foundName.length === 0){
+        return;
+      }
+      
+      lastEmojiKeyword = `:${search}:`;
+      lastEmojiPosition = lastEmojiLength = 0;
+      
+      if (foundName.length === 1){
+        let foundIndex = me.emojiNames.indexOf(foundName[0]);
+        let foundEmoji;
+        
+        for(let array of [ me.emojiData1, me.emojiData2[me.selectedSkinTone], me.emojiData3 ]){
+          if (foundIndex >= array.length){
+            foundIndex -= array.length;
+          }
+          else{
+            foundEmoji = array[foundIndex];
+            break;
+          }
+        }
+        
+        if (foundEmoji){
+          e.preventDefault();
+          
+          ele.val(val.substring(0, firstColon)+foundEmoji+val.substring(ele[0].selectionStart));
+          ele[0].selectionEnd = ele[0].selectionStart = firstColon+foundEmoji.length;
+          ele.focus();
+          
+          lastEmojiPosition = firstColon+foundEmoji.length;
+          lastEmojiLength = foundEmoji.length;
+        }
+      }
+      else if (foundName.length > 1){
+        e.preventDefault();
+        ele.val(val.substring(0, firstColon)+val.substring(ele[0].selectionStart));
+        ele[0].selectionEnd = ele[0].selectionStart = firstColon;
+        
+        me.generateKeyboard($(".emoji-keyboard-popup-btn").offset().left, getKeyboardTop());
+        $(".emoji-keyboard-search").children("input").focus();
+        document.execCommand("insertText", false, keywords.join(" "));
+      }
+    }
+    else{
+      lastEmojiKeyword = null;
     }
   };
   
@@ -300,15 +388,18 @@ enabled(){
 
 ready(){
   this.composeDrawer = $("[data-drawer='compose']");
+  this.composeInput = $(".js-compose-text", ".js-docked-compose");
   
   this.composePanelScroller = $(".js-compose-scroller", ".js-docked-compose").first().children().first();
   this.composePanelScroller.on("scroll", this.composerScrollEvent);
   
   $(".emoji-keyboard-popup-btn").on("click", this.emojiKeyboardButtonClickEvent);
-  $(".js-compose-text", ".js-docked-compose").on("focus", this.composeInputFocusEvent);
   $(document).on("click", this.documentClickEvent);
   $(document).on("keydown", this.documentKeyEvent);
   $(document).on("uiComposeImageAdded", this.uploadFilesEvent);
+  this.composeInput.on("keydown", this.composeInputKeyDownEvent);
+  this.composeInput.on("keypress", this.composeInputKeyPressEvent);
+  this.composeInput.on("focus", this.composeInputFocusEvent);
   this.composeDrawer.on("uiComposeTweetSending", this.composerSendingEvent);
   
   // HTML generation
@@ -429,10 +520,12 @@ disabled(){
   $(".emoji-keyboard-popup-btn").off("click", this.emojiKeyboardButtonClickEvent);
   $(".emoji-keyboard-popup-btn").remove();
   
-  $(".js-compose-text", ".js-docked-compose").off("focus", this.composeInputFocusEvent);
   $(document).off("click", this.documentClickEvent);
   $(document).off("keydown", this.documentKeyEvent);
   $(document).off("uiComposeImageAdded", this.uploadFilesEvent);
+  this.composeInput.off("keydown", this.composeInputKeyDownEvent);
+  this.composeInput.off("keypress", this.composeInputKeyPressEvent);
+  this.composeInput.off("focus", this.composeInputFocusEvent);
   this.composeDrawer.off("uiComposeTweetSending", this.composerSendingEvent);
   
   TD.mustaches["compose/docked_compose.mustache"] = this.prevComposeMustache;
