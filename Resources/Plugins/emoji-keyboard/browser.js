@@ -84,7 +84,7 @@ enabled(){
     if (refocus){
       this.composeInput.focus();
       
-      if (lastEmojiKeyword){
+      if (lastEmojiKeyword && lastEmojiPosition === 0){
         document.execCommand("insertText", false, lastEmojiKeyword);
       }
     }
@@ -323,11 +323,13 @@ enabled(){
         let foundEmoji;
         
         for(let array of [ me.emojiData1, me.emojiData2[me.selectedSkinTone], me.emojiData3 ]){
-          if (foundIndex >= array.length){
-            foundIndex -= array.length;
+          let realArray = array.filter(ele => ele !== "___");
+          
+          if (foundIndex >= realArray.length){
+            foundIndex -= realArray.length;
           }
           else{
-            foundEmoji = array[foundIndex];
+            foundEmoji = realArray[foundIndex];
             break;
           }
         }
@@ -350,8 +352,11 @@ enabled(){
         ele[0].selectionEnd = ele[0].selectionStart = firstColon;
         ele.trigger("change");
         
-        $(".emoji-keyboard-popup-btn").click();
-        $(".emoji-keyboard-search").children("input").focus();
+        if (!me.currentKeyboard){
+          $(".emoji-keyboard-popup-btn").click();
+        }
+        
+        $(".emoji-keyboard-search").children("input").focus().val("");
         document.execCommand("insertText", false, keywords.join(" "));
       }
     }
