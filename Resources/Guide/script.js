@@ -65,6 +65,15 @@ var init = function(){
       elements[index].addEventListener("mouseup", onMouseUp);
     }
   }
+  
+  if (location.hash.length > 1){
+    var element = document.getElementById(location.hash.substring(1));
+    
+    if (element && element.tagName === "SUMMARY"){
+      element.click();
+      element.scrollIntoView(true);
+    }
+  }
 };
 
 if (document.readyState !== "loading"){
