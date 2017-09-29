@@ -17,7 +17,7 @@ enabled(){
           return;
         }
         
-        var section = data.element.closest("section.column");
+        var section = data.element.closest("section.js-column");
         
         var column = TD.controller.columnManager.get(section.attr("data-column"));
         var header = $(".column-title", section);
@@ -35,7 +35,7 @@ enabled(){
         }
         
         try{
-          query = configuration.customSelector(column.getColumnType(), columnTitle, columnAccount, column);
+          query = configuration.customSelector(column.getColumnType(), columnTitle, columnAccount, column, section.hasClass("column-temp"));
         }catch(e){
           $TD.alert("warning", "Plugin reply-account has invalid configuration: customSelector threw an error: "+e.message);
           return;

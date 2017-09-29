@@ -21,10 +21,13 @@
    * This assumes a basic knowledge of JavaScript and jQuery.
    *
    * 1. Set value of 'useAdvancedSelector' to true
-   * 2. Uncomment the 'customSelector' function, and replace the example code with your desired behavior
+   * 2. Replace the example code in 'customSelector' function with your desired behavior
    *
    * The 'customSelector' function should return a string in one of the formats supported by 'defaultAccount'.
    * If it returns anything else (for example, false or undefined), it falls back to 'defaultAccount' behavior.
+   *
+   * When writing a custom function, you can install Dev Tools to access the browser console:
+   *   https://tweetduck.chylex.com/guide/#dev-tools
    *
    *
    * The 'type' parameter is TweetDeck column type. Here is the full list of column types, note that some are
@@ -46,28 +49,33 @@
    * contain other text (for example, the Scheduled column contains the string 'All accounts').
    *
    *
-   * The 'column' parameter is a TweetDeck column object. If you want to see all properties of the object,
-   * run the following code in your browser console, which will return an array containing all of your
-   * current column objects in order:
+   * The 'column' parameter is a TweetDeck column object. If you want to see the object structure,
+   * run the following code in the console for an array containing all of your column objects:
    *   TD.controller.columnManager.getAllOrdered()
+   *
+   *
+   * The 'isTemporary' parameter is true if the column is not attached to the main column list,
+   * for example when clicking on a profile and viewing their tweets in a modal dialog.
    *
    */
   
   useAdvancedSelector: false,
   
-  /*customSelector: function(type, title, account, column){
+  customSelector: function(type, title, account, column, isTemporary){
+    console.info(arguments); // Prints all arguments into the console
+    
     if (type === "col_search" && title === "TweetDuck"){
       // This is a search column that looks for 'TweetDuck' in the tweets,
       // search columns are normally linked to the preferred account
-      // so this forces the @TryTweetDuck account to be used instead.
+      // so this forces the @TryTweetDuck account to be used instead
       return "@TryTweetDuck";
     }
     else if (type === "col_timeline" && account === "@chylexcz"){
       // This is a Home column of my test account @chylexcz,
-      // but I want to reply to tweets from my official account.
+      // but I want to reply to tweets from my official account
       return "@chylexmc";
     }
     
     // otherwise returns 'undefined' which falls back to 'defaultAccount' behavior
-  }*/
+  }
 }
