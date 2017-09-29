@@ -189,6 +189,11 @@ a[data-full-url] {
   cursor: pointer;
 }
 
+.is-inverted-dark .inline-reply .btn:hover {
+  /* Reply buttons in modals are bork */
+  background-color: transparent;
+}
+
 /********************************************************************/
 /* Fix glaring visual issues because twitter is fucking incompetent */
 /********************************************************************/
