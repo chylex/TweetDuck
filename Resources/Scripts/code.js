@@ -684,7 +684,7 @@
     let isDraggingValid = false;
     
     window.TDGF_onGlobalDragStart = function(type, data){
-      isDraggingValid = type === "link" && tweetRegex.test(data);
+      isDraggingValid = (type === "link" || type === "text") && tweetRegex.test(data);
     };
     
     app.delegate("section.js-column", {

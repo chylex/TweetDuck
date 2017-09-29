@@ -4,11 +4,18 @@ using CefSharp;
 namespace TweetDuck.Core.Handling{
     sealed class DragHandlerBrowser : IDragHandler{
         public bool OnDragEnter(IWebBrowser browserControl, IBrowser browser, IDragData dragData, DragOperationsMask mask){
+            void TriggerDragStart(string type, string data = null){
+                browserControl.ExecuteScriptAsync("window.TDGF_onGlobalDragStart", type, data);
+            }
+
             if (dragData.IsLink){
-                browserControl.ExecuteScriptAsync("window.TDGF_onGlobalDragStart", "link", dragData.LinkUrl);
+                TriggerDragStart("link", dragData.LinkUrl);
+            }
+            else if (dragData.IsFragment){
+                TriggerDragStart("text", dragData.FragmentText.Trim());
             }
             else{
-                browserControl.ExecuteScriptAsync("window.TDGF_onGlobalDragStart", "unknown");
+                TriggerDragStart("unknown");
             }
 
             return false;
