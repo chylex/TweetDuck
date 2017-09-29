@@ -42,7 +42,11 @@
   border-radius: 1px !important;
 }
 
-.compose-text-container, .dropdown-menu, .list-item-last, .quoted-tweet, .input-group-button, input, textarea, select, .prf-header, .accs li, .accs img {
+.compose-text-container, .compose-reply-tweet, .compose-message-recipient-input-container, .compose-message-recipient {
+  border-radius: 0 !important;
+}
+
+.dropdown-menu, .list-item-last, .quoted-tweet, .input-group-button, input, textarea, select, .prf-header, .accs li, .accs img {
   border-radius: 0 !important;
 }
 
@@ -194,9 +198,9 @@ a[data-full-url] {
   background-color: transparent;
 }
 
-/********************************************************************/
-/* Fix glaring visual issues because twitter is fucking incompetent */
-/********************************************************************/
+/***************************************************************/
+/* Fix glaring visual issues that twitter hasn't fixed yet smh */
+/***************************************************************/
 
 .column-nav-link .attribution {
   /* fix cut off account names */
@@ -206,6 +210,17 @@ a[data-full-url] {
 .js-docked-compose .js-drawer-close {
   /* fix close drawer button position */
   margin: 20px 0 0 !important;
+}
+
+.compose-reply-tweet-remove {
+  /* fix close reply button position; this would make sense if the reply account name became full size, but it still cuts off where the button used to be */
+  top: 3px !important;
+  right: -2px !important;
+}
+
+#account-safeguard-checkbox, #inline-account-safeguard-checkbox {
+  /* fix "Ready to Tweet/send" alignment with the checkbox */
+  vertical-align: -15%;
 }
 
 /************************************************/
