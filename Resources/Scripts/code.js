@@ -796,11 +796,13 @@
   });
   
   //
-  // Block: Make middle click on tweet reply icon open the compose drawer.
+  // Block: Make middle click on tweet reply icon open the compose drawer. Only works for non-temporary columns.
   //
-  app.delegate(".js-reply-action", "mousedown", function(e){
+  app.delegate(".js-reply-action", "auxclick", function(e){
     if (e.which === 2){
-      if ($("[data-drawer='compose']").hasClass("is-hidden")){
+      let column = $(this).closest(".js-column");
+      
+      if (column && column.hasClass("column") && $("[data-drawer='compose']").hasClass("is-hidden")){
         $(document).trigger("uiDrawerShowDrawer", {
           drawer: "compose",
           withAnimation: true
