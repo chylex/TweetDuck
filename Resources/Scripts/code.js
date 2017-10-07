@@ -580,7 +580,7 @@
           setImportantProperty(selectedTweet.find(".js-media-preview-container"), "margin-bottom", "4px");
           selectedTweet.find(".js-translate-call-to-action").first().remove();
           selectedTweet.find(".js-tweet").first().nextAll().remove();
-          selectedTweet.find("footer").last().prevUntil(":not(.txt-mute.txt-small)").addBack().remove(); // footer, date, location
+          selectedTweet.find("footer").last().prevUntil(":not(.txt-mute)").addBack().remove(); // footer, date, location
         }
         else{
           setImportantProperty(selectedTweet.find(".js-media-preview-container"), "margin-bottom", "10px");

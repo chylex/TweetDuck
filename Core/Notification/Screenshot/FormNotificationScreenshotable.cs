@@ -22,7 +22,7 @@ namespace TweetDuck.Core.Notification.Screenshot{
             browser.LoadingStateChanged += (sender, args) => {
                 if (!args.IsLoading){
                     using(IFrame frame = args.Browser.MainFrame){
-                        ScriptLoader.ExecuteScript(frame, "window.setTimeout($TD_NotificationScreenshot.trigger, 129)", "gen:screenshot");
+                        ScriptLoader.ExecuteScript(frame, "window.setTimeout($TD_NotificationScreenshot.trigger, document.getElementsByTagName('iframe').length ? 267 : 67)", "gen:screenshot");
                     }
                 }
             };
