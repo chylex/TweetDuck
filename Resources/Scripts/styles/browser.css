@@ -38,11 +38,15 @@
 /* Square-ify stuff */
 /********************/
 
-.btn, .mdl, .mdl-content, .app-search-fake, .app-search-input, .popover, .lst-modal, .media-item, .media-preview, .tooltip-inner {
+.btn, .mdl, .mdl-content, .app-search-fake, .app-search-input, .popover, .lst-modal, .tooltip-inner {
   border-radius: 1px !important;
 }
 
-.compose-text-container, .compose-reply-tweet, .compose-message-recipient-input-container, .compose-message-recipient {
+.media-item, .media-preview, .media-image, .js-media-added .br--4 {
+  border-radius: 1px !important;
+}
+
+.compose-text-container, .compose-reply-tweet, .compose-message-recipient-input-container, .compose-message-recipient, .compose-media-bar-holder, .media-grid-container {
   border-radius: 0 !important;
 }
 
