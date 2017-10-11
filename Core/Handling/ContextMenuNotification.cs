@@ -48,7 +48,7 @@ namespace TweetDuck.Core.Handling{
             }
             
             if (HasDevTools){
-                model.AddSeparator();
+                AddSeparator(model);
                 AddDebugMenuItems(model);
             }
 
