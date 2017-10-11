@@ -15,6 +15,11 @@
   var onAppReady = [];
   
   //
+  // Variable: DOM HTML element.
+  //
+  var doc = document.documentElement;
+  
+  //
   // Variable: DOM object containing the main app element.
   //
   var app = $(document.body).children(".js-app");
@@ -265,10 +270,8 @@
       let fontSizeName = TD.settings.getFontSize();
       let themeName = TD.settings.getTheme();
       
-      let htmlClass = document.documentElement.getAttribute("class");
-      
       let tags = [
-        `<html class='os-windows ${(htmlClass.match(/txt-\S+/) || [ "txt-size--14" ])[0]}' data-td-font='${fontSizeName}' data-td-theme='${themeName}'><head>`
+        `<html class='os-windows ${(doc.getAttribute("class").match(/txt-\S+/) || [ "txt-size--14" ])[0]}' data-td-font='${fontSizeName}' data-td-theme='${themeName}'><head>`
       ];
       
       $(document.head).children("link[rel='stylesheet']:not([title]),link[title='"+themeName+"'],meta[charset],meta[http-equiv]").each(function(){
@@ -289,8 +292,8 @@
       
       tags.push("</style>");
       
-      document.documentElement.setAttribute("data-td-font", fontSizeName);
-      document.documentElement.setAttribute("data-td-theme", themeName);
+      doc.setAttribute("data-td-font", fontSizeName);
+      doc.setAttribute("data-td-theme", themeName);
       $TD.loadNotificationLayout(fontSizeName, tags.join(""));
     };
     
@@ -304,6 +307,18 @@
 
     onAppReady.push(refreshSettings);
   })();
+  
+  //
+  // Block: Fix OS name.
+  //
+  if (ensurePropertyExists(TD, "util", "getOSName")){
+    TD.util.getOSName = function(){
+      return "windows";
+    };
+    
+    doc.classList.remove("os-");
+    doc.classList.add("os-windows");
+  }
   
   //
   // Block: Enable popup notifications.
