@@ -331,7 +331,7 @@ enabled(){
     this.css.insert("#general_settings .cf { display: none !important }");
     this.css.insert("#settings-modal .js-setting-list li:nth-child(3) { border-bottom: 1px solid #ccd6dd }");
     
-    this.css.insert(".txt-base-smallest:not(.icon), .txt-base-largest:not(.icon) { font-size: "+this.config.fontSize+" !important }");
+    this.css.insert("html[data-td-font] { font-size: "+this.config.fontSize+" !important }");
     this.css.insert(".avatar { border-radius: "+this.config.avatarRadius+"% !important }");
     
     let notificationScrollbarColor = null;
@@ -507,7 +507,7 @@ enabled(){
     
     $TDP.injectIntoNotificationsBefore(this.$token, "css", "</head>", `
 <style type='text/css'>
-.txt-base-smallest:not(.icon), .txt-base-largest:not(.icon) { font-size: ${this.config.fontSize} !important }
+html[data-td-font] { font-size: ${this.config.fontSize} !important }
 .avatar { border-radius: ${this.config.avatarRadius}% !important }
 
 ${this.config.revertIcons ? `
