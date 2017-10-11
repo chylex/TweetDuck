@@ -5,9 +5,7 @@ using TweetDuck.Resources;
 
 namespace TweetDuck.Core.Notification{
     sealed class TweetNotification{
-        private const string DefaultFontSizeClass = "medium";
-        private const string DefaultHeadContents = @"<meta charset='utf-8'><meta http-equiv='X-UA-Compatible' content='chrome=1'><link rel='stylesheet' href='https://ton.twimg.com/tweetdeck-web/web/css/font.5ef884f9f9.css'><link rel='stylesheet' href='https://ton.twimg.com/tweetdeck-web/web/css/app-dark.5631e0dd42.css'><style type='text/css'>body{background:#222426}</style>";
-
+        private const string DefaultHeadLayout = @"<html class='os-windows txt-size--14' data-td-font='medium' data-td-theme='dark'><head><meta charset='utf-8'><meta http-equiv='X-UA-Compatible' content='chrome=1'><link rel='stylesheet' href='https://ton.twimg.com/tweetdeck-web/web/css/font.5ef884f9f9.css'><link rel='stylesheet' href='https://ton.twimg.com/tweetdeck-web/web/css/app-dark.5631e0dd42.css'><style type='text/css'>body{background:#222426}</style>";
         private static readonly string CustomCSS = ScriptLoader.LoadResource("styles/notification.css");
 
         private static string ExampleTweetHTML;
@@ -67,8 +65,7 @@ namespace TweetDuck.Core.Notification{
         public string GenerateHtml(string bodyClasses = null, bool enableCustomCSS = true){
             StringBuilder build = new StringBuilder();
             build.Append("<!DOCTYPE html>");
-            build.Append("<html class='os-windows txt-base-").Append(TweetDeckBridge.FontSizeClass ?? DefaultFontSizeClass).Append("'>");
-            build.Append("<head>").Append(TweetDeckBridge.NotificationHeadContents ?? DefaultHeadContents);
+            build.Append(TweetDeckBridge.NotificationHeadLayout ?? DefaultHeadLayout);
             
             if (enableCustomCSS){
                 build.Append("<style type='text/css'>").Append(CustomCSS).Append("</style>");

@@ -168,14 +168,14 @@ a[data-full-url] {
   vertical-align: 10%;
 }
 
-.txt-base-smallest .sprite-verified-mini {
+html[data-td-font='smallest'] .sprite-verified-mini {
   /* fix cut off badge when zoomed in */
   width: 13px !important;
   height: 13px !important;
   background-position: -223px -99px !important;
 }
 
-.txt-base-smallest .badge-verified:before {
+html[data-td-font='smallest'] .badge-verified:before {
   /* fix cut off badge in notifications */
   width: 13px !important;
   height: 13px !important;

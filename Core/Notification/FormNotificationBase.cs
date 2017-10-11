@@ -15,7 +15,7 @@ namespace TweetDuck.Core.Notification{
     partial class FormNotificationBase : Form{
         protected static int FontSizeLevel{
             get{
-                switch(TweetDeckBridge.FontSizeClass){
+                switch(TweetDeckBridge.FontSize){
                     case "largest": return 4;
                     case "large": return 3;
                     case "small": return 1;

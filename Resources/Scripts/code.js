@@ -258,49 +258,52 @@
   })();
   
   //
-  // Function: Retrieves the tags to be put into <head> for notification HTML code.
+  // Block: Hook into settings object to detect when the settings change, and update html attributes and notification layout.
   //
-  var getNotificationHeadContents = function(){
-    let tags = [];
+  (function(){
+    let refreshSettings = function(){      
+      let fontSizeName = TD.settings.getFontSize();
+      let themeName = TD.settings.getTheme();
+      
+      let htmlClass = document.documentElement.getAttribute("class");
+      
+      let tags = [
+        `<html class='os-windows ${(htmlClass.match(/txt-\S+/) || [ "txt-size--14" ])[0]}' data-td-font='${fontSizeName}' data-td-theme='${themeName}'><head>`
+      ];
+      
+      $(document.head).children("link[rel='stylesheet']:not([title]),link[title='"+themeName+"'],meta[charset],meta[http-equiv]").each(function(){
+        tags.push($(this)[0].outerHTML);
+      });
+      
+      tags.push("<style type='text/css'>");
+      tags.push("body { background: "+getClassStyleProperty("column", "background-color")+" }"); // set background color
+      tags.push("a[data-full-url] { word-break: break-all }"); // break long urls
+      tags.push(".media-item, .media-preview { border-radius: 1px !important }"); // square-ify media
+      tags.push(".quoted-tweet { border-radius: 0 !important }"); // square-ify quoted tweets
+      tags.push(".activity-header { align-items: center !important; margin-bottom: 4px }"); // tweak alignment of avatar and text in notifications
+      tags.push(".activity-header .tweet-timestamp { line-height: unset }"); // fix timestamp position in notifications
+      
+      if (fontSizeName === "smallest"){
+        tags.push(".badge-verified:before { width: 13px !important; height: 13px !important; background-position: -223px -98px !important }"); // fix cut off badge icon
+      }
+      
+      tags.push("</style>");
+      
+      document.documentElement.setAttribute("data-td-font", fontSizeName);
+      document.documentElement.setAttribute("data-td-theme", themeName);
+      $TD.loadNotificationLayout(fontSizeName, tags.join(""));
+    };
     
-    $(document.head).children("link[rel='stylesheet']:not([title]),link[title='"+TD.settings.getTheme()+"'],meta[charset],meta[http-equiv]").each(function(){
-      tags.push($(this)[0].outerHTML);
+    TD.settings.setFontSize = appendToFunction(TD.settings.setFontSize, function(name){
+      setTimeout(refreshSettings, 0);
     });
-    
-    tags.push("<style type='text/css'>");
-    tags.push("body { background: "+getClassStyleProperty("column", "background-color")+" }"); // set background color
-    tags.push("a[data-full-url] { word-break: break-all }"); // break long urls
-    tags.push(".txt-base-smallest .badge-verified:before { width: 13px !important; height: 13px !important; background-position: -223px -98px !important }"); // fix cut off badge icon
-    tags.push(".media-item, .media-preview { border-radius: 1px !important }"); // square-ify media
-    tags.push(".quoted-tweet { border-radius: 0 !important }"); // square-ify quoted tweets
-    tags.push(".activity-header { align-items: center !important; margin-bottom: 4px }"); // tweak alignment of avatar and text in notifications
-    tags.push(".activity-header .tweet-timestamp { line-height: unset }"); // fix timestamp position in notifications
-    tags.push("</style>");
-    
-    return tags.join("");
-  };
-  
-  //
-  // Block: Hook into settings object to detect when the settings change.
-  //
-  TD.settings.setFontSize = appendToFunction(TD.settings.setFontSize, function(name){
-    $TD.loadFontSizeClass(name);
-  });
-  
-  TD.settings.setTheme = appendToFunction(TD.settings.setTheme, function(name){
-    document.documentElement.setAttribute("data-td-theme", name);
-    
-    setTimeout(function(){
-      $TD.loadNotificationHeadContents(getNotificationHeadContents());
-    }, 0);
-  });
-  
-  onAppReady.push(function(){
-    document.documentElement.setAttribute("data-td-theme", TD.settings.getTheme());
-    
-    $TD.loadFontSizeClass(TD.settings.getFontSize());
-    $TD.loadNotificationHeadContents(getNotificationHeadContents());
-  });
+
+    TD.settings.setTheme = appendToFunction(TD.settings.setTheme, function(name){
+      setTimeout(refreshSettings, 0);
+    });
+
+    onAppReady.push(refreshSettings);
+  })();
   
   //
   // Block: Enable popup notifications.
