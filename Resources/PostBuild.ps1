@@ -11,6 +11,16 @@ function Rewrite-File{
   Write-Host "Processed" $file.FullName.Substring($dir.Length)
 }
 
+ForEach($file in Get-ChildItem -Include emoji-ordering.txt -Recurse){
+  Write-Host "Checking" $file.FullName.Substring($dir.Length)
+  $data = Get-Content -Path $file.FullName -Raw
+  
+  if ($data.Contains("`r")){
+    Write-Host "Text files cannot contain carriage return"
+    Exit 1
+  }
+}
+
 ForEach($file in Get-ChildItem -Include *.js -Exclude configuration.default.js -Recurse){
   $lines = Get-Content -Path $file.FullName
   $lines = $lines | % { $_.TrimStart() }
