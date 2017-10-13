@@ -303,23 +303,26 @@ enabled(){
       let firstColon = val.lastIndexOf(':', ele[0].selectionStart);
       return if firstColon === -1;
       
-      let search = val.substring(firstColon+1, ele[0].selectionStart);
-      return if !/^[a-z_]+$/i.test(search);
+      let search = val.substring(firstColon+1, ele[0].selectionStart).toLowerCase();
+      return if !/^[a-z_]+$/.test(search);
       
       let keywords = search.split("_").filter(kw => kw.length > 0).map(kw => kw.toLowerCase());
       return if keywords.length === 0;
       
-      let foundName = me.emojiNames.filter(name => keywords.every(kw => name.includes(kw)));
+      let foundNames = me.emojiNames.filter(name => keywords.every(kw => name.includes(kw)));
       
-      if (foundName.length === 0){
+      if (foundNames.length === 0){
         return;
+      }
+      else if (foundNames.length > 1 && foundNames.includes(search)){
+        foundNames = [ search ];
       }
       
       lastEmojiKeyword = `:${search}:`;
       lastEmojiPosition = lastEmojiLength = 0;
       
-      if (foundName.length === 1){
-        let foundIndex = me.emojiNames.indexOf(foundName[0]);
+      if (foundNames.length === 1){
+        let foundIndex = me.emojiNames.indexOf(foundNames[0]);
         let foundEmoji;
         
         for(let array of [ me.emojiData1, me.emojiData2[me.selectedSkinTone], me.emojiData3 ]){
@@ -346,7 +349,7 @@ enabled(){
           lastEmojiLength = foundEmoji.length;
         }
       }
-      else if (foundName.length > 1){
+      else if (foundNames.length > 1){
         e.preventDefault();
         ele.val(val.substring(0, firstColon)+val.substring(ele[0].selectionStart));
         ele[0].selectionEnd = ele[0].selectionStart = firstColon;
