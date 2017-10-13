@@ -1,0 +1,6 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+*.txt text eof=lf
+*.js  text eof=lf
+*.cs  diff=csharp
