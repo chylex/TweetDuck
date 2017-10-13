@@ -2,5 +2,4 @@
 * text=auto
 
 *.txt text eof=lf
-*.js  text eof=lf
 *.cs  diff=csharp
