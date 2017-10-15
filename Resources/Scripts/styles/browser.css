@@ -46,7 +46,7 @@
   border-radius: 1px !important;
 }
 
-.compose-text-container, .compose-reply-tweet, .compose-message-recipient-input-container, .compose-message-recipient, .compose-media-bar-holder, .media-grid-container {
+.compose-text-container, .compose-reply-tweet, .compose-message-recipient-input-container, .compose-message-recipient, .compose-media-bar-holder, .media-grid-container, .js-quote-tweet-holder {
   border-radius: 0 !important;
 }
 
