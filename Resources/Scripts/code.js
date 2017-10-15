@@ -814,25 +814,56 @@
   });
   
   //
-  // Block: Make middle click on tweet reply icon open the compose drawer. Only works for non-temporary columns.
+  // Block: Make middle click on tweet reply icon open the compose drawer, retweet icon trigger a quote, and favorite icon open a 'Like from accounts...' modal.
   //
-  app.delegate(".js-reply-action", "auxclick", function(e){
-    if (e.which === 2){
-      let column = $(this).closest(".js-column");
-      
-      if (column && column.hasClass("column") && $("[data-drawer='compose']").hasClass("is-hidden")){
-        $(document).trigger("uiDrawerShowDrawer", {
-          drawer: "compose",
-          withAnimation: true
+  app.delegate(".tweet-action", "auxclick", function(e){
+    return if e.which !== 2;
+    
+    let column = TD.controller.columnManager.get($(this).closest("section.js-column").attr("data-column"));
+    return if !column;
+    
+    let ele = $(this).closest("article");
+    let tweet = column.findChirp(ele.attr("data-tweet-id")) || column.findChirp(ele.attr("data-key"));
+    return if !tweet;
+    
+    // TODO fix "from" to accept reply-account plugin
+    
+    switch($(this).attr("rel")){
+      case "reply":
+        let main = tweet.getMainTweet();
+        
+        $(document).trigger("uiDockedComposeTweet", {
+          type: "reply",
+          from: [ TD.storage.clientController.client.getDefaultAccount() ],
+          inReplyTo: {
+            id: tweet.id,
+            htmlText: main.htmlText,
+            user: {
+              screenName: main.user.screenName,
+              name: main.user.name,
+              profileImageURL: main.user.profileImageURL
+            }
+          },
+          mentions: tweet.getReplyUsers()
         });
         
-        window.setTimeout(() => $(this).trigger("click"), 1);
-      }
+        break;
+        
+      case "favorite":
+        $(document).trigger("uiShowFavoriteFromOptions", { tweet });
+        break;
+        
+      case "retweet":
+        tweet.quoteTo([ TD.storage.clientController.client.getDefaultAccount() ]);
+        break;
       
-      e.preventDefault();
-      e.stopPropagation();
-      e.stopImmediatePropagation();
+      default:
+        return;
     }
+    
+    e.preventDefault();
+    e.stopPropagation();
+    e.stopImmediatePropagation();
   });
   
   //
