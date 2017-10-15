@@ -826,15 +826,13 @@
     let tweet = column.findChirp(ele.attr("data-tweet-id")) || column.findChirp(ele.attr("data-key"));
     return if !tweet;
     
-    // TODO fix "from" to accept reply-account plugin
-    
     switch($(this).attr("rel")){
       case "reply":
         let main = tweet.getMainTweet();
         
         $(document).trigger("uiDockedComposeTweet", {
           type: "reply",
-          from: [ TD.storage.clientController.client.getDefaultAccount() ],
+          from: [ tweet.account.getKey() ],
           inReplyTo: {
             id: tweet.id,
             htmlText: main.htmlText,
@@ -844,7 +842,8 @@
               profileImageURL: main.user.profileImageURL
             }
           },
-          mentions: tweet.getReplyUsers()
+          mentions: tweet.getReplyUsers(),
+          element: ele
         });
         
         break;
@@ -854,7 +853,7 @@
         break;
         
       case "retweet":
-        tweet.quoteTo([ TD.storage.clientController.client.getDefaultAccount() ]);
+        tweet.quoteTo([ tweet.account.getKey() ]); // TODO fix "from" to accept reply-account plugin
         break;
       
       default:
