@@ -61,15 +61,13 @@
             <option value="16px">Largest (16px)</option>
             <option value="custom">Custom</option>
           </select>
-          
-          <!-- ADVANCED -->
-          
-          <label class="txt-uppercase touch-larger-label">
-            <b>Advanced</b>
+          <label class="checkbox">
+            <input data-td-key="increaseQuoteTextSize" class="js-theme-checkbox touch-larger-label" type="checkbox">
+            Increase quoted tweet font size
           </label>
           <label class="checkbox">
-            <input data-td-key="optimizeAnimations" class="js-theme-checkbox touch-larger-label" type="checkbox">
-            Use more memory for smoother animations
+            <input data-td-key="smallComposeTextSize" class="js-theme-checkbox touch-larger-label" type="checkbox">
+            Small tweet input font size
           </label>
         </div>
         
@@ -102,9 +100,15 @@
             <input data-td-key="revertIcons" class="js-theme-checkbox touch-larger-label" type="checkbox">
             Revert icon design
           </label>
+          
+          <!-- ADVANCED -->
+          
+          <label class="txt-uppercase touch-larger-label">
+            <b>Advanced</b>
+          </label>
           <label class="checkbox">
-            <input data-td-key="smallComposeTextSize" class="js-theme-checkbox touch-larger-label" type="checkbox">
-            Small compose tweet font size
+            <input data-td-key="optimizeAnimations" class="js-theme-checkbox touch-larger-label" type="checkbox">
+            Use more memory for smoother animations
           </label>
         </div>
         
@@ -163,11 +167,12 @@
   .td-modal-inner-cols .l-column {
     padding: 15px 9px;
     box-sizing: border-box;
+    width: 225px;
     font-size: 0; /* fix custom font size breaking the modal layout */
   }
   
-  .td-modal-inner-cols .l-column:nth-child(2) {
-    width: 250px;
+  .td-modal-inner-cols .l-column:nth-child(3) {
+    width: 200px;
   }
   
   .td-modal-inner-full {
@@ -197,6 +202,14 @@
   .td-modal-content label.checkbox {
     margin: 0 0 5px 4px;
     cursor: pointer;
+  }
+  
+  .td-modal-content select + label.checkbox {
+    margin-top: 9px;
+  }
+  
+  .td-modal-content input.js-theme-checkbox, .td-modal-content input.js-theme-radio {
+    margin-top: 1px;
   }
   
   /* Avatar shape */

@@ -12,6 +12,7 @@ enabled(){
     moveTweetActionsToRight: true,
     themeColorTweaks: true,
     revertIcons: true,
+    increaseQuoteTextSize: false,
     smallComposeTextSize: false,
     optimizeAnimations: true,
     avatarRadius: 2
@@ -366,6 +367,10 @@ enabled(){
       this.css.insert(".tweet-actions > li:nth-child(4) { margin-right: 2px !important }");
     }
     
+    if (this.config.increaseQuoteTextSize){
+      this.css.insert(".quoted-tweet { font-size: 1em !important }");
+    }
+    
     if (this.config.smallComposeTextSize){
       this.css.insert(".compose-text { font-size: 12px !important; height: 120px !important }");
     }
@@ -509,6 +514,10 @@ enabled(){
 <style type='text/css'>
 html[data-td-font] { font-size: ${this.config.fontSize} !important }
 .avatar { border-radius: ${this.config.avatarRadius}% !important }
+
+${this.config.increaseQuoteTextSize ? `
+.quoted-tweet { font-size: 1em !important }
+` : ``}
 
 ${this.config.revertIcons ? `
 @font-face { font-family: 'tweetdeckold'; src: url(\"https://ton.twimg.com/tweetdeck-web/web/assets/fonts/tweetdeck-regular-webfont.5f4ea87976.woff\") format(\"woff\"); font-weight: normal; font-style: normal }
