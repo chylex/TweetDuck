@@ -853,7 +853,15 @@
         break;
         
       case "retweet":
-        tweet.quoteTo([ tweet.account.getKey() ]); // TODO fix "from" to accept reply-account plugin
+        TD.controller.stats.quoteTweet();
+        
+        $(document).trigger("uiComposeTweet", {
+          type: "tweet",
+          from: [ tweet.account.getKey() ],
+          quotedTweet: tweet.getMainTweet(),
+          element: ele // triggers reply-account plugin
+        });
+        
         break;
       
       default:
