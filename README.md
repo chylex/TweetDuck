@@ -33,11 +33,24 @@ To do that, open **TweetDuck Properties**, click the **Debug** tab, make sure yo
 
 ### Build
 
-To make a release build of TweetDuck, open **Batch Build**, tick all `Release` configurations except for the `UnitTest` project (otherwise the build will fail), and click **Rebuild**. Check the status bar to make sure it says **Rebuild All succeeded**; if not, open the **Output** view and see which part of the build failed.
+To make a release build of TweetDuck, open **Batch Build**, tick all `Release` configurations except for the `UnitTest` project (otherwise the build will fail), and click **Rebuild**. Check the status bar to make sure it says **Rebuild All succeeded**; if not, see the [Troubleshooting](#Troubleshooting) section.
 
-After the build succeeds, the **bin/x86/Release** folder will contain files intended for distribution (no debug symbols or other unnecessary files). You may package these files yourself, or see the [Installers](#Installers) section for automated installer generation.
+After the build succeeds, the `bin/x86/Release` folder will contain files intended for distribution (no debug symbols or other unnecessary files). You may package these files yourself, or see the [Installers](#Installers) section for automated installer generation.
 
 If you decide to release a custom version publicly, please make it clear that it is not an official release of TweetDuck.
+
+### Troubleshooting
+
+There are a few quirks in the build process that may catch you off guard:
+
+- **Plugin files are not updated automatically**
+  - Since official plugins (`Resources/Plugins`) are not included in the project, Visual Studio will not automatically detect changes in the files
+  - To ensure plugins are updated when testing the app, click **Rebuild Solution** before clicking **Start**
+- **Error: The command (...) exited with code 1**
+  - If the post-build event fails, open the **Output** tab and look for the cause
+  - Determine if there was an IO error while copying files or modifying folders, or whether the final .ps1 script failed (`Encountered an error while running PostBuild.ps1 on line xyz`)
+  - Some files are checked for invalid characters:
+    - `Resources/Plugins/emoji-keyboard/emoji-ordering.txt` line endings must be LF (line feed); any CR (carriage return) in the file will cause a failed build, and you will need to ensure correct line endings in your text editor
 
 ### Installers
 
@@ -45,9 +58,9 @@ TweetDuck uses **Inno Setup** to automate the creation of installers. First, dow
 
 Next, add the Inno Setup installation folder (usually `C:\Program Files (x86)\Inno Setup 5`) into your **PATH** environment variable. You may need to restart File Explorer for the change to take place.
 
-Now you can generate installers after a build by running **bld/RUN BUILD.bat**. Note that despite the name, this will only package the files, you still need to run the [build](#Build) in Visual Studio!
+Now you can generate installers after a build by running `bld/RUN BUILD.bat`. Note that despite the name, this will only package the files, you still need to run the [build](#Build) in Visual Studio!
 
-After the window closes, three installers will be generated inside the **bld/Output** folder:
+After the window closes, three installers will be generated inside the `bld/Output` folder:
 * **TweetDuck.exe**
   * This is the main installer that creates entries in the Start Menu & Programs and Features, and an optional desktop icon
 * **TweetDuck.Update.exe**

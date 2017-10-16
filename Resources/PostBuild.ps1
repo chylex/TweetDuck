@@ -7,11 +7,12 @@ function Check-Carriage-Return{
   Param([Parameter(Mandatory = $True, Position = 1)] $fname)
   
   $file = @(Get-ChildItem -Include $fname -Recurse)[0]
-  Write-Host "Checking" $file.FullName.Substring($dir.Length)
   
   if ((Get-Content -Path $file.FullName -Raw).Contains("`r")){
     Throw "$fname cannot contain carriage return"
   }
+  
+  Write-Host "Verified" $file.FullName.Substring($dir.Length)
 }
 
 function Rewrite-File{
