@@ -104,7 +104,7 @@ namespace TweetDuck.Core.Utils{
         }
 
         public static void ClipboardStripHtmlStyles(){
-            if (!Clipboard.ContainsText(TextDataFormat.Html)){
+            if (!Clipboard.ContainsText(TextDataFormat.Html) || !Clipboard.ContainsText(TextDataFormat.UnicodeText)){
                 return;
             }
 
@@ -115,7 +115,7 @@ namespace TweetDuck.Core.Utils{
 
             int removed = originalHtml.Length-updatedHtml.Length;
             updatedHtml = RegexOffsetClipboardHtml.Value.Replace(updatedHtml, match => (int.Parse(match.Value)-removed).ToString().PadLeft(match.Value.Length, '0'));
-
+            
             DataObject obj = new DataObject();
             obj.SetText(originalText, TextDataFormat.UnicodeText);
             obj.SetText(updatedHtml, TextDataFormat.Html);
