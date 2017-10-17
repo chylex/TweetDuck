@@ -103,7 +103,7 @@ namespace TweetDuck.Core.Utils{
             }
         }
 
-        public static void DownloadVideo(string url){
+        public static void DownloadVideo(string url, string username){
             string filename = BrowserUtils.GetFileNameFromUrl(url);
             string ext = Path.GetExtension(filename);
 
@@ -111,7 +111,7 @@ namespace TweetDuck.Core.Utils{
                 AutoUpgradeEnabled = true,
                 OverwritePrompt = true,
                 Title = "Save video",
-                FileName = filename,
+                FileName = string.IsNullOrEmpty(username) ? filename : $"{username} {filename}",
                 Filter = "Video"+(string.IsNullOrEmpty(ext) ? " (unknown)|*.*" : $" (*{ext})|*{ext}")
             }){
                 if (dialog.ShowDialog() == DialogResult.OK){

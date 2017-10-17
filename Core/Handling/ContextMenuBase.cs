@@ -116,7 +116,7 @@ namespace TweetDuck.Core.Handling{
 
                 case MenuSaveMedia:
                     if (IsVideo){
-                        TwitterUtils.DownloadVideo(GetMediaLink(parameters));
+                        TwitterUtils.DownloadVideo(GetMediaLink(parameters), lastHighlightedTweetAuthors.LastOrDefault());
                     }
                     else{
                         TwitterUtils.DownloadImage(GetMediaLink(parameters), lastHighlightedTweetAuthors.LastOrDefault(), ImageQuality);

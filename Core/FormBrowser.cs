@@ -541,7 +541,7 @@ namespace TweetDuck.Core{
             soundNotification.Play(Config.NotificationSoundPath);
         }
 
-        public void PlayVideo(string url){
+        public void PlayVideo(string url, string username){
             if (string.IsNullOrEmpty(url)){
                 videoPlayer?.Close();
                 return;
@@ -556,7 +556,7 @@ namespace TweetDuck.Core{
                 };
             }
             
-            videoPlayer.Launch(url);
+            videoPlayer.Launch(url, username);
         }
 
         public void HideVideoOverlay(){

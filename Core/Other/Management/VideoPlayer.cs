@@ -25,6 +25,7 @@ namespace TweetDuck.Core.Other.Management{
 
         private readonly Form owner;
         private string lastUrl;
+        private string lastUsername;
 
         private Process currentProcess;
         private DuplexPipe.Server currentPipe;
@@ -35,14 +36,15 @@ namespace TweetDuck.Core.Other.Management{
             this.owner.FormClosing += owner_FormClosing;
         }
 
-        public void Launch(string url){
+        public void Launch(string url, string username){
             if (Running){
                 Destroy();
                 isClosing = false;
             }
 
             lastUrl = url;
-
+            lastUsername = username;
+            
             try{
                 currentPipe = DuplexPipe.CreateServer();
                 currentPipe.DataIn += currentPipe_DataIn;
@@ -84,7 +86,7 @@ namespace TweetDuck.Core.Other.Management{
                         break;
 
                     case "download":
-                        TwitterUtils.DownloadVideo(lastUrl);
+                        TwitterUtils.DownloadVideo(lastUrl, lastUsername);
                         break;
 
                     case "rip":
@@ -157,14 +159,14 @@ namespace TweetDuck.Core.Other.Management{
 
             switch(exitCode){
                 case 3: // CODE_LAUNCH_FAIL
-                    if (FormMessage.Error("Video Playback Error", "Error launching video player, this may be caused by missing Windows Media Player. Do you want to open the video in a browser?", FormMessage.Yes, FormMessage.No)){
+                    if (FormMessage.Error("Video Playback Error", "Error launching video player, this may be caused by missing Windows Media Player. Do you want to open the video in your browser?", FormMessage.Yes, FormMessage.No)){
                         BrowserUtils.OpenExternalBrowser(lastUrl);
                     }
 
                     break;
 
                 case 4: // CODE_MEDIA_ERROR
-                    if (FormMessage.Error("Video Playback Error", "The video could not be loaded, most likely due to unknown format. Do you want to open the video in a browser?", FormMessage.Yes, FormMessage.No)){
+                    if (FormMessage.Error("Video Playback Error", "The video could not be loaded, most likely due to unknown format. Do you want to open the video in your browser?", FormMessage.Yes, FormMessage.No)){
                         BrowserUtils.OpenExternalBrowser(lastUrl);
                     }
 
