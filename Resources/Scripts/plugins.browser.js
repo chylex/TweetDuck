@@ -87,14 +87,14 @@
   };
   
   //
-  // Block: Setup global function to change plugin state.
+  // Block: Setup a function to change plugin state.
   //
   window.TDPF_setPluginState = function(identifier, enable){
     window.TD_PLUGINS.setState(window.TD_PLUGINS.findObject(identifier), enable);
   };
   
   //
-  // Block: Setup global function to reload the page.
+  // Block: Setup a function to reload the page.
   //
   window.TDPF_requestReload = function(){
     if (!isReloading){
@@ -102,4 +102,9 @@
       isReloading = true;
     }
   };
+  
+  //
+  // Block: Setup a function to allow plugins to play video.
+  //
+  window.TDPF_playVideo = window.TDGF_playVideo;
 })();

@@ -928,9 +928,9 @@
   // Block: Setup video player hooks.
   //
   (function(){
-    var playVideo = function(url){
+    window.TDGF_playVideo = function(url){
       $('<div id="td-video-player-overlay" class="ovl" style="display:block"></div>').on("click contextmenu", function(){
-        $TD.playVideo(null);
+        $TD.playVideo(null, null);
       }).appendTo(app);
       
       $TD.playVideo(url);
@@ -947,7 +947,7 @@
         let src = !e.ctrlKey && $(this).closest(".js-media-gif-container").find("video").attr("src");
         
         if (src){
-          playVideo(src);
+          window.TDGF_playVideo(src);
         }
         else{
           $TD.openBrowser(getVideoTweetLink($(this)));
@@ -983,7 +983,7 @@
       let media = this.chirp.getMedia().find(media => media.mediaId === this.clickedMediaEntityId);
 
       if (media && media.isVideo && media.service === "twitter"){
-        playVideo(media.chooseVideoVariant().url);
+        window.TDGF_playVideo(media.chooseVideoVariant().url);
         cancelModal = true;
       }
     });
