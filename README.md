@@ -2,10 +2,6 @@
 
 [Follow TweetDuck on Twitter](https://twitter.com/TryTweetDuck) &nbsp;|&nbsp; [Support via PayPal](https://paypal.me/chylex) &nbsp;|&nbsp; [Support via Patreon](https://www.patreon.com/chylex)
 
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/2W76v7hRmUe7NfaeUKq9K8Wq/chylex/TweetDuck'>
-  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/2W76v7hRmUe7NfaeUKq9K8Wq/chylex/TweetDuck.svg' />
-</a>
-
 # Build Instructions
 
 ### Setup
