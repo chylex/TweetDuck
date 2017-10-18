@@ -50,19 +50,6 @@ namespace TweetDuck.Core.Utils{
             }
         }
 
-        public static Process StartProcess(string file, string arguments, bool runElevated){
-            ProcessStartInfo processInfo = new ProcessStartInfo{
-                FileName = file,
-                Arguments = arguments
-            };
-
-            if (runElevated){
-                processInfo.Verb = "runas";
-            }
-
-            return Process.Start(processInfo);
-        }
-
         public static bool OpenAssociatedProgram(string file, string arguments = "", bool runElevated = false){
             try{
                 using(Process.Start(new ProcessStartInfo{

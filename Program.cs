@@ -166,8 +166,12 @@ namespace TweetDuck{
                 string updaterArgs = "/SP- /SILENT /CLOSEAPPLICATIONS /UPDATEPATH=\""+ProgramPath+"\" /RUNARGS=\""+Arguments.GetCurrentForInstallerCmd()+"\""+(IsPortable ? " /PORTABLE=1" : "");
                 bool runElevated = !IsPortable || !WindowsUtils.CheckFolderWritePermission(ProgramPath);
 
-                WindowsUtils.StartProcess(mainForm.UpdateInstallerPath, updaterArgs, runElevated);
-                Application.Exit();
+                if (WindowsUtils.OpenAssociatedProgram(mainForm.UpdateInstallerPath, updaterArgs, runElevated)){
+                    Application.Exit();
+                }
+                else{
+                    RestartWithArgsInternal(Arguments.GetCurrentClean());
+                }
             }
         }
 
@@ -211,11 +215,14 @@ namespace TweetDuck{
             FormBrowser browserForm = Application.OpenForms.OfType<FormBrowser>().FirstOrDefault();
             if (browserForm == null)return;
             
-            args.AddFlag(Arguments.ArgRestart);
-
             browserForm.ForceClose();
-            ExitCleanup();
 
+            ExitCleanup();
+            RestartWithArgsInternal(args);
+        }
+
+        private static void RestartWithArgsInternal(CommandLineArgs args){
+            args.AddFlag(Arguments.ArgRestart);
             Process.Start(Application.ExecutablePath, args.ToString());
             Application.Exit();
         }
