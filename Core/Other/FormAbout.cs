@@ -21,7 +21,7 @@ namespace TweetDuck.Core.Other{
         }
 
         private void OnLinkClicked(object sender, LinkLabelLinkClickedEventArgs e){
-            BrowserUtils.OpenExternalBrowserUnsafe(e.Link.LinkData as string);
+            BrowserUtils.OpenExternalBrowser(e.Link.LinkData as string);
         }
 
         private void FormAbout_HelpRequested(object sender, HelpEventArgs hlpevent){

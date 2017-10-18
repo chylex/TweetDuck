@@ -31,7 +31,7 @@ namespace TweetDuck.Updates{
                 timerDownloadCheck.Stop();
 
                 if (FormMessage.Error("Update Has Failed", "Could not download the update: "+(updateInfo.DownloadError?.Message ?? "unknown error")+"\n\nDo you want to open the website and try downloading the update manually?", FormMessage.Yes, FormMessage.No)){
-                    BrowserUtils.OpenExternalBrowserUnsafe(Program.Website);
+                    BrowserUtils.OpenExternalBrowser(Program.Website);
                     DialogResult = DialogResult.OK;
                 }
                 

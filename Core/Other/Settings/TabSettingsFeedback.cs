@@ -16,7 +16,7 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void btnSendFeedback_Click(object sender, EventArgs e){
-            BrowserUtils.OpenExternalBrowserUnsafe("https://github.com/chylex/TweetDuck/issues/new");
+            BrowserUtils.OpenExternalBrowser("https://github.com/chylex/TweetDuck/issues/new");
         }
 
         private void checkDataCollection_CheckedChanged(object sender, EventArgs e){
@@ -24,7 +24,7 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void labelDataCollectionLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e){
-            BrowserUtils.OpenExternalBrowserUnsafe("https://github.com/chylex/TweetDuck/wiki/Send-anonymous-data");
+            BrowserUtils.OpenExternalBrowser("https://github.com/chylex/TweetDuck/wiki/Send-anonymous-data");
         }
     }
 }

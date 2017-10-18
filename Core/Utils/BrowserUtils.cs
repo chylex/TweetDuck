@@ -70,12 +70,12 @@ namespace TweetDuck.Core.Utils{
 
             switch(CheckUrl(url)){
                 case UrlCheckResult.Fine:
-                    OpenExternalBrowserUnsafe(url);
+                    WindowsUtils.OpenAssociatedProgram(url);
                     break;
 
                 case UrlCheckResult.Tracking:
                     if (FormMessage.Warning("Blocked URL", "TweetDuck has blocked a tracking url due to privacy concerns. Do you want to visit it anyway?\n"+url, FormMessage.Yes, FormMessage.No)){
-                        OpenExternalBrowserUnsafe(url);
+                        WindowsUtils.OpenAssociatedProgram(url);
                     }
 
                     break;
@@ -84,10 +84,6 @@ namespace TweetDuck.Core.Utils{
                     FormMessage.Warning("Blocked URL", "A potentially malicious URL was blocked from opening:\n"+url, FormMessage.OK);
                     break;
             }
-        }
-
-        public static void OpenExternalBrowserUnsafe(string url){
-            using(Process.Start(url)){}
         }
 
         public static string GetFileNameFromUrl(string url){

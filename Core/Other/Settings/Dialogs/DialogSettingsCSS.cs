@@ -35,7 +35,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
         }
 
         private void btnOpenWiki_Click(object sender, EventArgs e){
-            BrowserUtils.OpenExternalBrowserUnsafe("https://github.com/chylex/TweetDuck/wiki");
+            BrowserUtils.OpenExternalBrowser("https://github.com/chylex/TweetDuck/wiki");
         }
 
         private void btnApply_Click(object sender, EventArgs e){
