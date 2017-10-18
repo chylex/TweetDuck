@@ -816,7 +816,7 @@
   //
   // Block: Make middle click on tweet reply icon open the compose drawer, retweet icon trigger a quote, and favorite icon open a 'Like from accounts...' modal.
   //
-  app.delegate(".tweet-action", "auxclick", function(e){
+  app.delegate(".tweet-action,.tweet-detail-action", "auxclick", function(e){
     return if e.which !== 2;
     
     let column = TD.controller.columnManager.get($(this).closest("section.js-column").attr("data-column"));
