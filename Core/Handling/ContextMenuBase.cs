@@ -126,7 +126,7 @@ namespace TweetDuck.Core.Handling{
                         string ext = Path.GetExtension(file);
 
                         if (TwitterUtils.ValidImageExtensions.Contains(ext)){
-                            using(Process.Start(file)){}
+                            WindowsUtils.OpenAssociatedProgram(file);
                         }
                         else{
                             FormMessage.Error("Image Download", "Invalid file extension "+ext, FormMessage.OK);

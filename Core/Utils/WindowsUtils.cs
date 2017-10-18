@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Management;
@@ -60,6 +61,24 @@ namespace TweetDuck.Core.Utils{
             }
 
             return Process.Start(processInfo);
+        }
+
+        public static bool OpenAssociatedProgram(string file, string arguments = "", bool runElevated = false){
+            try{
+                using(Process.Start(new ProcessStartInfo{
+                    FileName = file,
+                    Arguments = arguments,
+                    Verb = runElevated ? "runas" : string.Empty,
+                    ErrorDialog = true
+                })){
+                    return true;
+                }
+            }catch(Win32Exception e) when (e.NativeErrorCode == 0x000004C7){ // operation canceled by the user
+                return false;
+            }catch(Exception e){
+                Program.Reporter.HandleException("Error opening file", e.Message, true, e);
+                return false;
+            }
         }
 
         public static bool TrySleepUntil(Func<bool> test, int timeoutMillis, int timeStepMillis){
