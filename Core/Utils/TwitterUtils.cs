@@ -21,6 +21,10 @@ namespace TweetDuck.Core.Utils{
             "tweetdeck", "TweetDeck", "tweetduck", "TweetDuck", "TD"
         };
 
+        public static readonly string[] ValidImageExtensions = {
+            ".jpg", ".jpeg", ".png", ".gif"
+        };
+
         public enum ImageQuality{
             Default, Orig
         }
@@ -52,6 +56,10 @@ namespace TweetDuck.Core.Utils{
                 return url;
             }
         }
+
+        public static string GetImageFileName(string url){
+            return BrowserUtils.GetFileNameFromUrl(ExtractMediaBaseLink(url));
+        }
         
         public static void DownloadImage(string url, string username, ImageQuality quality){
             DownloadImages(new string[]{ url }, username, quality);
@@ -65,7 +73,7 @@ namespace TweetDuck.Core.Utils{
             string firstImageLink = GetMediaLink(urls[0], quality);
             int qualityIndex = firstImageLink.IndexOf(':', firstImageLink.LastIndexOf('/'));
 
-            string file = BrowserUtils.GetFileNameFromUrl(ExtractMediaBaseLink(firstImageLink));
+            string file = GetImageFileName(firstImageLink);
             string ext = Path.GetExtension(file); // includes dot
 
             string[] fileNameParts = qualityIndex == -1 ? new string[]{

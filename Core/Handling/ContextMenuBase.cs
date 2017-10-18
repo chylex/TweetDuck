@@ -7,7 +7,9 @@ using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using TweetDuck.Core.Other;
 
 namespace TweetDuck.Core.Handling{
     abstract class ContextMenuBase : IContextMenuHandler{
@@ -31,10 +33,11 @@ namespace TweetDuck.Core.Handling{
         private const CefMenuCommand MenuOpenLinkUrl     = (CefMenuCommand)26500;
         private const CefMenuCommand MenuCopyLinkUrl     = (CefMenuCommand)26501;
         private const CefMenuCommand MenuCopyUsername    = (CefMenuCommand)26502;
-        private const CefMenuCommand MenuOpenMediaUrl    = (CefMenuCommand)26503;
-        private const CefMenuCommand MenuCopyMediaUrl    = (CefMenuCommand)26504;
-        private const CefMenuCommand MenuSaveMedia       = (CefMenuCommand)26505;
-        private const CefMenuCommand MenuSaveTweetImages = (CefMenuCommand)26506;
+        private const CefMenuCommand MenuViewImage       = (CefMenuCommand)26503;
+        private const CefMenuCommand MenuOpenMediaUrl    = (CefMenuCommand)26504;
+        private const CefMenuCommand MenuCopyMediaUrl    = (CefMenuCommand)26505;
+        private const CefMenuCommand MenuSaveMedia       = (CefMenuCommand)26506;
+        private const CefMenuCommand MenuSaveTweetImages = (CefMenuCommand)26507;
         private const CefMenuCommand MenuOpenDevTools    = (CefMenuCommand)26599;
         
         private string[] lastHighlightedTweetAuthors;
@@ -79,6 +82,7 @@ namespace TweetDuck.Core.Handling{
                 model.AddSeparator();
             }
             else if ((parameters.TypeFlags.HasFlag(ContextMenuType.Media) && parameters.HasImageContents) || hasTweetImage){
+                model.AddItem(MenuViewImage, "View image in photo viewer");
                 model.AddItem(MenuOpenMediaUrl, TextOpen("image"));
                 model.AddItem(MenuCopyMediaUrl, TextCopy("image"));
                 model.AddItem(MenuSaveMedia, TextSave("image"));
@@ -112,6 +116,32 @@ namespace TweetDuck.Core.Handling{
 
                 case MenuCopyMediaUrl:
                     SetClipboardText(browserControl.AsControl(), TwitterUtils.GetMediaLink(GetMediaLink(parameters), ImageQuality));
+                    break;
+
+                case MenuViewImage:
+                    string url = GetMediaLink(parameters);
+                    string file = Path.Combine(BrowserCache.CacheFolder, TwitterUtils.GetImageFileName(url));
+
+                    void ViewFile(){
+                        string ext = Path.GetExtension(file);
+
+                        if (TwitterUtils.ValidImageExtensions.Contains(ext)){
+                            using(Process.Start(file)){}
+                        }
+                        else{
+                            FormMessage.Error("Image Download", "Invalid file extension "+ext, FormMessage.OK);
+                        }
+                    }
+
+                    if (File.Exists(file)){
+                        ViewFile();
+                    }
+                    else{
+                        BrowserUtils.DownloadFileAsync(TwitterUtils.GetMediaLink(url, ImageQuality), file, ViewFile, ex => {
+                            FormMessage.Error("Image Download", "An error occurred while downloading the image: "+ex.Message, FormMessage.OK);
+                        });
+                    }
+
                     break;
 
                 case MenuSaveMedia:

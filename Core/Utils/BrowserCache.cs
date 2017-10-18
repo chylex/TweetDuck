@@ -8,7 +8,7 @@ namespace TweetDuck.Core.Utils{
     static class BrowserCache{
         private static bool ClearOnExit { get; set; }
 
-        private static readonly string CacheFolder = Path.Combine(Program.StoragePath, "Cache");
+        public static readonly string CacheFolder = Path.Combine(Program.StoragePath, "Cache");
 
         private static IEnumerable<string> CacheFiles{
             get{
