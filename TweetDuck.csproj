@@ -190,6 +190,7 @@
     <Compile Include="Core\Other\Settings\TabSettingsTray.Designer.cs">
       <DependentUpon>TabSettingsTray.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\TweetDeckBrowser.cs" />
     <Compile Include="Core\Utils\StringUtils.cs" />
     <Compile Include="Core\Utils\TwitterUtils.cs" />
     <Compile Include="Data\CombinedFileStream.cs" />
