@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using TweetDuck.Core;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Notification;
+using TweetDuck.Core.Other;
 using TweetDuck.Core.Utils;
 using TweetDuck.Data;
 using TweetDuck.Data.Serialization;

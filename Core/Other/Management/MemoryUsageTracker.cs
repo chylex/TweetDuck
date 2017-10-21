@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Timers;
 using System.Windows.Forms;
 using CefSharp;
+using CefSharp.WinForms;
 using Timer = System.Timers.Timer;
 
 namespace TweetDuck.Core.Other.Management{
@@ -25,11 +26,11 @@ namespace TweetDuck.Core.Other.Management{
             this.timer.Elapsed += timer_Elapsed;
         }
 
-        public void Start(Form owner, IBrowser browser, int thresholdMB){
+        public void Start(ChromiumWebBrowser control, int thresholdMB){
             Stop();
 
-            this.owner = owner;
-            this.browser = browser;
+            this.owner = (Form)control.Parent; // TODO ugly
+            this.browser = control.GetBrowser();
             this.threshold = thresholdMB*1024L*1024L;
             this.timer.SynchronizingObject = owner;
             this.timer.Start();

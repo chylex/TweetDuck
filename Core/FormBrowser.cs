@@ -1,13 +1,10 @@
-﻿using CefSharp;
-using CefSharp.WinForms;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
 using TweetDuck.Configuration;
 using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling;
-using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Notification.Screenshot;
 using TweetDuck.Core.Other;
@@ -15,9 +12,7 @@ using TweetDuck.Core.Other.Management;
 using TweetDuck.Core.Other.Settings;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
-using TweetDuck.Plugins.Enums;
 using TweetDuck.Plugins.Events;
-using TweetDuck.Resources;
 using TweetDuck.Updates;
 using TweetLib.Audio;
 
@@ -44,15 +39,13 @@ namespace TweetDuck.Core{
 
         public string UpdateInstallerPath { get; private set; }
 
-        private readonly ChromiumWebBrowser browser;
+        private readonly TweetDeckBrowser browser;
         private readonly PluginManager plugins;
         private readonly UpdateHandler updates;
         private readonly FormNotificationTweet notification;
         private readonly ContextMenu contextMenu;
-        private readonly MemoryUsageTracker memoryUsageTracker;
 
         private bool isLoaded;
-        private bool isBrowserReady;
         private FormWindowState prevState;
 
         private TweetScreenshotManager notificationScreenshotManager;
@@ -67,11 +60,7 @@ namespace TweetDuck.Core{
             this.plugins = new PluginManager(Program.PluginPath, Program.PluginConfigFilePath);
             this.plugins.Reloaded += plugins_Reloaded;
             this.plugins.Executed += plugins_Executed;
-            this.plugins.PluginChangedState += plugins_PluginChangedState;
             this.plugins.Reload();
-
-            this.contextMenu = ContextMenuBrowser.CreateMenu(this);
-            this.memoryUsageTracker = new MemoryUsageTracker("TDGF_tryRunCleanup");
 
             this.notification = new FormNotificationTweet(this, plugins){
                 #if DEBUG
@@ -82,38 +71,13 @@ namespace TweetDuck.Core{
             };
 
             this.notification.Show();
-
-            this.browser = new ChromiumWebBrowser("https://tweetdeck.twitter.com/"){
-                DialogHandler = new FileDialogHandler(),
-                DragHandler = new DragHandlerBrowser(),
-                MenuHandler = new ContextMenuBrowser(this),
-                JsDialogHandler = new JavaScriptDialogHandler(),
-                KeyboardHandler = new KeyboardHandlerBrowser(this),
-                LifeSpanHandler = new LifeSpanHandler(),
-                RequestHandler = new RequestHandlerBrowser()
-            };
-
-            #if DEBUG
-            this.browser.ConsoleMessage += BrowserUtils.HandleConsoleMessage;
-            #endif
-
-            this.browser.LoadingStateChanged += browser_LoadingStateChanged;
-            this.browser.FrameLoadStart += browser_FrameLoadStart;
-            this.browser.FrameLoadEnd += browser_FrameLoadEnd;
-            this.browser.LoadError += browser_LoadError;
-            this.browser.RegisterAsyncJsObject("$TD", new TweetDeckBridge(this, notification));
-            this.browser.RegisterAsyncJsObject("$TDP", plugins.Bridge);
             
-            browser.BrowserSettings.BackgroundColor = (uint)TwitterUtils.BackgroundColor.ToArgb();
-            browser.Dock = DockStyle.None;
-            browser.Location = ControlExtensions.InvisibleLocation;
-            Controls.Add(browser);
+            this.browser = new TweetDeckBrowser(this, plugins, new TweetDeckBridge(this, notification));
+            this.contextMenu = ContextMenuBrowser.CreateMenu(this);
 
             Controls.Add(new MenuStrip{ Visible = false }); // fixes Alt freezing the program in Win 10 Anniversary Update
 
             Disposed += (sender, args) => {
-                memoryUsageTracker.Dispose();
-
                 browser.Dispose();
                 contextMenu.Dispose();
 
@@ -128,10 +92,7 @@ namespace TweetDuck.Core{
 
             UpdateTrayIcon();
 
-            Config.MuteToggled += Config_MuteToggled;
-            Config.ZoomLevelChanged += Config_ZoomLevelChanged;
-
-            this.updates = new UpdateHandler(browser, updaterSettings);
+            this.updates = browser.CreateUpdateHandler(updaterSettings);
             this.updates.UpdateAccepted += updates_UpdateAccepted;
             this.updates.UpdateDismissed += updates_UpdateDismissed;
 
@@ -156,81 +117,11 @@ namespace TweetDuck.Core{
             isLoaded = true;
         }
 
-        private void OnBrowserReady(){
-            if (!isBrowserReady){
-                browser.Location = Point.Empty;
-                browser.Dock = DockStyle.Fill;
-                isBrowserReady = true;
-            }
-        }
-
         private void UpdateTrayIcon(){
             trayIcon.Visible = Config.TrayBehavior.ShouldDisplayIcon();
         }
 
-        // active event handlers
-
-        private void browser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e){
-            if (!e.IsLoading){
-                foreach(string word in TwitterUtils.DictionaryWords){
-                    browser.AddWordToDictionary(word);
-                }
-
-                BeginInvoke(new Action(OnBrowserReady));
-                browser.LoadingStateChanged -= browser_LoadingStateChanged;
-            }
-        }
-
-        private void browser_FrameLoadStart(object sender, FrameLoadStartEventArgs e){
-            if (e.Frame.IsMain){
-                memoryUsageTracker.Stop();
-
-                if (Config.ZoomLevel != 100){
-                    BrowserUtils.SetZoomLevel(browser.GetBrowser(), Config.ZoomLevel);
-                }
-
-                if (TwitterUtils.IsTwitterWebsite(e.Frame)){
-                    ScriptLoader.ExecuteFile(e.Frame, "twitter.js");
-                }
-            }
-        }
-
-        private void browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
-            if (e.Frame.IsMain && TwitterUtils.IsTweetDeckWebsite(e.Frame)){
-                e.Frame.ExecuteJavaScriptAsync(TwitterUtils.BackgroundColorFix);
-
-                UpdateProperties(PropertyBridge.Environment.Browser);
-                TweetDeckBridge.RestoreSessionData(e.Frame);
-                ScriptLoader.ExecuteFile(e.Frame, "code.js");
-                InjectBrowserCSS();
-                ReinjectCustomCSS(Config.CustomBrowserCSS);
-                plugins.ExecutePlugins(e.Frame, PluginEnvironment.Browser);
-
-                TweetDeckBridge.ResetStaticProperties();
-
-                if (Program.SystemConfig.EnableBrowserGCReload){
-                    memoryUsageTracker.Start(this, e.Browser, Program.SystemConfig.BrowserMemoryThreshold);
-                }
-
-                if (Config.FirstRun){
-                    ScriptLoader.ExecuteFile(e.Frame, "introduction.js");
-                }
-            }
-        }
-
-        private void browser_LoadError(object sender, LoadErrorEventArgs e){
-            if (e.ErrorCode == CefErrorCode.Aborted){
-                return;
-            }
-
-            if (!e.FailedUrl.StartsWith("http://td/", StringComparison.Ordinal)){
-                string errorPage = ScriptLoader.LoadResource("pages/error.html", true);
-
-                if (errorPage != null){
-                    browser.LoadHtml(errorPage.Replace("{err}", BrowserUtils.GetErrorName(e.ErrorCode)), "http://td/error");
-                }
-            }
-        }
+        // event handlers
 
         private void timerResize_Tick(object sender, EventArgs e){
             FormBrowser_ResizeEnd(this, e); // also stops timer
@@ -300,14 +191,6 @@ namespace TweetDuck.Core{
             }
         }
 
-        private void Config_MuteToggled(object sender, EventArgs e){
-            UpdateProperties(PropertyBridge.Environment.Browser);
-        }
-
-        private void Config_ZoomLevelChanged(object sender, EventArgs e){
-            BrowserUtils.SetZoomLevel(browser.GetBrowser(), Config.ZoomLevel);
-        }
-
         private void Config_TrayBehaviorChanged(object sender, EventArgs e){
             UpdateTrayIcon();
         }
@@ -337,10 +220,6 @@ namespace TweetDuck.Core{
             if (e.HasErrors){
                 FormMessage.Error("Error Executing Plugins", "Failed to execute the following plugins:\n\n"+string.Join("\n\n", e.Errors), FormMessage.OK);
             }
-        }
-
-        private void plugins_PluginChangedState(object sender, PluginChangedStateEventArgs e){
-            browser.ExecuteScriptAsync("window.TDPF_setPluginState", e.Plugin, e.IsEnabled);
         }
 
         private void updates_UpdateAccepted(object sender, UpdateEventArgs e){
@@ -400,12 +279,12 @@ namespace TweetDuck.Core{
                 }
             }
             
-            if (isBrowserReady && m.Msg == NativeMethods.WM_PARENTNOTIFY && (m.WParam.ToInt32() & 0xFFFF) == NativeMethods.WM_XBUTTONDOWN){
+            if (browser.Ready && m.Msg == NativeMethods.WM_PARENTNOTIFY && (m.WParam.ToInt32() & 0xFFFF) == NativeMethods.WM_XBUTTONDOWN){
                 if (videoPlayer != null && videoPlayer.Running){
                     videoPlayer.Close();
                 }
                 else{
-                    browser.ExecuteScriptAsync("TDGF_onMouseClickExtra", (m.WParam.ToInt32() >> 16) & 0xFFFF);
+                    browser.OnMouseClickExtra(m.WParam);
                 }
 
                 return;
@@ -428,22 +307,18 @@ namespace TweetDuck.Core{
             notification.ResumeNotification();
         }
 
-        // javascript calls
-
-        public void InjectBrowserCSS(){
-            browser.ExecuteScriptAsync("TDGF_injectBrowserCSS", ScriptLoader.LoadResource("styles/browser.css").TrimEnd());
-        }
+        // browser bridge methods
 
         public void ReinjectCustomCSS(string css){
-            browser.ExecuteScriptAsync("TDGF_reinjectCustomCSS", css?.Replace(Environment.NewLine, " ") ?? string.Empty);
-        }
-
-        public void UpdateProperties(PropertyBridge.Environment environment){
-            browser.ExecuteScriptAsync(PropertyBridge.GenerateScript(environment));
+            browser.ReinjectCustomCSS(css);
         }
 
         public void ReloadToTweetDeck(){
-            browser.ExecuteScriptAsync($"if(window.TDGF_reload)window.TDGF_reload();else window.location.href='{TwitterUtils.TweetDeckURL}'");
+            browser.ReloadToTweetDeck();
+        }
+
+        public void TriggerTweetScreenshot(){
+            browser.TriggerTweetScreenshot();
         }
 
         // callback handlers
@@ -486,19 +361,14 @@ namespace TweetDuck.Core{
                         trayIcon.HasNotifications = false;
                     }
 
-                    if (Program.SystemConfig.EnableBrowserGCReload){
-                        memoryUsageTracker.Start(this, browser.GetBrowser(), Program.SystemConfig.BrowserMemoryThreshold);
-                    }
-                    else{
-                        memoryUsageTracker.Stop();
-                    }
+                    browser.RefreshMemoryTracker();
                     
                     if (form.ShouldReloadBrowser){
                         FormManager.TryFind<FormPlugins>()?.Close();
                         plugins.Reload(); // also reloads the browser
                     }
                     else{
-                        UpdateProperties(PropertyBridge.Environment.Browser);
+                        browser.UpdateProperties();
                     }
 
                     notification.RequiresResize = true;
@@ -551,16 +421,11 @@ namespace TweetDuck.Core{
                 videoPlayer = new VideoPlayer(this);
 
                 videoPlayer.ProcessExited += (sender, args) => {
-                    browser.GetBrowser().GetHost().SendFocusEvent(true);
-                    HideVideoOverlay();
+                    browser.HideVideoOverlay(true);
                 };
             }
             
             videoPlayer.Launch(url, username);
-        }
-
-        public void HideVideoOverlay(){
-            browser.ExecuteScriptAsync("$('#td-video-player-overlay').remove()");
         }
 
         public bool ProcessBrowserKey(Keys key){
@@ -575,15 +440,13 @@ namespace TweetDuck.Core{
         public void ShowTweetDetail(string columnId, string chirpId, string fallbackUrl){
             Activate();
 
-            using(IFrame frame = browser.GetBrowser().MainFrame){
-                if (!TwitterUtils.IsTweetDeckWebsite(frame)){
-                    FormMessage.Error("View Tweet Detail", "TweetDeck is not currently loaded.", FormMessage.OK);
-                    return;
-                }
+            if (!browser.IsTweetDeckWebsite){
+                FormMessage.Error("View Tweet Detail", "TweetDeck is not currently loaded.", FormMessage.OK);
+                return;
             }
 
             notification.FinishCurrentNotification();
-            browser.ExecuteScriptAsync("window.TDGF_showTweetDetail", columnId, chirpId, fallbackUrl);
+            browser.ShowTweetDetail(columnId, chirpId, fallbackUrl);
         }
 
         public void OnTweetScreenshotReady(string html, int width, int height){
@@ -603,10 +466,6 @@ namespace TweetDuck.Core{
                 position.Offset(20, 10);
                 toolTip.Show(text, this, position);
             }
-        }
-
-        public void TriggerTweetScreenshot(){
-            browser.ExecuteScriptAsync("TDGF_triggerScreenshot()");
         }
     }
 }

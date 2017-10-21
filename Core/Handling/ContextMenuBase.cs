@@ -7,7 +7,6 @@ using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using TweetDuck.Core.Other;
 
