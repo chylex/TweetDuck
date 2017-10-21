@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace TweetDuck.Core{
+namespace TweetDuck.Core.Other{
     sealed partial class TrayIcon : Component{
         public enum Behavior{ // keep order
             Disabled, DisplayOnly, MinimizeToTray, CloseToTray, Combined
@@ -12,7 +12,9 @@ namespace TweetDuck.Core{
         public event EventHandler ClickClose;
 
         public bool Visible{
-            get => notifyIcon.Visible;
+            get{
+                return notifyIcon.Visible;
+            }
 
             set{
                 if (value){

@@ -3,7 +3,7 @@ using System.Diagnostics.Contracts;
 using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TweetDuck.Configuration;
-using TweetDuck.Core;
+using TweetDuck.Core.Other;
 
 namespace UnitTests.Configuration{
     [TestClass]

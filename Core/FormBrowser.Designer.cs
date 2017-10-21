@@ -24,7 +24,7 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            this.trayIcon = new TweetDuck.Core.TrayIcon(this.components);
+            this.trayIcon = new TweetDuck.Core.Other.TrayIcon(this.components);
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.timerResize = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
@@ -57,7 +57,7 @@
 
         #endregion
 
-        private TrayIcon trayIcon;
+        private TweetDuck.Core.Other.TrayIcon trayIcon;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Timer timerResize;
     }
