@@ -62,15 +62,15 @@ namespace TweetDuck.Core.Other.Analytics{
                 { "Notification Idle Pause"     , Exact(UserConfig.NotificationIdlePauseSeconds) },
                 { "Custom Sound Notification"   , string.IsNullOrEmpty(UserConfig.NotificationSoundPath) ? "off" : Path.GetExtension(UserConfig.NotificationSoundPath) },
                 0,
-                { "Program Arguments"       , ProgramArguments },
+                { "Program Arguments"       , List(ProgramArguments) },
                 { "Custom CEF Arguments"    , RoundUp((UserConfig.CustomCefArgs ?? string.Empty).Length, 10) },
                 { "Custom Browser CSS"      , RoundUp((UserConfig.CustomBrowserCSS ?? string.Empty).Length, 50) },
                 { "Custom Notification CSS" , RoundUp((UserConfig.CustomNotificationCSS ?? string.Empty).Length, 50) },
                 0,
-                { "Plugins All"     , string.Join("|", plugins.Plugins.Select(plugin => plugin.Identifier)) },
-                { "Plugins Enabled" , string.Join("|", plugins.Plugins.Where(plugin => plugins.Config.IsEnabled(plugin)).Select(plugin => plugin.Identifier)) },
+                { "Plugins All"     , List(plugins.Plugins.Select(plugin => plugin.Identifier)) },
+                { "Plugins Enabled" , List(plugins.Plugins.Where(plugin => plugins.Config.IsEnabled(plugin)).Select(plugin => plugin.Identifier)) },
                 0,
-                // TODO theme
+                { "Theme"               , Dict(editLayoutDesign, "_theme",                  "light/def") },
                 { "Column Width"        , Dict(editLayoutDesign, "columnWidth",             "310px/def") },
                 { "Font Size"           , Dict(editLayoutDesign, "fontSize",                "12px/def") },
                 { "Large Quote Font"    , Dict(editLayoutDesign, "increaseQuoteTextSize",   "false/def") },
@@ -81,8 +81,8 @@ namespace TweetDuck.Core.Other.Analytics{
                 { "Theme Color Tweaks"  , Dict(editLayoutDesign, "themeColorTweaks",        "true/def") },
                 { "Revert Icons"        , Dict(editLayoutDesign, "revertIcons",             "true/def") },
                 { "Optimize Animations" , Dict(editLayoutDesign, "optimizeAnimations",      "true/def") },
-                { "Template Count"      , Exact(TemplateCountFromPlugin) },
                 { "Reply Account Mode"  , ReplyAccountConfigFromPlugin },
+                { "Template Count"      , Exact(TemplateCountFromPlugin) },
             }.FinalizeReport();
         }
 
@@ -93,13 +93,14 @@ namespace TweetDuck.Core.Other.Analytics{
         private static string Exact(int value) => value.ToString();
         private static string RoundUp(int value, int multiple) => (multiple*(int)Math.Ceiling((double)value/multiple)).ToString();
         private static string Dict(Dictionary<string, string> dict, string key, string def = "(unknown)") => dict.TryGetValue(key, out string value) ? value : def;
+        private static string List(IEnumerable<string> list) => string.Join("|", list.DefaultIfEmpty("(none)"));
 
         private static string SystemName { get; }
         private static string SystemEdition { get; }
         private static string SystemBuild { get; }
         private static int RamSize { get; }
         private static string GpuVendor { get; }
-        private static string ProgramArguments { get; }
+        private static string[] ProgramArguments { get; }
 
         static AnalyticsReportGenerator(){
             string osName, osEdition, osBuild;
@@ -153,7 +154,7 @@ namespace TweetDuck.Core.Other.Analytics{
 
             Dictionary<string, string> args = new Dictionary<string, string>();
             Arguments.GetCurrentClean().ToDictionary(args);
-            ProgramArguments = string.Join("|", args.Keys.Select(key => key.TrimStart('-')));
+            ProgramArguments = args.Keys.Select(key => key.TrimStart('-')).ToArray();
         }
 
         private static string TrayMode{
@@ -234,7 +235,7 @@ namespace TweetDuck.Core.Other.Analytics{
                 try{
                     string data = File.ReadAllText(Path.Combine(Program.PluginDataPath, "official", "reply-account", "configuration.js")).Replace(" ", "");
 
-                    Match matchType = Regex.Match(data, "defaultAccount:\"([#@])(.*?)(?:,|$)");
+                    Match matchType = Regex.Match(data, "defaultAccount:\"([#@])(.*?)\"(?:,|$)");
                     Match matchAdvanced = Regex.Match(data, "useAdvancedSelector:(.*?)(?:,|$)", RegexOptions.Multiline);
 
                     if (!matchType.Success){

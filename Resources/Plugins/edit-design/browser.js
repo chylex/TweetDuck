@@ -6,6 +6,7 @@ enabled(){
   this.config = null;
   
   this.defaultConfig = {
+    _theme: "light",
     columnWidth: "310px",
     fontSize: "12px",
     hideTweetActions: true,
@@ -38,11 +39,13 @@ enabled(){
       this.currentStage = 1;
     }
     else if (this.tmpConfig !== null){
+      let needsResave = !("_theme" in this.tmpConfig);
+      
       this.config = $.extend(this.defaultConfig, this.tmpConfig);
       this.tmpConfig = null;
       this.reinjectAll();
       
-      if (this.firstTimeLoad){
+      if (this.firstTimeLoad || needsResave){
         $TDP.writeFile(this.$token, configFile, JSON.stringify(this.config));
       }
     }
@@ -60,6 +63,8 @@ enabled(){
   }
   else{
     $(document).one("dataSettingsValues", () => {
+      this.defaultConfig._theme = TD.settings.getTheme();
+      
       switch(TD.settings.getColumnWidth()){
         case "wide": this.defaultConfig.columnWidth = "350px"; break;
         case "narrow": this.defaultConfig.columnWidth = "270px"; break;
@@ -218,9 +223,11 @@ enabled(){
     modal.find("[data-td-theme='"+TD.settings.getTheme()+"']").prop("checked", true);
     
     modal.find("[data-td-theme]").change(function(){
+      me.config._theme = $(this).attr("data-td-theme");
+      
       setTimeout(function(){
-        TD.settings.setTheme($(this).attr("data-td-theme"));
         $(document).trigger("uiToggleTheme");
+        me.saveConfig();
         me.reinjectAll();
       }, 1);
     });
