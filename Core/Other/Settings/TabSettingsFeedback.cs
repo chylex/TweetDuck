@@ -37,8 +37,6 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void btnViewReport_Click(object sender, EventArgs e){
-            // TODO ensure OnClosing to save everything
-
             using (DialogSettingsAnalytics dialog = new DialogSettingsAnalytics(report)){
                 dialog.ShowDialog();
             }

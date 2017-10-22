@@ -44,9 +44,10 @@ namespace TweetDuck.Core.Other{
         }
 
         private void FormSettings_FormClosing(object sender, FormClosingEventArgs e){
+            currentTab.Control.OnClosing();
+
             foreach(SettingsTab tab in tabs.Values){
                 if (tab.IsInitialized){
-                    tab.Control.OnClosing();
                     tab.Control.Dispose();
                 }
             }
@@ -56,11 +57,7 @@ namespace TweetDuck.Core.Other{
         }
 
         private void btnManageOptions_Click(object sender, EventArgs e){
-            foreach(SettingsTab tab in tabs.Values){
-                if (tab.IsInitialized){
-                    tab.Control.OnClosing();
-                }
-            }
+            currentTab.Control.OnClosing();
 
             using(DialogSettingsManage dialog = new DialogSettingsManage(plugins)){
                 if (dialog.ShowDialog() == DialogResult.OK){
@@ -113,6 +110,7 @@ namespace TweetDuck.Core.Other{
         private void SelectTab(SettingsTab tab){
             if (currentTab != null){
                 currentTab.Button.BackColor = SystemColors.Control;
+                currentTab.Control.OnClosing();
             }
             
             tab.Button.BackColor = tab.Button.FlatAppearance.MouseDownBackColor;
