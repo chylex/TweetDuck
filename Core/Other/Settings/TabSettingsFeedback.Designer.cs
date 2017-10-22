@@ -25,12 +25,13 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             this.panelFeedback = new System.Windows.Forms.Panel();
+            this.btnViewReport = new System.Windows.Forms.Button();
+            this.btnSendFeedback = new System.Windows.Forms.Button();
             this.labelDataCollectionLink = new System.Windows.Forms.LinkLabel();
             this.checkDataCollection = new System.Windows.Forms.CheckBox();
             this.labelDataCollection = new System.Windows.Forms.Label();
             this.labelFeedback = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.btnSendFeedback = new System.Windows.Forms.Button();
             this.panelFeedback.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -38,14 +39,38 @@
             // 
             this.panelFeedback.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelFeedback.Controls.Add(this.btnViewReport);
             this.panelFeedback.Controls.Add(this.btnSendFeedback);
             this.panelFeedback.Controls.Add(this.labelDataCollectionLink);
             this.panelFeedback.Controls.Add(this.checkDataCollection);
             this.panelFeedback.Controls.Add(this.labelDataCollection);
             this.panelFeedback.Location = new System.Drawing.Point(9, 31);
             this.panelFeedback.Name = "panelFeedback";
-            this.panelFeedback.Size = new System.Drawing.Size(322, 80);
+            this.panelFeedback.Size = new System.Drawing.Size(322, 112);
             this.panelFeedback.TabIndex = 1;
+            // 
+            // btnViewReport
+            // 
+            this.btnViewReport.AutoSize = true;
+            this.btnViewReport.Location = new System.Drawing.Point(6, 82);
+            this.btnViewReport.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
+            this.btnViewReport.Name = "btnViewReport";
+            this.btnViewReport.Size = new System.Drawing.Size(144, 23);
+            this.btnViewReport.TabIndex = 4;
+            this.btnViewReport.Text = "View My Analytics Report";
+            this.btnViewReport.UseVisualStyleBackColor = true;
+            // 
+            // btnSendFeedback
+            // 
+            this.btnSendFeedback.AutoSize = true;
+            this.btnSendFeedback.Location = new System.Drawing.Point(5, 3);
+            this.btnSendFeedback.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
+            this.btnSendFeedback.Name = "btnSendFeedback";
+            this.btnSendFeedback.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.btnSendFeedback.Size = new System.Drawing.Size(164, 23);
+            this.btnSendFeedback.TabIndex = 0;
+            this.btnSendFeedback.Text = "Send Feedback / Bug Report";
+            this.btnSendFeedback.UseVisualStyleBackColor = true;
             // 
             // labelDataCollectionLink
             // 
@@ -60,7 +85,6 @@
             this.labelDataCollectionLink.TabStop = true;
             this.labelDataCollectionLink.Text = "(learn more)";
             this.labelDataCollectionLink.UseCompatibleTextRendering = true;
-            this.labelDataCollectionLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.labelDataCollectionLink_LinkClicked);
             // 
             // checkDataCollection
             // 
@@ -94,18 +118,6 @@
             this.labelFeedback.TabIndex = 0;
             this.labelFeedback.Text = "Feedback";
             // 
-            // btnSendFeedback
-            // 
-            this.btnSendFeedback.AutoSize = true;
-            this.btnSendFeedback.Location = new System.Drawing.Point(5, 3);
-            this.btnSendFeedback.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
-            this.btnSendFeedback.Name = "btnSendFeedback";
-            this.btnSendFeedback.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.btnSendFeedback.Size = new System.Drawing.Size(164, 23);
-            this.btnSendFeedback.TabIndex = 0;
-            this.btnSendFeedback.Text = "Send Feedback / Bug Report";
-            this.btnSendFeedback.UseVisualStyleBackColor = true;
-            // 
             // TabSettingsFeedback
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -113,7 +125,7 @@
             this.Controls.Add(this.panelFeedback);
             this.Controls.Add(this.labelFeedback);
             this.Name = "TabSettingsFeedback";
-            this.Size = new System.Drawing.Size(340, 122);
+            this.Size = new System.Drawing.Size(340, 151);
             this.panelFeedback.ResumeLayout(false);
             this.panelFeedback.PerformLayout();
             this.ResumeLayout(false);
@@ -130,5 +142,6 @@
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.LinkLabel labelDataCollectionLink;
         private System.Windows.Forms.Button btnSendFeedback;
+        private System.Windows.Forms.Button btnViewReport;
     }
 }

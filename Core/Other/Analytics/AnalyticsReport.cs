@@ -32,7 +32,7 @@ namespace TweetDuck.Core.Other.Analytics{
 
             foreach(DictionaryEntry entry in data){
                 if (entry.Value == null){
-                    build.AppendLine("------------------------------");
+                    build.AppendLine();
                 }
                 else{
                     build.AppendLine(entry.Key+": "+entry.Value);
