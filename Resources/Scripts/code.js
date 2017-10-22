@@ -936,6 +936,10 @@
       $TD.playVideo(url, username || null);
     };
     
+    var getGifLink = function(ele){
+      return ele.attr("src") || ele.children("source[video-src]").first().attr("video-src");
+    };
+    
     var getVideoTweetLink = function(obj){
       let parent = obj.closest(".js-tweet").first();
       let link = (parent.hasClass("tweet-detail") ? parent.find("a[rel='url']") : parent.find("time").first().children("a")).first();
@@ -948,7 +952,7 @@
     
     app.delegate(".js-gif-play", {
       click: function(e){
-        let src = !e.ctrlKey && $(this).closest(".js-media-gif-container").find("video").attr("src");
+        let src = !e.ctrlKey && getGifLink($(this).closest(".js-media-gif-container").find("video"));
         
         if (src){
           window.TDGF_playVideo(src, getUsername(highlightedTweetObj));
