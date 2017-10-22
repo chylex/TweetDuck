@@ -18,5 +18,16 @@ namespace TweetDuck.Core.Utils{
         public static string ConvertPascalCaseToScreamingSnakeCase(string str){
             return Regex.Replace(str, @"(\p{Ll})(\P{Ll})|(\P{Ll})(\P{Ll}\p{Ll})", "$1$3_$2$4").ToUpper();
         }
+
+        public static int CountOccurrences(string source, string substring){
+            int count = 0, index = 0;
+
+            while((index = source.IndexOf(substring, index)) != -1){
+                index += substring.Length;
+                ++count;
+            }
+
+            return count;
+        }
     }
 }
