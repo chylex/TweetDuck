@@ -37,7 +37,7 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void btnViewReport_Click(object sender, EventArgs e){
-            using (DialogSettingsAnalytics dialog = new DialogSettingsAnalytics(report)){
+            using(DialogSettingsAnalytics dialog = new DialogSettingsAnalytics(AnalyticsReportGenerator.Create(FormManager.TryFind<FormBrowser>(), plugins))){
                 dialog.ShowDialog();
             }
         }
