@@ -375,7 +375,7 @@
       mouseenter: function(){
         let me = $(this);
         let text = me.text();
-        return if text.charCodeAt(text.length-1) !== 8230; // horizontal ellipsis
+        return if text.charCodeAt(text.length-1) !== 8230 && text.charCodeAt(0) !== 8230; // horizontal ellipsis
         
         if ($TDX.expandLinksOnHover){
           tooltipTimer = window.setTimeout(function(){
