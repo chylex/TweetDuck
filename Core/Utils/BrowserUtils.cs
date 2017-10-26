@@ -95,9 +95,14 @@ namespace TweetDuck.Core.Utils{
             return StringUtils.ConvertPascalCaseToScreamingSnakeCase(Enum.GetName(typeof(CefErrorCode), code) ?? string.Empty);
         }
 
-        public static WebClient DownloadFileAsync(string url, string target, Action onSuccess, Action<Exception> onFailure){
+        public static WebClient CreateWebClient(){
             WebClient client = new WebClient{ Proxy = null };
             client.Headers[HttpRequestHeader.UserAgent] = HeaderUserAgent;
+            return client;
+        }
+
+        public static WebClient DownloadFileAsync(string url, string target, Action onSuccess, Action<Exception> onFailure){
+            WebClient client = CreateWebClient();
 
             client.DownloadFileCompleted += (sender, args) => {
                 if (args.Cancelled){

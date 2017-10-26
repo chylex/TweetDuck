@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
+using TweetDuck.Core.Other.Analytics;
 using TweetDuck.Core.Other.Settings;
 using TweetDuck.Core.Other.Settings.Dialogs;
 using TweetDuck.Core.Utils;
@@ -37,7 +38,7 @@ namespace TweetDuck.Core.Other{
             AddButton("System Tray", () => new TabSettingsTray());
             AddButton("Notifications", () => new TabSettingsNotifications(browser.CreateNotificationForm(false)));
             AddButton("Sounds", () => new TabSettingsSounds());
-            AddButton("Feedback", () => new TabSettingsFeedback(plugins));
+            AddButton("Feedback", () => new TabSettingsFeedback(AnalyticsReportGenerator.ExternalInfo.From(browser), plugins));
             AddButton("Advanced", () => new TabSettingsAdvanced(browser.ReinjectCustomCSS));
 
             SelectTab(tabs[startTab ?? typeof(TabSettingsGeneral)]);

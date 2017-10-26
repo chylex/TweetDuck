@@ -27,6 +27,18 @@ namespace TweetDuck.Core.Other.Analytics{
             return data.GetEnumerator();
         }
 
+        public NameValueCollection ToNameValueCollection(){
+            NameValueCollection collection = new NameValueCollection();
+
+            foreach(DictionaryEntry entry in data){
+                if (entry.Value != null){
+                    collection.Add((string)entry.Key, (string)entry.Value);
+                }
+            }
+
+            return collection;
+        }
+
         public override string ToString(){
             StringBuilder build = new StringBuilder();
 

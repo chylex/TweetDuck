@@ -14,7 +14,7 @@ using TweetDuck.Plugins;
 
 namespace TweetDuck.Core.Other.Analytics{
     static class AnalyticsReportGenerator{
-        public static AnalyticsReport Create(FormBrowser browser, PluginManager plugins){
+        public static AnalyticsReport Create(ExternalInfo info, PluginManager plugins){
             Dictionary<string, string> editLayoutDesign = EditLayoutDesignPluginData;
 
             return new AnalyticsReport{
@@ -31,8 +31,8 @@ namespace TweetDuck.Core.Other.Analytics{
                 { "GPU" , GpuVendor },
                 0,
                 { "Screen Count"      , Exact(Screen.AllScreens.Length) },
-                { "Screen Resolution" , browser == null ? "(unknown)" : GetResolution(browser) },
-                { "Screen DPI"        , browser == null ? "(unknown)" : Exact(GetDPI(browser)) },
+                { "Screen Resolution" , info.Resolution ?? "(unknown)" },
+                { "Screen DPI"        , info.DPI != null ? Exact(info.DPI.Value) : "(unknown)" },
                 0,
                 { "Hardware Acceleration" , Bool(SysConfig.HardwareAcceleration) },
                 { "Browser GC Reload"     , Bool(SysConfig.EnableBrowserGCReload) },
@@ -251,15 +251,30 @@ namespace TweetDuck.Core.Other.Analytics{
             }
         }
 
-        private static string GetResolution(Control control){
-            Screen screen = Screen.FromControl(control);
-            return screen.Bounds.Width+"x"+screen.Bounds.Height;
-        }
+        public class ExternalInfo{
+            public static ExternalInfo From(Form form){
+                if (form == null){
+                    return new ExternalInfo();
+                }
+                else{
+                    Screen screen = Screen.FromControl(form);
+                    int dpi;
 
-        private static int GetDPI(Control control){
-            using(Graphics graphics = control.CreateGraphics()){
-                return (int)graphics.DpiY;
+                    using(Graphics graphics = form.CreateGraphics()){
+                        dpi = (int)graphics.DpiY;
+                    }
+
+                    return new ExternalInfo{
+                        Resolution = screen.Bounds.Width+"x"+screen.Bounds.Height,
+                        DPI = dpi
+                    };
+                }
             }
+
+            public string Resolution { get; private set; }
+            public int? DPI { get; private set; }
+
+            private ExternalInfo(){}
         }
     }
 }

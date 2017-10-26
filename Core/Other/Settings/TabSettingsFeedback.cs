@@ -7,11 +7,13 @@ using TweetDuck.Plugins;
 
 namespace TweetDuck.Core.Other.Settings{
     sealed partial class TabSettingsFeedback : BaseTabSettings{
+        private readonly AnalyticsReportGenerator.ExternalInfo analyticsInfo;
         private readonly PluginManager plugins;
 
-        public TabSettingsFeedback(PluginManager plugins){
+        public TabSettingsFeedback(AnalyticsReportGenerator.ExternalInfo analyticsInfo, PluginManager plugins){
             InitializeComponent();
             
+            this.analyticsInfo = analyticsInfo;
             this.plugins = plugins;
 
             checkDataCollection.Checked = Config.AllowDataCollection;
@@ -37,7 +39,7 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void btnViewReport_Click(object sender, EventArgs e){
-            using(DialogSettingsAnalytics dialog = new DialogSettingsAnalytics(AnalyticsReportGenerator.Create(FormManager.TryFind<FormBrowser>(), plugins))){
+            using(DialogSettingsAnalytics dialog = new DialogSettingsAnalytics(AnalyticsReportGenerator.Create(analyticsInfo, plugins))){
                 dialog.ShowDialog();
             }
         }
