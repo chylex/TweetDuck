@@ -43,9 +43,9 @@ namespace TweetLib.Audio.Impl{
         }
 
         private void OnNotificationSoundError(string message){
-            if (!ignorePlaybackError && PlaybackError != null){
+            if (!ignorePlaybackError){
                 PlaybackErrorEventArgs args = new PlaybackErrorEventArgs(message);
-                PlaybackError(this, args);
+                PlaybackError?.Invoke(this, args);
                 ignorePlaybackError = args.Ignore;
             }
         }
