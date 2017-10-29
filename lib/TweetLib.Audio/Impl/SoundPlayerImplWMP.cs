@@ -104,7 +104,7 @@ namespace TweetLib.Audio.Impl{
 
                 if (!ignorePlaybackError && PlaybackError != null){
                     PlaybackErrorEventArgs args = new PlaybackErrorEventArgs(message);
-                    PlaybackError(this, args);
+                    PlaybackError?.Invoke(this, args);
                     ignorePlaybackError = args.Ignore;
                 }
             }
