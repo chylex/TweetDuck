@@ -1073,6 +1073,23 @@
   });
   
   //
+  // Block: Allow applying ROT13 to input selection.
+  //
+  window.TDGF_applyROT13 = function(){
+    let ele = document.activeElement;
+    return if !ele || !ele.value;
+    
+    let selection = ele.value.substring(ele.selectionStart, ele.selectionEnd);
+    return if !selection;
+    
+    document.execCommand("insertText", false, selection.replace(/[a-zA-Z]/g, function(chr){
+      let code = chr.charCodeAt(0);
+      let start = code <= 90 ? 65 : 97;
+      return String.fromCharCode(start+(code-start+13)%26);
+    }));
+  };
+  
+  //
   // Block: Fix DM reply input box not getting focused after opening a conversation.
   //
   if (ensurePropertyExists(TD, "components", "ConversationDetailView", "prototype", "showChirp")){

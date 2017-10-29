@@ -321,6 +321,10 @@ namespace TweetDuck.Core{
             browser.TriggerTweetScreenshot();
         }
 
+        public void ApplyROT13(){
+            browser.ApplyROT13();
+        }
+
         // callback handlers
         
         public void OnIntroductionClosed(bool showGuide, bool allowDataCollection){
