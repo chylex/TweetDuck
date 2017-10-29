@@ -102,7 +102,7 @@ namespace TweetLib.Audio.Impl{
             if (wasTryingToPlay){
                 wasTryingToPlay = false;
 
-                if (!ignorePlaybackError && PlaybackError != null){
+                if (!ignorePlaybackError){
                     PlaybackErrorEventArgs args = new PlaybackErrorEventArgs(message);
                     PlaybackError?.Invoke(this, args);
                     ignorePlaybackError = args.Ignore;
