@@ -89,14 +89,14 @@ namespace TweetDuck.Core.Notification{
         }
         
         protected override bool ShowWithoutActivation => true;
-
-        protected double SizeScale => dpiScale*Program.UserConfig.ZoomMultiplier;
+        
+        protected float DpiScale { get; }
+        protected double SizeScale => DpiScale*Program.UserConfig.ZoomMultiplier;
 
         protected readonly FormBrowser owner;
         protected readonly ChromiumWebBrowser browser;
         
         private readonly ResourceHandlerNotification resourceHandler = new ResourceHandlerNotification();
-        private readonly float dpiScale;
 
         private TweetNotification currentNotification;
         private int pauseCounter;
@@ -132,7 +132,7 @@ namespace TweetDuck.Core.Notification{
             this.browser.ConsoleMessage += BrowserUtils.HandleConsoleMessage;
             #endif
 
-            this.dpiScale = this.GetDPIScale();
+            DpiScale = this.GetDPIScale();
 
             DefaultResourceHandlerFactory handlerFactory = (DefaultResourceHandlerFactory)browser.ResourceHandlerFactory;
             handlerFactory.RegisterHandler(TwitterUtils.TweetDeckURL, this.resourceHandler);

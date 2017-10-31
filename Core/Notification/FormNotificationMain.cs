@@ -14,7 +14,7 @@ using TweetDuck.Resources;
 namespace TweetDuck.Core.Notification{
     abstract partial class FormNotificationMain : FormNotificationBase{
         private const string NotificationScriptFile = "notification.js";
-        private const int TimerBarHeight = 4;
+        private readonly int timerBarHeight;
 
         private static readonly string NotificationScriptIdentifier = ScriptLoader.GetRootIdentifier(NotificationScriptFile);
         private static readonly string NotificationJS = ScriptLoader.LoadResource(NotificationScriptFile);
@@ -71,15 +71,14 @@ namespace TweetDuck.Core.Notification{
                 }
             }
         }
+        
+        public Size BrowserSize => Program.UserConfig.DisplayNotificationTimer ? new Size(ClientSize.Width, ClientSize.Height-timerBarHeight) : ClientSize;
 
-        public Size BrowserSize{
-            get => Program.UserConfig.DisplayNotificationTimer ? new Size(ClientSize.Width, ClientSize.Height-TimerBarHeight) : ClientSize;
-        }
-
-        public FormNotificationMain(FormBrowser owner, PluginManager pluginManager, bool enableContextMenu) : base(owner, enableContextMenu){
+        protected FormNotificationMain(FormBrowser owner, PluginManager pluginManager, bool enableContextMenu) : base(owner, enableContextMenu){
             InitializeComponent();
 
             this.plugins = pluginManager;
+            this.timerBarHeight = BrowserUtils.Scale(4, DpiScale);
             
             browser.KeyboardHandler = new KeyboardHandlerNotification(this);
             
@@ -247,7 +246,7 @@ namespace TweetDuck.Core.Notification{
 
         protected override void SetNotificationSize(int width, int height){
             if (Program.UserConfig.DisplayNotificationTimer){
-                ClientSize = new Size(width, height+TimerBarHeight);
+                ClientSize = new Size(width, height+timerBarHeight);
                 progressBarTimer.Visible = true;
             }
             else{
