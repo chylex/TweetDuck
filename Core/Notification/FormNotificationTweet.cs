@@ -10,10 +10,24 @@ namespace TweetDuck.Core.Notification{
         private const int NonIntrusiveIdleLimit = 30;
         private const int TrimMinimum = 32;
 
+        protected override Point PrimaryLocation => hasTemporarilyMoved && IsNotificationVisible ? Location : base.PrimaryLocation;
         private bool IsCursorOverNotificationArea => new Rectangle(PrimaryLocation, Size).Contains(Cursor.Position);
+
+        protected override bool CanDragWindow{
+            get{
+                if (ModifierKeys.HasFlag(Keys.Alt)){
+                    hasTemporarilyMoved = true;
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+        }
 
         private readonly Queue<TweetNotification> tweetQueue = new Queue<TweetNotification>(4);
         private bool needsTrim;
+        private bool hasTemporarilyMoved;
 
         public FormNotificationTweet(FormBrowser owner, PluginManager pluginManager) : base(owner, pluginManager, true){
             InitializeComponent();
@@ -24,6 +38,20 @@ namespace TweetDuck.Core.Notification{
             if (Program.UserConfig.MuteNotifications){
                 PauseNotification();
             }
+        }
+
+        protected override void WndProc(ref Message m){
+            if (m.Msg == 0x00A7){ // WM_NCMBUTTONDOWN
+                int hitTest = m.WParam.ToInt32();
+
+                if (hitTest == 2 || hitTest == 20){ // HTCAPTION, HTCLOSE
+                    hasTemporarilyMoved = false;
+                    MoveToVisibleLocation();
+                    return;
+                }
+            }
+
+            base.WndProc(ref m);
         }
 
         // event handlers
@@ -75,6 +103,8 @@ namespace TweetDuck.Core.Notification{
                 tweetQueue.TrimExcess();
                 needsTrim = false;
             }
+
+            hasTemporarilyMoved = false;
         }
 
         public override void FinishCurrentNotification(){

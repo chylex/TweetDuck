@@ -25,7 +25,7 @@ namespace TweetDuck.Core.Notification{
             }
         }
 
-        protected Point PrimaryLocation{
+        protected virtual Point PrimaryLocation{
             get{
                 UserConfig config = Program.UserConfig;
                 Screen screen;
