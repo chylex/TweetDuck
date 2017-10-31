@@ -1,12 +1,12 @@
 using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using CefSharp;
 using CefSharp.BrowserSubprocess;
-using System.Runtime.InteropServices;
 
 namespace TweetDuck.Browser{
     static class Program{
-        internal const string Version = "1.2.0.0";
+        internal const string Version = "1.2.1.0";
 
         private static int Main(string[] args){
             SubProcess.EnableHighDPISupport();
