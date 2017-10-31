@@ -31,9 +31,9 @@ namespace TweetDuck.Core.Notification{
         private bool? prevDisplayTimer;
         private int? prevFontSize;
 
-        public bool RequiresResize{
+        public virtual bool RequiresResize{
             get{
-                return !prevDisplayTimer.HasValue || !prevFontSize.HasValue || prevDisplayTimer != Program.UserConfig.DisplayNotificationTimer || prevFontSize != FontSizeLevel || CanResizeWindow;
+                return !prevDisplayTimer.HasValue || !prevFontSize.HasValue || prevDisplayTimer != Program.UserConfig.DisplayNotificationTimer || prevFontSize != FontSizeLevel;
             }
 
             set{

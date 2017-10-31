@@ -1,8 +1,15 @@
-﻿using TweetDuck.Plugins;
+﻿using System.Windows.Forms;
+using TweetDuck.Core.Utils;
+using TweetDuck.Plugins;
 using TweetDuck.Resources;
 
 namespace TweetDuck.Core.Notification.Example{
     sealed class FormNotificationExample : FormNotificationMain{
+        public override bool RequiresResize => true;
+        
+        protected override bool CanDragWindow => Program.UserConfig.NotificationPosition == TweetNotification.Position.Custom;
+        private bool CanResizeWindow => Program.UserConfig.NotificationSize == TweetNotification.Size.Custom;
+
         private readonly TweetNotification exampleNotification;
 
         public FormNotificationExample(FormBrowser owner, PluginManager pluginManager) : base(owner, pluginManager, false){
@@ -14,7 +21,7 @@ namespace TweetDuck.Core.Notification.Example{
 
             exampleNotification = TweetNotification.Example(exampleTweetHTML, 95);
         }
-        
+
         public void ShowExampleNotification(bool reset){
             if (reset){
                 LoadTweet(exampleNotification);
@@ -24,6 +31,15 @@ namespace TweetDuck.Core.Notification.Example{
             }
 
             UpdateTitle();
+        }
+
+        protected override FormBorderStyle GetBorderStyle(){
+            if (WindowsUtils.ShouldAvoidToolWindow && Visible){ // Visible = workaround for alt+tab
+                return CanResizeWindow ? FormBorderStyle.Sizable : FormBorderStyle.FixedSingle;
+            }
+            else{
+                return CanResizeWindow ? FormBorderStyle.SizableToolWindow : FormBorderStyle.FixedToolWindow;
+            }
         }
     }
 }

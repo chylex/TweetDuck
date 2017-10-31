@@ -74,9 +74,6 @@ namespace TweetDuck.Core.Other.Settings{
             trackBarEdgeDistance.SetValueSafe(Config.NotificationEdgeDistance);
             labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value+" px";
             
-            this.notification.CanMoveWindow = () => radioLocCustom.Checked;
-            this.notification.CanResizeWindow = radioSizeCustom.Checked;
-
             Disposed += (sender, args) => this.notification.Dispose();
         }
 
@@ -168,10 +165,11 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void radioSize_CheckedChanged(object sender, EventArgs e){
-            if (radioSizeAuto.Checked)Config.NotificationSize = TweetNotification.Size.Auto;
+            if (radioSizeAuto.Checked){
+                Config.NotificationSize = TweetNotification.Size.Auto;
+            }
             
             notification.ShowExampleNotification(false);
-            notification.CanResizeWindow = false; // must be after ShowNotificationForSettings
         }
         
         private void radioSizeCustom_Click(object sender, EventArgs e){
@@ -180,8 +178,6 @@ namespace TweetDuck.Core.Other.Settings{
             }
 
             Config.NotificationSize = TweetNotification.Size.Custom;
-
-            notification.CanResizeWindow = true;
             notification.ShowExampleNotification(false);
         }
 

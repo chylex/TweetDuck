@@ -62,14 +62,7 @@ namespace TweetDuck.Core{
             this.plugins.Executed += plugins_Executed;
             this.plugins.Reload();
 
-            this.notification = new FormNotificationTweet(this, plugins){
-                #if DEBUG
-                CanMoveWindow = () => (ModifierKeys & Keys.Alt) == Keys.Alt
-                #else
-                CanMoveWindow = () => false
-                #endif
-            };
-
+            this.notification = new FormNotificationTweet(this, plugins);
             this.notification.Show();
             
             this.browser = new TweetDeckBrowser(this, plugins, new TweetDeckBridge(this, notification));
