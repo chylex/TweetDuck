@@ -73,7 +73,18 @@ namespace TweetDuck.Core.Notification{
 
             set{
                 Visible = (base.Location = value) != ControlExtensions.InvisibleLocation;
-                FormBorderStyle = GetBorderStyle();
+                FormBorderStyle = NotificationBorderStyle;
+            }
+        }
+
+        protected virtual FormBorderStyle NotificationBorderStyle{
+            get{
+                if (WindowsUtils.ShouldAvoidToolWindow && Visible){ // Visible = workaround for alt+tab
+                    return FormBorderStyle.FixedSingle;
+                }
+                else{
+                    return FormBorderStyle.FixedToolWindow;
+                }
             }
         }
         
@@ -223,15 +234,6 @@ namespace TweetDuck.Core.Notification{
                 Point position = PointToClient(Cursor.Position);
                 position.Offset(20, 5);
                 toolTip.Show(text, this, position);
-            }
-        }
-
-        protected virtual FormBorderStyle GetBorderStyle(){
-            if (WindowsUtils.ShouldAvoidToolWindow && Visible){ // Visible = workaround for alt+tab
-                return FormBorderStyle.FixedSingle;
-            }
-            else{
-                return FormBorderStyle.FixedToolWindow;
             }
         }
     }
