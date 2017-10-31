@@ -14,12 +14,12 @@ using TweetDuck.Resources;
 namespace TweetDuck.Core.Notification{
     abstract partial class FormNotificationMain : FormNotificationBase{
         private const string NotificationScriptFile = "notification.js";
-        private readonly int timerBarHeight;
 
         private static readonly string NotificationScriptIdentifier = ScriptLoader.GetRootIdentifier(NotificationScriptFile);
         private static readonly string NotificationJS = ScriptLoader.LoadResource(NotificationScriptFile);
         
         private readonly PluginManager plugins;
+        private readonly int timerBarHeight;
 
         protected int timeLeft, totalTime;
         protected bool pausedDuringNotification;
