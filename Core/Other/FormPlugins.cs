@@ -35,8 +35,8 @@ namespace TweetDuck.Core.Other{
         }
 
         private void ReloadPluginList(){
-            flowLayoutPlugins.SuspendLayout();
             flowLayoutPlugins.Controls.Clear();
+            flowLayoutPlugins.SuspendLayout();
 
             foreach(Plugin plugin in pluginManager.Plugins.OrderBy(GetPluginOrderIndex).ThenBy(plugin => plugin.Name)){
                 flowLayoutPlugins.Controls.Add(new PluginControl(pluginManager, plugin));
