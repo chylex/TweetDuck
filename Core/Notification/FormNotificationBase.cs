@@ -167,11 +167,8 @@ namespace TweetDuck.Core.Notification{
 
         // notification methods
 
-        public virtual void HideNotification(bool loadBlank){
-            if (loadBlank){
-                browser.Load("about:blank");
-            }
-
+        public virtual void HideNotification(){
+            browser.Load("about:blank");
             Location = ControlExtensions.InvisibleLocation;
             currentNotification = null;
         }

@@ -148,7 +148,7 @@ namespace TweetDuck.Core.Notification{
 
         private void FormNotification_FormClosing(object sender, FormClosingEventArgs e){
             if (e.CloseReason == CloseReason.UserClosing){
-                HideNotification(true);
+                HideNotification();
                 e.Cancel = true;
             }
         }
@@ -205,8 +205,8 @@ namespace TweetDuck.Core.Notification{
             UpdateTitle();
         }
 
-        public override void HideNotification(bool loadBlank){
-            base.HideNotification(loadBlank);
+        public override void HideNotification(){
+            base.HideNotification();
             
             progressBarTimer.Value = Program.UserConfig.NotificationTimerCountDown ? 1000 : 0;
             timerProgress.Stop();

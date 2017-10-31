@@ -40,7 +40,6 @@ namespace TweetDuck.Core.Notification {
             // 
             // FormNotificationTweet
             // 
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormNotificationTweet_FormClosing);
             this.ResumeLayout(true);
 
         }

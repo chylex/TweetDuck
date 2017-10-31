@@ -110,7 +110,7 @@ namespace TweetDuck.Core.Other.Settings{
 
         private void TabSettingsNotifications_ParentChanged(object sender, EventArgs e){
             if (Parent == null){
-                notification.HideNotification(false);
+                notification.HideNotification();
             }
             else{
                 notification.ShowNotificationForSettings(true);

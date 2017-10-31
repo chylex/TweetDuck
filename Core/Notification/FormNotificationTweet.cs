@@ -26,20 +26,6 @@ namespace TweetDuck.Core.Notification{
             }
         }
 
-        private void FormNotificationTweet_FormClosing(object sender, FormClosingEventArgs e){
-            if (e.CloseReason == CloseReason.UserClosing){
-                tweetQueue.Clear(); // already canceled
-                TrimQueue();
-            }
-        }
-
-        private void TrimQueue(){
-            if (needsTrim){
-                tweetQueue.TrimExcess();
-                needsTrim = false;
-            }
-        }
-
         // event handlers
 
         private void Config_MuteToggled(object sender, EventArgs e){
@@ -68,11 +54,9 @@ namespace TweetDuck.Core.Notification{
         // notification methods
 
         public override void ShowNotification(TweetNotification notification){
-            if (IsPaused){
-                tweetQueue.Enqueue(notification);
-            }
-            else{
-                tweetQueue.Enqueue(notification);
+            tweetQueue.Enqueue(notification);
+            
+            if (!IsPaused){
                 UpdateTitle();
 
                 if (totalTime == 0){
@@ -83,13 +67,22 @@ namespace TweetDuck.Core.Notification{
             needsTrim |= tweetQueue.Count >= TrimMinimum;
         }
 
+        public override void HideNotification(){
+            base.HideNotification();
+            tweetQueue.Clear();
+
+            if (needsTrim){
+                tweetQueue.TrimExcess();
+                needsTrim = false;
+            }
+        }
+
         public override void FinishCurrentNotification(){
             if (tweetQueue.Count > 0){
                 LoadNextNotification();
             }
             else{
-                HideNotification(true);
-                TrimQueue();
+                HideNotification();
             }
         }
 
