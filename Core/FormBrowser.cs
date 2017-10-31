@@ -295,10 +295,6 @@ namespace TweetDuck.Core{
 
         // notification helpers
 
-        public FormNotificationMain CreateNotificationForm(bool enableContextMenu){
-            return new FormNotificationMain(this, plugins, enableContextMenu);
-        }
-
         public void PauseNotification(){
             notification.PauseNotification();
         }

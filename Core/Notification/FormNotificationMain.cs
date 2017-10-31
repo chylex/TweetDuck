@@ -12,7 +12,7 @@ using TweetDuck.Plugins.Enums;
 using TweetDuck.Resources;
 
 namespace TweetDuck.Core.Notification{
-    partial class FormNotificationMain : FormNotificationBase{
+    abstract partial class FormNotificationMain : FormNotificationBase{
         private const string NotificationScriptFile = "notification.js";
         private const int TimerBarHeight = 4;
 
@@ -194,17 +194,6 @@ namespace TweetDuck.Core.Notification{
             LoadTweet(notification);
         }
 
-        public void ShowNotificationForSettings(bool reset){
-            if (reset){
-                LoadTweet(TweetNotification.ExampleTweet);
-            }
-            else{
-                PrepareAndDisplayWindow();
-            }
-
-            UpdateTitle();
-        }
-
         public override void HideNotification(){
             base.HideNotification();
             
@@ -269,7 +258,7 @@ namespace TweetDuck.Core.Notification{
             browser.ClientSize = new Size(width, height);
         }
         
-        private void PrepareAndDisplayWindow(){
+        protected void PrepareAndDisplayWindow(){
             if (RequiresResize){
                 RequiresResize = false;
                 SetNotificationSize(BaseClientWidth, BaseClientHeight);
