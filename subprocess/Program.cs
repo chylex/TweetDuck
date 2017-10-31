@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics;
 using CefSharp;
 using CefSharp.BrowserSubprocess;
-using TweetLib.Communication;
+using System.Runtime.InteropServices;
 
 namespace TweetDuck.Browser{
     static class Program{
@@ -30,9 +30,17 @@ namespace TweetDuck.Browser{
                 base.OnBrowserCreated(wrapper);
                 
                 using(Process me = Process.GetCurrentProcess()){
-                    Comms.BroadcastMessage(Comms.RegisterMessage("TweetDuckSubProcess"), (uint)me.Id, wrapper.BrowserId);
+                    PostMessage(HWND_BROADCAST, RegisterWindowMessage("TweetDuckSubProcess"), new UIntPtr((uint)me.Id), new IntPtr(wrapper.BrowserId));
                 }
             }
         }
+
+        private static readonly IntPtr HWND_BROADCAST = new IntPtr(0xFFFF);
+        
+        [DllImport("user32.dll")]
+        private static extern bool PostMessage(IntPtr hWnd, uint msg, UIntPtr wParam, IntPtr lParam);
+
+        [DllImport("user32.dll")]
+        private static extern uint RegisterWindowMessage(string messageName);
     }
 }
