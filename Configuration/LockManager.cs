@@ -163,15 +163,12 @@ namespace TweetDuck.Configuration{
                         lockingProcess = null;
                         return true;
                     }
-                }catch(Exception ex){
-                    if (ex is InvalidOperationException || ex is Win32Exception){
-                        if (lockingProcess != null){
-                            bool hasExited = CheckLockingProcessExited();
-                            lockingProcess.Dispose();
-                            return hasExited;
-                        }
+                }catch(Exception ex) when (ex is InvalidOperationException || ex is Win32Exception){
+                    if (lockingProcess != null){
+                        bool hasExited = CheckLockingProcessExited();
+                        lockingProcess.Dispose();
+                        return hasExited;
                     }
-                    else throw;
                 }
             }
 

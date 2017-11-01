@@ -175,12 +175,14 @@ namespace TweetDuck.Core.Notification{
         }
 
         private void timerHideProgress_Tick(object sender, EventArgs e){
-            if (Bounds.Contains(Cursor.Position) || FreezeTimer || ContextMenuOpen)return;
+            if (Bounds.Contains(Cursor.Position) || FreezeTimer || ContextMenuOpen){
+                return;
+            }
 
             timeLeft -= timerProgress.Interval;
 
-            int value = BrowserUtils.Scale(1025, (totalTime-timeLeft)/(double)totalTime);
-            progressBarTimer.SetValueInstant(Math.Min(1000, Math.Max(0, Program.UserConfig.NotificationTimerCountDown ? 1000-value : value)));
+            int value = BrowserUtils.Scale(progressBarTimer.Maximum+25, (totalTime-timeLeft)/(double)totalTime);
+            progressBarTimer.SetValueInstant(Program.UserConfig.NotificationTimerCountDown ? progressBarTimer.Maximum-value : value);
 
             if (timeLeft <= 0){
                 FinishCurrentNotification();
@@ -196,7 +198,7 @@ namespace TweetDuck.Core.Notification{
         public override void HideNotification(){
             base.HideNotification();
             
-            progressBarTimer.Value = Program.UserConfig.NotificationTimerCountDown ? 1000 : 0;
+            progressBarTimer.Value = Program.UserConfig.NotificationTimerCountDown ? progressBarTimer.Maximum : progressBarTimer.Minimum;
             timerProgress.Stop();
             totalTime = 0;
 
@@ -239,7 +241,7 @@ namespace TweetDuck.Core.Notification{
         protected override void LoadTweet(TweetNotification tweet){
             timerProgress.Stop();
             totalTime = timeLeft = tweet.GetDisplayDuration(Program.UserConfig.NotificationDurationValue);
-            progressBarTimer.Value = Program.UserConfig.NotificationTimerCountDown ? 1000 : 0;
+            progressBarTimer.Value = Program.UserConfig.NotificationTimerCountDown ? progressBarTimer.Maximum : progressBarTimer.Minimum;
 
             base.LoadTweet(tweet);
         }

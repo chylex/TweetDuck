@@ -69,7 +69,9 @@ namespace TweetDuck.Core.Notification{
         protected virtual bool CanDragWindow => true;
 
         public new Point Location{
-            get => base.Location;
+            get{
+                return base.Location;
+            }
 
             set{
                 Visible = (base.Location = value) != ControlExtensions.InvisibleLocation;

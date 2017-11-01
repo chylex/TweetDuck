@@ -9,14 +9,9 @@ namespace TweetDuck.Core.Utils{
         private static bool ClearOnExit { get; set; }
 
         public static readonly string CacheFolder = Path.Combine(Program.StoragePath, "Cache");
+        private static IEnumerable<string> CacheFiles => Directory.EnumerateFiles(CacheFolder);
 
-        private static IEnumerable<string> CacheFiles{
-            get{
-                return Directory.EnumerateFiles(CacheFolder);
-            }
-        }
-
-        public static void CalculateCacheSize(Action<long> callbackBytes){
+        public static void CalculateCacheSize(Action<Task<long>> callbackBytes){
             Task<long> task = new Task<long>(() => {
                 return CacheFiles.Select(file => {
                     try{
@@ -27,7 +22,7 @@ namespace TweetDuck.Core.Utils{
                 }).Sum();
             });
             
-            task.ContinueWith(originalTask => callbackBytes(originalTask.Exception == null ? originalTask.Result : -1L), TaskContinuationOptions.ExecuteSynchronously);
+            task.ContinueWith(callbackBytes);
             task.Start();
         }
 
