@@ -131,6 +131,10 @@
     </Compile>
     <Compile Include="Core\Notification\SoundNotification.cs" />
     <Compile Include="Core\Notification\TweetNotification.cs" />
+    <Compile Include="Core\Other\Analytics\AnalyticsFile.cs" />
+    <Compile Include="Core\Other\Analytics\AnalyticsManager.cs" />
+    <Compile Include="Core\Other\Analytics\AnalyticsReport.cs" />
+    <Compile Include="Core\Other\Analytics\AnalyticsReportGenerator.cs" />
     <Compile Include="Core\Other\FormAbout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -156,6 +160,12 @@
       <DependentUpon>FormPlugins.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\Other\Management\VideoPlayer.cs" />
+    <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsAnalytics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsAnalytics.Designer.cs">
+      <DependentUpon>DialogSettingsAnalytics.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsCSS.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Notification.Example;
+using TweetDuck.Core.Other.Analytics;
 using TweetDuck.Core.Other.Settings;
 using TweetDuck.Core.Other.Settings.Dialogs;
 using TweetDuck.Core.Utils;
@@ -22,7 +23,7 @@ namespace TweetDuck.Core.Other{
 
         public bool ShouldReloadBrowser { get; private set; }
 
-        public FormSettings(FormBrowser browser, PluginManager plugins, UpdateHandler updates, Type startTab){
+        public FormSettings(FormBrowser browser, PluginManager plugins, UpdateHandler updates, AnalyticsManager analytics, Type startTab){
             InitializeComponent();
 
             Text = Program.BrandName+" Options";
@@ -38,16 +39,17 @@ namespace TweetDuck.Core.Other{
             AddButton("System Tray", () => new TabSettingsTray());
             AddButton("Notifications", () => new TabSettingsNotifications(new FormNotificationExample(browser, plugins)));
             AddButton("Sounds", () => new TabSettingsSounds());
-            AddButton("Feedback", () => new TabSettingsFeedback());
-            AddButton("Advanced", () => new TabSettingsAdvanced(browser.ReinjectCustomCSS));
+            AddButton("Feedback", () => new TabSettingsFeedback(analytics, AnalyticsReportGenerator.ExternalInfo.From(this.browser), this.plugins));
+            AddButton("Advanced", () => new TabSettingsAdvanced(this.browser.ReinjectCustomCSS));
 
             SelectTab(tabs[startTab ?? typeof(TabSettingsGeneral)]);
         }
 
         private void FormSettings_FormClosing(object sender, FormClosingEventArgs e){
+            currentTab.Control.OnClosing();
+
             foreach(SettingsTab tab in tabs.Values){
                 if (tab.IsInitialized){
-                    tab.Control.OnClosing();
                     tab.Control.Dispose();
                 }
             }
@@ -57,11 +59,7 @@ namespace TweetDuck.Core.Other{
         }
 
         private void btnManageOptions_Click(object sender, EventArgs e){
-            foreach(SettingsTab tab in tabs.Values){
-                if (tab.IsInitialized){
-                    tab.Control.OnClosing();
-                }
-            }
+            currentTab.Control.OnClosing();
 
             using(DialogSettingsManage dialog = new DialogSettingsManage(plugins)){
                 if (dialog.ShowDialog() == DialogResult.OK){
@@ -114,6 +112,7 @@ namespace TweetDuck.Core.Other{
         private void SelectTab(SettingsTab tab){
             if (currentTab != null){
                 currentTab.Button.BackColor = SystemColors.Control;
+                currentTab.Control.OnClosing();
             }
             
             tab.Button.BackColor = tab.Button.FlatAppearance.MouseDownBackColor;
