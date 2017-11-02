@@ -178,28 +178,44 @@ enabled(){
       }
       // SELECTS
       else if (tag === "SELECT"){
-        if (!item.val(me.config[key]).val()){
-          let custom = item.find("option[value='custom']");
-          
-          if (custom.length === 1){
-            item.val("custom");
-            custom.text(getTextForCustom(key));
+        let optionCustom = item.find("option[value^='custom']");
+        
+        let resetMyValue = () => {
+          if (!item.val(me.config[key]).val() && optionCustom.length === 1){
+            item.val(optionCustom.attr("value"));
+            optionCustom.text(getTextForCustom(key));
           }
-        }
+        };
+        
+        resetMyValue();
         
         item.change(function(){ // TODO change doesn't fire when Custom is already selected
           let val = item.val();
           
-          if (val === "custom"){
-            val = prompt("Enter custom value:");
+          if (val === "custom-px"){
+            val = (prompt("Enter custom value (px):") || "").trim();
             
             if (val){
-              updateKey(key, val);
-              item.find("option[value='custom']").text(getTextForCustom(key));
+              if (val.endsWith("px")){
+                val = val.slice(0, -2).trim();
+              }
+              
+              if (/^[0-9]+$/.test(val)){
+                updateKey(key, val+"px");
+                optionCustom.text(getTextForCustom(key));
+              }
+              else{
+                alert("Invalid value, only px values are supported.");
+                resetMyValue();
+              }
+            }
+            else{
+              resetMyValue();
             }
           }
           else{
             updateKey(key, item.val());
+            optionCustom.text("Custom");
           }
         });
       }

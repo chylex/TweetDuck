@@ -29,14 +29,10 @@ namespace TweetDuck.Core.Other.Settings{
             numMemoryThreshold.Enabled = checkBrowserGCReload.Checked;
             numMemoryThreshold.SetValueSafe(SysConfig.BrowserMemoryThreshold);
 
-            BrowserCache.CalculateCacheSize(bytes => this.InvokeSafe(() => {
-                if (bytes == -1L){
-                    btnClearCache.Text = "Clear Cache (unknown size)";
-                }
-                else{
-                    btnClearCache.Text = "Clear Cache ("+(int)Math.Ceiling(bytes/(1024.0*1024.0))+" MB)";
-                }
-            }));
+            BrowserCache.CalculateCacheSize(task => {
+                string text = task.IsCompleted ? (int)Math.Ceiling(task.Result/(1024.0*1024.0))+" MB" : "(unknown size)";
+                this.InvokeSafe(() => btnClearCache.Text = $"Clear Cache ({text})");
+            });
         }
 
         public override void OnReady(){

@@ -8,6 +8,7 @@ namespace TweetDuck.Core.Utils{
     [SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local")]
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Local")]
     static class NativeMethods{
+        public static readonly IntPtr HWND_BROADCAST = new IntPtr(0xFFFF);
         public static readonly IntPtr HOOK_HANDLED = new IntPtr(-1);
 
         public const int HWND_TOPMOST = -1;
@@ -50,6 +51,12 @@ namespace TweetDuck.Core.Utils{
 
         [DllImport("user32.dll", EntryPoint = "SetWindowPos")]
         private static extern bool SetWindowPos(int hWnd, int hWndOrder, int x, int y, int width, int height, uint flags);
+
+        [DllImport("user32.dll")]
+        public static extern bool PostMessage(IntPtr hWnd, uint msg, UIntPtr wParam, IntPtr lParam);
+
+        [DllImport("user32.dll")]
+        public static extern uint RegisterWindowMessage(string messageName);
 
         [DllImport("user32.dll")]
         private static extern bool GetLastInputInfo(ref LASTINPUTINFO info);
@@ -96,13 +103,18 @@ namespace TweetDuck.Core.Utils{
             }
         }
 
+        public static void BroadcastMessage(uint msg, uint wParam, int lParam){
+            PostMessage(HWND_BROADCAST, msg, new UIntPtr(wParam), new IntPtr(lParam));
+        }
+
         public static int GetMouseHookData(IntPtr ptr){
             return Marshal.PtrToStructure<MSLLHOOKSTRUCT>(ptr).mouseData >> 16;
         }
 
         public static int GetIdleSeconds(){
-            LASTINPUTINFO info = new LASTINPUTINFO();
-            info.cbSize = LASTINPUTINFO.Size;
+            LASTINPUTINFO info = new LASTINPUTINFO{
+                cbSize = LASTINPUTINFO.Size
+            };
 
             if (!GetLastInputInfo(ref info)){
                 return 0;

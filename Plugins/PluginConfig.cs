@@ -24,6 +24,10 @@ namespace TweetDuck.Plugins{
             }
         }
 
+        public void ToggleEnabled(Plugin plugin){
+            SetEnabled(plugin, !IsEnabled(plugin));
+        }
+
         public bool IsEnabled(Plugin plugin){
             return !disabled.Contains(plugin.Identifier);
         }
@@ -43,11 +47,7 @@ namespace TweetDuck.Plugins{
                 }
             }catch(FileNotFoundException){
                 disabled.Clear();
-                
-                foreach(string identifier in DefaultDisabled){
-                    disabled.Add(identifier);
-                }
-
+                disabled.UnionWith(DefaultDisabled);
                 Save(file);
             }catch(DirectoryNotFoundException){
             }catch(Exception e){

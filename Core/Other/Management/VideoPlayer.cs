@@ -8,8 +8,6 @@ using TweetLib.Communication;
 
 namespace TweetDuck.Core.Other.Management{
     sealed class VideoPlayer : IDisposable{
-        private readonly string PlayerExe = Path.Combine(Program.ProgramPath, "TweetDuck.Video.exe");
-
         public bool Running{
             get{
                 if (currentProcess == null){
@@ -50,7 +48,7 @@ namespace TweetDuck.Core.Other.Management{
                 currentPipe.DataIn += currentPipe_DataIn;
 
                 if ((currentProcess = Process.Start(new ProcessStartInfo{
-                    FileName = PlayerExe,
+                    FileName = Path.Combine(Program.ProgramPath, "TweetDuck.Video.exe"),
                     Arguments = $"{owner.Handle} {Program.UserConfig.VideoPlayerVolume} \"{url}\" \"{currentPipe.GenerateToken()}\"",
                     UseShellExecute = false,
                     RedirectStandardOutput = true

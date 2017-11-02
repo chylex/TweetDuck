@@ -19,7 +19,7 @@ namespace TweetDuck.Core.Handling {
                         return true;
 
                     case Keys.Escape:
-                        notification.InvokeAsyncSafe(() => notification.HideNotification(true));
+                        notification.InvokeAsyncSafe(notification.HideNotification);
                         return true;
 
                     case Keys.Space:

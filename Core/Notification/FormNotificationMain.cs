@@ -12,14 +12,14 @@ using TweetDuck.Plugins.Enums;
 using TweetDuck.Resources;
 
 namespace TweetDuck.Core.Notification{
-    partial class FormNotificationMain : FormNotificationBase{
+    abstract partial class FormNotificationMain : FormNotificationBase{
         private const string NotificationScriptFile = "notification.js";
-        private const int TimerBarHeight = 4;
 
         private static readonly string NotificationScriptIdentifier = ScriptLoader.GetRootIdentifier(NotificationScriptFile);
         private static readonly string NotificationJS = ScriptLoader.LoadResource(NotificationScriptFile);
         
         private readonly PluginManager plugins;
+        private readonly int timerBarHeight;
 
         protected int timeLeft, totalTime;
         protected bool pausedDuringNotification;
@@ -31,9 +31,9 @@ namespace TweetDuck.Core.Notification{
         private bool? prevDisplayTimer;
         private int? prevFontSize;
 
-        public bool RequiresResize{
+        public virtual bool RequiresResize{
             get{
-                return !prevDisplayTimer.HasValue || !prevFontSize.HasValue || prevDisplayTimer != Program.UserConfig.DisplayNotificationTimer || prevFontSize != FontSizeLevel || CanResizeWindow;
+                return !prevDisplayTimer.HasValue || !prevFontSize.HasValue || prevDisplayTimer != Program.UserConfig.DisplayNotificationTimer || prevFontSize != FontSizeLevel;
             }
 
             set{
@@ -71,15 +71,14 @@ namespace TweetDuck.Core.Notification{
                 }
             }
         }
+        
+        public Size BrowserSize => Program.UserConfig.DisplayNotificationTimer ? new Size(ClientSize.Width, ClientSize.Height-timerBarHeight) : ClientSize;
 
-        public Size BrowserSize{
-            get => Program.UserConfig.DisplayNotificationTimer ? new Size(ClientSize.Width, ClientSize.Height-TimerBarHeight) : ClientSize;
-        }
-
-        public FormNotificationMain(FormBrowser owner, PluginManager pluginManager, bool enableContextMenu) : base(owner, enableContextMenu){
+        protected FormNotificationMain(FormBrowser owner, PluginManager pluginManager, bool enableContextMenu) : base(owner, enableContextMenu){
             InitializeComponent();
 
             this.plugins = pluginManager;
+            this.timerBarHeight = BrowserUtils.Scale(4, DpiScale);
             
             browser.KeyboardHandler = new KeyboardHandlerNotification(this);
             
@@ -148,7 +147,7 @@ namespace TweetDuck.Core.Notification{
 
         private void FormNotification_FormClosing(object sender, FormClosingEventArgs e){
             if (e.CloseReason == CloseReason.UserClosing){
-                HideNotification(true);
+                HideNotification();
                 e.Cancel = true;
             }
         }
@@ -176,12 +175,14 @@ namespace TweetDuck.Core.Notification{
         }
 
         private void timerHideProgress_Tick(object sender, EventArgs e){
-            if (Bounds.Contains(Cursor.Position) || FreezeTimer || ContextMenuOpen)return;
+            if (Bounds.Contains(Cursor.Position) || FreezeTimer || ContextMenuOpen){
+                return;
+            }
 
             timeLeft -= timerProgress.Interval;
 
-            int value = BrowserUtils.Scale(1025, (totalTime-timeLeft)/(double)totalTime);
-            progressBarTimer.SetValueInstant(Math.Min(1000, Math.Max(0, Program.UserConfig.NotificationTimerCountDown ? 1000-value : value)));
+            int value = BrowserUtils.Scale(progressBarTimer.Maximum+25, (totalTime-timeLeft)/(double)totalTime);
+            progressBarTimer.SetValueInstant(Program.UserConfig.NotificationTimerCountDown ? progressBarTimer.Maximum-value : value);
 
             if (timeLeft <= 0){
                 FinishCurrentNotification();
@@ -194,21 +195,10 @@ namespace TweetDuck.Core.Notification{
             LoadTweet(notification);
         }
 
-        public void ShowNotificationForSettings(bool reset){
-            if (reset){
-                LoadTweet(TweetNotification.ExampleTweet);
-            }
-            else{
-                PrepareAndDisplayWindow();
-            }
-
-            UpdateTitle();
-        }
-
-        public override void HideNotification(bool loadBlank){
-            base.HideNotification(loadBlank);
+        public override void HideNotification(){
+            base.HideNotification();
             
-            progressBarTimer.Value = Program.UserConfig.NotificationTimerCountDown ? 1000 : 0;
+            progressBarTimer.Value = Program.UserConfig.NotificationTimerCountDown ? progressBarTimer.Maximum : progressBarTimer.Minimum;
             timerProgress.Stop();
             totalTime = 0;
 
@@ -251,14 +241,14 @@ namespace TweetDuck.Core.Notification{
         protected override void LoadTweet(TweetNotification tweet){
             timerProgress.Stop();
             totalTime = timeLeft = tweet.GetDisplayDuration(Program.UserConfig.NotificationDurationValue);
-            progressBarTimer.Value = Program.UserConfig.NotificationTimerCountDown ? 1000 : 0;
+            progressBarTimer.Value = Program.UserConfig.NotificationTimerCountDown ? progressBarTimer.Maximum : progressBarTimer.Minimum;
 
             base.LoadTweet(tweet);
         }
 
         protected override void SetNotificationSize(int width, int height){
             if (Program.UserConfig.DisplayNotificationTimer){
-                ClientSize = new Size(width, height+TimerBarHeight);
+                ClientSize = new Size(width, height+timerBarHeight);
                 progressBarTimer.Visible = true;
             }
             else{
@@ -269,7 +259,7 @@ namespace TweetDuck.Core.Notification{
             browser.ClientSize = new Size(width, height);
         }
         
-        private void PrepareAndDisplayWindow(){
+        protected void PrepareAndDisplayWindow(){
             if (RequiresResize){
                 RequiresResize = false;
                 SetNotificationSize(BaseClientWidth, BaseClientHeight);

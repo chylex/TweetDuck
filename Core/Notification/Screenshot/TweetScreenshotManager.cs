@@ -42,10 +42,7 @@ namespace TweetDuck.Core.Notification.Screenshot{
                 return;
             }
 
-            screenshot = new FormNotificationScreenshotable(Callback, owner, plugins){
-                CanMoveWindow = () => false
-            };
-
+            screenshot = new FormNotificationScreenshotable(Callback, owner, plugins);
             screenshot.LoadNotificationForScreenshot(new TweetNotification(string.Empty, string.Empty, string.Empty, html, 0, string.Empty, string.Empty), width, height);
             screenshot.Show();
             timeout.Start();

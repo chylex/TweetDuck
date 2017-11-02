@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace TweetDuck.Core.Controls{
@@ -13,7 +14,7 @@ namespace TweetDuck.Core.Controls{
         }
 
         public void SetValueInstant(int value){
-            ControlExtensions.SetValueInstant(this, value);
+            ControlExtensions.SetValueInstant(this, Math.Max(Minimum, Math.Min(Maximum, value)));
         }
 
         protected override void OnPaint(PaintEventArgs e){

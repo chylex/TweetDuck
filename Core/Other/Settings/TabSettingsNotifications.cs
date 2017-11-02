@@ -2,21 +2,22 @@
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Notification;
+using TweetDuck.Core.Notification.Example;
 
 namespace TweetDuck.Core.Other.Settings{
     sealed partial class TabSettingsNotifications : BaseTabSettings{
         private static readonly int[] IdlePauseSeconds = { 0, 30, 60, 120, 300 };
 
-        private readonly FormNotificationMain notification;
+        private readonly FormNotificationExample notification;
 
-        public TabSettingsNotifications(FormNotificationMain notification){
+        public TabSettingsNotifications(FormNotificationExample notification){
             InitializeComponent();
 
             this.notification = notification;
             
             this.notification.Initialized += (sender, args) => {
                 this.InvokeAsyncSafe(() => {
-                    this.notification.ShowNotificationForSettings(true);
+                    this.notification.ShowExampleNotification(true);
                     this.notification.Move += notification_Move;
                     this.notification.ResizeEnd += notification_ResizeEnd;
                 });
@@ -73,9 +74,6 @@ namespace TweetDuck.Core.Other.Settings{
             trackBarEdgeDistance.SetValueSafe(Config.NotificationEdgeDistance);
             labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value+" px";
             
-            this.notification.CanMoveWindow = () => radioLocCustom.Checked;
-            this.notification.CanResizeWindow = radioSizeCustom.Checked;
-
             Disposed += (sender, args) => this.notification.Dispose();
         }
 
@@ -110,10 +108,10 @@ namespace TweetDuck.Core.Other.Settings{
 
         private void TabSettingsNotifications_ParentChanged(object sender, EventArgs e){
             if (Parent == null){
-                notification.HideNotification(false);
+                notification.HideNotification();
             }
             else{
-                notification.ShowNotificationForSettings(true);
+                notification.ShowExampleNotification(true);
             }
         }
 
@@ -131,7 +129,7 @@ namespace TweetDuck.Core.Other.Settings{
         private void notification_ResizeEnd(object sender, EventArgs e){
             if (radioSizeCustom.Checked){
                 Config.CustomNotificationSize = notification.BrowserSize;
-                notification.ShowNotificationForSettings(false);
+                notification.ShowExampleNotification(false);
             }
         }
 
@@ -142,7 +140,7 @@ namespace TweetDuck.Core.Other.Settings{
             else if (radioLocBR.Checked)Config.NotificationPosition = TweetNotification.Position.BottomRight;
 
             comboBoxDisplay.Enabled = trackBarEdgeDistance.Enabled = true;
-            notification.ShowNotificationForSettings(false);
+            notification.ShowExampleNotification(false);
         }
 
         private void radioLocCustom_Click(object sender, EventArgs e){
@@ -153,7 +151,7 @@ namespace TweetDuck.Core.Other.Settings{
             Config.NotificationPosition = TweetNotification.Position.Custom;
 
             comboBoxDisplay.Enabled = trackBarEdgeDistance.Enabled = false;
-            notification.ShowNotificationForSettings(false);
+            notification.ShowExampleNotification(false);
 
             if (notification.IsFullyOutsideView() && FormMessage.Question("Notification is outside view", "The notification seems to be outside of view, would you like to reset its position?", FormMessage.Yes, FormMessage.No)){
                 Config.NotificationPosition = TweetNotification.Position.TopRight;
@@ -167,10 +165,11 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void radioSize_CheckedChanged(object sender, EventArgs e){
-            if (radioSizeAuto.Checked)Config.NotificationSize = TweetNotification.Size.Auto;
+            if (radioSizeAuto.Checked){
+                Config.NotificationSize = TweetNotification.Size.Auto;
+            }
             
-            notification.ShowNotificationForSettings(false);
-            notification.CanResizeWindow = false; // must be after ShowNotificationForSettings
+            notification.ShowExampleNotification(false);
         }
         
         private void radioSizeCustom_Click(object sender, EventArgs e){
@@ -179,9 +178,7 @@ namespace TweetDuck.Core.Other.Settings{
             }
 
             Config.NotificationSize = TweetNotification.Size.Custom;
-
-            notification.CanResizeWindow = true;
-            notification.ShowNotificationForSettings(false);
+            notification.ShowExampleNotification(false);
         }
 
         private void trackBarDuration_ValueChanged(object sender, EventArgs e){
@@ -206,18 +203,18 @@ namespace TweetDuck.Core.Other.Settings{
 
         private void checkColumnName_CheckedChanged(object sender, EventArgs e){
             Config.DisplayNotificationColumn = checkColumnName.Checked;
-            notification.ShowNotificationForSettings(false);
+            notification.ShowExampleNotification(false);
         }
 
         private void checkNotificationTimer_CheckedChanged(object sender, EventArgs e){
             Config.DisplayNotificationTimer = checkNotificationTimer.Checked;
             checkTimerCountDown.Enabled = checkNotificationTimer.Checked;
-            notification.ShowNotificationForSettings(true);
+            notification.ShowExampleNotification(true);
         }
 
         private void checkTimerCountDown_CheckedChanged(object sender, EventArgs e){
             Config.NotificationTimerCountDown = checkTimerCountDown.Checked;
-            notification.ShowNotificationForSettings(true);
+            notification.ShowExampleNotification(true);
         }
 
         private void checkMediaPreviews_CheckedChanged(object sender, EventArgs e){
@@ -245,17 +242,17 @@ namespace TweetDuck.Core.Other.Settings{
 
         private void comboBoxDisplay_SelectedValueChanged(object sender, EventArgs e){
             Config.NotificationDisplay = comboBoxDisplay.SelectedIndex;
-            notification.ShowNotificationForSettings(false);
+            notification.ShowExampleNotification(false);
         }
 
         private void trackBarEdgeDistance_ValueChanged(object sender, EventArgs e){
             labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value+" px";
             Config.NotificationEdgeDistance = trackBarEdgeDistance.Value;
-            notification.ShowNotificationForSettings(false);
+            notification.ShowExampleNotification(false);
         }
 
         private void durationUpdateTimer_Tick(object sender, EventArgs e){
-            notification.ShowNotificationForSettings(true);
+            notification.ShowExampleNotification(true);
             durationUpdateTimer.Stop();
         }
     }

@@ -25,7 +25,7 @@ namespace TweetDuck.Core.Notification{
             }
         }
 
-        protected Point PrimaryLocation{
+        protected virtual Point PrimaryLocation{
             get{
                 UserConfig config = Program.UserConfig;
                 Screen screen;
@@ -66,31 +66,39 @@ namespace TweetDuck.Core.Notification{
         }
 
         public bool IsNotificationVisible => Location != ControlExtensions.InvisibleLocation;
+        protected virtual bool CanDragWindow => true;
 
         public new Point Location{
-            get => base.Location;
+            get{
+                return base.Location;
+            }
 
             set{
                 Visible = (base.Location = value) != ControlExtensions.InvisibleLocation;
-                FormBorderStyle = GetBorderStyle(CanResizeWindow);
+                FormBorderStyle = NotificationBorderStyle;
             }
         }
 
-        public bool CanResizeWindow{
-            get => FormBorderStyle == FormBorderStyle.Sizable || FormBorderStyle == FormBorderStyle.SizableToolWindow;
-            set => FormBorderStyle = GetBorderStyle(value);
+        protected virtual FormBorderStyle NotificationBorderStyle{
+            get{
+                if (WindowsUtils.ShouldAvoidToolWindow && Visible){ // Visible = workaround for alt+tab
+                    return FormBorderStyle.FixedSingle;
+                }
+                else{
+                    return FormBorderStyle.FixedToolWindow;
+                }
+            }
         }
         
-        public Func<bool> CanMoveWindow { get; set; } = () => true;
         protected override bool ShowWithoutActivation => true;
-
-        protected double SizeScale => dpiScale*Program.UserConfig.ZoomMultiplier;
+        
+        protected float DpiScale { get; }
+        protected double SizeScale => DpiScale*Program.UserConfig.ZoomMultiplier;
 
         protected readonly FormBrowser owner;
         protected readonly ChromiumWebBrowser browser;
         
         private readonly ResourceHandlerNotification resourceHandler = new ResourceHandlerNotification();
-        private readonly float dpiScale;
 
         private TweetNotification currentNotification;
         private int pauseCounter;
@@ -120,13 +128,13 @@ namespace TweetDuck.Core.Notification{
 
             this.browser.Dock = DockStyle.None;
             this.browser.ClientSize = ClientSize;
-            this.browser.IsBrowserInitializedChanged += Browser_IsBrowserInitializedChanged;
+            this.browser.IsBrowserInitializedChanged += browser_IsBrowserInitializedChanged;
 
             #if DEBUG
             this.browser.ConsoleMessage += BrowserUtils.HandleConsoleMessage;
             #endif
 
-            this.dpiScale = this.GetDPIScale();
+            DpiScale = this.GetDPIScale();
 
             DefaultResourceHandlerFactory handlerFactory = (DefaultResourceHandlerFactory)browser.ResourceHandlerFactory;
             handlerFactory.RegisterHandler(TwitterUtils.TweetDeckURL, this.resourceHandler);
@@ -143,7 +151,7 @@ namespace TweetDuck.Core.Notification{
         }
 
         protected override void WndProc(ref Message m){
-            if (m.Msg == 0x0112 && (m.WParam.ToInt32() & 0xFFF0) == 0xF010 && !CanMoveWindow()){ // WM_SYSCOMMAND, SC_MOVE
+            if (m.Msg == 0x0112 && (m.WParam.ToInt32() & 0xFFF0) == 0xF010 && !CanDragWindow){ // WM_SYSCOMMAND, SC_MOVE
                 return;
             }
 
@@ -156,7 +164,7 @@ namespace TweetDuck.Core.Notification{
             Close();
         }
 
-        private void Browser_IsBrowserInitializedChanged(object sender, IsBrowserInitializedChangedEventArgs e){
+        private void browser_IsBrowserInitializedChanged(object sender, IsBrowserInitializedChangedEventArgs e){
             if (e.IsBrowserInitialized){
                 Initialized?.Invoke(this, EventArgs.Empty);
 
@@ -167,11 +175,8 @@ namespace TweetDuck.Core.Notification{
 
         // notification methods
 
-        public virtual void HideNotification(bool loadBlank){
-            if (loadBlank){
-                browser.Load("about:blank");
-            }
-
+        public virtual void HideNotification(){
+            browser.Load("about:blank");
             Location = ControlExtensions.InvisibleLocation;
             currentNotification = null;
         }
@@ -231,15 +236,6 @@ namespace TweetDuck.Core.Notification{
                 Point position = PointToClient(Cursor.Position);
                 position.Offset(20, 5);
                 toolTip.Show(text, this, position);
-            }
-        }
-
-        private FormBorderStyle GetBorderStyle(bool sizable){
-            if (WindowsUtils.ShouldAvoidToolWindow && Visible){ // Visible = workaround for alt+tab
-                return sizable ? FormBorderStyle.Sizable : FormBorderStyle.FixedSingle;
-            }
-            else{
-                return sizable ? FormBorderStyle.SizableToolWindow : FormBorderStyle.FixedToolWindow;
             }
         }
     }

@@ -105,6 +105,9 @@
     <Compile Include="Core\Handling\RequestHandlerBrowser.cs" />
     <Compile Include="Core\Handling\General\RequestHandlerBase.cs" />
     <Compile Include="Core\Handling\ResourceHandlerNotification.cs" />
+    <Compile Include="Core\Notification\Example\FormNotificationExample.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Core\Notification\FormNotificationMain.cs">
       <SubType>Form</SubType>
     </Compile>

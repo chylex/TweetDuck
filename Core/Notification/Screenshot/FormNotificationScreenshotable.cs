@@ -12,6 +12,8 @@ using TweetDuck.Resources;
 
 namespace TweetDuck.Core.Notification.Screenshot{
     sealed class FormNotificationScreenshotable : FormNotificationBase{
+        protected override bool CanDragWindow => false;
+
         private readonly PluginManager plugins;
 
         public FormNotificationScreenshotable(Action callback, FormBrowser owner, PluginManager pluginManager) : base(owner, false){

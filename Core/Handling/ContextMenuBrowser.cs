@@ -17,6 +17,7 @@ namespace TweetDuck.Core.Handling{
         private const CefMenuCommand MenuOpenQuotedTweetUrl = (CefMenuCommand)26612;
         private const CefMenuCommand MenuCopyQuotedTweetUrl = (CefMenuCommand)26613;
         private const CefMenuCommand MenuScreenshotTweet    = (CefMenuCommand)26614;
+        private const CefMenuCommand MenuInputApplyROT13    = (CefMenuCommand)26615;
 
         private const string TitleReloadBrowser = "Reload browser";
         private const string TitleMuteNotifications = "Mute notifications";
@@ -41,6 +42,11 @@ namespace TweetDuck.Core.Handling{
             RemoveSeparatorIfLast(model);
 
             if (parameters.TypeFlags.HasFlag(ContextMenuType.Selection)){
+                if (parameters.TypeFlags.HasFlag(ContextMenuType.Editable)){
+                    model.AddSeparator();
+                    model.AddItem(MenuInputApplyROT13, "Apply ROT13");
+                }
+
                 model.AddSeparator();
             }
 
@@ -135,6 +141,10 @@ namespace TweetDuck.Core.Handling{
 
                 case MenuCopyQuotedTweetUrl:
                     SetClipboardText(form, lastHighlightedQuoteUrl);
+                    return true;
+
+                case MenuInputApplyROT13:
+                    form.InvokeAsyncSafe(form.ApplyROT13);
                     return true;
             }
 

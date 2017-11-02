@@ -64,14 +64,7 @@ namespace TweetDuck.Core{
             this.plugins.Executed += plugins_Executed;
             this.plugins.Reload();
 
-            this.notification = new FormNotificationTweet(this, plugins){
-                #if DEBUG
-                CanMoveWindow = () => (ModifierKeys & Keys.Alt) == Keys.Alt
-                #else
-                CanMoveWindow = () => false
-                #endif
-            };
-
+            this.notification = new FormNotificationTweet(this, plugins);
             this.notification.Show();
             
             this.browser = new TweetDeckBrowser(this, plugins, new TweetDeckBridge(this, notification));
@@ -302,10 +295,6 @@ namespace TweetDuck.Core{
 
         // notification helpers
 
-        public FormNotificationMain CreateNotificationForm(bool enableContextMenu){
-            return new FormNotificationMain(this, plugins, enableContextMenu);
-        }
-
         public void PauseNotification(){
             notification.PauseNotification();
         }
@@ -326,6 +315,10 @@ namespace TweetDuck.Core{
 
         public void TriggerTweetScreenshot(){
             browser.TriggerTweetScreenshot();
+        }
+
+        public void ApplyROT13(){
+            browser.ApplyROT13();
         }
 
         // callback handlers

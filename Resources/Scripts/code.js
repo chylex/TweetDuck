@@ -375,7 +375,7 @@
       mouseenter: function(){
         let me = $(this);
         let text = me.text();
-        return if text.charCodeAt(text.length-1) !== 8230; // horizontal ellipsis
+        return if text.charCodeAt(text.length-1) !== 8230 && text.charCodeAt(0) !== 8230; // horizontal ellipsis
         
         if ($TDX.expandLinksOnHover){
           tooltipTimer = window.setTimeout(function(){
@@ -936,6 +936,10 @@
       $TD.playVideo(url, username || null);
     };
     
+    var getGifLink = function(ele){
+      return ele.attr("src") || ele.children("source[video-src]").first().attr("video-src");
+    };
+    
     var getVideoTweetLink = function(obj){
       let parent = obj.closest(".js-tweet").first();
       let link = (parent.hasClass("tweet-detail") ? parent.find("a[rel='url']") : parent.find("time").first().children("a")).first();
@@ -948,7 +952,7 @@
     
     app.delegate(".js-gif-play", {
       click: function(e){
-        let src = !e.ctrlKey && $(this).closest(".js-media-gif-container").find("video").attr("src");
+        let src = !e.ctrlKey && getGifLink($(this).closest(".js-media-gif-container").find("video"));
         
         if (src){
           window.TDGF_playVideo(src, getUsername(highlightedTweetObj));
@@ -1067,6 +1071,23 @@
       $(".js-perform-search").blur();
     }
   });
+  
+  //
+  // Block: Allow applying ROT13 to input selection.
+  //
+  window.TDGF_applyROT13 = function(){
+    let ele = document.activeElement;
+    return if !ele || !ele.value;
+    
+    let selection = ele.value.substring(ele.selectionStart, ele.selectionEnd);
+    return if !selection;
+    
+    document.execCommand("insertText", false, selection.replace(/[a-zA-Z]/g, function(chr){
+      let code = chr.charCodeAt(0);
+      let start = code <= 90 ? 65 : 97;
+      return String.fromCharCode(start+(code-start+13)%26);
+    }));
+  };
   
   //
   // Block: Fix DM reply input box not getting focused after opening a conversation.

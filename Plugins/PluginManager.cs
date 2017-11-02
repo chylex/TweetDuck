@@ -9,8 +9,6 @@ using TweetDuck.Resources;
 
 namespace TweetDuck.Plugins{
     sealed class PluginManager{
-        private const int InvalidToken = 0;
-
         private static readonly Dictionary<PluginEnvironment, string> PluginSetupScripts = new Dictionary<PluginEnvironment, string>(4){
             { PluginEnvironment.None, ScriptLoader.LoadResource("plugins.js") },
             { PluginEnvironment.Browser, ScriptLoader.LoadResource("plugins.browser.js") },
@@ -34,8 +32,6 @@ namespace TweetDuck.Plugins{
         private readonly HashSet<Plugin> plugins = new HashSet<Plugin>();
         private readonly Dictionary<int, Plugin> tokens = new Dictionary<int, Plugin>();
         private readonly Random rand = new Random();
-
-        private List<string> loadErrors;
 
         public PluginManager(string rootPath, string configPath){
             this.rootPath = rootPath;
@@ -68,7 +64,18 @@ namespace TweetDuck.Plugins{
                 }
             }
 
-            return InvalidToken;
+            int token, attempts = 1000;
+
+            do{
+                token = rand.Next();
+            }while(tokens.ContainsKey(token) && --attempts >= 0);
+            
+            if (attempts < 0){
+                token = -tokens.Count-1;
+            }
+
+            tokens[token] = plugin;
+            return token;
         }
 
         public Plugin GetPluginFromToken(int token){
@@ -81,28 +88,41 @@ namespace TweetDuck.Plugins{
             plugins.Clear();
             tokens.Clear();
 
-            loadErrors = new List<string>(2);
-            
-            foreach(Plugin plugin in LoadPluginsFrom(PathOfficialPlugins, PluginGroup.Official)){
-                plugins.Add(plugin);
-            }
+            List<string> loadErrors = new List<string>(2);
 
-            foreach(Plugin plugin in LoadPluginsFrom(PathCustomPlugins, PluginGroup.Custom)){
-                plugins.Add(plugin);
+            IEnumerable<Plugin> LoadPluginsFrom(string path, PluginGroup group){
+                if (!Directory.Exists(path)){
+                    yield break;
+                }
+
+                foreach(string fullDir in Directory.EnumerateDirectories(path, "*", SearchOption.TopDirectoryOnly)){
+                    Plugin plugin;
+
+                    try{
+                        plugin = Plugin.CreateFromFolder(fullDir, group);
+                    }catch(Exception e){
+                        loadErrors.Add(group.GetIdentifierPrefix()+Path.GetFileName(fullDir)+": "+e.Message);
+                        continue;
+                    }
+
+                    yield return plugin;
+                }
             }
+            
+            plugins.UnionWith(LoadPluginsFrom(PathOfficialPlugins, PluginGroup.Official));
+            plugins.UnionWith(LoadPluginsFrom(PathCustomPlugins, PluginGroup.Custom));
 
             Reloaded?.Invoke(this, new PluginErrorEventArgs(loadErrors));
         }
 
         public void ExecutePlugins(IFrame frame, PluginEnvironment environment){
-            if (HasAnyPlugin(environment)){
-                ScriptLoader.ExecuteScript(frame, PluginSetupScripts[environment], environment.GetScriptIdentifier());
-                ScriptLoader.ExecuteScript(frame, PluginSetupScripts[PluginEnvironment.None], PluginEnvironment.None.GetScriptIdentifier());
-                ExecutePluginScripts(frame, environment);
+            if (!HasAnyPlugin(environment)){
+                return;
             }
-        }
-
-        private void ExecutePluginScripts(IFrame frame, PluginEnvironment environment){
+            
+            ScriptLoader.ExecuteScript(frame, PluginSetupScripts[environment], environment.GetScriptIdentifier());
+            ScriptLoader.ExecuteScript(frame, PluginSetupScripts[PluginEnvironment.None], PluginEnvironment.None.GetScriptIdentifier());
+            
             bool includeDisabled = environment.IncludesDisabledPlugins();
 
             if (includeDisabled){
@@ -113,7 +133,10 @@ namespace TweetDuck.Plugins{
 
             foreach(Plugin plugin in Plugins){
                 string path = plugin.GetScriptPath(environment);
-                if (string.IsNullOrEmpty(path) || (!includeDisabled && !Config.IsEnabled(plugin)) || !plugin.CanRun)continue;
+
+                if (string.IsNullOrEmpty(path) || (!includeDisabled && !Config.IsEnabled(plugin)) || !plugin.CanRun){
+                    continue;
+                }
 
                 string script;
 
@@ -123,50 +146,11 @@ namespace TweetDuck.Plugins{
                     failedPlugins.Add(plugin.Identifier+" ("+Path.GetFileName(path)+"): "+e.Message);
                     continue;
                 }
-
-                int token;
-
-                if (tokens.ContainsValue(plugin)){
-                    token = GetTokenFromPlugin(plugin);
-                }
-                else{
-                    token = GenerateToken();
-                    tokens[token] = plugin;
-                }
-
-                ScriptLoader.ExecuteScript(frame, PluginScriptGenerator.GeneratePlugin(plugin.Identifier, script, token, environment), "plugin:"+plugin);
+                
+                ScriptLoader.ExecuteScript(frame, PluginScriptGenerator.GeneratePlugin(plugin.Identifier, script, GetTokenFromPlugin(plugin), environment), "plugin:"+plugin);
             }
 
             Executed?.Invoke(this, new PluginErrorEventArgs(failedPlugins));
-        }
-
-        private IEnumerable<Plugin> LoadPluginsFrom(string path, PluginGroup group){
-            if (!Directory.Exists(path)){
-                yield break;
-            }
-
-            foreach(string fullDir in Directory.EnumerateDirectories(path, "*", SearchOption.TopDirectoryOnly)){
-                Plugin plugin = Plugin.CreateFromFolder(fullDir, group, out string error);
-
-                if (plugin == null){
-                    loadErrors.Add(group.GetIdentifierPrefix()+Path.GetFileName(fullDir)+": "+error);
-                }
-                else{
-                    yield return plugin;
-                }
-            }
-        }
-
-        private int GenerateToken(){
-            for(int attempt = 0; attempt < 1000; attempt++){
-                int token = rand.Next();
-
-                if (!tokens.ContainsKey(token) && token != InvalidToken){
-                    return token;
-                }
-            }
-
-            return -tokens.Count;
         }
     }
 }

@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using TweetDuck.Core.Utils;
-using TweetLib.Communication;
 
 namespace TweetDuck.Configuration{
     sealed class LockManager{
@@ -136,13 +135,11 @@ namespace TweetDuck.Configuration{
         // Locking process
 
         public bool RestoreLockingProcess(int failTimeout){
-            if (lockingProcess != null){
-                if (lockingProcess.MainWindowHandle == IntPtr.Zero){ // restore if the original process is in tray
-                    Comms.BroadcastMessage(Program.WindowRestoreMessage, (uint)lockingProcess.Id, 0);
+            if (lockingProcess != null && lockingProcess.MainWindowHandle == IntPtr.Zero){ // restore if the original process is in tray
+                NativeMethods.BroadcastMessage(Program.WindowRestoreMessage, (uint)lockingProcess.Id, 0);
 
-                    if (WindowsUtils.TrySleepUntil(() => CheckLockingProcessExited() || (lockingProcess.MainWindowHandle != IntPtr.Zero && lockingProcess.Responding), failTimeout, RetryDelay)){
-                        return true;
-                    }
+                if (WindowsUtils.TrySleepUntil(() => CheckLockingProcessExited() || (lockingProcess.MainWindowHandle != IntPtr.Zero && lockingProcess.Responding), failTimeout, RetryDelay)){
+                    return true;
                 }
             }
 
@@ -166,15 +163,12 @@ namespace TweetDuck.Configuration{
                         lockingProcess = null;
                         return true;
                     }
-                }catch(Exception ex){
-                    if (ex is InvalidOperationException || ex is Win32Exception){
-                        if (lockingProcess != null){
-                            bool hasExited = CheckLockingProcessExited();
-                            lockingProcess.Dispose();
-                            return hasExited;
-                        }
+                }catch(Exception ex) when (ex is InvalidOperationException || ex is Win32Exception){
+                    if (lockingProcess != null){
+                        bool hasExited = CheckLockingProcessExited();
+                        lockingProcess.Dispose();
+                        return hasExited;
                     }
-                    else throw;
                 }
             }
 

@@ -226,5 +226,9 @@ namespace TweetDuck.Core{
         public void TriggerTweetScreenshot(){
             browser.ExecuteScriptAsync("TDGF_triggerScreenshot()");
         }
+
+        public void ApplyROT13(){
+            browser.ExecuteScriptAsync("TDGF_applyROT13()");
+        }
     }
 }

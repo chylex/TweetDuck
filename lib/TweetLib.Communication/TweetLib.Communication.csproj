@@ -36,9 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DuplexPipe.cs" />
-    <Compile Include="Utils\NativeMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Comms.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
