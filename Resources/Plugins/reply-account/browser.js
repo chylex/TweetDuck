@@ -117,19 +117,9 @@ enabled(){
 }
 
 ready(){
-  var events = $._data(document, "events");
-  
-  for(var event of [ "uiInlineComposeTweet", "uiDockedComposeTweet" ]){
+  for(let event of [ "uiInlineComposeTweet", "uiDockedComposeTweet" ]){
     $(document).on(event, this.uiComposeTweetEvent);
-    
-    var handlers = events[event];
-    var newHandler = handlers[handlers.length-1];
-    
-    for(var index = handlers.length-1; index > 0; index--){
-      handlers[index] = handlers[index-1];
-    }
-    
-    handlers[0] = newHandler;
+    window.TDPF_prioritizeNewestEvent(document, event);
   }
   
   $(document).on("click", ".js-account-list .js-account-item", this.onSelectedAccountChanged);

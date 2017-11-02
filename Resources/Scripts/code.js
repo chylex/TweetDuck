@@ -17,12 +17,12 @@
   //
   // Variable: DOM HTML element.
   //
-  var doc = document.documentElement;
+  const doc = document.documentElement;
   
   //
   // Variable: DOM object containing the main app element.
   //
-  var app = $(document.body).children(".js-app");
+  const app = $(document.body).children(".js-app");
   
   //
   // Constant: Column types mapped to their titles.
@@ -50,7 +50,7 @@
   //
   // Function: Prepends code at the beginning of a function. If the prepended function returns true, execution of the original function is cancelled.
   //
-  var prependToFunction = function(func, extension){
+  const prependToFunction = function(func, extension){
     return function(){
       return extension.apply(this, arguments) === true ? undefined : func.apply(this, arguments);
     };
@@ -59,7 +59,7 @@
   //
   // Function: Appends code at the end of a function.
   //
-  var appendToFunction = function(func, extension){
+  const appendToFunction = function(func, extension){
     return function(){
       let res = func.apply(this, arguments);
       extension.apply(this, arguments);
@@ -70,7 +70,7 @@
   //
   // Function: Returns true if an object has a specified property, otherwise returns false without throwing an error.
   //
-  var ensurePropertyExists = function(obj, ...chain){
+  const ensurePropertyExists = function(obj, ...chain){
     for(let index = 0; index < chain.length; index++){
       if (!obj.hasOwnProperty(chain[index])){
         $TD.crashDebug("Missing property "+chain[index]+" in chain [obj]."+chain.join("."));
@@ -86,7 +86,7 @@
   //
   // Function: Retrieves a property of an element with a specified class.
   //
-  var getClassStyleProperty = function(cls, property){
+  const getClassStyleProperty = function(cls, property){
     let column = document.createElement("div");
     column.classList.add(cls);
     column.style.display = "none";
@@ -101,7 +101,7 @@
   //
   // Function: Event callback for a new tweet.
   //
-  var onNewTweet = (function(){
+  const onNewTweet = (function(){
     let recentMessages = new Set();
     let recentTweets = new Set();
     let recentTweetTimer = null;
@@ -219,7 +219,7 @@
   // Function: Shows tweet detail, used in notification context menu.
   //
   (function(){
-    var showTweetDetailInternal = function(column, chirp){
+    const showTweetDetailInternal = function(column, chirp){
       TD.ui.updates.showDetailView(column, chirp, column.findChirp(chirp) || chirp);
       TD.controller.columnManager.showColumn(column.model.privateState.key);
 
@@ -266,7 +266,7 @@
   // Block: Hook into settings object to detect when the settings change, and update html attributes and notification layout.
   //
   (function(){
-    let refreshSettings = function(){      
+    const refreshSettings = function(){      
       let fontSizeName = TD.settings.getFontSize();
       let themeName = TD.settings.getTheme();
       
@@ -427,7 +427,7 @@
   });
   
   if (ensurePropertyExists(TD, "services", "TwitterUser", "prototype", "fromJSONObject")){
-    let prevFunc = TD.services.TwitterUser.prototype.fromJSONObject;
+    const prevFunc = TD.services.TwitterUser.prototype.fromJSONObject;
     
     TD.services.TwitterUser.prototype.fromJSONObject = function(){
       let obj = prevFunc.apply(this, arguments);
@@ -442,7 +442,7 @@
   }
   
   if (ensurePropertyExists(TD, "services", "TwitterMedia", "prototype", "fromMediaEntity")){
-    let prevFunc = TD.services.TwitterMedia.prototype.fromMediaEntity;
+    const prevFunc = TD.services.TwitterMedia.prototype.fromMediaEntity;
     
     TD.services.TwitterMedia.prototype.fromMediaEntity = function(){
       let obj = prevFunc.apply(this, arguments);
@@ -497,13 +497,13 @@
   (function(){
     var lastTweet = "";
     
-    var updateHighlightedColumn = function(ele){
+    const updateHighlightedColumn = function(ele){
       highlightedColumnEle = ele;
       highlightedColumnObj = ele ? TD.controller.columnManager.get(ele.attr("data-column")) : null;
       return !!highlightedColumnObj;
     };
     
-    var updateHighlightedTweet = function(ele, obj, tweetUrl, quoteUrl, authors, imageList){
+    const updateHighlightedTweet = function(ele, obj, tweetUrl, quoteUrl, authors, imageList){
       highlightedTweetEle = ele;
       highlightedTweetObj = obj;
       
@@ -513,7 +513,7 @@
       }
     };
     
-    var processMedia = function(chirp){
+    const processMedia = function(chirp){
       return chirp.getMedia().filter(item => !item.isAnimatedGif).map(item => item.entity.media_url_https+":small").join(";");
     };
     
@@ -562,7 +562,7 @@
   (function(){
     var selectedTweet;
     
-    var setImportantProperty = function(obj, property, value){
+    const setImportantProperty = function(obj, property, value){
       if (obj.length === 1){
         obj[0].style.setProperty(property, value, "important");
       }
@@ -631,7 +631,7 @@
   // Block: Paste images when tweeting.
   //
   onAppReady.push(function(){
-    var uploader = $._data(document, "events")["uiComposeAddImageClick"][0].handler.context;
+    const uploader = $._data(document, "events")["uiComposeAddImageClick"][0].handler.context;
     
     app.delegate(".js-compose-text,.js-reply-tweetbox,.td-detect-image-paste", "paste", function(e){
       for(let item of e.originalEvent.clipboardData.items){
@@ -650,24 +650,40 @@
   });
   
   //
+  // Block: Setup a global function to reorder event priority.
+  //
+  window.TDGF_prioritizeNewestEvent = function(element, event){
+    let events = $._data(element, "events");
+    
+    let handlers = events[event];
+    let newHandler = handlers[handlers.length-1];
+    
+    for(let index = handlers.length-1; index > 0; index--){
+      handlers[index] = handlers[index-1];
+    }
+    
+    handlers[0] = newHandler;
+  };
+  
+  //
   // Block: Support for extra mouse buttons.
   //
   (function(){
-    var tryClickSelector = function(selector, parent){
+    const tryClickSelector = function(selector, parent){
       return $(selector, parent).click().length;
     };
     
-    var tryCloseModal1 = function(){
+    const tryCloseModal1 = function(){
       let modal = $("#open-modal");
       return modal.is(":visible") && tryClickSelector("a.mdl-dismiss", modal);
     };
     
-    var tryCloseModal2 = function(){
+    const tryCloseModal2 = function(){
       let modal = $(".js-modals-container");
       return modal.length && tryClickSelector("a.mdl-dismiss", modal);
     };
     
-    var tryCloseHighlightedColumn = function(){
+    const tryCloseHighlightedColumn = function(){
       if (highlightedColumnEle){
         let column = highlightedColumnEle.closest(".js-column");
         return (column.is(".is-shifted-2") && tryClickSelector(".js-tweet-social-proof-back", column)) || (column.is(".is-shifted-1") && tryClickSelector(".js-column-back", column));
@@ -755,14 +771,14 @@
   (function(){
     var holdingShift = false;
     
-    var updateShiftState = (pressed) => {
+    const updateShiftState = (pressed) => {
       if (pressed != holdingShift){
         holdingShift = pressed;
         $("button[data-action='clear']").children("span").text(holdingShift ? "Restore" : "Clear");
       }
     };
     
-    var resetActiveFocus = () => {
+    const resetActiveFocus = () => {
       document.activeElement.blur();
     };
     
@@ -793,7 +809,7 @@
   // Block: Swap shift key functionality for selecting accounts, and refocus the textbox afterwards.
   //
   onAppReady.push(function(){
-    var onAccountClick = function(e){
+    const onAccountClick = function(e){
       if ($TDX.switchAccountSelectors){
         e.shiftKey = !e.shiftKey;
       }
@@ -884,7 +900,7 @@
   // Block: Inject custom CSS and layout into the page.
   //
   (function(){
-    var createStyle = function(id, styles){
+    const createStyle = function(id, styles){
       let ele = document.createElement("style");
       ele.id = id;
       ele.innerText = styles;
@@ -936,17 +952,17 @@
       $TD.playVideo(url, username || null);
     };
     
-    var getGifLink = function(ele){
+    const getGifLink = function(ele){
       return ele.attr("src") || ele.children("source[video-src]").first().attr("video-src");
     };
     
-    var getVideoTweetLink = function(obj){
+    const getVideoTweetLink = function(obj){
       let parent = obj.closest(".js-tweet").first();
       let link = (parent.hasClass("tweet-detail") ? parent.find("a[rel='url']") : parent.find("time").first().children("a")).first();
       return link.attr("href");
     }
     
-    var getUsername = function(tweet){
+    const getUsername = function(tweet){
       return tweet && (tweet.quotedTweet || tweet).getMainUser().screenName;
     }
     
@@ -1076,7 +1092,7 @@
   // Block: Make submitting search queries while holding Ctrl or middle-clicking the search icon open the search externally.
   //
   onAppReady.push(function(){
-    let openSearchExternally = function(event, input){
+    const openSearchExternally = function(event, input){
       $TD.openBrowser("https://twitter.com/search/?q="+encodeURIComponent(input.val() || ""));
       event.preventDefault();
       event.stopPropagation();
@@ -1092,16 +1108,7 @@
     $(".js-perform-search").on("click auxclick", function(e){
       (e.ctrlKey || e.button === 1) && openSearchExternally(e, $(".js-app-search-input:visible"));
     }).each(function(){
-      let events = $._data($(this)[0], "events"); // TODO move this hackery to a global function
-      
-      var handlers = events["click"];
-      var newHandler = handlers[handlers.length-1];
-
-      for(var index = handlers.length-1; index > 0; index--){
-        handlers[index] = handlers[index-1];
-      }
-
-      handlers[0] = newHandler;
+      window.TDGF_prioritizeNewestEvent($(this)[0], "click");
     });
     
     $("[data-action='show-search']").on("click auxclick", function(e){
@@ -1141,7 +1148,7 @@
   // Block: Fix DM notifications not showing if the conversation is open.
   //
   if (ensurePropertyExists(TD, "services", "TwitterConversation", "prototype", "getUnreadChirps")){
-    var prevFunc = TD.services.TwitterConversation.prototype.getUnreadChirps;
+    const prevFunc = TD.services.TwitterConversation.prototype.getUnreadChirps;
     
     TD.services.TwitterConversation.prototype.getUnreadChirps = function(e){
       return (e && e.sortIndex && !e.id && !this.notificationsDisabled)
@@ -1287,11 +1294,12 @@
   // Block: Disable TweetDeck metrics.
   //
   if (ensurePropertyExists(TD, "metrics")){
-    TD.metrics.inflate = function(){};
-    TD.metrics.inflateMetricTriple = function(){};
-    TD.metrics.log = function(){};
-    TD.metrics.makeKey = function(){};
-    TD.metrics.send = function(){};
+    const noop = function(){};
+    TD.metrics.inflate = noop;
+    TD.metrics.inflateMetricTriple = noop;
+    TD.metrics.log = noop;
+    TD.metrics.makeKey = noop;
+    TD.metrics.send = noop;
   }
   
   onAppReady.push(function(){
