@@ -4,9 +4,10 @@ namespace TweetDuck.Core.Other.Settings.Export{
     [Flags]
     enum ExportFileFlags{
         None = 0,
-        Config = 1,
-        Session = 2,
-        PluginData = 4,
-        All = Config|Session|PluginData
+        UserConfig = 1,
+        SystemConfig = 2,
+        Session = 4,
+        PluginData = 8,
+        All = UserConfig|SystemConfig|Session|PluginData
     }
 }

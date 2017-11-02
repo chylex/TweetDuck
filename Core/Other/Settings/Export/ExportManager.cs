@@ -25,8 +25,12 @@ namespace TweetDuck.Core.Other.Settings.Export{
         public bool Export(ExportFileFlags flags){
             try{
                 using(CombinedFileStream stream = new CombinedFileStream(new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None))){
-                    if (flags.HasFlag(ExportFileFlags.Config)){
+                    if (flags.HasFlag(ExportFileFlags.UserConfig)){
                         stream.WriteFile("config", Program.UserConfigFilePath);
+                    }
+
+                    if (flags.HasFlag(ExportFileFlags.SystemConfig)){
+                        stream.WriteFile("system", Program.SystemConfigFilePath);
                     }
 
                     if (flags.HasFlag(ExportFileFlags.PluginData)){
@@ -67,7 +71,11 @@ namespace TweetDuck.Core.Other.Settings.Export{
                     while((key = stream.SkipFile()) != null){
                         switch(key){
                             case "config":
-                                flags |= ExportFileFlags.Config;
+                                flags |= ExportFileFlags.UserConfig;
+                                break;
+
+                            case "system":
+                                flags |= ExportFileFlags.SystemConfig;
                                 break;
 
                             case "plugin.config":
@@ -99,8 +107,16 @@ namespace TweetDuck.Core.Other.Settings.Export{
                     while((entry = stream.ReadFile()) != null){
                         switch(entry.KeyName){
                             case "config":
-                                if (flags.HasFlag(ExportFileFlags.Config)){
+                                if (flags.HasFlag(ExportFileFlags.UserConfig)){
                                     entry.WriteToFile(Program.UserConfigFilePath);
+                                }
+
+                                break;
+
+                            case "system":
+                                if (flags.HasFlag(ExportFileFlags.SystemConfig)){
+                                    entry.WriteToFile(Program.SystemConfigFilePath);
+                                    IsRestarting = true;
                                 }
 
                                 break;

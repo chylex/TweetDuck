@@ -16,7 +16,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
 
             set{
                 // this will call events and SetFlag, which also updates the UI
-                cbConfig.Checked = value.HasFlag(ExportFileFlags.Config);
+                cbConfig.Checked = value.HasFlag(ExportFileFlags.UserConfig);
                 cbSession.Checked = value.HasFlag(ExportFileFlags.Session);
                 cbPluginData.Checked = value.HasFlag(ExportFileFlags.PluginData);
             }
@@ -42,7 +42,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
         }
 
         private void cbConfig_CheckedChanged(object sender, EventArgs e){
-            SetFlag(ExportFileFlags.Config, cbConfig.Checked);
+            SetFlag(ExportFileFlags.UserConfig, cbConfig.Checked);
         }
 
         private void cbSession_CheckedChanged(object sender, EventArgs e){
@@ -63,7 +63,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                         currentState = State.Reset;
 
                         Text = "Restore Defaults";
-                        Flags = ExportFileFlags.Config;
+                        Flags = ExportFileFlags.UserConfig;
                     }
 
                     // Import
@@ -108,8 +108,16 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
 
                 case State.Reset:
                     if (FormMessage.Warning("Reset TweetDuck Options", "This will reset the selected items. Are you sure you want to proceed?", FormMessage.Yes, FormMessage.No)){
-                        if (Flags.HasFlag(ExportFileFlags.Config)){
+                        if (Flags.HasFlag(ExportFileFlags.UserConfig)){
                             Program.ResetConfig();
+                        }
+
+                        if (Flags.HasFlag(ExportFileFlags.SystemConfig)){
+                            try{
+                                File.Delete(Program.SystemConfigFilePath);
+                            }catch(Exception ex){
+                                Program.Reporter.HandleException("System Config Reset Error", "Could not delete system config.", true, ex);
+                            }
                         }
 
                         if (Flags.HasFlag(ExportFileFlags.PluginData)){
@@ -123,6 +131,9 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
 
                         if (Flags.HasFlag(ExportFileFlags.Session)){
                             Program.Restart(Arguments.ArgDeleteCookies);
+                        }
+                        else if (Flags.HasFlag(ExportFileFlags.SystemConfig)){
+                            Program.Restart();
                         }
                         else{
                             ShouldReloadBrowser = true;
@@ -139,7 +150,12 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                         Program.UserConfig.Reload();
 
                         if (importManager.IsRestarting){
-                            Program.Restart(Arguments.ArgImportCookies);
+                            if (Flags.HasFlag(ExportFileFlags.Session)){
+                                Program.Restart(Arguments.ArgImportCookies);
+                            }
+                            else if (Flags.HasFlag(ExportFileFlags.SystemConfig)){
+                                Program.Restart();
+                            }
                         }
                         else{
                             ShouldReloadBrowser = true;
@@ -171,6 +187,8 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                     }
 
                     Program.UserConfig.Save();
+                    Program.SystemConfig.Save();
+
                     ExportManager manager = new ExportManager(file, plugins);
 
                     if (!manager.Export(Flags)){
