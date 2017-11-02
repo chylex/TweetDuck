@@ -399,96 +399,100 @@ enabled(){
     }
     
     if (this.config.revertIcons){
+      let iconData = [
+        [ ".icon-twitter-bird", "00" ],
+        [ ".icon-mention", "01" ],
+        [ ".icon-following", "02" ],
+        [ ".icon-message", "03" ],
+        [ ".icon-home", "04" ],
+        [ ".icon-hashtag", "05" ],
+        [ ".icon-reply", "06" ],
+        [ ".icon-favorite", "55" ],
+        [ ".icon-retweet", "08" ],
+        [ ".icon-drafts", "09" ],
+        [ ".icon-search", "0a" ],
+        [ ".icon-trash", "0c" ],
+        [ ".icon-close", "0d" ],
+        [ ".icon-arrow-r:before,.Icon--caretRight", "0e" ],
+        [ ".icon-arrow-l:before,.Icon--caretLeft", "0f" ],
+        [ ".icon-protected", "13" ],
+        [ ".icon-list", "14" ],
+        [ ".icon-camera", "15" ],
+        [ ".icon-more", "16" ],
+        [ ".icon-settings", "18" ],
+        [ ".icon-notifications", "19" ],
+        [ ".icon-user-dd", "1a" ],
+        [ ".icon-activity", "1c" ],
+        [ ".icon-trending", "1d" ],
+        [ ".icon-minus", "1e" ],
+        [ ".icon-plus", "1f" ],
+        [ ".icon-geo", "20" ],
+        [ ".icon-check", "21" ],
+        [ ".icon-schedule", "22" ],
+        [ ".icon-dot", "23" ],
+        [ ".icon-user", "24" ],
+        [ ".icon-content", "25" ],
+        [ ".icon-arrow-d:before,.Icon--caretDown", "26" ],
+        [ ".icon-arrow-u", "27" ],
+        [ ".icon-share", "28" ],
+        [ ".icon-info", "29" ],
+        [ ".icon-verified", "2a" ],
+        [ ".icon-translator", "2b" ],
+        [ ".icon-blocked", "2c" ],
+        [ ".icon-constrain", "2d" ],
+        [ ".icon-play-video", "2e" ],
+        [ ".icon-empty", "2f" ],
+        [ ".icon-clear-input", "30" ],
+        [ ".icon-compose", "31" ],
+        [ ".icon-mark-read", "32" ],
+        [ ".icon-arrow-r-double", "33" ],
+        [ ".icon-arrow-l-double", "34" ],
+        [ ".icon-follow", "35" ],
+        [ ".icon-image", "36" ],
+        [ ".icon-popout", "37" ],
+        [ ".icon-move", "39" ],
+        [ ".icon-compose-grid", "3a" ],
+        [ ".icon-compose-minigrid", "3b" ],
+        [ ".icon-compose-list", "3c" ],
+        [ ".icon-edit", "40" ],
+        [ ".icon-clear-timeline", "41" ],
+        [ ".icon-sliders", "42" ],
+        [ ".icon-custom-timeline", "43" ],
+        [ ".icon-compose-dm", "44" ],
+        [ ".icon-bg-dot", "45" ],
+        [ ".icon-user-team-mgr", "46" ],
+        [ ".icon-user-switch", "47" ],
+        [ ".icon-conversation", "48" ],
+        [ ".icon-dataminr", "49" ],
+        [ ".icon-link", "4a", ],
+        [ ".icon-flash", "50" ],
+        [ ".icon-pointer-u", "51" ],
+        [ ".icon-analytics", "54" ],
+        [ ".icon-heart", "55" ],
+        [ ".icon-calendar", "56" ],
+        [ ".icon-attachment", "57" ],
+        [ ".icon-play", "58" ],
+        [ ".icon-bookmark", "59" ],
+        [ ".icon-play-badge", "60" ],
+        [ ".icon-gif-badge", "61" ],
+        [ ".icon-poll", "62" ],
+        
+        [ ".icon-heart-filled", "55" ],
+        [ ".icon-retweet-filled", "08" ],
+        [ ".icon-list-filled", "14" ],
+        [ ".icon-user-filled", "35" ],
+      ];
+      
       this.icons = document.createElement("style");
       this.icons.innerHTML = `
 @font-face {
-  font-family: 'tweetdeckold';
+  font-family: 'oldfont';
   src: url("https://ton.twimg.com/tweetdeck-web/web/assets/fonts/tweetdeck-regular-webfont.5f4ea87976.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
-.icon-twitter-bird:before{content:"\\f000";font-family:tweetdeckold}
-.icon-mention:before{content:"\\f001";font-family:tweetdeckold}
-.icon-following:before{content:"\\f002";font-family:tweetdeckold}
-.icon-message:before{content:"\\f003";font-family:tweetdeckold}
-.icon-home:before{content:"\\f004";font-family:tweetdeckold}
-.icon-hashtag:before{content:"\\f005";font-family:tweetdeckold}
-.icon-reply:before{content:"\\f006";font-family:tweetdeckold}
-.icon-favorite:before{content:"\\f055";font-family:tweetdeckold}
-.icon-retweet:before{content:"\\f008";font-family:tweetdeckold}
-.icon-drafts:before{content:"\\f009";font-family:tweetdeckold}
-.icon-search:before{content:"\\f00a";font-family:tweetdeckold}
-.icon-trash:before{content:"\\f00c";font-family:tweetdeckold}
-.icon-close:before{content:"\\f00d";font-family:tweetdeckold}
-.icon-arrow-r:before,.Icon--caretRight:before{content:"\\f00e";font-family:tweetdeckold}
-.icon-arrow-l:before,.Icon--caretLeft:before{content:"\\f00f";font-family:tweetdeckold}
-.icon-protected:before{content:"\\f013";font-family:tweetdeckold}
-.icon-list:before{content:"\\f014";font-family:tweetdeckold}
-.icon-camera:before{content:"\\f015";font-family:tweetdeckold}
-.icon-more:before{content:"\\f016";font-family:tweetdeckold}
-.icon-settings:before{content:"\\f018";font-family:tweetdeckold}
-.icon-notifications:before{content:"\\f019";font-family:tweetdeckold}
-.icon-user-dd:before{content:"\\f01a";font-family:tweetdeckold}
-.icon-activity:before{content:"\\f01c";font-family:tweetdeckold}
-.icon-trending:before{content:"\\f01d";font-family:tweetdeckold}
-.icon-minus:before{content:"\\f01e";font-family:tweetdeckold}
-.icon-plus:before{content:"\\f01f";font-family:tweetdeckold}
-.icon-geo:before{content:"\\f020";font-family:tweetdeckold}
-.icon-check:before{content:"\\f021";font-family:tweetdeckold}
-.icon-schedule:before{content:"\\f022";font-family:tweetdeckold}
-.icon-dot:before{content:"\\f023";font-family:tweetdeckold}
-.icon-user:before{content:"\\f024";font-family:tweetdeckold}
-.icon-content:before{content:"\\f025";font-family:tweetdeckold}
-.icon-arrow-d:before,.Icon--caretDown:before{content:"\\f026";font-family:tweetdeckold}
-.icon-arrow-u:before{content:"\\f027";font-family:tweetdeckold}
-.icon-share:before{content:"\\f028";font-family:tweetdeckold}
-.icon-info:before{content:"\\f029";font-family:tweetdeckold}
-.icon-verified:before{content:"\\f02a";font-family:tweetdeckold}
-.icon-translator:before{content:"\\f02b";font-family:tweetdeckold}
-.icon-blocked:before{content:"\\f02c";font-family:tweetdeckold}
-.icon-constrain:before{content:"\\f02d";font-family:tweetdeckold}
-.icon-play-video:before{content:"\\f02e";font-family:tweetdeckold}
-.icon-empty:before{content:"\\f02f";font-family:tweetdeckold}
-.icon-clear-input:before{content:"\\f030";font-family:tweetdeckold}
-.icon-compose:before{content:"\\f031";font-family:tweetdeckold}
-.icon-mark-read:before{content:"\\f032";font-family:tweetdeckold}
-.icon-arrow-r-double:before{content:"\\f033";font-family:tweetdeckold}
-.icon-arrow-l-double:before{content:"\\f034";font-family:tweetdeckold}
-.icon-follow:before{content:"\\f035";font-family:tweetdeckold}
-.icon-image:before{content:"\\f036";font-family:tweetdeckold}
-.icon-popout:before{content:"\\f037";font-family:tweetdeckold}
-.icon-move:before{content:"\\f039";font-family:tweetdeckold}
-.icon-compose-grid:before{content:"\\f03a";font-family:tweetdeckold}
-.icon-compose-minigrid:before{content:"\\f03b";font-family:tweetdeckold}
-.icon-compose-list:before{content:"\\f03c";font-family:tweetdeckold}
-.icon-edit:before{content:"\\f040";font-family:tweetdeckold}
-.icon-clear-timeline:before{content:"\\f041";font-family:tweetdeckold}
-.icon-sliders:before{content:"\\f042";font-family:tweetdeckold}
-.icon-custom-timeline:before{content:"\\f043";font-family:tweetdeckold}
-.icon-compose-dm:before{content:"\\f044";font-family:tweetdeckold}
-.icon-bg-dot:before{content:"\\f045";font-family:tweetdeckold}
-.icon-user-team-mgr:before{content:"\\f046";font-family:tweetdeckold}
-.icon-user-switch:before{content:"\\f047";font-family:tweetdeckold}
-.icon-conversation:before{content:"\\f048";font-family:tweetdeckold}
-.icon-dataminr:before{content:"\\f049";font-family:tweetdeckold}
-.icon-link:before{content:"\\f04a";font-family:tweetdeckold}
-.icon-flash:before{content:"\\f050";font-family:tweetdeckold}
-.icon-pointer-u:before{content:"\\f051";font-family:tweetdeckold}
-.icon-analytics:before{content:"\\f054";font-family:tweetdeckold}
-.icon-heart:before{content:"\\f055";font-family:tweetdeckold}
-.icon-calendar:before{content:"\\f056";font-family:tweetdeckold}
-.icon-attachment:before{content:"\\f057";font-family:tweetdeckold}
-.icon-play:before{content:"\\f058";font-family:tweetdeckold}
-.icon-bookmark:before{content:"\\f059";font-family:tweetdeckold}
-.icon-play-badge:before{content:"\\f060";font-family:tweetdeckold}
-.icon-gif-badge:before{content:"\\f061";font-family:tweetdeckold}
-.icon-poll:before{content:"\\f062";font-family:tweetdeckold}
-
-.icon-heart-filled:before{content:"\\f055";font-family:tweetdeckold}
-.icon-retweet-filled:before{content:"\\f008";font-family:tweetdeckold}
-.icon-list-filled:before{content:"\\f014";font-family:tweetdeckold}
-.icon-user-filled:before{content:"\\f035";font-family:tweetdeckold}
+${iconData.map(entry => `${entry[0]}:before{content:\"\\f0${entry[1]}\";font-family:oldfont!important}`).join("")}
 
 .drawer .btn .icon, .app-header .btn .icon { line-height: 1em !important }
 .column-header .column-type-icon { bottom: 26px !important }
@@ -543,13 +547,13 @@ ${this.config.increaseQuoteTextSize ? `
 ` : ``}
 
 ${this.config.revertIcons ? `
-@font-face { font-family: 'tweetdeckold'; src: url(\"https://ton.twimg.com/tweetdeck-web/web/assets/fonts/tweetdeck-regular-webfont.5f4ea87976.woff\") format(\"woff\"); font-weight: normal; font-style: normal }
-.icon-reply:before{content:"\\f006";font-family:tweetdeckold}
-.icon-heart-filled:before{content:"\\f055";font-family:tweetdeckold}
-.icon-retweet-filled:before{content:"\\f008";font-family:tweetdeckold}
-.icon-list-filled:before{content:"\\f014";font-family:tweetdeckold}
-.icon-user-filled:before{content:"\\f035";font-family:tweetdeckold}
-.icon-user-dd:before{content:"\\f01a";font-family:tweetdeckold}
+@font-face { font-family: 'oldfont'; src: url(\"https://ton.twimg.com/tweetdeck-web/web/assets/fonts/tweetdeck-regular-webfont.5f4ea87976.woff\") format(\"woff\"); font-weight: normal; font-style: normal }
+.icon-reply:before{content:"\\f006";font-family:oldfont}
+.icon-heart-filled:before{content:"\\f055";font-family:oldfont}
+.icon-retweet-filled:before{content:"\\f008";font-family:oldfont}
+.icon-list-filled:before{content:"\\f014";font-family:oldfont}
+.icon-user-filled:before{content:"\\f035";font-family:oldfont}
+.icon-user-dd:before{content:"\\f01a";font-family:oldfont}
 ` : ``}
 
 ${notificationScrollbarColor ? `
