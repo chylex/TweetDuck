@@ -25,6 +25,7 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             this.panelFeedback = new System.Windows.Forms.Panel();
+            this.labelDataCollectionMessage = new System.Windows.Forms.Label();
             this.btnViewReport = new System.Windows.Forms.Button();
             this.btnSendFeedback = new System.Windows.Forms.Button();
             this.labelDataCollectionLink = new System.Windows.Forms.LinkLabel();
@@ -32,7 +33,6 @@
             this.labelDataCollection = new System.Windows.Forms.Label();
             this.labelFeedback = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.labelDataCollectionTime = new System.Windows.Forms.Label();
             this.panelFeedback.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -40,7 +40,7 @@
             // 
             this.panelFeedback.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelFeedback.Controls.Add(this.labelDataCollectionTime);
+            this.panelFeedback.Controls.Add(this.labelDataCollectionMessage);
             this.panelFeedback.Controls.Add(this.btnViewReport);
             this.panelFeedback.Controls.Add(this.btnSendFeedback);
             this.panelFeedback.Controls.Add(this.labelDataCollectionLink);
@@ -48,8 +48,16 @@
             this.panelFeedback.Controls.Add(this.labelDataCollection);
             this.panelFeedback.Location = new System.Drawing.Point(9, 31);
             this.panelFeedback.Name = "panelFeedback";
-            this.panelFeedback.Size = new System.Drawing.Size(322, 114);
+            this.panelFeedback.Size = new System.Drawing.Size(322, 188);
             this.panelFeedback.TabIndex = 1;
+            // 
+            // labelDataCollectionMessage
+            // 
+            this.labelDataCollectionMessage.Location = new System.Drawing.Point(6, 114);
+            this.labelDataCollectionMessage.Margin = new System.Windows.Forms.Padding(6);
+            this.labelDataCollectionMessage.Name = "labelDataCollectionMessage";
+            this.labelDataCollectionMessage.Size = new System.Drawing.Size(310, 67);
+            this.labelDataCollectionMessage.TabIndex = 5;
             // 
             // btnViewReport
             // 
@@ -120,14 +128,6 @@
             this.labelFeedback.TabIndex = 0;
             this.labelFeedback.Text = "Feedback";
             // 
-            // labelDataCollectionTime
-            // 
-            this.labelDataCollectionTime.AutoSize = true;
-            this.labelDataCollectionTime.Location = new System.Drawing.Point(156, 87);
-            this.labelDataCollectionTime.Name = "labelDataCollectionTime";
-            this.labelDataCollectionTime.Size = new System.Drawing.Size(0, 13);
-            this.labelDataCollectionTime.TabIndex = 5;
-            // 
             // TabSettingsFeedback
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -135,7 +135,7 @@
             this.Controls.Add(this.panelFeedback);
             this.Controls.Add(this.labelFeedback);
             this.Name = "TabSettingsFeedback";
-            this.Size = new System.Drawing.Size(340, 156);
+            this.Size = new System.Drawing.Size(340, 230);
             this.panelFeedback.ResumeLayout(false);
             this.panelFeedback.PerformLayout();
             this.ResumeLayout(false);
@@ -153,6 +153,6 @@
         private System.Windows.Forms.LinkLabel labelDataCollectionLink;
         private System.Windows.Forms.Button btnSendFeedback;
         private System.Windows.Forms.Button btnViewReport;
-        private System.Windows.Forms.Label labelDataCollectionTime;
+        private System.Windows.Forms.Label labelDataCollectionMessage;
     }
 }

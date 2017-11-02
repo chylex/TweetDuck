@@ -8,6 +8,7 @@ using TweetDuck.Core.Handling;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Notification.Screenshot;
 using TweetDuck.Core.Other;
+using TweetDuck.Core.Other.Analytics;
 using TweetDuck.Core.Other.Management;
 using TweetDuck.Core.Other.Settings;
 using TweetDuck.Core.Utils;
@@ -47,10 +48,11 @@ namespace TweetDuck.Core{
 
         private bool isLoaded;
         private FormWindowState prevState;
-
+        
         private TweetScreenshotManager notificationScreenshotManager;
         private SoundNotification soundNotification;
         private VideoPlayer videoPlayer;
+        private AnalyticsManager analytics;
 
         public FormBrowser(UpdaterSettings updaterSettings){
             InitializeComponent();
@@ -84,6 +86,7 @@ namespace TweetDuck.Core{
                 notificationScreenshotManager?.Dispose();
                 soundNotification?.Dispose();
                 videoPlayer?.Dispose();
+                analytics?.Dispose();
             };
 
             this.trayIcon.ClickRestore += trayIcon_ClickRestore;
@@ -115,6 +118,10 @@ namespace TweetDuck.Core{
             Config.BrowserWindow.Restore(this, true);
             prevState = WindowState;
             isLoaded = true;
+
+            if (Config.AllowDataCollection){
+                analytics = new AnalyticsManager(this, plugins, Program.AnalyticsFilePath);
+            }
         }
 
         private void UpdateTrayIcon(){
@@ -328,6 +335,11 @@ namespace TweetDuck.Core{
                 Config.FirstRun = false;
                 Config.AllowDataCollection = allowDataCollection;
                 Config.Save();
+
+                if (allowDataCollection && analytics == null){
+                    analytics = new AnalyticsManager(this, plugins, Program.AnalyticsFilePath);
+                    analytics.ScheduleReportIn(TimeSpan.FromHours(12));
+                }
             }
 
             if (showGuide){
@@ -347,7 +359,7 @@ namespace TweetDuck.Core{
             if (!FormManager.TryBringToFront<FormSettings>()){
                 bool prevEnableUpdateCheck = Config.EnableUpdateCheck;
 
-                FormSettings form = new FormSettings(this, plugins, updates, startTab);
+                FormSettings form = new FormSettings(this, plugins, updates, analytics, startTab);
 
                 form.FormClosed += (sender, args) => {
                     if (!prevEnableUpdateCheck && Config.EnableUpdateCheck){
@@ -362,6 +374,16 @@ namespace TweetDuck.Core{
                     }
 
                     browser.RefreshMemoryTracker();
+
+                    if (Config.AllowDataCollection){
+                        if (analytics == null){
+                            analytics = new AnalyticsManager(this, plugins, Program.AnalyticsFilePath);
+                        }
+                    }
+                    else if (analytics != null){
+                        analytics.Dispose();
+                        analytics = null;
+                    }
                     
                     if (form.ShouldReloadBrowser){
                         FormManager.TryFind<FormPlugins>()?.Close();

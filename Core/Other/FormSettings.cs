@@ -22,7 +22,7 @@ namespace TweetDuck.Core.Other{
 
         public bool ShouldReloadBrowser { get; private set; }
 
-        public FormSettings(FormBrowser browser, PluginManager plugins, UpdateHandler updates, Type startTab){
+        public FormSettings(FormBrowser browser, PluginManager plugins, UpdateHandler updates, AnalyticsManager analytics, Type startTab){
             InitializeComponent();
 
             Text = Program.BrandName+" Options";
@@ -36,10 +36,10 @@ namespace TweetDuck.Core.Other{
 
             AddButton("General", () => new TabSettingsGeneral(updates));
             AddButton("System Tray", () => new TabSettingsTray());
-            AddButton("Notifications", () => new TabSettingsNotifications(browser.CreateNotificationForm(false)));
+            AddButton("Notifications", () => new TabSettingsNotifications(this.browser.CreateNotificationForm(false)));
             AddButton("Sounds", () => new TabSettingsSounds());
-            AddButton("Feedback", () => new TabSettingsFeedback(AnalyticsReportGenerator.ExternalInfo.From(browser), plugins));
-            AddButton("Advanced", () => new TabSettingsAdvanced(browser.ReinjectCustomCSS));
+            AddButton("Feedback", () => new TabSettingsFeedback(analytics, AnalyticsReportGenerator.ExternalInfo.From(this.browser), this.plugins));
+            AddButton("Advanced", () => new TabSettingsAdvanced(this.browser.ReinjectCustomCSS));
 
             SelectTab(tabs[startTab ?? typeof(TabSettingsGeneral)]);
         }

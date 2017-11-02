@@ -10,13 +10,18 @@ namespace TweetDuck.Core.Other.Settings{
         private readonly AnalyticsReportGenerator.ExternalInfo analyticsInfo;
         private readonly PluginManager plugins;
 
-        public TabSettingsFeedback(AnalyticsReportGenerator.ExternalInfo analyticsInfo, PluginManager plugins){
+        public TabSettingsFeedback(AnalyticsManager analytics, AnalyticsReportGenerator.ExternalInfo analyticsInfo, PluginManager plugins){
             InitializeComponent();
             
             this.analyticsInfo = analyticsInfo;
             this.plugins = plugins;
 
             checkDataCollection.Checked = Config.AllowDataCollection;
+
+            if (analytics != null){
+                string collectionTime = analytics.LastCollectionMessage;
+                labelDataCollectionMessage.Text = string.IsNullOrEmpty(collectionTime) ? "No collection yet" : "Last collection: "+collectionTime;
+            }
         }
 
         public override void OnReady(){
