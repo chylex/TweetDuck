@@ -1073,6 +1073,43 @@
   });
   
   //
+  // Block: Make submitting search queries while holding Ctrl or middle-clicking the search icon open the search externally.
+  //
+  onAppReady.push(function(){
+    let openSearchExternally = function(event, input){
+      $TD.openBrowser("https://twitter.com/search/?q="+encodeURIComponent(input.val() || ""));
+      event.preventDefault();
+      event.stopPropagation();
+      
+      input.val("");
+      app.click(); // unfocus everything
+    };
+    
+    $(".js-app-search-input").keydown(function(e){
+      (e.ctrlKey && e.keyCode === 13) && openSearchExternally(e, $(this)); // enter
+    });
+    
+    $(".js-perform-search").on("click auxclick", function(e){
+      (e.ctrlKey || e.button === 1) && openSearchExternally(e, $(".js-app-search-input:visible"));
+    }).each(function(){
+      let events = $._data($(this)[0], "events"); // TODO move this hackery to a global function
+      
+      var handlers = events["click"];
+      var newHandler = handlers[handlers.length-1];
+
+      for(var index = handlers.length-1; index > 0; index--){
+        handlers[index] = handlers[index-1];
+      }
+
+      handlers[0] = newHandler;
+    });
+    
+    $("[data-action='show-search']").on("click auxclick", function(e){
+      (e.ctrlKey || e.button === 1) && openSearchExternally(e, $());
+    });
+  });
+  
+  //
   // Block: Allow applying ROT13 to input selection.
   //
   window.TDGF_applyROT13 = function(){
