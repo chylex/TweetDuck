@@ -1081,7 +1081,7 @@
       event.preventDefault();
       event.stopPropagation();
       
-      input.val("");
+      input.val("").blur();
       app.click(); // unfocus everything
     };
     
