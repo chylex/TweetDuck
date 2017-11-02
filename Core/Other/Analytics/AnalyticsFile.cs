@@ -17,6 +17,7 @@ namespace TweetDuck.Core.Other.Analytics{
         // STATE PROPERTIES
         
         public DateTime LastDataCollection  { get; set; } = DateTime.MinValue;
+        public string LastCollectionVersion { get; set; } = null;
         public string LastCollectionMessage { get; set; } = null;
 
         // END OF DATA

@@ -25,21 +25,30 @@ namespace TweetDuck.Core.Other.Analytics{
 
             this.currentTimer = new Timer{ SynchronizingObject = browser };
             this.currentTimer.Elapsed += currentTimer_Elapsed;
-            RestartTimer();
+
+            if (this.file.LastCollectionVersion != Program.VersionTag){
+                ScheduleReportIn(TimeSpan.FromHours(12), string.Empty);
+            }
+            else{
+                RestartTimer();
+            }
         }
 
         public void Dispose(){
             currentTimer.Dispose();
         }
 
-        public void ScheduleReportIn(TimeSpan delay, string message = null){
+        private void ScheduleReportIn(TimeSpan delay, string message = null){
             SetLastDataCollectionTime(DateTime.Now.Subtract(CollectionInterval).Add(delay), message);
         }
 
         private void SetLastDataCollectionTime(DateTime dt, string message = null){
             file.LastDataCollection = new DateTime(dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, 0, dt.Kind);
+            file.LastCollectionVersion = Program.VersionTag;
             file.LastCollectionMessage = message ?? dt.ToString("g", Program.Culture);
+
             file.Save();
+            RestartTimer();
         }
 
         private void RestartTimer(){
@@ -95,8 +104,6 @@ namespace TweetDuck.Core.Other.Analytics{
 
                     ScheduleReportIn(TimeSpan.FromHours(4), message ?? "Error: "+(task.Exception.InnerException?.Message ?? task.Exception.Message));
                 }
-
-                RestartTimer();
             }));
         }
     }

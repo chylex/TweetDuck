@@ -338,7 +338,6 @@ namespace TweetDuck.Core{
 
                 if (allowDataCollection && analytics == null){
                     analytics = new AnalyticsManager(this, plugins, Program.AnalyticsFilePath);
-                    analytics.ScheduleReportIn(TimeSpan.FromHours(12));
                 }
             }
 
