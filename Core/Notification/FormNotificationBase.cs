@@ -93,7 +93,7 @@ namespace TweetDuck.Core.Notification{
         protected override bool ShowWithoutActivation => true;
         
         protected float DpiScale { get; }
-        protected double SizeScale => DpiScale*Program.UserConfig.ZoomMultiplier;
+        protected double SizeScale => DpiScale*Program.UserConfig.ZoomLevel/100.0;
 
         protected readonly FormBrowser owner;
         protected readonly ChromiumWebBrowser browser;

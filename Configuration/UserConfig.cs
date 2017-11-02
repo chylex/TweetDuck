@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using TweetDuck.Core.Controls;
@@ -11,16 +10,7 @@ using TweetDuck.Data.Serialization;
 
 namespace TweetDuck.Configuration{
     sealed class UserConfig{
-        private static readonly FileSerializer<UserConfig> Serializer = new FileSerializer<UserConfig>{ HandleUnknownProperties = HandleUnknownProperties };
-
-        private static void HandleUnknownProperties(UserConfig obj, Dictionary<string, string> data){
-            data.Remove("EnableBrowserGCReload");
-            data.Remove("BrowserMemoryThreshold");
-
-            if (data.Count == 0){
-                obj.Save();
-            }
-        }
+        private static readonly FileSerializer<UserConfig> Serializer = new FileSerializer<UserConfig>();
 
         static UserConfig(){
             Serializer.RegisterTypeConverter(typeof(WindowState), WindowState.Converter);
@@ -56,7 +46,7 @@ namespace TweetDuck.Configuration{
         public bool BestImageQuality        { get; set; } = true;
         public bool EnableSpellCheck        { get; set; } = false;
         public int VideoPlayerVolume        { get; set; } = 50;
-        private int _zoomLevel                           = 100;
+        private int _zoomLevel                            = 100;
         private bool _muteNotifications;
         
         private TrayIcon.Behavior _trayBehavior       = TrayIcon.Behavior.Disabled;
@@ -124,9 +114,7 @@ namespace TweetDuck.Configuration{
                 }
             }
         }
-
-        public double ZoomMultiplier => _zoomLevel/100.0;
-
+        
         public TrayIcon.Behavior TrayBehavior{
             get => _trayBehavior;
 
