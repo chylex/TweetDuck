@@ -32,7 +32,7 @@ namespace TweetDuck.Core.Other.Analytics{
 
             foreach(DictionaryEntry entry in data){
                 if (entry.Value != null){
-                    collection.Add((string)entry.Key, (string)entry.Value);
+                    collection.Add(((string)entry.Key).ToLower().Replace(' ', '_'), (string)entry.Value);
                 }
             }
 
