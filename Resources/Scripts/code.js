@@ -1291,6 +1291,14 @@
   }
   
   //
+  // Block: Disable default TweetDeck update notification, as the app usually reloads automatically every so often.
+  //
+  onAppReady.push(function(){
+    let events = $._data(document, "events");
+    delete events["uiSuggestRefreshToggle"];
+  });
+  
+  //
   // Block: Disable TweetDeck metrics.
   //
   if (ensurePropertyExists(TD, "metrics")){
