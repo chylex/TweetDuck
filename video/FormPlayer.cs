@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Globalization;
+using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using TweetDuck.Video.Controls;
@@ -107,6 +108,7 @@ namespace TweetDuck.Video{
             Environment.Exit(Program.CODE_MEDIA_ERROR);
         }
 
+        [HandleProcessCorruptedStateExceptions]
         private void timerSync_Tick(object sender, EventArgs e){
             if (NativeMethods.GetWindowRect(ownerHandle, out NativeMethods.RECT rect)){
                 int width = rect.Right-rect.Left+1;
@@ -139,9 +141,14 @@ namespace TweetDuck.Video{
                 }
 
                 if (controls.currentPosition > media.duration){ // pausing near the end of the video causes WMP to play beyond the end of the video wtf
-                    controls.stop();
-                    controls.currentPosition = 0;
-                    controls.play();
+                    try{
+                        controls.stop();
+                        controls.currentPosition = 0;
+                        controls.play();
+                    }catch(AccessViolationException){
+                        // something is super retarded here because shit gets disposed between the start of this method and
+                        // the controls.play() call even though it runs on the UI thread
+                    }
                 }
                 
                 if (isCursorInside && !wasCursorInside){
