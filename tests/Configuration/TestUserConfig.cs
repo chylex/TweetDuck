@@ -76,7 +76,7 @@ namespace UnitTests.Configuration{
             cfg.Save();
 
             cfg.ZoomLevel = 200;
-            Assert.IsTrue(cfg.Reload());
+            cfg.Reload();
             Assert.AreEqual(123, cfg.ZoomLevel);
         }
 
@@ -87,7 +87,7 @@ namespace UnitTests.Configuration{
             cfg.Save();
             
             File.Delete("reset");
-            Assert.IsTrue(cfg.Reload());
+            cfg.Reload();
             Assert.AreEqual(100, cfg.ZoomLevel);
             Assert.IsTrue(File.Exists("reset"));
         }

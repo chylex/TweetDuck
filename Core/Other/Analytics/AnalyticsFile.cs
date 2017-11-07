@@ -26,13 +26,11 @@ namespace TweetDuck.Core.Other.Analytics{
             this.file = file;
         }
 
-        public bool Save(){
+        public void Save(){
             try{
                 Serializer.Write(file, this);
-                return true;
             }catch(Exception e){
                 Program.Reporter.HandleException("Analytics File Error", "Could not save the analytics file.", true, e);
-                return false;
             }
         }
         

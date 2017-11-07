@@ -140,7 +140,7 @@ namespace TweetDuck.Configuration{
             this.file = file;
         }
 
-        public bool Save(){
+        public void Save(){
             try{
                 if (File.Exists(file)){
                     string backupFile = GetBackupFile(file);
@@ -149,29 +149,23 @@ namespace TweetDuck.Configuration{
                 }
 
                 Serializer.Write(file, this);
-                return true;
             }catch(Exception e){
                 Program.Reporter.HandleException("Configuration Error", "Could not save the configuration file.", true, e);
-                return false;
             }
         }
 
-        public bool Reload(){
+        public void Reload(){
             try{
                 LoadInternal(false);
-                return true;
             }catch(FileNotFoundException){
                 try{
                     Serializer.Write(file, new UserConfig(file));
                     LoadInternal(false);
-                    return true;
                 }catch(Exception e){
                     Program.Reporter.HandleException("Configuration Error", "Could not regenerate configuration file.", true, e);
-                    return false;
                 }
             }catch(Exception e){
                 Program.Reporter.HandleException("Configuration Error", "Could not reload configuration file.", true, e);
-                return false;
             }
         }
 

@@ -31,13 +31,11 @@ namespace TweetDuck.Configuration{
             this.file = file;
         }
 
-        public bool Save(){
+        public void Save(){
             try{
                 Serializer.Write(file, this);
-                return true;
             }catch(Exception e){
                 Program.Reporter.HandleException("Configuration Error", "Could not save the system configuration file.", true, e);
-                return false;
             }
         }
         

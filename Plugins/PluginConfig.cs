@@ -32,6 +32,20 @@ namespace TweetDuck.Plugins{
             return !disabled.Contains(plugin.Identifier);
         }
 
+        public void Save(string file){
+            try{
+                using(StreamWriter writer = new StreamWriter(new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None), Encoding.UTF8)){
+                    writer.WriteLine("#Disabled");
+
+                    foreach(string identifier in disabled){
+                        writer.WriteLine(identifier);
+                    }
+                }
+            }catch(Exception e){
+                Program.Reporter.HandleException("Plugin Configuration Error", "Could not save the plugin configuration file.", true, e);
+            }
+        }
+
         public void Load(string file){
             try{
                 using(StreamReader reader = new StreamReader(new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read), Encoding.UTF8)){
@@ -52,20 +66,6 @@ namespace TweetDuck.Plugins{
             }catch(DirectoryNotFoundException){
             }catch(Exception e){
                 Program.Reporter.HandleException("Plugin Configuration Error", "Could not read the plugin configuration file. If you continue, the list of disabled plugins will be reset to default.", true, e);
-            }
-        }
-
-        public void Save(string file){
-            try{
-                using(StreamWriter writer = new StreamWriter(new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None), Encoding.UTF8)){
-                    writer.WriteLine("#Disabled");
-
-                    foreach(string identifier in disabled){
-                        writer.WriteLine(identifier);
-                    }
-                }
-            }catch(Exception e){
-                Program.Reporter.HandleException("Plugin Configuration Error", "Could not save the plugin configuration file.", true, e);
             }
         }
     }
