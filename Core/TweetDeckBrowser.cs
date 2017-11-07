@@ -32,6 +32,8 @@ namespace TweetDuck.Core{
             }
         }
 
+        public event EventHandler PageLoaded;
+
         private readonly ChromiumWebBrowser browser;
         private readonly PluginManager plugins;
         private readonly MemoryUsageTracker memoryUsageTracker;
@@ -145,6 +147,8 @@ namespace TweetDuck.Core{
                 if (Program.UserConfig.FirstRun){
                     ScriptLoader.ExecuteFile(e.Frame, "introduction.js");
                 }
+
+                PageLoaded?.Invoke(this, EventArgs.Empty);
             }
         }
 
