@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using TweetDuck.Core.Utils;
 using TweetDuck.Data.Serialization;
 
 namespace TweetDuck.Configuration{
@@ -34,7 +33,6 @@ namespace TweetDuck.Configuration{
 
         public bool Save(){
             try{
-                WindowsUtils.CreateDirectoryForFile(file);
                 Serializer.Write(file, this);
                 return true;
             }catch(Exception e){
@@ -47,9 +45,7 @@ namespace TweetDuck.Configuration{
             SystemConfig config = new SystemConfig(file);
             
             try{
-                Serializer.Read(file, config);
-            }catch(FileNotFoundException){
-            }catch(DirectoryNotFoundException){
+                Serializer.ReadIfExists(file, config);
             }catch(Exception e){
                 Program.Reporter.HandleException("Configuration Error", "Could not open the system configuration file. If you continue, you will lose system specific configuration such as Hardware Acceleration.", true, e);
             }

@@ -142,8 +142,6 @@ namespace TweetDuck.Configuration{
 
         public bool Save(){
             try{
-                WindowsUtils.CreateDirectoryForFile(file);
-
                 if (File.Exists(file)){
                     string backupFile = GetBackupFile(file);
                     File.Delete(backupFile);

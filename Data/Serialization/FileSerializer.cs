@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
+using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Data.Serialization{
     sealed class FileSerializer<T>{
@@ -28,6 +29,8 @@ namespace TweetDuck.Data.Serialization{
         }
 
         public void Write(string file, T obj){
+            WindowsUtils.CreateDirectoryForFile(file);
+
             using(StreamWriter writer = new StreamWriter(new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None))){
                 foreach(KeyValuePair<string, PropertyInfo> prop in props){
                     Type type = prop.Value.PropertyType;
@@ -54,8 +57,12 @@ namespace TweetDuck.Data.Serialization{
             Dictionary<string, string> unknownProperties = new Dictionary<string, string>(4);
 
             using(StreamReader reader = new StreamReader(new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read))){
-                if (reader.Peek() <= 1){
-                    throw new FormatException("Input appears to be a binary file.");
+                switch(reader.Peek()){
+                    case -1:
+                        throw new FormatException("File is empty.");
+                    case 0:
+                    case 1:
+                        throw new FormatException("Input appears to be a binary file.");
                 }
 
                 foreach(string line in reader.ReadToEnd().Split(new string[]{ NewLineReal }, StringSplitOptions.RemoveEmptyEntries)){
@@ -93,6 +100,13 @@ namespace TweetDuck.Data.Serialization{
                     throw new SerializationException($"Invalid file format, unknown properties: {string.Join(", ", unknownProperties.Keys)}");
                 }
             }
+        }
+
+        public void ReadIfExists(string file, T obj){
+            try{
+                Read(file, obj);
+            }catch(FileNotFoundException){
+            }catch(DirectoryNotFoundException){}
         }
 
         private sealed class BasicTypeConverter : ITypeConverter{

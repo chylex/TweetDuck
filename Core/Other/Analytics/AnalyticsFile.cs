@@ -1,6 +1,4 @@
 ﻿using System;
-using System.IO;
-using TweetDuck.Core.Utils;
 using TweetDuck.Data.Serialization;
 
 namespace TweetDuck.Core.Other.Analytics{
@@ -30,7 +28,6 @@ namespace TweetDuck.Core.Other.Analytics{
 
         public bool Save(){
             try{
-                WindowsUtils.CreateDirectoryForFile(file);
                 Serializer.Write(file, this);
                 return true;
             }catch(Exception e){
@@ -43,9 +40,7 @@ namespace TweetDuck.Core.Other.Analytics{
             AnalyticsFile config = new AnalyticsFile(file);
             
             try{
-                Serializer.Read(file, config);
-            }catch(FileNotFoundException){
-            }catch(DirectoryNotFoundException){
+                Serializer.ReadIfExists(file, config);
             }catch(Exception e){
                 Program.Reporter.HandleException("Analytics File Error", "Could not open the analytics file.", true, e);
             }
