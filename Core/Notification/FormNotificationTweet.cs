@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using TweetDuck.Plugins;
 using System.Windows.Forms;
+using TweetDuck.Core.Other.Analytics;
 using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Notification{
@@ -93,6 +94,7 @@ namespace TweetDuck.Core.Notification{
             }
 
             needsTrim |= tweetQueue.Count >= TrimMinimum;
+            TriggerAnalyticsEvent(AnalyticsFile.Event.DesktopNotification);
         }
 
         public override void HideNotification(){

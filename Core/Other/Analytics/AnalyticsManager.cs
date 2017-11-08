@@ -11,22 +11,24 @@ namespace TweetDuck.Core.Other.Analytics{
         private static readonly TimeSpan CollectionInterval = TimeSpan.FromDays(7);
         private static readonly Uri CollectionUrl = new Uri("https://tweetduck.chylex.com/breadcrumb/report");
         
-        public string LastCollectionMessage => file.LastCollectionMessage;
-        
+        public AnalyticsFile File { get; }
+
         private readonly FormBrowser browser;
         private readonly PluginManager plugins;
-        private readonly AnalyticsFile file;
-        private readonly Timer currentTimer;
+        private readonly Timer currentTimer, saveTimer;
 
         public AnalyticsManager(FormBrowser browser, PluginManager plugins, string file){
             this.browser = browser;
             this.plugins = plugins;
-            this.file = AnalyticsFile.Load(file);
+            this.File = AnalyticsFile.Load(file);
 
             this.currentTimer = new Timer{ SynchronizingObject = browser };
             this.currentTimer.Elapsed += currentTimer_Elapsed;
 
-            if (this.file.LastCollectionVersion != Program.VersionTag){
+            this.saveTimer = new Timer{ SynchronizingObject = browser, Interval = 60000 };
+            this.saveTimer.Elapsed += saveTimer_Elapsed;
+
+            if (this.File.LastCollectionVersion != Program.VersionTag){
                 ScheduleReportIn(TimeSpan.FromHours(12), string.Empty);
             }
             else{
@@ -35,7 +37,22 @@ namespace TweetDuck.Core.Other.Analytics{
         }
 
         public void Dispose(){
+            if (saveTimer.Enabled){
+                File.Save();
+            }
+
             currentTimer.Dispose();
+            saveTimer.Dispose();
+        }
+
+        public void TriggerEvent(AnalyticsFile.Event e){
+            File.TriggerEvent(e);
+            saveTimer.Enabled = true;
+        }
+
+        private void saveTimer_Elapsed(object sender, ElapsedEventArgs e){
+            saveTimer.Stop();
+            File.Save();
         }
 
         private void ScheduleReportIn(TimeSpan delay, string message = null){
@@ -43,16 +60,16 @@ namespace TweetDuck.Core.Other.Analytics{
         }
 
         private void SetLastDataCollectionTime(DateTime dt, string message = null){
-            file.LastDataCollection = new DateTime(dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, 0, dt.Kind);
-            file.LastCollectionVersion = Program.VersionTag;
-            file.LastCollectionMessage = message ?? dt.ToString("g", Program.Culture);
+            File.LastDataCollection = new DateTime(dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, 0, dt.Kind);
+            File.LastCollectionVersion = Program.VersionTag;
+            File.LastCollectionMessage = message ?? dt.ToString("g", Program.Culture);
 
-            file.Save();
+            File.Save();
             RestartTimer();
         }
 
         private void RestartTimer(){
-            TimeSpan diff = DateTime.Now.Subtract(file.LastDataCollection);
+            TimeSpan diff = DateTime.Now.Subtract(File.LastDataCollection);
             int minutesTillNext = (int)(CollectionInterval.TotalMinutes-Math.Floor(diff.TotalMinutes));
             
             currentTimer.Interval = Math.Max(minutesTillNext, 1)*60000;
@@ -62,7 +79,7 @@ namespace TweetDuck.Core.Other.Analytics{
         private void currentTimer_Elapsed(object sender, ElapsedEventArgs e){
             currentTimer.Stop();
 
-            TimeSpan diff = DateTime.Now.Subtract(file.LastDataCollection);
+            TimeSpan diff = DateTime.Now.Subtract(File.LastDataCollection);
             
             if (Math.Floor(diff.TotalMinutes) >= CollectionInterval.TotalMinutes){
                 SendReport();
@@ -76,7 +93,7 @@ namespace TweetDuck.Core.Other.Analytics{
             AnalyticsReportGenerator.ExternalInfo info = AnalyticsReportGenerator.ExternalInfo.From(browser);
 
             Task.Factory.StartNew(() => {
-                AnalyticsReport report = AnalyticsReportGenerator.Create(info, plugins);
+                AnalyticsReport report = AnalyticsReportGenerator.Create(File, info, plugins);
                 BrowserUtils.CreateWebClient().UploadValues(CollectionUrl, "POST", report.ToNameValueCollection());
             }).ContinueWith(task => browser.InvokeAsyncSafe(() => {
                 if (task.Status == TaskStatus.RanToCompletion){

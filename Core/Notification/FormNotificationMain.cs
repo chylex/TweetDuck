@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling;
+using TweetDuck.Core.Other.Analytics;
 using TweetDuck.Core.Utils;
 using TweetDuck.Data;
 using TweetDuck.Plugins;
@@ -127,6 +128,7 @@ namespace TweetDuck.Core.Notification{
                     }
                     
                     blockXButtonUp = true;
+                    this.InvokeAsyncSafe(() => TriggerAnalyticsEvent(AnalyticsFile.Event.NotificationExtraMouseButton));
                     return NativeMethods.HOOK_HANDLED;
                 }
                 else if (eventType == NativeMethods.WM_XBUTTONUP && blockXButtonUp){

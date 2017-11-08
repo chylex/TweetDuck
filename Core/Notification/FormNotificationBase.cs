@@ -8,6 +8,7 @@ using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling;
 using TweetDuck.Core.Handling.General;
+using TweetDuck.Core.Other.Analytics;
 using TweetDuck.Core.Other.Management;
 using TweetDuck.Core.Utils;
 
@@ -156,6 +157,10 @@ namespace TweetDuck.Core.Notification{
             }
 
             base.WndProc(ref m);
+        }
+
+        public void TriggerAnalyticsEvent(AnalyticsFile.Event e){
+            owner.TriggerAnalyticsEvent(e);
         }
 
         // event handlers

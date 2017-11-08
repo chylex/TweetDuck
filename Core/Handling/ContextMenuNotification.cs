@@ -1,6 +1,7 @@
 ﻿using CefSharp;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Notification;
+using TweetDuck.Core.Other.Analytics;
 
 namespace TweetDuck.Core.Handling{
     sealed class ContextMenuNotification : ContextMenuBase{
@@ -54,7 +55,10 @@ namespace TweetDuck.Core.Handling{
 
             RemoveSeparatorIfLast(model);
 
-            form.InvokeAsyncSafe(() => form.ContextMenuOpen = true);
+            form.InvokeAsyncSafe(() => {
+                form.ContextMenuOpen = true;
+                form.TriggerAnalyticsEvent(AnalyticsFile.Event.NotificationContextMenu);
+            });
         }
 
         public override bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags){

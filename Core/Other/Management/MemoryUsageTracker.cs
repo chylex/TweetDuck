@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Timers;
-using System.Windows.Forms;
 using CefSharp;
 using CefSharp.WinForms;
+using TweetDuck.Core.Controls;
 using Timer = System.Timers.Timer;
 
 namespace TweetDuck.Core.Other.Management{
@@ -13,7 +13,7 @@ namespace TweetDuck.Core.Other.Management{
 
         private readonly string script;
         private readonly Timer timer;
-        private Form owner;
+        private FormBrowser owner;
         private IBrowser browser;
 
         private long threshold;
@@ -29,7 +29,7 @@ namespace TweetDuck.Core.Other.Management{
         public void Start(ChromiumWebBrowser control, int thresholdMB){
             Stop();
 
-            this.owner = (Form)control.Parent; // TODO ugly
+            this.owner = (FormBrowser)control.Parent; // TODO ugly
             this.browser = control.GetBrowser();
             this.threshold = thresholdMB*1024L*1024L;
             this.timer.SynchronizingObject = owner;
@@ -71,6 +71,7 @@ namespace TweetDuck.Core.Other.Management{
 
                             if (response.Success && (response.Result as bool? ?? false)){
                                 SetNeedsCleanup(false);
+                                owner.InvokeAsyncSafe(() => owner.TriggerAnalyticsEvent(Analytics.AnalyticsFile.Event.GCReload));
                             }
                         });
                     }

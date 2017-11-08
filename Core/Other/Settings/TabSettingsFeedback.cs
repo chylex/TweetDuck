@@ -7,19 +7,21 @@ using TweetDuck.Plugins;
 
 namespace TweetDuck.Core.Other.Settings{
     sealed partial class TabSettingsFeedback : BaseTabSettings{
+        private readonly AnalyticsFile analyticsFile;
         private readonly AnalyticsReportGenerator.ExternalInfo analyticsInfo;
         private readonly PluginManager plugins;
 
         public TabSettingsFeedback(AnalyticsManager analytics, AnalyticsReportGenerator.ExternalInfo analyticsInfo, PluginManager plugins){
             InitializeComponent();
             
+            this.analyticsFile = analytics?.File ?? AnalyticsFile.Load(Program.AnalyticsFilePath);
             this.analyticsInfo = analyticsInfo;
             this.plugins = plugins;
 
             checkDataCollection.Checked = Config.AllowDataCollection;
 
             if (analytics != null){
-                string collectionTime = analytics.LastCollectionMessage;
+                string collectionTime = analyticsFile.LastCollectionMessage;
                 labelDataCollectionMessage.Text = string.IsNullOrEmpty(collectionTime) ? "No collection yet" : "Last collection: "+collectionTime;
             }
         }
@@ -44,7 +46,7 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void btnViewReport_Click(object sender, EventArgs e){
-            using(DialogSettingsAnalytics dialog = new DialogSettingsAnalytics(AnalyticsReportGenerator.Create(analyticsInfo, plugins))){
+            using(DialogSettingsAnalytics dialog = new DialogSettingsAnalytics(AnalyticsReportGenerator.Create(analyticsFile, analyticsInfo, plugins))){
                 dialog.ShowDialog();
             }
         }

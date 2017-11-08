@@ -14,7 +14,7 @@ using TweetDuck.Plugins;
 
 namespace TweetDuck.Core.Other.Analytics{
     static class AnalyticsReportGenerator{
-        public static AnalyticsReport Create(ExternalInfo info, PluginManager plugins){
+        public static AnalyticsReport Create(AnalyticsFile file, ExternalInfo info, PluginManager plugins){
             Dictionary<string, string> editLayoutDesign = EditLayoutDesignPluginData;
 
             return new AnalyticsReport{
@@ -84,6 +84,22 @@ namespace TweetDuck.Core.Other.Analytics{
                 { "Optimize Animations" , Dict(editLayoutDesign, "optimizeAnimations",      "true/def") },
                 { "Reply Account Mode"  , ReplyAccountConfigFromPlugin },
                 { "Template Count"      , Exact(TemplateCountFromPlugin) },
+                0,
+                { "Opened Options"                   , LogRound(file.CountOpenOptions, 4) },
+                { "Opened Plugins"                   , LogRound(file.CountOpenPlugins, 4) },
+                { "Opened About"                     , LogRound(file.CountOpenAbout, 4) },
+                { "Opened Guide"                     , LogRound(file.CountOpenGuide, 4) },
+                { "Desktop Notifications"            , LogRound(file.CountDesktopNotifications, 5) },
+                { "Sound Notifications"              , LogRound(file.CountSoundNotifications, 5) },
+                { "Browser Context Menus"            , LogRound(file.CountBrowserContextMenus, 2) },
+                { "Browser Extra Mouse Buttons"      , LogRound(file.CountBrowserExtraMouseButtons, 2) },
+                { "Notification Context Menus"       , LogRound(file.CountNotificationContextMenus, 2) },
+                { "Notification Extra Mouse Buttons" , LogRound(file.CountNotificationExtraMouseButtons, 2) },
+                { "Notification Keyboard Shortcuts"  , LogRound(file.CountNotificationKeyboardShortcuts, 2) },
+                { "Tweet Screenshots"                , LogRound(file.CountTweetScreenshots, 2) },
+                { "Tweet Details"                    , LogRound(file.CountTweetDetails, 2) },
+                { "Video Plays"                      , LogRound(file.CountVideoPlays, 4) },
+                { "GC Reloads"                       , LogRound(file.CountGCReloads, 4) }
             }.FinalizeReport();
         }
 
@@ -93,6 +109,7 @@ namespace TweetDuck.Core.Other.Analytics{
         private static string Bool(bool value) => value ? "on" : "off";
         private static string Exact(int value) => value.ToString();
         private static string RoundUp(int value, int multiple) => (multiple*(int)Math.Ceiling((double)value/multiple)).ToString();
+        private static string LogRound(int value, int logBase) => (value <= 0 ? 0 : (int)Math.Pow(logBase, Math.Floor(Math.Log(value, logBase)))).ToString();
         private static string Dict(Dictionary<string, string> dict, string key, string def = "(unknown)") => dict.TryGetValue(key, out string value) ? value : def;
         private static string List(IEnumerable<string> list) => string.Join("|", list.DefaultIfEmpty("(none)"));
 

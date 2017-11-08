@@ -6,6 +6,7 @@ using CefSharp.WinForms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling;
 using TweetDuck.Core.Handling.General;
+using TweetDuck.Core.Other.Analytics;
 using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Other{
@@ -24,6 +25,8 @@ namespace TweetDuck.Core.Other{
             if (owner != null){
                 Size = new Size(owner.Size.Width*3/4, owner.Size.Height*3/4);
                 VisibleChanged += (sender, args) => this.MoveToCenter(owner);
+
+                owner.TriggerAnalyticsEvent(AnalyticsFile.Event.OpenGuide);
             }
             
             this.browser = new ChromiumWebBrowser(GuideUrl){

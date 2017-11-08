@@ -319,6 +319,7 @@ namespace TweetDuck.Core{
                 }
                 else{
                     browser.OnMouseClickExtra(m.WParam);
+                    TriggerAnalyticsEvent(AnalyticsFile.Event.BrowserExtraMouseButton);
                 }
 
                 return;
@@ -327,7 +328,7 @@ namespace TweetDuck.Core{
             base.WndProc(ref m);
         }
 
-        // notification helpers
+        // bridge methods
 
         public void PauseNotification(){
             notification.PauseNotification();
@@ -336,9 +337,7 @@ namespace TweetDuck.Core{
         public void ResumeNotification(){
             notification.ResumeNotification();
         }
-
-        // browser bridge methods
-
+        
         public void ReinjectCustomCSS(string css){
             browser.ReinjectCustomCSS(css);
         }
@@ -353,6 +352,10 @@ namespace TweetDuck.Core{
 
         public void ApplyROT13(){
             browser.ApplyROT13();
+        }
+
+        public void TriggerAnalyticsEvent(AnalyticsFile.Event e){
+            analytics?.TriggerEvent(e);
         }
 
         // callback handlers
@@ -423,19 +426,22 @@ namespace TweetDuck.Core{
                     notification.RequiresResize = true;
                     form.Dispose();
                 };
-
+                
+                TriggerAnalyticsEvent(AnalyticsFile.Event.OpenOptions);
                 ShowChildForm(form);
             }
         }
 
         public void OpenAbout(){
             if (!FormManager.TryBringToFront<FormAbout>()){
+                TriggerAnalyticsEvent(AnalyticsFile.Event.OpenAbout);
                 ShowChildForm(new FormAbout());
             }
         }
 
         public void OpenPlugins(){
             if (!FormManager.TryBringToFront<FormPlugins>()){
+                TriggerAnalyticsEvent(AnalyticsFile.Event.OpenPlugins);
                 ShowChildForm(new FormPlugins(plugins));
             }
         }
@@ -458,6 +464,8 @@ namespace TweetDuck.Core{
 
             soundNotification.SetVolume(Config.NotificationSoundVolume);
             soundNotification.Play(Config.NotificationSoundPath);
+
+            TriggerAnalyticsEvent(AnalyticsFile.Event.SoundNotification);
         }
 
         public void PlayVideo(string url, string username){
@@ -475,6 +483,7 @@ namespace TweetDuck.Core{
             }
             
             videoPlayer.Launch(url, username);
+            TriggerAnalyticsEvent(AnalyticsFile.Event.VideoPlay);
         }
 
         public bool ProcessBrowserKey(Keys key){
@@ -496,6 +505,7 @@ namespace TweetDuck.Core{
 
             notification.FinishCurrentNotification();
             browser.ShowTweetDetail(columnId, chirpId, fallbackUrl);
+            TriggerAnalyticsEvent(AnalyticsFile.Event.TweetDetail);
         }
 
         public void OnTweetScreenshotReady(string html, int width, int height){
@@ -504,6 +514,7 @@ namespace TweetDuck.Core{
             }
 
             notificationScreenshotManager.Trigger(html, width, height);
+            TriggerAnalyticsEvent(AnalyticsFile.Event.TweetScreenshot);
         }
 
         public void DisplayTooltip(string text){
