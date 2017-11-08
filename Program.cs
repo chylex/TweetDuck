@@ -69,6 +69,7 @@ namespace TweetDuck{
         private static void Main(){
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Cef.EnableHighDPISupport();
             
             WindowRestoreMessage = NativeMethods.RegisterWindowMessage("TweetDuckRestore");
             SubProcessMessage = NativeMethods.RegisterWindowMessage("TweetDuckSubProcess");
@@ -145,7 +146,6 @@ namespace TweetDuck{
             CommandLineArgs.ReadCefArguments(UserConfig.CustomCefArgs).ToDictionary(settings.CefCommandLineArgs);
             BrowserUtils.SetupCefArgs(settings.CefCommandLineArgs);
             
-            Cef.EnableHighDPISupport();
             Cef.Initialize(settings, false, new BrowserProcessHandler());
 
             Application.ApplicationExit += (sender, args) => ExitCleanup();
