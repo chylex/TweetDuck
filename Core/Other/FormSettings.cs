@@ -62,12 +62,16 @@ namespace TweetDuck.Core.Other{
             currentTab.Control.OnClosing();
 
             using(DialogSettingsManage dialog = new DialogSettingsManage(plugins)){
+                FormClosing -= FormSettings_FormClosing;
+
                 if (dialog.ShowDialog() == DialogResult.OK){
-                    FormClosing -= FormSettings_FormClosing;
                     browser.ResumeNotification();
 
                     ShouldReloadBrowser = dialog.ShouldReloadBrowser;
                     Close();
+                }
+                else{
+                    FormClosing += FormSettings_FormClosing;
                 }
             }
         }
