@@ -11,7 +11,7 @@ using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Other{
     sealed partial class FormGuide : Form{
-        private const string GuideUrl = "https://tweetduck.chylex.com/guide/v1/";
+        private const string GuideUrl = "https://tweetduck.chylex.com/guide/v2/";
 
         private readonly ChromiumWebBrowser browser;
 
