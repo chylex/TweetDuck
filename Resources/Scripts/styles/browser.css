@@ -129,11 +129,6 @@ a[data-full-url] {
   word-break: break-all;
 }
 
-.character-count-compose {
-  /* fix strangely wide character count element */
-  width: 40px !important;
-}
-
 .is-video a:not([href*='youtu']) .icon-bg-dot, .is-gif .icon-bg-dot {
   /* change play icon on mp4s */
   color: #9f51cf;
