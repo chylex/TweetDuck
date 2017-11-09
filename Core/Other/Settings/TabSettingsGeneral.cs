@@ -1,5 +1,6 @@
 ﻿using System;
 using TweetDuck.Core.Controls;
+using TweetDuck.Core.Handling.General;
 using TweetDuck.Updates;
 
 namespace TweetDuck.Core.Other.Settings{
@@ -61,7 +62,7 @@ namespace TweetDuck.Core.Other.Settings{
 
         private void checkSpellCheck_CheckedChanged(object sender, EventArgs e){
             Config.EnableSpellCheck = checkSpellCheck.Checked;
-            PromptRestart();
+            BrowserProcessHandler.UpdatePrefs();
         }
 
         private void trackBarZoom_ValueChanged(object sender, EventArgs e){

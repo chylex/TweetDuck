@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
+using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Notification.Example;
 using TweetDuck.Core.Other.Analytics;
 using TweetDuck.Core.Other.Settings;
@@ -66,7 +67,8 @@ namespace TweetDuck.Core.Other{
 
                 if (dialog.ShowDialog() == DialogResult.OK){
                     browser.ResumeNotification();
-
+                    
+                    BrowserProcessHandler.UpdatePrefs();
                     ShouldReloadBrowser = dialog.ShouldReloadBrowser;
                     Close();
                 }
