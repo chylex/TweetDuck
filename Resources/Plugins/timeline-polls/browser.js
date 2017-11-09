@@ -1,8 +1,4 @@
 enabled(){
-  this.reloadColumns = () => {
-    Object.values(TD.controller.columnManager.getAll()).forEach(column => column.reloadTweets());
-  };
-  
   // styles
   
   this.css = window.TDPF_createCustomStyle(this);
@@ -10,17 +6,17 @@ enabled(){
   
   // utility functions
   
-  var hasPoll = function(tweet){
+  const hasPoll = function(tweet){
     return tweet.hasPoll && tweet.hasPoll();
   };
   
-  var renderTweetPoll = function(tweet){
+  const renderTweetPoll = function(tweet){
     return `<div class='td-timeline-poll'>${TD.ui.template.render("status/poll", $.extend({}, tweet, {
       chirp: tweet
     }))}</div>`;
   };
   
-  var renderPollHook = function(tweet, html){
+  const renderPollHook = function(tweet, html){
     let ele = null;
     
     if (hasPoll(tweet)){
@@ -67,7 +63,7 @@ enabled(){
   };
   
   this.prevRenderFuncs = funcs;
-  this.reloadColumns();
+  window.TDPF_reloadColumns();
 }
 
 disabled(){
@@ -76,5 +72,5 @@ disabled(){
   TD.components.TweetDetailView.prototype._renderChirp = this.prevRenderFuncs.TweetDetailView;
   
   this.css.remove();
-  this.reloadColumns();
+  window.TDPF_reloadColumns();
 }

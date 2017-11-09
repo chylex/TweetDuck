@@ -231,6 +231,10 @@ namespace TweetDuck.Core{
             browser.ExecuteScriptAsync("TDGF_triggerScreenshot()");
         }
 
+        public void ReloadColumns(){
+            browser.ExecuteScriptAsync("TDGF_reloadColumns()");
+        }
+
         public void ApplyROT13(){
             browser.ExecuteScriptAsync("TDGF_applyROT13()");
         }

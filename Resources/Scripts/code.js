@@ -1117,6 +1117,13 @@
   });
   
   //
+  // Block: Setup global function to refresh all columns.
+  //
+  window.TDGF_reloadColumns = function(){
+    Object.values(TD.controller.columnManager.getAll()).forEach(column => column.reloadTweets());
+  };
+  
+  //
   // Block: Allow applying ROT13 to input selection.
   //
   window.TDGF_applyROT13 = function(){

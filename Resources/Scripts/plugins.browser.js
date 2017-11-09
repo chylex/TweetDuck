@@ -107,5 +107,6 @@
   // Block: Setup bridges to global functions.
   //
   window.TDPF_playVideo = window.TDGF_playVideo;
+  window.TDPF_reloadColumns = window.TDGF_reloadColumns;
   window.TDPF_prioritizeNewestEvent = window.TDGF_prioritizeNewestEvent;
 })();

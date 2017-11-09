@@ -350,6 +350,10 @@ namespace TweetDuck.Core{
             browser.TriggerTweetScreenshot();
         }
 
+        public void ReloadColumns(){
+            browser.ReloadColumns();
+        }
+
         public void ApplyROT13(){
             browser.ApplyROT13();
         }
