@@ -31,7 +31,7 @@ namespace TweetDuck.Core.Utils{
                 args["disable-gpu-vsync"] = "1";
             }
             
-            args["disable-extensions"] = "1";
+            args["disable-pdf-extension"] = "1";
             args["disable-plugins-discovery"] = "1";
             args["enable-system-flash"] = "0";
 

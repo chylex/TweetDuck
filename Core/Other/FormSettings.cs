@@ -36,7 +36,7 @@ namespace TweetDuck.Core.Other{
             
             this.buttonHeight = BrowserUtils.Scale(39, this.GetDPIScale()) | 1;
 
-            AddButton("General", () => new TabSettingsGeneral(updates));
+            AddButton("General", () => new TabSettingsGeneral(this.browser, updates));
             AddButton("System Tray", () => new TabSettingsTray());
             AddButton("Notifications", () => new TabSettingsNotifications(new FormNotificationExample(this.browser, this.plugins)));
             AddButton("Sounds", () => new TabSettingsSounds());

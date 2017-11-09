@@ -5,11 +5,14 @@ using TweetDuck.Updates;
 
 namespace TweetDuck.Core.Other.Settings{
     sealed partial class TabSettingsGeneral : BaseTabSettings{
+        private readonly FormBrowser browser;
         private readonly UpdateHandler updates;
         private int updateCheckEventId = -1;
 
-        public TabSettingsGeneral(UpdateHandler updates){
+        public TabSettingsGeneral(FormBrowser browser, UpdateHandler updates){
             InitializeComponent();
+
+            this.browser = browser;
 
             this.updates = updates;
             this.updates.CheckFinished += updates_CheckFinished;
@@ -23,6 +26,7 @@ namespace TweetDuck.Core.Other.Settings{
             checkSwitchAccountSelectors.Checked = Config.SwitchAccountSelectors;
             checkOpenSearchInFirstColumn.Checked = Config.OpenSearchInFirstColumn;
             checkBestImageQuality.Checked = Config.BestImageQuality;
+            checkAnimatedAvatars.Checked = Config.EnableAnimatedImages;
             checkSpellCheck.Checked = Config.EnableSpellCheck;
 
             checkUpdateNotifications.Checked = Config.EnableUpdateCheck;
@@ -33,6 +37,7 @@ namespace TweetDuck.Core.Other.Settings{
             checkSwitchAccountSelectors.CheckedChanged += checkSwitchAccountSelectors_CheckedChanged;
             checkOpenSearchInFirstColumn.CheckedChanged += checkOpenSearchInFirstColumn_CheckedChanged;
             checkBestImageQuality.CheckedChanged += checkBestImageQuality_CheckedChanged;
+            checkAnimatedAvatars.CheckedChanged += checkAnimatedAvatars_CheckedChanged;
             checkSpellCheck.CheckedChanged += checkSpellCheck_CheckedChanged;
             trackBarZoom.ValueChanged += trackBarZoom_ValueChanged;
 
@@ -58,6 +63,11 @@ namespace TweetDuck.Core.Other.Settings{
 
         private void checkBestImageQuality_CheckedChanged(object sender, EventArgs e){
             Config.BestImageQuality = checkBestImageQuality.Checked;
+        }
+
+        private void checkAnimatedAvatars_CheckedChanged(object sender, EventArgs e){
+            Config.EnableAnimatedImages = checkAnimatedAvatars.Checked;
+            BrowserProcessHandler.UpdatePrefs().ContinueWith(task => browser.ReloadColumns());
         }
 
         private void checkSpellCheck_CheckedChanged(object sender, EventArgs e){

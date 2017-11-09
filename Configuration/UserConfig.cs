@@ -45,6 +45,7 @@ namespace TweetDuck.Configuration{
         public bool SwitchAccountSelectors  { get; set; } = true;
         public bool OpenSearchInFirstColumn { get; set; } = true;
         public bool BestImageQuality        { get; set; } = true;
+        public bool EnableAnimatedImages    { get; set; } = true;
         public bool EnableSpellCheck        { get; set; } = false;
         public int VideoPlayerVolume        { get; set; } = 50;
         private int _zoomLevel                            = 100;

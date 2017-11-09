@@ -40,6 +40,7 @@
             this.panelUI = new System.Windows.Forms.Panel();
             this.panelUpdates = new System.Windows.Forms.Panel();
             this.labelUpdates = new System.Windows.Forms.Label();
+            this.checkAnimatedAvatars = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).BeginInit();
             this.panelUI.SuspendLayout();
             this.panelUpdates.SuspendLayout();
@@ -60,11 +61,11 @@
             // checkSpellCheck
             // 
             this.checkSpellCheck.AutoSize = true;
-            this.checkSpellCheck.Location = new System.Drawing.Point(6, 97);
+            this.checkSpellCheck.Location = new System.Drawing.Point(6, 120);
             this.checkSpellCheck.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.checkSpellCheck.Name = "checkSpellCheck";
             this.checkSpellCheck.Size = new System.Drawing.Size(119, 17);
-            this.checkSpellCheck.TabIndex = 4;
+            this.checkSpellCheck.TabIndex = 5;
             this.checkSpellCheck.Text = "Enable Spell Check";
             this.toolTip.SetToolTip(this.checkSpellCheck, "Underlines words that are spelled incorrectly.");
             this.checkSpellCheck.UseVisualStyleBackColor = true;
@@ -95,11 +96,11 @@
             // labelZoomValue
             // 
             this.labelZoomValue.BackColor = System.Drawing.Color.Transparent;
-            this.labelZoomValue.Location = new System.Drawing.Point(147, 146);
+            this.labelZoomValue.Location = new System.Drawing.Point(147, 169);
             this.labelZoomValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelZoomValue.Name = "labelZoomValue";
             this.labelZoomValue.Size = new System.Drawing.Size(38, 13);
-            this.labelZoomValue.TabIndex = 7;
+            this.labelZoomValue.TabIndex = 8;
             this.labelZoomValue.Text = "100%";
             this.labelZoomValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.toolTip.SetToolTip(this.labelZoomValue, "Changes the zoom level.\r\nAlso affects notifications and screenshots.");
@@ -145,24 +146,24 @@
             this.trackBarZoom.AutoSize = false;
             this.trackBarZoom.BackColor = System.Drawing.SystemColors.Control;
             this.trackBarZoom.LargeChange = 25;
-            this.trackBarZoom.Location = new System.Drawing.Point(3, 145);
+            this.trackBarZoom.Location = new System.Drawing.Point(3, 168);
             this.trackBarZoom.Maximum = 200;
             this.trackBarZoom.Minimum = 50;
             this.trackBarZoom.Name = "trackBarZoom";
             this.trackBarZoom.Size = new System.Drawing.Size(148, 30);
             this.trackBarZoom.SmallChange = 5;
-            this.trackBarZoom.TabIndex = 6;
+            this.trackBarZoom.TabIndex = 7;
             this.trackBarZoom.TickFrequency = 25;
             this.trackBarZoom.Value = 100;
             // 
             // labelZoom
             // 
             this.labelZoom.AutoSize = true;
-            this.labelZoom.Location = new System.Drawing.Point(3, 129);
+            this.labelZoom.Location = new System.Drawing.Point(3, 152);
             this.labelZoom.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelZoom.Name = "labelZoom";
             this.labelZoom.Size = new System.Drawing.Size(34, 13);
-            this.labelZoom.TabIndex = 5;
+            this.labelZoom.TabIndex = 6;
             this.labelZoom.Text = "Zoom";
             // 
             // zoomUpdateTimer
@@ -185,6 +186,7 @@
             // 
             this.panelUI.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelUI.Controls.Add(this.checkAnimatedAvatars);
             this.panelUI.Controls.Add(this.checkOpenSearchInFirstColumn);
             this.panelUI.Controls.Add(this.checkBestImageQuality);
             this.panelUI.Controls.Add(this.checkExpandLinks);
@@ -195,7 +197,7 @@
             this.panelUI.Controls.Add(this.labelZoomValue);
             this.panelUI.Location = new System.Drawing.Point(9, 31);
             this.panelUI.Name = "panelUI";
-            this.panelUI.Size = new System.Drawing.Size(322, 179);
+            this.panelUI.Size = new System.Drawing.Size(322, 205);
             this.panelUI.TabIndex = 1;
             // 
             // panelUpdates
@@ -204,7 +206,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelUpdates.Controls.Add(this.checkUpdateNotifications);
             this.panelUpdates.Controls.Add(this.btnCheckUpdates);
-            this.panelUpdates.Location = new System.Drawing.Point(9, 257);
+            this.panelUpdates.Location = new System.Drawing.Point(8, 283);
             this.panelUpdates.Name = "panelUpdates";
             this.panelUpdates.Size = new System.Drawing.Size(322, 55);
             this.panelUpdates.TabIndex = 3;
@@ -213,12 +215,24 @@
             // 
             this.labelUpdates.AutoSize = true;
             this.labelUpdates.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelUpdates.Location = new System.Drawing.Point(6, 234);
+            this.labelUpdates.Location = new System.Drawing.Point(5, 260);
             this.labelUpdates.Margin = new System.Windows.Forms.Padding(0, 21, 0, 0);
             this.labelUpdates.Name = "labelUpdates";
             this.labelUpdates.Size = new System.Drawing.Size(70, 20);
             this.labelUpdates.TabIndex = 2;
             this.labelUpdates.Text = "Updates";
+            // 
+            // checkAnimatedAvatars
+            // 
+            this.checkAnimatedAvatars.AutoSize = true;
+            this.checkAnimatedAvatars.Location = new System.Drawing.Point(6, 97);
+            this.checkAnimatedAvatars.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
+            this.checkAnimatedAvatars.Name = "checkAnimatedAvatars";
+            this.checkAnimatedAvatars.Size = new System.Drawing.Size(145, 17);
+            this.checkAnimatedAvatars.TabIndex = 4;
+            this.checkAnimatedAvatars.Text = "Enable Animated Avatars";
+            this.toolTip.SetToolTip(this.checkAnimatedAvatars, "Some old Twitter avatars could be uploaded as animated GIFs.");
+            this.checkAnimatedAvatars.UseVisualStyleBackColor = true;
             // 
             // TabSettingsGeneral
             // 
@@ -229,7 +243,7 @@
             this.Controls.Add(this.panelUI);
             this.Controls.Add(this.labelUI);
             this.Name = "TabSettingsGeneral";
-            this.Size = new System.Drawing.Size(340, 322);
+            this.Size = new System.Drawing.Size(340, 348);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).EndInit();
             this.panelUI.ResumeLayout(false);
             this.panelUI.PerformLayout();
@@ -258,5 +272,6 @@
         private System.Windows.Forms.Label labelUpdates;
         private System.Windows.Forms.CheckBox checkBestImageQuality;
         private System.Windows.Forms.CheckBox checkOpenSearchInFirstColumn;
+        private System.Windows.Forms.CheckBox checkAnimatedAvatars;
     }
 }
