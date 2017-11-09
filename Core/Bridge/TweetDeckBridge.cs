@@ -148,13 +148,9 @@ namespace TweetDuck.Core.Bridge{
 
         public void CrashDebug(string message){
             #if DEBUG
-            Log(message);
+            System.Diagnostics.Debug.WriteLine(message);
             System.Diagnostics.Debugger.Break();
             #endif
-        }
-
-        public void Log(string data){
-            System.Diagnostics.Debug.WriteLine(data);
         }
     }
 }
