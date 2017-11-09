@@ -128,7 +128,7 @@
     };
     
     let fixMedia = (html, media) => {
-      return html.find(".js-media a[data-media-entity-id='"+media.mediaId+"']").css("background-image", 'url("'+media.thumb()+'")').removeClass("is-zoomable");
+      return html.find(".js-media a[data-media-entity-id='"+media.mediaId+"']").css("background-image", 'url("'+media.small()+'")').removeClass("is-zoomable");
     };
     
     return function(column, tweet){
