@@ -261,7 +261,8 @@ namespace TweetDuck.Video{
             timerSync.Stop();
             Visible = false;
             pipe.Write("rip");
-
+            
+            Player.close();
             Close();
         }
 
