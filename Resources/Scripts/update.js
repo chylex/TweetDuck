@@ -46,25 +46,25 @@
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
 
-.tdu-title {
+#tweetduck-update .tdu-title {
   font-size: 15px;
   font-weight: bold;
   margin: 8px 0 2px;
   cursor: default;
 }
 
-.tdu-info {
+#tweetduck-update .tdu-info {
   display: inline-block;
   font-size: 14px;
   margin: 3px 0;
 }
 
-.tdu-showlog {
+#tweetduck-update .tdu-showlog {
   text-decoration: underline;
   cursor: pointer;
 }
 
-.tdu-buttons button {
+#tweetduck-update .tdu-buttons button {
   display: block;
   margin: 7px auto 0;
   padding: 4px 10px;
@@ -81,12 +81,12 @@
   transition: box-shadow 0.2s ease;
 }
 
-.tdu-buttons button:hover {
+#tweetduck-update .tdu-buttons button:hover {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.75);
   box-shadow: 1px 1px 1px rgba(17, 17, 17, 0.75), 0 -2px 0 rgba(17, 17, 17, 0.33) inset !important;
 }
 
-.tdu-buttons button.tdu-btn-ignore, .tdu-buttons button.tdu-btn-later {
+#tweetduck-update .tdu-buttons button.tdu-btn-ignore, .tdu-buttons button.tdu-btn-later {
   background-color: #607a8e;
   color: #dfdfdf;
 }
