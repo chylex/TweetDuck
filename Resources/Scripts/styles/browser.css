@@ -3,23 +3,23 @@
 /***********************/
 
 .scroll-styled-v::-webkit-scrollbar-thumb, .scroll-styled-h::-webkit-scrollbar-thumb, .antiscroll-scrollbar {
-  border-radius: 0;
+  border-radius: 0 !important;
 }
 
 .antiscroll-scrollbar-vertical {
-  margin-top: 0;
+  margin-top: 0 !important;
 }
 
 .antiscroll-scrollbar-horizontal {
-  margin-left: 0;
+  margin-left: 0 !important;
 }
 
 .scroll-styled-v:not(.antiscroll-inner)::-webkit-scrollbar {
-  width: 8px;
+  width: 8px !important;
 }
 
 .scroll-styled-h:not(.antiscroll-inner)::-webkit-scrollbar {
-  height: 8px;
+  height: 8px !important;
 }
 
 .app-columns-container::-webkit-scrollbar {
@@ -27,7 +27,7 @@
 }
 
 .app-columns-container::-webkit-scrollbar-track {
-  border-left: 0;
+  border-left: 0 !important;
 }
 
 .app-columns-container {
@@ -87,7 +87,7 @@
 }
 
 .app-header:not(.is-condensed) .nav-user-info {
-  padding: 0 5px;
+  padding: 0 5px !important;
 }
 
 /****************************************/
@@ -96,11 +96,11 @@
 
 .activity-header {
   align-items: center !important;
-  margin-bottom: 4px;
+  margin-bottom: 4px !important;
 }
 
 .activity-header .tweet-timestamp {
-  line-height: unset;
+  line-height: unset !important;
 }
 
 .account-bio.padding-t--5 {
@@ -126,12 +126,12 @@ html[data-td-theme='dark'] .stream-item:not(:hover) .js-user-actions-menu {
 
 a[data-full-url] {
   /* break long urls */
-  word-break: break-all;
+  word-break: break-all !important;
 }
 
 .is-video a:not([href*='youtu']) .icon-bg-dot, .is-gif .icon-bg-dot {
   /* change play icon on mp4s */
-  color: #9f51cf;
+  color: #9f51cf !important;
 }
 
 /***************************************/
@@ -147,7 +147,7 @@ a[data-full-url] {
 }
 
 .js-docked-compose footer {
-  display: none;
+  display: none !important;
 }
 
 .compose-content {
@@ -160,7 +160,7 @@ a[data-full-url] {
 
 .account-inline .username {
   /* move usernames a bit higher */
-  vertical-align: 10%;
+  vertical-align: 10% !important;
 }
 
 html[data-td-font='smallest'] .sprite-verified-mini {
@@ -184,7 +184,7 @@ html[data-td-font='smallest'] .badge-verified:before {
 
 .keyboard-shortcut-list {
   /* fix keyboard navigation alignment */
-  vertical-align: top;
+  vertical-align: top !important;
 }
 
 .tweet-detail-wrapper .js-media-gif-container {
@@ -194,7 +194,7 @@ html[data-td-font='smallest'] .badge-verified:before {
 
 .is-inverted-dark .inline-reply .btn:hover {
   /* Reply buttons in modals are bork */
-  background-color: transparent;
+  background-color: transparent !important;
 }
 
 /***************************************************************/
@@ -203,10 +203,10 @@ html[data-td-font='smallest'] .badge-verified:before {
 
 .column-nav-link .attribution {
   /* fix cut off account names */
-  position: absolute;
+  position: absolute !important;
 }
 
-.js-docked-compose .js-drawer-close {
+#tduck .js-docked-compose .js-drawer-close {
   /* fix close drawer button position */
   margin: 20px 0 0 !important;
 }
@@ -219,7 +219,7 @@ html[data-td-font='smallest'] .badge-verified:before {
 
 #account-safeguard-checkbox, #inline-account-safeguard-checkbox {
   /* fix "Ready to Tweet/send" alignment with the checkbox */
-  vertical-align: -15%;
+  vertical-align: -15% !important;
 }
 
 /************************************************/
@@ -231,7 +231,7 @@ html[data-td-font='smallest'] .badge-verified:before {
 }
 
 .js-column-header .column-header-link {
-  padding: 0;
+  padding: 0 !important;
 }
 
 .js-column-header .column-header-link .icon {
@@ -250,9 +250,9 @@ html[data-td-font='smallest'] .badge-verified:before {
 }
 
 .column:not(.is-options-open) .column-header {
-  border-bottom: none;
+  border-bottom: none !important;
 }
 
 .is-options-open .column-type-icon {
-  bottom: 27px;
+  bottom: 27px !important;
 }

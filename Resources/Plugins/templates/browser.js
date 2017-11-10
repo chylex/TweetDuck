@@ -50,25 +50,25 @@ enabled(){
   this.css = window.TDPF_createCustomStyle(this);
   this.css.insert(".manage-templates-btn.active { color: #fff; box-shadow: 0 0 2px 3px #50a5e6; outline: 0; }");
   
-  this.css.insert(".templates-modal-wrap { width: 100%; height: 100%; padding: 49px; position: absolute; z-index: 999; box-sizing: border-box; background-color: rgba(0, 0, 0, 0.5); }");
-  this.css.insert(".templates-modal { width: 100%; height: 100%; background-color: #fff; display: flex; }");
-  this.css.insert(".templates-modal > div { display: flex; flex-direction: column; }");
+  this.css.insert("#templates-modal-wrap { width: 100%; height: 100%; padding: 49px; position: absolute; z-index: 999; box-sizing: border-box; background-color: rgba(0, 0, 0, 0.5); }");
+  this.css.insert("#templates-modal { width: 100%; height: 100%; background-color: #fff; display: flex; }");
+  this.css.insert("#templates-modal > div { display: flex; flex-direction: column; }");
   
   this.css.insert(".templates-modal-bottom { flex: 0 0 auto; padding: 16px; }");
-  this.css.insert(".template-list .templates-modal-bottom { display: flex; justify-content: space-between; }");
-  this.css.insert(".template-editor .templates-modal-bottom { text-align: right; }");
+  this.css.insert("#template-list .templates-modal-bottom { display: flex; justify-content: space-between; }");
+  this.css.insert("#template-editor .templates-modal-bottom { text-align: right; }");
   
-  this.css.insert(".template-list { height: 100%; flex: 1 1 auto; }");
-  this.css.insert(".template-list ul { list-style-type: none; font-size: 24px; color: #222; flex: 1 1 auto; padding: 12px; overflow-y: auto; }");
-  this.css.insert(".template-list li { display: block; width: 100%; padding: 4px 8px; box-sizing: border-box; }");
-  this.css.insert(".template-list li[data-template] { cursor: pointer; }");
-  this.css.insert(".template-list li[data-template]:hover { background-color: #d8d8d8; }");
-  this.css.insert(".template-list li span { white-space: nowrap; }");
-  this.css.insert(".template-list li .icon { opacity: 0.6; margin-left: 4px; padding: 3px; }");
-  this.css.insert(".template-list li .icon:hover { opacity: 1; }");
-  this.css.insert(".template-list li .template-actions { float: right; }");
+  this.css.insert("#template-list { height: 100%; flex: 1 1 auto; }");
+  this.css.insert("#template-list ul { list-style-type: none; font-size: 24px; color: #222; flex: 1 1 auto; padding: 12px; overflow-y: auto; }");
+  this.css.insert("#template-list li { display: block; width: 100%; padding: 4px 8px; box-sizing: border-box; }");
+  this.css.insert("#template-list li[data-template] { cursor: pointer; }");
+  this.css.insert("#template-list li[data-template]:hover { background-color: #d8d8d8; }");
+  this.css.insert("#template-list li span { white-space: nowrap; }");
+  this.css.insert("#template-list li .icon { opacity: 0.6; margin-left: 4px; padding: 3px; }");
+  this.css.insert("#template-list li .icon:hover { opacity: 1; }");
+  this.css.insert("#template-list li .template-actions { float: right; }");
   
-  this.css.insert(".template-editor { height: 100%; flex: 0 0 auto; width: 25vw; min-width: 150px; max-width: 400px; background-color: #485865; }");
+  this.css.insert("#template-editor { height: 100%; flex: 0 0 auto; width: 25vw; min-width: 150px; max-width: 400px; background-color: #485865; }");
   this.css.insert(".template-editor-form { flex: 1 1 auto; padding: 12px 16px; font-size: 14px; overflow-y: auto; }");
   this.css.insert(".template-editor-form .compose-text-title { margin: 24px 0 9px; }");
   this.css.insert(".template-editor-form .compose-text-title:first-child { margin-top: 0; }");
@@ -261,9 +261,9 @@ enabled(){
     $(".manage-templates-btn").addClass("active");
     
     let html = `
-<div class="templates-modal-wrap">
-  <div class="templates-modal">
-    <div class="template-list">
+<div id="templates-modal-wrap">
+  <div id="templates-modal">
+    <div id="template-list">
       <ul></ul>
       
       <div class="templates-modal-bottom">
@@ -272,7 +272,7 @@ enabled(){
       </div>
     </div>
 
-    <div class="template-editor invisible">
+    <div id="template-editor" class="invisible">
       <div class="template-editor-form">
         <div class="compose-text-title">Template Name</div>
         <input name="template-name" type="text">
@@ -320,7 +320,7 @@ enabled(){
     
     $(".js-app-content").prepend(html);
     
-    let ele = $(".templates-modal-wrap").first();
+    let ele = $("#templates-modal-wrap").first();
     
     ele.on("click", "li[data-template]", function(e){
       let template = me.config.templates[$(this).attr("data-template")];
@@ -332,7 +332,7 @@ enabled(){
       
       switch($(this).attr("data-action")){
         case "edit-template":
-          let editor = $(".template-editor");
+          let editor = $("#template-editor");
           
           if (editor.hasClass("invisible")){
             toggleEditor();
@@ -372,7 +372,7 @@ enabled(){
           break;
           
         case "editor-confirm":
-          let editor = $(".template-editor");
+          let editor = $("#template-editor");
           
           if (me.editingTemplate !== null){
             delete me.config.templates[me.editingTemplate];
@@ -408,15 +408,15 @@ enabled(){
   };
   
   var hideTemplateModal = function(){
-    $(".templates-modal-wrap").remove();
+    $("#templates-modal-wrap").remove();
     $(".manage-templates-btn").removeClass("active");
   };
   
   var toggleEditor = function(){
-    let editor = $(".template-editor");
+    let editor = $("#template-editor");
     $("[name]", editor).val("");
     
-    if ($("button[data-action='new-template']", ".template-list").add(editor).toggleClass("invisible").hasClass("invisible")){
+    if ($("button[data-action='new-template']", "#template-list").add(editor).toggleClass("invisible").hasClass("invisible")){
       me.editingTemplate = null;
     }
   };
@@ -435,7 +435,7 @@ enabled(){
       eles.push("<li>No templates available</li>");
     }
     
-    $(".template-list").children("ul").html(eles.join(""));
+    $("#template-list").children("ul").html(eles.join(""));
     
     if (save){
       this.saveConfig();
@@ -445,7 +445,7 @@ enabled(){
   // event handlers
   
   this.manageTemplatesButtonClickEvent = function(e){
-    if ($(".templates-modal-wrap").length){
+    if ($("#templates-modal-wrap").length){
       hideTemplateModal();
     }
     else{
@@ -471,7 +471,7 @@ disabled(){
   this.css.remove();
   
   $(".manage-templates-btn").remove();
-  $(".templates-modal-wrap").remove();
+  $("#templates-modal-wrap").remove();
   
   $(document).off("uiDrawerActive", this.drawerToggleEvent);
   

@@ -1,4 +1,4 @@
-<div class="td-modal-panel js-modal-panel mdl s-tall-fixed is-inverted-dark">
+<div id="edit-design-panel" class="js-modal-panel mdl s-tall-fixed is-inverted-dark">
   <header class="js-mdl-header mdl-header js-drag-handle">
     <h3 class="mdl-header-title js-header-title">TweetDuck - Layout &amp; Design</h3>
     <a href="#" class="mdl-dismiss js-dismiss link-normal-dark">
@@ -6,8 +6,8 @@
     </a>
   </header>
   <div class="mdl-inner">
-    <div class="td-modal-content mdl-content js-mdl-content horizontal-flow-container">
-      <div class="td-modal-inner-cols">
+    <div id="edit-design-panel-content" class="mdl-content js-mdl-content horizontal-flow-container">
+      <div id="edit-design-panel-inner-cols">
         <div class="l-column mdl-column">
           
           <!-- THEME -->
@@ -159,60 +159,52 @@
   
   /* Containers */
   
-  .td-modal-panel {
+  #edit-design-panel {
     width: 693px;
     height: 380px;
   }
   
-  .td-modal-inner-cols {
+  #edit-design-panel-inner-cols {
     padding: 0 6px;
   }
   
-  .td-modal-inner-cols .l-column {
+  #edit-design-panel-inner-cols .l-column {
     padding: 15px 9px;
     box-sizing: border-box;
     width: 225px;
     font-size: 0; /* fix custom font size breaking the modal layout */
   }
   
-  .td-modal-inner-cols .l-column:nth-child(3) {
+  #edit-design-panel-inner-cols .l-column:nth-child(3) {
     width: 200px;
-  }
-  
-  .td-modal-inner-full {
-    padding: 15px;
-  }
-  
-  .td-modal-inner-full .txt-center {
-    margin-bottom: 10px;
   }
   
   /* Elements */
   
-  .td-modal-content label {
+  #edit-design-panel-content label.txt-uppercase {
     margin-top: 18px;
   }
   
-  .td-modal-content label:first-child {
+  #edit-design-panel-content label.txt-uppercase:first-child {
     margin-top: 0;
   }
   
-  .td-modal-content label.radio {
+  #edit-design-panel-content label.radio {
     display: inline-block;
     margin: 0 16px 5px 4px;
     cursor: pointer;
   }
   
-  .td-modal-content label.checkbox {
+  #edit-design-panel-content label.checkbox {
     margin: 0 0 5px 4px;
     cursor: pointer;
   }
   
-  .td-modal-content select + label.checkbox {
+  #edit-design-panel-content select + label.checkbox {
     margin-top: 9px;
   }
   
-  .td-modal-content input.js-theme-checkbox, .td-modal-content input.js-theme-radio {
+  #edit-design-panel-content input.js-theme-checkbox, #edit-design-panel-content input.js-theme-radio {
     margin-top: 1px;
   }
   

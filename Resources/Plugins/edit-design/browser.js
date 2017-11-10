@@ -364,23 +364,23 @@ enabled(){
     if (this.config.themeColorTweaks){
       switch(TD.settings.getTheme()){
         case "dark":
-          this.css.insert(".app-content, .app-columns-container { background-color: #444448 }");
-          this.css.insert(".column-drag-handle { opacity: 0.5 }");
-          this.css.insert(".column-drag-handle:hover { opacity: 1 }");
-          this.css.insert(".scroll-styled-v:not(.scroll-alt)::-webkit-scrollbar-thumb, .scroll-styled-h:not(.scroll-alt)::-webkit-scrollbar-thumb { background-color: #666 }");
+          this.css.insert(".app-content, .app-columns-container { background-color: #444448 !important }");
+          this.css.insert(".column-drag-handle { opacity: 0.5 !important }");
+          this.css.insert(".column-drag-handle:hover { opacity: 1 !important }");
+          this.css.insert(".scroll-styled-v:not(.scroll-alt)::-webkit-scrollbar-thumb, .scroll-styled-h:not(.scroll-alt)::-webkit-scrollbar-thumb { background-color: #666 !important }");
           notificationScrollbarColor = "666";
           break;
 
         case "light":
-          this.css.insert(".scroll-styled-v:not(.scroll-alt)::-webkit-scrollbar-thumb, .scroll-styled-h:not(.scroll-alt)::-webkit-scrollbar-thumb { background-color: #d2d6da }");
-          this.css.insert(".app-columns-container.scroll-styled-h::-webkit-scrollbar-thumb:not(:hover) { background-color: #a5aeb5 }");
+          this.css.insert(".scroll-styled-v:not(.scroll-alt)::-webkit-scrollbar-thumb, .scroll-styled-h:not(.scroll-alt)::-webkit-scrollbar-thumb { background-color: #d2d6da !important }");
+          this.css.insert(".app-columns-container.scroll-styled-h::-webkit-scrollbar-thumb:not(:hover) { background-color: #a5aeb5 !important }");
           notificationScrollbarColor = "a5aeb5";
           break;
       }
     }
     
     if (this.config.showCharacterCount){
-      this.css.insert(".js-character-count.is-hidden { display: inline !important }");
+      this.css.insert("#tduck .js-character-count.is-hidden { display: inline !important }");
     }
     
     if (this.config.hideTweetActions){
@@ -391,8 +391,8 @@ enabled(){
     }
     
     if (this.config.moveTweetActionsToRight){
-      this.css.insert(".tweet-actions { float: right !important; width: auto !important }");
-      this.css.insert(".tweet-actions > li:nth-child(4) { margin-right: 2px !important }");
+      this.css.insert("#tduck .tweet-actions { float: right !important; width: auto !important }");
+      this.css.insert("#tduck .tweet-actions > li:nth-child(4) { margin-right: 2px !important }");
     }
     
     if (this.config.increaseQuoteTextSize){
@@ -491,13 +491,13 @@ enabled(){
       this.icons = document.createElement("style");
       this.icons.innerHTML = `
 @font-face {
-  font-family: 'oldfont';
+  font-family: '_of';
   src: url("https://ton.twimg.com/tweetdeck-web/web/assets/fonts/tweetdeck-regular-webfont.5f4ea87976.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
-${iconData.map(entry => `${entry[0]}:before{content:\"\\f0${entry[1]}\";font-family:oldfont!important}`).join("")}
+${iconData.map(entry => `#tduck ${entry[0]}:before{content:\"\\f0${entry[1]}\";font-family:_of!important}`).join("")}
 
 .drawer .btn .icon, .app-header .btn .icon { line-height: 1em !important }
 .column-header .column-type-icon { bottom: 26px !important }
@@ -552,13 +552,13 @@ ${this.config.increaseQuoteTextSize ? `
 ` : ``}
 
 ${this.config.revertIcons ? `
-@font-face { font-family: 'oldfont'; src: url(\"https://ton.twimg.com/tweetdeck-web/web/assets/fonts/tweetdeck-regular-webfont.5f4ea87976.woff\") format(\"woff\"); font-weight: normal; font-style: normal }
-.icon-reply:before{content:"\\f006";font-family:oldfont}
-.icon-heart-filled:before{content:"\\f055";font-family:oldfont}
-.icon-retweet-filled:before{content:"\\f008";font-family:oldfont}
-.icon-list-filled:before{content:"\\f014";font-family:oldfont}
-.icon-user-filled:before{content:"\\f035";font-family:oldfont}
-.icon-user-dd:before{content:"\\f01a";font-family:oldfont}
+@font-face { font-family: '_of'; src: url(\"https://ton.twimg.com/tweetdeck-web/web/assets/fonts/tweetdeck-regular-webfont.5f4ea87976.woff\") format(\"woff\"); font-weight: normal; font-style: normal }
+#tduck .icon-reply:before{content:"\\f006";font-family:_of!important}
+#tduck .icon-heart-filled:before{content:"\\f055";font-family:_of!important}
+#tduck .icon-retweet-filled:before{content:"\\f008";font-family:_of!important}
+#tduck .icon-list-filled:before{content:"\\f014";font-family:_of!important}
+#tduck .icon-user-filled:before{content:"\\f035";font-family:_of!important}
+#tduck .icon-user-dd:before{content:"\\f01a";font-family:_of!important}
 ` : ``}
 
 ${notificationScrollbarColor ? `
