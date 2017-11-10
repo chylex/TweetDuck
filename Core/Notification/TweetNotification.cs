@@ -70,7 +70,7 @@ namespace TweetDuck.Core.Notification{
                 build.Append(' ').Append(bodyClasses);
             }
 
-            build.Append('\'').Append(isExample ? " td-example-notification" : "").Append("><div class='column' style='width:100%;height:auto;overflow:initial;'>");
+            build.Append('\'').Append(isExample ? " td-example-notification" : "").Append("><div class='column' style='width:100%!important;height:auto!important;overflow:initial!important;'>");
             build.Append(html);
             build.Append("</div></body>");
             build.Append("</html>");

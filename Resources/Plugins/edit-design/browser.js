@@ -562,7 +562,7 @@ ${this.config.revertIcons ? `
 ` : ``}
 
 ${notificationScrollbarColor ? `
-.scroll-styled-v::-webkit-scrollbar-thumb, .scroll-styled-h::-webkit-scrollbar-thumb { background-color: #${notificationScrollbarColor} }
+.scroll-styled-v::-webkit-scrollbar-thumb, .scroll-styled-h::-webkit-scrollbar-thumb { background-color: #${notificationScrollbarColor} !important }
 ` : ``}
 </style>`);
   };

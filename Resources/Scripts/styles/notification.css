@@ -1,23 +1,23 @@
 /* General */
 
 body:before {
-  content: none;
+  content: none !important;
 }
 
 body {
-  overflow-y: auto;
+  overflow-y: auto !important;
 }
 
 .scroll-styled-v::-webkit-scrollbar {
-  width: 7px;
+  width: 7px !important;
 }
 
 .scroll-styled-v::-webkit-scrollbar-thumb {
-  border-radius: 0;
+  border-radius: 0 !important;
 }
 
 .scroll-styled-v::-webkit-scrollbar-track {
-  border-left: 0;
+  border-left: 0 !important;
 }
 
 /* Media */

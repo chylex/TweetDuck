@@ -271,20 +271,20 @@
       let themeName = TD.settings.getTheme();
       
       let tags = [
-        `<html class='os-windows ${(doc.getAttribute("class").match(/txt-\S+/) || [ "txt-size--14" ])[0]}' data-td-font='${fontSizeName}' data-td-theme='${themeName}'><head>`
+        `<html class='os-windows ${themeName} ${(doc.getAttribute("class").match(/txt-\S+/) || [ "txt-size--14" ])[0]}' data-td-font='${fontSizeName}' data-td-theme='${themeName}'><head>`
       ];
       
-      $(document.head).children("link[rel='stylesheet']:not([title]),link[title='"+themeName+"'],meta[charset],meta[http-equiv]").each(function(){
+      $(document.head).children("link[href*='css/font.']:first,link[href*='css/app-"+themeName+".']:first,meta[charset],meta[http-equiv]").each(function(){
         tags.push($(this)[0].outerHTML);
       });
       
       tags.push("<style type='text/css'>");
-      tags.push("body { background: "+getClassStyleProperty("column", "background-color")+" }"); // set background color
-      tags.push("a[data-full-url] { word-break: break-all }"); // break long urls
+      tags.push("body { background: "+getClassStyleProperty("column", "background-color")+" !important }"); // set background color
+      tags.push("a[data-full-url] { word-break: break-all !important }"); // break long urls
       tags.push(".media-item, .media-preview { border-radius: 1px !important }"); // square-ify media
       tags.push(".quoted-tweet { border-radius: 0 !important }"); // square-ify quoted tweets
-      tags.push(".activity-header { align-items: center !important; margin-bottom: 4px }"); // tweak alignment of avatar and text in notifications
-      tags.push(".activity-header .tweet-timestamp { line-height: unset }"); // fix timestamp position in notifications
+      tags.push(".activity-header { align-items: center !important; margin-bottom: 4px !important }"); // tweak alignment of avatar and text in notifications
+      tags.push(".activity-header .tweet-timestamp { line-height: unset !important }"); // fix timestamp position in notifications
       
       if (fontSizeName === "smallest"){
         tags.push(".badge-verified:before { width: 13px !important; height: 13px !important; background-position: -223px -98px !important }"); // fix cut off badge icon
