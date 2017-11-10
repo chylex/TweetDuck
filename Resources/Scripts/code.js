@@ -271,7 +271,7 @@
       let themeName = TD.settings.getTheme();
       
       let tags = [
-        `<html class='os-windows ${themeName} ${(doc.getAttribute("class").match(/txt-\S+/) || [ "txt-size--14" ])[0]}' data-td-font='${fontSizeName}' data-td-theme='${themeName}'><head>`
+        "<html "+Array.prototype.map.call(document.documentElement.attributes, ele => `${ele.name}="${ele.value}"`).join(" ")+"><head>"
       ];
       
       $(document.head).children("link[href*='css/font.']:first,link[href*='css/app-"+themeName+".']:first,meta[charset],meta[http-equiv]").each(function(){
@@ -309,7 +309,7 @@
   })();
   
   //
-  // Block: Fix OS name.
+  // Block: Fix OS name and add ID to the document for priority CSS selectors.
   //
   if (ensurePropertyExists(TD, "util", "getOSName")){
     TD.util.getOSName = function(){
@@ -319,6 +319,8 @@
     doc.classList.remove("os-");
     doc.classList.add("os-windows");
   }
+  
+  doc.id = "tduck";
   
   //
   // Block: Enable popup notifications.
