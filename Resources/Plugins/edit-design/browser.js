@@ -400,7 +400,7 @@ enabled(){
     }
     
     if (this.config.smallComposeTextSize){
-      this.css.insert(".compose-text { font-size: 12px !important; height: 120px !important }");
+      this.css.insert("#tduck .compose-text { font-size: 12px !important; height: 120px !important }");
     }
     
     if (this.config.revertIcons){
