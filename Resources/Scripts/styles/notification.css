@@ -32,7 +32,7 @@ body {
   height: calc(100vh - 28px) !important;
 }
 
-.js-media.margin-vm, .js-media-preview-container.margin-vm {
+#tduck .js-media, #tduck .js-media-preview-container {
   margin-bottom: 0 !important;
 }
 

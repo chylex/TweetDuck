@@ -94,6 +94,11 @@
 /* Tweak notification layout and design */
 /****************************************/
 
+.tweet-context .nbfc {
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
 .activity-header {
   align-items: center !important;
   margin-bottom: 4px !important;
@@ -175,6 +180,13 @@ html[data-td-font='smallest'] .badge-verified:before {
   width: 13px !important;
   height: 13px !important;
   background-position: -223px -98px !important;
+}
+
+html[data-td-font='smallest'] .tweet-detail-wrapper .badge-verified:before {
+  /* fix cut off badge in detail view */
+  width: 13px !important;
+  height: 14px !important;
+  background-position: -223px -97px !important;
 }
 
 .accs-header {

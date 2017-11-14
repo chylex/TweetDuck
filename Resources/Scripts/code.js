@@ -283,6 +283,7 @@
       tags.push("a[data-full-url] { word-break: break-all !important }"); // break long urls
       tags.push(".media-item, .media-preview { border-radius: 1px !important }"); // square-ify media
       tags.push(".quoted-tweet { border-radius: 0 !important }"); // square-ify quoted tweets
+      tags.push(".tweet-context .nbfc { text-overflow: ellipsis !important; white-space: nowrap !important }"); // force ellipsis on long usernames
       tags.push(".activity-header { align-items: center !important; margin-bottom: 4px !important }"); // tweak alignment of avatar and text in notifications
       tags.push(".activity-header .tweet-timestamp { line-height: unset !important }"); // fix timestamp position in notifications
       
