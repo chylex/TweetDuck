@@ -204,11 +204,6 @@ html[data-td-font='smallest'] .tweet-detail-wrapper .badge-verified:before {
   cursor: pointer;
 }
 
-.is-inverted-dark .inline-reply .btn:hover {
-  /* Reply buttons in modals are bork */
-  background-color: transparent !important;
-}
-
 /***************************************************************/
 /* Fix glaring visual issues that twitter hasn't fixed yet smh */
 /***************************************************************/

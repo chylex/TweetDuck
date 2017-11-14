@@ -109,6 +109,8 @@ namespace TweetDuck.Core.Notification{
 
         public bool CanViewDetail => currentNotification != null && !string.IsNullOrEmpty(currentNotification.ColumnId) && !string.IsNullOrEmpty(currentNotification.ChirpId);
         public bool IsPaused => pauseCounter > 0;
+
+        protected bool IsCursorOverBrowser => browser.Bounds.Contains(PointToClient(Cursor.Position));
         
         public bool FreezeTimer { get; set; }
         public bool ContextMenuOpen { get; set; }
@@ -201,8 +203,7 @@ namespace TweetDuck.Core.Notification{
         }
 
         protected virtual string GetTweetHTML(TweetNotification tweet){
-            string bodyClasses = browser.Bounds.Contains(PointToClient(Cursor.Position)) ? "td-hover" : string.Empty;
-            return tweet.GenerateHtml(bodyClasses);
+            return tweet.GenerateHtml(IsCursorOverBrowser ? "td-hover" : string.Empty);
         }
 
         protected virtual void LoadTweet(TweetNotification tweet){
