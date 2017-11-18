@@ -75,6 +75,9 @@ namespace TweetDuck.Core{
             Controls.Add(new MenuStrip{ Visible = false }); // fixes Alt freezing the program in Win 10 Anniversary Update
 
             Disposed += (sender, args) => {
+                Config.MuteToggled -= Config_MuteToggled;
+                Config.TrayBehaviorChanged -= Config_TrayBehaviorChanged;
+
                 browser.Dispose();
                 contextMenu.Dispose();
 
@@ -83,6 +86,8 @@ namespace TweetDuck.Core{
                 videoPlayer?.Dispose();
                 analytics?.Dispose();
             };
+
+            Config.MuteToggled += Config_MuteToggled;
 
             this.trayIcon.ClickRestore += trayIcon_ClickRestore;
             this.trayIcon.ClickClose += trayIcon_ClickClose;
@@ -191,6 +196,10 @@ namespace TweetDuck.Core{
             if (isLoaded && UpdateInstallerPath == null){
                 updates.CleanupDownload();
             }
+        }
+
+        private void Config_MuteToggled(object sender, EventArgs e){
+            TriggerAnalyticsEvent(AnalyticsFile.Event.MuteNotification);
         }
 
         private void Config_TrayBehaviorChanged(object sender, EventArgs e){

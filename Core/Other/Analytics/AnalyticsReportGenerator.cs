@@ -8,6 +8,7 @@ using TweetDuck.Configuration;
 using System.Linq;
 using System.Management;
 using System.Text.RegularExpressions;
+using TweetDuck.Core.Handling;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
@@ -18,8 +19,9 @@ namespace TweetDuck.Core.Other.Analytics{
             Dictionary<string, string> editLayoutDesign = EditLayoutDesignPluginData;
 
             return new AnalyticsReport{
-                { "App Version" , Program.VersionTag },
-                { "App Type"    , Program.IsPortable ? "portable" : "installed" },
+                { "App Version"   , Program.VersionTag },
+                { "App Type"      , Program.IsPortable ? "portable" : "installed" },
+                { "App Dev Tools" , Bool(ContextMenuBase.HasDevTools) },
                 0,
                 { "System Name"        , SystemName },
                 { "System Edition"     , SystemEdition },
@@ -51,17 +53,18 @@ namespace TweetDuck.Core.Other.Analytics{
                 { "Tray"           , TrayMode },
                 { "Tray Highlight" , Bool(UserConfig.EnableTrayHighlight) },
                 0,
-                { "Notification Position"       , NotificationPosition },
-                { "Notification Size"           , NotificationSize },
-                { "Notification Timer"          , NotificationTimer },
-                { "Notification Timer Speed"    , RoundUp(UserConfig.NotificationDurationValue, 5) },
-                { "Notification Scroll Speed"   , Exact(UserConfig.NotificationScrollSpeed) },
-                { "Notification Column Title"   , Bool(UserConfig.DisplayNotificationColumn) },
-                { "Notification Media Previews" , Bool(UserConfig.NotificationMediaPreviews) },
-                { "Notification Link Skip"      , Bool(UserConfig.NotificationSkipOnLinkClick) },
-                { "Notification Non-Intrusive"  , Bool(UserConfig.NotificationNonIntrusiveMode) },
-                { "Notification Idle Pause"     , Exact(UserConfig.NotificationIdlePauseSeconds) },
-                { "Custom Sound Notification"   , string.IsNullOrEmpty(UserConfig.NotificationSoundPath) ? "off" : Path.GetExtension(UserConfig.NotificationSoundPath) },
+                { "Notification Position"            , NotificationPosition },
+                { "Notification Size"                , NotificationSize },
+                { "Notification Timer"               , NotificationTimer },
+                { "Notification Timer Speed"         , RoundUp(UserConfig.NotificationDurationValue, 5) },
+                { "Notification Scroll Speed"        , Exact(UserConfig.NotificationScrollSpeed) },
+                { "Notification Column Title"        , Bool(UserConfig.DisplayNotificationColumn) },
+                { "Notification Media Previews"      , Bool(UserConfig.NotificationMediaPreviews) },
+                { "Notification Link Skip"           , Bool(UserConfig.NotificationSkipOnLinkClick) },
+                { "Notification Non-Intrusive"       , Bool(UserConfig.NotificationNonIntrusiveMode) },
+                { "Notification Idle Pause"          , Exact(UserConfig.NotificationIdlePauseSeconds) },
+                { "Custom Sound Notification"        , string.IsNullOrEmpty(UserConfig.NotificationSoundPath) ? "off" : Path.GetExtension(UserConfig.NotificationSoundPath) },
+                { "Custom Sound Notification Volume" , RoundUp(UserConfig.NotificationSoundVolume, 5) },
                 0,
                 { "Program Arguments"       , List(ProgramArguments) },
                 { "Custom CEF Arguments"    , RoundUp((UserConfig.CustomCefArgs ?? string.Empty).Length, 10) },
@@ -91,6 +94,7 @@ namespace TweetDuck.Core.Other.Analytics{
                 { "Opened Guide"                     , LogRound(file.CountOpenGuide, 4) },
                 { "Desktop Notifications"            , LogRound(file.CountDesktopNotifications, 5) },
                 { "Sound Notifications"              , LogRound(file.CountSoundNotifications, 5) },
+                { "Mute Notifications"               , LogRound(file.CountMuteNotifications, 2) },
                 { "Browser Context Menus"            , LogRound(file.CountBrowserContextMenus, 2) },
                 { "Browser Extra Mouse Buttons"      , LogRound(file.CountBrowserExtraMouseButtons, 2) },
                 { "Notification Context Menus"       , LogRound(file.CountNotificationContextMenus, 2) },
@@ -127,11 +131,16 @@ namespace TweetDuck.Core.Other.Analytics{
                 using(RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion", false)){
                     // ReSharper disable once PossibleNullReferenceException
                     osName = key.GetValue("ProductName") as string;
-                    osEdition = key.GetValue("EditionID") as string;
                     osBuild = key.GetValue("CurrentBuild") as string;
+                    osEdition = null;
                     
-                    if (osName != null && osEdition != null){
-                        osName = osName.Replace(osEdition, "").TrimEnd();
+                    if (osName != null){
+                        Match match = Regex.Match(osName, @"^(.*?\d+(?:\.\d+)?) (.*)$");
+
+                        if (match.Success){
+                            osName = match.Groups[1].Value;
+                            osEdition = match.Groups[2].Value;
+                        }
                     }
                 }
             }catch{
@@ -257,7 +266,7 @@ namespace TweetDuck.Core.Other.Analytics{
                     Match matchAdvanced = Regex.Match(data, "useAdvancedSelector:(.*?)(?:,|$)", RegexOptions.Multiline);
 
                     if (!matchType.Success){
-                        return "(unknown)";
+                        return data.Contains("defaultAccount:\"\"") ? "(legacy)" : "(unknown)";
                     }
 
                     string accType = matchType.Groups[1].Value == "#" ? matchType.Groups[2].Value : "account";

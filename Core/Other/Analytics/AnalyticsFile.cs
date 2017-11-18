@@ -14,7 +14,7 @@ namespace TweetDuck.Core.Other.Analytics{
 
         public enum Event{
             OpenOptions, OpenPlugins, OpenAbout, OpenGuide,
-            DesktopNotification, SoundNotification,
+            DesktopNotification, SoundNotification, MuteNotification,
             BrowserContextMenu, BrowserExtraMouseButton,
             NotificationContextMenu, NotificationExtraMouseButton, NotificationKeyboardShortcut,
             TweetScreenshot, TweetDetail, VideoPlay, GCReload
@@ -35,6 +35,7 @@ namespace TweetDuck.Core.Other.Analytics{
 
         public int CountDesktopNotifications { get; private set; } = 0;
         public int CountSoundNotifications   { get; private set; } = 0;
+        public int CountMuteNotifications    { get; private set; } = 0;
         
         public int CountBrowserContextMenus           { get; private set; } = 0;
         public int CountBrowserExtraMouseButtons      { get; private set; } = 0;
@@ -64,6 +65,7 @@ namespace TweetDuck.Core.Other.Analytics{
 
                 case Event.DesktopNotification: ++CountDesktopNotifications; break;
                 case Event.SoundNotification: ++CountSoundNotifications; break;
+                case Event.MuteNotification: ++CountMuteNotifications; break;
 
                 case Event.BrowserContextMenu: ++CountBrowserContextMenus; break;
                 case Event.BrowserExtraMouseButton: ++CountBrowserExtraMouseButtons; break;

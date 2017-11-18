@@ -12,7 +12,7 @@ using TweetDuck.Core.Other;
 
 namespace TweetDuck.Core.Handling{
     abstract class ContextMenuBase : IContextMenuHandler{
-        protected static readonly bool HasDevTools = File.Exists(Path.Combine(Program.ProgramPath, "devtools_resources.pak"));
+        public static readonly bool HasDevTools = File.Exists(Path.Combine(Program.ProgramPath, "devtools_resources.pak"));
 
         private static TwitterUtils.ImageQuality ImageQuality => Program.UserConfig.TwitterImageQuality;
         
