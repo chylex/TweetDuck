@@ -74,7 +74,7 @@ namespace TweetDuck.Configuration{
 
         public TweetNotification.Size NotificationSize { get; set; } = TweetNotification.Size.Auto;
         public Size CustomNotificationSize             { get; set; } = Size.Empty;
-        public int NotificationScrollSpeed             { get; set; } = 10;
+        public int NotificationScrollSpeed             { get; set; } = 100;
 
         public int NotificationSoundVolume { get; set; } = 100;
         private string _notificationSoundPath;
@@ -173,6 +173,11 @@ namespace TweetDuck.Configuration{
 
         private void LoadInternal(bool backup){
             Serializer.Read(backup ? GetBackupFile(file) : file, this);
+
+            if (NotificationScrollSpeed == 10){ // incorrect initial value
+                NotificationScrollSpeed = 100;
+                Save();
+            }
         }
         
         public static UserConfig Load(string file){
