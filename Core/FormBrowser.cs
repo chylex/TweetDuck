@@ -259,6 +259,11 @@ namespace TweetDuck.Core{
         private void updates_UpdateAccepted(object sender, UpdateEventArgs e){
             this.InvokeAsyncSafe(() => {
                 FormManager.CloseAllDialogs();
+
+                if (!string.IsNullOrEmpty(Config.DismissedUpdate)){
+                    Config.DismissedUpdate = null;
+                    Config.Save();
+                }
             
                 updates.BeginUpdateDownload(this, e.UpdateInfo, update => {
                     if (update.DownloadStatus == UpdateDownloadStatus.Done){
