@@ -72,6 +72,15 @@ var init = function(){
     if (element && element.tagName === "SUMMARY"){
       element.click();
       element.scrollIntoView(true);
+      
+      if (window.innerWidth === 0){
+        var ffs = function(){
+          element.scrollIntoView(true);
+          window.removeEventListener("resize", ffs);
+        };
+        
+        window.addEventListener("resize", ffs);
+      }
     }
   }
 };
