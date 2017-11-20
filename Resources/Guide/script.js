@@ -71,6 +71,7 @@ var init = function(){
     
     if (element && element.tagName === "SUMMARY"){
       element.click();
+      element.blur();
       element.scrollIntoView(true);
       
       if (window.innerWidth === 0){

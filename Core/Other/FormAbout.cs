@@ -33,7 +33,7 @@ namespace TweetDuck.Core.Other{
         }
 
         private void ShowGuide(){
-            new FormGuide().Show();
+            FormGuide.Show();
             Close();
         }
     }

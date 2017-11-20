@@ -391,7 +391,7 @@ namespace TweetDuck.Core{
             }
 
             if (showGuide){
-                ShowChildForm(new FormGuide());
+                FormGuide.Show();
             }
         }
 

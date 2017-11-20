@@ -34,23 +34,37 @@ namespace TweetDuck.Core.Other{
             }
         }
 
+        public static void Show(string hash = null){
+            string url = GuideUrl+(hash ?? string.Empty);
+            FormGuide guide = FormManager.TryFind<FormGuide>();
+            
+            if (guide == null){
+                FormBrowser owner = FormManager.TryFind<FormBrowser>();
+
+                if (owner != null){
+                    owner.TriggerAnalyticsEvent(AnalyticsFile.Event.OpenGuide);
+                    new FormGuide(url, owner).Show(owner);
+                }
+            }
+            else{
+                guide.Reload(url);
+                guide.Activate();
+            }
+        }
+
         private readonly ChromiumWebBrowser browser;
 
-        public FormGuide(string hash = null){
+        private FormGuide(string url, Form owner){
             InitializeComponent();
 
             Text = Program.BrandName+" Guide";
 
-            FormBrowser owner = FormManager.TryFind<FormBrowser>();
-
             if (owner != null){
                 Size = new Size(owner.Size.Width*3/4, owner.Size.Height*3/4);
                 VisibleChanged += (sender, args) => this.MoveToCenter(owner);
-
-                owner.TriggerAnalyticsEvent(AnalyticsFile.Event.OpenGuide);
             }
             
-            this.browser = new ChromiumWebBrowser(GuideUrl+(hash ?? string.Empty)){
+            this.browser = new ChromiumWebBrowser(url){
                 MenuHandler = new ContextMenuGuide(),
                 JsDialogHandler = new JavaScriptDialogHandler(),
                 LifeSpanHandler = new LifeSpanHandler(),
@@ -73,8 +87,16 @@ namespace TweetDuck.Core.Other{
             Program.UserConfig.ZoomLevelChanged += Config_ZoomLevelChanged;
         }
 
+        private void Reload(string url){
+            browser.LoadingStateChanged += browser_LoadingStateChanged;
+            browser.Dock = DockStyle.None;
+            browser.Location = ControlExtensions.InvisibleLocation;
+            browser.Load("about:blank");
+            browser.Load(url);
+        }
+
         private void browser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e){
-            if (!e.IsLoading){
+            if (!e.IsLoading && browser.Address != "about:blank"){
                 this.InvokeAsyncSafe(() => {
                     browser.Location = Point.Empty;
                     browser.Dock = DockStyle.Fill;
