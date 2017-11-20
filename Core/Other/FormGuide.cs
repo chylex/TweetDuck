@@ -8,14 +8,35 @@ using TweetDuck.Core.Handling;
 using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Other.Analytics;
 using TweetDuck.Core.Utils;
+using System.Text.RegularExpressions;
 
 namespace TweetDuck.Core.Other{
     sealed partial class FormGuide : Form{
         private const string GuideUrl = "https://tweetduck.chylex.com/guide/v2/";
+        private const string GuidePathRegex = @"^guide(?:/v\d+)?(?:/(#.*))?";
+
+        public static bool CheckGuideUrl(string url, out string hash){
+            if (!url.Contains("//tweetduck.chylex.com/guide")){
+                hash = null;
+                return false;
+            }
+
+            string path = url.Substring(url.IndexOf("/guide")+1);
+            Match match = Regex.Match(path, GuidePathRegex);
+
+            if (match.Success){
+                hash = match.Groups[1].Value;
+                return true;
+            }
+            else{
+                hash = null;
+                return false;
+            }
+        }
 
         private readonly ChromiumWebBrowser browser;
 
-        public FormGuide(){
+        public FormGuide(string hash = null){
             InitializeComponent();
 
             Text = Program.BrandName+" Guide";
@@ -29,7 +50,7 @@ namespace TweetDuck.Core.Other{
                 owner.TriggerAnalyticsEvent(AnalyticsFile.Event.OpenGuide);
             }
             
-            this.browser = new ChromiumWebBrowser(GuideUrl){
+            this.browser = new ChromiumWebBrowser(GuideUrl+(hash ?? string.Empty)){
                 MenuHandler = new ContextMenuGuide(),
                 JsDialogHandler = new JavaScriptDialogHandler(),
                 LifeSpanHandler = new LifeSpanHandler(),

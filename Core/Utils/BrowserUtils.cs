@@ -70,7 +70,13 @@ namespace TweetDuck.Core.Utils{
 
             switch(CheckUrl(url)){
                 case UrlCheckResult.Fine:
-                    WindowsUtils.OpenAssociatedProgram(url);
+                    if (FormGuide.CheckGuideUrl(url, out string hash)){
+                        new FormGuide(hash).Show();
+                    }
+                    else{
+                        WindowsUtils.OpenAssociatedProgram(url);
+                    }
+
                     break;
 
                 case UrlCheckResult.Tracking:
