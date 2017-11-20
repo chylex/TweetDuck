@@ -1,4 +1,6 @@
+/***********/
 /* General */
+/***********/
 
 body:before {
   content: none !important;
@@ -20,7 +22,9 @@ body {
   border-left: 0 !important;
 }
 
+/*************/
 /* Usernames */
+/*************/
 
 .account-inline .username {
   vertical-align: 10% !important;
@@ -30,7 +34,9 @@ body {
   vertical-align: -10% !important;
 }
 
+/*********/
 /* Media */
+/*********/
 
 .media-size-medium {
   max-height: 240px;
@@ -46,7 +52,9 @@ body {
   margin-bottom: 0 !important;
 }
 
+/***************/
 /* Skip button */
+/***************/
 
 #td-skip {
   position: fixed;
