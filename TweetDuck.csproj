@@ -102,8 +102,9 @@
     <Compile Include="Core\Handling\General\FileDialogHandler.cs" />
     <Compile Include="Core\Handling\KeyboardHandlerBrowser.cs" />
     <Compile Include="Core\Handling\KeyboardHandlerNotification.cs" />
+    <Compile Include="Core\Handling\RequestHandlerBase.cs" />
     <Compile Include="Core\Handling\RequestHandlerBrowser.cs" />
-    <Compile Include="Core\Handling\General\RequestHandlerBase.cs" />
+    <Compile Include="Core\Handling\General\AbstractRequestHandler.cs" />
     <Compile Include="Core\Handling\ResourceHandlerNotification.cs" />
     <Compile Include="Core\Notification\Example\FormNotificationExample.cs">
       <SubType>Form</SubType>

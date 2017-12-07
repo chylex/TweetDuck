@@ -2,7 +2,7 @@
 using CefSharp;
 
 namespace TweetDuck.Core.Handling.General{
-    abstract class RequestHandlerBase : IRequestHandler{
+    abstract class AbstractRequestHandler : IRequestHandler{
         // Browser
 
         public virtual void OnRenderViewReady(IWebBrowser browserControl, IBrowser browser){}
