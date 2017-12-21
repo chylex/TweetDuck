@@ -109,6 +109,14 @@ namespace TweetDuck.Data.Serialization{
             }catch(DirectoryNotFoundException){}
         }
 
+        public static HandleUnknownPropertiesHandler IgnoreProperties(params string[] properties){
+            return (obj, data) => {
+                foreach(string property in properties){
+                    data.Remove(property);
+                }
+            };
+        }
+
         private sealed class BasicTypeConverter : ITypeConverter{
             bool ITypeConverter.TryWriteType(Type type, object value, out string converted){
                 switch(Type.GetTypeCode(type)){

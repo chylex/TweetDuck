@@ -3,7 +3,9 @@ using TweetDuck.Data.Serialization;
 
 namespace TweetDuck.Core.Other.Analytics{
     sealed class AnalyticsFile{
-        private static readonly FileSerializer<AnalyticsFile> Serializer = new FileSerializer<AnalyticsFile>();
+        private static readonly FileSerializer<AnalyticsFile> Serializer = new FileSerializer<AnalyticsFile>{
+            HandleUnknownProperties = FileSerializer<AnalyticsFile>.IgnoreProperties("CountGCReloads")
+        };
 
         static AnalyticsFile(){
             Serializer.RegisterTypeConverter(typeof(DateTime), new SingleTypeConverter<DateTime>{
