@@ -7,7 +7,6 @@ using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling;
 using TweetDuck.Core.Handling.General;
-using TweetDuck.Core.Other.Management;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
 using TweetDuck.Plugins.Enums;
@@ -36,7 +35,6 @@ namespace TweetDuck.Core{
 
         private readonly ChromiumWebBrowser browser;
         private readonly PluginManager plugins;
-        private readonly MemoryUsageTracker memoryUsageTracker;
 
         public TweetDeckBrowser(FormBrowser owner, PluginManager plugins, TweetDeckBridge bridge){
             this.browser = new ChromiumWebBrowser(TwitterUtils.TweetDeckURL){
@@ -69,9 +67,7 @@ namespace TweetDuck.Core{
 
             this.plugins = plugins;
             this.plugins.PluginChangedState += plugins_PluginChangedState;
-
-            this.memoryUsageTracker = new MemoryUsageTracker("TDGF_tryRunCleanup");
-
+            
             Program.UserConfig.MuteToggled += UserConfig_MuteToggled;
             Program.UserConfig.ZoomLevelChanged += UserConfig_ZoomLevelChanged;
         }
@@ -95,8 +91,7 @@ namespace TweetDuck.Core{
 
             Program.UserConfig.MuteToggled -= UserConfig_MuteToggled;
             Program.UserConfig.ZoomLevelChanged -= UserConfig_ZoomLevelChanged;
-
-            memoryUsageTracker.Dispose();
+            
             browser.Dispose();
         }
 
@@ -115,8 +110,6 @@ namespace TweetDuck.Core{
 
         private void browser_FrameLoadStart(object sender, FrameLoadStartEventArgs e){
             if (e.Frame.IsMain){
-                memoryUsageTracker.Stop();
-
                 if (Program.UserConfig.ZoomLevel != 100){
                     BrowserUtils.SetZoomLevel(browser.GetBrowser(), Program.UserConfig.ZoomLevel);
                 }
@@ -139,10 +132,6 @@ namespace TweetDuck.Core{
                 plugins.ExecutePlugins(e.Frame, PluginEnvironment.Browser);
 
                 TweetDeckBridge.ResetStaticProperties();
-
-                if (Program.SystemConfig.EnableBrowserGCReload){
-                    memoryUsageTracker.Start(browser, Program.SystemConfig.BrowserMemoryThreshold);
-                }
 
                 if (Program.UserConfig.FirstRun){
                     ScriptLoader.ExecuteFile(e.Frame, "introduction.js");
@@ -182,15 +171,6 @@ namespace TweetDuck.Core{
 
         public UpdateHandler CreateUpdateHandler(UpdaterSettings settings){
             return new UpdateHandler(browser, settings);
-        }
-
-        public void RefreshMemoryTracker(){
-            if (Program.SystemConfig.EnableBrowserGCReload){
-                memoryUsageTracker.Start(browser, Program.SystemConfig.BrowserMemoryThreshold);
-            }
-            else{
-                memoryUsageTracker.Stop();
-            }
         }
 
         public void HideVideoOverlay(bool focus){

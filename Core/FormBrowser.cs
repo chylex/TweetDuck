@@ -308,23 +308,12 @@ namespace TweetDuck.Core{
         }
 
         protected override void WndProc(ref Message m){
-            if (isLoaded){
-                if (m.Msg == Program.WindowRestoreMessage){
-                    if (WindowsUtils.CurrentProcessID == m.WParam.ToInt32()){
-                        trayIcon_ClickRestore(trayIcon, EventArgs.Empty);
-                    }
-
-                    return;
+            if (isLoaded && m.Msg == Program.WindowRestoreMessage){
+                if (WindowsUtils.CurrentProcessID == m.WParam.ToInt32()){
+                    trayIcon_ClickRestore(trayIcon, EventArgs.Empty);
                 }
-                else if (m.Msg == Program.SubProcessMessage){
-                    int processId = m.WParam.ToInt32();
 
-                    if (WindowsUtils.IsChildProcess(processId)){ // child process is checked in two places for safety
-                        BrowserProcesses.Link(m.LParam.ToInt32(), processId);
-                    }
-
-                    return;
-                }
+                return;
             }
             
             if (browser.Ready && m.Msg == NativeMethods.WM_PARENTNOTIFY && (m.WParam.ToInt32() & 0xFFFF) == NativeMethods.WM_XBUTTONDOWN){
@@ -420,8 +409,6 @@ namespace TweetDuck.Core{
                     if (!Config.EnableTrayHighlight){
                         trayIcon.HasNotifications = false;
                     }
-
-                    browser.RefreshMemoryTracker();
 
                     if (Config.AllowDataCollection){
                         if (analytics == null){

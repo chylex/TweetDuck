@@ -13,9 +13,6 @@ namespace TweetDuck.Configuration{
 
         private bool _hardwareAcceleration = true;
 
-        public bool EnableBrowserGCReload { get; set; } = true;
-        public int BrowserMemoryThreshold { get; set; } = 400;
-
         // SPECIAL PROPERTIES
         
         public bool HardwareAcceleration{

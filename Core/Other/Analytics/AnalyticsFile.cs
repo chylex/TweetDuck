@@ -17,7 +17,7 @@ namespace TweetDuck.Core.Other.Analytics{
             DesktopNotification, SoundNotification, MuteNotification,
             BrowserContextMenu, BrowserExtraMouseButton,
             NotificationContextMenu, NotificationExtraMouseButton, NotificationKeyboardShortcut,
-            TweetScreenshot, TweetDetail, VideoPlay, GCReload
+            TweetScreenshot, TweetDetail, VideoPlay
         }
 
         // STATE PROPERTIES
@@ -46,7 +46,6 @@ namespace TweetDuck.Core.Other.Analytics{
         public int CountTweetScreenshots { get; private set; } = 0;
         public int CountTweetDetails     { get; private set; } = 0;
         public int CountVideoPlays       { get; private set; } = 0;
-        public int CountGCReloads        { get; private set; } = 0;
 
         // END OF DATA
         
@@ -76,7 +75,6 @@ namespace TweetDuck.Core.Other.Analytics{
                 case Event.TweetScreenshot: ++CountTweetScreenshots; break;
                 case Event.TweetDetail: ++CountTweetDetails; break;
                 case Event.VideoPlay: ++CountVideoPlays; break;
-                case Event.GCReload: ++CountGCReloads; break;
             }
         }
 
