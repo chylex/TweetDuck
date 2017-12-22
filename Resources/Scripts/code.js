@@ -1272,7 +1272,7 @@
   }
   
   //
-  // Block: Disable default TweetDeck update notification, as the app usually reloads automatically every so often.
+  // Block: Disable default TweetDeck update notification.
   //
   onAppReady.push(function(){
     let events = $._data(document, "events");
