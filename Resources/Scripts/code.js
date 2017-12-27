@@ -1219,35 +1219,6 @@
     });
   };
   
-  (function(){
-    var lastActivity = Date.now();
-    
-    $(document).click(function(e){
-      lastActivity = Date.now();
-    });
-    
-    window.TDGF_tryRunCleanup = function(){
-      // no recent activity
-      return false if Date.now()-lastActivity < 15e3;
-      
-      // no modals are visible
-      return false if $(".js-modal").is(":visible") || !$(".js-modals-container").is(":empty");
-
-      // all columns are in a default state
-      return false if $("section.js-column").is(".is-shifted-1,.is-shifted-2");
-
-      // all textareas are empty
-      return false if Array.prototype.some.call(document.getElementsByTagName("textarea"), ele => ele.value.length > 0);
-
-      // all columns are scrolled to top
-      return false if Array.prototype.some.call(document.getElementsByClassName("js-column-scroller"), ele => ele.scrollTop > 0);
-
-      // cleanup
-      window.TDGF_reload();
-      return true;
-    };
-  })();
-  
   if (window.TD_SESSION && window.TD_SESSION.gc){
     var state;
     
@@ -1301,7 +1272,7 @@
   }
   
   //
-  // Block: Disable default TweetDeck update notification, as the app usually reloads automatically every so often.
+  // Block: Disable default TweetDeck update notification.
   //
   onAppReady.push(function(){
     let events = $._data(document, "events");

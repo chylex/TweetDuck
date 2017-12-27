@@ -24,11 +24,7 @@ namespace TweetDuck.Core.Other.Settings{
                 checkHardwareAcceleration.Enabled = false;
                 checkHardwareAcceleration.Checked = false;
             }
-
-            checkBrowserGCReload.Checked = SysConfig.EnableBrowserGCReload;
-            numMemoryThreshold.Enabled = checkBrowserGCReload.Checked;
-            numMemoryThreshold.SetValueSafe(SysConfig.BrowserMemoryThreshold);
-
+            
             BrowserCache.CalculateCacheSize(task => {
                 string text = task.IsCompleted ? (int)Math.Ceiling(task.Result/(1024.0*1024.0))+" MB" : "(unknown size)";
                 this.InvokeSafe(() => btnClearCache.Text = $"Clear Cache ({text})");
@@ -38,10 +34,7 @@ namespace TweetDuck.Core.Other.Settings{
         public override void OnReady(){
             btnClearCache.Click += btnClearCache_Click;
             checkHardwareAcceleration.CheckedChanged += checkHardwareAcceleration_CheckedChanged;
-
-            checkBrowserGCReload.CheckedChanged += checkBrowserGCReload_CheckedChanged;
-            numMemoryThreshold.ValueChanged += numMemoryThreshold_ValueChanged;
-
+            
             btnEditCefArgs.Click += btnEditCefArgs_Click;
             btnEditCSS.Click += btnEditCSS_Click;
             
@@ -64,15 +57,6 @@ namespace TweetDuck.Core.Other.Settings{
         private void checkHardwareAcceleration_CheckedChanged(object sender, EventArgs e){
             SysConfig.HardwareAcceleration = checkHardwareAcceleration.Checked;
             PromptRestart(); // calls OnClosing
-        }
-
-        private void checkBrowserGCReload_CheckedChanged(object sender, EventArgs e){
-            SysConfig.EnableBrowserGCReload = checkBrowserGCReload.Checked;
-            numMemoryThreshold.Enabled = checkBrowserGCReload.Checked;
-        }
-
-        private void numMemoryThreshold_ValueChanged(object sender, EventArgs e){
-            SysConfig.BrowserMemoryThreshold = (int)numMemoryThreshold.Value;
         }
 
         private void btnEditCefArgs_Click(object sender, EventArgs e){

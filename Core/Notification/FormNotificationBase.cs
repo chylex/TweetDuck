@@ -9,7 +9,6 @@ using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling;
 using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Other.Analytics;
-using TweetDuck.Core.Other.Management;
 using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Notification{
@@ -175,9 +174,6 @@ namespace TweetDuck.Core.Notification{
         private void browser_IsBrowserInitializedChanged(object sender, IsBrowserInitializedChangedEventArgs e){
             if (e.IsBrowserInitialized){
                 Initialized?.Invoke(this, EventArgs.Empty);
-
-                int identifier = browser.GetBrowser().Identifier;
-                Disposed += (sender2, args2) => BrowserProcesses.Forget(identifier);
             }
         }
 

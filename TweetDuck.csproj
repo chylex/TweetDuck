@@ -190,7 +190,6 @@
     <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsRestart.Designer.cs">
       <DependentUpon>DialogSettingsRestart.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Other\Management\BrowserProcesses.cs" />
     <Compile Include="Core\Other\Settings\TabSettingsFeedback.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -248,7 +247,6 @@
     <Compile Include="Data\Serialization\SingleTypeConverter.cs" />
     <Compile Include="Data\TwoKeyDictionary.cs" />
     <Compile Include="Data\WindowState.cs" />
-    <Compile Include="Core\Other\Management\MemoryUsageTracker.cs" />
     <Compile Include="Core\Utils\WindowsUtils.cs" />
     <Compile Include="Core\Bridge\TweetDeckBridge.cs" />
     <Compile Include="Core\Other\FormSettings.cs">
