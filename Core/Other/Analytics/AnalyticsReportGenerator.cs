@@ -37,8 +37,6 @@ namespace TweetDuck.Core.Other.Analytics{
                 { "Screen DPI"        , info.DPI != null ? Exact(info.DPI.Value) : "(unknown)" },
                 0,
                 { "Hardware Acceleration" , Bool(SysConfig.HardwareAcceleration) },
-                { "Browser GC Reload"     , Bool(SysConfig.EnableBrowserGCReload) },
-                { "Browser GC Threshold"  , Exact(SysConfig.BrowserMemoryThreshold) },
                 0,
                 { "Expand Links"             , Bool(UserConfig.ExpandLinksOnHover) },
                 { "Switch Account Selectors" , Bool(UserConfig.SwitchAccountSelectors) },
@@ -102,8 +100,7 @@ namespace TweetDuck.Core.Other.Analytics{
                 { "Notification Keyboard Shortcuts"  , LogRound(file.CountNotificationKeyboardShortcuts, 2) },
                 { "Tweet Screenshots"                , LogRound(file.CountTweetScreenshots, 2) },
                 { "Tweet Details"                    , LogRound(file.CountTweetDetails, 2) },
-                { "Video Plays"                      , LogRound(file.CountVideoPlays, 4) },
-                { "GC Reloads"                       , LogRound(file.CountGCReloads, 4) }
+                { "Video Plays"                      , LogRound(file.CountVideoPlays, 4) }
             }.FinalizeReport();
         }
 

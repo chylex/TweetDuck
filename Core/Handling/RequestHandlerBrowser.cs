@@ -1,5 +1,4 @@
 ﻿using CefSharp;
-using TweetDuck.Core.Handling.General;
 
 namespace TweetDuck.Core.Handling{
     sealed class RequestHandlerBrowser : RequestHandlerBase{

@@ -4,7 +4,9 @@ using TweetDuck.Data.Serialization;
 
 namespace TweetDuck.Configuration{
     sealed class SystemConfig{
-        private static readonly FileSerializer<SystemConfig> Serializer = new FileSerializer<SystemConfig>();
+        private static readonly FileSerializer<SystemConfig> Serializer = new FileSerializer<SystemConfig>{
+            HandleUnknownProperties = FileSerializer<SystemConfig>.IgnoreProperties("EnableBrowserGCReload", "BrowserMemoryThreshold")
+        };
 
         public static readonly bool IsHardwareAccelerationSupported = File.Exists(Path.Combine(Program.ProgramPath, "libEGL.dll")) &&
                                                                       File.Exists(Path.Combine(Program.ProgramPath, "libGLESv2.dll"));
@@ -12,9 +14,6 @@ namespace TweetDuck.Configuration{
         // CONFIGURATION DATA
 
         private bool _hardwareAcceleration = true;
-
-        public bool EnableBrowserGCReload { get; set; } = true;
-        public int BrowserMemoryThreshold { get; set; } = 400;
 
         // SPECIAL PROPERTIES
         

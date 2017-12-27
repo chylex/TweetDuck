@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="packages\CefSharp.WinForms.57.0.0\build\CefSharp.WinForms.props" Condition="Exists('packages\CefSharp.WinForms.57.0.0\build\CefSharp.WinForms.props')" />
-  <Import Project="packages\CefSharp.Common.57.0.0\build\CefSharp.Common.props" Condition="Exists('packages\CefSharp.Common.57.0.0\build\CefSharp.Common.props')" />
+  <Import Project="packages\CefSharp.WinForms.63.0.0-CI2399\build\CefSharp.WinForms.props" Condition="Exists('packages\CefSharp.WinForms.63.0.0-CI2399\build\CefSharp.WinForms.props')" />
+  <Import Project="packages\CefSharp.Common.63.0.0-CI2399\build\CefSharp.Common.props" Condition="Exists('packages\CefSharp.Common.63.0.0-CI2399\build\CefSharp.Common.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -102,8 +102,8 @@
     <Compile Include="Core\Handling\General\FileDialogHandler.cs" />
     <Compile Include="Core\Handling\KeyboardHandlerBrowser.cs" />
     <Compile Include="Core\Handling\KeyboardHandlerNotification.cs" />
+    <Compile Include="Core\Handling\RequestHandlerBase.cs" />
     <Compile Include="Core\Handling\RequestHandlerBrowser.cs" />
-    <Compile Include="Core\Handling\General\RequestHandlerBase.cs" />
     <Compile Include="Core\Handling\ResourceHandlerNotification.cs" />
     <Compile Include="Core\Notification\Example\FormNotificationExample.cs">
       <SubType>Form</SubType>
@@ -190,7 +190,6 @@
     <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsRestart.Designer.cs">
       <DependentUpon>DialogSettingsRestart.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Other\Management\BrowserProcesses.cs" />
     <Compile Include="Core\Other\Settings\TabSettingsFeedback.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -248,7 +247,6 @@
     <Compile Include="Data\Serialization\SingleTypeConverter.cs" />
     <Compile Include="Data\TwoKeyDictionary.cs" />
     <Compile Include="Data\WindowState.cs" />
-    <Compile Include="Core\Other\Management\MemoryUsageTracker.cs" />
     <Compile Include="Core\Utils\WindowsUtils.cs" />
     <Compile Include="Core\Bridge\TweetDeckBridge.cs" />
     <Compile Include="Core\Other\FormSettings.cs">
@@ -420,21 +418,6 @@ if $(ConfigurationName) == Debug (
 
 powershell -ExecutionPolicy Unrestricted -File "$(ProjectDir)Resources\PostBuild.ps1" "$(TargetDir)\"</PostBuildEvent>
   </PropertyGroup>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('packages\cef.redist.x64.3.2987.1601\build\cef.redist.x64.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\cef.redist.x64.3.2987.1601\build\cef.redist.x64.targets'))" />
-    <Error Condition="!Exists('packages\cef.redist.x86.3.2987.1601\build\cef.redist.x86.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\cef.redist.x86.3.2987.1601\build\cef.redist.x86.targets'))" />
-    <Error Condition="!Exists('packages\CefSharp.Common.57.0.0\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.Common.57.0.0\build\CefSharp.Common.props'))" />
-    <Error Condition="!Exists('packages\CefSharp.Common.57.0.0\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.Common.57.0.0\build\CefSharp.Common.targets'))" />
-    <Error Condition="!Exists('packages\CefSharp.WinForms.57.0.0\build\CefSharp.WinForms.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.WinForms.57.0.0\build\CefSharp.WinForms.props'))" />
-    <Error Condition="!Exists('packages\CefSharp.WinForms.57.0.0\build\CefSharp.WinForms.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.WinForms.57.0.0\build\CefSharp.WinForms.targets'))" />
-  </Target>
-  <Import Project="packages\cef.redist.x64.3.2987.1601\build\cef.redist.x64.targets" Condition="Exists('packages\cef.redist.x64.3.2987.1601\build\cef.redist.x64.targets')" />
-  <Import Project="packages\cef.redist.x86.3.2987.1601\build\cef.redist.x86.targets" Condition="Exists('packages\cef.redist.x86.3.2987.1601\build\cef.redist.x86.targets')" />
-  <Import Project="packages\CefSharp.Common.57.0.0\build\CefSharp.Common.targets" Condition="Exists('packages\CefSharp.Common.57.0.0\build\CefSharp.Common.targets')" />
-  <Import Project="packages\CefSharp.WinForms.57.0.0\build\CefSharp.WinForms.targets" Condition="Exists('packages\CefSharp.WinForms.57.0.0\build\CefSharp.WinForms.targets')" />
   <Target Name="AfterBuild" Condition="$(ConfigurationName) == Release">
     <Exec Command="del &quot;$(TargetDir)*.pdb&quot;" />
     <Exec Command="del &quot;$(TargetDir)*.xml&quot;" />
@@ -445,4 +428,19 @@ powershell -ExecutionPolicy Unrestricted -File "$(ProjectDir)Resources\PostBuild
   <PropertyGroup>
     <PreBuildEvent>powershell Get-Process TweetDuck.Browser -ErrorAction SilentlyContinue ^| Where-Object {$_.Path -eq '$(TargetDir)TweetDuck.Browser.exe'} ^| Stop-Process; Exit 0</PreBuildEvent>
   </PropertyGroup>
+  <Import Project="packages\cef.redist.x64.3.3239.1709\build\cef.redist.x64.targets" Condition="Exists('packages\cef.redist.x64.3.3239.1709\build\cef.redist.x64.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\cef.redist.x64.3.3239.1709\build\cef.redist.x64.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\cef.redist.x64.3.3239.1709\build\cef.redist.x64.targets'))" />
+    <Error Condition="!Exists('packages\cef.redist.x86.3.3239.1709\build\cef.redist.x86.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\cef.redist.x86.3.3239.1709\build\cef.redist.x86.targets'))" />
+    <Error Condition="!Exists('packages\CefSharp.Common.63.0.0-CI2399\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.Common.63.0.0-CI2399\build\CefSharp.Common.props'))" />
+    <Error Condition="!Exists('packages\CefSharp.Common.63.0.0-CI2399\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.Common.63.0.0-CI2399\build\CefSharp.Common.targets'))" />
+    <Error Condition="!Exists('packages\CefSharp.WinForms.63.0.0-CI2399\build\CefSharp.WinForms.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.WinForms.63.0.0-CI2399\build\CefSharp.WinForms.props'))" />
+    <Error Condition="!Exists('packages\CefSharp.WinForms.63.0.0-CI2399\build\CefSharp.WinForms.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.WinForms.63.0.0-CI2399\build\CefSharp.WinForms.targets'))" />
+  </Target>
+  <Import Project="packages\cef.redist.x86.3.3239.1709\build\cef.redist.x86.targets" Condition="Exists('packages\cef.redist.x86.3.3239.1709\build\cef.redist.x86.targets')" />
+  <Import Project="packages\CefSharp.Common.63.0.0-CI2399\build\CefSharp.Common.targets" Condition="Exists('packages\CefSharp.Common.63.0.0-CI2399\build\CefSharp.Common.targets')" />
+  <Import Project="packages\CefSharp.WinForms.63.0.0-CI2399\build\CefSharp.WinForms.targets" Condition="Exists('packages\CefSharp.WinForms.63.0.0-CI2399\build\CefSharp.WinForms.targets')" />
 </Project>
