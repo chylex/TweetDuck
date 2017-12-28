@@ -9,13 +9,13 @@ namespace TweetDuck.Core.Utils{
         private static bool ClearOnExit { get; set; }
 
         public static readonly string CacheFolder = Path.Combine(Program.StoragePath, "Cache");
-        private static IEnumerable<string> CacheFiles => Directory.EnumerateFiles(CacheFolder);
+        private static IEnumerable<FileInfo> CacheFiles => new DirectoryInfo(CacheFolder).EnumerateFiles();
 
         public static void CalculateCacheSize(Action<Task<long>> callbackBytes){
             Task<long> task = new Task<long>(() => {
                 return CacheFiles.Select(file => {
                     try{
-                        return new FileInfo(file).Length;
+                        return file.Length;
                     }catch{
                         return 0L;
                     }
@@ -32,12 +32,10 @@ namespace TweetDuck.Core.Utils{
 
         public static void Exit(){
             if (ClearOnExit){
-                foreach(string file in CacheFiles){
-                    try{
-                        File.Delete(file);
-                    }catch{
-                        // welp, too bad
-                    }
+                try{
+                    Directory.Delete(CacheFolder, true);
+                }catch{
+                    // welp, too bad
                 }
             }
         }

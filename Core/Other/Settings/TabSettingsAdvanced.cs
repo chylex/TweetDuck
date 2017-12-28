@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using TweetDuck.Configuration;
 using TweetDuck.Core.Controls;
@@ -26,7 +27,7 @@ namespace TweetDuck.Core.Other.Settings{
             }
             
             BrowserCache.CalculateCacheSize(task => {
-                string text = task.IsCompleted ? (int)Math.Ceiling(task.Result/(1024.0*1024.0))+" MB" : "(unknown size)";
+                string text = task.Status == TaskStatus.RanToCompletion ? (int)Math.Ceiling(task.Result/(1024.0*1024.0))+" MB" : "unknown";
                 this.InvokeSafe(() => btnClearCache.Text = $"Clear Cache ({text})");
             });
         }
