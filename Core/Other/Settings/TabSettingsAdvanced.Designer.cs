@@ -33,12 +33,16 @@
             this.btnRestart = new System.Windows.Forms.Button();
             this.btnOpenAppFolder = new System.Windows.Forms.Button();
             this.btnOpenDataFolder = new System.Windows.Forms.Button();
+            this.numClearCacheThreshold = new TweetDuck.Core.Controls.NumericUpDownEx();
+            this.checkClearCacheAuto = new System.Windows.Forms.CheckBox();
             this.labelApp = new System.Windows.Forms.Label();
             this.panelApp = new System.Windows.Forms.Panel();
             this.labelPerformance = new System.Windows.Forms.Label();
             this.panelPerformance = new System.Windows.Forms.Panel();
+            this.labelCache = new System.Windows.Forms.Label();
             this.panelConfiguration = new System.Windows.Forms.Panel();
             this.labelConfiguration = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.numClearCacheThreshold)).BeginInit();
             this.panelApp.SuspendLayout();
             this.panelPerformance.SuspendLayout();
             this.panelConfiguration.SuspendLayout();
@@ -46,7 +50,7 @@
             // 
             // btnClearCache
             // 
-            this.btnClearCache.Location = new System.Drawing.Point(5, 28);
+            this.btnClearCache.Location = new System.Drawing.Point(5, 53);
             this.btnClearCache.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnClearCache.Name = "btnClearCache";
             this.btnClearCache.Size = new System.Drawing.Size(144, 23);
@@ -130,6 +134,30 @@
             this.toolTip.SetToolTip(this.btnOpenDataFolder, "Opens the folder where your profile data is located.");
             this.btnOpenDataFolder.UseVisualStyleBackColor = true;
             // 
+            // numClearCacheThreshold
+            // 
+            this.numClearCacheThreshold.Increment = 50;
+            this.numClearCacheThreshold.Location = new System.Drawing.Point(227, 82);
+            this.numClearCacheThreshold.Maximum = 1000;
+            this.numClearCacheThreshold.Minimum = 100;
+            this.numClearCacheThreshold.Name = "numClearCacheThreshold";
+            this.numClearCacheThreshold.Size = new System.Drawing.Size(72, 20);
+            this.numClearCacheThreshold.TabIndex = 4;
+            this.numClearCacheThreshold.TextSuffix = " MB";
+            this.numClearCacheThreshold.Value = 250;
+            // 
+            // checkClearCacheAuto
+            // 
+            this.checkClearCacheAuto.AutoSize = true;
+            this.checkClearCacheAuto.Location = new System.Drawing.Point(6, 84);
+            this.checkClearCacheAuto.Margin = new System.Windows.Forms.Padding(6, 5, 3, 3);
+            this.checkClearCacheAuto.Name = "checkClearCacheAuto";
+            this.checkClearCacheAuto.Size = new System.Drawing.Size(215, 17);
+            this.checkClearCacheAuto.TabIndex = 3;
+            this.checkClearCacheAuto.Text = "Clear Cache Automatically When Above";
+            this.toolTip.SetToolTip(this.checkClearCacheAuto, "Automatically clears cache when its size exceeds the set threshold. Note that cache can only be cleared when closing TweetDuck.");
+            this.checkClearCacheAuto.UseVisualStyleBackColor = true;
+            // 
             // labelApp
             // 
             this.labelApp.AutoSize = true;
@@ -169,12 +197,25 @@
             // 
             this.panelPerformance.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelPerformance.Controls.Add(this.checkClearCacheAuto);
+            this.panelPerformance.Controls.Add(this.numClearCacheThreshold);
+            this.panelPerformance.Controls.Add(this.labelCache);
             this.panelPerformance.Controls.Add(this.checkHardwareAcceleration);
             this.panelPerformance.Controls.Add(this.btnClearCache);
             this.panelPerformance.Location = new System.Drawing.Point(9, 137);
             this.panelPerformance.Name = "panelPerformance";
-            this.panelPerformance.Size = new System.Drawing.Size(322, 58);
+            this.panelPerformance.Size = new System.Drawing.Size(322, 105);
             this.panelPerformance.TabIndex = 3;
+            // 
+            // labelCache
+            // 
+            this.labelCache.AutoSize = true;
+            this.labelCache.Location = new System.Drawing.Point(3, 37);
+            this.labelCache.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
+            this.labelCache.Name = "labelCache";
+            this.labelCache.Size = new System.Drawing.Size(38, 13);
+            this.labelCache.TabIndex = 2;
+            this.labelCache.Text = "Cache";
             // 
             // panelConfiguration
             // 
@@ -182,7 +223,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelConfiguration.Controls.Add(this.btnEditCSS);
             this.panelConfiguration.Controls.Add(this.btnEditCefArgs);
-            this.panelConfiguration.Location = new System.Drawing.Point(9, 242);
+            this.panelConfiguration.Location = new System.Drawing.Point(9, 289);
             this.panelConfiguration.Name = "panelConfiguration";
             this.panelConfiguration.Size = new System.Drawing.Size(322, 29);
             this.panelConfiguration.TabIndex = 5;
@@ -191,7 +232,7 @@
             // 
             this.labelConfiguration.AutoSize = true;
             this.labelConfiguration.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelConfiguration.Location = new System.Drawing.Point(6, 219);
+            this.labelConfiguration.Location = new System.Drawing.Point(6, 266);
             this.labelConfiguration.Margin = new System.Windows.Forms.Padding(0, 21, 0, 0);
             this.labelConfiguration.Name = "labelConfiguration";
             this.labelConfiguration.Size = new System.Drawing.Size(104, 20);
@@ -209,7 +250,8 @@
             this.Controls.Add(this.panelApp);
             this.Controls.Add(this.labelApp);
             this.Name = "TabSettingsAdvanced";
-            this.Size = new System.Drawing.Size(340, 282);
+            this.Size = new System.Drawing.Size(340, 328);
+            ((System.ComponentModel.ISupportInitialize)(this.numClearCacheThreshold)).EndInit();
             this.panelApp.ResumeLayout(false);
             this.panelPerformance.ResumeLayout(false);
             this.panelPerformance.PerformLayout();
@@ -236,5 +278,8 @@
         private System.Windows.Forms.Panel panelPerformance;
         private System.Windows.Forms.Panel panelConfiguration;
         private System.Windows.Forms.Label labelConfiguration;
+        private System.Windows.Forms.Label labelCache;
+        private Controls.NumericUpDownEx numClearCacheThreshold;
+        private System.Windows.Forms.CheckBox checkClearCacheAuto;
     }
 }

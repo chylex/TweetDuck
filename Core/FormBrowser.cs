@@ -419,6 +419,8 @@ namespace TweetDuck.Core{
                         analytics.Dispose();
                         analytics = null;
                     }
+
+                    BrowserCache.RefreshTimer();
                     
                     if (form.ShouldReloadBrowser){
                         FormManager.TryFind<FormPlugins>()?.Close();

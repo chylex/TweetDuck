@@ -25,16 +25,22 @@ namespace TweetDuck.Core.Other.Settings{
                 checkHardwareAcceleration.Enabled = false;
                 checkHardwareAcceleration.Checked = false;
             }
+
+            checkClearCacheAuto.Checked = SysConfig.ClearCacheAutomatically;
+            numClearCacheThreshold.Enabled = checkClearCacheAuto.Checked;
+            numClearCacheThreshold.SetValueSafe(SysConfig.ClearCacheThreshold);
             
-            BrowserCache.CalculateCacheSize(task => {
+            BrowserCache.GetCacheSize(task => {
                 string text = task.Status == TaskStatus.RanToCompletion ? (int)Math.Ceiling(task.Result/(1024.0*1024.0))+" MB" : "unknown";
                 this.InvokeSafe(() => btnClearCache.Text = $"Clear Cache ({text})");
             });
         }
 
         public override void OnReady(){
-            btnClearCache.Click += btnClearCache_Click;
             checkHardwareAcceleration.CheckedChanged += checkHardwareAcceleration_CheckedChanged;
+
+            btnClearCache.Click += btnClearCache_Click;
+            checkClearCacheAuto.CheckedChanged += checkClearCacheAuto_CheckedChanged;
             
             btnEditCefArgs.Click += btnEditCefArgs_Click;
             btnEditCSS.Click += btnEditCSS_Click;
@@ -46,6 +52,8 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         public override void OnClosing(){
+            SysConfig.ClearCacheAutomatically = checkClearCacheAuto.Checked;
+            SysConfig.ClearCacheThreshold = (int)numClearCacheThreshold.Value;
             SysConfig.Save();
         }
 
@@ -53,6 +61,10 @@ namespace TweetDuck.Core.Other.Settings{
             btnClearCache.Enabled = false;
             BrowserCache.SetClearOnExit();
             FormMessage.Information("Clear Cache", "Cache will be automatically cleared when TweetDuck exits.", FormMessage.OK);
+        }
+
+        private void checkClearCacheAuto_CheckedChanged(object sender, EventArgs e){
+            numClearCacheThreshold.Enabled = checkClearCacheAuto.Checked;
         }
 
         private void checkHardwareAcceleration_CheckedChanged(object sender, EventArgs e){

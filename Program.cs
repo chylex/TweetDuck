@@ -127,6 +127,7 @@ namespace TweetDuck{
                 WindowsUtils.TryDeleteFolderWhenAble(InstallerPath, 8000);
             }
             
+            BrowserCache.RefreshTimer();
             CefSharpSettings.WcfEnabled = false;
 
             CefSettings settings = new CefSettings{

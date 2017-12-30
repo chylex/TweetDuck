@@ -1,36 +1,59 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Threading;
 
 namespace TweetDuck.Core.Utils{
     static class BrowserCache{
-        private static bool ClearOnExit { get; set; }
-
         public static readonly string CacheFolder = Path.Combine(Program.StoragePath, "Cache");
-        private static IEnumerable<FileInfo> CacheFiles => new DirectoryInfo(CacheFolder).EnumerateFiles();
+        
+        private static bool ClearOnExit;
+        private static Timer AutoClearTimer;
 
-        public static void CalculateCacheSize(Action<Task<long>> callbackBytes){
-            Task<long> task = new Task<long>(() => {
-                return CacheFiles.Select(file => {
-                    try{
-                        return file.Length;
-                    }catch{
-                        return 0L;
-                    }
-                }).Sum();
-            });
-            
+        private static long CalculateCacheSize(){
+            return new DirectoryInfo(CacheFolder).EnumerateFiles().Select(file => {
+                try{
+                    return file.Length;
+                }catch{
+                    return 0L;
+                }
+            }).Sum();
+        }
+
+        public static void GetCacheSize(Action<Task<long>> callbackBytes){
+            Task<long> task = new Task<long>(CalculateCacheSize);
             task.ContinueWith(callbackBytes);
             task.Start();
+        }
+        
+        public static void RefreshTimer(){
+            bool shouldRun = Program.SystemConfig.ClearCacheAutomatically && !ClearOnExit;
+
+            if (!shouldRun && AutoClearTimer != null){
+                AutoClearTimer.Dispose();
+                AutoClearTimer = null;
+            }
+            else if (shouldRun && AutoClearTimer == null){
+                AutoClearTimer = new Timer(state => {
+                    if (AutoClearTimer != null && CalculateCacheSize() >= Program.SystemConfig.ClearCacheThreshold*1024L*1024L){
+                        SetClearOnExit();
+                    }
+                }, null, TimeSpan.FromSeconds(30), TimeSpan.FromHours(4));
+            }
         }
 
         public static void SetClearOnExit(){
             ClearOnExit = true;
+            RefreshTimer();
         }
 
         public static void Exit(){
+            if (AutoClearTimer != null){
+                AutoClearTimer.Dispose();
+                AutoClearTimer = null;
+            }
+
             if (ClearOnExit){
                 try{
                     Directory.Delete(CacheFolder, true);

@@ -15,6 +15,9 @@ namespace TweetDuck.Configuration{
 
         private bool _hardwareAcceleration = true;
 
+        public bool ClearCacheAutomatically { get; set; } = true;
+        public int ClearCacheThreshold      { get; set; } = 250;
+
         // SPECIAL PROPERTIES
         
         public bool HardwareAcceleration{
