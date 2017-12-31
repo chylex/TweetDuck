@@ -94,6 +94,11 @@ namespace TweetDuck.Core.Other.Analytics{
 
             Task.Factory.StartNew(() => {
                 AnalyticsReport report = AnalyticsReportGenerator.Create(File, info, plugins);
+
+                #if DEBUG
+                System.Diagnostics.Debugger.Break();
+                #endif
+
                 BrowserUtils.CreateWebClient().UploadValues(CollectionUrl, "POST", report.ToNameValueCollection());
             }).ContinueWith(task => browser.InvokeAsyncSafe(() => {
                 if (task.Status == TaskStatus.RanToCompletion){

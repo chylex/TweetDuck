@@ -99,6 +99,10 @@ namespace TweetDuck.Core{
             this.updates.UpdateAccepted += updates_UpdateAccepted;
             this.updates.UpdateDismissed += updates_UpdateDismissed;
 
+            if (Config.AllowDataCollection){
+                analytics = new AnalyticsManager(this, plugins, Program.AnalyticsFilePath);
+            }
+
             RestoreWindow();
         }
 
@@ -118,10 +122,6 @@ namespace TweetDuck.Core{
             Config.BrowserWindow.Restore(this, true);
             prevState = WindowState;
             isLoaded = true;
-
-            if (Config.AllowDataCollection){
-                analytics = new AnalyticsManager(this, plugins, Program.AnalyticsFilePath);
-            }
         }
 
         private void UpdateTrayIcon(){

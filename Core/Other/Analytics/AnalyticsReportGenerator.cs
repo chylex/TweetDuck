@@ -280,7 +280,7 @@ namespace TweetDuck.Core.Other.Analytics{
                     return new ExternalInfo();
                 }
                 else{
-                    Screen screen = Screen.FromControl(form);
+                    Screen screen = Screen.FromControl(form); // works on multi-monitor setups even in tray
                     int dpi;
 
                     using(Graphics graphics = form.CreateGraphics()){
