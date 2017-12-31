@@ -420,13 +420,23 @@
   })();
   
   //
-  // Block: Bypass t.co when clicking links and media.
+  // Block: Bypass t.co when clicking/dragging links and media.
   //
   $(document.body).delegate("a[data-full-url]", "click auxclick", function(e){
     if (e.button === 0 || e.button === 1){ // event.which seems to be borked in auxclick
       $TD.openBrowser($(this).attr("data-full-url"));
       e.preventDefault();
     }
+  });
+  
+  $(document.body).delegate("a[data-full-url]", "dragstart", function(e){
+    let url = $(this).attr("data-full-url");
+    let data = e.originalEvent.dataTransfer;
+    
+    data.clearData();
+    data.setData("text/uri-list", url);
+    data.setData("text/plain", url);
+    data.setData("text/html", `<a href="${url}">${url}</a>`);
   });
   
   if (ensurePropertyExists(TD, "services", "TwitterUser", "prototype", "fromJSONObject")){
