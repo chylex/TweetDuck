@@ -51,7 +51,8 @@
             this.radioSizeAuto = new System.Windows.Forms.RadioButton();
             this.radioSizeCustom = new System.Windows.Forms.RadioButton();
             this.labelGeneral = new System.Windows.Forms.Label();
-            this.panelGeneral = new System.Windows.Forms.Panel();
+            this.panelEdgeDistance = new System.Windows.Forms.Panel();
+            this.checkMediaPreviews = new System.Windows.Forms.CheckBox();
             this.labelScrollSpeedValue = new System.Windows.Forms.Label();
             this.trackBarScrollSpeed = new System.Windows.Forms.TrackBar();
             this.labelScrollSpeed = new System.Windows.Forms.Label();
@@ -61,22 +62,25 @@
             this.labelDuration = new System.Windows.Forms.Label();
             this.labelTimer = new System.Windows.Forms.Label();
             this.labelSize = new System.Windows.Forms.Label();
-            this.panelMiscellaneous = new System.Windows.Forms.Panel();
+            this.panelSize = new System.Windows.Forms.Panel();
             this.durationUpdateTimer = new System.Windows.Forms.Timer(this.components);
-            this.checkMediaPreviews = new System.Windows.Forms.CheckBox();
+            this.flowPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.panelScrollSpeed = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).BeginInit();
             this.tableLayoutDurationButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarDuration)).BeginInit();
-            this.panelGeneral.SuspendLayout();
+            this.panelEdgeDistance.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarScrollSpeed)).BeginInit();
             this.panelLocation.SuspendLayout();
             this.panelTimer.SuspendLayout();
-            this.panelMiscellaneous.SuspendLayout();
+            this.panelSize.SuspendLayout();
+            this.flowPanel.SuspendLayout();
+            this.panelScrollSpeed.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelEdgeDistanceValue
             // 
-            this.labelEdgeDistanceValue.Location = new System.Drawing.Point(147, 129);
+            this.labelEdgeDistanceValue.Location = new System.Drawing.Point(145, 4);
             this.labelEdgeDistanceValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelEdgeDistanceValue.Name = "labelEdgeDistanceValue";
             this.labelEdgeDistanceValue.Size = new System.Drawing.Size(40, 13);
@@ -87,7 +91,7 @@
             // labelDisplay
             // 
             this.labelDisplay.AutoSize = true;
-            this.labelDisplay.Location = new System.Drawing.Point(3, 60);
+            this.labelDisplay.Location = new System.Drawing.Point(3, 451);
             this.labelDisplay.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelDisplay.Name = "labelDisplay";
             this.labelDisplay.Size = new System.Drawing.Size(41, 13);
@@ -96,11 +100,9 @@
             // 
             // comboBoxDisplay
             // 
-            this.comboBoxDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxDisplay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxDisplay.FormattingEnabled = true;
-            this.comboBoxDisplay.Location = new System.Drawing.Point(5, 76);
+            this.comboBoxDisplay.Location = new System.Drawing.Point(5, 467);
             this.comboBoxDisplay.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.comboBoxDisplay.Name = "comboBoxDisplay";
             this.comboBoxDisplay.Size = new System.Drawing.Size(144, 21);
@@ -109,7 +111,7 @@
             // labelEdgeDistance
             // 
             this.labelEdgeDistance.AutoSize = true;
-            this.labelEdgeDistance.Location = new System.Drawing.Point(3, 112);
+            this.labelEdgeDistance.Location = new System.Drawing.Point(3, 503);
             this.labelEdgeDistance.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelEdgeDistance.Name = "labelEdgeDistance";
             this.labelEdgeDistance.Size = new System.Drawing.Size(103, 13);
@@ -125,7 +127,6 @@
             this.radioLocCustom.TabIndex = 4;
             this.radioLocCustom.TabStop = true;
             this.radioLocCustom.Text = "Custom";
-            this.toolTip.SetToolTip(this.radioLocCustom, "Drag the example notification window to the desired location.");
             this.radioLocCustom.UseVisualStyleBackColor = true;
             // 
             // radioLocBR
@@ -176,7 +177,7 @@
             // 
             this.trackBarEdgeDistance.AutoSize = false;
             this.trackBarEdgeDistance.LargeChange = 8;
-            this.trackBarEdgeDistance.Location = new System.Drawing.Point(5, 128);
+            this.trackBarEdgeDistance.Location = new System.Drawing.Point(3, 3);
             this.trackBarEdgeDistance.Maximum = 40;
             this.trackBarEdgeDistance.Minimum = 8;
             this.trackBarEdgeDistance.Name = "trackBarEdgeDistance";
@@ -195,7 +196,7 @@
             this.tableLayoutDurationButtons.Controls.Add(this.btnDurationMedium, 0, 0);
             this.tableLayoutDurationButtons.Controls.Add(this.btnDurationLong, 1, 0);
             this.tableLayoutDurationButtons.Controls.Add(this.btnDurationShort, 0, 0);
-            this.tableLayoutDurationButtons.Location = new System.Drawing.Point(3, 113);
+            this.tableLayoutDurationButtons.Location = new System.Drawing.Point(3, 320);
             this.tableLayoutDurationButtons.Name = "tableLayoutDurationButtons";
             this.tableLayoutDurationButtons.RowCount = 1;
             this.tableLayoutDurationButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -250,19 +251,18 @@
             // labelDurationValue
             // 
             this.labelDurationValue.BackColor = System.Drawing.Color.Transparent;
-            this.labelDurationValue.Location = new System.Drawing.Point(147, 77);
+            this.labelDurationValue.Location = new System.Drawing.Point(147, 4);
             this.labelDurationValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelDurationValue.Name = "labelDurationValue";
             this.labelDurationValue.Size = new System.Drawing.Size(52, 13);
             this.labelDurationValue.TabIndex = 4;
             this.labelDurationValue.Text = "0 ms/c";
             this.labelDurationValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.toolTip.SetToolTip(this.labelDurationValue, "Milliseconds per character.");
             // 
             // trackBarDuration
             // 
             this.trackBarDuration.AutoSize = false;
-            this.trackBarDuration.Location = new System.Drawing.Point(3, 76);
+            this.trackBarDuration.Location = new System.Drawing.Point(3, 3);
             this.trackBarDuration.Maximum = 60;
             this.trackBarDuration.Minimum = 10;
             this.trackBarDuration.Name = "trackBarDuration";
@@ -274,31 +274,29 @@
             // checkSkipOnLinkClick
             // 
             this.checkSkipOnLinkClick.AutoSize = true;
-            this.checkSkipOnLinkClick.Location = new System.Drawing.Point(6, 51);
+            this.checkSkipOnLinkClick.Location = new System.Drawing.Point(6, 72);
             this.checkSkipOnLinkClick.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.checkSkipOnLinkClick.Name = "checkSkipOnLinkClick";
             this.checkSkipOnLinkClick.Size = new System.Drawing.Size(113, 17);
             this.checkSkipOnLinkClick.TabIndex = 2;
             this.checkSkipOnLinkClick.Text = "Skip On Link Click";
-            this.toolTip.SetToolTip(this.checkSkipOnLinkClick, "Skips current notification when a link\r\ninside the notification is clicked.");
             this.checkSkipOnLinkClick.UseVisualStyleBackColor = true;
             // 
             // checkColumnName
             // 
             this.checkColumnName.AutoSize = true;
-            this.checkColumnName.Location = new System.Drawing.Point(6, 5);
-            this.checkColumnName.Margin = new System.Windows.Forms.Padding(6, 5, 3, 3);
+            this.checkColumnName.Location = new System.Drawing.Point(6, 26);
+            this.checkColumnName.Margin = new System.Windows.Forms.Padding(6, 6, 3, 3);
             this.checkColumnName.Name = "checkColumnName";
             this.checkColumnName.Size = new System.Drawing.Size(129, 17);
             this.checkColumnName.TabIndex = 0;
             this.checkColumnName.Text = "Display Column Name";
-            this.toolTip.SetToolTip(this.checkColumnName, "Shows column name each notification originated\r\nfrom in the notification window title.");
             this.checkColumnName.UseVisualStyleBackColor = true;
             // 
             // labelIdlePause
             // 
             this.labelIdlePause.AutoSize = true;
-            this.labelIdlePause.Location = new System.Drawing.Point(3, 106);
+            this.labelIdlePause.Location = new System.Drawing.Point(3, 127);
             this.labelIdlePause.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelIdlePause.Name = "labelIdlePause";
             this.labelIdlePause.Size = new System.Drawing.Size(89, 13);
@@ -309,42 +307,39 @@
             // 
             this.comboBoxIdlePause.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxIdlePause.FormattingEnabled = true;
-            this.comboBoxIdlePause.Location = new System.Drawing.Point(5, 122);
+            this.comboBoxIdlePause.Location = new System.Drawing.Point(5, 143);
             this.comboBoxIdlePause.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.comboBoxIdlePause.Name = "comboBoxIdlePause";
             this.comboBoxIdlePause.Size = new System.Drawing.Size(144, 21);
             this.comboBoxIdlePause.TabIndex = 5;
-            this.toolTip.SetToolTip(this.comboBoxIdlePause, "Pauses new notifications after going idle for a set amount of time.");
             // 
             // checkNonIntrusive
             // 
             this.checkNonIntrusive.AutoSize = true;
-            this.checkNonIntrusive.Location = new System.Drawing.Point(6, 74);
+            this.checkNonIntrusive.Location = new System.Drawing.Point(6, 95);
             this.checkNonIntrusive.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.checkNonIntrusive.Name = "checkNonIntrusive";
             this.checkNonIntrusive.Size = new System.Drawing.Size(128, 17);
             this.checkNonIntrusive.TabIndex = 3;
             this.checkNonIntrusive.Text = "Non-Intrusive Popups";
-            this.toolTip.SetToolTip(this.checkNonIntrusive, "When not idle and the cursor is within the notification window area,\r\nit will be delayed until the cursor moves away to prevent accidental clicks.");
             this.checkNonIntrusive.UseVisualStyleBackColor = true;
             // 
             // checkTimerCountDown
             // 
             this.checkTimerCountDown.AutoSize = true;
-            this.checkTimerCountDown.Location = new System.Drawing.Point(6, 28);
+            this.checkTimerCountDown.Location = new System.Drawing.Point(6, 236);
             this.checkTimerCountDown.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.checkTimerCountDown.Name = "checkTimerCountDown";
             this.checkTimerCountDown.Size = new System.Drawing.Size(119, 17);
             this.checkTimerCountDown.TabIndex = 1;
             this.checkTimerCountDown.Text = "Timer Counts Down";
-            this.toolTip.SetToolTip(this.checkTimerCountDown, "The notification timer counts down instead of up.");
             this.checkTimerCountDown.UseVisualStyleBackColor = true;
             // 
             // checkNotificationTimer
             // 
             this.checkNotificationTimer.AutoSize = true;
-            this.checkNotificationTimer.Location = new System.Drawing.Point(6, 5);
-            this.checkNotificationTimer.Margin = new System.Windows.Forms.Padding(6, 5, 3, 3);
+            this.checkNotificationTimer.Location = new System.Drawing.Point(6, 213);
+            this.checkNotificationTimer.Margin = new System.Windows.Forms.Padding(6, 6, 3, 3);
             this.checkNotificationTimer.Name = "checkNotificationTimer";
             this.checkNotificationTimer.Size = new System.Drawing.Size(145, 17);
             this.checkNotificationTimer.TabIndex = 0;
@@ -353,57 +348,62 @@
             // 
             // radioSizeAuto
             // 
-            this.radioSizeAuto.Location = new System.Drawing.Point(6, 4);
+            this.radioSizeAuto.Location = new System.Drawing.Point(5, 4);
             this.radioSizeAuto.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.radioSizeAuto.Name = "radioSizeAuto";
             this.radioSizeAuto.Size = new System.Drawing.Size(92, 17);
             this.radioSizeAuto.TabIndex = 0;
             this.radioSizeAuto.TabStop = true;
             this.radioSizeAuto.Text = "Auto";
-            this.toolTip.SetToolTip(this.radioSizeAuto, "Notification size is based on the font size and browser zoom level.");
             this.radioSizeAuto.UseVisualStyleBackColor = true;
             // 
             // radioSizeCustom
             // 
-            this.radioSizeCustom.Location = new System.Drawing.Point(106, 4);
+            this.radioSizeCustom.Location = new System.Drawing.Point(105, 4);
             this.radioSizeCustom.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.radioSizeCustom.Name = "radioSizeCustom";
             this.radioSizeCustom.Size = new System.Drawing.Size(92, 17);
             this.radioSizeCustom.TabIndex = 1;
             this.radioSizeCustom.TabStop = true;
             this.radioSizeCustom.Text = "Custom";
-            this.toolTip.SetToolTip(this.radioSizeCustom, "Resize the example notification window to the desired size.");
             this.radioSizeCustom.UseVisualStyleBackColor = true;
             // 
             // labelGeneral
             // 
             this.labelGeneral.AutoSize = true;
             this.labelGeneral.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelGeneral.Location = new System.Drawing.Point(6, 8);
-            this.labelGeneral.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);
+            this.labelGeneral.Location = new System.Drawing.Point(0, 0);
+            this.labelGeneral.Margin = new System.Windows.Forms.Padding(0);
             this.labelGeneral.Name = "labelGeneral";
             this.labelGeneral.Size = new System.Drawing.Size(66, 20);
             this.labelGeneral.TabIndex = 0;
             this.labelGeneral.Text = "General";
             // 
-            // panelGeneral
+            // panelEdgeDistance
             // 
-            this.panelGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelGeneral.Controls.Add(this.checkMediaPreviews);
-            this.panelGeneral.Controls.Add(this.checkColumnName);
-            this.panelGeneral.Controls.Add(this.checkSkipOnLinkClick);
-            this.panelGeneral.Controls.Add(this.checkNonIntrusive);
-            this.panelGeneral.Controls.Add(this.labelIdlePause);
-            this.panelGeneral.Controls.Add(this.comboBoxIdlePause);
-            this.panelGeneral.Location = new System.Drawing.Point(9, 31);
-            this.panelGeneral.Name = "panelGeneral";
-            this.panelGeneral.Size = new System.Drawing.Size(322, 149);
-            this.panelGeneral.TabIndex = 1;
+            this.panelEdgeDistance.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panelEdgeDistance.Controls.Add(this.trackBarEdgeDistance);
+            this.panelEdgeDistance.Controls.Add(this.labelEdgeDistanceValue);
+            this.panelEdgeDistance.Location = new System.Drawing.Point(0, 516);
+            this.panelEdgeDistance.Margin = new System.Windows.Forms.Padding(0);
+            this.panelEdgeDistance.Name = "panelEdgeDistance";
+            this.panelEdgeDistance.Size = new System.Drawing.Size(322, 36);
+            this.panelEdgeDistance.TabIndex = 1;
+            // 
+            // checkMediaPreviews
+            // 
+            this.checkMediaPreviews.AutoSize = true;
+            this.checkMediaPreviews.Location = new System.Drawing.Point(6, 49);
+            this.checkMediaPreviews.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
+            this.checkMediaPreviews.Name = "checkMediaPreviews";
+            this.checkMediaPreviews.Size = new System.Drawing.Size(131, 17);
+            this.checkMediaPreviews.TabIndex = 1;
+            this.checkMediaPreviews.Text = "Show Media Previews";
+            this.checkMediaPreviews.UseVisualStyleBackColor = true;
             // 
             // labelScrollSpeedValue
             // 
-            this.labelScrollSpeedValue.Location = new System.Drawing.Point(147, 53);
+            this.labelScrollSpeedValue.Location = new System.Drawing.Point(145, 4);
             this.labelScrollSpeedValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelScrollSpeedValue.Name = "labelScrollSpeedValue";
             this.labelScrollSpeedValue.Size = new System.Drawing.Size(38, 13);
@@ -415,7 +415,7 @@
             // 
             this.trackBarScrollSpeed.AutoSize = false;
             this.trackBarScrollSpeed.LargeChange = 25;
-            this.trackBarScrollSpeed.Location = new System.Drawing.Point(5, 52);
+            this.trackBarScrollSpeed.Location = new System.Drawing.Point(3, 3);
             this.trackBarScrollSpeed.Maximum = 200;
             this.trackBarScrollSpeed.Minimum = 25;
             this.trackBarScrollSpeed.Name = "trackBarScrollSpeed";
@@ -428,7 +428,7 @@
             // labelScrollSpeed
             // 
             this.labelScrollSpeed.AutoSize = true;
-            this.labelScrollSpeed.Location = new System.Drawing.Point(3, 36);
+            this.labelScrollSpeed.Location = new System.Drawing.Point(3, 629);
             this.labelScrollSpeed.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelScrollSpeed.Name = "labelScrollSpeed";
             this.labelScrollSpeed.Size = new System.Drawing.Size(67, 13);
@@ -439,8 +439,8 @@
             // 
             this.labelLocation.AutoSize = true;
             this.labelLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelLocation.Location = new System.Drawing.Point(6, 395);
-            this.labelLocation.Margin = new System.Windows.Forms.Padding(0, 21, 0, 0);
+            this.labelLocation.Location = new System.Drawing.Point(0, 370);
+            this.labelLocation.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
             this.labelLocation.Name = "labelLocation";
             this.labelLocation.Size = new System.Drawing.Size(70, 20);
             this.labelLocation.TabIndex = 4;
@@ -448,42 +448,33 @@
             // 
             // panelLocation
             // 
-            this.panelLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelLocation.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panelLocation.Controls.Add(this.radioLocTL);
-            this.panelLocation.Controls.Add(this.labelDisplay);
-            this.panelLocation.Controls.Add(this.trackBarEdgeDistance);
-            this.panelLocation.Controls.Add(this.comboBoxDisplay);
             this.panelLocation.Controls.Add(this.radioLocTR);
-            this.panelLocation.Controls.Add(this.labelEdgeDistance);
             this.panelLocation.Controls.Add(this.radioLocBL);
             this.panelLocation.Controls.Add(this.radioLocCustom);
             this.panelLocation.Controls.Add(this.radioLocBR);
-            this.panelLocation.Controls.Add(this.labelEdgeDistanceValue);
-            this.panelLocation.Location = new System.Drawing.Point(9, 418);
+            this.panelLocation.Location = new System.Drawing.Point(0, 390);
+            this.panelLocation.Margin = new System.Windows.Forms.Padding(0);
             this.panelLocation.Name = "panelLocation";
-            this.panelLocation.Size = new System.Drawing.Size(322, 165);
+            this.panelLocation.Size = new System.Drawing.Size(322, 49);
             this.panelLocation.TabIndex = 5;
             // 
             // panelTimer
             // 
-            this.panelTimer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelTimer.Controls.Add(this.labelDuration);
-            this.panelTimer.Controls.Add(this.checkNotificationTimer);
-            this.panelTimer.Controls.Add(this.tableLayoutDurationButtons);
-            this.panelTimer.Controls.Add(this.checkTimerCountDown);
+            this.panelTimer.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panelTimer.Controls.Add(this.labelDurationValue);
             this.panelTimer.Controls.Add(this.trackBarDuration);
-            this.panelTimer.Location = new System.Drawing.Point(9, 227);
+            this.panelTimer.Location = new System.Drawing.Point(0, 281);
+            this.panelTimer.Margin = new System.Windows.Forms.Padding(0);
             this.panelTimer.Name = "panelTimer";
-            this.panelTimer.Size = new System.Drawing.Size(322, 144);
+            this.panelTimer.Size = new System.Drawing.Size(322, 36);
             this.panelTimer.TabIndex = 3;
             // 
             // labelDuration
             // 
             this.labelDuration.AutoSize = true;
-            this.labelDuration.Location = new System.Drawing.Point(3, 60);
+            this.labelDuration.Location = new System.Drawing.Point(3, 268);
             this.labelDuration.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelDuration.Name = "labelDuration";
             this.labelDuration.Size = new System.Drawing.Size(47, 13);
@@ -494,8 +485,8 @@
             // 
             this.labelTimer.AutoSize = true;
             this.labelTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelTimer.Location = new System.Drawing.Point(6, 204);
-            this.labelTimer.Margin = new System.Windows.Forms.Padding(0, 21, 0, 0);
+            this.labelTimer.Location = new System.Drawing.Point(0, 187);
+            this.labelTimer.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
             this.labelTimer.Name = "labelTimer";
             this.labelTimer.Size = new System.Drawing.Size(48, 20);
             this.labelTimer.TabIndex = 2;
@@ -505,73 +496,96 @@
             // 
             this.labelSize.AutoSize = true;
             this.labelSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelSize.Location = new System.Drawing.Point(6, 607);
-            this.labelSize.Margin = new System.Windows.Forms.Padding(0, 21, 0, 0);
+            this.labelSize.Location = new System.Drawing.Point(0, 572);
+            this.labelSize.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
             this.labelSize.Name = "labelSize";
             this.labelSize.Size = new System.Drawing.Size(40, 20);
             this.labelSize.TabIndex = 6;
             this.labelSize.Text = "Size";
             // 
-            // panelMiscellaneous
+            // panelSize
             // 
-            this.panelMiscellaneous.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.panelSize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelMiscellaneous.Controls.Add(this.radioSizeCustom);
-            this.panelMiscellaneous.Controls.Add(this.radioSizeAuto);
-            this.panelMiscellaneous.Controls.Add(this.labelScrollSpeedValue);
-            this.panelMiscellaneous.Controls.Add(this.trackBarScrollSpeed);
-            this.panelMiscellaneous.Controls.Add(this.labelScrollSpeed);
-            this.panelMiscellaneous.Location = new System.Drawing.Point(9, 630);
-            this.panelMiscellaneous.Name = "panelMiscellaneous";
-            this.panelMiscellaneous.Size = new System.Drawing.Size(322, 92);
-            this.panelMiscellaneous.TabIndex = 7;
+            this.panelSize.Controls.Add(this.radioSizeCustom);
+            this.panelSize.Controls.Add(this.radioSizeAuto);
+            this.panelSize.Location = new System.Drawing.Point(0, 592);
+            this.panelSize.Margin = new System.Windows.Forms.Padding(0);
+            this.panelSize.Name = "panelSize";
+            this.panelSize.Size = new System.Drawing.Size(322, 25);
+            this.panelSize.TabIndex = 7;
             // 
             // durationUpdateTimer
             // 
             this.durationUpdateTimer.Interval = 200;
             this.durationUpdateTimer.Tick += new System.EventHandler(this.durationUpdateTimer_Tick);
             // 
-            // checkMediaPreviews
+            // flowPanel
             // 
-            this.checkMediaPreviews.AutoSize = true;
-            this.checkMediaPreviews.Location = new System.Drawing.Point(6, 28);
-            this.checkMediaPreviews.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
-            this.checkMediaPreviews.Name = "checkMediaPreviews";
-            this.checkMediaPreviews.Size = new System.Drawing.Size(131, 17);
-            this.checkMediaPreviews.TabIndex = 1;
-            this.checkMediaPreviews.Text = "Show Media Previews";
-            this.toolTip.SetToolTip(this.checkMediaPreviews, "Shows image and video thumbnails in the notification window.");
-            this.checkMediaPreviews.UseVisualStyleBackColor = true;
+            this.flowPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowPanel.Controls.Add(this.labelGeneral);
+            this.flowPanel.Controls.Add(this.checkColumnName);
+            this.flowPanel.Controls.Add(this.checkMediaPreviews);
+            this.flowPanel.Controls.Add(this.checkSkipOnLinkClick);
+            this.flowPanel.Controls.Add(this.checkNonIntrusive);
+            this.flowPanel.Controls.Add(this.labelIdlePause);
+            this.flowPanel.Controls.Add(this.comboBoxIdlePause);
+            this.flowPanel.Controls.Add(this.labelTimer);
+            this.flowPanel.Controls.Add(this.checkNotificationTimer);
+            this.flowPanel.Controls.Add(this.checkTimerCountDown);
+            this.flowPanel.Controls.Add(this.labelDuration);
+            this.flowPanel.Controls.Add(this.panelTimer);
+            this.flowPanel.Controls.Add(this.tableLayoutDurationButtons);
+            this.flowPanel.Controls.Add(this.labelLocation);
+            this.flowPanel.Controls.Add(this.panelLocation);
+            this.flowPanel.Controls.Add(this.labelDisplay);
+            this.flowPanel.Controls.Add(this.comboBoxDisplay);
+            this.flowPanel.Controls.Add(this.labelEdgeDistance);
+            this.flowPanel.Controls.Add(this.panelEdgeDistance);
+            this.flowPanel.Controls.Add(this.labelSize);
+            this.flowPanel.Controls.Add(this.panelSize);
+            this.flowPanel.Controls.Add(this.labelScrollSpeed);
+            this.flowPanel.Controls.Add(this.panelScrollSpeed);
+            this.flowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowPanel.Location = new System.Drawing.Point(9, 9);
+            this.flowPanel.Name = "flowPanel";
+            this.flowPanel.Size = new System.Drawing.Size(322, 678);
+            this.flowPanel.TabIndex = 8;
+            this.flowPanel.WrapContents = false;
+            // 
+            // panelScrollSpeed
+            // 
+            this.panelScrollSpeed.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panelScrollSpeed.Controls.Add(this.trackBarScrollSpeed);
+            this.panelScrollSpeed.Controls.Add(this.labelScrollSpeedValue);
+            this.panelScrollSpeed.Location = new System.Drawing.Point(0, 642);
+            this.panelScrollSpeed.Margin = new System.Windows.Forms.Padding(0);
+            this.panelScrollSpeed.Name = "panelScrollSpeed";
+            this.panelScrollSpeed.Size = new System.Drawing.Size(322, 36);
+            this.panelScrollSpeed.TabIndex = 9;
             // 
             // TabSettingsNotifications
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.panelMiscellaneous);
-            this.Controls.Add(this.labelSize);
-            this.Controls.Add(this.labelTimer);
-            this.Controls.Add(this.panelLocation);
-            this.Controls.Add(this.labelLocation);
-            this.Controls.Add(this.panelGeneral);
-            this.Controls.Add(this.labelGeneral);
-            this.Controls.Add(this.panelTimer);
+            this.Controls.Add(this.flowPanel);
             this.Name = "TabSettingsNotifications";
-            this.Size = new System.Drawing.Size(340, 731);
+            this.Size = new System.Drawing.Size(340, 697);
             this.ParentChanged += new System.EventHandler(this.TabSettingsNotifications_ParentChanged);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).EndInit();
             this.tableLayoutDurationButtons.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarDuration)).EndInit();
-            this.panelGeneral.ResumeLayout(false);
-            this.panelGeneral.PerformLayout();
+            this.panelEdgeDistance.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarScrollSpeed)).EndInit();
             this.panelLocation.ResumeLayout(false);
-            this.panelLocation.PerformLayout();
             this.panelTimer.ResumeLayout(false);
-            this.panelTimer.PerformLayout();
-            this.panelMiscellaneous.ResumeLayout(false);
-            this.panelMiscellaneous.PerformLayout();
+            this.panelSize.ResumeLayout(false);
+            this.flowPanel.ResumeLayout(false);
+            this.flowPanel.PerformLayout();
+            this.panelScrollSpeed.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -601,7 +615,7 @@
         private System.Windows.Forms.CheckBox checkTimerCountDown;
         private System.Windows.Forms.CheckBox checkNotificationTimer;
         private System.Windows.Forms.Label labelGeneral;
-        private System.Windows.Forms.Panel panelGeneral;
+        private System.Windows.Forms.Panel panelEdgeDistance;
         private System.Windows.Forms.Label labelLocation;
         private System.Windows.Forms.Panel panelLocation;
         private System.Windows.Forms.Panel panelTimer;
@@ -610,11 +624,13 @@
         private System.Windows.Forms.TrackBar trackBarScrollSpeed;
         private System.Windows.Forms.Label labelScrollSpeed;
         private System.Windows.Forms.Label labelSize;
-        private System.Windows.Forms.Panel panelMiscellaneous;
+        private System.Windows.Forms.Panel panelSize;
         private System.Windows.Forms.Label labelDuration;
         private System.Windows.Forms.Timer durationUpdateTimer;
         private System.Windows.Forms.RadioButton radioSizeCustom;
         private System.Windows.Forms.RadioButton radioSizeAuto;
         private System.Windows.Forms.CheckBox checkMediaPreviews;
+        private System.Windows.Forms.FlowLayoutPanel flowPanel;
+        private System.Windows.Forms.Panel panelScrollSpeed;
     }
 }

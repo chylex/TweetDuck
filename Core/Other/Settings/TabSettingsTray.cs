@@ -5,6 +5,9 @@ namespace TweetDuck.Core.Other.Settings{
         public TabSettingsTray(){
             InitializeComponent();
             
+            toolTip.SetToolTip(comboBoxTrayType, "Changes behavior of the Tray icon.\r\nRight-click the icon for an action menu.");
+            toolTip.SetToolTip(checkTrayHighlight, "Highlights the tray icon if there are new tweets.\r\nOnly works for columns with popup or audio notifications.\r\nThe icon resets when the main window is restored.");
+            
             comboBoxTrayType.Items.Add("Disabled");
             comboBoxTrayType.Items.Add("Display Icon Only");
             comboBoxTrayType.Items.Add("Minimize to Tray");

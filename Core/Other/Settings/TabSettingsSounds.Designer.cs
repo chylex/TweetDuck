@@ -34,8 +34,12 @@
             this.panelSoundNotification = new System.Windows.Forms.Panel();
             this.labelVolume = new System.Windows.Forms.Label();
             this.trackBarVolume = new System.Windows.Forms.TrackBar();
+            this.flowPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.panelVolume = new System.Windows.Forms.Panel();
             this.panelSoundNotification.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).BeginInit();
+            this.flowPanel.SuspendLayout();
+            this.panelVolume.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbCustomSound
@@ -46,12 +50,11 @@
             this.tbCustomSound.Name = "tbCustomSound";
             this.tbCustomSound.Size = new System.Drawing.Size(316, 20);
             this.tbCustomSound.TabIndex = 0;
-            this.toolTip.SetToolTip(this.tbCustomSound, "When empty, the default TweetDeck sound notification is used.");
             // 
             // labelVolumeValue
             // 
             this.labelVolumeValue.BackColor = System.Drawing.Color.Transparent;
-            this.labelVolumeValue.Location = new System.Drawing.Point(147, 84);
+            this.labelVolumeValue.Location = new System.Drawing.Point(147, 4);
             this.labelVolumeValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelVolumeValue.Name = "labelVolumeValue";
             this.labelVolumeValue.Size = new System.Drawing.Size(38, 13);
@@ -98,8 +101,8 @@
             // 
             this.labelSoundNotification.AutoSize = true;
             this.labelSoundNotification.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelSoundNotification.Location = new System.Drawing.Point(6, 8);
-            this.labelSoundNotification.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);
+            this.labelSoundNotification.Location = new System.Drawing.Point(0, 0);
+            this.labelSoundNotification.Margin = new System.Windows.Forms.Padding(0);
             this.labelSoundNotification.Name = "labelSoundNotification";
             this.labelSoundNotification.Size = new System.Drawing.Size(198, 20);
             this.labelSoundNotification.TabIndex = 1;
@@ -107,24 +110,21 @@
             // 
             // panelSoundNotification
             // 
-            this.panelSoundNotification.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelSoundNotification.Controls.Add(this.labelVolume);
-            this.panelSoundNotification.Controls.Add(this.trackBarVolume);
+            this.panelSoundNotification.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panelSoundNotification.Controls.Add(this.btnPlaySound);
             this.panelSoundNotification.Controls.Add(this.tbCustomSound);
             this.panelSoundNotification.Controls.Add(this.btnResetSound);
             this.panelSoundNotification.Controls.Add(this.btnBrowseSound);
-            this.panelSoundNotification.Controls.Add(this.labelVolumeValue);
-            this.panelSoundNotification.Location = new System.Drawing.Point(9, 31);
+            this.panelSoundNotification.Location = new System.Drawing.Point(0, 20);
+            this.panelSoundNotification.Margin = new System.Windows.Forms.Padding(0);
             this.panelSoundNotification.Name = "panelSoundNotification";
-            this.panelSoundNotification.Size = new System.Drawing.Size(322, 119);
+            this.panelSoundNotification.Size = new System.Drawing.Size(322, 55);
             this.panelSoundNotification.TabIndex = 2;
             // 
             // labelVolume
             // 
             this.labelVolume.AutoSize = true;
-            this.labelVolume.Location = new System.Drawing.Point(3, 67);
+            this.labelVolume.Location = new System.Drawing.Point(3, 87);
             this.labelVolume.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelVolume.Name = "labelVolume";
             this.labelVolume.Size = new System.Drawing.Size(42, 13);
@@ -135,29 +135,55 @@
             // 
             this.trackBarVolume.AutoSize = false;
             this.trackBarVolume.BackColor = System.Drawing.SystemColors.Control;
-            this.trackBarVolume.Location = new System.Drawing.Point(3, 83);
+            this.trackBarVolume.Location = new System.Drawing.Point(3, 3);
             this.trackBarVolume.Maximum = 100;
             this.trackBarVolume.Name = "trackBarVolume";
             this.trackBarVolume.Size = new System.Drawing.Size(148, 30);
-            this.trackBarVolume.SmallChange = 1;
             this.trackBarVolume.TabIndex = 5;
             this.trackBarVolume.TickFrequency = 10;
             this.trackBarVolume.Value = 100;
             this.trackBarVolume.ValueChanged += new System.EventHandler(this.trackBarVolume_ValueChanged);
             // 
+            // flowPanel
+            // 
+            this.flowPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowPanel.Controls.Add(this.labelSoundNotification);
+            this.flowPanel.Controls.Add(this.panelSoundNotification);
+            this.flowPanel.Controls.Add(this.labelVolume);
+            this.flowPanel.Controls.Add(this.panelVolume);
+            this.flowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowPanel.Location = new System.Drawing.Point(9, 9);
+            this.flowPanel.Name = "flowPanel";
+            this.flowPanel.Size = new System.Drawing.Size(322, 136);
+            this.flowPanel.TabIndex = 3;
+            this.flowPanel.WrapContents = false;
+            // 
+            // panelVolume
+            // 
+            this.panelVolume.Controls.Add(this.trackBarVolume);
+            this.panelVolume.Controls.Add(this.labelVolumeValue);
+            this.panelVolume.Location = new System.Drawing.Point(0, 100);
+            this.panelVolume.Margin = new System.Windows.Forms.Padding(0);
+            this.panelVolume.Name = "panelVolume";
+            this.panelVolume.Size = new System.Drawing.Size(322, 36);
+            this.panelVolume.TabIndex = 2;
+            // 
             // TabSettingsSounds
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.panelSoundNotification);
-            this.Controls.Add(this.labelSoundNotification);
+            this.Controls.Add(this.flowPanel);
             this.Name = "TabSettingsSounds";
-            this.Size = new System.Drawing.Size(340, 160);
+            this.Size = new System.Drawing.Size(340, 154);
             this.panelSoundNotification.ResumeLayout(false);
             this.panelSoundNotification.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).EndInit();
+            this.flowPanel.ResumeLayout(false);
+            this.flowPanel.PerformLayout();
+            this.panelVolume.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -173,5 +199,7 @@
         private System.Windows.Forms.Label labelVolume;
         private System.Windows.Forms.Label labelVolumeValue;
         private System.Windows.Forms.TrackBar trackBarVolume;
+        private System.Windows.Forms.FlowLayoutPanel flowPanel;
+        private System.Windows.Forms.Panel panelVolume;
     }
 }

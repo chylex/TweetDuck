@@ -17,6 +17,19 @@ namespace TweetDuck.Core.Other.Settings{
             InitializeComponent();
 
             this.reinjectBrowserCSS = reinjectBrowserCSS;
+            
+            toolTip.SetToolTip(btnOpenAppFolder, "Opens the folder where the app is located.");
+            toolTip.SetToolTip(btnOpenDataFolder, "Opens the folder where your profile data is located.");
+            toolTip.SetToolTip(btnRestart, "Restarts the program using the same command\r\nline arguments that were used at launch.");
+            toolTip.SetToolTip(btnRestartArgs, "Restarts the program with customizable\r\ncommand line arguments.");
+
+            toolTip.SetToolTip(checkHardwareAcceleration, "Uses graphics card to improve performance. Disable if you experience\r\nvisual glitches. This option will not be exported in a profile.");
+
+            toolTip.SetToolTip(btnClearCache, "Clearing cache will free up space taken by downloaded images and other resources.");
+            toolTip.SetToolTip(checkClearCacheAuto, "Automatically clears cache when its size exceeds the set threshold. Note that cache can only be cleared when closing TweetDuck.");
+
+            toolTip.SetToolTip(btnEditCefArgs, "Set custom command line arguments for Chromium Embedded Framework.");
+            toolTip.SetToolTip(btnEditCSS, "Set custom CSS for browser and notification windows.");
 
             if (SystemConfig.IsHardwareAccelerationSupported){
                 checkHardwareAcceleration.Checked = SysConfig.HardwareAcceleration;
@@ -37,6 +50,11 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         public override void OnReady(){
+            btnOpenAppFolder.Click += btnOpenAppFolder_Click;
+            btnOpenDataFolder.Click += btnOpenDataFolder_Click;
+            btnRestart.Click += btnRestart_Click;
+            btnRestartArgs.Click += btnRestartArgs_Click;
+
             checkHardwareAcceleration.CheckedChanged += checkHardwareAcceleration_CheckedChanged;
 
             btnClearCache.Click += btnClearCache_Click;
@@ -44,11 +62,6 @@ namespace TweetDuck.Core.Other.Settings{
             
             btnEditCefArgs.Click += btnEditCefArgs_Click;
             btnEditCSS.Click += btnEditCSS_Click;
-            
-            btnOpenAppFolder.Click += btnOpenAppFolder_Click;
-            btnOpenDataFolder.Click += btnOpenDataFolder_Click;
-            btnRestart.Click += btnRestart_Click;
-            btnRestartArgs.Click += btnRestartArgs_Click;
         }
 
         public override void OnClosing(){
