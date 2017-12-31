@@ -12,7 +12,7 @@ namespace TweetDuck.Core.Utils{
     static class BrowserUtils{
         public static string HeaderAcceptLanguage{
             get{
-                string culture = Program.Culture.Name;
+                string culture = Program.UserConfig.AppLocale;
 
                 if (culture == "en"){
                     return "en-us,en";
