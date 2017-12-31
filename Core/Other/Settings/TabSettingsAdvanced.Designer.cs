@@ -56,7 +56,6 @@
             this.btnClearCache.Size = new System.Drawing.Size(144, 23);
             this.btnClearCache.TabIndex = 1;
             this.btnClearCache.Text = "Clear Cache (calculating)";
-            this.toolTip.SetToolTip(this.btnClearCache, "Clearing cache will free up space taken by downloaded images and other resources.");
             this.btnClearCache.UseVisualStyleBackColor = true;
             // 
             // checkHardwareAcceleration
@@ -68,7 +67,6 @@
             this.checkHardwareAcceleration.Size = new System.Drawing.Size(134, 17);
             this.checkHardwareAcceleration.TabIndex = 0;
             this.checkHardwareAcceleration.Text = "Hardware Acceleration";
-            this.toolTip.SetToolTip(this.checkHardwareAcceleration, "Uses graphics card to improve performance. Disable if you experience\r\nvisual glitches. This option will not be exported in a profile.");
             this.checkHardwareAcceleration.UseVisualStyleBackColor = true;
             // 
             // btnEditCefArgs
@@ -79,7 +77,6 @@
             this.btnEditCefArgs.Size = new System.Drawing.Size(144, 23);
             this.btnEditCefArgs.TabIndex = 0;
             this.btnEditCefArgs.Text = "Edit CEF Arguments";
-            this.toolTip.SetToolTip(this.btnEditCefArgs, "Set custom command line arguments for Chromium Embedded Framework.");
             this.btnEditCefArgs.UseVisualStyleBackColor = true;
             // 
             // btnEditCSS
@@ -89,7 +86,6 @@
             this.btnEditCSS.Size = new System.Drawing.Size(144, 23);
             this.btnEditCSS.TabIndex = 1;
             this.btnEditCSS.Text = "Edit CSS";
-            this.toolTip.SetToolTip(this.btnEditCSS, "Set custom CSS for browser and notification windows.");
             this.btnEditCSS.UseVisualStyleBackColor = true;
             // 
             // btnRestartArgs
@@ -99,7 +95,6 @@
             this.btnRestartArgs.Size = new System.Drawing.Size(144, 23);
             this.btnRestartArgs.TabIndex = 3;
             this.btnRestartArgs.Text = "Restart with Arguments";
-            this.toolTip.SetToolTip(this.btnRestartArgs, "Restarts the program with customizable\r\ncommand line arguments.");
             this.btnRestartArgs.UseVisualStyleBackColor = true;
             // 
             // btnRestart
@@ -109,7 +104,6 @@
             this.btnRestart.Size = new System.Drawing.Size(144, 23);
             this.btnRestart.TabIndex = 2;
             this.btnRestart.Text = "Restart the Program";
-            this.toolTip.SetToolTip(this.btnRestart, "Restarts the program using the same command\r\nline arguments that were used at launch.");
             this.btnRestart.UseVisualStyleBackColor = true;
             // 
             // btnOpenAppFolder
@@ -120,7 +114,6 @@
             this.btnOpenAppFolder.Size = new System.Drawing.Size(144, 23);
             this.btnOpenAppFolder.TabIndex = 0;
             this.btnOpenAppFolder.Text = "Open Program Folder";
-            this.toolTip.SetToolTip(this.btnOpenAppFolder, "Opens the folder where the app is located.");
             this.btnOpenAppFolder.UseVisualStyleBackColor = true;
             // 
             // btnOpenDataFolder
@@ -131,7 +124,6 @@
             this.btnOpenDataFolder.Size = new System.Drawing.Size(144, 23);
             this.btnOpenDataFolder.TabIndex = 1;
             this.btnOpenDataFolder.Text = "Open Data Folder";
-            this.toolTip.SetToolTip(this.btnOpenDataFolder, "Opens the folder where your profile data is located.");
             this.btnOpenDataFolder.UseVisualStyleBackColor = true;
             // 
             // numClearCacheThreshold
@@ -155,7 +147,6 @@
             this.checkClearCacheAuto.Size = new System.Drawing.Size(215, 17);
             this.checkClearCacheAuto.TabIndex = 3;
             this.checkClearCacheAuto.Text = "Clear Cache Automatically When Above";
-            this.toolTip.SetToolTip(this.checkClearCacheAuto, "Automatically clears cache when its size exceeds the set threshold. Note that cache can only be cleared when closing TweetDuck.");
             this.checkClearCacheAuto.UseVisualStyleBackColor = true;
             // 
             // labelApp

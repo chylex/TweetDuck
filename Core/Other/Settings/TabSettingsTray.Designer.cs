@@ -54,7 +54,6 @@
             this.checkTrayHighlight.Size = new System.Drawing.Size(103, 17);
             this.checkTrayHighlight.TabIndex = 2;
             this.checkTrayHighlight.Text = "Enable Highlight";
-            this.toolTip.SetToolTip(this.checkTrayHighlight, "Highlights the tray icon if there are new tweets.\r\nOnly works for columns with popup or audio notifications.\r\nThe icon resets when the main window is restored.");
             this.checkTrayHighlight.UseVisualStyleBackColor = true;
             // 
             // comboBoxTrayType
@@ -66,7 +65,6 @@
             this.comboBoxTrayType.Name = "comboBoxTrayType";
             this.comboBoxTrayType.Size = new System.Drawing.Size(144, 21);
             this.comboBoxTrayType.TabIndex = 0;
-            this.toolTip.SetToolTip(this.comboBoxTrayType, "Changes behavior of the Tray icon.\r\nRight-click the icon for an action menu.");
             // 
             // labelTrayIcon
             // 

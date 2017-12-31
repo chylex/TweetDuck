@@ -55,7 +55,6 @@
             this.checkExpandLinks.Size = new System.Drawing.Size(166, 17);
             this.checkExpandLinks.TabIndex = 0;
             this.checkExpandLinks.Text = "Expand Links When Hovered";
-            this.toolTip.SetToolTip(this.checkExpandLinks, "Expands links inside the tweets. If disabled,\r\nthe full links show up in a tooltip instead.");
             this.checkExpandLinks.UseVisualStyleBackColor = true;
             // 
             // checkSpellCheck
@@ -67,7 +66,6 @@
             this.checkSpellCheck.Size = new System.Drawing.Size(119, 17);
             this.checkSpellCheck.TabIndex = 5;
             this.checkSpellCheck.Text = "Enable Spell Check";
-            this.toolTip.SetToolTip(this.checkSpellCheck, "Underlines words that are spelled incorrectly.");
             this.checkSpellCheck.UseVisualStyleBackColor = true;
             // 
             // checkUpdateNotifications
@@ -79,7 +77,6 @@
             this.checkUpdateNotifications.Size = new System.Drawing.Size(165, 17);
             this.checkUpdateNotifications.TabIndex = 0;
             this.checkUpdateNotifications.Text = "Check Updates Automatically";
-            this.toolTip.SetToolTip(this.checkUpdateNotifications, "Checks for updates every hour.\r\nIf an update is dismissed, it will not appear again.");
             this.checkUpdateNotifications.UseVisualStyleBackColor = true;
             // 
             // btnCheckUpdates
@@ -90,7 +87,6 @@
             this.btnCheckUpdates.Size = new System.Drawing.Size(144, 23);
             this.btnCheckUpdates.TabIndex = 1;
             this.btnCheckUpdates.Text = "Check Updates Now";
-            this.toolTip.SetToolTip(this.btnCheckUpdates, "Forces an update check, even for updates that had been dismissed.");
             this.btnCheckUpdates.UseVisualStyleBackColor = true;
             // 
             // labelZoomValue
@@ -103,7 +99,6 @@
             this.labelZoomValue.TabIndex = 8;
             this.labelZoomValue.Text = "100%";
             this.labelZoomValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.toolTip.SetToolTip(this.labelZoomValue, "Changes the zoom level.\r\nAlso affects notifications and screenshots.");
             // 
             // checkSwitchAccountSelectors
             // 
@@ -114,7 +109,6 @@
             this.checkSwitchAccountSelectors.Size = new System.Drawing.Size(172, 17);
             this.checkSwitchAccountSelectors.TabIndex = 1;
             this.checkSwitchAccountSelectors.Text = "Shift Selects Multiple Accounts";
-            this.toolTip.SetToolTip(this.checkSwitchAccountSelectors, "When (re)tweeting, click to select a single account or hold Shift to\r\nselect multiple accounts, instead of TweetDeck\'s default behavior.");
             this.checkSwitchAccountSelectors.UseVisualStyleBackColor = true;
             // 
             // checkBestImageQuality
@@ -126,7 +120,6 @@
             this.checkBestImageQuality.Size = new System.Drawing.Size(114, 17);
             this.checkBestImageQuality.TabIndex = 3;
             this.checkBestImageQuality.Text = "Best Image Quality";
-            this.toolTip.SetToolTip(this.checkBestImageQuality, "When right-clicking a tweet image, the context menu options\r\nwill use links to the original image size (:orig in the URL).");
             this.checkBestImageQuality.UseVisualStyleBackColor = true;
             // 
             // checkOpenSearchInFirstColumn
@@ -138,7 +131,6 @@
             this.checkOpenSearchInFirstColumn.Size = new System.Drawing.Size(219, 17);
             this.checkOpenSearchInFirstColumn.TabIndex = 2;
             this.checkOpenSearchInFirstColumn.Text = "Add Search Columns Before First Column";
-            this.toolTip.SetToolTip(this.checkOpenSearchInFirstColumn, "By default, TweetDeck adds Search columns at the end.\r\nThis option makes them appear before the first column instead.");
             this.checkOpenSearchInFirstColumn.UseVisualStyleBackColor = true;
             // 
             // trackBarZoom
@@ -231,7 +223,6 @@
             this.checkAnimatedAvatars.Size = new System.Drawing.Size(145, 17);
             this.checkAnimatedAvatars.TabIndex = 4;
             this.checkAnimatedAvatars.Text = "Enable Animated Avatars";
-            this.toolTip.SetToolTip(this.checkAnimatedAvatars, "Some old Twitter avatars could be uploaded as animated GIFs.");
             this.checkAnimatedAvatars.UseVisualStyleBackColor = true;
             // 
             // TabSettingsGeneral

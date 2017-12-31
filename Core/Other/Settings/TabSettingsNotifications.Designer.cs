@@ -125,7 +125,6 @@
             this.radioLocCustom.TabIndex = 4;
             this.radioLocCustom.TabStop = true;
             this.radioLocCustom.Text = "Custom";
-            this.toolTip.SetToolTip(this.radioLocCustom, "Drag the example notification window to the desired location.");
             this.radioLocCustom.UseVisualStyleBackColor = true;
             // 
             // radioLocBR
@@ -257,7 +256,6 @@
             this.labelDurationValue.TabIndex = 4;
             this.labelDurationValue.Text = "0 ms/c";
             this.labelDurationValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.toolTip.SetToolTip(this.labelDurationValue, "Milliseconds per character.");
             // 
             // trackBarDuration
             // 
@@ -280,7 +278,6 @@
             this.checkSkipOnLinkClick.Size = new System.Drawing.Size(113, 17);
             this.checkSkipOnLinkClick.TabIndex = 2;
             this.checkSkipOnLinkClick.Text = "Skip On Link Click";
-            this.toolTip.SetToolTip(this.checkSkipOnLinkClick, "Skips current notification when a link\r\ninside the notification is clicked.");
             this.checkSkipOnLinkClick.UseVisualStyleBackColor = true;
             // 
             // checkColumnName
@@ -292,7 +289,6 @@
             this.checkColumnName.Size = new System.Drawing.Size(129, 17);
             this.checkColumnName.TabIndex = 0;
             this.checkColumnName.Text = "Display Column Name";
-            this.toolTip.SetToolTip(this.checkColumnName, "Shows column name each notification originated\r\nfrom in the notification window title.");
             this.checkColumnName.UseVisualStyleBackColor = true;
             // 
             // labelIdlePause
@@ -314,7 +310,6 @@
             this.comboBoxIdlePause.Name = "comboBoxIdlePause";
             this.comboBoxIdlePause.Size = new System.Drawing.Size(144, 21);
             this.comboBoxIdlePause.TabIndex = 5;
-            this.toolTip.SetToolTip(this.comboBoxIdlePause, "Pauses new notifications after going idle for a set amount of time.");
             // 
             // checkNonIntrusive
             // 
@@ -325,7 +320,6 @@
             this.checkNonIntrusive.Size = new System.Drawing.Size(128, 17);
             this.checkNonIntrusive.TabIndex = 3;
             this.checkNonIntrusive.Text = "Non-Intrusive Popups";
-            this.toolTip.SetToolTip(this.checkNonIntrusive, "When not idle and the cursor is within the notification window area,\r\nit will be delayed until the cursor moves away to prevent accidental clicks.");
             this.checkNonIntrusive.UseVisualStyleBackColor = true;
             // 
             // checkTimerCountDown
@@ -337,7 +331,6 @@
             this.checkTimerCountDown.Size = new System.Drawing.Size(119, 17);
             this.checkTimerCountDown.TabIndex = 1;
             this.checkTimerCountDown.Text = "Timer Counts Down";
-            this.toolTip.SetToolTip(this.checkTimerCountDown, "The notification timer counts down instead of up.");
             this.checkTimerCountDown.UseVisualStyleBackColor = true;
             // 
             // checkNotificationTimer
@@ -360,19 +353,17 @@
             this.radioSizeAuto.TabIndex = 0;
             this.radioSizeAuto.TabStop = true;
             this.radioSizeAuto.Text = "Auto";
-            this.toolTip.SetToolTip(this.radioSizeAuto, "Notification size is based on the font size and browser zoom level.");
             this.radioSizeAuto.UseVisualStyleBackColor = true;
             // 
             // radioSizeCustom
             // 
-            this.radioSizeCustom.Location = new System.Drawing.Point(106, 4);
+            this.radioSizeCustom.Location = new System.Drawing.Point(105, 4);
             this.radioSizeCustom.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.radioSizeCustom.Name = "radioSizeCustom";
             this.radioSizeCustom.Size = new System.Drawing.Size(92, 17);
             this.radioSizeCustom.TabIndex = 1;
             this.radioSizeCustom.TabStop = true;
             this.radioSizeCustom.Text = "Custom";
-            this.toolTip.SetToolTip(this.radioSizeCustom, "Resize the example notification window to the desired size.");
             this.radioSizeCustom.UseVisualStyleBackColor = true;
             // 
             // labelGeneral
@@ -540,7 +531,6 @@
             this.checkMediaPreviews.Size = new System.Drawing.Size(131, 17);
             this.checkMediaPreviews.TabIndex = 1;
             this.checkMediaPreviews.Text = "Show Media Previews";
-            this.toolTip.SetToolTip(this.checkMediaPreviews, "Shows image and video thumbnails in the notification window.");
             this.checkMediaPreviews.UseVisualStyleBackColor = true;
             // 
             // TabSettingsNotifications
