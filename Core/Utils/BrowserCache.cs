@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace TweetDuck.Core.Utils{
     static class BrowserCache{
-        public static readonly string CacheFolder = Path.Combine(Program.StoragePath, "Cache");
+        public static string CacheFolder => Path.Combine(Program.StoragePath, "Cache");
         
         private static bool ClearOnExit;
         private static Timer AutoClearTimer;
