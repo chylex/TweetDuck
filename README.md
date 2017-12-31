@@ -14,9 +14,11 @@ The program was built using Visual Studio 2017. Before opening the solution, ple
 
 After opening the solution, download the following NuGet packages by right-clicking on the solution and selecting **Restore NuGet Packages**, or manually running these commands in the **Package Manager Console**:
 ```
-PM> Install-Package CefSharp.WinForms -Version 57.0.0
+PM> Install-Package CefSharp.WinForms -Version 63.0.0-pre01 -Source https://www.myget.org/F/cefsharp/api/v3/index.json
 PM> Install-Package Microsoft.VC120.CRT.JetBrains
 ```
+
+Note that some pre-release builds of CefSharp are not available on NuGet. To correctly restore packages in that case, make sure you add `https://www.myget.org/F/cefsharp/api/v3/index.json` to the list of package sources in **Package Manager Settings**.
 
 ### Debug
 
