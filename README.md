@@ -18,7 +18,7 @@ PM> Install-Package CefSharp.WinForms -Version 63.0.0-pre01 -Source https://www.
 PM> Install-Package Microsoft.VC120.CRT.JetBrains
 ```
 
-Note that some pre-release builds of CefSharp are not available on NuGet. To correctly restore packages in that case, make sure you add `https://www.myget.org/F/cefsharp/api/v3/index.json` to the list of package sources in **Package Manager Settings**.
+Note that some pre-release builds of CefSharp are not available on NuGet. To correctly restore packages in that case, open **Package Manager Settings**, and add `https://www.myget.org/F/cefsharp/api/v3/index.json` to the list of package sources.
 
 ### Debug
 
