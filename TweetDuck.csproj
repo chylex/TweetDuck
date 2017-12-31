@@ -196,6 +196,12 @@
     <Compile Include="Core\Other\Settings\TabSettingsFeedback.Designer.cs">
       <DependentUpon>TabSettingsFeedback.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\Other\Settings\TabSettingsLocales.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Core\Other\Settings\TabSettingsLocales.Designer.cs">
+      <DependentUpon>TabSettingsLocales.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\Other\Settings\TabSettingsTray.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -203,6 +209,7 @@
       <DependentUpon>TabSettingsTray.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\TweetDeckBrowser.cs" />
+    <Compile Include="Core\Utils\LocaleUtils.cs" />
     <Compile Include="Core\Utils\StringUtils.cs" />
     <Compile Include="Core\Utils\TwitterUtils.cs" />
     <Compile Include="Data\CombinedFileStream.cs" />

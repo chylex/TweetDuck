@@ -26,7 +26,6 @@
             this.components = new System.ComponentModel.Container();
             this.checkExpandLinks = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.checkSpellCheck = new System.Windows.Forms.CheckBox();
             this.checkUpdateNotifications = new System.Windows.Forms.CheckBox();
             this.btnCheckUpdates = new System.Windows.Forms.Button();
             this.labelZoomValue = new System.Windows.Forms.Label();
@@ -57,21 +56,10 @@
             this.checkExpandLinks.Text = "Expand Links When Hovered";
             this.checkExpandLinks.UseVisualStyleBackColor = true;
             // 
-            // checkSpellCheck
-            // 
-            this.checkSpellCheck.AutoSize = true;
-            this.checkSpellCheck.Location = new System.Drawing.Point(6, 141);
-            this.checkSpellCheck.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
-            this.checkSpellCheck.Name = "checkSpellCheck";
-            this.checkSpellCheck.Size = new System.Drawing.Size(119, 17);
-            this.checkSpellCheck.TabIndex = 5;
-            this.checkSpellCheck.Text = "Enable Spell Check";
-            this.checkSpellCheck.UseVisualStyleBackColor = true;
-            // 
             // checkUpdateNotifications
             // 
             this.checkUpdateNotifications.AutoSize = true;
-            this.checkUpdateNotifications.Location = new System.Drawing.Point(6, 268);
+            this.checkUpdateNotifications.Location = new System.Drawing.Point(6, 245);
             this.checkUpdateNotifications.Margin = new System.Windows.Forms.Padding(6, 6, 3, 3);
             this.checkUpdateNotifications.Name = "checkUpdateNotifications";
             this.checkUpdateNotifications.Size = new System.Drawing.Size(165, 17);
@@ -81,7 +69,7 @@
             // 
             // btnCheckUpdates
             // 
-            this.btnCheckUpdates.Location = new System.Drawing.Point(5, 291);
+            this.btnCheckUpdates.Location = new System.Drawing.Point(5, 268);
             this.btnCheckUpdates.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnCheckUpdates.Name = "btnCheckUpdates";
             this.btnCheckUpdates.Size = new System.Drawing.Size(144, 23);
@@ -151,7 +139,7 @@
             // labelZoom
             // 
             this.labelZoom.AutoSize = true;
-            this.labelZoom.Location = new System.Drawing.Point(3, 173);
+            this.labelZoom.Location = new System.Drawing.Point(3, 150);
             this.labelZoom.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelZoom.Name = "labelZoom";
             this.labelZoom.Size = new System.Drawing.Size(34, 13);
@@ -179,7 +167,7 @@
             this.panelZoom.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panelZoom.Controls.Add(this.trackBarZoom);
             this.panelZoom.Controls.Add(this.labelZoomValue);
-            this.panelZoom.Location = new System.Drawing.Point(0, 186);
+            this.panelZoom.Location = new System.Drawing.Point(0, 163);
             this.panelZoom.Margin = new System.Windows.Forms.Padding(0);
             this.panelZoom.Name = "panelZoom";
             this.panelZoom.Size = new System.Drawing.Size(322, 36);
@@ -200,7 +188,7 @@
             // 
             this.labelUpdates.AutoSize = true;
             this.labelUpdates.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelUpdates.Location = new System.Drawing.Point(0, 242);
+            this.labelUpdates.Location = new System.Drawing.Point(0, 219);
             this.labelUpdates.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
             this.labelUpdates.Name = "labelUpdates";
             this.labelUpdates.Size = new System.Drawing.Size(70, 20);
@@ -218,7 +206,6 @@
             this.flowPanel.Controls.Add(this.checkOpenSearchInFirstColumn);
             this.flowPanel.Controls.Add(this.checkBestImageQuality);
             this.flowPanel.Controls.Add(this.checkAnimatedAvatars);
-            this.flowPanel.Controls.Add(this.checkSpellCheck);
             this.flowPanel.Controls.Add(this.labelZoom);
             this.flowPanel.Controls.Add(this.panelZoom);
             this.flowPanel.Controls.Add(this.labelUpdates);
@@ -227,7 +214,7 @@
             this.flowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowPanel.Location = new System.Drawing.Point(9, 9);
             this.flowPanel.Name = "flowPanel";
-            this.flowPanel.Size = new System.Drawing.Size(322, 320);
+            this.flowPanel.Size = new System.Drawing.Size(322, 296);
             this.flowPanel.TabIndex = 4;
             this.flowPanel.WrapContents = false;
             // 
@@ -237,7 +224,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.flowPanel);
             this.Name = "TabSettingsGeneral";
-            this.Size = new System.Drawing.Size(340, 338);
+            this.Size = new System.Drawing.Size(340, 314);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).EndInit();
             this.panelZoom.ResumeLayout(false);
             this.flowPanel.ResumeLayout(false);
@@ -250,7 +237,6 @@
 
         private System.Windows.Forms.CheckBox checkExpandLinks;
         private System.Windows.Forms.ToolTip toolTip;
-        private System.Windows.Forms.CheckBox checkSpellCheck;
         private System.Windows.Forms.CheckBox checkUpdateNotifications;
         private System.Windows.Forms.Button btnCheckUpdates;
         private System.Windows.Forms.Label labelZoom;

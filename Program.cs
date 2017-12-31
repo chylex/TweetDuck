@@ -133,7 +133,7 @@ namespace TweetDuck{
             CefSettings settings = new CefSettings{
                 AcceptLanguageList = BrowserUtils.HeaderAcceptLanguage,
                 UserAgent = BrowserUtils.HeaderUserAgent,
-                Locale = Arguments.GetValue(Arguments.ArgLocale, string.Empty),
+                Locale = UserConfig.AppLocale,
                 BrowserSubprocessPath = BrandName+".Browser.exe",
                 CachePath = StoragePath,
                 LogFile = ConsoleLogFilePath,
