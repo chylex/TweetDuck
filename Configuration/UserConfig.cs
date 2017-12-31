@@ -52,6 +52,7 @@ namespace TweetDuck.Configuration{
         
         public bool EnableSpellCheck    { get; set; } = false;
         public string AppLocale         { get; set; } = "en-US";
+        public string TranslationTarget { get; set; } = "en";
         
         private TrayIcon.Behavior _trayBehavior       = TrayIcon.Behavior.Disabled;
         public bool EnableTrayHighlight { get; set; } = true;

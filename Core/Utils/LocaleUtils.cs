@@ -13,6 +13,15 @@ namespace TweetDuck.Core.Utils{
             .Select(file => new Item(Path.GetFileNameWithoutExtension(file)))
             .OrderBy(code => code);
         
+        // TD.languages.getSupportedTranslationDestinationLanguages() except for "ht", "in", "iw" which are missing/duplicates
+        public static IEnumerable<Item> TweetDeckTranslationLocales { get; } = new List<string>{
+            "bg", "ca", "zh-cn", "zh-tw", "cs", "da", "nl",
+            "en", "et", "fi", "fr", "de", "el", "he", "hi",
+            "hu", "id", "it", "ja", "ko", "lv", "lt", "no",
+            "pl", "pt", "ro", "ru", "sk", "sl", "es", "sv",
+            "th", "tr", "uk", "vi", "ar", "fa"
+        }.Select(code => new Item(code)).OrderBy(code => code).ToList();
+
         public sealed class Item : IComparable<Item>{
             public string Code { get; }
             public CultureInfo Info { get; }

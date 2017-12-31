@@ -7,9 +7,8 @@ namespace TweetDuck.Core.Bridge{
         }
 
         public static string GenerateScript(Environment environment){
-            string Bool(bool value){
-                return value ? "true;" : "false;";
-            }
+            string Bool(bool value) => value ? "true;" : "false;";
+            string Str(string value) => '"'+value+"\";";
 
             StringBuilder build = new StringBuilder().Append("(function(x){");
 
@@ -21,6 +20,7 @@ namespace TweetDuck.Core.Bridge{
                 build.Append("x.muteNotifications=").Append(Bool(Program.UserConfig.MuteNotifications));
                 build.Append("x.hasCustomNotificationSound=").Append(Bool(Program.UserConfig.NotificationSoundPath.Length > 0));
                 build.Append("x.notificationMediaPreviews=").Append(Bool(Program.UserConfig.NotificationMediaPreviews));
+                build.Append("x.translationTarget=").Append(Str(Program.UserConfig.TranslationTarget));
             }
 
             if (environment == Environment.Notification){
