@@ -29,10 +29,8 @@
             this.cbLogging = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.cbDebugUpdates = new System.Windows.Forms.CheckBox();
-            this.comboLocale = new System.Windows.Forms.ComboBox();
             this.tbDataFolder = new System.Windows.Forms.TextBox();
             this.tbShortcutTarget = new System.Windows.Forms.TextBox();
-            this.labelLocale = new System.Windows.Forms.Label();
             this.labelDataFolder = new System.Windows.Forms.Label();
             this.labelShortcutTarget = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -40,7 +38,7 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(216, 217);
+            this.btnCancel.Location = new System.Drawing.Point(215, 163);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnCancel.Size = new System.Drawing.Size(56, 23);
@@ -52,7 +50,7 @@
             // btnRestart
             // 
             this.btnRestart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRestart.Location = new System.Drawing.Point(153, 217);
+            this.btnRestart.Location = new System.Drawing.Point(152, 163);
             this.btnRestart.Name = "btnRestart";
             this.btnRestart.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnRestart.Size = new System.Drawing.Size(57, 23);
@@ -83,54 +81,33 @@
             this.toolTip.SetToolTip(this.cbDebugUpdates, "Allows updating to pre-releases.");
             this.cbDebugUpdates.UseVisualStyleBackColor = true;
             // 
-            // comboLocale
-            // 
-            this.comboLocale.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboLocale.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboLocale.FormattingEnabled = true;
-            this.comboLocale.Location = new System.Drawing.Point(15, 83);
-            this.comboLocale.Name = "comboLocale";
-            this.comboLocale.Size = new System.Drawing.Size(257, 21);
-            this.comboLocale.TabIndex = 3;
-            this.toolTip.SetToolTip(this.comboLocale, "Language used for spell checking.");
-            // 
             // tbDataFolder
             // 
             this.tbDataFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbDataFolder.Location = new System.Drawing.Point(15, 135);
+            this.tbDataFolder.Location = new System.Drawing.Point(15, 83);
             this.tbDataFolder.Name = "tbDataFolder";
             this.tbDataFolder.Size = new System.Drawing.Size(257, 20);
             this.tbDataFolder.TabIndex = 5;
-            this.toolTip.SetToolTip(this.tbDataFolder, "Path to the data folder. Must be either an absolute path,\r\nor a simple folder name that will be created in LocalAppData.");
+            this.toolTip.SetToolTip(this.tbDataFolder, "Path to the data folder. Must be either an absolute path,\r\nor a simple folder nam" +
+        "e that will be created in LocalAppData.");
             // 
             // tbShortcutTarget
             // 
             this.tbShortcutTarget.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbShortcutTarget.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.tbShortcutTarget.Location = new System.Drawing.Point(15, 186);
+            this.tbShortcutTarget.Location = new System.Drawing.Point(15, 134);
             this.tbShortcutTarget.Name = "tbShortcutTarget";
             this.tbShortcutTarget.ReadOnly = true;
             this.tbShortcutTarget.Size = new System.Drawing.Size(257, 20);
             this.tbShortcutTarget.TabIndex = 7;
             this.tbShortcutTarget.Click += new System.EventHandler(this.tbShortcutTarget_Click);
             // 
-            // labelLocale
-            // 
-            this.labelLocale.AutoSize = true;
-            this.labelLocale.Location = new System.Drawing.Point(12, 67);
-            this.labelLocale.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
-            this.labelLocale.Name = "labelLocale";
-            this.labelLocale.Size = new System.Drawing.Size(39, 13);
-            this.labelLocale.TabIndex = 2;
-            this.labelLocale.Text = "Locale";
-            // 
             // labelDataFolder
             // 
             this.labelDataFolder.AutoSize = true;
-            this.labelDataFolder.Location = new System.Drawing.Point(12, 119);
+            this.labelDataFolder.Location = new System.Drawing.Point(12, 67);
             this.labelDataFolder.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelDataFolder.Name = "labelDataFolder";
             this.labelDataFolder.Size = new System.Drawing.Size(62, 13);
@@ -140,7 +117,7 @@
             // labelShortcutTarget
             // 
             this.labelShortcutTarget.AutoSize = true;
-            this.labelShortcutTarget.Location = new System.Drawing.Point(12, 170);
+            this.labelShortcutTarget.Location = new System.Drawing.Point(12, 118);
             this.labelShortcutTarget.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelShortcutTarget.Name = "labelShortcutTarget";
             this.labelShortcutTarget.Size = new System.Drawing.Size(155, 13);
@@ -151,13 +128,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 252);
+            this.ClientSize = new System.Drawing.Size(284, 198);
             this.Controls.Add(this.tbShortcutTarget);
             this.Controls.Add(this.labelShortcutTarget);
             this.Controls.Add(this.tbDataFolder);
             this.Controls.Add(this.labelDataFolder);
-            this.Controls.Add(this.comboLocale);
-            this.Controls.Add(this.labelLocale);
             this.Controls.Add(this.cbDebugUpdates);
             this.Controls.Add(this.cbLogging);
             this.Controls.Add(this.btnRestart);
@@ -180,8 +155,6 @@
         private System.Windows.Forms.CheckBox cbLogging;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.CheckBox cbDebugUpdates;
-        private System.Windows.Forms.Label labelLocale;
-        private System.Windows.Forms.ComboBox comboLocale;
         private System.Windows.Forms.Label labelDataFolder;
         private System.Windows.Forms.TextBox tbDataFolder;
         private System.Windows.Forms.TextBox tbShortcutTarget;

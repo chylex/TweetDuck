@@ -5,7 +5,6 @@ namespace TweetDuck.Configuration{
     static class Arguments{
         // public args
         public const string ArgDataFolder = "-datafolder";
-        public const string ArgLocale = "-locale";
         public const string ArgLogging = "-log";
         public const string ArgDebugUpdates = "-debugupdates";
 

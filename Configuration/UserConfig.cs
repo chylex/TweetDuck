@@ -46,10 +46,13 @@ namespace TweetDuck.Configuration{
         public bool OpenSearchInFirstColumn { get; set; } = true;
         public bool BestImageQuality        { get; set; } = true;
         public bool EnableAnimatedImages    { get; set; } = true;
-        public bool EnableSpellCheck        { get; set; } = false;
         public int VideoPlayerVolume        { get; set; } = 50;
         private int _zoomLevel                            = 100;
         private bool _muteNotifications;
+        
+        public bool EnableSpellCheck    { get; set; } = false;
+        public string AppLocale         { get; set; } = "en-US";
+        public string TranslationTarget { get; set; } = "en";
         
         private TrayIcon.Behavior _trayBehavior       = TrayIcon.Behavior.Disabled;
         public bool EnableTrayHighlight { get; set; } = true;

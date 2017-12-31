@@ -1130,6 +1130,17 @@
   });
   
   //
+  // Block: Override language used for translations.
+  //
+  if (ensurePropertyExists(TD, "languages", "getSystemLanguageCode")){
+    const prevFunc = TD.languages.getSystemLanguageCode;
+    
+    TD.languages.getSystemLanguageCode = function(returnShortCode){
+      return returnShortCode ? ($TDX.translationTarget || "en") : prevFunc.apply(this, arguments);
+    };
+  }
+  
+  //
   // Block: Setup global function to refresh all columns.
   //
   window.TDGF_reloadColumns = function(){

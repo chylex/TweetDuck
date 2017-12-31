@@ -23,7 +23,6 @@ namespace TweetDuck.Core.Other.Settings{
             toolTip.SetToolTip(checkOpenSearchInFirstColumn, "By default, TweetDeck adds Search columns at the end.\r\nThis option makes them appear before the first column instead.");
             toolTip.SetToolTip(checkBestImageQuality, "When right-clicking a tweet image, the context menu options\r\nwill use links to the original image size (:orig in the URL).");
             toolTip.SetToolTip(checkAnimatedAvatars, "Some old Twitter avatars could be uploaded as animated GIFs.");
-            toolTip.SetToolTip(checkSpellCheck, "Underlines words that are spelled incorrectly.");
 
             toolTip.SetToolTip(labelZoomValue, "Changes the zoom level.\r\nAlso affects notifications and screenshots.");
             toolTip.SetToolTip(trackBarZoom, toolTip.GetToolTip(labelZoomValue));
@@ -39,7 +38,6 @@ namespace TweetDuck.Core.Other.Settings{
             checkOpenSearchInFirstColumn.Checked = Config.OpenSearchInFirstColumn;
             checkBestImageQuality.Checked = Config.BestImageQuality;
             checkAnimatedAvatars.Checked = Config.EnableAnimatedImages;
-            checkSpellCheck.Checked = Config.EnableSpellCheck;
 
             checkUpdateNotifications.Checked = Config.EnableUpdateCheck;
         }
@@ -50,7 +48,6 @@ namespace TweetDuck.Core.Other.Settings{
             checkOpenSearchInFirstColumn.CheckedChanged += checkOpenSearchInFirstColumn_CheckedChanged;
             checkBestImageQuality.CheckedChanged += checkBestImageQuality_CheckedChanged;
             checkAnimatedAvatars.CheckedChanged += checkAnimatedAvatars_CheckedChanged;
-            checkSpellCheck.CheckedChanged += checkSpellCheck_CheckedChanged;
             trackBarZoom.ValueChanged += trackBarZoom_ValueChanged;
 
             checkUpdateNotifications.CheckedChanged += checkUpdateNotifications_CheckedChanged;
@@ -80,11 +77,6 @@ namespace TweetDuck.Core.Other.Settings{
         private void checkAnimatedAvatars_CheckedChanged(object sender, EventArgs e){
             Config.EnableAnimatedImages = checkAnimatedAvatars.Checked;
             BrowserProcessHandler.UpdatePrefs().ContinueWith(task => browser.ReloadColumns());
-        }
-
-        private void checkSpellCheck_CheckedChanged(object sender, EventArgs e){
-            Config.EnableSpellCheck = checkSpellCheck.Checked;
-            BrowserProcessHandler.UpdatePrefs();
         }
 
         private void trackBarZoom_ValueChanged(object sender, EventArgs e){
