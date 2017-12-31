@@ -24,32 +24,20 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            this.panelTray = new System.Windows.Forms.Panel();
             this.checkTrayHighlight = new System.Windows.Forms.CheckBox();
             this.comboBoxTrayType = new System.Windows.Forms.ComboBox();
             this.labelTrayIcon = new System.Windows.Forms.Label();
             this.labelTray = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.panelTray.SuspendLayout();
+            this.flowPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowPanel.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // panelTray
-            // 
-            this.panelTray.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelTray.Controls.Add(this.checkTrayHighlight);
-            this.panelTray.Controls.Add(this.comboBoxTrayType);
-            this.panelTray.Controls.Add(this.labelTrayIcon);
-            this.panelTray.Location = new System.Drawing.Point(9, 31);
-            this.panelTray.Name = "panelTray";
-            this.panelTray.Size = new System.Drawing.Size(322, 76);
-            this.panelTray.TabIndex = 1;
             // 
             // checkTrayHighlight
             // 
             this.checkTrayHighlight.AutoSize = true;
-            this.checkTrayHighlight.Location = new System.Drawing.Point(6, 56);
-            this.checkTrayHighlight.Margin = new System.Windows.Forms.Padding(6, 5, 3, 3);
+            this.checkTrayHighlight.Location = new System.Drawing.Point(6, 77);
+            this.checkTrayHighlight.Margin = new System.Windows.Forms.Padding(6, 6, 3, 3);
             this.checkTrayHighlight.Name = "checkTrayHighlight";
             this.checkTrayHighlight.Size = new System.Drawing.Size(103, 17);
             this.checkTrayHighlight.TabIndex = 2;
@@ -60,7 +48,7 @@
             // 
             this.comboBoxTrayType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTrayType.FormattingEnabled = true;
-            this.comboBoxTrayType.Location = new System.Drawing.Point(5, 5);
+            this.comboBoxTrayType.Location = new System.Drawing.Point(5, 25);
             this.comboBoxTrayType.Margin = new System.Windows.Forms.Padding(5, 5, 3, 3);
             this.comboBoxTrayType.Name = "comboBoxTrayType";
             this.comboBoxTrayType.Size = new System.Drawing.Size(144, 21);
@@ -69,7 +57,7 @@
             // labelTrayIcon
             // 
             this.labelTrayIcon.AutoSize = true;
-            this.labelTrayIcon.Location = new System.Drawing.Point(3, 38);
+            this.labelTrayIcon.Location = new System.Drawing.Point(3, 58);
             this.labelTrayIcon.Margin = new System.Windows.Forms.Padding(3, 9, 3, 0);
             this.labelTrayIcon.Name = "labelTrayIcon";
             this.labelTrayIcon.Size = new System.Drawing.Size(52, 13);
@@ -80,35 +68,48 @@
             // 
             this.labelTray.AutoSize = true;
             this.labelTray.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelTray.Location = new System.Drawing.Point(6, 8);
-            this.labelTray.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);
+            this.labelTray.Location = new System.Drawing.Point(0, 0);
+            this.labelTray.Margin = new System.Windows.Forms.Padding(0);
             this.labelTray.Name = "labelTray";
             this.labelTray.Size = new System.Drawing.Size(96, 20);
             this.labelTray.TabIndex = 0;
             this.labelTray.Text = "System Tray";
             // 
+            // flowPanel
+            // 
+            this.flowPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowPanel.Controls.Add(this.labelTray);
+            this.flowPanel.Controls.Add(this.comboBoxTrayType);
+            this.flowPanel.Controls.Add(this.labelTrayIcon);
+            this.flowPanel.Controls.Add(this.checkTrayHighlight);
+            this.flowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowPanel.Location = new System.Drawing.Point(9, 9);
+            this.flowPanel.Name = "flowPanel";
+            this.flowPanel.Size = new System.Drawing.Size(322, 97);
+            this.flowPanel.TabIndex = 2;
+            this.flowPanel.WrapContents = false;
+            // 
             // TabSettingsTray
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.panelTray);
-            this.Controls.Add(this.labelTray);
+            this.Controls.Add(this.flowPanel);
             this.Name = "TabSettingsTray";
-            this.Size = new System.Drawing.Size(340, 119);
-            this.panelTray.ResumeLayout(false);
-            this.panelTray.PerformLayout();
+            this.Size = new System.Drawing.Size(340, 115);
+            this.flowPanel.ResumeLayout(false);
+            this.flowPanel.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel panelTray;
         private System.Windows.Forms.CheckBox checkTrayHighlight;
         private System.Windows.Forms.ComboBox comboBoxTrayType;
         private System.Windows.Forms.Label labelTrayIcon;
         private System.Windows.Forms.Label labelTray;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.FlowLayoutPanel flowPanel;
     }
 }
