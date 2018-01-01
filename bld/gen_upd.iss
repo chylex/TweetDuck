@@ -59,7 +59,7 @@ Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\Cache"
 Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\GPUCache"
 
 [InstallDelete]
-Type: files; Name: "{app}\plugins\official\emoji-keyboard\emoji-instructions.txt"
+Type: filesandordirs; Name: "{app}\plugins\official"
 
 [Code]
 function TDIsUninstallable: Boolean; forward;
