@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using TweetDuck.Core.Controls;
 using TweetDuck.Plugins;
 using TweetDuck.Resources;
 
@@ -30,6 +31,10 @@ namespace TweetDuck.Core.Notification.Example{
             #endif
 
             exampleNotification = TweetNotification.Example(exampleTweetHTML, 95);
+        }
+
+        public override void HideNotification(){
+            Location = ControlExtensions.InvisibleLocation;
         }
 
         public void ShowExampleNotification(bool reset){
