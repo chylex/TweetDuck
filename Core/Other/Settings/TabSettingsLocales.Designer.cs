@@ -28,8 +28,8 @@
             this.checkSpellCheck = new System.Windows.Forms.CheckBox();
             this.labelLocales = new System.Windows.Forms.Label();
             this.flowPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.labelAppLanguage = new System.Windows.Forms.Label();
-            this.comboBoxAppLocale = new System.Windows.Forms.ComboBox();
+            this.labelSpellCheckLanguage = new System.Windows.Forms.Label();
+            this.comboBoxSpellCheckLanguage = new System.Windows.Forms.ComboBox();
             this.labelTranslations = new System.Windows.Forms.Label();
             this.labelTranslationTarget = new System.Windows.Forms.Label();
             this.comboBoxTranslationTarget = new System.Windows.Forms.ComboBox();
@@ -65,8 +65,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowPanel.Controls.Add(this.labelLocales);
             this.flowPanel.Controls.Add(this.checkSpellCheck);
-            this.flowPanel.Controls.Add(this.labelAppLanguage);
-            this.flowPanel.Controls.Add(this.comboBoxAppLocale);
+            this.flowPanel.Controls.Add(this.labelSpellCheckLanguage);
+            this.flowPanel.Controls.Add(this.comboBoxSpellCheckLanguage);
             this.flowPanel.Controls.Add(this.labelTranslations);
             this.flowPanel.Controls.Add(this.labelTranslationTarget);
             this.flowPanel.Controls.Add(this.comboBoxTranslationTarget);
@@ -77,25 +77,25 @@
             this.flowPanel.TabIndex = 4;
             this.flowPanel.WrapContents = false;
             // 
-            // labelAppLanguage
+            // labelSpellCheckLanguage
             // 
-            this.labelAppLanguage.AutoSize = true;
-            this.labelAppLanguage.Location = new System.Drawing.Point(3, 58);
-            this.labelAppLanguage.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
-            this.labelAppLanguage.Name = "labelAppLanguage";
-            this.labelAppLanguage.Size = new System.Drawing.Size(77, 13);
-            this.labelAppLanguage.TabIndex = 11;
-            this.labelAppLanguage.Text = "App Language";
+            this.labelSpellCheckLanguage.AutoSize = true;
+            this.labelSpellCheckLanguage.Location = new System.Drawing.Point(3, 58);
+            this.labelSpellCheckLanguage.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
+            this.labelSpellCheckLanguage.Name = "labelSpellCheckLanguage";
+            this.labelSpellCheckLanguage.Size = new System.Drawing.Size(115, 13);
+            this.labelSpellCheckLanguage.TabIndex = 11;
+            this.labelSpellCheckLanguage.Text = "Spell Check Language";
             // 
-            // comboBoxAppLocale
+            // comboBoxSpellCheckLanguage
             // 
-            this.comboBoxAppLocale.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxAppLocale.FormattingEnabled = true;
-            this.comboBoxAppLocale.Location = new System.Drawing.Point(5, 74);
-            this.comboBoxAppLocale.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
-            this.comboBoxAppLocale.Name = "comboBoxAppLocale";
-            this.comboBoxAppLocale.Size = new System.Drawing.Size(311, 21);
-            this.comboBoxAppLocale.TabIndex = 9;
+            this.comboBoxSpellCheckLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSpellCheckLanguage.FormattingEnabled = true;
+            this.comboBoxSpellCheckLanguage.Location = new System.Drawing.Point(5, 74);
+            this.comboBoxSpellCheckLanguage.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
+            this.comboBoxSpellCheckLanguage.Name = "comboBoxSpellCheckLanguage";
+            this.comboBoxSpellCheckLanguage.Size = new System.Drawing.Size(311, 21);
+            this.comboBoxSpellCheckLanguage.TabIndex = 9;
             // 
             // labelTranslations
             // 
@@ -148,8 +148,8 @@
         private System.Windows.Forms.FlowLayoutPanel flowPanel;
         private System.Windows.Forms.ComboBox comboBoxTranslationTarget;
         private System.Windows.Forms.Label labelTranslationTarget;
-        private System.Windows.Forms.ComboBox comboBoxAppLocale;
+        private System.Windows.Forms.ComboBox comboBoxSpellCheckLanguage;
         private System.Windows.Forms.Label labelTranslations;
-        private System.Windows.Forms.Label labelAppLanguage;
+        private System.Windows.Forms.Label labelSpellCheckLanguage;
     }
 }

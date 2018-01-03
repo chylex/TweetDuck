@@ -1,17 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 
 namespace TweetDuck.Core.Utils{
     static class LocaleUtils{
-        public static string LocaleFolder => Path.Combine(Program.ProgramPath, "locales");
-
-        public static IEnumerable<Item> ChromiumLocales => Directory
-            .EnumerateFiles(LocaleFolder, "*.pak", SearchOption.TopDirectoryOnly)
-            .Select(file => new Item(Path.GetFileNameWithoutExtension(file)))
-            .OrderBy(code => code);
+        // https://cs.chromium.org/chromium/src/third_party/hunspell_dictionaries/
+        public static IEnumerable<Item> SpellCheckLanguages { get; } = new List<string>{
+            "af-ZA", "bg-BG", "ca-ES", "cs-CZ", "da-DK", "de-DE",
+            "el-GR", "en-AU", "en-CA", "en-GB", "en-US", "es-ES",
+            "et-EE", "fa-IR", "fo-FO", "fr-FR", "he-IL", "hi-IN",
+            "hr-HR", "hu-HU", "id-ID", "it-IT", "ko"   , "lt-LT",
+            "lv-LV", "nb-NO", "nl-NL", "pl-PL", "pt-BR", "pt-PT",
+            "ro-RO", "ru-RU", "sk-SK", "sl-SI", "sq"   , "sr",
+            "sv-SE", "ta-IN", "tg-TG", "tr"   , "uk-UA", "vi-VN"
+        }.Select(code => {
+            string lang = StringUtils.ExtractBefore(code, '-', 2);
+            return lang == "en" || lang == "pt" ? new Item(code) : new Item(code, lang);
+        }).OrderBy(code => code).ToList();
         
         // TD.languages.getSupportedTranslationDestinationLanguages() except for "ht", "in", "iw" which are missing/duplicates
         public static IEnumerable<Item> TweetDeckTranslationLocales { get; } = new List<string>{
@@ -26,9 +32,9 @@ namespace TweetDuck.Core.Utils{
             public string Code { get; }
             public CultureInfo Info { get; }
 
-            public Item(string code){
+            public Item(string code, string alt = null){
                 this.Code = code;
-                this.Info = CultureInfo.GetCultureInfo(code);
+                this.Info = CultureInfo.GetCultureInfo(alt ?? code);
             }
 
             public override bool Equals(object obj){

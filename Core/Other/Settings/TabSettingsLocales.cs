@@ -8,20 +8,20 @@ namespace TweetDuck.Core.Other.Settings{
             InitializeComponent();
             
             toolTip.SetToolTip(checkSpellCheck, "Underlines words that are spelled incorrectly.");
-            toolTip.SetToolTip(comboBoxAppLocale, "Language used for spell check and context menu items.");
+            toolTip.SetToolTip(comboBoxSpellCheckLanguage, "Language used for spell check.");
             toolTip.SetToolTip(comboBoxTranslationTarget, "Language tweets are translated into.");
             
             checkSpellCheck.Checked = Config.EnableSpellCheck;
 
             try{
-                foreach(LocaleUtils.Item item in LocaleUtils.ChromiumLocales){
-                    comboBoxAppLocale.Items.Add(item);
+                foreach(LocaleUtils.Item item in LocaleUtils.SpellCheckLanguages){
+                    comboBoxSpellCheckLanguage.Items.Add(item);
                 }
             }catch{
-                comboBoxAppLocale.Items.Add(new LocaleUtils.Item("en-US"));
+                comboBoxSpellCheckLanguage.Items.Add(new LocaleUtils.Item("en-US"));
             }
 
-            comboBoxAppLocale.SelectedItem = new LocaleUtils.Item(Config.AppLocale);
+            comboBoxSpellCheckLanguage.SelectedItem = new LocaleUtils.Item(Config.SpellCheckLanguage);
 
             foreach(LocaleUtils.Item item in LocaleUtils.TweetDeckTranslationLocales){
                 comboBoxTranslationTarget.Items.Add(item);
@@ -32,7 +32,7 @@ namespace TweetDuck.Core.Other.Settings{
 
         public override void OnReady(){
             checkSpellCheck.CheckedChanged += checkSpellCheck_CheckedChanged;
-            comboBoxAppLocale.SelectedValueChanged += comboBoxAppLocale_SelectedValueChanged;
+            comboBoxSpellCheckLanguage.SelectedValueChanged += comboBoxSpellCheckLanguage_SelectedValueChanged;
             comboBoxTranslationTarget.SelectedValueChanged += comboBoxTranslationTarget_SelectedValueChanged;
         }
 
@@ -41,8 +41,8 @@ namespace TweetDuck.Core.Other.Settings{
             BrowserProcessHandler.UpdatePrefs();
         }
 
-        private void comboBoxAppLocale_SelectedValueChanged(object sender, EventArgs e){
-            Config.AppLocale = (comboBoxAppLocale.SelectedItem as LocaleUtils.Item)?.Code;
+        private void comboBoxSpellCheckLanguage_SelectedValueChanged(object sender, EventArgs e){
+            Config.SpellCheckLanguage = (comboBoxSpellCheckLanguage.SelectedItem as LocaleUtils.Item)?.Code;
             PromptRestart();
         }
 

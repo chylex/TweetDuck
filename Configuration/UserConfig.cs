@@ -10,7 +10,9 @@ using TweetDuck.Data.Serialization;
 
 namespace TweetDuck.Configuration{
     sealed class UserConfig{
-        private static readonly FileSerializer<UserConfig> Serializer = new FileSerializer<UserConfig>();
+        private static readonly FileSerializer<UserConfig> Serializer = new FileSerializer<UserConfig>{
+            HandleUnknownProperties = FileSerializer<UserConfig>.IgnoreProperties("AppLocale")
+        };
 
         static UserConfig(){
             Serializer.RegisterTypeConverter(typeof(WindowState), WindowState.Converter);
@@ -50,9 +52,9 @@ namespace TweetDuck.Configuration{
         private int _zoomLevel                            = 100;
         private bool _muteNotifications;
         
-        public bool EnableSpellCheck    { get; set; } = false;
-        public string AppLocale         { get; set; } = "en-US";
-        public string TranslationTarget { get; set; } = "en";
+        public bool EnableSpellCheck     { get; set; } = false;
+        public string SpellCheckLanguage { get; set; } = "en-US";
+        public string TranslationTarget  { get; set; } = "en";
         
         private TrayIcon.Behavior _trayBehavior       = TrayIcon.Behavior.Disabled;
         public bool EnableTrayHighlight { get; set; } = true;

@@ -11,6 +11,7 @@ namespace TweetDuck.Core.Handling.General{
         private static void UpdatePrefsInternal(){
             using(IRequestContext ctx = Cef.GetGlobalRequestContext()){
                 ctx.SetPreference("browser.enable_spellchecking", Program.UserConfig.EnableSpellCheck, out string _);
+                ctx.SetPreference("spellcheck.dictionary", Program.UserConfig.SpellCheckLanguage, out string _);
                 ctx.SetPreference("settings.a11y.animation_policy", Program.UserConfig.EnableAnimatedImages ? "allowed" : "none", out string _);
             }
         }

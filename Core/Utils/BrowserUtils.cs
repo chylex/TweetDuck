@@ -10,19 +10,7 @@ using TweetDuck.Core.Other;
 
 namespace TweetDuck.Core.Utils{
     static class BrowserUtils{
-        public static string HeaderAcceptLanguage{
-            get{
-                string culture = Program.UserConfig.AppLocale;
-
-                if (culture == "en"){
-                    return "en-us,en";
-                }
-                else{
-                    return culture.ToLower()+",en;q=0.9";
-                }
-            }
-        }
-
+        public static string HeaderAcceptLanguage => "en-us,en";
         public static string HeaderUserAgent => Program.BrandName+" "+Application.ProductVersion;
 
         public static void SetupCefArgs(IDictionary<string, string> args){
