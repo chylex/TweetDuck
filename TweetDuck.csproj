@@ -403,19 +403,25 @@ ren "$(TargetDir)LICENSE.md" "LICENSE.txt"
 xcopy "$(ProjectDir)bld\Resources\CEFSHARP-LICENSE.txt" "$(TargetDir)" /Y
 xcopy "$(ProjectDir)packages\Microsoft.VC120.CRT.JetBrains.12.0.21005.2\DotFiles\msvcp120.dll" "$(TargetDir)" /Y
 xcopy "$(ProjectDir)packages\Microsoft.VC120.CRT.JetBrains.12.0.21005.2\DotFiles\msvcr120.dll" "$(TargetDir)" /Y
+
 rmdir "$(TargetDir)scripts" /S /Q
 mkdir "$(TargetDir)scripts"
 xcopy "$(ProjectDir)Resources\Scripts\*" "$(TargetDir)scripts\" /E /Y
+
 rmdir "$(TargetDir)plugins" /S /Q
 mkdir "$(TargetDir)plugins"
 mkdir "$(TargetDir)plugins\official"
 mkdir "$(TargetDir)plugins\user"
 xcopy "$(ProjectDir)Resources\Plugins\*" "$(TargetDir)plugins\official\" /E /Y
+rmdir "$(TargetDir)plugins\official\.debug" /S /Q
+del "$(TargetDir)plugins\official\emoji-keyboard\emoji-instructions.txt"
+
 rmdir "$(ProjectDir)bin\Debug"
 rmdir "$(ProjectDir)bin\Release"
 
-rmdir "$(TargetDir)plugins\official\.debug" /S /Q
-del "$(TargetDir)plugins\official\emoji-keyboard\emoji-instructions.txt"
+attrib +R "$(TargetDir)locales\en-US.pak"
+del /Q /A:-R "$(TargetDir)locales\*.pak"
+attrib -R "$(TargetDir)locales\en-US.pak"
 
 if $(ConfigurationName) == Debug (
   rmdir "$(TargetDir)plugins\official\.debug" /S /Q
