@@ -67,7 +67,7 @@ namespace TweetDuck.Core{
             this.notification = new FormNotificationTweet(this, plugins);
             this.notification.Show();
             
-            this.browser = new TweetDeckBrowser(this, plugins, new TweetDeckBridge(this, notification));
+            this.browser = new TweetDeckBrowser(this, plugins, new TweetDeckBridge.Browser(this, notification));
             this.browser.PageLoaded += browser_PageLoaded;
 
             this.contextMenu = ContextMenuBrowser.CreateMenu(this);

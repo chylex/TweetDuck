@@ -83,7 +83,7 @@ namespace TweetDuck.Core.Notification{
             
             browser.KeyboardHandler = new KeyboardHandlerNotification(this);
             
-            browser.RegisterAsyncJsObject("$TD", new TweetDeckBridge(owner, this));
+            browser.RegisterAsyncJsObject("$TD", new TweetDeckBridge.Notification(owner, this));
             browser.RegisterAsyncJsObject("$TDP", plugins.Bridge);
 
             browser.LoadingStateChanged += Browser_LoadingStateChanged;

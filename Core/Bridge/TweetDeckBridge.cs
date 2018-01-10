@@ -10,7 +10,7 @@ using TweetDuck.Core.Utils;
 using TweetDuck.Resources;
 
 namespace TweetDuck.Core.Bridge{
-    sealed class TweetDeckBridge{
+    class TweetDeckBridge{
         public static string FontSize { get; private set; }
         public static string NotificationHeadLayout { get; private set; }
 
@@ -45,39 +45,75 @@ namespace TweetDuck.Core.Bridge{
         private readonly FormBrowser form;
         private readonly FormNotificationMain notification;
 
-        public TweetDeckBridge(FormBrowser form, FormNotificationMain notification){
+        protected TweetDeckBridge(FormBrowser form, FormNotificationMain notification){
             this.form = form;
             this.notification = notification;
         }
 
-        public void OnIntroductionClosed(bool showGuide, bool allowDataCollection){
-            form.InvokeAsyncSafe(() => {
-                form.OnIntroductionClosed(showGuide, allowDataCollection);
-            });
+        // Browser only
+
+        public sealed class Browser : TweetDeckBridge{
+            public Browser(FormBrowser form, FormNotificationMain notification) : base(form, notification){}
+
+            public void OpenContextMenu(){
+                form.InvokeAsyncSafe(form.OpenContextMenu);
+            }
+            
+            public void OnIntroductionClosed(bool showGuide, bool allowDataCollection){
+                form.InvokeAsyncSafe(() => {
+                    form.OnIntroductionClosed(showGuide, allowDataCollection);
+                });
+            }
+
+            public void LoadNotificationLayout(string fontSize, string headLayout){
+                form.InvokeAsyncSafe(() => {
+                    FontSize = fontSize;
+                    NotificationHeadLayout = headLayout;
+                });
+            }
+
+            public void SetLastHighlightedTweet(string tweetUrl, string quoteUrl, string authors, string imageList){
+                form.InvokeAsyncSafe(() => {
+                    LastHighlightedTweetUrl = tweetUrl;
+                    LastHighlightedQuoteUrl = quoteUrl;
+                    LastHighlightedTweetAuthors = authors;
+                    LastHighlightedTweetImages = imageList;
+                });
+            }
+
+            public void DisplayTooltip(string text){
+                form.InvokeAsyncSafe(() => form.DisplayTooltip(text));
+            }
+
+            public void SetSessionData(string key, string value){
+                form.InvokeSafe(() => { // do not use InvokeAsyncSafe, return only after invocation
+                    SessionData.Add(key, value);
+                });
+            }
         }
 
-        public void LoadNotificationLayout(string fontSize, string headLayout){
-            form.InvokeAsyncSafe(() => {
-                FontSize = fontSize;
-                NotificationHeadLayout = headLayout;
-            });
+        // Notification only
+
+        public sealed class Notification : TweetDeckBridge{
+            public Notification(FormBrowser form, FormNotificationMain notification) : base(form, notification){}
+
+            public void DisplayTooltip(string text){
+                notification.InvokeAsyncSafe(() => notification.DisplayTooltip(text));
+            }
+
+            public void LoadNextNotification(){
+                notification.InvokeAsyncSafe(notification.FinishCurrentNotification);
+            }
+
+            public void ShowTweetDetail(){
+                notification.InvokeAsyncSafe(notification.ShowTweetDetail);
+            }
         }
+
+        // Global
 
         public void SetLastRightClickInfo(string type, string link){
             form.InvokeAsyncSafe(() => ContextMenuBase.SetContextInfo(type, link));
-        }
-
-        public void SetLastHighlightedTweet(string tweetUrl, string quoteUrl, string authors, string imageList){
-            form.InvokeAsyncSafe(() => {
-                LastHighlightedTweetUrl = tweetUrl;
-                LastHighlightedQuoteUrl = quoteUrl;
-                LastHighlightedTweetAuthors = authors;
-                LastHighlightedTweetImages = imageList;
-            });
-        }
-
-        public void OpenContextMenu(){
-            form.InvokeAsyncSafe(form.OpenContextMenu);
         }
 
         public void OnTweetPopup(string columnId, string chirpId, string columnName, string tweetHtml, int tweetCharacters, string tweetUrl, string quoteUrl){
@@ -92,29 +128,6 @@ namespace TweetDuck.Core.Bridge{
                 form.OnTweetNotification();
                 form.PlayNotificationSound();
             });
-        }
-
-        public void DisplayTooltip(string text, bool showInNotification){
-            if (showInNotification){
-                notification.InvokeAsyncSafe(() => notification.DisplayTooltip(text));
-            }
-            else{
-                form.InvokeAsyncSafe(() => form.DisplayTooltip(text));
-            }
-        }
-
-        public void SetSessionData(string key, string value){
-            form.InvokeSafe(() => { // do not use InvokeAsyncSafe, return only after invocation
-                SessionData.Add(key, value);
-            });
-        }
-
-        public void LoadNextNotification(){
-            notification.InvokeAsyncSafe(notification.FinishCurrentNotification);
-        }
-
-        public void ShowNotificationTweetDetail(){
-            notification.InvokeAsyncSafe(notification.ShowTweetDetail);
         }
 
         public void ScreenshotTweet(string html, int width, int height){

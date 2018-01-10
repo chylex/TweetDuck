@@ -395,7 +395,7 @@
         }
         else{
           tooltipTimer = window.setTimeout(function(){
-            $TD.displayTooltip(me.attr("data-full-url"), false);
+            $TD.displayTooltip(me.attr("data-full-url"));
             tooltipDisplayed = true;
           }, 400);
         }
@@ -412,13 +412,13 @@
         
         if (tooltipDisplayed){
           tooltipDisplayed = false;
-          $TD.displayTooltip(null, false);
+          $TD.displayTooltip(null);
         }
       },
       
       mousemove: function(e){
         if (tooltipDisplayed && (prevMouseX !== e.clientX || prevMouseY !== e.clientY)){
-          $TD.displayTooltip($(this).attr("data-full-url"), false);
+          $TD.displayTooltip($(this).attr("data-full-url"));
           prevMouseX = e.clientX;
           prevMouseY = e.clientY;
         }

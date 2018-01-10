@@ -62,7 +62,7 @@
       }
       else{
         tooltipTimer = window.setTimeout(function(){
-          $TD.displayTooltip(url, true);
+          $TD.displayTooltip(url);
           tooltipDisplayed = true;
         }, 400);
       }
@@ -83,7 +83,7 @@
       
       if (tooltipDisplayed){
         tooltipDisplayed = false;
-        $TD.displayTooltip(null, true);
+        $TD.displayTooltip(null);
       }
     });
     
@@ -92,7 +92,7 @@
         var url = e.currentTarget.getAttribute("data-full-url");
         return if !url;
         
-        $TD.displayTooltip(url, true);
+        $TD.displayTooltip(url);
         prevMouseX = e.clientX;
         prevMouseY = e.clientY;
       }
