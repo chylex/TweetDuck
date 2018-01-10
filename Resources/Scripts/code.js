@@ -1165,6 +1165,17 @@
   };
   
   //
+  // Block: Revert Like/Follow dialogs being closed after clicking an action.
+  //
+  if (ensurePropertyExists(TD, "decider", "get")){
+    const prevFunc = TD.decider.get;
+    
+    TD.decider.get = function(key){
+      return $TDX.keepLikeFollowDialogsOpen && key.startsWith("tweetdeck_subsequent_") ? false : prevFunc.apply(this, arguments);
+    };
+  }
+  
+  //
   // Block: Fix DM reply input box not getting focused after opening a conversation.
   //
   if (ensurePropertyExists(TD, "components", "ConversationDetailView", "prototype", "showChirp")){

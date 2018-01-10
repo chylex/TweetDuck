@@ -40,6 +40,7 @@
             this.checkAnimatedAvatars = new System.Windows.Forms.CheckBox();
             this.labelUpdates = new System.Windows.Forms.Label();
             this.flowPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.checkKeepLikeFollowDialogsOpen = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).BeginInit();
             this.panelZoom.SuspendLayout();
             this.flowPanel.SuspendLayout();
@@ -59,7 +60,7 @@
             // checkUpdateNotifications
             // 
             this.checkUpdateNotifications.AutoSize = true;
-            this.checkUpdateNotifications.Location = new System.Drawing.Point(6, 245);
+            this.checkUpdateNotifications.Location = new System.Drawing.Point(6, 268);
             this.checkUpdateNotifications.Margin = new System.Windows.Forms.Padding(6, 6, 3, 3);
             this.checkUpdateNotifications.Name = "checkUpdateNotifications";
             this.checkUpdateNotifications.Size = new System.Drawing.Size(165, 17);
@@ -69,7 +70,7 @@
             // 
             // btnCheckUpdates
             // 
-            this.btnCheckUpdates.Location = new System.Drawing.Point(5, 268);
+            this.btnCheckUpdates.Location = new System.Drawing.Point(5, 291);
             this.btnCheckUpdates.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnCheckUpdates.Name = "btnCheckUpdates";
             this.btnCheckUpdates.Size = new System.Drawing.Size(144, 23);
@@ -102,7 +103,7 @@
             // checkBestImageQuality
             // 
             this.checkBestImageQuality.AutoSize = true;
-            this.checkBestImageQuality.Location = new System.Drawing.Point(6, 95);
+            this.checkBestImageQuality.Location = new System.Drawing.Point(6, 118);
             this.checkBestImageQuality.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.checkBestImageQuality.Name = "checkBestImageQuality";
             this.checkBestImageQuality.Size = new System.Drawing.Size(114, 17);
@@ -139,7 +140,7 @@
             // labelZoom
             // 
             this.labelZoom.AutoSize = true;
-            this.labelZoom.Location = new System.Drawing.Point(3, 150);
+            this.labelZoom.Location = new System.Drawing.Point(3, 173);
             this.labelZoom.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelZoom.Name = "labelZoom";
             this.labelZoom.Size = new System.Drawing.Size(34, 13);
@@ -167,7 +168,7 @@
             this.panelZoom.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panelZoom.Controls.Add(this.trackBarZoom);
             this.panelZoom.Controls.Add(this.labelZoomValue);
-            this.panelZoom.Location = new System.Drawing.Point(0, 163);
+            this.panelZoom.Location = new System.Drawing.Point(0, 186);
             this.panelZoom.Margin = new System.Windows.Forms.Padding(0);
             this.panelZoom.Name = "panelZoom";
             this.panelZoom.Size = new System.Drawing.Size(322, 36);
@@ -176,7 +177,7 @@
             // checkAnimatedAvatars
             // 
             this.checkAnimatedAvatars.AutoSize = true;
-            this.checkAnimatedAvatars.Location = new System.Drawing.Point(6, 118);
+            this.checkAnimatedAvatars.Location = new System.Drawing.Point(6, 141);
             this.checkAnimatedAvatars.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.checkAnimatedAvatars.Name = "checkAnimatedAvatars";
             this.checkAnimatedAvatars.Size = new System.Drawing.Size(145, 17);
@@ -188,7 +189,7 @@
             // 
             this.labelUpdates.AutoSize = true;
             this.labelUpdates.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelUpdates.Location = new System.Drawing.Point(0, 219);
+            this.labelUpdates.Location = new System.Drawing.Point(0, 242);
             this.labelUpdates.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
             this.labelUpdates.Name = "labelUpdates";
             this.labelUpdates.Size = new System.Drawing.Size(70, 20);
@@ -204,6 +205,7 @@
             this.flowPanel.Controls.Add(this.checkExpandLinks);
             this.flowPanel.Controls.Add(this.checkSwitchAccountSelectors);
             this.flowPanel.Controls.Add(this.checkOpenSearchInFirstColumn);
+            this.flowPanel.Controls.Add(this.checkKeepLikeFollowDialogsOpen);
             this.flowPanel.Controls.Add(this.checkBestImageQuality);
             this.flowPanel.Controls.Add(this.checkAnimatedAvatars);
             this.flowPanel.Controls.Add(this.labelZoom);
@@ -214,9 +216,20 @@
             this.flowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowPanel.Location = new System.Drawing.Point(9, 9);
             this.flowPanel.Name = "flowPanel";
-            this.flowPanel.Size = new System.Drawing.Size(322, 296);
+            this.flowPanel.Size = new System.Drawing.Size(322, 319);
             this.flowPanel.TabIndex = 4;
             this.flowPanel.WrapContents = false;
+            // 
+            // checkKeepLikeFollowDialogsOpen
+            // 
+            this.checkKeepLikeFollowDialogsOpen.AutoSize = true;
+            this.checkKeepLikeFollowDialogsOpen.Location = new System.Drawing.Point(6, 95);
+            this.checkKeepLikeFollowDialogsOpen.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
+            this.checkKeepLikeFollowDialogsOpen.Name = "checkKeepLikeFollowDialogsOpen";
+            this.checkKeepLikeFollowDialogsOpen.Size = new System.Drawing.Size(176, 17);
+            this.checkKeepLikeFollowDialogsOpen.TabIndex = 7;
+            this.checkKeepLikeFollowDialogsOpen.Text = "Keep Like/Follow Dialogs Open";
+            this.checkKeepLikeFollowDialogsOpen.UseVisualStyleBackColor = true;
             // 
             // TabSettingsGeneral
             // 
@@ -224,7 +237,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.flowPanel);
             this.Name = "TabSettingsGeneral";
-            this.Size = new System.Drawing.Size(340, 314);
+            this.Size = new System.Drawing.Size(340, 337);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).EndInit();
             this.panelZoom.ResumeLayout(false);
             this.flowPanel.ResumeLayout(false);
@@ -251,5 +264,6 @@
         private System.Windows.Forms.CheckBox checkOpenSearchInFirstColumn;
         private System.Windows.Forms.CheckBox checkAnimatedAvatars;
         private System.Windows.Forms.FlowLayoutPanel flowPanel;
+        private System.Windows.Forms.CheckBox checkKeepLikeFollowDialogsOpen;
     }
 }
