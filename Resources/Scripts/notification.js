@@ -100,6 +100,12 @@
   })();
   
   //
+  // Block: Work around clipboard HTML formatting.
+  //
+  document.addEventListener("copy", function(e){
+    window.setTimeout($TD.fixClipboard, 0);
+  });
+  
   // Block: Setup a skip button.
   //
   if (!document.body.hasAttribute("td-example-notification")){
