@@ -106,6 +106,19 @@
     window.setTimeout($TD.fixClipboard, 0);
   });
   
+  //
+  // Block: Setup a handler for 'Show this thread'.
+  //
+  (function(){
+    var btn = document.getElementById("tduck-show-thread");
+    return if !btn;
+    
+    btn.addEventListener("click", function(){
+      $TD.showNotificationTweetDetail();
+    });
+  })();
+  
+  //
   // Block: Setup a skip button.
   //
   if (!document.body.hasAttribute("td-example-notification")){

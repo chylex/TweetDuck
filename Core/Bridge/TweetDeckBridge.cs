@@ -113,6 +113,10 @@ namespace TweetDuck.Core.Bridge{
             notification.InvokeAsyncSafe(notification.FinishCurrentNotification);
         }
 
+        public void ShowNotificationTweetDetail(){
+            notification.InvokeAsyncSafe(notification.ShowTweetDetail);
+        }
+
         public void ScreenshotTweet(string html, int width, int height){
             form.InvokeAsyncSafe(() => form.OnTweetScreenshotReady(html, width, height));
         }

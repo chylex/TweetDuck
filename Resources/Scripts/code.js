@@ -182,6 +182,12 @@
           this.outerHTML = this.innerHTML;
         });
         
+        html.find("p.link-complex-target").filter(function(){
+          return $(this).text() === "Show this thread";
+        }).first().each(function(){
+          this.id = "tduck-show-thread";
+        });
+        
         let type = tweet.getChirpType();
         
         if (type === "follow"){
@@ -286,6 +292,7 @@
       tags.push(".tweet-context .nbfc { text-overflow: ellipsis !important; white-space: nowrap !important }"); // force ellipsis on long usernames
       tags.push(".activity-header { align-items: center !important; margin-bottom: 4px !important }"); // tweak alignment of avatar and text in notifications
       tags.push(".activity-header .tweet-timestamp { line-height: unset !important }"); // fix timestamp position in notifications
+      tags.push("#tduck-show-thread { display: inline-block !important; cursor: pointer }");
       
       if (fontSizeName === "smallest"){
         tags.push(".badge-verified:before { width: 13px !important; height: 13px !important; background-position: -223px -98px !important }"); // fix cut off badge icon
