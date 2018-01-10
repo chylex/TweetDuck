@@ -181,6 +181,8 @@ namespace TweetDuck.Core.Notification{
 
         public virtual void HideNotification(){
             browser.Load("about:blank");
+            DisplayTooltip(null);
+
             Location = ControlExtensions.InvisibleLocation;
             currentNotification = null;
         }
@@ -206,7 +208,9 @@ namespace TweetDuck.Core.Notification{
         protected virtual void LoadTweet(TweetNotification tweet){
             currentNotification = tweet;
             resourceHandler.SetHTML(GetTweetHTML(tweet));
+
             browser.Load(TwitterUtils.TweetDeckURL);
+            DisplayTooltip(null);
         }
 
         protected virtual void SetNotificationSize(int width, int height){
