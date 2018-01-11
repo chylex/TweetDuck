@@ -9,6 +9,7 @@ using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Other.Analytics;
 using TweetDuck.Core.Utils;
 using System.Text.RegularExpressions;
+using TweetDuck.Resources;
 
 namespace TweetDuck.Core.Other{
     sealed partial class FormGuide : Form{
@@ -73,6 +74,7 @@ namespace TweetDuck.Core.Other{
 
             browser.LoadingStateChanged += browser_LoadingStateChanged;
             browser.FrameLoadStart += browser_FrameLoadStart;
+            browser.FrameLoadEnd += browser_FrameLoadEnd;
             
             browser.BrowserSettings.BackgroundColor = (uint)BackColor.ToArgb();
             browser.Dock = DockStyle.None;
@@ -108,6 +110,11 @@ namespace TweetDuck.Core.Other{
 
         private void browser_FrameLoadStart(object sender, FrameLoadStartEventArgs e){
             BrowserUtils.SetZoomLevel(browser.GetBrowser(), Program.UserConfig.ZoomLevel);
+        }
+
+        private void browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
+            // idiot chromium
+            ScriptLoader.ExecuteScript(e.Frame, "Array.prototype.forEach.call(document.getElementsByTagName('A'), ele => ele.addEventListener('click', e => { e.preventDefault(); window.open(ele.getAttribute('href')); }))", "gen:links");
         }
 
         private void Config_ZoomLevelChanged(object sender, EventArgs e){
