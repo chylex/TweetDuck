@@ -349,7 +349,7 @@ enabled(){
           lastEmojiLength = foundEmoji.length;
         }
       }
-      else if (foundNames.length > 1){
+      else if (foundNames.length > 1 && $(".js-app-content").is(".is-open")){
         e.preventDefault();
         ele.val(val.substring(0, firstColon)+val.substring(ele[0].selectionStart));
         ele[0].selectionEnd = ele[0].selectionStart = firstColon;
@@ -407,10 +407,11 @@ ready(){
   $(document).on("click", this.documentClickEvent);
   $(document).on("keydown", this.documentKeyEvent);
   $(document).on("uiComposeImageAdded", this.uploadFilesEvent);
-  this.composeInput.on("keydown", this.composeInputKeyDownEvent);
-  this.composeInput.on("keypress", this.composeInputKeyPressEvent);
-  this.composeInput.on("focus", this.composeInputFocusEvent);
   this.composeDrawer.on("uiComposeTweetSending", this.composerSendingEvent);
+  
+  $(document).on("keydown", ".js-compose-text", this.composeInputKeyDownEvent);
+  $(document).on("keypress", ".js-compose-text", this.composeInputKeyPressEvent);
+  $(document).on("focus", ".js-compose-text", this.composeInputFocusEvent);
   
   // HTML generation
   
@@ -533,10 +534,11 @@ disabled(){
   $(document).off("click", this.documentClickEvent);
   $(document).off("keydown", this.documentKeyEvent);
   $(document).off("uiComposeImageAdded", this.uploadFilesEvent);
-  this.composeInput.off("keydown", this.composeInputKeyDownEvent);
-  this.composeInput.off("keypress", this.composeInputKeyPressEvent);
-  this.composeInput.off("focus", this.composeInputFocusEvent);
   this.composeDrawer.off("uiComposeTweetSending", this.composerSendingEvent);
+  
+  $(document).off("keydown", ".js-compose-text", this.composeInputKeyDownEvent);
+  $(document).off("keypress", ".js-compose-text", this.composeInputKeyPressEvent);
+  $(document).off("focus", ".js-compose-text", this.composeInputFocusEvent);
   
   TD.mustaches["compose/docked_compose.mustache"] = this.prevComposeMustache;
 }
