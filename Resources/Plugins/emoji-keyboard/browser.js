@@ -399,6 +399,7 @@ enabled(){
 ready(){
   this.composeDrawer = $("[data-drawer='compose']");
   this.composeInput = $(".js-compose-text", ".js-docked-compose");
+  this.composeSelector = ".js-compose-text,.js-reply-tweetbox";
   
   this.composePanelScroller = $(".js-compose-scroller", ".js-docked-compose").first().children().first();
   this.composePanelScroller.on("scroll", this.composerScrollEvent);
@@ -409,9 +410,9 @@ ready(){
   $(document).on("uiComposeImageAdded", this.uploadFilesEvent);
   this.composeDrawer.on("uiComposeTweetSending", this.composerSendingEvent);
   
-  $(document).on("keydown", ".js-compose-text", this.composeInputKeyDownEvent);
-  $(document).on("keypress", ".js-compose-text", this.composeInputKeyPressEvent);
-  $(document).on("focus", ".js-compose-text", this.composeInputFocusEvent);
+  $(document).on("keydown", this.composeSelector, this.composeInputKeyDownEvent);
+  $(document).on("keypress", this.composeSelector, this.composeInputKeyPressEvent);
+  $(document).on("focus", this.composeSelector, this.composeInputFocusEvent);
   
   // HTML generation
   
@@ -536,9 +537,9 @@ disabled(){
   $(document).off("uiComposeImageAdded", this.uploadFilesEvent);
   this.composeDrawer.off("uiComposeTweetSending", this.composerSendingEvent);
   
-  $(document).off("keydown", ".js-compose-text", this.composeInputKeyDownEvent);
-  $(document).off("keypress", ".js-compose-text", this.composeInputKeyPressEvent);
-  $(document).off("focus", ".js-compose-text", this.composeInputFocusEvent);
+  $(document).off("keydown", this.composeSelector, this.composeInputKeyDownEvent);
+  $(document).off("keypress", this.composeSelector, this.composeInputKeyPressEvent);
+  $(document).off("focus", this.composeSelector, this.composeInputFocusEvent);
   
   TD.mustaches["compose/docked_compose.mustache"] = this.prevComposeMustache;
 }
