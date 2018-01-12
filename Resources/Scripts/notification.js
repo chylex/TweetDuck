@@ -114,7 +114,7 @@
     return if !btn;
     
     btn.addEventListener("click", function(){
-      $TD.showNotificationTweetDetail();
+      $TD.showTweetDetail();
     });
   })();
   
