@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using TweetDuck.Core.Controls;
@@ -95,7 +96,7 @@ namespace TweetDuck.Configuration{
         public bool IsCustomNotificationSizeSet => CustomNotificationSize != Size.Empty;
 
         public TwitterUtils.ImageQuality TwitterImageQuality => BestImageQuality ? TwitterUtils.ImageQuality.Orig : TwitterUtils.ImageQuality.Default;
-
+        
         public string NotificationSoundPath{
             get => string.IsNullOrEmpty(_notificationSoundPath) ? string.Empty : _notificationSoundPath;
             set => _notificationSoundPath = value;
@@ -103,35 +104,17 @@ namespace TweetDuck.Configuration{
 
         public bool MuteNotifications{
             get => _muteNotifications;
-
-            set{
-                if (_muteNotifications != value){
-                    _muteNotifications = value;
-                    MuteToggled?.Invoke(this, EventArgs.Empty);
-                }
-            }
+            set => UpdatePropertyWithEvent(ref _muteNotifications, value, MuteToggled);
         }
 
         public int ZoomLevel{
             get => _zoomLevel;
-
-            set{
-                if (_zoomLevel != value){
-                    _zoomLevel = value;
-                    ZoomLevelChanged?.Invoke(this, EventArgs.Empty);
-                }
-            }
+            set => UpdatePropertyWithEvent(ref _zoomLevel, value, ZoomLevelChanged);
         }
         
         public TrayIcon.Behavior TrayBehavior{
             get => _trayBehavior;
-
-            set{
-                if (_trayBehavior != value){
-                    _trayBehavior = value;
-                    TrayBehaviorChanged?.Invoke(this, EventArgs.Empty);
-                }
-            }
+            set => UpdatePropertyWithEvent(ref _trayBehavior, value, TrayBehaviorChanged);
         }
 
         // EVENTS
@@ -146,6 +129,13 @@ namespace TweetDuck.Configuration{
 
         private UserConfig(string file){
             this.file = file;
+        }
+
+        private void UpdatePropertyWithEvent<T>(ref T field, T value, EventHandler eventHandler){
+            if (!EqualityComparer<T>.Default.Equals(field, value)){
+                field = value;
+                eventHandler?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         public void Save(){
