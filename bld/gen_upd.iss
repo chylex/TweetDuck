@@ -59,6 +59,7 @@ Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\Cache"
 Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\GPUCache"
 
 [InstallDelete]
+Type: files; Name: "{app}\TweetLib.Audio.dll"
 Type: filesandordirs; Name: "{app}\plugins\official"
 Type: files; Name: "{app}\locales\am.pak"
 Type: files; Name: "{app}\locales\ar.pak"
