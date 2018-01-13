@@ -1,32 +1,49 @@
-﻿using System;
-using TweetLib.Audio;
+﻿using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
+using CefSharp;
+using TweetDuck.Core.Controls;
+using TweetDuck.Core.Other;
+using TweetDuck.Core.Other.Settings;
 
 namespace TweetDuck.Core.Notification{
-    sealed class SoundNotification : IDisposable{
-        public string SupportedFormats => player.SupportedFormats;
-        public event EventHandler<PlaybackErrorEventArgs> PlaybackError;
+    static class SoundNotification{
+        public const string SupportedFormats = "*.wav;*.ogg;*.flac;*.opus;*.weba;*.webm"; // TODO add mp3 when supported
+        
+        public static IResourceHandler CreateFileHandler(string path){
+            string mimeType;
 
-        private readonly AudioPlayer player;
+            switch(Path.GetExtension(path)){
+                case "weba":
+                case "webm": mimeType = "audio/webm"; break;
+                case "wav": mimeType = "audio/wav"; break;
+                case "ogg": mimeType = "audio/ogg"; break;
+                case "flac": mimeType = "audio/flac"; break;
+                case "opus": mimeType = "audio/ogg; codecs=opus"; break;
+                default: mimeType = null; break;
+            }
 
-        public SoundNotification(){
-            this.player = AudioPlayer.New();
-            this.player.PlaybackError += Player_PlaybackError;
-        }
+            try{
+                return ResourceHandler.FromFilePath(path, mimeType);
+            }catch{
+                FormBrowser browser = FormManager.TryFind<FormBrowser>();
 
-        public void Play(string file){
-            player.Play(file);
-        }
+                browser?.InvokeAsyncSafe(() => {
+                    using(FormMessage form = new FormMessage("Sound Notification Error", "Could not find custom notification sound file:\n"+path, MessageBoxIcon.Error)){
+                        form.AddButton(FormMessage.Ignore, ControlType.Cancel | ControlType.Focused);
+                        
+                        Button btnViewOptions = form.AddButton("View Options");
+                        btnViewOptions.Width += 16;
+                        btnViewOptions.Location = new Point(btnViewOptions.Location.X-16, btnViewOptions.Location.Y);
 
-        public bool SetVolume(int volume){
-            return player.SetVolume(volume);
-        }
+                        if (form.ShowDialog() == DialogResult.OK && form.ClickedButton == btnViewOptions){
+                            browser.OpenSettings(typeof(TabSettingsSounds));
+                        }
+                    }
+                });
 
-        private void Player_PlaybackError(object sender, PlaybackErrorEventArgs e){
-            PlaybackError?.Invoke(this, e);
-        }
-
-        public void Dispose(){
-            player.Dispose();
+                return null;
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling;
 using TweetDuck.Core.Handling.General;
+using TweetDuck.Core.Notification;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
 using TweetDuck.Plugins.Enums;
@@ -35,6 +36,8 @@ namespace TweetDuck.Core{
 
         private readonly ChromiumWebBrowser browser;
         private readonly PluginManager plugins;
+
+        private string prevSoundNotificationPath = null;
 
         public TweetDeckBrowser(FormBrowser owner, PluginManager plugins, TweetDeckBridge bridge){
             this.browser = new ChromiumWebBrowser(TwitterUtils.TweetDeckURL){
@@ -70,6 +73,7 @@ namespace TweetDuck.Core{
             
             Program.UserConfig.MuteToggled += UserConfig_MuteToggled;
             Program.UserConfig.ZoomLevelChanged += UserConfig_ZoomLevelChanged;
+            Program.UserConfig.SoundNotificationChanged += UserConfig_SoundNotificationInfoChanged;
         }
 
         // setup and management
@@ -91,6 +95,7 @@ namespace TweetDuck.Core{
 
             Program.UserConfig.MuteToggled -= UserConfig_MuteToggled;
             Program.UserConfig.ZoomLevelChanged -= UserConfig_ZoomLevelChanged;
+            Program.UserConfig.SoundNotificationChanged -= UserConfig_SoundNotificationInfoChanged;
             
             browser.Dispose();
         }
@@ -129,6 +134,7 @@ namespace TweetDuck.Core{
                 ScriptLoader.ExecuteFile(e.Frame, "code.js");
                 InjectBrowserCSS();
                 ReinjectCustomCSS(Program.UserConfig.CustomBrowserCSS);
+                UserConfig_SoundNotificationInfoChanged(null, EventArgs.Empty);
                 plugins.ExecutePlugins(e.Frame, PluginEnvironment.Browser);
 
                 TweetDeckBridge.ResetStaticProperties();
@@ -165,6 +171,27 @@ namespace TweetDuck.Core{
 
         private void UserConfig_ZoomLevelChanged(object sender, EventArgs e){
             BrowserUtils.SetZoomLevel(browser.GetBrowser(), Program.UserConfig.ZoomLevel);
+        }
+
+        private void UserConfig_SoundNotificationInfoChanged(object sender, EventArgs e){
+            const string soundUrl = "https://ton.twimg.com/tduck/updatesnd";
+            bool hasCustomSound = Program.UserConfig.IsCustomSoundNotificationSet;
+
+            if (prevSoundNotificationPath != Program.UserConfig.NotificationSoundPath){
+                DefaultResourceHandlerFactory handlerFactory = browser.GetHandlerFactory();
+                IResourceHandler resourceHandler = hasCustomSound ? SoundNotification.CreateFileHandler(Program.UserConfig.NotificationSoundPath) : null;
+            
+                if (resourceHandler != null){
+                    handlerFactory.RegisterHandler(soundUrl, resourceHandler);
+                }
+                else{
+                    handlerFactory.UnregisterHandler(soundUrl);
+                }
+
+                prevSoundNotificationPath = Program.UserConfig.NotificationSoundPath;
+            }
+
+            browser.ExecuteScriptAsync("TDGF_setSoundNotificationData", hasCustomSound, Program.UserConfig.NotificationSoundVolume);
         }
 
         // external handling
@@ -213,6 +240,10 @@ namespace TweetDuck.Core{
 
         public void ReloadColumns(){
             browser.ExecuteScriptAsync("TDGF_reloadColumns()");
+        }
+
+        public void PlaySoundNotification(){
+            browser.ExecuteScriptAsync("TDGF_playSoundNotification()");
         }
 
         public void ApplyROT13(){

@@ -83,8 +83,8 @@ namespace TweetDuck.Configuration{
         public Size CustomNotificationSize             { get; set; } = Size.Empty;
         public int NotificationScrollSpeed             { get; set; } = 100;
 
-        public int NotificationSoundVolume { get; set; } = 100;
         private string _notificationSoundPath;
+        private int _notificationSoundVolume = 100;
 
         public string CustomCefArgs         { get; set; } = null;
         public string CustomBrowserCSS      { get; set; } = null;
@@ -94,12 +94,18 @@ namespace TweetDuck.Configuration{
 
         public bool IsCustomNotificationPositionSet => CustomNotificationPosition != ControlExtensions.InvisibleLocation;
         public bool IsCustomNotificationSizeSet => CustomNotificationSize != Size.Empty;
+        public bool IsCustomSoundNotificationSet => NotificationSoundPath != string.Empty;
 
         public TwitterUtils.ImageQuality TwitterImageQuality => BestImageQuality ? TwitterUtils.ImageQuality.Orig : TwitterUtils.ImageQuality.Default;
         
         public string NotificationSoundPath{
-            get => string.IsNullOrEmpty(_notificationSoundPath) ? string.Empty : _notificationSoundPath;
-            set => _notificationSoundPath = value;
+            get => _notificationSoundPath ?? string.Empty;
+            set => UpdatePropertyWithEvent(ref _notificationSoundPath, value, SoundNotificationChanged);
+        }
+        
+        public int NotificationSoundVolume{
+            get => _notificationSoundVolume;
+            set => UpdatePropertyWithEvent(ref _notificationSoundVolume, value, SoundNotificationChanged);
         }
 
         public bool MuteNotifications{
@@ -122,6 +128,7 @@ namespace TweetDuck.Configuration{
         public event EventHandler MuteToggled;
         public event EventHandler ZoomLevelChanged;
         public event EventHandler TrayBehaviorChanged;
+        public event EventHandler SoundNotificationChanged;
 
         // END OF CONFIG
         

@@ -36,6 +36,7 @@
             this.trackBarVolume = new System.Windows.Forms.TrackBar();
             this.flowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.panelVolume = new System.Windows.Forms.Panel();
+            this.volumeUpdateTimer = new System.Windows.Forms.Timer(this.components);
             this.panelSoundNotification.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).BeginInit();
             this.flowPanel.SuspendLayout();
@@ -170,6 +171,11 @@
             this.panelVolume.Size = new System.Drawing.Size(322, 36);
             this.panelVolume.TabIndex = 2;
             // 
+            // volumeUpdateTimer
+            // 
+            this.volumeUpdateTimer.Interval = 250;
+            this.volumeUpdateTimer.Tick += new System.EventHandler(this.volumeUpdateTimer_Tick);
+            // 
             // TabSettingsSounds
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -201,5 +207,6 @@
         private System.Windows.Forms.TrackBar trackBarVolume;
         private System.Windows.Forms.FlowLayoutPanel flowPanel;
         private System.Windows.Forms.Panel panelVolume;
+        private System.Windows.Forms.Timer volumeUpdateTimer;
     }
 }

@@ -4,25 +4,18 @@ using System.IO;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Notification;
-using TweetLib.Audio;
 
 namespace TweetDuck.Core.Other.Settings{
     sealed partial class TabSettingsSounds : BaseTabSettings{
-        private readonly SoundNotification soundNotification;
-        private readonly bool supportsChangingVolume;
+        private readonly Action playSoundNotification;
 
-        public TabSettingsSounds(){
+        public TabSettingsSounds(Action playSoundNotification){
             InitializeComponent();
 
-            soundNotification = new SoundNotification();
-            soundNotification.PlaybackError += sound_PlaybackError;
-            Disposed += (sender, args) => soundNotification.Dispose();
+            this.playSoundNotification = playSoundNotification;
             
-            supportsChangingVolume = soundNotification.SetVolume(Config.NotificationSoundVolume);
-
             toolTip.SetToolTip(tbCustomSound, "When empty, the default TweetDeck sound notification is used.");
-
-            trackBarVolume.Enabled = supportsChangingVolume && !string.IsNullOrEmpty(Config.NotificationSoundPath);
+            
             trackBarVolume.SetValueSafe(Config.NotificationSoundVolume);
             labelVolumeValue.Text = trackBarVolume.Value+"%";
 
@@ -39,22 +32,29 @@ namespace TweetDuck.Core.Other.Settings{
 
         public override void OnClosing(){
             Config.NotificationSoundPath = tbCustomSound.Text;
+            Config.NotificationSoundVolume = trackBarVolume.Value;
+        }
+
+        private bool RefreshCanPlay(){
+            bool isEmpty = string.IsNullOrEmpty(tbCustomSound.Text);
+            bool canPlay = isEmpty || File.Exists(tbCustomSound.Text);
+
+            tbCustomSound.ForeColor = canPlay ? SystemColors.WindowText : Color.Red;
+            btnPlaySound.Enabled = canPlay;
+            btnResetSound.Enabled = !isEmpty;
+            return canPlay;
         }
 
         private void tbCustomSound_TextChanged(object sender, EventArgs e){
-            bool isEmpty = string.IsNullOrEmpty(tbCustomSound.Text);
-            tbCustomSound.ForeColor = isEmpty || File.Exists(tbCustomSound.Text) ? SystemColors.WindowText : Color.Red;
-            btnPlaySound.Enabled = !isEmpty;
-            btnResetSound.Enabled = !isEmpty;
-            trackBarVolume.Enabled = supportsChangingVolume && !isEmpty;
+            RefreshCanPlay();
         }
 
         private void btnPlaySound_Click(object sender, EventArgs e){
-            soundNotification.Play(tbCustomSound.Text);
-        }
-
-        private void sound_PlaybackError(object sender, PlaybackErrorEventArgs e){
-            FormMessage.Error("Notification Sound Error", "Could not play custom notification sound.\n"+e.Message, FormMessage.OK);
+            if (RefreshCanPlay()){
+                Config.NotificationSoundPath = tbCustomSound.Text;
+                Config.NotificationSoundVolume = trackBarVolume.Value;
+                playSoundNotification();
+            }
         }
 
         private void btnBrowseSound_Click(object sender, EventArgs e){
@@ -62,7 +62,7 @@ namespace TweetDuck.Core.Other.Settings{
                 AutoUpgradeEnabled = true,
                 DereferenceLinks = true,
                 Title = "Custom Notification Sound",
-                Filter = "Sound file ("+soundNotification.SupportedFormats+")|"+soundNotification.SupportedFormats+"|All files (*.*)|*.*"
+                Filter = $"Sound file ({SoundNotification.SupportedFormats})|{SoundNotification.SupportedFormats}|All files (*.*)|*.*"
             }){
                 if (dialog.ShowDialog() == DialogResult.OK){
                     tbCustomSound.Text = dialog.FileName;
@@ -75,9 +75,14 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void trackBarVolume_ValueChanged(object sender, EventArgs e){
+            volumeUpdateTimer.Stop();
+            volumeUpdateTimer.Start();
+            labelVolumeValue.Text = trackBarVolume.Value+"%";
+        }
+
+        private void volumeUpdateTimer_Tick(object sender, EventArgs e){
             Config.NotificationSoundVolume = trackBarVolume.Value;
-            soundNotification.SetVolume(Config.NotificationSoundVolume);
-            labelVolumeValue.Text = Config.NotificationSoundVolume+"%";
+            volumeUpdateTimer.Stop();
         }
     }
 }

@@ -378,10 +378,6 @@
     <Content Include="Resources\Scripts\update.js" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="lib\TweetLib.Audio\TweetLib.Audio.csproj">
-      <Project>{E9E1FD1B-F480-45B7-9970-BE2ECFD309AC}</Project>
-      <Name>TweetLib.Audio</Name>
-    </ProjectReference>
     <ProjectReference Include="subprocess\TweetDuck.Browser.csproj">
       <Project>{b10b0017-819e-4f71-870f-8256b36a26aa}</Project>
       <Name>TweetDuck.Browser</Name>

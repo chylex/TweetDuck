@@ -507,9 +507,34 @@
   //
   // Block: Hook into the notification sound effect.
   //
+  
   HTMLAudioElement.prototype.play = prependToFunction(HTMLAudioElement.prototype.play, function(){
-    return $TDX.muteNotifications || $TDX.hasCustomNotificationSound;
+    return $TDX.muteNotifications;
   });
+  
+  window.TDGF_setSoundNotificationData = function(custom, volume){
+    let audio = document.getElementById("update-sound");
+    audio.volume = volume/100;
+    
+    const sourceId = "tduck-custom-sound-source";
+    let source = document.getElementById(sourceId);
+    
+    if (custom && !source){
+      source = document.createElement("source");
+      source.id = sourceId;
+      source.src = "https://ton.twimg.com/tduck/updatesnd";
+      audio.prepend(source);
+    }
+    else if (!custom && source){
+      audio.removeChild(source);
+    }
+    
+    audio.load();
+  };
+  
+  window.TDGF_playSoundNotification = function(){
+    document.getElementById("update-sound").play();
+  };
   
   //
   // Block: Update highlighted column and tweet for context menu and other functionality.
