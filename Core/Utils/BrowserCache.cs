@@ -36,8 +36,14 @@ namespace TweetDuck.Core.Utils{
             }
             else if (shouldRun && AutoClearTimer == null){
                 AutoClearTimer = new Timer(state => {
-                    if (AutoClearTimer != null && CalculateCacheSize() >= Program.SystemConfig.ClearCacheThreshold*1024L*1024L){
-                        SetClearOnExit();
+                    if (AutoClearTimer != null){
+                        try{
+                            if (CalculateCacheSize() >= Program.SystemConfig.ClearCacheThreshold*1024L*1024L){
+                                SetClearOnExit();
+                            }
+                        }catch(Exception){
+                            // TODO should probably log errors and report them at some point
+                        }
                     }
                 }, null, TimeSpan.FromSeconds(30), TimeSpan.FromHours(4));
             }
