@@ -19,7 +19,6 @@ namespace TweetDuck.Core.Bridge{
                 build.Append("x.openSearchInFirstColumn=").Append(Bool(Program.UserConfig.OpenSearchInFirstColumn));
                 build.Append("x.keepLikeFollowDialogsOpen=").Append(Bool(Program.UserConfig.KeepLikeFollowDialogsOpen));
                 build.Append("x.muteNotifications=").Append(Bool(Program.UserConfig.MuteNotifications));
-                build.Append("x.hasCustomNotificationSound=").Append(Bool(Program.UserConfig.NotificationSoundPath.Length > 0));
                 build.Append("x.notificationMediaPreviews=").Append(Bool(Program.UserConfig.NotificationMediaPreviews));
                 build.Append("x.translationTarget=").Append(Str(Program.UserConfig.TranslationTarget));
             }

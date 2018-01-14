@@ -15,7 +15,6 @@ using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
 using TweetDuck.Plugins.Events;
 using TweetDuck.Updates;
-using TweetLib.Audio;
 
 namespace TweetDuck.Core{
     sealed partial class FormBrowser : Form{
@@ -50,7 +49,6 @@ namespace TweetDuck.Core{
         private FormWindowState prevState;
         
         private TweetScreenshotManager notificationScreenshotManager;
-        private SoundNotification soundNotification;
         private VideoPlayer videoPlayer;
         private AnalyticsManager analytics;
 
@@ -82,7 +80,6 @@ namespace TweetDuck.Core{
                 contextMenu.Dispose();
 
                 notificationScreenshotManager?.Dispose();
-                soundNotification?.Dispose();
                 videoPlayer?.Dispose();
                 analytics?.Dispose();
             };
@@ -291,22 +288,6 @@ namespace TweetDuck.Core{
             });
         }
 
-        private void soundNotification_PlaybackError(object sender, PlaybackErrorEventArgs e){
-            e.Ignore = true;
-
-            using(FormMessage form = new FormMessage("Notification Sound Error", "Could not play custom notification sound.\n"+e.Message, MessageBoxIcon.Error)){
-                form.AddButton(FormMessage.Ignore, ControlType.Cancel | ControlType.Focused);
-
-                Button btnOpenSettings = form.AddButton("View Options");
-                btnOpenSettings.Width += 16;
-                btnOpenSettings.Location = new Point(btnOpenSettings.Location.X-16, btnOpenSettings.Location.Y);
-
-                if (form.ShowDialog() == DialogResult.OK && form.ClickedButton == btnOpenSettings){
-                    OpenSettings(typeof(TabSettingsSounds));
-                }
-            }
-        }
-
         protected override void WndProc(ref Message m){
             if (isLoaded && m.Msg == Program.WindowRestoreMessage){
                 if (WindowsUtils.CurrentProcessID == m.WParam.ToInt32()){
@@ -355,6 +336,10 @@ namespace TweetDuck.Core{
 
         public void ReloadColumns(){
             browser.ReloadColumns();
+        }
+
+        public void PlaySoundNotification(){
+            browser.PlaySoundNotification();
         }
 
         public void ApplyROT13(){
@@ -459,19 +444,7 @@ namespace TweetDuck.Core{
             }
         }
 
-        public void PlayNotificationSound(){
-            if (Config.NotificationSoundPath.Length == 0){
-                return;
-            }
-
-            if (soundNotification == null){
-                soundNotification = new SoundNotification();
-                soundNotification.PlaybackError += soundNotification_PlaybackError;
-            }
-
-            soundNotification.SetVolume(Config.NotificationSoundVolume);
-            soundNotification.Play(Config.NotificationSoundPath);
-
+        public void OnTweetSound(){
             TriggerAnalyticsEvent(AnalyticsFile.Event.SoundNotification);
         }
 

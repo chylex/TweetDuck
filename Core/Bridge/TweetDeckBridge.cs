@@ -126,7 +126,7 @@ namespace TweetDuck.Core.Bridge{
         public void OnTweetSound(){
             form.InvokeAsyncSafe(() => {
                 form.OnTweetNotification();
-                form.PlayNotificationSound();
+                form.OnTweetSound();
             });
         }
 
