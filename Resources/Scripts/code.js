@@ -1207,13 +1207,50 @@
   //
   // Block: Revert Like/Follow dialogs being closed after clicking an action.
   //
-  if (ensurePropertyExists(TD, "decider", "get")){
-    const prevFunc = TD.decider.get;
+  (function(){
+    const prevSetTimeout = window.setTimeout;
     
-    TD.decider.get = function(key){
-      return $TDX.keepLikeFollowDialogsOpen && key.startsWith("tweetdeck_subsequent_") ? false : prevFunc.apply(this, arguments);
+    const overrideState = function(){
+      return if !$TDX.keepLikeFollowDialogsOpen;
+      
+      window.setTimeout = function(func, timeout){
+        return timeout !== 500 && prevSetTimeout.apply(this, arguments);
+      };
     };
-  }
+    
+    const restoreState = function(context, key){
+      window.setTimeout = prevSetTimeout;
+      
+      if ($TDX.keepLikeFollowDialogsOpen && key in context.state){
+        context.state[key] = false;
+      }
+    };
+    
+    $(document).on("uiShowFavoriteFromOptions", function(){
+      $(".js-btn-fav", ".js-modal-inner").each(function(){
+        let event = $._data(this, "events").click[0];
+        let handler = event.handler;
+
+        event.handler = function(){
+          overrideState();
+          handler.apply(this, arguments);
+          restoreState($._data(document, "events").dataFavoriteState[0].handler.context, "stopSubsequentLikes");
+        };
+      });
+    });
+    
+    $(document).on("uiShowFollowFromOptions", function(){
+      let event = $._data($(".js-component", ".js-modal-inner")[0], "events").click[0];
+      let handler = event.handler;
+      let context = handler.context;
+      
+      event.handler = function(){
+        overrideState();
+        handler.apply(this, arguments);
+        restoreState(context, "stopSubsequentFollows");
+      };
+    });
+  })();
   
   //
   // Block: Fix DM reply input box not getting focused after opening a conversation.
