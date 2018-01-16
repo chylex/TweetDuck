@@ -1240,15 +1240,17 @@
     });
     
     $(document).on("uiShowFollowFromOptions", function(){
-      let event = $._data($(".js-component", ".js-modal-inner")[0], "events").click[0];
-      let handler = event.handler;
-      let context = handler.context;
-      
-      event.handler = function(){
-        overrideState();
-        handler.apply(this, arguments);
-        restoreState(context, "stopSubsequentFollows");
-      };
+      $(".js-component", ".js-modal-inner").each(function(){
+        let event = $._data(this, "events").click[0];
+        let handler = event.handler;
+        let context = handler.context;
+
+        event.handler = function(){
+          overrideState();
+          handler.apply(this, arguments);
+          restoreState(context, "stopSubsequentFollows");
+        };
+      });
     });
   })();
   
