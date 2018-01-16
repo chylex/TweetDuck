@@ -367,12 +367,12 @@ enabled(){
           this.css.insert(".app-content, .app-columns-container { background-color: #444448 !important }");
           this.css.insert(".column-drag-handle { opacity: 0.5 !important }");
           this.css.insert(".column-drag-handle:hover { opacity: 1 !important }");
-          this.css.insert(".scroll-styled-v:not(.scroll-alt)::-webkit-scrollbar-thumb, .scroll-styled-h:not(.scroll-alt)::-webkit-scrollbar-thumb { background-color: #666 !important }");
+          this.css.insert(".scroll-styled-v:not(.scroll-alt)::-webkit-scrollbar-thumb:not(:hover), .scroll-styled-h:not(.scroll-alt)::-webkit-scrollbar-thumb:not(:hover) { background-color: #666 !important }");
           notificationScrollbarColor = "666";
           break;
 
         case "light":
-          this.css.insert(".scroll-styled-v:not(.scroll-alt)::-webkit-scrollbar-thumb, .scroll-styled-h:not(.scroll-alt)::-webkit-scrollbar-thumb { background-color: #d2d6da !important }");
+          this.css.insert(".scroll-styled-v:not(.scroll-alt)::-webkit-scrollbar-thumb:not(:hover), .scroll-styled-h:not(.scroll-alt)::-webkit-scrollbar-thumb:not(:hover) { background-color: #d2d6da !important }");
           this.css.insert(".app-columns-container.scroll-styled-h::-webkit-scrollbar-thumb:not(:hover) { background-color: #a5aeb5 !important }");
           notificationScrollbarColor = "a5aeb5";
           break;
@@ -562,7 +562,7 @@ ${this.config.revertIcons ? `
 ` : ``}
 
 ${notificationScrollbarColor ? `
-.scroll-styled-v::-webkit-scrollbar-thumb, .scroll-styled-h::-webkit-scrollbar-thumb { background-color: #${notificationScrollbarColor} !important }
+.scroll-styled-v::-webkit-scrollbar-thumb:not(:hover), .scroll-styled-h::-webkit-scrollbar-thumb:not(:hover) { background-color: #${notificationScrollbarColor} !important }
 ` : ``}
 </style>`);
   };
