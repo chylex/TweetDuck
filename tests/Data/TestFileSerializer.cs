@@ -13,7 +13,9 @@ namespace UnitTests.Data{
         private class SerializationTestBasic{
             public bool TestBool { get; set; }
             public int TestInt { get; set; }
-            public string TestString { get; set; }
+            public string TestStringBasic { get; set; }
+            public string TestStringNewLine { get; set; }
+            public string TestStringBackslash { get; set; }
             public string TestStringNull { get; set; }
             public TestEnum TestEnum { get; set; }
         }
@@ -25,7 +27,9 @@ namespace UnitTests.Data{
             SerializationTestBasic write = new SerializationTestBasic{
                 TestBool = true,
                 TestInt = -100,
-                TestString = "abc"+Environment.NewLine+"def",
+                TestStringBasic = "hello123",
+                TestStringNewLine = "abc"+Environment.NewLine+"def"+Environment.NewLine,
+                TestStringBackslash = @"C:\Test\\\Abc\",
                 TestStringNull = null,
                 TestEnum = TestEnum.D
             };
@@ -38,7 +42,9 @@ namespace UnitTests.Data{
 
             Assert.IsTrue(read.TestBool);
             Assert.AreEqual(-100, read.TestInt);
-            Assert.AreEqual("abc"+Environment.NewLine+"def", read.TestString);
+            Assert.AreEqual("hello123", read.TestStringBasic);
+            Assert.AreEqual("abc"+Environment.NewLine+"def"+Environment.NewLine, read.TestStringNewLine);
+            Assert.AreEqual(@"C:\Test\\\Abc\", read.TestStringBackslash);
             Assert.IsNull(read.TestStringNull);
             Assert.AreEqual(TestEnum.D, read.TestEnum);
         }

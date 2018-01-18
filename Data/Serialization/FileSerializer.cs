@@ -4,12 +4,51 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
+using System.Text;
 using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Data.Serialization{
     sealed class FileSerializer<T>{
         private const string NewLineReal = "\r\n";
         private const string NewLineCustom = "\r~\n";
+
+        private static string EscapeLine(string input) => input.Replace("\\", "\\\\").Replace(Environment.NewLine, "\\\r\n");
+        private static string UnescapeLine(string input) => input.Replace(NewLineCustom, Environment.NewLine);
+
+        private static string UnescapeStream(StreamReader reader){
+            string data = reader.ReadToEnd();
+
+            StringBuilder build = new StringBuilder(data.Length);
+            int index = 0;
+
+            while(true){
+                int nextIndex = data.IndexOf('\\', index);
+
+                if (nextIndex == -1 || nextIndex+1 >= data.Length){
+                    break;
+                }
+                else{
+                    build.Append(data.Substring(index, nextIndex-index));
+
+                    char next = data[nextIndex+1];
+
+                    if (next == '\\'){ // convert double backslash to single backslash
+                        build.Append('\\');
+                        index = nextIndex+2;
+                    }
+                    else if (next == '\r' && nextIndex+2 < data.Length && data[nextIndex+2] == '\n'){ // convert backslash followed by CRLF to custom new line
+                        build.Append(NewLineCustom);
+                        index = nextIndex+3;
+                    }
+                    else{ // single backslash
+                        build.Append('\\');
+                        index = nextIndex+1;
+                    }
+                }
+            }
+            
+            return build.Append(data.Substring(index)).ToString();
+        }
 
         private static readonly ITypeConverter BasicSerializerObj = new BasicTypeConverter();
         
@@ -36,13 +75,13 @@ namespace TweetDuck.Data.Serialization{
                     Type type = prop.Value.PropertyType;
                     object value = prop.Value.GetValue(obj);
                     
-                    if (!converters.TryGetValue(type, out ITypeConverter serializer)) {
+                    if (!converters.TryGetValue(type, out ITypeConverter serializer)){
                         serializer = BasicSerializerObj;
                     }
 
                     if (serializer.TryWriteType(type, value, out string converted)){
                         if (converted != null){
-                            writer.Write($"{prop.Key} {converted.Replace(Environment.NewLine, NewLineCustom)}");
+                            writer.Write($"{prop.Key} {EscapeLine(converted)}");
                             writer.Write(NewLineReal);
                         }
                     }
@@ -65,7 +104,7 @@ namespace TweetDuck.Data.Serialization{
                         throw new FormatException("Input appears to be a binary file.");
                 }
 
-                foreach(string line in reader.ReadToEnd().Split(new string[]{ NewLineReal }, StringSplitOptions.RemoveEmptyEntries)){
+                foreach(string line in UnescapeStream(reader).Split(new string[]{ NewLineReal }, StringSplitOptions.RemoveEmptyEntries)){
                     int space = line.IndexOf(' ');
 
                     if (space == -1){
@@ -73,7 +112,7 @@ namespace TweetDuck.Data.Serialization{
                     }
 
                     string property = line.Substring(0, space);
-                    string value = line.Substring(space+1).Replace(NewLineCustom, Environment.NewLine);
+                    string value = UnescapeLine(line.Substring(space+1));
 
                     if (props.TryGetValue(property, out PropertyInfo info)){
                         if (!converters.TryGetValue(info.PropertyType, out ITypeConverter serializer)) {
