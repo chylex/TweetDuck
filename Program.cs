@@ -131,7 +131,6 @@ namespace TweetDuck{
             CefSharpSettings.WcfEnabled = false;
 
             CefSettings settings = new CefSettings{
-                AcceptLanguageList = BrowserUtils.HeaderAcceptLanguage,
                 UserAgent = BrowserUtils.HeaderUserAgent,
                 BrowserSubprocessPath = BrandName+".Browser.exe",
                 CachePath = StoragePath,
