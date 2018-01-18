@@ -192,18 +192,6 @@ namespace TweetDuck{
             }
         }
 
-        public static void ResetConfig(){
-            try{
-                File.Delete(UserConfigFilePath);
-                File.Delete(UserConfig.GetBackupFile(UserConfigFilePath));
-            }catch(Exception e){
-                Reporter.HandleException("Configuration Reset Error", "Could not delete configuration files to reset the options.", true, e);
-                return;
-            }
-            
-            UserConfig.Reload();
-        }
-
         public static void Restart(params string[] extraArgs){
             CommandLineArgs args = Arguments.GetCurrentClean();
             CommandLineArgs.ReadStringArray('-', extraArgs, args);
@@ -211,13 +199,14 @@ namespace TweetDuck{
         }
 
         public static void RestartWithArgs(CommandLineArgs args){
-            FormBrowser browserForm = Application.OpenForms.OfType<FormBrowser>().FirstOrDefault();
-            if (browserForm == null)return;
-            
-            browserForm.ForceClose();
+            FormBrowser browserForm = FormManager.TryFind<FormBrowser>();
 
-            ExitCleanup();
-            RestartWithArgsInternal(args);
+            if (browserForm != null){
+                browserForm.ForceClose();
+
+                ExitCleanup();
+                RestartWithArgsInternal(args);
+            }
         }
 
         private static void RestartWithArgsInternal(CommandLineArgs args){

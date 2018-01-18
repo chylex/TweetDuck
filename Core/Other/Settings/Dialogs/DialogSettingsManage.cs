@@ -109,7 +109,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                 case State.Reset:
                     if (FormMessage.Warning("Reset TweetDuck Options", "This will reset the selected items. Are you sure you want to proceed?", FormMessage.Yes, FormMessage.No)){
                         if (Flags.HasFlag(ExportFileFlags.UserConfig)){
-                            Program.ResetConfig();
+                            Program.UserConfig.Reset();
                         }
 
                         if (Flags.HasFlag(ExportFileFlags.SystemConfig)){

@@ -174,6 +174,18 @@ namespace TweetDuck.Configuration{
             }
         }
 
+        public void Reset(){
+            try{
+                File.Delete(file);
+                File.Delete(GetBackupFile(file));
+            }catch(Exception e){
+                Program.Reporter.HandleException("Configuration Error", "Could not delete configuration files to reset the options.", true, e);
+                return;
+            }
+            
+            Reload();
+        }
+
         private void LoadInternal(bool backup){
             Serializer.Read(backup ? GetBackupFile(file) : file, this);
 
