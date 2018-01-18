@@ -32,6 +32,7 @@ namespace TweetDuck{
 
         public static readonly string PluginDataPath = Path.Combine(StoragePath, "TD_Plugins");
         private static readonly string InstallerPath = Path.Combine(StoragePath, "TD_Updates");
+        private static readonly string CefDataPath = Path.Combine(StoragePath, "TD_Chromium");
 
         public static string UserConfigFilePath => Path.Combine(StoragePath, "TD_UserConfig.cfg");
         public static string SystemConfigFilePath => Path.Combine(StoragePath, "TD_SystemConfig.cfg");
@@ -134,6 +135,7 @@ namespace TweetDuck{
                 UserAgent = BrowserUtils.HeaderUserAgent,
                 BrowserSubprocessPath = BrandName+".Browser.exe",
                 CachePath = StoragePath,
+                UserDataPath = CefDataPath,
                 LogFile = ConsoleLogFilePath,
                 #if !DEBUG
                 LogSeverity = Arguments.HasFlag(Arguments.ArgLogging) ? LogSeverity.Info : LogSeverity.Disable
