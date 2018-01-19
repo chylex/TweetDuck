@@ -1,4 +1,7 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Utils;
@@ -42,15 +45,13 @@ namespace TweetDuck.Core.Other.Settings{
             checkAnimatedAvatars.Checked = Config.EnableAnimatedImages;
 
             comboBoxBrowserPath.Items.Add("(default browser)");
-            comboBoxBrowserPath.SelectedIndex = 0;
+            comboBoxBrowserPath.Items.Add("(custom program...)");
 
             foreach(WindowsUtils.Browser browserInfo in WindowsUtils.FindInstalledBrowsers()){
                 comboBoxBrowserPath.Items.Add(browserInfo);
-
-                if (browserInfo.Path == Config.BrowserPath){
-                    comboBoxBrowserPath.SelectedIndex = comboBoxBrowserPath.Items.Count-1;
-                }
             }
+
+            UpdateBrowserPathSelection();
 
             trackBarZoom.SetValueSafe(Config.ZoomLevel);
             labelZoomValue.Text = trackBarZoom.Value+"%";
@@ -103,8 +104,44 @@ namespace TweetDuck.Core.Other.Settings{
             BrowserProcessHandler.UpdatePrefs().ContinueWith(task => browser.ReloadColumns());
         }
 
+        private void UpdateBrowserPathSelection(){
+            if (string.IsNullOrEmpty(Config.BrowserPath) || !File.Exists(Config.BrowserPath)){
+                comboBoxBrowserPath.SelectedIndex = 0;
+            }
+            else{
+                WindowsUtils.Browser browserInfo = comboBoxBrowserPath.Items.OfType<WindowsUtils.Browser>().FirstOrDefault(browser => browser.Path == Config.BrowserPath);
+
+                if (browserInfo == null){
+                    comboBoxBrowserPath.SelectedIndex = 1;
+                }
+                else{
+                    comboBoxBrowserPath.SelectedItem = browserInfo;
+                }
+            }
+        }
+
         private void comboBoxBrowserPath_SelectedIndexChanged(object sender, EventArgs e){
-            Config.BrowserPath = (comboBoxBrowserPath.SelectedItem as WindowsUtils.Browser)?.Path; // default browser item is a string and casts to null
+            if (comboBoxBrowserPath.SelectedIndex == 1){
+                using(OpenFileDialog dialog = new OpenFileDialog{
+                    AutoUpgradeEnabled = true,
+                    DereferenceLinks = true,
+                    InitialDirectory = Path.GetDirectoryName(Config.BrowserPath), // returns null if argument is null
+                    Title = "Open Links With...",
+                    Filter = "Executables (*.exe;*.bat;*.cmd)|*.exe;*.bat;*.cmd|All Files (*.*)|*.*"
+                }){
+                    if (dialog.ShowDialog() == DialogResult.OK){
+                        Config.BrowserPath = dialog.FileName;
+                    }
+                    else{
+                        comboBoxBrowserPath.SelectedIndexChanged -= comboBoxBrowserPath_SelectedIndexChanged;
+                        UpdateBrowserPathSelection();
+                        comboBoxBrowserPath.SelectedIndexChanged += comboBoxBrowserPath_SelectedIndexChanged;
+                    }
+                }
+            }
+            else{
+                Config.BrowserPath = (comboBoxBrowserPath.SelectedItem as WindowsUtils.Browser)?.Path; // default browser item is a string and casts to null
+            }
         }
 
         private void trackBarZoom_ValueChanged(object sender, EventArgs e){
