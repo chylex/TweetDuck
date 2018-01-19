@@ -87,7 +87,7 @@ namespace TweetDuck.Core.Utils{
             using(SaveFileDialog dialog = new SaveFileDialog{
                 AutoUpgradeEnabled = true,
                 OverwritePrompt = urls.Length == 1,
-                Title = "Save image",
+                Title = "Save Image",
                 FileName = $"{string.Join(" ", fileNameParts.Where(part => part.Length > 0))}{ext}",
                 Filter = (urls.Length == 1 ? "Image" : "Images")+(string.IsNullOrEmpty(ext) ? " (unknown)|*.*" : $" (*{ext})|*{ext}")
             }){
@@ -118,7 +118,7 @@ namespace TweetDuck.Core.Utils{
             using(SaveFileDialog dialog = new SaveFileDialog{
                 AutoUpgradeEnabled = true,
                 OverwritePrompt = true,
-                Title = "Save video",
+                Title = "Save Video",
                 FileName = string.IsNullOrEmpty(username) ? filename : $"{username} {filename}",
                 Filter = "Video"+(string.IsNullOrEmpty(ext) ? " (unknown)|*.*" : $" (*{ext})|*{ext}")
             }){
