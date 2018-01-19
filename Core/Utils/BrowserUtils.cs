@@ -65,14 +65,25 @@ namespace TweetDuck.Core.Utils{
                         FormGuide.Show(hash);
                     }
                     else{
-                        WindowsUtils.OpenAssociatedProgram(url);
+                        string browserPath = Program.UserConfig.BrowserPath;
+
+                        if (browserPath == null || !File.Exists(browserPath)){
+                            WindowsUtils.OpenAssociatedProgram(url);
+                        }
+                        else{
+                            try{
+                                using(Process.Start(browserPath, url)){}
+                            }catch(Exception e){
+                                Program.Reporter.HandleException("Error Opening Browser", "Could not open the browser.", true, e);
+                            }
+                        }
                     }
 
                     break;
 
                 case UrlCheckResult.Tracking:
                     if (FormMessage.Warning("Blocked URL", "TweetDuck has blocked a tracking url due to privacy concerns. Do you want to visit it anyway?\n"+url, FormMessage.Yes, FormMessage.No)){
-                        WindowsUtils.OpenAssociatedProgram(url);
+                        goto case UrlCheckResult.Fine;
                     }
 
                     break;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -6,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace TweetDuck.Core.Utils{
     static class WindowsUtils{
@@ -62,7 +64,7 @@ namespace TweetDuck.Core.Utils{
             }catch(Win32Exception e) when (e.NativeErrorCode == 0x000004C7){ // operation canceled by the user
                 return false;
             }catch(Exception e){
-                Program.Reporter.HandleException("Error opening file", e.Message, true, e);
+                Program.Reporter.HandleException("Error Opening Program", "Could not open the associated program for "+file, true, e);
                 return false;
             }
         }
@@ -129,6 +131,64 @@ namespace TweetDuck.Core.Utils{
             }catch(ExternalException e){
                 Program.Reporter.HandleException("Clipboard Error", "TweetDuck could not access the clipboard as it is currently used by another process.", true, e);
             }
+        }
+
+        public static IEnumerable<Browser> FindInstalledBrowsers(){
+            IEnumerable<Browser> ReadBrowsersFromKey(RegistryHive hive){
+                using(RegistryKey root = RegistryKey.OpenBaseKey(hive, RegistryView.Default))
+                using(RegistryKey browserList = root.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet", false)){
+                    if (browserList == null){
+                        yield break;
+                    }
+
+                    foreach(string sub in browserList.GetSubKeyNames()){
+                        using(RegistryKey browserKey = browserList.OpenSubKey(sub, false))
+                        using(RegistryKey shellKey = browserKey?.OpenSubKey(@"shell\open\command")){
+                            if (shellKey == null){
+                                continue;
+                            }
+
+                            string browserName = browserKey.GetValue(null) as string;
+                            string browserPath = shellKey.GetValue(null) as string;
+
+                            if (string.IsNullOrEmpty(browserName) || string.IsNullOrEmpty(browserPath)){
+                                continue;
+                            }
+
+                            if (browserPath[0] == '"' && browserPath[browserPath.Length-1] == '"'){
+                                browserPath = browserPath.Substring(1, browserPath.Length-2);
+                            }
+
+                            yield return new Browser(browserName, browserPath);
+                        }
+                    }
+                }
+            }
+
+            HashSet<Browser> browsers = new HashSet<Browser>();
+            
+            try{
+                browsers.UnionWith(ReadBrowsersFromKey(RegistryHive.CurrentUser));
+                browsers.UnionWith(ReadBrowsersFromKey(RegistryHive.LocalMachine));
+            }catch{
+                // oops I guess
+            }
+
+            return browsers;
+        }
+
+        public sealed class Browser{
+            public readonly string Name;
+            public readonly string Path;
+
+            public Browser(string name, string path){
+                this.Name = name;
+                this.Path = path;
+            }
+
+            public override int GetHashCode() => Name.GetHashCode();
+            public override bool Equals(object obj) => obj is Browser other && Name == other.Name;
+            public override string ToString() => Name;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling.General;
+using TweetDuck.Core.Utils;
 using TweetDuck.Updates;
 
 namespace TweetDuck.Core.Other.Settings{
@@ -28,11 +29,10 @@ namespace TweetDuck.Core.Other.Settings{
             toolTip.SetToolTip(labelZoomValue, "Changes the zoom level.\r\nAlso affects notifications and screenshots.");
             toolTip.SetToolTip(trackBarZoom, toolTip.GetToolTip(labelZoomValue));
 
+            toolTip.SetToolTip(comboBoxBrowserPath, "Sets the default browser for opening links.");
+
             toolTip.SetToolTip(checkUpdateNotifications, "Checks for updates every hour.\r\nIf an update is dismissed, it will not appear again.");
             toolTip.SetToolTip(btnCheckUpdates, "Forces an update check, even for updates that had been dismissed.");
-
-            trackBarZoom.SetValueSafe(Config.ZoomLevel);
-            labelZoomValue.Text = trackBarZoom.Value+"%";
 
             checkExpandLinks.Checked = Config.ExpandLinksOnHover;
             checkSwitchAccountSelectors.Checked = Config.SwitchAccountSelectors;
@@ -40,6 +40,20 @@ namespace TweetDuck.Core.Other.Settings{
             checkKeepLikeFollowDialogsOpen.Checked = Config.KeepLikeFollowDialogsOpen;
             checkBestImageQuality.Checked = Config.BestImageQuality;
             checkAnimatedAvatars.Checked = Config.EnableAnimatedImages;
+
+            comboBoxBrowserPath.Items.Add("(default browser)");
+            comboBoxBrowserPath.SelectedIndex = 0;
+
+            foreach(WindowsUtils.Browser browserInfo in WindowsUtils.FindInstalledBrowsers()){
+                comboBoxBrowserPath.Items.Add(browserInfo);
+
+                if (browserInfo.Path == Config.BrowserPath){
+                    comboBoxBrowserPath.SelectedIndex = comboBoxBrowserPath.Items.Count-1;
+                }
+            }
+
+            trackBarZoom.SetValueSafe(Config.ZoomLevel);
+            labelZoomValue.Text = trackBarZoom.Value+"%";
 
             checkUpdateNotifications.Checked = Config.EnableUpdateCheck;
         }
@@ -51,6 +65,9 @@ namespace TweetDuck.Core.Other.Settings{
             checkKeepLikeFollowDialogsOpen.CheckedChanged += checkKeepLikeFollowDialogsOpen_CheckedChanged;
             checkBestImageQuality.CheckedChanged += checkBestImageQuality_CheckedChanged;
             checkAnimatedAvatars.CheckedChanged += checkAnimatedAvatars_CheckedChanged;
+
+            comboBoxBrowserPath.SelectedIndexChanged += comboBoxBrowserPath_SelectedIndexChanged;
+
             trackBarZoom.ValueChanged += trackBarZoom_ValueChanged;
 
             checkUpdateNotifications.CheckedChanged += checkUpdateNotifications_CheckedChanged;
@@ -84,6 +101,10 @@ namespace TweetDuck.Core.Other.Settings{
         private void checkAnimatedAvatars_CheckedChanged(object sender, EventArgs e){
             Config.EnableAnimatedImages = checkAnimatedAvatars.Checked;
             BrowserProcessHandler.UpdatePrefs().ContinueWith(task => browser.ReloadColumns());
+        }
+
+        private void comboBoxBrowserPath_SelectedIndexChanged(object sender, EventArgs e){
+            Config.BrowserPath = (comboBoxBrowserPath.SelectedItem as WindowsUtils.Browser)?.Path; // default browser item is a string and casts to null
         }
 
         private void trackBarZoom_ValueChanged(object sender, EventArgs e){
