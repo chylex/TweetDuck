@@ -23,6 +23,10 @@ namespace TweetDuck{
         }
 
         public bool Log(string data){
+            #if DEBUG
+            Debug.WriteLine(data);
+            #endif
+
             StringBuilder build = new StringBuilder();
 
             if (!File.Exists(logFile)){

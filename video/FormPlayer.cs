@@ -102,8 +102,10 @@ namespace TweetDuck.Video{
         }
 
         private void player_MediaError(object pMediaObject){
-            Console.Out.WriteLine(((IWMPMedia2)pMediaObject).Error.errorDescription);
+            IWMPErrorItem error = ((IWMPMedia2)pMediaObject).Error;
+            Console.Out.WriteLine($"Media Error {error.errorCode}: {error.errorDescription}");
 
+            Marshal.ReleaseComObject(error);
             Marshal.ReleaseComObject(pMediaObject);
             Environment.Exit(Program.CODE_MEDIA_ERROR);
         }

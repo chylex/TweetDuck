@@ -55,11 +55,9 @@ namespace TweetDuck.Core.Other.Management{
                 })) != null){
                     currentProcess.EnableRaisingEvents = true;
                     currentProcess.Exited += process_Exited;
-
-                    #if DEBUG
+                    
                     currentProcess.BeginOutputReadLine();
-                    currentProcess.OutputDataReceived += (sender, args) => Debug.WriteLine("VideoPlayer: "+args.Data);
-                    #endif
+                    currentProcess.OutputDataReceived += process_OutputDataReceived;
                 }
 
                 currentPipe.DisposeToken();
@@ -143,6 +141,12 @@ namespace TweetDuck.Core.Other.Management{
         private void owner_FormClosing(object sender, FormClosingEventArgs e){
             if (currentProcess != null){
                 currentProcess.Exited -= process_Exited;
+            }
+        }
+
+        private void process_OutputDataReceived(object sender, DataReceivedEventArgs e){
+            if (!string.IsNullOrEmpty(e.Data)){
+                Program.Reporter.Log("[VideoPlayer] "+e.Data);
             }
         }
 
