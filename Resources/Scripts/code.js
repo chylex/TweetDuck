@@ -759,14 +759,14 @@
   // Block: Allow drag & drop behavior for dropping links on columns to open their detail view.
   //
   (function(){
-    const tweetRegex = /^https?:\/\/twitter\.com\/[A-Za-z0-9_]+\/status\/(\d+)\/?$/;
+    const tweetRegex = /^https?:\/\/twitter\.com\/[A-Za-z0-9_]+\/status\/(\d+)\/?\??/;
     const selector = "section.js-column";
     
     let isDraggingValid = false;
     
     const events = {
       dragover: function(e){
-        e.originalEvent.dataTransfer.dropEffect = isDraggingValid ? "move" : "none";
+        e.originalEvent.dataTransfer.dropEffect = isDraggingValid ? "all" : "none";
         e.preventDefault();
         e.stopPropagation();
       },
