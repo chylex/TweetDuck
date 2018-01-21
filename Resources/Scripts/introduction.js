@@ -44,6 +44,10 @@
   margin-top: 15px;
 }
 
+#td-introduction-modal p:last-child {
+  margin-top: 18px;
+}
+
 #td-introduction-modal footer {
   padding: 10px 0;
 }
@@ -78,10 +82,10 @@
     <div class="mdl-inner">
       <div class="mdl-content">
         <p>Thank you for downloading TweetDuck!</p>
-        <p><a id="td-introduction-follow" href="#">Follow @TryTweetDuck</a> for latest news and updates about the app.</p>
         <div class="main-menu"></div>
         <p><strong>Right-click anywhere</strong> or click <strong>Settings&nbsp;–&nbsp;TweetDuck</strong> in the left panel to open the main menu. You can also right-click links, tweets, images and videos, and desktop notifications to access their respective context menus.</p>
         <p>Click <strong>Show Guide</strong> to see awesome features TweetDuck offers, or view the guide later by going to <strong>About TweetDuck</strong> and clicking the help button on top.</p>
+        <p>Follow the developer <a id="td-introduction-follow" href="#">@chylexmc</a> for latest news &amp; updates about the app, and some occasional rants.</p>
       </div>
       <footer class="txt-right">
         <div class="anondata">
@@ -102,7 +106,7 @@
         onSuccess(tdUser);
       }
       else{
-        TD.controller.clients.getPreferredClient().getUsersByIds([ "731137856052269056" ], users => onSuccess(users[0]), onError);
+        TD.controller.clients.getPreferredClient().getUsersByIds([ "572571847" ], users => onSuccess(users[0]), onError);
       }
     };
     
