@@ -47,12 +47,12 @@ namespace TweetDuck.Core.Other.Settings{
             checkSmoothScrolling.Checked = Config.EnableSmoothScrolling;
 
             comboBoxBrowserPath.Items.Add("(default browser)");
-            comboBoxBrowserPath.Items.Add("(custom program...)");
 
             foreach(WindowsUtils.Browser browserInfo in WindowsUtils.FindInstalledBrowsers()){
                 comboBoxBrowserPath.Items.Add(browserInfo);
             }
-
+            
+            comboBoxBrowserPath.Items.Add("(custom program...)");
             UpdateBrowserPathSelection();
 
             trackBarZoom.SetValueSafe(Config.ZoomLevel);
@@ -119,7 +119,7 @@ namespace TweetDuck.Core.Other.Settings{
                 WindowsUtils.Browser browserInfo = comboBoxBrowserPath.Items.OfType<WindowsUtils.Browser>().FirstOrDefault(browser => browser.Path == Config.BrowserPath);
 
                 if (browserInfo == null){
-                    comboBoxBrowserPath.SelectedIndex = 1;
+                    comboBoxBrowserPath.SelectedIndex = comboBoxBrowserPath.Items.Count-1;
                 }
                 else{
                     comboBoxBrowserPath.SelectedItem = browserInfo;
@@ -128,7 +128,7 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void comboBoxBrowserPath_SelectedIndexChanged(object sender, EventArgs e){
-            if (comboBoxBrowserPath.SelectedIndex == 1){
+            if (comboBoxBrowserPath.SelectedIndex == comboBoxBrowserPath.Items.Count-1){
                 using(OpenFileDialog dialog = new OpenFileDialog{
                     AutoUpgradeEnabled = true,
                     DereferenceLinks = true,
