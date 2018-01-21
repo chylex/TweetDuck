@@ -9,11 +9,20 @@ namespace TweetDuck.Core.Other.Settings{
 
         public IEnumerable<Control> InteractiveControls{
             get{
-                foreach(Panel panel in Controls.OfType<Panel>()){
-                    foreach(Control control in panel.Controls){
-                        yield return control;
+                IEnumerable<Control> FindInteractiveControls(Control parent){
+                    foreach(Control control in parent.Controls){
+                        if (control is Panel subPanel){
+                            foreach(Control subControl in FindInteractiveControls(subPanel)){
+                                yield return subControl;
+                            }
+                        }
+                        else{
+                            yield return control;
+                        }
                     }
                 }
+
+                return FindInteractiveControls(this);
             }
         }
 

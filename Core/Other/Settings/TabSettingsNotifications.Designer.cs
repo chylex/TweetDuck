@@ -84,7 +84,7 @@
             this.labelEdgeDistanceValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelEdgeDistanceValue.Name = "labelEdgeDistanceValue";
             this.labelEdgeDistanceValue.Size = new System.Drawing.Size(40, 13);
-            this.labelEdgeDistanceValue.TabIndex = 9;
+            this.labelEdgeDistanceValue.TabIndex = 1;
             this.labelEdgeDistanceValue.Text = "0 px";
             this.labelEdgeDistanceValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
@@ -95,7 +95,7 @@
             this.labelDisplay.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelDisplay.Name = "labelDisplay";
             this.labelDisplay.Size = new System.Drawing.Size(41, 13);
-            this.labelDisplay.TabIndex = 5;
+            this.labelDisplay.TabIndex = 15;
             this.labelDisplay.Text = "Display";
             // 
             // comboBoxDisplay
@@ -106,7 +106,7 @@
             this.comboBoxDisplay.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.comboBoxDisplay.Name = "comboBoxDisplay";
             this.comboBoxDisplay.Size = new System.Drawing.Size(144, 21);
-            this.comboBoxDisplay.TabIndex = 6;
+            this.comboBoxDisplay.TabIndex = 16;
             // 
             // labelEdgeDistance
             // 
@@ -115,7 +115,7 @@
             this.labelEdgeDistance.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelEdgeDistance.Name = "labelEdgeDistance";
             this.labelEdgeDistance.Size = new System.Drawing.Size(103, 13);
-            this.labelEdgeDistance.TabIndex = 7;
+            this.labelEdgeDistance.TabIndex = 17;
             this.labelEdgeDistance.Text = "Distance From Edge";
             // 
             // radioLocCustom
@@ -183,7 +183,7 @@
             this.trackBarEdgeDistance.Name = "trackBarEdgeDistance";
             this.trackBarEdgeDistance.Size = new System.Drawing.Size(148, 30);
             this.trackBarEdgeDistance.SmallChange = 2;
-            this.trackBarEdgeDistance.TabIndex = 8;
+            this.trackBarEdgeDistance.TabIndex = 0;
             this.trackBarEdgeDistance.TickFrequency = 4;
             this.trackBarEdgeDistance.Value = 8;
             // 
@@ -201,7 +201,7 @@
             this.tableLayoutDurationButtons.RowCount = 1;
             this.tableLayoutDurationButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutDurationButtons.Size = new System.Drawing.Size(171, 27);
-            this.tableLayoutDurationButtons.TabIndex = 5;
+            this.tableLayoutDurationButtons.TabIndex = 12;
             // 
             // btnDurationMedium
             // 
@@ -255,7 +255,7 @@
             this.labelDurationValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelDurationValue.Name = "labelDurationValue";
             this.labelDurationValue.Size = new System.Drawing.Size(52, 13);
-            this.labelDurationValue.TabIndex = 4;
+            this.labelDurationValue.TabIndex = 1;
             this.labelDurationValue.Text = "0 ms/c";
             this.labelDurationValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
@@ -267,7 +267,7 @@
             this.trackBarDuration.Minimum = 10;
             this.trackBarDuration.Name = "trackBarDuration";
             this.trackBarDuration.Size = new System.Drawing.Size(148, 30);
-            this.trackBarDuration.TabIndex = 3;
+            this.trackBarDuration.TabIndex = 0;
             this.trackBarDuration.TickFrequency = 5;
             this.trackBarDuration.Value = 25;
             // 
@@ -278,7 +278,7 @@
             this.checkSkipOnLinkClick.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.checkSkipOnLinkClick.Name = "checkSkipOnLinkClick";
             this.checkSkipOnLinkClick.Size = new System.Drawing.Size(113, 17);
-            this.checkSkipOnLinkClick.TabIndex = 2;
+            this.checkSkipOnLinkClick.TabIndex = 3;
             this.checkSkipOnLinkClick.Text = "Skip On Link Click";
             this.checkSkipOnLinkClick.UseVisualStyleBackColor = true;
             // 
@@ -289,7 +289,7 @@
             this.checkColumnName.Margin = new System.Windows.Forms.Padding(6, 6, 3, 3);
             this.checkColumnName.Name = "checkColumnName";
             this.checkColumnName.Size = new System.Drawing.Size(129, 17);
-            this.checkColumnName.TabIndex = 0;
+            this.checkColumnName.TabIndex = 1;
             this.checkColumnName.Text = "Display Column Name";
             this.checkColumnName.UseVisualStyleBackColor = true;
             // 
@@ -300,7 +300,7 @@
             this.labelIdlePause.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelIdlePause.Name = "labelIdlePause";
             this.labelIdlePause.Size = new System.Drawing.Size(89, 13);
-            this.labelIdlePause.TabIndex = 4;
+            this.labelIdlePause.TabIndex = 5;
             this.labelIdlePause.Text = "Pause When Idle";
             // 
             // comboBoxIdlePause
@@ -311,7 +311,7 @@
             this.comboBoxIdlePause.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.comboBoxIdlePause.Name = "comboBoxIdlePause";
             this.comboBoxIdlePause.Size = new System.Drawing.Size(144, 21);
-            this.comboBoxIdlePause.TabIndex = 5;
+            this.comboBoxIdlePause.TabIndex = 6;
             // 
             // checkNonIntrusive
             // 
@@ -320,7 +320,7 @@
             this.checkNonIntrusive.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.checkNonIntrusive.Name = "checkNonIntrusive";
             this.checkNonIntrusive.Size = new System.Drawing.Size(128, 17);
-            this.checkNonIntrusive.TabIndex = 3;
+            this.checkNonIntrusive.TabIndex = 4;
             this.checkNonIntrusive.Text = "Non-Intrusive Popups";
             this.checkNonIntrusive.UseVisualStyleBackColor = true;
             // 
@@ -331,7 +331,7 @@
             this.checkTimerCountDown.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.checkTimerCountDown.Name = "checkTimerCountDown";
             this.checkTimerCountDown.Size = new System.Drawing.Size(119, 17);
-            this.checkTimerCountDown.TabIndex = 1;
+            this.checkTimerCountDown.TabIndex = 9;
             this.checkTimerCountDown.Text = "Timer Counts Down";
             this.checkTimerCountDown.UseVisualStyleBackColor = true;
             // 
@@ -342,7 +342,7 @@
             this.checkNotificationTimer.Margin = new System.Windows.Forms.Padding(6, 6, 3, 3);
             this.checkNotificationTimer.Name = "checkNotificationTimer";
             this.checkNotificationTimer.Size = new System.Drawing.Size(145, 17);
-            this.checkNotificationTimer.TabIndex = 0;
+            this.checkNotificationTimer.TabIndex = 8;
             this.checkNotificationTimer.Text = "Display Notification Timer";
             this.checkNotificationTimer.UseVisualStyleBackColor = true;
             // 
@@ -388,7 +388,7 @@
             this.panelEdgeDistance.Margin = new System.Windows.Forms.Padding(0);
             this.panelEdgeDistance.Name = "panelEdgeDistance";
             this.panelEdgeDistance.Size = new System.Drawing.Size(322, 36);
-            this.panelEdgeDistance.TabIndex = 1;
+            this.panelEdgeDistance.TabIndex = 18;
             // 
             // checkMediaPreviews
             // 
@@ -397,7 +397,7 @@
             this.checkMediaPreviews.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.checkMediaPreviews.Name = "checkMediaPreviews";
             this.checkMediaPreviews.Size = new System.Drawing.Size(131, 17);
-            this.checkMediaPreviews.TabIndex = 1;
+            this.checkMediaPreviews.TabIndex = 2;
             this.checkMediaPreviews.Text = "Show Media Previews";
             this.checkMediaPreviews.UseVisualStyleBackColor = true;
             // 
@@ -407,7 +407,7 @@
             this.labelScrollSpeedValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelScrollSpeedValue.Name = "labelScrollSpeedValue";
             this.labelScrollSpeedValue.Size = new System.Drawing.Size(38, 13);
-            this.labelScrollSpeedValue.TabIndex = 4;
+            this.labelScrollSpeedValue.TabIndex = 1;
             this.labelScrollSpeedValue.Text = "100%";
             this.labelScrollSpeedValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
@@ -421,7 +421,7 @@
             this.trackBarScrollSpeed.Name = "trackBarScrollSpeed";
             this.trackBarScrollSpeed.Size = new System.Drawing.Size(148, 30);
             this.trackBarScrollSpeed.SmallChange = 5;
-            this.trackBarScrollSpeed.TabIndex = 3;
+            this.trackBarScrollSpeed.TabIndex = 0;
             this.trackBarScrollSpeed.TickFrequency = 25;
             this.trackBarScrollSpeed.Value = 100;
             // 
@@ -432,7 +432,7 @@
             this.labelScrollSpeed.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelScrollSpeed.Name = "labelScrollSpeed";
             this.labelScrollSpeed.Size = new System.Drawing.Size(67, 13);
-            this.labelScrollSpeed.TabIndex = 2;
+            this.labelScrollSpeed.TabIndex = 21;
             this.labelScrollSpeed.Text = "Scroll Speed";
             // 
             // labelLocation
@@ -443,7 +443,7 @@
             this.labelLocation.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
             this.labelLocation.Name = "labelLocation";
             this.labelLocation.Size = new System.Drawing.Size(70, 20);
-            this.labelLocation.TabIndex = 4;
+            this.labelLocation.TabIndex = 13;
             this.labelLocation.Text = "Location";
             // 
             // panelLocation
@@ -458,7 +458,7 @@
             this.panelLocation.Margin = new System.Windows.Forms.Padding(0);
             this.panelLocation.Name = "panelLocation";
             this.panelLocation.Size = new System.Drawing.Size(322, 49);
-            this.panelLocation.TabIndex = 5;
+            this.panelLocation.TabIndex = 14;
             // 
             // panelTimer
             // 
@@ -469,7 +469,7 @@
             this.panelTimer.Margin = new System.Windows.Forms.Padding(0);
             this.panelTimer.Name = "panelTimer";
             this.panelTimer.Size = new System.Drawing.Size(322, 36);
-            this.panelTimer.TabIndex = 3;
+            this.panelTimer.TabIndex = 11;
             // 
             // labelDuration
             // 
@@ -478,7 +478,7 @@
             this.labelDuration.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelDuration.Name = "labelDuration";
             this.labelDuration.Size = new System.Drawing.Size(47, 13);
-            this.labelDuration.TabIndex = 2;
+            this.labelDuration.TabIndex = 10;
             this.labelDuration.Text = "Duration";
             // 
             // labelTimer
@@ -489,7 +489,7 @@
             this.labelTimer.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
             this.labelTimer.Name = "labelTimer";
             this.labelTimer.Size = new System.Drawing.Size(48, 20);
-            this.labelTimer.TabIndex = 2;
+            this.labelTimer.TabIndex = 7;
             this.labelTimer.Text = "Timer";
             // 
             // labelSize
@@ -500,7 +500,7 @@
             this.labelSize.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
             this.labelSize.Name = "labelSize";
             this.labelSize.Size = new System.Drawing.Size(40, 20);
-            this.labelSize.TabIndex = 6;
+            this.labelSize.TabIndex = 19;
             this.labelSize.Text = "Size";
             // 
             // panelSize
@@ -513,7 +513,7 @@
             this.panelSize.Margin = new System.Windows.Forms.Padding(0);
             this.panelSize.Name = "panelSize";
             this.panelSize.Size = new System.Drawing.Size(322, 25);
-            this.panelSize.TabIndex = 7;
+            this.panelSize.TabIndex = 20;
             // 
             // durationUpdateTimer
             // 
@@ -552,7 +552,7 @@
             this.flowPanel.Location = new System.Drawing.Point(9, 9);
             this.flowPanel.Name = "flowPanel";
             this.flowPanel.Size = new System.Drawing.Size(322, 678);
-            this.flowPanel.TabIndex = 8;
+            this.flowPanel.TabIndex = 0;
             this.flowPanel.WrapContents = false;
             // 
             // panelScrollSpeed
@@ -564,7 +564,7 @@
             this.panelScrollSpeed.Margin = new System.Windows.Forms.Padding(0);
             this.panelScrollSpeed.Name = "panelScrollSpeed";
             this.panelScrollSpeed.Size = new System.Drawing.Size(322, 36);
-            this.panelScrollSpeed.TabIndex = 9;
+            this.panelScrollSpeed.TabIndex = 22;
             // 
             // TabSettingsNotifications
             // 

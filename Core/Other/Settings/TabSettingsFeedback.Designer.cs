@@ -47,7 +47,7 @@
             this.panelDataCollection.Margin = new System.Windows.Forms.Padding(0);
             this.panelDataCollection.Name = "panelDataCollection";
             this.panelDataCollection.Size = new System.Drawing.Size(322, 26);
-            this.panelDataCollection.TabIndex = 1;
+            this.panelDataCollection.TabIndex = 3;
             // 
             // labelDataCollectionLink
             // 
@@ -58,7 +58,7 @@
             this.labelDataCollectionLink.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelDataCollectionLink.Name = "labelDataCollectionLink";
             this.labelDataCollectionLink.Size = new System.Drawing.Size(66, 17);
-            this.labelDataCollectionLink.TabIndex = 3;
+            this.labelDataCollectionLink.TabIndex = 1;
             this.labelDataCollectionLink.TabStop = true;
             this.labelDataCollectionLink.Text = "(learn more)";
             this.labelDataCollectionLink.UseCompatibleTextRendering = true;
@@ -70,7 +70,7 @@
             this.checkDataCollection.Margin = new System.Windows.Forms.Padding(6, 6, 0, 3);
             this.checkDataCollection.Name = "checkDataCollection";
             this.checkDataCollection.Size = new System.Drawing.Size(135, 17);
-            this.checkDataCollection.TabIndex = 2;
+            this.checkDataCollection.TabIndex = 0;
             this.checkDataCollection.Text = "Send Anonymous Data";
             this.checkDataCollection.UseVisualStyleBackColor = true;
             // 
@@ -101,7 +101,7 @@
             this.btnSendFeedback.Name = "btnSendFeedback";
             this.btnSendFeedback.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnSendFeedback.Size = new System.Drawing.Size(164, 23);
-            this.btnSendFeedback.TabIndex = 0;
+            this.btnSendFeedback.TabIndex = 1;
             this.btnSendFeedback.Text = "Send Feedback / Bug Report";
             this.btnSendFeedback.UseVisualStyleBackColor = true;
             // 
@@ -112,7 +112,7 @@
             this.labelDataCollection.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelDataCollection.Name = "labelDataCollection";
             this.labelDataCollection.Size = new System.Drawing.Size(79, 13);
-            this.labelDataCollection.TabIndex = 1;
+            this.labelDataCollection.TabIndex = 2;
             this.labelDataCollection.Text = "Data Collection";
             // 
             // labelFeedback
@@ -141,7 +141,7 @@
             this.flowPanel.Location = new System.Drawing.Point(9, 9);
             this.flowPanel.Name = "flowPanel";
             this.flowPanel.Size = new System.Drawing.Size(322, 209);
-            this.flowPanel.TabIndex = 2;
+            this.flowPanel.TabIndex = 0;
             this.flowPanel.WrapContents = false;
             // 
             // TabSettingsFeedback

@@ -56,7 +56,7 @@
             this.btnClearCache.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnClearCache.Name = "btnClearCache";
             this.btnClearCache.Size = new System.Drawing.Size(144, 23);
-            this.btnClearCache.TabIndex = 1;
+            this.btnClearCache.TabIndex = 5;
             this.btnClearCache.Text = "Clear Cache (calculating)";
             this.btnClearCache.UseVisualStyleBackColor = true;
             // 
@@ -67,7 +67,7 @@
             this.checkHardwareAcceleration.Margin = new System.Windows.Forms.Padding(6, 6, 3, 3);
             this.checkHardwareAcceleration.Name = "checkHardwareAcceleration";
             this.checkHardwareAcceleration.Size = new System.Drawing.Size(134, 17);
-            this.checkHardwareAcceleration.TabIndex = 0;
+            this.checkHardwareAcceleration.TabIndex = 3;
             this.checkHardwareAcceleration.Text = "Hardware Acceleration";
             this.checkHardwareAcceleration.UseVisualStyleBackColor = true;
             // 
@@ -136,7 +136,7 @@
             this.numClearCacheThreshold.Minimum = 100;
             this.numClearCacheThreshold.Name = "numClearCacheThreshold";
             this.numClearCacheThreshold.Size = new System.Drawing.Size(72, 20);
-            this.numClearCacheThreshold.TabIndex = 4;
+            this.numClearCacheThreshold.TabIndex = 1;
             this.numClearCacheThreshold.TextSuffix = " MB";
             this.numClearCacheThreshold.Value = 250;
             // 
@@ -147,7 +147,7 @@
             this.checkClearCacheAuto.Margin = new System.Windows.Forms.Padding(6, 6, 3, 3);
             this.checkClearCacheAuto.Name = "checkClearCacheAuto";
             this.checkClearCacheAuto.Size = new System.Drawing.Size(215, 17);
-            this.checkClearCacheAuto.TabIndex = 3;
+            this.checkClearCacheAuto.TabIndex = 0;
             this.checkClearCacheAuto.Text = "Clear Cache Automatically When Above";
             this.checkClearCacheAuto.UseVisualStyleBackColor = true;
             // 
@@ -195,7 +195,7 @@
             this.panelClearCacheAuto.Margin = new System.Windows.Forms.Padding(0);
             this.panelClearCacheAuto.Name = "panelClearCacheAuto";
             this.panelClearCacheAuto.Size = new System.Drawing.Size(322, 26);
-            this.panelClearCacheAuto.TabIndex = 3;
+            this.panelClearCacheAuto.TabIndex = 6;
             // 
             // labelCache
             // 
@@ -204,7 +204,7 @@
             this.labelCache.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelCache.Name = "labelCache";
             this.labelCache.Size = new System.Drawing.Size(38, 13);
-            this.labelCache.TabIndex = 2;
+            this.labelCache.TabIndex = 4;
             this.labelCache.Text = "Cache";
             // 
             // panelConfiguration
@@ -216,7 +216,7 @@
             this.panelConfiguration.Margin = new System.Windows.Forms.Padding(0);
             this.panelConfiguration.Name = "panelConfiguration";
             this.panelConfiguration.Size = new System.Drawing.Size(322, 29);
-            this.panelConfiguration.TabIndex = 5;
+            this.panelConfiguration.TabIndex = 8;
             // 
             // labelConfiguration
             // 
@@ -226,7 +226,7 @@
             this.labelConfiguration.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
             this.labelConfiguration.Name = "labelConfiguration";
             this.labelConfiguration.Size = new System.Drawing.Size(104, 20);
-            this.labelConfiguration.TabIndex = 4;
+            this.labelConfiguration.TabIndex = 7;
             this.labelConfiguration.Text = "Configuration";
             // 
             // flowPanel
@@ -247,7 +247,7 @@
             this.flowPanel.Location = new System.Drawing.Point(9, 9);
             this.flowPanel.Name = "flowPanel";
             this.flowPanel.Size = new System.Drawing.Size(322, 295);
-            this.flowPanel.TabIndex = 6;
+            this.flowPanel.TabIndex = 0;
             this.flowPanel.WrapContents = false;
             // 
             // TabSettingsAdvanced

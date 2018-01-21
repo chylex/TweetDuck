@@ -40,7 +40,7 @@
             this.checkTrayHighlight.Margin = new System.Windows.Forms.Padding(6, 6, 3, 3);
             this.checkTrayHighlight.Name = "checkTrayHighlight";
             this.checkTrayHighlight.Size = new System.Drawing.Size(103, 17);
-            this.checkTrayHighlight.TabIndex = 2;
+            this.checkTrayHighlight.TabIndex = 3;
             this.checkTrayHighlight.Text = "Enable Highlight";
             this.checkTrayHighlight.UseVisualStyleBackColor = true;
             // 
@@ -52,7 +52,7 @@
             this.comboBoxTrayType.Margin = new System.Windows.Forms.Padding(5, 5, 3, 3);
             this.comboBoxTrayType.Name = "comboBoxTrayType";
             this.comboBoxTrayType.Size = new System.Drawing.Size(144, 21);
-            this.comboBoxTrayType.TabIndex = 0;
+            this.comboBoxTrayType.TabIndex = 1;
             // 
             // labelTrayIcon
             // 
@@ -61,7 +61,7 @@
             this.labelTrayIcon.Margin = new System.Windows.Forms.Padding(3, 9, 3, 0);
             this.labelTrayIcon.Name = "labelTrayIcon";
             this.labelTrayIcon.Size = new System.Drawing.Size(52, 13);
-            this.labelTrayIcon.TabIndex = 1;
+            this.labelTrayIcon.TabIndex = 2;
             this.labelTrayIcon.Text = "Tray Icon";
             // 
             // labelTray
@@ -88,7 +88,7 @@
             this.flowPanel.Location = new System.Drawing.Point(9, 9);
             this.flowPanel.Name = "flowPanel";
             this.flowPanel.Size = new System.Drawing.Size(322, 97);
-            this.flowPanel.TabIndex = 2;
+            this.flowPanel.TabIndex = 0;
             this.flowPanel.WrapContents = false;
             // 
             // TabSettingsTray

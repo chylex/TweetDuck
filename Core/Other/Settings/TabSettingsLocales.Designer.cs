@@ -43,7 +43,7 @@
             this.checkSpellCheck.Margin = new System.Windows.Forms.Padding(6, 6, 3, 3);
             this.checkSpellCheck.Name = "checkSpellCheck";
             this.checkSpellCheck.Size = new System.Drawing.Size(119, 17);
-            this.checkSpellCheck.TabIndex = 5;
+            this.checkSpellCheck.TabIndex = 1;
             this.checkSpellCheck.Text = "Enable Spell Check";
             this.checkSpellCheck.UseVisualStyleBackColor = true;
             // 
@@ -74,7 +74,7 @@
             this.flowPanel.Location = new System.Drawing.Point(9, 9);
             this.flowPanel.Name = "flowPanel";
             this.flowPanel.Size = new System.Drawing.Size(322, 193);
-            this.flowPanel.TabIndex = 4;
+            this.flowPanel.TabIndex = 0;
             this.flowPanel.WrapContents = false;
             // 
             // labelSpellCheckLanguage
@@ -84,7 +84,7 @@
             this.labelSpellCheckLanguage.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelSpellCheckLanguage.Name = "labelSpellCheckLanguage";
             this.labelSpellCheckLanguage.Size = new System.Drawing.Size(115, 13);
-            this.labelSpellCheckLanguage.TabIndex = 11;
+            this.labelSpellCheckLanguage.TabIndex = 2;
             this.labelSpellCheckLanguage.Text = "Spell Check Language";
             // 
             // comboBoxSpellCheckLanguage
@@ -95,7 +95,7 @@
             this.comboBoxSpellCheckLanguage.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.comboBoxSpellCheckLanguage.Name = "comboBoxSpellCheckLanguage";
             this.comboBoxSpellCheckLanguage.Size = new System.Drawing.Size(311, 21);
-            this.comboBoxSpellCheckLanguage.TabIndex = 9;
+            this.comboBoxSpellCheckLanguage.TabIndex = 3;
             // 
             // labelTranslations
             // 
@@ -105,7 +105,7 @@
             this.labelTranslations.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
             this.labelTranslations.Name = "labelTranslations";
             this.labelTranslations.Size = new System.Drawing.Size(116, 20);
-            this.labelTranslations.TabIndex = 10;
+            this.labelTranslations.TabIndex = 4;
             this.labelTranslations.Text = "Bing Translator";
             // 
             // labelTranslationTarget
@@ -115,7 +115,7 @@
             this.labelTranslationTarget.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelTranslationTarget.Name = "labelTranslationTarget";
             this.labelTranslationTarget.Size = new System.Drawing.Size(89, 13);
-            this.labelTranslationTarget.TabIndex = 8;
+            this.labelTranslationTarget.TabIndex = 5;
             this.labelTranslationTarget.Text = "Target Language";
             // 
             // comboBoxTranslationTarget
@@ -126,7 +126,7 @@
             this.comboBoxTranslationTarget.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.comboBoxTranslationTarget.Name = "comboBoxTranslationTarget";
             this.comboBoxTranslationTarget.Size = new System.Drawing.Size(311, 21);
-            this.comboBoxTranslationTarget.TabIndex = 7;
+            this.comboBoxTranslationTarget.TabIndex = 6;
             // 
             // TabSettingsLocales
             // 

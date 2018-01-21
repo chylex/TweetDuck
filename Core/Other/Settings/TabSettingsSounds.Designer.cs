@@ -59,7 +59,7 @@
             this.labelVolumeValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelVolumeValue.Name = "labelVolumeValue";
             this.labelVolumeValue.Size = new System.Drawing.Size(38, 13);
-            this.labelVolumeValue.TabIndex = 6;
+            this.labelVolumeValue.TabIndex = 1;
             this.labelVolumeValue.Text = "100%";
             this.labelVolumeValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
@@ -106,7 +106,7 @@
             this.labelSoundNotification.Margin = new System.Windows.Forms.Padding(0);
             this.labelSoundNotification.Name = "labelSoundNotification";
             this.labelSoundNotification.Size = new System.Drawing.Size(198, 20);
-            this.labelSoundNotification.TabIndex = 1;
+            this.labelSoundNotification.TabIndex = 0;
             this.labelSoundNotification.Text = "Custom Sound Notification";
             // 
             // panelSoundNotification
@@ -120,7 +120,7 @@
             this.panelSoundNotification.Margin = new System.Windows.Forms.Padding(0);
             this.panelSoundNotification.Name = "panelSoundNotification";
             this.panelSoundNotification.Size = new System.Drawing.Size(322, 55);
-            this.panelSoundNotification.TabIndex = 2;
+            this.panelSoundNotification.TabIndex = 1;
             // 
             // labelVolume
             // 
@@ -129,7 +129,7 @@
             this.labelVolume.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelVolume.Name = "labelVolume";
             this.labelVolume.Size = new System.Drawing.Size(42, 13);
-            this.labelVolume.TabIndex = 4;
+            this.labelVolume.TabIndex = 2;
             this.labelVolume.Text = "Volume";
             // 
             // trackBarVolume
@@ -140,7 +140,7 @@
             this.trackBarVolume.Maximum = 100;
             this.trackBarVolume.Name = "trackBarVolume";
             this.trackBarVolume.Size = new System.Drawing.Size(148, 30);
-            this.trackBarVolume.TabIndex = 5;
+            this.trackBarVolume.TabIndex = 0;
             this.trackBarVolume.TickFrequency = 10;
             this.trackBarVolume.Value = 100;
             this.trackBarVolume.ValueChanged += new System.EventHandler(this.trackBarVolume_ValueChanged);
@@ -158,7 +158,7 @@
             this.flowPanel.Location = new System.Drawing.Point(9, 9);
             this.flowPanel.Name = "flowPanel";
             this.flowPanel.Size = new System.Drawing.Size(322, 136);
-            this.flowPanel.TabIndex = 3;
+            this.flowPanel.TabIndex = 0;
             this.flowPanel.WrapContents = false;
             // 
             // panelVolume
@@ -169,7 +169,7 @@
             this.panelVolume.Margin = new System.Windows.Forms.Padding(0);
             this.panelVolume.Name = "panelVolume";
             this.panelVolume.Size = new System.Drawing.Size(322, 36);
-            this.panelVolume.TabIndex = 2;
+            this.panelVolume.TabIndex = 3;
             // 
             // volumeUpdateTimer
             // 
