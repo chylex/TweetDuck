@@ -17,6 +17,10 @@ namespace TweetDuck.Core.Utils{
                 args["disable-gpu"] = "1";
                 args["disable-gpu-vsync"] = "1";
             }
+
+            if (!Program.UserConfig.EnableSmoothScrolling){
+                args["disable-smooth-scrolling"] = "1";
+            }
             
             args["disable-pdf-extension"] = "1";
             args["disable-plugins-discovery"] = "1";

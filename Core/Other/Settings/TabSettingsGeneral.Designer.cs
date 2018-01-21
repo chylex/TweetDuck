@@ -43,6 +43,8 @@
             this.checkKeepLikeFollowDialogsOpen = new System.Windows.Forms.CheckBox();
             this.labelBrowserPath = new System.Windows.Forms.Label();
             this.comboBoxBrowserPath = new System.Windows.Forms.ComboBox();
+            this.labelBrowserSettings = new System.Windows.Forms.Label();
+            this.checkSmoothScrolling = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).BeginInit();
             this.panelZoom.SuspendLayout();
             this.flowPanel.SuspendLayout();
@@ -62,7 +64,7 @@
             // checkUpdateNotifications
             // 
             this.checkUpdateNotifications.AutoSize = true;
-            this.checkUpdateNotifications.Location = new System.Drawing.Point(6, 320);
+            this.checkUpdateNotifications.Location = new System.Drawing.Point(6, 386);
             this.checkUpdateNotifications.Margin = new System.Windows.Forms.Padding(6, 6, 3, 3);
             this.checkUpdateNotifications.Name = "checkUpdateNotifications";
             this.checkUpdateNotifications.Size = new System.Drawing.Size(165, 17);
@@ -72,7 +74,7 @@
             // 
             // btnCheckUpdates
             // 
-            this.btnCheckUpdates.Location = new System.Drawing.Point(5, 343);
+            this.btnCheckUpdates.Location = new System.Drawing.Point(5, 409);
             this.btnCheckUpdates.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnCheckUpdates.Name = "btnCheckUpdates";
             this.btnCheckUpdates.Size = new System.Drawing.Size(144, 23);
@@ -142,7 +144,7 @@
             // labelZoom
             // 
             this.labelZoom.AutoSize = true;
-            this.labelZoom.Location = new System.Drawing.Point(3, 225);
+            this.labelZoom.Location = new System.Drawing.Point(3, 291);
             this.labelZoom.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelZoom.Name = "labelZoom";
             this.labelZoom.Size = new System.Drawing.Size(34, 13);
@@ -170,7 +172,7 @@
             this.panelZoom.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panelZoom.Controls.Add(this.trackBarZoom);
             this.panelZoom.Controls.Add(this.labelZoomValue);
-            this.panelZoom.Location = new System.Drawing.Point(0, 238);
+            this.panelZoom.Location = new System.Drawing.Point(0, 304);
             this.panelZoom.Margin = new System.Windows.Forms.Padding(0);
             this.panelZoom.Name = "panelZoom";
             this.panelZoom.Size = new System.Drawing.Size(322, 36);
@@ -191,7 +193,7 @@
             // 
             this.labelUpdates.AutoSize = true;
             this.labelUpdates.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelUpdates.Location = new System.Drawing.Point(0, 294);
+            this.labelUpdates.Location = new System.Drawing.Point(0, 360);
             this.labelUpdates.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
             this.labelUpdates.Name = "labelUpdates";
             this.labelUpdates.Size = new System.Drawing.Size(70, 20);
@@ -210,6 +212,8 @@
             this.flowPanel.Controls.Add(this.checkKeepLikeFollowDialogsOpen);
             this.flowPanel.Controls.Add(this.checkBestImageQuality);
             this.flowPanel.Controls.Add(this.checkAnimatedAvatars);
+            this.flowPanel.Controls.Add(this.labelBrowserSettings);
+            this.flowPanel.Controls.Add(this.checkSmoothScrolling);
             this.flowPanel.Controls.Add(this.labelBrowserPath);
             this.flowPanel.Controls.Add(this.comboBoxBrowserPath);
             this.flowPanel.Controls.Add(this.labelZoom);
@@ -220,7 +224,7 @@
             this.flowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowPanel.Location = new System.Drawing.Point(9, 9);
             this.flowPanel.Name = "flowPanel";
-            this.flowPanel.Size = new System.Drawing.Size(322, 371);
+            this.flowPanel.Size = new System.Drawing.Size(322, 438);
             this.flowPanel.TabIndex = 4;
             this.flowPanel.WrapContents = false;
             // 
@@ -238,7 +242,7 @@
             // labelBrowserPath
             // 
             this.labelBrowserPath.AutoSize = true;
-            this.labelBrowserPath.Location = new System.Drawing.Point(3, 173);
+            this.labelBrowserPath.Location = new System.Drawing.Point(3, 239);
             this.labelBrowserPath.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelBrowserPath.Name = "labelBrowserPath";
             this.labelBrowserPath.Size = new System.Drawing.Size(95, 13);
@@ -249,11 +253,33 @@
             // 
             this.comboBoxBrowserPath.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxBrowserPath.FormattingEnabled = true;
-            this.comboBoxBrowserPath.Location = new System.Drawing.Point(5, 189);
+            this.comboBoxBrowserPath.Location = new System.Drawing.Point(5, 255);
             this.comboBoxBrowserPath.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.comboBoxBrowserPath.Name = "comboBoxBrowserPath";
             this.comboBoxBrowserPath.Size = new System.Drawing.Size(173, 21);
             this.comboBoxBrowserPath.TabIndex = 9;
+            // 
+            // labelBrowserSettings
+            // 
+            this.labelBrowserSettings.AutoSize = true;
+            this.labelBrowserSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelBrowserSettings.Location = new System.Drawing.Point(0, 181);
+            this.labelBrowserSettings.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
+            this.labelBrowserSettings.Name = "labelBrowserSettings";
+            this.labelBrowserSettings.Size = new System.Drawing.Size(130, 20);
+            this.labelBrowserSettings.TabIndex = 10;
+            this.labelBrowserSettings.Text = "Browser Settings";
+            // 
+            // checkSmoothScrolling
+            // 
+            this.checkSmoothScrolling.AutoSize = true;
+            this.checkSmoothScrolling.Location = new System.Drawing.Point(6, 207);
+            this.checkSmoothScrolling.Margin = new System.Windows.Forms.Padding(6, 6, 3, 3);
+            this.checkSmoothScrolling.Name = "checkSmoothScrolling";
+            this.checkSmoothScrolling.Size = new System.Drawing.Size(105, 17);
+            this.checkSmoothScrolling.TabIndex = 11;
+            this.checkSmoothScrolling.Text = "Smooth Scrolling";
+            this.checkSmoothScrolling.UseVisualStyleBackColor = true;
             // 
             // TabSettingsGeneral
             // 
@@ -261,7 +287,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.flowPanel);
             this.Name = "TabSettingsGeneral";
-            this.Size = new System.Drawing.Size(340, 389);
+            this.Size = new System.Drawing.Size(340, 456);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).EndInit();
             this.panelZoom.ResumeLayout(false);
             this.flowPanel.ResumeLayout(false);
@@ -291,5 +317,7 @@
         private System.Windows.Forms.CheckBox checkKeepLikeFollowDialogsOpen;
         private System.Windows.Forms.Label labelBrowserPath;
         private System.Windows.Forms.ComboBox comboBoxBrowserPath;
+        private System.Windows.Forms.Label labelBrowserSettings;
+        private System.Windows.Forms.CheckBox checkSmoothScrolling;
     }
 }

@@ -50,10 +50,13 @@ namespace TweetDuck.Configuration{
         public bool KeepLikeFollowDialogsOpen { get; set; } = true;
         public bool BestImageQuality          { get; set; } = true;
         public bool EnableAnimatedImages      { get; set; } = true;
-        public string BrowserPath             { get; set; } = null;
-        public int VideoPlayerVolume          { get; set; } = 50;
-        private int _zoomLevel                              = 100;
+
+        public bool EnableSmoothScrolling { get; set; } = true;
+        public string BrowserPath         { get; set; } = null;
+        private int _zoomLevel                          = 100;
         private bool _muteNotifications;
+
+        public int VideoPlayerVolume { get; set; } = 50;
         
         public bool EnableSpellCheck     { get; set; } = false;
         public string SpellCheckLanguage { get; set; } = "en-US";
