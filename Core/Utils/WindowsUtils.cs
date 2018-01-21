@@ -178,8 +178,8 @@ namespace TweetDuck.Core.Utils{
         }
 
         public sealed class Browser{
-            public readonly string Name;
-            public readonly string Path;
+            public string Name { get; }
+            public string Path { get; }
 
             public Browser(string name, string path){
                 this.Name = name;
