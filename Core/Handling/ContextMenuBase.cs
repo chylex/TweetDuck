@@ -8,6 +8,7 @@ using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
 using System.Collections.Generic;
 using System.Linq;
+using TweetDuck.Core.Management;
 using TweetDuck.Core.Other;
 
 namespace TweetDuck.Core.Handling{

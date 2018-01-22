@@ -2,7 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 using TweetDuck.Configuration;
-using TweetDuck.Core.Other.Settings.Export;
+using TweetDuck.Core.Management;
 using TweetDuck.Plugins;
 
 namespace TweetDuck.Core.Other.Settings.Dialogs{
@@ -11,24 +11,25 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
             Deciding, Reset, Import, Export
         }
 
-        public ExportFileFlags Flags{
-            get => selectedFlags;
+        private ProfileManager.Items SelectedItems{
+            get => _selectedItems;
 
             set{
                 // this will call events and SetFlag, which also updates the UI
-                cbConfig.Checked = value.HasFlag(ExportFileFlags.UserConfig);
-                cbSession.Checked = value.HasFlag(ExportFileFlags.Session);
-                cbPluginData.Checked = value.HasFlag(ExportFileFlags.PluginData);
+                cbConfig.Checked = value.HasFlag(ProfileManager.Items.UserConfig);
+                cbSession.Checked = value.HasFlag(ProfileManager.Items.Session);
+                cbPluginData.Checked = value.HasFlag(ProfileManager.Items.PluginData);
             }
         }
 
         public bool ShouldReloadBrowser { get; private set; }
         
         private readonly PluginManager plugins;
-        private State currentState;
 
-        private ExportManager importManager;
-        private ExportFileFlags selectedFlags = ExportFileFlags.None;
+        private State currentState;
+        private ProfileManager importManager;
+
+        private ProfileManager.Items _selectedItems = ProfileManager.Items.None;
 
         public DialogSettingsManage(PluginManager plugins){
             InitializeComponent();
@@ -42,15 +43,15 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
         }
 
         private void cbConfig_CheckedChanged(object sender, EventArgs e){
-            SetFlag(ExportFileFlags.UserConfig, cbConfig.Checked);
+            SetFlag(ProfileManager.Items.UserConfig, cbConfig.Checked);
         }
 
         private void cbSession_CheckedChanged(object sender, EventArgs e){
-            SetFlag(ExportFileFlags.Session, cbSession.Checked);
+            SetFlag(ProfileManager.Items.Session, cbSession.Checked);
         }
 
         private void cbPluginData_CheckedChanged(object sender, EventArgs e){
-            SetFlag(ExportFileFlags.PluginData, cbPluginData.Checked);
+            SetFlag(ProfileManager.Items.PluginData, cbPluginData.Checked);
         }
 
         private void btnContinue_Click(object sender, EventArgs e){
@@ -63,7 +64,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                         currentState = State.Reset;
 
                         Text = "Restore Defaults";
-                        Flags = ExportFileFlags.UserConfig;
+                        SelectedItems = ProfileManager.Items.UserConfig;
                     }
 
                     // Import
@@ -81,11 +82,11 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                             file = dialog.FileName;
                         }
 
-                        importManager = new ExportManager(file, plugins);
+                        importManager = new ProfileManager(file, plugins);
                         currentState = State.Import;
 
                         Text = "Import Profile";
-                        Flags = importManager.GetImportFlags();
+                        SelectedItems = importManager.FindImportItems();
 
                         cbConfig.Enabled = cbConfig.Checked;
                         cbSession.Enabled = cbSession.Checked;
@@ -98,7 +99,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
 
                         Text = "Export Profile";
                         btnContinue.Text = "Export Profile";
-                        Flags = ExportFileFlags.All & ~ExportFileFlags.Session;
+                        SelectedItems = ProfileManager.Items.All & ~ProfileManager.Items.Session;
                     }
                     
                     // Continue...
@@ -108,11 +109,11 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
 
                 case State.Reset:
                     if (FormMessage.Warning("Reset TweetDuck Options", "This will reset the selected items. Are you sure you want to proceed?", FormMessage.Yes, FormMessage.No)){
-                        if (Flags.HasFlag(ExportFileFlags.UserConfig)){
+                        if (SelectedItems.HasFlag(ProfileManager.Items.UserConfig)){
                             Program.UserConfig.Reset();
                         }
 
-                        if (Flags.HasFlag(ExportFileFlags.SystemConfig)){
+                        if (SelectedItems.HasFlag(ProfileManager.Items.SystemConfig)){
                             try{
                                 File.Delete(Program.SystemConfigFilePath);
                             }catch(Exception ex){
@@ -120,7 +121,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                             }
                         }
 
-                        if (Flags.HasFlag(ExportFileFlags.PluginData)){
+                        if (SelectedItems.HasFlag(ProfileManager.Items.PluginData)){
                             try{
                                 File.Delete(Program.PluginConfigFilePath);
                                 Directory.Delete(Program.PluginDataPath, true);
@@ -129,10 +130,10 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                             }
                         }
 
-                        if (Flags.HasFlag(ExportFileFlags.Session)){
+                        if (SelectedItems.HasFlag(ProfileManager.Items.Session)){
                             Program.Restart(Arguments.ArgDeleteCookies);
                         }
-                        else if (Flags.HasFlag(ExportFileFlags.SystemConfig)){
+                        else if (SelectedItems.HasFlag(ProfileManager.Items.SystemConfig)){
                             Program.Restart();
                         }
                         else{
@@ -146,14 +147,14 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                     break;
 
                 case State.Import:
-                    if (importManager.Import(Flags)){
+                    if (importManager.Import(SelectedItems)){
                         Program.UserConfig.Reload();
 
                         if (importManager.IsRestarting){
-                            if (Flags.HasFlag(ExportFileFlags.Session)){
+                            if (SelectedItems.HasFlag(ProfileManager.Items.Session)){
                                 Program.Restart(Arguments.ArgImportCookies);
                             }
-                            else if (Flags.HasFlag(ExportFileFlags.SystemConfig)){
+                            else if (SelectedItems.HasFlag(ProfileManager.Items.SystemConfig)){
                                 Program.Restart();
                             }
                         }
@@ -189,9 +190,9 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                     Program.UserConfig.Save();
                     Program.SystemConfig.Save();
 
-                    ExportManager manager = new ExportManager(file, plugins);
+                    ProfileManager manager = new ProfileManager(file, plugins);
 
-                    if (!manager.Export(Flags)){
+                    if (!manager.Export(SelectedItems)){
                         Program.Reporter.HandleException("Profile Export Error", "An exception happened while exporting TweetDuck profile.", true, manager.LastException);
                     }
 
@@ -206,15 +207,15 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
             Close();
         }
 
-        private void SetFlag(ExportFileFlags flag, bool enable){
-            selectedFlags = enable ? selectedFlags | flag : selectedFlags & ~flag;
-            btnContinue.Enabled = selectedFlags != ExportFileFlags.None;
+        private void SetFlag(ProfileManager.Items flag, bool enable){
+            _selectedItems = enable ? _selectedItems | flag : _selectedItems & ~flag;
+            btnContinue.Enabled = _selectedItems != ProfileManager.Items.None;
 
             if (currentState == State.Import){
-                btnContinue.Text = selectedFlags.HasFlag(ExportFileFlags.Session) ? "Import && Restart" : "Import Profile";
+                btnContinue.Text = _selectedItems.HasFlag(ProfileManager.Items.Session) ? "Import && Restart" : "Import Profile";
             }
             else if (currentState == State.Reset){
-                btnContinue.Text = selectedFlags.HasFlag(ExportFileFlags.Session) ? "Restore && Restart" : "Restore Defaults";
+                btnContinue.Text = _selectedItems.HasFlag(ProfileManager.Items.Session) ? "Restore && Restart" : "Restore Defaults";
             }
         }
     }

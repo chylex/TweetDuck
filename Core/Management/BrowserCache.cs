@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
-using System.Threading.Tasks;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
-namespace TweetDuck.Core.Utils{
+namespace TweetDuck.Core.Management{
     static class BrowserCache{
         public static string CacheFolder => Path.Combine(Program.StoragePath, "Cache");
         

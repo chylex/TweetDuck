@@ -10,7 +10,7 @@ using TweetDuck.Configuration;
 using TweetDuck.Core;
 using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Other;
-using TweetDuck.Core.Other.Settings.Export;
+using TweetDuck.Core.Management;
 using TweetDuck.Core.Utils;
 using TweetDuck.Data;
 using TweetDuck.Updates;
@@ -118,10 +118,10 @@ namespace TweetDuck{
             SystemConfig = SystemConfig.Load(SystemConfigFilePath);
 
             if (Arguments.HasFlag(Arguments.ArgImportCookies)){
-                ExportManager.ImportCookies();
+                ProfileManager.ImportCookies();
             }
             else if (Arguments.HasFlag(Arguments.ArgDeleteCookies)){
-                ExportManager.DeleteCookies();
+                ProfileManager.DeleteCookies();
             }
 
             if (Arguments.HasFlag(Arguments.ArgUpdated)){

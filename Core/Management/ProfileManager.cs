@@ -2,14 +2,25 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using TweetDuck.Core.Other;
 using TweetDuck.Data;
 using TweetDuck.Plugins;
 using TweetDuck.Plugins.Enums;
 
-namespace TweetDuck.Core.Other.Settings.Export{
-    sealed class ExportManager{
+namespace TweetDuck.Core.Management{
+    sealed class ProfileManager{
         private static readonly string CookiesPath = Path.Combine(Program.StoragePath, "Cookies");
         private static readonly string TempCookiesPath = Path.Combine(Program.StoragePath, "CookiesTmp");
+
+        [Flags]
+        public enum Items{
+            None = 0,
+            UserConfig = 1,
+            SystemConfig = 2, // TODO implement later
+            Session = 4,
+            PluginData = 8,
+            All = UserConfig|SystemConfig|Session|PluginData
+        }
 
         public bool IsRestarting { get; private set; }
         public Exception LastException { get; private set; }
@@ -17,23 +28,23 @@ namespace TweetDuck.Core.Other.Settings.Export{
         private readonly string file;
         private readonly PluginManager plugins;
 
-        public ExportManager(string file, PluginManager plugins){
+        public ProfileManager(string file, PluginManager plugins){
             this.file = file;
             this.plugins = plugins;
         }
 
-        public bool Export(ExportFileFlags flags){
+        public bool Export(Items items){
             try{
                 using(CombinedFileStream stream = new CombinedFileStream(new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None))){
-                    if (flags.HasFlag(ExportFileFlags.UserConfig)){
+                    if (items.HasFlag(Items.UserConfig)){
                         stream.WriteFile("config", Program.UserConfigFilePath);
                     }
 
-                    if (flags.HasFlag(ExportFileFlags.SystemConfig)){
+                    if (items.HasFlag(Items.SystemConfig)){
                         stream.WriteFile("system", Program.SystemConfigFilePath);
                     }
 
-                    if (flags.HasFlag(ExportFileFlags.PluginData)){
+                    if (items.HasFlag(Items.PluginData)){
                         stream.WriteFile("plugin.config", Program.PluginConfigFilePath);
 
                         foreach(Plugin plugin in plugins.Plugins){
@@ -47,7 +58,7 @@ namespace TweetDuck.Core.Other.Settings.Export{
                         }
                     }
 
-                    if (flags.HasFlag(ExportFileFlags.Session)){
+                    if (items.HasFlag(Items.Session)){
                         stream.WriteFile("cookies", CookiesPath);
                     }
 
@@ -61,8 +72,8 @@ namespace TweetDuck.Core.Other.Settings.Export{
             }
         }
 
-        public ExportFileFlags GetImportFlags(){
-            ExportFileFlags flags = ExportFileFlags.None;
+        public Items FindImportItems(){
+            Items items = Items.None;
 
             try{
                 using(CombinedFileStream stream = new CombinedFileStream(new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.None))){
@@ -71,33 +82,33 @@ namespace TweetDuck.Core.Other.Settings.Export{
                     while((key = stream.SkipFile()) != null){
                         switch(key){
                             case "config":
-                                flags |= ExportFileFlags.UserConfig;
+                                items |= Items.UserConfig;
                                 break;
 
                             case "system":
-                                flags |= ExportFileFlags.SystemConfig;
+                                items |= Items.SystemConfig;
                                 break;
 
                             case "plugin.config":
                             case "plugin.data":
-                                flags |= ExportFileFlags.PluginData;
+                                items |= Items.PluginData;
                                 break;
 
                             case "cookies":
-                                flags |= ExportFileFlags.Session;
+                                items |= Items.Session;
                                 break;
                         }
                     }
                 }
             }catch(Exception e){
                 LastException = e;
-                flags = ExportFileFlags.None;
+                items = Items.None;
             }
 
-            return flags;
+            return items;
         }
 
-        public bool Import(ExportFileFlags flags){
+        public bool Import(Items items){
             try{
                 HashSet<string> missingPlugins = new HashSet<string>();
 
@@ -107,14 +118,14 @@ namespace TweetDuck.Core.Other.Settings.Export{
                     while((entry = stream.ReadFile()) != null){
                         switch(entry.KeyName){
                             case "config":
-                                if (flags.HasFlag(ExportFileFlags.UserConfig)){
+                                if (items.HasFlag(Items.UserConfig)){
                                     entry.WriteToFile(Program.UserConfigFilePath);
                                 }
 
                                 break;
 
                             case "system":
-                                if (flags.HasFlag(ExportFileFlags.SystemConfig)){
+                                if (items.HasFlag(Items.SystemConfig)){
                                     entry.WriteToFile(Program.SystemConfigFilePath);
                                     IsRestarting = true;
                                 }
@@ -122,14 +133,14 @@ namespace TweetDuck.Core.Other.Settings.Export{
                                 break;
 
                             case "plugin.config":
-                                if (flags.HasFlag(ExportFileFlags.PluginData)){
+                                if (items.HasFlag(Items.PluginData)){
                                     entry.WriteToFile(Program.PluginConfigFilePath);
                                 }
 
                                 break;
 
                             case "plugin.data":
-                                if (flags.HasFlag(ExportFileFlags.PluginData)){
+                                if (items.HasFlag(Items.PluginData)){
                                     string[] value = entry.KeyValue;
 
                                     entry.WriteToFile(Path.Combine(Program.PluginDataPath, value[0], value[1]), true);
@@ -142,7 +153,7 @@ namespace TweetDuck.Core.Other.Settings.Export{
                                 break;
 
                             case "cookies":
-                                if (flags.HasFlag(ExportFileFlags.Session)){
+                                if (items.HasFlag(Items.Session)){
                                     entry.WriteToFile(Path.Combine(Program.StoragePath, TempCookiesPath));
                                     IsRestarting = true;
                                 }

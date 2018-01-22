@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TweetDuck.Configuration;
 using TweetDuck.Core.Controls;
+using TweetDuck.Core.Management;
 using TweetDuck.Core.Other.Settings.Dialogs;
 using TweetDuck.Core.Utils;
 

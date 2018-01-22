@@ -3,10 +3,11 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
+using TweetDuck.Core.Other;
 using TweetDuck.Core.Utils;
 using TweetLib.Communication;
 
-namespace TweetDuck.Core.Other.Management{
+namespace TweetDuck.Core.Management{
     sealed class VideoPlayer : IDisposable{
         public bool Running{
             get{
