@@ -159,7 +159,7 @@
     <Compile Include="Core\Other\FormPlugins.Designer.cs">
       <DependentUpon>FormPlugins.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Other\Management\VideoPlayer.cs" />
+    <Compile Include="Core\Management\VideoPlayer.cs" />
     <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsAnalytics.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -213,8 +213,7 @@
     <Compile Include="Core\Utils\StringUtils.cs" />
     <Compile Include="Core\Utils\TwitterUtils.cs" />
     <Compile Include="Data\CombinedFileStream.cs" />
-    <Compile Include="Core\Other\Settings\Export\ExportFileFlags.cs" />
-    <Compile Include="Core\Other\Settings\Export\ExportManager.cs" />
+    <Compile Include="Core\Management\ProfileManager.cs" />
     <Compile Include="Core\Other\Settings\TabSettingsAdvanced.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -294,7 +293,7 @@
     <Compile Include="Core\Other\TrayIcon.Designer.cs">
       <DependentUpon>TrayIcon.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Utils\BrowserCache.cs" />
+    <Compile Include="Core\Management\BrowserCache.cs" />
     <Compile Include="Core\Utils\BrowserUtils.cs" />
     <Compile Include="Core\Utils\NativeMethods.cs" />
     <Compile Include="Updates\UpdateDownloadStatus.cs" />
