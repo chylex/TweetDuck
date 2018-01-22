@@ -13,6 +13,9 @@ namespace TweetDuck.Core.Other.Settings{
         private readonly UpdateHandler updates;
         private int updateCheckEventId = -1;
 
+        private readonly int browserListIndexDefault;
+        private readonly int browserListIndexCustom;
+
         public TabSettingsGeneral(FormBrowser browser, UpdateHandler updates){
             InitializeComponent();
 
@@ -46,13 +49,12 @@ namespace TweetDuck.Core.Other.Settings{
 
             checkSmoothScrolling.Checked = Config.EnableSmoothScrolling;
 
-            comboBoxBrowserPath.Items.Add("(default browser)");
-
             foreach(WindowsUtils.Browser browserInfo in WindowsUtils.FindInstalledBrowsers()){
                 comboBoxBrowserPath.Items.Add(browserInfo);
             }
             
-            comboBoxBrowserPath.Items.Add("(custom program...)");
+            browserListIndexDefault = comboBoxBrowserPath.Items.Add("(default browser)");
+            browserListIndexCustom = comboBoxBrowserPath.Items.Add("(custom program...)");
             UpdateBrowserPathSelection();
 
             trackBarZoom.SetValueSafe(Config.ZoomLevel);
@@ -113,13 +115,13 @@ namespace TweetDuck.Core.Other.Settings{
 
         private void UpdateBrowserPathSelection(){
             if (string.IsNullOrEmpty(Config.BrowserPath) || !File.Exists(Config.BrowserPath)){
-                comboBoxBrowserPath.SelectedIndex = 0;
+                comboBoxBrowserPath.SelectedIndex = browserListIndexDefault;
             }
             else{
                 WindowsUtils.Browser browserInfo = comboBoxBrowserPath.Items.OfType<WindowsUtils.Browser>().FirstOrDefault(browser => browser.Path == Config.BrowserPath);
 
                 if (browserInfo == null){
-                    comboBoxBrowserPath.SelectedIndex = comboBoxBrowserPath.Items.Count-1;
+                    comboBoxBrowserPath.SelectedIndex = browserListIndexCustom;
                 }
                 else{
                     comboBoxBrowserPath.SelectedItem = browserInfo;
@@ -128,7 +130,7 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void comboBoxBrowserPath_SelectedIndexChanged(object sender, EventArgs e){
-            if (comboBoxBrowserPath.SelectedIndex == comboBoxBrowserPath.Items.Count-1){
+            if (comboBoxBrowserPath.SelectedIndex == browserListIndexCustom){
                 using(OpenFileDialog dialog = new OpenFileDialog{
                     AutoUpgradeEnabled = true,
                     DereferenceLinks = true,
