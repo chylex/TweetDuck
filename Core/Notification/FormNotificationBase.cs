@@ -139,7 +139,7 @@ namespace TweetDuck.Core.Notification{
 
             DpiScale = this.GetDPIScale();
 
-            browser.GetHandlerFactory().RegisterHandler(TwitterUtils.TweetDeckURL, this.resourceHandler);
+            browser.SetupResourceHandler(TwitterUtils.TweetDeckURL, this.resourceHandler);
 
             Controls.Add(browser);
 

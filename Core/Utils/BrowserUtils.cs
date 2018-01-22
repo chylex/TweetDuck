@@ -38,8 +38,15 @@ namespace TweetDuck.Core.Utils{
             return (ChromiumWebBrowser)browserControl;
         }
 
-        public static DefaultResourceHandlerFactory GetHandlerFactory(this ChromiumWebBrowser browser){
-            return (DefaultResourceHandlerFactory)browser.ResourceHandlerFactory;
+        public static void SetupResourceHandler(this ChromiumWebBrowser browser, string url, IResourceHandler handler){
+            DefaultResourceHandlerFactory factory = (DefaultResourceHandlerFactory)browser.ResourceHandlerFactory;
+
+            if (handler == null){
+                factory.UnregisterHandler(url);
+            }
+            else{
+                factory.RegisterHandler(url, handler);
+            }
         }
 
         private const string TwitterTrackingUrl = "t.co";

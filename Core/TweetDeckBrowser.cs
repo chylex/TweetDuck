@@ -178,16 +178,7 @@ namespace TweetDuck.Core{
             bool hasCustomSound = Program.UserConfig.IsCustomSoundNotificationSet;
 
             if (prevSoundNotificationPath != Program.UserConfig.NotificationSoundPath){
-                DefaultResourceHandlerFactory handlerFactory = browser.GetHandlerFactory();
-                IResourceHandler resourceHandler = hasCustomSound ? SoundNotification.CreateFileHandler(Program.UserConfig.NotificationSoundPath) : null;
-            
-                if (resourceHandler != null){
-                    handlerFactory.RegisterHandler(soundUrl, resourceHandler);
-                }
-                else{
-                    handlerFactory.UnregisterHandler(soundUrl);
-                }
-
+                browser.SetupResourceHandler(soundUrl, hasCustomSound ? SoundNotification.CreateFileHandler(Program.UserConfig.NotificationSoundPath) : null);
                 prevSoundNotificationPath = Program.UserConfig.NotificationSoundPath;
             }
 
