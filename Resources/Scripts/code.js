@@ -280,7 +280,7 @@
         "<html "+Array.prototype.map.call(document.documentElement.attributes, ele => `${ele.name}="${ele.value}"`).join(" ")+"><head>"
       ];
       
-      $(document.head).children("link[href*='css/font.']:first,link[href*='css/app-"+themeName+".']:first,meta[charset],meta[http-equiv]").each(function(){
+      $(document.head).children("link[rel='stylesheet'],meta[charset]").each(function(){
         tags.push($(this)[0].outerHTML);
       });
       
