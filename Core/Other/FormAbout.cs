@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using TweetDuck.Core.Utils;
 
@@ -17,6 +19,10 @@ namespace TweetDuck.Core.Other{
             labelWebsite.Links.Add(new LinkLabel.Link(0, labelWebsite.Text.Length, Program.Website));
             labelTips.Links.Add(new LinkLabel.Link(0, labelTips.Text.Length, TipsLink));
             labelIssues.Links.Add(new LinkLabel.Link(0, labelIssues.Text.Length, IssuesLink));
+
+            MemoryStream logoStream = new MemoryStream(Properties.Resources.avatar);
+            pictureLogo.Image = Image.FromStream(logoStream);
+            Disposed += (sender, args) => logoStream.Dispose();
         }
 
         private void OnLinkClicked(object sender, LinkLabelLinkClickedEventArgs e){

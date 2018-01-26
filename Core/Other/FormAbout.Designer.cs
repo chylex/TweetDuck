@@ -38,7 +38,6 @@ namespace TweetDuck.Core.Other {
             // 
             this.pictureLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureLogo.ErrorImage = null;
-            this.pictureLogo.Image = ((System.Drawing.Image)(resources.GetObject("pictureLogo.Image")));
             this.pictureLogo.InitialImage = null;
             this.pictureLogo.Location = new System.Drawing.Point(12, 12);
             this.pictureLogo.Name = "pictureLogo";
