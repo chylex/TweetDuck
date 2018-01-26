@@ -61,6 +61,7 @@
             this.labelDataCollectionLink.TabIndex = 1;
             this.labelDataCollectionLink.TabStop = true;
             this.labelDataCollectionLink.Text = "(learn more)";
+            this.labelDataCollectionLink.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.labelDataCollectionLink.UseCompatibleTextRendering = true;
             // 
             // checkDataCollection
