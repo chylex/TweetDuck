@@ -66,6 +66,8 @@ namespace TweetDuck.Core{
             this.browser.Dock = DockStyle.None;
             this.browser.Location = ControlExtensions.InvisibleLocation;
 
+            this.browser.SetupResourceHandler(TweetNotification.AppLogoLink, TweetNotification.AppLogoHandler);
+
             owner.Controls.Add(browser);
 
             this.plugins = plugins;

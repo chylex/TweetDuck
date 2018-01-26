@@ -280,6 +280,11 @@
     <Compile Include="Plugins\Events\PluginErrorEventArgs.cs" />
     <Compile Include="Plugins\PluginManager.cs" />
     <Compile Include="Plugins\PluginScriptGenerator.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Reporter.cs" />
     <Compile Include="Updates\FormUpdateDownload.cs">
       <SubType>Form</SubType>
@@ -301,11 +306,6 @@
     <Compile Include="Updates\UpdateInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Resources\ScriptLoader.cs" />
     <Compile Include="Updates\UpdateEventArgs.cs" />
     <Compile Include="Updates\UpdaterSettings.cs" />
@@ -343,8 +343,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -363,6 +363,7 @@
     <Folder Include="Resources\Plugins\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\avatar.png" />
     <Content Include="Resources\Scripts\code.js" />
     <Content Include="Resources\Scripts\introduction.js" />
     <Content Include="Resources\Scripts\notification.js" />
