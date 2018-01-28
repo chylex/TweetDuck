@@ -133,7 +133,7 @@ namespace TweetDuck.Core.Other{
                 Font = SystemFonts.MessageBoxFont,
                 Location = new Point(0, 12),
                 Size = new Size(BrowserUtils.Scale(88, dpiScale), BrowserUtils.Scale(26, dpiScale)),
-                TabIndex = buttonCount,
+                TabIndex = 256-buttonCount,
                 Text = title,
                 UseVisualStyleBackColor = true
             };
