@@ -66,8 +66,6 @@ namespace TweetDuck.Core{
             this.notification.Show();
             
             this.browser = new TweetDeckBrowser(this, plugins, new TweetDeckBridge.Browser(this, notification));
-            this.browser.PageLoaded += browser_PageLoaded;
-
             this.contextMenu = ContextMenuBrowser.CreateMenu(this);
 
             Controls.Add(new MenuStrip{ Visible = false }); // fixes Alt freezing the program in Win 10 Anniversary Update
@@ -213,38 +211,6 @@ namespace TweetDuck.Core{
         private void trayIcon_ClickClose(object sender, EventArgs e){
             ForceClose();
         }
-
-        private void browser_PageLoaded(object sender, EventArgs e){
-            if (Config.ShowDataCollectionNotification){
-                this.InvokeAsyncSafe(() => {
-                    if (!Config.FirstRun && Config.AllowDataCollection){
-                        FormMessage form = new FormMessage("Anonymous Data Update", "Hi! You can now review your anonymous data report, and opt-out if you've changed your mind. Collected data will be used to focus development on most commonly used features. If you want to opt-out but still support the project, any feedback and donations are appreciated.", MessageBoxIcon.Information);
-                        form.AddButton("OK", ControlType.Accept | ControlType.Focused);
-
-                        Button btnReviewSettings = new Button{
-                            Anchor = AnchorStyles.Bottom | AnchorStyles.Left,
-                            Font = SystemFonts.MessageBoxFont,
-                            Location = new Point(9, 12),
-                            Margin = new Padding(0, 0, 48, 0),
-                            Size = new Size(160, 26),
-                            Text = "Review Feedback Options",
-                            UseVisualStyleBackColor = true
-                        };
-
-                        btnReviewSettings.Click += (sender2, args2) => {
-                            form.Close();
-                            OpenSettings(typeof(TabSettingsFeedback));
-                        };
-
-                        form.AddActionControl(btnReviewSettings);
-                        ShowChildForm(form);
-                    }
-
-                    Config.ShowDataCollectionNotification = false;
-                    Config.Save();
-                });
-            }
-        }
         
         private void plugins_Reloaded(object sender, PluginErrorEventArgs e){
             if (e.HasErrors){
@@ -356,7 +322,6 @@ namespace TweetDuck.Core{
             if (Config.FirstRun){
                 Config.FirstRun = false;
                 Config.AllowDataCollection = allowDataCollection;
-                Config.ShowDataCollectionNotification = false;
                 Config.Save();
 
                 if (allowDataCollection && analytics == null){

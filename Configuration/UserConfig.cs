@@ -12,7 +12,7 @@ using TweetDuck.Data.Serialization;
 namespace TweetDuck.Configuration{
     sealed class UserConfig{
         private static readonly FileSerializer<UserConfig> Serializer = new FileSerializer<UserConfig>{
-            HandleUnknownProperties = FileSerializer<UserConfig>.IgnoreProperties("AppLocale")
+            HandleUnknownProperties = FileSerializer<UserConfig>.IgnoreProperties("AppLocale", "ShowDataCollectionNotification")
         };
 
         static UserConfig(){
@@ -37,9 +37,8 @@ namespace TweetDuck.Configuration{
         
         // CONFIGURATION DATA
 
-        public bool FirstRun                       { get; set; } = true;
-        public bool AllowDataCollection            { get; set; } = false;
-        public bool ShowDataCollectionNotification { get; set; } = true;
+        public bool FirstRun               { get; set; } = true;
+        public bool AllowDataCollection    { get; set; } = false;
 
         public WindowState BrowserWindow { get; set; } = new WindowState();
         public WindowState PluginsWindow { get; set; } = new WindowState();
