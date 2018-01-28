@@ -361,6 +361,7 @@
   <ItemGroup>
     <Content Include="Resources\avatar.png" />
     <Content Include="Resources\Scripts\code.js" />
+    <Content Include="Resources\Scripts\introduction.follow.js" />
     <Content Include="Resources\Scripts\introduction.js" />
     <Content Include="Resources\Scripts\notification.js" />
     <Content Include="Resources\Scripts\pages\error.html" />

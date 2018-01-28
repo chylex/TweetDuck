@@ -113,7 +113,7 @@
         $(document).trigger("uiShowFollowFromOptions", { userToFollow: user });
         
         $(".js-modals-container").find("header a[rel='user']").each(function(){
-          this.outerHTML = this.innerText;
+          this.outerHTML = "TweetDuck";
         });
       }, () => {
         alert("An error occurred when retrieving the account information.");

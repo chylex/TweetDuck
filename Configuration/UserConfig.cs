@@ -39,6 +39,7 @@ namespace TweetDuck.Configuration{
 
         public bool FirstRun               { get; set; } = true;
         public bool AllowDataCollection    { get; set; } = false;
+        public bool ShowFollowNotification { get; set; } = true;
 
         public WindowState BrowserWindow { get; set; } = new WindowState();
         public WindowState PluginsWindow { get; set; } = new WindowState();

@@ -10,7 +10,6 @@ using TweetDuck.Core.Notification;
 using TweetDuck.Core.Notification.Screenshot;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Other.Analytics;
-using TweetDuck.Core.Other.Settings;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
 using TweetDuck.Plugins.Events;
@@ -321,12 +320,17 @@ namespace TweetDuck.Core{
         public void OnIntroductionClosed(bool showGuide, bool allowDataCollection){
             if (Config.FirstRun){
                 Config.FirstRun = false;
+                Config.ShowFollowNotification = false;
                 Config.AllowDataCollection = allowDataCollection;
                 Config.Save();
 
                 if (allowDataCollection && analytics == null){
                     analytics = new AnalyticsManager(this, plugins, Program.AnalyticsFilePath);
                 }
+            }
+            else if (Config.ShowFollowNotification){
+                Config.ShowFollowNotification = false;
+                Config.Save();
             }
 
             if (showGuide){
