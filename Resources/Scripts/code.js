@@ -708,9 +708,13 @@
           width: tweetWidth+"px"
         }).appendTo(document.body);
         
-        let realHeight = Math.floor(testTweet.height());
+        let testTweetAvatar = testTweet.find(".tweet-avatar").first();
+        let avatarBottom = testTweetAvatar.offset().top+testTweetAvatar.height();
+        
+        let realHeight = Math.floor(Math.max(testTweet.height(), avatarBottom+10));
         testTweet.remove();
         
+        selectedTweet.find(".js-stream-item-content").first().css("height", "100vh");
         $TD.screenshotTweet(selectedTweet.html(), tweetWidth, realHeight);
       }
     };
