@@ -9,6 +9,7 @@ using TweetDuck.Core.Utils;
 using System.Collections.Generic;
 using System.Linq;
 using TweetDuck.Core.Management;
+using TweetDuck.Core.Notification;
 using TweetDuck.Core.Other;
 
 namespace TweetDuck.Core.Handling{
@@ -81,7 +82,7 @@ namespace TweetDuck.Core.Handling{
                 model.AddItem(MenuSaveMedia, TextSave("video"));
                 model.AddSeparator();
             }
-            else if ((parameters.TypeFlags.HasFlag(ContextMenuType.Media) && parameters.HasImageContents) || hasTweetImage){
+            else if (((parameters.TypeFlags.HasFlag(ContextMenuType.Media) && parameters.HasImageContents) || hasTweetImage) && parameters.SourceUrl != TweetNotification.AppLogoLink){
                 model.AddItem(MenuViewImage, "View image in photo viewer");
                 model.AddItem(MenuOpenMediaUrl, TextOpen("image"));
                 model.AddItem(MenuCopyMediaUrl, TextCopy("image"));

@@ -446,21 +446,6 @@
     data.setData("text/html", `<a href="${url}">${url}</a>`);
   });
   
-  if (ensurePropertyExists(TD, "services", "TwitterUser", "prototype", "fromJSONObject")){
-    const prevFunc = TD.services.TwitterUser.prototype.fromJSONObject;
-    
-    TD.services.TwitterUser.prototype.fromJSONObject = function(){
-      let obj = prevFunc.apply(this, arguments);
-      let e = arguments[0].entities;
-      
-      if (e && e.url && e.url.urls && e.url.urls.length && e.url.urls[0].expanded_url){
-        obj.url = e.url.urls[0].expanded_url;
-      }
-      
-      return obj;
-    };
-  }
-  
   if (ensurePropertyExists(TD, "services", "TwitterMedia", "prototype", "fromMediaEntity")){
     const prevFunc = TD.services.TwitterMedia.prototype.fromMediaEntity;
     
@@ -479,6 +464,66 @@
       return obj;
     };
   }
+  
+  //
+  // Block: Bypass t.co in user profiles and setup a top tier account bamboozle scheme.
+  //
+  (function(){
+    const realDisplayName = "TweetDuck";
+    const realAvatar = "https://ton.twimg.com/tduck/avatar";
+    const accountId = "957608948189880320";
+    
+    if (ensurePropertyExists(TD, "services", "TwitterUser", "prototype", "fromJSONObject")){
+      const prevFunc = TD.services.TwitterUser.prototype.fromJSONObject;
+      
+      TD.services.TwitterUser.prototype.fromJSONObject = function(){
+        let obj = prevFunc.apply(this, arguments);
+        let e = arguments[0].entities;
+
+        if (obj.id === accountId){
+          obj.name = realDisplayName;
+          obj.emojifiedName = realDisplayName;
+          obj.profileImageURL = realAvatar;
+          obj.url = "https://tweetduck.chylex.com";
+          
+          obj.entities.url.urls = [{
+            url: obj.url,
+            expanded_url: obj.url,
+            display_url: "tweetduck.chylex.com",
+            indices: [ 0, 23 ]
+          }];
+        }
+        else if (e && e.url && e.url.urls && e.url.urls.length && e.url.urls[0].expanded_url){
+          obj.url = e.url.urls[0].expanded_url;
+        }
+        
+        return obj;
+      };
+    }
+    
+    if (ensurePropertyExists(TD, "services", "TwitterClient", "prototype", "typeaheadSearch")){
+      const prevFunc = TD.services.TwitterClient.prototype.typeaheadSearch;
+      
+      TD.services.TwitterClient.prototype.typeaheadSearch = function(data, onSuccess, onError){
+        if (data.query && data.query.toLowerCase().endsWith("tweetduck")){
+          data.query = "TryMyAwesomeApp";
+        }
+        
+        return prevFunc.call(this, data, function(result){
+          for(let user of result.users){
+            if (user.id_str === accountId){
+              user.name = realDisplayName;
+              user.profile_image_url = realAvatar;
+              user.profile_image_url_https = realAvatar;
+              break;
+            }
+          }
+          
+          onSuccess.apply(this, arguments);
+        }, onError);
+      };
+    }
+  })();
   
   //
   // Block: Include additional information in context menus.
@@ -507,7 +552,6 @@
   //
   // Block: Hook into the notification sound effect.
   //
-  
   HTMLAudioElement.prototype.play = prependToFunction(HTMLAudioElement.prototype.play, function(){
     return $TDX.muteNotifications;
   });
