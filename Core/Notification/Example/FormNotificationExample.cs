@@ -24,13 +24,13 @@ namespace TweetDuck.Core.Notification.Example{
         private readonly TweetNotification exampleNotification;
 
         public FormNotificationExample(FormBrowser owner, PluginManager pluginManager) : base(owner, pluginManager, false){
-            string exampleTweetHTML = ScriptLoader.LoadResource("pages/example.html", true);
+            string exampleTweetHTML = ScriptLoader.LoadResource("pages/example.html", true).Replace("{avatar}", TweetNotification.AppLogoLink);
 
             #if DEBUG
             exampleTweetHTML = exampleTweetHTML.Replace("</p>", @"</p><div style='margin-top:256px'>Scrollbar test padding...</div>");
             #endif
 
-            exampleNotification = TweetNotification.Example(exampleTweetHTML, 95);
+            exampleNotification = TweetNotification.Example(exampleTweetHTML, 176);
         }
 
         public override void HideNotification(){
