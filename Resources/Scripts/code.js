@@ -670,7 +670,11 @@
         let isReply = !isDetail && (parent.hasClass("js-replies-to") || parent.hasClass("js-replies-before"));
         
         selectedTweet = selectedTweet.clone();
-        selectedTweet.children().first().addClass($(document.documentElement).attr("class")).css("padding-bottom", "0");
+        
+        let container = selectedTweet.children().first();
+        container.addClass($(document.documentElement).attr("class"));
+        container.addClass($(document.body).attr("class"));
+        container.css("padding-bottom", "0");
         
         setImportantProperty(selectedTweet.find(".js-tweet-text"), "margin-bottom", "8px");
         setImportantProperty(selectedTweet.find(".js-quote-detail"), "margin-bottom", "10px");
@@ -690,7 +694,10 @@
           selectedTweet.find("footer").last().prevUntil(":not(.txt-mute)").addBack().remove(); // footer, date, location
         }
         else{
-          setImportantProperty(selectedTweet.find(".js-media-preview-container"), "margin-bottom", "10px");
+          setImportantProperty(selectedTweet.find(".js-media-preview-container").filter(function(){
+            return $(this).closest(".js-quote-detail").length === 0;
+          }), "margin-bottom", "10px");
+          
           selectedTweet.find("footer").last().remove();
         }
         
@@ -698,6 +705,10 @@
           selectedTweet.find(".is-conversation").removeClass("is-conversation");
           selectedTweet.find(".thread").remove();
         }
+        
+        selectedTweet.find("p.link-complex-target").filter(function(){
+          return $(this).text() === "Show this thread";
+        }).first().remove();
         
         selectedTweet.find(".js-poll-link").remove();
         selectedTweet.find(".td-screenshot-remove").remove();
