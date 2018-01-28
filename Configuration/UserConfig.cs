@@ -51,9 +51,10 @@ namespace TweetDuck.Configuration{
         public bool BestImageQuality          { get; set; } = true;
         public bool EnableAnimatedImages      { get; set; } = true;
 
-        public bool EnableSmoothScrolling { get; set; } = true;
-        public string BrowserPath         { get; set; } = null;
-        private int _zoomLevel                          = 100;
+        public bool IgnoreTrackingUrlWarning { get; set; } = false;
+        public bool EnableSmoothScrolling    { get; set; } = true;
+        public string BrowserPath            { get; set; } = null;
+        private int _zoomLevel                             = 100;
         private bool _muteNotifications;
 
         public int VideoPlayerVolume { get; set; } = 50;

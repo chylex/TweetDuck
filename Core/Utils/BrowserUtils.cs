@@ -93,8 +93,25 @@ namespace TweetDuck.Core.Utils{
                     break;
 
                 case UrlCheckResult.Tracking:
-                    if (FormMessage.Warning("Blocked URL", "TweetDuck has blocked a tracking url due to privacy concerns. Do you want to visit it anyway?\n"+url, FormMessage.Yes, FormMessage.No)){
+                    if (Program.UserConfig.IgnoreTrackingUrlWarning){
                         goto case UrlCheckResult.Fine;
+                    }
+
+                    using(FormMessage form = new FormMessage("Blocked URL", "TweetDuck has blocked a tracking url due to privacy concerns. Do you want to visit it anyway?\n"+url, MessageBoxIcon.Warning)){
+                        form.AddButton(FormMessage.No, DialogResult.No, ControlType.Cancel | ControlType.Focused);
+                        form.AddButton(FormMessage.Yes, DialogResult.Yes, ControlType.Accept);
+                        form.AddButton("Always Visit", DialogResult.Ignore);
+
+                        DialogResult result = form.ShowDialog();
+
+                        if (result == DialogResult.Ignore){
+                            Program.UserConfig.IgnoreTrackingUrlWarning = true;
+                            Program.UserConfig.Save();
+                        }
+
+                        if (result == DialogResult.Ignore || result == DialogResult.Yes){
+                            goto case UrlCheckResult.Fine;
+                        }
                     }
 
                     break;
