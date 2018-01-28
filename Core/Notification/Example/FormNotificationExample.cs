@@ -37,6 +37,8 @@ namespace TweetDuck.Core.Notification.Example{
             Location = ControlExtensions.InvisibleLocation;
         }
 
+        public override void FinishCurrentNotification(){}
+
         public void ShowExampleNotification(bool reset){
             if (reset){
                 LoadTweet(exampleNotification);
