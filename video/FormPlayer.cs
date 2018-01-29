@@ -75,15 +75,17 @@ namespace TweetDuck.Video{
         }
 
         private void pipe_DataIn(object sender, DuplexPipe.PipeReadEventArgs e){
-            switch(e.Key){
-                case "key":
-                    HandleKey((Keys)int.Parse(e.Data, NumberStyles.Integer));
-                    break;
+            Invoke(new Action(() => {
+                switch(e.Key){
+                    case "key":
+                        HandleKey((Keys)int.Parse(e.Data, NumberStyles.Integer));
+                        break;
 
-                case "die":
-                    StopVideo();
-                    break;
-            }
+                    case "die":
+                        StopVideo();
+                        break;
+                }
+            }));
         }
 
         private void player_PlayStateChange(int newState){
