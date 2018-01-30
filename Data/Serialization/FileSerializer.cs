@@ -103,8 +103,27 @@ namespace TweetDuck.Data.Serialization{
                     case 1:
                         throw new FormatException("Input appears to be a binary file.");
                 }
+                
+                string contents = UnescapeStream(reader);
+                int currentPos = 0;
+                
+                do{
+                    string line;
+                    int nextPos = contents.IndexOf(NewLineReal, currentPos);
 
-                foreach(string line in UnescapeStream(reader).Split(new string[]{ NewLineReal }, StringSplitOptions.RemoveEmptyEntries)){
+                    if (nextPos == -1){
+                        line = contents.Substring(currentPos);
+                        currentPos = -1;
+
+                        if (string.IsNullOrEmpty(line)){
+                            break;
+                        }
+                    }
+                    else{
+                        line = contents.Substring(currentPos, nextPos-currentPos);
+                        currentPos = nextPos+NewLineReal.Length;
+                    }
+                    
                     int space = line.IndexOf(' ');
 
                     if (space == -1){
@@ -115,7 +134,7 @@ namespace TweetDuck.Data.Serialization{
                     string value = UnescapeLine(line.Substring(space+1));
 
                     if (props.TryGetValue(property, out PropertyInfo info)){
-                        if (!converters.TryGetValue(info.PropertyType, out ITypeConverter serializer)) {
+                        if (!converters.TryGetValue(info.PropertyType, out ITypeConverter serializer)){
                             serializer = BasicSerializerObj;
                         }
 
@@ -129,7 +148,7 @@ namespace TweetDuck.Data.Serialization{
                     else{
                         unknownProperties[property] = value;
                     }
-                }
+                }while(currentPos != -1);
             }
 
             if (unknownProperties.Count > 0){
