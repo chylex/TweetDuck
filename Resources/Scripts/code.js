@@ -929,7 +929,7 @@
       $(".js-compose-text", ".js-docked-compose").focus();
     };
     
-    $(".js-drawer[data-drawer='compose']").delegate(".js-account-list > .js-account-item", "click", onAccountClick);
+    $(".js-account-list", ".js-docked-compose").delegate(".js-account-item", "click", onAccountClick);
     
     return if !ensurePropertyExists(TD, "components", "AccountSelector", "prototype", "refreshPostingAccounts");
     
