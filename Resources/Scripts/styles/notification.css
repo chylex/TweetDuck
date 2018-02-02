@@ -10,6 +10,10 @@ body {
   overflow-y: auto !important;
 }
 
+.column {
+  background: transparent !important;
+}
+
 .scroll-styled-v::-webkit-scrollbar {
   width: 7px !important;
 }
