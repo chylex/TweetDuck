@@ -85,7 +85,7 @@ html.dark .icon-twitter-blue-color{color:#2b7bb9}
 html.dark .btn:hover{color:#1DA1F2;background-color:#292F33}
 html.dark .btn:focus{color:#1DA1F2;background-color:#292F33;box-shadow:0 0 0 1px #fff,0 0 0 3px #71C9F8}
 html.dark .btn:active,html.dark .btn.is-selected{color:#1DA1F2;background-color:#292F33}
-html.dark .btn[disabled],html.dark .btn[disabled]:hover,html.dark .btn[disabled]:active,html.dark .btn.is-disabled,html.dark .btn.is-disabled:hover,html.dark .btn.is-disabled:focus,html.dark .btn.is-disabled:active{border:1px solid #1DA1F2;color:#1DA1F2}
+html.dark .btn[disabled],html.dark .btn[disabled]:hover,html.dark .btn[disabled]:active,html.dark .btn.is-disabled,html.dark .btn.is-disabled:hover,html.dark .btn.is-disabled:focus,html.dark .btn.is-disabled:active{color:#1DA1F2}
 html.dark .btn-on-dark:focus{box-shadow:0 0 0 1px #292F33,0 0 0 3px #71C9F8}
 html.dark .mdl-content .btn-on-dark:focus{box-shadow:0 0 0 1px #fff,0 0 0 3px #71C9F8}
 html.dark .is-inverted-dark .btn:hover,html.dark .is-inverted-dark .btn:focus,html.dark .is-inverted-dark .btn:active,html.dark .is-inverted-dark .btn.is-selected{background-color:#F2F9FF}
