@@ -11,9 +11,7 @@ using TweetDuck.Data.Serialization;
 
 namespace TweetDuck.Configuration{
     sealed class UserConfig{
-        private static readonly FileSerializer<UserConfig> Serializer = new FileSerializer<UserConfig>{
-            HandleUnknownProperties = FileSerializer<UserConfig>.IgnoreProperties("AppLocale", "ShowDataCollectionNotification")
-        };
+        private static readonly FileSerializer<UserConfig> Serializer = new FileSerializer<UserConfig>();
 
         static UserConfig(){
             Serializer.RegisterTypeConverter(typeof(WindowState), WindowState.Converter);

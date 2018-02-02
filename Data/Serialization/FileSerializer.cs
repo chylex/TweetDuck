@@ -52,9 +52,6 @@ namespace TweetDuck.Data.Serialization{
 
         private static readonly ITypeConverter BasicSerializerObj = new BasicTypeConverter();
         
-        public delegate void HandleUnknownPropertiesHandler(T obj, Dictionary<string, string> data);
-        public HandleUnknownPropertiesHandler HandleUnknownProperties { get; set; }
-        
         private readonly Dictionary<string, PropertyInfo> props;
         private readonly Dictionary<Type, ITypeConverter> converters;
 
@@ -93,71 +90,60 @@ namespace TweetDuck.Data.Serialization{
         }
 
         public void Read(string file, T obj){
-            Dictionary<string, string> unknownProperties = new Dictionary<string, string>(4);
+            string contents;
 
             using(StreamReader reader = new StreamReader(new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read))){
-                switch(reader.Peek()){
-                    case -1:
-                        throw new FormatException("File is empty.");
-                    case 0:
-                    case 1:
-                        throw new FormatException("Input appears to be a binary file.");
+                contents = UnescapeStream(reader);
+            }
+
+            if (string.IsNullOrWhiteSpace(contents)){
+                throw new FormatException("File is empty.");
+            }
+            else if (contents[0] <= (char)1){
+                throw new FormatException("Input appears to be a binary file.");
+            }
+            
+            int currentPos = 0;
+                
+            do{
+                string line;
+                int nextPos = contents.IndexOf(NewLineReal, currentPos);
+
+                if (nextPos == -1){
+                    line = contents.Substring(currentPos);
+                    currentPos = -1;
+
+                    if (string.IsNullOrEmpty(line)){
+                        break;
+                    }
                 }
-                
-                string contents = UnescapeStream(reader);
-                int currentPos = 0;
-                
-                do{
-                    string line;
-                    int nextPos = contents.IndexOf(NewLineReal, currentPos);
-
-                    if (nextPos == -1){
-                        line = contents.Substring(currentPos);
-                        currentPos = -1;
-
-                        if (string.IsNullOrEmpty(line)){
-                            break;
-                        }
-                    }
-                    else{
-                        line = contents.Substring(currentPos, nextPos-currentPos);
-                        currentPos = nextPos+NewLineReal.Length;
-                    }
+                else{
+                    line = contents.Substring(currentPos, nextPos-currentPos);
+                    currentPos = nextPos+NewLineReal.Length;
+                }
                     
-                    int space = line.IndexOf(' ');
+                int space = line.IndexOf(' ');
 
-                    if (space == -1){
-                        throw new SerializationException($"Invalid file format, missing separator: {line}");
+                if (space == -1){
+                    throw new SerializationException($"Invalid file format, missing separator: {line}");
+                }
+
+                string property = line.Substring(0, space);
+                string value = UnescapeLine(line.Substring(space+1));
+
+                if (props.TryGetValue(property, out PropertyInfo info)){
+                    if (!converters.TryGetValue(info.PropertyType, out ITypeConverter serializer)){
+                        serializer = BasicSerializerObj;
                     }
 
-                    string property = line.Substring(0, space);
-                    string value = UnescapeLine(line.Substring(space+1));
-
-                    if (props.TryGetValue(property, out PropertyInfo info)){
-                        if (!converters.TryGetValue(info.PropertyType, out ITypeConverter serializer)){
-                            serializer = BasicSerializerObj;
-                        }
-
-                        if (serializer.TryReadType(info.PropertyType, value, out object converted)){
-                            info.SetValue(obj, converted);
-                        }
-                        else{
-                            throw new SerializationException($"Invalid file format, cannot convert value: {value} (property: {property})");
-                        }
+                    if (serializer.TryReadType(info.PropertyType, value, out object converted)){
+                        info.SetValue(obj, converted);
                     }
                     else{
-                        unknownProperties[property] = value;
+                        throw new SerializationException($"Invalid file format, cannot convert value: {value} (property: {property})");
                     }
-                }while(currentPos != -1);
-            }
-
-            if (unknownProperties.Count > 0){
-                HandleUnknownProperties?.Invoke(obj, unknownProperties);
-
-                if (unknownProperties.Count > 0){
-                    throw new SerializationException($"Invalid file format, unknown properties: {string.Join(", ", unknownProperties.Keys)}");
                 }
-            }
+            }while(currentPos != -1);
         }
 
         public void ReadIfExists(string file, T obj){
@@ -165,14 +151,6 @@ namespace TweetDuck.Data.Serialization{
                 Read(file, obj);
             }catch(FileNotFoundException){
             }catch(DirectoryNotFoundException){}
-        }
-
-        public static HandleUnknownPropertiesHandler IgnoreProperties(params string[] properties){
-            return (obj, data) => {
-                foreach(string property in properties){
-                    data.Remove(property);
-                }
-            };
         }
 
         private sealed class BasicTypeConverter : ITypeConverter{
