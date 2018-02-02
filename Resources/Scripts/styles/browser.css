@@ -215,6 +215,11 @@ html[data-td-font='smallest'] .tweet-detail-wrapper .badge-verified:before {
   box-shadow: none !important;
 }
 
+.js-add-to-customtimeline-input {
+  /* the custom timeline input shadow is behaving super weird when focused */
+  box-shadow: none !important;
+}
+
 /***************************************************************/
 /* Fix glaring visual issues that twitter hasn't fixed yet smh */
 /***************************************************************/
