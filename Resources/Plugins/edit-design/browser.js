@@ -393,6 +393,9 @@ enabled(){
             this.css.insert(".scroll-styled-v:not(.scroll-alt)::-webkit-scrollbar-thumb:not(:hover), .scroll-styled-h:not(.scroll-alt)::-webkit-scrollbar-thumb:not(:hover) { background-color: #666 !important }");
             notificationScrollbarColor = "666";
           }
+          else{
+            this.css.insert(".scroll-styled-v:not(.scroll-alt)::-webkit-scrollbar-track, .scroll-styled-h:not(.scroll-alt)::-webkit-scrollbar-track { border-left-color: #14171A !important }");
+          }
           
           break;
 
@@ -592,6 +595,10 @@ ${this.config.revertIcons ? `
 #tduck .icon-list-filled:before{content:"\\f014";font-family:_of!important}
 #tduck .icon-user-filled:before{content:"\\f035";font-family:_of!important}
 #tduck .icon-user-dd:before{content:"\\f01a";font-family:_of!important}
+` : ``}
+
+${this.config.themeOverride === "black" ? `
+.quoted-tweet { border-color: #292f33 !important }
 ` : ``}
 
 ${notificationScrollbarColor ? `
