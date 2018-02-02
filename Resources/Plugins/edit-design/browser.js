@@ -528,6 +528,9 @@ enabled(){
 ${iconData.map(entry => `#tduck ${entry[0]}:before{content:\"\\f0${entry[1]}\";font-family:_of!important}`).join("")}
 
 .drawer .btn .icon, .app-header .btn .icon { line-height: 1em !important }
+.app-search-fake .icon { margin-top: -3px !important }
+#tduck .search-input-control .icon { font-size: 20px !important; top: -4px !important }
+
 .column-header .column-type-icon { bottom: 26px !important }
 .is-options-open .column-type-icon { bottom: 25px !important }
 

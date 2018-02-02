@@ -844,3 +844,5 @@ html.dark .DatePicker.date-unselected .is-rangeStart,html.dark .DatePicker.date-
 html.dark .DatePicker.date-unselected .is-rangeStart:hover,html.dark .DatePicker.date-unselected .is-rangeEnd:hover{background-color:#005091;color:#ffffff}
 html.dark .NotificationList .Notification-body{color:#14171A}
 html.dark .DrawerModal{color:#14171A}
+/* fixes */
+html.dark .app-search-fake{border-color:transparent}
