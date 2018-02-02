@@ -7,6 +7,7 @@ enabled(){
   
   this.defaultConfig = {
     _theme: "light",
+    themeOverride: false,
     columnWidth: "310px",
     fontSize: "12px",
     hideTweetActions: true,
@@ -237,13 +238,27 @@ enabled(){
     });
     
     // THEMES
-    modal.find("[data-td-theme='"+TD.settings.getTheme()+"']").prop("checked", true);
+    let selectedTheme = me.config.themeOverride || TD.settings.getTheme();
+    modal.find("[data-td-theme='"+selectedTheme+"']").prop("checked", true);
     
     modal.find("[data-td-theme]").change(function(){
-      me.config._theme = $(this).attr("data-td-theme");
+      let theme = $(this).attr("data-td-theme");
+      
+      if (theme === "black"){
+        me.config.themeOverride = theme;
+        theme = "dark";
+      }
+      else{
+        me.config.themeOverride = false;
+      }
+      
+      me.config._theme = theme;
       
       setTimeout(function(){
-        $(document).trigger("uiToggleTheme");
+        if (theme != TD.settings.getTheme()){
+          $(document).trigger("uiToggleTheme");
+        }
+        
         me.saveConfig();
         me.reinjectAll();
       }, 1);
@@ -334,7 +349,15 @@ enabled(){
     }
     
     this.css = window.TDPF_createCustomStyle(this);
-  
+    
+    if (this.theme){
+      this.theme.remove();
+    }
+    
+    if (this.config.themeOverride){
+      this.theme = window.TDPF_createCustomStyle(this);
+    }
+    
     if (this.icons){
       document.head.removeChild(this.icons);
       this.icons = null;
@@ -364,11 +387,14 @@ enabled(){
     if (this.config.themeColorTweaks){
       switch(TD.settings.getTheme()){
         case "dark":
-          this.css.insert(".app-content, .app-columns-container { background-color: #444448 !important }");
-          this.css.insert(".column-drag-handle { opacity: 0.5 !important }");
-          this.css.insert(".column-drag-handle:hover { opacity: 1 !important }");
-          this.css.insert(".scroll-styled-v:not(.scroll-alt)::-webkit-scrollbar-thumb:not(:hover), .scroll-styled-h:not(.scroll-alt)::-webkit-scrollbar-thumb:not(:hover) { background-color: #666 !important }");
-          notificationScrollbarColor = "666";
+          if (this.config.themeOverride === "black"){
+            this.css.insert(".app-content, .app-columns-container { background-color: #444448 !important }");
+            this.css.insert(".column-drag-handle { opacity: 0.5 !important }");
+            this.css.insert(".column-drag-handle:hover { opacity: 1 !important }");
+            this.css.insert(".scroll-styled-v:not(.scroll-alt)::-webkit-scrollbar-thumb:not(:hover), .scroll-styled-h:not(.scroll-alt)::-webkit-scrollbar-thumb:not(:hover) { background-color: #666 !important }");
+            notificationScrollbarColor = "666";
+          }
+          
           break;
 
         case "light":
@@ -510,6 +536,14 @@ ${iconData.map(entry => `#tduck ${entry[0]}:before{content:\"\\f0${entry[1]}\";f
       document.head.appendChild(this.icons);
     }
     
+    if (this.config.themeOverride === "black"){
+      $TDP.readFileRoot(this.$token, "theme.black.css").then(contents => {
+        if (this.theme){
+          this.theme.element.innerHTML = contents;
+        }
+      });
+    }
+    
     if (this.config.columnWidth[0] === '/'){
       let cols = this.config.columnWidth.slice(1);
       
@@ -616,6 +650,10 @@ ready(){
 disabled(){
   if (this.css){
     this.css.remove();
+  }
+  
+  if (this.theme){
+    this.theme.remove();
   }
   
   if (this.icons){
