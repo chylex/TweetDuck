@@ -243,6 +243,7 @@ enabled(){
     
     modal.find("[data-td-theme]").change(function(){
       let theme = $(this).attr("data-td-theme");
+      me.config._theme = theme;
       
       if (theme === "black"){
         me.config.themeOverride = theme;
@@ -251,8 +252,6 @@ enabled(){
       else{
         me.config.themeOverride = false;
       }
-      
-      me.config._theme = theme;
       
       setTimeout(function(){
         if (theme != TD.settings.getTheme()){
