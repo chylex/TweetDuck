@@ -209,6 +209,12 @@ html[data-td-font='smallest'] .tweet-detail-wrapper .badge-verified:before {
   cursor: pointer;
 }
 
+.inline-reply .btn-square {
+  /* remove effects from buttons under reply input... this keeps happening for some stupid reason */
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
 /***************************************************************/
 /* Fix glaring visual issues that twitter hasn't fixed yet smh */
 /***************************************************************/
