@@ -42,6 +42,14 @@ enabled(){
           col.model.setHasSound(prevSound);
         }, 1);
       }
+      
+      // ========================
+      // D key - trigger debugger
+      // ========================
+      
+      else if (e.keyCode === 68){
+        debugger;
+      }
     }
   };
 }
