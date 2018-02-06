@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using TweetDuck.Configuration;
@@ -16,9 +17,9 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
 
             set{
                 // this will call events and SetFlag, which also updates the UI
-                cbConfig.Checked = value.HasFlag(ProfileManager.Items.UserConfig);
-                cbSession.Checked = value.HasFlag(ProfileManager.Items.Session);
-                cbPluginData.Checked = value.HasFlag(ProfileManager.Items.PluginData);
+                foreach(KeyValuePair<CheckBox, ProfileManager.Items> kvp in checkBoxMap){
+                    kvp.Key.Checked = value.HasFlag(kvp.Value);
+                }
             }
         }
         
@@ -26,6 +27,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
         public bool ShouldReloadBrowser { get; private set; }
         
         private readonly PluginManager plugins;
+        private readonly Dictionary<CheckBox, ProfileManager.Items> checkBoxMap = new Dictionary<CheckBox, ProfileManager.Items>(4);
 
         private State currentState;
         private ProfileManager importManager;
@@ -37,22 +39,20 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
 
             this.plugins = plugins;
             this.currentState = State.Deciding;
+
+            this.checkBoxMap[cbProgramConfig] = ProfileManager.Items.UserConfig;
+            this.checkBoxMap[cbSystemConfig] = ProfileManager.Items.SystemConfig;
+            this.checkBoxMap[cbSession] = ProfileManager.Items.Session;
+            this.checkBoxMap[cbPluginData] = ProfileManager.Items.PluginData;
         }
 
         private void radioDecision_CheckedChanged(object sender, EventArgs e){
             btnContinue.Enabled = true;
         }
 
-        private void cbConfig_CheckedChanged(object sender, EventArgs e){
-            SetFlag(ProfileManager.Items.UserConfig, cbConfig.Checked);
-        }
-
-        private void cbSession_CheckedChanged(object sender, EventArgs e){
-            SetFlag(ProfileManager.Items.Session, cbSession.Checked);
-        }
-
-        private void cbPluginData_CheckedChanged(object sender, EventArgs e){
-            SetFlag(ProfileManager.Items.PluginData, cbPluginData.Checked);
+        private void checkBoxSelection_CheckedChanged(object sender, EventArgs e){
+            CheckBox cb = (CheckBox)sender;
+            SetFlag(checkBoxMap[cb], cb.Checked);
         }
 
         private void btnContinue_Click(object sender, EventArgs e){
@@ -89,9 +89,9 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                         Text = "Import Profile";
                         SelectedItems = importManager.FindImportItems();
 
-                        cbConfig.Enabled = cbConfig.Checked;
-                        cbSession.Enabled = cbSession.Checked;
-                        cbPluginData.Enabled = cbPluginData.Checked;
+                        foreach(CheckBox cb in checkBoxMap.Keys){
+                            cb.Enabled = cb.Checked;
+                        }
                     }
 
                     // Export
@@ -100,12 +100,13 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
 
                         Text = "Export Profile";
                         btnContinue.Text = "Export Profile";
-                        SelectedItems = ProfileManager.Items.All & ~ProfileManager.Items.Session;
+                        SelectedItems = ProfileManager.Items.UserConfig | ProfileManager.Items.PluginData;
                     }
                     
                     // Continue...
                     panelDecision.Visible = false;
-                    panelExport.Visible = true;
+                    panelSelection.Visible = true;
+                    Height += panelSelection.Height-panelDecision.Height;
                     break;
 
                 case State.Reset:

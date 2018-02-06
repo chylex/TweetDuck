@@ -16,7 +16,7 @@ namespace TweetDuck.Core.Management{
         public enum Items{
             None = 0,
             UserConfig = 1,
-            SystemConfig = 2, // TODO implement later
+            SystemConfig = 2,
             Session = 4,
             PluginData = 8,
             All = UserConfig|SystemConfig|Session|PluginData
