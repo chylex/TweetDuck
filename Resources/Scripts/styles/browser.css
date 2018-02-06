@@ -298,3 +298,15 @@ html[data-td-font='smallest'] .tweet-detail-wrapper .badge-verified:before {
 .column-type-message.is-shifted-1 .username {
   vertical-align: bottom;
 }
+
+/******************************/
+/* Hide unused Settings items */
+/******************************/
+
+#show-startup-notifications, #show-startup-notifications + span {
+  display: none;
+}
+
+#auto-play-gifs, #auto-play-gifs + span {
+  display: none;
+}
