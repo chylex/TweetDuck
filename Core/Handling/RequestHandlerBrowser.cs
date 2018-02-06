@@ -11,7 +11,7 @@ namespace TweetDuck.Core.Handling{
                 return CefReturnValue.Cancel;
             }
 
-            return CefReturnValue.Continue;
+            return base.OnBeforeResourceLoad(browserControl, browser, frame, request, callback);
         }
     }
 }
