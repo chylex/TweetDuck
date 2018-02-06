@@ -99,18 +99,16 @@
   white-space: nowrap !important;
 }
 
-.activity-header {
-  align-items: center !important;
-  margin-bottom: 4px !important;
+.activity-header.has-source-avatar {
+  margin-bottom: 4px !important
 }
 
 .activity-header .tweet-timestamp {
   line-height: unset !important;
 }
 
-.account-bio.padding-t--5 {
-  /* follow notification padding */
-  padding-top: 2px !important;
+.activity-header .icon-user-filled {
+  vertical-align: sub !important;
 }
 
 html[data-td-theme='light'] .stream-item:not(:hover) .js-user-actions-menu {
