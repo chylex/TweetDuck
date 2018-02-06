@@ -601,6 +601,7 @@ ${this.config.revertIcons ? `
 ` : ``}
 
 ${this.config.themeOverride === "black" ? `
+html.dark a, html.dark a:hover, html.dark a:focus, html.dark a:active, html.dark .btn-neutral-positive { color: #8bd }
 .quoted-tweet { border-color: #292f33 !important }
 ` : ``}
 
