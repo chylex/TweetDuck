@@ -210,4 +210,10 @@ namespace TweetDuck.Core.Management{
             public string Relative { get; set; }
         }
     }
+
+    static class ProfileManagerExtensions{
+        public static bool NeedsRestart(this ProfileManager.Items items){
+            return items.HasFlag(ProfileManager.Items.SystemConfig) || items.HasFlag(ProfileManager.Items.Session);
+        }
+    }
 }

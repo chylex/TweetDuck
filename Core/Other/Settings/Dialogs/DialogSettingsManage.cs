@@ -21,7 +21,8 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                 cbPluginData.Checked = value.HasFlag(ProfileManager.Items.PluginData);
             }
         }
-
+        
+        public bool IsRestarting { get; private set; }
         public bool ShouldReloadBrowser { get; private set; }
         
         private readonly PluginManager plugins;
@@ -131,10 +132,10 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                         }
 
                         if (SelectedItems.HasFlag(ProfileManager.Items.Session)){
-                            Program.Restart(Arguments.ArgDeleteCookies);
+                            RestartProgram(Arguments.ArgDeleteCookies);
                         }
                         else if (SelectedItems.HasFlag(ProfileManager.Items.SystemConfig)){
-                            Program.Restart();
+                            RestartProgram();
                         }
                         else{
                             ShouldReloadBrowser = true;
@@ -152,10 +153,10 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
 
                         if (importManager.IsRestarting){
                             if (SelectedItems.HasFlag(ProfileManager.Items.Session)){
-                                Program.Restart(Arguments.ArgImportCookies);
+                                RestartProgram(Arguments.ArgImportCookies);
                             }
                             else if (SelectedItems.HasFlag(ProfileManager.Items.SystemConfig)){
-                                Program.Restart();
+                                RestartProgram();
                             }
                         }
                         else{
@@ -210,13 +211,18 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
         private void SetFlag(ProfileManager.Items flag, bool enable){
             _selectedItems = enable ? _selectedItems | flag : _selectedItems & ~flag;
             btnContinue.Enabled = _selectedItems != ProfileManager.Items.None;
-
+            
             if (currentState == State.Import){
-                btnContinue.Text = _selectedItems.HasFlag(ProfileManager.Items.Session) ? "Import && Restart" : "Import Profile";
+                btnContinue.Text = _selectedItems.NeedsRestart() ? "Import && Restart" : "Import Profile";
             }
             else if (currentState == State.Reset){
-                btnContinue.Text = _selectedItems.HasFlag(ProfileManager.Items.Session) ? "Restore && Restart" : "Restore Defaults";
+                btnContinue.Text = _selectedItems.NeedsRestart() ? "Restore && Restart" : "Restore Defaults";
             }
+        }
+
+        private void RestartProgram(params string[] extraArgs){
+            IsRestarting = true;
+            Program.Restart(extraArgs);
         }
     }
 }

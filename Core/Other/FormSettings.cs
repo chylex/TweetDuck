@@ -67,10 +67,13 @@ namespace TweetDuck.Core.Other{
                 FormClosing -= FormSettings_FormClosing;
 
                 if (dialog.ShowDialog() == DialogResult.OK){
-                    browser.ResumeNotification();
+                    if (!dialog.IsRestarting){
+                        browser.ResumeNotification();
                     
-                    BrowserProcessHandler.UpdatePrefs();
-                    ShouldReloadBrowser = dialog.ShouldReloadBrowser;
+                        BrowserProcessHandler.UpdatePrefs();
+                        ShouldReloadBrowser = dialog.ShouldReloadBrowser;
+                    }
+
                     Close();
                 }
                 else{
