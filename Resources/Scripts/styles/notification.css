@@ -53,7 +53,7 @@ body {
 }
 
 #tduck .js-media, #tduck .js-media-preview-container {
-  margin-bottom: 0 !important;
+  margin-bottom: 4px !important;
 }
 
 /***************/
