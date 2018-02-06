@@ -3,7 +3,7 @@ using CefSharp.BrowserSubprocess;
 
 namespace TweetDuck.Browser{
     static class Program{
-        internal const string Version = "1.4.0.0";
+        internal const string Version = "1.4.1.0";
 
         private static int Main(string[] args){
             SubProcess.EnableHighDPISupport();
