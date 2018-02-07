@@ -142,9 +142,6 @@ namespace TweetDuck.Core{
                 if (Program.UserConfig.FirstRun){
                     ScriptLoader.ExecuteFile(e.Frame, "introduction.js");
                 }
-                else if (Program.UserConfig.ShowFollowNotification){
-                    ScriptLoader.ExecuteFile(e.Frame, "introduction.follow.js");
-                }
             }
         }
 

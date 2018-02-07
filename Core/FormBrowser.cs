@@ -320,17 +320,12 @@ namespace TweetDuck.Core{
         public void OnIntroductionClosed(bool showGuide, bool allowDataCollection){
             if (Config.FirstRun){
                 Config.FirstRun = false;
-                Config.ShowFollowNotification = false;
                 Config.AllowDataCollection = allowDataCollection;
                 Config.Save();
 
                 if (allowDataCollection && analytics == null){
                     analytics = new AnalyticsManager(this, plugins, Program.AnalyticsFilePath);
                 }
-            }
-            else if (Config.ShowFollowNotification){
-                Config.ShowFollowNotification = false;
-                Config.Save();
             }
 
             if (showGuide){
