@@ -12,6 +12,10 @@
   height: 328px;
 }
 
+#td-introduction-modal .mdl-inner {
+  padding-top: 0;
+}
+
 #td-introduction-modal .mdl-header-title {
   cursor: default;
 }
