@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetDuck", "TweetDuck.csproj", "{2389A7CD-E0D3-4706-8294-092929A33A2D}"
 EndProject
@@ -20,7 +20,6 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2389A7CD-E0D3-4706-8294-092929A33A2D}.Debug|x86.ActiveCfg = Debug|x86
 		{2389A7CD-E0D3-4706-8294-092929A33A2D}.Debug|x86.Build.0 = Debug|x86
-		{2389A7CD-E0D3-4706-8294-092929A33A2D}.Debug|x86.Deploy.0 = Debug|x86
 		{2389A7CD-E0D3-4706-8294-092929A33A2D}.Release|x86.ActiveCfg = Release|x86
 		{2389A7CD-E0D3-4706-8294-092929A33A2D}.Release|x86.Build.0 = Release|x86
 		{B10B0017-819E-4F71-870F-8256B36A26AA}.Debug|x86.ActiveCfg = Debug|x86
@@ -41,5 +40,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {43936FDB-CBF7-493D-A99A-24B516646584}
 	EndGlobalSection
 EndGlobal
