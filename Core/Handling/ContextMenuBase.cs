@@ -82,7 +82,7 @@ namespace TweetDuck.Core.Handling{
                 model.AddItem(MenuSaveMedia, TextSave("video"));
                 model.AddSeparator();
             }
-            else if (((parameters.TypeFlags.HasFlag(ContextMenuType.Media) && parameters.HasImageContents) || hasTweetImage) && parameters.SourceUrl != TweetNotification.AppLogoLink){
+            else if (((parameters.TypeFlags.HasFlag(ContextMenuType.Media) && parameters.HasImageContents) || hasTweetImage) && parameters.SourceUrl != TweetNotification.AppLogo.Url){
                 model.AddItem(MenuViewImage, "View image in photo viewer");
                 model.AddItem(MenuOpenMediaUrl, TextOpen("image"));
                 model.AddItem(MenuCopyMediaUrl, TextCopy("image"));

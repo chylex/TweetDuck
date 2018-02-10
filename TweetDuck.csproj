@@ -249,6 +249,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Core\Notification\Screenshot\TweetScreenshotManager.cs" />
+    <Compile Include="Data\ResourceLink.cs" />
     <Compile Include="Data\Serialization\FileSerializer.cs" />
     <Compile Include="Data\InjectedHTML.cs" />
     <Compile Include="Data\Serialization\ITypeConverter.cs" />
