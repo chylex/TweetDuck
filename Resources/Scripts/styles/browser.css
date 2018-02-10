@@ -94,11 +94,6 @@
 /* Tweak notification layout and design */
 /****************************************/
 
-.tweet-context .nbfc {
-  text-overflow: ellipsis !important;
-  white-space: nowrap !important;
-}
-
 .activity-header.has-source-avatar {
   margin-bottom: 4px !important
 }
@@ -121,6 +116,23 @@ html[data-td-theme='dark'] .stream-item:not(:hover) .js-user-actions-menu {
   color: #fff;
   border-color: #fff;
   opacity: 0.25;
+}
+
+.stream-item[data-key^="favorite"] .item-img, .stream-item[data-key^="retweet"] .item-img {
+  position: absolute;
+  left: 21px;
+  top: 48px;
+  width: 0 !important;
+}
+
+.stream-item[data-key^="favorite"] .activity-header > .nbfc, .stream-item[data-key^="retweet"] .activity-header > .nbfc {
+  margin-left: 46px;
+  line-height: unset !important;
+}
+
+.stream-item[data-key^="favorite"] .activity-header > .nbfc > .avatar, .stream-item[data-key^="retweet"] .activity-header > .nbfc > .avatar {
+  position: absolute;
+  margin-left: -34px;
 }
 
 /***********************/

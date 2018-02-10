@@ -157,7 +157,6 @@
           thumbSizeClass: "media-size-medium"
         }));
         
-        html.css("border", "0");
         html.find("footer").last().remove(); // apparently withTweetActions breaks for certain tweets, nice
         html.find(".js-quote-detail").removeClass("is-actionable margin-b--8"); // prevent quoted tweets from changing the cursor and reduce bottom margin
         
@@ -199,6 +198,9 @@
         if (type === "follow"){
           html.find(".js-user-actions-menu").parent().remove();
           html.find(".account-bio").removeClass("padding-t--5").css("padding-top", "2px");
+        }
+        else if (type.startsWith("favorite") || type.startsWith("retweet")){
+          html.children().first().addClass("td-notification-padded");
         }
         else if (type.includes("list_member")){
           html.find(".activity-header").css("margin-top", "2px");
@@ -295,7 +297,6 @@
       tags.push("a[data-full-url] { word-break: break-all !important }"); // break long urls
       tags.push(".media-item, .media-preview { border-radius: 1px !important }"); // square-ify media
       tags.push(".quoted-tweet { border-radius: 0 !important }"); // square-ify quoted tweets
-      tags.push(".tweet-context .nbfc { text-overflow: ellipsis !important; white-space: nowrap !important }"); // force ellipsis on long usernames
       tags.push(".activity-header.has-source-avatar { margin-bottom: 4px !important }"); // tweak distance between avatar and text
       tags.push(".activity-header .tweet-timestamp { line-height: unset !important }"); // fix timestamp position
       tags.push(".activity-header .icon-user-filled { vertical-align: sub !important; }"); // fix follow icon position
