@@ -128,7 +128,7 @@ namespace TweetDuck.Core{
 
         private void browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             if (e.Frame.IsMain && TwitterUtils.IsTweetDeckWebsite(e.Frame)){
-                e.Frame.ExecuteJavaScriptAsync(TwitterUtils.OverrideScript);
+                e.Frame.ExecuteJavaScriptAsync(TwitterUtils.BackgroundColorOverride);
 
                 UpdateProperties();
                 TweetDeckBridge.RestoreSessionData(e.Frame);
