@@ -186,6 +186,12 @@
           return $(this).text() === "Show this thread";
         }).first().each(function(){
           this.id = "tduck-show-thread";
+          
+          let moveBefore = html.find(".tweet-body > .js-media, .tweet-body > .js-media-preview-container, .quoted-tweet");
+          
+          if (moveBefore){
+            $(this).css("margin-top", "5px").removeClass("margin-b--5").parent("span").detach().insertBefore(moveBefore);
+          }
         });
         
         let type = tweet.getChirpType();
