@@ -356,6 +356,7 @@
     <None Include="Resources\icon-tray-new.ico" />
     <None Include="Resources\icon-tray.ico" />
     <None Include="Resources\PostBuild.ps1" />
+    <None Include="Resources\spinner.apng" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Plugins\" />

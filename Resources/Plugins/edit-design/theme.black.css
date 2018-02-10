@@ -1,7 +1,5 @@
 html.dark{color:#e1e8ed}
 html.dark .is-inverted-dark .stream-item{background-color:#fff}
-html.dark body{background-color:#1c6399}
-html.dark body:before{background-image:radial-gradient(circle,#1c6399,#274256)}
 html.dark::selection{background:#e1e8ed;color:#111}
 html.dark a{color:#8bd}
 html.dark a:hover,html.dark a:focus,html.dark a:active{color:#8bd}

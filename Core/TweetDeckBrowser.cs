@@ -65,6 +65,7 @@ namespace TweetDuck.Core{
             this.browser.Location = ControlExtensions.InvisibleLocation;
 
             this.browser.SetupResourceHandler(TweetNotification.AppLogoLink, TweetNotification.AppLogoHandler);
+            this.browser.SetupResourceHandler(TwitterUtils.SpinnerLink, TwitterUtils.SpinnerHandler);
 
             owner.Controls.Add(browser);
 
@@ -127,7 +128,7 @@ namespace TweetDuck.Core{
 
         private void browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             if (e.Frame.IsMain && TwitterUtils.IsTweetDeckWebsite(e.Frame)){
-                e.Frame.ExecuteJavaScriptAsync(TwitterUtils.BackgroundColorFix);
+                e.Frame.ExecuteJavaScriptAsync(TwitterUtils.OverrideScript);
 
                 UpdateProperties();
                 TweetDeckBridge.RestoreSessionData(e.Frame);

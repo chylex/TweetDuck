@@ -12,7 +12,11 @@ namespace TweetDuck.Core.Utils{
         public const string TweetDeckURL = "https://tweetdeck.twitter.com";
 
         public static readonly Color BackgroundColor = Color.FromArgb(28, 99, 153);
-        public const string BackgroundColorFix = "let e=document.createElement('style');document.head.appendChild(e);e.innerHTML='body::before{background:#1c6399!important}'";
+
+        public static readonly IResourceHandler SpinnerHandler = ResourceHandler.FromByteArray(Properties.Resources.spinner, "image/apng");
+        public const string SpinnerLink = "https://ton.twimg.com/tduck/spinner";
+
+        public const string OverrideScript = "let e=document.createElement('style');document.head.appendChild(e);e.innerHTML='body,body::before{background:#1c6399!important}';e=document.querySelector('.js-signin-ui img');if(e)e.src='"+SpinnerLink+"'";
         
         private static readonly Lazy<Regex> RegexAccountLazy = new Lazy<Regex>(() => new Regex(@"^https?://twitter\.com/(?!signup$|tos$|privacy$)([^/]+)/?$", RegexOptions.Compiled), false);
         public static Regex RegexAccount => RegexAccountLazy.Value;
