@@ -6,17 +6,15 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using TweetDuck.Core.Other;
+using TweetDuck.Data;
 
 namespace TweetDuck.Core.Utils{
     static class TwitterUtils{
         public const string TweetDeckURL = "https://tweetdeck.twitter.com";
 
         public static readonly Color BackgroundColor = Color.FromArgb(28, 99, 153);
-
-        public static readonly IResourceHandler SpinnerHandler = ResourceHandler.FromByteArray(Properties.Resources.spinner, "image/apng");
-        public const string SpinnerLink = "https://ton.twimg.com/tduck/spinner";
-
-        public const string OverrideScript = "let e=document.createElement('style');document.head.appendChild(e);e.innerHTML='body,body::before{background:#1c6399!important}';e=document.querySelector('.js-signin-ui img');if(e)e.src='"+SpinnerLink+"'";
+        public static readonly ResourceLink LoadingSpinner = new ResourceLink("https://ton.twimg.com/tduck/spinner", ResourceHandler.FromByteArray(Properties.Resources.spinner, "image/apng"));
+        public const string OverrideScript = "let e=document.createElement('style');document.head.appendChild(e);e.innerHTML='body,body::before{background:#1c6399!important}';e=document.querySelector('.js-signin-ui img');if(e)e.src='https://ton.twimg.com/tduck/spinner'";
         
         private static readonly Lazy<Regex> RegexAccountLazy = new Lazy<Regex>(() => new Regex(@"^https?://twitter\.com/(?!signup$|tos$|privacy$)([^/]+)/?$", RegexOptions.Compiled), false);
         public static Regex RegexAccount => RegexAccountLazy.Value;

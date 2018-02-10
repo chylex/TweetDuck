@@ -7,6 +7,7 @@ using System.Net;
 using System.Windows.Forms;
 using CefSharp.WinForms;
 using TweetDuck.Core.Other;
+using TweetDuck.Data;
 
 namespace TweetDuck.Core.Utils{
     static class BrowserUtils{
@@ -47,6 +48,10 @@ namespace TweetDuck.Core.Utils{
             else{
                 factory.RegisterHandler(url, handler);
             }
+        }
+
+        public static void SetupResourceHandler(this ChromiumWebBrowser browser, ResourceLink resource){
+            browser.SetupResourceHandler(resource.Url, resource.Handler);
         }
 
         private const string TwitterTrackingUrl = "t.co";
