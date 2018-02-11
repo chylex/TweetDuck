@@ -6,7 +6,6 @@ using CefSharp.WinForms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling;
 using TweetDuck.Core.Handling.General;
-using TweetDuck.Core.Other.Analytics;
 using TweetDuck.Core.Utils;
 using System.Text.RegularExpressions;
 using TweetDuck.Resources;
@@ -43,7 +42,7 @@ namespace TweetDuck.Core.Other{
                 FormBrowser owner = FormManager.TryFind<FormBrowser>();
 
                 if (owner != null){
-                    owner.TriggerAnalyticsEvent(AnalyticsFile.Event.OpenGuide);
+                    owner.AnalyticsFile.CountOpenGuide.Trigger();
                     new FormGuide(url, owner).Show(owner);
                 }
             }

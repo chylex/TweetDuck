@@ -89,6 +89,8 @@ namespace TweetDuck.Core.Notification{
                 }
             }
         }
+
+        public AnalyticsFile AnalyticsFile => owner.AnalyticsFile;
         
         protected override bool ShowWithoutActivation => true;
         
@@ -159,10 +161,6 @@ namespace TweetDuck.Core.Notification{
             }
 
             base.WndProc(ref m);
-        }
-
-        public void TriggerAnalyticsEvent(AnalyticsFile.Event e){
-            owner.TriggerAnalyticsEvent(e);
         }
 
         // event handlers

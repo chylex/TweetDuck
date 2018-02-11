@@ -20,7 +20,9 @@ namespace TweetDuck.Core.Other.Analytics{
         public AnalyticsManager(FormBrowser browser, PluginManager plugins, string file){
             this.browser = browser;
             this.plugins = plugins;
+
             this.File = AnalyticsFile.Load(file);
+            this.File.PropertyChanged += File_PropertyChanged;
 
             this.currentTimer = new Timer{ SynchronizingObject = browser };
             this.currentTimer.Elapsed += currentTimer_Elapsed;
@@ -37,6 +39,8 @@ namespace TweetDuck.Core.Other.Analytics{
         }
 
         public void Dispose(){
+            File.PropertyChanged -= File_PropertyChanged;
+
             if (saveTimer.Enabled){
                 File.Save();
             }
@@ -45,8 +49,7 @@ namespace TweetDuck.Core.Other.Analytics{
             saveTimer.Dispose();
         }
 
-        public void TriggerEvent(AnalyticsFile.Event e){
-            File.TriggerEvent(e);
+        private void File_PropertyChanged(object sender, EventArgs e){
             saveTimer.Enabled = true;
         }
 

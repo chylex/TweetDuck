@@ -38,6 +38,8 @@ namespace TweetDuck.Core{
 
         public string UpdateInstallerPath { get; private set; }
 
+        public AnalyticsFile AnalyticsFile => analytics?.File ?? AnalyticsFile.Dummy;
+
         private readonly TweetDeckBrowser browser;
         private readonly PluginManager plugins;
         private readonly UpdateHandler updates;
@@ -193,7 +195,7 @@ namespace TweetDuck.Core{
         }
 
         private void Config_MuteToggled(object sender, EventArgs e){
-            TriggerAnalyticsEvent(AnalyticsFile.Event.MuteNotification);
+            AnalyticsFile.CountMuteNotifications.Trigger();
         }
 
         private void Config_TrayBehaviorChanged(object sender, EventArgs e){
@@ -268,7 +270,7 @@ namespace TweetDuck.Core{
                 }
                 else{
                     browser.OnMouseClickExtra(m.WParam);
-                    TriggerAnalyticsEvent(AnalyticsFile.Event.BrowserExtraMouseButton);
+                    AnalyticsFile.CountBrowserExtraMouseButtons.Trigger();
                 }
 
                 return;
@@ -309,10 +311,6 @@ namespace TweetDuck.Core{
 
         public void ApplyROT13(){
             browser.ApplyROT13();
-        }
-
-        public void TriggerAnalyticsEvent(AnalyticsFile.Event e){
-            analytics?.TriggerEvent(e);
         }
 
         // callback handlers
@@ -383,21 +381,21 @@ namespace TweetDuck.Core{
                     form.Dispose();
                 };
                 
-                TriggerAnalyticsEvent(AnalyticsFile.Event.OpenOptions);
+                AnalyticsFile.CountOpenOptions.Trigger();
                 ShowChildForm(form);
             }
         }
 
         public void OpenAbout(){
             if (!FormManager.TryBringToFront<FormAbout>()){
-                TriggerAnalyticsEvent(AnalyticsFile.Event.OpenAbout);
+                AnalyticsFile.CountOpenAbout.Trigger();
                 ShowChildForm(new FormAbout());
             }
         }
 
         public void OpenPlugins(){
             if (!FormManager.TryBringToFront<FormPlugins>()){
-                TriggerAnalyticsEvent(AnalyticsFile.Event.OpenPlugins);
+                AnalyticsFile.CountOpenPlugins.Trigger();
                 ShowChildForm(new FormPlugins(plugins));
             }
         }
@@ -409,7 +407,7 @@ namespace TweetDuck.Core{
         }
 
         public void OnTweetSound(){
-            TriggerAnalyticsEvent(AnalyticsFile.Event.SoundNotification);
+            AnalyticsFile.CountSoundNotifications.Trigger();
         }
 
         public void PlayVideo(string url, string username){
@@ -427,7 +425,7 @@ namespace TweetDuck.Core{
             }
             
             videoPlayer.Launch(url, username);
-            TriggerAnalyticsEvent(AnalyticsFile.Event.VideoPlay);
+            AnalyticsFile.CountVideoPlays.Trigger();
         }
 
         public bool ProcessBrowserKey(Keys key){
@@ -449,7 +447,7 @@ namespace TweetDuck.Core{
 
             notification.FinishCurrentNotification();
             browser.ShowTweetDetail(columnId, chirpId, fallbackUrl);
-            TriggerAnalyticsEvent(AnalyticsFile.Event.TweetDetail);
+            AnalyticsFile.CountTweetDetails.Trigger();
         }
 
         public void OnTweetScreenshotReady(string html, int width, int height){
@@ -458,7 +456,7 @@ namespace TweetDuck.Core{
             }
 
             notificationScreenshotManager.Trigger(html, width, height);
-            TriggerAnalyticsEvent(AnalyticsFile.Event.TweetScreenshot);
+            AnalyticsFile.CountTweetScreenshots.Trigger();
         }
 
         public void DisplayTooltip(string text){

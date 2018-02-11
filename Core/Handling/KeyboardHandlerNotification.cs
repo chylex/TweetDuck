@@ -2,7 +2,6 @@
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Notification;
-using TweetDuck.Core.Other.Analytics;
 
 namespace TweetDuck.Core.Handling {
     sealed class KeyboardHandlerNotification : IKeyboardHandler{
@@ -13,7 +12,7 @@ namespace TweetDuck.Core.Handling {
         }
 
         private void TriggerKeyboardShortcutAnalytics(){
-            notification.InvokeAsyncSafe(() => notification.TriggerAnalyticsEvent(AnalyticsFile.Event.NotificationKeyboardShortcut));
+            notification.InvokeAsyncSafe(notification.AnalyticsFile.CountNotificationKeyboardShortcuts.Trigger);
         }
 
         bool IKeyboardHandler.OnPreKeyEvent(IWebBrowser browserControl, IBrowser browser, KeyType type, int windowsKeyCode, int nativeKeyCode, CefEventFlags modifiers, bool isSystemKey, ref bool isKeyboardShortcut){

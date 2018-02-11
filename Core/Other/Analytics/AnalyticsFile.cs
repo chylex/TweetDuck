@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Reflection;
 using TweetDuck.Data.Serialization;
 
 namespace TweetDuck.Core.Other.Analytics{
+    [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Local")]
     sealed class AnalyticsFile{
         private static readonly FileSerializer<AnalyticsFile> Serializer = new FileSerializer<AnalyticsFile>();
 
@@ -10,15 +14,14 @@ namespace TweetDuck.Core.Other.Analytics{
                 ConvertToString = value => value.ToBinary().ToString(),
                 ConvertToObject = value => DateTime.FromBinary(long.Parse(value))
             });
+
+            Serializer.RegisterTypeConverter(typeof(Counter), new SingleTypeConverter<Counter>{
+                ConvertToString = value => value.Value.ToString(),
+                ConvertToObject = value => new Counter(int.Parse(value))
+            });
         }
 
-        public enum Event{
-            OpenOptions, OpenPlugins, OpenAbout, OpenGuide,
-            DesktopNotification, SoundNotification, MuteNotification,
-            BrowserContextMenu, BrowserExtraMouseButton,
-            NotificationContextMenu, NotificationExtraMouseButton, NotificationKeyboardShortcut,
-            TweetScreenshot, TweetDetail, VideoPlay
-        }
+        public static readonly AnalyticsFile Dummy = new AnalyticsFile(null);
 
         // STATE PROPERTIES
         
@@ -28,26 +31,29 @@ namespace TweetDuck.Core.Other.Analytics{
 
         // USAGE DATA
 
-        public int CountOpenOptions { get; private set; } = 0;
-        public int CountOpenPlugins { get; private set; } = 0;
-        public int CountOpenAbout   { get; private set; } = 0;
-        public int CountOpenGuide   { get; private set; } = 0;
+        public Counter CountOpenOptions { get; private set; } = 0;
+        public Counter CountOpenPlugins { get; private set; } = 0;
+        public Counter CountOpenAbout   { get; private set; } = 0;
+        public Counter CountOpenGuide   { get; private set; } = 0;
 
-        public int CountDesktopNotifications { get; private set; } = 0;
-        public int CountSoundNotifications   { get; private set; } = 0;
-        public int CountMuteNotifications    { get; private set; } = 0;
+        public Counter CountDesktopNotifications { get; private set; } = 0;
+        public Counter CountSoundNotifications   { get; private set; } = 0;
+        public Counter CountMuteNotifications    { get; private set; } = 0;
         
-        public int CountBrowserContextMenus           { get; private set; } = 0;
-        public int CountBrowserExtraMouseButtons      { get; private set; } = 0;
-        public int CountNotificationContextMenus      { get; private set; } = 0;
-        public int CountNotificationExtraMouseButtons { get; private set; } = 0;
-        public int CountNotificationKeyboardShortcuts { get; private set; } = 0;
+        public Counter CountBrowserContextMenus           { get; private set; } = 0;
+        public Counter CountBrowserExtraMouseButtons      { get; private set; } = 0;
+        public Counter CountNotificationContextMenus      { get; private set; } = 0;
+        public Counter CountNotificationExtraMouseButtons { get; private set; } = 0;
+        public Counter CountNotificationKeyboardShortcuts { get; private set; } = 0;
 
-        public int CountTweetScreenshots { get; private set; } = 0;
-        public int CountTweetDetails     { get; private set; } = 0;
-        public int CountVideoPlays       { get; private set; } = 0;
+
+        public Counter CountTweetScreenshots { get; private set; } = 0;
+        public Counter CountTweetDetails     { get; private set; } = 0;
+        public Counter CountVideoPlays       { get; private set; } = 0;
 
         // END OF DATA
+
+        public event EventHandler PropertyChanged;
         
         private readonly string file;
         
@@ -55,30 +61,21 @@ namespace TweetDuck.Core.Other.Analytics{
             this.file = file;
         }
 
-        public void TriggerEvent(Event e){
-            switch(e){
-                case Event.OpenOptions: ++CountOpenOptions; break;
-                case Event.OpenPlugins: ++CountOpenPlugins; break;
-                case Event.OpenAbout: ++CountOpenAbout; break;
-                case Event.OpenGuide: ++CountOpenGuide; break;
-
-                case Event.DesktopNotification: ++CountDesktopNotifications; break;
-                case Event.SoundNotification: ++CountSoundNotifications; break;
-                case Event.MuteNotification: ++CountMuteNotifications; break;
-
-                case Event.BrowserContextMenu: ++CountBrowserContextMenus; break;
-                case Event.BrowserExtraMouseButton: ++CountBrowserExtraMouseButtons; break;
-                case Event.NotificationContextMenu: ++CountNotificationContextMenus; break;
-                case Event.NotificationExtraMouseButton: ++CountNotificationExtraMouseButtons; break;
-                case Event.NotificationKeyboardShortcut: ++CountNotificationKeyboardShortcuts; break;
-
-                case Event.TweetScreenshot: ++CountTweetScreenshots; break;
-                case Event.TweetDetail: ++CountTweetDetails; break;
-                case Event.VideoPlay: ++CountVideoPlays; break;
+        private void SetupProperties(){
+            foreach(Counter counter in GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public).Where(prop => prop.PropertyType == typeof(Counter)).Select(prop => (Counter)prop.GetValue(this))){
+                counter.SetOwner(this);
             }
         }
 
+        public void OnPropertyChanged(){
+            PropertyChanged?.Invoke(this, EventArgs.Empty);
+        }
+
         public void Save(){
+            if (file == null){
+                return;
+            }
+
             try{
                 Serializer.Write(file, this);
             }catch(Exception e){
@@ -94,8 +91,31 @@ namespace TweetDuck.Core.Other.Analytics{
             }catch(Exception e){
                 Program.Reporter.HandleException("Analytics File Error", "Could not open the analytics file.", true, e);
             }
-
+            
+            config.SetupProperties();
             return config;
+        }
+
+        public sealed class Counter{
+            public int Value { get; private set; }
+
+            private AnalyticsFile owner;
+
+            public Counter(int value){
+                this.Value = value;
+            }
+
+            public void SetOwner(AnalyticsFile owner){
+                this.owner = owner;
+            }
+
+            public void Trigger(){
+                ++Value;
+                owner?.OnPropertyChanged();
+            }
+
+            public static implicit operator int(Counter counter) => counter.Value;
+            public static implicit operator Counter(int value) => new Counter(value);
         }
     }
 }
