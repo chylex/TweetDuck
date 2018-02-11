@@ -11,5 +11,13 @@
                 default: return "unknown/";
             }
         }
+
+        public static string GetIdentifierPrefixShort(this PluginGroup group){
+            switch(group){
+                case PluginGroup.Official: return "o/";
+                case PluginGroup.Custom: return "c/";
+                default: return "?/";
+            }
+        }
     }
 }

@@ -16,7 +16,7 @@ using TweetDuck.Plugins.Events;
 using TweetDuck.Updates;
 
 namespace TweetDuck.Core{
-    sealed partial class FormBrowser : Form{
+    sealed partial class FormBrowser : Form, AnalyticsFile.IProvider{
         private static UserConfig Config => Program.UserConfig;
 
         public bool IsWaiting{
@@ -219,7 +219,7 @@ namespace TweetDuck.Core{
             }
 
             if (isLoaded){
-                ReloadToTweetDeck();
+                browser.ReloadToTweetDeck();
             }
         }
         
@@ -295,6 +295,7 @@ namespace TweetDuck.Core{
 
         public void ReloadToTweetDeck(){
             browser.ReloadToTweetDeck();
+            AnalyticsFile.CountBrowserReloads.Trigger();
         }
 
         public void TriggerTweetScreenshot(){
@@ -311,6 +312,7 @@ namespace TweetDuck.Core{
 
         public void ApplyROT13(){
             browser.ApplyROT13();
+            AnalyticsFile.CountUsedROT13.Trigger();
         }
 
         // callback handlers

@@ -30,7 +30,7 @@ namespace TweetDuck.Core.Handling{
         private string lastHighlightedTweetUrl;
         private string lastHighlightedQuoteUrl;
 
-        public ContextMenuBrowser(FormBrowser form){
+        public ContextMenuBrowser(FormBrowser form) : base(form){
             this.form = form;
         }
 

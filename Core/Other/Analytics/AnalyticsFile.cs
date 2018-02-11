@@ -46,6 +46,12 @@ namespace TweetDuck.Core.Other.Analytics{
         public Counter CountNotificationExtraMouseButtons { get; private set; } = 0;
         public Counter CountNotificationKeyboardShortcuts { get; private set; } = 0;
 
+        public Counter CountBrowserReloads   { get; private set; } = 0;
+        public Counter CountCopiedUsernames  { get; private set; } = 0;
+        public Counter CountViewedImages     { get; private set; } = 0;
+        public Counter CountDownloadedImages { get; private set; } = 0;
+        public Counter CountDownloadedVideos { get; private set; } = 0;
+        public Counter CountUsedROT13        { get; private set; } = 0;
 
         public Counter CountTweetScreenshots { get; private set; } = 0;
         public Counter CountTweetDetails     { get; private set; } = 0;
@@ -94,6 +100,10 @@ namespace TweetDuck.Core.Other.Analytics{
             
             config.SetupProperties();
             return config;
+        }
+
+        public interface IProvider{
+            AnalyticsFile AnalyticsFile { get; }
         }
 
         public sealed class Counter{

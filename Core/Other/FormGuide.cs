@@ -54,7 +54,7 @@ namespace TweetDuck.Core.Other{
 
         private readonly ChromiumWebBrowser browser;
 
-        private FormGuide(string url, Form owner){
+        private FormGuide(string url, FormBrowser owner){
             InitializeComponent();
 
             Text = Program.BrandName+" Guide";
@@ -65,7 +65,7 @@ namespace TweetDuck.Core.Other{
             }
             
             this.browser = new ChromiumWebBrowser(url){
-                MenuHandler = new ContextMenuGuide(),
+                MenuHandler = new ContextMenuGuide(owner),
                 JsDialogHandler = new JavaScriptDialogHandler(),
                 LifeSpanHandler = new LifeSpanHandler(),
                 RequestHandler = new RequestHandlerBrowser()

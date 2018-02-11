@@ -13,7 +13,7 @@ namespace TweetDuck.Core.Handling{
         private readonly FormNotificationBase form;
         private readonly bool enableCustomMenu;
 
-        public ContextMenuNotification(FormNotificationBase form, bool enableCustomMenu){
+        public ContextMenuNotification(FormNotificationBase form, bool enableCustomMenu) : base(form){
             this.form = form;
             this.enableCustomMenu = enableCustomMenu;
         }

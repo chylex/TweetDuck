@@ -12,7 +12,7 @@ using TweetDuck.Core.Other.Analytics;
 using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Notification{
-    partial class FormNotificationBase : Form{
+    partial class FormNotificationBase : Form, AnalyticsFile.IProvider{
         protected static int FontSizeLevel{
             get{
                 switch(TweetDeckBridge.FontSize){

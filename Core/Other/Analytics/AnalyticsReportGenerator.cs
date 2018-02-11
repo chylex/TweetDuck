@@ -12,6 +12,7 @@ using TweetDuck.Core.Handling;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
+using TweetDuck.Plugins.Enums;
 
 namespace TweetDuck.Core.Other.Analytics{
     static class AnalyticsReportGenerator{
@@ -36,15 +37,24 @@ namespace TweetDuck.Core.Other.Analytics{
                 { "Screen Resolution" , info.Resolution ?? "(unknown)" },
                 { "Screen DPI"        , info.DPI != null ? Exact(info.DPI.Value) : "(unknown)" },
                 0,
-                { "Hardware Acceleration" , Bool(SysConfig.HardwareAcceleration) },
+                { "Hardware Acceleration"     , Bool(SysConfig.HardwareAcceleration) },
+                { "Clear Cache Automatically" , Bool(SysConfig.ClearCacheAutomatically) },
+                { "Clear Cache Threshold"     , Exact(SysConfig.ClearCacheThreshold) },
                 0,
                 { "Expand Links"                  , Bool(UserConfig.ExpandLinksOnHover) },
                 { "Switch Account Selectors"      , Bool(UserConfig.SwitchAccountSelectors) },
                 { "Search In First Column"        , Bool(UserConfig.OpenSearchInFirstColumn) },
                 { "Keep Like Follow Dialogs Open" , Bool(UserConfig.KeepLikeFollowDialogsOpen) },
                 { "Best Image Quality"            , Bool(UserConfig.BestImageQuality) },
-                { "Spell Check"                   , Bool(UserConfig.EnableSpellCheck) },
-                { "Zoom"                          , Exact(UserConfig.ZoomLevel) },
+                { "Animated Images"               , Bool(UserConfig.EnableAnimatedImages) },
+                0,
+                { "Smooth Scrolling" , Bool(UserConfig.EnableSmoothScrolling) },
+                { "Custom Browser"   , CustomBrowser },
+                { "Zoom"             , Exact(UserConfig.ZoomLevel) },
+                0,
+                { "Spell Check"                 , Bool(UserConfig.EnableSpellCheck) },
+                { "Spell Check Language"        , UserConfig.SpellCheckLanguage.ToLower() },
+                { "Translation Target Language" , UserConfig.TranslationTarget },
                 0,
                 { "Updates"          , Bool(UserConfig.EnableUpdateCheck) },
                 { "Update Dismissed" , Bool(!string.IsNullOrEmpty(UserConfig.DismissedUpdate)) },
@@ -70,8 +80,8 @@ namespace TweetDuck.Core.Other.Analytics{
                 { "Custom Browser CSS"      , RoundUp((UserConfig.CustomBrowserCSS ?? string.Empty).Length, 50) },
                 { "Custom Notification CSS" , RoundUp((UserConfig.CustomNotificationCSS ?? string.Empty).Length, 50) },
                 0,
-                { "Plugins All"     , List(plugins.Plugins.Select(plugin => plugin.Identifier)) },
-                { "Plugins Enabled" , List(plugins.Plugins.Where(plugin => plugins.Config.IsEnabled(plugin)).Select(plugin => plugin.Identifier)) },
+                { "Plugins All"     , List(plugins.Plugins.Select(Plugin)) },
+                { "Plugins Enabled" , List(plugins.Plugins.Where(plugin => plugins.Config.IsEnabled(plugin)).Select(Plugin)) },
                 0,
                 { "Theme"               , Dict(editLayoutDesign, "_theme",                  "light/def") },
                 { "Column Width"        , Dict(editLayoutDesign, "columnWidth",             "310px/def") },
@@ -99,6 +109,12 @@ namespace TweetDuck.Core.Other.Analytics{
                 { "Notification Context Menus"       , LogRound(file.CountNotificationContextMenus, 2) },
                 { "Notification Extra Mouse Buttons" , LogRound(file.CountNotificationExtraMouseButtons, 2) },
                 { "Notification Keyboard Shortcuts"  , LogRound(file.CountNotificationKeyboardShortcuts, 2) },
+                { "Browser Reloads"                  , LogRound(file.CountBrowserReloads, 2) },
+                { "Copied Usernames"                 , LogRound(file.CountCopiedUsernames, 2) },
+                { "Viewed Images"                    , LogRound(file.CountViewedImages, 2) },
+                { "Downloaded Images"                , LogRound(file.CountDownloadedImages, 2) },
+                { "Downloaded Videos"                , LogRound(file.CountDownloadedVideos, 2) },
+                { "Used ROT13"                       , LogRound(file.CountUsedROT13, 2) },
                 { "Tweet Screenshots"                , LogRound(file.CountTweetScreenshots, 2) },
                 { "Tweet Details"                    , LogRound(file.CountTweetDetails, 2) },
                 { "Video Plays"                      , LogRound(file.CountVideoPlays, 4) }
@@ -112,6 +128,7 @@ namespace TweetDuck.Core.Other.Analytics{
         private static string Exact(int value) => value.ToString();
         private static string RoundUp(int value, int multiple) => (multiple*(int)Math.Ceiling((double)value/multiple)).ToString();
         private static string LogRound(int value, int logBase) => (value <= 0 ? 0 : (int)Math.Pow(logBase, Math.Floor(Math.Log(value, logBase)))).ToString();
+        private static string Plugin(Plugin plugin) => plugin.Group.GetIdentifierPrefixShort()+plugin.Identifier.Substring(plugin.Group.GetIdentifierPrefix().Length);
         private static string Dict(Dictionary<string, string> dict, string key, string def = "(unknown)") => dict.TryGetValue(key, out string value) ? value : def;
         private static string List(IEnumerable<string> list) => string.Join("|", list.DefaultIfEmpty("(none)"));
 
@@ -180,6 +197,12 @@ namespace TweetDuck.Core.Other.Analytics{
             Dictionary<string, string> args = new Dictionary<string, string>();
             Arguments.GetCurrentClean().ToDictionary(args);
             ProgramArguments = args.Keys.Select(key => key.TrimStart('-')).ToArray();
+        }
+
+        private static string CustomBrowser{
+            get{
+                return Path.GetFileName(UserConfig.BrowserPath) ?? string.Empty;
+            }
         }
 
         private static string TrayMode{

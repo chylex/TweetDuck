@@ -11,6 +11,7 @@ using System.Linq;
 using TweetDuck.Core.Management;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Other;
+using TweetDuck.Core.Other.Analytics;
 
 namespace TweetDuck.Core.Handling{
     abstract class ContextMenuBase : IContextMenuHandler{
@@ -43,6 +44,12 @@ namespace TweetDuck.Core.Handling{
         
         private string[] lastHighlightedTweetAuthors;
         private string[] lastHighlightedTweetImageList;
+
+        private readonly AnalyticsFile.IProvider analytics;
+
+        protected ContextMenuBase(AnalyticsFile.IProvider analytics){
+            this.analytics = analytics;
+        }
 
         public virtual void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model){
             if (!TwitterUtils.IsTweetDeckWebsite(frame) || browser.IsLoading){
@@ -97,26 +104,29 @@ namespace TweetDuck.Core.Handling{
         }
 
         public virtual bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags){
+            Control control = browserControl.AsControl();
+
             switch(commandId){
                 case MenuOpenLinkUrl:
-                    OpenBrowser(browserControl.AsControl(), IsLink ? ContextInfo.Value : parameters.LinkUrl);
+                    OpenBrowser(control, IsLink ? ContextInfo.Value : parameters.LinkUrl);
                     break;
 
                 case MenuCopyLinkUrl:
-                    SetClipboardText(browserControl.AsControl(), IsLink ? ContextInfo.Value : parameters.UnfilteredLinkUrl);
+                    SetClipboardText(control, IsLink ? ContextInfo.Value : parameters.UnfilteredLinkUrl);
                     break;
 
                 case MenuCopyUsername:
                     Match match = TwitterUtils.RegexAccount.Match(parameters.UnfilteredLinkUrl);
-                    SetClipboardText(browserControl.AsControl(), match.Success ? match.Groups[1].Value : parameters.UnfilteredLinkUrl);
+                    SetClipboardText(control, match.Success ? match.Groups[1].Value : parameters.UnfilteredLinkUrl);
+                    control.InvokeAsyncSafe(analytics.AnalyticsFile.CountCopiedUsernames.Trigger);
                     break;
 
                 case MenuOpenMediaUrl:
-                    OpenBrowser(browserControl.AsControl(), TwitterUtils.GetMediaLink(GetMediaLink(parameters), ImageQuality));
+                    OpenBrowser(control, TwitterUtils.GetMediaLink(GetMediaLink(parameters), ImageQuality));
                     break;
 
                 case MenuCopyMediaUrl:
-                    SetClipboardText(browserControl.AsControl(), TwitterUtils.GetMediaLink(GetMediaLink(parameters), ImageQuality));
+                    SetClipboardText(control, TwitterUtils.GetMediaLink(GetMediaLink(parameters), ImageQuality));
                     break;
 
                 case MenuViewImage:
@@ -138,6 +148,8 @@ namespace TweetDuck.Core.Handling{
                         ViewFile();
                     }
                     else{
+                        control.InvokeAsyncSafe(analytics.AnalyticsFile.CountViewedImages.Trigger);
+
                         BrowserUtils.DownloadFileAsync(TwitterUtils.GetMediaLink(url, ImageQuality), file, ViewFile, ex => {
                             FormMessage.Error("Image Download", "An error occurred while downloading the image: "+ex.Message, FormMessage.OK);
                         });
@@ -147,15 +159,18 @@ namespace TweetDuck.Core.Handling{
 
                 case MenuSaveMedia:
                     if (IsVideo){
+                        control.InvokeAsyncSafe(analytics.AnalyticsFile.CountDownloadedVideos.Trigger);
                         TwitterUtils.DownloadVideo(GetMediaLink(parameters), lastHighlightedTweetAuthors.LastOrDefault());
                     }
                     else{
+                        control.InvokeAsyncSafe(analytics.AnalyticsFile.CountDownloadedImages.Trigger);
                         TwitterUtils.DownloadImage(GetMediaLink(parameters), lastHighlightedTweetAuthors.LastOrDefault(), ImageQuality);
                     }
 
                     break;
 
                 case MenuSaveTweetImages:
+                    control.InvokeAsyncSafe(analytics.AnalyticsFile.CountDownloadedImages.Trigger);
                     TwitterUtils.DownloadImages(lastHighlightedTweetImageList, lastHighlightedTweetAuthors.LastOrDefault(), ImageQuality);
                     break;
                     

@@ -22,7 +22,7 @@ namespace TweetDuck.Core.Management{
 
         public event EventHandler ProcessExited;
 
-        private readonly Form owner;
+        private readonly FormBrowser owner;
         private string lastUrl;
         private string lastUsername;
 
@@ -30,7 +30,7 @@ namespace TweetDuck.Core.Management{
         private DuplexPipe.Server currentPipe;
         private bool isClosing;
 
-        public VideoPlayer(Form owner){
+        public VideoPlayer(FormBrowser owner){
             this.owner = owner;
             this.owner.FormClosing += owner_FormClosing;
         }
@@ -83,6 +83,7 @@ namespace TweetDuck.Core.Management{
                         break;
 
                     case "download":
+                        owner.AnalyticsFile.CountDownloadedVideos.Trigger();
                         TwitterUtils.DownloadVideo(lastUrl, lastUsername);
                         break;
 

@@ -8,7 +8,7 @@ using TweetDuck.Plugins;
 
 namespace TweetDuck.Core.Other.Analytics{
     sealed class AnalyticsManager : IDisposable{
-        private static readonly TimeSpan CollectionInterval = TimeSpan.FromDays(7);
+        private static readonly TimeSpan CollectionInterval = TimeSpan.FromDays(14);
         private static readonly Uri CollectionUrl = new Uri("https://tweetduck.chylex.com/breadcrumb/report");
         
         public AnalyticsFile File { get; }
