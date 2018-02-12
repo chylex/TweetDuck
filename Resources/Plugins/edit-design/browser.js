@@ -126,7 +126,7 @@ enabled(){
       let itemEditDesign = $('<li class="is-selectable"><a href="#" data-action>Edit layout &amp; design</a></li>');
       itemEditDesign.insertAfter(itemTD);
       
-      itemEditDesign.on("click", "a", this.openEditDesignDialog);
+      itemEditDesign.on("click", "a", this.configure.bind(this));
       
       itemEditDesign.hover(function(){
         $(this).addClass("is-selected");
@@ -148,7 +148,7 @@ enabled(){
     }, 1); // delays the slight lag caused by saving and reinjection
   };
   
-  var customDesignModal = TD.components.BaseModal.extend(function(){
+  this.customDesignModal = TD.components.BaseModal.extend(function(){
     let modal = $("#td-design-plugin-modal");
     this.setAndShowContainer(modal, false);
     
@@ -274,8 +274,6 @@ enabled(){
       this.supr();
     }
   });
-  
-  this.openEditDesignDialog = () => new customDesignModal();
   
   // animation optimization
   this.optimizations = null;
@@ -650,12 +648,16 @@ ready(){
   
   TD.components.GlobalSettings.prototype.switchTab = function(tab){
     if (tab === "tdp-edit-design"){
-      me.openEditDesignDialog();
+      me.configure();
     }
     else{
       return me.prevFuncSettingsSwitchTab.apply(this, arguments);
     }
   };
+}
+
+configure(){
+  new this.customDesignModal();
 }
 
 disabled(){
