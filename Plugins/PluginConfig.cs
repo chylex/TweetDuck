@@ -6,7 +6,7 @@ using TweetDuck.Plugins.Events;
 
 namespace TweetDuck.Plugins{
     sealed class PluginConfig{
-        public event EventHandler<PluginChangedStateEventArgs> InternalPluginChangedState; // should only be accessed from PluginManager
+        public event EventHandler<PluginChangedStateEventArgs> PluginChangedState;
 
         public IEnumerable<string> DisabledPlugins => disabled;
         public bool AnyDisabled => disabled.Count > 0;
@@ -20,7 +20,7 @@ namespace TweetDuck.Plugins{
 
         public void SetEnabled(Plugin plugin, bool enabled){
             if ((enabled && disabled.Remove(plugin.Identifier)) || (!enabled && disabled.Add(plugin.Identifier))){
-                InternalPluginChangedState?.Invoke(this, new PluginChangedStateEventArgs(plugin, enabled));
+                PluginChangedState?.Invoke(this, new PluginChangedStateEventArgs(plugin, enabled));
             }
         }
 

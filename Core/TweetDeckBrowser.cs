@@ -9,9 +9,6 @@ using TweetDuck.Core.Handling;
 using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Utils;
-using TweetDuck.Plugins;
-using TweetDuck.Plugins.Enums;
-using TweetDuck.Plugins.Events;
 using TweetDuck.Resources;
 
 namespace TweetDuck.Core{
@@ -32,11 +29,10 @@ namespace TweetDuck.Core{
         }
         
         private readonly ChromiumWebBrowser browser;
-        private readonly PluginManager plugins;
 
         private string prevSoundNotificationPath = null;
 
-        public TweetDeckBrowser(FormBrowser owner, PluginManager plugins, TweetDeckBridge bridge){
+        public TweetDeckBrowser(FormBrowser owner, TweetDeckBridge bridge){
             this.browser = new ChromiumWebBrowser(TwitterUtils.TweetDeckURL){
                 DialogHandler = new FileDialogHandler(),
                 DragHandler = new DragHandlerBrowser(),
@@ -57,7 +53,6 @@ namespace TweetDuck.Core{
             this.browser.LoadError += browser_LoadError;
 
             this.browser.RegisterAsyncJsObject("$TD", bridge);
-            this.browser.RegisterAsyncJsObject("$TDP", plugins.Bridge);
             
             this.browser.BrowserSettings.BackgroundColor = (uint)TwitterUtils.BackgroundColor.ToArgb();
             this.browser.Dock = DockStyle.None;
@@ -67,10 +62,6 @@ namespace TweetDuck.Core{
             this.browser.SetupResourceHandler(TwitterUtils.LoadingSpinner);
 
             owner.Controls.Add(browser);
-
-            this.plugins = plugins;
-            this.plugins.PluginChangedState += plugins_PluginChangedState;
-            this.plugins.PluginConfigureTriggered += plugins_PluginConfigureTriggered;
             
             Program.UserConfig.MuteToggled += UserConfig_MuteToggled;
             Program.UserConfig.ZoomLevelChanged += UserConfig_ZoomLevelChanged;
@@ -92,8 +83,6 @@ namespace TweetDuck.Core{
         }
 
         public void Dispose(){
-            plugins.PluginChangedState -= plugins_PluginChangedState;
-
             Program.UserConfig.MuteToggled -= UserConfig_MuteToggled;
             Program.UserConfig.ZoomLevelChanged -= UserConfig_ZoomLevelChanged;
             Program.UserConfig.SoundNotificationChanged -= UserConfig_SoundNotificationInfoChanged;
@@ -145,21 +134,22 @@ namespace TweetDuck.Core{
         }
 
         private void browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
-            if (e.Frame.IsMain && TwitterUtils.IsTweetDeckWebsite(e.Frame)){
-                e.Frame.ExecuteJavaScriptAsync(TwitterUtils.BackgroundColorOverride);
+            IFrame frame = e.Frame;
+
+            if (frame.IsMain && TwitterUtils.IsTweetDeckWebsite(frame)){
+                frame.ExecuteJavaScriptAsync(TwitterUtils.BackgroundColorOverride);
 
                 UpdateProperties();
-                TweetDeckBridge.RestoreSessionData(e.Frame);
-                ScriptLoader.ExecuteFile(e.Frame, "code.js");
+                TweetDeckBridge.RestoreSessionData(frame);
+                ScriptLoader.ExecuteFile(frame, "code.js");
                 InjectBrowserCSS();
                 ReinjectCustomCSS(Program.UserConfig.CustomBrowserCSS);
                 UserConfig_SoundNotificationInfoChanged(null, EventArgs.Empty);
-                plugins.ExecutePlugins(e.Frame, PluginEnvironment.Browser);
 
                 TweetDeckBridge.ResetStaticProperties();
 
                 if (Program.UserConfig.FirstRun){
-                    ScriptLoader.ExecuteFile(e.Frame, "introduction.js");
+                    ScriptLoader.ExecuteFile(frame, "introduction.js");
                 }
             }
         }
@@ -176,14 +166,6 @@ namespace TweetDuck.Core{
                     browser.LoadHtml(errorPage.Replace("{err}", BrowserUtils.GetErrorName(e.ErrorCode)), "http://td/error");
                 }
             }
-        }
-
-        private void plugins_PluginChangedState(object sender, PluginChangedStateEventArgs e){
-            browser.ExecuteScriptAsync("TDPF_setPluginState", e.Plugin, e.IsEnabled);
-        }
-
-        private void plugins_PluginConfigureTriggered(object sender, PluginEventArgs e){
-            browser.ExecuteScriptAsync("TDPF_configurePlugin", e.Plugin);
         }
 
         private void UserConfig_MuteToggled(object sender, EventArgs e){

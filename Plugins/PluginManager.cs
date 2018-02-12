@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using TweetDuck.Core;
 using TweetDuck.Plugins.Enums;
 using TweetDuck.Plugins.Events;
 using TweetDuck.Resources;
@@ -25,9 +26,8 @@ namespace TweetDuck.Plugins{
         
         public event EventHandler<PluginErrorEventArgs> Reloaded;
         public event EventHandler<PluginErrorEventArgs> Executed;
-        public event EventHandler<PluginChangedStateEventArgs> PluginChangedState;
-        public event EventHandler<PluginEventArgs> PluginConfigureTriggered;
 
+        private readonly ITweetDeckBrowser browser;
         private readonly string rootPath;
         private readonly string configPath;
 
@@ -35,20 +35,28 @@ namespace TweetDuck.Plugins{
         private readonly Dictionary<int, Plugin> tokens = new Dictionary<int, Plugin>();
         private readonly Random rand = new Random();
 
-        public PluginManager(string rootPath, string configPath){
+        public PluginManager(ITweetDeckBrowser browser, string rootPath, string configPath){
+            this.browser = browser;
             this.rootPath = rootPath;
             this.configPath = configPath;
 
             this.Config = new PluginConfig();
             this.Bridge = new PluginBridge(this);
 
+            this.browser.OnFrameLoaded(OnFrameLoaded);
+            this.browser.RegisterBridge("$TDP", Bridge);
+
             Config.Load(configPath);
-            Config.InternalPluginChangedState += Config_InternalPluginChangedState;
+            Config.PluginChangedState += Config_PluginChangedState;
         }
 
-        private void Config_InternalPluginChangedState(object sender, PluginChangedStateEventArgs e){
-            PluginChangedState?.Invoke(this, e);
+        private void Config_PluginChangedState(object sender, PluginChangedStateEventArgs e){
+            browser.ExecuteFunction("TDPF_setPluginState", e.Plugin, e.IsEnabled);
             Config.Save(configPath);
+        }
+
+        private void OnFrameLoaded(IFrame frame){
+            ExecutePlugins(frame, PluginEnvironment.Browser);
         }
 
         public bool IsPluginInstalled(string identifier){
@@ -65,7 +73,7 @@ namespace TweetDuck.Plugins{
 
         public void ConfigurePlugin(Plugin plugin){
             if (Bridge.WithConfigureFunction.Contains(plugin)){
-                PluginConfigureTriggered?.Invoke(this, new PluginEventArgs(plugin));
+                browser.ExecuteFunction("TDPF_configurePlugin", plugin);
             }
             else if (plugin.HasConfig){
                 if (File.Exists(plugin.ConfigPath)){

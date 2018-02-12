@@ -23,7 +23,7 @@ namespace TweetDuck.Plugins{
         public PluginBridge(PluginManager manager){
             this.manager = manager;
             this.manager.Reloaded += manager_Reloaded;
-            this.manager.PluginChangedState += manager_PluginChangedState;
+            this.manager.Config.PluginChangedState += Config_PluginChangedState;
         }
 
         // Event handlers
@@ -32,7 +32,7 @@ namespace TweetDuck.Plugins{
             fileCache.Clear();
         }
 
-        private void manager_PluginChangedState(object sender, PluginChangedStateEventArgs e){
+        private void Config_PluginChangedState(object sender, PluginChangedStateEventArgs e){
             if (!e.IsEnabled){
                 int token = manager.GetTokenFromPlugin(e.Plugin);
 
