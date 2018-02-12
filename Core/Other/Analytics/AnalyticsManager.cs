@@ -1,4 +1,8 @@
-﻿using System;
+﻿// Uncomment to debug reports locally
+// #define ANALYTICS_LOCALHOST
+// #define ANALYTICS_INSTANT
+
+using System;
 using System.Net;
 using System.Threading.Tasks;
 using System.Timers;
@@ -9,7 +13,14 @@ using TweetDuck.Plugins;
 namespace TweetDuck.Core.Other.Analytics{
     sealed class AnalyticsManager : IDisposable{
         private static readonly TimeSpan CollectionInterval = TimeSpan.FromDays(14);
-        private static readonly Uri CollectionUrl = new Uri("https://tweetduck.chylex.com/breadcrumb/report");
+
+        private static readonly Uri CollectionUrl = new Uri(
+            #if (DEBUG && ANALYTICS_LOCALHOST)
+            "http://localhost/newhome/tweetduck/~breadcrumb/request.php?type=report"
+            #else
+            "https://tweetduck.chylex.com/breadcrumb/report"
+            #endif
+            );
         
         public AnalyticsFile File { get; }
 
@@ -36,6 +47,10 @@ namespace TweetDuck.Core.Other.Analytics{
             else{
                 RestartTimer();
             }
+
+            #if (DEBUG && ANALYTICS_INSTANT)
+            SendReport();
+            #endif
         }
 
         public void Dispose(){
@@ -98,7 +113,7 @@ namespace TweetDuck.Core.Other.Analytics{
             Task.Factory.StartNew(() => {
                 AnalyticsReport report = AnalyticsReportGenerator.Create(File, info, plugins);
 
-                #if DEBUG
+                #if (DEBUG && !ANALYTICS_INSTANT)
                 System.Diagnostics.Debugger.Break();
                 #endif
 
@@ -125,6 +140,14 @@ namespace TweetDuck.Core.Other.Analytics{
                                 message = "HTTP Error "+(response != null ? $"{(int)response.StatusCode} ({response.StatusDescription})" : "(unknown code)");
                                 break;
                         }
+
+                        #if DEBUG
+                        System.IO.Stream responseStream = e.Response.GetResponseStream();
+
+                        if (responseStream != null){
+                            System.Diagnostics.Debug.WriteLine(new System.IO.StreamReader(responseStream).ReadToEnd());
+                        }
+                        #endif
                     }
 
                     ScheduleReportIn(TimeSpan.FromHours(4), message ?? "Error: "+(task.Exception.InnerException?.Message ?? task.Exception.Message));

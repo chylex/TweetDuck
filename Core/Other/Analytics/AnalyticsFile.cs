@@ -17,7 +17,7 @@ namespace TweetDuck.Core.Other.Analytics{
 
             Serializer.RegisterTypeConverter(typeof(Counter), new SingleTypeConverter<Counter>{
                 ConvertToString = value => value.Value.ToString(),
-                ConvertToObject = value => new Counter(int.Parse(value))
+                ConvertToObject = value => int.Parse(value)
             });
         }
 
