@@ -6,20 +6,25 @@ html.dark a:hover,html.dark a:focus,html.dark a:active{color:#8bd}
 html.dark .txt-mute{color:#8899a6}
 html.dark .txt-mute a:not(:hover):not(:focus){color:#8899a6}
 html.dark .txt-mute-text-only{color:#8899a6}
-html.dark .txt-twitter-darker-gray{color:#657786}
-html.dark .txt-twitter-gray{color:#AAB8C2}
-html.dark .txt-twitter-emphasis-gray{color:#AAB8C2}
-html.dark .txt-twitter-blue{color:#1DA1F2}
-html.dark .bg-twitter-blue{background-color:#1DA1F2}
-html.dark .txt-twitter-red{color:#E0245E}
-html.dark .txt-twitter-green{color:#17BF63}
-html.dark .txt-twitter-deep-black{color:#14171A}
-html.dark .txt-twitter-dark-black{color:#292F33}
-html.dark .txt-twitter-dark-gray{color:#8899A6}
-html.dark .bg-twitter-deep-black{background-color:#292F33}
-html.dark .txt-twitter-black{color:#000}
-html.dark .txt-twitter-yellow{color:#FFAD1F}
-html.dark .bg-twitter-lightest-gray{background-color:#F5F8FA}
+html.dark .color-twitter-darker-gray{color:#657786}
+html.dark .color-twitter-white{color:#fff}
+html.dark .color-twitter-gray{color:#AAB8C2}
+html.dark .color-twitter-blue{color:#1DA1F2}
+html.dark .color-twitter-red{color:#E0245E}
+html.dark .color-twitter-deep-red{color:#A01744}
+html.dark .color-twitter-green{color:#17BF63}
+html.dark .color-twitter-deep-green{color:#008951}
+html.dark .color-twitter-deep-black{color:#14171A}
+html.dark .color-twitter-dark-black{color:#292F33}
+html.dark .color-twitter-dark-gray{color:#8899A6}
+html.dark .color-twitter-black{color:#000}
+html.dark .color-twitter-yellow{color:#FFAD1F}
+html.dark .bg-color-twitter-white{background-color:#fff}
+html.dark .bg-color-twitter-blue{background-color:#1DA1F2}
+html.dark .bg-color-twitter-medium-blue{background-color:#1DA1F2}
+html.dark .bg-color-twitter-faded-yellow{background-color:#FFE8B6}
+html.dark .bg-color-twitter-deep-black{background-color:#292F33}
+html.dark .bg-color-twitter-lightest-gray{background-color:#F5F8FA}
 html.dark .link-hover-override:hover .link-hover-target{color:#8bd}
 html.dark .scroll-styled-v::-webkit-scrollbar-track,html.dark .scroll-styled-h::-webkit-scrollbar-track{border-left:1px solid #292F33}
 html.dark .scroll-styled-v::-webkit-scrollbar-thumb,html.dark .scroll-styled-h::-webkit-scrollbar-thumb{background-color:#657786}
