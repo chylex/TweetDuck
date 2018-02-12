@@ -83,7 +83,7 @@ namespace TweetDuck.Core.Management{
                         break;
 
                     case "download":
-                        owner.AnalyticsFile.CountDownloadedVideos.Trigger();
+                        owner.AnalyticsFile.DownloadedVideos.Trigger();
                         TwitterUtils.DownloadVideo(lastUrl, lastUsername);
                         break;
 

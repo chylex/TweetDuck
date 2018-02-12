@@ -118,7 +118,7 @@ namespace TweetDuck.Core.Handling{
                 case MenuCopyUsername:
                     Match match = TwitterUtils.RegexAccount.Match(parameters.UnfilteredLinkUrl);
                     SetClipboardText(control, match.Success ? match.Groups[1].Value : parameters.UnfilteredLinkUrl);
-                    control.InvokeAsyncSafe(analytics.AnalyticsFile.CountCopiedUsernames.Trigger);
+                    control.InvokeAsyncSafe(analytics.AnalyticsFile.CopiedUsernames.Trigger);
                     break;
 
                 case MenuOpenMediaUrl:
@@ -148,7 +148,7 @@ namespace TweetDuck.Core.Handling{
                         ViewFile();
                     }
                     else{
-                        control.InvokeAsyncSafe(analytics.AnalyticsFile.CountViewedImages.Trigger);
+                        control.InvokeAsyncSafe(analytics.AnalyticsFile.ViewedImages.Trigger);
 
                         BrowserUtils.DownloadFileAsync(TwitterUtils.GetMediaLink(url, ImageQuality), file, ViewFile, ex => {
                             FormMessage.Error("Image Download", "An error occurred while downloading the image: "+ex.Message, FormMessage.OK);
@@ -159,18 +159,18 @@ namespace TweetDuck.Core.Handling{
 
                 case MenuSaveMedia:
                     if (IsVideo){
-                        control.InvokeAsyncSafe(analytics.AnalyticsFile.CountDownloadedVideos.Trigger);
+                        control.InvokeAsyncSafe(analytics.AnalyticsFile.DownloadedVideos.Trigger);
                         TwitterUtils.DownloadVideo(GetMediaLink(parameters), lastHighlightedTweetAuthors.LastOrDefault());
                     }
                     else{
-                        control.InvokeAsyncSafe(analytics.AnalyticsFile.CountDownloadedImages.Trigger);
+                        control.InvokeAsyncSafe(analytics.AnalyticsFile.DownloadedImages.Trigger);
                         TwitterUtils.DownloadImage(GetMediaLink(parameters), lastHighlightedTweetAuthors.LastOrDefault(), ImageQuality);
                     }
 
                     break;
 
                 case MenuSaveTweetImages:
-                    control.InvokeAsyncSafe(analytics.AnalyticsFile.CountDownloadedImages.Trigger);
+                    control.InvokeAsyncSafe(analytics.AnalyticsFile.DownloadedImages.Trigger);
                     TwitterUtils.DownloadImages(lastHighlightedTweetImageList, lastHighlightedTweetAuthors.LastOrDefault(), ImageQuality);
                     break;
                     

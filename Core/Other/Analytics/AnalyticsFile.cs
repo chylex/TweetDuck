@@ -31,31 +31,31 @@ namespace TweetDuck.Core.Other.Analytics{
 
         // USAGE DATA
 
-        public Counter CountOpenOptions { get; private set; } = 0;
-        public Counter CountOpenPlugins { get; private set; } = 0;
-        public Counter CountOpenAbout   { get; private set; } = 0;
-        public Counter CountOpenGuide   { get; private set; } = 0;
+        public Counter OpenOptions { get; private set; } = 0;
+        public Counter OpenPlugins { get; private set; } = 0;
+        public Counter OpenAbout   { get; private set; } = 0;
+        public Counter OpenGuide   { get; private set; } = 0;
 
-        public Counter CountDesktopNotifications { get; private set; } = 0;
-        public Counter CountSoundNotifications   { get; private set; } = 0;
-        public Counter CountMuteNotifications    { get; private set; } = 0;
+        public Counter DesktopNotifications { get; private set; } = 0;
+        public Counter SoundNotifications   { get; private set; } = 0;
+        public Counter NotificationMutes    { get; private set; } = 0;
         
-        public Counter CountBrowserContextMenus           { get; private set; } = 0;
-        public Counter CountBrowserExtraMouseButtons      { get; private set; } = 0;
-        public Counter CountNotificationContextMenus      { get; private set; } = 0;
-        public Counter CountNotificationExtraMouseButtons { get; private set; } = 0;
-        public Counter CountNotificationKeyboardShortcuts { get; private set; } = 0;
+        public Counter BrowserContextMenus           { get; private set; } = 0;
+        public Counter BrowserExtraMouseButtons      { get; private set; } = 0;
+        public Counter NotificationContextMenus      { get; private set; } = 0;
+        public Counter NotificationExtraMouseButtons { get; private set; } = 0;
+        public Counter NotificationKeyboardShortcuts { get; private set; } = 0;
 
-        public Counter CountBrowserReloads   { get; private set; } = 0;
-        public Counter CountCopiedUsernames  { get; private set; } = 0;
-        public Counter CountViewedImages     { get; private set; } = 0;
-        public Counter CountDownloadedImages { get; private set; } = 0;
-        public Counter CountDownloadedVideos { get; private set; } = 0;
-        public Counter CountUsedROT13        { get; private set; } = 0;
+        public Counter BrowserReloads   { get; private set; } = 0;
+        public Counter CopiedUsernames  { get; private set; } = 0;
+        public Counter ViewedImages     { get; private set; } = 0;
+        public Counter DownloadedImages { get; private set; } = 0;
+        public Counter DownloadedVideos { get; private set; } = 0;
+        public Counter UsedROT13        { get; private set; } = 0;
 
-        public Counter CountTweetScreenshots { get; private set; } = 0;
-        public Counter CountTweetDetails     { get; private set; } = 0;
-        public Counter CountVideoPlays       { get; private set; } = 0;
+        public Counter TweetScreenshots { get; private set; } = 0;
+        public Counter TweetDetails     { get; private set; } = 0;
+        public Counter VideoPlays       { get; private set; } = 0;
 
         // END OF DATA
 

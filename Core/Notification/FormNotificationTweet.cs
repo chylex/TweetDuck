@@ -93,7 +93,7 @@ namespace TweetDuck.Core.Notification{
             }
 
             needsTrim |= tweetQueue.Count >= TrimMinimum;
-            AnalyticsFile.CountDesktopNotifications.Trigger();
+            AnalyticsFile.DesktopNotifications.Trigger();
         }
 
         public override void HideNotification(){

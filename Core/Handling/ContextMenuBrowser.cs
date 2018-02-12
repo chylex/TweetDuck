@@ -96,7 +96,7 @@ namespace TweetDuck.Core.Handling{
 
             RemoveSeparatorIfLast(model);
             
-            form.InvokeAsyncSafe(form.AnalyticsFile.CountBrowserContextMenus.Trigger);
+            form.InvokeAsyncSafe(form.AnalyticsFile.BrowserContextMenus.Trigger);
         }
 
         public override bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags){
@@ -165,7 +165,7 @@ namespace TweetDuck.Core.Handling{
 
             menu.Popup += (sender, args) => {
                 menu.MenuItems[1].Checked = Program.UserConfig.MuteNotifications;
-                form.AnalyticsFile.CountBrowserContextMenus.Trigger();
+                form.AnalyticsFile.BrowserContextMenus.Trigger();
             };
 
             return menu;

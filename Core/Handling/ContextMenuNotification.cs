@@ -56,7 +56,7 @@ namespace TweetDuck.Core.Handling{
 
             form.InvokeAsyncSafe(() => {
                 form.ContextMenuOpen = true;
-                form.AnalyticsFile.CountNotificationContextMenus.Trigger();
+                form.AnalyticsFile.NotificationContextMenus.Trigger();
             });
         }
 

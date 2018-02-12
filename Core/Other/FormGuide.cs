@@ -42,7 +42,7 @@ namespace TweetDuck.Core.Other{
                 FormBrowser owner = FormManager.TryFind<FormBrowser>();
 
                 if (owner != null){
-                    owner.AnalyticsFile.CountOpenGuide.Trigger();
+                    owner.AnalyticsFile.OpenGuide.Trigger();
                     new FormGuide(url, owner).Show(owner);
                 }
             }

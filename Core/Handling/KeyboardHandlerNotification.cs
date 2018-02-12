@@ -12,7 +12,7 @@ namespace TweetDuck.Core.Handling {
         }
 
         private void TriggerKeyboardShortcutAnalytics(){
-            notification.InvokeAsyncSafe(notification.AnalyticsFile.CountNotificationKeyboardShortcuts.Trigger);
+            notification.InvokeAsyncSafe(notification.AnalyticsFile.NotificationKeyboardShortcuts.Trigger);
         }
 
         bool IKeyboardHandler.OnPreKeyEvent(IWebBrowser browserControl, IBrowser browser, KeyType type, int windowsKeyCode, int nativeKeyCode, CefEventFlags modifiers, bool isSystemKey, ref bool isKeyboardShortcut){
