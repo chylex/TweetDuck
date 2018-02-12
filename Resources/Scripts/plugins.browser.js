@@ -35,6 +35,10 @@
     install(plugin){
       this.installed.push(plugin);
       
+      if (typeof plugin.obj.configure === "function"){
+        $TDP.setConfigurable(plugin.obj.$token);
+      }
+      
       if (!this.isDisabled(plugin)){
         plugin.obj.enabled();
         this.runWhenReady(plugin);
@@ -91,6 +95,13 @@
   //
   window.TDPF_setPluginState = function(identifier, enable){
     window.TD_PLUGINS.setState(window.TD_PLUGINS.findObject(identifier), enable);
+  };
+  
+  //
+  // Block: Setup a function to trigger plugin configuration.
+  //
+  window.TDPF_configurePlugin = function(identifier){
+    window.TD_PLUGINS.findObject(identifier).obj.configure();
   };
   
   //

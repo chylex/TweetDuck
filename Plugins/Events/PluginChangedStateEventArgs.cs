@@ -1,12 +1,8 @@
-﻿using System;
-
-namespace TweetDuck.Plugins.Events{
-    sealed class PluginChangedStateEventArgs : EventArgs{
-        public Plugin Plugin { get; }
+﻿namespace TweetDuck.Plugins.Events{
+    sealed class PluginChangedStateEventArgs : PluginEventArgs{
         public bool IsEnabled { get; }
 
-        public PluginChangedStateEventArgs(Plugin plugin, bool isEnabled){
-            this.Plugin = plugin;
+        public PluginChangedStateEventArgs(Plugin plugin, bool isEnabled) : base(plugin){
             this.IsEnabled = isEnabled;
         }
     }

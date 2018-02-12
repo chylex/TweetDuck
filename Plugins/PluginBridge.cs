@@ -15,9 +15,10 @@ namespace TweetDuck.Plugins{
 
         private readonly PluginManager manager;
         private readonly TwoKeyDictionary<int, string, string> fileCache = new TwoKeyDictionary<int, string, string>(4, 2);
-        private readonly TwoKeyDictionary<int, string, InjectedHTML> notificationInjections = new TwoKeyDictionary<int,string,InjectedHTML>(4, 1);
+        private readonly TwoKeyDictionary<int, string, InjectedHTML> notificationInjections = new TwoKeyDictionary<int, string, InjectedHTML>(4, 1);
 
         public IEnumerable<InjectedHTML> NotificationInjections => notificationInjections.InnerValues;
+        public HashSet<Plugin> WithConfigureFunction { get; } = new HashSet<Plugin>();
 
         public PluginBridge(PluginManager manager){
             this.manager = manager;
@@ -113,6 +114,14 @@ namespace TweetDuck.Plugins{
 
         public void InjectIntoNotificationsAfter(int token, string key, string search, string html){
             notificationInjections[token, key] = new InjectedHTML(InjectedHTML.Position.After, search, html);
+        }
+
+        public void SetConfigurable(int token){
+            Plugin plugin = manager.GetPluginFromToken(token);
+
+            if (plugin != null){
+                WithConfigureFunction.Add(plugin);
+            }
         }
     }
 }

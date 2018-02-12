@@ -31,7 +31,7 @@
             this.flowLayoutInfo = new System.Windows.Forms.FlowLayoutPanel();
             this.labelWebsite = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
-            this.btnOpenConfig = new System.Windows.Forms.Button();
+            this.btnConfigure = new System.Windows.Forms.Button();
             this.labelType = new TweetDuck.Core.Controls.LabelVertical();
             this.panelDescription.SuspendLayout();
             this.flowLayoutInfo.SuspendLayout();
@@ -135,16 +135,16 @@
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.labelVersion.UseMnemonic = false;
             // 
-            // btnOpenConfig
+            // btnConfigure
             // 
-            this.btnOpenConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpenConfig.Location = new System.Drawing.Point(382, 80);
-            this.btnOpenConfig.Name = "btnOpenConfig";
-            this.btnOpenConfig.Size = new System.Drawing.Size(68, 23);
-            this.btnOpenConfig.TabIndex = 4;
-            this.btnOpenConfig.Text = "Configure";
-            this.btnOpenConfig.UseVisualStyleBackColor = true;
-            this.btnOpenConfig.Click += new System.EventHandler(this.btnOpenConfig_Click);
+            this.btnConfigure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnConfigure.Location = new System.Drawing.Point(382, 80);
+            this.btnConfigure.Name = "btnConfigure";
+            this.btnConfigure.Size = new System.Drawing.Size(68, 23);
+            this.btnConfigure.TabIndex = 4;
+            this.btnConfigure.Text = "Configure";
+            this.btnConfigure.UseVisualStyleBackColor = true;
+            this.btnConfigure.Click += new System.EventHandler(this.btnConfigure_Click);
             // 
             // labelType
             // 
@@ -163,7 +163,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.labelType);
-            this.Controls.Add(this.btnOpenConfig);
+            this.Controls.Add(this.btnConfigure);
             this.Controls.Add(this.flowLayoutInfo);
             this.Controls.Add(this.panelDescription);
             this.Controls.Add(this.labelName);
@@ -194,7 +194,7 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutInfo;
         private System.Windows.Forms.Label labelWebsite;
         private System.Windows.Forms.Label labelVersion;
-        private System.Windows.Forms.Button btnOpenConfig;
+        private System.Windows.Forms.Button btnConfigure;
         private Core.Controls.LabelVertical labelType;
     }
 }

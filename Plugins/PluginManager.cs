@@ -1,6 +1,7 @@
 ﻿using CefSharp;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using TweetDuck.Plugins.Enums;
@@ -25,6 +26,7 @@ namespace TweetDuck.Plugins{
         public event EventHandler<PluginErrorEventArgs> Reloaded;
         public event EventHandler<PluginErrorEventArgs> Executed;
         public event EventHandler<PluginChangedStateEventArgs> PluginChangedState;
+        public event EventHandler<PluginEventArgs> PluginConfigureTriggered;
 
         private readonly string rootPath;
         private readonly string configPath;
@@ -55,6 +57,24 @@ namespace TweetDuck.Plugins{
 
         public bool HasAnyPlugin(PluginEnvironment environment){
             return plugins.Any(plugin => plugin.Environments.HasFlag(environment));
+        }
+
+        public bool IsPluginConfigurable(Plugin plugin){
+            return plugin.HasConfig || Bridge.WithConfigureFunction.Contains(plugin);
+        }
+
+        public void ConfigurePlugin(Plugin plugin){
+            if (Bridge.WithConfigureFunction.Contains(plugin)){
+                PluginConfigureTriggered?.Invoke(this, new PluginEventArgs(plugin));
+            }
+            else if (plugin.HasConfig){
+                if (File.Exists(plugin.ConfigPath)){
+                    using(Process.Start("explorer.exe", "/select,\""+plugin.ConfigPath.Replace('/', '\\')+"\"")){}
+                }
+                else{
+                    using(Process.Start("explorer.exe", '"'+plugin.GetPluginFolder(PluginFolder.Data).Replace('/', '\\')+'"')){}
+                }
+            }
         }
 
         public int GetTokenFromPlugin(Plugin plugin){

@@ -76,7 +76,7 @@ namespace TweetDuck.Core.Other{
         }
 
         private void btnOpenFolder_Click(object sender, EventArgs e){
-            using(Process.Start("explorer.exe", "\""+pluginManager.PathCustomPlugins+"\"")){}
+            using(Process.Start("explorer.exe", '"'+pluginManager.PathCustomPlugins+'"')){}
         }
 
         private void btnReload_Click(object sender, EventArgs e){

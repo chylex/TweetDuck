@@ -71,6 +71,7 @@ namespace TweetDuck.Core{
 
             this.plugins = plugins;
             this.plugins.PluginChangedState += plugins_PluginChangedState;
+            this.plugins.PluginConfigureTriggered += plugins_PluginConfigureTriggered;
             
             Program.UserConfig.MuteToggled += UserConfig_MuteToggled;
             Program.UserConfig.ZoomLevelChanged += UserConfig_ZoomLevelChanged;
@@ -162,6 +163,10 @@ namespace TweetDuck.Core{
 
         private void plugins_PluginChangedState(object sender, PluginChangedStateEventArgs e){
             browser.ExecuteScriptAsync("TDPF_setPluginState", e.Plugin, e.IsEnabled);
+        }
+
+        private void plugins_PluginConfigureTriggered(object sender, PluginEventArgs e){
+            browser.ExecuteScriptAsync("TDPF_configurePlugin", e.Plugin);
         }
 
         private void UserConfig_MuteToggled(object sender, EventArgs e){

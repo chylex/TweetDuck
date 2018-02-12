@@ -274,6 +274,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Plugins\Enums\PluginFolder.cs" />
+    <Compile Include="Plugins\Events\PluginEventArgs.cs" />
     <Compile Include="Plugins\Plugin.cs" />
     <Compile Include="Plugins\Events\PluginChangedStateEventArgs.cs" />
     <Compile Include="Plugins\PluginBridge.cs" />

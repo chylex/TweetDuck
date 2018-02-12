@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
@@ -57,8 +55,9 @@ namespace TweetDuck.Plugins.Controls{
             }
         }
 
-        private void btnOpenConfig_Click(object sender, EventArgs e){
-            using(Process.Start("explorer.exe", "/select,\""+plugin.ConfigPath.Replace('/', '\\')+"\"")){}
+        private void btnConfigure_Click(object sender, EventArgs e){
+            pluginManager.ConfigurePlugin(plugin);
+            ParentForm?.Close();
         }
 
         private void btnToggleState_Click(object sender, EventArgs e){
@@ -87,14 +86,13 @@ namespace TweetDuck.Plugins.Controls{
                 labelName.ForeColor = textColor;
                 labelDescription.ForeColor = textColor;
                 btnToggleState.Text = isEnabled ? "Disable" : "Enable";
-                btnOpenConfig.Visible = plugin.HasConfig;
-                btnOpenConfig.Enabled = btnOpenConfig.Visible && File.Exists(plugin.ConfigPath);
+                btnConfigure.Visible = isEnabled && pluginManager.IsPluginConfigurable(plugin);
             }
             else{
                 labelName.ForeColor = Color.DarkRed;
                 labelDescription.ForeColor = Color.DarkRed;
                 btnToggleState.Visible = false;
-                btnOpenConfig.Visible = false;
+                btnConfigure.Visible = false;
             }
         }
     }
