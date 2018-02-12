@@ -13,7 +13,6 @@ using TweetDuck.Plugins;
 using TweetDuck.Plugins.Enums;
 using TweetDuck.Plugins.Events;
 using TweetDuck.Resources;
-using TweetDuck.Updates;
 
 namespace TweetDuck.Core{
     sealed class TweetDeckBrowser : ITweetDeckBrowser, IDisposable{
@@ -208,10 +207,6 @@ namespace TweetDuck.Core{
         }
 
         // external handling
-
-        public UpdateHandler CreateUpdateHandler(UpdaterSettings settings){
-            return new UpdateHandler(browser, settings);
-        }
 
         public void HideVideoOverlay(bool focus){
             if (focus){

@@ -1,14 +1,14 @@
 ﻿using CefSharp;
-using CefSharp.WinForms;
 using System;
 using System.Windows.Forms;
+using TweetDuck.Core;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
 using TweetDuck.Resources;
 
 namespace TweetDuck.Updates{
     sealed class UpdateHandler{
-        private readonly ChromiumWebBrowser browser;
+        private readonly ITweetDeckBrowser browser;
         private readonly UpdaterSettings settings;
 
         public event EventHandler<UpdateEventArgs> UpdateAccepted;
@@ -18,19 +18,17 @@ namespace TweetDuck.Updates{
         private int lastEventId;
         private UpdateInfo lastUpdateInfo;
 
-        public UpdateHandler(ChromiumWebBrowser browser, UpdaterSettings settings){
+        public UpdateHandler(ITweetDeckBrowser browser, UpdaterSettings settings){
             this.browser = browser;
             this.settings = settings;
 
-            browser.FrameLoadEnd += browser_FrameLoadEnd;
-            browser.RegisterAsyncJsObject("$TDU", new Bridge(this));
+            browser.OnFrameLoaded(OnFrameLoaded);
+            browser.RegisterBridge("$TDU", new Bridge(this));
         }
 
-        private void browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
-            if (e.Frame.IsMain && TwitterUtils.IsTweetDeckWebsite(e.Frame)){
-                ScriptLoader.ExecuteFile(e.Frame, "update.js");
-                Check(false);
-            }
+        private void OnFrameLoaded(IFrame frame){
+            ScriptLoader.ExecuteFile(frame, "update.js");
+            Check(false);
         }
 
         public int Check(bool force){
@@ -39,7 +37,7 @@ namespace TweetDuck.Updates{
                     settings.DismissedUpdate = null;
                 }
 
-                browser.ExecuteScriptAsync("TDUF_runUpdateCheck", ++lastEventId, Program.VersionTag, settings.DismissedUpdate ?? string.Empty, settings.AllowPreReleases);
+                browser.ExecuteFunction("TDUF_runUpdateCheck", ++lastEventId, Program.VersionTag, settings.DismissedUpdate ?? string.Empty, settings.AllowPreReleases);
                 return lastEventId;
             }
 

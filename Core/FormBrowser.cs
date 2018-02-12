@@ -91,7 +91,7 @@ namespace TweetDuck.Core{
 
             UpdateTrayIcon();
 
-            this.updates = browser.CreateUpdateHandler(updaterSettings);
+            this.updates = new UpdateHandler(browser, updaterSettings);
             this.updates.UpdateAccepted += updates_UpdateAccepted;
             this.updates.UpdateDismissed += updates_UpdateDismissed;
 
