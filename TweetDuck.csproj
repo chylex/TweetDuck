@@ -107,6 +107,7 @@
     <Compile Include="Core\Handling\RequestHandlerBase.cs" />
     <Compile Include="Core\Handling\RequestHandlerBrowser.cs" />
     <Compile Include="Core\Handling\ResourceHandlerNotification.cs" />
+    <Compile Include="Core\ITweetDeckBrowser.cs" />
     <Compile Include="Core\Notification\Example\FormNotificationExample.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -16,7 +16,7 @@ using TweetDuck.Resources;
 using TweetDuck.Updates;
 
 namespace TweetDuck.Core{
-    sealed class TweetDeckBrowser : IDisposable{
+    sealed class TweetDeckBrowser : ITweetDeckBrowser, IDisposable{
         public bool Ready { get; private set; }
 
         public bool Enabled{
@@ -100,6 +100,24 @@ namespace TweetDuck.Core{
             Program.UserConfig.SoundNotificationChanged -= UserConfig_SoundNotificationInfoChanged;
             
             browser.Dispose();
+        }
+        
+        void ITweetDeckBrowser.RegisterBridge(string name, object obj){
+            browser.RegisterAsyncJsObject(name, obj);
+        }
+
+        void ITweetDeckBrowser.OnFrameLoaded(Action<IFrame> callback){
+            browser.FrameLoadEnd += (sender, args) => {
+                IFrame frame = args.Frame;
+
+                if (frame.IsMain && TwitterUtils.IsTweetDeckWebsite(frame)){
+                    callback(frame);
+                }
+            };
+        }
+
+        void ITweetDeckBrowser.ExecuteFunction(string name, params object[] args){
+            browser.ExecuteScriptAsync(name, args);
         }
 
         // event handlers
