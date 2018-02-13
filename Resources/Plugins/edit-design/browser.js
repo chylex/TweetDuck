@@ -23,6 +23,8 @@ enabled(){
   
   this.firstTimeLoad = null;
   
+  var me = this;
+  
   // modal dialog loading
   $TDP.readFileRoot(this.$token, "modal.html").then(contents => {
     this.htmlModal = contents;
@@ -137,8 +139,6 @@ enabled(){
   };
   
   // modal dialog setup
-  var me = this;
-  
   var updateKey = function(key, value){
     me.config[key] = value;
     
@@ -238,7 +238,12 @@ enabled(){
     });
     
     // THEMES
-    let selectedTheme = me.config.themeOverride || TD.settings.getTheme();
+    let selectedTheme = TD.settings.getTheme();
+    
+    if (selectedTheme === "dark" && me.config.themeOverride === "black"){
+      selectedTheme = me.config.themeOverride;
+    }
+    
     modal.find("[data-td-theme='"+selectedTheme+"']").prop("checked", true);
     
     modal.find("[data-td-theme]").change(function(){
@@ -379,22 +384,26 @@ enabled(){
     this.css.insert("html[data-td-font] { font-size: "+this.config.fontSize+" !important }");
     this.css.insert(".avatar { border-radius: "+this.config.avatarRadius+"% !important }");
     
+    let currentTheme = TD.settings.getTheme();
+    
+    if (currentTheme === "dark" && this.config.themeOverride){
+      currentTheme = this.config.themeOverride;
+    }
+    
     let notificationScrollbarColor = null;
     
     if (this.config.themeColorTweaks){
-      switch(TD.settings.getTheme()){
-        case "dark":
-          if (this.config.themeOverride === "black"){
-            this.css.insert(".app-content, .app-columns-container { background-color: #444448 !important }");
-            this.css.insert(".column-drag-handle { opacity: 0.5 !important }");
-            this.css.insert(".column-drag-handle:hover { opacity: 1 !important }");
-            this.css.insert(".scroll-styled-v:not(.scroll-alt)::-webkit-scrollbar-thumb:not(:hover), .scroll-styled-h:not(.scroll-alt)::-webkit-scrollbar-thumb:not(:hover) { background-color: #666 !important }");
-            notificationScrollbarColor = "666";
-          }
-          else{
-            this.css.insert(".scroll-styled-v:not(.scroll-alt)::-webkit-scrollbar-track, .scroll-styled-h:not(.scroll-alt)::-webkit-scrollbar-track { border-left-color: #14171A !important }");
-          }
+      switch(currentTheme){
+        case "black":
+          this.css.insert(".app-content, .app-columns-container { background-color: #444448 !important }");
+          this.css.insert(".column-drag-handle { opacity: 0.5 !important }");
+          this.css.insert(".column-drag-handle:hover { opacity: 1 !important }");
+          this.css.insert(".scroll-styled-v:not(.scroll-alt)::-webkit-scrollbar-thumb:not(:hover), .scroll-styled-h:not(.scroll-alt)::-webkit-scrollbar-thumb:not(:hover) { background-color: #666 !important }");
+          notificationScrollbarColor = "666";
+          break;
           
+        case "dark":
+          this.css.insert(".scroll-styled-v:not(.scroll-alt)::-webkit-scrollbar-track, .scroll-styled-h:not(.scroll-alt)::-webkit-scrollbar-track { border-left-color: #14171A !important }");
           break;
 
         case "light":
@@ -539,10 +548,11 @@ ${iconData.map(entry => `#tduck .icon-${entry[0]}:before{content:\"\\f0${entry[1
       document.head.appendChild(this.icons);
     }
     
-    if (this.config.themeOverride === "black"){
+    if (currentTheme === "black"){
       $TDP.readFileRoot(this.$token, "theme.black.css").then(contents => {
         if (this.theme){
           this.theme.element.innerHTML = contents;
+          TD.settings.setTheme("dark"); // forces refresh of notification head tag
         }
       });
     }
@@ -598,7 +608,7 @@ ${this.config.revertIcons ? `
 #tduck .icon-user-dd:before{content:"\\f01a";font-family:_of!important}
 ` : ``}
 
-${this.config.themeOverride === "black" ? `
+${currentTheme === "black" ? `
 html.dark a, html.dark a:hover, html.dark a:focus, html.dark a:active { color: #8bd }
 .btn-neutral-positive { color: #8bd !important }
 .quoted-tweet { border-color: #292f33 !important }
