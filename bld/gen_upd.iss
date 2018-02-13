@@ -275,8 +275,15 @@ end;
 { Return whether the version of the installed libcef.dll library matches internal one. }
 function TDIsMatchingCEFVersion: Boolean;
 var CEFVersion: String;
+var TmpTDVersion: String;
 
 begin
+  if GetVersionNumbersString(UpdatePath+'TweetDuck.exe', TmpTDVersion) and (CompareStr(TmpTDVersion, '1.13.0.0') = 0) then
+  begin
+    Result := False;
+    Exit;
+  end;
+  
   Result := (GetVersionNumbersString(UpdatePath+'libcef.dll', CEFVersion) and (CompareStr(CEFVersion, '{#CefVersion}') = 0))
 end;
 
