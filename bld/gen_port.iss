@@ -7,6 +7,7 @@
 #define MyAppExeName "TweetDuck.exe"
 
 #define MyAppVersion GetFileVersion("..\bin\x86\Release\TweetDuck.exe")
+#define VCRedistLink "releases/download/1.13/vc_redist.x86.exe"
 
 [Setup]
 AppId={{8C25A716-7E11-4AAD-9992-8B5D0C78AE06}
@@ -30,6 +31,8 @@ SolidCompression=yes
 InternalCompressLevel=max
 MinVersion=0,6.1
 
+#include <idp.iss>
+
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
@@ -42,35 +45,43 @@ Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChang
 
 [Code]
 var UpdatePath: String;
+var ForceRedistPrompt: String;
 
 function TDGetNetFrameworkVersion: Cardinal; forward;
+function TDIsVCMissing: Boolean; forward;
+procedure TDInstallVCRedist; forward;
 
 { Check .NET Framework version on startup, ask user if they want to proceed if older than 4.5.2. }
 function InitializeSetup: Boolean;
 begin
   UpdatePath := ExpandConstant('{param:UPDATEPATH}')
+  ForceRedistPrompt := ExpandConstant('{param:PROMPTREDIST}')
   
-  if TDGetNetFrameworkVersion() >= 379893 then
-  begin
-    Result := True;
-    Exit;
-  end;
-  
-  if (MsgBox('{#MyAppName} requires .NET Framework 4.5.2 or newer,'+#13+#10+'please download it from {#MyAppURL}'+#13+#10+#13+#10'Do you want to proceed with the setup anyway?', mbCriticalError, MB_YESNO or MB_DEFBUTTON2) = IDNO) then
+  if (TDGetNetFrameworkVersion() < 379893) and (MsgBox('{#MyAppName} requires .NET Framework 4.5.2 or newer,'+#13+#10+'please download it from {#MyAppURL}'+#13+#10+#13+#10'Do you want to proceed with the setup anyway?', mbCriticalError, MB_YESNO or MB_DEFBUTTON2) = IDNO) then
   begin
     Result := False;
     Exit;
   end;
   
+  if (TDIsVCMissing() or (ForceRedistPrompt = '1')) and (MsgBox('Microsoft Visual C++ 2015 appears to be missing, would you like to automatically install it?', mbConfirmation, MB_YESNO) = IDYES) then
+  begin
+    idpAddFile('https://github.com/{#MyAppPublisher}/{#MyAppName}/{#VCRedistLink}', ExpandConstant('{tmp}\{#MyAppName}.VC.exe'));
+  end;
+  
   Result := True;
 end;
 
-{ Set the installation path if updating. }
+{ Set the installation path if updating, and prepare download plugin if there are any files to download. }
 procedure InitializeWizard();
 begin
   if (UpdatePath <> '') then
   begin
     WizardForm.DirEdit.Text := UpdatePath;
+  end;
+  
+  if idpFilesCount <> 0 then
+  begin
+    idpDownloadAfter(wpReady);
   end;
 end;
 
@@ -78,6 +89,24 @@ end;
 function ShouldSkipPage(PageID: Integer): Boolean;
 begin
   Result := (PageID = wpSelectDir) and (UpdatePath <> '')
+end;
+
+{ Install VC++ if downloaded, and create a 'makeportable' file for portable installs. }
+procedure CurStepChanged(CurStep: TSetupStep);
+begin
+  if CurStep = ssInstall then
+  begin
+    TDInstallVCRedist();
+  end else if CurStep = ssPostInstall then
+  begin
+    while not SaveStringToFile(ExpandConstant('{app}\makeportable'), '', False) do
+    begin
+      if MsgBox('Could not create a ''makeportable'' file in the installation folder. If the file is not present, the installation will not be fully portable.', mbCriticalError, MB_RETRYCANCEL) <> IDRETRY then
+      begin
+        break;
+      end;
+    end;
+  end;
 end;
 
 { Return DWORD value containing the build version of .NET Framework. }
@@ -94,17 +123,64 @@ begin
   Result := 0;
 end;
 
-{ Create a 'makeportable' file if running in portable mode. }
-procedure CurStepChanged(CurStep: TSetupStep);
+{ Check if Visual C++ 2015 or 2017 is installed. }
+function TDIsVCMissing: Boolean;
+var Keys: TArrayOfString;
+var Index: Integer;
+var Key: String;
+var DisplayName: String;
+
 begin
-  if CurStep = ssPostInstall then
+  if RegGetSubkeyNames(HKEY_LOCAL_MACHINE, 'Software\Classes\Installer\Dependencies', Keys) then
   begin
-    while not SaveStringToFile(ExpandConstant('{app}\makeportable'), '', False) do
+    for Index := 0 to GetArrayLength(Keys)-1 do
     begin
-      if MsgBox('Could not create a ''makeportable'' file in the installation folder. If the file is not present, the installation will not be fully portable.', mbCriticalError, MB_RETRYCANCEL) <> IDRETRY then
+      Key := Keys[Index];
+      
+      if RegQueryStringValue(HKEY_LOCAL_MACHINE, 'Software\Classes\Installer\Dependencies\'+Key, 'DisplayName', DisplayName) then
       begin
-        break;
+        if (Pos('Microsoft Visual C++', DisplayName) = 1) and (Pos('(x86)', DisplayName) > 1) and ((Pos(' 2015 ', DisplayName) > 1) or (Pos(' 2017 ', DisplayName) > 1)) then
+        begin
+          Result := False;
+          Exit;
+        end;
       end;
+    end;
+  end;
+  
+  Result := True;
+end;
+
+{ Run the Visual C++ installer if downloaded. }
+procedure TDInstallVCRedist;
+var InstallFile: String;
+var ResultCode: Integer;
+
+begin
+  InstallFile := ExpandConstant('{tmp}\{#MyAppName}.VC.exe')
+  
+  if FileExists(InstallFile) then
+  begin
+    WizardForm.ProgressGauge.Style := npbstMarquee;
+    
+    try
+      if Exec(InstallFile, '/passive /norestart', '', SW_SHOW, ewWaitUntilTerminated, ResultCode) then
+      begin
+        if ResultCode <> 0 then
+        begin
+          DeleteFile(InstallFile);
+          Exit;
+        end;
+      end else
+      begin
+        MsgBox('Could not run the Visual C++ installer, please visit https://github.com/{#MyAppPublisher}/{#MyAppName}/{#VCRedistLink} and download the latest version manually. Error: '+SysErrorMessage(ResultCode), mbCriticalError, MB_OK);
+        
+        DeleteFile(InstallFile);
+        Exit;
+      end;
+    finally
+      WizardForm.ProgressGauge.Style := npbstNormal;
+      DeleteFile(InstallFile);
     end;
   end;
 end;

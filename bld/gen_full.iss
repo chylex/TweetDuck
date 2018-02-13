@@ -7,6 +7,7 @@
 #define MyAppExeName "TweetDuck.exe"
 
 #define MyAppVersion GetFileVersion("..\bin\x86\Release\TweetDuck.exe")
+#define VCRedistLink "releases/download/1.13/vc_redist.x86.exe"
 
 [Setup]
 AppId={{8C25A716-7E11-4AAD-9992-8B5D0C78AE06}
@@ -29,6 +30,8 @@ Compression=lzma
 SolidCompression=yes
 InternalCompressLevel=max
 MinVersion=0,6.1
+
+#include <idp.iss>
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -56,35 +59,43 @@ Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\GPUCache"
 
 [Code]
 var UpdatePath: String;
+var ForceRedistPrompt: String;
 
 function TDGetNetFrameworkVersion: Cardinal; forward;
+function TDIsVCMissing: Boolean; forward;
+procedure TDInstallVCRedist; forward;
 
 { Check .NET Framework version on startup, ask user if they want to proceed if older than 4.5.2. }
 function InitializeSetup: Boolean;
 begin
   UpdatePath := ExpandConstant('{param:UPDATEPATH}')
+  ForceRedistPrompt := ExpandConstant('{param:PROMPTREDIST}')
   
-  if TDGetNetFrameworkVersion() >= 379893 then
-  begin
-    Result := True;
-    Exit;
-  end;
-  
-  if (MsgBox('{#MyAppName} requires .NET Framework 4.5.2 or newer,'+#13+#10+'please download it from {#MyAppURL}'+#13+#10+#13+#10'Do you want to proceed with the setup anyway?', mbCriticalError, MB_YESNO or MB_DEFBUTTON2) = IDNO) then
+  if (TDGetNetFrameworkVersion() < 379893) and (MsgBox('{#MyAppName} requires .NET Framework 4.5.2 or newer,'+#13+#10+'please download it from {#MyAppURL}'+#13+#10+#13+#10'Do you want to proceed with the setup anyway?', mbCriticalError, MB_YESNO or MB_DEFBUTTON2) = IDNO) then
   begin
     Result := False;
     Exit;
   end;
   
+  if (TDIsVCMissing() or (ForceRedistPrompt = '1')) and (MsgBox('Microsoft Visual C++ 2015 appears to be missing, would you like to automatically install it?', mbConfirmation, MB_YESNO) = IDYES) then
+  begin
+    idpAddFile('https://github.com/{#MyAppPublisher}/{#MyAppName}/{#VCRedistLink}', ExpandConstant('{tmp}\{#MyAppName}.VC.exe'));
+  end;
+  
   Result := True;
 end;
 
-{ Set the installation path if updating. }
+{ Set the installation path if updating, and prepare download plugin if there are any files to download. }
 procedure InitializeWizard();
 begin
   if (UpdatePath <> '') then
   begin
     WizardForm.DirEdit.Text := UpdatePath;
+  end;
+  
+  if idpFilesCount <> 0 then
+  begin
+    idpDownloadAfter(wpReady);
   end;
 end;
 
@@ -94,7 +105,7 @@ begin
   Result := (PageID = wpSelectDir) and (UpdatePath <> '')
 end;
 
-{ Check for an old TweetDeck profile and show a warning before installation. }
+{ Check for an old TweetDeck profile and show a warning before installation, and install VC++ if downloaded. }
 procedure CurStepChanged(CurStep: TSetupStep);
 begin
   if CurStep = ssInstall then
@@ -103,6 +114,8 @@ begin
     begin
       MsgBox('Detected a profile from an old TweetDeck installation, you may uninstall the old client to free up some space.', mbInformation, MB_OK)
     end;
+    
+    TDInstallVCRedist();
   end;
 end;
 
@@ -144,4 +157,66 @@ begin
   end;
   
   Result := 0;
+end;
+
+{ Check if Visual C++ 2015 or 2017 is installed. }
+function TDIsVCMissing: Boolean;
+var Keys: TArrayOfString;
+var Index: Integer;
+var Key: String;
+var DisplayName: String;
+
+begin
+  if RegGetSubkeyNames(HKEY_LOCAL_MACHINE, 'Software\Classes\Installer\Dependencies', Keys) then
+  begin
+    for Index := 0 to GetArrayLength(Keys)-1 do
+    begin
+      Key := Keys[Index];
+      
+      if RegQueryStringValue(HKEY_LOCAL_MACHINE, 'Software\Classes\Installer\Dependencies\'+Key, 'DisplayName', DisplayName) then
+      begin
+        if (Pos('Microsoft Visual C++', DisplayName) = 1) and (Pos('(x86)', DisplayName) > 1) and ((Pos(' 2015 ', DisplayName) > 1) or (Pos(' 2017 ', DisplayName) > 1)) then
+        begin
+          Result := False;
+          Exit;
+        end;
+      end;
+    end;
+  end;
+  
+  Result := True;
+end;
+
+{ Run the Visual C++ installer if downloaded. }
+procedure TDInstallVCRedist;
+var InstallFile: String;
+var ResultCode: Integer;
+
+begin
+  InstallFile := ExpandConstant('{tmp}\{#MyAppName}.VC.exe')
+  
+  if FileExists(InstallFile) then
+  begin
+    WizardForm.ProgressGauge.Style := npbstMarquee;
+    
+    try
+      if Exec(InstallFile, '/passive /norestart', '', SW_SHOW, ewWaitUntilTerminated, ResultCode) then
+      begin
+        if ResultCode <> 0 then
+        begin
+          DeleteFile(InstallFile);
+          Exit;
+        end;
+      end else
+      begin
+        MsgBox('Could not run the Visual C++ installer, please visit https://github.com/{#MyAppPublisher}/{#MyAppName}/{#VCRedistLink} and download the latest version manually. Error: '+SysErrorMessage(ResultCode), mbCriticalError, MB_OK);
+        
+        DeleteFile(InstallFile);
+        Exit;
+      end;
+    finally
+      WizardForm.ProgressGauge.Style := npbstNormal;
+      DeleteFile(InstallFile);
+    end;
+  end;
 end;
