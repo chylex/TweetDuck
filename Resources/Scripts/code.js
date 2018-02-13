@@ -294,6 +294,8 @@
       
       tags.push("<style type='text/css'>");
       tags.push("body { background: "+getClassStyleProperty("column", "background-color")+" !important }"); // set background color
+      tags.push("body::before { content: none !important }"); // remove background gradient
+      tags.push(".column { background: transparent !important }"); // remove background color from columns
       tags.push("a[data-full-url] { word-break: break-all !important }"); // break long urls
       tags.push(".media-item, .media-preview { border-radius: 1px !important }"); // square-ify media
       tags.push(".quoted-tweet { border-radius: 0 !important }"); // square-ify quoted tweets

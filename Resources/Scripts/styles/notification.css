@@ -2,16 +2,8 @@
 /* General */
 /***********/
 
-body:before {
-  content: none !important;
-}
-
 body {
   overflow-y: auto !important;
-}
-
-.column {
-  background: transparent !important;
 }
 
 .scroll-styled-v::-webkit-scrollbar {
