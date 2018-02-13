@@ -33,7 +33,7 @@ namespace TweetDuck.Core.Notification.Screenshot{
         protected override string GetTweetHTML(TweetNotification tweet){
             string html = tweet.GenerateHtml("td-screenshot", false);
 
-            foreach(InjectedHTML injection in plugins.Bridge.NotificationInjections){
+            foreach(InjectedHTML injection in plugins.NotificationInjections){
                 html = injection.Inject(html);
             }
 

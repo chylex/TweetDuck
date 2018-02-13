@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using TweetDuck.Core;
+using TweetDuck.Data;
 using TweetDuck.Plugins.Enums;
 using TweetDuck.Plugins.Events;
 using TweetDuck.Resources;
@@ -21,42 +22,46 @@ namespace TweetDuck.Plugins{
         public string PathCustomPlugins => Path.Combine(rootPath, "user");
 
         public IEnumerable<Plugin> Plugins => plugins;
+        public IEnumerable<InjectedHTML> NotificationInjections => bridge.NotificationInjections;
+
         public PluginConfig Config { get; }
-        public PluginBridge Bridge { get; }
         
         public event EventHandler<PluginErrorEventArgs> Reloaded;
         public event EventHandler<PluginErrorEventArgs> Executed;
 
-        private readonly ITweetDeckBrowser browser;
         private readonly string rootPath;
         private readonly string configPath;
+        private readonly PluginBridge bridge;
 
         private readonly HashSet<Plugin> plugins = new HashSet<Plugin>();
         private readonly Dictionary<int, Plugin> tokens = new Dictionary<int, Plugin>();
         private readonly Random rand = new Random();
 
-        public PluginManager(ITweetDeckBrowser browser, string rootPath, string configPath){
-            this.browser = browser;
+        private ITweetDeckBrowser mainBrowser;
+
+        public PluginManager(string rootPath, string configPath){
             this.rootPath = rootPath;
             this.configPath = configPath;
 
             this.Config = new PluginConfig();
-            this.Bridge = new PluginBridge(this);
-
-            this.browser.OnFrameLoaded(OnFrameLoaded);
-            this.browser.RegisterBridge("$TDP", Bridge);
+            this.bridge = new PluginBridge(this);
 
             Config.Load(configPath);
             Config.PluginChangedState += Config_PluginChangedState;
         }
 
-        private void Config_PluginChangedState(object sender, PluginChangedStateEventArgs e){
-            browser.ExecuteFunction("TDPF_setPluginState", e.Plugin, e.IsEnabled);
-            Config.Save(configPath);
+        public void Register(ITweetDeckBrowser browser, PluginEnvironment environment, bool asMainBrowser = false){
+            browser.OnFrameLoaded(frame => ExecutePlugins(frame, environment));
+            browser.RegisterBridge("$TDP", bridge);
+
+            if (asMainBrowser){
+                mainBrowser = browser;
+            }
         }
 
-        private void OnFrameLoaded(IFrame frame){
-            ExecutePlugins(frame, PluginEnvironment.Browser);
+        private void Config_PluginChangedState(object sender, PluginChangedStateEventArgs e){
+            mainBrowser?.ExecuteFunction("TDPF_setPluginState", e.Plugin, e.IsEnabled);
+            Config.Save(configPath);
         }
 
         public bool IsPluginInstalled(string identifier){
@@ -68,12 +73,12 @@ namespace TweetDuck.Plugins{
         }
 
         public bool IsPluginConfigurable(Plugin plugin){
-            return plugin.HasConfig || Bridge.WithConfigureFunction.Contains(plugin);
+            return plugin.HasConfig || bridge.WithConfigureFunction.Contains(plugin);
         }
 
         public void ConfigurePlugin(Plugin plugin){
-            if (Bridge.WithConfigureFunction.Contains(plugin)){
-                browser.ExecuteFunction("TDPF_configurePlugin", plugin);
+            if (bridge.WithConfigureFunction.Contains(plugin)){
+                mainBrowser?.ExecuteFunction("TDPF_configurePlugin", plugin);
             }
             else if (plugin.HasConfig){
                 if (File.Exists(plugin.ConfigPath)){
@@ -143,7 +148,7 @@ namespace TweetDuck.Plugins{
             Reloaded?.Invoke(this, new PluginErrorEventArgs(loadErrors));
         }
 
-        public void ExecutePlugins(IFrame frame, PluginEnvironment environment){
+        private void ExecutePlugins(IFrame frame, PluginEnvironment environment){
             if (!HasAnyPlugin(environment)){
                 return;
             }

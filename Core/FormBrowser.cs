@@ -12,6 +12,7 @@ using TweetDuck.Core.Other;
 using TweetDuck.Core.Other.Analytics;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
+using TweetDuck.Plugins.Enums;
 using TweetDuck.Plugins.Events;
 using TweetDuck.Updates;
 
@@ -38,6 +39,7 @@ namespace TweetDuck.Core{
 
         public string UpdateInstallerPath { get; private set; }
 
+        public PluginManager PluginManager => plugins;
         public AnalyticsFile AnalyticsFile => analytics?.File ?? AnalyticsFile.Dummy;
 
         private readonly TweetDeckBrowser browser;
@@ -57,17 +59,19 @@ namespace TweetDuck.Core{
             InitializeComponent();
 
             Text = Program.BrandName;
-            
-            this.browser = new TweetDeckBrowser(this, new TweetDeckBridge.Browser(this, notification));
-            this.contextMenu = ContextMenuBrowser.CreateMenu(this);
 
-            this.plugins = new PluginManager(browser, Program.PluginPath, Program.PluginConfigFilePath);
+            this.plugins = new PluginManager(Program.PluginPath, Program.PluginConfigFilePath);
             this.plugins.Reloaded += plugins_Reloaded;
             this.plugins.Executed += plugins_Executed;
             this.plugins.Reload();
 
             this.notification = new FormNotificationTweet(this, plugins);
             this.notification.Show();
+            
+            this.browser = new TweetDeckBrowser(this, new TweetDeckBridge.Browser(this, notification));
+            this.contextMenu = ContextMenuBrowser.CreateMenu(this);
+
+            this.plugins.Register(browser, PluginEnvironment.Browser, true);
 
             Controls.Add(new MenuStrip{ Visible = false }); // fixes Alt freezing the program in Win 10 Anniversary Update
 

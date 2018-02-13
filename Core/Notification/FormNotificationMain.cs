@@ -12,7 +12,7 @@ using TweetDuck.Plugins.Enums;
 using TweetDuck.Resources;
 
 namespace TweetDuck.Core.Notification{
-    abstract partial class FormNotificationMain : FormNotificationBase{
+    abstract partial class FormNotificationMain : FormNotificationBase, ITweetDeckBrowser{
         private const string NotificationScriptFile = "notification.js";
 
         private static readonly string NotificationScriptIdentifier = ScriptLoader.GetRootIdentifier(NotificationScriptFile);
@@ -81,15 +81,33 @@ namespace TweetDuck.Core.Notification{
             this.timerBarHeight = BrowserUtils.Scale(4, DpiScale);
             
             browser.KeyboardHandler = new KeyboardHandlerNotification(this);
-            
             browser.RegisterAsyncJsObject("$TD", new TweetDeckBridge.Notification(owner, this));
-            browser.RegisterAsyncJsObject("$TDP", plugins.Bridge);
 
             browser.LoadingStateChanged += Browser_LoadingStateChanged;
             browser.FrameLoadEnd += Browser_FrameLoadEnd;
 
+            plugins.Register(this, PluginEnvironment.Notification);
+
             mouseHookDelegate = MouseHookProc;
             Disposed += (sender, args) => StopMouseHook(true);
+        }
+
+        void ITweetDeckBrowser.RegisterBridge(string name, object obj){
+            browser.RegisterAsyncJsObject(name, obj);
+        }
+
+        void ITweetDeckBrowser.OnFrameLoaded(Action<IFrame> callback){
+            browser.FrameLoadEnd += (sender, args) => {
+                IFrame frame = args.Frame;
+
+                if (frame.IsMain && NotificationJS != null && browser.Address != "about:blank"){
+                    callback(frame);
+                }
+            };
+        }
+
+        void ITweetDeckBrowser.ExecuteFunction(string name, params object[] args){
+            browser.ExecuteScriptAsync(name, args);
         }
 
         // mouse wheel hook
@@ -166,7 +184,6 @@ namespace TweetDuck.Core.Notification{
             if (e.Frame.IsMain && NotificationJS != null && browser.Address != "about:blank"){
                 e.Frame.ExecuteJavaScriptAsync(PropertyBridge.GenerateScript(PropertyBridge.Environment.Notification));
                 ScriptLoader.ExecuteScript(e.Frame, NotificationJS, NotificationScriptIdentifier);
-                plugins.ExecutePlugins(e.Frame, PluginEnvironment.Notification);
             }
         }
 
@@ -232,7 +249,7 @@ namespace TweetDuck.Core.Notification{
         protected override string GetTweetHTML(TweetNotification tweet){
             string html = base.GetTweetHTML(tweet);
 
-            foreach(InjectedHTML injection in plugins.Bridge.NotificationInjections){
+            foreach(InjectedHTML injection in plugins.NotificationInjections){
                 html = injection.Inject(html);
             }
 
