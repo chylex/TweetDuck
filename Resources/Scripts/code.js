@@ -199,7 +199,7 @@
           html.find(".js-user-actions-menu").parent().remove();
           html.find(".account-bio").removeClass("padding-t--5").css("padding-top", "2px");
         }
-        else if (type.startsWith("favorite") || type.startsWith("retweet")){
+        else if ((type.startsWith("favorite") || type.startsWith("retweet")) && tweet.isAboutYou()){
           html.children().first().addClass("td-notification-padded");
         }
         else if (type.includes("list_member")){
