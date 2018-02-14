@@ -4,6 +4,7 @@
 #define MyAppName "TweetDuck"
 #define MyAppPublisher "chylex"
 #define MyAppURL "https://tweetduck.chylex.com"
+#define MyAppShortURL "https://td.chylex.com"
 #define MyAppExeName "TweetDuck.exe"
 
 #define MyAppVersion GetFileVersion("..\bin\x86\Release\TweetDuck.exe")
@@ -57,7 +58,7 @@ begin
   UpdatePath := ExpandConstant('{param:UPDATEPATH}')
   ForceRedistPrompt := ExpandConstant('{param:PROMPTREDIST}')
   
-  if (TDGetNetFrameworkVersion() < 379893) and (MsgBox('{#MyAppName} requires .NET Framework 4.5.2 or newer,'+#13+#10+'please download it from {#MyAppURL}'+#13+#10+#13+#10'Do you want to proceed with the setup anyway?', mbCriticalError, MB_YESNO or MB_DEFBUTTON2) = IDNO) then
+  if (TDGetNetFrameworkVersion() < 379893) and (MsgBox('{#MyAppName} requires .NET Framework 4.5.2 or newer,'+#13+#10+'please visit {#MyAppShortURL} for a download link.'+#13+#10+#13+#10'Do you want to proceed with the setup anyway?', mbCriticalError, MB_YESNO or MB_DEFBUTTON2) = IDNO) then
   begin
     Result := False;
     Exit;
@@ -79,7 +80,7 @@ begin
     WizardForm.DirEdit.Text := UpdatePath;
   end;
   
-  if idpFilesCount <> 0 then
+  if (idpFilesCount <> 0) then
   begin
     idpDownloadAfter(wpReady);
   end;

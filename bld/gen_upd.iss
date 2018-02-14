@@ -4,6 +4,7 @@
 #define MyAppName "TweetDuck"
 #define MyAppPublisher "chylex"
 #define MyAppURL "https://tweetduck.chylex.com"
+#define MyAppShortURL "https://td.chylex.com"
 #define MyAppExeName "TweetDuck.exe"
 
 #define MyAppID "8C25A716-7E11-4AAD-9992-8B5D0C78AE06"
@@ -148,13 +149,7 @@ begin
     idpAddFile('https://github.com/{#MyAppPublisher}/{#MyAppName}/releases/download/'+TDGetAppVersionClean()+'/'+TDGetFullDownloadFileName(), ExpandConstant('{tmp}\{#MyAppName}.Full.exe'));
   end;
   
-  if TDGetNetFrameworkVersion() >= 379893 then
-  begin
-    Result := True;
-    Exit;
-  end;
-  
-  if (MsgBox('{#MyAppName} requires .NET Framework 4.5.2 or newer,'+#13+#10+'please download it from {#MyAppURL}'+#13+#10+#13+#10'Do you want to proceed with the setup anyway?', mbCriticalError, MB_YESNO or MB_DEFBUTTON2) = IDNO) then
+  if (TDGetNetFrameworkVersion() < 379893) and (MsgBox('{#MyAppName} requires .NET Framework 4.5.2 or newer,'+#13+#10+'please visit {#MyAppShortURL} for a download link.'+#13+#10+#13+#10'Do you want to proceed with the setup anyway?', mbCriticalError, MB_YESNO or MB_DEFBUTTON2) = IDNO) then
   begin
     Result := False;
     Exit;
