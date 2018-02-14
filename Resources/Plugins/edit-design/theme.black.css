@@ -290,7 +290,7 @@ html.dark .app-nav-tab{color:#8899A6}
 html.dark .app-nav-tab:hover{color:#fff}
 html.dark .app-nav-tab.is-selected{color:#292f33}
 html.dark .app-nav-tab.is-selected:hover{color:#292f33}
-html.dark .attach-compose-buttons .tweet-button{background-color:#485865}
+html.dark .attach-compose-buttons .tweet-button{background-color:#485865!important}
 html.dark .with-nav-border-t:before{border-top:1px solid #777}
 html.dark .app-search-input,html.dark .app-search-fake{background-color:#14171A;color:#aab8c2;box-shadow:inset 0 1px 1px rgba(17,17,17,0.5)}
 html.dark .app-search-input::-webkit-input-placeholder{color:#aab8c2}
@@ -849,3 +849,4 @@ html.dark .DrawerModal{color:#14171A}
 /* fixes */
 html.dark .app-search-fake{border-color:transparent}
 html.dark .spinner-small,html.dark .spinner-large{filter:grayscale(80%)brightness(93%)}
+html.dark .tweet>.color-twitter-blue{color:#8bd!important}

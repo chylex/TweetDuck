@@ -38,7 +38,7 @@
 /* Square-ify stuff */
 /********************/
 
-.btn, .mdl, .mdl-content, .popover, .lst-modal, .tooltip-inner {
+button, .btn, .mdl, .mdl-content, .popover, .lst-modal, .tooltip-inner {
   border-radius: 1px !important;
 }
 
@@ -46,12 +46,46 @@
   border-radius: 1px !important;
 }
 
-.btn-compose, .app-search-fake, .app-search-input, .compose-text-container, .compose-reply-tweet, .compose-message-recipient-input-container, .compose-message-recipient, .compose-media-bar-holder, .media-grid-container, .js-quote-tweet-holder, .detail-view-inline-text {
+.tweet-button, .app-search-fake, .app-search-input, .compose-text-container, .compose-reply-tweet, .compose-message-recipient-input-container, .compose-message-recipient, .compose-media-bar-holder, .media-grid-container, .js-quote-tweet-holder, .detail-view-inline-text {
   border-radius: 0 !important;
 }
 
 .dropdown-menu, .list-item-last, .quoted-tweet, .input-group-button, input, textarea, select, .prf-header, .accs li, .accs img {
   border-radius: 0 !important;
+}
+
+/***********************************/
+/* Revert various design decisions */
+/***********************************/
+
+button {
+  font-weight: normal !important;
+}
+
+.tweet-button:not(:hover) {
+  background-color: #2B7BB9 !important;
+  border-color: #2B7BB9 !important;
+}
+
+#tduck .js-compose-scroller button > i {
+  font-size: 20px !important;
+  vertical-align: -4px !important;
+}
+
+.js-show-drawer {
+  text-align: left;
+}
+
+.js-show-drawer .icon-compose {
+  display: inline-block !important;
+}
+
+.js-show-drawer span::before {
+  content: "New ";
+}
+
+.js-account-safeguard-checkbox, .js-account-safeguard-checkbox label {
+  margin-bottom: 0 !important;
 }
 
 /***********************/
@@ -183,6 +217,12 @@ a[data-full-url] {
   vertical-align: -10% !important;
 }
 
+#tduck .nav-user-info .hide-condensed {
+  /* move login account info */
+  margin: 0px !important;
+  padding-left: 2px !important;
+}
+
 html[data-td-font='smallest'] .sprite-verified-mini {
   /* fix cut off badge when zoomed in */
   width: 13px !important;
@@ -228,6 +268,16 @@ html[data-td-font='smallest'] .tweet-detail-wrapper .badge-verified:before {
 .js-add-to-customtimeline-input {
   /* the custom timeline input shadow is behaving super weird when focused */
   box-shadow: none !important;
+}
+
+#tduck .js-follow-button .icon-follow {
+  /* follow icon is too small which makes it aliased and misaligned */
+  font-size: 17px !important;
+}
+
+.js-follow-button .following-text, .js-follow-button .unfollow-text {
+  /* unfollow button has a border for some reason */
+  border-width: 0 !important;
 }
 
 /***************************************************************/
