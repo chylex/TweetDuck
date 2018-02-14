@@ -42,7 +42,7 @@ namespace TweetDuck.Core.Other.Analytics{
             this.saveTimer.Elapsed += saveTimer_Elapsed;
 
             if (this.File.LastCollectionVersion != Program.VersionTag){
-                ScheduleReportIn(TimeSpan.FromHours(12), string.Empty);
+                ScheduleReportIn(TimeSpan.FromHours(8), string.Empty);
             }
             else{
                 RestartTimer();
@@ -90,7 +90,7 @@ namespace TweetDuck.Core.Other.Analytics{
             TimeSpan diff = DateTime.Now.Subtract(File.LastDataCollection);
             int minutesTillNext = (int)(CollectionInterval.TotalMinutes-Math.Floor(diff.TotalMinutes));
             
-            currentTimer.Interval = Math.Max(minutesTillNext, 1)*60000;
+            currentTimer.Interval = Math.Max(minutesTillNext, 2)*60000;
             currentTimer.Start();
         }
 
