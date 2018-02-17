@@ -106,6 +106,15 @@ begin
   Result := (PageID = wpSelectDir) and (UpdatePath <> '')
 end;
 
+{ Check the desktop icon task if not updating. }
+procedure CurPageChanged(CurPageID: Integer);
+begin
+  if CurPageID = wpSelectTasks then
+  begin
+    WizardForm.TasksList.Checked[WizardForm.TasksList.Items.Count-1] := (UpdatePath = '');
+  end;
+end;
+
 { Install VC++ if downloaded. }
 procedure CurStepChanged(CurStep: TSetupStep);
 begin
