@@ -67,9 +67,13 @@ button {
   border-color: #2B7BB9 !important;
 }
 
-#tduck .js-compose-scroller button > i {
+#tduck .js-compose-scroller button.full-width {
+  padding: 7px 10px !important;
+}
+
+#tduck .js-compose-scroller button.full-width > i {
   font-size: 20px !important;
-  vertical-align: -4px !important;
+  vertical-align: -5px !important;
 }
 
 .js-show-drawer {

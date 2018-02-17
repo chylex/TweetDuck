@@ -32,6 +32,7 @@ enabled(){
   
   this.css = window.TDPF_createCustomStyle(this);
   this.css.insert(".emoji-keyboard { position: absolute; width: 15.35em; background-color: white; border-radius: 1px; font-size: 24px; z-index: 9999 }");
+  this.css.insert(".emoji-keyboard-popup-btn .icon { vertical-align: -4px !important }");
   
   this.css.insert(".emoji-keyboard-list { height: 10.14em; padding: 0.1em; box-sizing: border-box; overflow-y: auto }");
   this.css.insert(".emoji-keyboard-list .separator { height: 26px }");
@@ -49,7 +50,7 @@ enabled(){
   
   // layout
   
-  var buttonHTML = '<button class="needsclick btn btn-on-blue txt-left padding-v--9 emoji-keyboard-popup-btn"><i class="icon icon-heart"></i></button>';
+  var buttonHTML = '<button class="needsclick btn btn-on-blue txt-left padding-v--6 padding-h--8 emoji-keyboard-popup-btn"><i class="icon icon-heart"></i></button>';
   
   this.prevComposeMustache = TD.mustaches["compose/docked_compose.mustache"];
   TD.mustaches["compose/docked_compose.mustache"] = TD.mustaches["compose/docked_compose.mustache"].replace('<div class="cf margin-t--12 margin-b--30">', '<div class="cf margin-t--12 margin-b--30">'+buttonHTML);
