@@ -41,8 +41,8 @@ namespace TweetDuck.Core.Utils{
         }
 
         private static string ExtractMediaBaseLink(string url){
-            int dot = url.LastIndexOf('/');
-            return dot == -1 ? url : StringUtils.ExtractBefore(url, ':', dot);
+            int slash = url.LastIndexOf('/');
+            return slash == -1 ? url : StringUtils.ExtractBefore(url, ':', slash);
         }
 
         public static string GetMediaLink(string url, ImageQuality quality){
@@ -91,7 +91,7 @@ namespace TweetDuck.Core.Utils{
                 AutoUpgradeEnabled = true,
                 OverwritePrompt = urls.Length == 1,
                 Title = "Save Image",
-                FileName = $"{string.Join(" ", fileNameParts.Where(part => part.Length > 0))}{ext}",
+                FileName = $"{string.Join(" ", fileNameParts.Where(part => !string.IsNullOrEmpty(part)))}{ext}",
                 Filter = (urls.Length == 1 ? "Image" : "Images")+(string.IsNullOrEmpty(ext) ? " (unknown)|*.*" : $" (*{ext})|*{ext}")
             }){
                 if (dialog.ShowDialog() == DialogResult.OK){
