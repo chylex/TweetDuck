@@ -88,6 +88,14 @@ button {
   content: "New ";
 }
 
+#tduck .app-header .search-input-control input {
+  font-size: 13px !important;
+}
+
+#tduck .app-header .search-input-perform-search {
+  right: 8px !important;
+}
+
 .js-account-safeguard-checkbox, .js-account-safeguard-checkbox label {
   margin-bottom: 0 !important;
 }
