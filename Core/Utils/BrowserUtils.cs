@@ -137,6 +137,8 @@ namespace TweetDuck.Core.Utils{
         }
 
         public static WebClient CreateWebClient(){
+            WindowsUtils.EnsureTLS12();
+
             WebClient client = new WebClient{ Proxy = null };
             client.Headers[HttpRequestHeader.UserAgent] = HeaderUserAgent;
             return client;

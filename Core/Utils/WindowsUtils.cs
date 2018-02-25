@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -16,6 +17,8 @@ namespace TweetDuck.Core.Utils{
 
         public static int CurrentProcessID { get; }
         public static bool ShouldAvoidToolWindow { get; }
+        
+        private static bool HasMicrosoftBeenBroughtTo2008Yet;
 
         static WindowsUtils(){
             using(Process me = Process.GetCurrentProcess()){
@@ -24,6 +27,14 @@ namespace TweetDuck.Core.Utils{
 
             Version ver = Environment.OSVersion.Version;
             ShouldAvoidToolWindow = ver.Major == 6 && ver.Minor == 2; // windows 8/10
+        }
+        
+        public static void EnsureTLS12(){
+            if (!HasMicrosoftBeenBroughtTo2008Yet){
+                ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
+                ServicePointManager.SecurityProtocol &= ~(SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11);
+                HasMicrosoftBeenBroughtTo2008Yet = true;
+            }
         }
 
         public static void CreateDirectoryForFile(string file){
