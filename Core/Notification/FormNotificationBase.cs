@@ -134,13 +134,7 @@ namespace TweetDuck.Core.Notification{
             this.browser.Dock = DockStyle.None;
             this.browser.ClientSize = ClientSize;
             this.browser.IsBrowserInitializedChanged += browser_IsBrowserInitializedChanged;
-
-            #if DEBUG
-            this.browser.ConsoleMessage += BrowserUtils.HandleConsoleMessage;
-            #endif
-
-            DpiScale = this.GetDPIScale();
-
+            
             browser.SetupResourceHandler(TwitterUtils.TweetDeckURL, this.resourceHandler);
             browser.SetupResourceHandler(TweetNotification.AppLogo);
 
@@ -150,6 +144,8 @@ namespace TweetDuck.Core.Notification{
                 this.browser.Dispose();
                 this.owner.FormClosed -= owner_FormClosed;
             };
+
+            DpiScale = this.GetDPIScale();
 
             // ReSharper disable once VirtualMemberCallInContructor
             UpdateTitle();

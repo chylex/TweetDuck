@@ -174,11 +174,5 @@ namespace TweetDuck.Core.Utils{
         public static void SetZoomLevel(IBrowser browser, int percentage){
             browser.GetHost().SetZoomLevel(Math.Log(percentage/100.0, 1.2));
         }
-
-        #if DEBUG
-        public static void HandleConsoleMessage(object sender, ConsoleMessageEventArgs e){
-            Debug.WriteLine("[Console] {0} ({1}:{2})", e.Message, e.Source, e.Line);
-        }
-        #endif
     }
 }

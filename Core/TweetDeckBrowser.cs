@@ -43,10 +43,6 @@ namespace TweetDuck.Core{
                 RequestHandler = new RequestHandlerBrowser()
             };
 
-            #if DEBUG
-            this.browser.ConsoleMessage += BrowserUtils.HandleConsoleMessage;
-            #endif
-
             this.browser.LoadingStateChanged += browser_LoadingStateChanged;
             this.browser.FrameLoadStart += browser_FrameLoadStart;
             this.browser.FrameLoadEnd += browser_FrameLoadEnd;
