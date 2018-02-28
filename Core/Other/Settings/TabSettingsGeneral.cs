@@ -163,6 +163,11 @@ namespace TweetDuck.Core.Other.Settings{
 
             btnCheckUpdates.Enabled = false;
             updateCheckEventId = updates.Check(true);
+
+            if (updateCheckEventId == UpdateHandler.CheckCodeNotOnTweetDeck){
+                FormMessage.Error("Update Check", "Updates can only be checked once TweetDeck is fully loaded.", FormMessage.OK);
+                btnCheckUpdates.Enabled = true;
+            }
         }
 
         private void updates_CheckFinished(object sender, UpdateEventArgs e){

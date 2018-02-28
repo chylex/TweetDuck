@@ -8,6 +8,9 @@ using TweetDuck.Resources;
 
 namespace TweetDuck.Updates{
     sealed class UpdateHandler{
+        public const int CheckCodeUpdatesDisabled = -1;
+        public const int CheckCodeNotOnTweetDeck = -2;
+
         private readonly ITweetDeckBrowser browser;
         private readonly UpdaterSettings settings;
 
@@ -15,7 +18,7 @@ namespace TweetDuck.Updates{
         public event EventHandler<UpdateEventArgs> UpdateDismissed;
         public event EventHandler<UpdateEventArgs> CheckFinished;
 
-        private int lastEventId;
+        private ushort lastEventId;
         private UpdateInfo lastUpdateInfo;
 
         public UpdateHandler(ITweetDeckBrowser browser, UpdaterSettings settings){
@@ -28,7 +31,6 @@ namespace TweetDuck.Updates{
 
         private void OnFrameLoaded(IFrame frame){
             ScriptLoader.ExecuteFile(frame, "update.js");
-            Check(false);
         }
 
         public int Check(bool force){
@@ -36,12 +38,16 @@ namespace TweetDuck.Updates{
                 if (force){
                     settings.DismissedUpdate = null;
                 }
+                
+                if (!browser.IsTweetDeckWebsite){
+                    return CheckCodeNotOnTweetDeck;
+                }
 
-                browser.ExecuteFunction("TDUF_runUpdateCheck", ++lastEventId, Program.VersionTag, settings.DismissedUpdate ?? string.Empty, settings.AllowPreReleases);
+                browser.ExecuteFunction("TDUF_runUpdateCheck", (int)unchecked(++lastEventId), Program.VersionTag, settings.DismissedUpdate ?? string.Empty, settings.AllowPreReleases);
                 return lastEventId;
             }
 
-            return 0;
+            return CheckCodeUpdatesDisabled;
         }
 
         public void BeginUpdateDownload(Form ownerForm, UpdateInfo updateInfo, Action<UpdateInfo> onSuccess){

@@ -301,6 +301,13 @@
   };
   
   //
+  // Block: Check updates on startup.
+  //
+  $(document).one("TD.ready", function(){
+    $TDU.triggerUpdateCheck();
+  });
+  
+  //
   // Block: Setup global functions.
   //
   window.TDUF_runUpdateCheck = runUpdateCheck;
