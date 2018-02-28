@@ -92,6 +92,10 @@ namespace TweetDuck.Core.Notification{
             Disposed += (sender, args) => StopMouseHook(true);
         }
 
+        // implementation of ITweetDeckBrowser
+
+        bool ITweetDeckBrowser.IsTweetDeckWebsite => IsNotificationVisible;
+
         void ITweetDeckBrowser.RegisterBridge(string name, object obj){
             browser.RegisterAsyncJsObject(name, obj);
         }

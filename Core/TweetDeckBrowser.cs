@@ -22,6 +22,10 @@ namespace TweetDuck.Core{
 
         public bool IsTweetDeckWebsite{
             get{
+                if (!Ready){
+                    return false;
+                }
+
                 using(IFrame frame = browser.GetBrowser().MainFrame){
                     return TwitterUtils.IsTweetDeckWebsite(frame);
                 }
