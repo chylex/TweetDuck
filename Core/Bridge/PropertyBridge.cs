@@ -15,7 +15,6 @@ namespace TweetDuck.Core.Bridge{
             build.Append("x.expandLinksOnHover=").Append(Bool(Program.UserConfig.ExpandLinksOnHover));
             
             if (environment == Environment.Browser){
-                build.Append("x.switchAccountSelectors=").Append(Bool(Program.UserConfig.SwitchAccountSelectors));
                 build.Append("x.openSearchInFirstColumn=").Append(Bool(Program.UserConfig.OpenSearchInFirstColumn));
                 build.Append("x.keepLikeFollowDialogsOpen=").Append(Bool(Program.UserConfig.KeepLikeFollowDialogsOpen));
                 build.Append("x.muteNotifications=").Append(Bool(Program.UserConfig.MuteNotifications));

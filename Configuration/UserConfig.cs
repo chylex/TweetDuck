@@ -42,7 +42,6 @@ namespace TweetDuck.Configuration{
         public WindowState PluginsWindow { get; set; } = new WindowState();
 
         public bool ExpandLinksOnHover        { get; set; } = true;
-        public bool SwitchAccountSelectors    { get; set; } = true;
         public bool OpenSearchInFirstColumn   { get; set; } = true;
         public bool KeepLikeFollowDialogsOpen { get; set; } = true;
         public bool BestImageQuality          { get; set; } = true;

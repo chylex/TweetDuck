@@ -29,7 +29,6 @@
             this.checkUpdateNotifications = new System.Windows.Forms.CheckBox();
             this.btnCheckUpdates = new System.Windows.Forms.Button();
             this.labelZoomValue = new System.Windows.Forms.Label();
-            this.checkSwitchAccountSelectors = new System.Windows.Forms.CheckBox();
             this.checkBestImageQuality = new System.Windows.Forms.CheckBox();
             this.checkOpenSearchInFirstColumn = new System.Windows.Forms.CheckBox();
             this.trackBarZoom = new System.Windows.Forms.TrackBar();
@@ -64,7 +63,7 @@
             // checkUpdateNotifications
             // 
             this.checkUpdateNotifications.AutoSize = true;
-            this.checkUpdateNotifications.Location = new System.Drawing.Point(6, 386);
+            this.checkUpdateNotifications.Location = new System.Drawing.Point(6, 363);
             this.checkUpdateNotifications.Margin = new System.Windows.Forms.Padding(6, 6, 3, 3);
             this.checkUpdateNotifications.Name = "checkUpdateNotifications";
             this.checkUpdateNotifications.Size = new System.Drawing.Size(165, 17);
@@ -74,7 +73,7 @@
             // 
             // btnCheckUpdates
             // 
-            this.btnCheckUpdates.Location = new System.Drawing.Point(5, 409);
+            this.btnCheckUpdates.Location = new System.Drawing.Point(5, 386);
             this.btnCheckUpdates.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnCheckUpdates.Name = "btnCheckUpdates";
             this.btnCheckUpdates.Size = new System.Drawing.Size(144, 23);
@@ -93,21 +92,10 @@
             this.labelZoomValue.Text = "100%";
             this.labelZoomValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // checkSwitchAccountSelectors
-            // 
-            this.checkSwitchAccountSelectors.AutoSize = true;
-            this.checkSwitchAccountSelectors.Location = new System.Drawing.Point(6, 49);
-            this.checkSwitchAccountSelectors.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
-            this.checkSwitchAccountSelectors.Name = "checkSwitchAccountSelectors";
-            this.checkSwitchAccountSelectors.Size = new System.Drawing.Size(172, 17);
-            this.checkSwitchAccountSelectors.TabIndex = 2;
-            this.checkSwitchAccountSelectors.Text = "Shift Selects Multiple Accounts";
-            this.checkSwitchAccountSelectors.UseVisualStyleBackColor = true;
-            // 
             // checkBestImageQuality
             // 
             this.checkBestImageQuality.AutoSize = true;
-            this.checkBestImageQuality.Location = new System.Drawing.Point(6, 118);
+            this.checkBestImageQuality.Location = new System.Drawing.Point(6, 95);
             this.checkBestImageQuality.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.checkBestImageQuality.Name = "checkBestImageQuality";
             this.checkBestImageQuality.Size = new System.Drawing.Size(114, 17);
@@ -118,7 +106,7 @@
             // checkOpenSearchInFirstColumn
             // 
             this.checkOpenSearchInFirstColumn.AutoSize = true;
-            this.checkOpenSearchInFirstColumn.Location = new System.Drawing.Point(6, 72);
+            this.checkOpenSearchInFirstColumn.Location = new System.Drawing.Point(6, 49);
             this.checkOpenSearchInFirstColumn.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.checkOpenSearchInFirstColumn.Name = "checkOpenSearchInFirstColumn";
             this.checkOpenSearchInFirstColumn.Size = new System.Drawing.Size(219, 17);
@@ -144,7 +132,7 @@
             // labelZoom
             // 
             this.labelZoom.AutoSize = true;
-            this.labelZoom.Location = new System.Drawing.Point(3, 291);
+            this.labelZoom.Location = new System.Drawing.Point(3, 268);
             this.labelZoom.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelZoom.Name = "labelZoom";
             this.labelZoom.Size = new System.Drawing.Size(34, 13);
@@ -172,7 +160,7 @@
             this.panelZoom.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panelZoom.Controls.Add(this.trackBarZoom);
             this.panelZoom.Controls.Add(this.labelZoomValue);
-            this.panelZoom.Location = new System.Drawing.Point(0, 304);
+            this.panelZoom.Location = new System.Drawing.Point(0, 281);
             this.panelZoom.Margin = new System.Windows.Forms.Padding(0);
             this.panelZoom.Name = "panelZoom";
             this.panelZoom.Size = new System.Drawing.Size(322, 36);
@@ -181,7 +169,7 @@
             // checkAnimatedAvatars
             // 
             this.checkAnimatedAvatars.AutoSize = true;
-            this.checkAnimatedAvatars.Location = new System.Drawing.Point(6, 141);
+            this.checkAnimatedAvatars.Location = new System.Drawing.Point(6, 118);
             this.checkAnimatedAvatars.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.checkAnimatedAvatars.Name = "checkAnimatedAvatars";
             this.checkAnimatedAvatars.Size = new System.Drawing.Size(145, 17);
@@ -193,7 +181,7 @@
             // 
             this.labelUpdates.AutoSize = true;
             this.labelUpdates.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelUpdates.Location = new System.Drawing.Point(0, 360);
+            this.labelUpdates.Location = new System.Drawing.Point(0, 337);
             this.labelUpdates.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
             this.labelUpdates.Name = "labelUpdates";
             this.labelUpdates.Size = new System.Drawing.Size(70, 20);
@@ -207,7 +195,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowPanel.Controls.Add(this.labelUI);
             this.flowPanel.Controls.Add(this.checkExpandLinks);
-            this.flowPanel.Controls.Add(this.checkSwitchAccountSelectors);
             this.flowPanel.Controls.Add(this.checkOpenSearchInFirstColumn);
             this.flowPanel.Controls.Add(this.checkKeepLikeFollowDialogsOpen);
             this.flowPanel.Controls.Add(this.checkBestImageQuality);
@@ -224,14 +211,14 @@
             this.flowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowPanel.Location = new System.Drawing.Point(9, 9);
             this.flowPanel.Name = "flowPanel";
-            this.flowPanel.Size = new System.Drawing.Size(322, 438);
+            this.flowPanel.Size = new System.Drawing.Size(322, 415);
             this.flowPanel.TabIndex = 0;
             this.flowPanel.WrapContents = false;
             // 
             // checkKeepLikeFollowDialogsOpen
             // 
             this.checkKeepLikeFollowDialogsOpen.AutoSize = true;
-            this.checkKeepLikeFollowDialogsOpen.Location = new System.Drawing.Point(6, 95);
+            this.checkKeepLikeFollowDialogsOpen.Location = new System.Drawing.Point(6, 72);
             this.checkKeepLikeFollowDialogsOpen.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.checkKeepLikeFollowDialogsOpen.Name = "checkKeepLikeFollowDialogsOpen";
             this.checkKeepLikeFollowDialogsOpen.Size = new System.Drawing.Size(176, 17);
@@ -243,7 +230,7 @@
             // 
             this.labelBrowserSettings.AutoSize = true;
             this.labelBrowserSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelBrowserSettings.Location = new System.Drawing.Point(0, 181);
+            this.labelBrowserSettings.Location = new System.Drawing.Point(0, 158);
             this.labelBrowserSettings.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
             this.labelBrowserSettings.Name = "labelBrowserSettings";
             this.labelBrowserSettings.Size = new System.Drawing.Size(130, 20);
@@ -253,7 +240,7 @@
             // checkSmoothScrolling
             // 
             this.checkSmoothScrolling.AutoSize = true;
-            this.checkSmoothScrolling.Location = new System.Drawing.Point(6, 207);
+            this.checkSmoothScrolling.Location = new System.Drawing.Point(6, 184);
             this.checkSmoothScrolling.Margin = new System.Windows.Forms.Padding(6, 6, 3, 3);
             this.checkSmoothScrolling.Name = "checkSmoothScrolling";
             this.checkSmoothScrolling.Size = new System.Drawing.Size(105, 17);
@@ -264,7 +251,7 @@
             // labelBrowserPath
             // 
             this.labelBrowserPath.AutoSize = true;
-            this.labelBrowserPath.Location = new System.Drawing.Point(3, 239);
+            this.labelBrowserPath.Location = new System.Drawing.Point(3, 216);
             this.labelBrowserPath.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelBrowserPath.Name = "labelBrowserPath";
             this.labelBrowserPath.Size = new System.Drawing.Size(95, 13);
@@ -275,7 +262,7 @@
             // 
             this.comboBoxBrowserPath.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxBrowserPath.FormattingEnabled = true;
-            this.comboBoxBrowserPath.Location = new System.Drawing.Point(5, 255);
+            this.comboBoxBrowserPath.Location = new System.Drawing.Point(5, 232);
             this.comboBoxBrowserPath.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.comboBoxBrowserPath.Name = "comboBoxBrowserPath";
             this.comboBoxBrowserPath.Size = new System.Drawing.Size(173, 21);
@@ -287,7 +274,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.flowPanel);
             this.Name = "TabSettingsGeneral";
-            this.Size = new System.Drawing.Size(340, 456);
+            this.Size = new System.Drawing.Size(340, 433);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarZoom)).EndInit();
             this.panelZoom.ResumeLayout(false);
             this.flowPanel.ResumeLayout(false);
@@ -306,7 +293,6 @@
         private System.Windows.Forms.Label labelZoomValue;
         private System.Windows.Forms.TrackBar trackBarZoom;
         private System.Windows.Forms.Timer zoomUpdateTimer;
-        private System.Windows.Forms.CheckBox checkSwitchAccountSelectors;
         private System.Windows.Forms.Label labelUI;
         private System.Windows.Forms.Panel panelZoom;
         private System.Windows.Forms.Label labelUpdates;

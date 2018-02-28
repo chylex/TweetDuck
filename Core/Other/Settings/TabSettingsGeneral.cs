@@ -26,7 +26,6 @@ namespace TweetDuck.Core.Other.Settings{
             Disposed += (sender, args) => this.updates.CheckFinished -= updates_CheckFinished;
             
             toolTip.SetToolTip(checkExpandLinks, "Expands links inside the tweets. If disabled,\r\nthe full links show up in a tooltip instead.");
-            toolTip.SetToolTip(checkSwitchAccountSelectors, "When (re)tweeting, click to select a single account or hold Shift to\r\nselect multiple accounts, instead of TweetDeck\'s default behavior.");
             toolTip.SetToolTip(checkOpenSearchInFirstColumn, "By default, TweetDeck adds Search columns at the end.\r\nThis option makes them appear before the first column instead.");
             toolTip.SetToolTip(checkKeepLikeFollowDialogsOpen, "Allows liking and following from multiple accounts at once,\r\ninstead of automatically closing the dialog after taking an action.");
             toolTip.SetToolTip(checkBestImageQuality, "When right-clicking a tweet image, the context menu options\r\nwill use links to the original image size (:orig in the URL).");
@@ -41,7 +40,6 @@ namespace TweetDuck.Core.Other.Settings{
             toolTip.SetToolTip(btnCheckUpdates, "Forces an update check, even for updates that had been dismissed.");
 
             checkExpandLinks.Checked = Config.ExpandLinksOnHover;
-            checkSwitchAccountSelectors.Checked = Config.SwitchAccountSelectors;
             checkOpenSearchInFirstColumn.Checked = Config.OpenSearchInFirstColumn;
             checkKeepLikeFollowDialogsOpen.Checked = Config.KeepLikeFollowDialogsOpen;
             checkBestImageQuality.Checked = Config.BestImageQuality;
@@ -65,7 +63,6 @@ namespace TweetDuck.Core.Other.Settings{
 
         public override void OnReady(){
             checkExpandLinks.CheckedChanged += checkExpandLinks_CheckedChanged;
-            checkSwitchAccountSelectors.CheckedChanged += checkSwitchAccountSelectors_CheckedChanged;
             checkOpenSearchInFirstColumn.CheckedChanged += checkOpenSearchInFirstColumn_CheckedChanged;
             checkKeepLikeFollowDialogsOpen.CheckedChanged += checkKeepLikeFollowDialogsOpen_CheckedChanged;
             checkBestImageQuality.CheckedChanged += checkBestImageQuality_CheckedChanged;
@@ -85,10 +82,6 @@ namespace TweetDuck.Core.Other.Settings{
 
         private void checkExpandLinks_CheckedChanged(object sender, EventArgs e){
             Config.ExpandLinksOnHover = checkExpandLinks.Checked;
-        }
-
-        private void checkSwitchAccountSelectors_CheckedChanged(object sender, EventArgs e){
-            Config.SwitchAccountSelectors = checkSwitchAccountSelectors.Checked;
         }
 
         private void checkOpenSearchInFirstColumn_CheckedChanged(object sender, EventArgs e){

@@ -928,26 +928,15 @@
   })();
   
   //
-  // Block: Swap shift key functionality for selecting accounts, and refocus the textbox afterwards.
+  // Block: Refocus the textbox after switching accounts.
   //
   onAppReady.push(function(){
-    const onAccountClick = function(e){
-      if ($TDX.switchAccountSelectors){
-        e.shiftKey = !e.shiftKey;
-      }
-      
+    const refocusInput = function(){
       $(".js-compose-text", ".js-docked-compose").focus();
     };
     
-    $(".js-account-list", ".js-docked-compose").delegate(".js-account-item", "click", onAccountClick);
-    
-    return if !ensurePropertyExists(TD, "components", "AccountSelector", "prototype", "refreshPostingAccounts");
-    
-    TD.components.AccountSelector.prototype.refreshPostingAccounts = appendToFunction(TD.components.AccountSelector.prototype.refreshPostingAccounts, function(){
-      if (!this.$node.attr("td-account-selector-hook")){
-        this.$node.attr("td-account-selector-hook", "1");
-        this.$node.delegate(".js-account-item", "click", onAccountClick);
-      }
+    $(".js-account-list", ".js-docked-compose").delegate(".js-account-item", "click", function(e){
+      setTimeout(refocusInput, 0);
     });
   });
   
