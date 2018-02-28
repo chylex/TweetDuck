@@ -4,7 +4,7 @@
   //
   var injectCSS = function(){
     if (!document.head){
-      setTimeout(injectCSS, 25);
+      setTimeout(injectCSS, 5);
       return;
     }
     
@@ -15,7 +15,7 @@
       style.sheet.insertRule(rule, 0);
     };
     
-    addRule("body { overflow: hidden !important; background-color: #1c6399 !important; }"); // remove scrollbar and change background
+    addRule("body { overflow: hidden !important; }"); // remove scrollbar
     addRule(".page-canvas { box-shadow: 0 0 150px rgba(255, 255, 255, 0.3) !important; }"); // change page box shadow
     addRule(".topbar { display: none !important; }"); // hide top bar
     

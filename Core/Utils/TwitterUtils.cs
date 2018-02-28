@@ -13,7 +13,7 @@ namespace TweetDuck.Core.Utils{
         public const string TweetDeckURL = "https://tweetdeck.twitter.com";
 
         public static readonly Color BackgroundColor = Color.FromArgb(28, 99, 153);
-        public const string BackgroundColorOverride = "let e=document.createElement('style');document.head.appendChild(e);e.innerHTML='body,body::before{background:#1c6399!important}'";
+        public const string BackgroundColorOverride = "setTimeout(function f(){let h=document.head;if(!h){setTimeout(f,5);return;}let e=document.createElement('style');e.innerHTML='body,body::before{background:#1c6399!important}';h.appendChild(e);},1)";
 
         public static readonly ResourceLink LoadingSpinner = new ResourceLink("https://ton.twimg.com/tduck/spinner", ResourceHandler.FromByteArray(Properties.Resources.spinner, "image/apng"));
         

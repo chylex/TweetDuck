@@ -118,14 +118,18 @@ namespace TweetDuck.Core{
         }
 
         private void browser_FrameLoadStart(object sender, FrameLoadStartEventArgs e){
-            if (e.Frame.IsMain){
+            IFrame frame = e.Frame;
+
+            if (frame.IsMain){
                 if (Program.UserConfig.ZoomLevel != 100){
                     BrowserUtils.SetZoomLevel(browser.GetBrowser(), Program.UserConfig.ZoomLevel);
                 }
 
-                if (TwitterUtils.IsTwitterWebsite(e.Frame)){
-                    ScriptLoader.ExecuteFile(e.Frame, "twitter.js");
+                if (TwitterUtils.IsTwitterWebsite(frame)){
+                    ScriptLoader.ExecuteFile(frame, "twitter.js");
                 }
+                
+                frame.ExecuteJavaScriptAsync(TwitterUtils.BackgroundColorOverride);
             }
         }
 
@@ -133,8 +137,6 @@ namespace TweetDuck.Core{
             IFrame frame = e.Frame;
 
             if (frame.IsMain && TwitterUtils.IsTweetDeckWebsite(frame)){
-                frame.ExecuteJavaScriptAsync(TwitterUtils.BackgroundColorOverride);
-
                 UpdateProperties();
                 TweetDeckBridge.RestoreSessionData(frame);
                 ScriptLoader.ExecuteFile(frame, "code.js");
