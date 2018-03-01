@@ -542,7 +542,8 @@
     let me = $(this)[0];
     
     if (me.classList.contains("js-media-image-link") && highlightedTweetObj){
-      let media = (highlightedTweetObj.quotedTweet || highlightedTweetObj).getMedia().find(media => media.mediaId === me.getAttribute("data-media-entity-id"));
+      let tweet = highlightedTweetObj.hasMedia() ? highlightedTweetObj : highlightedTweetObj.quotedTweet;
+      let media = tweet.getMedia().find(media => media.mediaId === me.getAttribute("data-media-entity-id"));
       
       if ((media.isVideo && media.service === "twitter") || media.isAnimatedGif){
         $TD.setLastRightClickInfo("video", media.chooseVideoVariant().url);
@@ -640,7 +641,7 @@
           let tweetUrl = tweet.getChirpURL();
           let quoteUrl = tweet.quotedTweet ? tweet.quotedTweet.getChirpURL() : "";
           let authors = tweet.quotedTweet ? [ tweet.getMainUser().screenName, tweet.quotedTweet.getMainUser().screenName ].join(";") : tweet.getMainUser().screenName;
-          let imageList = tweet.quotedTweet && tweet.quotedTweet.hasImage() ? processMedia(tweet.quotedTweet) : tweet.hasImage() ? processMedia(tweet) : "";
+          let imageList = tweet.hasImage() ? processMedia(tweet) : tweet.quotedTweet && tweet.quotedTweet.hasImage() ? processMedia(tweet.quotedTweet) : "";
           
           updateHighlightedTweet(me, tweet, tweetUrl || "", quoteUrl || "", authors, imageList);
         }
