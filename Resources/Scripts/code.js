@@ -595,22 +595,15 @@
   // Block: Update highlighted column and tweet for context menu and other functionality.
   //
   (function(){
-    var lastTweet = "";
-    
     const updateHighlightedColumn = function(ele){
       highlightedColumnEle = ele;
       highlightedColumnObj = ele ? TD.controller.columnManager.get(ele.attr("data-column")) : null;
       return !!highlightedColumnObj;
     };
     
-    const updateHighlightedTweet = function(ele, obj, tweetUrl, quoteUrl, authors, imageList){
+    const updateHighlightedTweet = function(ele, obj){
       highlightedTweetEle = ele;
       highlightedTweetObj = obj;
-      
-      if (lastTweet !== tweetUrl){
-        $TD.setLastHighlightedTweet(tweetUrl, quoteUrl, authors, imageList);
-        lastTweet = tweetUrl;
-      }
     };
     
     const processMedia = function(chirp){
@@ -626,6 +619,19 @@
       
       mouseleave: function(){
         updateHighlightedColumn(null);
+      },
+      
+      contextmenu: function(){
+        let tweet = highlightedTweetObj;
+        
+        if (tweet && tweet.chirpType === TD.services.ChirpBase.TWEET){
+          let tweetUrl = tweet.getChirpURL();
+          let quoteUrl = tweet.quotedTweet ? tweet.quotedTweet.getChirpURL() : "";
+          let chirpAuthors = tweet.quotedTweet ? [ tweet.getMainUser().screenName, tweet.quotedTweet.getMainUser().screenName ].join(";") : tweet.getMainUser().screenName;
+          let chirpImages = tweet.hasImage() ? processMedia(tweet) : tweet.quotedTweet && tweet.quotedTweet.hasImage() ? processMedia(tweet.quotedTweet) : "";
+          
+          $TD.setRightClickedChirp(tweetUrl || "", quoteUrl || "", chirpAuthors, chirpImages);
+        }
       }
     });
     
@@ -637,21 +643,11 @@
         let tweet = highlightedColumnObj.findChirp(me.attr("data-tweet-id")) || highlightedColumnObj.findChirp(me.attr("data-key"));
         return if !tweet;
         
-        if (tweet.chirpType === TD.services.ChirpBase.TWEET){
-          let tweetUrl = tweet.getChirpURL();
-          let quoteUrl = tweet.quotedTweet ? tweet.quotedTweet.getChirpURL() : "";
-          let authors = tweet.quotedTweet ? [ tweet.getMainUser().screenName, tweet.quotedTweet.getMainUser().screenName ].join(";") : tweet.getMainUser().screenName;
-          let imageList = tweet.hasImage() ? processMedia(tweet) : tweet.quotedTweet && tweet.quotedTweet.hasImage() ? processMedia(tweet.quotedTweet) : "";
-          
-          updateHighlightedTweet(me, tweet, tweetUrl || "", quoteUrl || "", authors, imageList);
-        }
-        else{
-          updateHighlightedTweet(me, tweet, "", "", "", "");
-        }
+        updateHighlightedTweet(me, tweet);
       },
       
       mouseleave: function(){
-        updateHighlightedTweet(null, null, "", "", "", "");
+        updateHighlightedTweet(null, null);
       }
     });
   })();

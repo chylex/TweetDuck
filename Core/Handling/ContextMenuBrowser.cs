@@ -1,8 +1,6 @@
 ﻿using CefSharp;
 using System.Windows.Forms;
-using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
-using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Handling{
     sealed class ContextMenuBrowser : ContextMenuBase{
@@ -26,10 +24,7 @@ namespace TweetDuck.Core.Handling{
         private const string TitleAboutProgram = "About "+Program.BrandName;
 
         private readonly FormBrowser form;
-
-        private string lastHighlightedTweetUrl;
-        private string lastHighlightedQuoteUrl;
-
+        
         public ContextMenuBrowser(FormBrowser form) : base(form){
             this.form = form;
         }
@@ -52,20 +47,12 @@ namespace TweetDuck.Core.Handling{
 
             base.OnBeforeContextMenu(browserControl, browser, frame, parameters, model);
 
-            lastHighlightedTweetUrl = TweetDeckBridge.LastHighlightedTweetUrl;
-            lastHighlightedQuoteUrl = TweetDeckBridge.LastHighlightedQuoteUrl;
-
-            if (!TwitterUtils.IsTweetDeckWebsite(frame) || browser.IsLoading){
-                lastHighlightedTweetUrl = string.Empty;
-                lastHighlightedQuoteUrl = string.Empty;
-            }
-
-            if (!string.IsNullOrEmpty(lastHighlightedTweetUrl) && (parameters.TypeFlags & (ContextMenuType.Editable | ContextMenuType.Selection)) == 0){
+            if (!string.IsNullOrEmpty(LastChirp.TweetUrl) && (parameters.TypeFlags & (ContextMenuType.Editable | ContextMenuType.Selection)) == 0){
                 model.AddItem(MenuOpenTweetUrl, "Open tweet in browser");
                 model.AddItem(MenuCopyTweetUrl, "Copy tweet address");
                 model.AddItem(MenuScreenshotTweet, "Screenshot tweet to clipboard");
 
-                if (!string.IsNullOrEmpty(lastHighlightedQuoteUrl)){
+                if (!string.IsNullOrEmpty(LastChirp.QuoteUrl)){
                     model.AddSeparator();
                     model.AddItem(MenuOpenQuotedTweetUrl, "Open quoted tweet in browser");
                     model.AddItem(MenuCopyQuotedTweetUrl, "Copy quoted tweet address");
@@ -126,11 +113,11 @@ namespace TweetDuck.Core.Handling{
                     return true;
 
                 case MenuOpenTweetUrl:
-                    OpenBrowser(form, lastHighlightedTweetUrl);
+                    OpenBrowser(form, LastChirp.TweetUrl);
                     return true;
 
                 case MenuCopyTweetUrl:
-                    SetClipboardText(form, lastHighlightedTweetUrl);
+                    SetClipboardText(form, LastChirp.TweetUrl);
                     return true;
 
                 case MenuScreenshotTweet:
@@ -138,11 +125,11 @@ namespace TweetDuck.Core.Handling{
                     return true;
 
                 case MenuOpenQuotedTweetUrl:
-                    OpenBrowser(form, lastHighlightedQuoteUrl);
+                    OpenBrowser(form, LastChirp.QuoteUrl);
                     return true;
 
                 case MenuCopyQuotedTweetUrl:
-                    SetClipboardText(form, lastHighlightedQuoteUrl);
+                    SetClipboardText(form, LastChirp.QuoteUrl);
                     return true;
 
                 case MenuInputApplyROT13:

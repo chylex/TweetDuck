@@ -3,7 +3,7 @@ using System.Text;
 using System.Windows.Forms;
 using CefSharp;
 using TweetDuck.Core.Controls;
-using TweetDuck.Core.Handling;
+using TweetDuck.Core.Management;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Utils;
@@ -13,20 +13,12 @@ namespace TweetDuck.Core.Bridge{
     class TweetDeckBridge{
         public static string FontSize { get; private set; }
         public static string NotificationHeadLayout { get; private set; }
-
-        public static string LastHighlightedTweetUrl = string.Empty;
-        public static string LastHighlightedQuoteUrl = string.Empty;
-        private static string LastHighlightedTweetAuthors = string.Empty;
-        private static string LastHighlightedTweetImages = string.Empty;
-
-        public static string[] LastHighlightedTweetAuthorsArray => LastHighlightedTweetAuthors.Split(';');
-        public static string[] LastHighlightedTweetImagesArray => LastHighlightedTweetImages.Split(';');
+        public static readonly ContextInfo ContextInfo = new ContextInfo();
 
         private static readonly Dictionary<string, string> SessionData = new Dictionary<string, string>(2);
 
         public static void ResetStaticProperties(){
             FontSize = NotificationHeadLayout = null;
-            LastHighlightedTweetUrl = LastHighlightedQuoteUrl = LastHighlightedTweetAuthors = LastHighlightedTweetImages = string.Empty;
         }
 
         public static void RestoreSessionData(IFrame frame){
@@ -72,13 +64,8 @@ namespace TweetDuck.Core.Bridge{
                 });
             }
 
-            public void SetLastHighlightedTweet(string tweetUrl, string quoteUrl, string authors, string imageList){
-                form.InvokeAsyncSafe(() => {
-                    LastHighlightedTweetUrl = tweetUrl;
-                    LastHighlightedQuoteUrl = quoteUrl;
-                    LastHighlightedTweetAuthors = authors;
-                    LastHighlightedTweetImages = imageList;
-                });
+            public void SetRightClickedChirp(string tweetUrl, string quoteUrl, string chirpAuthors, string chirpImages){
+                ContextInfo.SetChirp(tweetUrl, quoteUrl, chirpAuthors, chirpImages);
             }
 
             public void DisplayTooltip(string text){
@@ -112,8 +99,8 @@ namespace TweetDuck.Core.Bridge{
 
         // Global
 
-        public void SetLastRightClickInfo(string type, string link){
-            form.InvokeAsyncSafe(() => ContextMenuBase.SetContextInfo(type, link));
+        public void SetLastRightClickInfo(string type, string url){
+            ContextInfo.SetLink(type, url);
         }
 
         public void OnTweetPopup(string columnId, string chirpId, string columnName, string tweetHtml, int tweetCharacters, string tweetUrl, string quoteUrl){
