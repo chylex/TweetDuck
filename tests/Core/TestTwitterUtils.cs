@@ -21,7 +21,19 @@ namespace UnitTests.Core{
             Assert.IsFalse(TwitterUtils.RegexAccount.IsMatch("http://twitter.com/"));
             Assert.IsFalse(TwitterUtils.RegexAccount.IsMatch("http://twitter.com/chylexmc/status"));
             Assert.IsFalse(TwitterUtils.RegexAccount.IsMatch("http://nottwitter.com/chylexmc"));
+            Assert.IsFalse(TwitterUtils.RegexAccount.IsMatch("https://twitter.com/chylexmc?"));
             Assert.IsFalse(TwitterUtils.RegexAccount.IsMatch("www.twitter.com/chylexmc"));
+            
+            Assert.IsFalse(TwitterUtils.RegexAccount.IsMatch("https://twitter.com/signup"));
+            Assert.IsFalse(TwitterUtils.RegexAccount.IsMatch("https://twitter.com/tos"));
+            Assert.IsFalse(TwitterUtils.RegexAccount.IsMatch("https://twitter.com/privacy"));
+            Assert.IsFalse(TwitterUtils.RegexAccount.IsMatch("https://twitter.com/search"));
+            Assert.IsFalse(TwitterUtils.RegexAccount.IsMatch("https://twitter.com/search?query"));
+            Assert.IsFalse(TwitterUtils.RegexAccount.IsMatch("https://twitter.com/search-home"));
+            Assert.IsFalse(TwitterUtils.RegexAccount.IsMatch("https://twitter.com/search-advanced"));
+            
+            Assert.IsTrue(TwitterUtils.RegexAccount.IsMatch("https://twitter.com/tosser"));
+            Assert.IsTrue(TwitterUtils.RegexAccount.IsMatch("https://twitter.com/searching"));
         }
 
         [TestMethod]
