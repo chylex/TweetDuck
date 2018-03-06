@@ -9,16 +9,7 @@ using TweetLib.Communication;
 
 namespace TweetDuck.Core.Management{
     sealed class VideoPlayer : IDisposable{
-        public bool Running{
-            get{
-                if (currentProcess == null){
-                    return false;
-                }
-
-                currentProcess.Refresh();
-                return !currentProcess.HasExited;
-            }
-        }
+        public bool Running => currentInstance != null && currentInstance.Running;
 
         public event EventHandler ProcessExited;
 
@@ -26,8 +17,7 @@ namespace TweetDuck.Core.Management{
         private string lastUrl;
         private string lastUsername;
 
-        private Process currentProcess;
-        private DuplexPipe.Server currentPipe;
+        private Instance currentInstance;
         private bool isClosing;
 
         public VideoPlayer(FormBrowser owner){
@@ -45,33 +35,41 @@ namespace TweetDuck.Core.Management{
             lastUsername = username;
             
             try{
-                currentPipe = DuplexPipe.CreateServer();
-                currentPipe.DataIn += currentPipe_DataIn;
+                DuplexPipe.Server pipe = DuplexPipe.CreateServer();
+                pipe.DataIn += pipe_DataIn;
 
-                if ((currentProcess = Process.Start(new ProcessStartInfo{
+                Process process;
+
+                if ((process = Process.Start(new ProcessStartInfo{
                     FileName = Path.Combine(Program.ProgramPath, "TweetDuck.Video.exe"),
-                    Arguments = $"{owner.Handle} {Program.UserConfig.VideoPlayerVolume} \"{url}\" \"{currentPipe.GenerateToken()}\"",
+                    Arguments = $"{owner.Handle} {Program.UserConfig.VideoPlayerVolume} \"{url}\" \"{pipe.GenerateToken()}\"",
                     UseShellExecute = false,
                     RedirectStandardOutput = true
                 })) != null){
-                    currentProcess.EnableRaisingEvents = true;
-                    currentProcess.Exited += process_Exited;
-                    
-                    currentProcess.BeginOutputReadLine();
-                    currentProcess.OutputDataReceived += process_OutputDataReceived;
-                }
+                    currentInstance = new Instance(process, pipe);
 
-                currentPipe.DisposeToken();
+                    process.EnableRaisingEvents = true;
+                    process.Exited += process_Exited;
+                    
+                    process.BeginOutputReadLine();
+                    process.OutputDataReceived += process_OutputDataReceived;
+
+                    pipe.DisposeToken();
+                }
+                else{
+                    pipe.DataIn -= pipe_DataIn;
+                    pipe.Dispose();
+                }
             }catch(Exception e){
                 Program.Reporter.HandleException("Video Playback Error", "Error launching video player.", true, e);
             }
         }
 
         public void SendKeyEvent(Keys key){
-            currentPipe?.Write("key", ((int)key).ToString());
+            currentInstance?.Pipe.Write("key", ((int)key).ToString());
         }
 
-        private void currentPipe_DataIn(object sender, DuplexPipe.PipeReadEventArgs e){
+        private void pipe_DataIn(object sender, DuplexPipe.PipeReadEventArgs e){
             owner.InvokeSafe(() => {
                 switch(e.Key){
                     case "vol":
@@ -83,16 +81,16 @@ namespace TweetDuck.Core.Management{
                         break;
 
                     case "download":
-                        owner.AnalyticsFile.DownloadedVideos.Trigger();
-                        TwitterUtils.DownloadVideo(lastUrl, lastUsername);
+                        if (!string.IsNullOrEmpty(lastUrl)){
+                            owner.AnalyticsFile.DownloadedVideos.Trigger();
+                            TwitterUtils.DownloadVideo(lastUrl, lastUsername);
+                        }
+
                         break;
 
                     case "rip":
-                        currentPipe.Dispose();
-                        currentPipe = null;
-                    
-                        currentProcess.Dispose();
-                        currentProcess = null;
+                        currentInstance?.Dispose();
+                        currentInstance = null;
 
                         isClosing = false;
                         TriggerProcessExitEventUnsafe();
@@ -102,15 +100,15 @@ namespace TweetDuck.Core.Management{
         }
 
         public void Close(){
-            if (currentProcess != null){
+            if (currentInstance != null){
                 if (isClosing){
                     Destroy();
                     isClosing = false;
                 }
                 else{
                     isClosing = true;
-                    currentProcess.Exited -= process_Exited;
-                    currentPipe.Write("die");
+                    currentInstance.Process.Exited -= process_Exited;
+                    currentInstance.Pipe.Write("die");
                 }
             }
         }
@@ -123,26 +121,17 @@ namespace TweetDuck.Core.Management{
         }
 
         private void Destroy(){
-            if (currentProcess != null){
-                try{
-                    currentProcess.Kill();
-                }catch{
-                    // kill me instead then
-                }
-
-                currentProcess.Dispose();
-                currentProcess = null;
-                
-                currentPipe.Dispose();
-                currentPipe = null;
+            if (currentInstance != null){
+                currentInstance.KillAndDispose();
+                currentInstance = null;
 
                 TriggerProcessExitEventUnsafe();
             }
         }
 
         private void owner_FormClosing(object sender, FormClosingEventArgs e){
-            if (currentProcess != null){
-                currentProcess.Exited -= process_Exited;
+            if (currentInstance != null){
+                currentInstance.Process.Exited -= process_Exited;
             }
         }
 
@@ -153,13 +142,14 @@ namespace TweetDuck.Core.Management{
         }
 
         private void process_Exited(object sender, EventArgs e){
-            int exitCode = currentProcess.ExitCode;
+            if (currentInstance == null){
+                return;
+            }
 
-            currentProcess.Dispose();
-            currentProcess = null;
+            int exitCode = currentInstance.Process.ExitCode;
 
-            currentPipe.Dispose();
-            currentPipe = null;
+            currentInstance.Dispose();
+            currentInstance = null;
 
             switch(exitCode){
                 case 3: // CODE_LAUNCH_FAIL
@@ -182,6 +172,38 @@ namespace TweetDuck.Core.Management{
 
         private void TriggerProcessExitEventUnsafe(){
             ProcessExited?.Invoke(this, EventArgs.Empty);
+        }
+
+        private sealed class Instance : IDisposable{
+            public bool Running{
+                get{
+                    Process.Refresh();
+                    return !Process.HasExited;
+                }
+            }
+
+            public Process Process { get; }
+            public DuplexPipe.Server Pipe { get; }
+
+            public Instance(Process process, DuplexPipe.Server pipe){
+                this.Process = process;
+                this.Pipe = pipe;
+            }
+
+            public void KillAndDispose(){
+                try{
+                    Process.Kill();
+                }catch{
+                    // kill me instead then
+                }
+
+                Dispose();
+            }
+
+            public void Dispose(){
+                Process.Dispose();
+                Pipe.Dispose();
+            }
         }
     }
 }
