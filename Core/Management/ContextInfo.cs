@@ -1,5 +1,4 @@
 ﻿using CefSharp;
-using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Management{
     sealed class ContextInfo{
@@ -51,8 +50,8 @@ namespace TweetDuck.Core.Management{
             public string TweetUrl { get; }
             public string QuoteUrl { get; }
 
-            public string[] Authors => chirpAuthors?.Split(';') ?? StringUtils.EmptyArray;
-            public string[] Images => chirpImages?.Split(';') ?? StringUtils.EmptyArray;
+            public string[] Authors => chirpAuthors.Split(';');
+            public string[] Images => chirpImages.Split(';');
             
             private readonly string chirpAuthors;
             private readonly string chirpImages;

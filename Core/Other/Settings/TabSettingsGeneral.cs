@@ -17,6 +17,7 @@ namespace TweetDuck.Core.Other.Settings{
         private readonly int browserListIndexCustom;
 
         public TabSettingsGeneral(FormBrowser browser, UpdateHandler updates){
+        #pragma warning restore CS8618
             InitializeComponent();
 
             this.browser = browser;

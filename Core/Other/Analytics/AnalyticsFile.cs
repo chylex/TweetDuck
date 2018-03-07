@@ -21,7 +21,7 @@ namespace TweetDuck.Core.Other.Analytics{
             });
         }
 
-        public static readonly AnalyticsFile Dummy = new AnalyticsFile(null);
+        public static readonly AnalyticsFile Dummy = new AnalyticsFile();
 
         // STATE PROPERTIES
         
@@ -65,6 +65,10 @@ namespace TweetDuck.Core.Other.Analytics{
         
         private AnalyticsFile(string file){
             this.file = file;
+        }
+
+        private AnalyticsFile(){
+            this.file = null;
         }
 
         private void SetupProperties(){
