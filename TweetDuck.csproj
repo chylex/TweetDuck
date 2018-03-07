@@ -291,6 +291,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Reporter.cs" />
+    <Compile Include="Updates\Events\UpdateCheckEventArgs.cs" />
     <Compile Include="Updates\FormUpdateDownload.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -312,7 +313,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ScriptLoader.cs" />
-    <Compile Include="Updates\UpdateEventArgs.cs" />
+    <Compile Include="Updates\Events\UpdateEventArgs.cs" />
     <Compile Include="Updates\UpdaterSettings.cs" />
   </ItemGroup>
   <ItemGroup>
