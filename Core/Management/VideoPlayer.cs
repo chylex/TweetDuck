@@ -78,7 +78,7 @@ namespace TweetDuck.Core.Management{
                     case "download":
                         if (currentInstance != null){
                             owner.AnalyticsFile.DownloadedVideos.Trigger();
-                            TwitterUtils.DownloadVideo(currentInstance!.Url, currentInstance!.Username);
+                            TwitterUtils.DownloadVideo(currentInstance.Url, currentInstance.Username);
                         }
 
                         break;
@@ -141,8 +141,8 @@ namespace TweetDuck.Core.Management{
                 return;
             }
 
-            int exitCode = currentInstance!.Process.ExitCode;
-            string url = currentInstance!.Url;
+            int exitCode = currentInstance.Process.ExitCode;
+            string url = currentInstance.Url;
 
             currentInstance.Dispose();
             currentInstance = null;
@@ -182,9 +182,9 @@ namespace TweetDuck.Core.Management{
             public DuplexPipe.Server Pipe { get; }
 
             public string Url { get; }
-            public string? Username { get; }
+            public string Username { get; }
 
-            public Instance(Process process, DuplexPipe.Server pipe, string url, string? username){
+            public Instance(Process process, DuplexPipe.Server pipe, string url, string username){
                 this.Process = process;
                 this.Pipe = pipe;
                 this.Url = url;

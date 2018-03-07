@@ -47,12 +47,12 @@ namespace TweetDuck.Core.Handling{
 
             base.OnBeforeContextMenu(browserControl, browser, frame, parameters, model);
 
-            if (!string.IsNullOrEmpty(LastChirp.TweetUrl!) && (parameters.TypeFlags & (ContextMenuType.Editable | ContextMenuType.Selection)) == 0){
+            if (!string.IsNullOrEmpty(LastChirp.TweetUrl) && (parameters.TypeFlags & (ContextMenuType.Editable | ContextMenuType.Selection)) == 0){
                 model.AddItem(MenuOpenTweetUrl, "Open tweet in browser");
                 model.AddItem(MenuCopyTweetUrl, "Copy tweet address");
                 model.AddItem(MenuScreenshotTweet, "Screenshot tweet to clipboard");
 
-                if (!string.IsNullOrEmpty(LastChirp.QuoteUrl!)){
+                if (!string.IsNullOrEmpty(LastChirp.QuoteUrl)){
                     model.AddSeparator();
                     model.AddItem(MenuOpenQuotedTweetUrl, "Open quoted tweet in browser");
                     model.AddItem(MenuCopyQuotedTweetUrl, "Copy quoted tweet address");

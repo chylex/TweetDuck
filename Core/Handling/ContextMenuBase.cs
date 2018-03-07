@@ -38,8 +38,8 @@ namespace TweetDuck.Core.Handling{
         }
 
         private void ResetContextInfo(){
-            LastLink = default;
-            LastChirp = default;
+            LastLink = default(ContextInfo.LinkInfo);
+            LastChirp = default(ContextInfo.ChirpInfo);
             TweetDeckBridge.ContextInfo.Reset();
         }
 
@@ -182,11 +182,11 @@ namespace TweetDuck.Core.Handling{
             return false;
         }
 
-        protected void OpenBrowser(Control control, string? url){
+        protected void OpenBrowser(Control control, string url){
             control.InvokeAsyncSafe(() => BrowserUtils.OpenExternalBrowser(url));
         }
 
-        protected void SetClipboardText(Control control, string? text){
+        protected void SetClipboardText(Control control, string text){
             control.InvokeAsyncSafe(() => WindowsUtils.SetClipboard(text ?? string.Empty, TextDataFormat.UnicodeText));
         }
         
