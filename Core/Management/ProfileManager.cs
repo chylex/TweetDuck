@@ -23,7 +23,6 @@ namespace TweetDuck.Core.Management{
         }
 
         public bool IsRestarting { get; private set; }
-        public Exception LastException { get; private set; }
 
         private readonly string file;
         private readonly PluginManager plugins;
@@ -67,7 +66,7 @@ namespace TweetDuck.Core.Management{
 
                 return true;
             }catch(Exception e){
-                LastException = e;
+                Program.Reporter.HandleException("Profile Export Error", "An exception happened while exporting TweetDuck profile.", true, e);
                 return false;
             }
         }
@@ -100,8 +99,7 @@ namespace TweetDuck.Core.Management{
                         }
                     }
                 }
-            }catch(Exception e){
-                LastException = e;
+            }catch(Exception){
                 items = Items.None;
             }
 
@@ -164,12 +162,12 @@ namespace TweetDuck.Core.Management{
                 }
 
                 if (missingPlugins.Count > 0){
-                    FormMessage.Information("Importing TweetDuck Profile", "Detected missing plugins when importing plugin data:\n"+string.Join("\n", missingPlugins), FormMessage.OK);
+                    FormMessage.Information("Profile Import", "Detected missing plugins when importing plugin data:\n"+string.Join("\n", missingPlugins), FormMessage.OK);
                 }
 
                 return true;
             }catch(Exception e){
-                LastException = e;
+                Program.Reporter.HandleException("Profile Import Error", "An exception happened while importing TweetDuck profile.", true, e);
                 return false;
             }
         }

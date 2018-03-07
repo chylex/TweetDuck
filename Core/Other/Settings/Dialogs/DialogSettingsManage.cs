@@ -164,9 +164,6 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                             ShouldReloadBrowser = true;
                         }
                     }
-                    else{
-                        Program.Reporter.HandleException("Profile Import Error", "An exception happened while importing TweetDuck profile.", true, importManager.LastException);
-                    }
                     
                     DialogResult = DialogResult.OK;
                     Close();
@@ -191,12 +188,8 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
 
                     Program.UserConfig.Save();
                     Program.SystemConfig.Save();
-
-                    ProfileManager manager = new ProfileManager(file, plugins);
-
-                    if (!manager.Export(SelectedItems)){
-                        Program.Reporter.HandleException("Profile Export Error", "An exception happened while exporting TweetDuck profile.", true, manager.LastException);
-                    }
+                    
+                    new ProfileManager(file, plugins).Export(SelectedItems);
 
                     DialogResult = DialogResult.OK;
                     Close();
