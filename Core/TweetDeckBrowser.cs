@@ -211,7 +211,7 @@ namespace TweetDuck.Core{
         }
 
         public void InjectBrowserCSS(){
-            browser.ExecuteScriptAsync("TDGF_injectBrowserCSS", ScriptLoader.LoadResource("styles/browser.css").TrimEnd());
+            browser.ExecuteScriptAsync("TDGF_injectBrowserCSS", ScriptLoader.LoadResource("styles/browser.css")?.TrimEnd() ?? string.Empty);
         }
 
         public void ReinjectCustomCSS(string css){

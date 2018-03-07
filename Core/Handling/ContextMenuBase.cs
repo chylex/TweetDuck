@@ -132,7 +132,7 @@ namespace TweetDuck.Core.Handling{
                     }
 
                     string url = LastLink.GetMediaSource(parameters);
-                    string file = Path.Combine(BrowserCache.CacheFolder, TwitterUtils.GetImageFileName(url));
+                    string file = Path.Combine(BrowserCache.CacheFolder, TwitterUtils.GetImageFileName(url) ?? Path.GetRandomFileName());
 
                     if (File.Exists(file)){
                         ViewImage(file);
@@ -187,7 +187,7 @@ namespace TweetDuck.Core.Handling{
         }
 
         protected void SetClipboardText(Control control, string text){
-            control.InvokeAsyncSafe(() => WindowsUtils.SetClipboard(text, TextDataFormat.UnicodeText));
+            control.InvokeAsyncSafe(() => WindowsUtils.SetClipboard(text ?? string.Empty, TextDataFormat.UnicodeText));
         }
         
         protected static void AddDebugMenuItems(IMenuModel model){

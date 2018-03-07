@@ -36,7 +36,7 @@ namespace TweetDuck.Plugins.Controls{
                 labelDescription.Visible = false;
             }
 
-            panelDescription_Resize(panelDescription, null);
+            panelDescription_Resize(panelDescription, EventArgs.Empty);
         }
 
         private void panelDescription_Resize(object sender, EventArgs e){

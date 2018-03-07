@@ -170,7 +170,7 @@ namespace TweetDuck.Core.Other.Settings{
             }
         }
 
-        private void updates_CheckFinished(object sender, UpdateEventArgs e){
+        private void updates_CheckFinished(object sender, UpdateCheckEventArgs e){
             this.InvokeAsyncSafe(() => {
                 if (e.EventId == updateCheckEventId){
                     btnCheckUpdates.Enabled = true;

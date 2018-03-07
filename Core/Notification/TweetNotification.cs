@@ -8,7 +8,7 @@ using TweetDuck.Resources;
 namespace TweetDuck.Core.Notification{
     sealed class TweetNotification{
         private const string DefaultHeadLayout = @"<html id='tduck' class='os-windows txt-size--14' data-td-font='medium' data-td-theme='dark'><head><meta charset='utf-8'><meta http-equiv='X-UA-Compatible' content='chrome=1'><link rel='stylesheet' href='https://ton.twimg.com/tweetdeck-web/web/css/font.5ef884f9f9.css'><link rel='stylesheet' href='https://ton.twimg.com/tweetdeck-web/web/css/app-dark.5631e0dd42.css'><style type='text/css'>body{background:#222426}</style>";
-        private static readonly string CustomCSS = ScriptLoader.LoadResource("styles/notification.css");
+        private static readonly string CustomCSS = ScriptLoader.LoadResource("styles/notification.css") ?? string.Empty;
         public static readonly ResourceLink AppLogo = new ResourceLink("https://ton.twimg.com/tduck/avatar", ResourceHandler.FromByteArray(Properties.Resources.avatar, "image/png"));
 
         public static TweetNotification Example(string html, int characters){

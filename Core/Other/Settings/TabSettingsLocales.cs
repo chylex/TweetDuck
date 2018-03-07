@@ -42,12 +42,12 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void comboBoxSpellCheckLanguage_SelectedValueChanged(object sender, EventArgs e){
-            Config.SpellCheckLanguage = (comboBoxSpellCheckLanguage.SelectedItem as LocaleUtils.Item)?.Code;
+            Config.SpellCheckLanguage = (comboBoxSpellCheckLanguage.SelectedItem as LocaleUtils.Item)?.Code ?? "en-US";
             PromptRestart();
         }
 
         private void comboBoxTranslationTarget_SelectedValueChanged(object sender, EventArgs e){
-            Config.TranslationTarget = (comboBoxTranslationTarget.SelectedItem as LocaleUtils.Item)?.Code;
+            Config.TranslationTarget = (comboBoxTranslationTarget.SelectedItem as LocaleUtils.Item)?.Code ?? "en";
         }
     }
 }

@@ -151,10 +151,9 @@ namespace TweetDuck{
 
             Application.ApplicationExit += (sender, args) => ExitCleanup();
 
-            UpdaterSettings updaterSettings = new UpdaterSettings{
+            UpdaterSettings updaterSettings = new UpdaterSettings(InstallerPath){
                 AllowPreReleases = Arguments.HasFlag(Arguments.ArgDebugUpdates),
-                DismissedUpdate = UserConfig.DismissedUpdate,
-                InstallerDownloadFolder = InstallerPath
+                DismissedUpdate = UserConfig.DismissedUpdate
             };
 
             FormBrowser mainForm = new FormBrowser(updaterSettings);

@@ -16,7 +16,7 @@ namespace TweetDuck.Updates{
 
         public event EventHandler<UpdateEventArgs> UpdateAccepted;
         public event EventHandler<UpdateEventArgs> UpdateDismissed;
-        public event EventHandler<UpdateEventArgs> CheckFinished;
+        public event EventHandler<UpdateCheckEventArgs> CheckFinished;
 
         private ushort lastEventId;
         private UpdateInfo lastUpdateInfo;
@@ -93,7 +93,7 @@ namespace TweetDuck.Updates{
             UpdateDismissed?.Invoke(this, args);
         }
 
-        private void TriggerCheckFinishedEvent(UpdateEventArgs args){
+        private void TriggerCheckFinishedEvent(UpdateCheckEventArgs args){
             CheckFinished?.Invoke(this, args);
         }
 
@@ -114,8 +114,8 @@ namespace TweetDuck.Updates{
                     owner.lastUpdateInfo = new UpdateInfo(owner.settings, eventId, versionTag, downloadUrl);
                     owner.lastUpdateInfo.BeginSilentDownload();
                 }
-
-                owner.TriggerCheckFinishedEvent(new UpdateEventArgs(eventId, owner.lastUpdateInfo));
+                
+                owner.TriggerCheckFinishedEvent(new UpdateCheckEventArgs(eventId, owner.lastUpdateInfo != null));
             }
 
             public void OnUpdateAccepted(){

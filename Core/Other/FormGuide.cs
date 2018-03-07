@@ -58,11 +58,8 @@ namespace TweetDuck.Core.Other{
             InitializeComponent();
 
             Text = Program.BrandName+" Guide";
-
-            if (owner != null){
-                Size = new Size(owner.Size.Width*3/4, owner.Size.Height*3/4);
-                VisibleChanged += (sender, args) => this.MoveToCenter(owner);
-            }
+            Size = new Size(owner.Size.Width*3/4, owner.Size.Height*3/4);
+            VisibleChanged += (sender, args) => this.MoveToCenter(owner);
             
             this.browser = new ChromiumWebBrowser(url){
                 MenuHandler = new ContextMenuGuide(owner),

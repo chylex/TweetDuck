@@ -11,7 +11,12 @@ namespace TweetDuck.Core.Management{
         }
         
         public void SetLink(string type, string url){
-            Link = new LinkInfo(string.IsNullOrEmpty(url) ? null : type, url);
+            if (string.IsNullOrEmpty(url)){
+                Link = new LinkInfo();
+            }
+            else{
+                Link = new LinkInfo(type, url);
+            }
         }
 
         public void SetChirp(string tweetUrl, string quoteUrl, string chirpAuthors, string chirpImages){
