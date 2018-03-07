@@ -79,11 +79,11 @@ namespace TweetDuck.Core.Handling{
                     return true;
 
                 case MenuCopyTweetUrl:
-                    SetClipboardText(form, form.CurrentTweetUrl ?? string.Empty);
+                    SetClipboardText(form, form.CurrentTweetUrl);
                     return true;
 
                 case MenuCopyQuotedTweetUrl:
-                    SetClipboardText(form, form.CurrentQuoteUrl ?? string.Empty);
+                    SetClipboardText(form, form.CurrentQuoteUrl);
                     return true;
             }
 

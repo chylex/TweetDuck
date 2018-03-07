@@ -197,15 +197,23 @@ namespace TweetDuck.Core.Management{
         }
 
         private static IEnumerable<PathInfo> EnumerateFilesRelative(string root){
-            return Directory.Exists(root) ? Directory.EnumerateFiles(root, "*.*", SearchOption.AllDirectories).Select(fullPath => new PathInfo{
-                Full = fullPath,
-                Relative = fullPath.Substring(root.Length).TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) // strip leading separator character
-            }) : Enumerable.Empty<PathInfo>();
+            if (Directory.Exists(root)){
+                int rootLength = root.Length;
+                return Directory.EnumerateFiles(root, "*.*", SearchOption.AllDirectories).Select(fullPath => new PathInfo(fullPath, rootLength));
+            }
+            else{
+                return Enumerable.Empty<PathInfo>();
+            }
         }
 
         private sealed class PathInfo{
-            public string Full { get; set; }
-            public string Relative { get; set; }
+            public string Full { get; }
+            public string Relative { get; }
+
+            public PathInfo(string fullPath, int rootLength){
+                this.Full = fullPath;
+                this.Relative = fullPath.Substring(rootLength).TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar); // strip leading separator character
+            }
         }
     }
 
