@@ -187,7 +187,7 @@ namespace TweetDuck.Core.Handling{
         }
 
         protected void SetClipboardText(Control control, string text){
-            control.InvokeAsyncSafe(() => WindowsUtils.SetClipboard(text ?? string.Empty, TextDataFormat.UnicodeText));
+            control.InvokeAsyncSafe(() => WindowsUtils.SetClipboard(text, TextDataFormat.UnicodeText));
         }
         
         protected static void AddDebugMenuItems(IMenuModel model){
