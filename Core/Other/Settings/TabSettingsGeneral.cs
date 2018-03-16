@@ -9,18 +9,19 @@ using TweetDuck.Updates;
 
 namespace TweetDuck.Core.Other.Settings{
     sealed partial class TabSettingsGeneral : BaseTabSettings{
-        private readonly FormBrowser browser;
+        private readonly Action reloadColumns;
+
         private readonly UpdateHandler updates;
         private int updateCheckEventId = -1;
 
         private readonly int browserListIndexDefault;
         private readonly int browserListIndexCustom;
 
-        public TabSettingsGeneral(FormBrowser browser, UpdateHandler updates){
+        public TabSettingsGeneral(Action reloadColumns, UpdateHandler updates){
             InitializeComponent();
 
-            this.browser = browser;
-
+            this.reloadColumns = reloadColumns;
+            
             this.updates = updates;
             this.updates.CheckFinished += updates_CheckFinished;
             Disposed += (sender, args) => this.updates.CheckFinished -= updates_CheckFinished;
@@ -98,7 +99,7 @@ namespace TweetDuck.Core.Other.Settings{
 
         private void checkAnimatedAvatars_CheckedChanged(object sender, EventArgs e){
             Config.EnableAnimatedImages = checkAnimatedAvatars.Checked;
-            BrowserProcessHandler.UpdatePrefs().ContinueWith(task => browser.ReloadColumns());
+            BrowserProcessHandler.UpdatePrefs().ContinueWith(task => reloadColumns());
         }
 
         private void checkSmoothScrolling_CheckedChanged(object sender, EventArgs e){

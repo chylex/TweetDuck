@@ -1,8 +1,8 @@
 ﻿using CefSharp;
 using System;
 using System.Windows.Forms;
-using TweetDuck.Core;
 using TweetDuck.Core.Controls;
+using TweetDuck.Core.Other.Interfaces;
 using TweetDuck.Core.Utils;
 using TweetDuck.Resources;
 

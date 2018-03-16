@@ -1,7 +1,7 @@
 ﻿using System;
 using CefSharp;
 
-namespace TweetDuck.Core{
+namespace TweetDuck.Core.Other.Interfaces{
     interface ITweetDeckBrowser{
         bool IsTweetDeckWebsite { get; }
 

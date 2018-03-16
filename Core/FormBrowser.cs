@@ -38,8 +38,7 @@ namespace TweetDuck.Core{
         }
 
         public string UpdateInstallerPath { get; private set; }
-
-        public PluginManager PluginManager => plugins;
+        
         public AnalyticsFile AnalyticsFile => analytics?.File ?? AnalyticsFile.Dummy;
 
         private readonly TweetDeckBrowser browser;

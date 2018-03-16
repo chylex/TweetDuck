@@ -8,6 +8,7 @@ using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling;
 using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Notification;
+using TweetDuck.Core.Other.Interfaces;
 using TweetDuck.Core.Utils;
 using TweetDuck.Resources;
 

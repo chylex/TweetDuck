@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using TweetDuck.Core;
+using TweetDuck.Core.Other.Interfaces;
 using TweetDuck.Data;
 using TweetDuck.Plugins.Enums;
 using TweetDuck.Plugins.Events;
