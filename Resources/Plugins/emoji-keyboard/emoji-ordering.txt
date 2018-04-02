@@ -1354,18 +1354,7 @@
 2755;white exclamation mark
 2757;exclamation mark
 3030;wavy dash
-0023 FE0F 20E3;keycap #
 002A FE0F 20E3;keycap *
-0030 FE0F 20E3;keycap 0
-0031 FE0F 20E3;keycap 1
-0032 FE0F 20E3;keycap 2
-0033 FE0F 20E3;keycap 3
-0034 FE0F 20E3;keycap 4
-0035 FE0F 20E3;keycap 5
-0036 FE0F 20E3;keycap 6
-0037 FE0F 20E3;keycap 7
-0038 FE0F 20E3;keycap 8
-0039 FE0F 20E3;keycap 9
 1F51F;keycap 10
 1F4AF;hundred points
 1F520;input latin uppercase

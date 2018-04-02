@@ -59,7 +59,19 @@ Remove unsupported emoji:
 > remove copyright
 > remove registered trademark
 > remove trademark
-  0023 FE0F 20E3;keycap
+> remove keycap #
+  002A FE0F 20E3;keycap *
+> remove keycap 0
+> remove keycap 1
+> remove keycap 2
+> remove keycap 3
+> remove keycap 4
+> remove keycap 5
+> remove keycap 6
+> remove keycap 7
+> remove keycap 8
+> remove keycap 9
+  1F51F;keycap 10
   
   1F441;eye
 > remove eye in speech bubble
