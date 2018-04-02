@@ -1197,6 +1197,17 @@
   });
   
   //
+  // Block: Reorder search results to move accounts above hashtags.
+  //
+  onAppReady.push(function(){
+    let container = $(".js-search-in-popover");
+    let hashtags = $(".js-typeahead-topic-list", container);
+    
+    $(".js-typeahead-user-list", container).insertBefore(hashtags);
+    hashtags.addClass("list-divider");
+  });
+  
+  //
   // Block: Make submitting search queries while holding Ctrl or middle-clicking the search icon open the search externally.
   //
   onAppReady.push(function(){

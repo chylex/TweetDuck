@@ -195,6 +195,11 @@ a[data-full-url] {
   color: #9f51cf !important;
 }
 
+.js-typeahead-user-list.is-hidden + .js-typeahead-topic-list {
+  /* hide custom search result divider when not needed */
+  border-top: none !important;
+}
+
 /***************************************/
 /* Replace 'Stay open' with a pin icon */
 /***************************************/
