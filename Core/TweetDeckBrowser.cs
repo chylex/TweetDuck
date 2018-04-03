@@ -131,7 +131,7 @@ namespace TweetDuck.Core{
                 }
 
                 if (TwitterUtils.IsTwitterWebsite(frame)){
-                    ScriptLoader.ExecuteFile(frame, "twitter.js");
+                    ScriptLoader.ExecuteFile(frame, "twitter.js", browser);
                 }
                 
                 frame.ExecuteJavaScriptAsync(TwitterUtils.BackgroundColorOverride);
@@ -144,7 +144,7 @@ namespace TweetDuck.Core{
             if (frame.IsMain && TwitterUtils.IsTweetDeckWebsite(frame)){
                 UpdateProperties();
                 TweetDeckBridge.RestoreSessionData(frame);
-                ScriptLoader.ExecuteFile(frame, "code.js");
+                ScriptLoader.ExecuteFile(frame, "code.js", browser);
                 InjectBrowserCSS();
                 ReinjectCustomCSS(Program.UserConfig.CustomBrowserCSS);
                 UserConfig_SoundNotificationInfoChanged(null, EventArgs.Empty);
@@ -152,7 +152,7 @@ namespace TweetDuck.Core{
                 TweetDeckBridge.ResetStaticProperties();
 
                 if (Program.UserConfig.FirstRun){
-                    ScriptLoader.ExecuteFile(frame, "introduction.js");
+                    ScriptLoader.ExecuteFile(frame, "introduction.js", browser);
                 }
             }
         }
@@ -212,7 +212,7 @@ namespace TweetDuck.Core{
         }
 
         public void InjectBrowserCSS(){
-            browser.ExecuteScriptAsync("TDGF_injectBrowserCSS", ScriptLoader.LoadResource("styles/browser.css")?.TrimEnd() ?? string.Empty);
+            browser.ExecuteScriptAsync("TDGF_injectBrowserCSS", ScriptLoader.LoadResource("styles/browser.css", false, browser)?.TrimEnd() ?? string.Empty);
         }
 
         public void ReinjectCustomCSS(string css){

@@ -30,7 +30,7 @@ namespace TweetDuck.Updates{
         }
 
         private void OnFrameLoaded(IFrame frame){
-            ScriptLoader.ExecuteFile(frame, "update.js");
+            ScriptLoader.ExecuteFile(frame, "update.js"); // TODO can't show error on failure
         }
 
         public int Check(bool force){
