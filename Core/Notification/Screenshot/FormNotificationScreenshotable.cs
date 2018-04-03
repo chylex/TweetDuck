@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
 using CefSharp;
-using TweetDuck.Core.Bridge;
+using TweetDuck.Core.Controls;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Utils;
 using TweetDuck.Data;
@@ -15,19 +15,26 @@ namespace TweetDuck.Core.Notification.Screenshot{
         protected override bool CanDragWindow => false;
 
         private readonly PluginManager plugins;
+        private readonly int width;
 
-        public FormNotificationScreenshotable(Action callback, FormBrowser owner, PluginManager pluginManager) : base(owner, false){
+        public FormNotificationScreenshotable(Action callback, FormBrowser owner, PluginManager pluginManager, string html, int width) : base(owner, false){
             this.plugins = pluginManager;
+            this.width = width;
 
-            browser.RegisterAsyncJsObject("$TD_NotificationScreenshot", new CallbackBridge(this, callback));
+            browser.RegisterAsyncJsObject("$TD_NotificationScreenshot", new ScreenshotBridge(this, SetScreenshotHeight, callback));
 
             browser.LoadingStateChanged += (sender, args) => {
                 if (!args.IsLoading){
                     using(IFrame frame = args.Browser.MainFrame){
-                        ScriptLoader.ExecuteScript(frame, "window.setTimeout($TD_NotificationScreenshot.trigger, document.getElementsByTagName('iframe').length ? 267 : 67)", "gen:screenshot");
+                        if (!ScriptLoader.ExecuteFile(frame, "screenshot.js")){
+                            this.InvokeAsyncSafe(callback);
+                        }
                     }
                 }
             };
+            
+            LoadTweet(new TweetNotification(string.Empty, string.Empty, string.Empty, html, 0, string.Empty, string.Empty));
+            SetScreenshotHeight(0);
         }
         
         protected override string GetTweetHTML(TweetNotification tweet){
@@ -40,12 +47,16 @@ namespace TweetDuck.Core.Notification.Screenshot{
             return html;
         }
 
-        public void LoadNotificationForScreenshot(TweetNotification tweet, int width, int height){
-            LoadTweet(tweet);
-            SetNotificationSize(width, height);
+        private void SetScreenshotHeight(int height){
+            SetNotificationSize(width, height); // TODO test how it works on high DPI, probably not great?
         }
 
         public void TakeScreenshot(){
+            if (ClientSize.Height == 0){
+                FormMessage.Error("Screenshot Failed", "Could not detect screenshot size.", FormMessage.OK);
+                return;
+            }
+            
             IntPtr context = NativeMethods.GetDC(this.Handle);
 
             if (context == IntPtr.Zero){

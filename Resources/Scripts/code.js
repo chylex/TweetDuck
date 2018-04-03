@@ -705,20 +705,7 @@
         html.addClass("td-notification-padded");
       }
       
-      let testTweet = html.clone().css({
-        position: "absolute",
-        left: "-999px",
-        width: columnWidth+"px"
-      }).appendTo(document.body);
-      
-      let testTweetAvatar = testTweet.find(".tweet-avatar").first();
-      let avatarBottom = testTweetAvatar.length === 1 ? testTweetAvatar.offset().top+testTweetAvatar.height() : 0;
-      
-      let realHeight = Math.floor(Math.max(testTweet.height(), avatarBottom+9));
-      testTweet.remove();
-      
-      html.find(".js-stream-item-content").first().css("height", "100vh");
-      $TD.screenshotTweet(html[0].outerHTML, columnWidth, realHeight);
+      $TD.screenshotTweet(html[0].outerHTML, columnWidth);
     };
   })();
   

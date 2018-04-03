@@ -37,13 +37,12 @@ namespace TweetDuck.Core.Notification.Screenshot{
             screenshot = null;
         }
 
-        public void Trigger(string html, int width, int height){
+        public void Trigger(string html, int width){
             if (screenshot != null){
                 return;
             }
 
-            screenshot = new FormNotificationScreenshotable(Callback, owner, plugins);
-            screenshot.LoadNotificationForScreenshot(new TweetNotification(string.Empty, string.Empty, string.Empty, html, 0, string.Empty, string.Empty), width, height);
+            screenshot = new FormNotificationScreenshotable(Callback, owner, plugins, html, width);
             screenshot.Show();
             timeout.Start();
 

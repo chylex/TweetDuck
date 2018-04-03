@@ -455,12 +455,12 @@ namespace TweetDuck.Core{
             AnalyticsFile.TweetDetails.Trigger();
         }
 
-        public void OnTweetScreenshotReady(string html, int width, int height){
+        public void OnTweetScreenshotReady(string html, int width){
             if (notificationScreenshotManager == null){
                 notificationScreenshotManager = new TweetScreenshotManager(this, plugins);
             }
 
-            notificationScreenshotManager.Trigger(html, width, height);
+            notificationScreenshotManager.Trigger(html, width);
             AnalyticsFile.TweetScreenshots.Trigger();
         }
 
