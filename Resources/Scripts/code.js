@@ -660,85 +660,65 @@
   // Block: Screenshot tweet to clipboard.
   //
   (function(){
-    var selectedTweet;
-    
-    const setImportantProperty = function(obj, property, value){
-      if (obj.length === 1){
-        obj[0].style.setProperty(property, value, "important");
-      }
-    };
-    
-    app.delegate("article.js-stream-item", "contextmenu", function(){
-      selectedTweet = $(this);
-    });
-    
     window.TDGF_triggerScreenshot = function(){
-      if (selectedTweet){
-        let tweetWidth = Math.floor(selectedTweet.width());
-        let parent = selectedTweet.parent();
+      return if !highlightedTweetObj || !highlightedColumnObj;
+      
+      let chirp = highlightedColumnObj.findChirp(highlightedTweetEle.attr("data-key")) || highlightedTweetObj;
+      
+      let columnWidth = highlightedColumnEle.width();
+      
+      let html = $(chirp.render({
+        withFooter: false,
+        withTweetActions: false,
+        isInConvo: false,
+        isFavorite: false,
+        isRetweeted: false, // keeps retweet mark above tweet
+        isPossiblySensitive: false,
+        mediaPreviewSize: highlightedColumnObj.getMediaPreviewSize()
+      }));
+      
+      html.find("footer").last().remove(); // apparently withTweetActions breaks for certain tweets, nice
+      html.find(".td-screenshot-remove").remove();
+      
+      html.find("p.link-complex-target").filter(function(){
+        return $(this).text() === "Show this thread";
+      }).first().remove();
+      
+      html.addClass($(document.documentElement).attr("class"));
+      html.addClass($(document.body).attr("class"));
+      
+      html.css("background-color", getClassStyleProperty("column", "background-color"));
+      html.css("border", "none");
+      
+      for(let selector of [ ".js-quote-detail", ".js-media-preview-container", ".js-media" ]){
+        let ele = html.find(selector);
         
-        let isDetail = parent.hasClass("js-tweet-detail");
-        let isReply = !isDetail && (parent.hasClass("js-replies-to") || parent.hasClass("js-replies-before"));
-        
-        selectedTweet = selectedTweet.clone();
-        
-        let container = selectedTweet.children().first();
-        container.addClass($(document.documentElement).attr("class"));
-        container.addClass($(document.body).attr("class"));
-        container.css("padding-bottom", "0");
-        
-        setImportantProperty(selectedTweet.find(".js-tweet-text"), "margin-bottom", "8px");
-        setImportantProperty(selectedTweet.find(".js-quote-detail"), "margin-bottom", "10px");
-        setImportantProperty(selectedTweet.find(".js-poll-link").next(), "margin-bottom", "8px");
-        
-        if (isDetail){
-          if (selectedTweet.find("[class*='media-grid-']").length > 0){
-            setImportantProperty(selectedTweet.find(".js-tweet-media"), "margin-bottom", "10px");
-          }
-          else{
-            setImportantProperty(selectedTweet.find(".js-tweet-media"), "margin-bottom", "6px");
-          }
-          
-          setImportantProperty(selectedTweet.find(".js-media-preview-container"), "margin-bottom", "4px");
-          selectedTweet.find(".js-translate-call-to-action").first().remove();
-          selectedTweet.find(".js-tweet").first().nextAll().remove();
-          selectedTweet.find("footer").last().prevUntil(":not(.txt-mute)").addBack().remove(); // footer, date, location
+        if (ele.length){
+          ele[0].style.setProperty("margin-bottom", "2px", "important");
+          break;
         }
-        else{
-          setImportantProperty(selectedTweet.find(".js-media-preview-container").filter(function(){
-            return $(this).closest(".js-quote-detail").length === 0;
-          }), "margin-bottom", "10px");
-          
-          selectedTweet.find("footer").last().remove();
-        }
-        
-        if (isReply){
-          selectedTweet.find(".is-conversation").removeClass("is-conversation");
-          selectedTweet.find(".thread").remove();
-        }
-        
-        selectedTweet.find("p.link-complex-target").filter(function(){
-          return $(this).text() === "Show this thread";
-        }).first().remove();
-        
-        selectedTweet.find(".js-poll-link").remove();
-        selectedTweet.find(".td-screenshot-remove").remove();
-        
-        let testTweet = selectedTweet.clone().css({
-          position: "absolute",
-          left: "-999px",
-          width: tweetWidth+"px"
-        }).appendTo(document.body);
-        
-        let testTweetAvatar = testTweet.find(".tweet-avatar").first();
-        let avatarBottom = testTweetAvatar.offset().top+testTweetAvatar.height();
-        
-        let realHeight = Math.floor(Math.max(testTweet.height(), avatarBottom+10));
-        testTweet.remove();
-        
-        selectedTweet.find(".js-stream-item-content").first().css("height", "100vh");
-        $TD.screenshotTweet(selectedTweet.html(), tweetWidth, realHeight);
       }
+      
+      let type = chirp.getChirpType();
+      
+      if ((type.startsWith("favorite") || type.startsWith("retweet")) && chirp.isAboutYou()){
+        html.addClass("td-notification-padded");
+      }
+      
+      let testTweet = html.clone().css({
+        position: "absolute",
+        left: "-999px",
+        width: columnWidth+"px"
+      }).appendTo(document.body);
+      
+      let testTweetAvatar = testTweet.find(".tweet-avatar").first();
+      let avatarBottom = testTweetAvatar.length === 1 ? testTweetAvatar.offset().top+testTweetAvatar.height() : 0;
+      
+      let realHeight = Math.floor(Math.max(testTweet.height(), avatarBottom+9));
+      testTweet.remove();
+      
+      html.find(".js-stream-item-content").first().css("height", "100vh");
+      $TD.screenshotTweet(html[0].outerHTML, columnWidth, realHeight);
     };
   })();
   
