@@ -280,9 +280,11 @@
   // Block: Hook into settings object to detect when the settings change, and update html attributes and notification layout.
   //
   (function(){
-    const refreshSettings = function(){      
+    const refreshSettings = function(){
       let fontSizeName = TD.settings.getFontSize();
       let themeName = TD.settings.getTheme();
+      
+      let columnBackground = getClassStyleProperty("column", "background-color");
       
       let tags = [
         "<html "+Array.prototype.map.call(document.documentElement.attributes, ele => `${ele.name}="${ele.value}"`).join(" ")+"><head>"
@@ -292,27 +294,7 @@
         tags.push($(this)[0].outerHTML);
       });
       
-      tags.push("<style type='text/css'>");
-      tags.push("body { background: "+getClassStyleProperty("column", "background-color")+" !important }"); // set background color
-      tags.push("body::before { content: none !important }"); // remove background gradient
-      tags.push(".column { background: transparent !important }"); // remove background color from columns
-      tags.push("a[data-full-url] { word-break: break-all !important }"); // break long urls
-      tags.push(".media-item, .media-preview { border-radius: 1px !important }"); // square-ify media
-      tags.push(".quoted-tweet { border-radius: 0 !important }"); // square-ify quoted tweets
-      tags.push(".activity-header.has-source-avatar { margin-bottom: 4px !important }"); // tweak distance between avatar and text
-      tags.push(".activity-header .tweet-timestamp { line-height: unset !important }"); // fix timestamp position
-      tags.push(".activity-header .icon-user-filled { vertical-align: sub !important }"); // fix follow icon position
-      
-      tags.push("#tduck-show-thread { display: inline-block !important; cursor: pointer }");
-      tags.push(".td-notification-padded .item-img { position: absolute; left: 21px; top: 48px; width: 0 !important }");
-      tags.push(".td-notification-padded .activity-header > .nbfc { margin-left: 46px; line-height: unset !important }");
-      tags.push(".td-notification-padded .activity-header > .nbfc > .avatar { position: absolute; margin-left: -34px; }");
-      
-      if (fontSizeName === "smallest"){
-        tags.push(".badge-verified:before { width: 13px !important; height: 13px !important; background-position: -223px -98px !important }"); // fix cut off badge icon
-      }
-      
-      tags.push("</style>");
+      tags.push("<style type='text/css'>body { background: "+columnBackground+" !important }</style>");
       
       doc.setAttribute("data-td-font", fontSizeName);
       doc.setAttribute("data-td-theme", themeName);

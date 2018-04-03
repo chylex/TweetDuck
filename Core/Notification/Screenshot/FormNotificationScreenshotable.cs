@@ -38,7 +38,7 @@ namespace TweetDuck.Core.Notification.Screenshot{
         }
         
         protected override string GetTweetHTML(TweetNotification tweet){
-            string html = tweet.GenerateHtml("td-screenshot", false);
+            string html = tweet.GenerateHtml("td-screenshot");
 
             foreach(InjectedHTML injection in plugins.NotificationInjections){
                 html = injection.Inject(html);
