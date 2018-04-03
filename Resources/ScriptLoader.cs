@@ -9,7 +9,7 @@ using TweetDuck.Core.Other;
 namespace TweetDuck.Resources{
     static class ScriptLoader{
         private const string UrlPrefix = "td:";
-
+        
         public static string LoadResource(string name, bool silent = false, Control sync = null){
             try{
                 string contents = File.ReadAllText(Path.Combine(Program.ScriptPath, name), Encoding.UTF8);
@@ -61,10 +61,10 @@ namespace TweetDuck.Resources{
             }
 
             if (sync == null){
-                FormMessage.Error("TweetDuck Has Failed :(", message, FormMessage.OK);
+                FormMessage.Error("Resource Error", message, FormMessage.OK);
             }
             else{
-                sync.InvokeAsyncSafe(() => FormMessage.Error("TweetDuck Has Failed :(", message, FormMessage.OK));
+                sync.InvokeSafe(() => FormMessage.Error("Resource Error", message, FormMessage.OK));
             }
         }
     }
