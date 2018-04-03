@@ -3,6 +3,9 @@ $ErrorActionPreference = "Stop"
 
 Set-Location $dir
 
+$version = (Get-Item TweetDuck.exe).VersionInfo.FileVersion
+Write-Host "TweetDuck version" $version
+
 function Check-Carriage-Return{
   Param([Parameter(Mandatory = $True, Position = 1)] $fname)
   
@@ -19,8 +22,14 @@ function Rewrite-File{
   [CmdletBinding()]
   Param([Parameter(Mandatory = $True, ValueFromPipeline = $True)][array] $lines, [Parameter(Mandatory = $True, Position = 1)] $file)
   
+  $relative = $file.FullName.Substring($dir.Length)
+  
+  if ($relative.StartsWith("scripts\")){
+    $lines = (,("#" + $version) + $lines)
+  }
+  
   $lines | Where { $_ -ne '' } | Set-Content -Path $file.FullName
-  Write-Host "Processed" $file.FullName.Substring($dir.Length)
+  Write-Host "Processed" $relative
 }
 
 try{

@@ -12,12 +12,29 @@ namespace TweetDuck.Resources{
 
         public static string LoadResource(string name, bool silent = false, Control sync = null){
             try{
-                return File.ReadAllText(Path.Combine(Program.ScriptPath, name), Encoding.UTF8);
-            }catch(Exception ex){
-                if (!silent){
-                    ShowLoadError(sync, "Unfortunately, TweetDuck could not load the "+name+" file. The program will continue running with limited functionality.\n\n"+ex.Message);
+                string contents = File.ReadAllText(Path.Combine(Program.ScriptPath, name), Encoding.UTF8);
+                int separator;
+
+                // first line can be either:
+                // #<version>\r\n
+                // #<version>\n
+
+                if (contents[0] != '#'){
+                    ShowLoadError(silent, sync, $"File {name} appears to be corrupted, please try reinstalling the app.");
+                    separator = 0;
+                }
+                else{
+                    separator = contents.IndexOf('\n');
+                    string fileVersion = contents.Substring(1, separator-1).TrimEnd();
+
+                    if (fileVersion != Program.VersionTag){
+                        ShowLoadError(silent, sync, $"File {name} is made for a different version of TweetDuck ({fileVersion}) and may not function correctly in this version, please try reinstalling the app.");
+                    }
                 }
 
+                return contents.Substring(separator).TrimStart();
+            }catch(Exception ex){
+                ShowLoadError(silent, sync, $"Could not load {name}. The program will continue running with limited functionality.\n\n{ex.Message}");
                 return null;
             }
         }
@@ -38,7 +55,11 @@ namespace TweetDuck.Resources{
             return "root:"+Path.GetFileNameWithoutExtension(file);
         }
 
-        private static void ShowLoadError(Control sync, string message){
+        private static void ShowLoadError(bool silent, Control sync, string message){
+            if (silent){
+                return;
+            }
+
             if (sync == null){
                 FormMessage.Error("TweetDuck Has Failed :(", message, FormMessage.OK);
             }
