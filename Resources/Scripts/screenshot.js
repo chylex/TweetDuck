@@ -1,6 +1,4 @@
 (function($TD){
-  document.getElementsByClassName("column")[0].style.height = "100%";
-  
   let ele = document.getElementsByTagName("article")[0];
   ele.style.width = window.outerWidth+"px";
   

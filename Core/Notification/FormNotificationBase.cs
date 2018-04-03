@@ -196,7 +196,7 @@ namespace TweetDuck.Core.Notification{
         }
 
         protected virtual string GetTweetHTML(TweetNotification tweet){
-            return tweet.GenerateHtml(IsCursorOverBrowser ? "td-hover" : string.Empty);
+            return tweet.GenerateHtml(IsCursorOverBrowser ? "td-notification td-hover" : "td-notification");
         }
 
         protected virtual void LoadTweet(TweetNotification tweet){

@@ -2,7 +2,7 @@
 /* General */
 /***********/
 
-body {
+body.td-notification {
   overflow-y: auto !important;
 }
 
@@ -34,13 +34,13 @@ body {
 /* Media */
 /*********/
 
-.media-size-medium {
+.td-notification .media-size-medium {
   max-height: 240px;
   height: calc(100vh - 20px) !important;
   border-radius: 1px !important;
 }
 
-.js-quote-detail .media-size-medium {
+.td-notification .js-quote-detail .media-size-medium {
   height: calc(100vh - 28px) !important;
 }
 
