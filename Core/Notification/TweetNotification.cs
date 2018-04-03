@@ -53,17 +53,14 @@ namespace TweetDuck.Core.Notification{
             return 2000+Math.Max(1000, value*characters);
         }
 
-        public string GenerateHtml(string bodyClasses = null, bool enableCustomCSS = true){
+        public string GenerateHtml(string bodyClasses){
             StringBuilder build = new StringBuilder();
             build.Append("<!DOCTYPE html>");
             build.Append(TweetDeckBridge.NotificationHeadLayout ?? DefaultHeadLayout);
-            
-            if (enableCustomCSS){
-                build.Append("<style type='text/css'>").Append(CustomCSS).Append("</style>");
+            build.Append("<style type='text/css'>").Append(CustomCSS).Append("</style>");
 
-                if (!string.IsNullOrEmpty(Program.UserConfig.CustomNotificationCSS)){
-                    build.Append("<style type='text/css'>").Append(Program.UserConfig.CustomNotificationCSS).Append("</style>");
-                }
+            if (!string.IsNullOrEmpty(Program.UserConfig.CustomNotificationCSS)){
+                build.Append("<style type='text/css'>").Append(Program.UserConfig.CustomNotificationCSS).Append("</style>");
             }
             
             build.Append("</head>");

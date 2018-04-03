@@ -1,7 +1,6 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using CefSharp;
-using CefSharp.WinForms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Utils;
@@ -28,7 +27,7 @@ namespace TweetDuck.Core.Handling.General{
         }
 
         bool IJsDialogHandler.OnJSDialog(IWebBrowser browserControl, IBrowser browser, string originUrl, CefJsDialogType dialogType, string messageText, string defaultPromptText, IJsDialogCallback callback, ref bool suppressMessage){
-            ((ChromiumWebBrowser)browserControl).InvokeSafe(() => {
+            browserControl.AsControl().InvokeSafe(() => {
                 FormMessage form;
                 TextBox input = null;
 
