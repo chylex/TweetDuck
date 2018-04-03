@@ -301,8 +301,12 @@
       tags.push(".quoted-tweet { border-radius: 0 !important }"); // square-ify quoted tweets
       tags.push(".activity-header.has-source-avatar { margin-bottom: 4px !important }"); // tweak distance between avatar and text
       tags.push(".activity-header .tweet-timestamp { line-height: unset !important }"); // fix timestamp position
-      tags.push(".activity-header .icon-user-filled { vertical-align: sub !important; }"); // fix follow icon position
+      tags.push(".activity-header .icon-user-filled { vertical-align: sub !important }"); // fix follow icon position
+      
       tags.push("#tduck-show-thread { display: inline-block !important; cursor: pointer }");
+      tags.push(".td-notification-padded .item-img { position: absolute; left: 21px; top: 48px; width: 0 !important }");
+      tags.push(".td-notification-padded .activity-header > .nbfc { margin-left: 46px; line-height: unset !important }");
+      tags.push(".td-notification-padded .activity-header > .nbfc > .avatar { position: absolute; margin-left: -34px; }");
       
       if (fontSizeName === "smallest"){
         tags.push(".badge-verified:before { width: 13px !important; height: 13px !important; background-position: -223px -98px !important }"); // fix cut off badge icon
