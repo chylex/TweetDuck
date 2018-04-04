@@ -1,6 +1,7 @@
 Param(
   [Parameter(Mandatory = $True, Position = 1)][string] $targetDir,
-  [Parameter(Mandatory = $True, Position = 2)][string] $projectDir
+  [Parameter(Mandatory = $True, Position = 2)][string] $projectDir,
+  [Parameter(Position = 3)][string] $version = ""
 )
 
 $ErrorActionPreference = "Stop"
@@ -8,14 +9,19 @@ $ErrorActionPreference = "Stop"
 try{
   Write-Host "------------------------------"
   
-  $version = (Get-Item (Join-Path $targetDir "TweetDuck.exe")).VersionInfo.FileVersion
+  if ($version.Equals("")){
+    $version = (Get-Item (Join-Path $targetDir "TweetDuck.exe")).VersionInfo.FileVersion
+  }
+  
   Write-Host "TweetDuck version" $version
   
   Write-Host "------------------------------"
   
   # Cleanup
   
-  Remove-Item -Path (Join-Path $targetDir "locales\*.pak") -Exclude "en-US.pak"
+  if (Test-Path (Join-Path $targetDir "locales")){
+    Remove-Item -Path (Join-Path $targetDir "locales\*.pak") -Exclude "en-US.pak"
+  }
   
   # Copy resources
   

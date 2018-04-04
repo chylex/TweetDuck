@@ -297,6 +297,10 @@ namespace TweetDuck.Core{
         }
 
         public void ReloadToTweetDeck(){
+            #if DEBUG
+            Resources.ScriptLoader.HotSwap();
+            #endif
+
             browser.ReloadToTweetDeck();
             AnalyticsFile.BrowserReloads.Trigger();
         }
