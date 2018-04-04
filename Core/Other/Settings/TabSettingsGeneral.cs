@@ -135,12 +135,11 @@ namespace TweetDuck.Core.Other.Settings{
                     if (dialog.ShowDialog() == DialogResult.OK){
                         Config.BrowserPath = dialog.FileName;
                     }
-                    else{
-                        comboBoxBrowserPath.SelectedIndexChanged -= comboBoxBrowserPath_SelectedIndexChanged;
-                        UpdateBrowserPathSelection();
-                        comboBoxBrowserPath.SelectedIndexChanged += comboBoxBrowserPath_SelectedIndexChanged;
-                    }
                 }
+
+                comboBoxBrowserPath.SelectedIndexChanged -= comboBoxBrowserPath_SelectedIndexChanged;
+                UpdateBrowserPathSelection();
+                comboBoxBrowserPath.SelectedIndexChanged += comboBoxBrowserPath_SelectedIndexChanged;
             }
             else{
                 Config.BrowserPath = (comboBoxBrowserPath.SelectedItem as WindowsUtils.Browser)?.Path; // default browser item is a string and casts to null

@@ -156,6 +156,10 @@ namespace TweetDuck.Core.Other{
         }
 
         private void control_MouseLeave(object sender, EventArgs e){
+            if (sender is ComboBox cb && cb.DroppedDown){
+                return; // prevents comboboxes from closing when MouseLeave event triggers during opening animation
+            }
+
             panelContents.Focus();
         }
 
