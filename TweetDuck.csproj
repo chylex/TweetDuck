@@ -170,6 +170,12 @@
     <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsAnalytics.Designer.cs">
       <DependentUpon>DialogSettingsAnalytics.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsSearchEngine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsSearchEngine.Designer.cs">
+      <DependentUpon>DialogSettingsSearchEngine.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsCSS.cs">
       <SubType>Form</SubType>
     </Compile>

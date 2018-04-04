@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling.General;
+using TweetDuck.Core.Other.Settings.Dialogs;
 using TweetDuck.Core.Utils;
 using TweetDuck.Updates;
 
@@ -16,6 +17,9 @@ namespace TweetDuck.Core.Other.Settings{
 
         private readonly int browserListIndexDefault;
         private readonly int browserListIndexCustom;
+
+        private readonly int searchEngineIndexDefault;
+        private readonly int searchEngineIndexCustom;
 
         public TabSettingsGeneral(Action reloadColumns, UpdateHandler updates){
             InitializeComponent();
@@ -56,6 +60,14 @@ namespace TweetDuck.Core.Other.Settings{
             browserListIndexCustom = comboBoxBrowserPath.Items.Add("(custom program...)");
             UpdateBrowserPathSelection();
 
+            comboBoxSearchEngine.Items.Add(new SearchEngine("DuckDuckGo", "https://duckduckgo.com/?q="));
+            comboBoxSearchEngine.Items.Add(new SearchEngine("Google", "https://www.google.com/search?q="));
+            comboBoxSearchEngine.Items.Add(new SearchEngine("Bing", "https://www.bing.com/search?q="));
+            comboBoxSearchEngine.Items.Add(new SearchEngine("Yahoo", "https://search.yahoo.com/search?p="));
+            searchEngineIndexDefault = comboBoxSearchEngine.Items.Add("(no engine set)");
+            searchEngineIndexCustom = comboBoxSearchEngine.Items.Add("(custom url...)");
+            UpdateSearchEngineSelection();
+            
             trackBarZoom.SetValueSafe(Config.ZoomLevel);
             labelZoomValue.Text = trackBarZoom.Value+"%";
 
@@ -71,6 +83,7 @@ namespace TweetDuck.Core.Other.Settings{
 
             checkSmoothScrolling.CheckedChanged += checkSmoothScrolling_CheckedChanged;
             comboBoxBrowserPath.SelectedIndexChanged += comboBoxBrowserPath_SelectedIndexChanged;
+            comboBoxSearchEngine.SelectedIndexChanged += comboBoxSearchEngine_SelectedIndexChanged;
             trackBarZoom.ValueChanged += trackBarZoom_ValueChanged;
 
             checkUpdateNotifications.CheckedChanged += checkUpdateNotifications_CheckedChanged;
@@ -146,6 +159,39 @@ namespace TweetDuck.Core.Other.Settings{
             }
         }
 
+        private void comboBoxSearchEngine_SelectedIndexChanged(object sender, EventArgs e){
+            if (comboBoxSearchEngine.SelectedIndex == searchEngineIndexCustom){
+                using(DialogSettingsSearchEngine dialog = new DialogSettingsSearchEngine()){
+                    if (dialog.ShowDialog() == DialogResult.OK){
+                        Config.SearchEngineUrl = dialog.Url.Trim();
+                    }
+                }
+
+                comboBoxSearchEngine.SelectedIndexChanged -= comboBoxSearchEngine_SelectedIndexChanged;
+                UpdateSearchEngineSelection();
+                comboBoxSearchEngine.SelectedIndexChanged += comboBoxSearchEngine_SelectedIndexChanged;
+            }
+            else{
+                Config.SearchEngineUrl = (comboBoxSearchEngine.SelectedItem as SearchEngine)?.Url; // default search engine item is a string and casts to null
+            }
+        }
+
+        private void UpdateSearchEngineSelection(){
+            if (string.IsNullOrEmpty(Config.SearchEngineUrl)){
+                comboBoxSearchEngine.SelectedIndex = searchEngineIndexDefault;
+            }
+            else{
+                SearchEngine engineInfo = comboBoxSearchEngine.Items.OfType<SearchEngine>().FirstOrDefault(engine => engine.Url == Config.SearchEngineUrl);
+                
+                if (engineInfo == null){
+                    comboBoxSearchEngine.SelectedIndex = searchEngineIndexCustom;
+                }
+                else{
+                    comboBoxSearchEngine.SelectedItem = engineInfo;
+                }
+            }
+        }
+
         private void trackBarZoom_ValueChanged(object sender, EventArgs e){
             if (trackBarZoom.AlignValueToTick()){
                 zoomUpdateTimer.Stop();
@@ -185,6 +231,20 @@ namespace TweetDuck.Core.Other.Settings{
         private void zoomUpdateTimer_Tick(object sender, EventArgs e){
             Config.ZoomLevel = trackBarZoom.Value;
             zoomUpdateTimer.Stop();
+        }
+
+        private sealed class SearchEngine{
+            private string Name { get; }
+            public string Url { get; }
+            
+            public SearchEngine(string name, string url){
+                Name = name;
+                Url = url;
+            }
+            
+            public override int GetHashCode() => Name.GetHashCode();
+            public override bool Equals(object obj) => obj is SearchEngine other && Name == other.Name;
+            public override string ToString() => Name;
         }
     }
 }

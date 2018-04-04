@@ -11,6 +11,7 @@ using TweetDuck.Core.Management;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Other.Analytics;
+using TweetDuck.Resources;
 
 namespace TweetDuck.Core.Handling{
     abstract class ContextMenuBase : IContextMenuHandler{
@@ -26,6 +27,7 @@ namespace TweetDuck.Core.Handling{
         private const CefMenuCommand MenuCopyMediaUrl    = (CefMenuCommand)26505;
         private const CefMenuCommand MenuSaveMedia       = (CefMenuCommand)26506;
         private const CefMenuCommand MenuSaveTweetImages = (CefMenuCommand)26507;
+        private const CefMenuCommand MenuSearchInBrowser = (CefMenuCommand)26508;
         private const CefMenuCommand MenuOpenDevTools    = (CefMenuCommand)26599;
         
         protected ContextInfo.LinkInfo LastLink { get; private set; }
@@ -50,6 +52,11 @@ namespace TweetDuck.Core.Handling{
             else{
                 LastLink = TweetDeckBridge.ContextInfo.Link;
                 LastChirp = TweetDeckBridge.ContextInfo.Chirp;
+            }
+
+            if (parameters.TypeFlags.HasFlag(ContextMenuType.Selection) && !parameters.TypeFlags.HasFlag(ContextMenuType.Editable)){
+                model.AddItem(MenuSearchInBrowser, "Search in browser");
+                model.AddSeparator();
             }
 
             bool hasTweetImage = LastLink.IsImage;
@@ -165,6 +172,12 @@ namespace TweetDuck.Core.Handling{
                     control.InvokeAsyncSafe(analytics.AnalyticsFile.DownloadedImages.Trigger);
                     TwitterUtils.DownloadImages(LastChirp.Images, LastChirp.Authors.LastOrDefault(), ImageQuality);
                     break;
+
+                case MenuSearchInBrowser:
+                    string query = parameters.SelectionText;
+                    control.InvokeAsyncSafe(() => BrowserUtils.OpenExternalSearch(query));
+                    DeselectAll(frame);
+                    break;
                     
                 case MenuOpenDevTools:
                     browserControl.ShowDevTools();
@@ -180,6 +193,10 @@ namespace TweetDuck.Core.Handling{
 
         public virtual bool RunContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model, IRunContextMenuCallback callback){
             return false;
+        }
+
+        protected void DeselectAll(IFrame frame){
+            ScriptLoader.ExecuteScript(frame, "window.getSelection().removeAllRanges()", "gen:deselect");
         }
 
         protected void OpenBrowser(Control control, string url){

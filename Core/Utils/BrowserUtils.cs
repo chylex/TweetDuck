@@ -127,6 +127,33 @@ namespace TweetDuck.Core.Utils{
             }
         }
 
+        public static void OpenExternalSearch(string query){
+            if (string.IsNullOrWhiteSpace(query))return;
+            
+            string searchUrl = Program.UserConfig.SearchEngineUrl;
+            
+            if (string.IsNullOrEmpty(searchUrl)){
+                if (FormMessage.Question("Search Options", "You have not configured a default search engine yet, would you like to do it now?", FormMessage.Yes, FormMessage.No)){
+                    bool wereSettingsOpen = FormManager.TryFind<FormSettings>() != null;
+
+                    FormManager.TryFind<FormBrowser>()?.OpenSettings();
+                    if (wereSettingsOpen)return;
+
+                    FormSettings settings = FormManager.TryFind<FormSettings>();
+                    if (settings == null)return;
+
+                    settings.FormClosed += (sender, args) => {
+                        if (args.CloseReason == CloseReason.UserClosing && Program.UserConfig.SearchEngineUrl != searchUrl){
+                            OpenExternalSearch(query);
+                        }
+                    };
+                }
+            }
+            else{
+                OpenExternalBrowser(searchUrl+Uri.EscapeUriString(query));
+            }
+        }
+
         public static string GetFileNameFromUrl(string url){
             string file = Path.GetFileName(new Uri(url).AbsolutePath);
             return string.IsNullOrEmpty(file) ? null : file;

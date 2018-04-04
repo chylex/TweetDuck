@@ -50,6 +50,7 @@ namespace TweetDuck.Configuration{
         public bool IgnoreTrackingUrlWarning { get; set; } = false;
         public bool EnableSmoothScrolling    { get; set; } = true;
         public string BrowserPath            { get; set; } = null;
+        public string SearchEngineUrl        { get; set; } = null;
         private int _zoomLevel                             = 100;
         private bool _muteNotifications;
 

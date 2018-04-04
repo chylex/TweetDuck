@@ -301,6 +301,10 @@ namespace TweetDuck.Core{
             AnalyticsFile.BrowserReloads.Trigger();
         }
 
+        public void AddSearchColumn(string query){
+            browser.AddSearchColumn(query);
+        }
+
         public void TriggerTweetScreenshot(){
             browser.TriggerTweetScreenshot();
         }

@@ -227,6 +227,10 @@ namespace TweetDuck.Core{
             browser.ExecuteScriptAsync("TDGF_showTweetDetail", columnId, chirpId, fallbackUrl);
         }
 
+        public void AddSearchColumn(string query){
+            browser.ExecuteScriptAsync("TDGF_performSearch", query);
+        }
+
         public void TriggerTweetScreenshot(){
             browser.ExecuteScriptAsync("TDGF_triggerScreenshot()");
         }

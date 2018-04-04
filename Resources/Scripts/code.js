@@ -1144,9 +1144,22 @@
         }
       }
       
-      $(".js-app-search-input").val("");
-      $(".js-perform-search").blur();
+      if (!("tweetduck" in data)){
+        $(".js-app-search-input").val("");
+        $(".js-perform-search").blur();
+      }
     }
+  });
+  
+  //
+  // Block: Setup global function to add a search column with the specified query.
+  //
+  onAppReady.push(function(){
+    let context = $._data(document, "events")["uiSearchInputSubmit"][0].handler.context;
+    
+    window.TDGF_performSearch = function(query){
+      context.performSearch({ query, tweetduck: true });
+    };
   });
   
   //

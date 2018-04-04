@@ -1,6 +1,7 @@
 ﻿using CefSharp;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
+using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Handling{
     sealed class ContextMenuBrowser : ContextMenuBase{
@@ -16,6 +17,7 @@ namespace TweetDuck.Core.Handling{
         private const CefMenuCommand MenuCopyQuotedTweetUrl = (CefMenuCommand)26613;
         private const CefMenuCommand MenuScreenshotTweet    = (CefMenuCommand)26614;
         private const CefMenuCommand MenuInputApplyROT13    = (CefMenuCommand)26615;
+        private const CefMenuCommand MenuSearchInColumn     = (CefMenuCommand)26616;
 
         private const string TitleReloadBrowser = "Reload browser";
         private const string TitleMuteNotifications = "Mute notifications";
@@ -37,12 +39,18 @@ namespace TweetDuck.Core.Handling{
             RemoveSeparatorIfLast(model);
 
             if (parameters.TypeFlags.HasFlag(ContextMenuType.Selection)){
-                if (parameters.TypeFlags.HasFlag(ContextMenuType.Editable)){
+                bool isEditing = parameters.TypeFlags.HasFlag(ContextMenuType.Editable);
+
+                if (isEditing){
                     model.AddSeparator();
                     model.AddItem(MenuInputApplyROT13, "Apply ROT13");
                 }
 
                 model.AddSeparator();
+
+                if (!isEditing && TwitterUtils.IsTweetDeckWebsite(frame)){
+                    model.AddItem(MenuSearchInColumn, "Search in a column");
+                }
             }
 
             base.OnBeforeContextMenu(browserControl, browser, frame, parameters, model);
@@ -135,6 +143,12 @@ namespace TweetDuck.Core.Handling{
                 case MenuInputApplyROT13:
                     form.InvokeAsyncSafe(form.ApplyROT13);
                     return true;
+
+                case MenuSearchInColumn:
+                    string query = parameters.SelectionText;
+                    form.InvokeAsyncSafe(() => form.AddSearchColumn(query));
+                    DeselectAll(frame);
+                    break;
             }
 
             return false;
