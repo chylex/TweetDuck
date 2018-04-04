@@ -402,37 +402,20 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(ProjectDir)LICENSE.md" "$(TargetDir)" /Y
-del "$(TargetDir)LICENSE.txt"
-ren "$(TargetDir)LICENSE.md" "LICENSE.txt"
-xcopy "$(ProjectDir)bld\Resources\CEFSHARP-LICENSE.txt" "$(TargetDir)" /Y
-
-rmdir "$(TargetDir)scripts" /S /Q
-mkdir "$(TargetDir)scripts"
-xcopy "$(ProjectDir)Resources\Scripts\*" "$(TargetDir)scripts\" /E /Y
-
-rmdir "$(TargetDir)plugins" /S /Q
-mkdir "$(TargetDir)plugins"
-mkdir "$(TargetDir)plugins\official"
-mkdir "$(TargetDir)plugins\user"
-xcopy "$(ProjectDir)Resources\Plugins\*" "$(TargetDir)plugins\official\" /E /Y
-rmdir "$(TargetDir)plugins\official\.debug" /S /Q
-del "$(TargetDir)plugins\official\emoji-keyboard\emoji-instructions.txt"
-
-rmdir "$(ProjectDir)bin\Debug"
+    <PostBuildEvent>rmdir "$(ProjectDir)bin\Debug"
 rmdir "$(ProjectDir)bin\Release"
 
-attrib +R "$(TargetDir)locales\en-US.pak"
-del /Q /A:-R "$(TargetDir)locales\*.pak"
-attrib -R "$(TargetDir)locales\en-US.pak"
+rmdir "$(TargetDir)scripts" /S /Q
+rmdir "$(TargetDir)plugins" /S /Q
+
+powershell -ExecutionPolicy Unrestricted -File "$(ProjectDir)Resources\PostBuild.ps1" "$(TargetDir)\" "$(ProjectDir)\"
 
 if $(ConfigurationName) == Debug (
   rmdir "$(TargetDir)plugins\official\.debug" /S /Q
   mkdir "$(TargetDir)plugins\user\.debug"
   xcopy "$(ProjectDir)Resources\Plugins\.debug\*" "$(TargetDir)plugins\user\.debug\" /E /Y
 )
-
-powershell -ExecutionPolicy Unrestricted -File "$(ProjectDir)Resources\PostBuild.ps1" "$(TargetDir)\"</PostBuildEvent>
+</PostBuildEvent>
   </PropertyGroup>
   <Target Name="AfterBuild" Condition="$(ConfigurationName) == Release">
     <Exec Command="del &quot;$(TargetDir)*.pdb&quot;" />
