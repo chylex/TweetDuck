@@ -289,6 +289,7 @@
     <Compile Include="Plugins\Enums\PluginEnvironment.cs" />
     <Compile Include="Plugins\Enums\PluginGroup.cs" />
     <Compile Include="Plugins\Events\PluginErrorEventArgs.cs" />
+    <Compile Include="Plugins\PluginLoader.cs" />
     <Compile Include="Plugins\PluginManager.cs" />
     <Compile Include="Plugins\PluginScriptGenerator.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

@@ -136,7 +136,7 @@ namespace TweetDuck.Plugins{
                     Plugin plugin;
 
                     try{
-                        plugin = Plugin.CreateFromFolder(fullDir, group);
+                        plugin = PluginLoader.FromFolder(fullDir, group);
                     }catch(Exception e){
                         loadErrors.Add(group.GetIdentifierPrefix()+Path.GetFileName(fullDir)+": "+e.Message);
                         continue;

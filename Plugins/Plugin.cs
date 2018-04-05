@@ -1,28 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using TweetDuck.Plugins.Enums;
 
 namespace TweetDuck.Plugins{
     sealed class Plugin{
         private const string VersionWildcard = "*";
+        private static readonly Version AppVersion = new Version(Program.VersionTag);
 
         public string Identifier { get; }
         public PluginGroup Group { get; }
         public PluginEnvironment Environments { get; }
 
-        public string Name => metadata["NAME"];
-        public string Description => metadata["DESCRIPTION"];
-        public string Author => metadata["AUTHOR"];
-        public string Version => metadata["VERSION"];
-        public string Website => metadata["WEBSITE"];
-        public string ConfigFile => metadata["CONFIGFILE"];
-        public string ConfigDefault => metadata["CONFIGDEFAULT"];
-        public string RequiredVersion => metadata["REQUIRES"];
+        public string Name { get; }
+        public string Description { get; }
+        public string Author { get; }
+        public string Version { get; }
+        public string Website { get; }
+        public string ConfigFile { get; }
+        public string ConfigDefault { get; }
+        public Version RequiredVersion { get; }
 
-        public bool CanRun { get; private set; }
+        public bool CanRun { get; }
 
         public bool HasConfig{
             get => ConfigFile.Length > 0 && GetFullPathIfSafe(PluginFolder.Data, ConfigFile).Length > 0;
@@ -42,41 +40,25 @@ namespace TweetDuck.Plugins{
 
         private readonly string pathRoot;
         private readonly string pathData;
-        private readonly Dictionary<string, string> metadata = new Dictionary<string, string>(8){
-            { "NAME", "" },
-            { "DESCRIPTION", "" },
-            { "AUTHOR", "(anonymous)" },
-            { "VERSION", "(unknown)" },
-            { "WEBSITE", "" },
-            { "CONFIGFILE", "" },
-            { "CONFIGDEFAULT", "" },
-            { "REQUIRES", VersionWildcard }
-        };
 
-        private Plugin(string path, string name, PluginGroup group, PluginEnvironment environments){
-            this.pathRoot = path;
-            this.pathData = Path.Combine(Program.PluginDataPath, group.GetIdentifierPrefix(), name);
+        private Plugin(PluginGroup group, string identifier, string pathRoot, string pathData, Builder builder){
+            this.pathRoot = pathRoot;
+            this.pathData = pathData;
 
-            this.Identifier = group.GetIdentifierPrefix()+name;
             this.Group = group;
-            this.Environments = environments;
-        }
+            this.Identifier = identifier;
+            this.Environments = builder.Environments;
 
-        private void OnMetadataLoaded(){
-            CanRun = CheckRequiredVersion(RequiredVersion);
+            this.Name = builder.Name;
+            this.Description = builder.Description;
+            this.Author = builder.Author;
+            this.Version = builder.Version;
+            this.Website = builder.Website;
+            this.ConfigFile = builder.ConfigFile;
+            this.ConfigDefault = builder.ConfigDefault;
+            this.RequiredVersion = builder.RequiredVersion;
 
-            string configPath = ConfigPath, defaultConfigPath = DefaultConfigPath;
-
-            if (configPath.Length > 0 && defaultConfigPath.Length > 0 && !File.Exists(configPath) && File.Exists(defaultConfigPath)){
-                string dataFolder = GetPluginFolder(PluginFolder.Data);
-
-                try{
-                    Directory.CreateDirectory(dataFolder);
-                    File.Copy(defaultConfigPath, configPath, false);
-                }catch(Exception e){
-                    throw new IOException("Could not generate a configuration file for '"+Identifier+"' plugin: "+e.Message, e);
-                }
-            }
+            this.CanRun = AppVersion >= RequiredVersion;
         }
 
         public string GetScriptPath(PluginEnvironment environment){
@@ -132,78 +114,94 @@ namespace TweetDuck.Plugins{
             return obj is Plugin plugin && plugin.Identifier.Equals(Identifier);
         }
 
-        // Static
-        
-        private static readonly Version AppVersion = new Version(Program.VersionTag);
-        private static readonly string[] EndTag = { "[END]" };
+        // Builder
 
-        public static Plugin CreateFromFolder(string path, PluginGroup group){
-            Plugin plugin = new Plugin(path, Path.GetFileName(path), group, LoadEnvironments(path));
-            LoadMetadata(path, plugin);
-            return plugin;
-        }
+        public sealed class Builder{
+            private static readonly Version DefaultRequiredVersion = new Version(0, 0, 0, 0);
 
-        private static PluginEnvironment LoadEnvironments(string path){
-            PluginEnvironment environments = PluginEnvironment.None;
+            public string Name             { get; private set; }
+            public string Description      { get; private set; } = string.Empty;
+            public string Author           { get; private set; } = "(anonymous)";
+            public string Version          { get; private set; } = "(unknown)";
+            public string Website          { get; private set; } = string.Empty;
+            public string ConfigFile       { get; private set; } = string.Empty;
+            public string ConfigDefault    { get; private set; } = string.Empty;
+            public Version RequiredVersion { get; private set; } = DefaultRequiredVersion;
 
-            foreach(string file in Directory.EnumerateFiles(path, "*.js", SearchOption.TopDirectoryOnly).Select(Path.GetFileName)){
-                environments |= PluginEnvironmentExtensions.Values.FirstOrDefault(env => file.Equals(env.GetPluginScriptFile(), StringComparison.Ordinal));
+            public PluginEnvironment Environments { get; private set; } = PluginEnvironment.None;
+
+            private readonly PluginGroup group;
+            private readonly string pathRoot;
+            private readonly string pathData;
+            private readonly string identifier;
+
+            public Builder(PluginGroup group, string name, string pathRoot, string pathData){
+                this.group = group;
+                this.pathRoot = pathRoot;
+                this.pathData = pathData;
+                this.identifier = group.GetIdentifierPrefix()+name;
             }
 
-            if (environments == PluginEnvironment.None){
-                throw new ArgumentException("Plugin has no script files");
-            }
-
-            return environments;
-        }
-
-        private static void LoadMetadata(string path, Plugin plugin){
-            string metaFile = Path.Combine(path, ".meta");
-
-            if (!File.Exists(metaFile)){
-                throw new ArgumentException("Missing .meta file");
-            }
-            
-            string currentTag = null, currentContents = string.Empty;
-
-            foreach(string line in File.ReadAllLines(metaFile, Encoding.UTF8).Concat(EndTag).Select(line => line.TrimEnd()).Where(line => line.Length > 0)){
-                if (line[0] == '[' && line[line.Length-1] == ']'){
-                    if (currentTag != null){
-                        plugin.metadata[currentTag] = currentContents;
-                    }
-
-                    currentTag = line.Substring(1, line.Length-2).ToUpper();
-                    currentContents = string.Empty;
-
-                    if (line.Equals(EndTag[0])){
-                        break;
-                    }
-
-                    if (!plugin.metadata.ContainsKey(currentTag)){
-                        throw new FormatException("Invalid metadata tag: "+currentTag);
-                    }
+            public void SetFromTag(string tag, string value){
+                switch(tag){
+                    case "NAME":          this.Name = value; break;
+                    case "DESCRIPTION":   this.Description = value; break;
+                    case "AUTHOR":        this.Author = value; break;
+                    case "VERSION":       this.Version = value; break;
+                    case "WEBSITE":       this.Website = value; break;
+                    case "CONFIGFILE":    this.ConfigFile = value; break;
+                    case "CONFIGDEFAULT": this.ConfigDefault = value; break;
+                    case "REQUIRES":      SetRequiredVersion(value); break;
+                    default: throw new FormatException("Invalid metadata tag: "+tag);
                 }
-                else if (currentTag != null){
-                    currentContents = currentContents.Length == 0 ? line : currentContents+Environment.NewLine+line;
+            }
+
+            public void AddEnvironment(PluginEnvironment environment){
+                this.Environments |= environment;
+            }
+
+            private void SetRequiredVersion(string versionStr){
+                if (System.Version.TryParse(versionStr, out Version version)){
+                    this.RequiredVersion = version;
+                }
+                else if (versionStr == VersionWildcard){
+                    this.RequiredVersion = DefaultRequiredVersion;
                 }
                 else{
-                    throw new FormatException("Missing metadata tag before value: "+line);
+                    throw new FormatException("Plugin contains invalid minimum version: "+versionStr);
                 }
             }
 
-            if (plugin.Name.Length == 0){
-                throw new FormatException("Plugin is missing a name in the .meta file");
+            public Plugin BuildAndSetup(){
+                Plugin plugin = new Plugin(group, identifier, pathRoot, pathData, this);
+
+                if (plugin.Name.Length == 0){
+                    throw new InvalidOperationException("Plugin is missing a name in the .meta file");
+                }
+
+                if (plugin.Environments == PluginEnvironment.None){
+                    throw new InvalidOperationException("Plugin has no script files");
+                }
+
+                // setup
+
+                string configPath = plugin.ConfigPath, defaultConfigPath = plugin.DefaultConfigPath;
+
+                if (configPath.Length > 0 && defaultConfigPath.Length > 0 && !File.Exists(configPath) && File.Exists(defaultConfigPath)){
+                    string dataFolder = plugin.GetPluginFolder(PluginFolder.Data);
+
+                    try{
+                        Directory.CreateDirectory(dataFolder);
+                        File.Copy(defaultConfigPath, configPath, false);
+                    }catch(Exception e){
+                        throw new IOException($"Could not generate a configuration file for '{plugin.Identifier}' plugin: {e.Message}", e);
+                    }
+                }
+
+                // done
+
+                return plugin;
             }
-
-            if (plugin.RequiredVersion.Length == 0 || !(plugin.RequiredVersion == VersionWildcard || System.Version.TryParse(plugin.RequiredVersion, out Version _))){
-                throw new FormatException("Plugin contains invalid version: "+plugin.RequiredVersion);
-            }
-
-            plugin.OnMetadataLoaded();
-        }
-
-        private static bool CheckRequiredVersion(string requires){
-            return requires == VersionWildcard || AppVersion >= new Version(requires);
         }
     }
 }
