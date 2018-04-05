@@ -15,6 +15,7 @@ using TweetDuck.Plugins;
 using TweetDuck.Plugins.Enums;
 using TweetDuck.Plugins.Events;
 using TweetDuck.Updates;
+using TweetDuck.Updates.Events;
 
 namespace TweetDuck.Core{
     sealed partial class FormBrowser : Form, AnalyticsFile.IProvider{

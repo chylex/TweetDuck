@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TweetDuck.Updates{
+namespace TweetDuck.Updates.Events{
     sealed class UpdateEventArgs : EventArgs{
         public UpdateInfo UpdateInfo { get; }
         

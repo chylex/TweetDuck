@@ -5,6 +5,7 @@ using TweetDuck.Core.Controls;
 using TweetDuck.Core.Other.Interfaces;
 using TweetDuck.Core.Utils;
 using TweetDuck.Resources;
+using TweetDuck.Updates.Events;
 
 namespace TweetDuck.Updates{
     sealed class UpdateHandler{
