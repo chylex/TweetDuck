@@ -1369,6 +1369,8 @@
       window.gc && window.gc();
       window.location.reload();
     });
+    
+    window.TDGF_reload = function(){}; // redefine to prevent reloading multiple times
   };
   
   if (window.TD_SESSION && window.TD_SESSION.gc){
