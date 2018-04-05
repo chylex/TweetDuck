@@ -12,11 +12,15 @@ using TweetDuck.Resources;
 
 namespace TweetDuck.Plugins{
     sealed class PluginManager{
-        private static readonly Dictionary<PluginEnvironment, string> PluginSetupScripts = new Dictionary<PluginEnvironment, string>(4){
-            { PluginEnvironment.None, ScriptLoader.LoadResource("plugins.js") },
-            { PluginEnvironment.Browser, ScriptLoader.LoadResource("plugins.browser.js") },
-            { PluginEnvironment.Notification, ScriptLoader.LoadResource("plugins.notification.js") }
-        };
+        private static IReadOnlyDictionary<PluginEnvironment, string> LoadSetupScripts(){
+            return PluginEnvironmentExtensions.Map(
+                ScriptLoader.LoadResource("plugins.js"),
+                ScriptLoader.LoadResource("plugins.browser.js"),
+                ScriptLoader.LoadResource("plugins.notification.js")
+            );
+        }
+
+        private static readonly IReadOnlyDictionary<PluginEnvironment, string> PluginSetupScripts = LoadSetupScripts();
 
         public string PathOfficialPlugins => Path.Combine(rootPath, "official");
         public string PathCustomPlugins => Path.Combine(rootPath, "user");
