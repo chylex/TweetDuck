@@ -34,7 +34,7 @@ namespace TweetDuck.Core.Notification.Screenshot{
             };
             
             LoadTweet(new TweetNotification(string.Empty, string.Empty, string.Empty, html, 0, string.Empty, string.Empty));
-            SetScreenshotHeight(0);
+            SetScreenshotHeight(1);
         }
         
         protected override string GetTweetHTML(TweetNotification tweet){
