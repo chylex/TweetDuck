@@ -1,6 +1,6 @@
 (function($TD){
   let ele = document.getElementsByTagName("article")[0];
-  ele.style.width = window.outerWidth+"px";
+  ele.style.width = Math.floor(window.outerWidth/window.devicePixelRatio)+"px";
   
   ele.style.position = "absolute";
   let contentHeight = ele.offsetHeight;

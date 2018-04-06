@@ -48,7 +48,7 @@ namespace TweetDuck.Core.Notification.Screenshot{
         }
 
         private void SetScreenshotHeight(int height){
-            SetNotificationSize(width, height); // TODO test how it works on high DPI, probably not great?
+            SetNotificationSize(width, height);
         }
 
         public void TakeScreenshot(){
