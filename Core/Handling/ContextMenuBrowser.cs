@@ -32,30 +32,31 @@ namespace TweetDuck.Core.Handling{
         }
 
         public override void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model){
+            bool isSelecting = parameters.TypeFlags.HasFlag(ContextMenuType.Selection);
+            bool isEditing = parameters.TypeFlags.HasFlag(ContextMenuType.Editable);
+
             model.Remove(CefMenuCommand.Back);
             model.Remove(CefMenuCommand.Forward);
             model.Remove(CefMenuCommand.Print);
             model.Remove(CefMenuCommand.ViewSource);
             RemoveSeparatorIfLast(model);
 
-            if (parameters.TypeFlags.HasFlag(ContextMenuType.Selection)){
-                bool isEditing = parameters.TypeFlags.HasFlag(ContextMenuType.Editable);
-
+            if (isSelecting){
                 if (isEditing){
                     model.AddSeparator();
                     model.AddItem(MenuInputApplyROT13, "Apply ROT13");
                 }
 
                 model.AddSeparator();
-
-                if (!isEditing && TwitterUtils.IsTweetDeckWebsite(frame)){
-                    model.AddItem(MenuSearchInColumn, "Search in a column");
-                }
             }
 
             base.OnBeforeContextMenu(browserControl, browser, frame, parameters, model);
 
-            if (!string.IsNullOrEmpty(LastChirp.TweetUrl) && (parameters.TypeFlags & (ContextMenuType.Editable | ContextMenuType.Selection)) == 0){
+            if (isSelecting && !isEditing && TwitterUtils.IsTweetDeckWebsite(frame)){
+                InsertSelectionSearchItem(model, MenuSearchInColumn, "Search in a column");
+            }
+
+            if (!string.IsNullOrEmpty(LastChirp.TweetUrl) && !isSelecting && !isEditing){
                 model.AddItem(MenuOpenTweetUrl, "Open tweet in browser");
                 model.AddItem(MenuCopyTweetUrl, "Copy tweet address");
                 model.AddItem(MenuScreenshotTweet, "Screenshot tweet to clipboard");
@@ -69,7 +70,7 @@ namespace TweetDuck.Core.Handling{
                 model.AddSeparator();
             }
 
-            if ((parameters.TypeFlags & (ContextMenuType.Editable | ContextMenuType.Selection)) == 0){
+            if (!isSelecting && !isEditing){
                 AddSeparator(model);
 
                 IMenuModel globalMenu = model.Count == 0 ? model : model.AddSubMenu(MenuGlobal, Program.BrandName);

@@ -18,7 +18,7 @@ namespace TweetDuck.Core.Handling{
         public static readonly bool HasDevTools = File.Exists(Path.Combine(Program.ProgramPath, "devtools_resources.pak"));
 
         private static TwitterUtils.ImageQuality ImageQuality => Program.UserConfig.TwitterImageQuality;
-
+        
         private const CefMenuCommand MenuOpenLinkUrl     = (CefMenuCommand)26500;
         private const CefMenuCommand MenuCopyLinkUrl     = (CefMenuCommand)26501;
         private const CefMenuCommand MenuCopyUsername    = (CefMenuCommand)26502;
@@ -205,6 +205,10 @@ namespace TweetDuck.Core.Handling{
 
         protected void SetClipboardText(Control control, string text){
             control.InvokeAsyncSafe(() => WindowsUtils.SetClipboard(text, TextDataFormat.UnicodeText));
+        }
+
+        protected static void InsertSelectionSearchItem(IMenuModel model, CefMenuCommand insertCommand, string insertLabel){
+            model.InsertItemAt(model.GetIndexOf(MenuSearchInBrowser)+1, insertCommand, insertLabel);
         }
         
         protected static void AddDebugMenuItems(IMenuModel model){
