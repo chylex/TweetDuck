@@ -62,8 +62,7 @@ namespace TweetDuck.Data{
         }
         
         public bool Contains(K1 outerKey, K2 innerKey){
-            Dictionary<K2, V> innerDict;
-            return dict.TryGetValue(outerKey, out innerDict) && innerDict.ContainsKey(innerKey);
+            return dict.TryGetValue(outerKey, out Dictionary<K2, V> innerDict) && innerDict.ContainsKey(innerKey);
         }
 
         public int Count(){
