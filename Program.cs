@@ -20,7 +20,7 @@ namespace TweetDuck{
         public const string BrandName = "TweetDuck";
         public const string Website = "https://tweetduck.chylex.com";
 
-        public const string VersionTag = "1.13.2";
+        public const string VersionTag = "1.13.3";
 
         public static readonly bool IsPortable = File.Exists("makeportable");
 
