@@ -42,7 +42,9 @@
             // 
             // textBoxBrowserCSS
             // 
-            this.textBoxBrowserCSS.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.textBoxBrowserCSS.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxBrowserCSS.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBoxBrowserCSS.Location = new System.Drawing.Point(0, 16);
             this.textBoxBrowserCSS.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
@@ -124,7 +126,9 @@
             // 
             // textBoxNotificationCSS
             // 
-            this.textBoxNotificationCSS.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.textBoxNotificationCSS.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxNotificationCSS.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBoxNotificationCSS.Location = new System.Drawing.Point(0, 16);
             this.textBoxNotificationCSS.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
