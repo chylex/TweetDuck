@@ -78,8 +78,9 @@ namespace TweetDuck.Core{
             Disposed += (sender, args) => {
                 Config.MuteToggled -= Config_MuteToggled;
                 Config.TrayBehaviorChanged -= Config_TrayBehaviorChanged;
-
+                
                 browser.Dispose();
+                updates.Dispose();
                 contextMenu.Dispose();
 
                 notificationScreenshotManager?.Dispose();
@@ -96,6 +97,7 @@ namespace TweetDuck.Core{
             UpdateTrayIcon();
 
             this.updates = new UpdateHandler(browser, updaterSettings);
+            this.updates.CheckFinished += updates_CheckFinished;
             this.updates.UpdateAccepted += updates_UpdateAccepted;
             this.updates.UpdateDismissed += updates_UpdateDismissed;
 
@@ -233,6 +235,18 @@ namespace TweetDuck.Core{
             }
         }
 
+        private void updates_CheckFinished(object sender, UpdateCheckEventArgs e){
+            this.InvokeAsyncSafe(() => {
+                e.Result.Handle(update => {
+                    if (!update.IsUpdateNew && !update.IsUpdateDismissed){
+                        updates.StartTimer();
+                    }
+                }, ex => {
+                    // TODO show error and ask if the user wants to temporarily disable checks -- or maybe only do that for the first check of the day
+                });
+            });
+        }
+
         private void updates_UpdateAccepted(object sender, UpdateEventArgs e){
             this.InvokeAsyncSafe(() => {
                 FormManager.CloseAllDialogs();
@@ -241,13 +255,21 @@ namespace TweetDuck.Core{
                     Config.DismissedUpdate = null;
                     Config.Save();
                 }
-            
-                updates.BeginUpdateDownload(this, e.UpdateInfo, update => {
-                    if (update.DownloadStatus == UpdateDownloadStatus.Done){
-                        UpdateInstallerPath = update.InstallerPath;
-                    }
 
-                    ForceClose();
+                updates.BeginUpdateDownload(this, e.UpdateInfo, update => {
+                    UpdateDownloadStatus status = update.DownloadStatus;
+
+                    if (status == UpdateDownloadStatus.Done){
+                        UpdateInstallerPath = update.InstallerPath;
+                        ForceClose();
+                    }
+                    else if (FormMessage.Error("Update Has Failed", "Could not automatically download the update: "+(update.DownloadError?.Message ?? "unknown error")+"\n\nWould you like to open the website and try downloading the update manually?", FormMessage.Yes, FormMessage.No)){
+                        BrowserUtils.OpenExternalBrowser(Program.Website);
+                        ForceClose();
+                    }
+                    else{
+                        Show();
+                    }
                 });
             });
         }

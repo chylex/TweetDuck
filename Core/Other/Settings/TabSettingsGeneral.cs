@@ -222,9 +222,13 @@ namespace TweetDuck.Core.Other.Settings{
                 if (e.EventId == updateCheckEventId){
                     btnCheckUpdates.Enabled = true;
 
-                    if (!e.IsUpdateAvailable){
-                        FormMessage.Information("No Updates Available", "Your version of TweetDuck is up to date.", FormMessage.OK);
-                    }
+                    e.Result.Handle(update => {
+                        if (!update.IsUpdateNew){
+                            FormMessage.Information("No Updates Available", "Your version of TweetDuck is up to date.", FormMessage.OK);
+                        }
+                    }, ex => {
+                        Program.Reporter.HandleException("Update Check", "Encountered an error while checking updates.", true, ex);
+                    });
                 }
             });
         }

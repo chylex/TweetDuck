@@ -5,40 +5,43 @@ using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Updates{
     sealed class UpdateInfo{
-        public int EventId { get; }
         public string VersionTag { get; }
+        public string ReleaseNotes { get; }
         public string InstallerPath { get; }
+
+        public bool IsUpdateNew => VersionTag != Program.VersionTag;
+        public bool IsUpdateDismissed => VersionTag == settings.DismissedUpdate;
 
         public UpdateDownloadStatus DownloadStatus { get; private set; }
         public Exception DownloadError { get; private set; }
 
-        private readonly string installerFolder;
+        private readonly UpdaterSettings settings;
         private readonly string downloadUrl;
         private WebClient currentDownload;
 
-        public UpdateInfo(UpdaterSettings settings, int eventId, string versionTag, string downloadUrl){
-            this.installerFolder = settings.InstallerDownloadFolder;
+        public UpdateInfo(UpdaterSettings settings, string versionTag, string releaseNotes, string downloadUrl){
+            this.settings = settings;
             this.downloadUrl = downloadUrl;
-
-            this.EventId = eventId;
+            
             this.VersionTag = versionTag;
-            this.InstallerPath = Path.Combine(installerFolder, "TweetDuck."+versionTag+".exe");
+            this.ReleaseNotes = releaseNotes;
+            this.InstallerPath = Path.Combine(settings.InstallerDownloadFolder, "TweetDuck."+versionTag+".exe");
         }
 
         public void BeginSilentDownload(){
             if (DownloadStatus == UpdateDownloadStatus.None || DownloadStatus == UpdateDownloadStatus.Failed){
                 DownloadStatus = UpdateDownloadStatus.InProgress;
 
-                try{
-                    Directory.CreateDirectory(installerFolder);
-                }catch(Exception e){
-                    DownloadError = e;
-                    DownloadStatus = UpdateDownloadStatus.Failed;
+                if (string.IsNullOrEmpty(downloadUrl)){
+                    DownloadError = new InvalidDataException("Missing installer asset.");
+                    DownloadStatus = UpdateDownloadStatus.AssetMissing;
                     return;
                 }
 
-                if (string.IsNullOrEmpty(downloadUrl)){
-                    DownloadError = new UriFormatException("Could not determine URL of the update installer");
+                try{
+                    Directory.CreateDirectory(settings.InstallerDownloadFolder);
+                }catch(Exception e){
+                    DownloadError = e;
                     DownloadStatus = UpdateDownloadStatus.Failed;
                     return;
                 }
@@ -67,6 +70,14 @@ namespace TweetDuck.Updates{
             }catch{
                 // rip
             }
+        }
+
+        public override bool Equals(object obj){
+            return obj is UpdateInfo info && VersionTag == info.VersionTag;
+        }
+
+        public override int GetHashCode(){
+            return VersionTag.GetHashCode();
         }
     }
 }

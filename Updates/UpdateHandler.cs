@@ -1,21 +1,26 @@
 ﻿using CefSharp;
 using System;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Other.Interfaces;
-using TweetDuck.Core.Utils;
+using TweetDuck.Data;
 using TweetDuck.Resources;
 using TweetDuck.Updates.Events;
 
 namespace TweetDuck.Updates{
-    sealed class UpdateHandler{
+    sealed class UpdateHandler : IDisposable{
         public const int CheckCodeUpdatesDisabled = -1;
         public const int CheckCodeNotOnTweetDeck = -2;
-
-        private readonly ITweetDeckBrowser browser;
+        
         private readonly UpdaterSettings settings;
+        private readonly UpdateCheckClient client;
+        private readonly ITweetDeckBrowser browser;
+        private readonly Timer timer;
 
         public event EventHandler<UpdateEventArgs> UpdateAccepted;
+        public event EventHandler<UpdateEventArgs> UpdateDelayed;
         public event EventHandler<UpdateEventArgs> UpdateDismissed;
         public event EventHandler<UpdateCheckEventArgs> CheckFinished;
 
@@ -23,11 +28,44 @@ namespace TweetDuck.Updates{
         private UpdateInfo lastUpdateInfo;
 
         public UpdateHandler(ITweetDeckBrowser browser, UpdaterSettings settings){
-            this.browser = browser;
             this.settings = settings;
+            this.client = new UpdateCheckClient(settings);
+            
+            this.browser = browser;
+            this.browser.OnFrameLoaded(OnFrameLoaded);
+            this.browser.RegisterBridge("$TDU", new Bridge(this));
 
-            browser.OnFrameLoaded(OnFrameLoaded);
-            browser.RegisterBridge("$TDU", new Bridge(this));
+            this.timer = new Timer();
+            this.timer.Tick += timer_Tick;
+        }
+
+        public void Dispose(){
+            timer.Dispose();
+        }
+
+        private void timer_Tick(object sender, EventArgs e){
+            timer.Stop();
+            Check(false);
+        }
+
+        public void StartTimer(){
+            if (timer.Enabled){
+                return;
+            }
+
+            timer.Stop();
+
+            if (Program.UserConfig.EnableUpdateCheck){
+                DateTime now = DateTime.Now;
+                TimeSpan nextHour = now.AddSeconds(60*(60-now.Minute)-now.Second)-now;
+
+                if (nextHour.TotalMinutes < 15){
+                    nextHour = nextHour.Add(TimeSpan.FromHours(1));
+                }
+
+                timer.Interval = (int)Math.Ceiling(nextHour.TotalMilliseconds);
+                timer.Start();
+            }
         }
 
         private void OnFrameLoaded(IFrame frame){
@@ -43,17 +81,24 @@ namespace TweetDuck.Updates{
                 if (!browser.IsTweetDeckWebsite){
                     return CheckCodeNotOnTweetDeck;
                 }
+                
+                int nextEventId = unchecked(++lastEventId);
+                Task<UpdateInfo> checkTask = client.Check();
 
-                browser.ExecuteFunction("TDUF_runUpdateCheck", (int)unchecked(++lastEventId), Program.VersionTag, settings.DismissedUpdate ?? string.Empty, settings.AllowPreReleases);
-                return lastEventId;
+                checkTask.ContinueWith(task => HandleUpdateCheckSuccessful(nextEventId, task.Result), TaskContinuationOptions.OnlyOnRanToCompletion);
+                checkTask.ContinueWith(task => HandleUpdateCheckFailed(nextEventId, task.Exception.InnerException), TaskContinuationOptions.OnlyOnFaulted);
+
+                return nextEventId;
             }
 
             return CheckCodeUpdatesDisabled;
         }
 
-        public void BeginUpdateDownload(Form ownerForm, UpdateInfo updateInfo, Action<UpdateInfo> onSuccess){
-            if (updateInfo.DownloadStatus == UpdateDownloadStatus.Done){
-                onSuccess(updateInfo);
+        public void BeginUpdateDownload(Form ownerForm, UpdateInfo updateInfo, Action<UpdateInfo> onFinished){
+            UpdateDownloadStatus status = updateInfo.DownloadStatus;
+
+            if (status == UpdateDownloadStatus.Done || status == UpdateDownloadStatus.AssetMissing){
+                onFinished(updateInfo);
             }
             else{
                 FormUpdateDownload downloadForm = new FormUpdateDownload(updateInfo);
@@ -65,13 +110,7 @@ namespace TweetDuck.Updates{
 
                 downloadForm.FormClosed += (sender, args) => {
                     downloadForm.Dispose();
-                    
-                    if (downloadForm.DialogResult == DialogResult.OK){ // success or manual download
-                        onSuccess(updateInfo);
-                    }
-                    else{
-                        ownerForm.Show();
-                    }
+                    onFinished(updateInfo);
                 };
 
                 downloadForm.Show();
@@ -85,17 +124,41 @@ namespace TweetDuck.Updates{
             }
         }
 
-        private void TriggerUpdateAcceptedEvent(UpdateEventArgs args){
-            UpdateAccepted?.Invoke(this, args);
+        private void HandleUpdateCheckSuccessful(int eventId, UpdateInfo info){
+            if (info.IsUpdateNew && !info.IsUpdateDismissed){
+                CleanupDownload();
+                lastUpdateInfo = info;
+                lastUpdateInfo.BeginSilentDownload();
+
+                browser.ExecuteFunction("TDUF_displayNotification", lastUpdateInfo.VersionTag, Convert.ToBase64String(Encoding.GetEncoding("iso-8859-1").GetBytes(lastUpdateInfo.ReleaseNotes))); // TODO move browser stuff outside
+            }
+            
+            CheckFinished?.Invoke(this, new UpdateCheckEventArgs(eventId, new Result<UpdateInfo>(info)));
         }
 
-        private void TriggerUpdateDismissedEvent(UpdateEventArgs args){
-            settings.DismissedUpdate = args.UpdateInfo.VersionTag;
-            UpdateDismissed?.Invoke(this, args);
+        private void HandleUpdateCheckFailed(int eventId, Exception exception){
+            CheckFinished?.Invoke(this, new UpdateCheckEventArgs(eventId, new Result<UpdateInfo>(exception)));
         }
 
-        private void TriggerCheckFinishedEvent(UpdateCheckEventArgs args){
-            CheckFinished?.Invoke(this, args);
+        private void TriggerUpdateAcceptedEvent(){
+            if (lastUpdateInfo != null){
+                UpdateAccepted?.Invoke(this, new UpdateEventArgs(lastUpdateInfo));
+            }
+        }
+
+        private void TriggerUpdateDelayedEvent(){
+            if (lastUpdateInfo != null){
+                UpdateDelayed?.Invoke(this, new UpdateEventArgs(lastUpdateInfo));
+            }
+        }
+
+        private void TriggerUpdateDismissedEvent(){
+            if (lastUpdateInfo != null){
+                settings.DismissedUpdate = lastUpdateInfo.VersionTag;
+                UpdateDismissed?.Invoke(this, new UpdateEventArgs(lastUpdateInfo));
+
+                CleanupDownload();
+            }
         }
 
         public sealed class Bridge{
@@ -109,31 +172,16 @@ namespace TweetDuck.Updates{
                 owner.Check(false);
             }
 
-            public void OnUpdateCheckFinished(int eventId, string versionTag, string downloadUrl){
-                if (versionTag != null && (owner.lastUpdateInfo == null || owner.lastUpdateInfo.VersionTag != versionTag)){
-                    owner.CleanupDownload();
-                    owner.lastUpdateInfo = new UpdateInfo(owner.settings, eventId, versionTag, downloadUrl);
-                    owner.lastUpdateInfo.BeginSilentDownload();
-                }
-                
-                owner.TriggerCheckFinishedEvent(new UpdateCheckEventArgs(eventId, owner.lastUpdateInfo != null));
+            public void OnUpdateAccepted(){
+                owner.TriggerUpdateAcceptedEvent();
             }
 
-            public void OnUpdateAccepted(){
-                if (owner.lastUpdateInfo != null){
-                    owner.TriggerUpdateAcceptedEvent(new UpdateEventArgs(owner.lastUpdateInfo));
-                }
+            public void OnUpdateDelayed(){
+                owner.TriggerUpdateDelayedEvent();
             }
 
             public void OnUpdateDismissed(){
-                if (owner.lastUpdateInfo != null){
-                    owner.TriggerUpdateDismissedEvent(new UpdateEventArgs(owner.lastUpdateInfo));
-                    owner.CleanupDownload();
-                }
-            }
-
-            public void OpenBrowser(string url){
-                BrowserUtils.OpenExternalBrowser(url);
+                owner.TriggerUpdateDismissedEvent();
             }
         }
     }
