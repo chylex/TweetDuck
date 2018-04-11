@@ -1,12 +1,9 @@
-﻿using CefSharp;
-using System;
-using System.Text;
+﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Other.Interfaces;
 using TweetDuck.Data;
-using TweetDuck.Resources;
 using TweetDuck.Updates.Events;
 
 namespace TweetDuck.Updates{
@@ -32,7 +29,6 @@ namespace TweetDuck.Updates{
             this.client = new UpdateCheckClient(settings);
             
             this.browser = browser;
-            this.browser.OnFrameLoaded(OnFrameLoaded);
             this.browser.RegisterBridge("$TDU", new Bridge(this));
 
             this.timer = new Timer();
@@ -66,10 +62,6 @@ namespace TweetDuck.Updates{
                 timer.Interval = (int)Math.Ceiling(nextHour.TotalMilliseconds);
                 timer.Start();
             }
-        }
-
-        private void OnFrameLoaded(IFrame frame){
-            ScriptLoader.ExecuteFile(frame, "update.js"); // TODO can't show error on failure
         }
 
         public int Check(bool force){
@@ -129,8 +121,6 @@ namespace TweetDuck.Updates{
                 CleanupDownload();
                 lastUpdateInfo = info;
                 lastUpdateInfo.BeginSilentDownload();
-
-                browser.ExecuteFunction("TDUF_displayNotification", lastUpdateInfo.VersionTag, Convert.ToBase64String(Encoding.GetEncoding("iso-8859-1").GetBytes(lastUpdateInfo.ReleaseNotes))); // TODO move browser stuff outside
             }
             
             CheckFinished?.Invoke(this, new UpdateCheckEventArgs(eventId, new Result<UpdateInfo>(info)));

@@ -238,8 +238,13 @@ namespace TweetDuck.Core{
         private void updates_CheckFinished(object sender, UpdateCheckEventArgs e){
             this.InvokeAsyncSafe(() => {
                 e.Result.Handle(update => {
-                    if (!update.IsUpdateNew && !update.IsUpdateDismissed){
-                        updates.StartTimer();
+                    if (!update.IsUpdateDismissed){
+                        if (update.IsUpdateNew){
+                            browser.ShowUpdateNotification(update.VersionTag, update.ReleaseNotes);
+                        }
+                        else{
+                            updates.StartTimer();
+                        }
                     }
                 }, ex => {
                     // TODO show error and ask if the user wants to temporarily disable checks -- or maybe only do that for the first check of the day

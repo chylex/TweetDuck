@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 using CefSharp;
 using CefSharp.WinForms;
@@ -145,6 +146,8 @@ namespace TweetDuck.Core{
                 UpdateProperties();
                 TweetDeckBridge.RestoreSessionData(frame);
                 ScriptLoader.ExecuteFile(frame, "code.js", browser);
+                ScriptLoader.ExecuteFile(frame, "update.js", browser);
+
                 InjectBrowserCSS();
                 ReinjectCustomCSS(Program.UserConfig.CustomBrowserCSS);
                 UserConfig_SoundNotificationInfoChanged(null, EventArgs.Empty);
@@ -245,6 +248,10 @@ namespace TweetDuck.Core{
 
         public void ApplyROT13(){
             browser.ExecuteScriptAsync("TDGF_applyROT13()");
+        }
+
+        public void ShowUpdateNotification(string versionTag, string releaseNotes){
+            browser.ExecuteScriptAsync("TDUF_displayNotification", versionTag, Convert.ToBase64String(Encoding.GetEncoding("iso-8859-1").GetBytes(releaseNotes)));
         }
     }
 }
