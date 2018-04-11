@@ -11,10 +11,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
             InitializeComponent();
 
             cbLogging.Checked = currentArgs.HasFlag(Arguments.ArgLogging);
-            cbDebugUpdates.Checked = currentArgs.HasFlag(Arguments.ArgDebugUpdates);
-
             cbLogging.CheckedChanged += control_Change;
-            cbDebugUpdates.CheckedChanged += control_Change;
 
             if (Program.IsPortable){
                 tbDataFolder.Text = "Not available in portable version";
@@ -35,10 +32,6 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
             
             if (cbLogging.Checked){
                 Args.AddFlag(Arguments.ArgLogging);
-            }
-            
-            if (cbDebugUpdates.Checked){
-                Args.AddFlag(Arguments.ArgDebugUpdates);
             }
 
             if (!string.IsNullOrWhiteSpace(tbDataFolder.Text) && tbDataFolder.Enabled){
