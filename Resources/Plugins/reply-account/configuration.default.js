@@ -30,14 +30,19 @@
    *   https://tweetduck.chylex.com/guide/#dev-tools
    *
    *
-   * The 'type' parameter is TweetDeck column type. Here is the full list of column types, note that some are
-   * unused and have misleading names (for example, Home columns are 'col_timeline' instead of 'col_home'):
-   *   col_timeline, col_interactions, col_mentions, col_followers, col_search, col_list,
-   *   col_customtimeline, col_messages, col_usertweets, col_favorites, col_activity,
-   *   col_dataminr, col_home, col_me, col_inbox, col_scheduled, col_unknown
+   * In order to check the column type, use the 'column.isOfType' function. It is recommended to always put it
+   * last in an 'if' statement, because it is much more demanding than checking the title/account.
+   *
+   * Here is the full list of column types, note that some are unused and have misleading names.
+   * (for example, Home columns are 'col_timeline' instead of 'col_home')
+   *
+   *   col_activity, col_customtimeline, col_dataminr, col_favorites, col_followers,  col_home,
+   *   col_inbox,    col_interactions,   col_list,     col_livevideo, col_me,         col_mentions,
+   *   col_messages, col_scheduled,      col_search,   col_timeline,  col_usertweets, col_unknown
    *
    * If you want to see your current column types, run this in your browser console:
-   *   TD.controller.columnManager.getAllOrdered().map(obj => obj.getColumnType());
+   *
+   *   (c=>c.columnManager.getAllOrdered().map(o=>Object.keys(c.stats.columnNamespaces).find(t=>o.isOfType(t))).map(t=>t==""+void 0?"col_unknown":t))(TD.controller)
    *
    *
    * The 'title' parameter is the column title. Some are fixed (such as 'Home' or 'Notifications'),
@@ -61,16 +66,16 @@
   
   useAdvancedSelector: false,
   
-  customSelector: function(type, title, account, column, isTemporary){
+  customSelector: function(title, account, column, isTemporary){
     console.info(arguments); // Prints all arguments into the console
     
-    if (type === "col_search" && title === "TweetDuck"){
+    if (title === "TweetDuck" && column.isOfType("col_search")){
       // This is a search column that looks for 'TweetDuck' in the tweets,
       // search columns are normally linked to the preferred account
       // so this forces the @TryTweetDuck account to be used instead
       return "@TryTweetDuck";
     }
-    else if (type === "col_timeline" && account === "@chylexcz"){
+    else if (account === "@chylexcz" && column.isOfType("col_timeline")){
       // This is a Home column of my test account @chylexcz,
       // but I want to reply to tweets from my official account
       return "@chylexmc";

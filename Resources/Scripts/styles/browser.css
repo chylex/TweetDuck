@@ -361,18 +361,18 @@ html[data-td-font='smallest'] .tweet-detail-wrapper .badge-verified:before {
 /* Fix cut off usernames in Messages column */
 /********************************************/
 
-.column-type-message.is-shifted-1 .column-title-container {
+[data-td-icon="icon-message"].is-shifted-1 .column-title-container {
   height: 100%;
   border-bottom-color: transparent;
 }
 
-#tduck .column-type-message.is-shifted-1 .column-title-items {
+#tduck [data-td-icon="icon-message"].is-shifted-1 .column-title-items {
   height: 100%;
   margin-left: 4px !important;
   padding-top: 1px;
 }
 
-.column-type-message.is-shifted-1 .username {
+[data-td-icon="icon-message"].is-shifted-1 .username {
   vertical-align: bottom;
 }
 

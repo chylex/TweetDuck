@@ -12,8 +12,14 @@ enabled(){
     
     if (configuration.useAdvancedSelector){
       if (configuration.customSelector){
-        if (configuration.customSelector.toString().startsWith("function (column){")){
+        let customSelectorDef = configuration.customSelector.toString();
+        
+        if (customSelectorDef.startsWith("function (column){")){
           $TD.alert("warning", "Plugin reply-account has invalid configuration: customSelector needs to be updated due to TweetDeck changes, please read the default configuration file for the updated guide");
+          return;
+        }
+        else if (customSelectorDef.startsWith("function (type,")){
+          $TD.alert("warning", "Plugin reply-account has invalid configuration: the type parameter is no longer present due to TweetDeck changes, please read the default configuration file for the updated guide");
           return;
         }
         
@@ -35,7 +41,7 @@ enabled(){
         }
         
         try{
-          query = configuration.customSelector(column.getColumnType(), columnTitle, columnAccount, column, section.hasClass("column-temp"));
+          query = configuration.customSelector(columnTitle, columnAccount, column, section.hasClass("column-temp"));
         }catch(e){
           $TD.alert("warning", "Plugin reply-account has invalid configuration: customSelector threw an error: "+e.message);
           return;

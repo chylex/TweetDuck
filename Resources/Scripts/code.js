@@ -99,6 +99,13 @@
   };
   
   //
+  // Function: Retrieves column name
+  const getColumnName = function(column){
+    let cached = column._tduck_type || (column._tduck_type = Object.keys(columnTypes).find(type => column.isOfType(type)));
+    return columnTypes[cached] || "";
+  };
+  
+  //
   // Function: Event callback for a new tweet.
   //
   const onNewTweet = (function(){
@@ -220,7 +227,7 @@
         let tweetUrl = source ? source.getChirpURL() : "";
         let quoteUrl = source && source.quotedTweet ? source.quotedTweet.getChirpURL() : "";
 
-        $TD.onTweetPopup(column.model.privateState.apiid, chirpId, columnTypes[column.getColumnType()] || "", html.html(), duration, tweetUrl, quoteUrl);
+        $TD.onTweetPopup(column.model.privateState.apiid, chirpId, getColumnName(column), html.html(), duration, tweetUrl, quoteUrl);
       }
 
       if (column.model.getHasSound()){
@@ -1309,6 +1316,11 @@
         : prevFunc.apply(this, arguments);
     };
   }
+  
+  //
+  // Block: Fix columns missing any identifiable attributes to allow individual styles.
+  //
+  TD.mustaches["column.mustache"] = TD.mustaches["column.mustache"].replace("{{columnclass}}\"", "{{columnclass}}\" data-td-icon=\"{{columniconclass}}\"");
   
   //
   // Block: Remove column mouse wheel handler, which allows smooth scrolling inside columns, and horizontally scrolling column container when holding Shift.
