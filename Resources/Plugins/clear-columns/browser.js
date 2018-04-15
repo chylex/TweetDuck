@@ -7,12 +7,17 @@ constructor(){
 enabled(){
   // prepare variables and functions
   var clearColumn = (columnName) => {
-    TD.controller.columnManager.get(columnName).clear();
+    let col = TD.controller.columnManager.get(columnName);
+    return if !col.isClearable();
+    
+    col.clear();
     TD.controller.stats.columnActionClick("clear");
   };
   
   var resetColumn = (columnName) => {
-    var col = TD.controller.columnManager.get(columnName);
+    let col = TD.controller.columnManager.get(columnName);
+    return if !col.isClearable();
+    
     col.model.setClearedTimestamp(0);
     col.reloadTweets();
   };
@@ -38,7 +43,7 @@ enabled(){
         $(document).off("mousemove", this.eventKeyUp);
       }
       
-      $("#clear-columns-btn-all").text(pressed ? "Restore columns" : "Clear columns");
+      $("#clear-columns-btn-all-1,#clear-columns-btn-all-2").text(pressed ? "Restore columns" : "Clear columns");
     }
   };
   
@@ -98,6 +103,8 @@ enabled(){
   
   // load custom style
   var css = window.TDPF_createCustomStyle(this);
+  css.insert(".js-app-add-column.is-hidden + #clear-columns-btn-all-parent-1 { display: none; }");
+  css.insert(".column-navigator-overflow #clear-columns-btn-all-parent-2 { display: none; }");
   css.insert(".column-title { margin-right: 60px !important; }");
   css.insert(".mark-all-read-link { right: 59px !important; }");
   css.insert(".open-compose-dm-link { right: 90px !important; }");
@@ -115,18 +122,22 @@ ready(){
   $(document).on("keyup", this.eventKeyUp);
   
   // add clear all button
-  $("nav.app-navigator").first().append([
-    '<a id="clear-columns-btn-all-parent" class="js-header-action link-clean cf app-nav-link padding-h--10" data-title="Clear columns (hold Shift to restore)" data-action="td-clearcolumns-doall">',
-    '<div class="obj-left margin-l--2"><i class="icon icon-medium icon-clear-timeline"></i></div>',
-    '<div id="clear-columns-btn-all" class="nbfc padding-ts hide-condensed txt-size--16">Clear columns</div>',
-    '</a></nav>'
-  ].join(""));
+  const generateButton = (idParent, idButton) => {
+    return `
+<a id="${idParent}" class="js-header-action link-clean cf app-nav-link padding-h--10" data-title="Clear columns (hold Shift to restore)" data-action="td-clearcolumns-doall">
+  <div class="obj-left margin-l--2"><i class="icon icon-medium icon-clear-timeline"></i></div>
+  <div id="${idButton}" class="nbfc padding-ts hide-condensed txt-size--16 app-nav-link-text">Clear columns</div>
+</a>`;
+  };
+  
+  $(".js-app-add-column").first().after(generateButton("clear-columns-btn-all-parent-1", "clear-columns-btn-all-1"));
+  $(".js-column-nav-list").first().append(generateButton("clear-columns-btn-all-parent-2", "clear-columns-btn-all-2"));
   
   // setup tooltip handling
   var tooltipEvents = $._data($(".js-header-action")[0]).events;
   
   if (tooltipEvents.mouseover && tooltipEvents.mouseover.length && tooltipEvents.mouseout && tooltipEvents.mouseout.length){
-    $("#clear-columns-btn-all-parent").on("mouseover", tooltipEvents.mouseover[0].handler).on("mouseout", tooltipEvents.mouseout[0].handler);
+    $("#clear-columns-btn-all-parent-1,#clear-columns-btn-all-parent-2").on("mouseover", tooltipEvents.mouseover[0].handler).on("mouseout", tooltipEvents.mouseout[0].handler);
   }
 }
 
