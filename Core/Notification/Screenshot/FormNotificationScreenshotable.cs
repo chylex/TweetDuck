@@ -24,19 +24,26 @@ namespace TweetDuck.Core.Notification.Screenshot{
             browser.RegisterAsyncJsObject("$TD_NotificationScreenshot", new ScreenshotBridge(this, SetScreenshotHeight, callback));
 
             browser.LoadingStateChanged += (sender, args) => {
-                if (!args.IsLoading){
-                    using(IFrame frame = args.Browser.MainFrame){
-                        if (!ScriptLoader.ExecuteFile(frame, "screenshot.js")){
-                            this.InvokeAsyncSafe(callback);
-                        }
-                    }
+                if (args.IsLoading){
+                    return;
+                }
+
+                string script = ScriptLoader.LoadResource("screenshot.js", true);
+                        
+                if (script == null){
+                    this.InvokeAsyncSafe(callback);
+                    return;
+                }
+                
+                using(IFrame frame = args.Browser.MainFrame){
+                    ScriptLoader.ExecuteScript(frame, script.Replace("{width}", ClientSize.Width.ToString()), "screenshot");
                 }
             };
             
-            LoadTweet(new TweetNotification(string.Empty, string.Empty, string.Empty, html, 0, string.Empty, string.Empty));
             SetScreenshotHeight(1);
+            LoadTweet(new TweetNotification(string.Empty, string.Empty, string.Empty, html, 0, string.Empty, string.Empty));
         }
-        
+
         protected override string GetTweetHTML(TweetNotification tweet){
             string html = tweet.GenerateHtml("td-screenshot");
 
