@@ -250,11 +250,11 @@ namespace TweetDuck.Core{
                 }, ex => {
                     if (!ignoreUpdateCheckError){
                         Program.Reporter.HandleException("Update Check Error", "An error occurred while checking for updates.", true, ex);
-
-                        ignoreUpdateCheckError = true;
                         updates.StartTimer();
                     }
                 });
+                
+                ignoreUpdateCheckError = true;
             });
         }
 
@@ -274,7 +274,7 @@ namespace TweetDuck.Core{
                         UpdateInstallerPath = update.InstallerPath;
                         ForceClose();
                     }
-                    else if (FormMessage.Error("Update Has Failed", "Could not automatically download the update: "+(update.DownloadError?.Message ?? "unknown error")+"\n\nWould you like to open the website and try downloading the update manually?", FormMessage.Yes, FormMessage.No)){
+                    else if (status != UpdateDownloadStatus.Canceled && FormMessage.Error("Update Has Failed", "Could not automatically download the update: "+(update.DownloadError?.Message ?? "unknown error")+"\n\nWould you like to open the website and try downloading the update manually?", FormMessage.Yes, FormMessage.No)){
                         BrowserUtils.OpenExternalBrowser(Program.Website);
                         ForceClose();
                     }

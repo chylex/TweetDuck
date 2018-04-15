@@ -72,6 +72,11 @@ namespace TweetDuck.Updates{
             }
         }
 
+        public void CancelDownload(){
+            DeleteInstaller();
+            DownloadStatus = UpdateDownloadStatus.Canceled;
+        }
+
         public override bool Equals(object obj){
             return obj is UpdateInfo info && VersionTag == info.VersionTag;
         }

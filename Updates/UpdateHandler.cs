@@ -101,6 +101,10 @@ namespace TweetDuck.Updates{
                 };
 
                 downloadForm.FormClosed += (sender, args) => {
+                    if (downloadForm.DialogResult != DialogResult.OK){
+                        updateInfo.CancelDownload();
+                    }
+
                     downloadForm.Dispose();
                     onFinished(updateInfo);
                 };

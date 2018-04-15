@@ -2,9 +2,10 @@
     public enum UpdateDownloadStatus{
         None = 0,
         InProgress,
+        Canceled,
         AssetMissing,
-        Done,
-        Failed
+        Failed,
+        Done
     }
 
     public static class UpdateDownloadStatusExtensions{
