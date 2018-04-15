@@ -50,7 +50,7 @@ button, .btn, .mdl, .mdl-content, .popover, .lst-modal, .tooltip-inner {
   border-radius: 0 !important;
 }
 
-.dropdown-menu, .list-item-last, .quoted-tweet, .input-group-button, input, textarea, select, .prf-header, .accs li, .accs img {
+.dropdown-menu, .list-item-last, .quoted-tweet, input, textarea, select, .prf-header {
   border-radius: 0 !important;
 }
 
@@ -261,11 +261,6 @@ html[data-td-font='smallest'] .tweet-detail-wrapper .badge-verified:before {
   background-position: -223px -97px !important;
 }
 
-.accs-header {
-  /* fix retweet account selector heading */
-  padding-left: 0 !important;
-}
-
 .keyboard-shortcut-list {
   /* fix keyboard navigation alignment */
   vertical-align: top !important;
@@ -274,12 +269,6 @@ html[data-td-font='smallest'] .tweet-detail-wrapper .badge-verified:before {
 .tweet-detail-wrapper .js-media-gif-container {
   /* GIFs in detail view don't trigger the pointer cursor */
   cursor: pointer;
-}
-
-.inline-reply .btn-square, .rpl-actions .btn-square {
-  /* remove effects from buttons under reply input... this keeps happening for some stupid reason */
-  background: transparent !important;
-  box-shadow: none !important;
 }
 
 .js-add-to-customtimeline-input {

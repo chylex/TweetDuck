@@ -92,63 +92,31 @@ html.dark .btn[disabled],html.dark .btn[disabled]:hover,html.dark .btn[disabled]
 html.dark .btn-on-dark:focus{box-shadow:0 0 0 1px #292F33,0 0 0 3px #71C9F8}
 html.dark .mdl-content .btn-on-dark:focus{box-shadow:0 0 0 1px #fff,0 0 0 3px #71C9F8}
 html.dark .is-inverted-dark .btn:hover,html.dark .is-inverted-dark .btn:focus,html.dark .is-inverted-dark .btn:active,html.dark .is-inverted-dark .btn.is-selected{background-color:#F2F9FF}
-html.dark .is-inverted-dark .btn-positive:hover,html.dark .is-inverted-dark .btn-positive-alt:hover,html.dark .is-inverted-dark .btn-fav.s-favorited:hover,html.dark .is-inverted-dark .s-following .follow-btn:hover,html.dark .s-following .is-inverted-dark .follow-btn:hover{background-color:#005FD1}
-html.dark .is-inverted-dark .btn-positive:focus,html.dark .is-inverted-dark .btn-positive-alt:focus,html.dark .is-inverted-dark .btn-fav.s-favorited:focus,html.dark .is-inverted-dark .s-following .follow-btn:focus,html.dark .s-following .is-inverted-dark .follow-btn:focus{background-color:#005FD1}
-html.dark .is-inverted-dark .btn-positive:active,html.dark .is-inverted-dark .btn-positive-alt:active,html.dark .is-inverted-dark .btn-fav.s-favorited:active,html.dark .is-inverted-dark .s-following .follow-btn:active,html.dark .s-following .is-inverted-dark .follow-btn:active,html.dark .is-inverted-dark .btn-positive.is-selected,html.dark .is-inverted-dark .is-selected.btn-positive-alt,html.dark .is-inverted-dark .is-selected.btn-fav.s-favorited,html.dark .is-inverted-dark .s-following .is-selected.follow-btn,html.dark .s-following .is-inverted-dark .is-selected.follow-btn{background-color:#005FD1}
-html.dark .is-inverted-dark .btn-positive-alt:hover,html.dark .is-inverted-dark .btn-fav.s-favorited:hover,html.dark .is-inverted-dark .s-following .follow-btn:hover,html.dark .s-following .is-inverted-dark .follow-btn:hover{background-color:#A01744}
-html.dark .is-inverted-dark .btn-positive-alt:focus,html.dark .is-inverted-dark .btn-fav.s-favorited:focus,html.dark .is-inverted-dark .s-following .follow-btn:focus,html.dark .s-following .is-inverted-dark .follow-btn:focus{background-color:#A01744}
-html.dark .is-inverted-dark .btn-positive-alt:active,html.dark .is-inverted-dark .btn-fav.s-favorited:active,html.dark .is-inverted-dark .s-following .follow-btn:active,html.dark .s-following .is-inverted-dark .follow-btn:active,html.dark .is-inverted-dark .btn-positive-alt.is-selected,html.dark .is-inverted-dark .is-selected.btn-fav.s-favorited,html.dark .is-inverted-dark .s-following .is-selected.follow-btn,html.dark .s-following .is-inverted-dark .is-selected.follow-btn{background-color:#A01744}
-html.dark .is-inverted-dark .btn-negative:hover{background-color:#A01744}
-html.dark .is-inverted-dark .btn-negative:focus{background-color:#A01744}
-html.dark .is-inverted-dark .btn-negative:active,html.dark .is-inverted-dark .btn-negative.is-selected{background-color:#A01744}
-html.dark .is-inverted-dark .btn-tertiary:hover{background-color:#F5F8FA}
-html.dark .is-inverted-dark .btn-tertiary:focus{background-color:#F5F8FA}
-html.dark .is-inverted-dark .btn-tertiary:active,html.dark .is-inverted-dark .btn-tertiary.is-selected{background-color:#F5F8FA}
-html.dark .btn-positive,html.dark .btn-positive-alt,html.dark .btn-fav.s-favorited,html.dark .s-following .follow-btn{color:#fff;background-color:#1DA1F2;border:1px solid #1DA1F2}
-html.dark .btn-positive:hover,html.dark .btn-positive-alt:hover,html.dark .btn-fav.s-favorited:hover,html.dark .s-following .follow-btn:hover{color:#fff;background-color:#005FD1;border:1px solid #005FD1}
-html.dark .btn-positive:focus,html.dark .btn-positive-alt:focus,html.dark .btn-fav.s-favorited:focus,html.dark .s-following .follow-btn:focus{color:#fff;background-color:#005FD1;border:1px solid #005FD1;box-shadow:0 0 0 1px #fff,0 0 0 3px #71C9F8}
-html.dark .btn-positive:active,html.dark .btn-positive-alt:active,html.dark .btn-fav.s-favorited:active,html.dark .s-following .follow-btn:active,html.dark .btn-positive.is-selected,html.dark .is-selected.btn-positive-alt,html.dark .is-selected.btn-fav.s-favorited,html.dark .s-following .is-selected.follow-btn{color:#fff;background-color:#005FD1;border:1px solid #005FD1}
-html.dark .btn-positive[disabled],html.dark [disabled].btn-positive-alt,html.dark [disabled].btn-fav.s-favorited,html.dark .s-following [disabled].follow-btn,html.dark .btn-positive[disabled]:hover,html.dark [disabled].btn-positive-alt:hover,html.dark [disabled].btn-fav.s-favorited:hover,html.dark .s-following [disabled].follow-btn:hover,html.dark .btn-positive[disabled]:active,html.dark [disabled].btn-positive-alt:active,html.dark [disabled].btn-fav.s-favorited:active,html.dark .s-following [disabled].follow-btn:active,html.dark .btn-positive.is-disabled,html.dark .is-disabled.btn-positive-alt,html.dark .is-disabled.btn-fav.s-favorited,html.dark .s-following .is-disabled.follow-btn,html.dark .btn-positive.is-disabled:hover,html.dark .is-disabled.btn-positive-alt:hover,html.dark .is-disabled.btn-fav.s-favorited:hover,html.dark .s-following .is-disabled.follow-btn:hover,html.dark .btn-positive.is-disabled:focus,html.dark .is-disabled.btn-positive-alt:focus,html.dark .is-disabled.btn-fav.s-favorited:focus,html.dark .s-following .is-disabled.follow-btn:focus,html.dark .btn-positive.is-disabled:active,html.dark .is-disabled.btn-positive-alt:active,html.dark .is-disabled.btn-fav.s-favorited:active,html.dark .s-following .is-disabled.follow-btn:active{color:#fff;background-color:#1DA1F2;border:1px solid #1DA1F2}
-html.dark .btn-compose{color:#fff;background-color:#2b7bb9}
-html.dark .btn-compose:hover{color:#fff;background-color:#2b7bb9}
-html.dark .btn-compose:focus{color:#fff;background-color:#2b7bb9}
-html.dark .btn-compose:active,html.dark .btn-compose.is-selected{color:#fff;background-color:#2b7bb9}
-html.dark .btn-positive-alt:hover,html.dark .btn-fav.s-favorited:hover,html.dark .s-following .follow-btn:hover{color:#fff;background-color:#A01744;border:#A01744}
-html.dark .btn-positive-alt:active,html.dark .btn-fav.s-favorited:active,html.dark .s-following .follow-btn:active,html.dark .btn-positive-alt.is-selected,html.dark .is-selected.btn-fav.s-favorited,html.dark .s-following .is-selected.follow-btn{color:#fff;background-color:#A01744;border:#A01744}
-html.dark .btn-negative{border-color:#E0245E;color:#fff;background-color:#E0245E}
-html.dark .btn-negative:hover{color:#fff;background-color:#A01744;border-color:#A01744}
-html.dark .btn-negative:focus{color:#fff;background-color:#A01744;border-color:#A01744;box-shadow:0 0 0 1px #fff,0 0 0 3px #F6809A}
-html.dark .btn-negative:active,html.dark .btn-negative.is-selected{color:#fff;background-color:#A01744;border-color:#A01744}
-html.dark .btn-negative[disabled],html.dark .btn-negative[disabled]:hover,html.dark .btn-negative[disabled]:active,html.dark .btn-negative.is-disabled,html.dark .btn-negative.is-disabled:hover,html.dark .btn-negative.is-disabled:focus,html.dark .btn-negative.is-disabled:active{border-color:#E0245E;color:#fff;background-color:#E0245E}
-html.dark .btn-tertiary{border-color:#657786;color:#657786}
-html.dark .btn-tertiary:hover{color:#657786;background-color:#F5F8FA;border-color:#657786}
-html.dark .btn-tertiary:focus{color:#657786;background-color:#F5F8FA;border-color:#657786;box-shadow:0 0 0 1px #fff,0 0 0 3px #CCD6DD}
-html.dark .btn-tertiary:active,html.dark .btn-tertiary.is-selected{color:#657786;background-color:#F5F8FA;border-color:#657786}
-html.dark .btn-tertiary[disabled],html.dark .btn-tertiary[disabled]:hover,html.dark .btn-tertiary[disabled]:active,html.dark .btn-tertiary.is-disabled,html.dark .btn-tertiary.is-disabled:hover,html.dark .btn-tertiary.is-disabled:focus,html.dark .btn-tertiary.is-disabled:active{color:#AAB8C2;border-color:#e1e8ed;background-color:#eaeaea}
+html.dark .is-inverted-dark .btn-fav.s-favorited:hover,html.dark .is-inverted-dark .s-following .follow-btn:hover,html.dark .s-following .is-inverted-dark .follow-btn:hover{background-color:#005FD1}
+html.dark .is-inverted-dark .btn-fav.s-favorited:focus,html.dark .is-inverted-dark .s-following .follow-btn:focus,html.dark .s-following .is-inverted-dark .follow-btn:focus{background-color:#005FD1}
+html.dark .is-inverted-dark .btn-fav.s-favorited:active,html.dark .is-inverted-dark .s-following .follow-btn:active,html.dark .s-following .is-inverted-dark .follow-btn:active,html.dark .is-inverted-dark .is-selected.btn-fav.s-favorited,html.dark .is-inverted-dark .s-following .is-selected.follow-btn,html.dark .s-following .is-inverted-dark .is-selected.follow-btn{background-color:#005FD1}
+html.dark .is-inverted-dark .btn-fav.s-favorited:hover,html.dark .is-inverted-dark .s-following .follow-btn:hover,html.dark .s-following .is-inverted-dark .follow-btn:hover{background-color:#A01744}
+html.dark .is-inverted-dark .btn-fav.s-favorited:focus,html.dark .is-inverted-dark .s-following .follow-btn:focus,html.dark .s-following .is-inverted-dark .follow-btn:focus{background-color:#A01744}
+html.dark .is-inverted-dark .btn-fav.s-favorited:active,html.dark .is-inverted-dark .s-following .follow-btn:active,html.dark .s-following .is-inverted-dark .follow-btn:active,html.dark .is-inverted-dark .is-selected.btn-fav.s-favorited,html.dark .is-inverted-dark .s-following .is-selected.follow-btn,html.dark .s-following .is-inverted-dark .is-selected.follow-btn{background-color:#A01744}
+html.dark .btn-fav.s-favorited,html.dark .s-following .follow-btn{color:#fff;background-color:#1DA1F2;border:1px solid #1DA1F2}
+html.dark .btn-fav.s-favorited:hover,html.dark .s-following .follow-btn:hover{color:#fff;background-color:#005FD1;border:1px solid #005FD1}
+html.dark .btn-fav.s-favorited:focus,html.dark .s-following .follow-btn:focus{color:#fff;background-color:#005FD1;border:1px solid #005FD1;box-shadow:0 0 0 1px #fff,0 0 0 3px #71C9F8}
+html.dark .btn-fav.s-favorited:active,html.dark .s-following .follow-btn:active,html.dark .is-selected.btn-fav.s-favorited,html.dark .s-following .is-selected.follow-btn{color:#fff;background-color:#005FD1;border:1px solid #005FD1}
+html.dark [disabled].btn-fav.s-favorited,html.dark .s-following [disabled].follow-btn,html.dark [disabled].btn-fav.s-favorited:hover,html.dark .s-following [disabled].follow-btn:hover,html.dark [disabled].btn-fav.s-favorited:active,html.dark .s-following [disabled].follow-btn:active,html.dark .is-disabled.btn-fav.s-favorited,html.dark .s-following .is-disabled.follow-btn,html.dark .is-disabled.btn-fav.s-favorited:hover,html.dark .s-following .is-disabled.follow-btn:hover,html.dark .is-disabled.btn-fav.s-favorited:focus,html.dark .s-following .is-disabled.follow-btn:focus,html.dark .is-disabled.btn-fav.s-favorited:active,html.dark .s-following .is-disabled.follow-btn:active{color:#fff;background-color:#1DA1F2;border:1px solid #1DA1F2}
+html.dark .btn-fav.s-favorited:hover,html.dark .s-following .follow-btn:hover{color:#fff;background-color:#A01744;border:#A01744}
+html.dark .btn-fav.s-favorited:active,html.dark .s-following .follow-btn:active,html.dark .is-selected.btn-fav.s-favorited,html.dark .s-following .is-selected.follow-btn{color:#fff;background-color:#A01744;border:#A01744}
 html.dark .btn-on-blue{color:#fff;background-color:#66757f}
 html.dark .btn-on-blue:hover{color:#fff;background-color:#66757f}
 html.dark .btn-on-blue:focus{color:#fff;background-color:#66757f;box-shadow:0 0 2px 3px #50a5e6}
 html.dark .btn-on-blue:active,html.dark .btn-on-blue.is-selected{color:#fff;background-color:#434c51}
 html.dark .btn-on-blue[disabled],html.dark .btn-on-blue[disabled]:hover,html.dark .btn-on-blue[disabled]:active,html.dark .btn-on-blue.is-disabled,html.dark .btn-on-blue.is-disabled:hover,html.dark .btn-on-blue.is-disabled:focus,html.dark .btn-on-blue.is-disabled:active{color:#fff;background-color:#66757f}
-html.dark .btn-neutral-negative{color:#d29b9a}
-html.dark .btn-neutral-negative:hover,html.dark .btn-neutral-negative:focus{color:#d29b9a}
-html.dark .btn-neutral-negative[disabled],html.dark .btn-neutral-negative[disabled]:hover,html.dark .btn-neutral-negative[disabled]:active,html.dark .btn-neutral-negative.is-disabled,html.dark .btn-neutral-negative.is-disabled:hover,html.dark .btn-neutral-negative.is-disabled:focus,html.dark .btn-neutral-negative.is-disabled:active{color:#d29b9a}
-html.dark .btn-neutral-positive{color:#8bd}
-html.dark .btn-neutral-positive:hover,html.dark .btn-neutral-positive:focus{color:#8bd}
-html.dark .btn-neutral-positive[disabled],html.dark .btn-neutral-positive[disabled]:hover,html.dark .btn-neutral-positive[disabled]:active,html.dark .btn-neutral-positive.is-disabled,html.dark .btn-neutral-positive.is-disabled:hover,html.dark .btn-neutral-positive.is-disabled:focus,html.dark .btn-neutral-positive.is-disabled:active{color:#8bd}
 html.dark .btn-options-tray{color:#e1e8ed}
 html.dark .btn-options-tray:hover,html.dark .btn-options-tray:focus{color:#8bd}
 html.dark .btn-options-tray[disabled],html.dark .btn-options-tray[disabled]:hover,html.dark .btn-options-tray[disabled]:active,html.dark .btn-options-tray.is-disabled,html.dark .btn-options-tray.is-disabled:hover,html.dark .btn-options-tray.is-disabled:focus,html.dark .btn-options-tray.is-disabled:active{color:#8bd}
 html.dark .btn-bg-positive{background-color:rgba(102,117,127,0.5)}
 html.dark .btn-bg-positive:hover,html.dark .btn-bg-positive:focus{background-color:rgba(102,117,127,0.5)}
 html.dark .btn-bg-positive[disabled],html.dark .btn-bg-positive[disabled]:hover,html.dark .btn-bg-positive[disabled]:active,html.dark .btn-bg-positive.is-disabled,html.dark .btn-bg-positive.is-disabled:hover,html.dark .btn-bg-positive.is-disabled:focus,html.dark .btn-bg-positive.is-disabled:active{background-color:rgba(102,117,127,0.5)}
-html.dark .btn-bg-negative{background-color:#5d5457}
-html.dark .btn-bg-negative:hover,html.dark .btn-bg-negative:focus{background-color:#5d5457}
-html.dark .btn-bg-negative[disabled],html.dark .btn-bg-negative[disabled]:hover,html.dark .btn-bg-negative[disabled]:active,html.dark .btn-bg-negative.is-disabled,html.dark .btn-bg-negative.is-disabled:hover,html.dark .btn-bg-negative.is-disabled:focus,html.dark .btn-bg-negative.is-disabled:active{background-color:#5d5457}
-html.dark .btn-bg-white{background-color:#fff;color:#55acee}
-html.dark .btn-bg-white:hover,html.dark .btn-bg-white:focus{background-color:#fff;color:#55acee}
 html.dark .follow-btn .icon,html.dark .follow-btn .Icon{color:#1DA1F2}
-html.dark .input-group-button{border:1px solid #e1e8ed}
 html.dark .account-profile-header{background-color:#1DA1F2}
 html.dark .account-settings-bt{border-top:1px solid #e1e8ed}
 html.dark .account-settings-bb{border-bottom:1px solid #e1e8ed}
@@ -440,12 +408,6 @@ html.dark .char-count:disabled{color:#777}
 html.dark .over-char-count:disabled{color:#be1931}
 html.dark .cmp-replyto{background-color:#eaeaea;border-top:1px solid #ddd}
 html.dark .s-link-added.s-photo-added p:last-child{border-top:1px solid #ddd}
-html.dark .accs li{background:#eaeaea;border:1px solid #e1e8ed}
-html.dark .accs li:hover{background:#e1e8ed}
-html.dark .accs .icon,html.dark .accs .Icon{color:#999}
-html.dark .accs .acc-selected{background-color:#55acee;border:1px solid #e1e8ed}
-html.dark .accs .acc-selected i{color:#fff}
-html.dark .accs .acc-selected:hover{border-color:#e1e8ed;background-color:#50a5e6}
 html.dark .inline-reply{background-color:#485865;color:#fff}
 html.dark .inline-reply .btn-neutral,html.dark .inline-reply .character-count{color:#fff}
 html.dark .reply-triangle{border-color:transparent transparent #485865}

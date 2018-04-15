@@ -98,7 +98,7 @@
       </footer>
     </div>
   </div>
-</div>`).appendTo(".js-app");
+</div>`).appendTo(".js-app"); /* TODO btn-positive is removed, check all files again */
     
     let tdUser = null;
     let loadTweetDuckUser = (onSuccess, onError) => {
