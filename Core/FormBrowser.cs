@@ -39,6 +39,7 @@ namespace TweetDuck.Core{
         }
 
         public string UpdateInstallerPath { get; private set; }
+        private bool ignoreUpdateCheckError;
         
         public AnalyticsFile AnalyticsFile => analytics?.File ?? AnalyticsFile.Dummy;
 
@@ -247,7 +248,12 @@ namespace TweetDuck.Core{
                         }
                     }
                 }, ex => {
-                    // TODO show error and ask if the user wants to temporarily disable checks -- or maybe only do that for the first check of the day
+                    if (!ignoreUpdateCheckError){
+                        Program.Reporter.HandleException("Update Check Error", "An error occurred while checking for updates.", true, ex);
+
+                        ignoreUpdateCheckError = true;
+                        updates.StartTimer();
+                    }
                 });
             });
         }
@@ -329,6 +335,7 @@ namespace TweetDuck.Core{
             Resources.ScriptLoader.HotSwap();
             #endif
 
+            ignoreUpdateCheckError = false;
             browser.ReloadToTweetDeck();
             AnalyticsFile.BrowserReloads.Trigger();
         }

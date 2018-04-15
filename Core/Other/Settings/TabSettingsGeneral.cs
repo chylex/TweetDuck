@@ -227,7 +227,7 @@ namespace TweetDuck.Core.Other.Settings{
                             FormMessage.Information("No Updates Available", "Your version of TweetDuck is up to date.", FormMessage.OK);
                         }
                     }, ex => {
-                        Program.Reporter.HandleException("Update Check", "Encountered an error while checking updates.", true, ex);
+                        Program.Reporter.HandleException("Update Check Error", "An error occurred while checking for updates.", true, ex);
                     });
                 }
             });

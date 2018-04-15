@@ -21,7 +21,7 @@ namespace TweetDuck.Updates{
             TaskCompletionSource<UpdateInfo> result = new TaskCompletionSource<UpdateInfo>();
 
             WebClient client = BrowserUtils.CreateWebClient();
-            client.Headers[HttpRequestHeader.Accept] = "application/vnd.github.v3+json"; // TODO could use .html to avoid custom markdown parsing
+            client.Headers[HttpRequestHeader.Accept] = "application/vnd.github.v3+json";
 
             client.DownloadStringTaskAsync(ApiLatestRelease).ContinueWith(task => {
                 if (task.IsCanceled){
