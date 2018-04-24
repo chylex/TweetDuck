@@ -7,17 +7,12 @@ constructor(){
 enabled(){
   // prepare variables and functions
   var clearColumn = (columnName) => {
-    let col = TD.controller.columnManager.get(columnName);
-    return if !col.isClearable();
-    
-    col.clear();
+    TD.controller.columnManager.get(columnName).clear();
     TD.controller.stats.columnActionClick("clear");
   };
   
   var resetColumn = (columnName) => {
     let col = TD.controller.columnManager.get(columnName);
-    return if !col.isClearable();
-    
     col.model.setClearedTimestamp(0);
     col.reloadTweets();
   };

@@ -40,7 +40,7 @@ enabled(){
           columnAccount = "";
         }
         
-        try{
+        try{ // TODO isOfType is removed
           query = configuration.customSelector(columnTitle, columnAccount, column, section.hasClass("column-temp"));
         }catch(e){
           $TD.alert("warning", "Plugin reply-account has invalid configuration: customSelector threw an error: "+e.message);

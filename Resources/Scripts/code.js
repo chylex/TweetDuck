@@ -25,26 +25,23 @@
   const app = $(document.body).children(".js-app");
   
   //
-  // Constant: Column types mapped to their titles.
+  // Constant: Column icon classes mapped to their titles.
   //
-  const columnTypes = {
-    "col_home": "Home",
-    "col_timeline" : "Home",
-    "col_mentions": "Mentions",
-    "col_me": "Mentions",
-    "col_inbox": "Messages",
-    "col_messages": "Messages",
-    "col_interactions": "Notifications",
-    "col_followers": "Followers",
-    "col_activity": "Activity",
-    "col_favorites": "Likes",
-    "col_usertweets": "User",
-    "col_search": "Search",
-    "col_list": "List",
-    "col_customtimeline": "Timeline",
-    "col_dataminr": "Dataminr",
-    "col_livevideo": "Live video",
-    "col_scheduled": "Scheduled"
+  const columnTitles = {
+    "icon-home": "Home",
+    "icon-mention": "Mentions",
+    "icon-message": "Messages",
+    "icon-notifications": "Notifications",
+    "icon-follow": "Followers",
+    "icon-activity": "Activity",
+    "icon-favorite": "Likes",
+    "icon-user": "User",
+    "icon-search": "Search",
+    "icon-list": "List",
+    "icon-custom-timeline": "Timeline",
+    "icon-dataminr": "Dataminr",
+    "icon-play-video": "Live video",
+    "icon-schedule": "Scheduled"
   };
   
   //
@@ -99,10 +96,20 @@
   };
   
   //
-  // Function: Retrieves column name
+  // Function: Attempts to retrieve the column icon class. Returns undefined on failure.
+  //
+  const getColumnIconClass = function(column){
+    if (ensurePropertyExists(column, "ui", "_$chirpContainer")){
+      return column.ui._$chirpContainer.closest(".js-column").attr("data-td-icon");
+    }
+  };
+  
+  //
+  // Function: Retrieves column name and caches it.
+  //
   const getColumnName = function(column){
-    let cached = column._tduck_type || (column._tduck_type = Object.keys(columnTypes).find(type => column.isOfType(type)));
-    return columnTypes[cached] || "";
+    let cached = column._tduck_icon || (column._tduck_icon = getColumnIconClass(column));
+    return columnTitles[cached] || "";
   };
   
   //
