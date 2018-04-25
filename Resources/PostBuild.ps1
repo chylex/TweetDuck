@@ -7,7 +7,8 @@ Param(
 $ErrorActionPreference = "Stop"
 
 try{
-  Write-Host "------------------------------"
+  $sw = [Diagnostics.Stopwatch]::StartNew()
+  Write-Host "--------------------------"
   
   if ($version.Equals("")){
     $version = (Get-Item (Join-Path $targetDir "TweetDuck.exe")).VersionInfo.FileVersion
@@ -15,7 +16,7 @@ try{
   
   Write-Host "TweetDuck version" $version
   
-  Write-Host "------------------------------"
+  Write-Host "--------------------------"
   
   # Cleanup
   
@@ -36,7 +37,7 @@ try{
   Copy-Item (Join-Path $projectDir "Resources\Scripts\*") -Destination (Join-Path $targetDir "scripts") -Recurse
   Copy-Item (Join-Path $projectDir "Resources\Plugins\*") -Exclude ".debug", "emoji-instructions.txt" -Destination (Join-Path $targetDir "plugins\official") -Recurse
   
-  # Post processing
+  # Helper functions
   
   function Check-Carriage-Return{
     Param(
@@ -69,8 +70,10 @@ try{
     Write-Host "Processed" $relativePath
   }
   
+  # Post processing
+  
   Check-Carriage-Return("emoji-ordering.txt")
-
+  
   ForEach($file in Get-ChildItem -Path $targetDir -Filter "*.js" -Exclude "configuration.default.js" -Recurse){
     $lines = Get-Content -Path $file.FullName
     $lines = $lines | % { $_.TrimStart() }
@@ -78,7 +81,7 @@ try{
     $lines = $lines -Replace '(?<!\w)return(\s.*?)? if (.*?);', 'if ($2)return$1;'
     ,$lines | Rewrite-File $file
   }
-
+  
   ForEach($file in Get-ChildItem -Path $targetDir -Filter "*.css" -Recurse){
     $lines = Get-Content -Path $file.FullName
     $lines = $lines -Replace '\s*/\*.*?\*/', ''
@@ -86,18 +89,22 @@ try{
     $lines = $lines -Replace '^(\S.*?) {$', '$1{'
     @(($lines | Where { $_ -ne '' }) -Join ' ') | Rewrite-File $file
   }
-
+  
   ForEach($file in Get-ChildItem -Path $targetDir -Filter "*.html" -Recurse){
     $lines = Get-Content -Path $file.FullName
     ,($lines | % { $_.TrimStart() }) | Rewrite-File $file
   }
   
-  Write-Host "------------------------------"
   ForEach($file in Get-ChildItem -Path $targetDir -Filter "*.meta" -Recurse){
     $lines = Get-Content -Path $file.FullName
     $lines = $lines -Replace '\{version\}', $version
     ,$lines | Rewrite-File $file
   }
+  
+  Write-Host "-------------------"
+  $sw.Stop()
+  Write-Host "Finished in" $([math]::Round($sw.Elapsed.TotalMilliseconds)) "ms"
+  Write-Host -------------------
 }catch{
   Write-Host "Encountered an error while running PostBuild.ps1 on line" $_.InvocationInfo.ScriptLineNumber
   Write-Host $_
