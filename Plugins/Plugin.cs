@@ -4,7 +4,6 @@ using TweetDuck.Plugins.Enums;
 
 namespace TweetDuck.Plugins{
     sealed class Plugin{
-        private const string VersionWildcard = "*";
         private static readonly Version AppVersion = new Version(Program.VersionTag);
 
         public string Identifier { get; }
@@ -119,14 +118,14 @@ namespace TweetDuck.Plugins{
         public sealed class Builder{
             private static readonly Version DefaultRequiredVersion = new Version(0, 0, 0, 0);
 
-            public string Name             { get; private set; }
-            public string Description      { get; private set; } = string.Empty;
-            public string Author           { get; private set; } = "(anonymous)";
-            public string Version          { get; private set; } = "(unknown)";
-            public string Website          { get; private set; } = string.Empty;
-            public string ConfigFile       { get; private set; } = string.Empty;
-            public string ConfigDefault    { get; private set; } = string.Empty;
-            public Version RequiredVersion { get; private set; } = DefaultRequiredVersion;
+            public string Name             { get; set; }
+            public string Description      { get; set; } = string.Empty;
+            public string Author           { get; set; } = "(anonymous)";
+            public string Version          { get; set; } = string.Empty;
+            public string Website          { get; set; } = string.Empty;
+            public string ConfigFile       { get; set; } = string.Empty;
+            public string ConfigDefault    { get; set; } = string.Empty;
+            public Version RequiredVersion { get; set; } = DefaultRequiredVersion;
 
             public PluginEnvironment Environments { get; private set; } = PluginEnvironment.None;
 
@@ -142,34 +141,8 @@ namespace TweetDuck.Plugins{
                 this.identifier = group.GetIdentifierPrefix()+name;
             }
 
-            public void SetFromTag(string tag, string value){
-                switch(tag){
-                    case "NAME":          this.Name = value; break;
-                    case "DESCRIPTION":   this.Description = value; break;
-                    case "AUTHOR":        this.Author = value; break;
-                    case "VERSION":       this.Version = value; break;
-                    case "WEBSITE":       this.Website = value; break;
-                    case "CONFIGFILE":    this.ConfigFile = value; break;
-                    case "CONFIGDEFAULT": this.ConfigDefault = value; break;
-                    case "REQUIRES":      SetRequiredVersion(value); break;
-                    default: throw new FormatException("Invalid metadata tag: "+tag);
-                }
-            }
-
             public void AddEnvironment(PluginEnvironment environment){
                 this.Environments |= environment;
-            }
-
-            private void SetRequiredVersion(string versionStr){
-                if (System.Version.TryParse(versionStr, out Version version)){
-                    this.RequiredVersion = version;
-                }
-                else if (versionStr == VersionWildcard){
-                    this.RequiredVersion = DefaultRequiredVersion;
-                }
-                else{
-                    throw new FormatException("Plugin contains invalid minimum version: "+versionStr);
-                }
             }
 
             public Plugin BuildAndSetup(){
@@ -181,6 +154,15 @@ namespace TweetDuck.Plugins{
 
                 if (plugin.Environments == PluginEnvironment.None){
                     throw new InvalidOperationException("Plugin has no script files");
+                }
+
+                if (plugin.Group == PluginGroup.Official){
+                    if (plugin.RequiredVersion != AppVersion){
+                        throw new InvalidOperationException("Plugin is not supported in this version of TweetDuck, this may indicate a failed update or an unsupported plugin that was not removed automatically");
+                    }
+                    else if (!string.IsNullOrEmpty(plugin.Version)){
+                        throw new InvalidOperationException("Official plugins cannot have a version identifier");
+                    }
                 }
 
                 // setup

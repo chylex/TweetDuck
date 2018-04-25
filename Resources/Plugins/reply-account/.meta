@@ -7,12 +7,6 @@ Custom reply account
 [author]
 chylex
 
-[version]
-1.3
-
-[website]
-https://tweetduck.chylex.com
-
 [configfile]
 configuration.js
 
@@ -20,4 +14,4 @@ configuration.js
 configuration.default.js
 
 [requires]
-1.10.3
+{version}

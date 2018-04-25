@@ -8,11 +8,5 @@ Emoji keyboard
 [author]
 chylex
 
-[version]
-1.4.4
-
-[website]
-https://tweetduck.chylex.com
-
 [requires]
-1.5.3
+{version}

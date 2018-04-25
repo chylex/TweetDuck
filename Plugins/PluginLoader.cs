@@ -32,7 +32,7 @@ namespace TweetDuck.Plugins{
             foreach(string line in File.ReadAllLines(metaFile, Encoding.UTF8).Concat(EndTag).Select(line => line.TrimEnd()).Where(line => line.Length > 0)){
                 if (line[0] == '[' && line[line.Length-1] == ']'){
                     if (currentTag != null){
-                        builder.SetFromTag(currentTag, currentContents);
+                        SetProperty(builder, currentTag, currentContents);
                     }
 
                     currentTag = line.Substring(1, line.Length-2).ToUpper();
@@ -51,6 +51,20 @@ namespace TweetDuck.Plugins{
             }
 
             return builder.BuildAndSetup();
+        }
+
+        private static void SetProperty(Plugin.Builder builder, string tag, string value){
+            switch(tag){
+                case "NAME":          builder.Name = value; break;
+                case "DESCRIPTION":   builder.Description = value; break;
+                case "AUTHOR":        builder.Author = value; break;
+                case "VERSION":       builder.Version = value; break;
+                case "WEBSITE":       builder.Website = value; break;
+                case "CONFIGFILE":    builder.ConfigFile = value; break;
+                case "CONFIGDEFAULT": builder.ConfigDefault = value; break;
+                case "REQUIRES":      builder.RequiredVersion = Version.TryParse(value, out Version version) ? version : throw new FormatException("Invalid required minimum version: "+value); break;
+                default: throw new FormatException("Invalid metadata tag: "+tag);
+            }
         }
     }
 }

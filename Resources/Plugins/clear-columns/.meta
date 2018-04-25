@@ -8,11 +8,5 @@ Clear columns
 [author]
 chylex
 
-[version]
-1.2.1
-
-[website]
-https://tweetduck.chylex.com
-
 [requires]
-1.4.1
+{version}

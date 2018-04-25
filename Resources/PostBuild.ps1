@@ -93,6 +93,11 @@ try{
   }
   
   Write-Host "------------------------------"
+  ForEach($file in Get-ChildItem -Path $targetDir -Filter "*.meta" -Recurse){
+    $lines = Get-Content -Path $file.FullName
+    $lines = $lines -Replace '\{version\}', $version
+    ,$lines | Rewrite-File $file
+  }
 }catch{
   Write-Host "Encountered an error while running PostBuild.ps1 on line" $_.InvocationInfo.ScriptLineNumber
   Write-Host $_
