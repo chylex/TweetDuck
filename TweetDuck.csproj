@@ -413,13 +413,7 @@ rmdir "$(ProjectDir)bin\Release"
 rmdir "$(TargetDir)scripts" /S /Q
 rmdir "$(TargetDir)plugins" /S /Q
 
-powershell -ExecutionPolicy Unrestricted -File "$(ProjectDir)Resources\PostBuild.ps1" "$(TargetDir)\" "$(ProjectDir)\"
-
-if $(ConfigurationName) == Debug (
-  rmdir "$(TargetDir)plugins\official\.debug" /S /Q
-  mkdir "$(TargetDir)plugins\user\.debug"
-  xcopy "$(ProjectDir)Resources\Plugins\.debug\*" "$(TargetDir)plugins\user\.debug\" /E /Y
-)
+powershell -ExecutionPolicy Unrestricted -File "$(ProjectDir)Resources\PostBuild.ps1" "$(TargetDir)\" "$(ProjectDir)\" "$(ConfigurationName)"
 </PostBuildEvent>
   </PropertyGroup>
   <Target Name="AfterBuild" Condition="$(ConfigurationName) == Release">

@@ -1,7 +1,8 @@
 Param(
   [Parameter(Mandatory = $True, Position = 1)][string] $targetDir,
   [Parameter(Mandatory = $True, Position = 2)][string] $projectDir,
-  [Parameter(Position = 3)][string] $version = ""
+  [Parameter(Position = 3)][string] $configuration = "Release",
+  [Parameter(Position = 4)][string] $version = ""
 )
 
 $ErrorActionPreference = "Stop"
@@ -36,6 +37,11 @@ try{
   
   Copy-Item (Join-Path $projectDir "Resources\Scripts\*") -Destination (Join-Path $targetDir "scripts") -Recurse
   Copy-Item (Join-Path $projectDir "Resources\Plugins\*") -Exclude ".debug", "emoji-instructions.txt" -Destination (Join-Path $targetDir "plugins\official") -Recurse
+  
+  if ($configuration -eq "Debug"){
+    New-Item -ItemType directory -Path $targetDir -Name "plugins\user\.debug" | Out-Null
+    Copy-Item (Join-Path $projectDir "Resources\Plugins\.debug\*") -Destination (Join-Path $targetDir "plugins\user\.debug") -Recurse
+  }
   
   # Helper functions
   

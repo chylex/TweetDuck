@@ -106,7 +106,7 @@ namespace TweetDuck.Resources{
 
             using(Process process = Process.Start(new ProcessStartInfo{
                 FileName = "powershell",
-                Arguments = $"-ExecutionPolicy Unrestricted -File \"{HotSwapRebuildScript}\" \"{HotSwapTargetDir}\\\" \"{HotSwapProjectRoot}\\\" \"{Program.VersionTag}\"",
+                Arguments = $"-ExecutionPolicy Unrestricted -File \"{HotSwapRebuildScript}\" \"{HotSwapTargetDir}\\\" \"{HotSwapProjectRoot}\\\" \"Debug\" \"{Program.VersionTag}\"",
                 WindowStyle = ProcessWindowStyle.Hidden
             })){
                 // ReSharper disable once PossibleNullReferenceException
