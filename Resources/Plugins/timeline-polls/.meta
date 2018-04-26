@@ -1,8 +1,8 @@
 [name]
-Polls in timelines
+Show poll results
 
 [description]
-- Adds poll results into timelines and quoted tweets
+Displays poll results directly in timelines and notifications.
 
 [author]
 chylex

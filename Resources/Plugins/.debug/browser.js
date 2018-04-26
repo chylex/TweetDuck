@@ -61,3 +61,7 @@ ready(){
 disabled(){
   $(document).off("keydown", this.onKeyDown);
 }
+
+configure(){
+  alert("Configure triggered");
+}

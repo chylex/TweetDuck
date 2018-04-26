@@ -1,9 +1,9 @@
 [name]
-Clear columns
+Clear column shortcuts
 
 [description]
-- Adds buttons and keyboard shortcuts to quickly clear columns
-- Hold Shift when clicking or using a keyboard shortcut to restore the column instead
+Adds convenient buttons and keyboard shortcuts to clear/restore individual or all columns.
+When enabled, the list of keyboard shortcuts is available in the [Settings] menu.
 
 [author]
 chylex

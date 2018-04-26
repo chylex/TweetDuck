@@ -1,8 +1,8 @@
 [name]
-Templates
+Tweet templates
 
 [description]
-- Adds a templating system for tweets
+Adds a [Manage templates] button to the New Tweet panel.
 
 [author]
 chylex

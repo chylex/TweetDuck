@@ -1,9 +1,9 @@
 [name]
-Emoji keyboard
+Emoji picker
 
 [description]
-- Adds an emoji keyboard when writing tweets
-- Emoji list provided by http://unicode.org/emoji/charts/emoji-ordering.html
+Adds a button that opens an emoji picker in the New Tweet panel.
+Use :short_codes: to quickly add emoji when writing tweets.
 
 [author]
 chylex

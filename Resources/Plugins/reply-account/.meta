@@ -1,11 +1,11 @@
 [name]
-Custom reply account
-
-[description]
-- Allows customizing the automatically selected reply account per column
+Customizable reply account
 
 [author]
 chylex
+
+[description]
+Allows configuring which account is pre-selected for replies in each column.
 
 [configfile]
 configuration.js
