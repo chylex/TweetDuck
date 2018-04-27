@@ -10,7 +10,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
 
         private readonly Action<string> reinjectBrowserCSS;
 
-        public DialogSettingsCSS(Action<string> reinjectBrowserCSS){
+        public DialogSettingsCSS(Action<string> reinjectBrowserCSS){ // TODO high dpi breaks scaling of things inside the panel...
             InitializeComponent();
             
             Text = Program.BrandName+" Options - CSS";

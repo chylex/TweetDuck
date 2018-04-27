@@ -19,6 +19,12 @@ namespace TweetDuck.Plugins.Controls{
         public PluginControl(PluginManager pluginManager, Plugin plugin) : this(){
             this.pluginManager = pluginManager;
             this.plugin = plugin;
+
+            float dpiScale = this.GetDPIScale();
+
+            if (dpiScale > 1F){
+                Size = MaximumSize = new Size(MaximumSize.Width, MaximumSize.Height+3);
+            }
             
             this.labelName.Text = plugin.Name;
             this.labelDescription.Text = plugin.CanRun ? plugin.Description : $"This plugin requires TweetDuck {plugin.RequiredVersion} or newer.";
@@ -26,7 +32,7 @@ namespace TweetDuck.Plugins.Controls{
             this.labelWebsite.Text = plugin.Website;
             this.labelVersion.Text = plugin.Version;
             
-            this.labelType.LineHeight = BrowserUtils.Scale(11, this.GetDPIScale());
+            this.labelType.LineHeight = BrowserUtils.Scale(11, dpiScale);
 
             UpdatePluginState();
 

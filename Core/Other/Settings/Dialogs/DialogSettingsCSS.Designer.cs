@@ -141,7 +141,7 @@
             this.textBoxNotificationCSS.Multiline = true;
             this.textBoxNotificationCSS.Name = "textBoxNotificationCSS";
             this.textBoxNotificationCSS.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxNotificationCSS.Size = new System.Drawing.Size(373, 251);
+            this.textBoxNotificationCSS.Size = new System.Drawing.Size(372, 251);
             this.textBoxNotificationCSS.TabIndex = 1;
             this.textBoxNotificationCSS.WordWrap = false;
             // 
@@ -185,7 +185,7 @@
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.btnApply);
             this.Controls.Add(this.btnCancel);
-            this.MinimumSize = new System.Drawing.Size(600, 160);
+            this.MinimumSize = new System.Drawing.Size(620, 160);
             this.Name = "DialogSettingsCSS";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

@@ -41,6 +41,7 @@ namespace TweetDuck.Core.Other {
             this.pictureLogo.Location = new System.Drawing.Point(12, 12);
             this.pictureLogo.Name = "pictureLogo";
             this.pictureLogo.Size = new System.Drawing.Size(96, 96);
+            this.pictureLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureLogo.TabIndex = 0;
             this.pictureLogo.TabStop = false;
             // 
@@ -52,7 +53,7 @@ namespace TweetDuck.Core.Other {
             this.labelDescription.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelDescription.Location = new System.Drawing.Point(114, 12);
             this.labelDescription.Name = "labelDescription";
-            this.labelDescription.Size = new System.Drawing.Size(232, 109);
+            this.labelDescription.Size = new System.Drawing.Size(232, 113);
             this.labelDescription.TabIndex = 0;
             // 
             // labelTips
@@ -63,7 +64,7 @@ namespace TweetDuck.Core.Other {
             this.labelTips.Location = new System.Drawing.Point(117, 0);
             this.labelTips.Margin = new System.Windows.Forms.Padding(0);
             this.labelTips.Name = "labelTips";
-            this.labelTips.Size = new System.Drawing.Size(99, 16);
+            this.labelTips.Size = new System.Drawing.Size(99, 18);
             this.labelTips.TabIndex = 1;
             this.labelTips.Text = "Tips && Tricks";
             this.labelTips.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -78,7 +79,7 @@ namespace TweetDuck.Core.Other {
             this.labelWebsite.Location = new System.Drawing.Point(0, 0);
             this.labelWebsite.Margin = new System.Windows.Forms.Padding(0);
             this.labelWebsite.Name = "labelWebsite";
-            this.labelWebsite.Size = new System.Drawing.Size(117, 16);
+            this.labelWebsite.Size = new System.Drawing.Size(117, 18);
             this.labelWebsite.TabIndex = 0;
             this.labelWebsite.Text = "Official Website";
             this.labelWebsite.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -95,11 +96,11 @@ namespace TweetDuck.Core.Other {
             this.tablePanelLinks.Controls.Add(this.labelIssues, 2, 0);
             this.tablePanelLinks.Controls.Add(this.labelWebsite, 0, 0);
             this.tablePanelLinks.Controls.Add(this.labelTips, 1, 0);
-            this.tablePanelLinks.Location = new System.Drawing.Point(12, 124);
+            this.tablePanelLinks.Location = new System.Drawing.Point(12, 128);
             this.tablePanelLinks.Name = "tablePanelLinks";
             this.tablePanelLinks.RowCount = 1;
             this.tablePanelLinks.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tablePanelLinks.Size = new System.Drawing.Size(334, 16);
+            this.tablePanelLinks.Size = new System.Drawing.Size(334, 18);
             this.tablePanelLinks.TabIndex = 1;
             // 
             // labelIssues
@@ -110,7 +111,7 @@ namespace TweetDuck.Core.Other {
             this.labelIssues.Location = new System.Drawing.Point(216, 0);
             this.labelIssues.Margin = new System.Windows.Forms.Padding(0);
             this.labelIssues.Name = "labelIssues";
-            this.labelIssues.Size = new System.Drawing.Size(118, 16);
+            this.labelIssues.Size = new System.Drawing.Size(118, 18);
             this.labelIssues.TabIndex = 2;
             this.labelIssues.Text = "Report an Issue";
             this.labelIssues.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -121,7 +122,7 @@ namespace TweetDuck.Core.Other {
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(358, 152);
+            this.ClientSize = new System.Drawing.Size(358, 156);
             this.Controls.Add(this.tablePanelLinks);
             this.Controls.Add(this.labelDescription);
             this.Controls.Add(this.pictureLogo);
