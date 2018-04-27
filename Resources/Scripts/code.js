@@ -1332,8 +1332,8 @@
   //
   // Block: Remove column mouse wheel handler, which allows smooth scrolling inside columns, and horizontally scrolling column container when holding Shift.
   //
-  if (ensurePropertyExists(TD, "ui", "columns", "setupColumn")){
-    TD.ui.columns.setupColumn = appendToFunction(TD.ui.columns.setupColumn, function(e){
+  if (ensurePropertyExists(TD, "ui", "columns", "setupColumnScrollListeners")){
+    TD.ui.columns.setupColumnScrollListeners = appendToFunction(TD.ui.columns.setupColumnScrollListeners, function(e){
       $(".js-column[data-column='"+e.model.getKey()+"']").off("mousewheel onmousewheel");
     });
   }
