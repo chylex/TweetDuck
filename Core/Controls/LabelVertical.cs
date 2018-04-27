@@ -7,7 +7,7 @@ namespace TweetDuck.Core.Controls{
         public int LineHeight { get; set; }
 
         protected override void OnPaint(PaintEventArgs e){
-            int y = (int)Math.Floor((ClientRectangle.Height-Text.Length*LineHeight)/2F)-2; // 2 = random
+            int y = (int)Math.Floor((ClientRectangle.Height-Text.Length*LineHeight)/2F)-1;
 
             using(Brush brush = new SolidBrush(ForeColor)){
                 foreach(char chr in Text){

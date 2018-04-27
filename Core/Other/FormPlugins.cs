@@ -18,14 +18,18 @@ namespace TweetDuck.Core.Other{
 
         public FormPlugins(PluginManager pluginManager) : this(){
             this.pluginManager = pluginManager;
+
+            if (!Program.UserConfig.PluginsWindowSize.IsEmpty){
+                Size targetSize = Program.UserConfig.PluginsWindowSize;
+                Size = new Size(Math.Max(MinimumSize.Width, targetSize.Width), Math.Max(MinimumSize.Height, targetSize.Height));
+            }
             
             Shown += (sender, args) => {
-                Program.UserConfig.PluginsWindow.Restore(this, false);
                 ReloadPluginList();
             };
 
             FormClosed += (sender, args) => {
-                Program.UserConfig.PluginsWindow.Save(this);
+                Program.UserConfig.PluginsWindowSize = Size;
                 Program.UserConfig.Save();
             };
 

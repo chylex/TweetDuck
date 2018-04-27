@@ -35,6 +35,7 @@
             this.btnConfigure = new System.Windows.Forms.Button();
             this.labelType = new TweetDuck.Core.Controls.LabelVertical();
             this.timerLayout = new System.Windows.Forms.Timer(this.components);
+            this.panelBorder = new System.Windows.Forms.Panel();
             this.panelDescription.SuspendLayout();
             this.flowLayoutInfo.SuspendLayout();
             this.SuspendLayout();
@@ -45,7 +46,7 @@
             this.btnToggleState.Location = new System.Drawing.Point(453, 59);
             this.btnToggleState.Name = "btnToggleState";
             this.btnToggleState.Size = new System.Drawing.Size(68, 23);
-            this.btnToggleState.TabIndex = 5;
+            this.btnToggleState.TabIndex = 6;
             this.btnToggleState.Text = "Disable";
             this.btnToggleState.UseVisualStyleBackColor = true;
             this.btnToggleState.Click += new System.EventHandler(this.btnToggleState_Click);
@@ -74,7 +75,7 @@
             this.panelDescription.Location = new System.Drawing.Point(28, 33);
             this.panelDescription.Name = "panelDescription";
             this.panelDescription.Size = new System.Drawing.Size(410, 47);
-            this.panelDescription.TabIndex = 3;
+            this.panelDescription.TabIndex = 4;
             this.panelDescription.Resize += new System.EventHandler(this.panelDescription_Resize);
             // 
             // labelDescription
@@ -114,7 +115,7 @@
             this.flowLayoutInfo.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutInfo.Name = "flowLayoutInfo";
             this.flowLayoutInfo.Size = new System.Drawing.Size(414, 21);
-            this.flowLayoutInfo.TabIndex = 1;
+            this.flowLayoutInfo.TabIndex = 2;
             this.flowLayoutInfo.WrapContents = false;
             // 
             // labelWebsite
@@ -144,7 +145,7 @@
             this.labelVersion.Name = "labelVersion";
             this.labelVersion.Padding = new System.Windows.Forms.Padding(0, 0, 0, 3);
             this.labelVersion.Size = new System.Drawing.Size(436, 21);
-            this.labelVersion.TabIndex = 2;
+            this.labelVersion.TabIndex = 3;
             this.labelVersion.Text = "Version";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             this.labelVersion.UseMnemonic = false;
@@ -155,7 +156,7 @@
             this.btnConfigure.Location = new System.Drawing.Point(453, 31);
             this.btnConfigure.Name = "btnConfigure";
             this.btnConfigure.Size = new System.Drawing.Size(68, 23);
-            this.btnConfigure.TabIndex = 4;
+            this.btnConfigure.TabIndex = 5;
             this.btnConfigure.Text = "Configure";
             this.btnConfigure.UseVisualStyleBackColor = true;
             this.btnConfigure.Click += new System.EventHandler(this.btnConfigure_Click);
@@ -166,7 +167,6 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.labelType.BackColor = System.Drawing.Color.DarkGray;
             this.labelType.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelType.LineHeight = 0;
             this.labelType.Location = new System.Drawing.Point(0, 0);
             this.labelType.Name = "labelType";
             this.labelType.Size = new System.Drawing.Size(18, 88);
@@ -178,6 +178,17 @@
             this.timerLayout.Interval = 1;
             this.timerLayout.Tick += new System.EventHandler(this.timerLayout_Tick);
             // 
+            // panelBorder
+            // 
+            this.panelBorder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.panelBorder.BackColor = System.Drawing.Color.DimGray;
+            this.panelBorder.Location = new System.Drawing.Point(18, 0);
+            this.panelBorder.Margin = new System.Windows.Forms.Padding(0);
+            this.panelBorder.Name = "panelBorder";
+            this.panelBorder.Size = new System.Drawing.Size(1, 88);
+            this.panelBorder.TabIndex = 1;
+            // 
             // PluginControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -185,6 +196,7 @@
             this.Controls.Add(this.labelType);
             this.Controls.Add(this.btnConfigure);
             this.Controls.Add(this.flowLayoutInfo);
+            this.Controls.Add(this.panelBorder);
             this.Controls.Add(this.panelDescription);
             this.Controls.Add(this.btnToggleState);
             this.Controls.Add(this.labelVersion);
@@ -214,5 +226,6 @@
         private System.Windows.Forms.Button btnConfigure;
         private Core.Controls.LabelVertical labelType;
         private System.Windows.Forms.Timer timerLayout;
+        private System.Windows.Forms.Panel panelBorder;
     }
 }

@@ -26,7 +26,7 @@ namespace TweetDuck.Plugins.Controls{
             this.labelWebsite.Text = plugin.Website;
             this.labelVersion.Text = plugin.Version;
             
-            this.labelType.LineHeight = BrowserUtils.Scale(9, this.GetDPIScale());
+            this.labelType.LineHeight = BrowserUtils.Scale(11, this.GetDPIScale());
 
             UpdatePluginState();
 
@@ -93,11 +93,11 @@ namespace TweetDuck.Plugins.Controls{
             labelWebsite.ForeColor = isEnabled ? Color.Blue : Color.FromArgb(90, 90, 249);
 
             if (plugin.Group == PluginGroup.Official){
-                labelType.Text = "OFFICIAL";
+                labelType.Text = "CORE";
                 labelType.BackColor = isEnabled ? Color.FromArgb(154, 195, 217) : Color.FromArgb(185, 185, 185);
             }
             else{
-                labelType.Text = "CUSTOM";
+                labelType.Text = "USER";
                 labelType.BackColor = isEnabled ? Color.FromArgb(208, 154, 217) : Color.FromArgb(185, 185, 185);
             }
 

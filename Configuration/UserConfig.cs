@@ -39,7 +39,7 @@ namespace TweetDuck.Configuration{
         public bool AllowDataCollection { get; set; } = false;
 
         public WindowState BrowserWindow { get; set; } = new WindowState();
-        public WindowState PluginsWindow { get; set; } = new WindowState();
+        public Size PluginsWindowSize    { get; set; } = Size.Empty;
 
         public bool ExpandLinksOnHover        { get; set; } = true;
         public bool OpenSearchInFirstColumn   { get; set; } = true;

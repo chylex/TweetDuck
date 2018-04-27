@@ -35,7 +35,7 @@
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.AutoSize = true;
-            this.btnClose.Location = new System.Drawing.Point(643, 439);
+            this.btnClose.Location = new System.Drawing.Point(643, 433);
             this.btnClose.Name = "btnClose";
             this.btnClose.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnClose.Size = new System.Drawing.Size(49, 23);
@@ -48,7 +48,7 @@
             // 
             this.btnReload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnReload.AutoSize = true;
-            this.btnReload.Location = new System.Drawing.Point(131, 439);
+            this.btnReload.Location = new System.Drawing.Point(131, 433);
             this.btnReload.Name = "btnReload";
             this.btnReload.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnReload.Size = new System.Drawing.Size(71, 23);
@@ -61,7 +61,7 @@
             // 
             this.btnOpenFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnOpenFolder.AutoSize = true;
-            this.btnOpenFolder.Location = new System.Drawing.Point(12, 439);
+            this.btnOpenFolder.Location = new System.Drawing.Point(12, 433);
             this.btnOpenFolder.Name = "btnOpenFolder";
             this.btnOpenFolder.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.btnOpenFolder.Size = new System.Drawing.Size(113, 23);
@@ -79,7 +79,7 @@
             this.flowLayoutPlugins.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPlugins.Location = new System.Drawing.Point(12, 12);
             this.flowLayoutPlugins.Name = "flowLayoutPlugins";
-            this.flowLayoutPlugins.Size = new System.Drawing.Size(680, 421);
+            this.flowLayoutPlugins.Size = new System.Drawing.Size(680, 415);
             this.flowLayoutPlugins.TabIndex = 0;
             this.flowLayoutPlugins.WrapContents = false;
             this.flowLayoutPlugins.Resize += new System.EventHandler(this.flowLayoutPlugins_Resize);
@@ -93,13 +93,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(704, 474);
+            this.ClientSize = new System.Drawing.Size(704, 468);
             this.Controls.Add(this.flowLayoutPlugins);
             this.Controls.Add(this.btnOpenFolder);
             this.Controls.Add(this.btnReload);
             this.Controls.Add(this.btnClose);
             this.Icon = global::TweetDuck.Properties.Resources.icon;
-            this.MinimumSize = new System.Drawing.Size(480, 320);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(640, 360);
             this.Name = "FormPlugins";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.ResumeLayout(false);
