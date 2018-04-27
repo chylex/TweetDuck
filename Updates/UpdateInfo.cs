@@ -8,24 +8,21 @@ namespace TweetDuck.Updates{
         public string VersionTag { get; }
         public string ReleaseNotes { get; }
         public string InstallerPath { get; }
-
-        public bool IsUpdateNew => VersionTag != Program.VersionTag;
-        public bool IsUpdateDismissed => VersionTag == settings.DismissedUpdate;
-
+        
         public UpdateDownloadStatus DownloadStatus { get; private set; }
         public Exception DownloadError { get; private set; }
 
-        private readonly UpdaterSettings settings;
         private readonly string downloadUrl;
+        private readonly string installerFolder;
         private WebClient currentDownload;
 
-        public UpdateInfo(UpdaterSettings settings, string versionTag, string releaseNotes, string downloadUrl){
-            this.settings = settings;
+        public UpdateInfo(string versionTag, string releaseNotes, string downloadUrl, string installerFolder){
             this.downloadUrl = downloadUrl;
+            this.installerFolder = installerFolder;
             
             this.VersionTag = versionTag;
             this.ReleaseNotes = releaseNotes;
-            this.InstallerPath = Path.Combine(settings.InstallerDownloadFolder, "TweetDuck."+versionTag+".exe");
+            this.InstallerPath = Path.Combine(installerFolder, $"TweetDuck.{versionTag}.exe");;
         }
 
         public void BeginSilentDownload(){
@@ -39,7 +36,7 @@ namespace TweetDuck.Updates{
                 }
 
                 try{
-                    Directory.CreateDirectory(settings.InstallerDownloadFolder);
+                    Directory.CreateDirectory(installerFolder);
                 }catch(Exception e){
                     DownloadError = e;
                     DownloadStatus = UpdateDownloadStatus.Failed;

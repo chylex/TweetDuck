@@ -56,7 +56,7 @@ namespace TweetDuck.Core{
         private VideoPlayer videoPlayer;
         private AnalyticsManager analytics;
 
-        public FormBrowser(UpdaterSettings updaterSettings){
+        public FormBrowser(){
             InitializeComponent();
 
             Text = Program.BrandName;
@@ -97,7 +97,7 @@ namespace TweetDuck.Core{
 
             UpdateTrayIcon();
 
-            this.updates = new UpdateHandler(browser, updaterSettings);
+            this.updates = new UpdateHandler(browser, Program.InstallerPath);
             this.updates.CheckFinished += updates_CheckFinished;
             this.updates.UpdateAccepted += updates_UpdateAccepted;
             this.updates.UpdateDismissed += updates_UpdateDismissed;
@@ -237,25 +237,24 @@ namespace TweetDuck.Core{
         }
 
         private void updates_CheckFinished(object sender, UpdateCheckEventArgs e){
-            this.InvokeAsyncSafe(() => {
-                e.Result.Handle(update => {
-                    if (!update.IsUpdateDismissed){
-                        if (update.IsUpdateNew){
-                            browser.ShowUpdateNotification(update.VersionTag, update.ReleaseNotes);
-                        }
-                        else{
-                            updates.StartTimer();
-                        }
-                    }
-                }, ex => {
-                    if (!ignoreUpdateCheckError){
-                        Program.Reporter.HandleException("Update Check Error", "An error occurred while checking for updates.", true, ex);
-                        updates.StartTimer();
-                    }
-                });
-                
-                ignoreUpdateCheckError = true;
+            e.Result.Handle(update => {
+                string tag = update.VersionTag;
+
+                if (tag != Program.VersionTag && tag != Config.DismissedUpdate){
+                    updates.PrepareUpdate(update);
+                    browser.ShowUpdateNotification(tag, update.ReleaseNotes);
+                }
+                else{
+                    updates.StartTimer();
+                }
+            }, ex => {
+                if (!ignoreUpdateCheckError){
+                    Program.Reporter.HandleException("Update Check Error", "An error occurred while checking for updates.", true, ex);
+                    updates.StartTimer();
+                }
             });
+
+            ignoreUpdateCheckError = true;
         }
 
         private void updates_UpdateAccepted(object sender, UpdateEventArgs e){

@@ -31,7 +31,7 @@ namespace TweetDuck{
         public static readonly string PluginPath = Path.Combine(ProgramPath, "plugins");
 
         public static readonly string PluginDataPath = Path.Combine(StoragePath, "TD_Plugins");
-        private static readonly string InstallerPath = Path.Combine(StoragePath, "TD_Updates");
+        public static readonly string InstallerPath = Path.Combine(StoragePath, "TD_Updates");
         private static readonly string CefDataPath = Path.Combine(StoragePath, "TD_Chromium");
 
         public static string UserConfigFilePath => Path.Combine(StoragePath, "TD_UserConfig.cfg");
@@ -150,13 +150,8 @@ namespace TweetDuck{
             Cef.Initialize(settings, false, new BrowserProcessHandler());
 
             Application.ApplicationExit += (sender, args) => ExitCleanup();
-
-            UpdaterSettings updaterSettings = new UpdaterSettings(InstallerPath){
-                AllowPreReleases = Arguments.HasFlag(Arguments.ArgDebugUpdates),
-                DismissedUpdate = UserConfig.DismissedUpdate
-            };
-
-            FormBrowser mainForm = new FormBrowser(updaterSettings);
+            
+            FormBrowser mainForm = new FormBrowser();
             Application.Run(mainForm);
 
             if (mainForm.UpdateInstallerPath != null){

@@ -1,18 +1,20 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Other.Interfaces;
 using TweetDuck.Data;
 using TweetDuck.Updates.Events;
+using Timer = System.Windows.Forms.Timer;
 
 namespace TweetDuck.Updates{
     sealed class UpdateHandler : IDisposable{
         public const int CheckCodeUpdatesDisabled = -1;
         public const int CheckCodeNotOnTweetDeck = -2;
         
-        private readonly UpdaterSettings settings;
         private readonly UpdateCheckClient client;
+        private readonly TaskScheduler scheduler;
         private readonly ITweetDeckBrowser browser;
         private readonly Timer timer;
 
@@ -24,9 +26,9 @@ namespace TweetDuck.Updates{
         private ushort lastEventId;
         private UpdateInfo lastUpdateInfo;
 
-        public UpdateHandler(ITweetDeckBrowser browser, UpdaterSettings settings){
-            this.settings = settings;
-            this.client = new UpdateCheckClient(settings);
+        public UpdateHandler(ITweetDeckBrowser browser, string installerFolder){
+            this.client = new UpdateCheckClient(installerFolder);
+            this.scheduler = TaskScheduler.FromCurrentSynchronizationContext();
             
             this.browser = browser;
             this.browser.RegisterBridge("$TDU", new Bridge(this));
@@ -66,10 +68,6 @@ namespace TweetDuck.Updates{
 
         public int Check(bool force){
             if (Program.UserConfig.EnableUpdateCheck || force){
-                if (force){
-                    settings.DismissedUpdate = null;
-                }
-                
                 if (!browser.IsTweetDeckWebsite){
                     return CheckCodeNotOnTweetDeck;
                 }
@@ -77,13 +75,19 @@ namespace TweetDuck.Updates{
                 int nextEventId = unchecked(++lastEventId);
                 Task<UpdateInfo> checkTask = client.Check();
 
-                checkTask.ContinueWith(task => HandleUpdateCheckSuccessful(nextEventId, task.Result), TaskContinuationOptions.OnlyOnRanToCompletion);
-                checkTask.ContinueWith(task => HandleUpdateCheckFailed(nextEventId, task.Exception.InnerException), TaskContinuationOptions.OnlyOnFaulted);
+                checkTask.ContinueWith(task => HandleUpdateCheckSuccessful(nextEventId, task.Result), CancellationToken.None, TaskContinuationOptions.OnlyOnRanToCompletion, scheduler);
+                checkTask.ContinueWith(task => HandleUpdateCheckFailed(nextEventId, task.Exception.InnerException), CancellationToken.None, TaskContinuationOptions.OnlyOnFaulted, scheduler);
 
                 return nextEventId;
             }
 
             return CheckCodeUpdatesDisabled;
+        }
+
+        public void PrepareUpdate(UpdateInfo info){
+            CleanupDownload();
+            lastUpdateInfo = info;
+            lastUpdateInfo.BeginSilentDownload();
         }
 
         public void BeginUpdateDownload(Form ownerForm, UpdateInfo updateInfo, Action<UpdateInfo> onFinished){
@@ -121,12 +125,6 @@ namespace TweetDuck.Updates{
         }
 
         private void HandleUpdateCheckSuccessful(int eventId, UpdateInfo info){
-            if (info.IsUpdateNew && !info.IsUpdateDismissed){
-                CleanupDownload();
-                lastUpdateInfo = info;
-                lastUpdateInfo.BeginSilentDownload();
-            }
-            
             CheckFinished?.Invoke(this, new UpdateCheckEventArgs(eventId, new Result<UpdateInfo>(info)));
         }
 
@@ -148,9 +146,7 @@ namespace TweetDuck.Updates{
 
         private void TriggerUpdateDismissedEvent(){
             if (lastUpdateInfo != null){
-                settings.DismissedUpdate = lastUpdateInfo.VersionTag;
                 UpdateDismissed?.Invoke(this, new UpdateEventArgs(lastUpdateInfo));
-
                 CleanupDownload();
             }
         }

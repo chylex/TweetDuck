@@ -11,10 +11,10 @@ namespace TweetDuck.Updates{
         private const string ApiLatestRelease = "https://api.github.com/repos/chylex/TweetDuck/releases/latest";
         private const string UpdaterAssetName = "TweetDuck.Update.exe";
 
-        private readonly UpdaterSettings settings;
+        private readonly string installerFolder;
 
-        public UpdateCheckClient(UpdaterSettings settings){
-            this.settings = settings;
+        public UpdateCheckClient(string installerFolder){
+            this.installerFolder = installerFolder;
         }
 
         public Task<UpdateInfo> Check(){
@@ -57,7 +57,7 @@ namespace TweetDuck.Updates{
             string releaseNotes = (string)root["body"];
             string downloadUrl = ((Array)root["assets"]).Cast<JsonObject>().Where(IsUpdaterAsset).Select(AssetDownloadUrl).FirstOrDefault();
 
-            return new UpdateInfo(settings, versionTag, releaseNotes, downloadUrl);
+            return new UpdateInfo(versionTag, releaseNotes, downloadUrl, installerFolder);
         }
     }
 }

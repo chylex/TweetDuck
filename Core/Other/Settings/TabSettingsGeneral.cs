@@ -218,19 +218,17 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void updates_CheckFinished(object sender, UpdateCheckEventArgs e){
-            this.InvokeAsyncSafe(() => {
-                if (e.EventId == updateCheckEventId){
-                    btnCheckUpdates.Enabled = true;
+            if (e.EventId == updateCheckEventId){
+                btnCheckUpdates.Enabled = true;
 
-                    e.Result.Handle(update => {
-                        if (!update.IsUpdateNew){
-                            FormMessage.Information("No Updates Available", "Your version of TweetDuck is up to date.", FormMessage.OK);
-                        }
-                    }, ex => {
-                        Program.Reporter.HandleException("Update Check Error", "An error occurred while checking for updates.", true, ex);
-                    });
-                }
-            });
+                e.Result.Handle(update => {
+                    if (update.VersionTag == Program.VersionTag){
+                        FormMessage.Information("No Updates Available", "Your version of TweetDuck is up to date.", FormMessage.OK);
+                    }
+                }, ex => {
+                    Program.Reporter.HandleException("Update Check Error", "An error occurred while checking for updates.", true, ex);
+                });
+            }
         }
 
         private void zoomUpdateTimer_Tick(object sender, EventArgs e){
