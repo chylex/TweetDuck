@@ -9,8 +9,8 @@ namespace TweetDuck.Plugins.Controls{
     sealed partial class PluginControl : UserControl{
         private readonly PluginManager pluginManager;
         private readonly Plugin plugin;
-
-        private readonly float dpiScale;
+        
+        private int nextHeight;
 
         public PluginControl(){
             InitializeComponent();
@@ -19,33 +19,52 @@ namespace TweetDuck.Plugins.Controls{
         public PluginControl(PluginManager pluginManager, Plugin plugin) : this(){
             this.pluginManager = pluginManager;
             this.plugin = plugin;
-
-            this.dpiScale = this.GetDPIScale();
-
-            this.labelName.Text = plugin.Name;
-            this.labelDescription.Text = plugin.CanRun ? plugin.Description : "This plugin requires TweetDuck "+plugin.RequiredVersion+" or newer.";
-            this.labelVersion.Text = plugin.Version;
-            this.labelAuthor.Text = plugin.Author;
-            this.labelWebsite.Text = plugin.Website;
             
-            this.labelType.LineHeight = BrowserUtils.Scale(9, dpiScale);
+            this.labelName.Text = plugin.Name;
+            this.labelDescription.Text = plugin.CanRun ? plugin.Description : $"This plugin requires TweetDuck {plugin.RequiredVersion} or newer.";
+            this.labelAuthor.Text = string.IsNullOrWhiteSpace(plugin.Author) ? string.Empty : $"by {plugin.Author}";
+            this.labelWebsite.Text = plugin.Website;
+            this.labelVersion.Text = plugin.Version;
+            
+            this.labelType.LineHeight = BrowserUtils.Scale(9, this.GetDPIScale());
 
             UpdatePluginState();
 
             if (labelDescription.Text.Length == 0){
                 labelDescription.Visible = false;
             }
-
+            
             panelDescription_Resize(panelDescription, EventArgs.Empty);
         }
 
+        private void timerLayout_Tick(object sender, EventArgs e){
+            timerLayout.Stop();
+            Height = nextHeight;
+            ResumeLayout();
+        }
+
         private void panelDescription_Resize(object sender, EventArgs e){
-            if (labelDescription.Text.Length == 0){
-                Height = MinimumSize.Height;
+            SuspendLayout();
+            
+            int maxWidth = panelDescription.Width-(panelDescription.VerticalScroll.Visible ? SystemInformation.VerticalScrollBarWidth : 0);
+            labelDescription.MaximumSize = new Size(maxWidth, int.MaxValue);
+
+            Font font = labelDescription.Font;
+            int descriptionLines = TextRenderer.MeasureText(labelDescription.Text, font, new Size(maxWidth, int.MaxValue), TextFormatFlags.WordBreak).Height/(font.Height-1);
+            
+            int requiredLines = Math.Max(descriptionLines, 1+(string.IsNullOrEmpty(labelVersion.Text) ? 0 : 1)+(btnConfigure.Visible ? 1 : 0));
+            
+            switch(requiredLines){
+                case 1: nextHeight = MaximumSize.Height-2*(font.Height-1); break;
+                case 2: nextHeight = MaximumSize.Height-(font.Height-1); break;
+                default: nextHeight = MaximumSize.Height; break;
+            }
+
+            if (nextHeight != Height){
+                timerLayout.Start();
             }
             else{
-                labelDescription.MaximumSize = new Size(panelDescription.Width-SystemInformation.VerticalScrollBarWidth, 0);
-                Height = Math.Min(MinimumSize.Height+BrowserUtils.Scale(9, dpiScale)+labelDescription.Height, MaximumSize.Height);
+                ResumeLayout();
             }
         }
 

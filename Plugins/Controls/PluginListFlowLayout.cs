@@ -9,7 +9,10 @@ namespace TweetDuck.Plugins.Controls{
         }
 
         protected override void WndProc(ref Message m){
-            NativeMethods.ShowScrollBar(Handle, NativeMethods.SB_HORZ, false); // basically fuck the horizontal scrollbar very much
+            if (m.Msg == 0x85){ // WM_NCPAINT
+                NativeMethods.ShowScrollBar(Handle, NativeMethods.SB_HORZ, false); // basically fuck the horizontal scrollbar very much
+            }
+
             base.WndProc(ref m);
         }
     }

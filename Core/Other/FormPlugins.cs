@@ -18,7 +18,7 @@ namespace TweetDuck.Core.Other{
 
         public FormPlugins(PluginManager pluginManager) : this(){
             this.pluginManager = pluginManager;
-
+            
             Shown += (sender, args) => {
                 Program.UserConfig.PluginsWindow.Restore(this, false);
                 ReloadPluginList();
@@ -27,6 +27,10 @@ namespace TweetDuck.Core.Other{
             FormClosed += (sender, args) => {
                 Program.UserConfig.PluginsWindow.Save(this);
                 Program.UserConfig.Save();
+            };
+
+            ResizeEnd += (sender, args) => {
+                timerLayout.Start();
             };
         }
 
@@ -50,18 +54,26 @@ namespace TweetDuck.Core.Other{
 
             flowLayoutPlugins.ResumeLayout(true);
             
-            // sorry, I guess...
-            Padding = new Padding(Padding.Left, Padding.Top, Padding.Right+1, Padding.Bottom);
-            Padding = new Padding(Padding.Left, Padding.Top, Padding.Right-1, Padding.Bottom);
+            timerLayout_Tick(null, EventArgs.Empty);
+            timerLayout.Start();
         }
 
-        private void flowLayoutPlugins_Resize(object sender, EventArgs e){
-            if (flowLayoutPlugins.Controls.Count == 0){
+        private void timerLayout_Tick(object sender, EventArgs e){
+            timerLayout.Stop();
+            
+            // stupid WinForms scrollbars and panels
+            Padding = new Padding(Padding.Left, Padding.Top, Padding.Right+1, Padding.Bottom+1);
+            Padding = new Padding(Padding.Left, Padding.Top, Padding.Right-1, Padding.Bottom-1);
+        }
+
+        public void flowLayoutPlugins_Resize(object sender, EventArgs e){
+            Control lastPlugin = flowLayoutPlugins.Controls.OfType<PluginControl>().LastOrDefault();
+            
+            if (lastPlugin == null){
                 return;
             }
 
-            Control lastControl = flowLayoutPlugins.Controls[flowLayoutPlugins.Controls.Count-1];
-            bool showScrollBar = lastControl.Location.Y+lastControl.Height >= flowLayoutPlugins.Height;
+            bool showScrollBar = lastPlugin.Location.Y+lastPlugin.Height+1 >= flowLayoutPlugins.Height;
             int horizontalOffset = showScrollBar ? SystemInformation.VerticalScrollBarWidth : 0;
             
             flowLayoutPlugins.AutoScroll = showScrollBar;
@@ -71,7 +83,7 @@ namespace TweetDuck.Core.Other{
                 control.Width = flowLayoutPlugins.Width-control.Margin.Horizontal-horizontalOffset;
             }
             
-            lastControl.Visible = !showScrollBar;
+            flowLayoutPlugins.Controls[flowLayoutPlugins.Controls.Count-1].Visible = !showScrollBar;
             flowLayoutPlugins.Focus();
         }
 

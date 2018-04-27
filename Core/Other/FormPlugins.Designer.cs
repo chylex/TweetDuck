@@ -23,10 +23,12 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnReload = new System.Windows.Forms.Button();
             this.btnOpenFolder = new System.Windows.Forms.Button();
             this.flowLayoutPlugins = new TweetDuck.Plugins.Controls.PluginListFlowLayout();
+            this.timerLayout = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // btnClose
@@ -82,6 +84,11 @@
             this.flowLayoutPlugins.WrapContents = false;
             this.flowLayoutPlugins.Resize += new System.EventHandler(this.flowLayoutPlugins_Resize);
             // 
+            // timerLayout
+            // 
+            this.timerLayout.Interval = 99;
+            this.timerLayout.Tick += new System.EventHandler(this.timerLayout_Tick);
+            // 
             // FormPlugins
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -106,5 +113,6 @@
         private System.Windows.Forms.Button btnReload;
         private System.Windows.Forms.Button btnOpenFolder;
         private Plugins.Controls.PluginListFlowLayout flowLayoutPlugins;
+        private System.Windows.Forms.Timer timerLayout;
     }
 }
