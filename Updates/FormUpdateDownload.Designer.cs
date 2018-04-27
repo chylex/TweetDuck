@@ -32,10 +32,12 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(195, 34);
+            this.btnCancel.AutoSize = true;
+            this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnCancel.Location = new System.Drawing.Point(180, 32);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.btnCancel.Size = new System.Drawing.Size(56, 23);
+            this.btnCancel.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.btnCancel.Size = new System.Drawing.Size(57, 25);
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -44,10 +46,11 @@
             // labelDescription
             // 
             this.labelDescription.AutoSize = true;
+            this.labelDescription.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelDescription.Location = new System.Drawing.Point(9, 13);
             this.labelDescription.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.labelDescription.Name = "labelDescription";
-            this.labelDescription.Size = new System.Drawing.Size(0, 13);
+            this.labelDescription.Size = new System.Drawing.Size(0, 15);
             this.labelDescription.TabIndex = 2;
             // 
             // timerDownloadCheck
@@ -59,12 +62,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(263, 69);
+            this.ClientSize = new System.Drawing.Size(249, 69);
             this.Controls.Add(this.labelDescription);
             this.Controls.Add(this.btnCancel);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = Properties.Resources.icon;
+            this.Icon = global::TweetDuck.Properties.Resources.icon;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormUpdateDownload";

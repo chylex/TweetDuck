@@ -50,6 +50,7 @@ namespace TweetDuck.Core.Handling.General{
 
                     input = new TextBox{
                         Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
+                        Font = SystemFonts.MessageBoxFont,
                         Location = new Point(BrowserUtils.Scale(22+inputPad, dpiScale), form.ActionPanelY-BrowserUtils.Scale(46, dpiScale)),
                         Size = new Size(form.ClientSize.Width-BrowserUtils.Scale(44+inputPad, dpiScale), 20)
                     };

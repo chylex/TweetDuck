@@ -106,10 +106,11 @@
             // labelTime
             // 
             this.labelTime.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelTime.Location = new System.Drawing.Point(138, 2);
-            this.labelTime.Margin = new System.Windows.Forms.Padding(0, 2, 0, 5);
+            this.labelTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelTime.Location = new System.Drawing.Point(138, 3);
+            this.labelTime.Margin = new System.Windows.Forms.Padding(0, 3, 0, 5);
             this.labelTime.Name = "labelTime";
-            this.labelTime.Size = new System.Drawing.Size(74, 27);
+            this.labelTime.Size = new System.Drawing.Size(74, 26);
             this.labelTime.TabIndex = 1;
             this.labelTime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -121,13 +122,13 @@
             // labelTooltip
             // 
             this.labelTooltip.AutoSize = true;
-            this.labelTooltip.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelTooltip.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelTooltip.ForeColor = System.Drawing.Color.White;
             this.labelTooltip.Location = new System.Drawing.Point(0, 0);
             this.labelTooltip.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);
             this.labelTooltip.Name = "labelTooltip";
             this.labelTooltip.Padding = new System.Windows.Forms.Padding(4, 2, 2, 2);
-            this.labelTooltip.Size = new System.Drawing.Size(6, 20);
+            this.labelTooltip.Size = new System.Drawing.Size(6, 19);
             this.labelTooltip.TabIndex = 2;
             this.labelTooltip.Visible = false;
             // 

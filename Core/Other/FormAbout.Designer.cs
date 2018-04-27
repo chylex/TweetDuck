@@ -23,7 +23,6 @@ namespace TweetDuck.Core.Other {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAbout));
             this.pictureLogo = new System.Windows.Forms.PictureBox();
             this.labelDescription = new System.Windows.Forms.Label();
             this.labelTips = new System.Windows.Forms.LinkLabel();
@@ -50,7 +49,7 @@ namespace TweetDuck.Core.Other {
             this.labelDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelDescription.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelDescription.Location = new System.Drawing.Point(114, 12);
             this.labelDescription.Name = "labelDescription";
             this.labelDescription.Size = new System.Drawing.Size(232, 109);
@@ -59,14 +58,13 @@ namespace TweetDuck.Core.Other {
             // labelTips
             // 
             this.labelTips.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelTips.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelTips.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelTips.LinkArea = new System.Windows.Forms.LinkArea(0, 0);
             this.labelTips.Location = new System.Drawing.Point(117, 0);
             this.labelTips.Margin = new System.Windows.Forms.Padding(0);
             this.labelTips.Name = "labelTips";
             this.labelTips.Size = new System.Drawing.Size(99, 16);
             this.labelTips.TabIndex = 1;
-            this.labelTips.TabStop = true;
             this.labelTips.Text = "Tips && Tricks";
             this.labelTips.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.labelTips.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OnLinkClicked);
@@ -75,14 +73,13 @@ namespace TweetDuck.Core.Other {
             // 
             this.labelWebsite.AutoSize = true;
             this.labelWebsite.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelWebsite.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelWebsite.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelWebsite.LinkArea = new System.Windows.Forms.LinkArea(0, 0);
             this.labelWebsite.Location = new System.Drawing.Point(0, 0);
             this.labelWebsite.Margin = new System.Windows.Forms.Padding(0);
             this.labelWebsite.Name = "labelWebsite";
             this.labelWebsite.Size = new System.Drawing.Size(117, 16);
             this.labelWebsite.TabIndex = 0;
-            this.labelWebsite.TabStop = true;
             this.labelWebsite.Text = "Official Website";
             this.labelWebsite.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.labelWebsite.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OnLinkClicked);
@@ -108,14 +105,13 @@ namespace TweetDuck.Core.Other {
             // labelIssues
             // 
             this.labelIssues.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelIssues.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelIssues.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelIssues.LinkArea = new System.Windows.Forms.LinkArea(0, 0);
             this.labelIssues.Location = new System.Drawing.Point(216, 0);
             this.labelIssues.Margin = new System.Windows.Forms.Padding(0);
             this.labelIssues.Name = "labelIssues";
             this.labelIssues.Size = new System.Drawing.Size(118, 16);
             this.labelIssues.TabIndex = 2;
-            this.labelIssues.TabStop = true;
             this.labelIssues.Text = "Report an Issue";
             this.labelIssues.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.labelIssues.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.OnLinkClicked);

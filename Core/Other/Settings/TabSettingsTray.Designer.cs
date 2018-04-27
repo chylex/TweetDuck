@@ -36,10 +36,11 @@
             // checkTrayHighlight
             // 
             this.checkTrayHighlight.AutoSize = true;
-            this.checkTrayHighlight.Location = new System.Drawing.Point(6, 77);
-            this.checkTrayHighlight.Margin = new System.Windows.Forms.Padding(6, 6, 3, 3);
+            this.checkTrayHighlight.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkTrayHighlight.Location = new System.Drawing.Point(6, 81);
+            this.checkTrayHighlight.Margin = new System.Windows.Forms.Padding(6, 6, 3, 2);
             this.checkTrayHighlight.Name = "checkTrayHighlight";
-            this.checkTrayHighlight.Size = new System.Drawing.Size(103, 17);
+            this.checkTrayHighlight.Size = new System.Drawing.Size(114, 19);
             this.checkTrayHighlight.TabIndex = 3;
             this.checkTrayHighlight.Text = "Enable Highlight";
             this.checkTrayHighlight.UseVisualStyleBackColor = true;
@@ -47,31 +48,33 @@
             // comboBoxTrayType
             // 
             this.comboBoxTrayType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxTrayType.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.comboBoxTrayType.FormattingEnabled = true;
             this.comboBoxTrayType.Location = new System.Drawing.Point(5, 25);
             this.comboBoxTrayType.Margin = new System.Windows.Forms.Padding(5, 5, 3, 3);
             this.comboBoxTrayType.Name = "comboBoxTrayType";
-            this.comboBoxTrayType.Size = new System.Drawing.Size(144, 21);
+            this.comboBoxTrayType.Size = new System.Drawing.Size(144, 23);
             this.comboBoxTrayType.TabIndex = 1;
             // 
             // labelTrayIcon
             // 
             this.labelTrayIcon.AutoSize = true;
-            this.labelTrayIcon.Location = new System.Drawing.Point(3, 58);
+            this.labelTrayIcon.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelTrayIcon.Location = new System.Drawing.Point(3, 60);
             this.labelTrayIcon.Margin = new System.Windows.Forms.Padding(3, 9, 3, 0);
             this.labelTrayIcon.Name = "labelTrayIcon";
-            this.labelTrayIcon.Size = new System.Drawing.Size(52, 13);
+            this.labelTrayIcon.Size = new System.Drawing.Size(56, 15);
             this.labelTrayIcon.TabIndex = 2;
             this.labelTrayIcon.Text = "Tray Icon";
             // 
             // labelTray
             // 
             this.labelTray.AutoSize = true;
-            this.labelTray.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelTray.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelTray.Location = new System.Drawing.Point(0, 0);
             this.labelTray.Margin = new System.Windows.Forms.Padding(0);
             this.labelTray.Name = "labelTray";
-            this.labelTray.Size = new System.Drawing.Size(96, 20);
+            this.labelTray.Size = new System.Drawing.Size(88, 20);
             this.labelTray.TabIndex = 0;
             this.labelTray.Text = "System Tray";
             // 
@@ -87,7 +90,7 @@
             this.flowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowPanel.Location = new System.Drawing.Point(9, 9);
             this.flowPanel.Name = "flowPanel";
-            this.flowPanel.Size = new System.Drawing.Size(322, 97);
+            this.flowPanel.Size = new System.Drawing.Size(322, 102);
             this.flowPanel.TabIndex = 0;
             this.flowPanel.WrapContents = false;
             // 
@@ -97,7 +100,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.flowPanel);
             this.Name = "TabSettingsTray";
-            this.Size = new System.Drawing.Size(340, 115);
+            this.Size = new System.Drawing.Size(340, 120);
             this.flowPanel.ResumeLayout(false);
             this.flowPanel.PerformLayout();
             this.ResumeLayout(false);

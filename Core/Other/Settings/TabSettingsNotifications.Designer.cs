@@ -80,10 +80,11 @@
             // 
             // labelEdgeDistanceValue
             // 
+            this.labelEdgeDistanceValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelEdgeDistanceValue.Location = new System.Drawing.Point(145, 4);
             this.labelEdgeDistanceValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelEdgeDistanceValue.Name = "labelEdgeDistanceValue";
-            this.labelEdgeDistanceValue.Size = new System.Drawing.Size(40, 13);
+            this.labelEdgeDistanceValue.Size = new System.Drawing.Size(40, 15);
             this.labelEdgeDistanceValue.TabIndex = 1;
             this.labelEdgeDistanceValue.Text = "0 px";
             this.labelEdgeDistanceValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -91,39 +92,43 @@
             // labelDisplay
             // 
             this.labelDisplay.AutoSize = true;
-            this.labelDisplay.Location = new System.Drawing.Point(3, 451);
+            this.labelDisplay.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelDisplay.Location = new System.Drawing.Point(3, 465);
             this.labelDisplay.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelDisplay.Name = "labelDisplay";
-            this.labelDisplay.Size = new System.Drawing.Size(41, 13);
+            this.labelDisplay.Size = new System.Drawing.Size(45, 15);
             this.labelDisplay.TabIndex = 15;
             this.labelDisplay.Text = "Display";
             // 
             // comboBoxDisplay
             // 
             this.comboBoxDisplay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxDisplay.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.comboBoxDisplay.FormattingEnabled = true;
-            this.comboBoxDisplay.Location = new System.Drawing.Point(5, 467);
+            this.comboBoxDisplay.Location = new System.Drawing.Point(5, 483);
             this.comboBoxDisplay.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.comboBoxDisplay.Name = "comboBoxDisplay";
-            this.comboBoxDisplay.Size = new System.Drawing.Size(144, 21);
+            this.comboBoxDisplay.Size = new System.Drawing.Size(144, 23);
             this.comboBoxDisplay.TabIndex = 16;
             // 
             // labelEdgeDistance
             // 
             this.labelEdgeDistance.AutoSize = true;
-            this.labelEdgeDistance.Location = new System.Drawing.Point(3, 503);
+            this.labelEdgeDistance.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelEdgeDistance.Location = new System.Drawing.Point(3, 521);
             this.labelEdgeDistance.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelEdgeDistance.Name = "labelEdgeDistance";
-            this.labelEdgeDistance.Size = new System.Drawing.Size(103, 13);
+            this.labelEdgeDistance.Size = new System.Drawing.Size(112, 15);
             this.labelEdgeDistance.TabIndex = 17;
             this.labelEdgeDistance.Text = "Distance From Edge";
             // 
             // radioLocCustom
             // 
+            this.radioLocCustom.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.radioLocCustom.Location = new System.Drawing.Point(205, 4);
             this.radioLocCustom.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.radioLocCustom.Name = "radioLocCustom";
-            this.radioLocCustom.Size = new System.Drawing.Size(65, 41);
+            this.radioLocCustom.Size = new System.Drawing.Size(70, 43);
             this.radioLocCustom.TabIndex = 4;
             this.radioLocCustom.TabStop = true;
             this.radioLocCustom.Text = "Custom";
@@ -131,10 +136,11 @@
             // 
             // radioLocBR
             // 
+            this.radioLocBR.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.radioLocBR.Location = new System.Drawing.Point(105, 28);
             this.radioLocBR.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.radioLocBR.Name = "radioLocBR";
-            this.radioLocBR.Size = new System.Drawing.Size(92, 17);
+            this.radioLocBR.Size = new System.Drawing.Size(92, 19);
             this.radioLocBR.TabIndex = 3;
             this.radioLocBR.TabStop = true;
             this.radioLocBR.Text = "Bottom Right";
@@ -142,10 +148,11 @@
             // 
             // radioLocBL
             // 
+            this.radioLocBL.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.radioLocBL.Location = new System.Drawing.Point(5, 28);
             this.radioLocBL.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.radioLocBL.Name = "radioLocBL";
-            this.radioLocBL.Size = new System.Drawing.Size(92, 17);
+            this.radioLocBL.Size = new System.Drawing.Size(92, 19);
             this.radioLocBL.TabIndex = 2;
             this.radioLocBL.TabStop = true;
             this.radioLocBL.Text = "Bottom Left";
@@ -153,10 +160,11 @@
             // 
             // radioLocTR
             // 
+            this.radioLocTR.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.radioLocTR.Location = new System.Drawing.Point(105, 4);
             this.radioLocTR.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.radioLocTR.Name = "radioLocTR";
-            this.radioLocTR.Size = new System.Drawing.Size(92, 17);
+            this.radioLocTR.Size = new System.Drawing.Size(92, 19);
             this.radioLocTR.TabIndex = 1;
             this.radioLocTR.TabStop = true;
             this.radioLocTR.Text = "Top Right";
@@ -164,10 +172,11 @@
             // 
             // radioLocTL
             // 
+            this.radioLocTL.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.radioLocTL.Location = new System.Drawing.Point(5, 4);
             this.radioLocTL.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.radioLocTL.Name = "radioLocTL";
-            this.radioLocTL.Size = new System.Drawing.Size(92, 17);
+            this.radioLocTL.Size = new System.Drawing.Size(92, 19);
             this.radioLocTL.TabIndex = 0;
             this.radioLocTL.TabStop = true;
             this.radioLocTL.Text = "Top Left";
@@ -196,11 +205,11 @@
             this.tableLayoutDurationButtons.Controls.Add(this.btnDurationMedium, 0, 0);
             this.tableLayoutDurationButtons.Controls.Add(this.btnDurationLong, 1, 0);
             this.tableLayoutDurationButtons.Controls.Add(this.btnDurationShort, 0, 0);
-            this.tableLayoutDurationButtons.Location = new System.Drawing.Point(3, 320);
+            this.tableLayoutDurationButtons.Location = new System.Drawing.Point(3, 332);
             this.tableLayoutDurationButtons.Name = "tableLayoutDurationButtons";
             this.tableLayoutDurationButtons.RowCount = 1;
             this.tableLayoutDurationButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutDurationButtons.Size = new System.Drawing.Size(171, 27);
+            this.tableLayoutDurationButtons.Size = new System.Drawing.Size(180, 27);
             this.tableLayoutDurationButtons.TabIndex = 12;
             // 
             // btnDurationMedium
@@ -210,10 +219,11 @@
             this.btnDurationMedium.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ControlLight;
             this.btnDurationMedium.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.btnDurationMedium.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDurationMedium.Location = new System.Drawing.Point(55, 1);
+            this.btnDurationMedium.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnDurationMedium.Location = new System.Drawing.Point(58, 1);
             this.btnDurationMedium.Margin = new System.Windows.Forms.Padding(1);
             this.btnDurationMedium.Name = "btnDurationMedium";
-            this.btnDurationMedium.Size = new System.Drawing.Size(59, 25);
+            this.btnDurationMedium.Size = new System.Drawing.Size(62, 25);
             this.btnDurationMedium.TabIndex = 1;
             this.btnDurationMedium.Text = "Medium";
             this.btnDurationMedium.UseVisualStyleBackColor = true;
@@ -225,10 +235,11 @@
             this.btnDurationLong.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ControlLight;
             this.btnDurationLong.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.btnDurationLong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDurationLong.Location = new System.Drawing.Point(116, 1);
+            this.btnDurationLong.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnDurationLong.Location = new System.Drawing.Point(122, 1);
             this.btnDurationLong.Margin = new System.Windows.Forms.Padding(1);
             this.btnDurationLong.Name = "btnDurationLong";
-            this.btnDurationLong.Size = new System.Drawing.Size(54, 25);
+            this.btnDurationLong.Size = new System.Drawing.Size(57, 25);
             this.btnDurationLong.TabIndex = 2;
             this.btnDurationLong.Text = "Long";
             this.btnDurationLong.UseVisualStyleBackColor = true;
@@ -240,10 +251,11 @@
             this.btnDurationShort.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ControlLight;
             this.btnDurationShort.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.btnDurationShort.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDurationShort.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btnDurationShort.Location = new System.Drawing.Point(1, 1);
             this.btnDurationShort.Margin = new System.Windows.Forms.Padding(1);
             this.btnDurationShort.Name = "btnDurationShort";
-            this.btnDurationShort.Size = new System.Drawing.Size(52, 25);
+            this.btnDurationShort.Size = new System.Drawing.Size(55, 25);
             this.btnDurationShort.TabIndex = 0;
             this.btnDurationShort.Text = "Short";
             this.btnDurationShort.UseVisualStyleBackColor = true;
@@ -251,10 +263,11 @@
             // labelDurationValue
             // 
             this.labelDurationValue.BackColor = System.Drawing.Color.Transparent;
+            this.labelDurationValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelDurationValue.Location = new System.Drawing.Point(147, 4);
             this.labelDurationValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelDurationValue.Name = "labelDurationValue";
-            this.labelDurationValue.Size = new System.Drawing.Size(52, 13);
+            this.labelDurationValue.Size = new System.Drawing.Size(52, 15);
             this.labelDurationValue.TabIndex = 1;
             this.labelDurationValue.Text = "0 ms/c";
             this.labelDurationValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -274,10 +287,11 @@
             // checkSkipOnLinkClick
             // 
             this.checkSkipOnLinkClick.AutoSize = true;
-            this.checkSkipOnLinkClick.Location = new System.Drawing.Point(6, 72);
-            this.checkSkipOnLinkClick.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
+            this.checkSkipOnLinkClick.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkSkipOnLinkClick.Location = new System.Drawing.Point(6, 74);
+            this.checkSkipOnLinkClick.Margin = new System.Windows.Forms.Padding(6, 3, 3, 2);
             this.checkSkipOnLinkClick.Name = "checkSkipOnLinkClick";
-            this.checkSkipOnLinkClick.Size = new System.Drawing.Size(113, 17);
+            this.checkSkipOnLinkClick.Size = new System.Drawing.Size(121, 19);
             this.checkSkipOnLinkClick.TabIndex = 3;
             this.checkSkipOnLinkClick.Text = "Skip On Link Click";
             this.checkSkipOnLinkClick.UseVisualStyleBackColor = true;
@@ -285,10 +299,11 @@
             // checkColumnName
             // 
             this.checkColumnName.AutoSize = true;
+            this.checkColumnName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.checkColumnName.Location = new System.Drawing.Point(6, 26);
-            this.checkColumnName.Margin = new System.Windows.Forms.Padding(6, 6, 3, 3);
+            this.checkColumnName.Margin = new System.Windows.Forms.Padding(6, 6, 3, 2);
             this.checkColumnName.Name = "checkColumnName";
-            this.checkColumnName.Size = new System.Drawing.Size(129, 17);
+            this.checkColumnName.Size = new System.Drawing.Size(145, 19);
             this.checkColumnName.TabIndex = 1;
             this.checkColumnName.Text = "Display Column Name";
             this.checkColumnName.UseVisualStyleBackColor = true;
@@ -296,30 +311,33 @@
             // labelIdlePause
             // 
             this.labelIdlePause.AutoSize = true;
-            this.labelIdlePause.Location = new System.Drawing.Point(3, 127);
+            this.labelIdlePause.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelIdlePause.Location = new System.Drawing.Point(3, 131);
             this.labelIdlePause.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelIdlePause.Name = "labelIdlePause";
-            this.labelIdlePause.Size = new System.Drawing.Size(89, 13);
+            this.labelIdlePause.Size = new System.Drawing.Size(94, 15);
             this.labelIdlePause.TabIndex = 5;
             this.labelIdlePause.Text = "Pause When Idle";
             // 
             // comboBoxIdlePause
             // 
             this.comboBoxIdlePause.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxIdlePause.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.comboBoxIdlePause.FormattingEnabled = true;
-            this.comboBoxIdlePause.Location = new System.Drawing.Point(5, 143);
+            this.comboBoxIdlePause.Location = new System.Drawing.Point(5, 149);
             this.comboBoxIdlePause.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.comboBoxIdlePause.Name = "comboBoxIdlePause";
-            this.comboBoxIdlePause.Size = new System.Drawing.Size(144, 21);
+            this.comboBoxIdlePause.Size = new System.Drawing.Size(144, 23);
             this.comboBoxIdlePause.TabIndex = 6;
             // 
             // checkNonIntrusive
             // 
             this.checkNonIntrusive.AutoSize = true;
-            this.checkNonIntrusive.Location = new System.Drawing.Point(6, 95);
-            this.checkNonIntrusive.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
+            this.checkNonIntrusive.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkNonIntrusive.Location = new System.Drawing.Point(6, 98);
+            this.checkNonIntrusive.Margin = new System.Windows.Forms.Padding(6, 3, 3, 2);
             this.checkNonIntrusive.Name = "checkNonIntrusive";
-            this.checkNonIntrusive.Size = new System.Drawing.Size(128, 17);
+            this.checkNonIntrusive.Size = new System.Drawing.Size(142, 19);
             this.checkNonIntrusive.TabIndex = 4;
             this.checkNonIntrusive.Text = "Non-Intrusive Popups";
             this.checkNonIntrusive.UseVisualStyleBackColor = true;
@@ -327,10 +345,11 @@
             // checkTimerCountDown
             // 
             this.checkTimerCountDown.AutoSize = true;
-            this.checkTimerCountDown.Location = new System.Drawing.Point(6, 236);
-            this.checkTimerCountDown.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
+            this.checkTimerCountDown.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkTimerCountDown.Location = new System.Drawing.Point(6, 245);
+            this.checkTimerCountDown.Margin = new System.Windows.Forms.Padding(6, 3, 3, 2);
             this.checkTimerCountDown.Name = "checkTimerCountDown";
-            this.checkTimerCountDown.Size = new System.Drawing.Size(119, 17);
+            this.checkTimerCountDown.Size = new System.Drawing.Size(132, 19);
             this.checkTimerCountDown.TabIndex = 9;
             this.checkTimerCountDown.Text = "Timer Counts Down";
             this.checkTimerCountDown.UseVisualStyleBackColor = true;
@@ -338,20 +357,22 @@
             // checkNotificationTimer
             // 
             this.checkNotificationTimer.AutoSize = true;
-            this.checkNotificationTimer.Location = new System.Drawing.Point(6, 213);
-            this.checkNotificationTimer.Margin = new System.Windows.Forms.Padding(6, 6, 3, 3);
+            this.checkNotificationTimer.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkNotificationTimer.Location = new System.Drawing.Point(6, 221);
+            this.checkNotificationTimer.Margin = new System.Windows.Forms.Padding(6, 6, 3, 2);
             this.checkNotificationTimer.Name = "checkNotificationTimer";
-            this.checkNotificationTimer.Size = new System.Drawing.Size(145, 17);
+            this.checkNotificationTimer.Size = new System.Drawing.Size(164, 19);
             this.checkNotificationTimer.TabIndex = 8;
             this.checkNotificationTimer.Text = "Display Notification Timer";
             this.checkNotificationTimer.UseVisualStyleBackColor = true;
             // 
             // radioSizeAuto
             // 
+            this.radioSizeAuto.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.radioSizeAuto.Location = new System.Drawing.Point(5, 4);
             this.radioSizeAuto.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.radioSizeAuto.Name = "radioSizeAuto";
-            this.radioSizeAuto.Size = new System.Drawing.Size(92, 17);
+            this.radioSizeAuto.Size = new System.Drawing.Size(92, 19);
             this.radioSizeAuto.TabIndex = 0;
             this.radioSizeAuto.TabStop = true;
             this.radioSizeAuto.Text = "Auto";
@@ -359,10 +380,11 @@
             // 
             // radioSizeCustom
             // 
+            this.radioSizeCustom.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.radioSizeCustom.Location = new System.Drawing.Point(105, 4);
             this.radioSizeCustom.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.radioSizeCustom.Name = "radioSizeCustom";
-            this.radioSizeCustom.Size = new System.Drawing.Size(92, 17);
+            this.radioSizeCustom.Size = new System.Drawing.Size(92, 19);
             this.radioSizeCustom.TabIndex = 1;
             this.radioSizeCustom.TabStop = true;
             this.radioSizeCustom.Text = "Custom";
@@ -371,11 +393,11 @@
             // labelGeneral
             // 
             this.labelGeneral.AutoSize = true;
-            this.labelGeneral.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelGeneral.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelGeneral.Location = new System.Drawing.Point(0, 0);
             this.labelGeneral.Margin = new System.Windows.Forms.Padding(0);
             this.labelGeneral.Name = "labelGeneral";
-            this.labelGeneral.Size = new System.Drawing.Size(66, 20);
+            this.labelGeneral.Size = new System.Drawing.Size(60, 20);
             this.labelGeneral.TabIndex = 0;
             this.labelGeneral.Text = "General";
             // 
@@ -384,7 +406,7 @@
             this.panelEdgeDistance.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panelEdgeDistance.Controls.Add(this.trackBarEdgeDistance);
             this.panelEdgeDistance.Controls.Add(this.labelEdgeDistanceValue);
-            this.panelEdgeDistance.Location = new System.Drawing.Point(0, 516);
+            this.panelEdgeDistance.Location = new System.Drawing.Point(0, 536);
             this.panelEdgeDistance.Margin = new System.Windows.Forms.Padding(0);
             this.panelEdgeDistance.Name = "panelEdgeDistance";
             this.panelEdgeDistance.Size = new System.Drawing.Size(322, 36);
@@ -393,20 +415,22 @@
             // checkMediaPreviews
             // 
             this.checkMediaPreviews.AutoSize = true;
-            this.checkMediaPreviews.Location = new System.Drawing.Point(6, 49);
-            this.checkMediaPreviews.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
+            this.checkMediaPreviews.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkMediaPreviews.Location = new System.Drawing.Point(6, 50);
+            this.checkMediaPreviews.Margin = new System.Windows.Forms.Padding(6, 3, 3, 2);
             this.checkMediaPreviews.Name = "checkMediaPreviews";
-            this.checkMediaPreviews.Size = new System.Drawing.Size(131, 17);
+            this.checkMediaPreviews.Size = new System.Drawing.Size(140, 19);
             this.checkMediaPreviews.TabIndex = 2;
             this.checkMediaPreviews.Text = "Show Media Previews";
             this.checkMediaPreviews.UseVisualStyleBackColor = true;
             // 
             // labelScrollSpeedValue
             // 
+            this.labelScrollSpeedValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelScrollSpeedValue.Location = new System.Drawing.Point(145, 4);
             this.labelScrollSpeedValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelScrollSpeedValue.Name = "labelScrollSpeedValue";
-            this.labelScrollSpeedValue.Size = new System.Drawing.Size(38, 13);
+            this.labelScrollSpeedValue.Size = new System.Drawing.Size(38, 15);
             this.labelScrollSpeedValue.TabIndex = 1;
             this.labelScrollSpeedValue.Text = "100%";
             this.labelScrollSpeedValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -428,21 +452,22 @@
             // labelScrollSpeed
             // 
             this.labelScrollSpeed.AutoSize = true;
-            this.labelScrollSpeed.Location = new System.Drawing.Point(3, 629);
+            this.labelScrollSpeed.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelScrollSpeed.Location = new System.Drawing.Point(3, 651);
             this.labelScrollSpeed.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelScrollSpeed.Name = "labelScrollSpeed";
-            this.labelScrollSpeed.Size = new System.Drawing.Size(67, 13);
+            this.labelScrollSpeed.Size = new System.Drawing.Size(71, 15);
             this.labelScrollSpeed.TabIndex = 21;
             this.labelScrollSpeed.Text = "Scroll Speed";
             // 
             // labelLocation
             // 
             this.labelLocation.AutoSize = true;
-            this.labelLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelLocation.Location = new System.Drawing.Point(0, 370);
+            this.labelLocation.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelLocation.Location = new System.Drawing.Point(0, 382);
             this.labelLocation.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
             this.labelLocation.Name = "labelLocation";
-            this.labelLocation.Size = new System.Drawing.Size(70, 20);
+            this.labelLocation.Size = new System.Drawing.Size(66, 20);
             this.labelLocation.TabIndex = 13;
             this.labelLocation.Text = "Location";
             // 
@@ -454,10 +479,10 @@
             this.panelLocation.Controls.Add(this.radioLocBL);
             this.panelLocation.Controls.Add(this.radioLocCustom);
             this.panelLocation.Controls.Add(this.radioLocBR);
-            this.panelLocation.Location = new System.Drawing.Point(0, 390);
+            this.panelLocation.Location = new System.Drawing.Point(0, 402);
             this.panelLocation.Margin = new System.Windows.Forms.Padding(0);
             this.panelLocation.Name = "panelLocation";
-            this.panelLocation.Size = new System.Drawing.Size(322, 49);
+            this.panelLocation.Size = new System.Drawing.Size(322, 51);
             this.panelLocation.TabIndex = 14;
             // 
             // panelTimer
@@ -465,7 +490,7 @@
             this.panelTimer.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panelTimer.Controls.Add(this.labelDurationValue);
             this.panelTimer.Controls.Add(this.trackBarDuration);
-            this.panelTimer.Location = new System.Drawing.Point(0, 281);
+            this.panelTimer.Location = new System.Drawing.Point(0, 293);
             this.panelTimer.Margin = new System.Windows.Forms.Padding(0);
             this.panelTimer.Name = "panelTimer";
             this.panelTimer.Size = new System.Drawing.Size(322, 36);
@@ -474,32 +499,33 @@
             // labelDuration
             // 
             this.labelDuration.AutoSize = true;
-            this.labelDuration.Location = new System.Drawing.Point(3, 268);
+            this.labelDuration.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelDuration.Location = new System.Drawing.Point(3, 278);
             this.labelDuration.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelDuration.Name = "labelDuration";
-            this.labelDuration.Size = new System.Drawing.Size(47, 13);
+            this.labelDuration.Size = new System.Drawing.Size(53, 15);
             this.labelDuration.TabIndex = 10;
             this.labelDuration.Text = "Duration";
             // 
             // labelTimer
             // 
             this.labelTimer.AutoSize = true;
-            this.labelTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelTimer.Location = new System.Drawing.Point(0, 187);
+            this.labelTimer.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelTimer.Location = new System.Drawing.Point(0, 195);
             this.labelTimer.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
             this.labelTimer.Name = "labelTimer";
-            this.labelTimer.Size = new System.Drawing.Size(48, 20);
+            this.labelTimer.Size = new System.Drawing.Size(47, 20);
             this.labelTimer.TabIndex = 7;
             this.labelTimer.Text = "Timer";
             // 
             // labelSize
             // 
             this.labelSize.AutoSize = true;
-            this.labelSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelSize.Location = new System.Drawing.Point(0, 572);
+            this.labelSize.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelSize.Location = new System.Drawing.Point(0, 592);
             this.labelSize.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
             this.labelSize.Name = "labelSize";
-            this.labelSize.Size = new System.Drawing.Size(40, 20);
+            this.labelSize.Size = new System.Drawing.Size(36, 20);
             this.labelSize.TabIndex = 19;
             this.labelSize.Text = "Size";
             // 
@@ -509,10 +535,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelSize.Controls.Add(this.radioSizeCustom);
             this.panelSize.Controls.Add(this.radioSizeAuto);
-            this.panelSize.Location = new System.Drawing.Point(0, 592);
+            this.panelSize.Location = new System.Drawing.Point(0, 612);
             this.panelSize.Margin = new System.Windows.Forms.Padding(0);
             this.panelSize.Name = "panelSize";
-            this.panelSize.Size = new System.Drawing.Size(322, 25);
+            this.panelSize.Size = new System.Drawing.Size(322, 27);
             this.panelSize.TabIndex = 20;
             // 
             // durationUpdateTimer
@@ -551,7 +577,7 @@
             this.flowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowPanel.Location = new System.Drawing.Point(9, 9);
             this.flowPanel.Name = "flowPanel";
-            this.flowPanel.Size = new System.Drawing.Size(322, 678);
+            this.flowPanel.Size = new System.Drawing.Size(322, 698);
             this.flowPanel.TabIndex = 0;
             this.flowPanel.WrapContents = false;
             // 
@@ -560,7 +586,7 @@
             this.panelScrollSpeed.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panelScrollSpeed.Controls.Add(this.trackBarScrollSpeed);
             this.panelScrollSpeed.Controls.Add(this.labelScrollSpeedValue);
-            this.panelScrollSpeed.Location = new System.Drawing.Point(0, 642);
+            this.panelScrollSpeed.Location = new System.Drawing.Point(0, 666);
             this.panelScrollSpeed.Margin = new System.Windows.Forms.Padding(0);
             this.panelScrollSpeed.Name = "panelScrollSpeed";
             this.panelScrollSpeed.Size = new System.Drawing.Size(322, 36);
@@ -572,7 +598,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.flowPanel);
             this.Name = "TabSettingsNotifications";
-            this.Size = new System.Drawing.Size(340, 697);
+            this.Size = new System.Drawing.Size(340, 717);
             this.ParentChanged += new System.EventHandler(this.TabSettingsNotifications_ParentChanged);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).EndInit();
             this.tableLayoutDurationButtons.ResumeLayout(false);

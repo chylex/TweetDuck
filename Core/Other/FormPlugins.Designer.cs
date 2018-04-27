@@ -35,10 +35,11 @@
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.AutoSize = true;
-            this.btnClose.Location = new System.Drawing.Point(643, 433);
+            this.btnClose.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnClose.Location = new System.Drawing.Point(642, 433);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.btnClose.Size = new System.Drawing.Size(49, 23);
+            this.btnClose.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.btnClose.Size = new System.Drawing.Size(50, 25);
             this.btnClose.TabIndex = 1;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
@@ -48,10 +49,11 @@
             // 
             this.btnReload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnReload.AutoSize = true;
-            this.btnReload.Location = new System.Drawing.Point(131, 433);
+            this.btnReload.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnReload.Location = new System.Drawing.Point(141, 433);
             this.btnReload.Name = "btnReload";
-            this.btnReload.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.btnReload.Size = new System.Drawing.Size(71, 23);
+            this.btnReload.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.btnReload.Size = new System.Drawing.Size(74, 25);
             this.btnReload.TabIndex = 2;
             this.btnReload.Text = "Reload All";
             this.btnReload.UseVisualStyleBackColor = true;
@@ -61,10 +63,11 @@
             // 
             this.btnOpenFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnOpenFolder.AutoSize = true;
+            this.btnOpenFolder.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btnOpenFolder.Location = new System.Drawing.Point(12, 433);
             this.btnOpenFolder.Name = "btnOpenFolder";
-            this.btnOpenFolder.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.btnOpenFolder.Size = new System.Drawing.Size(113, 23);
+            this.btnOpenFolder.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.btnOpenFolder.Size = new System.Drawing.Size(123, 25);
             this.btnOpenFolder.TabIndex = 3;
             this.btnOpenFolder.Text = "Open Plugin Folder";
             this.btnOpenFolder.UseVisualStyleBackColor = true;
@@ -93,7 +96,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(704, 468);
+            this.ClientSize = new System.Drawing.Size(704, 470);
             this.Controls.Add(this.flowLayoutPlugins);
             this.Controls.Add(this.btnOpenFolder);
             this.Controls.Add(this.btnReload);

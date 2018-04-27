@@ -90,6 +90,7 @@ namespace TweetDuck.Core.Other{
             FlatButton btn = new FlatButton{
                 BackColor = SystemColors.Control,
                 FlatStyle = FlatStyle.Flat,
+                Font = SystemFonts.MessageBoxFont,
                 Location = new Point(0, (buttonHeight+1)*(panelButtons.Controls.Count/2)),
                 Margin = new Padding(0),
                 Size = new Size(panelButtons.Width, buttonHeight),

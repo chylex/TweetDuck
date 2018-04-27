@@ -52,101 +52,128 @@
             // 
             // btnClearCache
             // 
-            this.btnClearCache.Location = new System.Drawing.Point(5, 172);
+            this.btnClearCache.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnClearCache.Location = new System.Drawing.Point(5, 179);
             this.btnClearCache.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnClearCache.Name = "btnClearCache";
-            this.btnClearCache.Size = new System.Drawing.Size(144, 23);
+            this.btnClearCache.Size = new System.Drawing.Size(144, 25);
             this.btnClearCache.TabIndex = 5;
-            this.btnClearCache.Text = "Clear Cache (calculating)";
+            this.btnClearCache.Text = "Clear Cache (...)";
             this.btnClearCache.UseVisualStyleBackColor = true;
             // 
             // checkHardwareAcceleration
             // 
             this.checkHardwareAcceleration.AutoSize = true;
-            this.checkHardwareAcceleration.Location = new System.Drawing.Point(6, 124);
-            this.checkHardwareAcceleration.Margin = new System.Windows.Forms.Padding(6, 6, 3, 3);
+            this.checkHardwareAcceleration.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkHardwareAcceleration.Location = new System.Drawing.Point(6, 128);
+            this.checkHardwareAcceleration.Margin = new System.Windows.Forms.Padding(6, 6, 3, 2);
             this.checkHardwareAcceleration.Name = "checkHardwareAcceleration";
-            this.checkHardwareAcceleration.Size = new System.Drawing.Size(134, 17);
+            this.checkHardwareAcceleration.Size = new System.Drawing.Size(146, 19);
             this.checkHardwareAcceleration.TabIndex = 3;
             this.checkHardwareAcceleration.Text = "Hardware Acceleration";
             this.checkHardwareAcceleration.UseVisualStyleBackColor = true;
             // 
             // btnEditCefArgs
             // 
+            this.btnEditCefArgs.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btnEditCefArgs.Location = new System.Drawing.Point(5, 3);
             this.btnEditCefArgs.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnEditCefArgs.Name = "btnEditCefArgs";
-            this.btnEditCefArgs.Size = new System.Drawing.Size(144, 23);
+            this.btnEditCefArgs.Size = new System.Drawing.Size(144, 25);
             this.btnEditCefArgs.TabIndex = 0;
             this.btnEditCefArgs.Text = "Edit CEF Arguments";
             this.btnEditCefArgs.UseVisualStyleBackColor = true;
             // 
             // btnEditCSS
             // 
+            this.btnEditCSS.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btnEditCSS.Location = new System.Drawing.Point(155, 3);
             this.btnEditCSS.Name = "btnEditCSS";
-            this.btnEditCSS.Size = new System.Drawing.Size(144, 23);
+            this.btnEditCSS.Size = new System.Drawing.Size(144, 25);
             this.btnEditCSS.TabIndex = 1;
             this.btnEditCSS.Text = "Edit CSS";
             this.btnEditCSS.UseVisualStyleBackColor = true;
             // 
             // btnRestartArgs
             // 
+            this.btnRestartArgs.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btnRestartArgs.Location = new System.Drawing.Point(155, 32);
             this.btnRestartArgs.Name = "btnRestartArgs";
-            this.btnRestartArgs.Size = new System.Drawing.Size(144, 23);
+            this.btnRestartArgs.Size = new System.Drawing.Size(144, 25);
             this.btnRestartArgs.TabIndex = 3;
             this.btnRestartArgs.Text = "Restart with Arguments";
             this.btnRestartArgs.UseVisualStyleBackColor = true;
             // 
             // btnRestart
             // 
+            this.btnRestart.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btnRestart.Location = new System.Drawing.Point(155, 3);
             this.btnRestart.Name = "btnRestart";
-            this.btnRestart.Size = new System.Drawing.Size(144, 23);
+            this.btnRestart.Size = new System.Drawing.Size(144, 25);
             this.btnRestart.TabIndex = 2;
             this.btnRestart.Text = "Restart the Program";
             this.btnRestart.UseVisualStyleBackColor = true;
             // 
             // btnOpenAppFolder
             // 
+            this.btnOpenAppFolder.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btnOpenAppFolder.Location = new System.Drawing.Point(5, 3);
             this.btnOpenAppFolder.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnOpenAppFolder.Name = "btnOpenAppFolder";
-            this.btnOpenAppFolder.Size = new System.Drawing.Size(144, 23);
+            this.btnOpenAppFolder.Size = new System.Drawing.Size(144, 25);
             this.btnOpenAppFolder.TabIndex = 0;
             this.btnOpenAppFolder.Text = "Open Program Folder";
             this.btnOpenAppFolder.UseVisualStyleBackColor = true;
             // 
             // btnOpenDataFolder
             // 
+            this.btnOpenDataFolder.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btnOpenDataFolder.Location = new System.Drawing.Point(5, 32);
             this.btnOpenDataFolder.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnOpenDataFolder.Name = "btnOpenDataFolder";
-            this.btnOpenDataFolder.Size = new System.Drawing.Size(144, 23);
+            this.btnOpenDataFolder.Size = new System.Drawing.Size(144, 25);
             this.btnOpenDataFolder.TabIndex = 1;
             this.btnOpenDataFolder.Text = "Open Data Folder";
             this.btnOpenDataFolder.UseVisualStyleBackColor = true;
             // 
             // numClearCacheThreshold
             // 
-            this.numClearCacheThreshold.Increment = 50;
-            this.numClearCacheThreshold.Location = new System.Drawing.Point(227, 4);
-            this.numClearCacheThreshold.Maximum = 1000;
-            this.numClearCacheThreshold.Minimum = 100;
+            this.numClearCacheThreshold.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.numClearCacheThreshold.Increment = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.numClearCacheThreshold.Location = new System.Drawing.Point(246, 5);
+            this.numClearCacheThreshold.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numClearCacheThreshold.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             this.numClearCacheThreshold.Name = "numClearCacheThreshold";
-            this.numClearCacheThreshold.Size = new System.Drawing.Size(72, 20);
+            this.numClearCacheThreshold.Size = new System.Drawing.Size(68, 23);
             this.numClearCacheThreshold.TabIndex = 1;
+            this.numClearCacheThreshold.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numClearCacheThreshold.TextSuffix = " MB";
-            this.numClearCacheThreshold.Value = 250;
+            this.numClearCacheThreshold.Value = new decimal(new int[] {
+            250,
+            0,
+            0,
+            0});
             // 
             // checkClearCacheAuto
             // 
             this.checkClearCacheAuto.AutoSize = true;
+            this.checkClearCacheAuto.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.checkClearCacheAuto.Location = new System.Drawing.Point(6, 6);
-            this.checkClearCacheAuto.Margin = new System.Windows.Forms.Padding(6, 6, 3, 3);
+            this.checkClearCacheAuto.Margin = new System.Windows.Forms.Padding(6, 6, 0, 2);
             this.checkClearCacheAuto.Name = "checkClearCacheAuto";
-            this.checkClearCacheAuto.Size = new System.Drawing.Size(215, 17);
+            this.checkClearCacheAuto.Size = new System.Drawing.Size(237, 19);
             this.checkClearCacheAuto.TabIndex = 0;
             this.checkClearCacheAuto.Text = "Clear Cache Automatically When Above";
             this.checkClearCacheAuto.UseVisualStyleBackColor = true;
@@ -154,11 +181,11 @@
             // labelApp
             // 
             this.labelApp.AutoSize = true;
-            this.labelApp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelApp.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelApp.Location = new System.Drawing.Point(0, 0);
             this.labelApp.Margin = new System.Windows.Forms.Padding(0);
             this.labelApp.Name = "labelApp";
-            this.labelApp.Size = new System.Drawing.Size(38, 20);
+            this.labelApp.Size = new System.Drawing.Size(37, 20);
             this.labelApp.TabIndex = 0;
             this.labelApp.Text = "App";
             // 
@@ -172,17 +199,17 @@
             this.panelAppButtons.Location = new System.Drawing.Point(0, 20);
             this.panelAppButtons.Margin = new System.Windows.Forms.Padding(0);
             this.panelAppButtons.Name = "panelAppButtons";
-            this.panelAppButtons.Size = new System.Drawing.Size(322, 58);
+            this.panelAppButtons.Size = new System.Drawing.Size(322, 62);
             this.panelAppButtons.TabIndex = 1;
             // 
             // labelPerformance
             // 
             this.labelPerformance.AutoSize = true;
-            this.labelPerformance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelPerformance.Location = new System.Drawing.Point(0, 98);
+            this.labelPerformance.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelPerformance.Location = new System.Drawing.Point(0, 102);
             this.labelPerformance.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
             this.labelPerformance.Name = "labelPerformance";
-            this.labelPerformance.Size = new System.Drawing.Size(100, 20);
+            this.labelPerformance.Size = new System.Drawing.Size(93, 20);
             this.labelPerformance.TabIndex = 2;
             this.labelPerformance.Text = "Performance";
             // 
@@ -191,19 +218,20 @@
             this.panelClearCacheAuto.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panelClearCacheAuto.Controls.Add(this.checkClearCacheAuto);
             this.panelClearCacheAuto.Controls.Add(this.numClearCacheThreshold);
-            this.panelClearCacheAuto.Location = new System.Drawing.Point(0, 198);
+            this.panelClearCacheAuto.Location = new System.Drawing.Point(0, 207);
             this.panelClearCacheAuto.Margin = new System.Windows.Forms.Padding(0);
             this.panelClearCacheAuto.Name = "panelClearCacheAuto";
-            this.panelClearCacheAuto.Size = new System.Drawing.Size(322, 26);
+            this.panelClearCacheAuto.Size = new System.Drawing.Size(322, 28);
             this.panelClearCacheAuto.TabIndex = 6;
             // 
             // labelCache
             // 
             this.labelCache.AutoSize = true;
-            this.labelCache.Location = new System.Drawing.Point(3, 156);
+            this.labelCache.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelCache.Location = new System.Drawing.Point(3, 161);
             this.labelCache.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelCache.Name = "labelCache";
-            this.labelCache.Size = new System.Drawing.Size(38, 13);
+            this.labelCache.Size = new System.Drawing.Size(40, 15);
             this.labelCache.TabIndex = 4;
             this.labelCache.Text = "Cache";
             // 
@@ -212,20 +240,20 @@
             this.panelConfiguration.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panelConfiguration.Controls.Add(this.btnEditCSS);
             this.panelConfiguration.Controls.Add(this.btnEditCefArgs);
-            this.panelConfiguration.Location = new System.Drawing.Point(0, 264);
+            this.panelConfiguration.Location = new System.Drawing.Point(0, 275);
             this.panelConfiguration.Margin = new System.Windows.Forms.Padding(0);
             this.panelConfiguration.Name = "panelConfiguration";
-            this.panelConfiguration.Size = new System.Drawing.Size(322, 29);
+            this.panelConfiguration.Size = new System.Drawing.Size(322, 31);
             this.panelConfiguration.TabIndex = 8;
             // 
             // labelConfiguration
             // 
             this.labelConfiguration.AutoSize = true;
-            this.labelConfiguration.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelConfiguration.Location = new System.Drawing.Point(0, 244);
+            this.labelConfiguration.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelConfiguration.Location = new System.Drawing.Point(0, 255);
             this.labelConfiguration.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
             this.labelConfiguration.Name = "labelConfiguration";
-            this.labelConfiguration.Size = new System.Drawing.Size(104, 20);
+            this.labelConfiguration.Size = new System.Drawing.Size(100, 20);
             this.labelConfiguration.TabIndex = 7;
             this.labelConfiguration.Text = "Configuration";
             // 
@@ -246,7 +274,7 @@
             this.flowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowPanel.Location = new System.Drawing.Point(9, 9);
             this.flowPanel.Name = "flowPanel";
-            this.flowPanel.Size = new System.Drawing.Size(322, 295);
+            this.flowPanel.Size = new System.Drawing.Size(322, 307);
             this.flowPanel.TabIndex = 0;
             this.flowPanel.WrapContents = false;
             // 
@@ -256,7 +284,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.flowPanel);
             this.Name = "TabSettingsAdvanced";
-            this.Size = new System.Drawing.Size(340, 313);
+            this.Size = new System.Drawing.Size(340, 325);
             ((System.ComponentModel.ISupportInitialize)(this.numClearCacheThreshold)).EndInit();
             this.panelAppButtons.ResumeLayout(false);
             this.panelClearCacheAuto.ResumeLayout(false);

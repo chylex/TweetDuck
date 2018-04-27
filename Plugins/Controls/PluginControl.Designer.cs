@@ -43,9 +43,10 @@
             // btnToggleState
             // 
             this.btnToggleState.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnToggleState.Location = new System.Drawing.Point(453, 59);
+            this.btnToggleState.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnToggleState.Location = new System.Drawing.Point(451, 59);
             this.btnToggleState.Name = "btnToggleState";
-            this.btnToggleState.Size = new System.Drawing.Size(68, 23);
+            this.btnToggleState.Size = new System.Drawing.Size(70, 23);
             this.btnToggleState.TabIndex = 6;
             this.btnToggleState.Text = "Disable";
             this.btnToggleState.UseVisualStyleBackColor = true;
@@ -153,9 +154,10 @@
             // btnConfigure
             // 
             this.btnConfigure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnConfigure.Location = new System.Drawing.Point(453, 31);
+            this.btnConfigure.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnConfigure.Location = new System.Drawing.Point(451, 30);
             this.btnConfigure.Name = "btnConfigure";
-            this.btnConfigure.Size = new System.Drawing.Size(68, 23);
+            this.btnConfigure.Size = new System.Drawing.Size(70, 23);
             this.btnConfigure.TabIndex = 5;
             this.btnConfigure.Text = "Configure";
             this.btnConfigure.UseVisualStyleBackColor = true;
@@ -167,6 +169,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.labelType.BackColor = System.Drawing.Color.DarkGray;
             this.labelType.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelType.LineHeight = 0;
             this.labelType.Location = new System.Drawing.Point(0, 0);
             this.labelType.Name = "labelType";
             this.labelType.Size = new System.Drawing.Size(18, 88);

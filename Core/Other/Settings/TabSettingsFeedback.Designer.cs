@@ -43,21 +43,22 @@
             this.panelDataCollection.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panelDataCollection.Controls.Add(this.labelDataCollectionLink);
             this.panelDataCollection.Controls.Add(this.checkDataCollection);
-            this.panelDataCollection.Location = new System.Drawing.Point(0, 74);
+            this.panelDataCollection.Location = new System.Drawing.Point(0, 78);
             this.panelDataCollection.Margin = new System.Windows.Forms.Padding(0);
             this.panelDataCollection.Name = "panelDataCollection";
-            this.panelDataCollection.Size = new System.Drawing.Size(322, 26);
+            this.panelDataCollection.Size = new System.Drawing.Size(322, 28);
             this.panelDataCollection.TabIndex = 3;
             // 
             // labelDataCollectionLink
             // 
             this.labelDataCollectionLink.AutoSize = true;
+            this.labelDataCollectionLink.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelDataCollectionLink.LinkArea = new System.Windows.Forms.LinkArea(1, 10);
             this.labelDataCollectionLink.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.labelDataCollectionLink.Location = new System.Drawing.Point(141, 6);
-            this.labelDataCollectionLink.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.labelDataCollectionLink.Location = new System.Drawing.Point(153, 4);
+            this.labelDataCollectionLink.Margin = new System.Windows.Forms.Padding(0);
             this.labelDataCollectionLink.Name = "labelDataCollectionLink";
-            this.labelDataCollectionLink.Size = new System.Drawing.Size(66, 17);
+            this.labelDataCollectionLink.Size = new System.Drawing.Size(71, 21);
             this.labelDataCollectionLink.TabIndex = 1;
             this.labelDataCollectionLink.TabStop = true;
             this.labelDataCollectionLink.Text = "(learn more)";
@@ -67,17 +68,19 @@
             // checkDataCollection
             // 
             this.checkDataCollection.AutoSize = true;
+            this.checkDataCollection.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.checkDataCollection.Location = new System.Drawing.Point(6, 6);
-            this.checkDataCollection.Margin = new System.Windows.Forms.Padding(6, 6, 0, 3);
+            this.checkDataCollection.Margin = new System.Windows.Forms.Padding(6, 6, 0, 2);
             this.checkDataCollection.Name = "checkDataCollection";
-            this.checkDataCollection.Size = new System.Drawing.Size(135, 17);
+            this.checkDataCollection.Size = new System.Drawing.Size(147, 19);
             this.checkDataCollection.TabIndex = 0;
             this.checkDataCollection.Text = "Send Anonymous Data";
             this.checkDataCollection.UseVisualStyleBackColor = true;
             // 
             // labelDataCollectionMessage
             // 
-            this.labelDataCollectionMessage.Location = new System.Drawing.Point(6, 135);
+            this.labelDataCollectionMessage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelDataCollectionMessage.Location = new System.Drawing.Point(6, 143);
             this.labelDataCollectionMessage.Margin = new System.Windows.Forms.Padding(6);
             this.labelDataCollectionMessage.Name = "labelDataCollectionMessage";
             this.labelDataCollectionMessage.Size = new System.Drawing.Size(310, 67);
@@ -86,10 +89,12 @@
             // btnViewReport
             // 
             this.btnViewReport.AutoSize = true;
-            this.btnViewReport.Location = new System.Drawing.Point(5, 103);
+            this.btnViewReport.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnViewReport.Location = new System.Drawing.Point(5, 109);
             this.btnViewReport.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnViewReport.Name = "btnViewReport";
-            this.btnViewReport.Size = new System.Drawing.Size(144, 23);
+            this.btnViewReport.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.btnViewReport.Size = new System.Drawing.Size(155, 25);
             this.btnViewReport.TabIndex = 4;
             this.btnViewReport.Text = "View My Analytics Report";
             this.btnViewReport.UseVisualStyleBackColor = true;
@@ -97,11 +102,12 @@
             // btnSendFeedback
             // 
             this.btnSendFeedback.AutoSize = true;
+            this.btnSendFeedback.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btnSendFeedback.Location = new System.Drawing.Point(5, 23);
             this.btnSendFeedback.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnSendFeedback.Name = "btnSendFeedback";
-            this.btnSendFeedback.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.btnSendFeedback.Size = new System.Drawing.Size(164, 23);
+            this.btnSendFeedback.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.btnSendFeedback.Size = new System.Drawing.Size(170, 25);
             this.btnSendFeedback.TabIndex = 1;
             this.btnSendFeedback.Text = "Send Feedback / Bug Report";
             this.btnSendFeedback.UseVisualStyleBackColor = true;
@@ -109,21 +115,22 @@
             // labelDataCollection
             // 
             this.labelDataCollection.AutoSize = true;
-            this.labelDataCollection.Location = new System.Drawing.Point(3, 61);
+            this.labelDataCollection.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelDataCollection.Location = new System.Drawing.Point(3, 63);
             this.labelDataCollection.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelDataCollection.Name = "labelDataCollection";
-            this.labelDataCollection.Size = new System.Drawing.Size(79, 13);
+            this.labelDataCollection.Size = new System.Drawing.Size(88, 15);
             this.labelDataCollection.TabIndex = 2;
             this.labelDataCollection.Text = "Data Collection";
             // 
             // labelFeedback
             // 
             this.labelFeedback.AutoSize = true;
-            this.labelFeedback.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelFeedback.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelFeedback.Location = new System.Drawing.Point(0, 0);
             this.labelFeedback.Margin = new System.Windows.Forms.Padding(0);
             this.labelFeedback.Name = "labelFeedback";
-            this.labelFeedback.Size = new System.Drawing.Size(80, 20);
+            this.labelFeedback.Size = new System.Drawing.Size(72, 20);
             this.labelFeedback.TabIndex = 0;
             this.labelFeedback.Text = "Feedback";
             // 
@@ -141,7 +148,7 @@
             this.flowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowPanel.Location = new System.Drawing.Point(9, 9);
             this.flowPanel.Name = "flowPanel";
-            this.flowPanel.Size = new System.Drawing.Size(322, 209);
+            this.flowPanel.Size = new System.Drawing.Size(322, 212);
             this.flowPanel.TabIndex = 0;
             this.flowPanel.WrapContents = false;
             // 
@@ -151,7 +158,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.flowPanel);
             this.Name = "TabSettingsFeedback";
-            this.Size = new System.Drawing.Size(340, 227);
+            this.Size = new System.Drawing.Size(340, 230);
             this.panelDataCollection.ResumeLayout(false);
             this.panelDataCollection.PerformLayout();
             this.flowPanel.ResumeLayout(false);

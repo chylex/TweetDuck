@@ -33,10 +33,11 @@
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.AutoSize = true;
-            this.btnClose.Location = new System.Drawing.Point(449, 504);
+            this.btnClose.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnClose.Location = new System.Drawing.Point(448, 525);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.btnClose.Size = new System.Drawing.Size(49, 23);
+            this.btnClose.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.btnClose.Size = new System.Drawing.Size(50, 25);
             this.btnClose.TabIndex = 3;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
@@ -52,7 +53,7 @@
             this.panelContents.Location = new System.Drawing.Point(135, 12);
             this.panelContents.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.panelContents.Name = "panelContents";
-            this.panelContents.Size = new System.Drawing.Size(363, 486);
+            this.panelContents.Size = new System.Drawing.Size(363, 507);
             this.panelContents.TabIndex = 1;
             // 
             // panelButtons
@@ -63,17 +64,18 @@
             this.panelButtons.Location = new System.Drawing.Point(12, 12);
             this.panelButtons.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.panelButtons.Name = "panelButtons";
-            this.panelButtons.Size = new System.Drawing.Size(124, 486);
+            this.panelButtons.Size = new System.Drawing.Size(124, 507);
             this.panelButtons.TabIndex = 0;
             // 
             // btnManageOptions
             // 
             this.btnManageOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnManageOptions.AutoSize = true;
-            this.btnManageOptions.Location = new System.Drawing.Point(12, 504);
+            this.btnManageOptions.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnManageOptions.Location = new System.Drawing.Point(12, 525);
             this.btnManageOptions.Name = "btnManageOptions";
-            this.btnManageOptions.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.btnManageOptions.Size = new System.Drawing.Size(101, 23);
+            this.btnManageOptions.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.btnManageOptions.Size = new System.Drawing.Size(109, 25);
             this.btnManageOptions.TabIndex = 4;
             this.btnManageOptions.Text = "Manage Options";
             this.btnManageOptions.UseVisualStyleBackColor = true;
@@ -83,7 +85,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(510, 539);
+            this.ClientSize = new System.Drawing.Size(510, 562);
             this.Controls.Add(this.btnManageOptions);
             this.Controls.Add(this.panelContents);
             this.Controls.Add(this.panelButtons);

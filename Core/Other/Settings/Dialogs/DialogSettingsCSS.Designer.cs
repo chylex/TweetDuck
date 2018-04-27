@@ -51,7 +51,7 @@
             this.textBoxBrowserCSS.Multiline = true;
             this.textBoxBrowserCSS.Name = "textBoxBrowserCSS";
             this.textBoxBrowserCSS.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxBrowserCSS.Size = new System.Drawing.Size(378, 253);
+            this.textBoxBrowserCSS.Size = new System.Drawing.Size(378, 251);
             this.textBoxBrowserCSS.TabIndex = 1;
             this.textBoxBrowserCSS.WordWrap = false;
             this.textBoxBrowserCSS.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxBrowserCSS_KeyUp);
@@ -59,10 +59,12 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(654, 287);
+            this.btnCancel.AutoSize = true;
+            this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.Location = new System.Drawing.Point(657, 285);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.btnCancel.Size = new System.Drawing.Size(56, 23);
+            this.btnCancel.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.btnCancel.Size = new System.Drawing.Size(57, 25);
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -71,10 +73,12 @@
             // btnApply
             // 
             this.btnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnApply.Location = new System.Drawing.Point(716, 287);
+            this.btnApply.AutoSize = true;
+            this.btnApply.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnApply.Location = new System.Drawing.Point(720, 285);
             this.btnApply.Name = "btnApply";
-            this.btnApply.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.btnApply.Size = new System.Drawing.Size(56, 23);
+            this.btnApply.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.btnApply.Size = new System.Drawing.Size(52, 25);
             this.btnApply.TabIndex = 1;
             this.btnApply.Text = "Apply";
             this.btnApply.UseVisualStyleBackColor = true;
@@ -99,7 +103,7 @@
             this.splitContainer.Panel2.Controls.Add(this.labelNotification);
             this.splitContainer.Panel2.Controls.Add(this.textBoxNotificationCSS);
             this.splitContainer.Panel2MinSize = 64;
-            this.splitContainer.Size = new System.Drawing.Size(760, 269);
+            this.splitContainer.Size = new System.Drawing.Size(760, 267);
             this.splitContainer.SplitterDistance = 378;
             this.splitContainer.SplitterWidth = 5;
             this.splitContainer.TabIndex = 0;
@@ -107,20 +111,22 @@
             // labelBrowser
             // 
             this.labelBrowser.AutoSize = true;
+            this.labelBrowser.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelBrowser.Location = new System.Drawing.Point(-3, 0);
             this.labelBrowser.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelBrowser.Name = "labelBrowser";
-            this.labelBrowser.Size = new System.Drawing.Size(45, 13);
+            this.labelBrowser.Size = new System.Drawing.Size(49, 15);
             this.labelBrowser.TabIndex = 0;
             this.labelBrowser.Text = "Browser";
             // 
             // labelNotification
             // 
             this.labelNotification.AutoSize = true;
+            this.labelNotification.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelNotification.Location = new System.Drawing.Point(-3, 0);
             this.labelNotification.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelNotification.Name = "labelNotification";
-            this.labelNotification.Size = new System.Drawing.Size(60, 13);
+            this.labelNotification.Size = new System.Drawing.Size(70, 15);
             this.labelNotification.TabIndex = 0;
             this.labelNotification.Text = "Notification";
             // 
@@ -135,7 +141,7 @@
             this.textBoxNotificationCSS.Multiline = true;
             this.textBoxNotificationCSS.Name = "textBoxNotificationCSS";
             this.textBoxNotificationCSS.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxNotificationCSS.Size = new System.Drawing.Size(377, 253);
+            this.textBoxNotificationCSS.Size = new System.Drawing.Size(373, 251);
             this.textBoxNotificationCSS.TabIndex = 1;
             this.textBoxNotificationCSS.WordWrap = false;
             // 
@@ -143,19 +149,22 @@
             // 
             this.labelWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelWarning.AutoSize = true;
-            this.labelWarning.Location = new System.Drawing.Point(91, 292);
+            this.labelWarning.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelWarning.Location = new System.Drawing.Point(94, 290);
             this.labelWarning.Name = "labelWarning";
-            this.labelWarning.Size = new System.Drawing.Size(341, 13);
+            this.labelWarning.Size = new System.Drawing.Size(373, 15);
             this.labelWarning.TabIndex = 3;
             this.labelWarning.Text = "The code is not validated, please make sure there are no syntax errors.";
             // 
             // btnOpenWiki
             // 
             this.btnOpenWiki.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnOpenWiki.Location = new System.Drawing.Point(12, 287);
+            this.btnOpenWiki.AutoSize = true;
+            this.btnOpenWiki.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOpenWiki.Location = new System.Drawing.Point(12, 285);
             this.btnOpenWiki.Name = "btnOpenWiki";
-            this.btnOpenWiki.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.btnOpenWiki.Size = new System.Drawing.Size(73, 23);
+            this.btnOpenWiki.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.btnOpenWiki.Size = new System.Drawing.Size(76, 25);
             this.btnOpenWiki.TabIndex = 4;
             this.btnOpenWiki.Text = "Open Wiki";
             this.btnOpenWiki.UseVisualStyleBackColor = true;
