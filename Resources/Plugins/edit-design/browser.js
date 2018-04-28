@@ -21,6 +21,22 @@ enabled(){
     avatarRadius: 2
   };
   
+  var prepareDefaultConfig = () => {
+    this.defaultConfig._theme = TD.settings.getTheme();
+    
+    switch(TD.settings.getColumnWidth()){
+      case "wide": this.defaultConfig.columnWidth = "350px"; break;
+      case "narrow": this.defaultConfig.columnWidth = "270px"; break;
+    }
+    
+    switch(TD.settings.getFontSize()){
+      case "small": this.defaultConfig.fontSize = "13px"; break;
+      case "medium": this.defaultConfig.fontSize = "14px"; break;
+      case "large": this.defaultConfig.fontSize = "15px"; break;
+      case "largest": this.defaultConfig.fontSize = "16px"; break;
+    }
+  };
+  
   this.firstTimeLoad = null;
   
   var me = this;
@@ -45,6 +61,7 @@ enabled(){
     else if (this.tmpConfig !== null){
       let needsResave = !("_theme" in this.tmpConfig);
       
+      prepareDefaultConfig();
       this.config = $.extend(this.defaultConfig, this.tmpConfig);
       this.tmpConfig = null;
       this.reinjectAll();
@@ -62,28 +79,11 @@ enabled(){
     this.onStageReady();
   };
   
-  if (this.$$wasLoadedBefore){
+  if (TD.ready){
     this.onStageReady();
   }
   else{
-    $(document).one("dataSettingsValues", () => {
-      this.defaultConfig._theme = TD.settings.getTheme();
-      
-      switch(TD.settings.getColumnWidth()){
-        case "wide": this.defaultConfig.columnWidth = "350px"; break;
-        case "narrow": this.defaultConfig.columnWidth = "270px"; break;
-      }
-
-      switch(TD.settings.getFontSize()){
-        case "small": this.defaultConfig.fontSize = "13px"; break;
-        case "medium": this.defaultConfig.fontSize = "14px"; break;
-        case "large": this.defaultConfig.fontSize = "15px"; break;
-        case "largest": this.defaultConfig.fontSize = "16px"; break;
-      }
-      
-      this.$$wasLoadedBefore = true;
-      this.onStageReady();
-    });
+    $(document).one("dataSettingsValues", () => this.onStageReady());
   }
     
   $TDP.checkFileExists(this.$token, configFile).then(exists => {
