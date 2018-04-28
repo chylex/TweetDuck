@@ -58,16 +58,17 @@ namespace TweetDuck.Core.Notification.Screenshot{
             SetNotificationSize(width, height);
         }
 
-        public void TakeScreenshot(){
+        public bool TakeScreenshot(){
             if (ClientSize.Height == 0){
                 FormMessage.Error("Screenshot Failed", "Could not detect screenshot size.", FormMessage.OK);
-                return;
+                return false;
             }
             
             IntPtr context = NativeMethods.GetDC(this.Handle);
 
             if (context == IntPtr.Zero){
                 FormMessage.Error("Screenshot Failed", "Could not retrieve a graphics context handle for the notification window to take the screenshot.", FormMessage.OK);
+                return false;
             }
             else{
                 using(Bitmap bmp = new Bitmap(ClientSize.Width, ClientSize.Height, PixelFormat.Format32bppRgb)){
@@ -78,6 +79,7 @@ namespace TweetDuck.Core.Notification.Screenshot{
                     }
 
                     Clipboard.SetImage(bmp);
+                    return true;
                 }
             }
         }

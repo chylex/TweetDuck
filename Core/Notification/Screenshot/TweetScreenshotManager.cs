@@ -1,10 +1,21 @@
-﻿// Uncomment to keep screenshot windows visible for debugging
+﻿#if DEBUG
+// Uncomment to keep screenshot windows visible for debugging
 // #define NO_HIDE_SCREENSHOTS
+
+// Uncomment to generate screenshots of individual frames for at most 1 second
+#define GEN_SCREENSHOT_FRAMES
+#endif
 
 using System;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Plugins;
+
+#if GEN_SCREENSHOT_FRAMES
+using System.Drawing.Imaging;
+using System.IO;
+using TweetDuck.Core.Utils;
+#endif
 
 namespace TweetDuck.Core.Notification.Screenshot{
     sealed class TweetScreenshotManager : IDisposable{
@@ -12,6 +23,11 @@ namespace TweetDuck.Core.Notification.Screenshot{
         private readonly PluginManager plugins;
         private readonly Timer timeout;
         private readonly Timer disposer;
+
+        #if GEN_SCREENSHOT_FRAMES
+        private readonly Timer debugger;
+        private int frameCounter;
+        #endif
         
         private FormNotificationScreenshotable screenshot;
 
@@ -24,6 +40,11 @@ namespace TweetDuck.Core.Notification.Screenshot{
 
             this.disposer = new Timer{ Interval = 1 };
             this.disposer.Tick += disposer_Tick;
+
+            #if GEN_SCREENSHOT_FRAMES
+            this.debugger = new Timer{ Interval = 16 };
+            this.debugger.Tick += debugger_Tick;
+            #endif
         }
 
         private void timeout_Tick(object sender, EventArgs e){
@@ -46,7 +67,11 @@ namespace TweetDuck.Core.Notification.Screenshot{
             screenshot.Show();
             timeout.Start();
 
-            #if !(DEBUG && NO_HIDE_SCREENSHOTS)
+            #if GEN_SCREENSHOT_FRAMES
+            StartDebugger();
+            #endif
+
+            #if !NO_HIDE_SCREENSHOTS
             owner.IsWaiting = true;
             #endif
         }
@@ -58,8 +83,8 @@ namespace TweetDuck.Core.Notification.Screenshot{
 
             timeout.Stop();
             screenshot.TakeScreenshot();
-
-            #if !(DEBUG && NO_HIDE_SCREENSHOTS)
+            
+            #if !NO_HIDE_SCREENSHOTS
             OnFinished();
             #else
             screenshot.MoveToVisibleLocation();
@@ -68,15 +93,52 @@ namespace TweetDuck.Core.Notification.Screenshot{
         }
 
         private void OnFinished(){
+            #if GEN_SCREENSHOT_FRAMES
+            debugger.Stop();
+            #endif
+
             screenshot.Location = ControlExtensions.InvisibleLocation;
             owner.IsWaiting = false;
             disposer.Start();
         }
 
         public void Dispose(){
+            #if GEN_SCREENSHOT_FRAMES
+            debugger.Dispose();
+            #endif
+
             timeout.Dispose();
             disposer.Dispose();
             screenshot?.Dispose();
         }
+
+        #if GEN_SCREENSHOT_FRAMES
+        private static readonly string DebugScreenshotPath = Path.Combine(Program.StoragePath, "TD_Screenshots");
+
+        private void StartDebugger(){
+            frameCounter = 0;
+
+            try{
+                Directory.Delete(DebugScreenshotPath, true);
+                WindowsUtils.TrySleepUntil(() => !Directory.Exists(DebugScreenshotPath), 1000, 10);
+            }catch(DirectoryNotFoundException){}
+            
+            Directory.CreateDirectory(DebugScreenshotPath);
+            debugger.Start();
+        }
+
+        private void debugger_Tick(object sender, EventArgs e){
+            if (frameCounter < 63 && screenshot.TakeScreenshot()){
+                try{
+                    Clipboard.GetImage()?.Save(Path.Combine(DebugScreenshotPath, "frame_"+(++frameCounter)+".png"), ImageFormat.Png);
+                }catch{
+                    System.Diagnostics.Debug.WriteLine("Failed generating frame "+frameCounter);
+                }
+            }
+            else{
+                debugger.Stop();
+            }
+        }
+        #endif
     }
 }
