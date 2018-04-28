@@ -9,6 +9,7 @@ namespace TweetDuck.Plugins.Controls{
     sealed partial class PluginControl : UserControl{
         private readonly PluginManager pluginManager;
         private readonly Plugin plugin;
+        private readonly bool isConfigurable;
         
         private int nextHeight;
 
@@ -19,6 +20,8 @@ namespace TweetDuck.Plugins.Controls{
         public PluginControl(PluginManager pluginManager, Plugin plugin) : this(){
             this.pluginManager = pluginManager;
             this.plugin = plugin;
+
+            this.isConfigurable = pluginManager.IsPluginConfigurable(plugin);
 
             float dpiScale = this.GetDPIScale();
 
@@ -58,7 +61,7 @@ namespace TweetDuck.Plugins.Controls{
             Font font = labelDescription.Font;
             int descriptionLines = TextRenderer.MeasureText(labelDescription.Text, font, new Size(maxWidth, int.MaxValue), TextFormatFlags.WordBreak).Height/(font.Height-1);
             
-            int requiredLines = Math.Max(descriptionLines, 1+(string.IsNullOrEmpty(labelVersion.Text) ? 0 : 1)+(btnConfigure.Visible ? 1 : 0));
+            int requiredLines = Math.Max(descriptionLines, 1+(string.IsNullOrEmpty(labelVersion.Text) ? 0 : 1)+(isConfigurable ? 1 : 0));
             
             switch(requiredLines){
                 case 1: nextHeight = MaximumSize.Height-2*(font.Height-1); break;
@@ -111,7 +114,8 @@ namespace TweetDuck.Plugins.Controls{
                 labelName.ForeColor = textColor;
                 labelDescription.ForeColor = textColor;
                 btnToggleState.Text = isEnabled ? "Disable" : "Enable";
-                btnConfigure.Visible = isEnabled && pluginManager.IsPluginConfigurable(plugin);
+                btnConfigure.Visible = isConfigurable;
+                btnConfigure.Enabled = isEnabled;
             }
             else{
                 labelName.ForeColor = Color.DarkRed;
