@@ -10,6 +10,17 @@
   let avatarBottom = avatar ? avatar.getBoundingClientRect().bottom : 0;
   
   $TD.setHeight(Math.floor(Math.max(contentHeight, avatarBottom+9))).then(() => {
-    setTimeout($TD.triggerScreenshot, document.getElementsByTagName("iframe").length ? 267 : 67);
+    let framesLeft = 5; // basic render is done in 1 frame, large media take longer
+    
+    let onNextFrame = function(){
+      if (--framesLeft < 0){
+        $TD.triggerScreenshot();
+      }
+      else{
+        requestAnimationFrame(onNextFrame);
+      }
+    };
+    
+    onNextFrame();
   });
 })($TD_NotificationScreenshot);

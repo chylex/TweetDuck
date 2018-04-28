@@ -3,7 +3,7 @@
 // #define NO_HIDE_SCREENSHOTS
 
 // Uncomment to generate screenshots of individual frames for at most 1 second
-#define GEN_SCREENSHOT_FRAMES
+// #define GEN_SCREENSHOT_FRAMES
 #endif
 
 using System;
@@ -128,7 +128,7 @@ namespace TweetDuck.Core.Notification.Screenshot{
         }
 
         private void debugger_Tick(object sender, EventArgs e){
-            if (frameCounter < 63 && screenshot.TakeScreenshot()){
+            if (frameCounter < 63 && screenshot.TakeScreenshot(true)){
                 try{
                     Clipboard.GetImage()?.Save(Path.Combine(DebugScreenshotPath, "frame_"+(++frameCounter)+".png"), ImageFormat.Png);
                 }catch{
