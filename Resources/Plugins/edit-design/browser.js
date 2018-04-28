@@ -536,6 +536,7 @@ ${iconData.map(entry => `#tduck .icon-${entry[0]}:before{content:\"\\f0${entry[1
 
 .drawer .btn .icon, .app-header .btn .icon { line-height: 1em !important }
 .app-search-fake .icon { margin-top: -3px !important }
+#tduck .js-docked-compose .js-drawer-close { margin: 20px 0 0 !important }
 #tduck .search-input-control .icon { font-size: 20px !important; top: -4px !important }
 
 .column-header .column-type-icon { bottom: 26px !important }

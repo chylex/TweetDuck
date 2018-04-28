@@ -297,7 +297,7 @@ html[data-td-font='smallest'] .tweet-detail-wrapper .badge-verified:before {
 
 #tduck .js-docked-compose .js-drawer-close {
   /* fix close drawer button position */
-  margin: 20px 0 0 !important;
+  margin: 18px 0 0 !important;
 }
 
 .compose-reply-tweet-remove {

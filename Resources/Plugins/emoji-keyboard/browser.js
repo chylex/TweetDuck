@@ -32,6 +32,7 @@ enabled(){
   
   this.css = window.TDPF_createCustomStyle(this);
   this.css.insert(".emoji-keyboard { position: absolute; width: 15.35em; background-color: white; border-radius: 1px; font-size: 24px; z-index: 9999 }");
+  this.css.insert(".emoji-keyboard-popup-btn { height: 36px !important }");
   this.css.insert(".emoji-keyboard-popup-btn .icon { vertical-align: -4px !important }");
   
   this.css.insert(".emoji-keyboard-list { height: 10.14em; padding: 0.1em; box-sizing: border-box; overflow-y: auto }");
