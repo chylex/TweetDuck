@@ -30,19 +30,12 @@
    *   https://tweetduck.chylex.com/guide/#dev-tools
    *
    *
-   * In order to check the column type, use the 'column.isOfType' function. It is recommended to always put it
-   * last in an 'if' statement, because it is much more demanding than checking the title/account.
+   * In order to check the column type, use the 'window.TDPF_getColumnName(column)' function. List of available names:
+   *   Home, Mentions, Messages, Notifications, Followers, Activity, Likes,
+   *   User, Search, List, Timeline, Dataminr, Live video, Scheduled
    *
-   * Here is the full list of column types, note that some are unused and have misleading names.
-   * (for example, Home columns are 'col_timeline' instead of 'col_home')
-   *
-   *   col_activity, col_customtimeline, col_dataminr, col_favorites, col_followers,  col_home,
-   *   col_inbox,    col_interactions,   col_list,     col_livevideo, col_me,         col_mentions,
-   *   col_messages, col_scheduled,      col_search,   col_timeline,  col_usertweets, col_unknown
-   *
-   * If you want to see your current column types, run this in your browser console:
-   *
-   *   (c=>c.columnManager.getAllOrdered().map(o=>Object.keys(c.stats.columnNamespaces).find(t=>o.isOfType(t))).map(t=>t==""+void 0?"col_unknown":t))(TD.controller)
+   * If you want to see your current column types, run the following code in your browser console:
+   *   TD.controller.columnManager.getAllOrdered().map(window.TDPF_getColumnName)
    *
    *
    * The 'title' parameter is the column title. Some are fixed (such as 'Home' or 'Notifications'),
@@ -60,7 +53,7 @@
    *
    *
    * The 'isTemporary' parameter is true if the column is not attached to the main column list,
-   * for example when clicking on a profile and viewing their tweets in a modal dialog.
+   * for example when clicking on a user and viewing their tweets in a modal dialog.
    *
    */
   
@@ -69,13 +62,13 @@
   customSelector: function(title, account, column, isTemporary){
     console.info(arguments); // Prints all arguments into the console
     
-    if (title === "TweetDuck" && column.isOfType("col_search")){
+    if (title === "TweetDuck" && window.TDPF_getColumnName(column) === "Search"){
       // This is a search column that looks for 'TweetDuck' in the tweets,
       // search columns are normally linked to the preferred account
       // so this forces the @TryTweetDuck account to be used instead
       return "@TryTweetDuck";
     }
-    else if (account === "@chylexcz" && column.isOfType("col_timeline")){
+    else if (account === "@chylexcz" && window.TDPF_getColumnName(column) === "Home"){
       // This is a Home column of my test account @chylexcz,
       // but I want to reply to tweets from my official account
       return "@chylexmc";
