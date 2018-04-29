@@ -13,15 +13,13 @@ using TweetDuck.Core.Other;
 using TweetDuck.Core.Management;
 using TweetDuck.Core.Utils;
 using TweetDuck.Data;
-using TweetDuck.Updates;
 
 namespace TweetDuck{
     static class Program{
         public const string BrandName = "TweetDuck";
         public const string Website = "https://tweetduck.chylex.com";
 
-        public const string VersionTag = "1.13.4.1";
-
+        public const string VersionTag = "1.13.5";
 
         public static readonly string ProgramPath = AppDomain.CurrentDomain.BaseDirectory;
         public static readonly bool IsPortable = File.Exists(Path.Combine(ProgramPath, "makeportable"));
