@@ -22,13 +22,14 @@ namespace TweetDuck{
 
         public const string VersionTag = "1.13.4.1";
 
-        public static readonly bool IsPortable = File.Exists("makeportable");
 
         public static readonly string ProgramPath = AppDomain.CurrentDomain.BaseDirectory;
-        public static readonly string StoragePath = IsPortable ? Path.Combine(ProgramPath, "portable", "storage") : GetDataStoragePath();
+        public static readonly bool IsPortable = File.Exists(Path.Combine(ProgramPath, "makeportable"));
 
         public static readonly string ScriptPath = Path.Combine(ProgramPath, "scripts");
         public static readonly string PluginPath = Path.Combine(ProgramPath, "plugins");
+
+        public static readonly string StoragePath = IsPortable ? Path.Combine(ProgramPath, "portable", "storage") : GetDataStoragePath();
 
         public static readonly string PluginDataPath = Path.Combine(StoragePath, "TD_Plugins");
         public static readonly string InstallerPath = Path.Combine(StoragePath, "TD_Updates");
