@@ -96,20 +96,24 @@
   };
   
   //
-  // Function: Attempts to retrieve the column icon class. Returns undefined on failure.
+  // Block: Fix columns missing any identifiable attributes to allow individual styles.
   //
-  const getColumnIconClass = function(column){
-    if (ensurePropertyExists(column, "ui", "_$chirpContainer")){
-      return column.ui._$chirpContainer.closest(".js-column").attr("data-td-icon");
-    }
-  };
+  $(document).on("uiColumnRendered", function(e, data){
+    let icon = data.$column.find(".column-type-icon").first();
+    return if icon.length !== 1;
+    
+    let name = Array.prototype.find.call(icon[0].classList, cls => cls.startsWith("icon-"));
+    return if !name;
+    
+    data.$column.attr("data-td-icon", name);
+    data.column._tduck_icon = name;
+  });
   
   //
-  // Function: Retrieves column name and caches it.
+  // Block: Setup global function to retrieve the column name.
   //
-  const getColumnName = function(column){
-    let cached = column._tduck_icon || (column._tduck_icon = getColumnIconClass(column));
-    return columnTitles[cached] || "";
+  window.TDGF_getColumnName = function(column){
+    return columnTitles[column._tduck_icon] || "";
   };
   
   //
@@ -234,7 +238,7 @@
         let tweetUrl = source ? source.getChirpURL() : "";
         let quoteUrl = source && source.quotedTweet ? source.quotedTweet.getChirpURL() : "";
 
-        $TD.onTweetPopup(column.model.privateState.apiid, chirpId, getColumnName(column), html.html(), duration, tweetUrl, quoteUrl);
+        $TD.onTweetPopup(column.model.privateState.apiid, chirpId, window.TDGF_getColumnName(column), html.html(), duration, tweetUrl, quoteUrl);
       }
 
       if (column.model.getHasSound()){
@@ -1323,11 +1327,6 @@
         : prevFunc.apply(this, arguments);
     };
   }
-  
-  //
-  // Block: Fix columns missing any identifiable attributes to allow individual styles.
-  //
-  TD.mustaches["column.mustache"] = TD.mustaches["column.mustache"].replace("{{columnclass}}\"", "{{columnclass}}\" data-td-icon=\"{{columniconclass}}\"");
   
   //
   // Block: Remove column mouse wheel handler, which allows smooth scrolling inside columns, and horizontally scrolling column container when holding Shift.
