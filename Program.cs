@@ -133,7 +133,7 @@ namespace TweetDuck{
             CefSharpSettings.LegacyJavascriptBindingEnabled = true;
 
             CefSettings settings = new CefSettings{
-                UserAgent = BrowserUtils.HeaderUserAgent,
+                UserAgent = BrowserUtils.CreateUserAgent(Arguments.HasFlag(Arguments.ArgChromeUA)),
                 BrowserSubprocessPath = BrandName+".Browser.exe",
                 CachePath = StoragePath,
                 UserDataPath = CefDataPath,
