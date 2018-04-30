@@ -5,6 +5,7 @@ namespace TweetDuck.Configuration{
     static class Arguments{
         // public args
         public const string ArgDataFolder = "-datafolder";
+        public const string ArgChromeUA = "-chromeagent";
         public const string ArgLogging = "-log";
 
         // internal args
