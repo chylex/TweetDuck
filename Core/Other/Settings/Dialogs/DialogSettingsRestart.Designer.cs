@@ -29,7 +29,6 @@
             this.cbLogging = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.tbDataFolder = new System.Windows.Forms.TextBox();
-            this.cbChromeAgent = new System.Windows.Forms.CheckBox();
             this.tbShortcutTarget = new System.Windows.Forms.TextBox();
             this.labelDataFolder = new System.Windows.Forms.Label();
             this.labelShortcutTarget = new System.Windows.Forms.Label();
@@ -42,7 +41,7 @@
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.AutoSize = true;
             this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnCancel.Location = new System.Drawing.Point(215, 170);
+            this.btnCancel.Location = new System.Drawing.Point(215, 146);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.btnCancel.Size = new System.Drawing.Size(57, 25);
@@ -56,7 +55,7 @@
             this.btnRestart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRestart.AutoSize = true;
             this.btnRestart.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnRestart.Location = new System.Drawing.Point(152, 170);
+            this.btnRestart.Location = new System.Drawing.Point(152, 146);
             this.btnRestart.Name = "btnRestart";
             this.btnRestart.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.btnRestart.Size = new System.Drawing.Size(57, 25);
@@ -81,25 +80,12 @@
             // tbDataFolder
             // 
             this.tbDataFolder.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.tbDataFolder.Location = new System.Drawing.Point(3, 78);
+            this.tbDataFolder.Location = new System.Drawing.Point(3, 54);
             this.tbDataFolder.Name = "tbDataFolder";
             this.tbDataFolder.Size = new System.Drawing.Size(260, 23);
-            this.tbDataFolder.TabIndex = 3;
+            this.tbDataFolder.TabIndex = 2;
             this.toolTip.SetToolTip(this.tbDataFolder, "Path to the data folder. Must be either an absolute path,\r\nor a simple folder nam" +
         "e that will be created in LocalAppData.");
-            // 
-            // cbChromeAgent
-            // 
-            this.cbChromeAgent.AutoSize = true;
-            this.cbChromeAgent.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.cbChromeAgent.Location = new System.Drawing.Point(3, 27);
-            this.cbChromeAgent.Margin = new System.Windows.Forms.Padding(3, 3, 3, 2);
-            this.cbChromeAgent.Name = "cbChromeAgent";
-            this.cbChromeAgent.Size = new System.Drawing.Size(130, 19);
-            this.cbChromeAgent.TabIndex = 1;
-            this.cbChromeAgent.Text = "Chrome User Agent";
-            this.toolTip.SetToolTip(this.cbChromeAgent, "Masks user agent using a generic Chrome UA.");
-            this.cbChromeAgent.UseVisualStyleBackColor = true;
             // 
             // tbShortcutTarget
             // 
@@ -107,33 +93,33 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbShortcutTarget.Cursor = System.Windows.Forms.Cursors.Hand;
             this.tbShortcutTarget.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.tbShortcutTarget.Location = new System.Drawing.Point(3, 134);
+            this.tbShortcutTarget.Location = new System.Drawing.Point(3, 110);
             this.tbShortcutTarget.Name = "tbShortcutTarget";
             this.tbShortcutTarget.ReadOnly = true;
             this.tbShortcutTarget.Size = new System.Drawing.Size(260, 23);
-            this.tbShortcutTarget.TabIndex = 5;
+            this.tbShortcutTarget.TabIndex = 4;
             this.tbShortcutTarget.Click += new System.EventHandler(this.tbShortcutTarget_Click);
             // 
             // labelDataFolder
             // 
             this.labelDataFolder.AutoSize = true;
             this.labelDataFolder.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelDataFolder.Location = new System.Drawing.Point(3, 60);
+            this.labelDataFolder.Location = new System.Drawing.Point(3, 36);
             this.labelDataFolder.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelDataFolder.Name = "labelDataFolder";
             this.labelDataFolder.Size = new System.Drawing.Size(67, 15);
-            this.labelDataFolder.TabIndex = 2;
+            this.labelDataFolder.TabIndex = 1;
             this.labelDataFolder.Text = "Data Folder";
             // 
             // labelShortcutTarget
             // 
             this.labelShortcutTarget.AutoSize = true;
             this.labelShortcutTarget.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelShortcutTarget.Location = new System.Drawing.Point(3, 116);
+            this.labelShortcutTarget.Location = new System.Drawing.Point(3, 92);
             this.labelShortcutTarget.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelShortcutTarget.Name = "labelShortcutTarget";
             this.labelShortcutTarget.Size = new System.Drawing.Size(171, 15);
-            this.labelShortcutTarget.TabIndex = 4;
+            this.labelShortcutTarget.TabIndex = 3;
             this.labelShortcutTarget.Text = "Shortcut Target (click to select)";
             // 
             // flowPanel
@@ -142,7 +128,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowPanel.Controls.Add(this.cbLogging);
-            this.flowPanel.Controls.Add(this.cbChromeAgent);
             this.flowPanel.Controls.Add(this.labelDataFolder);
             this.flowPanel.Controls.Add(this.tbDataFolder);
             this.flowPanel.Controls.Add(this.labelShortcutTarget);
@@ -151,7 +136,7 @@
             this.flowPanel.Location = new System.Drawing.Point(9, 9);
             this.flowPanel.Margin = new System.Windows.Forms.Padding(0);
             this.flowPanel.Name = "flowPanel";
-            this.flowPanel.Size = new System.Drawing.Size(266, 160);
+            this.flowPanel.Size = new System.Drawing.Size(266, 136);
             this.flowPanel.TabIndex = 0;
             this.flowPanel.WrapContents = false;
             // 
@@ -159,7 +144,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 207);
+            this.ClientSize = new System.Drawing.Size(284, 183);
             this.Controls.Add(this.flowPanel);
             this.Controls.Add(this.btnRestart);
             this.Controls.Add(this.btnCancel);
@@ -187,6 +172,5 @@
         private System.Windows.Forms.TextBox tbShortcutTarget;
         private System.Windows.Forms.Label labelShortcutTarget;
         private System.Windows.Forms.FlowLayoutPanel flowPanel;
-        private System.Windows.Forms.CheckBox cbChromeAgent;
     }
 }

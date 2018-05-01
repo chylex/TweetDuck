@@ -133,7 +133,7 @@ namespace TweetDuck{
             CefSharpSettings.LegacyJavascriptBindingEnabled = true;
 
             CefSettings settings = new CefSettings{
-                UserAgent = BrowserUtils.CreateUserAgent(Arguments.HasFlag(Arguments.ArgChromeUA)),
+                UserAgent = BrowserUtils.UserAgentChrome,
                 BrowserSubprocessPath = BrandName+".Browser.exe",
                 CachePath = StoragePath,
                 UserDataPath = CefDataPath,
@@ -142,7 +142,7 @@ namespace TweetDuck{
                 LogSeverity = Arguments.HasFlag(Arguments.ArgLogging) ? LogSeverity.Info : LogSeverity.Disable
                 #endif
             };
-
+            
             CommandLineArgs.ReadCefArguments(UserConfig.CustomCefArgs).ToDictionary(settings.CefCommandLineArgs);
             BrowserUtils.SetupCefArgs(settings.CefCommandLineArgs);
             

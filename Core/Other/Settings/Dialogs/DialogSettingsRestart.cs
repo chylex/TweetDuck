@@ -12,10 +12,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
 
             cbLogging.Checked = currentArgs.HasFlag(Arguments.ArgLogging);
             cbLogging.CheckedChanged += control_Change;
-
-            cbChromeAgent.Checked = currentArgs.HasFlag(Arguments.ArgChromeUA);
-            cbChromeAgent.CheckedChanged += control_Change;
-
+            
             if (Program.IsPortable){
                 tbDataFolder.Text = "Not available in portable version";
                 tbDataFolder.Enabled = false;
@@ -36,11 +33,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
             if (cbLogging.Checked){
                 Args.AddFlag(Arguments.ArgLogging);
             }
-
-            if (cbChromeAgent.Checked){
-                Args.AddFlag(Arguments.ArgChromeUA);
-            }
-
+            
             if (!string.IsNullOrWhiteSpace(tbDataFolder.Text) && tbDataFolder.Enabled){
                 Args.SetValue(Arguments.ArgDataFolder, tbDataFolder.Text);
             }
