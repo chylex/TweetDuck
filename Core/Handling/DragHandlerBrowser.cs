@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CefSharp;
+using CefSharp.Enums;
 
 namespace TweetDuck.Core.Handling{
     sealed class DragHandlerBrowser : IDragHandler{
