@@ -13,7 +13,7 @@
 
 [Setup]
 AppId={{{#MyAppID}}
-AppName={#MyAppName} Update
+AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
@@ -161,6 +161,7 @@ end;
 { Prepare download plugin if there are any files to download, and set the installation path. }
 procedure InitializeWizard();
 begin
+  WizardForm.Caption := WizardForm.Caption + ' Update';
   WizardForm.DirEdit.Text := UpdatePath;
   
   if idpFilesCount <> 0 then
@@ -318,7 +319,7 @@ begin
     WizardForm.ProgressGauge.Style := npbstMarquee;
     
     try
-      if Exec(InstallFile, '/SP- /SILENT /MERGETASKS="!desktopicon" /UPDATEPATH="'+UpdatePath+'"', '', SW_SHOW, ewWaitUntilTerminated, ResultCode) then
+      if Exec(InstallFile, '/SP- /SILENT /UPDATEPATH="'+UpdatePath+'"', '', SW_SHOW, ewWaitUntilTerminated, ResultCode) then
       begin
         if ResultCode <> 0 then
         begin
