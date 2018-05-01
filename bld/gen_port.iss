@@ -37,16 +37,25 @@ MinVersion=0,6.1
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
+[Tasks]
+Name: "devtools"; Description: "{cm:TaskDevTools}"; GroupDescription: "{cm:AdditionalTasks}"; Flags: unchecked
+
 [Files]
 Source: "..\bin\x86\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x86\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Excludes: "*.xml,*.pdb,CefSharp.BrowserSubprocess.exe,devtools_resources.pak,widevinecdmadapter.dll"
+Source: "..\bin\x86\Release\devtools_resources.pak"; DestDir: "{app}"; Flags: ignoreversion; Tasks: devtools
+Source: "..\bin\x86\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Excludes: "devtools_resources.pak"
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall shellexec skipifsilent
 
+[CustomMessages]
+AdditionalTasks=Additional components:
+TaskDevTools=Install dev tools
+
 [Code]
 var UpdatePath: String;
 var ForceRedistPrompt: String;
+var VisitedTasksPage: Boolean;
 
 function TDGetNetFrameworkVersion: Cardinal; forward;
 function TDIsVCMissing: Boolean; forward;
@@ -57,6 +66,7 @@ function InitializeSetup: Boolean;
 begin
   UpdatePath := ExpandConstant('{param:UPDATEPATH}')
   ForceRedistPrompt := ExpandConstant('{param:PROMPTREDIST}')
+  VisitedTasksPage := False
   
   if (TDGetNetFrameworkVersion() < 379893) and (MsgBox('{#MyAppName} requires .NET Framework 4.5.2 or newer,'+#13+#10+'please visit {#MyAppShortURL} for a download link.'+#13+#10+#13+#10'Do you want to proceed with the setup anyway?', mbCriticalError, MB_YESNO or MB_DEFBUTTON2) = IDNO) then
   begin
@@ -90,6 +100,16 @@ end;
 function ShouldSkipPage(PageID: Integer): Boolean;
 begin
   Result := (PageID = wpSelectDir) and (UpdatePath <> '')
+end;
+
+{ Check the dev tools task if already installed. }
+procedure CurPageChanged(CurPageID: Integer);
+begin
+  if (CurPageID = wpSelectTasks) and (not VisitedTasksPage) then
+  begin
+    WizardForm.TasksList.Checked[WizardForm.TasksList.Items.Count-1] := FileExists(ExpandConstant('{app}\devtools_resources.pak'))
+    VisitedTasksPage := True
+  end;
 end;
 
 { Install VC++ if downloaded, and create a 'makeportable' file for portable installs. }

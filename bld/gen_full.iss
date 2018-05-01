@@ -38,11 +38,13 @@ MinVersion=0,6.1
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]
-Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalTasks}"; Flags: unchecked
+Name: "devtools"; Description: "{cm:TaskDevTools}"; GroupDescription: "{cm:AdditionalTasks}"; Flags: unchecked
 
 [Files]
 Source: "..\bin\x86\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x86\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Excludes: "*.xml,*.pdb,CefSharp.BrowserSubprocess.exe,devtools_resources.pak,widevinecdmadapter.dll"
+Source: "..\bin\x86\Release\devtools_resources.pak"; DestDir: "{app}"; Flags: ignoreversion; Tasks: devtools
+Source: "..\bin\x86\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Excludes: "devtools_resources.pak"
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Check: TDIsUninstallable
@@ -58,9 +60,14 @@ Type: filesandordirs; Name: "{app}\scripts"
 Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\Cache"
 Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\GPUCache"
 
+[CustomMessages]
+AdditionalTasks=Additional shortcuts and components:
+TaskDevTools=Install dev tools
+
 [Code]
 var UpdatePath: String;
 var ForceRedistPrompt: String;
+var VisitedTasksPage: Boolean;
 
 function TDGetNetFrameworkVersion: Cardinal; forward;
 function TDIsVCMissing: Boolean; forward;
@@ -71,6 +78,7 @@ function InitializeSetup: Boolean;
 begin
   UpdatePath := ExpandConstant('{param:UPDATEPATH}')
   ForceRedistPrompt := ExpandConstant('{param:PROMPTREDIST}')
+  VisitedTasksPage := False
   
   if (TDGetNetFrameworkVersion() < 379893) and (MsgBox('{#MyAppName} requires .NET Framework 4.5.2 or newer,'+#13+#10+'please visit {#MyAppShortURL} for a download link.'+#13+#10+#13+#10'Do you want to proceed with the setup anyway?', mbCriticalError, MB_YESNO or MB_DEFBUTTON2) = IDNO) then
   begin
@@ -106,12 +114,14 @@ begin
   Result := (PageID = wpSelectDir) and (UpdatePath <> '')
 end;
 
-{ Check the desktop icon task if not updating. }
+{ Check the desktop icon task if not updating, and dev tools task if already installed. }
 procedure CurPageChanged(CurPageID: Integer);
 begin
-  if CurPageID = wpSelectTasks then
+  if (CurPageID = wpSelectTasks) and (not VisitedTasksPage) then
   begin
-    WizardForm.TasksList.Checked[WizardForm.TasksList.Items.Count-1] := (UpdatePath = '');
+    WizardForm.TasksList.Checked[WizardForm.TasksList.Items.Count-2] := (UpdatePath = '')
+    WizardForm.TasksList.Checked[WizardForm.TasksList.Items.Count-1] := FileExists(ExpandConstant('{app}\devtools_resources.pak'))
+    VisitedTasksPage := True
   end;
 end;
 
