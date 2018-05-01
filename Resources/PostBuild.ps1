@@ -35,12 +35,12 @@ try{
   New-Item -ItemType directory -Path $targetDir -Name "plugins\official" | Out-Null
   New-Item -ItemType directory -Path $targetDir -Name "plugins\user" | Out-Null
   
-  Copy-Item (Join-Path $projectDir "Resources\Scripts\*") -Destination (Join-Path $targetDir "scripts") -Recurse
-  Copy-Item (Join-Path $projectDir "Resources\Plugins\*") -Exclude ".debug", "emoji-instructions.txt" -Destination (Join-Path $targetDir "plugins\official") -Recurse
+  Copy-Item (Join-Path $projectDir "Resources\Scripts\*") -Recurse -Destination (Join-Path $targetDir "scripts")
+  Copy-Item (Join-Path $projectDir "Resources\Plugins\*") -Recurse -Destination (Join-Path $targetDir "plugins\official") -Exclude ".debug", "emoji-instructions.txt" 
   
   if ($configuration -eq "Debug"){
     New-Item -ItemType directory -Path $targetDir -Name "plugins\user\.debug" | Out-Null
-    Copy-Item (Join-Path $projectDir "Resources\Plugins\.debug\*") -Destination (Join-Path $targetDir "plugins\user\.debug") -Recurse
+    Copy-Item (Join-Path $projectDir "Resources\Plugins\.debug\*") -Recurse -Destination (Join-Path $targetDir "plugins\user\.debug")
   }
   
   # Helper functions
@@ -62,8 +62,8 @@ try{
   function Rewrite-File{
     [CmdletBinding()]
     Param(
-      [Parameter(Mandatory = $True, ValueFromPipeline = $True)][array] $lines,
-      [Parameter(Mandatory = $True, Position = 1)] $file
+      [Parameter(Mandatory = $True, Position = 1)] $file,
+      [Parameter(Mandatory = $True, Position = 2)] $lines
     )
     
     $relativePath = $file.FullName.Substring($targetDir.Length)
@@ -72,7 +72,9 @@ try{
       $lines = (,("#" + $version) + $lines)
     }
     
-    $lines | Where { $_ -ne '' } | Set-Content -Path $file.FullName
+    $lines = $lines | Where { $_ -ne '' }
+    
+    [IO.File]::WriteAllLines($file.FullName, $lines)
     Write-Host "Processed" $relativePath
   }
   
@@ -81,36 +83,38 @@ try{
   Check-Carriage-Return("emoji-ordering.txt")
   
   ForEach($file in Get-ChildItem -Path $targetDir -Filter "*.js" -Exclude "configuration.default.js" -Recurse){
-    $lines = Get-Content -Path $file.FullName
+    $lines = [IO.File]::ReadLines($file.FullName)
     $lines = $lines | % { $_.TrimStart() }
     $lines = $lines -Replace '^(.*?)((?<=^|[;{}()])\s?//(?:\s.*|$))?$', '$1'
     $lines = $lines -Replace '(?<!\w)return(\s.*?)? if (.*?);', 'if ($2)return$1;'
-    ,$lines | Rewrite-File $file
+    Rewrite-File $file $lines
   }
   
   ForEach($file in Get-ChildItem -Path $targetDir -Filter "*.css" -Recurse){
-    $lines = Get-Content -Path $file.FullName
+    $lines = [IO.File]::ReadLines($file.FullName)
     $lines = $lines -Replace '\s*/\*.*?\*/', ''
     $lines = $lines -Replace '^\s+(.+):\s?(.+?)(?:\s?(!important))?;$', '$1:$2$3;'
     $lines = $lines -Replace '^(\S.*?) {$', '$1{'
-    @(($lines | Where { $_ -ne '' }) -Join ' ') | Rewrite-File $file
+    $lines = @(($lines | Where { $_ -ne '' }) -Join ' ')
+    Rewrite-File $file $lines
   }
   
   ForEach($file in Get-ChildItem -Path $targetDir -Filter "*.html" -Recurse){
-    $lines = Get-Content -Path $file.FullName
-    ,($lines | % { $_.TrimStart() }) | Rewrite-File $file
+    $lines = [IO.File]::ReadLines($file.FullName)
+    $lines = $lines | % { $_.TrimStart() }
+    Rewrite-File $file $lines
   }
   
-  ForEach($file in Get-ChildItem -Path $targetDir -Filter "*.meta" -Recurse){
-    $lines = Get-Content -Path $file.FullName
+  ForEach($file in Get-ChildItem -Path (Join-Path $targetDir "plugins") -Filter "*.meta" -Recurse){
+    $lines = [IO.File]::ReadLines($file.FullName)
     $lines = $lines -Replace '\{version\}', $version
-    ,$lines | Rewrite-File $file
+    Rewrite-File $file $lines
   }
   
-  Write-Host "-------------------"
+  Write-Host "------------------"
   $sw.Stop()
   Write-Host "Finished in" $([math]::Round($sw.Elapsed.TotalMilliseconds)) "ms"
-  Write-Host -------------------
+  Write-Host ------------------
 }catch{
   Write-Host "Encountered an error while running PostBuild.ps1 on line" $_.InvocationInfo.ScriptLineNumber
   Write-Host $_
