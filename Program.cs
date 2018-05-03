@@ -19,7 +19,7 @@ namespace TweetDuck{
         public const string BrandName = "TweetDuck";
         public const string Website = "https://tweetduck.chylex.com";
 
-        public const string VersionTag = "1.13.5";
+        public const string VersionTag = "1.13.6";
 
         public static readonly string ProgramPath = AppDomain.CurrentDomain.BaseDirectory;
         public static readonly bool IsPortable = File.Exists(Path.Combine(ProgramPath, "makeportable"));
@@ -133,7 +133,7 @@ namespace TweetDuck{
             CefSharpSettings.LegacyJavascriptBindingEnabled = true;
 
             CefSettings settings = new CefSettings{
-                UserAgent = BrowserUtils.CreateUserAgent(Arguments.HasFlag(Arguments.ArgChromeUA)),
+                UserAgent = BrowserUtils.UserAgentChrome,
                 BrowserSubprocessPath = BrandName+".Browser.exe",
                 CachePath = StoragePath,
                 UserDataPath = CefDataPath,
@@ -142,7 +142,7 @@ namespace TweetDuck{
                 LogSeverity = Arguments.HasFlag(Arguments.ArgLogging) ? LogSeverity.Info : LogSeverity.Disable
                 #endif
             };
-
+            
             CommandLineArgs.ReadCefArguments(UserConfig.CustomCefArgs).ToDictionary(settings.CefCommandLineArgs);
             BrowserUtils.SetupCefArgs(settings.CefCommandLineArgs);
             

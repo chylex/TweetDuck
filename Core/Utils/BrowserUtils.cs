@@ -11,11 +11,9 @@ using TweetDuck.Data;
 
 namespace TweetDuck.Core.Utils{
     static class BrowserUtils{
-        public static string CreateUserAgent(bool useChromeUA){
-            return useChromeUA ? "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/"+Cef.ChromiumVersion+" Safari/537.36"
-                               : Program.BrandName+" "+Application.ProductVersion;
-        }
-
+        public static string UserAgentVanilla => Program.BrandName+" "+Application.ProductVersion;
+        public static string UserAgentChrome => "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/"+Cef.ChromiumVersion+" Safari/537.36";
+        
         public static void SetupCefArgs(IDictionary<string, string> args){
             if (!Program.SystemConfig.HardwareAcceleration){
                 args["disable-gpu"] = "1";
@@ -170,7 +168,7 @@ namespace TweetDuck.Core.Utils{
             WindowsUtils.EnsureTLS12();
 
             WebClient client = new WebClient{ Proxy = null };
-            client.Headers[HttpRequestHeader.UserAgent] = CreateUserAgent(false);
+            client.Headers[HttpRequestHeader.UserAgent] = UserAgentVanilla;
             return client;
         }
 

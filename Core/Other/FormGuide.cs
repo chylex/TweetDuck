@@ -8,12 +8,15 @@ using TweetDuck.Core.Handling;
 using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Utils;
 using System.Text.RegularExpressions;
+using TweetDuck.Data;
 using TweetDuck.Resources;
 
 namespace TweetDuck.Core.Other{
     sealed partial class FormGuide : Form{
         private const string GuideUrl = "https://tweetduck.chylex.com/guide/v2/";
         private const string GuidePathRegex = @"^guide(?:/v\d+)?(?:/(#.*))?";
+
+        private static readonly ResourceLink DummyPage = new ResourceLink("http://td/dummy", ResourceHandler.FromString(""));
 
         public static bool CheckGuideUrl(string url, out string hash){
             if (!url.Contains("//tweetduck.chylex.com/guide")){
@@ -53,6 +56,7 @@ namespace TweetDuck.Core.Other{
         }
 
         private readonly ChromiumWebBrowser browser;
+        private string nextUrl;
 
         private FormGuide(string url, FormBrowser owner){
             InitializeComponent();
@@ -75,6 +79,9 @@ namespace TweetDuck.Core.Other{
             browser.BrowserSettings.BackgroundColor = (uint)BackColor.ToArgb();
             browser.Dock = DockStyle.None;
             browser.Location = ControlExtensions.InvisibleLocation;
+
+            browser.SetupResourceHandler(DummyPage);
+
             Controls.Add(browser);
 
             Disposed += (sender, args) => {
@@ -86,21 +93,26 @@ namespace TweetDuck.Core.Other{
         }
 
         private void Reload(string url){
+            nextUrl = url;
             browser.LoadingStateChanged += browser_LoadingStateChanged;
             browser.Dock = DockStyle.None;
             browser.Location = ControlExtensions.InvisibleLocation;
-            browser.Load("about:blank");
-            browser.Load(url);
+            browser.Load(DummyPage.Url);
         }
 
         private void browser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e){
-            if (!e.IsLoading && browser.Address != "about:blank"){
-                this.InvokeAsyncSafe(() => {
-                    browser.Location = Point.Empty;
-                    browser.Dock = DockStyle.Fill;
-                });
+            if (!e.IsLoading){
+                if (browser.Address == DummyPage.Url){
+                    browser.Load(nextUrl);
+                }
+                else{
+                    this.InvokeAsyncSafe(() => {
+                        browser.Location = Point.Empty;
+                        browser.Dock = DockStyle.Fill;
+                    });
 
-                browser.LoadingStateChanged -= browser_LoadingStateChanged;
+                    browser.LoadingStateChanged -= browser_LoadingStateChanged;
+                }
             }
         }
 
@@ -109,7 +121,6 @@ namespace TweetDuck.Core.Other{
         }
 
         private void browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
-            // idiot chromium
             ScriptLoader.ExecuteScript(e.Frame, "Array.prototype.forEach.call(document.getElementsByTagName('A'), ele => ele.addEventListener('click', e => { e.preventDefault(); window.open(ele.getAttribute('href')); }))", "gen:links");
         }
 
