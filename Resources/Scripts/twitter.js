@@ -60,4 +60,16 @@
       }
     });
   }
+  //
+  // Block: Fix broken Cancel button on logout page.
+  //
+  else if (location.pathname === "/logout"){
+    document.addEventListener("DOMContentLoaded", function(){
+      let cancel = document.querySelector(".buttons .cancel");
+
+      if (cancel && cancel.tagName === "A"){
+        cancel.href = "https://tweetdeck.twitter.com/";
+      }
+    });
+  }
 })();
