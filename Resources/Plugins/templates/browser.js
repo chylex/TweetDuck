@@ -267,8 +267,8 @@ enabled(){
       <ul></ul>
       
       <div class="templates-modal-bottom">
-        <button data-action="close" class="btn"><i class="icon icon-close icon-small padding-rs"></i><span class="label">Close</span></button>
-        <button data-action="new-template" class="btn btn-positive"><i class="icon icon-plus icon-small padding-rs"></i><span class="label">New Template</span></button>
+        <button data-action="close" class="Button--secondary"><i class="icon icon-close icon-small padding-rs"></i><span class="label">Close</span></button>
+        <button data-action="new-template" class="Button--primary"><i class="icon icon-plus icon-small padding-rs"></i><span class="label">New Template</span></button>
       </div>
     </div>
 
@@ -300,8 +300,8 @@ enabled(){
       </div>
       
       <div class="templates-modal-bottom">
-        <button data-action="editor-cancel" class="btn"><i class="icon icon-close icon-small padding-rs"></i><span class="label">Cancel</span></button>
-        <button data-action="editor-confirm" class="btn btn-positive" style="margin-left:4px"><i class="icon icon-check icon-small padding-rs"></i><span class="label">Confirm</span></button>
+        <button data-action="editor-cancel" class="Button--secondary"><i class="icon icon-close icon-small padding-rs"></i><span class="label">Cancel</span></button>
+        <button data-action="editor-confirm" class="Button--primary" style="margin-left:4px"><i class="icon icon-check icon-small padding-rs"></i><span class="label">Confirm</span></button>
       </div>
     </div>
   </div>

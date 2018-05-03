@@ -93,12 +93,12 @@
           <label for="td-anonymous-data">Send anonymous usage data</label>
           <label>&nbsp;(<a href="https://github.com/chylex/TweetDuck/wiki/Send-anonymous-data" rel="nofollow">learn more</a>)</label>
         </div>
-        <button class="btn btn-positive" data-guide><span class="label">Show Guide</span></button>
-        <button class="btn btn-positive"><span class="label">Close</span</button>
+        <button class="Button--primary" data-guide><span class="label">Show Guide</span></button>
+        <button class="Button--secondary"><span class="label">Close</span</button>
       </footer>
     </div>
   </div>
-</div>`).appendTo(".js-app"); /* TODO btn-positive is removed, check all files again */
+</div>`).appendTo(".js-app");
     
     let tdUser = null;
     let loadTweetDuckUser = (onSuccess, onError) => {
