@@ -1,4 +1,6 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
+using CefSharp;
 using TweetDuck.Core.Controls;
 using TweetDuck.Plugins;
 using TweetDuck.Resources;
@@ -21,9 +23,13 @@ namespace TweetDuck.Core.Notification.Example{
             }
         }
 
+        public event EventHandler Ready;
+
         private readonly TweetNotification exampleNotification;
 
         public FormNotificationExample(FormBrowser owner, PluginManager pluginManager) : base(owner, pluginManager, false){
+            browser.LoadingStateChanged += browser_LoadingStateChanged;
+
             string exampleTweetHTML = ScriptLoader.LoadResource("pages/example.html", true)?.Replace("{avatar}", TweetNotification.AppLogo.Url) ?? string.Empty;
 
             #if DEBUG
@@ -31,6 +37,13 @@ namespace TweetDuck.Core.Notification.Example{
             #endif
 
             exampleNotification = TweetNotification.Example(exampleTweetHTML, 176);
+        }
+
+        private void browser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e){
+            if (!e.IsLoading){
+                Ready?.Invoke(this, EventArgs.Empty);
+                browser.LoadingStateChanged -= browser_LoadingStateChanged;
+            }
         }
 
         public override void HideNotification(){

@@ -1,6 +1,4 @@
-﻿using CefSharp;
-using CefSharp.WinForms;
-using System;
+﻿using CefSharp.WinForms;
 using System.Drawing;
 using System.Windows.Forms;
 using TweetDuck.Configuration;
@@ -116,8 +114,6 @@ namespace TweetDuck.Core.Notification{
         public bool FreezeTimer { get; set; }
         public bool ContextMenuOpen { get; set; }
 
-        public event EventHandler Initialized;
-
         protected FormNotificationBase(FormBrowser owner, bool enableContextMenu){
             InitializeComponent();
 
@@ -133,7 +129,6 @@ namespace TweetDuck.Core.Notification{
 
             this.browser.Dock = DockStyle.None;
             this.browser.ClientSize = ClientSize;
-            this.browser.IsBrowserInitializedChanged += browser_IsBrowserInitializedChanged;
             
             browser.SetupResourceHandler(TwitterUtils.TweetDeckURL, this.resourceHandler);
             browser.SetupResourceHandler(TweetNotification.AppLogo);
@@ -163,12 +158,6 @@ namespace TweetDuck.Core.Notification{
 
         private void owner_FormClosed(object sender, FormClosedEventArgs e){
             Close();
-        }
-
-        private void browser_IsBrowserInitializedChanged(object sender, IsBrowserInitializedChangedEventArgs e){
-            if (e.IsBrowserInitialized){
-                Initialized?.Invoke(this, EventArgs.Empty);
-            }
         }
 
         // notification methods

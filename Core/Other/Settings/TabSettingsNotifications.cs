@@ -15,7 +15,7 @@ namespace TweetDuck.Core.Other.Settings{
 
             this.notification = notification;
             
-            this.notification.Initialized += (sender, args) => {
+            this.notification.Ready += (sender, args) => {
                 this.InvokeAsyncSafe(() => {
                     this.notification.ShowExampleNotification(true);
                     this.notification.Move += notification_Move;

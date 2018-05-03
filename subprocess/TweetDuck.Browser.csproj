@@ -26,9 +26,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CefSharp.BrowserSubprocess.Core, Version=64.0.0.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=x86">
+    <Reference Include="CefSharp.BrowserSubprocess.Core, Version=65.0.0.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\CefSharp.Common.64.0.0-CI2508\CefSharp\x86\CefSharp.BrowserSubprocess.Core.dll</HintPath>
+      <HintPath>..\packages\CefSharp.Common.65.0.0-pre01\CefSharp\x86\CefSharp.BrowserSubprocess.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
