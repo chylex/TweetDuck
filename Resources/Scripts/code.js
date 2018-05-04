@@ -146,7 +146,7 @@
     };
     
     let fixMedia = (html, media) => {
-      return html.find(".js-media a[data-media-entity-id='"+media.mediaId+"']").css("background-image", 'url("'+media.small()+'")').removeClass("is-zoomable");
+      return html.find("a[data-media-entity-id='"+media.mediaId+"'], .media-item").first().removeClass("is-zoomable").css("background-image", 'url("'+media.small()+'")');
     };
     
     return function(column, tweet){
@@ -181,13 +181,15 @@
         if (previews){
           html.find(".reverse-image-search").remove();
           
+          let container = html.find(".js-media");
+          
           for(let media of tweet.getMedia()){
-            fixMedia(html, media);
+            fixMedia(container, media);
           }
           
           if (tweet.quotedTweet){
             for(let media of tweet.quotedTweet.getMedia()){
-              fixMedia(html, media).addClass("media-size-medium");
+              fixMedia(container, media).addClass("media-size-medium");
             }
           }
         }
