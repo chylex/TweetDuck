@@ -27,8 +27,7 @@ try{
   
   # Copy resources
   
-  Copy-Item (Join-Path $projectDir "bld\Resources\CEFSHARP-LICENSE.txt") -Destination $targetDir -Force
-  Copy-Item (Join-Path $projectDir "LICENSE.md") -Destination (Join-Path $targetDir "LICENSE.txt") -Force      
+  Copy-Item (Join-Path $projectDir "bld\Resources\LICENSES.txt") -Destination $targetDir -Force
   
   New-Item -ItemType directory -Path $targetDir -Name "scripts" | Out-Null
   New-Item -ItemType directory -Path $targetDir -Name "plugins" | Out-Null

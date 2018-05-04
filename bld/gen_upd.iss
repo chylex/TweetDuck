@@ -60,6 +60,8 @@ Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\Cache"
 Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\GPUCache"
 
 [InstallDelete]
+Type: files; Name: "{app}\CEFSHARP-LICENSE.txt"
+Type: files; Name: "{app}\LICENSE.txt"
 Type: files; Name: "{app}\msvcp120.dll"
 Type: files; Name: "{app}\msvcr120.dll"
 Type: files; Name: "{app}\TweetLib.Audio.dll"
