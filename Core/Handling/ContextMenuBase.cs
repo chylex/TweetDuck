@@ -195,15 +195,15 @@ namespace TweetDuck.Core.Handling{
             return false;
         }
 
-        protected void DeselectAll(IFrame frame){
+        protected static void DeselectAll(IFrame frame){
             ScriptLoader.ExecuteScript(frame, "window.getSelection().removeAllRanges()", "gen:deselect");
         }
 
-        protected void OpenBrowser(Control control, string url){
+        protected static void OpenBrowser(Control control, string url){
             control.InvokeAsyncSafe(() => BrowserUtils.OpenExternalBrowser(url));
         }
 
-        protected void SetClipboardText(Control control, string text){
+        protected static void SetClipboardText(Control control, string text){
             control.InvokeAsyncSafe(() => WindowsUtils.SetClipboard(text, TextDataFormat.UnicodeText));
         }
 

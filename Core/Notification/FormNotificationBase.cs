@@ -63,7 +63,7 @@ namespace TweetDuck.Core.Notification{
             }
         }
 
-        public bool IsNotificationVisible => Location != ControlExtensions.InvisibleLocation;
+        protected bool IsNotificationVisible => Location != ControlExtensions.InvisibleLocation;
         protected virtual bool CanDragWindow => true;
 
         public new Point Location{
@@ -107,8 +107,8 @@ namespace TweetDuck.Core.Notification{
         public string CurrentQuoteUrl => currentNotification?.QuoteUrl;
 
         public bool CanViewDetail => currentNotification != null && !string.IsNullOrEmpty(currentNotification.ColumnId) && !string.IsNullOrEmpty(currentNotification.ChirpId);
-        public bool IsPaused => pauseCounter > 0;
 
+        protected bool IsPaused => pauseCounter > 0;
         protected bool IsCursorOverBrowser => browser.Bounds.Contains(PointToClient(Cursor.Position));
         
         public bool FreezeTimer { get; set; }

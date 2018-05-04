@@ -139,34 +139,34 @@ begin
   
   if UpdatePath = '' then
   begin
-    MsgBox('{#MyAppName} installation could not be found on your system.', mbCriticalError, MB_OK);
-    Result := False;
-    Exit;
+    MsgBox('{#MyAppName} installation could not be found on your system.', mbCriticalError, MB_OK)
+    Result := False
+    Exit
   end;
   
   if not TDIsMatchingCEFVersion() then
   begin
-    idpAddFile('https://github.com/{#MyAppPublisher}/{#MyAppName}/releases/download/'+TDGetAppVersionClean()+'/'+TDGetFullDownloadFileName(), ExpandConstant('{tmp}\{#MyAppName}.Full.exe'));
+    idpAddFile('https://github.com/{#MyAppPublisher}/{#MyAppName}/releases/download/'+TDGetAppVersionClean()+'/'+TDGetFullDownloadFileName(), ExpandConstant('{tmp}\{#MyAppName}.Full.exe'))
   end;
   
   if (TDGetNetFrameworkVersion() < 379893) and (MsgBox('{#MyAppName} requires .NET Framework 4.5.2 or newer,'+#13+#10+'please visit {#MyAppShortURL} for a download link.'+#13+#10+#13+#10'Do you want to proceed with the setup anyway?', mbCriticalError, MB_YESNO or MB_DEFBUTTON2) = IDNO) then
   begin
-    Result := False;
-    Exit;
+    Result := False
+    Exit
   end;
   
-  Result := True;
+  Result := True
 end;
 
 { Prepare download plugin if there are any files to download, and set the installation path. }
 procedure InitializeWizard();
 begin
-  WizardForm.Caption := WizardForm.Caption + ' Update';
-  WizardForm.DirEdit.Text := UpdatePath;
+  WizardForm.Caption := WizardForm.Caption + ' Update'
+  WizardForm.DirEdit.Text := UpdatePath
   
   if idpFilesCount <> 0 then
   begin
-    idpDownloadAfter(wpReady);
+    idpDownloadAfter(wpReady)
   end;
 end;
 
@@ -178,14 +178,14 @@ var PluginDataFolder: String;
 begin
   if CurUninstallStep = usPostUninstall then
   begin
-    ProfileDataFolder := ExpandConstant('{localappdata}\{#MyAppName}');
-    PluginDataFolder := ExpandConstant('{app}\plugins');
+    ProfileDataFolder := ExpandConstant('{localappdata}\{#MyAppName}')
+    PluginDataFolder := ExpandConstant('{app}\plugins')
     
     if (DirExists(ProfileDataFolder) or DirExists(PluginDataFolder)) and (MsgBox('Do you also want to delete your {#MyAppName} profile and plugins?', mbConfirmation, MB_YESNO or MB_DEFBUTTON2) = IDYES) then
     begin
-      DelTree(ProfileDataFolder, True, True, True);
-      DelTree(PluginDataFolder, True, True, True);
-      DelTree(ExpandConstant('{app}'), True, False, False);
+      DelTree(ProfileDataFolder, True, True, True)
+      DelTree(PluginDataFolder, True, True, True)
+      DelTree(ExpandConstant('{app}'), True, False, False)
     end;
   end;
 end;
@@ -195,12 +195,12 @@ procedure CurStepChanged(CurStep: TSetupStep);
 begin
   if CurStep = ssInstall then
   begin
-    TDExecuteFullDownload();
+    TDExecuteFullDownload()
     
     if TDIsUninstallable() then
     begin
-      DeleteFile(ExpandConstant('{app}\unins000.dat'));
-      DeleteFile(ExpandConstant('{app}\unins000.exe'));
+      DeleteFile(ExpandConstant('{app}\unins000.dat'))
+      DeleteFile(ExpandConstant('{app}\unins000.exe'))
     end;
   end;
 end;
@@ -255,11 +255,11 @@ var FrameworkVersion: Cardinal;
 begin
   if RegQueryDWordValue(HKEY_LOCAL_MACHINE, 'Software\Microsoft\NET Framework Setup\NDP\v4\Full', 'Release', FrameworkVersion) then
   begin
-    Result := FrameworkVersion;
-    Exit;
+    Result := FrameworkVersion
+    Exit
   end;
   
-  Result := 0;
+  Result := 0
 end;
 
 { Return the name of the full installer file to download from GitHub. }
@@ -276,8 +276,8 @@ var TmpTDVersion: String;
 begin
   if GetVersionNumbersString(UpdatePath+'TweetDuck.exe', TmpTDVersion) and (CompareStr(TmpTDVersion, '1.13.0.0') = 0) then
   begin
-    Result := False;
-    Exit;
+    Result := False
+    Exit
   end;
   
   Result := (GetVersionNumbersString(UpdatePath+'libcef.dll', CEFVersion) and (CompareStr(CEFVersion, '{#CefVersion}') = 0))
@@ -293,17 +293,17 @@ begin
   
   while True do
   begin
-    Substr := Copy(CleanVersion, Length(CleanVersion)-1, 2);
+    Substr := Copy(CleanVersion, Length(CleanVersion)-1, 2)
     
     if (CompareStr(Substr, '.0') <> 0) then
     begin
-      break;
+      break
     end;
     
-    CleanVersion := Copy(CleanVersion, 1, Length(CleanVersion)-2);
+    CleanVersion := Copy(CleanVersion, 1, Length(CleanVersion)-2)
   end;
   
-  Result := CleanVersion;
+  Result := CleanVersion
 end;
 
 { Run the full package installer if downloaded. }
@@ -316,28 +316,28 @@ begin
   
   if FileExists(InstallFile) then
   begin
-    WizardForm.ProgressGauge.Style := npbstMarquee;
+    WizardForm.ProgressGauge.Style := npbstMarquee
     
     try
       if Exec(InstallFile, '/SP- /SILENT /UPDATEPATH="'+UpdatePath+'"', '', SW_SHOW, ewWaitUntilTerminated, ResultCode) then
       begin
         if ResultCode <> 0 then
         begin
-          DeleteFile(InstallFile);
-          Abort();
-          Exit;
+          DeleteFile(InstallFile)
+          Abort()
+          Exit
         end;
       end else
       begin
-        MsgBox('Could not run the full installer, please visit {#MyAppURL} and download the latest version manually. Error: '+SysErrorMessage(ResultCode), mbCriticalError, MB_OK);
+        MsgBox('Could not run the full installer, please visit {#MyAppURL} and download the latest version manually. Error: '+SysErrorMessage(ResultCode), mbCriticalError, MB_OK)
         
-        DeleteFile(InstallFile);
-        Abort();
-        Exit;
+        DeleteFile(InstallFile)
+        Abort()
+        Exit
       end;
     finally
-      WizardForm.ProgressGauge.Style := npbstNormal;
-      DeleteFile(InstallFile);
+      WizardForm.ProgressGauge.Style := npbstNormal
+      DeleteFile(InstallFile)
     end;
   end;
 end;

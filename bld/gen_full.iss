@@ -82,16 +82,16 @@ begin
   
   if (TDGetNetFrameworkVersion() < 379893) and (MsgBox('{#MyAppName} requires .NET Framework 4.5.2 or newer,'+#13+#10+'please visit {#MyAppShortURL} for a download link.'+#13+#10+#13+#10'Do you want to proceed with the setup anyway?', mbCriticalError, MB_YESNO or MB_DEFBUTTON2) = IDNO) then
   begin
-    Result := False;
-    Exit;
+    Result := False
+    Exit
   end;
   
   if (TDIsVCMissing() or (ForceRedistPrompt = '1')) and (MsgBox('Microsoft Visual C++ 2015 appears to be missing, would you like to automatically install it?', mbConfirmation, MB_YESNO) = IDYES) then
   begin
-    idpAddFile('https://github.com/{#MyAppPublisher}/{#MyAppName}/{#VCRedistLink}', ExpandConstant('{tmp}\{#MyAppName}.VC.exe'));
+    idpAddFile('https://github.com/{#MyAppPublisher}/{#MyAppName}/{#VCRedistLink}', ExpandConstant('{tmp}\{#MyAppName}.VC.exe'))
   end;
   
-  Result := True;
+  Result := True
 end;
 
 { Set the installation path if updating, and prepare download plugin if there are any files to download. }
@@ -99,12 +99,12 @@ procedure InitializeWizard();
 begin
   if (UpdatePath <> '') then
   begin
-    WizardForm.DirEdit.Text := UpdatePath;
+    WizardForm.DirEdit.Text := UpdatePath
   end;
   
   if (idpFilesCount <> 0) then
   begin
-    idpDownloadAfter(wpReady);
+    idpDownloadAfter(wpReady)
   end;
 end;
 
@@ -130,7 +130,7 @@ procedure CurStepChanged(CurStep: TSetupStep);
 begin
   if CurStep = ssInstall then
   begin
-    TDInstallVCRedist();
+    TDInstallVCRedist()
   end;
 end;
 
@@ -147,9 +147,9 @@ begin
     
     if (DirExists(ProfileDataFolder) or DirExists(PluginDataFolder)) and (MsgBox('Do you also want to delete your {#MyAppName} profile and plugins?', mbConfirmation, MB_YESNO or MB_DEFBUTTON2) = IDYES) then
     begin
-      DelTree(ProfileDataFolder, True, True, True);
-      DelTree(PluginDataFolder, True, True, True);
-      DelTree(ExpandConstant('{app}'), True, False, False);
+      DelTree(ProfileDataFolder, True, True, True)
+      DelTree(PluginDataFolder, True, True, True)
+      DelTree(ExpandConstant('{app}'), True, False, False)
     end;
   end;
 end;
@@ -167,11 +167,11 @@ var FrameworkVersion: Cardinal;
 begin
   if RegQueryDWordValue(HKEY_LOCAL_MACHINE, 'Software\Microsoft\NET Framework Setup\NDP\v4\Full', 'Release', FrameworkVersion) then
   begin
-    Result := FrameworkVersion;
-    Exit;
+    Result := FrameworkVersion
+    Exit
   end;
   
-  Result := 0;
+  Result := 0
 end;
 
 { Check if Visual C++ 2015 or 2017 is installed. }
@@ -186,20 +186,20 @@ begin
   begin
     for Index := 0 to GetArrayLength(Keys)-1 do
     begin
-      Key := Keys[Index];
+      Key := Keys[Index]
       
       if RegQueryStringValue(HKEY_LOCAL_MACHINE, 'Software\Classes\Installer\Dependencies\'+Key, 'DisplayName', DisplayName) then
       begin
         if (Pos('Microsoft Visual C++', DisplayName) = 1) and (Pos('(x86)', DisplayName) > 1) and ((Pos(' 2015 ', DisplayName) > 1) or (Pos(' 2017 ', DisplayName) > 1)) then
         begin
-          Result := False;
-          Exit;
+          Result := False
+          Exit
         end;
       end;
     end;
   end;
   
-  Result := True;
+  Result := True
 end;
 
 { Run the Visual C++ installer if downloaded. }
@@ -212,26 +212,26 @@ begin
   
   if FileExists(InstallFile) then
   begin
-    WizardForm.ProgressGauge.Style := npbstMarquee;
+    WizardForm.ProgressGauge.Style := npbstMarquee
     
     try
       if Exec(InstallFile, '/passive /norestart', '', SW_SHOW, ewWaitUntilTerminated, ResultCode) then
       begin
         if ResultCode <> 0 then
         begin
-          DeleteFile(InstallFile);
-          Exit;
+          DeleteFile(InstallFile)
+          Exit
         end;
       end else
       begin
         MsgBox('Could not run the Visual C++ installer, please visit https://github.com/{#MyAppPublisher}/{#MyAppName}/{#VCRedistLink} and download the latest version manually. Error: '+SysErrorMessage(ResultCode), mbCriticalError, MB_OK);
         
-        DeleteFile(InstallFile);
-        Exit;
+        DeleteFile(InstallFile)
+        Exit
       end;
     finally
-      WizardForm.ProgressGauge.Style := npbstNormal;
-      DeleteFile(InstallFile);
+      WizardForm.ProgressGauge.Style := npbstNormal
+      DeleteFile(InstallFile)
     end;
   end;
 end;

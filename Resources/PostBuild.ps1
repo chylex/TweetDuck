@@ -114,7 +114,7 @@ try{
   Write-Host "------------------"
   $sw.Stop()
   Write-Host "Finished in" $([math]::Round($sw.Elapsed.TotalMilliseconds)) "ms"
-  Write-Host ------------------
+  Write-Host "------------------"
 }catch{
   Write-Host "Encountered an error while running PostBuild.ps1 on line" $_.InvocationInfo.ScriptLineNumber
   Write-Host $_

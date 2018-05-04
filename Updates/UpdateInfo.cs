@@ -22,7 +22,7 @@ namespace TweetDuck.Updates{
             
             this.VersionTag = versionTag;
             this.ReleaseNotes = releaseNotes;
-            this.InstallerPath = Path.Combine(installerFolder, $"TweetDuck.{versionTag}.exe");;
+            this.InstallerPath = Path.Combine(installerFolder, $"TweetDuck.{versionTag}.exe");
         }
 
         public void BeginSilentDownload(){
