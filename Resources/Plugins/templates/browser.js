@@ -37,7 +37,7 @@ enabled(){
   var buttonHTML = '<button class="manage-templates-btn needsclick btn btn-on-blue full-width txt-left margin-b--12 padding-v--6 padding-h--12"><i class="icon icon-bookmark"></i><span class="label padding-ls">Manage templates</span></button>';
   
   this.prevComposeMustache = TD.mustaches["compose/docked_compose.mustache"];
-  TD.mustaches["compose/docked_compose.mustache"] = TD.mustaches["compose/docked_compose.mustache"].replace('<div class="js-tweet-type-button">', buttonHTML+'<div class="js-tweet-type-button">');
+  window.TDPF_injectMustache("compose/docked_compose.mustache", "prepend", '<div class="js-tweet-type-button">', buttonHTML);
   
   var dockedComposePanel = $(".js-docked-compose");
   

@@ -1004,9 +1004,39 @@
   })();
   
   //
+  // Block: Setup global function to inject custom HTML into mustache templates.
+  //
+  window.TDGF_injectMustache = function(name, operation, search, custom){
+    let replacement;
+    
+    switch(operation){
+      case "replace": replacement = custom; break;
+      case "append": replacement = search+custom; break;
+      case "prepend": replacement = custom+search; break;
+      default: throw "Invalid mustache injection operation. Only 'replace', 'append', 'prepend' are supported.";
+    }
+    
+    let prev = TD.mustaches[name];
+    
+    if (!prev){
+      $TD.crashDebug("Mustache injection is referencing an invalid mustache: "+name);
+      return false;
+    }
+    
+    TD.mustaches[name] = prev.replace(search, replacement);
+    
+    if (prev === TD.mustaches[name]){
+      $TD.crashDebug("Mustache injection had no effect: "+name);
+      return false;
+    }
+    
+    return true;
+  };
+  
+  //
   // Block: Let's make retweets lowercase again.
   //
-  TD.mustaches["status/tweet_single.mustache"] = TD.mustaches["status/tweet_single.mustache"].replace("{{_i}} Retweeted{{/i}}", "{{_i}} retweeted{{/i}}");
+  window.TDGF_injectMustache("status/tweet_single.mustache", "replace", "{{_i}} Retweeted{{/i}}", "{{_i}} retweeted{{/i}}");
   
   if (ensurePropertyExists(TD, "services", "TwitterActionRetweet", "prototype", "generateText")){
     TD.services.TwitterActionRetweet.prototype.generateText = appendToFunction(TD.services.TwitterActionRetweet.prototype.generateText, function(){
@@ -1075,7 +1105,8 @@
       }
     });
     
-    TD.mustaches["status/media_thumb.mustache"] = TD.mustaches["status/media_thumb.mustache"].replace("is-gif", "is-gif is-paused");
+    window.TDGF_injectMustache("status/media_thumb.mustache", "append", "is-gif", " is-paused");
+    
     TD.mustaches["media/native_video.mustache"] = '<div class="js-media-gif-container media-item nbfc is-video" style="background-image:url({{imageSrc}})"><video class="js-media-gif media-item-gif full-width block {{#isPossiblySensitive}}is-invisible{{/isPossiblySensitive}}" loop src="{{videoUrl}}"></video><a class="js-gif-play pin-all is-actionable">{{> media/video_overlay}}</a></div>';
     
     if (!ensurePropertyExists(TD, "components", "MediaGallery", "prototype", "_loadTweet") ||

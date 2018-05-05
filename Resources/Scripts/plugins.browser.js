@@ -121,4 +121,5 @@
   window.TDPF_playVideo = window.TDGF_playVideo;
   window.TDPF_reloadColumns = window.TDGF_reloadColumns;
   window.TDPF_prioritizeNewestEvent = window.TDGF_prioritizeNewestEvent;
+  window.TDPF_injectMustache = window.TDGF_injectMustache;
 })();

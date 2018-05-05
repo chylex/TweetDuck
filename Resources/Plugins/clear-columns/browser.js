@@ -21,10 +21,6 @@ enabled(){
     Object.keys(TD.controller.columnManager.getAll()).forEach(func);
   };
   
-  var replaceMustache = (key, search, replace) => {
-    TD.mustaches[key] = TD.mustaches[key].replace(search, replace);
-  };
-  
   var wasShiftPressed = false;
   
   var updateShiftState = (pressed) => {
@@ -86,22 +82,21 @@ enabled(){
 </a>`;
   
   // add column buttons and keyboard shortcut info to UI
-  replaceMustache("column/column_header.mustache", "</header>", `
+  window.TDPF_injectMustache("column/column_header.mustache", "prepend", "</header>", `
 {{^isTemporary}}
   <a class="column-header-link td-clear-column-shortcut" href="#" data-action="td-clearcolumns-dosingle" style="right:34px">
     <i class="icon icon-clear-timeline js-show-tip" data-placement="bottom" data-original-title="Clear column (hold Shift to restore)"></i>
   </a>
-{{/isTemporary}}
-</header>`);
+{{/isTemporary}}`);
   
-  replaceMustache("keyboard_shortcut_list.mustache", "</dl>  <dl", `
+  window.TDPF_injectMustache("keyboard_shortcut_list.mustache", "prepend", "</dl> <dl", `
 <dd class="keyboard-shortcut-definition" style="white-space:nowrap">
   <span class="text-like-keyboard-key">1</span> … <span class="text-like-keyboard-key">9</span> + <span class="text-like-keyboard-key">Del</span> Clear column 1－9
 </dd><dd class="keyboard-shortcut-definition">
   <span class="text-like-keyboard-key">Alt</span> + <span class="text-like-keyboard-key">Del</span> Clear all columns
-</dd></dl><dl`);
+</dd>`);
   
-  replaceMustache("menus/column_nav_menu.mustache", "{{_i}}Add column{{/i}}</div> </a> </div>", `{{_i}}Add column{{/i}}</div></a>${this.btnClearAllHTML}</div>`)
+  window.TDPF_injectMustache("menus/column_nav_menu.mustache", "replace", "{{_i}}Add column{{/i}}</div> </a> </div>", `{{_i}}Add column{{/i}}</div></a>${this.btnClearAllHTML}</div>`)
   
   // load custom style
   var css = window.TDPF_createCustomStyle(this);

@@ -54,7 +54,7 @@ enabled(){
   var buttonHTML = '<button class="needsclick btn btn-on-blue txt-left padding-v--6 padding-h--8 emoji-keyboard-popup-btn"><i class="icon icon-heart"></i></button>';
   
   this.prevComposeMustache = TD.mustaches["compose/docked_compose.mustache"];
-  TD.mustaches["compose/docked_compose.mustache"] = TD.mustaches["compose/docked_compose.mustache"].replace('<div class="cf margin-t--12 margin-b--30">', '<div class="cf margin-t--12 margin-b--30">'+buttonHTML);
+  window.TDPF_injectMustache("compose/docked_compose.mustache", "append", '<div class="cf margin-t--12 margin-b--30">', buttonHTML);
   
   var maybeDockedComposePanel = $(".js-docked-compose");
   
