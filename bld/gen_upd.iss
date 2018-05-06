@@ -64,63 +64,8 @@ Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\GPUCache"
 [InstallDelete]
 Type: files; Name: "{app}\CEFSHARP-LICENSE.txt"
 Type: files; Name: "{app}\LICENSE.txt"
-Type: files; Name: "{app}\msvcp120.dll"
-Type: files; Name: "{app}\msvcr120.dll"
-Type: files; Name: "{app}\TweetLib.Audio.dll"
 Type: filesandordirs; Name: "{app}\scripts"
 Type: filesandordirs; Name: "{app}\plugins\official"
-Type: files; Name: "{app}\locales\am.pak"
-Type: files; Name: "{app}\locales\ar.pak"
-Type: files; Name: "{app}\locales\bg.pak"
-Type: files; Name: "{app}\locales\bn.pak"
-Type: files; Name: "{app}\locales\ca.pak"
-Type: files; Name: "{app}\locales\cs.pak"
-Type: files; Name: "{app}\locales\da.pak"
-Type: files; Name: "{app}\locales\de.pak"
-Type: files; Name: "{app}\locales\el.pak"
-Type: files; Name: "{app}\locales\en-GB.pak"
-Type: files; Name: "{app}\locales\es-419.pak"
-Type: files; Name: "{app}\locales\es.pak"
-Type: files; Name: "{app}\locales\et.pak"
-Type: files; Name: "{app}\locales\fa.pak"
-Type: files; Name: "{app}\locales\fi.pak"
-Type: files; Name: "{app}\locales\fil.pak"
-Type: files; Name: "{app}\locales\fr.pak"
-Type: files; Name: "{app}\locales\gu.pak"
-Type: files; Name: "{app}\locales\he.pak"
-Type: files; Name: "{app}\locales\hi.pak"
-Type: files; Name: "{app}\locales\hr.pak"
-Type: files; Name: "{app}\locales\hu.pak"
-Type: files; Name: "{app}\locales\id.pak"
-Type: files; Name: "{app}\locales\it.pak"
-Type: files; Name: "{app}\locales\ja.pak"
-Type: files; Name: "{app}\locales\kn.pak"
-Type: files; Name: "{app}\locales\ko.pak"
-Type: files; Name: "{app}\locales\lt.pak"
-Type: files; Name: "{app}\locales\lv.pak"
-Type: files; Name: "{app}\locales\ml.pak"
-Type: files; Name: "{app}\locales\mr.pak"
-Type: files; Name: "{app}\locales\ms.pak"
-Type: files; Name: "{app}\locales\nb.pak"
-Type: files; Name: "{app}\locales\nl.pak"
-Type: files; Name: "{app}\locales\pl.pak"
-Type: files; Name: "{app}\locales\pt-BR.pak"
-Type: files; Name: "{app}\locales\pt-PT.pak"
-Type: files; Name: "{app}\locales\ro.pak"
-Type: files; Name: "{app}\locales\ru.pak"
-Type: files; Name: "{app}\locales\sk.pak"
-Type: files; Name: "{app}\locales\sl.pak"
-Type: files; Name: "{app}\locales\sr.pak"
-Type: files; Name: "{app}\locales\sv.pak"
-Type: files; Name: "{app}\locales\sw.pak"
-Type: files; Name: "{app}\locales\ta.pak"
-Type: files; Name: "{app}\locales\te.pak"
-Type: files; Name: "{app}\locales\th.pak"
-Type: files; Name: "{app}\locales\tr.pak"
-Type: files; Name: "{app}\locales\uk.pak"
-Type: files; Name: "{app}\locales\vi.pak"
-Type: files; Name: "{app}\locales\zh-CN.pak"
-Type: files; Name: "{app}\locales\zh-TW.pak"
 
 [Code]
 function TDIsUninstallable: Boolean; forward;
@@ -218,6 +163,7 @@ end;
 { Returns a string used for arguments when running the app after update. }
 function TDGetRunArgs(Param: String): String;
 var Args: String;
+
 begin
   Args := ExpandConstant('{param:RUNARGS}')
   StringChangeEx(Args, '::', '"', True)
@@ -275,15 +221,8 @@ end;
 { Return whether the version of the installed libcef.dll library matches internal one. }
 function TDIsMatchingCEFVersion: Boolean;
 var CEFVersion: String;
-var TmpTDVersion: String;
 
 begin
-  if GetVersionNumbersString(UpdatePath+'TweetDuck.exe', TmpTDVersion) and (CompareStr(TmpTDVersion, '1.13.0.0') = 0) then
-  begin
-    Result := False
-    Exit
-  end;
-  
   Result := (GetVersionNumbersString(UpdatePath+'libcef.dll', CEFVersion) and (CompareStr(CEFVersion, '{#CefVersion}') = 0))
 end;
 
