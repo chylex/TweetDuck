@@ -25,6 +25,8 @@ DefaultGroupName={#MyAppName}
 OutputBaseFilename={#MyAppName}.Update
 VersionInfoVersion={#MyAppVersion}
 SetupIconFile=.\Resources\icon.ico
+CloseApplicationsFilter=*.exe,*.dll,*.pak
+RestartApplications=False
 Uninstallable=TDIsUninstallable
 UninstallDisplayName={#MyAppName}
 UninstallDisplayIcon={app}\{#MyAppExeName}
@@ -321,7 +323,7 @@ begin
     WizardForm.ProgressGauge.Style := npbstMarquee
     
     try
-      if Exec(InstallFile, '/SP- /SILENT /UPDATEPATH="'+UpdatePath+'"', '', SW_SHOW, ewWaitUntilTerminated, ResultCode) then
+      if Exec(InstallFile, '/SP- /SILENT /FORCECLOSEAPPLICATIONS /UPDATEPATH="'+UpdatePath+'"', '', SW_SHOW, ewWaitUntilTerminated, ResultCode) then
       begin
         if ResultCode <> 0 then
         begin
