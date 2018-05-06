@@ -29,9 +29,9 @@ RestartApplications=False
 Uninstallable=no
 UsePreviousAppDir=no
 PrivilegesRequired=lowest
-Compression=lzma
+Compression=lzma2/ultra
 SolidCompression=yes
-InternalCompressLevel=max
+InternalCompressLevel=normal
 MinVersion=0,6.1
 
 #include <idp.iss>
