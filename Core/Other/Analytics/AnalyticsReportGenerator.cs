@@ -42,7 +42,6 @@ namespace TweetDuck.Core.Other.Analytics{
                 { "Clear Cache Threshold"     , Exact(SysConfig.ClearCacheThreshold) },
                 0,
                 { "Expand Links"                  , Bool(UserConfig.ExpandLinksOnHover) },
-                { "Switch Account Selectors"      , Bool(false) }, // TODO remove in next major update
                 { "Search In First Column"        , Bool(UserConfig.OpenSearchInFirstColumn) },
                 { "Keep Like Follow Dialogs Open" , Bool(UserConfig.KeepLikeFollowDialogsOpen) },
                 { "Best Image Quality"            , Bool(UserConfig.BestImageQuality) },
