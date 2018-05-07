@@ -369,29 +369,44 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="Resources\avatar.png" />
     <None Include="Resources\icon-small.ico" />
     <None Include="Resources\icon-tray-new.ico" />
     <None Include="Resources\icon-tray.ico" />
-    <None Include="Resources\PostBuild.ps1" />
     <None Include="Resources\spinner.apng" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\Plugins\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Resources\avatar.png" />
-    <Content Include="Resources\Scripts\code.js" />
-    <Content Include="Resources\Scripts\introduction.js" />
-    <Content Include="Resources\Scripts\notification.js" />
-    <Content Include="Resources\Scripts\pages\error.html" />
-    <Content Include="Resources\Scripts\pages\example.html" />
-    <Content Include="Resources\Scripts\plugins.browser.js" />
-    <Content Include="Resources\Scripts\plugins.js" />
-    <Content Include="Resources\Scripts\plugins.notification.js" />
-    <Content Include="Resources\Scripts\styles\browser.css" />
-    <Content Include="Resources\Scripts\styles\notification.css" />
-    <Content Include="Resources\Scripts\twitter.js" />
-    <Content Include="Resources\Scripts\update.js" />
+    <None Include="Resources\PostBuild.ps1" />
+    <None Include="Resources\Plugins\.debug\.meta" />
+    <None Include="Resources\Plugins\.debug\browser.js" />
+    <None Include="Resources\Plugins\clear-columns\.meta" />
+    <None Include="Resources\Plugins\clear-columns\browser.js" />
+    <None Include="Resources\Plugins\edit-design\.meta" />
+    <None Include="Resources\Plugins\edit-design\browser.js" />
+    <None Include="Resources\Plugins\edit-design\modal.html" />
+    <None Include="Resources\Plugins\edit-design\theme.black.css" />
+    <None Include="Resources\Plugins\emoji-keyboard\.meta" />
+    <None Include="Resources\Plugins\emoji-keyboard\browser.js" />
+    <None Include="Resources\Plugins\emoji-keyboard\emoji-instructions.txt" />
+    <None Include="Resources\Plugins\emoji-keyboard\emoji-ordering.txt" />
+    <None Include="Resources\Plugins\reply-account\.meta" />
+    <None Include="Resources\Plugins\reply-account\browser.js" />
+    <None Include="Resources\Plugins\reply-account\configuration.default.js" />
+    <None Include="Resources\Plugins\templates\.meta" />
+    <None Include="Resources\Plugins\templates\browser.js" />
+    <None Include="Resources\Plugins\timeline-polls\.meta" />
+    <None Include="Resources\Plugins\timeline-polls\browser.js" />
+    <None Include="Resources\Scripts\code.js" />
+    <None Include="Resources\Scripts\introduction.js" />
+    <None Include="Resources\Scripts\notification.js" />
+    <None Include="Resources\Scripts\pages\error.html" />
+    <None Include="Resources\Scripts\pages\example.html" />
+    <None Include="Resources\Scripts\plugins.browser.js" />
+    <None Include="Resources\Scripts\plugins.js" />
+    <None Include="Resources\Scripts\plugins.notification.js" />
+    <None Include="Resources\Scripts\screenshot.js" />
+    <None Include="Resources\Scripts\styles\browser.css" />
+    <None Include="Resources\Scripts\styles\notification.css" />
+    <None Include="Resources\Scripts\twitter.js" />
+    <None Include="Resources\Scripts\update.js" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="subprocess\TweetDuck.Browser.csproj">

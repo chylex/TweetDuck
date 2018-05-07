@@ -12,7 +12,7 @@ The program was built using Visual Studio 2017. Before opening the solution, ple
 * **Desktop development with C++**
   * VC++ 2017 v141 toolset
 
-After opening the solution, download the following NuGet packages by right-clicking on the solution and selecting **Restore NuGet Packages**, or manually running this command in the **Package Manager Console**:
+After opening the solution, right-click the solution and select **Restore NuGet Packages**, or manually run this command in the **Package Manager Console**:
 ```
 PM> Install-Package CefSharp.WinForms -Version 65.0.0-pre01
 ```
@@ -21,31 +21,25 @@ Note that some pre-release builds of CefSharp are not available on NuGet. To cor
 
 ### Debug
 
-It is recommended to create a separate data folder for debugging, otherwise you will not be able to run TweetDuck while debugging the solution.
+The `Debug` configuration uses a separate data folder by default (`%LOCALAPPDATA%\TweetDuckDebug`) to avoid affecting an existing installation of TweetDuck. You can modify this by opening **TweetDuck Properties** in Visual Studio, clicking the **Debug** tab, and changing the **Command line arguments** field.
 
-To do that, open **TweetDuck Properties**, click the **Debug** tab, make sure your **Configuration** is set to `Active (Debug)` (or just `Debug`), and insert this into the **Command line arguments** field:
-```
--datafolder TweetDuckDebug
-```
+While debugging, opening the main menu and clicking **Reload browser** automatically rebuilds all resources in the `Resources/Scripts` and `Resources/Plugins` folders. This allows editing HTML/CSS/JS files and applying the changes without restarting the program, but it will cause a short delay between browser reloads.
 
-### Build
+### Release
 
-To make a release build of TweetDuck, open **Batch Build**, tick all `Release` configurations except for the `UnitTest` project (otherwise the build will fail), and click **Rebuild**. Check the status bar to make sure it says **Rebuild All succeeded**; if not, see the [Troubleshooting](#troubleshooting) section.
+To make a release build of TweetDuck, open **Batch Build**, tick all `Release` configurations with `x86` platform except for the `UnitTest` project (otherwise the build will fail), and click **Rebuild**. Check the status bar to make sure it says **Rebuild All succeeded**; if not, see the [Troubleshooting](#troubleshooting) section.
 
 After the build succeeds, the `bin/x86/Release` folder will contain files intended for distribution (no debug symbols or other unnecessary files). You may package these files yourself, or see the [Installers](#installers) section for automated installer generation.
 
-If you decide to release a custom version publicly, please make it clear that it is not an official release of TweetDuck.
+The `Release` configuration omits debug symbols and other unnecessary files. You can modify this behavior by opening `TweetDuck.csproj`, and editing the `<Target Name="AfterBuild" Condition="$(ConfigurationName) == Release">` section.
+
+If you decide to publicly release a custom version, please make it clear that it is not an official release of TweetDuck. There are many references to the official website and this repository, especially in the update system, so search for `chylex.com` and `github.com` in all files and replace them appropriately.
 
 ### Troubleshooting
 
-There are a few quirks in the build process that may catch you off guard:
-
-- **Plugin files are not updated automatically**
-  - Since official plugins (`Resources/Plugins`) are not included in the project, Visual Studio will not automatically detect changes in the files
-  - To ensure plugins are updated when testing the app, click **Rebuild Solution** before clicking **Start**
 - **Error: The command (...) exited with code 1**
-  - If the post-build event fails, open the **Output** tab and look for the cause
-  - Determine if there was an IO error while copying files or modifying folders, or whether the final .ps1 script failed (`Encountered an error while running PostBuild.ps1 on line xyz`)
+  - This indicates a failed post-build event, open the **Output** tab for logs
+  - Determine if there was an IO error from the `rmdir` commands, or whether the error was in the **PostBuild.ps1** script (`Encountered an error while running PostBuild.ps1 on line <xyz>`)
   - Some files are checked for invalid characters:
     - `Resources/Plugins/emoji-keyboard/emoji-ordering.txt` line endings must be LF (line feed); any CR (carriage return) in the file will cause a failed build, and you will need to ensure correct line endings in your text editor
 
@@ -55,7 +49,7 @@ TweetDuck uses **Inno Setup** to automate the creation of installers. First, dow
 
 Next, add the Inno Setup installation folder (usually `C:\Program Files (x86)\Inno Setup 5`) into your **PATH** environment variable. You may need to restart File Explorer for the change to take place.
 
-Now you can generate installers after a build by running `bld/RUN BUILD.bat`. Note that despite the name, this will only package the files, you still need to run the [build](#build) in Visual Studio!
+Now you can generate installers after a build by running `bld/RUN BUILD.bat`. Note that despite the name, this will only package the files, you still need to run the [release build](#release) in Visual Studio!
 
 After the window closes, three installers will be generated inside the `bld/Output` folder:
 * **TweetDuck.exe**
@@ -68,7 +62,3 @@ After the window closes, three installers will be generated inside the `bld/Outp
   * It automatically creates a `makeportable` file in the program folder, which forces TweetDuck to run in portable mode
 
 Note: There is a small chance you will see a resource error when running `RUN BUILD.bat`. If that happens, close the console window (which will terminate all Inno Setup processes and leave corrupted installer files in the output folder), and run it again.
-
-### Code Notes
-
-There are many references to the official TweetDuck website and this repository in the code and installers, so if you plan to release your own version, make sure to search for `tweetduck.chylex.com` and `github.com` in the whole repository and replace them appropriately.
