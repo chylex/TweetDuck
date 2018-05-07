@@ -49,7 +49,7 @@ TweetDuck uses **Inno Setup** to automate the creation of installers. First, dow
 
 Next, add the Inno Setup installation folder (usually `C:\Program Files (x86)\Inno Setup 5`) into your **PATH** environment variable. You may need to restart File Explorer for the change to take place.
 
-Now you can generate installers after a build by running `bld/RUN BUILD.bat`. Note that despite the name, this will only package the files, you still need to run the [release build](#release) in Visual Studio!
+Now you can generate installers after a build by running `bld/RUN BUILD.bat`. Note that this will only package the files, you still need to run the [release build](#release) in Visual Studio!
 
 After the window closes, three installers will be generated inside the `bld/Output` folder:
 * **TweetDuck.exe**
@@ -61,4 +61,8 @@ After the window closes, three installers will be generated inside the `bld/Outp
   * This is a portable installer that does not need administrator privileges
   * It automatically creates a `makeportable` file in the program folder, which forces TweetDuck to run in portable mode
 
-Note: There is a small chance you will see a resource error when running `RUN BUILD.bat`. If that happens, close the console window (which will terminate all Inno Setup processes and leave corrupted installer files in the output folder), and run it again.
+#### Notes
+
+> There is a small chance you will see a resource error when running `RUN BUILD.bat`. If that happens, close the console window (which will terminate all Inno Setup processes and leave corrupted installer files in the output folder), and run it again.
+
+> Running `RUN BUILD.bat` uses up about 784 MB of RAM due to very high compression. You can lower this to about 232 MB by opening `gen_full.ipd` and `gen_port.ipd`, and changing `Compression=lzma2/ultra` to `Compression=lzma2/max`.
