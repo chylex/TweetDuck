@@ -2,7 +2,9 @@
 /* General */
 /***********/
 
-body.td-notification {
+html, body {
+  height: auto !important;
+  overflow-x: hidden !important;
   overflow-y: auto !important;
 }
 
@@ -136,7 +138,7 @@ html[data-td-font='smallest'] .badge-verified:before {
 
 #td-skip {
   position: fixed;
-  left: 30px;
+  left: 29px;
   bottom: 10px;
   z-index: 1000;
   cursor: pointer;

@@ -129,11 +129,10 @@
   // Block: Setup a skip button.
   //
   if (!document.body.hasAttribute("td-example-notification")){
-    document.body.insertAdjacentHTML("afterbegin", `
+    document.body.children[0].insertAdjacentHTML("beforeend", `
 <svg id="td-skip" width="10" height="17" viewBox="0 0 350 600">
   <path fill="#888" d="M0,151.656l102.208-102.22l247.777,247.775L102.208,544.986L0,442.758l145.546-145.547">
-</svg>
-`);
+</svg>`);
     
     document.getElementById("td-skip").addEventListener("click", function(){
       $TD.loadNextNotification();
@@ -150,4 +149,9 @@
   document.body.addEventListener("mouseleave", function(){
     document.body.classList.remove("td-hover");
   });
+  
+  //
+  // Block: Force a reset of scroll position on every load.
+  //
+  history.scrollRestoration = "manual";
 })($TD, $TDX);
