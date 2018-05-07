@@ -213,6 +213,12 @@
           }
         });
         
+        if (tweet.quotedTweet){
+          html.find("p.txt-mute").filter(function(){
+            return $(this).text() === "Show this thread";
+          }).first().remove();
+        }
+        
         let type = tweet.getChirpType();
         
         if (type === "follow"){
@@ -682,9 +688,9 @@
       html.find("footer").last().remove(); // apparently withTweetActions breaks for certain tweets, nice
       html.find(".td-screenshot-remove").remove();
       
-      html.find("p.link-complex-target").filter(function(){
+      html.find("p.link-complex-target,p.txt-mute").filter(function(){
         return $(this).text() === "Show this thread";
-      }).first().remove();
+      }).remove();
       
       html.addClass($(document.documentElement).attr("class"));
       html.addClass($(document.body).attr("class"));
