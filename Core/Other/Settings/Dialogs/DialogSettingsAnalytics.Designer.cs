@@ -63,10 +63,10 @@
             this.labelInfo.Location = new System.Drawing.Point(12, 9);
             this.labelInfo.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(431, 30);
+            this.labelInfo.Size = new System.Drawing.Size(434, 30);
             this.labelInfo.TabIndex = 0;
-            this.labelInfo.Text = "When enabled, this data will be sent over a secure network roughly twice a week.\r" +
-    "\nSome numbers in the report were made imprecise on purpose.";
+            this.labelInfo.Text = "When enabled, this data will be sent over a secure network roughly every 14 days." +
+    "\r\nSome numbers in the report were made imprecise on purpose.";
             // 
             // DialogSettingsAnalytics
             // 
