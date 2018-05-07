@@ -27,7 +27,7 @@ While debugging, opening the main menu and clicking **Reload browser** automatic
 
 ### Release
 
-To make a release build of TweetDuck, open **Batch Build**, tick all `Release` configurations with `x86` platform except for the `UnitTest` project (otherwise the build will fail), and click **Rebuild**. Check the status bar to make sure it says **Rebuild All succeeded**; if not, see the [Troubleshooting](#troubleshooting) section.
+Open **Batch Build**, tick all `Release` configurations with `x86` platform except for the `UnitTest` project, and click **Rebuild**. Check the status bar to make sure it says **Rebuild All succeeded**; if not, see the [Troubleshooting](#troubleshooting) section.
 
 After the build succeeds, the `bin/x86/Release` folder will contain files intended for distribution (no debug symbols or other unnecessary files). You may package these files yourself, or see the [Installers](#installers) section for automated installer generation.
 
@@ -37,11 +37,11 @@ If you decide to publicly release a custom version, please make it clear that it
 
 ### Troubleshooting
 
-- **Error: The command (...) exited with code 1**
-  - This indicates a failed post-build event, open the **Output** tab for logs
-  - Determine if there was an IO error from the `rmdir` commands, or whether the error was in the **PostBuild.ps1** script (`Encountered an error while running PostBuild.ps1 on line <xyz>`)
-  - Some files are checked for invalid characters:
-    - `Resources/Plugins/emoji-keyboard/emoji-ordering.txt` line endings must be LF (line feed); any CR (carriage return) in the file will cause a failed build, and you will need to ensure correct line endings in your text editor
+#### Error: The command (...) exited with code 1
+- This indicates a failed post-build event, open the **Output** tab for logs
+- Determine if there was an IO error from the `rmdir` commands, or whether the error was in the **PostBuild.ps1** script (`Encountered an error while running PostBuild.ps1 on line <xyz>`)
+- Some files are checked for invalid characters:
+  - `Resources/Plugins/emoji-keyboard/emoji-ordering.txt` line endings must be LF (line feed); any CR (carriage return) in the file will cause a failed build, and you will need to ensure correct line endings in your text editor
 
 ### Installers
 
