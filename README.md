@@ -65,4 +65,4 @@ After the window closes, three installers will be generated inside the `bld/Outp
 
 > There is a small chance you will see a resource error when running `RUN BUILD.bat`. If that happens, close the console window (which will terminate all Inno Setup processes and leave corrupted installer files in the output folder), and run it again.
 
-> Running `RUN BUILD.bat` uses up about 784 MB of RAM due to very high compression. You can lower this to about 232 MB by opening `gen_full.ipd` and `gen_port.ipd`, and changing `Compression=lzma2/ultra` to `Compression=lzma2/max`.
+> Running `RUN BUILD.bat` uses about 784 MB of RAM due to very high compression. You can lower this to about 232 MB by opening `gen_full.ipd` and `gen_port.ipd`, and changing `Compression=lzma2/ultra` to `Compression=lzma2/max`.
