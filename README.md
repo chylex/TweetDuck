@@ -45,7 +45,7 @@ If you decide to publicly release a custom version, please make it clear that it
 
 ### Installers
 
-TweetDuck uses **Inno Setup** to automate the creation of installers. First, download and install [InnoSetup QuickStart Pack](http://www.jrsoftware.org/isdl.php) (non-unicode; editor and encryption support not required) and the [Inno Download Plugin](https://code.google.com/archive/p/inno-download-plugin).
+TweetDuck uses **Inno Setup** for installers and updates. First, download and install [InnoSetup QuickStart Pack](http://www.jrsoftware.org/isdl.php) (non-unicode; editor and encryption support not required) and the [Inno Download Plugin](https://code.google.com/archive/p/inno-download-plugin).
 
 Next, add the Inno Setup installation folder (usually `C:\Program Files (x86)\Inno Setup 5`) into your **PATH** environment variable. You may need to restart File Explorer for the change to take place.
 
@@ -63,6 +63,6 @@ After the window closes, three installers will be generated inside the `bld/Outp
 
 #### Notes
 
-> There is a small chance you will see a resource error when running `RUN BUILD.bat`. If that happens, close the console window (which will terminate all Inno Setup processes and leave corrupted installer files in the output folder), and run it again.
+> There is a small chance running `RUN BUILD.bat` immediately shows a resource error. If that happens, close the console window (which terminates all Inno Setup processes and leaves corrupted installer files in the output folder), and run it again.
 
-> Running `RUN BUILD.bat` uses about 784 MB of RAM due to very high compression. You can lower this to about 232 MB by opening `gen_full.ipd` and `gen_port.ipd`, and changing `Compression=lzma2/ultra` to `Compression=lzma2/max`.
+> Running `RUN BUILD.bat` uses about 784 MB of RAM due to very high compression. You can lower this to about 232 MB by opening `gen_full.iss` and `gen_port.iss`, and changing `Compression=lzma2/ultra` to `Compression=lzma2/max`.
