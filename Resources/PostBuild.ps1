@@ -44,34 +44,40 @@ try{
   
   # Helper functions
   
+  function Remove-Empty-Lines{
+    Param([Parameter(Mandatory = $True, Position = 1)] $lines)
+    
+    ForEach($line in $lines){
+      if ($line -ne ''){
+        $line
+      }
+    }
+  }
+  
   function Check-Carriage-Return{
-    Param(
-      [Parameter(Mandatory = $True, Position = 1)] $fname
-    )
+    Param([Parameter(Mandatory = $True, Position = 1)] $file)
     
-    $file = @(Get-ChildItem -Path $targetDir -Include $fname -Recurse)[0]
-    
-    if ((Get-Content -Path $file.FullName -Raw).Contains("`r")){
-      Throw "$fname cannot contain carriage return"
+    if (!(Test-Path $file)){
+      Throw "$file does not exist"
     }
     
-    Write-Host "Verified" $file.FullName.Substring($targetDir.Length)
+    if ((Get-Content -Path $file -Raw).Contains("`r")){
+      Throw "$file cannot contain carriage return"
+    }
+    
+    Write-Host "Verified" $file.Substring($targetDir.Length)
   }
   
   function Rewrite-File{
-    [CmdletBinding()]
-    Param(
-      [Parameter(Mandatory = $True, Position = 1)] $file,
-      [Parameter(Mandatory = $True, Position = 2)] $lines
-    )
+    Param([Parameter(Mandatory = $True, Position = 1)] $file,
+          [Parameter(Mandatory = $True, Position = 2)] $lines)
     
+    $lines = Remove-Empty-Lines($lines)
     $relativePath = $file.FullName.Substring($targetDir.Length)
     
     if ($relativePath.StartsWith("scripts\")){
       $lines = (,("#" + $version) + $lines)
     }
-    
-    $lines = $lines | Where { $_ -ne '' }
     
     [IO.File]::WriteAllLines($file.FullName, $lines)
     Write-Host "Processed" $relativePath
@@ -79,7 +85,7 @@ try{
   
   # Post processing
   
-  Check-Carriage-Return("emoji-ordering.txt")
+  Check-Carriage-Return(Join-Path $targetDir "plugins\official\emoji-keyboard\emoji-ordering.txt")
   
   ForEach($file in Get-ChildItem -Path $targetDir -Filter "*.js" -Exclude "configuration.default.js" -Recurse){
     $lines = [IO.File]::ReadLines($file.FullName)
@@ -92,9 +98,9 @@ try{
   ForEach($file in Get-ChildItem -Path $targetDir -Filter "*.css" -Recurse){
     $lines = [IO.File]::ReadLines($file.FullName)
     $lines = $lines -Replace '\s*/\*.*?\*/', ''
-    $lines = $lines -Replace '^\s+(.+):\s?(.+?)(?:\s?(!important))?;$', '$1:$2$3;'
-    $lines = $lines -Replace '^(\S.*?) {$', '$1{'
-    $lines = @(($lines | Where { $_ -ne '' }) -Join ' ')
+    $lines = $lines -Replace '^(\S.*) {$', '$1{'
+    $lines = $lines -Replace '^\s+(.+?):\s*(.+?)(?:\s*(!important))?;$', '$1:$2$3;'
+    $lines = @((Remove-Empty-Lines($lines)) -Join ' ')
     Rewrite-File $file $lines
   }
   

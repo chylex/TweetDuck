@@ -30,6 +30,7 @@ Uninstallable=TDIsUninstallable
 UninstallDisplayName={#MyAppName}
 UninstallDisplayIcon={app}\{#MyAppExeName}
 Compression=lzma2/ultra
+LZMADictionarySize=15360
 SolidCompression=yes
 InternalCompressLevel=normal
 MinVersion=0,6.1

@@ -32,6 +32,7 @@ UninstallDisplayName={#MyAppName}
 UninstallDisplayIcon={app}\{#MyAppExeName}
 PrivilegesRequired=lowest
 Compression=lzma/normal
+LZMADictionarySize=512
 SolidCompression=True
 InternalCompressLevel=normal
 MinVersion=0,6.1
