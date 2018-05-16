@@ -28,6 +28,7 @@ namespace TweetDuck.Core.Handling{
         private const CefMenuCommand MenuSaveMedia       = (CefMenuCommand)26506;
         private const CefMenuCommand MenuSaveTweetImages = (CefMenuCommand)26507;
         private const CefMenuCommand MenuSearchInBrowser = (CefMenuCommand)26508;
+        private const CefMenuCommand MenuReadApplyROT13  = (CefMenuCommand)26509;
         private const CefMenuCommand MenuOpenDevTools    = (CefMenuCommand)26599;
         
         protected ContextInfo.LinkInfo LastLink { get; private set; }
@@ -56,6 +57,8 @@ namespace TweetDuck.Core.Handling{
 
             if (parameters.TypeFlags.HasFlag(ContextMenuType.Selection) && !parameters.TypeFlags.HasFlag(ContextMenuType.Editable)){
                 model.AddItem(MenuSearchInBrowser, "Search in browser");
+                model.AddSeparator();
+                model.AddItem(MenuReadApplyROT13, "Apply ROT13");
                 model.AddSeparator();
             }
 
@@ -172,6 +175,11 @@ namespace TweetDuck.Core.Handling{
                     control.InvokeAsyncSafe(analytics.AnalyticsFile.DownloadedImages.Trigger);
                     TwitterUtils.DownloadImages(LastChirp.Images, LastChirp.Authors.LastOrDefault(), ImageQuality);
                     break;
+
+                case MenuReadApplyROT13:
+                    string selection = parameters.SelectionText;
+                    control.InvokeAsyncSafe(() => FormMessage.Information("ROT13", StringUtils.ConvertRot13(selection), FormMessage.OK));
+                    return true;
 
                 case MenuSearchInBrowser:
                     string query = parameters.SelectionText;

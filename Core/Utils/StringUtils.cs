@@ -19,6 +19,14 @@ namespace TweetDuck.Core.Utils{
             return Regex.Replace(str, @"(\p{Ll})(\P{Ll})|(\P{Ll})(\P{Ll}\p{Ll})", "$1$3_$2$4").ToUpper();
         }
 
+        public static string ConvertRot13(string str){
+            return Regex.Replace(str, @"[a-zA-Z]", match => {
+                int code = match.Value[0];
+                int start = code <= 90 ? 65 : 97;
+                return ((char)(start+(code-start+13)%26)).ToString();
+            });
+        }
+
         public static int CountOccurrences(string source, string substring){
             int count = 0, index = 0;
 

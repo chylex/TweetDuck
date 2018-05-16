@@ -16,7 +16,7 @@ namespace TweetDuck.Core.Handling{
         private const CefMenuCommand MenuOpenQuotedTweetUrl = (CefMenuCommand)26612;
         private const CefMenuCommand MenuCopyQuotedTweetUrl = (CefMenuCommand)26613;
         private const CefMenuCommand MenuScreenshotTweet    = (CefMenuCommand)26614;
-        private const CefMenuCommand MenuInputApplyROT13    = (CefMenuCommand)26615;
+        private const CefMenuCommand MenuWriteApplyROT13    = (CefMenuCommand)26615;
         private const CefMenuCommand MenuSearchInColumn     = (CefMenuCommand)26616;
 
         private const string TitleReloadBrowser = "Reload browser";
@@ -44,7 +44,7 @@ namespace TweetDuck.Core.Handling{
             if (isSelecting){
                 if (isEditing){
                     model.AddSeparator();
-                    model.AddItem(MenuInputApplyROT13, "Apply ROT13");
+                    model.AddItem(MenuWriteApplyROT13, "Apply ROT13");
                 }
 
                 model.AddSeparator();
@@ -141,7 +141,7 @@ namespace TweetDuck.Core.Handling{
                     SetClipboardText(form, LastChirp.QuoteUrl);
                     return true;
 
-                case MenuInputApplyROT13:
+                case MenuWriteApplyROT13:
                     form.InvokeAsyncSafe(form.ApplyROT13);
                     return true;
 
