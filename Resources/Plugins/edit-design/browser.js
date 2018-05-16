@@ -539,8 +539,8 @@ ${iconData.map(entry => `#tduck .icon-${entry[0]}:before{content:\"\\f0${entry[1
 #tduck .js-docked-compose .js-drawer-close { margin: 20px 0 0 !important }
 #tduck .search-input-control .icon { font-size: 20px !important; top: -4px !important }
 
-.column-header .column-type-icon { bottom: 26px !important }
-.is-options-open .column-type-icon { bottom: 25px !important }
+.column-type-icon { margin-top: -1px !important }
+.inline-reply .pull-left .Button--link { margin-top: 3px !important }
 
 .tweet-action-item .icon-favorite-toggle { font-size: 16px !important; }
 .tweet-action-item .heartsprite { top: -260% !important; left: -260% !important; transform: scale(0.4, 0.39) translateY(0.5px) !important; }

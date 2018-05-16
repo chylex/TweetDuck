@@ -90,6 +90,7 @@ html[data-td-font='smallest'] .badge-verified:before {
 
 .activity-header .icon-user-filled {
   vertical-align: sub !important;
+  margin-right: 4px !important;
 }
       
 .td-notification-padded .item-img {

@@ -82,12 +82,10 @@ enabled(){
 </a>`;
   
   // add column buttons and keyboard shortcut info to UI
-  window.TDPF_injectMustache("column/column_header.mustache", "prepend", "</header>", `
-{{^isTemporary}}
-  <a class="column-header-link td-clear-column-shortcut" href="#" data-action="td-clearcolumns-dosingle" style="right:34px">
-    <i class="icon icon-clear-timeline js-show-tip" data-placement="bottom" data-original-title="Clear column (hold Shift to restore)"></i>
-  </a>
-{{/isTemporary}}`);
+  window.TDPF_injectMustache("column/column_header.mustache", "prepend", "<a data-testid=\"optionsToggle\"", `
+<a class="js-action-header-button column-header-link" href="#" data-action="td-clearcolumns-dosingle">
+  <i class="icon icon-clear-timeline js-show-tip" data-placement="bottom" data-original-title="Clear column (hold Shift to restore)"></i>
+</a>`);
   
   window.TDPF_injectMustache("keyboard_shortcut_list.mustache", "prepend", "</dl> <dl", `
 <dd class="keyboard-shortcut-definition" style="white-space:nowrap">
@@ -103,11 +101,8 @@ enabled(){
   css.insert(".js-app-add-column.is-hidden + .clear-columns-btn-all-parent { display: none; }");
   css.insert(".column-navigator-overflow .clear-columns-btn-all-parent { display: none !important; }");
   css.insert(".column-navigator-overflow { bottom: 224px !important; }");
-  css.insert(".column-title { margin-right: 60px !important; }");
-  css.insert(".mark-all-read-link { right: 59px !important; }");
-  css.insert(".open-compose-dm-link { right: 90px !important; }");
-  css.insert("button[data-action='clear'].btn-options-tray { display: none !important; }");
-  css.insert("[data-td-icon='icon-message'] .column-title { margin-right: 115px !important; }");
+  css.insert("[data-action='td-clearcolumns-dosingle'] { padding: 3px 0 !important; }");
+  css.insert("[data-action='clear'].btn-options-tray { display: none !important; }");
   css.insert("[data-td-icon='icon-schedule'] .td-clear-column-shortcut { display: none; }");
   css.insert("[data-td-icon='icon-custom-timeline'] .td-clear-column-shortcut { display: none; }");
 }
