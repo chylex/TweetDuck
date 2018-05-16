@@ -129,7 +129,7 @@ namespace TweetDuck.Core.Handling{
                     SetClipboardText(control, TwitterUtils.GetMediaLink(LastLink.GetMediaSource(parameters), ImageQuality));
                     break;
 
-                case MenuViewImage:
+                case MenuViewImage: {
                     void ViewImage(string path){
                         string ext = Path.GetExtension(path);
 
@@ -144,37 +144,54 @@ namespace TweetDuck.Core.Handling{
                     string url = LastLink.GetMediaSource(parameters);
                     string file = Path.Combine(BrowserCache.CacheFolder, TwitterUtils.GetImageFileName(url) ?? Path.GetRandomFileName());
 
-                    if (File.Exists(file)){
-                        ViewImage(file);
-                    }
-                    else{
-                        control.InvokeAsyncSafe(analytics.AnalyticsFile.ViewedImages.Trigger);
-
-                        BrowserUtils.DownloadFileAsync(TwitterUtils.GetMediaLink(url, ImageQuality), file, () => {
+                    control.InvokeAsyncSafe(() => {
+                        if (File.Exists(file)){
                             ViewImage(file);
-                        }, ex => {
-                            FormMessage.Error("Image Download", "An error occurred while downloading the image: "+ex.Message, FormMessage.OK);
-                        });
-                    }
+                        }
+                        else{
+                            analytics.AnalyticsFile.ViewedImages.Trigger();
+
+                            BrowserUtils.DownloadFileAsync(TwitterUtils.GetMediaLink(url, ImageQuality), file, () => {
+                                ViewImage(file);
+                            }, ex => {
+                                FormMessage.Error("Image Download", "An error occurred while downloading the image: "+ex.Message, FormMessage.OK);
+                            });
+                        }
+                    });
+                    
+                    break;
+                }
+
+                case MenuSaveMedia: {
+                    bool isVideo = LastLink.IsVideo;
+                    string url = LastLink.GetMediaSource(parameters);
+                    string username = LastChirp.Authors.LastOrDefault();
+                    
+                    control.InvokeAsyncSafe(() => {
+                        if (isVideo){
+                            TwitterUtils.DownloadVideo(url, username);
+                            analytics.AnalyticsFile.DownloadedVideos.Trigger();
+                        }
+                        else{
+                            TwitterUtils.DownloadImage(url, username, ImageQuality);
+                            analytics.AnalyticsFile.DownloadedImages.Trigger();
+                        }
+                    });
 
                     break;
+                }
 
-                case MenuSaveMedia:
-                    if (LastLink.IsVideo){
-                        control.InvokeAsyncSafe(analytics.AnalyticsFile.DownloadedVideos.Trigger);
-                        TwitterUtils.DownloadVideo(LastLink.GetMediaSource(parameters), LastChirp.Authors.LastOrDefault());
-                    }
-                    else{
-                        control.InvokeAsyncSafe(analytics.AnalyticsFile.DownloadedImages.Trigger);
-                        TwitterUtils.DownloadImage(LastLink.GetMediaSource(parameters), LastChirp.Authors.LastOrDefault(), ImageQuality);
-                    }
+                case MenuSaveTweetImages: {
+                    string[] urls = LastChirp.Images;
+                    string username = LastChirp.Authors.LastOrDefault();
+                    
+                    control.InvokeAsyncSafe(() => {
+                        TwitterUtils.DownloadImages(urls, username, ImageQuality);
+                        analytics.AnalyticsFile.DownloadedImages.Trigger();
+                    });
 
                     break;
-
-                case MenuSaveTweetImages:
-                    control.InvokeAsyncSafe(analytics.AnalyticsFile.DownloadedImages.Trigger);
-                    TwitterUtils.DownloadImages(LastChirp.Images, LastChirp.Authors.LastOrDefault(), ImageQuality);
-                    break;
+                }
 
                 case MenuReadApplyROT13:
                     string selection = parameters.SelectionText;
