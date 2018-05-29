@@ -221,6 +221,29 @@ a[data-full-url] {
   bottom: 0 !important;
 }
 
+/**********************************************************/
+/* Prevent column icons from being hidden by column title */
+/**********************************************************/
+
+.column-header-title {
+  overflow: hidden !important;
+}
+
+.column-heading {
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.column-header-links {
+  max-width: 100% !important;
+}
+
+[data-td-icon="icon-message"] .column-header-links {
+  min-width: 86px;
+}
+
 /*******************************************/
 /* Fix general visual issues or annoyances */
 /*******************************************/

@@ -99,6 +99,8 @@ enabled(){
   // load custom style
   var css = window.TDPF_createCustomStyle(this);
   css.insert(".js-app-add-column.is-hidden + .clear-columns-btn-all-parent { display: none; }");
+  css.insert(".column-header-links { min-width: 51px !important; }");
+  css.insert("[data-td-icon='icon-message'] .column-header-links { min-width: 110px !important; }");
   css.insert(".column-navigator-overflow .clear-columns-btn-all-parent { display: none !important; }");
   css.insert(".column-navigator-overflow { bottom: 224px !important; }");
   css.insert("[data-action='td-clearcolumns-dosingle'] { padding: 3px 0 !important; }");
