@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows.Forms;
 using CefSharp;
 using CefSharp.WinForms;
+using TweetDuck.Configuration;
 using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling;
@@ -153,6 +154,10 @@ namespace TweetDuck.Core{
                 UserConfig_SoundNotificationInfoChanged(null, EventArgs.Empty);
 
                 TweetDeckBridge.ResetStaticProperties();
+
+                if (Arguments.HasFlag(Arguments.ArgIgnoreGDPR)){
+                    ScriptLoader.ExecuteScript(frame, @"TD.storage.Account.prototype.requiresConsent = function(){ return false; }", "gen:gdpr");
+                }
 
                 if (Program.UserConfig.FirstRun){
                     ScriptLoader.ExecuteFile(frame, "introduction.js", browser);
