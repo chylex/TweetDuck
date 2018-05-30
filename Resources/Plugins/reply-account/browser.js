@@ -23,25 +23,34 @@ enabled(){
           return;
         }
         
-        var section = data.element.closest("section.js-column");
+        let section = data.element.closest("section.js-column");
+        let column = TD.controller.columnManager.get(section.attr("data-column"));
         
-        var column = TD.controller.columnManager.get(section.attr("data-column"));
-        var header = $(".column-title", section);
-        var title = header.children(".column-head-title");
+        let feeds = column.getFeeds();
+        let accountText = "";
         
-        var columnTitle, columnAccount;
-        
-        if (title.length){
-          columnTitle = title.text();
-          columnAccount = header.children(".attribution").text();
+        if (feeds.length === 1){
+          let metadata = feeds[0].getMetadata();
+          let id = metadata.ownerId || metadata.id;
+          
+          if (id){
+            accountText = TD.cache.names.getScreenName(id);
+          }
+          else{
+            let account = TD.storage.accountController.get(feeds[0].getAccountKey());
+            
+            if (account){
+              accountText = "@"+account.getUsername();
+            }
+          }
         }
-        else{
-          columnTitle = header.children(".column-title-edit-box").val();
-          columnAccount = "";
-        }
+        
+        let header = $(".column-header-title", section);
+        let title = header.children(".column-heading");
+        let titleText = title.length ? title.text() : header.children(".column-title-edit-box").val();
         
         try{
-          query = configuration.customSelector(columnTitle, columnAccount, column, section.hasClass("column-temp"));
+          query = configuration.customSelector(titleText, accountText, column, section.hasClass("column-temp"));
         }catch(e){
           $TD.alert("warning", "Plugin reply-account has invalid configuration: customSelector threw an error: "+e.message);
           return;
