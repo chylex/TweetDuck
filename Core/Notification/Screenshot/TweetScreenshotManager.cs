@@ -27,6 +27,10 @@ namespace TweetDuck.Core.Notification.Screenshot{
         #if GEN_SCREENSHOT_FRAMES
         private readonly Timer debugger;
         private int frameCounter;
+
+        public const int WaitFrames = 60;
+        #else
+        public const int WaitFrames = 5;
         #endif
         
         private FormNotificationScreenshotable screenshot;

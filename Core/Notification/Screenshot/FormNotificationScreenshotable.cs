@@ -35,7 +35,7 @@ namespace TweetDuck.Core.Notification.Screenshot{
                 }
                 
                 using(IFrame frame = args.Browser.MainFrame){
-                    ScriptLoader.ExecuteScript(frame, script.Replace("{width}", BrowserUtils.Scale(width, DpiScale).ToString()), "screenshot");
+                    ScriptLoader.ExecuteScript(frame, script.Replace("{width}", BrowserUtils.Scale(width, DpiScale).ToString()).Replace("{frames}", TweetScreenshotManager.WaitFrames.ToString()), "gen:screenshot");
                 }
             };
             
