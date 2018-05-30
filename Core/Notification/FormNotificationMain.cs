@@ -65,7 +65,7 @@ namespace TweetDuck.Core.Notification{
             get{
                 switch(Program.UserConfig.NotificationSize){
                     default:
-                        return BrowserUtils.Scale(122, SizeScale*(1.0+0.075*FontSizeLevel));
+                        return BrowserUtils.Scale(122, SizeScale*(1.0+0.08*FontSizeLevel));
 
                     case TweetNotification.Size.Custom:
                         return Program.UserConfig.CustomNotificationSize.Height;
