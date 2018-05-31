@@ -707,6 +707,12 @@
         }
       }
       
+      let gif = html.find(".js-media-gif-container");
+      
+      if (gif.length){
+        gif.css("background-image", 'url("'+chirp.getMedia()[0].small()+'")');
+      }
+      
       let type = chirp.getChirpType();
       
       if ((type.startsWith("favorite") || type.startsWith("retweet")) && chirp.isAboutYou()){
