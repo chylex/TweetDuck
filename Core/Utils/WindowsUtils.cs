@@ -15,10 +15,12 @@ namespace TweetDuck.Core.Utils{
         private static readonly Lazy<Regex> RegexStripHtmlStyles = new Lazy<Regex>(() => new Regex(@"\s?(?:style|class)="".*?"""), false);
         private static readonly Lazy<Regex> RegexOffsetClipboardHtml = new Lazy<Regex>(() => new Regex(@"(?<=EndHTML:|EndFragment:)(\d+)"), false);
 
+        private static readonly bool IsWindows8OrNewer;
+        private static bool HasMicrosoftBeenBroughtTo2008Yet;
+
         public static int CurrentProcessID { get; }
         public static bool ShouldAvoidToolWindow { get; }
-        
-        private static bool HasMicrosoftBeenBroughtTo2008Yet;
+        public static bool IsAeroEnabled => IsWindows8OrNewer || (NativeMethods.DwmIsCompositionEnabled(out bool isCompositionEnabled) == 0 && isCompositionEnabled);
 
         static WindowsUtils(){
             using(Process me = Process.GetCurrentProcess()){
@@ -26,7 +28,9 @@ namespace TweetDuck.Core.Utils{
             }
 
             Version ver = Environment.OSVersion.Version;
-            ShouldAvoidToolWindow = ver.Major == 6 && ver.Minor == 2; // windows 8/10
+            IsWindows8OrNewer = ver.Major == 6 && ver.Minor == 2; // windows 8/10
+
+            ShouldAvoidToolWindow = IsWindows8OrNewer;
         }
         
         public static void EnsureTLS12(){

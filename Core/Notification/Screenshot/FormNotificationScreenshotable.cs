@@ -68,6 +68,10 @@ namespace TweetDuck.Core.Notification.Screenshot{
                     return false;
                 }
             }
+
+            if (!WindowsUtils.IsAeroEnabled){
+                MoveToVisibleLocation(); // TODO make this look nicer I guess
+            }
             
             IntPtr context = NativeMethods.GetDC(this.Handle);
 

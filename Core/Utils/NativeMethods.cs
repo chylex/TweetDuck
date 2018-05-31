@@ -71,6 +71,9 @@ namespace TweetDuck.Core.Utils{
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool BitBlt(IntPtr hdc, int nXDest, int nYDest, int nWidth, int nHeight, IntPtr hdcSrc, int nXSrc, int nYSrc, uint dwRop);
         
+        [DllImport("dwmapi.dll")]
+        public static extern int DwmIsCompositionEnabled(out bool enabled);
+        
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool ShowScrollBar(IntPtr hWnd, int wBar, bool bShow);
