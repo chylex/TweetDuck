@@ -1374,11 +1374,19 @@
   }
   
   //
-  // Block: Remove column mouse wheel handler, which allows smooth scrolling inside columns, and horizontally scrolling column container when holding Shift.
+  // Block: Fix broken horizontal scrolling of column container when holding Shift. TODO Fix broken smooth scrolling.
   //
   if (ensurePropertyExists(TD, "ui", "columns", "setupColumnScrollListeners")){
-    TD.ui.columns.setupColumnScrollListeners = appendToFunction(TD.ui.columns.setupColumnScrollListeners, function(e){
-      $(".js-column[data-column='"+e.model.getKey()+"']").off("mousewheel onmousewheel");
+    TD.ui.columns.setupColumnScrollListeners = appendToFunction(TD.ui.columns.setupColumnScrollListeners, function(column){
+      let ele = $(".js-column[data-column='"+column.model.getKey()+"']");
+      
+      ele.off("onmousewheel").on("mousewheel", ".scroll-v", function(e){
+        if (e.shiftKey){
+          e.stopImmediatePropagation();
+        }
+      });
+      
+      window.TDGF_prioritizeNewestEvent(ele[0], "mousewheel");
     });
   }
   
