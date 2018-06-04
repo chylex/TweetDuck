@@ -7,6 +7,7 @@ namespace TweetDuck.Configuration{
         public const string ArgDataFolder = "-datafolder";
         public const string ArgLogging = "-log";
         public const string ArgIgnoreGDPR = "-nogdpr";
+        public const string ArgNotificationScrollWA = "-nscrollwa";
 
         // internal args
         public const string ArgRestart = "-restart";

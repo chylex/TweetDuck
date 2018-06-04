@@ -2,6 +2,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using TweetDuck.Configuration;
 using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling;
@@ -136,7 +137,14 @@ namespace TweetDuck.Core.Notification{
                 int eventType = wParam.ToInt32();
 
                 if (eventType == NativeMethods.WM_MOUSEWHEEL && IsCursorOverBrowser){
-                    browser.SendMouseWheelEvent(0, 0, 0, BrowserUtils.Scale(NativeMethods.GetMouseHookData(lParam), Program.UserConfig.NotificationScrollSpeed*0.01), CefEventFlags.None);
+                    if (Arguments.HasFlag(Arguments.ArgNotificationScrollWA)){
+                        int delta = BrowserUtils.Scale(NativeMethods.GetMouseHookData(lParam), Program.UserConfig.NotificationScrollSpeed*0.01);
+                        browser.ExecuteScriptAsync("window.scrollBy", 0, -Math.Round(delta/0.72));
+                    }
+                    else{
+                        browser.SendMouseWheelEvent(0, 0, 0, BrowserUtils.Scale(NativeMethods.GetMouseHookData(lParam), Program.UserConfig.NotificationScrollSpeed*0.01), CefEventFlags.None);
+                    }
+
                     return NativeMethods.HOOK_HANDLED;
                 }
                 else if (eventType == NativeMethods.WM_XBUTTONDOWN && DesktopBounds.Contains(Cursor.Position)){
