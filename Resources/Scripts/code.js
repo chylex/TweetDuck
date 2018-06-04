@@ -1379,6 +1379,7 @@
   if (ensurePropertyExists(TD, "ui", "columns", "setupColumnScrollListeners")){
     TD.ui.columns.setupColumnScrollListeners = appendToFunction(TD.ui.columns.setupColumnScrollListeners, function(column){
       let ele = $(".js-column[data-column='"+column.model.getKey()+"']");
+      return if !ele.length;
       
       ele.off("onmousewheel").on("mousewheel", ".scroll-v", function(e){
         if (e.shiftKey){
