@@ -244,6 +244,23 @@ a[data-full-url] {
   min-width: 86px;
 }
 
+/************************************************************/
+/* Fix modal dialogs breaking when window size is too small */
+/************************************************************/
+
+.ovl, .overlay {
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ovl[style="display: block;"], .overlay {
+  display: flex !important;
+}
+
+.overlay:before, .ovl:before {
+  display: none !important;
+}
+
 /*******************************************/
 /* Fix general visual issues or annoyances */
 /*******************************************/

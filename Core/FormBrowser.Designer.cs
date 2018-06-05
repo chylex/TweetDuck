@@ -39,17 +39,17 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = TweetDuck.Core.Utils.TwitterUtils.BackgroundColor;
-            this.ClientSize = new System.Drawing.Size(400, 386);
+            this.ClientSize = new System.Drawing.Size(1008, 730);
             this.Icon = Properties.Resources.icon;
             this.Location = TweetDuck.Core.Controls.ControlExtensions.InvisibleLocation;
-            this.MinimumSize = new System.Drawing.Size(416, 424);
+            this.MinimumSize = new System.Drawing.Size(348, 424);
             this.Name = "FormBrowser";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Activated += new System.EventHandler(this.FormBrowser_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormBrowser_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormBrowser_FormClosed);
-            this.LocationChanged += new System.EventHandler(this.FormBrowser_LocationChanged);
             this.ResizeEnd += new System.EventHandler(this.FormBrowser_ResizeEnd);
+            this.LocationChanged += new System.EventHandler(this.FormBrowser_LocationChanged);
             this.Resize += new System.EventHandler(this.FormBrowser_Resize);
             this.ResumeLayout(false);
 

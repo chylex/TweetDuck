@@ -51,7 +51,7 @@ enabled(){
   this.css.insert(".manage-templates-btn.active { color: #fff; box-shadow: 0 0 2px 3px #50a5e6; outline: 0; }");
   
   this.css.insert("#templates-modal-wrap { width: 100%; height: 100%; padding: 49px; position: absolute; z-index: 999; box-sizing: border-box; background-color: rgba(0, 0, 0, 0.5); }");
-  this.css.insert("#templates-modal { width: 100%; height: 100%; background-color: #fff; display: flex; }");
+  this.css.insert("#templates-modal { width: 100%; height: 100%; min-width: 500px; background-color: #fff; display: flex; }");
   this.css.insert("#templates-modal > div { display: flex; flex-direction: column; }");
   
   this.css.insert(".templates-modal-bottom { flex: 0 0 auto; padding: 16px; }");
@@ -68,7 +68,7 @@ enabled(){
   this.css.insert("#template-list li .icon:hover { opacity: 1; }");
   this.css.insert("#template-list li .template-actions { float: right; }");
   
-  this.css.insert("#template-editor { height: 100%; flex: 0 0 auto; width: 25vw; min-width: 150px; max-width: 400px; background-color: #485865; }");
+  this.css.insert("#template-editor { height: 100%; flex: 0 0 auto; width: 25vw; min-width: 225px; max-width: 400px; background-color: #485865; }");
   this.css.insert(".template-editor-form { flex: 1 1 auto; padding: 12px 16px; font-size: 14px; overflow-y: auto; }");
   this.css.insert(".template-editor-form .compose-text-title { margin: 24px 0 9px; }");
   this.css.insert(".template-editor-form .compose-text-title:first-child { margin-top: 0; }");
@@ -261,7 +261,7 @@ enabled(){
     $(".manage-templates-btn").addClass("active");
     
     let html = `
-<div id="templates-modal-wrap">
+<div id="templates-modal-wrap" class="scroll-v scroll-styled-v">
   <div id="templates-modal">
     <div id="template-list">
       <ul></ul>

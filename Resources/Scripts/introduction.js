@@ -3,12 +3,13 @@
     let css = $(`
 <style>
 #td-introduction-modal {
-  display: block;
+  display: flex;
 }
 
 #td-introduction-modal .mdl {
   width: 90%;
-  max-width: 830px;
+  min-width: 515px;
+  max-width: 835px;
   height: 328px;
 }
 
@@ -73,7 +74,7 @@
 </style>`).appendTo(document.head);
     
     let ele = $(`
-<div id="td-introduction-modal" class="ovl">
+<div id="td-introduction-modal" class="ovl scroll-v scroll-styled-v">
   <div class="mdl is-inverted-dark">
     <header class="mdl-header">
       <h3 class="mdl-header-title">Welcome to TweetDuck</h3>
