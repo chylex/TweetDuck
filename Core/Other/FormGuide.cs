@@ -69,7 +69,7 @@ namespace TweetDuck.Core.Other{
                 MenuHandler = new ContextMenuGuide(owner),
                 JsDialogHandler = new JavaScriptDialogHandler(),
                 LifeSpanHandler = new LifeSpanHandler(),
-                RequestHandler = new RequestHandlerBrowser()
+                RequestHandler = new RequestHandlerBase(true)
             };
 
             browser.LoadingStateChanged += browser_LoadingStateChanged;

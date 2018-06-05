@@ -124,7 +124,7 @@ namespace TweetDuck.Core.Notification{
                 MenuHandler = new ContextMenuNotification(this, enableContextMenu),
                 JsDialogHandler = new JavaScriptDialogHandler(),
                 LifeSpanHandler = new LifeSpanHandler(),
-                RequestHandler = new RequestHandlerBase()
+                RequestHandler = new RequestHandlerBase(false)
             };
 
             this.browser.Dock = DockStyle.None;
