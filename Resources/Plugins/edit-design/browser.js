@@ -396,6 +396,7 @@ enabled(){
       switch(currentTheme){
         case "black":
           this.css.insert(".app-content, .app-columns-container { background-color: #444448 !important }");
+          this.css.insert(".column-header-temp { background-color: transparent !important }");
           this.css.insert(".column-drag-handle { opacity: 0.5 !important }");
           this.css.insert(".column-drag-handle:hover { opacity: 1 !important }");
           this.css.insert(".scroll-styled-v:not(.scroll-alt)::-webkit-scrollbar-thumb:not(:hover), .scroll-styled-h:not(.scroll-alt)::-webkit-scrollbar-thumb:not(:hover) { background-color: #666 !important }");
@@ -561,7 +562,7 @@ ${iconData.map(entry => `#tduck .icon-${entry[0]}:before{content:\"\\f0${entry[1
     if (this.config.columnWidth[0] === '/'){
       let cols = this.config.columnWidth.slice(1);
       
-      this.css.insert(".column { width: calc((100vw - 205px) / "+cols+" - 6px) !important }");
+      this.css.insert(".column { width: calc((100vw - 205px) / "+cols+" - 6px) !important; min-width: 160px }");
       this.css.insert(".is-condensed .column { width: calc((100vw - 55px) / "+cols+" - 6px) !important }");
     }
     else{

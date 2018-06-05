@@ -295,6 +295,12 @@ a[data-full-url] {
   height: calc(1em + 8px) !important;
 }
 
+.column-header-temp:not(.js-column-header) {
+  /* fix missing column header padding in Edit List dialog */
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 .js-column-options .btn-options-tray {
   /* fix underline on buttons in column options */
   text-decoration: none !important;
