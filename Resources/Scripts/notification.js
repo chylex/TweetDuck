@@ -14,14 +14,14 @@
   };
   
   //
-  // Block: Hook into links to bypass default open function and t.co, and handle skipping notification when opening links.
+  // Block: Hook into links to bypass default open function, and handle skipping notification when opening links.
   //
   (function(){
     const onLinkClick = function(e){
       if (e.button === 0 || e.button === 1){
         let ele = e.currentTarget;
 
-        $TD.openBrowser(ele.hasAttribute("data-full-url") ? ele.getAttribute("data-full-url") : ele.getAttribute("href"));
+        $TD.openBrowser(ele.href);
         e.preventDefault();
 
         if ($TDX.skipOnLinkClick){
@@ -37,13 +37,6 @@
     addEventListener(links, "click", onLinkClick);
     addEventListener(links, "auxclick", onLinkClick);
   })();
-  
-  //
-  // Block: Allow bypassing of t.co in context menus.
-  //
-  addEventListener(links, "contextmenu", function(e){
-    $TD.setLastRightClickInfo("link", e.currentTarget.getAttribute("data-full-url"));
-  });
   
   //
   // Block: Expand shortened links on hover or display tooltip.

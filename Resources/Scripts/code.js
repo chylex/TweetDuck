@@ -197,6 +197,10 @@
           html.find(".js-media").remove();
         }
         
+        html.find("a[data-full-url]").each(function(){ // bypass t.co on all links
+          this.href = this.getAttribute("data-full-url");
+        });
+        
         html.find("a[href='#']").each(function(){ // remove <a> tags around links that don't lead anywhere (such as account names the tweet replied to)
           this.outerHTML = this.innerHTML;
         });
