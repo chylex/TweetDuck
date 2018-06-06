@@ -61,11 +61,23 @@ a[data-full-url] {
 /* Fix general visual issues or annoyances */
 /*******************************************/
 
+html[data-td-font='smallest'] .sprite-verified-mini {
+  /* fix cut off badge in timelines */
+  width: 13px !important;
+  height: 13px !important;
+  background-position: -223px -99px !important;
+}
+
 html[data-td-font='smallest'] .badge-verified:before {
-  /* fix cut off badge icon */
+  /* fix cut off badge in notifications */
   width: 13px !important;
   height: 13px !important;
   background-position: -223px -98px !important;
+}
+
+html[data-td-font='smallest'] .fullname-badged:before, html[data-td-font='small'] .fullname-badged:before {
+  /* fix cut off badge in follow chirps */
+  margin-top: -7px !important;
 }
 
 .account-inline .username {

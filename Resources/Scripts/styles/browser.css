@@ -313,7 +313,7 @@ a[data-full-url] {
 }
 
 html[data-td-font='smallest'] .sprite-verified-mini {
-  /* fix cut off badge when zoomed in */
+  /* fix cut off badge in timelines */
   width: 13px !important;
   height: 13px !important;
   background-position: -223px -99px !important;
@@ -331,6 +331,11 @@ html[data-td-font='smallest'] .tweet-detail-wrapper .badge-verified:before {
   width: 13px !important;
   height: 14px !important;
   background-position: -223px -97px !important;
+}
+
+html[data-td-font='smallest'] .fullname-badged:before, html[data-td-font='small'] .fullname-badged:before {
+  /* fix cut off badge in follow chirps */
+  margin-top: -7px !important;
 }
 
 .keyboard-shortcut-list {
