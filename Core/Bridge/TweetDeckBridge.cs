@@ -64,6 +64,10 @@ namespace TweetDuck.Core.Bridge{
                 });
             }
 
+            public void SetRightClickedLink(string type, string url){
+                ContextInfo.SetLink(type, url);
+            }
+
             public void SetRightClickedChirp(string tweetUrl, string quoteUrl, string chirpAuthors, string chirpImages){
                 ContextInfo.SetChirp(tweetUrl, quoteUrl, chirpAuthors, chirpImages);
             }
@@ -98,10 +102,6 @@ namespace TweetDuck.Core.Bridge{
         }
 
         // Global
-
-        public void SetLastRightClickInfo(string type, string url){
-            ContextInfo.SetLink(type, url);
-        }
 
         public void OnTweetPopup(string columnId, string chirpId, string columnName, string tweetHtml, int tweetCharacters, string tweetUrl, string quoteUrl){
             notification.InvokeAsyncSafe(() => {

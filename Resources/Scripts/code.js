@@ -562,17 +562,17 @@
       let media = tweet.getMedia().find(media => media.mediaId === me.getAttribute("data-media-entity-id"));
       
       if ((media.isVideo && media.service === "twitter") || media.isAnimatedGif){
-        $TD.setLastRightClickInfo("video", media.chooseVideoVariant().url);
+        $TD.setRightClickedLink("video", media.chooseVideoVariant().url);
       }
       else{
-        $TD.setLastRightClickInfo("image", media.large());
+        $TD.setRightClickedLink("image", media.large());
       }
     }
     else if (me.classList.contains("js-gif-play")){
-      $TD.setLastRightClickInfo("video", $(this).closest(".js-media-gif-container").find("video").attr("src"));
+      $TD.setRightClickedLink("video", $(this).closest(".js-media-gif-container").find("video").attr("src"));
     }
     else{
-      $TD.setLastRightClickInfo("link", me.getAttribute("data-full-url"));
+      $TD.setRightClickedLink("link", me.getAttribute("data-full-url"));
     }
   });
   
