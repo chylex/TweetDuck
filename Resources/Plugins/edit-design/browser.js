@@ -399,6 +399,7 @@ enabled(){
           this.css.insert(".column-header-temp { background-color: transparent !important }");
           this.css.insert(".column-drag-handle { opacity: 0.5 !important }");
           this.css.insert(".column-drag-handle:hover { opacity: 1 !important }");
+          this.css.insert(".column-message.is-actionable span:hover > .icon-small-valigned { filter: saturate(20) }");
           this.css.insert(".scroll-styled-v:not(.scroll-alt)::-webkit-scrollbar-thumb:not(:hover), .scroll-styled-h:not(.scroll-alt)::-webkit-scrollbar-thumb:not(:hover) { background-color: #666 !important }");
           notificationScrollbarColor = "666";
           break;
