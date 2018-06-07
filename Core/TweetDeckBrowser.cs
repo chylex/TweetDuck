@@ -40,14 +40,16 @@ namespace TweetDuck.Core{
         private string prevSoundNotificationPath = null;
 
         public TweetDeckBrowser(FormBrowser owner, TweetDeckBridge bridge){
+            RequestHandlerBrowser requestHandler = new RequestHandlerBrowser();
+
             this.browser = new ChromiumWebBrowser(TwitterUtils.TweetDeckURL){
                 DialogHandler = new FileDialogHandler(),
-                DragHandler = new DragHandlerBrowser(),
+                DragHandler = new DragHandlerBrowser(requestHandler),
                 MenuHandler = new ContextMenuBrowser(owner),
                 JsDialogHandler = new JavaScriptDialogHandler(),
                 KeyboardHandler = new KeyboardHandlerBrowser(owner),
                 LifeSpanHandler = new LifeSpanHandler(),
-                RequestHandler = new RequestHandlerBrowser()
+                RequestHandler = requestHandler
             };
 
             this.browser.LoadingStateChanged += browser_LoadingStateChanged;

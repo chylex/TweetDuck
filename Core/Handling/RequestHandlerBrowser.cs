@@ -3,6 +3,8 @@ using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Handling{
     sealed class RequestHandlerBrowser : RequestHandlerBase{
+        public string BlockNextUserNavUrl { get; set; }
+
         public RequestHandlerBrowser() : base(true){}
 
         public override CefReturnValue OnBeforeResourceLoad(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IRequestCallback callback){
@@ -12,6 +14,16 @@ namespace TweetDuck.Core.Handling{
             }
 
             return base.OnBeforeResourceLoad(browserControl, browser, frame, request, callback);
+        }
+
+        public override bool OnBeforeBrowse(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, bool userGesture, bool isRedirect){
+            if (userGesture && request.TransitionType == TransitionType.LinkClicked){
+                bool block = request.Url == BlockNextUserNavUrl;
+                BlockNextUserNavUrl = string.Empty;
+                return block;
+            }
+
+            return base.OnBeforeBrowse(browserControl, browser, frame, request, userGesture, isRedirect);
         }
 
         public override bool OnResourceResponse(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IResponse response){
