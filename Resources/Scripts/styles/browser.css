@@ -261,7 +261,7 @@ a[data-full-url] {
   display: flex !important;
 }
 
-.overlay {
+#tduck .overlay {
   display: flex;
 }
 
