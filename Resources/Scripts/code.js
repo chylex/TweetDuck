@@ -145,6 +145,19 @@
       return false;
     };
     
+    let isSensitive = (tweet) => {
+      let main = tweet.getMainTweet && tweet.getMainTweet();
+      return true if main && main.possiblySensitive; // TODO these don't show media badges when hiding sensitive media
+      
+      let related = tweet.getRelatedTweet && tweet.getRelatedTweet();
+      return true if related && related.possiblySensitive;
+      
+      let quoted = tweet.quotedTweet;
+      return true if quoted && quoted.possiblySensitive;
+      
+      return false;
+    };
+    
     let fixMedia = (html, media) => {
       return html.find("a[data-media-entity-id='"+media.mediaId+"'], .media-item").first().removeClass("is-zoomable").css("background-image", 'url("'+media.small()+'")');
     };
@@ -160,7 +173,7 @@
       startRecentTweetTimer();
       
       if (column.model.getHasNotification()){
-        let sensitive = (tweet.getRelatedTweet() && tweet.getRelatedTweet().possiblySensitive || (tweet.quotedTweet && tweet.quotedTweet.possiblySensitive));
+        let sensitive = isSensitive(tweet);
         let previews = $TDX.notificationMediaPreviews && (!sensitive || TD.settings.getDisplaySensitiveMedia());
         
         let html = $(tweet.render({
