@@ -84,14 +84,20 @@ namespace TweetDuck.Plugins{
 
             try{
                 string folderPathName = new DirectoryInfo(rootFolder).FullName;
-                DirectoryInfo currentInfo = new DirectoryInfo(fullPath);
+                DirectoryInfo currentInfo = new DirectoryInfo(fullPath); // initially points to the file, which is convenient for the Attributes check below
+                DirectoryInfo parentInfo = currentInfo.Parent;
 
-                while(currentInfo.Parent != null){
-                    if (currentInfo.Parent.FullName == folderPathName){
+                while(parentInfo != null){
+                    if (currentInfo.Attributes.HasFlag(FileAttributes.ReparsePoint)){ // no reason why a plugin should have files/folders with symlinks, junctions, or any other crap
+                        return string.Empty;
+                    }
+
+                    if (parentInfo.FullName == folderPathName){
                         return fullPath;
                     }
-                    
-                    currentInfo = currentInfo.Parent;
+
+                    currentInfo = parentInfo;
+                    parentInfo = currentInfo.Parent;
                 }
             }
             catch{
