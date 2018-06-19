@@ -88,8 +88,8 @@ namespace TweetDuck.Plugins{
                 DirectoryInfo parentInfo = currentInfo.Parent;
 
                 while(parentInfo != null){
-                    if (currentInfo.Attributes.HasFlag(FileAttributes.ReparsePoint)){ // no reason why a plugin should have files/folders with symlinks, junctions, or any other crap
-                        return string.Empty;
+                    if (currentInfo.Exists && currentInfo.Attributes.HasFlag(FileAttributes.ReparsePoint)){
+                        return string.Empty; // no reason why a plugin should have files/folders with symlinks, junctions, or any other crap
                     }
 
                     if (parentInfo.FullName == folderPathName){
