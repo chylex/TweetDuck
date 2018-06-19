@@ -196,6 +196,7 @@ namespace TweetDuck.Core.Handling{
                 case MenuReadApplyROT13:
                     string selection = parameters.SelectionText;
                     control.InvokeAsyncSafe(() => FormMessage.Information("ROT13", StringUtils.ConvertRot13(selection), FormMessage.OK));
+                    control.InvokeAsyncSafe(analytics.AnalyticsFile.UsedROT13.Trigger);
                     return true;
 
                 case MenuSearchInBrowser:
