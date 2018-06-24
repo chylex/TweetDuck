@@ -9,8 +9,9 @@
 The program was built using Visual Studio 2017. Before opening the solution, please make sure you have the following workloads and components installed (optional components that are not listed can be deselected to save space):
 * **.NET desktop development**
   * .NET Framework 4 – 4.6 development tools
+  * F# desktop language support
 * **Desktop development with C++**
-  * VC++ 2017 v141 toolset
+  * VC++ 2017 latest v141 tools
 
 After opening the solution, right-click the solution and select **Restore NuGet Packages**, or manually run this command in the **Package Manager Console**:
 ```
