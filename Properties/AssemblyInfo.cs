@@ -42,5 +42,6 @@ using TweetDuck;
 [assembly: CLSCompliant(true)]
 
 #if DEBUG
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("TweetTest.Unit")]
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("UnitTests")]
 #endif
