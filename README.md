@@ -28,7 +28,7 @@ While debugging, opening the main menu and clicking **Reload browser** automatic
 
 ### Release
 
-Open **Batch Build**, tick all `Release` configurations with `x86` platform except for the `UnitTest` project, and click **Rebuild**. Check the status bar to make sure it says **Rebuild All succeeded**; if not, see the [Troubleshooting](#troubleshooting) section.
+Open **Batch Build**, tick all `Release` configurations with `x86` platform, and click **Rebuild**. Check the status bar to make sure it says **Rebuild All succeeded**; if not, see the [Troubleshooting](#troubleshooting) section.
 
 After the build succeeds, the `bin/x86/Release` folder will contain files intended for distribution (no debug symbols or other unnecessary files). You may package these files yourself, or see the [Installers](#installers) section for automated installer generation.
 
