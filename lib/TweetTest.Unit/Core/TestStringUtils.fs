@@ -75,4 +75,44 @@ module ConvertPascalCaseToScreamingSnakeCase =
         Assert.Equal("I_LIKE_HTML_AND_CSS", StringUtils.ConvertPascalCaseToScreamingSnakeCase("ILikeHTMLAndCSS"))
 
 
-// TODO add new tests
+module ConvertRot13 =
+        
+    [<Fact>]
+    let ``ignores digits and special characters`` () =
+        Assert.Equal("<123'456.789>", StringUtils.ConvertRot13("<123'456.789>"))
+
+    [<Fact>]
+    let ``converts lowercase letters correctly`` () =
+        Assert.Equal("nopqrstuvwxyzabcdefghijklm", StringUtils.ConvertRot13("abcdefghijklmnopqrstuvwxyz"))
+        
+    [<Fact>]
+    let ``converts uppercase letters correctly`` () =
+        Assert.Equal("NOPQRSTUVWXYZABCDEFGHIJKLM", StringUtils.ConvertRot13("ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
+        
+    [<Fact>]
+    let ``converts mixed character types correctly`` () =
+        Assert.Equal("Uryyb, jbeyq! :)", StringUtils.ConvertRot13("Hello, world! :)"))
+
+
+module CountOccurrences =
+    open System
+
+    [<Fact>]
+    let ``empty input string returns zero`` () =
+        Assert.Equal(0, StringUtils.CountOccurrences("", "a"))
+
+    [<Fact>]
+    let ``empty searched string throws`` () =
+        Assert.Throws<ArgumentOutOfRangeException>(fun () -> StringUtils.CountOccurrences("hello", "") |> ignore)
+
+    [<Fact>]
+    let ``counts single letter characters correctly`` () =
+        Assert.Equal(3, StringUtils.CountOccurrences("hello world", "l"))
+
+    [<Fact>]
+    let ``counts longer substrings correctly`` () =
+        Assert.Equal(2, StringUtils.CountOccurrences("hello and welcome in hell", "hell"))
+
+    [<Fact>]
+    let ``does not count overlapping substrings`` () =
+        Assert.Equal(2, StringUtils.CountOccurrences("aaaaa", "aa"))

@@ -28,10 +28,14 @@ namespace TweetDuck.Core.Utils{
         }
 
         public static int CountOccurrences(string source, string substring){
-            int count = 0, index = 0;
+            if (substring.Length == 0){
+                throw new ArgumentOutOfRangeException(nameof(substring), "Searched substring must not be empty.");
+            }
+
+            int count = 0, index = 0, length = substring.Length;
 
             while((index = source.IndexOf(substring, index)) != -1){
-                index += substring.Length;
+                index += length;
                 ++count;
             }
 

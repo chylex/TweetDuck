@@ -97,4 +97,16 @@ module GetMediaLink_Orig =
         Assert.Equal(domain+"/profile_images/123.jpg:orig", getMediaLinkOrig(domain+"/profile_images/123.jpg:small"))
 
 
-// TODO add new tests
+module GetImageFileName =
+
+    [<Fact>]
+    let ``extracts file name from URL w/o quality suffix`` () =
+        Assert.Equal("test.jpg", TwitterUtils.GetImageFileName("http://example.com/test.jpg"))
+        
+    [<Fact>]
+    let ``extracts file name from URL with quality suffix`` () =
+        Assert.Equal("test.jpg", TwitterUtils.GetImageFileName("http://example.com/test.jpg:orig"))
+
+    [<Fact>]
+    let ``extracts file name from URL with a port`` () =
+        Assert.Equal("test.jpg", TwitterUtils.GetImageFileName("http://example.com:80/test.jpg"))
