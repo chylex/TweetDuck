@@ -185,7 +185,8 @@
           isMediaPreviewLarge: false,
           isMediaPreviewCompact: false,
           isMediaPreviewInQuoted: previews,
-          thumbSizeClass: "media-size-medium"
+          thumbSizeClass: "media-size-medium",
+          mediaPreviewSize: "medium"
         }));
         
         html.find("footer").last().remove(); // apparently withTweetActions breaks for certain tweets, nice
