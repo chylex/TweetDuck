@@ -47,7 +47,7 @@ namespace TweetDuck.Core.Notification.Screenshot{
             string html = tweet.GenerateHtml("td-screenshot");
 
             foreach(InjectedHTML injection in plugins.NotificationInjections){
-                html = injection.Inject(html);
+                html = injection.InjectInto(html);
             }
 
             return html;

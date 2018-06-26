@@ -263,7 +263,7 @@ namespace TweetDuck.Core.Notification{
             string html = base.GetTweetHTML(tweet);
 
             foreach(InjectedHTML injection in plugins.NotificationInjections){
-                html = injection.Inject(html);
+                html = injection.InjectInto(html);
             }
 
             return html;

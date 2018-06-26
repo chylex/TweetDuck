@@ -16,7 +16,7 @@ namespace TweetDuck.Data{
             this.html = html;
         }
 
-        public string Inject(string targetHTML){
+        public string InjectInto(string targetHTML){
             int index = targetHTML.IndexOf(search, StringComparison.Ordinal);
 
             if (index == -1){

@@ -65,6 +65,7 @@
     <Compile Include="Core\TestBrowserUtils.fs" />
     <Compile Include="Core\TestStringUtils.fs" />
     <Compile Include="Core\TestTwitterUtils.fs" />
+    <Compile Include="Data\TestInjectedHTML.fs" />
     <Compile Include="Data\TestResult.fs" />
   </ItemGroup>
   <ItemGroup>
