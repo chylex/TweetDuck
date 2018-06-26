@@ -9,14 +9,13 @@ $ErrorActionPreference = "Stop"
 
 try{
   $sw = [Diagnostics.Stopwatch]::StartNew()
-  Write-Host "--------------------------"
   
   if ($version.Equals("")){
     $version = (Get-Item (Join-Path $targetDir "TweetDuck.exe")).VersionInfo.FileVersion
   }
   
+  Write-Host "--------------------------"
   Write-Host "TweetDuck version" $version
-  
   Write-Host "--------------------------"
   
   # Cleanup
@@ -62,7 +61,7 @@ try{
     }
     
     if ((Get-Content -Path $file -Raw).Contains("`r")){
-      Throw "$file cannot contain carriage return"
+      Throw "$file must not have any carriage return characters"
     }
     
     Write-Host "Verified" $file.Substring($targetDir.Length)
@@ -116,10 +115,13 @@ try{
     Rewrite-File $file $lines
   }
   
-  Write-Host "------------------"
+  # Finished
+  
   $sw.Stop()
+  Write-Host "------------------"
   Write-Host "Finished in" $([math]::Round($sw.Elapsed.TotalMilliseconds)) "ms"
   Write-Host "------------------"
+  
 }catch{
   Write-Host "Encountered an error while running PostBuild.ps1 on line" $_.InvocationInfo.ScriptLineNumber
   Write-Host $_

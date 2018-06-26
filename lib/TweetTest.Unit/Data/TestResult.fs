@@ -13,11 +13,11 @@ module TestResult_WithValue =
         Assert.True(result.HasValue)
 
     [<Fact>]
-    let ``Accessing Value returns the provided value`` () =
+    let ``accessing Value returns the provided value`` () =
         Assert.Equal(10, result.Value)
 
     [<Fact>]
-    let ``Accessing Exception throws`` () =
+    let ``accessing Exception throws`` () =
         Assert.Throws<InvalidOperationException>(fun () -> result.Exception |> ignore)
 
     [<Fact>]
@@ -39,11 +39,11 @@ module TestResult_WithException =
         Assert.False(result.HasValue)
 
     [<Fact>]
-    let ``Accessing Value throws`` () =
+    let ``accessing Value throws`` () =
         Assert.Throws<InvalidOperationException>(fun () -> result.Value |> ignore)
 
     [<Fact>]
-    let ``Accessing Exception returns the provided exception`` () =
+    let ``accessing Exception returns the provided exception`` () =
         Assert.IsType<IndexOutOfRangeException>(result.Exception)
 
     [<Fact>]
