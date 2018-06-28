@@ -1,11 +1,11 @@
-﻿namespace Unit.Data
+﻿namespace Unit.Data.Result
 
 open Xunit
 open TweetDuck.Data
 open System
 
 
-module TestResult_WithValue =
+module Result_WithValue =
     let result = Result<int>(10)
 
     [<Fact>]
@@ -31,7 +31,7 @@ module TestResult_WithValue =
         Assert.Equal(20, result.Select(fun x -> x * 2).Value)
 
 
-module TestResult_WithException =
+module Result_WithException =
     let result = Result<int>(IndexOutOfRangeException("bad"))
 
     [<Fact>]
