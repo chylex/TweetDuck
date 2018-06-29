@@ -519,19 +519,21 @@
       TD.services.TwitterUser.prototype.fromJSONObject = function(){
         let obj = prevFunc.apply(this, arguments);
         let e = arguments[0].entities;
-
+        
         if (obj.id === accountId){
           obj.name = realDisplayName;
           obj.emojifiedName = realDisplayName;
           obj.profileImageURL = realAvatar;
           obj.url = "https://tweetduck.chylex.com";
           
-          obj.entities.url.urls = [{
-            url: obj.url,
-            expanded_url: obj.url,
-            display_url: "tweetduck.chylex.com",
-            indices: [ 0, 23 ]
-          }];
+          if (obj.entities && obj.entities.url){
+            obj.entities.url.urls = [{
+              url: obj.url,
+              expanded_url: obj.url,
+              display_url: "tweetduck.chylex.com",
+              indices: [ 0, 23 ]
+            }];
+          }
         }
         else if (e && e.url && e.url.urls && e.url.urls.length && e.url.urls[0].expanded_url){
           obj.url = e.url.urls[0].expanded_url;
