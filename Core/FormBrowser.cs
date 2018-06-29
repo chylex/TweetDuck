@@ -393,7 +393,7 @@ namespace TweetDuck.Core{
                 FormSettings form = new FormSettings(this, plugins, updates, analytics, startTab);
 
                 form.FormClosed += (sender, args) => {
-                    if (!prevEnableUpdateCheck && Config.EnableUpdateCheck){
+                    if (!prevEnableUpdateCheck && Config.EnableUpdateCheck && !UpdateHandler.TemporarilyForceUpdateChecking){
                         Config.DismissedUpdate = null;
                         Config.Save();
                         

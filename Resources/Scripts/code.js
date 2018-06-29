@@ -398,6 +398,8 @@
         let menu = $(".js-dropdown-content").children("ul").first();
         return if menu.length === 0;
         
+        menu.find(".update-available-item").parent().remove(); // TODO temp
+        
         let button = $('<li class="is-selectable" data-tweetduck><a href="#" data-action>TweetDuck</a></li>');
         button.insertBefore(menu.children(".drp-h-divider").last());
 
@@ -1520,10 +1522,17 @@
   //
   // Block: Disable default TweetDeck update notification.
   //
-  onAppReady.push(function(){
+  $(document).on("uiSuggestRefreshToggle", function(e){
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+  });
+  
+  /*onAppReady.push(function(){
     let events = $._data(document, "events");
     delete events["uiSuggestRefreshToggle"];
-  });
+    
+    //$(".js-app-settings .icon-settings").removeClass("color-twitter-yellow"); // TODO temp
+  });*/
   
   //
   // Block: Disable TweetDeck metrics.

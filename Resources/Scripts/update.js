@@ -164,7 +164,7 @@
   <div class='tdu-buttons'>
     <button class='tdu-btn-download'>Update now</button>
     <button class='tdu-btn-later'>Remind me later</button>
-    <button class='tdu-btn-ignore'>Ignore this update</button>
+    <!-- TODO <button class='tdu-btn-ignore'>Ignore this update</button>-->
   </div>
 </div>
 `).appendTo(document.body).css("display", existed ? "block" : "none");

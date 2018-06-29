@@ -10,6 +10,8 @@ using Timer = System.Windows.Forms.Timer;
 
 namespace TweetDuck.Updates{
     sealed class UpdateHandler : IDisposable{
+        public const bool TemporarilyForceUpdateChecking = true;
+
         public const int CheckCodeUpdatesDisabled = -1;
         public const int CheckCodeNotOnTweetDeck = -2;
         
@@ -53,7 +55,7 @@ namespace TweetDuck.Updates{
 
             timer.Stop();
 
-            if (Program.UserConfig.EnableUpdateCheck){
+            if (Program.UserConfig.EnableUpdateCheck || TemporarilyForceUpdateChecking){
                 DateTime now = DateTime.Now;
                 TimeSpan nextHour = now.AddSeconds(60*(60-now.Minute)-now.Second)-now;
 
@@ -67,7 +69,7 @@ namespace TweetDuck.Updates{
         }
 
         public int Check(bool force){
-            if (Program.UserConfig.EnableUpdateCheck || force){
+            if (Program.UserConfig.EnableUpdateCheck || TemporarilyForceUpdateChecking || force){
                 if (!browser.IsTweetDeckWebsite){
                     return CheckCodeNotOnTweetDeck;
                 }
