@@ -1,17 +1,18 @@
-(function($, $TDU){
+(function($TDU){
   //
   // Function: Creates the update notification element. Removes the old one if already exists.
   //
   var displayNotification = function(version, changelog){
     
     // styles
-    var css = $("#tweetduck-update-css");
+    let css = document.getElementById("tweetduck-update-css");
     
-    if (!css.length){
-      css = $(`
-<style id='tweetduck-update-css'>
+    if (!css){
+      css = document.createElement("style");
+      css.id = "tweetduck-update-css";
+      css.innerText = `
 #tweetduck-update {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 200px;
   height: 178px;
@@ -20,6 +21,11 @@
   background-color: rgb(32, 94, 138);
   text-align: center;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  transition: transform 400ms cubic-bezier(.02, .01, .47, 1);
+}
+
+#tweetduck-update.hidden-below {
+  transform: translateY(178px);
 }
 
 #tweetduck-update .tdu-title {
@@ -130,86 +136,102 @@
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
   color: #24292e;
   background-color: rgba(27, 31, 35, 0.05);
-}
-</style>
-`).appendTo(document.head);
+}`;
+      
+      document.head.appendChild(css);
     }
     
     // changelog
-    var log = $("#tweetduck-changelog");
+    let log = document.getElementById("tweetduck-changelog");
     
-    if (!log.length){
-      var log = $(`
-<div id='tweetduck-changelog'>
-  <div id='tweetduck-changelog-box'>
-    <h2>TweetDuck Update ${version}</h2>
-    ${markdown(atob(changelog))}
-  </div>
-</div>
-`).appendTo(document.body).css("display", "none");
+    if (!log){
+      log = document.createElement("div");
+      log.id = "tweetduck-changelog";
+      log.style.display = "none";
+      log.innerHTML = `
+<div id='tweetduck-changelog-box'>
+  <h2>TweetDuck Update ${version}</h2>
+  ${markdown(atob(changelog))}
+</div>`;
+      
+      document.body.appendChild(log);
     }
     
     // notification
-    var ele = $("#tweetduck-update");
-    var existed = ele.length > 0;
+    let ele = document.getElementById("tweetduck-update");
+    let existed = !!ele;
     
     if (existed){
       ele.remove();
     }
     
-    ele = $(`
-<div id='tweetduck-update'>
-  <p class='tdu-title'>T&#8202;weetDuck Update ${version}</p>
-  <p class='tdu-info tdu-showlog'>View update information</p>
-  <div class='tdu-buttons'>
-    <button class='tdu-btn-download'>Update now</button>
-    <button class='tdu-btn-later'>Remind me later</button>
-    <!-- TODO <button class='tdu-btn-ignore'>Ignore this update</button>-->
-  </div>
-</div>
-`).appendTo(document.body).css("display", existed ? "block" : "none");
+    ele = document.createElement("div");
+    ele.id = "tweetduck-update";
+    ele.innerHTML = `
+<p class='tdu-title'>T&#8202;weetDuck Update ${version}</p>
+<p class='tdu-info tdu-showlog'>View update information</p>
+<div class='tdu-buttons'>
+  <button class='tdu-btn-download'>Update now</button>
+  <button class='tdu-btn-later'>Remind me later</button>
+  <button class='tdu-btn-ignore'>Ignore this update</button>
+</div>`;
     
-    // ui logic
-    var hide = function(){
+    if (!existed){
+      ele.classList.add("hidden-below");
+    }
+    
+    document.body.appendChild(ele);
+    
+    // ui functions
+    const exitNow = function(){
       ele.remove();
       log.remove();
       css.remove();
     };
     
-    var slide = function(){
-      log.hide();
-      ele.slideUp(hide);
+    const exitSlide = function(){
+      log.style.display = "none";
+      
+      ele.classList.add("hidden-below");
+      setTimeout(exitNow, 400);
     };
     
-    ele.children(".tdu-showlog").click(function(){
-      log.toggle();
+    const onClick = function(element, callback){
+      element.addEventListener("click", callback);
+    };
+    
+    // ui listeners
+    onClick(ele.querySelector(".tdu-showlog"), function(){
+      log.style.display = window.getComputedStyle(log).display === "none" ? "block" : "none";
     });
     
-    log.click(function(){
-      log.hide();
-    }).children().first().click(function(e){
+    onClick(log, function(){
+      log.style.display = "none";
+    });
+    
+    onClick(log.children[0], function(e){
       e.stopPropagation();
     });
     
-    var buttonDiv = ele.children(".tdu-buttons").first();
-
-    buttonDiv.children(".tdu-btn-download").click(function(){
-      hide();
+    onClick(ele.querySelector(".tdu-btn-download"), function(){
+      exitNow();
       $TDU.onUpdateAccepted();
     });
     
-    buttonDiv.children(".tdu-btn-later").click(function(){
+    onClick(ele.querySelector(".tdu-btn-later"), function(){
       $TDU.onUpdateDelayed();
-      slide();
-    });
-
-    buttonDiv.children(".tdu-btn-ignore").click(function(){
-      $TDU.onUpdateDismissed();
-      slide();
+      exitSlide();
     });
     
+    onClick(ele.querySelector(".tdu-btn-ignore"), function(){
+      $TDU.onUpdateDismissed();
+      exitSlide();
+    });
+    
+    // finalize notification
     if (!existed){
-      ele.slideDown();
+      ele.getBoundingClientRect(); // reflow
+      ele.classList.remove("hidden-below");
     }
     
     return ele;
@@ -218,7 +240,7 @@
   //
   // Function: Ghetto-converts markdown to HTML.
   //
-  var markdown = function(md){
+  const markdown = function(md){
     return md.replace(/&/g, "&amp;")
              .replace(/</g, "&lt;")
              .replace(/>/g, "&gt;")
@@ -237,12 +259,17 @@
   //
   // Block: Check updates on startup.
   //
-  $(document).one("TD.ready", function(){
+  if ("$" in window && typeof $._data === "function" && "TD" in $._data(document, "events")){
+    $(document).one("TD.ready", function(){
+      $TDU.triggerUpdateCheck();
+    });
+  }
+  else{
     $TDU.triggerUpdateCheck();
-  });
+  }
   
   //
   // Block: Setup global functions.
   //
   window.TDUF_displayNotification = displayNotification;
-})($, $TDU);
+})($TDU);
