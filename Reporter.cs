@@ -46,8 +46,9 @@ namespace TweetDuck{
 
         public void HandleException(string caption, string message, bool canIgnore, Exception e){
             bool loggedSuccessfully = Log(e.ToString());
-
-            FormMessage form = new FormMessage(caption, message+"\nError: "+e.Message, canIgnore ? MessageBoxIcon.Warning : MessageBoxIcon.Error);
+            
+            string exceptionText = e is ExpandedLogException ? e.Message+"\n\nDetails with potentially sensitive information are in the Error Log." : e.Message;
+            FormMessage form = new FormMessage(caption, message+"\nError: "+exceptionText, canIgnore ? MessageBoxIcon.Warning : MessageBoxIcon.Error);
             
             Button btnExit = form.AddButton(FormMessage.Exit);
             Button btnIgnore = form.AddButton(FormMessage.Ignore, DialogResult.Ignore, ControlType.Cancel);
@@ -94,6 +95,16 @@ namespace TweetDuck{
             }catch{
                 Environment.FailFast(message, new Exception(message));
             }
+        }
+
+        public sealed class ExpandedLogException : Exception{
+            private readonly string details;
+
+            public ExpandedLogException(Exception source, string details) : base(source.Message, source){
+                this.details = details;
+            }
+
+            public override string ToString() => base.ToString()+"\r\n"+details;
         }
     }
 }
