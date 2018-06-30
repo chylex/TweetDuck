@@ -1,11 +1,17 @@
-﻿using System.Text.RegularExpressions;
+﻿// Uncomment to force TweetDeck to load a predefined version of the vendor/bundle scripts
+#define FREEZE_TWEETDECK_SCRIPTS // TODO delaying the apocalypse
+
+using System.Text.RegularExpressions;
 using CefSharp;
 using TweetDuck.Core.Utils;
 
+#if FREEZE_TWEETDECK_SCRIPTS
+using System.Collections.Generic;
+using System.Diagnostics;
+#endif
+
 namespace TweetDuck.Core.Handling{
     sealed class RequestHandlerBrowser : RequestHandlerBase{
-        private static readonly Regex TmpResourceRedirect = new Regex(@"dist\/(.*?)\.(.*?)\.js$", RegexOptions.Compiled);
-
         public string BlockNextUserNavUrl { get; set; }
 
         public RequestHandlerBrowser() : base(true){}
@@ -29,35 +35,36 @@ namespace TweetDuck.Core.Handling{
             return base.OnBeforeBrowse(browserControl, browser, frame, request, userGesture, isRedirect);
         }
 
+        #if FREEZE_TWEETDECK_SCRIPTS
+        private static readonly Regex TweetDeckScriptUrl = new Regex(@"dist\/(.*?)\.(.*?)\.js$", RegexOptions.Compiled);
+        
+        private static readonly SortedList<string, string> TweetDeckHashes = new SortedList<string, string>(2){
+            { "vendor", "942c0a20e8" },
+            { "bundle", "1bd75b5854" }
+        };
+        #endif
+
         public override bool OnResourceResponse(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IResponse response){
             if (request.ResourceType == ResourceType.Image && request.Url.Contains("backgrounds/spinner_blue")){
                 request.Url = TwitterUtils.LoadingSpinner.Url;
                 return true;
             }
-            else if (request.ResourceType == ResourceType.Script){ // TODO delaying the apocalypse
-                Match match = TmpResourceRedirect.Match(request.Url);
+            #if FREEZE_TWEETDECK_SCRIPTS
+            else if (request.ResourceType == ResourceType.Script){
+                Match match = TweetDeckScriptUrl.Match(request.Url);
 
-                if (match.Success){
-                    string scriptType = match.Groups[1].Value;
-                    string scriptHash = match.Groups[2].Value;
-
-                    const string HashBundle = "1bd75b5854";
-                    const string HashVendor = "942c0a20e8";
-
-                    if (scriptType == "bundle" && scriptHash != HashBundle){
-                        request.Url = TmpResourceRedirect.Replace(request.Url, "dist/$1."+HashBundle+".js");
-                        System.Diagnostics.Debug.WriteLine("rewriting "+scriptType+" to "+request.Url);
+                if (match.Success && TweetDeckHashes.TryGetValue(match.Groups[1].Value, out string hash)){
+                    if (match.Groups[2].Value == hash){
+                        Debug.WriteLine($"accepting {request.Url}");
+                    }
+                    else{
+                        Debug.WriteLine($"rewriting {request.Url} to {hash}");
+                        request.Url = TweetDeckScriptUrl.Replace(request.Url, "dist/$1."+hash+".js");
                         return true;
                     }
-                    else if (scriptType == "vendor" && scriptHash != HashVendor){
-                        request.Url = TmpResourceRedirect.Replace(request.Url, "dist/$1."+HashVendor+".js");
-                        System.Diagnostics.Debug.WriteLine("rewriting "+scriptType+" to "+request.Url);
-                        return true;
-                    }
-
-                    System.Diagnostics.Debug.WriteLine("accepting "+scriptType+" as "+request.Url);
                 }
             }
+            #endif
 
             return base.OnResourceResponse(browserControl, browser, frame, request, response);
         }
