@@ -83,9 +83,29 @@ namespace TweetDuck.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
+        internal static System.Drawing.Icon icon_muted {
+            get {
+                object obj = ResourceManager.GetObject("icon_muted", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
         internal static System.Drawing.Icon icon_tray {
             get {
                 object obj = ResourceManager.GetObject("icon_tray", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon icon_tray_muted {
+            get {
+                object obj = ResourceManager.GetObject("icon_tray_muted", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
             }
         }

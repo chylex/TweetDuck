@@ -1,12 +1,16 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+using TweetDuck.Configuration;
+using Res = TweetDuck.Properties.Resources;
 
 namespace TweetDuck.Core.Other{
     sealed partial class TrayIcon : Component{
         public enum Behavior{ // keep order
             Disabled, DisplayOnly, MinimizeToTray, CloseToTray, Combined
         }
+
+        private static UserConfig Config => Program.UserConfig;
 
         public event EventHandler ClickRestore;
         public event EventHandler ClickClose;
@@ -17,12 +21,9 @@ namespace TweetDuck.Core.Other{
             }
 
             set{
-                if (value){
-                    notifyIcon.Icon = Properties.Resources.icon_tray;
-                }
-                
                 notifyIcon.Visible = value;
                 hasNotifications = false;
+                UpdateIcon();
             }
         }
 
@@ -32,9 +33,9 @@ namespace TweetDuck.Core.Other{
             }
 
             set{
-                if (hasNotifications != value && Visible){
-                    notifyIcon.Icon = value ? Properties.Resources.icon_tray_new : Properties.Resources.icon_tray;
+                if (hasNotifications != value){
                     hasNotifications = value;
+                    UpdateIcon();
                 }
             }
         }
@@ -53,13 +54,25 @@ namespace TweetDuck.Core.Other{
                 
             this.notifyIcon.ContextMenu = contextMenu;
             this.notifyIcon.Text = Program.BrandName;
+
+            Config.MuteToggled += Config_MuteToggled;
         }
 
         public TrayIcon(IContainer container) : this(){
             container.Add(this);
         }
 
+        private void UpdateIcon(){
+            if (Visible){
+                notifyIcon.Icon = hasNotifications ? Res.icon_tray_new : Config.MuteNotifications ? Res.icon_tray_muted : Res.icon_tray;
+            }
+        }
+
         // event handlers
+
+        private void Config_MuteToggled(object sender, EventArgs e){
+            UpdateIcon();
+        }
 
         private void trayIcon_MouseClick(object sender, MouseEventArgs e){
             if (e.Button == MouseButtons.Left){
@@ -68,7 +81,7 @@ namespace TweetDuck.Core.Other{
         }
 
         private void contextMenu_Popup(object sender, EventArgs e){
-            contextMenu.MenuItems[1].Checked = Program.UserConfig.MuteNotifications;
+            contextMenu.MenuItems[1].Checked = Config.MuteNotifications;
         }
 
         private void menuItemRestore_Click(object sender, EventArgs e){
@@ -76,8 +89,8 @@ namespace TweetDuck.Core.Other{
         }
 
         private void menuItemMuteNotifications_Click(object sender, EventArgs e){
-            Program.UserConfig.MuteNotifications = !contextMenu.MenuItems[1].Checked;
-            Program.UserConfig.Save();
+            Config.MuteNotifications = !contextMenu.MenuItems[1].Checked;
+            Config.Save();
         }
 
         private void menuItemClose_Click(object sender, EventArgs e){

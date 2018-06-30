@@ -95,7 +95,11 @@ namespace TweetDuck.Core{
             this.trayIcon.ClickClose += trayIcon_ClickClose;
             Config.TrayBehaviorChanged += Config_TrayBehaviorChanged;
 
-            UpdateTrayIcon();
+            UpdateTray();
+
+            if (Config.MuteNotifications){
+                UpdateFormIcon();
+            }
 
             this.updates = new UpdateHandler(browser, Program.InstallerPath);
             this.updates.CheckFinished += updates_CheckFinished;
@@ -127,7 +131,11 @@ namespace TweetDuck.Core{
             isLoaded = true;
         }
 
-        private void UpdateTrayIcon(){
+        private void UpdateFormIcon(){ // TODO fix to show icon in taskbar too
+            Icon = Config.MuteNotifications ? Properties.Resources.icon_muted : Properties.Resources.icon;
+        }
+
+        private void UpdateTray(){
             trayIcon.Visible = Config.TrayBehavior.ShouldDisplayIcon();
         }
 
@@ -202,18 +210,19 @@ namespace TweetDuck.Core{
         }
 
         private void Config_MuteToggled(object sender, EventArgs e){
+            UpdateFormIcon();
             AnalyticsFile.NotificationMutes.Trigger();
         }
 
         private void Config_TrayBehaviorChanged(object sender, EventArgs e){
-            UpdateTrayIcon();
+            UpdateTray();
         }
 
         private void trayIcon_ClickRestore(object sender, EventArgs e){
             Show();
             RestoreWindow();
             Activate();
-            UpdateTrayIcon();
+            UpdateTray();
         }
 
         private void trayIcon_ClickClose(object sender, EventArgs e){
