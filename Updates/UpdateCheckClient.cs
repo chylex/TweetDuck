@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using TweetDuck.Core.Utils;
@@ -28,7 +30,7 @@ namespace TweetDuck.Updates{
                     result.SetCanceled();
                 }
                 else if (task.IsFaulted){
-                    result.SetException(task.Exception.InnerException);
+                    result.SetException(ExpandWebException(task.Exception.InnerException));
                 }
                 else{
                     try{
@@ -58,6 +60,21 @@ namespace TweetDuck.Updates{
             string downloadUrl = ((Array)root["assets"]).Cast<JsonObject>().Where(IsUpdaterAsset).Select(AssetDownloadUrl).FirstOrDefault();
 
             return new UpdateInfo(versionTag, releaseNotes, downloadUrl, installerFolder);
+        }
+
+        private static Exception ExpandWebException(Exception e){
+            if (e is WebException we && we.Response is HttpWebResponse response){
+                try{
+                    using(Stream stream = response.GetResponseStream())
+                    using(StreamReader reader = new StreamReader(stream, Encoding.GetEncoding(response.CharacterSet ?? "utf-8"))){
+                        return new Reporter.ExpandedLogException(e, reader.ReadToEnd());
+                    }
+                }catch{
+                    // whatever
+                }
+            }
+
+            return e;
         }
     }
 }
