@@ -37,7 +37,7 @@ namespace TweetDuck.Core.Handling{
         }
 
         #if FREEZE_TWEETDECK_SCRIPTS
-        private static readonly Regex TweetDeckScriptUrl = new Regex(@"dist\/(.*?)\.(.*?)\.js$", RegexOptions.Compiled);
+        private static readonly Regex TweetDeckScriptUrl = new Regex(@"/dist/(.*?)\.(.*?)\.js$", RegexOptions.Compiled);
         
         private static readonly SortedList<string, string> TweetDeckHashes = new SortedList<string, string>(2){
             { "vendor", "942c0a20e8" },
@@ -46,7 +46,7 @@ namespace TweetDuck.Core.Handling{
         #endif
 
         public override bool OnResourceResponse(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IResponse response){
-            if (request.ResourceType == ResourceType.Image && request.Url.Contains("backgrounds/spinner_blue")){
+            if (request.ResourceType == ResourceType.Image && request.Url.Contains("/backgrounds/spinner_blue")){
                 request.Url = TwitterUtils.LoadingSpinner.Url;
                 return true;
             }
@@ -60,7 +60,7 @@ namespace TweetDuck.Core.Handling{
                     }
                     else{
                         System.Diagnostics.Debug.WriteLine($"rewriting {request.Url} to {hash}");
-                        request.Url = TweetDeckScriptUrl.Replace(request.Url, "dist/$1."+hash+".js");
+                        request.Url = TweetDeckScriptUrl.Replace(request.Url, "/dist/$1."+hash+".js");
                         return true;
                     }
                 }
@@ -71,7 +71,7 @@ namespace TweetDuck.Core.Handling{
         }
 
         public override IResponseFilter GetResourceResponseFilter(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IResponse response){
-            if (request.ResourceType == ResourceType.Script && request.Url.Contains("dist/vendor")){
+            if (request.ResourceType == ResourceType.Script && request.Url.Contains("/dist/vendor")){
                 NameValueCollection headers = response.ResponseHeaders;
 
                 if (int.TryParse(headers["x-ton-expected-size"], out int totalBytes)){
