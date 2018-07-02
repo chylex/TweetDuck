@@ -1,13 +1,14 @@
 ﻿// Uncomment to force TweetDeck to load a predefined version of the vendor/bundle scripts
-#define FREEZE_TWEETDECK_SCRIPTS // TODO delaying the apocalypse
+// #define FREEZE_TWEETDECK_SCRIPTS
 
-using System.Text.RegularExpressions;
+using System.Collections.Specialized;
 using CefSharp;
+using TweetDuck.Core.Handling.Filters;
 using TweetDuck.Core.Utils;
 
 #if FREEZE_TWEETDECK_SCRIPTS
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Text.RegularExpressions;
 #endif
 
 namespace TweetDuck.Core.Handling{
@@ -55,10 +56,10 @@ namespace TweetDuck.Core.Handling{
 
                 if (match.Success && TweetDeckHashes.TryGetValue(match.Groups[1].Value, out string hash)){
                     if (match.Groups[2].Value == hash){
-                        Debug.WriteLine($"accepting {request.Url}");
+                        System.Diagnostics.Debug.WriteLine($"accepting {request.Url}");
                     }
                     else{
-                        Debug.WriteLine($"rewriting {request.Url} to {hash}");
+                        System.Diagnostics.Debug.WriteLine($"rewriting {request.Url} to {hash}");
                         request.Url = TweetDeckScriptUrl.Replace(request.Url, "dist/$1."+hash+".js");
                         return true;
                     }
@@ -67,6 +68,29 @@ namespace TweetDuck.Core.Handling{
             #endif
 
             return base.OnResourceResponse(browserControl, browser, frame, request, response);
+        }
+
+        public override IResponseFilter GetResourceResponseFilter(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IResponse response){
+            if (request.ResourceType == ResourceType.Script && request.Url.Contains("dist/vendor")){
+                NameValueCollection headers = response.ResponseHeaders;
+
+                if (int.TryParse(headers["x-ton-expected-size"], out int totalBytes)){
+                    return new ResponseFilterVendor(totalBytes);
+                }
+                #if DEBUG
+                else{
+                    System.Diagnostics.Debug.WriteLine($"Missing uncompressed size header in {request.Url}");
+
+                    foreach(string key in headers){
+                        System.Diagnostics.Debug.WriteLine($" {key}: {headers[key]}");
+                    }
+
+                    System.Diagnostics.Debugger.Break();
+                }
+                #endif
+            }
+
+            return base.GetResourceResponseFilter(browserControl, browser, frame, request, response);
         }
     }
 }

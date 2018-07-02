@@ -73,6 +73,7 @@
     <Compile Include="Core\Handling\ContextMenuGuide.cs" />
     <Compile Include="Core\Handling\DragHandlerBrowser.cs" />
     <Compile Include="Core\Handling\Filters\ResponseFilterBase.cs" />
+    <Compile Include="Core\Handling\Filters\ResponseFilterVendor.cs" />
     <Compile Include="Core\Handling\General\BrowserProcessHandler.cs" />
     <Compile Include="Core\Handling\ContextMenuBase.cs" />
     <Compile Include="Core\Handling\ContextMenuBrowser.cs" />
