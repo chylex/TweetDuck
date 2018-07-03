@@ -67,6 +67,7 @@
     <Compile Include="Core\TestTwitterUtils.fs" />
     <Compile Include="Data\TestInjectedHTML.fs" />
     <Compile Include="Data\TestResult.fs" />
+    <Compile Include="Data\TestTwoKeyDictionary.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.CodeCoverage.Shim">
