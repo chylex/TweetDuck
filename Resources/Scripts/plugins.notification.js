@@ -15,4 +15,4 @@ window.TD_PLUGINS = {
   }
 };
 
-#import components/plugins.base.js
+#import "scripts/plugins.base.js"

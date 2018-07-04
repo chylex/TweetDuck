@@ -123,5 +123,5 @@
   window.TDPF_prioritizeNewestEvent = window.TDGF_prioritizeNewestEvent;
   window.TDPF_injectMustache = window.TDGF_injectMustache;
   
-  #import components/plugins.base.js
+  #import "scripts/plugins.base.js"
 })();

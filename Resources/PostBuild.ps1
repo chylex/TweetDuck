@@ -129,17 +129,13 @@ try{
   
   # Imports
   
-  $delete = New-Object "System.Collections.Generic.HashSet[string]"
+  $importFolder = Join-Path $targetDir "scripts\imports"
   
   foreach($path in $imports){
     $text = [IO.File]::ReadAllText($path)
-    $text = [Regex]::Replace($text, '#import (.*)$', {
-      $importPath = $args[0].Groups[1].Value.Trim()
-      $importPath = Join-Path ([IO.Path]::GetDirectoryName($path)) $importPath
-      
-      $delete.Add($importPath) | Out-Null # this is so fucking stupid
-      
-      $importStr = [IO.File]::ReadAllText($importPath)
+    $text = [Regex]::Replace($text, '#import "(.*)"', {
+      $importPath = Join-Path $importFolder ($args[0].Groups[1].Value.Trim())
+      $importStr = [IO.File]::ReadAllText($importPath).TrimEnd()
       
       if ($importStr[0] -eq '#'){
         $importStr = $importStr.Substring($importStr.IndexOf("`n") + 1)
@@ -152,12 +148,7 @@ try{
     Write-Host "Resolved" $path.Substring($targetDir.Length)
   }
   
-  foreach($path in $delete){
-    Remove-Item -Path $path
-    Write-Host "Deleted" $path.Substring($targetDir.Length)
-  }
-  
-  Remove-Item -Path (Join-Path $targetDir "scripts\components")
+  [IO.Directory]::Delete($importFolder, $True)
   
   # Finished
   
