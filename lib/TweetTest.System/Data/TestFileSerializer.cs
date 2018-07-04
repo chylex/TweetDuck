@@ -3,9 +3,9 @@ using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TweetDuck.Data.Serialization;
 
-namespace UnitTests.Data{
+namespace TweetTest.Data{
     [TestClass]
-    public class TestFileSerializer : UnitTestIO{
+    public class TestFileSerializer : TestIO{
         private enum TestEnum{
             A, B, C, D, E
         }

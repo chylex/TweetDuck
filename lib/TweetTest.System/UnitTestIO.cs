@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace UnitTests{
+namespace TweetTest{
     [TestClass]
-    public class UnitTestIO{
+    public class TestIO{
         private static readonly HashSet<string> CreatedFolders = new HashSet<string>();
 
         [TestInitialize]

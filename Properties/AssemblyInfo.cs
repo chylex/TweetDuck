@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
@@ -42,6 +42,6 @@ using TweetDuck;
 [assembly: CLSCompliant(true)]
 
 #if DEBUG
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("TweetTest.System")]
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("TweetTest.Unit")]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("UnitTests")]
 #endif

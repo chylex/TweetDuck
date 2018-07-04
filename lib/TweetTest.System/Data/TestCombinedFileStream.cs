@@ -4,9 +4,9 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TweetDuck.Data;
 
-namespace UnitTests.Data{
+namespace TweetTest.Data{
     [TestClass]
-    public class TestCombinedFileStream : UnitTestIO{
+    public class TestCombinedFileStream : TestIO{
         [TestMethod]
         public void TestNoFiles(){
             using(CombinedFileStream cfs = new CombinedFileStream(File.OpenWrite("empty"))){

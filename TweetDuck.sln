@@ -6,11 +6,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetDuck", "TweetDuck.cspr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetDuck.Browser", "subprocess\TweetDuck.Browser.csproj", "{B10B0017-819E-4F71-870F-8256B36A26AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "tests\UnitTests.csproj", "{A958FA7A-4A2C-42A7-BFA0-159343483F4E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetDuck.Video", "video\TweetDuck.Video.csproj", "{278B2D11-402D-44B6-B6A1-8FA67DB65565}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetLib.Communication", "lib\TweetLib.Communication\TweetLib.Communication.csproj", "{72473763-4B9D-4FB6-A923-9364B2680F06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetTest.System", "lib\TweetTest.System\TweetTest.System.csproj", "{A958FA7A-4A2C-42A7-BFA0-159343483F4E}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TweetTest.Unit", "lib\TweetTest.Unit\TweetTest.Unit.fsproj", "{EEE1071A-28FA-48B1-82A1-9CBDC5C3F2C3}"
 EndProject
@@ -28,10 +28,6 @@ Global
 		{B10B0017-819E-4F71-870F-8256B36A26AA}.Debug|x86.Build.0 = Debug|x86
 		{B10B0017-819E-4F71-870F-8256B36A26AA}.Release|x86.ActiveCfg = Release|x86
 		{B10B0017-819E-4F71-870F-8256B36A26AA}.Release|x86.Build.0 = Release|x86
-		{A958FA7A-4A2C-42A7-BFA0-159343483F4E}.Debug|x86.ActiveCfg = Debug|x86
-		{A958FA7A-4A2C-42A7-BFA0-159343483F4E}.Debug|x86.Build.0 = Debug|x86
-		{A958FA7A-4A2C-42A7-BFA0-159343483F4E}.Release|x86.ActiveCfg = Debug|x86
-		{A958FA7A-4A2C-42A7-BFA0-159343483F4E}.Release|x86.Build.0 = Debug|x86
 		{278B2D11-402D-44B6-B6A1-8FA67DB65565}.Debug|x86.ActiveCfg = Debug|x86
 		{278B2D11-402D-44B6-B6A1-8FA67DB65565}.Debug|x86.Build.0 = Debug|x86
 		{278B2D11-402D-44B6-B6A1-8FA67DB65565}.Release|x86.ActiveCfg = Release|x86
@@ -40,10 +36,12 @@ Global
 		{72473763-4B9D-4FB6-A923-9364B2680F06}.Debug|x86.Build.0 = Debug|x86
 		{72473763-4B9D-4FB6-A923-9364B2680F06}.Release|x86.ActiveCfg = Release|x86
 		{72473763-4B9D-4FB6-A923-9364B2680F06}.Release|x86.Build.0 = Release|x86
+		{A958FA7A-4A2C-42A7-BFA0-159343483F4E}.Debug|x86.ActiveCfg = Debug|x86
+		{A958FA7A-4A2C-42A7-BFA0-159343483F4E}.Debug|x86.Build.0 = Debug|x86
+		{A958FA7A-4A2C-42A7-BFA0-159343483F4E}.Release|x86.ActiveCfg = Debug|x86
 		{EEE1071A-28FA-48B1-82A1-9CBDC5C3F2C3}.Debug|x86.ActiveCfg = Debug|x86
 		{EEE1071A-28FA-48B1-82A1-9CBDC5C3F2C3}.Debug|x86.Build.0 = Debug|x86
 		{EEE1071A-28FA-48B1-82A1-9CBDC5C3F2C3}.Release|x86.ActiveCfg = Debug|x86
-		{EEE1071A-28FA-48B1-82A1-9CBDC5C3F2C3}.Release|x86.Build.0 = Debug|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
