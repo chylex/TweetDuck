@@ -46,7 +46,7 @@ try{
   function Remove-Empty-Lines{
     Param([Parameter(Mandatory = $True, Position = 1)] $lines)
     
-    ForEach($line in $lines){
+    foreach($line in $lines){
       if ($line -ne ''){
         $line
       }
@@ -69,10 +69,18 @@ try{
   
   function Rewrite-File{
     Param([Parameter(Mandatory = $True, Position = 1)] $file,
-          [Parameter(Mandatory = $True, Position = 2)] $lines)
+          [Parameter(Mandatory = $True, Position = 2)] $lines,
+          [Parameter(Mandatory = $True, Position = 3)] $imports)
     
     $lines = Remove-Empty-Lines($lines)
     $relativePath = $file.FullName.Substring($targetDir.Length)
+    
+    foreach($line in $lines){
+      if ($line.Contains('#import ')){
+        $imports.Add($file.FullName)
+        break
+      }
+    }
     
     if ($relativePath.StartsWith("scripts\")){
       $lines = (,("#" + $version) + $lines)
@@ -82,38 +90,74 @@ try{
     Write-Host "Processed" $relativePath
   }
   
-  # Post processing
+  # Validation
   
   Check-Carriage-Return(Join-Path $targetDir "plugins\official\emoji-keyboard\emoji-ordering.txt")
   
-  ForEach($file in Get-ChildItem -Path $targetDir -Filter "*.js" -Exclude "configuration.default.js" -Recurse){
+  # Processing
+  
+  $imports = New-Object "System.Collections.Generic.List[string]"
+  
+  foreach($file in Get-ChildItem -Path $targetDir -Filter "*.js" -Exclude "configuration.default.js" -Recurse){
     $lines = [IO.File]::ReadLines($file.FullName)
     $lines = $lines | % { $_.TrimStart() }
     $lines = $lines -Replace '^(.*?)((?<=^|[;{}()])\s?//(?:\s.*|$))?$', '$1'
     $lines = $lines -Replace '(?<!\w)return(\s.*?)? if (.*?);', 'if ($2)return$1;'
-    Rewrite-File $file $lines
+    Rewrite-File $file $lines $imports
   }
   
-  ForEach($file in Get-ChildItem -Path $targetDir -Filter "*.css" -Recurse){
+  foreach($file in Get-ChildItem -Path $targetDir -Filter "*.css" -Recurse){
     $lines = [IO.File]::ReadLines($file.FullName)
     $lines = $lines -Replace '\s*/\*.*?\*/', ''
     $lines = $lines -Replace '^(\S.*) {$', '$1{'
     $lines = $lines -Replace '^\s+(.+?):\s*(.+?)(?:\s*(!important))?;$', '$1:$2$3;'
     $lines = @((Remove-Empty-Lines($lines)) -Join ' ')
-    Rewrite-File $file $lines
+    Rewrite-File $file $lines $imports
   }
   
-  ForEach($file in Get-ChildItem -Path $targetDir -Filter "*.html" -Recurse){
+  foreach($file in Get-ChildItem -Path $targetDir -Filter "*.html" -Recurse){
     $lines = [IO.File]::ReadLines($file.FullName)
     $lines = $lines | % { $_.TrimStart() }
-    Rewrite-File $file $lines
+    Rewrite-File $file $lines $imports
   }
   
-  ForEach($file in Get-ChildItem -Path (Join-Path $targetDir "plugins") -Filter "*.meta" -Recurse){
+  foreach($file in Get-ChildItem -Path (Join-Path $targetDir "plugins") -Filter "*.meta" -Recurse){
     $lines = [IO.File]::ReadLines($file.FullName)
     $lines = $lines -Replace '\{version\}', $version
-    Rewrite-File $file $lines
+    Rewrite-File $file $lines $imports
   }
+  
+  # Imports
+  
+  $delete = New-Object "System.Collections.Generic.HashSet[string]"
+  
+  foreach($path in $imports){
+    $text = [IO.File]::ReadAllText($path)
+    $text = [Regex]::Replace($text, '#import (.*)$', {
+      $importPath = $args[0].Groups[1].Value.Trim()
+      $importPath = Join-Path ([IO.Path]::GetDirectoryName($path)) $importPath
+      
+      $delete.Add($importPath) | Out-Null # this is so fucking stupid
+      
+      $importStr = [IO.File]::ReadAllText($importPath)
+      
+      if ($importStr[0] -eq '#'){
+        $importStr = $importStr.Substring($importStr.IndexOf("`n") + 1)
+      }
+      
+      return $importStr
+    }, [System.Text.RegularExpressions.RegexOptions]::MultiLine)
+    
+    [IO.File]::WriteAllText($path, $text)
+    Write-Host "Resolved" $path.Substring($targetDir.Length)
+  }
+  
+  foreach($path in $delete){
+    Remove-Item -Path $path
+    Write-Host "Deleted" $path.Substring($targetDir.Length)
+  }
+  
+  Remove-Item -Path (Join-Path $targetDir "scripts\components")
   
   # Finished
   
