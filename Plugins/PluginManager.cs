@@ -14,7 +14,7 @@ namespace TweetDuck.Plugins{
     sealed class PluginManager{
         private static IReadOnlyDictionary<PluginEnvironment, string> LoadSetupScripts(){
             return PluginEnvironmentExtensions.Map(
-                ScriptLoader.LoadResource("plugins.js"),
+                null,
                 ScriptLoader.LoadResource("plugins.browser.js"),
                 ScriptLoader.LoadResource("plugins.notification.js")
             );
@@ -158,7 +158,6 @@ namespace TweetDuck.Plugins{
             }
             
             ScriptLoader.ExecuteScript(frame, PluginSetupScripts[environment], environment.GetScriptIdentifier());
-            ScriptLoader.ExecuteScript(frame, PluginSetupScripts[PluginEnvironment.None], PluginEnvironment.None.GetScriptIdentifier());
             
             bool includeDisabled = environment.IncludesDisabledPlugins();
 

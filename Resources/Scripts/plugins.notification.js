@@ -14,3 +14,5 @@ window.TD_PLUGINS = {
     plugin.obj.run();
   }
 };
+
+#import components/plugins.base.js
