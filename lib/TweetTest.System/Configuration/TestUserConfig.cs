@@ -5,9 +5,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TweetDuck.Configuration;
 using TweetDuck.Core.Other;
 
-namespace UnitTests.Configuration{
+namespace TweetTest.Configuration{
     [TestClass]
-    public class TestUserConfig : UnitTestIO{
+    public class TestUserConfig : TestIO{
         private static void WriteTestConfig(string file, bool withBackup){
             UserConfig cfg = UserConfig.Load(file);
             cfg.ZoomLevel = 123;

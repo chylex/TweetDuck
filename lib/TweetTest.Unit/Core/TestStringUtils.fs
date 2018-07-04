@@ -1,4 +1,4 @@
-﻿namespace Unit.Core.StringUtils
+﻿namespace TweetTest.Core.StringUtils
 
 open Xunit
 open TweetDuck.Core.Utils

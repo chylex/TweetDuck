@@ -32,6 +32,16 @@ enabled(){
     });
   };
   
+  // setup
+  
+  this.htmlModal = null;
+  
+  $TDP.readFileRoot(this.$token, "modal.html").then(contents => {
+    this.htmlModal = contents;
+  }).catch(err => {
+    $TD.alert("error", "Problem loading data for the template plugin: "+err.message);
+  });
+  
   // button
   
   var buttonHTML = '<button class="manage-templates-btn needsclick btn btn-on-blue full-width txt-left margin-b--12 padding-v--6 padding-h--12"><i class="icon icon-bookmark"></i><span class="label padding-ls">Manage templates</span></button>';
@@ -44,46 +54,6 @@ enabled(){
   if (dockedComposePanel.length){
     dockedComposePanel.find(".js-tweet-type-button").first().before(buttonHTML);
   }
-  
-  // css
-  
-  this.css = window.TDPF_createCustomStyle(this);
-  this.css.insert(".manage-templates-btn.active { color: #fff; box-shadow: 0 0 2px 3px #50a5e6; outline: 0; }");
-  
-  this.css.insert("#templates-modal-wrap { width: 100%; height: 100%; padding: 49px; position: absolute; z-index: 999; box-sizing: border-box; background-color: rgba(0, 0, 0, 0.5); }");
-  this.css.insert("#templates-modal { width: 100%; height: 100%; min-width: 500px; background-color: #fff; display: flex; }");
-  this.css.insert("#templates-modal > div { display: flex; flex-direction: column; }");
-  
-  this.css.insert(".templates-modal-bottom { flex: 0 0 auto; padding: 16px; }");
-  this.css.insert("#template-list .templates-modal-bottom { display: flex; justify-content: space-between; }");
-  this.css.insert("#template-editor .templates-modal-bottom { text-align: right; }");
-  
-  this.css.insert("#template-list { height: 100%; flex: 1 1 auto; }");
-  this.css.insert("#template-list ul { list-style-type: none; font-size: 24px; color: #222; flex: 1 1 auto; padding: 12px; overflow-y: auto; }");
-  this.css.insert("#template-list li { display: block; width: 100%; padding: 4px 8px; box-sizing: border-box; }");
-  this.css.insert("#template-list li[data-template] { cursor: pointer; }");
-  this.css.insert("#template-list li[data-template]:hover { background-color: #d8d8d8; }");
-  this.css.insert("#template-list li span { white-space: nowrap; }");
-  this.css.insert("#template-list li .icon { opacity: 0.6; margin-left: 4px; padding: 3px; }");
-  this.css.insert("#template-list li .icon:hover { opacity: 1; }");
-  this.css.insert("#template-list li .template-actions { float: right; }");
-  
-  this.css.insert("#template-editor { height: 100%; flex: 0 0 auto; width: 25vw; min-width: 225px; max-width: 400px; background-color: #485865; }");
-  this.css.insert(".template-editor-form { flex: 1 1 auto; padding: 12px 16px; font-size: 14px; overflow-y: auto; }");
-  this.css.insert(".template-editor-form .compose-text-title { margin: 24px 0 9px; }");
-  this.css.insert(".template-editor-form .compose-text-title:first-child { margin-top: 0; }");
-  this.css.insert(".template-editor-form input, .template-editor-form textarea { color: #111; background-color: #fff; border: none; border-radius: 0; }");
-  this.css.insert(".template-editor-form input:focus, .template-editor-form textarea:focus { box-shadow: inset 0 1px 3px rgba(17, 17, 17, 0.1), 0 0 8px rgba(80, 165, 230, 0.6); }");
-  this.css.insert(".template-editor-form textarea { height: 146px; font-size: 14px; padding: 10px; resize: none; }");
-  this.css.insert(".template-editor-form .template-editor-tips-button { cursor: pointer; }");
-  this.css.insert(".template-editor-form .template-editor-tips-button .icon { font-size: 12px; vertical-align: -5%; margin-left: 4px; }");
-  this.css.insert(".template-editor-form .template-editor-tips { display: none; }");
-  this.css.insert(".template-editor-form .template-editor-tips p { margin: 10px 0; }");
-  this.css.insert(".template-editor-form .template-editor-tips p:first-child { margin-top: 0; }");
-  this.css.insert(".template-editor-form .template-editor-tips li:nth-child(2n+1) { margin-top: 5px; padding-left: 6px; font-family: monospace; }");
-  this.css.insert(".template-editor-form .template-editor-tips li:nth-child(2n) { margin-top: 1px; padding-left: 14px; opacity: 0.66; }");
-  
-  this.css.insert(".invisible { display: none !important; }");
   
   // template implementation
   
@@ -258,67 +228,18 @@ enabled(){
   this.editingTemplate = null;
   
   var showTemplateModal = () => {
-    $(".manage-templates-btn").addClass("active");
+    $(".js-app-content").prepend(this.htmlModal);
     
-    let html = `
-<div id="templates-modal-wrap" class="scroll-v scroll-styled-v">
-  <div id="templates-modal">
-    <div id="template-list">
-      <ul></ul>
-      
-      <div class="templates-modal-bottom">
-        <button data-action="close" class="Button--secondary"><i class="icon icon-close icon-small padding-rs"></i><span class="label">Close</span></button>
-        <button data-action="new-template" class="Button--primary"><i class="icon icon-plus icon-small padding-rs"></i><span class="label">New Template</span></button>
-      </div>
-    </div>
-
-    <div id="template-editor" class="invisible">
-      <div class="template-editor-form">
-        <div class="compose-text-title">Template Name</div>
-        <input name="template-name" type="text">
-        
-        <div class="compose-text-title">Contents</div>
-        <textarea name="template-contents" class="compose-text scroll-v scroll-styled-v scroll-styled-h scroll-alt"></textarea>
-
-        <div class="compose-text-title template-editor-tips-button">Advanced <i class="icon icon-arrow-d"></i></div>
-        <div class="template-editor-tips">
-          <p>You can use the following tokens. All tokens except for <span style="font-family: monospace">{ajax}</span> can only be used once.</p>
-          <ul>
-            <li>{cursor}</li>
-            <li>Location where the cursor is placed</li>
-            <li>{cursor#&lt;selectionlength&gt;}</li>
-            <li>Places cursor and selects a set amount of characters</li>
-            <li>{ajax#&lt;url&gt;}</li>
-            <li>Replaced with the result of a cross-origin ajax request</li>
-            <li>{ajax#&lt;eval&gt;#&lt;url&gt;}</li>
-            <li>Allows parsing the ajax request using <span style="font-family: monospace">$</span> as the placeholder for the result<br>Example: <span style="font-family: monospace">$.substring(0,5)</span></li>
-          </ul>
-          <p>To use special characters in the tweet text, escape them with a backslash:
-            <br><span style="font-family: monospace">&nbsp; \\{&nbsp; \\}&nbsp; \\#&nbsp; \\\\</span>
-          </p>
-        </div>
-      </div>
-      
-      <div class="templates-modal-bottom">
-        <button data-action="editor-cancel" class="Button--secondary"><i class="icon icon-close icon-small padding-rs"></i><span class="label">Cancel</span></button>
-        <button data-action="editor-confirm" class="Button--primary" style="margin-left:4px"><i class="icon icon-check icon-small padding-rs"></i><span class="label">Confirm</span></button>
-      </div>
-    </div>
-  </div>
-</div>`;
+    /* TODO possibly implement this later
     
-/* TODO possibly implement this later
-
-<li>{paste}</li>
-<li>Paste text or an image from clipboard</li>
-<li>{paste#text}</li>
-<li>Paste only if clipboard has text</li>
-<li>{paste#image}</li>
-<li>Paste only if clipboard has an image</li>
-
-*/
+    <li>{paste}</li>
+    <li>Paste text or an image from clipboard</li>
+    <li>{paste#text}</li>
+    <li>Paste only if clipboard has text</li>
+    <li>{paste#image}</li>
+    <li>Paste only if clipboard has an image</li>
     
-    $(".js-app-content").prepend(html);
+    */
     
     let ele = $("#templates-modal-wrap").first();
     
@@ -409,7 +330,6 @@ enabled(){
   
   var hideTemplateModal = function(){
     $("#templates-modal-wrap").remove();
-    $(".manage-templates-btn").removeClass("active");
   };
   
   var toggleEditor = function(){
@@ -468,8 +388,6 @@ ready(){
 }
 
 disabled(){
-  this.css.remove();
-  
   $(".manage-templates-btn").remove();
   $("#templates-modal-wrap").remove();
   

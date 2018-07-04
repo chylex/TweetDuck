@@ -1,0 +1,38 @@
+/*****************************/
+/* Fix min width and margins */
+/*****************************/
+
+.page-canvas {
+  width: auto !important;
+  max-width: 888px;
+}
+
+.signout-wrapper {
+  width: auto !important;
+  margin: 0 auto !important;
+}
+
+.signout {
+  margin: 60px 0 54px !important;
+}
+
+.buttons {
+  padding-bottom: 0 !important;
+}
+
+/*******************/
+/* General styling */
+/*******************/
+
+.aside {
+  /* hide elements around dialog */
+  display: none;
+}
+
+.buttons button, .buttons a {
+  /* style buttons */
+  display: inline-block;
+  margin: 0 4px !important;
+  border: 1px solid rgba(0, 0, 0, 0.3) !important;
+  border-radius: 0 !important;
+}

@@ -26,9 +26,8 @@ namespace TweetDuck.Plugins.Enums{
 
         public static string GetScriptIdentifier(this PluginEnvironment environment){
             switch(environment){
-                case PluginEnvironment.None: return "root:plugins";
-                case PluginEnvironment.Browser: return "root:plugins.browser";
-                case PluginEnvironment.Notification: return "root:plugins.notification";
+                case PluginEnvironment.Browser: return "root:plugins:browser";
+                case PluginEnvironment.Notification: return "root:plugins:notification";
                 default: return null;
             }
         }
