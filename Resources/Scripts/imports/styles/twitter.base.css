@@ -1,0 +1,61 @@
+/*********************/
+/* Center everything */
+/*********************/
+    
+#doc {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  position: absolute;
+  display: table;
+}
+
+#page-outer {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#page-container {
+  padding: 0 20px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.page-canvas {
+  margin: 0 auto !important;
+}
+
+/*******************/
+/* General styling */
+/*******************/
+
+body {
+  /* remove scrollbar */
+  overflow: hidden !important;
+}
+
+.page-canvas {
+  /* tweak page shadow */
+  box-shadow: 0 0 150px rgba(255, 255, 255, 0.3) !important;
+}
+
+.topbar {
+  /* hide top bar */
+  display: none !important;
+}
+    
+.page-canvas, .buttons, .btn, input {
+  /* sharpen borders */
+  border-radius: 0 !important;
+}
+
+input {
+  /* tweak input padding */
+  padding: 5px 8px 4px !important;
+}
+
+button[type='submit'] {
+  /* style buttons */
+  border: 1px solid rgba(0, 0, 0, 0.3) !important;
+  border-radius: 0 !important;
+}
