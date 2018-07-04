@@ -1,4 +1,4 @@
-﻿namespace Unit.Core.BrowserUtils
+﻿namespace TweetTest.Core.BrowserUtils
 
 open Xunit
 open TweetDuck.Core.Utils

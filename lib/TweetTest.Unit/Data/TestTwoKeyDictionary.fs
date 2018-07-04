@@ -1,4 +1,4 @@
-﻿namespace Unit.Data.TwoKeyDictionary
+﻿namespace TweetTest.Data.TwoKeyDictionary
 
 open Xunit
 open TweetDuck.Data

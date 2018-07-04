@@ -1,4 +1,4 @@
-﻿namespace Unit.Data.CommandLineArgs
+﻿namespace TweetTest.Data.CommandLineArgs
 
 open Xunit
 open TweetDuck.Data

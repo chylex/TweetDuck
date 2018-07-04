@@ -1,4 +1,4 @@
-﻿namespace Unit.Data.Result
+﻿namespace TweetTest.Data.Result
 
 open Xunit
 open TweetDuck.Data
