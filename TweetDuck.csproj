@@ -365,12 +365,16 @@
     <None Include="Resources\Plugins\timeline-polls\.meta" />
     <None Include="Resources\Plugins\timeline-polls\browser.js" />
     <None Include="Resources\Scripts\code.js" />
+    <None Include="Resources\Scripts\imports\scripts\plugins.base.js" />
+    <None Include="Resources\Scripts\imports\styles\introduction.css" />
+    <None Include="Resources\Scripts\imports\styles\twitter.base.css" />
+    <None Include="Resources\Scripts\imports\styles\twitter.logout.css" />
+    <None Include="Resources\Scripts\imports\styles\update.css" />
     <None Include="Resources\Scripts\introduction.js" />
     <None Include="Resources\Scripts\notification.js" />
     <None Include="Resources\Scripts\pages\error.html" />
     <None Include="Resources\Scripts\pages\example.html" />
     <None Include="Resources\Scripts\plugins.browser.js" />
-    <None Include="Resources\Scripts\plugins.js" />
     <None Include="Resources\Scripts\plugins.notification.js" />
     <None Include="Resources\Scripts\screenshot.js" />
     <None Include="Resources\Scripts\styles\browser.css" />
