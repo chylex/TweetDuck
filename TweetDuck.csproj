@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="packages\CefSharp.WinForms.66.0.0-CI2629\build\CefSharp.WinForms.props" Condition="Exists('packages\CefSharp.WinForms.66.0.0-CI2629\build\CefSharp.WinForms.props')" />
   <Import Project="packages\CefSharp.Common.66.0.0-CI2629\build\CefSharp.Common.props" Condition="Exists('packages\CefSharp.Common.66.0.0-CI2629\build\CefSharp.Common.props')" />
@@ -361,6 +361,7 @@
     <None Include="Resources\Plugins\reply-account\configuration.default.js" />
     <None Include="Resources\Plugins\templates\.meta" />
     <None Include="Resources\Plugins\templates\browser.js" />
+    <None Include="Resources\Plugins\templates\modal.html" />
     <None Include="Resources\Plugins\timeline-polls\.meta" />
     <None Include="Resources\Plugins\timeline-polls\browser.js" />
     <None Include="Resources\Scripts\code.js" />
