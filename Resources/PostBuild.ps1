@@ -112,6 +112,8 @@ try{
     $lines = $lines -Replace '^(\S.*) {$', '$1{'
     $lines = $lines -Replace '^\s+(.+?):\s*(.+?)(?:\s*(!important))?;$', '$1:$2$3;'
     $lines = @((Remove-Empty-Lines($lines)) -Join ' ')
+    $lines = $lines -Replace '([{};])\s', '$1'
+    $lines = $lines -Replace ';}', '}'
     Rewrite-File $file $lines $imports
   }
   
