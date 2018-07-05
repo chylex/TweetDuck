@@ -1394,6 +1394,13 @@
   }
   
   //
+  // Block: Decrease amount of loaded DMs to avoid massive lag from re-opening them several times.
+  //
+  if (ensurePropertyExists(TD, "services", "TwitterConversation", "CONVERSATION_ENTRY_COUNT")){
+    TD.services.TwitterConversation.CONVERSATION_ENTRY_COUNT = 20;
+  }
+  
+  //
   // Block: Fix broken horizontal scrolling of column container when holding Shift. TODO Fix broken smooth scrolling.
   //
   if (ensurePropertyExists(TD, "ui", "columns", "setupColumnScrollListeners")){
