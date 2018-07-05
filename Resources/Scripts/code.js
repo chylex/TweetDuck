@@ -1,4 +1,4 @@
-(function($, $TD, $TDX, TD){
+(function($TD, $TDX, $, TD){
   //
   // Variable: Current highlighted column jQuery & data objects.
   //
@@ -22,7 +22,7 @@
   //
   // Variable: DOM object containing the main app element.
   //
-  const app = $(document.body).children(".js-app");
+  const app = typeof $ === "function" && $(document.body).children(".js-app");
   
   //
   // Constant: Column icon classes mapped to their titles.
@@ -65,11 +65,12 @@
   };
   
   //
-  // Function: Returns true if an object has a specified property, otherwise returns false without throwing an error.
+  // Function: Returns true if an object has a specified property, otherwise returns false with a debug-only error message.
   //
   const ensurePropertyExists = function(obj, ...chain){
     for(let index = 0; index < chain.length; index++){
       if (!obj.hasOwnProperty(chain[index])){
+        debugger;
         $TD.crashDebug("Missing property "+chain[index]+" in chain [obj]."+chain.join("."));
         return false;
       }
@@ -78,6 +79,20 @@
     }
     
     return true;
+  };
+  
+  //
+  // Function: Returns a jQuery object but also shows a debug-only error message if no elements are found.
+  //
+  const $$ = function(selector, context){
+    let result = $(selector, context);
+    
+    if (!result.length){
+      debugger;
+      $TD.crashDebug("No elements were found for selector "+selector);
+    }
+    
+    return result;
   };
   
   //
@@ -101,10 +116,10 @@
   $(document).on("uiColumnRendered", function(e, data){
     let icon = data.$column.find(".column-type-icon").first();
     return if icon.length !== 1;
-    
+
     let name = Array.prototype.find.call(icon[0].classList, cls => cls.startsWith("icon-"));
     return if !name;
-    
+
     data.$column.attr("data-td-icon", name);
     data.column._tduck_icon = name;
   });
@@ -277,6 +292,11 @@
   // Function: Shows tweet detail, used in notification context menu.
   //
   (function(){
+    return if !ensurePropertyExists(TD, "ui", "updates", "showDetailView");
+    return if !ensurePropertyExists(TD, "controller", "columnManager", "showColumn");
+    return if !ensurePropertyExists(TD, "controller", "columnManager", "getByApiid");
+    return if !ensurePropertyExists(TD, "controller", "clients", "getPreferredClient");
+    
     const showTweetDetailInternal = function(column, chirp){
       TD.ui.updates.showDetailView(column, chirp, column.findChirp(chirp) || chirp);
       TD.controller.columnManager.showColumn(column.model.privateState.key);
@@ -393,7 +413,7 @@
   // Block: Add TweetDuck buttons to the settings menu.
   //
   onAppReady.push(function(){
-    $("[data-action='settings-menu']").click(function(){
+    $$("[data-action='settings-menu']").click(function(){
       setTimeout(function(){
         let menu = $(".js-dropdown-content").children("ul").first();
         return if menu.length === 0;
@@ -627,6 +647,9 @@
   // Block: Update highlighted column and tweet for context menu and other functionality.
   //
   (function(){
+    return if !ensurePropertyExists(TD, "controller", "columnManager", "get");
+    return if !ensurePropertyExists(TD, "services", "ChirpBase", "TWEET");
+    
     const updateHighlightedColumn = function(ele){
       highlightedColumnEle = ele;
       highlightedColumnObj = ele ? TD.controller.columnManager.get(ele.attr("data-column")) : null;
@@ -877,22 +900,28 @@
   //
   // Block: Fix scheduled tweets not showing up sometimes.
   //
-  $(document).on("dataTweetSent", function(e, data){
-    if (data.response.state && data.response.state === "scheduled"){
-      let column = Object.values(TD.controller.columnManager.getAll()).find(column => column.model.state.type === "scheduled");
+  (function(){
+    return if !ensurePropertyExists(TD, "controller", "columnManager", "getAll");
+    
+    $(document).on("dataTweetSent", function(e, data){
+      if (data.response.state && data.response.state === "scheduled"){
+        let column = Object.values(TD.controller.columnManager.getAll()).find(column => column.model.state.type === "scheduled");
 
-      if (column){
-        setTimeout(function(){
-          column.reloadTweets();
-        }, 1000);
+        if (column){
+          setTimeout(function(){
+            column.reloadTweets();
+          }, 1000);
+        }
       }
-    }
-  });
+    });
+  })();
   
   //
   // Block: Hold Shift to restore cleared column.
   //
   (function(){
+    return if !ensurePropertyExists(TD, "vo", "Column", "prototype", "clear");
+    
     var holdingShift = false;
     
     const updateShiftState = (pressed) => {
@@ -916,8 +945,6 @@
       }
     });
     
-    return if !ensurePropertyExists(TD, "vo", "Column", "prototype", "clear");
-    
     TD.vo.Column.prototype.clear = prependToFunction(TD.vo.Column.prototype.clear, function(){
       window.setTimeout(resetActiveFocus, 0); // unfocuses the Clear button, otherwise it steals keyboard input
       
@@ -933,11 +960,13 @@
   // Block: Refocus the textbox after switching accounts.
   //
   onAppReady.push(function(){
+    const composeInput = $$(".js-compose-text", ".js-docked-compose");
+    
     const refocusInput = function(){
-      $(".js-compose-text", ".js-docked-compose").focus();
+      composeInput.focus();
     };
     
-    $(".js-account-list", ".js-docked-compose").delegate(".js-account-item", "click", function(e){
+    $$(".js-account-list", ".js-docked-compose").delegate(".js-account-item", "click", function(e){
       setTimeout(refocusInput, 0);
     });
   });
@@ -1048,7 +1077,7 @@
       default: throw "Invalid mustache injection operation. Only 'replace', 'append', 'prepend' are supported.";
     }
     
-    let prev = TD.mustaches[name];
+    let prev = TD.mustaches && TD.mustaches[name];
     
     if (!prev){
       $TD.crashDebug("Mustache injection is referencing an invalid mustache: "+name);
@@ -1141,9 +1170,9 @@
     
     TD.mustaches["media/native_video.mustache"] = '<div class="js-media-gif-container media-item nbfc is-video" style="background-image:url({{imageSrc}})"><video class="js-media-gif media-item-gif full-width block {{#isPossiblySensitive}}is-invisible{{/isPossiblySensitive}}" loop src="{{videoUrl}}"></video><a class="js-gif-play pin-all is-actionable">{{> media/video_overlay}}</a></div>';
     
-    if (!ensurePropertyExists(TD, "components", "MediaGallery", "prototype", "_loadTweet") ||
-        !ensurePropertyExists(TD, "components", "BaseModal", "prototype", "setAndShowContainer") ||
-        !ensurePropertyExists(TD, "ui", "Column", "prototype", "playGifIfNotManuallyPaused"))return;
+    return if !ensurePropertyExists(TD, "components", "MediaGallery", "prototype", "_loadTweet");
+    return if !ensurePropertyExists(TD, "components", "BaseModal", "prototype", "setAndShowContainer");
+    return if !ensurePropertyExists(TD, "ui", "Column", "prototype", "playGifIfNotManuallyPaused");
     
     var cancelModal = false;
     
@@ -1172,10 +1201,10 @@
   if (ensurePropertyExists(TD, "services", "TwitterMedia")){
     let media = TD.services.TwitterMedia;
     
-    if (!ensurePropertyExists(media, "YOUTUBE_TINY_RE") ||
-        !ensurePropertyExists(media, "YOUTUBE_LONG_RE") ||
-        !ensurePropertyExists(media, "YOUTUBE_RE") ||
-        !ensurePropertyExists(media, "SERVICES", "youtube"))return;
+    return if !ensurePropertyExists(media, "YOUTUBE_TINY_RE");
+    return if !ensurePropertyExists(media, "YOUTUBE_LONG_RE");
+    return if !ensurePropertyExists(media, "YOUTUBE_RE");
+    return if !ensurePropertyExists(media, "SERVICES", "youtube");
     
     media.YOUTUBE_TINY_RE = new RegExp(media.YOUTUBE_TINY_RE.source.replace("http:", "https?:"));
     media.YOUTUBE_RE = new RegExp(media.YOUTUBE_LONG_RE.source+"|"+media.YOUTUBE_TINY_RE.source);
@@ -1187,12 +1216,11 @@
   //
   onAppReady.push(function(){
     let ele = $(`<svg id="td-compose-drawer-pin" viewBox="0 0 24 24" class="icon js-show-tip" data-original-title="Stay open" data-tooltip-position="left">
-       <path d="M9.884,16.959l3.272,0.001l-0.82,4.568l-1.635,0l-0.817,-4.569Z"/>
-       <rect x="8.694" y="7.208" width="5.652" height="7.445"/>
-       <path d="M16.877,17.448c0,-1.908 -1.549,-3.456 -3.456,-3.456l-3.802,0c-1.907,0 -3.456,1.548 -3.456,3.456l10.714,0Z"/>
-       <path d="M6.572,5.676l2.182,2.183l5.532,0l2.182,-2.183l0,-1.455l-9.896,0l0,1.455Z"/>
-       </svg>`
-    ).appendTo(".js-docked-compose .js-compose-header");
+ <path d="M9.884,16.959l3.272,0.001l-0.82,4.568l-1.635,0l-0.817,-4.569Z"/>
+ <rect x="8.694" y="7.208" width="5.652" height="7.445"/>
+ <path d="M16.877,17.448c0,-1.908 -1.549,-3.456 -3.456,-3.456l-3.802,0c-1.907,0 -3.456,1.548 -3.456,3.456l10.714,0Z"/>
+ <path d="M6.572,5.676l2.182,2.183l5.532,0l2.182,-2.183l0,-1.455l-9.896,0l0,1.455Z"/>
+ </svg>`).appendTo(".js-docked-compose .js-compose-header");
     
     ele.click(function(){
       if (TD.settings.getComposeStayOpen()){
@@ -1213,26 +1241,31 @@
   //
   // Block: Make temporary search column appear as the first one and clear the input box.
   //
-  $(document).on("uiSearchNoTemporaryColumn", function(e, data){
-    if (data.query && data.searchScope !== "users" && !data.columnKey){
-      if ($TDX.openSearchInFirstColumn){
-        let order = TD.controller.columnManager._columnOrder;
-        
-        if (order.length > 1){
-          let columnKey = order[order.length-1];
-          
-          order.splice(order.length-1, 1);
-          order.splice(1, 0, columnKey);
-          TD.controller.columnManager.move(columnKey, "left");
+  (function(){
+    return if !ensurePropertyExists(TD, "controller", "columnManager", "_columnOrder");
+    return if !ensurePropertyExists(TD, "controller", "columnManager", "move");
+    
+    $(document).on("uiSearchNoTemporaryColumn", function(e, data){
+      if (data.query && data.searchScope !== "users" && !data.columnKey){
+        if ($TDX.openSearchInFirstColumn){
+          let order = TD.controller.columnManager._columnOrder;
+
+          if (order.length > 1){
+            let columnKey = order[order.length-1];
+
+            order.splice(order.length-1, 1);
+            order.splice(1, 0, columnKey);
+            TD.controller.columnManager.move(columnKey, "left");
+          }
+        }
+
+        if (!("tweetduck" in data)){
+          $(".js-app-search-input").val("");
+          $(".js-perform-search").blur();
         }
       }
-      
-      if (!("tweetduck" in data)){
-        $(".js-app-search-input").val("");
-        $(".js-perform-search").blur();
-      }
-    }
-  });
+    });
+  })();
   
   //
   // Block: Setup global function to add a search column with the specified query.
@@ -1250,9 +1283,9 @@
   //
   onAppReady.push(function(){
     let container = $(".js-search-in-popover");
-    let hashtags = $(".js-typeahead-topic-list", container);
+    let hashtags = $$(".js-typeahead-topic-list", container);
     
-    $(".js-typeahead-user-list", container).insertBefore(hashtags);
+    $$(".js-typeahead-user-list", container).insertBefore(hashtags);
     hashtags.addClass("list-divider");
   });
   
@@ -1269,17 +1302,17 @@
       app.click(); // unfocus everything
     };
     
-    $(".js-app-search-input").keydown(function(e){
+    $$(".js-app-search-input").keydown(function(e){
       (e.ctrlKey && e.keyCode === 13) && openSearchExternally(e, $(this)); // enter
     });
     
-    $(".js-perform-search").on("click auxclick", function(e){
+    $$(".js-perform-search").on("click auxclick", function(e){
       (e.ctrlKey || e.button === 1) && openSearchExternally(e, $(".js-app-search-input:visible"));
     }).each(function(){
       window.TDGF_prioritizeNewestEvent($(this)[0], "click");
     });
     
-    $("[data-action='show-search']").on("click auxclick", function(e){
+    $$("[data-action='show-search']").on("click auxclick", function(e){
       (e.ctrlKey || e.button === 1) && openSearchExternally(e, $());
     });
   });
@@ -1460,14 +1493,19 @@
   // Block: Custom reload function with memory cleanup.
   //
   window.TDGF_reload = function(){
-    let session = TD.storage.feedController.getAll()
-                    .filter(feed => !!feed.getTopSortIndex())
-                    .reduce((obj, feed) => (obj[feed.privateState.key] = feed.getTopSortIndex(), obj), {});
-    
-    $TD.setSessionData("gc", JSON.stringify(session)).then(() => {
-      window.gc && window.gc();
+    try{
+      let session = TD.storage.feedController.getAll()
+                      .filter(feed => !!feed.getTopSortIndex())
+                      .reduce((obj, feed) => (obj[feed.privateState.key] = feed.getTopSortIndex(), obj), {});
+      
+      $TD.setSessionData("gc", JSON.stringify(session)).then(() => {
+        window.gc && window.gc();
+        window.location.reload();
+      });
+    }catch(err){
+      $TD.crashDebug("Error saving session during a reload");
       window.location.reload();
-    });
+    }
     
     window.TDGF_reload = function(){}; // redefine to prevent reloading multiple times
   };
@@ -1482,7 +1520,7 @@
       state = {};
     }
     
-    var showMissedNotifications = function(){
+    const showMissedNotifications = function(){
       let tweets = [];
       let columns = {};
       
@@ -1510,18 +1548,20 @@
       }
     };
     
-    $(document).one("dataColumnsLoaded", function(){
-      let columns = Object.values(TD.controller.columnManager.getAll());
-      let remaining = columns.length;
+    if (ensurePropertyExists(TD, "controller", "columnManager", "getAll")){
+      $(document).one("dataColumnsLoaded", function(){
+        let columns = Object.values(TD.controller.columnManager.getAll());
+        let remaining = columns.length;
 
-      for(let column of columns){
-        column.ui.getChirpContainer().one("dataColumnFeedUpdated", () => {
-          if (--remaining === 0){
-            setTimeout(showMissedNotifications, 1);
-          }
-        });
-      }
-    });
+        for(let column of columns){
+          column.ui.getChirpContainer().one("dataColumnFeedUpdated", () => {
+            if (--remaining === 0){
+              setTimeout(showMissedNotifications, 1);
+            }
+          });
+        }
+      });
+    }
   }
   
   //
@@ -1571,4 +1611,4 @@
       location.href = "https://twitter.com/login?hide_message=true&redirect_after_login=https%3A%2F%2Ftweetdeck.twitter.com%2F%3Fvia_twitter_login%3Dtrue";
     };
   }
-})($, $TD, $TDX, TD);
+})($TD, $TDX, window.$, window.TD || {});
