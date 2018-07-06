@@ -29,6 +29,8 @@ namespace TweetDuck.Core.Other.Settings{
             toolTip.SetToolTip(btnClearCache, "Clearing cache will free up space taken by downloaded images and other resources.");
             toolTip.SetToolTip(checkClearCacheAuto, "Automatically clears cache when its size exceeds the set threshold. Note that cache can only be cleared when closing TweetDuck.");
 
+            toolTip.SetToolTip(comboBoxThrottle, "Decides when to stop rendering and throttle the browser to improve performance and battery life.");
+
             toolTip.SetToolTip(btnEditCefArgs, "Set custom command line arguments for Chromium Embedded Framework.");
             toolTip.SetToolTip(btnEditCSS, "Set custom CSS for browser and notification windows.");
 
@@ -48,6 +50,11 @@ namespace TweetDuck.Core.Other.Settings{
                 string text = task.Status == TaskStatus.RanToCompletion ? (int)Math.Ceiling(task.Result/(1024.0*1024.0))+" MB" : "unknown";
                 this.InvokeSafe(() => btnClearCache.Text = $"Clear Cache ({text})");
             });
+
+            comboBoxThrottle.Items.Add("Minimized (Naive)");
+            comboBoxThrottle.Items.Add("Covered (Smart)");
+            comboBoxThrottle.Items.Add("Unfocused (Aggressive)");
+            comboBoxThrottle.SelectedIndex = Math.Min(Math.Max((int)SysConfig.ThrottleBehavior, 0), comboBoxThrottle.Items.Count-1);
         }
 
         public override void OnReady(){
@@ -60,6 +67,8 @@ namespace TweetDuck.Core.Other.Settings{
 
             btnClearCache.Click += btnClearCache_Click;
             checkClearCacheAuto.CheckedChanged += checkClearCacheAuto_CheckedChanged;
+
+            comboBoxThrottle.SelectedIndexChanged += comboBoxThrottle_SelectedIndexChanged;
             
             btnEditCefArgs.Click += btnEditCefArgs_Click;
             btnEditCSS.Click += btnEditCSS_Click;
@@ -84,6 +93,10 @@ namespace TweetDuck.Core.Other.Settings{
         private void checkHardwareAcceleration_CheckedChanged(object sender, EventArgs e){
             SysConfig.HardwareAcceleration = checkHardwareAcceleration.Checked;
             PromptRestart(); // calls OnClosing
+        }
+
+        private void comboBoxThrottle_SelectedIndexChanged(object sender, EventArgs e){
+            SysConfig.ThrottleBehavior = (FormBrowser.ThrottleBehavior)comboBoxThrottle.SelectedIndex;
         }
 
         private void btnEditCefArgs_Click(object sender, EventArgs e){

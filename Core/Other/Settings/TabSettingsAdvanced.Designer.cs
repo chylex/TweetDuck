@@ -43,6 +43,8 @@
             this.panelConfiguration = new System.Windows.Forms.Panel();
             this.labelConfiguration = new System.Windows.Forms.Label();
             this.flowPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.labelThrottle = new System.Windows.Forms.Label();
+            this.comboBoxThrottle = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.numClearCacheThreshold)).BeginInit();
             this.panelAppButtons.SuspendLayout();
             this.panelClearCacheAuto.SuspendLayout();
@@ -209,7 +211,7 @@
             this.labelPerformance.Location = new System.Drawing.Point(0, 102);
             this.labelPerformance.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
             this.labelPerformance.Name = "labelPerformance";
-            this.labelPerformance.Size = new System.Drawing.Size(93, 20);
+            this.labelPerformance.Size = new System.Drawing.Size(92, 20);
             this.labelPerformance.TabIndex = 2;
             this.labelPerformance.Text = "Performance";
             // 
@@ -219,7 +221,7 @@
             this.panelClearCacheAuto.Controls.Add(this.checkClearCacheAuto);
             this.panelClearCacheAuto.Controls.Add(this.numClearCacheThreshold);
             this.panelClearCacheAuto.Location = new System.Drawing.Point(0, 207);
-            this.panelClearCacheAuto.Margin = new System.Windows.Forms.Padding(0);
+            this.panelClearCacheAuto.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
             this.panelClearCacheAuto.Name = "panelClearCacheAuto";
             this.panelClearCacheAuto.Size = new System.Drawing.Size(322, 28);
             this.panelClearCacheAuto.TabIndex = 6;
@@ -240,7 +242,7 @@
             this.panelConfiguration.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panelConfiguration.Controls.Add(this.btnEditCSS);
             this.panelConfiguration.Controls.Add(this.btnEditCefArgs);
-            this.panelConfiguration.Location = new System.Drawing.Point(0, 275);
+            this.panelConfiguration.Location = new System.Drawing.Point(0, 333);
             this.panelConfiguration.Margin = new System.Windows.Forms.Padding(0);
             this.panelConfiguration.Name = "panelConfiguration";
             this.panelConfiguration.Size = new System.Drawing.Size(322, 31);
@@ -250,7 +252,7 @@
             // 
             this.labelConfiguration.AutoSize = true;
             this.labelConfiguration.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelConfiguration.Location = new System.Drawing.Point(0, 255);
+            this.labelConfiguration.Location = new System.Drawing.Point(0, 313);
             this.labelConfiguration.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
             this.labelConfiguration.Name = "labelConfiguration";
             this.labelConfiguration.Size = new System.Drawing.Size(100, 20);
@@ -269,14 +271,38 @@
             this.flowPanel.Controls.Add(this.labelCache);
             this.flowPanel.Controls.Add(this.btnClearCache);
             this.flowPanel.Controls.Add(this.panelClearCacheAuto);
+            this.flowPanel.Controls.Add(this.labelThrottle);
+            this.flowPanel.Controls.Add(this.comboBoxThrottle);
             this.flowPanel.Controls.Add(this.labelConfiguration);
             this.flowPanel.Controls.Add(this.panelConfiguration);
             this.flowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowPanel.Location = new System.Drawing.Point(9, 9);
             this.flowPanel.Name = "flowPanel";
-            this.flowPanel.Size = new System.Drawing.Size(322, 307);
+            this.flowPanel.Size = new System.Drawing.Size(322, 364);
             this.flowPanel.TabIndex = 0;
             this.flowPanel.WrapContents = false;
+            // 
+            // labelThrottle
+            // 
+            this.labelThrottle.AutoSize = true;
+            this.labelThrottle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelThrottle.Location = new System.Drawing.Point(3, 249);
+            this.labelThrottle.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
+            this.labelThrottle.Name = "labelThrottle";
+            this.labelThrottle.Size = new System.Drawing.Size(92, 15);
+            this.labelThrottle.TabIndex = 9;
+            this.labelThrottle.Text = "Throttle When...";
+            // 
+            // comboBoxThrottle
+            // 
+            this.comboBoxThrottle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxThrottle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.comboBoxThrottle.FormattingEnabled = true;
+            this.comboBoxThrottle.Location = new System.Drawing.Point(5, 267);
+            this.comboBoxThrottle.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
+            this.comboBoxThrottle.Name = "comboBoxThrottle";
+            this.comboBoxThrottle.Size = new System.Drawing.Size(173, 23);
+            this.comboBoxThrottle.TabIndex = 10;
             // 
             // TabSettingsAdvanced
             // 
@@ -284,7 +310,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.flowPanel);
             this.Name = "TabSettingsAdvanced";
-            this.Size = new System.Drawing.Size(340, 325);
+            this.Size = new System.Drawing.Size(340, 382);
             ((System.ComponentModel.ISupportInitialize)(this.numClearCacheThreshold)).EndInit();
             this.panelAppButtons.ResumeLayout(false);
             this.panelClearCacheAuto.ResumeLayout(false);
@@ -317,5 +343,7 @@
         private Controls.NumericUpDownEx numClearCacheThreshold;
         private System.Windows.Forms.CheckBox checkClearCacheAuto;
         private System.Windows.Forms.FlowLayoutPanel flowPanel;
+        private System.Windows.Forms.Label labelThrottle;
+        private System.Windows.Forms.ComboBox comboBoxThrottle;
     }
 }

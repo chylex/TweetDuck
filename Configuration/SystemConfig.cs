@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using TweetDuck.Core;
 using TweetDuck.Data.Serialization;
 
 namespace TweetDuck.Configuration{
@@ -15,6 +16,8 @@ namespace TweetDuck.Configuration{
 
         public bool ClearCacheAutomatically { get; set; } = true;
         public int ClearCacheThreshold      { get; set; } = 250;
+
+        public FormBrowser.ThrottleBehavior ThrottleBehavior { get; set; } = FormBrowser.ThrottleBehavior.Covered;
 
         // SPECIAL PROPERTIES
         
