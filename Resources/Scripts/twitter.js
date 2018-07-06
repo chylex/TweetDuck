@@ -39,6 +39,16 @@
       for(let index = 0; index < links.length; index++){
         links[index].addEventListener("click", openLinkExternally);
       }
+
+      let texts = document.querySelector(".page-canvas > div:last-child");
+
+      if (texts){
+        texts.insertAdjacentHTML("beforeend", `<p class="tweetduck-helper">Used the TweetDuck app before? <a href="#">Import your profile »</a></p>`);
+        
+        texts.querySelector(".tweetduck-helper > a").addEventListener("click", function(){
+          $TD.openProfileImport();
+        });
+      }
     });
   }
   //

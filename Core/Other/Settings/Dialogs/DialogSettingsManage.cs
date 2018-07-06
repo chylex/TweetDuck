@@ -34,7 +34,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
 
         private ProfileManager.Items _selectedItems = ProfileManager.Items.None;
 
-        public DialogSettingsManage(PluginManager plugins){
+        public DialogSettingsManage(PluginManager plugins, bool openImportImmediately = false){
             InitializeComponent();
 
             this.plugins = plugins;
@@ -44,6 +44,11 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
             this.checkBoxMap[cbSystemConfig] = ProfileManager.Items.SystemConfig;
             this.checkBoxMap[cbSession] = ProfileManager.Items.Session;
             this.checkBoxMap[cbPluginData] = ProfileManager.Items.PluginData;
+
+            if (openImportImmediately){
+                radioImport.Checked = true;
+                btnContinue_Click(null, EventArgs.Empty);
+            }
         }
 
         private void radioDecision_CheckedChanged(object sender, EventArgs e){

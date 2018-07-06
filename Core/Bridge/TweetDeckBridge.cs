@@ -50,6 +50,10 @@ namespace TweetDuck.Core.Bridge{
             public void OpenContextMenu(){
                 form.InvokeAsyncSafe(form.OpenContextMenu);
             }
+
+            public void OpenProfileImport(){
+                form.InvokeAsyncSafe(form.OpenProfileImport);
+            }
             
             public void OnIntroductionClosed(bool showGuide, bool allowDataCollection){
                 form.InvokeAsyncSafe(() => {

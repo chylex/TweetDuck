@@ -59,3 +59,9 @@ button[type='submit'] {
   border: 1px solid rgba(0, 0, 0, 0.3) !important;
   border-radius: 0 !important;
 }
+
+.tweetduck-helper {
+  /* custom login text */
+  margin-top: 15px !important;
+  font-weight: bold !important;
+}

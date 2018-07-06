@@ -5,11 +5,13 @@ using TweetDuck.Configuration;
 using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling;
+using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Management;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Notification.Screenshot;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Other.Analytics;
+using TweetDuck.Core.Other.Settings.Dialogs;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
 using TweetDuck.Plugins.Enums;
@@ -435,13 +437,13 @@ namespace TweetDuck.Core{
         public void OpenSettings(){
             OpenSettings(null);
         }
-
+        
         public void OpenSettings(Type startTab){
             if (!FormManager.TryBringToFront<FormSettings>()){
                 bool prevEnableUpdateCheck = Config.EnableUpdateCheck;
 
                 FormSettings form = new FormSettings(this, plugins, updates, analytics, startTab);
-
+                
                 form.FormClosed += (sender, args) => {
                     if (!prevEnableUpdateCheck && Config.EnableUpdateCheck){
                         Config.DismissedUpdate = null;
@@ -494,6 +496,18 @@ namespace TweetDuck.Core{
             if (!FormManager.TryBringToFront<FormPlugins>()){
                 AnalyticsFile.OpenPlugins.Trigger();
                 ShowChildForm(new FormPlugins(plugins));
+            }
+        }
+
+        public void OpenProfileImport(){
+            FormManager.TryFind<FormSettings>()?.Close();
+
+            using(DialogSettingsManage dialog = new DialogSettingsManage(plugins, true)){
+                if (dialog.ShowDialog() == DialogResult.OK && !dialog.IsRestarting){
+                    BrowserProcessHandler.UpdatePrefs();
+                    FormManager.TryFind<FormPlugins>()?.Close();
+                    plugins.Reload(); // also reloads the browser
+                }
             }
         }
 
