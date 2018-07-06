@@ -100,7 +100,7 @@ try{
   
   foreach($file in Get-ChildItem -Path $targetDir -Filter "*.js" -Exclude "configuration.default.js" -Recurse){
     $lines = [IO.File]::ReadLines($file.FullName)
-    $lines = $lines | % { $_.TrimStart() }
+    $lines = $lines | ForEach-Object { $_.TrimStart() }
     $lines = $lines -Replace '^(.*?)((?<=^|[;{}()])\s?//(?:\s.*|$))?$', '$1'
     $lines = $lines -Replace '(?<!\w)return(\s.*?)? if (.*?);', 'if ($2)return$1;'
     Rewrite-File $file $lines $imports
@@ -119,7 +119,7 @@ try{
   
   foreach($file in Get-ChildItem -Path $targetDir -Filter "*.html" -Recurse){
     $lines = [IO.File]::ReadLines($file.FullName)
-    $lines = $lines | % { $_.TrimStart() }
+    $lines = $lines | ForEach-Object { $_.TrimStart() }
     Rewrite-File $file $lines $imports
   }
   

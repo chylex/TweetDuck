@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"name": "Installers",
+			"path": "..\\bld"
+		},
+		{
+			"name": "Resources",
+			"path": "."
+		}
+	],
+	"settings": {
+		"editor.tabSize": 2,
+		"javascript.validate.enable": false,
+		"files.autoGuessEncoding": true,
+		"files.insertFinalNewline": true,
+		"files.trimFinalNewlines": true,
+	}
+}
