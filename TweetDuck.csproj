@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="packages\CefSharp.WinForms.67.0.0-CI2658\build\CefSharp.WinForms.props" Condition="Exists('packages\CefSharp.WinForms.67.0.0-CI2658\build\CefSharp.WinForms.props')" />
   <Import Project="packages\CefSharp.Common.67.0.0-CI2658\build\CefSharp.Common.props" Condition="Exists('packages\CefSharp.Common.67.0.0-CI2658\build\CefSharp.Common.props')" />
@@ -16,7 +16,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Images\icon.ico</ApplicationIcon>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -332,19 +332,15 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ContentWithTargetPath Include="Resources\icon.ico">
-      <TargetPath>icon.ico</TargetPath>
-    </ContentWithTargetPath>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Resources\avatar.png" />
     <None Include="packages.config" />
-    <None Include="Resources\icon-tray-muted.ico" />
-    <None Include="Resources\icon-muted.ico" />
-    <None Include="Resources\icon-small.ico" />
-    <None Include="Resources\icon-tray-new.ico" />
-    <None Include="Resources\icon-tray.ico" />
-    <None Include="Resources\spinner.apng" />
+    <None Include="Resources\Images\avatar.png" />
+    <None Include="Resources\Images\icon.ico" />
+    <None Include="Resources\Images\icon-tray-muted.ico" />
+    <None Include="Resources\Images\icon-muted.ico" />
+    <None Include="Resources\Images\icon-small.ico" />
+    <None Include="Resources\Images\icon-tray-new.ico" />
+    <None Include="Resources\Images\icon-tray.ico" />
+    <None Include="Resources\Images\spinner.apng" />
     <None Include="Resources\PostBuild.ps1" />
     <None Include="Resources\Plugins\.debug\.meta" />
     <None Include="Resources\Plugins\.debug\browser.js" />
