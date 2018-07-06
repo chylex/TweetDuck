@@ -24,7 +24,7 @@ namespace TweetDuck.Core.Other.Settings{
             toolTip.SetToolTip(btnRestart, "Restarts the program using the same command\r\nline arguments that were used at launch.");
             toolTip.SetToolTip(btnRestartArgs, "Restarts the program with customizable\r\ncommand line arguments.");
 
-            toolTip.SetToolTip(checkHardwareAcceleration, "Uses graphics card to improve performance. Disable if you experience\r\nvisual glitches. This option will not be exported in a profile.");
+            toolTip.SetToolTip(checkHardwareAcceleration, "Uses graphics card to improve performance. Disable if you experience visual glitches, or to save a small amount of RAM.");
 
             toolTip.SetToolTip(btnClearCache, "Clearing cache will free up space taken by downloaded images and other resources.");
             toolTip.SetToolTip(checkClearCacheAuto, "Automatically clears cache when its size exceeds the set threshold. Note that cache can only be cleared when closing TweetDuck.");
@@ -34,13 +34,7 @@ namespace TweetDuck.Core.Other.Settings{
             toolTip.SetToolTip(btnEditCefArgs, "Set custom command line arguments for Chromium Embedded Framework.");
             toolTip.SetToolTip(btnEditCSS, "Set custom CSS for browser and notification windows.");
 
-            if (SystemConfig.IsHardwareAccelerationSupported){
-                checkHardwareAcceleration.Checked = SysConfig.HardwareAcceleration;
-            }
-            else{
-                checkHardwareAcceleration.Enabled = false;
-                checkHardwareAcceleration.Checked = false;
-            }
+            checkHardwareAcceleration.Checked = SysConfig.HardwareAcceleration;
 
             checkClearCacheAuto.Checked = SysConfig.ClearCacheAutomatically;
             numClearCacheThreshold.Enabled = checkClearCacheAuto.Checked;

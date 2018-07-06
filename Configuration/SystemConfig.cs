@@ -6,25 +6,15 @@ using TweetDuck.Data.Serialization;
 namespace TweetDuck.Configuration{
     sealed class SystemConfig{
         private static readonly FileSerializer<SystemConfig> Serializer = new FileSerializer<SystemConfig>();
-
-        public static readonly bool IsHardwareAccelerationSupported = File.Exists(Path.Combine(Program.ProgramPath, "libEGL.dll")) &&
-                                                                      File.Exists(Path.Combine(Program.ProgramPath, "libGLESv2.dll"));
-
+        
         // CONFIGURATION DATA
-
-        private bool _hardwareAcceleration = true;
+        
+        public bool HardwareAcceleration { get; set; } = true;
 
         public bool ClearCacheAutomatically { get; set; } = true;
         public int ClearCacheThreshold      { get; set; } = 250;
 
         public FormBrowser.ThrottleBehavior ThrottleBehavior { get; set; } = FormBrowser.ThrottleBehavior.Covered;
-
-        // SPECIAL PROPERTIES
-        
-        public bool HardwareAcceleration{
-            get => _hardwareAcceleration && IsHardwareAccelerationSupported;
-            set => _hardwareAcceleration = value;
-        }
 
         // END OF CONFIG
 
