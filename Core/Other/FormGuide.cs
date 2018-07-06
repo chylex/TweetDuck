@@ -12,7 +12,7 @@ using TweetDuck.Data;
 using TweetDuck.Resources;
 
 namespace TweetDuck.Core.Other{
-    sealed partial class FormGuide : Form{
+    sealed partial class FormGuide : Form, FormManager.IAppDialog{
         private const string GuideUrl = "https://tweetduck.chylex.com/guide/v2/";
         private const string GuidePathRegex = @"^guide(?:/v\d+)?(?:/(#.*))?";
 

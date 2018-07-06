@@ -13,7 +13,7 @@ using TweetDuck.Plugins;
 using TweetDuck.Updates;
 
 namespace TweetDuck.Core.Other{
-    sealed partial class FormSettings : Form{
+    sealed partial class FormSettings : Form, FormManager.IAppDialog{
         private readonly FormBrowser browser;
         private readonly PluginManager plugins;
 

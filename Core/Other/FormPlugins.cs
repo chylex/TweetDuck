@@ -7,7 +7,7 @@ using TweetDuck.Plugins;
 using TweetDuck.Plugins.Controls;
 
 namespace TweetDuck.Core.Other{
-    sealed partial class FormPlugins : Form{
+    sealed partial class FormPlugins : Form, FormManager.IAppDialog{
         private readonly PluginManager pluginManager;
         
         public FormPlugins(){

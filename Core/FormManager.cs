@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Windows.Forms;
-using TweetDuck.Core.Other;
 
 namespace TweetDuck.Core{
     static class FormManager{
@@ -18,12 +17,14 @@ namespace TweetDuck.Core{
             else return false;
         }
 
+        public static bool HasAnyDialogs => Application.OpenForms.OfType<IAppDialog>().Any();
+        
         public static void CloseAllDialogs(){
-            foreach(Form form in Application.OpenForms.Cast<Form>().Reverse()){
-                if (form is FormSettings || form is FormPlugins || form is FormAbout || form is FormGuide){
-                    form.Close();
-                }
+            foreach(IAppDialog dialog in Application.OpenForms.OfType<IAppDialog>().Reverse()){
+                ((Form)dialog).Close();
             }
         }
+
+        public interface IAppDialog{}
     }
 }

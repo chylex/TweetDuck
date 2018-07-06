@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Other{
-    sealed partial class FormAbout : Form{
+    sealed partial class FormAbout : Form, FormManager.IAppDialog{
         private const string TipsLink = "https://github.com/chylex/TweetDuck/wiki";
         private const string IssuesLink = "https://github.com/chylex/TweetDuck/issues";
 
