@@ -1427,10 +1427,20 @@
   }
   
   //
-  // Block: Decrease amount of loaded DMs to avoid massive lag from re-opening them several times.
+  // Block: Limit amount of loaded DMs to avoid massive lag from re-opening them several times.
   //
-  if (ensurePropertyExists(TD, "services", "TwitterConversation", "CONVERSATION_ENTRY_COUNT")){
-    TD.services.TwitterConversation.CONVERSATION_ENTRY_COUNT = 20;
+  if (ensurePropertyExists(TD, "services", "TwitterConversation", "prototype", "renderThread")){
+    const prevFunc = TD.services.TwitterConversation.prototype.renderThread;
+    
+    TD.services.TwitterConversation.prototype.renderThread = function(){
+      let prevMessages = this.messages;
+
+      this.messages = prevMessages.slice(0, 100);
+      let result = prevFunc.apply(this, arguments);
+      this.messages = prevMessages;
+
+      return result;
+    };
   }
   
   //
