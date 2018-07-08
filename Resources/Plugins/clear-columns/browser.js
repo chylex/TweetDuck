@@ -1,11 +1,4 @@
-constructor(){
-  super({
-    requiresPageReload: true
-  });
-}
-
 enabled(){
-  // prepare variables and functions
   const clearColumn = (columnName) => {
     TD.controller.columnManager.get(columnName).clear();
     TD.controller.stats.columnActionClick("clear");
@@ -38,10 +31,17 @@ enabled(){
     }
   };
   
-  // prepare event handlers
-  this.eventClickSingle = function(e){
-    let name = $(this).closest(".js-column").attr("data-column");
-    e.shiftKey ? resetColumn(name) : clearColumn(name);
+  // event handlers
+  
+  this.eventClickOneCapture = function(e){
+    if (e.target.getAttribute("data-action") === "td-clearcolumns-dosingle"){
+      let name = $(e.target).closest(".js-column").attr("data-column");
+      e.shiftKey ? resetColumn(name) : clearColumn(name);
+      
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+    }
   };
   
   this.eventClickAll = function(e){
@@ -74,59 +74,85 @@ enabled(){
     }
   };
   
-  // setup clear all button
+  this.eventKeyboardShortcuts = function(e){
+    $(".keyboard-shortcut-list").first().append(`
+<dd class="keyboard-shortcut-definition" style="white-space:nowrap">
+  <span class="text-like-keyboard-key">1</span> … <span class="text-like-keyboard-key">9</span> + <span class="text-like-keyboard-key">Del</span> Clear column 1－9
+</dd>
+<dd class="keyboard-shortcut-definition">
+  <span class="text-like-keyboard-key">Alt</span> + <span class="text-like-keyboard-key">Del</span> Clear all columns
+</dd>`);
+  };
+  
+  // update UI
+  
   this.btnClearAllHTML = `
 <a class="clear-columns-btn-all-parent js-header-action link-clean cf app-nav-link padding-h--10" data-title="Clear columns (hold Shift to restore)" data-action="td-clearcolumns-doall">
   <div class="obj-left margin-l--2"><i class="icon icon-medium icon-clear-timeline"></i></div>
   <div class="clear-columns-btn-all nbfc padding-ts hide-condensed txt-size--16 app-nav-link-text">Clear columns</div>
 </a>`;
   
-  // add column buttons and keyboard shortcut info to UI
-  window.TDPF_injectMustache("column/column_header.mustache", "prepend", "<a data-testid=\"optionsToggle\"", `
+  this.btnClearOneHTML = `
 <a class="js-action-header-button column-header-link" href="#" data-action="td-clearcolumns-dosingle">
-  <i class="icon icon-clear-timeline js-show-tip" data-placement="bottom" data-original-title="Clear column (hold Shift to restore)"></i>
-</a>`);
+  <i class="icon icon-clear-timeline js-show-tip" data-placement="bottom" data-original-title="Clear column (hold Shift to restore)"  data-action="td-clearcolumns-dosingle"></i>
+</a>`;
   
-  window.TDPF_injectMustache("keyboard_shortcut_list.mustache", "prepend", "</dl> <dl", `
-<dd class="keyboard-shortcut-definition" style="white-space:nowrap">
-  <span class="text-like-keyboard-key">1</span> … <span class="text-like-keyboard-key">9</span> + <span class="text-like-keyboard-key">Del</span> Clear column 1－9
-</dd><dd class="keyboard-shortcut-definition">
-  <span class="text-like-keyboard-key">Alt</span> + <span class="text-like-keyboard-key">Del</span> Clear all columns
-</dd>`);
+  this.prevNavMenuMustache = TD.mustaches["menus/column_nav_menu.mustache"];
+  window.TDPF_injectMustache("menus/column_nav_menu.mustache", "replace", "{{_i}}Add column{{/i}}</div> </a> </div>", `{{_i}}Add column{{/i}}</div></a>${this.btnClearAllHTML}</div>`);
   
-  window.TDPF_injectMustache("menus/column_nav_menu.mustache", "replace", "{{_i}}Add column{{/i}}</div> </a> </div>", `{{_i}}Add column{{/i}}</div></a>${this.btnClearAllHTML}</div>`)
+  this.prevColumnHeaderMustache = TD.mustaches["column/column_header.mustache"];
+  window.TDPF_injectMustache("column/column_header.mustache", "prepend", "<a data-testid=\"optionsToggle\"", this.btnClearOneHTML);
   
-  // load custom style
-  let css = window.TDPF_createCustomStyle(this);
-  css.insert(".js-app-add-column.is-hidden + .clear-columns-btn-all-parent { display: none; }");
-  css.insert(".column-header-links { min-width: 51px !important; }");
-  css.insert("[data-td-icon='icon-message'] .column-header-links { min-width: 110px !important; }");
-  css.insert(".column-navigator-overflow .clear-columns-btn-all-parent { display: none !important; }");
-  css.insert(".column-navigator-overflow { bottom: 224px !important; }");
-  css.insert("[data-action='td-clearcolumns-dosingle'] { padding: 3px 0 !important; }");
-  css.insert("[data-action='clear'].btn-options-tray { display: none !important; }");
-  css.insert("[data-td-icon='icon-schedule'] .td-clear-column-shortcut { display: none; }");
-  css.insert("[data-td-icon='icon-custom-timeline'] .td-clear-column-shortcut { display: none; }");
+  if (TD.ready){
+    $("a[data-testid='optionsToggle']", ".js-column-header").before(this.btnClearOneHTML);
+  }
+  
+  // styles
+  
+  this.css = window.TDPF_createCustomStyle(this);
+  this.css.insert(".js-app-add-column.is-hidden + .clear-columns-btn-all-parent { display: none; }");
+  this.css.insert(".column-header-links { min-width: 51px !important; }");
+  this.css.insert("[data-td-icon='icon-message'] .column-header-links { min-width: 110px !important; }");
+  this.css.insert(".column-navigator-overflow .clear-columns-btn-all-parent { display: none !important; }");
+  this.css.insert(".column-navigator-overflow { bottom: 224px !important; }");
+  this.css.insert("[data-action='td-clearcolumns-dosingle'] { padding: 3px 0 !important; }");
+  this.css.insert("[data-action='clear'].btn-options-tray { display: none !important; }");
+  this.css.insert("[data-td-icon='icon-schedule'] .td-clear-column-shortcut { display: none; }");
+  this.css.insert("[data-td-icon='icon-custom-timeline'] .td-clear-column-shortcut { display: none; }");
 }
 
 ready(){
-  // setup events
-  $(document).on("click", "[data-action='td-clearcolumns-dosingle']", this.eventClickSingle);
+  document.addEventListener("click", this.eventClickOneCapture, true);
   $(document).on("click", "[data-action='td-clearcolumns-doall']", this.eventClickAll);
   $(document).on("keydown", this.eventKeyDown);
   $(document).on("keyup", this.eventKeyUp);
+  $(document).on("uiShowKeyboardShortcutList", this.eventKeyboardShortcuts);
   
-  // setup clear all button for nav overflow
   $(".js-app-add-column").first().after(this.btnClearAllHTML);
   
-  // setup tooltip handling
+  // fix tooltip
+  
   let tooltipEvents = $._data($(".js-header-action")[0], "events");
   
   if (tooltipEvents.mouseover && tooltipEvents.mouseover.length && tooltipEvents.mouseout && tooltipEvents.mouseout.length){
-    $(".clear-columns-btn-all-parent").on("mouseover", tooltipEvents.mouseover[0].handler).on("mouseout", tooltipEvents.mouseout[0].handler);
+    $(".clear-columns-btn-all-parent").on({
+      mouseover: tooltipEvents.mouseover[0].handler,
+      mouseout: tooltipEvents.mouseout[0].handler
+    });
   }
 }
 
 disabled(){
-  // not needed, plugin reloads the page when enabled or disabled
+  this.css.remove();
+  
+  document.removeEventListener("click", this.eventClickOneCapture);
+  $(document).off("click", "[data-action='td-clearcolumns-doall']", this.eventClickAll);
+  $(document).off("keydown", this.eventKeyDown);
+  $(document).off("keyup", this.eventKeyUp);
+  $(document).off("uiShowKeyboardShortcutList", this.eventKeyboardShortcuts);
+  
+  TD.mustaches["menus/column_nav_menu.mustache"] = this.prevNavMenuMustache;
+  TD.mustaches["column/column_header.mustache"] = this.prevColumnHeaderMustache;
+  
+  $("[data-action^='td-clearcolumns-']").remove();
 }
