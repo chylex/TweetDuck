@@ -135,7 +135,7 @@ try{
   
   foreach($path in $imports){
     $text = [IO.File]::ReadAllText($path)
-    $text = [Regex]::Replace($text, '#import "(.*)"', {
+    $text = [Regex]::Replace($text, '#import "(.*?)"', {
       $importPath = Join-Path $importFolder ($args[0].Groups[1].Value.Trim())
       $importStr = [IO.File]::ReadAllText($importPath).TrimEnd()
       
