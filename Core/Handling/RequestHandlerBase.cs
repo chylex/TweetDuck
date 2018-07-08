@@ -2,6 +2,7 @@
 using CefSharp;
 using CefSharp.Handler;
 using TweetDuck.Core.Handling.General;
+using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Handling{
     class RequestHandlerBase : DefaultRequestHandler{
@@ -16,7 +17,7 @@ namespace TweetDuck.Core.Handling{
         }
 
         public override CefReturnValue OnBeforeResourceLoad(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IRequestCallback callback){
-            if (ContextMenuBase.HasDevTools){
+            if (BrowserUtils.HasDevTools){
                 NameValueCollection headers = request.Headers;
                 headers.Remove("x-devtools-emulate-network-conditions-client-id");
                 request.Headers = headers;

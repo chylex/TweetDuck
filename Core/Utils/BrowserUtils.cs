@@ -13,6 +13,8 @@ namespace TweetDuck.Core.Utils{
     static class BrowserUtils{
         public static string UserAgentVanilla => Program.BrandName+" "+Application.ProductVersion;
         public static string UserAgentChrome => "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/"+Cef.ChromiumVersion+" Safari/537.36";
+
+        public static readonly bool HasDevTools = File.Exists(Path.Combine(Program.ProgramPath, "devtools_resources.pak"));
         
         public static void SetupCefArgs(IDictionary<string, string> args){
             if (!Program.SystemConfig.HardwareAcceleration){

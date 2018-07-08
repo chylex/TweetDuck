@@ -8,7 +8,6 @@ using TweetDuck.Configuration;
 using System.Linq;
 using System.Management;
 using System.Text.RegularExpressions;
-using TweetDuck.Core.Handling;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
@@ -22,7 +21,7 @@ namespace TweetDuck.Core.Other.Analytics{
             return new AnalyticsReport{
                 { "App Version"   , Program.VersionTag },
                 { "App Type"      , Program.IsPortable ? "portable" : "installed" },
-                { "App Dev Tools" , Bool(ContextMenuBase.HasDevTools) },
+                { "App Dev Tools" , Bool(BrowserUtils.HasDevTools) },
                 0,
                 { "System Name"        , SystemName },
                 { "System Edition"     , SystemEdition },

@@ -15,8 +15,6 @@ using TweetDuck.Resources;
 
 namespace TweetDuck.Core.Handling{
     abstract class ContextMenuBase : IContextMenuHandler{
-        public static readonly bool HasDevTools = File.Exists(Path.Combine(Program.ProgramPath, "devtools_resources.pak"));
-
         private static TwitterUtils.ImageQuality ImageQuality => Program.UserConfig.TwitterImageQuality;
         
         private const CefMenuCommand MenuOpenLinkUrl     = (CefMenuCommand)26500;
@@ -238,7 +236,10 @@ namespace TweetDuck.Core.Handling{
         }
         
         protected static void AddDebugMenuItems(IMenuModel model){
-            model.AddItem(MenuOpenDevTools, "Open dev tools");
+            if (BrowserUtils.HasDevTools){
+                AddSeparator(model);
+                model.AddItem(MenuOpenDevTools, "Open dev tools");
+            }
         }
 
         protected static void RemoveSeparatorIfLast(IMenuModel model){

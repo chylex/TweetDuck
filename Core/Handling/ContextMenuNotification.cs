@@ -47,11 +47,7 @@ namespace TweetDuck.Core.Handling{
                 }
             }
             
-            if (HasDevTools){
-                AddSeparator(model);
-                AddDebugMenuItems(model);
-            }
-
+            AddDebugMenuItems(model);
             RemoveSeparatorIfLast(model);
 
             form.InvokeAsyncSafe(() => {

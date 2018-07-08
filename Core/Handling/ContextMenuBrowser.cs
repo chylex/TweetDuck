@@ -83,11 +83,8 @@ namespace TweetDuck.Core.Handling{
                 globalMenu.AddItem(MenuSettings, TitleSettings);
                 globalMenu.AddItem(MenuPlugins, TitlePlugins);
                 globalMenu.AddItem(MenuAbout, TitleAboutProgram);
-
-                if (HasDevTools){
-                    globalMenu.AddSeparator();
-                    AddDebugMenuItems(globalMenu);
-                }
+                
+                AddDebugMenuItems(globalMenu);
             }
 
             RemoveSeparatorIfLast(model);
