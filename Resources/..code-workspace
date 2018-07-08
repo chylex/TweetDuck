@@ -12,8 +12,9 @@
 	"settings": {
 		"editor.tabSize": 2,
 		"javascript.validate.enable": false,
-		"files.autoGuessEncoding": true,
+		"files.autoGuessEncoding": false,
 		"files.insertFinalNewline": true,
 		"files.trimFinalNewlines": true,
+		"files.encoding": "utf8",
 	}
 }
