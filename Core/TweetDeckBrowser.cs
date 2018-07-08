@@ -270,5 +270,9 @@ namespace TweetDuck.Core{
         public void ShowUpdateNotification(string versionTag, string releaseNotes){
             browser.ExecuteScriptAsync("TDUF_displayNotification", versionTag, Convert.ToBase64String(Encoding.GetEncoding("iso-8859-1").GetBytes(releaseNotes)));
         }
+
+        public void OpenDevTools(){
+            browser.ShowDevTools();
+        }
     }
 }

@@ -13,11 +13,13 @@ namespace TweetDuck.Core.Other.Settings{
         private static SystemConfig SysConfig => Program.SystemConfig;
 
         private readonly Action<string> reinjectBrowserCSS;
+        private readonly Action openDevTools;
 
-        public TabSettingsAdvanced(Action<string> reinjectBrowserCSS){
+        public TabSettingsAdvanced(Action<string> reinjectBrowserCSS, Action openDevTools){
             InitializeComponent();
 
             this.reinjectBrowserCSS = reinjectBrowserCSS;
+            this.openDevTools = openDevTools;
             
             toolTip.SetToolTip(btnOpenAppFolder, "Opens the folder where the app is located.");
             toolTip.SetToolTip(btnOpenDataFolder, "Opens the folder where your profile data is located.");
@@ -116,7 +118,7 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void btnEditCSS_Click(object sender, EventArgs e){
-            DialogSettingsCSS form = new DialogSettingsCSS(reinjectBrowserCSS);
+            DialogSettingsCSS form = new DialogSettingsCSS(reinjectBrowserCSS, openDevTools);
 
             form.VisibleChanged += (sender2, args2) => {
                 form.MoveToCenter(ParentForm);

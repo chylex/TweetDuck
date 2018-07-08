@@ -412,6 +412,10 @@ namespace TweetDuck.Core{
             AnalyticsFile.UsedROT13.Trigger();
         }
 
+        public void OpenDevTools(){
+            browser.OpenDevTools();
+        }
+
         // callback handlers
         
         public void OnIntroductionClosed(bool showGuide, bool allowDataCollection){
