@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Other;
+
 #if DEBUG
 using System.Diagnostics;
 using System.Reflection;
@@ -88,7 +89,7 @@ namespace TweetDuck.Resources{
 
         static ScriptLoader(){
             if (File.Exists(HotSwapRebuildScript)){
-                Debug.WriteLine("Activating resource hot swap");
+                Debug.WriteLine("Activating resource hot swap...");
 
                 ResetHotSwap();
                 Application.ApplicationExit += (sender, args) => ResetHotSwap();
@@ -103,6 +104,8 @@ namespace TweetDuck.Resources{
             
             ResetHotSwap();
             Directory.CreateDirectory(HotSwapTargetDir);
+
+            Stopwatch sw = Stopwatch.StartNew();
 
             using(Process process = Process.Start(new ProcessStartInfo{
                 FileName = "powershell",
@@ -119,6 +122,9 @@ namespace TweetDuck.Resources{
                     return;
                 }
             }
+
+            sw.Stop();
+            Debug.WriteLine("Finished rebuild script in "+sw.ElapsedMilliseconds+" ms");
 
             // Force update plugin manager setup scripts
 

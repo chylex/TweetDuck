@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using TweetDuck.Core;
 using TweetDuck.Data.Serialization;
 
