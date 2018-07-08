@@ -310,7 +310,7 @@
   // Function: Shows tweet detail, used in notification context menu.
   //
   execSafe(function setupShowTweetDetail(){
-    throw 1 if !ensurePropertyExists(TD, "ui", "updates", "showDetailVieww");
+    throw 1 if !ensurePropertyExists(TD, "ui", "updates", "showDetailView");
     throw 2 if !ensurePropertyExists(TD, "controller", "columnManager", "showColumn");
     throw 3 if !ensurePropertyExists(TD, "controller", "columnManager", "getByApiid");
     throw 4 if !ensurePropertyExists(TD, "controller", "clients", "getPreferredClient");
