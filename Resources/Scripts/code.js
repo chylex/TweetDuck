@@ -96,6 +96,22 @@
   };
   
   //
+  // Function: Executes a function inside a try-catch to stop it from crashing everything.
+  //
+  const execSafe = function(func, fail){
+    try{
+      func();
+    }catch(err){
+      console.error(err);
+      
+      debugger;
+      $TD.crashDebug("Caught error in function "+func.name)
+      
+      fail && fail();
+    }
+  };
+  
+  //
   // Function: Retrieves a property of an element with a specified class.
   //
   const getClassStyleProperty = function(cls, property){
@@ -113,15 +129,17 @@
   //
   // Block: Fix columns missing any identifiable attributes to allow individual styles.
   //
-  $(document).on("uiColumnRendered", function(e, data){
-    let icon = data.$column.find(".column-type-icon").first();
-    return if icon.length !== 1;
-    
-    let name = Array.prototype.find.call(icon[0].classList, cls => cls.startsWith("icon-"));
-    return if !name;
-    
-    data.$column.attr("data-td-icon", name);
-    data.column._tduck_icon = name;
+  execSafe(function setupColumnAttrIdentifiers(){
+    $(document).on("uiColumnRendered", function(e, data){
+      let icon = data.$column.find(".column-type-icon").first();
+      return if icon.length !== 1;
+      
+      let name = Array.prototype.find.call(icon[0].classList, cls => cls.startsWith("icon-"));
+      return if !name;
+      
+      data.$column.attr("data-td-icon", name);
+      data.column._tduck_icon = name;
+    });
   });
   
   //
@@ -139,17 +157,17 @@
     let recentTweets = new Set();
     let recentTweetTimer = null;
     
-    let resetRecentTweets = () => {
+    const resetRecentTweets = () => {
       recentTweetTimer = null;
       recentTweets.clear();
     };
     
-    let startRecentTweetTimer = () => {
+    const startRecentTweetTimer = () => {
       recentTweetTimer && window.clearTimeout(recentTweetTimer);
       recentTweetTimer = window.setTimeout(resetRecentTweets, 20000);
     };
     
-    let checkTweetCache = (set, id) => {
+    const checkTweetCache = (set, id) => {
       return true if set.has(id);
       
       if (set.size > 50){
@@ -160,7 +178,7 @@
       return false;
     };
     
-    let isSensitive = (tweet) => {
+    const isSensitive = (tweet) => {
       let main = tweet.getMainTweet && tweet.getMainTweet();
       return true if main && main.possiblySensitive; // TODO these don't show media badges when hiding sensitive media
       
@@ -173,7 +191,7 @@
       return false;
     };
     
-    let fixMedia = (html, media) => {
+    const fixMedia = (html, media) => {
       return html.find("a[data-media-entity-id='"+media.mediaId+"'], .media-item").first().removeClass("is-zoomable").css("background-image", 'url("'+media.small()+'")');
     };
     
@@ -291,11 +309,11 @@
   //
   // Function: Shows tweet detail, used in notification context menu.
   //
-  (function(){
-    return if !ensurePropertyExists(TD, "ui", "updates", "showDetailView");
-    return if !ensurePropertyExists(TD, "controller", "columnManager", "showColumn");
-    return if !ensurePropertyExists(TD, "controller", "columnManager", "getByApiid");
-    return if !ensurePropertyExists(TD, "controller", "clients", "getPreferredClient");
+  execSafe(function setupShowTweetDetail(){
+    throw 1 if !ensurePropertyExists(TD, "ui", "updates", "showDetailVieww");
+    throw 2 if !ensurePropertyExists(TD, "controller", "columnManager", "showColumn");
+    throw 3 if !ensurePropertyExists(TD, "controller", "columnManager", "getByApiid");
+    throw 4 if !ensurePropertyExists(TD, "controller", "clients", "getPreferredClient");
     
     const showTweetDetailInternal = function(column, chirp){
       TD.ui.updates.showDetailView(column, chirp, column.findChirp(chirp) || chirp);
@@ -338,12 +356,21 @@
         });
       }
     };
-  })();
+  }, function(){
+    window.TDGF_showTweetDetail = function(){
+      alert("error|This feature is not available due to an internal error.");
+    };
+  });
   
   //
   // Block: Hook into settings object to detect when the settings change, and update html attributes and notification layout.
   //
-  (function(){
+  execSafe(function hookTweetDeckSettings(){
+    throw 1 if !ensurePropertyExists(TD, "settings", "getFontSize");
+    throw 2 if !ensurePropertyExists(TD, "settings", "setFontSize");
+    throw 3 if !ensurePropertyExists(TD, "settings", "getTheme");
+    throw 4 if !ensurePropertyExists(TD, "settings", "setTheme");
+    
     const refreshSettings = function(){
       let fontSizeName = TD.settings.getFontSize();
       let themeName = TD.settings.getTheme();
@@ -374,7 +401,7 @@
     });
     
     onAppReady.push(refreshSettings);
-  })();
+  });
   
   //
   // Block: Fix OS name and add ID to the document for priority CSS selectors.
@@ -393,7 +420,9 @@
   //
   // Block: Enable popup notifications.
   //
-  if (ensurePropertyExists(TD, "controller", "notifications")){
+  execSafe(function hookDesktopNotifications(){
+    throw 1 if !ensurePropertyExists(TD, "controller", "notifications");
+    
     TD.controller.notifications.hasNotifications = function(){
       return true;
     };
@@ -401,18 +430,18 @@
     TD.controller.notifications.isPermissionGranted = function(){
       return true;
     };
-  }
-  
-  $.subscribe("/notifications/new", function(obj){
-    for(let index = obj.items.length-1; index >= 0; index--){
-      onNewTweet(obj.column, obj.items[index]);
-    }
+    
+    $.subscribe("/notifications/new", function(obj){
+      for(let index = obj.items.length-1; index >= 0; index--){
+        onNewTweet(obj.column, obj.items[index]);
+      }
+    });
   });
   
   //
   // Block: Add TweetDuck buttons to the settings menu.
   //
-  onAppReady.push(function(){
+  onAppReady.push(function setupSettingsDropdown(){
     $$("[data-action='settings-menu']").click(function(){
       setTimeout(function(){
         let menu = $(".js-dropdown-content").children("ul").first();
@@ -437,7 +466,7 @@
   //
   // Block: Expand shortened links on hover or display tooltip.
   //
-  (function(){
+  execSafe(function setupLinkExpansionOrTooltip(){
     let prevMouseX = -1, prevMouseY = -1;
     let tooltipTimer, tooltipDisplayed;
     
@@ -484,51 +513,53 @@
         }
       }
     });
-  })();
+  });
   
   //
   // Block: Bypass t.co when clicking/dragging links and media.
   //
-  $(document.body).delegate("a[data-full-url]", "click auxclick", function(e){
-    if (e.button === 0 || e.button === 1){ // event.which seems to be borked in auxclick
-      $TD.openBrowser($(this).attr("data-full-url"));
-      e.preventDefault();
-    }
-  });
-  
-  $(document.body).delegate("a[data-full-url]", "dragstart", function(e){
-    let url = $(this).attr("data-full-url");
-    let data = e.originalEvent.dataTransfer;
+  execSafe(function setupShortenerBypass(){
+    $(document.body).delegate("a[data-full-url]", "click auxclick", function(e){
+      if (e.button === 0 || e.button === 1){ // event.which seems to be borked in auxclick
+        $TD.openBrowser($(this).attr("data-full-url"));
+        e.preventDefault();
+      }
+    });
     
-    data.clearData();
-    data.setData("text/uri-list", url);
-    data.setData("text/plain", url);
-    data.setData("text/html", `<a href="${url}">${url}</a>`);
-  });
-  
-  if (ensurePropertyExists(TD, "services", "TwitterMedia", "prototype", "fromMediaEntity")){
-    const prevFunc = TD.services.TwitterMedia.prototype.fromMediaEntity;
-    
-    TD.services.TwitterMedia.prototype.fromMediaEntity = function(){
-      let obj = prevFunc.apply(this, arguments);
-      let e = arguments[0];
+    $(document.body).delegate("a[data-full-url]", "dragstart", function(e){
+      let url = $(this).attr("data-full-url");
+      let data = e.originalEvent.dataTransfer;
       
-      if (e.expanded_url){
-        if (obj.url === obj.shortUrl){
-          obj.shortUrl = e.expanded_url;
+      data.clearData();
+      data.setData("text/uri-list", url);
+      data.setData("text/plain", url);
+      data.setData("text/html", `<a href="${url}">${url}</a>`);
+    });
+    
+    if (ensurePropertyExists(TD, "services", "TwitterMedia", "prototype", "fromMediaEntity")){
+      const prevFunc = TD.services.TwitterMedia.prototype.fromMediaEntity;
+      
+      TD.services.TwitterMedia.prototype.fromMediaEntity = function(){
+        let obj = prevFunc.apply(this, arguments);
+        let e = arguments[0];
+        
+        if (e.expanded_url){
+          if (obj.url === obj.shortUrl){
+            obj.shortUrl = e.expanded_url;
+          }
+          
+          obj.url = e.expanded_url;
         }
         
-        obj.url = e.expanded_url;
-      }
-      
-      return obj;
-    };
-  }
+        return obj;
+      };
+    }
+  });
   
   //
   // Block: Bypass t.co in user profiles and setup a top tier account bamboozle scheme.
   //
-  (function(){
+  execSafe(function setupAccountLoadHook(){
     const realDisplayName = "TweetDuck";
     const realAvatar = "https://ton.twimg.com/tduck/avatar";
     const accountId = "957608948189880320";
@@ -585,31 +616,33 @@
         }, onError);
       };
     }
-  })();
+  });
   
   //
   // Block: Include additional information in context menus.
   //
-  $(document.body).delegate("a", "contextmenu", function(){
-    let me = $(this)[0];
-    
-    if (me.classList.contains("js-media-image-link") && highlightedTweetObj){
-      let tweet = highlightedTweetObj.hasMedia() ? highlightedTweetObj : highlightedTweetObj.quotedTweet;
-      let media = tweet.getMedia().find(media => media.mediaId === me.getAttribute("data-media-entity-id"));
+  execSafe(function setupContextMenuInfo(){
+    $(document.body).delegate("a", "contextmenu", function(){
+      let me = $(this)[0];
       
-      if ((media.isVideo && media.service === "twitter") || media.isAnimatedGif){
-        $TD.setRightClickedLink("video", media.chooseVideoVariant().url);
+      if (me.classList.contains("js-media-image-link") && highlightedTweetObj){
+        let tweet = highlightedTweetObj.hasMedia() ? highlightedTweetObj : highlightedTweetObj.quotedTweet;
+        let media = tweet.getMedia().find(media => media.mediaId === me.getAttribute("data-media-entity-id"));
+        
+        if ((media.isVideo && media.service === "twitter") || media.isAnimatedGif){
+          $TD.setRightClickedLink("video", media.chooseVideoVariant().url);
+        }
+        else{
+          $TD.setRightClickedLink("image", media.large());
+        }
+      }
+      else if (me.classList.contains("js-gif-play")){
+        $TD.setRightClickedLink("video", $(this).closest(".js-media-gif-container").find("video").attr("src"));
       }
       else{
-        $TD.setRightClickedLink("image", media.large());
+        $TD.setRightClickedLink("link", me.getAttribute("data-full-url"));
       }
-    }
-    else if (me.classList.contains("js-gif-play")){
-      $TD.setRightClickedLink("video", $(this).closest(".js-media-gif-container").find("video").attr("src"));
-    }
-    else{
-      $TD.setRightClickedLink("link", me.getAttribute("data-full-url"));
-    }
+    });
   });
   
   //
@@ -646,9 +679,9 @@
   //
   // Block: Update highlighted column and tweet for context menu and other functionality.
   //
-  (function(){
-    return if !ensurePropertyExists(TD, "controller", "columnManager", "get");
-    return if !ensurePropertyExists(TD, "services", "ChirpBase", "TWEET");
+  execSafe(function setupHighlightedColumn(){
+    throw 1 if !ensurePropertyExists(TD, "controller", "columnManager", "get");
+    throw 2 if !ensurePropertyExists(TD, "services", "ChirpBase", "TWEET");
     
     const updateHighlightedColumn = function(ele){
       highlightedColumnEle = ele;
@@ -705,12 +738,12 @@
         updateHighlightedTweet(null, null);
       }
     });
-  })();
+  });
   
   //
   // Block: Screenshot tweet to clipboard.
   //
-  (function(){
+  execSafe(function setupTweetScreenshot(){
     window.TDGF_triggerScreenshot = function(){
       return if !highlightedTweetObj || !highlightedColumnObj;
       
@@ -764,12 +797,16 @@
       
       $TD.screenshotTweet(html[0].outerHTML, columnWidth);
     };
-  })();
+  }, function(){
+    window.TDGF_triggerScreenshot = function(){
+      alert("error|This feature is not available due to an internal error.");
+    };
+  });
   
   //
   // Block: Paste images when tweeting.
   //
-  onAppReady.push(function(){
+  onAppReady.push(function supportImagePaste(){
     const uploader = $._data(document, "events")["uiComposeAddImageClick"][0].handler.context;
     
     app.delegate(".js-compose-text,.js-reply-tweetbox,.td-detect-image-paste", "paste", function(e){
@@ -807,7 +844,7 @@
   //
   // Block: Support for extra mouse buttons.
   //
-  (function(){
+  execSafe(function supportExtraMouseButtons(){
     const tryClickSelector = function(selector, parent){
       return $(selector, parent).click().length;
     };
@@ -847,12 +884,12 @@
         }
       }
     };
-  })();
+  });
   
   //
   // Block: Allow drag & drop behavior for dropping links on columns to open their detail view.
   //
-  (function(){
+  execSafe(function supportDragDropOverColumns(){
     const tweetRegex = /^https?:\/\/twitter\.com\/[A-Za-z0-9_]+\/status\/(\d+)\/?\??/;
     const selector = "section.js-column";
     
@@ -895,13 +932,13 @@
         app.undelegate(selector, events);
       }
     };
-  })();
+  });
   
   //
   // Block: Fix scheduled tweets not showing up sometimes.
   //
-  (function(){
-    return if !ensurePropertyExists(TD, "controller", "columnManager", "getAll");
+  execSafe(function fixScheduledTweets(){
+    throw 1 if !ensurePropertyExists(TD, "controller", "columnManager", "getAll");
     
     $(document).on("dataTweetSent", function(e, data){
       if (data.response.state && data.response.state === "scheduled"){
@@ -914,13 +951,13 @@
         }
       }
     });
-  })();
+  });
   
   //
   // Block: Hold Shift to restore cleared column.
   //
-  (function(){
-    return if !ensurePropertyExists(TD, "vo", "Column", "prototype", "clear");
+  execSafe(function supportShiftToClearColumn(){
+    throw 1 if !ensurePropertyExists(TD, "vo", "Column", "prototype", "clear");
     
     let holdingShift = false;
     
@@ -954,12 +991,12 @@
         return true;
       }
     });
-  })();
+  });
   
   //
   // Block: Refocus the textbox after switching accounts.
   //
-  onAppReady.push(function(){
+  onAppReady.push(function setupAccountSwitchRefocus(){
     const composeInput = $$(".js-compose-text", ".js-docked-compose");
     
     const refocusInput = function(){
@@ -974,74 +1011,76 @@
   //
   // Block: Make middle click on tweet reply icon open the compose drawer, retweet icon trigger a quote, and favorite icon open a 'Like from accounts...' modal.
   //
-  app.delegate(".tweet-action,.tweet-detail-action", "auxclick", function(e){
-    return if e.which !== 2;
-    
-    let column = TD.controller.columnManager.get($(this).closest("section.js-column").attr("data-column"));
-    return if !column;
-    
-    let ele = $(this).closest("article");
-    let tweet = column.findChirp(ele.attr("data-tweet-id")) || column.findChirp(ele.attr("data-key"));
-    return if !tweet;
-    
-    switch($(this).attr("rel")){
-      case "reply":
-        let main = tweet.getMainTweet();
-        
-        $(document).trigger("uiDockedComposeTweet", {
-          type: "reply",
-          from: [ tweet.account.getKey() ],
-          inReplyTo: {
-            id: tweet.id,
-            htmlText: main.htmlText,
-            user: {
-              screenName: main.user.screenName,
-              name: main.user.name,
-              profileImageURL: main.user.profileImageURL
-            }
-          },
-          mentions: tweet.getReplyUsers(),
-          element: ele
-        });
-        
-        break;
-        
-      case "favorite":
-        $(document).trigger("uiShowFavoriteFromOptions", { tweet });
-        break;
-        
-      case "retweet":
-        TD.controller.stats.quoteTweet();
-        
-        $(document).trigger("uiComposeTweet", {
-          type: "tweet",
-          from: [ tweet.account.getKey() ],
-          quotedTweet: tweet.getMainTweet(),
-          element: ele // triggers reply-account plugin
-        });
-        
-        break;
+  execSafe(function supportMiddleClickTweetActions(){
+    app.delegate(".tweet-action,.tweet-detail-action", "auxclick", function(e){
+      return if e.which !== 2;
       
-      default:
-        return;
-    }
-    
-    e.preventDefault();
-    e.stopPropagation();
-    e.stopImmediatePropagation();
+      let column = TD.controller.columnManager.get($(this).closest("section.js-column").attr("data-column"));
+      return if !column;
+      
+      let ele = $(this).closest("article");
+      let tweet = column.findChirp(ele.attr("data-tweet-id")) || column.findChirp(ele.attr("data-key"));
+      return if !tweet;
+      
+      switch($(this).attr("rel")){
+        case "reply":
+          let main = tweet.getMainTweet();
+          
+          $(document).trigger("uiDockedComposeTweet", {
+            type: "reply",
+            from: [ tweet.account.getKey() ],
+            inReplyTo: {
+              id: tweet.id,
+              htmlText: main.htmlText,
+              user: {
+                screenName: main.user.screenName,
+                name: main.user.name,
+                profileImageURL: main.user.profileImageURL
+              }
+            },
+            mentions: tweet.getReplyUsers(),
+            element: ele
+          });
+          
+          break;
+          
+        case "favorite":
+          $(document).trigger("uiShowFavoriteFromOptions", { tweet });
+          break;
+          
+        case "retweet":
+          TD.controller.stats.quoteTweet();
+          
+          $(document).trigger("uiComposeTweet", {
+            type: "tweet",
+            from: [ tweet.account.getKey() ],
+            quotedTweet: tweet.getMainTweet(),
+            element: ele // triggers reply-account plugin
+          });
+          
+          break;
+        
+        default:
+          return;
+      }
+      
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+    });
   });
   
   //
   // Block: Work around clipboard HTML formatting.
   //
-  $(document).on("copy", function(e){
+  document.addEventListener("copy", function(){
     window.setTimeout($TD.fixClipboard, 0);
   });
   
   //
   // Block: Inject custom CSS and layout into the page.
   //
-  (function(){
+  execSafe(function setupStyleInjection(){
     const createStyle = function(id, styles){
       let ele = document.createElement("style");
       ele.id = id;
@@ -1062,7 +1101,7 @@
         createStyle("tweetduck-custom-css", styles);
       }
     };
-  })();
+  });
   
   //
   // Block: Setup global function to inject custom HTML into mustache templates.
@@ -1115,7 +1154,7 @@
   //
   // Block: Setup video player hooks.
   //
-  (function(){
+  execSafe(function setupVideoPlayer(){
     window.TDGF_playVideo = function(url, username){
       $('<div id="td-video-player-overlay" class="ovl" style="display:block"></div>').on("click contextmenu", function(){
         $TD.playVideo(null, null);
@@ -1132,11 +1171,11 @@
       let parent = obj.closest(".js-tweet").first();
       let link = (parent.hasClass("tweet-detail") ? parent.find("a[rel='url']") : parent.find("time").first().children("a")).first();
       return link.attr("href");
-    }
+    };
     
     const getUsername = function(tweet){
       return tweet && (tweet.quotedTweet || tweet).getMainUser().screenName;
-    }
+    };
     
     app.delegate(".js-gif-play", {
       click: function(e){
@@ -1170,9 +1209,9 @@
     
     TD.mustaches["media/native_video.mustache"] = '<div class="js-media-gif-container media-item nbfc is-video" style="background-image:url({{imageSrc}})"><video class="js-media-gif media-item-gif full-width block {{#isPossiblySensitive}}is-invisible{{/isPossiblySensitive}}" loop src="{{videoUrl}}"></video><a class="js-gif-play pin-all is-actionable">{{> media/video_overlay}}</a></div>';
     
-    return if !ensurePropertyExists(TD, "components", "MediaGallery", "prototype", "_loadTweet");
-    return if !ensurePropertyExists(TD, "components", "BaseModal", "prototype", "setAndShowContainer");
-    return if !ensurePropertyExists(TD, "ui", "Column", "prototype", "playGifIfNotManuallyPaused");
+    throw 1 if !ensurePropertyExists(TD, "components", "MediaGallery", "prototype", "_loadTweet");
+    throw 2 if !ensurePropertyExists(TD, "components", "BaseModal", "prototype", "setAndShowContainer");
+    throw 3 if !ensurePropertyExists(TD, "ui", "Column", "prototype", "playGifIfNotManuallyPaused");
     
     let cancelModal = false;
     
@@ -1193,7 +1232,11 @@
     });
     
     TD.ui.Column.prototype.playGifIfNotManuallyPaused = function(){};
-  })();
+  }, function(){
+    window.TDGF_playVideo = function(){
+      alert("error|This feature is not available due to an internal error.");
+    };
+  });
   
   //
   // Block: Fix youtu.be previews not showing up for https links.
@@ -1214,7 +1257,7 @@
   //
   // Block: Add a pin icon to make tweet compose drawer stay open.
   //
-  onAppReady.push(function(){
+  onAppReady.push(function setupStayOpenPin(){
     let ele = $(`
 <svg id="td-compose-drawer-pin" viewBox="0 0 24 24" class="icon js-show-tip" data-original-title="Stay open" data-tooltip-position="left">
  <path d="M9.884,16.959l3.272,0.001l-0.82,4.568l-1.635,0l-0.817,-4.569Z"/>
@@ -1242,9 +1285,9 @@
   //
   // Block: Make temporary search column appear as the first one and clear the input box.
   //
-  (function(){
-    return if !ensurePropertyExists(TD, "controller", "columnManager", "_columnOrder");
-    return if !ensurePropertyExists(TD, "controller", "columnManager", "move");
+  execSafe(function setupSearchColumnHook(){
+    throw 1 if !ensurePropertyExists(TD, "controller", "columnManager", "_columnOrder");
+    throw 2 if !ensurePropertyExists(TD, "controller", "columnManager", "move");
     
     $(document).on("uiSearchNoTemporaryColumn", function(e, data){
       if (data.query && data.searchScope !== "users" && !data.columnKey){
@@ -1266,23 +1309,27 @@
         }
       }
     });
-  })();
+  });
   
   //
   // Block: Setup global function to add a search column with the specified query.
   //
-  onAppReady.push(function(){
+  onAppReady.push(() => execSafe(function setupSearchFunction(){
     let context = $._data(document, "events")["uiSearchInputSubmit"][0].handler.context;
     
     window.TDGF_performSearch = function(query){
       context.performSearch({ query, tweetduck: true });
     };
-  });
+  }, function(){
+    window.TDGF_performSearch = function(){
+      alert("error|This feature is not available due to an internal error.");
+    };
+  }));
   
   //
   // Block: Reorder search results to move accounts above hashtags.
   //
-  onAppReady.push(function(){
+  onAppReady.push(function reorderSearchResults(){
     let container = $(".js-search-in-popover");
     let hashtags = $$(".js-typeahead-topic-list", container);
     
@@ -1293,7 +1340,7 @@
   //
   // Block: Make submitting search queries while holding Ctrl or middle-clicking the search icon open the search externally.
   //
-  onAppReady.push(function(){
+  onAppReady.push(function setupSearchTriggerHook(){
     const openSearchExternally = function(event, input){
       $TD.openBrowser("https://twitter.com/search/?q="+encodeURIComponent(input.val() || ""));
       event.preventDefault();
@@ -1332,9 +1379,14 @@
   //
   // Block: Setup global function to refresh all columns.
   //
-  window.TDGF_reloadColumns = function(){
-    Object.values(TD.controller.columnManager.getAll()).forEach(column => column.reloadTweets());
-  };
+  if (ensurePropertyExists(TD, "controller", "columnManager", "getAll")){
+    window.TDGF_reloadColumns = function(){
+      Object.values(TD.controller.columnManager.getAll()).forEach(column => column.reloadTweets());
+    };
+  }
+  else{
+    window.TDGF_reloadColumns = function(){};
+  }
   
   //
   // Block: Allow applying ROT13 to input selection.
@@ -1356,7 +1408,7 @@
   //
   // Block: Revert Like/Follow dialogs being closed after clicking an action.
   //
-  (function(){
+  execSafe(function setupLikeFollowDialogRevert(){
     const prevSetTimeout = window.setTimeout;
     
     const overrideState = function(){
@@ -1401,7 +1453,7 @@
         };
       });
     });
-  })();
+  });
   
   //
   // Block: Fix DM reply input box not getting focused after opening a conversation.
@@ -1466,7 +1518,7 @@
   // Block: Detect and notify about connection issues.
   //
   (function(){
-    let onConnectionError = function(){
+    const onConnectionError = function(){
       return if $("#tweetduck-conn-issues").length;
       
       let ele = $(`
@@ -1487,7 +1539,7 @@
       });
     };
     
-    let onConnectionFine = function(){
+    const onConnectionFine = function(){
       let ele = $("#tweetduck-conn-issues");
       
       ele.fadeOut(200, function(){
@@ -1558,7 +1610,9 @@
       }
     };
     
-    if (ensurePropertyExists(TD, "controller", "columnManager", "getAll")){
+    execSafe(function showMissedNotifications(){
+      throw 1 if !ensurePropertyExists(TD, "controller", "columnManager", "getAll");
+      
       $(document).one("dataColumnsLoaded", function(){
         let columns = Object.values(TD.controller.columnManager.getAll());
         let remaining = columns.length;
@@ -1571,14 +1625,16 @@
           });
         }
       });
-    }
+    });
   }
   
   //
   // Block: Disable default TweetDeck update notification.
   //
-  $(document).on("uiSuggestRefreshToggle", function(e){
-    e.stopImmediatePropagation();
+  execSafe(function disableTweetDeckUpdates(){
+    $(document).on("uiSuggestRefreshToggle", function(e){
+      e.stopImmediatePropagation();
+    });
   });
   
   //
@@ -1593,7 +1649,7 @@
     TD.metrics.send = noop;
   }
   
-  onAppReady.push(function(){
+  onAppReady.push(function disableMetrics(){
     let data = $._data(window);
     delete data.events["metric"];
     delete data.events["metricsFlush"];
@@ -1603,7 +1659,7 @@
   // Block: Register the TD.ready event, finish initialization, and load plugins.
   //
   $(document).one("TD.ready", function(){
-    onAppReady.forEach(func => func());
+    onAppReady.forEach(func => execSafe(func));
     onAppReady = null;
     
     delete window.TD_SESSION;

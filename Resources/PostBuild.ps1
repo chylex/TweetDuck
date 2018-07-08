@@ -102,7 +102,7 @@ try{
     $lines = [IO.File]::ReadLines($file.FullName)
     $lines = $lines | ForEach-Object { $_.TrimStart() }
     $lines = $lines -Replace '^(.*?)((?<=^|[;{}()])\s?//(?:\s.*|$))?$', '$1'
-    $lines = $lines -Replace '(?<!\w)return(\s.*?)? if (.*?);', 'if ($2)return$1;'
+    $lines = $lines -Replace '(?<!\w)(return|throw)(\s.*?)? if (.*?);', 'if ($3)$1$2;'
     Rewrite-File $file $lines $imports
   }
   
