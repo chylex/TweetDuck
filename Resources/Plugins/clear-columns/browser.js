@@ -6,24 +6,24 @@ constructor(){
 
 enabled(){
   // prepare variables and functions
-  var clearColumn = (columnName) => {
+  const clearColumn = (columnName) => {
     TD.controller.columnManager.get(columnName).clear();
     TD.controller.stats.columnActionClick("clear");
   };
   
-  var resetColumn = (columnName) => {
+  const resetColumn = (columnName) => {
     let col = TD.controller.columnManager.get(columnName);
     col.model.setClearedTimestamp(0);
     col.reloadTweets();
   };
   
-  var forEachColumn = (func) => {
+  const forEachColumn = (func) => {
     Object.keys(TD.controller.columnManager.getAll()).forEach(func);
   };
   
-  var wasShiftPressed = false;
+  let wasShiftPressed = false;
   
-  var updateShiftState = (pressed) => {
+  const updateShiftState = (pressed) => {
     if (pressed != wasShiftPressed){
       wasShiftPressed = pressed;
       
@@ -40,7 +40,7 @@ enabled(){
   
   // prepare event handlers
   this.eventClickSingle = function(e){
-    var name = $(this).closest(".js-column").attr("data-column");
+    let name = $(this).closest(".js-column").attr("data-column");
     e.shiftKey ? resetColumn(name) : clearColumn(name);
   };
   
@@ -58,10 +58,10 @@ enabled(){
         forEachColumn(e.shiftKey ? resetColumn : clearColumn);
       }
       else{
-        var focusedColumn = $(".js-column.is-focused");
+        let focusedColumn = $(".js-column.is-focused");
         
         if (focusedColumn.length){
-          var name = focusedColumn.attr("data-column");
+          let name = focusedColumn.attr("data-column");
           e.shiftKey ? resetColumn(name) : clearColumn(name);
         }
       }
@@ -97,7 +97,7 @@ enabled(){
   window.TDPF_injectMustache("menus/column_nav_menu.mustache", "replace", "{{_i}}Add column{{/i}}</div> </a> </div>", `{{_i}}Add column{{/i}}</div></a>${this.btnClearAllHTML}</div>`)
   
   // load custom style
-  var css = window.TDPF_createCustomStyle(this);
+  let css = window.TDPF_createCustomStyle(this);
   css.insert(".js-app-add-column.is-hidden + .clear-columns-btn-all-parent { display: none; }");
   css.insert(".column-header-links { min-width: 51px !important; }");
   css.insert("[data-td-icon='icon-message'] .column-header-links { min-width: 110px !important; }");
@@ -120,7 +120,7 @@ ready(){
   $(".js-app-add-column").first().after(this.btnClearAllHTML);
   
   // setup tooltip handling
-  var tooltipEvents = $._data($(".js-header-action")[0]).events;
+  let tooltipEvents = $._data($(".js-header-action")[0], "events");
   
   if (tooltipEvents.mouseover && tooltipEvents.mouseover.length && tooltipEvents.mouseout && tooltipEvents.mouseout.length){
     $(".clear-columns-btn-all-parent").on("mouseover", tooltipEvents.mouseover[0].handler).on("mouseout", tooltipEvents.mouseout[0].handler);

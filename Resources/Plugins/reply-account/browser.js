@@ -1,5 +1,5 @@
 enabled(){
-  var configuration = { defaultAccount: "#preferred" };
+  let configuration = { defaultAccount: "#preferred" };
   
   window.TDPF_loadConfigurationFile(this, "configuration.js", "configuration.default.js", obj => configuration = obj);
   
@@ -8,7 +8,7 @@ enabled(){
   this.uiComposeTweetEvent = (e, data) => {
     return if !(data.type === "reply" || (data.type === "tweet" && "quotedTweet" in data)) || data.popFromInline || !("element" in data);
     
-    var query;
+    let query;
     
     if (configuration.useAdvancedSelector){
       if (configuration.customSelector){
@@ -88,7 +88,7 @@ enabled(){
       return;
     }
     
-    var identifier = null;
+    let identifier = null;
     
     switch(query){
       case "#preferred":
@@ -106,7 +106,7 @@ enabled(){
       
       default:
         if (query[0] === '@'){
-          var obj = TD.storage.accountController.getAccountFromUsername(query.substring(1));
+          let obj = TD.storage.accountController.getAccountFromUsername(query.substring(1));
           
           if (obj.length === 0){
             $TD.alert("warning", "Plugin reply-account has invalid configuration: requested account not found: "+query);
@@ -126,7 +126,7 @@ enabled(){
   };
   
   this.onSelectedAccountChanged = () => {
-    var selected = $(".js-account-item.is-selected", ".js-account-list");
+    let selected = $(".js-account-item.is-selected", ".js-account-list");
     this.lastSelectedAccount = selected.length === 1 ? selected.attr("data-account-key") : null;
   };
 }

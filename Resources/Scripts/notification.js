@@ -2,14 +2,14 @@
   //
   // Variable: Collection of all <a> tags.
   //
-  var links = document.getElementsByTagName("A");
+  const links = document.getElementsByTagName("A");
   
   //
   // Function: Adds an event listener to all elements in the array or collection.
   //
-  var addEventListener = function(collection, type, listener){
-    for(let index = 0; index < collection.length; index++){
-      collection[index].addEventListener(type, listener);
+  const addEventListener = function(collection, type, listener){
+    for(let ele of collection){
+      ele.addEventListener(type, listener);
     }
   };
   
@@ -20,13 +20,13 @@
     const onLinkClick = function(e){
       if (e.button === 0 || e.button === 1){
         let ele = e.currentTarget;
-
+        
         $TD.openBrowser(ele.href);
         e.preventDefault();
-
+        
         if ($TDX.skipOnLinkClick){
           let parentClasses = ele.parentNode.classList;
-
+          
           if (parentClasses.contains("js-tweet-text") || parentClasses.contains("js-quoted-tweet-text") || parentClasses.contains("js-timestamp")){
             $TD.loadNextNotification();
           }
@@ -42,18 +42,18 @@
   // Block: Expand shortened links on hover or display tooltip.
   //
   (function(){
-    var prevMouseX = -1, prevMouseY = -1;
-    var tooltipTimer, tooltipDisplayed;
+    let prevMouseX = -1, prevMouseY = -1;
+    let tooltipTimer, tooltipDisplayed;
     
     addEventListener(links, "mouseenter", function(e){
-      var me = e.currentTarget;
+      let me = e.currentTarget;
       
-      var url = me.getAttribute("data-full-url");
+      let url = me.getAttribute("data-full-url");
       return if !url;
       
-      var text = me.textContent;
+      let text = me.textContent;
       return if text.charCodeAt(text.length-1) !== 8230 && text.charCodeAt(0) !== 8230; // horizontal ellipsis
-
+      
       if ($TDX.expandLinksOnHover){
         tooltipTimer = window.setTimeout(function(){
           me.setAttribute("td-prev-text", text);
@@ -72,8 +72,8 @@
       return if !e.currentTarget.hasAttribute("data-full-url");
       
       if ($TDX.expandLinksOnHover){
-        var prevText = e.currentTarget.getAttribute("td-prev-text");
-
+        let prevText = e.currentTarget.getAttribute("td-prev-text");
+        
         if (prevText){
           e.currentTarget.innerHTML = prevText;
         }
@@ -89,7 +89,7 @@
     
     addEventListener(links, "mousemove", function(e){
       if (tooltipDisplayed && (prevMouseX !== e.clientX || prevMouseY !== e.clientY)){
-        var url = e.currentTarget.getAttribute("data-full-url");
+        let url = e.currentTarget.getAttribute("data-full-url");
         return if !url;
         
         $TD.displayTooltip(url);
@@ -110,7 +110,7 @@
   // Block: Setup a handler for 'Show this thread'.
   //
   (function(){
-    var btn = document.getElementById("tduck-show-thread");
+    let btn = document.getElementById("tduck-show-thread");
     return if !btn;
     
     btn.addEventListener("click", function(){
@@ -138,7 +138,7 @@
   document.body.addEventListener("mouseenter", function(){
     document.body.classList.add("td-hover");
   });
-
+  
   document.body.addEventListener("mouseleave", function(){
     document.body.classList.remove("td-hover");
   });

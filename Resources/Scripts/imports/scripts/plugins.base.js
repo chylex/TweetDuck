@@ -3,14 +3,14 @@
   // Block: Setup a simple JavaScript object configuration loader.
   //
   window.TDPF_loadConfigurationFile = function(pluginObject, fileNameUser, fileNameDefault, onSuccess, onFailure){
-    var identifier = pluginObject.$id;
-    var token = pluginObject.$token;
+    let identifier = pluginObject.$id;
+    let token = pluginObject.$token;
     
     $TDP.checkFileExists(token, fileNameUser).then(exists => {
-      var fileName = exists ? fileNameUser : fileNameDefault;
+      let fileName = exists ? fileNameUser : fileNameDefault;
       
       (exists ? $TDP.readFile(token, fileName, true) : $TDP.readFileRoot(token, fileName)).then(contents => {
-        var obj;
+        let obj;
         
         try{
           obj = eval("("+contents+")");
@@ -39,7 +39,7 @@
   // Block: Setup a function to add/remove custom CSS.
   //
   window.TDPF_createCustomStyle = function(pluginObject){
-    var element = document.createElement("style");
+    let element = document.createElement("style");
     element.id = "plugin-"+pluginObject.$id+"-"+Math.random().toString(36).substring(2, 7);
     document.head.appendChild(element);
     

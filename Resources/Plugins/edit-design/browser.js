@@ -21,7 +21,7 @@ enabled(){
     avatarRadius: 2
   };
   
-  var prepareDefaultConfig = () => {
+  const prepareDefaultConfig = () => {
     this.defaultConfig._theme = TD.settings.getTheme();
     
     switch(TD.settings.getColumnWidth()){
@@ -39,7 +39,7 @@ enabled(){
   
   this.firstTimeLoad = null;
   
-  var me = this;
+  const me = this;
   
   // modal dialog loading
   $TDP.readFileRoot(this.$token, "modal.html").then(contents => {
@@ -72,7 +72,7 @@ enabled(){
     }
   };
   
-  var loadConfigObject = obj => {
+  const loadConfigObject = obj => {
     this.tmpConfig = obj || {};
     this.firstTimeLoad = obj === null;
     
@@ -139,7 +139,7 @@ enabled(){
   };
   
   // modal dialog setup
-  var updateKey = function(key, value){
+  const updateKey = function(key, value){
     me.config[key] = value;
     
     setTimeout(function(){
@@ -228,7 +228,7 @@ enabled(){
         if (value == me.config[key]){
           item.addClass("selected");
         }
-
+        
         item.click(function(){
           modal.find("[data-td-key='"+key+"']").removeClass("selected");
           item.addClass("selected");
@@ -407,7 +407,7 @@ enabled(){
         case "dark":
           this.css.insert(".scroll-styled-v:not(.scroll-alt)::-webkit-scrollbar-track, .scroll-styled-h:not(.scroll-alt)::-webkit-scrollbar-track { border-left-color: #14171A !important }");
           break;
-
+          
         case "light":
           this.css.insert(".scroll-styled-v:not(.scroll-alt)::-webkit-scrollbar-thumb:not(:hover), .scroll-styled-h:not(.scroll-alt)::-webkit-scrollbar-thumb:not(:hover) { background-color: #d2d6da !important }");
           this.css.insert(".app-columns-container.scroll-styled-h::-webkit-scrollbar-thumb:not(:hover) { background-color: #a5aeb5 !important }");
@@ -643,7 +643,7 @@ ready(){
   $(".js-app").append('<div id="td-design-plugin-modal" class="js-modal settings-modal ovl scroll-v scroll-styled-v"></div>');
   
   // global settings override
-  var me = this;
+  const me = this;
   
   this.prevFuncSettingsGetInfo = TD.components.GlobalSettings.prototype.getInfo;
   this.prevFuncSettingsSwitchTab = TD.components.GlobalSettings.prototype.switchTab;

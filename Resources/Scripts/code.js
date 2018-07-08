@@ -2,17 +2,17 @@
   //
   // Variable: Current highlighted column jQuery & data objects.
   //
-  var highlightedColumnEle, highlightedColumnObj;
+  let highlightedColumnEle, highlightedColumnObj;
   
   //
   // Variable: Currently highlighted tweet jQuery & data objects.
   //
-  var highlightedTweetEle, highlightedTweetObj;
+  let highlightedTweetEle, highlightedTweetObj;
   
   //
   // Variable: Array of functions called after the website app is loaded.
   //
-  var onAppReady = [];
+  let onAppReady = [];
   
   //
   // Variable: DOM HTML element.
@@ -116,10 +116,10 @@
   $(document).on("uiColumnRendered", function(e, data){
     let icon = data.$column.find(".column-type-icon").first();
     return if icon.length !== 1;
-
+    
     let name = Array.prototype.find.call(icon[0].classList, cls => cls.startsWith("icon-"));
     return if !name;
-
+    
     data.$column.attr("data-td-icon", name);
     data.column._tduck_icon = name;
   });
@@ -278,10 +278,10 @@
         let chirpId = source ? source.id : "";
         let tweetUrl = source ? source.getChirpURL() : "";
         let quoteUrl = source && source.quotedTweet ? source.quotedTweet.getChirpURL() : "";
-
+        
         $TD.onTweetPopup(column.model.privateState.apiid, chirpId, window.TDGF_getColumnName(column), html.html(), duration, tweetUrl, quoteUrl);
       }
-
+      
       if (column.model.getHasSound()){
         $TD.onTweetSound();
       }
@@ -300,7 +300,7 @@
     const showTweetDetailInternal = function(column, chirp){
       TD.ui.updates.showDetailView(column, chirp, column.findChirp(chirp) || chirp);
       TD.controller.columnManager.showColumn(column.model.privateState.key);
-
+      
       $(document).trigger("uiGridClearSelection");
     };
     
@@ -368,11 +368,11 @@
     TD.settings.setFontSize = appendToFunction(TD.settings.setFontSize, function(name){
       setTimeout(refreshSettings, 0);
     });
-
+    
     TD.settings.setTheme = appendToFunction(TD.settings.setTheme, function(name){
       setTimeout(refreshSettings, 0);
     });
-
+    
     onAppReady.push(refreshSettings);
   })();
   
@@ -397,7 +397,7 @@
     TD.controller.notifications.hasNotifications = function(){
       return true;
     };
-
+    
     TD.controller.notifications.isPermissionGranted = function(){
       return true;
     };
@@ -420,11 +420,11 @@
         
         let button = $('<li class="is-selectable" data-tweetduck><a href="#" data-action>TweetDuck</a></li>');
         button.insertBefore(menu.children(".drp-h-divider").last());
-
+        
         button.on("click", "a", function(){
           $TD.openContextMenu();
         });
-
+        
         button.hover(function(){
           $(this).addClass("is-selected");
         }, function(){
@@ -438,8 +438,8 @@
   // Block: Expand shortened links on hover or display tooltip.
   //
   (function(){
-    var prevMouseX = -1, prevMouseY = -1;
-    var tooltipTimer, tooltipDisplayed;
+    let prevMouseX = -1, prevMouseY = -1;
+    let tooltipTimer, tooltipDisplayed;
     
     $(document.body).delegate("a[data-full-url]", {
       mouseenter: function(){
@@ -906,7 +906,7 @@
     $(document).on("dataTweetSent", function(e, data){
       if (data.response.state && data.response.state === "scheduled"){
         let column = Object.values(TD.controller.columnManager.getAll()).find(column => column.model.state.type === "scheduled");
-
+        
         if (column){
           setTimeout(function(){
             column.reloadTweets();
@@ -922,7 +922,7 @@
   (function(){
     return if !ensurePropertyExists(TD, "vo", "Column", "prototype", "clear");
     
-    var holdingShift = false;
+    let holdingShift = false;
     
     const updateShiftState = (pressed) => {
       if (pressed != holdingShift){
@@ -1174,7 +1174,7 @@
     return if !ensurePropertyExists(TD, "components", "BaseModal", "prototype", "setAndShowContainer");
     return if !ensurePropertyExists(TD, "ui", "Column", "prototype", "playGifIfNotManuallyPaused");
     
-    var cancelModal = false;
+    let cancelModal = false;
     
     TD.components.MediaGallery.prototype._loadTweet = appendToFunction(TD.components.MediaGallery.prototype._loadTweet, function(){
       let media = this.chirp.getMedia().find(media => media.mediaId === this.clickedMediaEntityId);
@@ -1184,7 +1184,7 @@
         cancelModal = true;
       }
     });
-
+    
     TD.components.BaseModal.prototype.setAndShowContainer = prependToFunction(TD.components.BaseModal.prototype.setAndShowContainer, function(){
       if (cancelModal){
         cancelModal = false;
@@ -1215,12 +1215,13 @@
   // Block: Add a pin icon to make tweet compose drawer stay open.
   //
   onAppReady.push(function(){
-    let ele = $(`<svg id="td-compose-drawer-pin" viewBox="0 0 24 24" class="icon js-show-tip" data-original-title="Stay open" data-tooltip-position="left">
+    let ele = $(`
+<svg id="td-compose-drawer-pin" viewBox="0 0 24 24" class="icon js-show-tip" data-original-title="Stay open" data-tooltip-position="left">
  <path d="M9.884,16.959l3.272,0.001l-0.82,4.568l-1.635,0l-0.817,-4.569Z"/>
  <rect x="8.694" y="7.208" width="5.652" height="7.445"/>
  <path d="M16.877,17.448c0,-1.908 -1.549,-3.456 -3.456,-3.456l-3.802,0c-1.907,0 -3.456,1.548 -3.456,3.456l10.714,0Z"/>
  <path d="M6.572,5.676l2.182,2.183l5.532,0l2.182,-2.183l0,-1.455l-9.896,0l0,1.455Z"/>
- </svg>`).appendTo(".js-docked-compose .js-compose-header");
+</svg>`).appendTo(".js-docked-compose .js-compose-header");
     
     ele.click(function(){
       if (TD.settings.getComposeStayOpen()){
@@ -1249,16 +1250,16 @@
       if (data.query && data.searchScope !== "users" && !data.columnKey){
         if ($TDX.openSearchInFirstColumn){
           let order = TD.controller.columnManager._columnOrder;
-
+          
           if (order.length > 1){
             let columnKey = order[order.length-1];
-
+            
             order.splice(order.length-1, 1);
             order.splice(1, 0, columnKey);
             TD.controller.columnManager.move(columnKey, "left");
           }
         }
-
+        
         if (!("tweetduck" in data)){
           $(".js-app-search-input").val("");
           $(".js-perform-search").blur();
@@ -1378,7 +1379,7 @@
       $(".js-btn-fav", ".js-modal-inner").each(function(){
         let event = $._data(this, "events").click[0];
         let handler = event.handler;
-
+        
         event.handler = function(){
           overrideState();
           handler.apply(this, arguments);
@@ -1392,7 +1393,7 @@
         let event = $._data(this, "events").click[0];
         let handler = event.handler;
         let context = handler.context;
-
+        
         event.handler = function(){
           overrideState();
           handler.apply(this, arguments);
@@ -1434,11 +1435,11 @@
     
     TD.services.TwitterConversation.prototype.renderThread = function(){
       let prevMessages = this.messages;
-
+      
       this.messages = prevMessages.slice(0, 100);
       let result = prevFunc.apply(this, arguments);
       this.messages = prevMessages;
-
+      
       return result;
     };
   }
@@ -1479,9 +1480,8 @@
       </div>
     </li>
   </ul>
-</div>
-`).appendTo(document.body);
-
+</div>`).appendTo(document.body);
+      
       ele.find("button").click(function(){
         ele.fadeOut(200);
       });
@@ -1521,7 +1521,7 @@
   };
   
   if (window.TD_SESSION && window.TD_SESSION.gc){
-    var state;
+    let state;
     
     try{
       state = JSON.parse(window.TD_SESSION.gc);
@@ -1562,7 +1562,7 @@
       $(document).one("dataColumnsLoaded", function(){
         let columns = Object.values(TD.controller.columnManager.getAll());
         let remaining = columns.length;
-
+        
         for(let column of columns){
           column.ui.getChirpContainer().one("dataColumnFeedUpdated", () => {
             if (--remaining === 0){

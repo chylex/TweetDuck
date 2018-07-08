@@ -2,7 +2,7 @@
   //
   // Function: Creates the update notification element. Removes the old one if already exists.
   //
-  var displayNotification = function(version, changelog){
+  const displayNotification = function(version, changelog){
     
     // styles
     let css = document.getElementById("tweetduck-update-css");

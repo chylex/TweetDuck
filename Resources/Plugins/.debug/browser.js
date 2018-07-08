@@ -2,6 +2,7 @@ enabled(){
   this.isDebugging = false;
   
   this.onKeyDown = (e) => {
+    
     // ==========================
     // F4 key - toggle debug mode
     // ==========================
@@ -10,8 +11,6 @@ enabled(){
       this.isDebugging = !this.isDebugging;
       $(".nav-user-info").first().css("background-color", this.isDebugging ? "#5A6B75" : "#292F33");
     }
-    
-    // Debug mode handling
     
     else if (this.isDebugging){
       e.preventDefault();
@@ -22,15 +21,16 @@ enabled(){
       // ===================================
       
       if (e.keyCode === 78 || e.keyCode === 83){
-        var col = TD.controller.columnManager.getAllOrdered()[0];
+        let col = TD.controller.columnManager.getAllOrdered()[0];
+        let model = col.model;
         
-        var prevPopup = col.model.getHasNotification();
-        var prevSound = col.model.getHasSound();
+        let prevPopup = model.getHasNotification();
+        let prevSound = model.getHasSound();
         
-        col.model.setHasNotification(e.keyCode === 78);
-        col.model.setHasSound(e.keyCode === 83);
+        model.setHasNotification(e.keyCode === 78);
+        model.setHasSound(e.keyCode === 83);
         
-        $.publish("/notifications/new",[{
+        $.publish("/notifications/new", [{
           column: col,
           items: [
             col.updateArray[Math.floor(Math.random()*col.updateArray.length)]
@@ -38,8 +38,8 @@ enabled(){
         }]);
         
         setTimeout(function(){
-          col.model.setHasNotification(prevPopup);
-          col.model.setHasSound(prevSound);
+          model.setHasNotification(prevPopup);
+          model.setHasSound(prevSound);
         }, 1);
       }
       

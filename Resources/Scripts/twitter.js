@@ -2,13 +2,13 @@
   //
   // Function: Inject custom CSS into the page.
   //
-  var injectCSS = function(){
+  const injectCSS = function(){
     if (!document.head){
       setTimeout(injectCSS, 5);
       return;
     }
     
-    var style = document.createElement("style");
+    let style = document.createElement("style");
     
     style.innerText = `#import "styles/twitter.base.css"`;
     
@@ -26,22 +26,20 @@
   //
   if (location.pathname === "/login"){
     document.addEventListener("DOMContentLoaded", function(){
-      let openLinkExternally = function(e){
+      const openLinkExternally = function(e){
         let href = e.currentTarget.getAttribute("href");
         $TD.openBrowser(href[0] === '/' ? location.origin+href : href);
-
+        
         e.preventDefault();
         e.stopPropagation();
       };
-
-      let links = document.getElementsByTagName("A");
-
-      for(let index = 0; index < links.length; index++){
-        links[index].addEventListener("click", openLinkExternally);
+      
+      for(let link of document.getElementsByTagName("A")){
+        link.addEventListener("click", openLinkExternally);
       }
-
+      
       let texts = document.querySelector(".page-canvas > div:last-child");
-
+      
       if (texts){
         texts.insertAdjacentHTML("beforeend", `<p class="tweetduck-helper">Used the TweetDuck app before? <a href="#">Import your profile »</a></p>`);
         
@@ -57,7 +55,7 @@
   else if (location.pathname === "/logout"){
     document.addEventListener("DOMContentLoaded", function(){
       let cancel = document.querySelector(".buttons .cancel");
-
+      
       if (cancel && cancel.tagName === "A"){
         cancel.href = "https://tweetdeck.twitter.com/";
       }

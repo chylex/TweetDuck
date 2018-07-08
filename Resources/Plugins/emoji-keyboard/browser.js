@@ -26,7 +26,7 @@ enabled(){
   this.emojiData3 = []; // no skin tones, appended
   this.emojiNames = [];
   
-  var me = this;
+  const me = this;
   
   // styles
   
@@ -51,12 +51,12 @@ enabled(){
   
   // layout
   
-  var buttonHTML = '<button class="needsclick btn btn-on-blue txt-left padding-v--6 padding-h--8 emoji-keyboard-popup-btn"><i class="icon icon-heart"></i></button>';
+  let buttonHTML = '<button class="needsclick btn btn-on-blue txt-left padding-v--6 padding-h--8 emoji-keyboard-popup-btn"><i class="icon icon-heart"></i></button>';
   
   this.prevComposeMustache = TD.mustaches["compose/docked_compose.mustache"];
   window.TDPF_injectMustache("compose/docked_compose.mustache", "append", '<div class="cf margin-t--12 margin-b--30">', buttonHTML);
   
-  var maybeDockedComposePanel = $(".js-docked-compose");
+  let maybeDockedComposePanel = $(".js-docked-compose");
   
   if (maybeDockedComposePanel.length){
     maybeDockedComposePanel.find(".cf.margin-t--12.margin-b--30").first().append(buttonHTML);
@@ -67,10 +67,10 @@ enabled(){
   this.currentKeyboard = null;
   this.currentSpanner = null;
   
-  var wasSearchFocused = false;
-  var lastEmojiKeyword, lastEmojiPosition, lastEmojiLength;
+  let wasSearchFocused = false;
+  let lastEmojiKeyword, lastEmojiPosition, lastEmojiLength;
   
-  var hideKeyboard = (refocus) => {
+  const hideKeyboard = (refocus) => {
     $(this.currentKeyboard).remove();
     this.currentKeyboard = null;
     
@@ -94,7 +94,7 @@ enabled(){
     lastEmojiKeyword = null;
   };
   
-  var generateEmojiHTML = skinTone => {
+  const generateEmojiHTML = skinTone => {
     let index = 0;
     let html = [ "<p style='font-size:13px;color:#444;margin:4px;text-align:center'>Please, note that some emoji may not show up correctly in the text box above, but they will display in the tweet.</p>" ];
     
@@ -113,7 +113,7 @@ enabled(){
     return html.join("");
   };
   
-  var updateFilters = () => {
+  const updateFilters = () => {
     let keywords = this.currentKeywords;
     let container = $(this.currentKeyboard.children[1]);
     
@@ -135,7 +135,7 @@ enabled(){
     }
   };
   
-  var selectSkinTone = skinTone => {
+  const selectSkinTone = skinTone => {
     let selectedEle = this.currentKeyboard.children[2].querySelector("[data-tone='"+this.selectedSkinTone+"']");
     selectedEle && selectedEle.classList.remove("sel");
     
@@ -146,12 +146,12 @@ enabled(){
   };
   
   this.generateKeyboard = (left, top) => {
-    var outer = document.createElement("div");
+    let outer = document.createElement("div");
     outer.classList.add("emoji-keyboard");
     outer.style.left = left+"px";
     outer.style.top = top+"px";
     
-    var keyboard = document.createElement("div");
+    let keyboard = document.createElement("div");
     keyboard.classList.add("emoji-keyboard-list");
     
     keyboard.addEventListener("click", function(e){
@@ -164,11 +164,11 @@ enabled(){
       e.stopPropagation();
     });
     
-    var search = document.createElement("div");
+    let search = document.createElement("div");
     search.innerHTML = "<input type='text' placeholder='Search...'>";
     search.classList.add("emoji-keyboard-search");
     
-    var skintones = document.createElement("div");
+    let skintones = document.createElement("div");
     skintones.innerHTML = me.skinToneData.map(entry => "<div data-tone='"+entry[0]+"' style='background-color:"+entry[1]+"'></div>").join("");
     skintones.classList.add("emoji-keyboard-skintones");
     
@@ -189,7 +189,7 @@ enabled(){
       e.stopPropagation();
     });
     
-    var searchInput = search.children[0];
+    let searchInput = search.children[0];
     searchInput.focus();
     
     wasSearchFocused = false;
@@ -232,21 +232,21 @@ enabled(){
     this.composePanelScroller.trigger("scroll");
   };
   
-  var getKeyboardTop = () => {
+  const getKeyboardTop = () => {
     let button = $(".emoji-keyboard-popup-btn");
     return button.offset().top+button.outerHeight()+me.composePanelScroller.scrollTop()+8;
   };
   
-  var insertEmoji = (src, alt) => {
+  const insertEmoji = (src, alt) => {
     let input = this.composeInput;
-
+    
     let val = input.val();
     let posStart = input[0].selectionStart;
     let posEnd = input[0].selectionEnd;
-
+    
     input.val(val.slice(0, posStart)+alt+val.slice(posEnd));
     input.trigger("change");
-
+    
     input[0].selectionStart = posStart+alt.length;
     input[0].selectionEnd = posStart+alt.length;
     
@@ -288,7 +288,7 @@ enabled(){
       if (ele.selectionStart === lastEmojiPosition){
         ele.selectionStart -= lastEmojiLength; // selects the emoji
         document.execCommand("insertText", false, lastEmojiKeyword);
-
+        
         e.preventDefault();
         e.stopPropagation();
       }
@@ -418,7 +418,7 @@ ready(){
   
   // HTML generation
   
-  var convUnicode = function(codePt){
+  const convUnicode = function(codePt){
     if (codePt > 0xFFFF){
       codePt -= 0x10000;
       return String.fromCharCode(0xD800+(codePt>>10), 0xDC00+(codePt&0x3FF));
@@ -489,7 +489,7 @@ ready(){
       
       if (skinToneState === 1){
         let skinIndex = decl.indexOf('$');
-
+        
         if (skinIndex !== -1){
           let declPre = decl.slice(0, skinIndex);
           let declPost = decl.slice(skinIndex+1);

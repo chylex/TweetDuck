@@ -38,7 +38,7 @@ enabled(){
   
   // hooks
   
-  var funcs = {
+  const funcs = {
     TwitterStatus: TD.services.TwitterStatus.prototype.render,
     TwitterActionOnTweet: TD.services.TwitterActionOnTweet.prototype.render,
     TweetDetailView: TD.components.TweetDetailView.prototype._renderChirp

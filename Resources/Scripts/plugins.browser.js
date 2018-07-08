@@ -1,6 +1,4 @@
 (function(){
-  var isReloading = false;
-  
   //
   // Class: Abstract plugin base class.
   //
@@ -107,12 +105,16 @@
   //
   // Block: Setup a function to reload the page.
   //
-  window.TDPF_requestReload = function(){
-    if (!isReloading){
-      window.setTimeout(window.TDGF_reload, 1);
-      isReloading = true;
-    }
-  };
+  (function(){
+    let isReloading = false;
+    
+    window.TDPF_requestReload = function(){
+      if (!isReloading){
+        window.setTimeout(window.TDGF_reload, 1);
+        isReloading = true;
+      }
+    };
+  })();
   
   //
   // Block: Setup bridges to global functions.

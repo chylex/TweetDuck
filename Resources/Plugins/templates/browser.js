@@ -44,12 +44,12 @@ enabled(){
   
   // button
   
-  var buttonHTML = '<button class="manage-templates-btn needsclick btn btn-on-blue full-width txt-left margin-b--12 padding-v--6 padding-h--12"><i class="icon icon-bookmark"></i><span class="label padding-ls">Manage templates</span></button>';
+  let buttonHTML = '<button class="manage-templates-btn needsclick btn btn-on-blue full-width txt-left margin-b--12 padding-v--6 padding-h--12"><i class="icon icon-bookmark"></i><span class="label padding-ls">Manage templates</span></button>';
   
   this.prevComposeMustache = TD.mustaches["compose/docked_compose.mustache"];
   window.TDPF_injectMustache("compose/docked_compose.mustache", "prepend", '<div class="js-tweet-type-button">', buttonHTML);
   
-  var dockedComposePanel = $(".js-docked-compose");
+  let dockedComposePanel = $(".js-docked-compose");
   
   if (dockedComposePanel.length){
     dockedComposePanel.find(".js-tweet-type-button").first().before(buttonHTML);
@@ -57,7 +57,7 @@ enabled(){
   
   // template implementation
   
-  var readTemplateTokens = (contents, tokenData) => {
+  const readTemplateTokens = (contents, tokenData) => {
     let startIndex = -1;
     let endIndex = -1;
     
@@ -125,7 +125,7 @@ enabled(){
     return [ contents, data ];
   };
   
-  var doAjaxRequest = (index, url, evaluator) => {
+  const doAjaxRequest = (index, url, evaluator) => {
     return new Promise((resolve, reject) => {
       if (!url){
         resolve([ index, "{ajax}" ]);
@@ -145,7 +145,7 @@ enabled(){
     });
   };
   
-  var useTemplate = (contents, append) => {
+  const useTemplate = (contents, append) => {
     let ele = $(".js-compose-text");
     return if ele.length === 0;
     
@@ -183,7 +183,7 @@ enabled(){
             url = evaluator;
             evaluator = null;
           }
-
+          
           promises.push(doAjaxRequest(index2, url, evaluator));
           break;
       }
@@ -227,7 +227,7 @@ enabled(){
   
   this.editingTemplate = null;
   
-  var showTemplateModal = () => {
+  const showTemplateModal = () => {
     $(".js-app-content").prepend(this.htmlModal);
     
     /* TODO possibly implement this later
@@ -328,11 +328,11 @@ enabled(){
     onTemplatesUpdated(false);
   };
   
-  var hideTemplateModal = function(){
+  const hideTemplateModal = () => {
     $("#templates-modal-wrap").remove();
   };
   
-  var toggleEditor = function(){
+  const toggleEditor = () => {
     let editor = $("#template-editor");
     $("[name]", editor).val("");
     
@@ -341,7 +341,7 @@ enabled(){
     }
   };
   
-  var onTemplatesUpdated = (save) => {
+  const onTemplatesUpdated = (save) => {
     let eles = [];
     
     for(let identifier of Object.keys(this.config.templates)){
