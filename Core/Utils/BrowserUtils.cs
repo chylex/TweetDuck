@@ -22,7 +22,17 @@ namespace TweetDuck.Core.Utils{
                 args["disable-gpu-vsync"] = "1";
             }
 
-            if (!Program.UserConfig.EnableSmoothScrolling){
+            if (Program.UserConfig.EnableSmoothScrolling){
+                args["disable-threaded-scrolling"] = "1";
+
+                if (args.TryGetValue("disable-features", out string disabledFeatures)){
+                    args["disable-features"] = "TouchpadAndWheelScrollLatching,"+disabledFeatures;
+                }
+                else{
+                    args["disable-features"] = "TouchpadAndWheelScrollLatching";
+                }
+            }
+            else{
                 args["disable-smooth-scrolling"] = "1";
             }
             
