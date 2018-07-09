@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using TweetDuck.Core.Other.Interfaces;
 using TweetDuck.Data;
 using TweetDuck.Plugins.Enums;
@@ -12,15 +13,7 @@ using TweetDuck.Resources;
 
 namespace TweetDuck.Plugins{
     sealed class PluginManager{
-        private static IReadOnlyDictionary<PluginEnvironment, string> LoadSetupScripts(){
-            return PluginEnvironmentExtensions.Map(
-                null,
-                ScriptLoader.LoadResource("plugins.browser.js"),
-                ScriptLoader.LoadResource("plugins.notification.js")
-            );
-        }
-
-        private static readonly IReadOnlyDictionary<PluginEnvironment, string> PluginSetupScripts = LoadSetupScripts();
+        private static readonly IReadOnlyDictionary<PluginEnvironment, string> PluginSetupScriptNames = PluginEnvironmentExtensions.Map(null, "plugins.browser.js", "plugins.notification.js");
 
         public string PathOfficialPlugins => Path.Combine(rootPath, "official");
         public string PathCustomPlugins => Path.Combine(rootPath, "user");
@@ -54,8 +47,8 @@ namespace TweetDuck.Plugins{
             Config.PluginChangedState += Config_PluginChangedState;
         }
 
-        public void Register(ITweetDeckBrowser browser, PluginEnvironment environment, bool asMainBrowser = false){
-            browser.OnFrameLoaded(frame => ExecutePlugins(frame, environment));
+        public void Register(ITweetDeckBrowser browser, PluginEnvironment environment, Control sync, bool asMainBrowser = false){
+            browser.OnFrameLoaded(frame => ExecutePlugins(frame, environment, sync));
             browser.RegisterBridge("$TDP", bridge);
 
             if (asMainBrowser){
@@ -152,12 +145,10 @@ namespace TweetDuck.Plugins{
             Reloaded?.Invoke(this, new PluginErrorEventArgs(loadErrors));
         }
 
-        private void ExecutePlugins(IFrame frame, PluginEnvironment environment){
-            if (!HasAnyPlugin(environment)){
+        private void ExecutePlugins(IFrame frame, PluginEnvironment environment, Control sync){
+            if (!HasAnyPlugin(environment) || !ScriptLoader.ExecuteFile(frame, PluginSetupScriptNames[environment], sync)){
                 return;
             }
-            
-            ScriptLoader.ExecuteScript(frame, PluginSetupScripts[environment], environment.GetScriptIdentifier());
             
             bool includeDisabled = environment.IncludesDisabledPlugins();
 

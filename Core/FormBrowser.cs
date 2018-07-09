@@ -78,7 +78,7 @@ namespace TweetDuck.Core{
             this.browser = new TweetDeckBrowser(this, new TweetDeckBridge.Browser(this, notification));
             this.contextMenu = ContextMenuBrowser.CreateMenu(this);
 
-            this.plugins.Register(browser, PluginEnvironment.Browser, true);
+            this.plugins.Register(browser, PluginEnvironment.Browser, this, true);
 
             Controls.Add(new MenuStrip{ Visible = false }); // fixes Alt freezing the program in Win 10 Anniversary Update
 

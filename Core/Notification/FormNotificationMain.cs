@@ -15,11 +15,6 @@ using TweetDuck.Resources;
 
 namespace TweetDuck.Core.Notification{
     abstract partial class FormNotificationMain : FormNotificationBase, ITweetDeckBrowser{
-        private const string NotificationScriptFile = "notification.js";
-
-        private static readonly string NotificationScriptIdentifier = ScriptLoader.GetRootIdentifier(NotificationScriptFile);
-        private static readonly string NotificationJS = ScriptLoader.LoadResource(NotificationScriptFile);
-        
         private readonly PluginManager plugins;
         private readonly int timerBarHeight;
 
@@ -88,7 +83,7 @@ namespace TweetDuck.Core.Notification{
             browser.LoadingStateChanged += Browser_LoadingStateChanged;
             browser.FrameLoadEnd += Browser_FrameLoadEnd;
 
-            plugins.Register(this, PluginEnvironment.Notification);
+            plugins.Register(this, PluginEnvironment.Notification, this);
 
             mouseHookDelegate = MouseHookProc;
             Disposed += (sender, args) => StopMouseHook(true);
@@ -106,7 +101,7 @@ namespace TweetDuck.Core.Notification{
             browser.FrameLoadEnd += (sender, args) => {
                 IFrame frame = args.Frame;
 
-                if (frame.IsMain && NotificationJS != null && browser.Address != "about:blank"){
+                if (frame.IsMain && browser.Address != "about:blank"){
                     callback(frame);
                 }
             };
@@ -194,9 +189,9 @@ namespace TweetDuck.Core.Notification{
         }
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
-            if (e.Frame.IsMain && NotificationJS != null && browser.Address != "about:blank"){
+            if (e.Frame.IsMain && browser.Address != "about:blank"){
                 e.Frame.ExecuteJavaScriptAsync(PropertyBridge.GenerateScript(PropertyBridge.Environment.Notification));
-                ScriptLoader.ExecuteScript(e.Frame, NotificationJS, NotificationScriptIdentifier);
+                ScriptLoader.ExecuteScript(e.Frame, ScriptLoader.LoadResource("notification.js", this), "root:notification");
             }
         }
 

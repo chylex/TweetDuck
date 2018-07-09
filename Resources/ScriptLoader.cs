@@ -1,5 +1,6 @@
 ﻿using CefSharp;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -15,17 +16,29 @@ using TweetDuck.Plugins;
 
 namespace TweetDuck.Resources{
     static class ScriptLoader{
-        public static string LoadResource(string name, bool silent = false, Control sync = null){
+        private static readonly Dictionary<string, string> CachedData = new Dictionary<string, string>(16);
+
+        public static string LoadResourceSilent(string name){
+            return LoadResource(name, null);
+        }
+
+        public static string LoadResource(string name, Control sync){
+            if (CachedData.TryGetValue(name, out string resourceData)){
+                return resourceData;
+            }
+
+            string path = Program.ScriptPath;
+
+            #if DEBUG
+            if (Directory.Exists(HotSwapTargetDir)){
+                path = Path.Combine(HotSwapTargetDir, "scripts");
+                Debug.WriteLine("Hot swap active, redirecting "+name);
+            }
+            #endif
+
+            string resource;
+
             try{
-                string path = Program.ScriptPath;
-
-                #if DEBUG
-                if (Directory.Exists(HotSwapTargetDir)){
-                    path = Path.Combine(HotSwapTargetDir, "scripts");
-                    Debug.WriteLine("Hot swap active, redirecting "+name);
-                }
-                #endif
-
                 string contents = File.ReadAllText(Path.Combine(path, name), Encoding.UTF8);
                 int separator;
 
@@ -34,7 +47,7 @@ namespace TweetDuck.Resources{
                 // #<version>\n
 
                 if (contents[0] != '#'){
-                    ShowLoadError(silent, sync, $"File {name} appears to be corrupted, please try reinstalling the app.");
+                    ShowLoadError(sync, $"File {name} appears to be corrupted, please try reinstalling the app.");
                     separator = 0;
                 }
                 else{
@@ -42,44 +55,33 @@ namespace TweetDuck.Resources{
                     string fileVersion = contents.Substring(1, separator-1).TrimEnd();
 
                     if (fileVersion != Program.VersionTag){
-                        ShowLoadError(silent, sync, $"File {name} is made for a different version of TweetDuck ({fileVersion}) and may not function correctly in this version, please try reinstalling the app.");
+                        ShowLoadError(sync, $"File {name} is made for a different version of TweetDuck ({fileVersion}) and may not function correctly in this version, please try reinstalling the app.");
                     }
                 }
 
-                return contents.Substring(separator).TrimStart();
+                resource = contents.Substring(separator).TrimStart();
             }catch(Exception ex){
-                ShowLoadError(silent, sync, $"Could not load {name}. The program will continue running with limited functionality.\n\n{ex.Message}");
-                return null;
+                ShowLoadError(sync, $"Could not load {name}. The program will continue running with limited functionality.\n\n{ex.Message}");
+                resource = null;
             }
+
+            return CachedData[name] = resource;
         }
 
-        public static bool ExecuteFile(IFrame frame, string file, Control sync = null){
-            string script = LoadResource(file, sync == null, sync);
-            ExecuteScript(frame, script, GetRootIdentifier(file));
+        public static bool ExecuteFile(IFrame frame, string file, Control sync){
+            string script = LoadResource(file, sync);
+            ExecuteScript(frame, script, "root:"+Path.GetFileNameWithoutExtension(file));
             return script != null;
         }
 
         public static void ExecuteScript(IFrame frame, string script, string identifier){
             if (script != null){
-                frame.ExecuteJavaScriptAsync(script, "td:"+identifier, 1);
+                frame.ExecuteJavaScriptAsync(script, identifier, 1);
             }
         }
 
-        public static string GetRootIdentifier(string file){
-            return "root:"+Path.GetFileNameWithoutExtension(file);
-        }
-
-        private static void ShowLoadError(bool silent, Control sync, string message){
-            if (silent){
-                return;
-            }
-
-            if (sync == null){
-                FormMessage.Error("Resource Error", message, FormMessage.OK);
-            }
-            else{
-                sync.InvokeSafe(() => FormMessage.Error("Resource Error", message, FormMessage.OK));
-            }
+        private static void ShowLoadError(Control sync, string message){
+            sync?.InvokeSafe(() => FormMessage.Error("Resource Error", message, FormMessage.OK));
         }
         
         #if DEBUG
@@ -126,20 +128,18 @@ namespace TweetDuck.Resources{
             sw.Stop();
             Debug.WriteLine("Finished rebuild script in "+sw.ElapsedMilliseconds+" ms");
 
+            CachedData.Clear();
+
             // Force update plugin manager setup scripts
 
             string newPluginRoot = Path.Combine(HotSwapTargetDir, "plugins");
             
             const BindingFlags flagsInstance = BindingFlags.Instance | BindingFlags.NonPublic;
-            const BindingFlags flagsStatic = BindingFlags.Static | BindingFlags.NonPublic;
 
             Type typePluginManager = typeof(PluginManager);
             Type typeFormBrowser = typeof(FormBrowser);
 
             // ReSharper disable PossibleNullReferenceException
-            object pluginSetupScripts = typePluginManager.GetMethod("LoadSetupScripts", flagsStatic).Invoke(null, new object[0]);
-            typePluginManager.GetField("PluginSetupScripts", flagsStatic).SetValue(null, pluginSetupScripts);
-            
             object instPluginManager = typeFormBrowser.GetField("plugins", flagsInstance).GetValue(FormManager.TryFind<FormBrowser>());
             typePluginManager.GetField("rootPath", flagsInstance).SetValue(instPluginManager, newPluginRoot);
 

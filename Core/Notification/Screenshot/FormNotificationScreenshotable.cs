@@ -27,7 +27,7 @@ namespace TweetDuck.Core.Notification.Screenshot{
                     return;
                 }
 
-                string script = ScriptLoader.LoadResource("screenshot.js", true);
+                string script = ScriptLoader.LoadResourceSilent("screenshot.js");
                         
                 if (script == null){
                     this.InvokeAsyncSafe(callback);
@@ -44,7 +44,7 @@ namespace TweetDuck.Core.Notification.Screenshot{
         }
 
         protected override string GetTweetHTML(TweetNotification tweet){
-            string html = tweet.GenerateHtml("td-screenshot");
+            string html = tweet.GenerateHtml("td-screenshot", this);
 
             foreach(InjectedHTML injection in plugins.NotificationInjections){
                 html = injection.InjectInto(html);

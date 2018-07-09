@@ -9,6 +9,7 @@ using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling;
 using TweetDuck.Core.Handling.General;
+using TweetDuck.Core.Management;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Other.Interfaces;
 using TweetDuck.Core.Utils;
@@ -41,7 +42,7 @@ namespace TweetDuck.Core{
 
         public TweetDeckBrowser(FormBrowser owner, TweetDeckBridge bridge){
             RequestHandlerBrowser requestHandler = new RequestHandlerBrowser();
-
+            
             this.browser = new ChromiumWebBrowser(TwitterUtils.TweetDeckURL){
                 DialogHandler = new FileDialogHandler(),
                 DragHandler = new DragHandlerBrowser(requestHandler),
@@ -168,7 +169,7 @@ namespace TweetDuck.Core{
                 TweetDeckBridge.ResetStaticProperties();
 
                 if (Arguments.HasFlag(Arguments.ArgIgnoreGDPR)){
-                    ScriptLoader.ExecuteScript(frame, @"TD.storage.Account.prototype.requiresConsent = function(){ return false; }", "gen:gdpr");
+                    ScriptLoader.ExecuteScript(frame, "TD.storage.Account.prototype.requiresConsent = function(){ return false; }", "gen:gdpr");
                 }
 
                 if (Program.UserConfig.FirstRun){
@@ -183,7 +184,7 @@ namespace TweetDuck.Core{
             }
 
             if (!e.FailedUrl.StartsWith("http://td/", StringComparison.Ordinal)){
-                string errorPage = ScriptLoader.LoadResource("pages/error.html", true);
+                string errorPage = ScriptLoader.LoadResourceSilent("pages/error.html");
 
                 if (errorPage != null){
                     browser.LoadHtml(errorPage.Replace("{err}", BrowserUtils.GetErrorName(e.ErrorCode)), "http://td/error");
@@ -232,7 +233,7 @@ namespace TweetDuck.Core{
         }
 
         public void InjectBrowserCSS(){
-            browser.ExecuteScriptAsync("TDGF_injectBrowserCSS", ScriptLoader.LoadResource("styles/browser.css", false, browser)?.TrimEnd() ?? string.Empty);
+            browser.ExecuteScriptAsync("TDGF_injectBrowserCSS", ScriptLoader.LoadResource("styles/browser.css", browser)?.TrimEnd() ?? string.Empty);
         }
 
         public void ReinjectCustomCSS(string css){
