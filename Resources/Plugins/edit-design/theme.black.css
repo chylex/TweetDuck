@@ -13,7 +13,6 @@ html.dark .color-twitter-blue{color:#1DA1F2}
 html.dark .color-twitter-red{color:#E0245E}
 html.dark .color-twitter-deep-red{color:#A01744}
 html.dark .color-twitter-green{color:#17BF63}
-html.dark .color-twitter-deep-green{color:#008951}
 html.dark .color-twitter-deep-black{color:#14171A}
 html.dark .color-twitter-dark-black{color:#292F33}
 html.dark .color-twitter-dark-gray{color:#8899A6}
@@ -22,7 +21,6 @@ html.dark .color-twitter-yellow{color:#FFAD1F}
 html.dark .bg-color-twitter-white{background-color:#fff}
 html.dark .bg-color-twitter-blue{background-color:#1DA1F2}
 html.dark .bg-color-twitter-medium-blue{background-color:#1DA1F2}
-html.dark .bg-color-twitter-faded-yellow{background-color:#FFE8B6}
 html.dark .bg-color-twitter-deep-black{background-color:#292F33}
 html.dark .bg-color-twitter-lightest-gray{background-color:#F5F8FA}
 html.dark .link-hover-override:hover .link-hover-target{color:#8bd}
@@ -113,9 +111,6 @@ html.dark .btn-on-blue[disabled],html.dark .btn-on-blue[disabled]:hover,html.dar
 html.dark .btn-options-tray{color:#e1e8ed}
 html.dark .btn-options-tray:hover,html.dark .btn-options-tray:focus{color:#8bd}
 html.dark .btn-options-tray[disabled],html.dark .btn-options-tray[disabled]:hover,html.dark .btn-options-tray[disabled]:active,html.dark .btn-options-tray.is-disabled,html.dark .btn-options-tray.is-disabled:hover,html.dark .btn-options-tray.is-disabled:focus,html.dark .btn-options-tray.is-disabled:active{color:#8bd}
-html.dark .btn-bg-positive{background-color:rgba(102,117,127,0.5)}
-html.dark .btn-bg-positive:hover,html.dark .btn-bg-positive:focus{background-color:rgba(102,117,127,0.5)}
-html.dark .btn-bg-positive[disabled],html.dark .btn-bg-positive[disabled]:hover,html.dark .btn-bg-positive[disabled]:active,html.dark .btn-bg-positive.is-disabled,html.dark .btn-bg-positive.is-disabled:hover,html.dark .btn-bg-positive.is-disabled:focus,html.dark .btn-bg-positive.is-disabled:active{background-color:rgba(102,117,127,0.5)}
 html.dark .follow-btn .icon,html.dark .follow-btn .Icon{color:#1DA1F2}
 html.dark .account-profile-header{background-color:#1DA1F2}
 html.dark .account-settings-bt{border-top:1px solid #e1e8ed}
@@ -190,8 +185,6 @@ html.dark .is-touch-search .list-item:hover,html.dark .is-touch-search .list-ite
 html.dark .is-touch-search .list-item:hover .list-icon,html.dark .is-touch-search .list-item:active .list-icon,html.dark .is-touch-search .list-item.is-selected .list-icon{color:#fff}
 html.dark .avatar-border--2{border:2px solid #fff;background-color:#fff}
 html.dark .account-link{color:#e1e8ed}
-.on-blue html.dark .account-link{color:#fff}
-.compose .quoted-tweet html.dark .account-link{color:#66757f}
 html.dark .media-badge{border:1px solid #292F33;color:#999}
 html.dark .media-badge:hover{background-color:#14171A}
 html.dark .media-size-large-height::after,html.dark .media-item.media-size-large::after{background-image:linear-gradient(rgba(17,17,17,0.25),rgba(17,17,17,0))}
@@ -219,7 +212,7 @@ html.dark .is-minimalist .tweet-img{background:#292F33}
 html.dark .is-selected-tweet{background:#292F33}
 html.dark .in-tweet-divider:before{background:#292F33}
 html.dark .tweet-translation-original-text{color:#8899a6}
-html.dark .quoted-tweet{border:1px solid #E1E8ED;color:#66757f;border-color:#292F33;color:#999}
+html.dark .quoted-tweet{border-color:#292F33;color:#999}
 html.dark .scheduled-tweet{border:1px solid #292F33;color:#8899A6}
 html.dark .stream-item .icon-edit,html.dark .stream-item .icon-trash{color:#657786}
 html.dark .stream-item .icon-edit:hover,html.dark .stream-item .icon-trash:hover{color:#8899A6}
@@ -435,7 +428,7 @@ html.dark .list-account .username{color:#8899a6}
 html.dark .list-listmember .username{color:#8899a6}
 html.dark .list-listmember .bio{color:#657786}
 html.dark .divider-bar{background-color:#ddd}
-html.dark select{background-image:url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='18' height='8' viewBox='0 0 18 8'><path fill='#aaa' d='M9.82875,0.840168025 C9.59875,0.608328018 9.22625,0.608328018 8.99625,0.840168025 L5.00125,4.86964815 L1.00375,0.840168025 C0.77375,0.608328018 0.40125,0.608328018 0.17125,0.840168025 C-0.05875,1.07200803 -0.05625,1.44748804 0.17125,1.67932805 L4.58375,6.12712819 C4.69875,6.24304819 4.84875,6.30100819 5.00125,6.30100819 C5.15125,6.30100819 5.30125,6.24304819 5.41625,6.12712819 L9.82875,1.67932805 C10.05875,1.44748804 10.05875,1.07200803 9.82875,0.840168025'></path></svg>");background-color:#fff}
+html.dark select{background-color:#fff}
 html.dark input,html.dark textarea,html.dark select{color:#111;border:1px solid #e1e8ed}
 html.dark input:disabled{background-color:#eaeaea;border-color:#e1e8ed}
 html.dark select:disabled{background-color:#f5f8fa}
@@ -613,46 +606,45 @@ html.dark .Dropdown-divider{background-color:#ccd6dd}
 html.dark .Dropdown-menuItem .Dropdown-menuItemContent,html.dark .Dropdown-menuGroupLabel{color:#14171a}
 html.dark .Dropdown-menuItem .Dropdown-menuItemContent .Icon--check{color:#1da1f2}
 html.dark .Dropdown-menuItem.is-focus{background-color:#1da1f2}
-html.dark .Dropdown-menuItem.is-focus .User .Icon--verified::before{color:#1da1f2}
 html.dark .Dropdown-menuGroupLabel{color:#657786}
 html.dark .ButtonGroup>.Button.is-selected,html.dark .ButtonGroup>.Button.is-selected:visited{background-color:#1da1f2;border:1px solid #1da1f2}
-html.dark .ButtonGroup>.Button.is-selected:focus,html.dark .ButtonGroup>.Button.is-selected.is-focus{box-shadow:0 0 0 2px white,0 0 0 4px #71c9f8;background:#1da1f2;border-color:#1da1f2}
+html.dark .ButtonGroup>.Button.is-selected:focus,html.dark .ButtonGroup>.Button.is-selected.is-focus{box-shadow:0 0 0 2px #fff,0 0 0 4px #71c9f8;background:#1da1f2;border-color:#1da1f2}
 html.dark .ButtonGroup>.Button.is-selected:hover,html.dark .ButtonGroup>.Button.is-selected.is-hover{background-color:#1da1f2;border-color:#1da1f2}
-html.dark .ButtonGroup>.Button.is-selected:active,html.dark .ButtonGroup>.Button.is-selected.is-active{box-shadow:0 0 0 2px white,0 0 0 4px #1da1f2;background-color:#1da1f2;border-color:#1da1f2}
+html.dark .ButtonGroup>.Button.is-selected:active,html.dark .ButtonGroup>.Button.is-selected.is-active{box-shadow:0 0 0 2px #fff,0 0 0 4px #1da1f2;background-color:#1da1f2;border-color:#1da1f2}
 html.dark .ButtonGroup>.Button.is-selected[disabled],html.dark .ButtonGroup>.Button.is-selected.is-disabled,html.dark fieldset[disabled] .ButtonGroup>.Button.is-selected{background-color:#1da1f2;border-color:#1da1f2}
 html.dark .ButtonGroup--tertiary>.Button.is-selected,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-selected,html.dark .ButtonGroup--tertiary>.Button.is-selected:visited,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-selected:visited{background-color:#657786;border:1px solid #657786}
-html.dark .ButtonGroup--tertiary>.Button.is-selected:focus,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-selected:focus,html.dark .ButtonGroup--tertiary>.Button.is-selected.is-focus,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-selected.is-focus{box-shadow:0 0 0 2px white,0 0 0 4px #ccd6dd;background:#657786;border-color:#657786}
+html.dark .ButtonGroup--tertiary>.Button.is-selected:focus,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-selected:focus,html.dark .ButtonGroup--tertiary>.Button.is-selected.is-focus,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-selected.is-focus{box-shadow:0 0 0 2px #fff,0 0 0 4px #ccd6dd;background:#657786;border-color:#657786}
 html.dark .ButtonGroup--tertiary>.Button.is-selected:hover,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-selected:hover,html.dark .ButtonGroup--tertiary>.Button.is-selected.is-hover,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-selected.is-hover{background-color:#657786;border-color:#657786}
-html.dark .ButtonGroup--tertiary>.Button.is-selected:active,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-selected:active,html.dark .ButtonGroup--tertiary>.Button.is-selected.is-active,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-selected.is-active{box-shadow:0 0 0 2px white,0 0 0 4px #aab8c2;background-color:#657786;border-color:#657786}
+html.dark .ButtonGroup--tertiary>.Button.is-selected:active,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-selected:active,html.dark .ButtonGroup--tertiary>.Button.is-selected.is-active,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-selected.is-active{box-shadow:0 0 0 2px #fff,0 0 0 4px #aab8c2;background-color:#657786;border-color:#657786}
 html.dark .ButtonGroup--tertiary>.Button.is-selected[disabled],html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-selected[disabled],html.dark .ButtonGroup--tertiary>.Button.is-selected.is-disabled,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-selected.is-disabled,html.dark fieldset[disabled] .ButtonGroup--tertiary>.Button.is-selected,html.dark fieldset[disabled] .ButtonGroup--tertiary>.ButtonGroup>.Button.is-selected{background-color:#657786;border-color:#657786}
 html.dark .Button,html.dark .Button:visited,html.dark .Button.is-visited{border:1px solid #1da1f2;color:#1da1f2}
-html.dark .Button:focus,html.dark .Button.is-focus{box-shadow:0 0 0 2px white,0 0 0 4px #71c9f8;border-color:#1da1f2;color:#1da1f2}
+html.dark .Button:focus,html.dark .Button.is-focus{box-shadow:0 0 0 2px #fff,0 0 0 4px #71c9f8;border-color:#1da1f2;color:#1da1f2}
 html.dark .Button:hover,html.dark .Button.is-hover{background-color:#eaf5fd;color:#1da1f2}
-html.dark .Button:active,html.dark .Button.is-active{box-shadow:0 0 0 2px white,0 0 0 4px #1da1f2;background:#eaf5fd;border-color:#1da1f2;color:#1da1f2}
+html.dark .Button:active,html.dark .Button.is-active{box-shadow:0 0 0 2px #fff,0 0 0 4px #1da1f2;background:#eaf5fd;border-color:#1da1f2;color:#1da1f2}
 html.dark .Button.Button--primary,html.dark .Button.Button--primary:visited,html.dark .ButtonGroup--primary>.Button,html.dark .ButtonGroup--primary>.Button:visited,html.dark .ButtonGroup--primary>.ButtonGroup>.Button,html.dark .ButtonGroup--primary>.ButtonGroup>.Button:visited{background-color:#1da1f2;border:1px solid #1da1f2}
-html.dark .Button.Button--primary:focus,html.dark .Button.Button--primary.is-focus,html.dark .ButtonGroup--primary>.Button:focus,html.dark .ButtonGroup--primary>.Button.is-focus,html.dark .ButtonGroup--primary>.ButtonGroup>.Button:focus,html.dark .ButtonGroup--primary>.ButtonGroup>.Button.is-focus{box-shadow:0 0 0 2px white,0 0 0 4px #71c9f8;background:#1da1f2;border-color:#1da1f2}
+html.dark .Button.Button--primary:focus,html.dark .Button.Button--primary.is-focus,html.dark .ButtonGroup--primary>.Button:focus,html.dark .ButtonGroup--primary>.Button.is-focus,html.dark .ButtonGroup--primary>.ButtonGroup>.Button:focus,html.dark .ButtonGroup--primary>.ButtonGroup>.Button.is-focus{box-shadow:0 0 0 2px #fff,0 0 0 4px #71c9f8;background:#1da1f2;border-color:#1da1f2}
 html.dark .Button.Button--primary:hover,html.dark .Button.Button--primary.is-hover,html.dark .ButtonGroup--primary>.Button:hover,html.dark .ButtonGroup--primary>.Button.is-hover,html.dark .ButtonGroup--primary>.ButtonGroup>.Button:hover,html.dark .ButtonGroup--primary>.ButtonGroup>.Button.is-hover{background-color:#005fd1;border-color:#005fd1}
-html.dark .Button.Button--primary:active,html.dark .Button.Button--primary.is-active,html.dark .ButtonGroup--primary>.Button:active,html.dark .ButtonGroup--primary>.Button.is-active,html.dark .ButtonGroup--primary>.ButtonGroup>.Button:active,html.dark .ButtonGroup--primary>.ButtonGroup>.Button.is-active{box-shadow:0 0 0 2px white,0 0 0 4px #1da1f2;background-color:#005fd1;border-color:#005fd1}
+html.dark .Button.Button--primary:active,html.dark .Button.Button--primary.is-active,html.dark .ButtonGroup--primary>.Button:active,html.dark .ButtonGroup--primary>.Button.is-active,html.dark .ButtonGroup--primary>.ButtonGroup>.Button:active,html.dark .ButtonGroup--primary>.ButtonGroup>.Button.is-active{box-shadow:0 0 0 2px #fff,0 0 0 4px #1da1f2;background-color:#005fd1;border-color:#005fd1}
 html.dark .Button.Button--primary[disabled],html.dark .Button.Button--primary.is-disabled,html.dark fieldset[disabled] .Button.Button--primary,html.dark .ButtonGroup--primary>.Button[disabled],html.dark .ButtonGroup--primary>.Button.is-disabled,html.dark fieldset[disabled] .ButtonGroup--primary>.Button,html.dark .ButtonGroup--primary>.ButtonGroup>.Button[disabled],html.dark .ButtonGroup--primary>.ButtonGroup>.Button.is-disabled,html.dark fieldset[disabled] .ButtonGroup--primary>.ButtonGroup>.Button{background-color:#1da1f2;border-color:#1da1f2}
 html.dark .Button.Button--tertiary,html.dark .Button.Button--tertiary:visited,html.dark .ButtonGroup--tertiary>.Button,html.dark .ButtonGroup--tertiary>.Button:visited,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button:visited{border:1px solid #657786;color:#657786}
-html.dark .Button.Button--tertiary:focus,html.dark .Button.Button--tertiary.is-focus,html.dark .ButtonGroup--tertiary>.Button:focus,html.dark .ButtonGroup--tertiary>.Button.is-focus,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button:focus,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-focus{box-shadow:0 0 0 2px white,0 0 0 4px #ccd6dd;border-color:#657786;color:#657786}
+html.dark .Button.Button--tertiary:focus,html.dark .Button.Button--tertiary.is-focus,html.dark .ButtonGroup--tertiary>.Button:focus,html.dark .ButtonGroup--tertiary>.Button.is-focus,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button:focus,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-focus{box-shadow:0 0 0 2px #fff,0 0 0 4px #ccd6dd;border-color:#657786;color:#657786}
 html.dark .Button.Button--tertiary:hover,html.dark .Button.Button--tertiary.is-hover,html.dark .ButtonGroup--tertiary>.Button:hover,html.dark .ButtonGroup--tertiary>.Button.is-hover,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button:hover,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-hover{background-color:#f5f8fa;border-color:#657786;color:#657786}
-html.dark .Button.Button--tertiary:active,html.dark .Button.Button--tertiary.is-active,html.dark .ButtonGroup--tertiary>.Button:active,html.dark .ButtonGroup--tertiary>.Button.is-active,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button:active,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-active{box-shadow:0 0 0 2px white,0 0 0 4px #657786;background-color:#f5f8fa;border-color:#657786;color:#657786}
+html.dark .Button.Button--tertiary:active,html.dark .Button.Button--tertiary.is-active,html.dark .ButtonGroup--tertiary>.Button:active,html.dark .ButtonGroup--tertiary>.Button.is-active,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button:active,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-active{box-shadow:0 0 0 2px #fff,0 0 0 4px #657786;background-color:#f5f8fa;border-color:#657786;color:#657786}
 html.dark .Button.Button--tertiary[disabled],html.dark .Button.Button--tertiary.is-disabled,html.dark fieldset[disabled] .Button.Button--tertiary,html.dark .ButtonGroup--tertiary>.Button[disabled],html.dark .ButtonGroup--tertiary>.Button.is-disabled,html.dark fieldset[disabled] .ButtonGroup--tertiary>.Button,html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button[disabled],html.dark .ButtonGroup--tertiary>.ButtonGroup>.Button.is-disabled,html.dark fieldset[disabled] .ButtonGroup--tertiary>.ButtonGroup>.Button{border-color:#657786}
 html.dark .Button.Button--success,html.dark .Button.Button--success:visited{background-color:#17bf63;border:1px solid #17bf63}
-html.dark .Button.Button--success:focus,html.dark .Button.Button--success.is-focus{box-shadow:0 0 0 2px white,0 0 0 4px #68e090;background:#17bf63;border-color:#17bf63}
+html.dark .Button.Button--success:focus,html.dark .Button.Button--success.is-focus{box-shadow:0 0 0 2px #fff,0 0 0 4px #68e090;background:#17bf63;border-color:#17bf63}
 html.dark .Button.Button--success:hover,html.dark .Button.Button--success.is-hover{background-color:#008951;border-color:#008951}
-html.dark .Button.Button--success:active,html.dark .Button.Button--success.is-active{box-shadow:0 0 0 2px white,0 0 0 4px #17bf63;background-color:#008951;border-color:#008951}
+html.dark .Button.Button--success:active,html.dark .Button.Button--success.is-active{box-shadow:0 0 0 2px #fff,0 0 0 4px #17bf63;background-color:#008951;border-color:#008951}
 html.dark .Button.Button--success[disabled],html.dark .Button.Button--success.is-disabled,html.dark fieldset[disabled] .Button.Button--success{background-color:#17bf63;border-color:#17bf63}
 html.dark .Button.Button--warning,html.dark .Button.Button--warning:visited{background-color:#ffad1f;border:1px solid #ffad1f}
-html.dark .Button.Button--warning:focus,html.dark .Button.Button--warning.is-focus{box-shadow:0 0 0 2px white,0 0 0 4px #ffd03f;background:#ffad1f;border-color:#ffad1f}
+html.dark .Button.Button--warning:focus,html.dark .Button.Button--warning.is-focus{box-shadow:0 0 0 2px #fff,0 0 0 4px #ffd03f;background:#ffad1f;border-color:#ffad1f}
 html.dark .Button.Button--warning:hover,html.dark .Button.Button--warning.is-hover{background-color:#f98e00;border-color:#f98e00}
-html.dark .Button.Button--warning:active,html.dark .Button.Button--warning.is-active{box-shadow:0 0 0 2px white,0 0 0 4px #ffad1f;background-color:#f98e00;border-color:#f98e00}
+html.dark .Button.Button--warning:active,html.dark .Button.Button--warning.is-active{box-shadow:0 0 0 2px #fff,0 0 0 4px #ffad1f;background-color:#f98e00;border-color:#f98e00}
 html.dark .Button.Button--warning[disabled],html.dark .Button.Button--warning.is-disabled,html.dark fieldset[disabled] .Button.Button--warning{background-color:#ffad1f;border-color:#ffad1f}
 html.dark .Button.Button--danger,html.dark .Button.Button--danger:visited{background-color:#e0245e;border:1px solid #e0245e}
-html.dark .Button.Button--danger:focus,html.dark .Button.Button--danger.is-focus{box-shadow:0 0 0 2px white,0 0 0 4px #f6809a;background:#e0245e;border-color:#e0245e}
+html.dark .Button.Button--danger:focus,html.dark .Button.Button--danger.is-focus{box-shadow:0 0 0 2px #fff,0 0 0 4px #f6809a;background:#e0245e;border-color:#e0245e}
 html.dark .Button.Button--danger:hover,html.dark .Button.Button--danger.is-hover{background-color:#a01744;border-color:#a01744}
-html.dark .Button.Button--danger:active,html.dark .Button.Button--danger.is-active{box-shadow:0 0 0 2px white,0 0 0 4px #e0245e;background-color:#a01744;border-color:#a01744}
+html.dark .Button.Button--danger:active,html.dark .Button.Button--danger.is-active{box-shadow:0 0 0 2px #fff,0 0 0 4px #e0245e;background-color:#a01744;border-color:#a01744}
 html.dark .Button.Button--danger[disabled],html.dark .Button.Button--danger.is-disabled,html.dark fieldset[disabled] .Button.Button--danger{background-color:#e0245e;border-color:#e0245e}
 html.dark .Button.Button--link{color:#1b95e0}
 html.dark .Button.Button--dangerLink{color:#e0245e}
@@ -730,8 +722,8 @@ html.dark .DateRange[dir='rtl'] .DateRange-pickersRow:first-child .DateRange-pic
 html.dark .PillGroup .Pill.is-selected{background:#005fd1}
 html.dark .PillGroup .Pill>a,html.dark .PillGroup .Pill>button{color:#1b95e0}
 html.dark .PillGroup .Pill>a:hover,html.dark .PillGroup .Pill>button:hover{background:#eaf5fd}
-html.dark .PillGroup .Pill>a:focus,html.dark .PillGroup .Pill>button:focus{box-shadow:0 0 0 2px white,0 0 0 4px #71c9f8}
-html.dark .PillGroup .Pill>a:active,html.dark .PillGroup .Pill>button:active{box-shadow:0 0 0 2px white,0 0 0 4px #1da1f2}
+html.dark .PillGroup .Pill>a:focus,html.dark .PillGroup .Pill>button:focus{box-shadow:0 0 0 2px #fff,0 0 0 4px #71c9f8}
+html.dark .PillGroup .Pill>a:active,html.dark .PillGroup .Pill>button:active{box-shadow:0 0 0 2px #fff,0 0 0 4px #1da1f2}
 html.dark .PillGroup .Pill.is-selected>a,html.dark .PillGroup .Pill.is-selected>button{color:#FFF}
 html.dark .FormInput,html.dark .FormTextarea{border:1px solid #ccd6dd;color:#14171a}
 html.dark .FormInput-characterCount{color:#ccd6dd}
@@ -751,51 +743,51 @@ html.dark .FormInputWrapper-startAdornment,html.dark .FormInputWrapper-endAdornm
 html.dark .FormField.is-invalid .FormField-validationMessage{color:#e0245e}
 html.dark .FormField.is-valid .FormField-validationMessage{color:#008951}
 html.dark .FormField-description{color:#657786}
-html.dark .Token-checkbox input[type="checkbox"]:focus+.Icon{box-shadow:0 0 0 5px white,0 0 0 7px #71c9f8}
-html.dark .Token--small .Token-trigger input[type="checkbox"]:focus+.Icon,html.dark .TokenGroup--small>.Token .Token-trigger input[type="checkbox"]:focus+.Icon,html.dark .TokenGroup--small>.TokenGroup>.Token .Token-trigger input[type="checkbox"]:focus+.Icon{box-shadow:0 0 0 3px white,0 0 0 5px #71c9f8}
-html.dark .Token--xsmall .Token-trigger input[type="checkbox"]:focus+.Icon,html.dark .TokenGroup--xsmall>.Token .Token-trigger input[type="checkbox"]:focus+.Icon,html.dark .TokenGroup--xsmall>.TokenGroup>.Token .Token-trigger input[type="checkbox"]:focus+.Icon{box-shadow:0 0 0 0 white,0 0 0 2px #71c9f8}
+html.dark .Token-checkbox input[type="checkbox"]:focus+.Icon{box-shadow:0 0 0 5px #fff,0 0 0 7px #71c9f8}
+html.dark .Token--small .Token-trigger input[type="checkbox"]:focus+.Icon,html.dark .TokenGroup--small>.Token .Token-trigger input[type="checkbox"]:focus+.Icon,html.dark .TokenGroup--small>.TokenGroup>.Token .Token-trigger input[type="checkbox"]:focus+.Icon{box-shadow:0 0 0 3px #fff,0 0 0 5px #71c9f8}
+html.dark .Token--xsmall .Token-trigger input[type="checkbox"]:focus+.Icon,html.dark .TokenGroup--xsmall>.Token .Token-trigger input[type="checkbox"]:focus+.Icon,html.dark .TokenGroup--xsmall>.TokenGroup>.Token .Token-trigger input[type="checkbox"]:focus+.Icon{box-shadow:0 0 0 0 #fff,0 0 0 2px #71c9f8}
 html.dark .Token,html.dark .Token--blue{border-color:#1da1f2;color:#1da1f2}
 html.dark .Token .Token-adornment,html.dark .Token--blue .Token-adornment{background-color:#1da1f2}
 html.dark .Token:hover,html.dark .Token--blue:hover{background-color:#97e3ff;color:#005fd1}
 html.dark .Token.is-selected,html.dark .Token--blue.is-selected{background-color:#1da1f2}
 html.dark .Token.is-selected .Token-adornment,html.dark .Token--blue.is-selected .Token-adornment{color:#1da1f2}
 html.dark .Token.is-selected:hover,html.dark .Token--blue.is-selected:hover{background-color:#005fd1;border-color:#005fd1}
-html.dark .Token:focus,html.dark .Token--blue:focus,html.dark .Token.is-focused,html.dark .Token--blue.is-focused{box-shadow:0 0 0 1px white,0 0 0 3px #71c9f8}
+html.dark .Token:focus,html.dark .Token--blue:focus,html.dark .Token.is-focused,html.dark .Token--blue.is-focused{box-shadow:0 0 0 1px #fff,0 0 0 3px #71c9f8}
 html.dark .Token--green{border-color:#17bf63;color:#17bf63}
 html.dark .Token--green .Token-adornment{background-color:#17bf63}
 html.dark .Token--green:hover{background-color:#a5f2aa;color:#008951}
 html.dark .Token--green.is-selected{background-color:#17bf63}
 html.dark .Token--green.is-selected .Token-adornment{color:#17bf63}
 html.dark .Token--green.is-selected:hover{background-color:#008951;border-color:#008951}
-html.dark .Token--green:focus,html.dark .Token--green.is-focused{box-shadow:0 0 0 1px white,0 0 0 3px #68e090}
+html.dark .Token--green:focus,html.dark .Token--green.is-focused{box-shadow:0 0 0 1px #fff,0 0 0 3px #68e090}
 html.dark .Token--red{border-color:#e0245e;color:#e0245e}
 html.dark .Token--red .Token-adornment{background-color:#e0245e}
 html.dark .Token--red:hover{background-color:#ffb8c2;color:#a01744}
 html.dark .Token--red.is-selected{background-color:#e0245e}
 html.dark .Token--red.is-selected .Token-adornment{color:#e0245e}
 html.dark .Token--red.is-selected:hover{background-color:#a01744;border-color:#a01744}
-html.dark .Token--red:focus,html.dark .Token--red.is-focused{box-shadow:0 0 0 1px white,0 0 0 3px #f6809a}
+html.dark .Token--red:focus,html.dark .Token--red.is-focused{box-shadow:0 0 0 1px #fff,0 0 0 3px #f6809a}
 html.dark .Token--purple{border-color:#794bc4;color:#794bc4}
 html.dark .Token--purple .Token-adornment{background-color:#794bc4}
 html.dark .Token--purple:hover{background-color:#c7b4fa;color:#4f0299}
 html.dark .Token--purple.is-selected{background-color:#794bc4}
 html.dark .Token--purple.is-selected .Token-adornment{color:#794bc4}
 html.dark .Token--purple.is-selected:hover{background-color:#4f0299;border-color:#4f0299}
-html.dark .Token--purple:focus,html.dark .Token--purple.is-focused{box-shadow:0 0 0 1px white,0 0 0 3px #a37ced}
+html.dark .Token--purple:focus,html.dark .Token--purple.is-focused{box-shadow:0 0 0 1px #fff,0 0 0 3px #a37ced}
 html.dark .Token--yellow{border-color:#ffad1f;color:#ffad1f}
 html.dark .Token--yellow .Token-adornment{background-color:#ffad1f}
 html.dark .Token--yellow:hover{background-color:#ffe76e;color:#f98e00}
 html.dark .Token--yellow.is-selected{background-color:#ffad1f}
 html.dark .Token--yellow.is-selected .Token-adornment{color:#ffad1f}
 html.dark .Token--yellow.is-selected:hover{background-color:#f98e00;border-color:#f98e00}
-html.dark .Token--yellow:focus,html.dark .Token--yellow.is-focused{box-shadow:0 0 0 1px white,0 0 0 3px #ffd03f}
+html.dark .Token--yellow:focus,html.dark .Token--yellow.is-focused{box-shadow:0 0 0 1px #fff,0 0 0 3px #ffd03f}
 html.dark .Token--gray{border-color:#657786;color:#657786}
 html.dark .Token--gray .Token-adornment{background-color:#657786}
 html.dark .Token--gray:hover{background-color:#e6ecf0;color:#657786}
 html.dark .Token--gray.is-selected{background-color:#657786}
 html.dark .Token--gray.is-selected .Token-adornment{color:#657786}
 html.dark .Token--gray.is-selected:hover{background-color:#aab8c2;border-color:#aab8c2}
-html.dark .Token--gray:focus,html.dark .Token--gray.is-focused{box-shadow:0 0 0 1px white,0 0 0 3px #aab8c2}
+html.dark .Token--gray:focus,html.dark .Token--gray.is-focused{box-shadow:0 0 0 1px #fff,0 0 0 3px #aab8c2}
 html.dark .FormTokenInput-input::-webkit-input-placeholder{color:#aab8c2}
 html.dark .DataPoint .DataPoint-label{color:#657786}
 html.dark .DataPoint .DataPoint-info{color:#14171a}
@@ -805,7 +797,7 @@ html.dark .DataPoint--withBottomBorder{border-bottom:1px solid #ccd6dd}
 html.dark .FormTokenInput.FormTextarea::-webkit-input-placeholder{color:#8899A6}
 html.dark .FormTokenInput.FormTextarea::placeholder{color:#8899A6}
 html.dark .DatePicker.date-unselected .is-rangeStart,html.dark .DatePicker.date-unselected .is-rangeEnd{color:#14171a}
-html.dark .DatePicker.date-unselected .is-rangeStart:hover,html.dark .DatePicker.date-unselected .is-rangeEnd:hover{background-color:#005091;color:#ffffff}
+html.dark .DatePicker.date-unselected .is-rangeStart:hover,html.dark .DatePicker.date-unselected .is-rangeEnd:hover{background-color:#005091;color:#fff}
 html.dark .NotificationList .Notification-body{color:#14171A}
 html.dark .DrawerModal{color:#14171A}
 /* fixes */
