@@ -19,6 +19,7 @@ namespace TweetDuck.Video{
         private static int Main(string[] args){
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            NativeMethods.SetProcessDPIAware();
 
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;

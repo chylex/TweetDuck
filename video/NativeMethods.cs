@@ -18,6 +18,9 @@ namespace TweetDuck.Video{
         [DllImport("user32.dll")]
         public static extern IntPtr GetForegroundWindow();
 
+        [DllImport("user32.dll")]
+        public static extern bool SetProcessDPIAware();
+
         [StructLayout(LayoutKind.Sequential)]
         public struct RECT{
             public int Left;
