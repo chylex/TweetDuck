@@ -27,17 +27,12 @@
             this.trayIcon = new TweetDuck.Core.Other.TrayIcon(this.components);
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.timerResize = new System.Windows.Forms.Timer(this.components);
-            this.timerThrottle = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // timerResize
             // 
             this.timerResize.Interval = 500;
             this.timerResize.Tick += new System.EventHandler(this.timerResize_Tick);
-            // 
-            // timerThrottle
-            // 
-            this.timerThrottle.Tick += new System.EventHandler(this.timerThrottle_Tick);
             // 
             // FormBrowser
             // 
@@ -51,7 +46,6 @@
             this.Name = "FormBrowser";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Activated += new System.EventHandler(this.FormBrowser_Activated);
-            this.Deactivate += new System.EventHandler(this.FormBrowser_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormBrowser_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormBrowser_FormClosed);
             this.ResizeEnd += new System.EventHandler(this.FormBrowser_ResizeEnd);
@@ -66,7 +60,6 @@
         private TweetDuck.Core.Other.TrayIcon trayIcon;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Timer timerResize;
-        private System.Windows.Forms.Timer timerThrottle;
     }
 }
 

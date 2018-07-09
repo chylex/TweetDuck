@@ -1,20 +1,17 @@
 ﻿using System;
-using TweetDuck.Core;
 using TweetDuck.Data.Serialization;
 
 namespace TweetDuck.Configuration{
     sealed class SystemConfig{
         private static readonly FileSerializer<SystemConfig> Serializer = new FileSerializer<SystemConfig>();
-        
+
         // CONFIGURATION DATA
         
         public bool HardwareAcceleration { get; set; } = true;
-
+        
         public bool ClearCacheAutomatically { get; set; } = true;
         public int ClearCacheThreshold      { get; set; } = 250;
-
-        public FormBrowser.ThrottleBehavior ThrottleBehavior { get; set; } = FormBrowser.ThrottleBehavior.Covered;
-
+        
         // END OF CONFIG
 
         private readonly string file;

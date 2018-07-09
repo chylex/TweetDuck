@@ -88,16 +88,6 @@ namespace TweetDuck.Core{
             browser.Focus();
         }
 
-        public void SetThrottle(bool throttle){
-            if (throttle && browser.Dock == DockStyle.Fill){
-                browser.Dock = DockStyle.None;
-                browser.Size = Size.Empty;
-            }
-            else if (!throttle && browser.Dock == DockStyle.None){
-                browser.Dock = DockStyle.Fill;
-            }
-        }
-
         public void Dispose(){
             Program.UserConfig.MuteToggled -= UserConfig_MuteToggled;
             Program.UserConfig.ZoomLevelChanged -= UserConfig_ZoomLevelChanged;

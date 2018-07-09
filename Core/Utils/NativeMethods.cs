@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Runtime.InteropServices;
@@ -15,7 +14,6 @@ namespace TweetDuck.Core.Utils{
         public const int HWND_TOPMOST = -1;
         public const uint SWP_NOACTIVATE = 0x0010;
         public const int WS_DISABLED = 0x08000000;
-        public const int GW_HWNDPREV = 3;
         public const int GWL_STYLE = -16;
 
         public const int SB_HORZ = 0;
@@ -25,7 +23,6 @@ namespace TweetDuck.Core.Utils{
         public const int WM_XBUTTONDOWN = 0x020B;
         public const int WM_XBUTTONUP = 0x020C;
         public const int WM_PARENTNOTIFY = 0x0210;
-
         
         [StructLayout(LayoutKind.Sequential)]
         private struct LASTINPUTINFO{
@@ -39,14 +36,6 @@ namespace TweetDuck.Core.Utils{
         private struct POINT{
             public int X;
             public int Y;
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        private struct RECT{
-            public int left;
-            public int top;
-            public int right;
-            public int bottom;
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -104,17 +93,6 @@ namespace TweetDuck.Core.Utils{
         [DllImport("user32.dll")]
         private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
 
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetWindow(IntPtr hWnd, int uCmd);
-
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool GetWindowRect(IntPtr hWnd, [Out] out RECT lpRect);
-        
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool IsWindowVisible(IntPtr hWnd);
-
         public static void SetFormPos(Form form, int hWndOrder, uint flags){
             SetWindowPos(form.Handle.ToInt32(), hWndOrder, form.Left, form.Top, form.Width, form.Height, flags);
         }
@@ -126,30 +104,6 @@ namespace TweetDuck.Core.Utils{
             else{
                 SetWindowLong(form.Handle, GWL_STYLE, GetWindowLong(form.Handle, GWL_STYLE) & ~WS_DISABLED);
             }
-        }
-
-        public static bool IsFormCoveredByLargerWindow(Form form){
-            IntPtr handle = form.Handle;
-
-            if (!IsWindowVisible(handle)){
-                return false;
-            }
-            
-            HashSet<IntPtr> visited = new HashSet<IntPtr>{ handle };
-            GetWindowRect(handle, out RECT thisRect);
-
-            while((handle = GetWindow(handle, GW_HWNDPREV)) != IntPtr.Zero && visited.Add(handle)){
-                if (IsWindowVisible(handle) &&
-                    GetWindowRect(handle, out RECT otherRect) &&
-                    otherRect.left <= thisRect.left &&
-                    otherRect.top <= thisRect.top &&
-                    otherRect.right >= thisRect.right &&
-                    otherRect.bottom >= thisRect.bottom){
-                    return true;
-                }
-            }
-
-            return false;
         }
 
         public static void BroadcastMessage(uint msg, uint wParam, int lParam){

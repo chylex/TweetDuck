@@ -21,10 +21,6 @@ using TweetDuck.Updates.Events;
 
 namespace TweetDuck.Core{
     sealed partial class FormBrowser : Form, AnalyticsFile.IProvider{
-        public enum ThrottleBehavior{ // keep order
-            Minimized, Covered, Unfocused
-        }
-
         private static UserConfig Config => Program.UserConfig;
 
         public bool IsWaiting{
@@ -102,7 +98,7 @@ namespace TweetDuck.Core{
             Config.TrayBehaviorChanged += Config_TrayBehaviorChanged;
 
             UpdateTray();
-            
+
             if (Config.MuteNotifications){
                 UpdateFormIcon();
             }
@@ -151,34 +147,6 @@ namespace TweetDuck.Core{
             FormBrowser_ResizeEnd(this, e); // also stops timer
         }
 
-        private void timerThrottle_Tick(object sender, EventArgs e){
-            if (!browser.Ready){
-                timerThrottle.Interval = 5000;
-                return;
-            }
-            
-            bool shouldThrottle;
-
-            switch(Program.SystemConfig.ThrottleBehavior){
-                case ThrottleBehavior.Covered:
-                    shouldThrottle = WindowState != FormWindowState.Minimized && NativeMethods.IsFormCoveredByLargerWindow(this);
-                    break;
-
-                case ThrottleBehavior.Unfocused:
-                    shouldThrottle = !FormManager.HasAnyDialogs;
-                    break;
-
-                default:
-                    timerThrottle.Stop();
-                    return;
-            }
-
-            if (shouldThrottle){
-                browser.SetThrottle(true);
-                timerThrottle.Stop();
-            }
-        }
-
         private void FormBrowser_Activated(object sender, EventArgs e){
             if (!isLoaded)return;
 
@@ -187,15 +155,6 @@ namespace TweetDuck.Core{
             if (!browser.Enabled){      // when taking a screenshot, the window is unfocused and
                 browser.Enabled = true; // the browser is disabled; if the user clicks back into
             }                           // the window, enable the browser again
-            
-            timerThrottle.Stop();
-            browser.SetThrottle(false);
-        }
-
-        private void FormBrowser_Deactivate(object sender, EventArgs e){
-            timerThrottle.Stop();
-            timerThrottle.Interval = Program.SystemConfig.ThrottleBehavior == ThrottleBehavior.Covered ? 30000 : 1000;
-            timerThrottle.Start();
         }
 
         private void FormBrowser_LocationChanged(object sender, EventArgs e){
