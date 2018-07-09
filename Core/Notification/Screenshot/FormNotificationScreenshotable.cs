@@ -20,6 +20,8 @@ namespace TweetDuck.Core.Notification.Screenshot{
         public FormNotificationScreenshotable(Action callback, FormBrowser owner, PluginManager pluginManager, string html, int width) : base(owner, false){
             this.plugins = pluginManager;
 
+            int realWidth = BrowserUtils.Scale(width, DpiScale);
+
             browser.RegisterAsyncJsObject("$TD_NotificationScreenshot", new ScreenshotBridge(this, SetScreenshotHeight, callback));
 
             browser.LoadingStateChanged += (sender, args) => {
@@ -35,11 +37,11 @@ namespace TweetDuck.Core.Notification.Screenshot{
                 }
                 
                 using(IFrame frame = args.Browser.MainFrame){
-                    ScriptLoader.ExecuteScript(frame, script.Replace("{width}", BrowserUtils.Scale(width, DpiScale).ToString()).Replace("{frames}", TweetScreenshotManager.WaitFrames.ToString()), "gen:screenshot");
+                    ScriptLoader.ExecuteScript(frame, script.Replace("{width}", realWidth.ToString()).Replace("{frames}", TweetScreenshotManager.WaitFrames.ToString()), "gen:screenshot");
                 }
             };
             
-            SetNotificationSize(width, 1024);
+            SetNotificationSize(realWidth, 1024);
             LoadTweet(new TweetNotification(string.Empty, string.Empty, string.Empty, html, 0, string.Empty, string.Empty));
         }
 
