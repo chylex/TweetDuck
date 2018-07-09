@@ -104,6 +104,7 @@ enabled(){
   window.TDPF_injectMustache("column/column_header.mustache", "prepend", "<a data-testid=\"optionsToggle\"", this.btnClearOneHTML);
   
   if (TD.ready){
+    $(".js-header-add-column").after(this.btnClearAllHTML);
     $("a[data-testid='optionsToggle']", ".js-column-header").before(this.btnClearOneHTML);
   }
   
