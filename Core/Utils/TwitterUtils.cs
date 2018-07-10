@@ -76,22 +76,14 @@ namespace TweetDuck.Core.Utils{
             string firstImageLink = GetMediaLink(urls[0], quality);
             int qualityIndex = firstImageLink.IndexOf(':', firstImageLink.LastIndexOf('/'));
 
-            string file = GetImageFileName(firstImageLink);
-            string ext = Path.GetExtension(file); // includes dot
-
-            string[] fileNameParts = qualityIndex == -1 ? new string[]{
-                Path.ChangeExtension(file, null)
-            } : new string[]{
-                username,
-                Path.ChangeExtension(file, null),
-                firstImageLink.Substring(qualityIndex+1)
-            };
+            string filename = GetImageFileName(firstImageLink);
+            string ext = Path.GetExtension(filename); // includes dot
             
             using(SaveFileDialog dialog = new SaveFileDialog{
                 AutoUpgradeEnabled = true,
                 OverwritePrompt = urls.Length == 1,
                 Title = "Save Image",
-                FileName = $"{string.Join(" ", fileNameParts.Where(part => !string.IsNullOrEmpty(part)))}{ext}",
+                FileName = qualityIndex == -1 ? filename : $"{username} {Path.ChangeExtension(filename, null)} {firstImageLink.Substring(qualityIndex+1)}".Trim()+ext,
                 Filter = (urls.Length == 1 ? "Image" : "Images")+(string.IsNullOrEmpty(ext) ? " (unknown)|*.*" : $" (*{ext})|*{ext}")
             }){
                 if (dialog.ShowDialog() == DialogResult.OK){
@@ -122,12 +114,12 @@ namespace TweetDuck.Core.Utils{
                 AutoUpgradeEnabled = true,
                 OverwritePrompt = true,
                 Title = "Save Video",
-                FileName = string.IsNullOrEmpty(username) ? filename : $"{username} {filename}",
+                FileName = string.IsNullOrEmpty(username) ? filename : $"{username} {filename}".TrimStart(),
                 Filter = "Video"+(string.IsNullOrEmpty(ext) ? " (unknown)|*.*" : $" (*{ext})|*{ext}")
             }){
                 if (dialog.ShowDialog() == DialogResult.OK){
                     BrowserUtils.DownloadFileAsync(url, dialog.FileName, null, ex => {
-                        FormMessage.Error("Image Download", "An error occurred while downloading the image: "+ex.Message, FormMessage.OK);
+                        FormMessage.Error("Video Download", "An error occurred while downloading the video: "+ex.Message, FormMessage.OK);
                     });
                 }
             }
