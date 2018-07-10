@@ -132,13 +132,16 @@
   //
   // Block: Check updates on startup.
   //
-  if ("$" in window && typeof $._data === "function" && "TD" in $._data(document, "events")){
-    $(document).one("TD.ready", function(){
-      $TDU.triggerUpdateCheck();
-    });
-  }
-  else{
+  const triggerCheck = function(){
     $TDU.triggerUpdateCheck();
+  };
+  
+  try{
+    throw false if !($._data(document, "events").TD.some(obj => obj.namespace === "ready"));
+    
+    $(document).one("TD.ready", triggerCheck);
+  }catch(err){
+    setTimeout(triggerCheck, 500);
   }
   
   //

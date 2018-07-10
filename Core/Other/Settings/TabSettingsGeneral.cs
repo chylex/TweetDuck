@@ -219,8 +219,6 @@ namespace TweetDuck.Core.Other.Settings{
                     if (update.VersionTag == Program.VersionTag){
                         FormMessage.Information("No Updates Available", "Your version of TweetDuck is up to date.", FormMessage.OK);
                     }
-
-                    // TODO allow outside TweetDeck
                 }, ex => {
                     Program.Reporter.HandleException("Update Check Error", "An error occurred while checking for updates.", true, ex);
                 });

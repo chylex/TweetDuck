@@ -6,8 +6,10 @@
   z-index: 9999;
   color: #fff;
   background-color: rgb(32, 94, 138);
+  font-family: Helvetica, Arial, Verdana, sans-serif;
   text-align: center;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  line-height: 1.28578;
   transition: transform 400ms cubic-bezier(.02, .01, .47, 1);
 }
 
@@ -67,6 +69,8 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
+  font-family: Helvetica, Arial, Verdana, sans-serif;
+  line-height: 1.28578;
   z-index: 9998;
 }
 
@@ -82,14 +86,16 @@
   overflow-y: auto;
   transform: translateX(-50%) translateY(-50%);
   font-size: 14px;
-  color: #000;
+  color: #2f2f2f;
   background-color: #fff;
   box-sizing: border-box;
 }
 
 #tweetduck-changelog h2 {
-  margin: 0 0 7px;
+  margin: 0 0 8px;
+  color: #5c6973;
   font-size: 23px;
+  line-height: 1.28578;
 }
 
 #tweetduck-changelog h2 + br {
@@ -98,7 +104,9 @@
 
 #tweetduck-changelog h3 {
   margin: 0 0 5px 7px;
+  color: #065b9c;
   font-size: 18px;
+  line-height: 1.28578;
 }
 
 #tweetduck-changelog p {

@@ -146,25 +146,28 @@ namespace TweetDuck.Core{
         private void browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             IFrame frame = e.Frame;
 
-            if (frame.IsMain && TwitterUtils.IsTweetDeckWebsite(frame)){
-                UpdateProperties();
-                TweetDeckBridge.RestoreSessionData(frame);
-                ScriptLoader.ExecuteFile(frame, "code.js", browser);
+            if (frame.IsMain){
+                if (TwitterUtils.IsTweetDeckWebsite(frame)){
+                    UpdateProperties();
+                    TweetDeckBridge.RestoreSessionData(frame);
+                    ScriptLoader.ExecuteFile(frame, "code.js", browser);
+
+                    InjectBrowserCSS();
+                    ReinjectCustomCSS(Program.UserConfig.CustomBrowserCSS);
+                    UserConfig_SoundNotificationInfoChanged(null, EventArgs.Empty);
+
+                    TweetDeckBridge.ResetStaticProperties();
+
+                    if (Arguments.HasFlag(Arguments.ArgIgnoreGDPR)){
+                        ScriptLoader.ExecuteScript(frame, "TD.storage.Account.prototype.requiresConsent = function(){ return false; }", "gen:gdpr");
+                    }
+
+                    if (Program.UserConfig.FirstRun){
+                        ScriptLoader.ExecuteFile(frame, "introduction.js", browser);
+                    }
+                }
+
                 ScriptLoader.ExecuteFile(frame, "update.js", browser);
-
-                InjectBrowserCSS();
-                ReinjectCustomCSS(Program.UserConfig.CustomBrowserCSS);
-                UserConfig_SoundNotificationInfoChanged(null, EventArgs.Empty);
-
-                TweetDeckBridge.ResetStaticProperties();
-
-                if (Arguments.HasFlag(Arguments.ArgIgnoreGDPR)){
-                    ScriptLoader.ExecuteScript(frame, "TD.storage.Account.prototype.requiresConsent = function(){ return false; }", "gen:gdpr");
-                }
-
-                if (Program.UserConfig.FirstRun){
-                    ScriptLoader.ExecuteFile(frame, "introduction.js", browser);
-                }
             }
         }
 
