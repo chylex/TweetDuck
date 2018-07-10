@@ -1,38 +1,24 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using TweetDuck.Core.Controls;
-using TweetDuck.Core.Other.Interfaces;
 using TweetDuck.Data;
-using TweetDuck.Updates.Events;
 using Timer = System.Windows.Forms.Timer;
 
 namespace TweetDuck.Updates{
     sealed class UpdateHandler : IDisposable{
         public const int CheckCodeUpdatesDisabled = -1;
-        public const int CheckCodeNotOnTweetDeck = -2;
         
         private readonly UpdateCheckClient client;
         private readonly TaskScheduler scheduler;
-        private readonly ITweetDeckBrowser browser;
         private readonly Timer timer;
-
-        public event EventHandler<UpdateEventArgs> UpdateAccepted;
-        public event EventHandler<UpdateEventArgs> UpdateDelayed;
-        public event EventHandler<UpdateEventArgs> UpdateDismissed;
+        
         public event EventHandler<UpdateCheckEventArgs> CheckFinished;
-
         private ushort lastEventId;
-        private UpdateInfo lastUpdateInfo;
 
-        public UpdateHandler(ITweetDeckBrowser browser, string installerFolder){
+        public UpdateHandler(string installerFolder){
             this.client = new UpdateCheckClient(installerFolder);
             this.scheduler = TaskScheduler.FromCurrentSynchronizationContext();
             
-            this.browser = browser;
-            this.browser.RegisterBridge("$TDU", new Bridge(this));
-
             this.timer = new Timer();
             this.timer.Tick += timer_Tick;
         }
@@ -68,10 +54,6 @@ namespace TweetDuck.Updates{
 
         public int Check(bool force){
             if (Program.UserConfig.EnableUpdateCheck || force){
-                if (!browser.IsTweetDeckWebsite){
-                    return CheckCodeNotOnTweetDeck;
-                }
-                
                 int nextEventId = unchecked(++lastEventId);
                 Task<UpdateInfo> checkTask = client.Check();
 
@@ -84,95 +66,12 @@ namespace TweetDuck.Updates{
             return CheckCodeUpdatesDisabled;
         }
 
-        public void PrepareUpdate(UpdateInfo info){
-            CleanupDownload();
-            lastUpdateInfo = info;
-            lastUpdateInfo.BeginSilentDownload();
-        }
-
-        public void BeginUpdateDownload(Form ownerForm, UpdateInfo updateInfo, Action<UpdateInfo> onFinished){
-            UpdateDownloadStatus status = updateInfo.DownloadStatus;
-
-            if (status == UpdateDownloadStatus.Done || status == UpdateDownloadStatus.AssetMissing){
-                onFinished(updateInfo);
-            }
-            else{
-                FormUpdateDownload downloadForm = new FormUpdateDownload(updateInfo);
-
-                downloadForm.VisibleChanged += (sender, args) => {
-                    downloadForm.MoveToCenter(ownerForm);
-                    ownerForm.Hide();
-                };
-
-                downloadForm.FormClosed += (sender, args) => {
-                    if (downloadForm.DialogResult != DialogResult.OK){
-                        updateInfo.CancelDownload();
-                    }
-
-                    downloadForm.Dispose();
-                    onFinished(updateInfo);
-                };
-
-                downloadForm.Show();
-            }
-        }
-
-        public void CleanupDownload(){
-            if (lastUpdateInfo != null){
-                lastUpdateInfo.DeleteInstaller();
-                lastUpdateInfo = null;
-            }
-        }
-
         private void HandleUpdateCheckSuccessful(int eventId, UpdateInfo info){
             CheckFinished?.Invoke(this, new UpdateCheckEventArgs(eventId, new Result<UpdateInfo>(info)));
         }
 
         private void HandleUpdateCheckFailed(int eventId, Exception exception){
             CheckFinished?.Invoke(this, new UpdateCheckEventArgs(eventId, new Result<UpdateInfo>(exception)));
-        }
-
-        private void TriggerUpdateAcceptedEvent(){
-            if (lastUpdateInfo != null){
-                UpdateAccepted?.Invoke(this, new UpdateEventArgs(lastUpdateInfo));
-            }
-        }
-
-        private void TriggerUpdateDelayedEvent(){
-            if (lastUpdateInfo != null){
-                UpdateDelayed?.Invoke(this, new UpdateEventArgs(lastUpdateInfo));
-            }
-        }
-
-        private void TriggerUpdateDismissedEvent(){
-            if (lastUpdateInfo != null){
-                UpdateDismissed?.Invoke(this, new UpdateEventArgs(lastUpdateInfo));
-                CleanupDownload();
-            }
-        }
-
-        public sealed class Bridge{
-            private readonly UpdateHandler owner;
-
-            public Bridge(UpdateHandler owner){
-                this.owner = owner;
-            }
-
-            public void TriggerUpdateCheck(){
-                owner.Check(false);
-            }
-
-            public void OnUpdateAccepted(){
-                owner.TriggerUpdateAcceptedEvent();
-            }
-
-            public void OnUpdateDelayed(){
-                owner.TriggerUpdateDelayedEvent();
-            }
-
-            public void OnUpdateDismissed(){
-                owner.TriggerUpdateDismissedEvent();
-            }
         }
     }
 }

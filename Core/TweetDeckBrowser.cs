@@ -9,7 +9,6 @@ using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling;
 using TweetDuck.Core.Handling.General;
-using TweetDuck.Core.Management;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Other.Interfaces;
 using TweetDuck.Core.Utils;
@@ -40,7 +39,7 @@ namespace TweetDuck.Core{
 
         private string prevSoundNotificationPath = null;
 
-        public TweetDeckBrowser(FormBrowser owner, TweetDeckBridge bridge){
+        public TweetDeckBrowser(FormBrowser owner, TweetDeckBridge tdBridge, UpdateBridge updateBridge){
             RequestHandlerBrowser requestHandler = new RequestHandlerBrowser();
             
             this.browser = new ChromiumWebBrowser(TwitterUtils.TweetDeckURL){
@@ -58,7 +57,8 @@ namespace TweetDuck.Core{
             this.browser.FrameLoadEnd += browser_FrameLoadEnd;
             this.browser.LoadError += browser_LoadError;
 
-            this.browser.RegisterAsyncJsObject("$TD", bridge);
+            this.browser.RegisterAsyncJsObject("$TD", tdBridge);
+            this.browser.RegisterAsyncJsObject("$TDU", updateBridge);
             
             this.browser.BrowserSettings.BackgroundColor = (uint)TwitterUtils.BackgroundColor.ToArgb();
             this.browser.Dock = DockStyle.None;

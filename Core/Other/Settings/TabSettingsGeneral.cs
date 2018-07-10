@@ -7,7 +7,6 @@ using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Other.Settings.Dialogs;
 using TweetDuck.Core.Utils;
 using TweetDuck.Updates;
-using TweetDuck.Updates.Events;
 
 namespace TweetDuck.Core.Other.Settings{
     sealed partial class TabSettingsGeneral : BaseTabSettings{
@@ -210,11 +209,6 @@ namespace TweetDuck.Core.Other.Settings{
 
             btnCheckUpdates.Enabled = false;
             updateCheckEventId = updates.Check(true);
-
-            if (updateCheckEventId == UpdateHandler.CheckCodeNotOnTweetDeck){
-                FormMessage.Error("Update Check", "Updates can only be checked once TweetDeck is fully loaded.", FormMessage.OK);
-                btnCheckUpdates.Enabled = true;
-            }
         }
 
         private void updates_CheckFinished(object sender, UpdateCheckEventArgs e){
@@ -225,6 +219,8 @@ namespace TweetDuck.Core.Other.Settings{
                     if (update.VersionTag == Program.VersionTag){
                         FormMessage.Information("No Updates Available", "Your version of TweetDuck is up to date.", FormMessage.OK);
                     }
+
+                    // TODO allow outside TweetDeck
                 }, ex => {
                     Program.Reporter.HandleException("Update Check Error", "An error occurred while checking for updates.", true, ex);
                 });

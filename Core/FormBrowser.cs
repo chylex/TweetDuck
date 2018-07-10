@@ -17,7 +17,6 @@ using TweetDuck.Plugins;
 using TweetDuck.Plugins.Enums;
 using TweetDuck.Plugins.Events;
 using TweetDuck.Updates;
-using TweetDuck.Updates.Events;
 
 namespace TweetDuck.Core{
     sealed partial class FormBrowser : Form, AnalyticsFile.IProvider{
@@ -50,6 +49,7 @@ namespace TweetDuck.Core{
         private readonly UpdateHandler updates;
         private readonly FormNotificationTweet notification;
         private readonly ContextMenu contextMenu;
+        private readonly UpdateBridge updateBridge;
 
         private bool isLoaded;
         private FormWindowState prevState;
@@ -62,7 +62,7 @@ namespace TweetDuck.Core{
             InitializeComponent();
 
             Text = Program.BrandName;
-
+            
             this.plugins = new PluginManager(Program.PluginPath, Program.PluginConfigFilePath);
             this.plugins.Reloaded += plugins_Reloaded;
             this.plugins.Executed += plugins_Executed;
@@ -71,7 +71,15 @@ namespace TweetDuck.Core{
             this.notification = new FormNotificationTweet(this, plugins);
             this.notification.Show();
             
-            this.browser = new TweetDeckBrowser(this, new TweetDeckBridge.Browser(this, notification));
+            this.updates = new UpdateHandler(Program.InstallerPath);
+            this.updates.CheckFinished += updates_CheckFinished;
+
+            this.updateBridge = new UpdateBridge(updates, this);
+            this.updateBridge.UpdateAccepted += updateBridge_UpdateAccepted;
+            this.updateBridge.UpdateDelayed += updateBridge_UpdateDelayed;
+            this.updateBridge.UpdateDismissed += updateBridge_UpdateDismissed;
+
+            this.browser = new TweetDeckBrowser(this, new TweetDeckBridge.Browser(this, notification), updateBridge);
             this.contextMenu = ContextMenuBrowser.CreateMenu(this);
 
             this.plugins.Register(browser, PluginEnvironment.Browser, this, true);
@@ -102,11 +110,6 @@ namespace TweetDuck.Core{
             if (Config.MuteNotifications){
                 UpdateFormIcon();
             }
-
-            this.updates = new UpdateHandler(browser, Program.InstallerPath);
-            this.updates.CheckFinished += updates_CheckFinished;
-            this.updates.UpdateAccepted += updates_UpdateAccepted;
-            this.updates.UpdateDismissed += updates_UpdateDismissed;
 
             if (Config.AllowDataCollection){
                 analytics = new AnalyticsManager(this, plugins, Program.AnalyticsFilePath);
@@ -207,7 +210,7 @@ namespace TweetDuck.Core{
 
         private void FormBrowser_FormClosed(object sender, FormClosedEventArgs e){
             if (isLoaded && UpdateInstallerPath == null){
-                updates.CleanupDownload();
+                updateBridge.Cleanup();
             }
         }
 
@@ -252,7 +255,7 @@ namespace TweetDuck.Core{
                 string tag = update.VersionTag;
 
                 if (tag != Program.VersionTag && tag != Config.DismissedUpdate){
-                    updates.PrepareUpdate(update);
+                    update.BeginSilentDownload();
                     browser.ShowUpdateNotification(tag, update.ReleaseNotes);
                 }
                 else{
@@ -268,38 +271,61 @@ namespace TweetDuck.Core{
             ignoreUpdateCheckError = true;
         }
 
-        private void updates_UpdateAccepted(object sender, UpdateEventArgs e){
-            this.InvokeAsyncSafe(() => {
-                FormManager.CloseAllDialogs();
+        private void updateBridge_UpdateAccepted(object sender, UpdateInfo update){
+            FormManager.CloseAllDialogs();
 
-                if (!string.IsNullOrEmpty(Config.DismissedUpdate)){
-                    Config.DismissedUpdate = null;
-                    Config.Save();
+            if (!string.IsNullOrEmpty(Config.DismissedUpdate)){
+                Config.DismissedUpdate = null;
+                Config.Save();
+            }
+
+            void OnFinished(){
+                UpdateDownloadStatus status = update.DownloadStatus;
+
+                if (status == UpdateDownloadStatus.Done){
+                    UpdateInstallerPath = update.InstallerPath;
+                    ForceClose();
                 }
+                else if (status != UpdateDownloadStatus.Canceled && FormMessage.Error("Update Has Failed", "Could not automatically download the update: "+(update.DownloadError?.Message ?? "unknown error")+"\n\nWould you like to open the website and try downloading the update manually?", FormMessage.Yes, FormMessage.No)){
+                    BrowserUtils.OpenExternalBrowser(Program.Website);
+                    ForceClose();
+                }
+                else{
+                    Show();
+                }
+            }
+            
+            if (update.DownloadStatus.IsFinished(true)){
+                OnFinished();
+            }
+            else{
+                FormUpdateDownload downloadForm = new FormUpdateDownload(update);
 
-                updates.BeginUpdateDownload(this, e.UpdateInfo, update => {
-                    UpdateDownloadStatus status = update.DownloadStatus;
+                downloadForm.VisibleChanged += (sender2, args2) => {
+                    downloadForm.MoveToCenter(this);
+                    Hide();
+                };
 
-                    if (status == UpdateDownloadStatus.Done){
-                        UpdateInstallerPath = update.InstallerPath;
-                        ForceClose();
+                downloadForm.FormClosed += (sender2, args2) => {
+                    if (downloadForm.DialogResult != DialogResult.OK){
+                        update.CancelDownload();
                     }
-                    else if (status != UpdateDownloadStatus.Canceled && FormMessage.Error("Update Has Failed", "Could not automatically download the update: "+(update.DownloadError?.Message ?? "unknown error")+"\n\nWould you like to open the website and try downloading the update manually?", FormMessage.Yes, FormMessage.No)){
-                        BrowserUtils.OpenExternalBrowser(Program.Website);
-                        ForceClose();
-                    }
-                    else{
-                        Show();
-                    }
-                });
-            });
+
+                    downloadForm.Dispose();
+                    OnFinished();
+                };
+
+                downloadForm.Show();
+            }
         }
 
-        private void updates_UpdateDismissed(object sender, UpdateEventArgs e){
-            this.InvokeAsyncSafe(() => {
-                Config.DismissedUpdate = e.UpdateInfo.VersionTag;
-                Config.Save();
-            });
+        private void updateBridge_UpdateDelayed(object sender, UpdateInfo update){
+            // stops the timer
+        }
+
+        private void updateBridge_UpdateDismissed(object sender, UpdateInfo update){
+            Config.DismissedUpdate = update.VersionTag;
+            Config.Save();
         }
 
         protected override void WndProc(ref Message m){

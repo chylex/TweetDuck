@@ -9,8 +9,8 @@
     }
 
     public static class UpdateDownloadStatusExtensions{
-        public static bool IsFinished(this UpdateDownloadStatus status){
-            return status == UpdateDownloadStatus.AssetMissing || status == UpdateDownloadStatus.Done || status == UpdateDownloadStatus.Failed;
+        public static bool IsFinished(this UpdateDownloadStatus status, bool canRetry){
+            return status == UpdateDownloadStatus.AssetMissing || status == UpdateDownloadStatus.Done || (status == UpdateDownloadStatus.Failed && !canRetry);
         }
     }
 }

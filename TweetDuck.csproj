@@ -58,6 +58,7 @@
     <Compile Include="Configuration\SystemConfig.cs" />
     <Compile Include="Configuration\UserConfig.cs" />
     <Compile Include="Core\Bridge\PropertyBridge.cs" />
+    <Compile Include="Core\Bridge\UpdateBridge.cs" />
     <Compile Include="Core\Controls\ControlExtensions.cs" />
     <Compile Include="Core\Controls\FlatButton.cs">
       <SubType>Component</SubType>
@@ -283,7 +284,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Reporter.cs" />
-    <Compile Include="Updates\Events\UpdateCheckEventArgs.cs" />
+    <Compile Include="Updates\UpdateCheckEventArgs.cs" />
     <Compile Include="Updates\FormUpdateDownload.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -306,7 +307,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ScriptLoader.cs" />
-    <Compile Include="Updates\Events\UpdateEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

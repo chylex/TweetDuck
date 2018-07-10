@@ -1,7 +1,7 @@
 ﻿using System;
 using TweetDuck.Data;
 
-namespace TweetDuck.Updates.Events{
+namespace TweetDuck.Updates{
     sealed class UpdateCheckEventArgs : EventArgs{
         public int EventId { get; }
         public Result<UpdateInfo> Result { get; }

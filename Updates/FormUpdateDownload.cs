@@ -20,7 +20,7 @@ namespace TweetDuck.Updates{
         }
 
         private void timerDownloadCheck_Tick(object sender, EventArgs e){
-            if (updateInfo.DownloadStatus.IsFinished()){
+            if (updateInfo.DownloadStatus.IsFinished(false)){
                 timerDownloadCheck.Stop();
                 DialogResult = DialogResult.OK;
                 Close();

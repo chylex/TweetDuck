@@ -26,6 +26,11 @@ namespace TweetDuck.Updates{
         }
 
         public void BeginSilentDownload(){
+            if (File.Exists(InstallerPath)){
+                DownloadStatus = UpdateDownloadStatus.Done;
+                return;
+            }
+
             if (DownloadStatus == UpdateDownloadStatus.None || DownloadStatus == UpdateDownloadStatus.Failed){
                 DownloadStatus = UpdateDownloadStatus.InProgress;
 
