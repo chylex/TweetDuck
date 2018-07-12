@@ -391,7 +391,7 @@ html.dark .mdl-column-rhs{border-left:1px solid #ccd6dd;background:#fff}
 html.dark .s-minimal .mdl-header{border-bottom:1px solid #e1e8ed}
 html.dark .lst-launcher .top-row{border-bottom:1px solid #e1e8ed}
 html.dark .lst-launcher .is-disabled a,html.dark .lst-launcher .is-disabled a:hover,html.dark .lst-launcher .is-disabled a:focus,html.dark .lst-launcher .is-disabled a:active{background:#fff}
-html.dark .lst-launcher a:hover,html.dark .lst-launcher a:focus,html.dark .lst-launcher a:active{background:#f2f9ff;border:1px solid #bbddf5}
+html.dark .lst-launcher a:hover,html.dark .lst-launcher a:focus,html.dark .lst-launcher a:active{background:#f2f9ff}
 html.dark .lst-profile a,html.dark .lst-profile a:hover,html.dark .lst-profile a:focus,html.dark .lst-profile a:active{color:#657786}
 html.dark .mdl-col-settings{background-color:#fff;border-left:1px solid #E1E8ED}
 html.dark .mdl-links{color:#8899a6}

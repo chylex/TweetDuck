@@ -100,6 +100,15 @@ button {
   margin-bottom: 0 !important;
 }
 
+#tduck .lst-launcher a {
+  border: 1px solid transparent !important;
+  transform: none !important;
+}
+
+#tduck .lst-launcher a:hover, #tduck .lst-launcher a:focus, #tduck .lst-launcher a:active {
+  border-color: #bbddf5 !important;
+}
+
 /***********************/
 /* Hide TweetDeck logo */
 /***********************/
