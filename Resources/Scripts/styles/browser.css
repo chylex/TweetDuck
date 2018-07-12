@@ -42,7 +42,7 @@ button, .btn, .mdl, .mdl-content, .popover, .lst-modal, .tooltip-inner {
   border-radius: 1px !important;
 }
 
-.media-item, .media-preview, .media-image, .js-media-added .br--4 {
+.media-item, .media-preview, .media-image, .js-media-added .br--4, #tduck .compose-message-recipient img {
   border-radius: 1px !important;
 }
 
