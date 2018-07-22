@@ -21,7 +21,7 @@ namespace TweetDuck.Core.Other.Settings{
         private readonly int searchEngineIndexDefault;
         private readonly int searchEngineIndexCustom;
 
-        public TabSettingsGeneral(Action reloadColumns, UpdateHandler updates){
+        public TabSettingsGeneral(Action reloadColumns, UpdateHandler updates){ // TODO dialog is too tall now
             InitializeComponent();
 
             this.reloadColumns = reloadColumns;
@@ -37,6 +37,7 @@ namespace TweetDuck.Core.Other.Settings{
             toolTip.SetToolTip(checkAnimatedAvatars, "Some old Twitter avatars could be uploaded as animated GIFs.");
 
             toolTip.SetToolTip(checkSmoothScrolling, "Toggles smooth mouse wheel scrolling.");
+            toolTip.SetToolTip(checkTouchAdjustment, "Toggles Chromium touch screen adjustment.\r\nDisabled by default, because it is very imprecise with TweetDeck.");
             toolTip.SetToolTip(comboBoxBrowserPath, "Sets the default browser for opening links.");
             toolTip.SetToolTip(labelZoomValue, "Changes the zoom level.\r\nAlso affects notifications and screenshots.");
             toolTip.SetToolTip(trackBarZoom, toolTip.GetToolTip(labelZoomValue));
@@ -51,6 +52,7 @@ namespace TweetDuck.Core.Other.Settings{
             checkAnimatedAvatars.Checked = Config.EnableAnimatedImages;
 
             checkSmoothScrolling.Checked = Config.EnableSmoothScrolling;
+            checkTouchAdjustment.Checked = Config.EnableTouchAdjustment;
 
             foreach(WindowsUtils.Browser browserInfo in WindowsUtils.FindInstalledBrowsers()){
                 comboBoxBrowserPath.Items.Add(browserInfo);
@@ -82,6 +84,7 @@ namespace TweetDuck.Core.Other.Settings{
             checkAnimatedAvatars.CheckedChanged += checkAnimatedAvatars_CheckedChanged;
 
             checkSmoothScrolling.CheckedChanged += checkSmoothScrolling_CheckedChanged;
+            checkTouchAdjustment.CheckedChanged += checkTouchAdjustment_CheckedChanged;
             comboBoxBrowserPath.SelectedIndexChanged += comboBoxBrowserPath_SelectedIndexChanged;
             comboBoxSearchEngine.SelectedIndexChanged += comboBoxSearchEngine_SelectedIndexChanged;
             trackBarZoom.ValueChanged += trackBarZoom_ValueChanged;
@@ -117,6 +120,11 @@ namespace TweetDuck.Core.Other.Settings{
 
         private void checkSmoothScrolling_CheckedChanged(object sender, EventArgs e){
             Config.EnableSmoothScrolling = checkSmoothScrolling.Checked;
+            PromptRestart();
+        }
+
+        private void checkTouchAdjustment_CheckedChanged(object sender, EventArgs e){
+            Config.EnableTouchAdjustment = checkTouchAdjustment.Checked;
             PromptRestart();
         }
 

@@ -35,6 +35,10 @@ namespace TweetDuck.Core.Utils{
             else{
                 args["disable-smooth-scrolling"] = "1";
             }
+
+            if (!Program.UserConfig.EnableTouchAdjustment){
+                args["disable-touch-adjustment"] = "1";
+            }
             
             args["disable-pdf-extension"] = "1";
             args["disable-plugins-discovery"] = "1";
