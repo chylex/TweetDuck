@@ -541,7 +541,7 @@ ${iconData.map(entry => `#tduck .icon-${entry[0]}:before{content:\"\\f0${entry[1
 #tduck .js-docked-compose .js-drawer-close { margin: 20px 0 0 !important }
 #tduck .search-input-control .icon { font-size: 20px !important; top: -4px !important }
 
-.js-column-header .column-type-icon { margin-top: -1px !important }
+.js-column-header .column-type-icon { margin-top: 0 !important }
 .inline-reply .pull-left .Button--link { margin-top: 3px !important }
 
 .tweet-action-item .icon-favorite-toggle { font-size: 16px !important; }

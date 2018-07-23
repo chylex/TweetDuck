@@ -356,6 +356,11 @@ html[data-td-font='smallest'] .fullname-badged:before, html[data-td-font='small'
   vertical-align: top !important;
 }
 
+a:not(.tweet-detail-action) .reply-triangle {
+  /* fix invisible reply triangle breaking layout */
+  display: none !important;
+}
+
 .column-message.is-actionable span:hover > .icon-small-valigned {
   /* add a visual response when hovering individual filter icons; black theme uses a value of 20 */
   filter: saturate(10);
