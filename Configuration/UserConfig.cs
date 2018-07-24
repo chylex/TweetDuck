@@ -216,11 +216,6 @@ namespace TweetDuck.Configuration{
 
         private void LoadInternal(bool backup){
             Serializer.Read(backup ? GetBackupFile(file) : file, this);
-
-            if (NotificationScrollSpeed == 10){ // incorrect initial value
-                NotificationScrollSpeed = 100;
-                Save();
-            }
         }
         
         public static UserConfig Load(string file){
