@@ -43,7 +43,6 @@ namespace TweetDuck.Core.Other.Settings{
 
         private void comboBoxSpellCheckLanguage_SelectedValueChanged(object sender, EventArgs e){
             Config.SpellCheckLanguage = (comboBoxSpellCheckLanguage.SelectedItem as LocaleUtils.Item)?.Code ?? "en-US";
-            PromptRestart();
         }
 
         private void comboBoxTranslationTarget_SelectedValueChanged(object sender, EventArgs e){

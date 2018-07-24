@@ -120,12 +120,10 @@ namespace TweetDuck.Core.Other.Settings{
 
         private void checkSmoothScrolling_CheckedChanged(object sender, EventArgs e){
             Config.EnableSmoothScrolling = checkSmoothScrolling.Checked;
-            PromptRestart();
         }
 
         private void checkTouchAdjustment_CheckedChanged(object sender, EventArgs e){
             Config.EnableTouchAdjustment = checkTouchAdjustment.Checked;
-            PromptRestart();
         }
 
         private void UpdateBrowserPathSelection(){

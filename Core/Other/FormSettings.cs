@@ -14,15 +14,15 @@ using TweetDuck.Updates;
 
 namespace TweetDuck.Core.Other{
     sealed partial class FormSettings : Form, FormManager.IAppDialog{
+        public bool ShouldReloadBrowser { get; private set; }
+
         private readonly FormBrowser browser;
         private readonly PluginManager plugins;
 
         private readonly int buttonHeight;
 
-        private readonly Dictionary<Type, SettingsTab> tabs = new Dictionary<Type, SettingsTab>(4);
+        private readonly Dictionary<Type, SettingsTab> tabs = new Dictionary<Type, SettingsTab>(8);
         private SettingsTab currentTab;
-
-        public bool ShouldReloadBrowser { get; private set; }
 
         public FormSettings(FormBrowser browser, PluginManager plugins, UpdateHandler updates, AnalyticsManager analytics, Type startTab){
             InitializeComponent();
@@ -36,6 +36,8 @@ namespace TweetDuck.Core.Other{
             
             this.buttonHeight = BrowserUtils.Scale(39, this.GetDPIScale()) | 1;
 
+            PrepareLoad();
+
             AddButton("General", () => new TabSettingsGeneral(this.browser.ReloadColumns, updates));
             AddButton("Locales", () => new TabSettingsLocales());
             AddButton("System Tray", () => new TabSettingsTray());
@@ -47,8 +49,29 @@ namespace TweetDuck.Core.Other{
             SelectTab(tabs[startTab ?? typeof(TabSettingsGeneral)]);
         }
 
-        private void FormSettings_FormClosing(object sender, FormClosingEventArgs e){
+        private void PrepareLoad(){
+            Program.UserConfig.ProgramRestartRequested += Config_ProgramRestartRequested;
+            Program.SystemConfig.ProgramRestartRequested += Config_ProgramRestartRequested;
+        }
+
+        private void PrepareUnload(){ // TODO refactor this further later
             currentTab.Control.OnClosing();
+            
+            Program.UserConfig.ProgramRestartRequested -= Config_ProgramRestartRequested;
+            Program.SystemConfig.ProgramRestartRequested -= Config_ProgramRestartRequested;
+
+            Program.UserConfig.Save();
+            Program.SystemConfig.Save();
+        }
+
+        private void Config_ProgramRestartRequested(object sender, EventArgs e){
+            if (FormMessage.Information("TweetDuck Options", "The application must restart for the option to take place. Do you want to restart now?", FormMessage.Yes, FormMessage.No)){
+                Program.Restart();
+            }
+        }
+
+        private void FormSettings_FormClosing(object sender, FormClosingEventArgs e){
+            PrepareUnload();
 
             foreach(SettingsTab tab in tabs.Values){
                 if (tab.IsInitialized){
@@ -56,16 +79,15 @@ namespace TweetDuck.Core.Other{
                 }
             }
             
-            Program.UserConfig.Save();
             browser.ResumeNotification();
         }
 
         private void btnManageOptions_Click(object sender, EventArgs e){
-            currentTab.Control.OnClosing();
+            PrepareUnload();
 
             using(DialogSettingsManage dialog = new DialogSettingsManage(plugins)){
                 FormClosing -= FormSettings_FormClosing;
-
+                
                 if (dialog.ShowDialog() == DialogResult.OK){
                     if (!dialog.IsRestarting){
                         browser.ResumeNotification();
@@ -78,6 +100,7 @@ namespace TweetDuck.Core.Other{
                 }
                 else{
                     FormClosing += FormSettings_FormClosing;
+                    PrepareLoad();
                 }
             }
         }

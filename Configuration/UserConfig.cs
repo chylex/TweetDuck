@@ -47,19 +47,21 @@ namespace TweetDuck.Configuration{
         public bool BestImageQuality          { get; set; } = true;
         public bool EnableAnimatedImages      { get; set; } = true;
 
-        public bool IgnoreTrackingUrlWarning { get; set; } = false;
-        public bool EnableSmoothScrolling    { get; set; } = true;
-        public bool EnableTouchAdjustment    { get; set; } = false;
+        public bool _enableSmoothScrolling = true;
+        public bool _enableTouchAdjustment = false;
+        public string _customCefArgs       = null;
+
         public string BrowserPath            { get; set; } = null;
+        public bool IgnoreTrackingUrlWarning { get; set; } = false;
         public string SearchEngineUrl        { get; set; } = null;
         private int _zoomLevel                             = 100;
-        private bool _muteNotifications;
 
         public int VideoPlayerVolume { get; set; } = 50;
         
-        public bool EnableSpellCheck     { get; set; } = false;
-        public string SpellCheckLanguage { get; set; } = "en-US";
-        public string TranslationTarget  { get; set; } = "en";
+        public bool EnableSpellCheck      { get; set; } = false;
+        private string _spellCheckLanguage              = "en-US";
+
+        public string TranslationTarget   { get; set; } = "en";
         
         private TrayIcon.Behavior _trayBehavior       = TrayIcon.Behavior.Disabled;
         public bool EnableTrayHighlight { get; set; } = true;
@@ -85,11 +87,12 @@ namespace TweetDuck.Configuration{
         public TweetNotification.Size NotificationSize { get; set; } = TweetNotification.Size.Auto;
         public Size CustomNotificationSize             { get; set; } = Size.Empty;
         public int NotificationScrollSpeed             { get; set; } = 100;
-
+        
         private string _notificationSoundPath;
         private int _notificationSoundVolume = 100;
 
-        public string CustomCefArgs         { get; set; } = null;
+        private bool _muteNotifications;
+
         public string CustomBrowserCSS      { get; set; } = null;
         public string CustomNotificationCSS { get; set; } = null;
         
@@ -125,6 +128,26 @@ namespace TweetDuck.Configuration{
             get => _trayBehavior;
             set => UpdatePropertyWithEvent(ref _trayBehavior, value, TrayBehaviorChanged);
         }
+        
+        public bool EnableSmoothScrolling{
+            get => _enableSmoothScrolling;
+            set => UpdatePropertyWithEvent(ref _enableSmoothScrolling, value, ProgramRestartRequested);
+        }
+
+        public bool EnableTouchAdjustment{
+            get => _enableTouchAdjustment;
+            set => UpdatePropertyWithEvent(ref _enableTouchAdjustment, value, ProgramRestartRequested);
+        }
+
+        public string CustomCefArgs{
+            get => _customCefArgs;
+            set => UpdatePropertyWithEvent(ref _customCefArgs, value, ProgramRestartRequested);
+        }
+
+        public string SpellCheckLanguage{
+            get => _spellCheckLanguage;
+            set => UpdatePropertyWithEvent(ref _spellCheckLanguage, value, ProgramRestartRequested);
+        }
 
         // EVENTS
         
@@ -132,6 +155,8 @@ namespace TweetDuck.Configuration{
         public event EventHandler ZoomLevelChanged;
         public event EventHandler TrayBehaviorChanged;
         public event EventHandler SoundNotificationChanged;
+
+        public event EventHandler ProgramRestartRequested;
 
         // END OF CONFIG
         

@@ -64,7 +64,6 @@ namespace TweetDuck.Core.Other.Settings{
         public override void OnClosing(){
             SysConfig.ClearCacheAutomatically = checkClearCacheAuto.Checked;
             SysConfig.ClearCacheThreshold = (int)numClearCacheThreshold.Value;
-            SysConfig.Save();
         }
 
         private void btnClearCache_Click(object sender, EventArgs e){
@@ -79,7 +78,6 @@ namespace TweetDuck.Core.Other.Settings{
 
         private void checkHardwareAcceleration_CheckedChanged(object sender, EventArgs e){
             SysConfig.HardwareAcceleration = checkHardwareAcceleration.Checked;
-            PromptRestart(); // calls OnClosing
         }
 
         private void btnEditCefArgs_Click(object sender, EventArgs e){
@@ -94,10 +92,9 @@ namespace TweetDuck.Core.Other.Settings{
 
                 if (form.DialogResult == DialogResult.OK){
                     Config.CustomCefArgs = form.CefArgs;
-                    PromptRestart();
-                    form.Dispose();
                 }
-                else form.Dispose();
+
+                form.Dispose();
             };
             
             form.Show(ParentForm);

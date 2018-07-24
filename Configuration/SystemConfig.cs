@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using TweetDuck.Data.Serialization;
 
 namespace TweetDuck.Configuration{
@@ -7,17 +8,35 @@ namespace TweetDuck.Configuration{
 
         // CONFIGURATION DATA
         
-        public bool HardwareAcceleration { get; set; } = true;
+        public bool _hardwareAcceleration = true;
         
         public bool ClearCacheAutomatically { get; set; } = true;
         public int ClearCacheThreshold      { get; set; } = 250;
+
+        // SPECIAL PROPERTIES
         
+        public bool HardwareAcceleration{
+            get => _hardwareAcceleration;
+            set => UpdatePropertyWithEvent(ref _hardwareAcceleration, value, ProgramRestartRequested);
+        }
+
+        // EVENTS
+        
+        public event EventHandler ProgramRestartRequested;
+
         // END OF CONFIG
 
         private readonly string file;
         
         private SystemConfig(string file){
             this.file = file;
+        }
+
+        private void UpdatePropertyWithEvent<T>(ref T field, T value, EventHandler eventHandler){
+            if (!EqualityComparer<T>.Default.Equals(field, value)){
+                field = value;
+                eventHandler?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         public void Save(){
