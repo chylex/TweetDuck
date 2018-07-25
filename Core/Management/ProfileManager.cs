@@ -21,9 +21,7 @@ namespace TweetDuck.Core.Management{
             PluginData = 8,
             All = UserConfig|SystemConfig|Session|PluginData
         }
-
-        public bool IsRestarting { get; private set; }
-
+        
         private readonly string file;
         private readonly PluginManager plugins;
 
@@ -125,7 +123,6 @@ namespace TweetDuck.Core.Management{
                             case "system":
                                 if (items.HasFlag(Items.SystemConfig)){
                                     entry.WriteToFile(Program.SystemConfigFilePath);
-                                    IsRestarting = true;
                                 }
 
                                 break;
@@ -153,7 +150,6 @@ namespace TweetDuck.Core.Management{
                             case "cookies":
                                 if (items.HasFlag(Items.Session)){
                                     entry.WriteToFile(Path.Combine(Program.StoragePath, TempCookiesPath));
-                                    IsRestarting = true;
                                 }
 
                                 break;
@@ -167,7 +163,7 @@ namespace TweetDuck.Core.Management{
 
                 return true;
             }catch(Exception e){
-                Program.Reporter.HandleException("Profile Import Error", "An exception happened while importing TweetDuck profile.", true, e);
+                Program.Reporter.HandleException("Profile Import", "An exception happened while importing TweetDuck profile.", true, e);
                 return false;
             }
         }
@@ -214,12 +210,6 @@ namespace TweetDuck.Core.Management{
                 this.Full = fullPath;
                 this.Relative = fullPath.Substring(rootLength).TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar); // strip leading separator character
             }
-        }
-    }
-
-    static class ProfileManagerExtensions{
-        public static bool NeedsRestart(this ProfileManager.Items items){
-            return items.HasFlag(ProfileManager.Items.SystemConfig) || items.HasFlag(ProfileManager.Items.Session);
         }
     }
 }

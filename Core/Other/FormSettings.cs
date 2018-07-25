@@ -87,9 +87,11 @@ namespace TweetDuck.Core.Other{
                 if (dialog.ShowDialog() == DialogResult.OK){
                     if (!dialog.IsRestarting){
                         browser.ResumeNotification();
-                    
-                        BrowserProcessHandler.UpdatePrefs();
-                        ShouldReloadBrowser = dialog.ShouldReloadBrowser;
+
+                        if (dialog.ShouldReloadBrowser){
+                            BrowserProcessHandler.UpdatePrefs();
+                            ShouldReloadBrowser = true;
+                        }
                     }
 
                     Close();
