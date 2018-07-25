@@ -50,18 +50,14 @@ namespace TweetDuck.Core.Other{
         }
 
         private void PrepareLoad(){
-            Program.UserConfig.ProgramRestartRequested += Config_ProgramRestartRequested;
-            Program.SystemConfig.ProgramRestartRequested += Config_ProgramRestartRequested;
+            Program.Config.ProgramRestartRequested += Config_ProgramRestartRequested;
         }
 
         private void PrepareUnload(){ // TODO refactor this further later
             currentTab.Control.OnClosing();
             
-            Program.UserConfig.ProgramRestartRequested -= Config_ProgramRestartRequested;
-            Program.SystemConfig.ProgramRestartRequested -= Config_ProgramRestartRequested;
-
-            Program.UserConfig.Save();
-            Program.SystemConfig.Save();
+            Program.Config.ProgramRestartRequested -= Config_ProgramRestartRequested;
+            Program.Config.SaveAll();
         }
 
         private void Config_ProgramRestartRequested(object sender, EventArgs e){

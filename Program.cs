@@ -45,11 +45,14 @@ namespace TweetDuck{
 
         private static readonly LockManager LockManager = new LockManager(Path.Combine(StoragePath, ".lock"));
         private static bool HasCleanedUp;
-
-        public static UserConfig UserConfig { get; private set; }
-        public static SystemConfig SystemConfig { get; private set; }
-        public static Reporter Reporter { get; }
+        
         public static CultureInfo Culture { get; }
+        public static Reporter Reporter { get; }
+        public static ConfigManager Config { get; }
+
+        // TODO
+        public static UserConfig UserConfig => Config.User;
+        public static SystemConfig SystemConfig => Config.System;
 
         static Program(){
             Culture = CultureInfo.CurrentCulture;
@@ -62,6 +65,8 @@ namespace TweetDuck{
 
             Reporter = new Reporter(ErrorLogFilePath);
             Reporter.SetupUnhandledExceptionHandler("TweetDuck Has Failed :(");
+
+            Config = new ConfigManager();
         }
 
         [STAThread]
@@ -113,8 +118,7 @@ namespace TweetDuck{
                 }
             }
             
-            UserConfig = UserConfig.Load(UserConfigFilePath);
-            SystemConfig = SystemConfig.Load(SystemConfigFilePath);
+            Config.LoadAll();
 
             if (Arguments.HasFlag(Arguments.ArgImportCookies)){
                 ProfileManager.ImportCookies();
@@ -213,7 +217,7 @@ namespace TweetDuck{
         private static void ExitCleanup(){
             if (HasCleanedUp)return;
 
-            UserConfig.Save();
+            Config.SaveAll();
 
             Cef.Shutdown();
             BrowserCache.Exit();

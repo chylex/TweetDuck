@@ -54,6 +54,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\Arguments.cs" />
+    <Compile Include="Configuration\Instance\FileConfigInstance.cs" />
+    <Compile Include="Configuration\ConfigManager.cs" />
+    <Compile Include="Configuration\Instance\IConfigInstance.cs" />
     <Compile Include="Configuration\LockManager.cs" />
     <Compile Include="Configuration\SystemConfig.cs" />
     <Compile Include="Configuration\UserConfig.cs" />

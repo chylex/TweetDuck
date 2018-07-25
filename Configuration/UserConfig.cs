@@ -1,37 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Utils;
 using TweetDuck.Data;
-using TweetDuck.Data.Serialization;
 
 namespace TweetDuck.Configuration{
-    sealed class UserConfig{
-        private static readonly FileSerializer<UserConfig> Serializer = new FileSerializer<UserConfig>();
-
-        static UserConfig(){
-            Serializer.RegisterTypeConverter(typeof(WindowState), WindowState.Converter);
-
-            Serializer.RegisterTypeConverter(typeof(Point), new SingleTypeConverter<Point>{
-                ConvertToString = value => $"{value.X} {value.Y}",
-                ConvertToObject = value => {
-                    int[] elements = StringUtils.ParseInts(value, ' ');
-                    return new Point(elements[0], elements[1]);
-                }
-            });
-            
-            Serializer.RegisterTypeConverter(typeof(Size), new SingleTypeConverter<Size>{
-                ConvertToString = value => $"{value.Width} {value.Height}",
-                ConvertToObject = value => {
-                    int[] elements = StringUtils.ParseInts(value, ' ');
-                    return new Size(elements[0], elements[1]);
-                }
-            });
-        }
+    sealed class UserConfig : ConfigManager.BaseConfig{
         
         // CONFIGURATION DATA
 
@@ -58,10 +34,10 @@ namespace TweetDuck.Configuration{
 
         public int VideoPlayerVolume { get; set; } = 50;
         
-        public bool EnableSpellCheck      { get; set; } = false;
-        private string _spellCheckLanguage              = "en-US";
+        public bool EnableSpellCheck { get; set; } = false;
+        private string _spellCheckLanguage         = "en-US";
 
-        public string TranslationTarget   { get; set; } = "en";
+        public string TranslationTarget { get; set; } = "en";
         
         private TrayIcon.Behavior _trayBehavior       = TrayIcon.Behavior.Disabled;
         public bool EnableTrayHighlight { get; set; } = true;
@@ -75,9 +51,9 @@ namespace TweetDuck.Configuration{
         public bool NotificationNonIntrusiveMode { get; set; } = true;
         public int NotificationIdlePauseSeconds  { get; set; } = 0;
 
-        public bool DisplayNotificationTimer     { get; set; } = true;
-        public bool NotificationTimerCountDown   { get; set; } = false;
-        public int NotificationDurationValue     { get; set; } = 25;
+        public bool DisplayNotificationTimer   { get; set; } = true;
+        public bool NotificationTimerCountDown { get; set; } = false;
+        public int NotificationDurationValue   { get; set; } = 25;
 
         public TweetNotification.Position NotificationPosition { get; set; } = TweetNotification.Position.TopRight;
         public Point CustomNotificationPosition                { get; set; } = ControlExtensions.InvisibleLocation;
@@ -131,22 +107,22 @@ namespace TweetDuck.Configuration{
         
         public bool EnableSmoothScrolling{
             get => _enableSmoothScrolling;
-            set => UpdatePropertyWithEvent(ref _enableSmoothScrolling, value, ProgramRestartRequested);
+            set => UpdatePropertyWithRestartRequest(ref _enableSmoothScrolling, value);
         }
 
         public bool EnableTouchAdjustment{
             get => _enableTouchAdjustment;
-            set => UpdatePropertyWithEvent(ref _enableTouchAdjustment, value, ProgramRestartRequested);
+            set => UpdatePropertyWithRestartRequest(ref _enableTouchAdjustment, value);
         }
 
         public string CustomCefArgs{
             get => _customCefArgs;
-            set => UpdatePropertyWithEvent(ref _customCefArgs, value, ProgramRestartRequested);
+            set => UpdatePropertyWithRestartRequest(ref _customCefArgs, value);
         }
 
         public string SpellCheckLanguage{
             get => _spellCheckLanguage;
-            set => UpdatePropertyWithEvent(ref _spellCheckLanguage, value, ProgramRestartRequested);
+            set => UpdatePropertyWithRestartRequest(ref _spellCheckLanguage, value);
         }
 
         // EVENTS
@@ -156,104 +132,12 @@ namespace TweetDuck.Configuration{
         public event EventHandler TrayBehaviorChanged;
         public event EventHandler SoundNotificationChanged;
 
-        public event EventHandler ProgramRestartRequested;
-
         // END OF CONFIG
         
-        private readonly string file;
+        public UserConfig(ConfigManager configManager) : base(configManager){}
 
-        private UserConfig(string file){
-            this.file = file;
-        }
-
-        private void UpdatePropertyWithEvent<T>(ref T field, T value, EventHandler eventHandler){
-            if (!EqualityComparer<T>.Default.Equals(field, value)){
-                field = value;
-                eventHandler?.Invoke(this, EventArgs.Empty);
-            }
-        }
-
-        public void Save(){
-            try{
-                if (File.Exists(file)){
-                    string backupFile = GetBackupFile(file);
-                    File.Delete(backupFile);
-                    File.Move(file, backupFile);
-                }
-
-                Serializer.Write(file, this);
-            }catch(Exception e){
-                Program.Reporter.HandleException("Configuration Error", "Could not save the configuration file.", true, e);
-            }
-        }
-
-        public void Reload(){
-            try{
-                LoadInternal(false);
-            }catch(FileNotFoundException){
-                try{
-                    Serializer.Write(file, new UserConfig(file));
-                    LoadInternal(false);
-                }catch(Exception e){
-                    Program.Reporter.HandleException("Configuration Error", "Could not regenerate configuration file.", true, e);
-                }
-            }catch(Exception e){
-                Program.Reporter.HandleException("Configuration Error", "Could not reload configuration file.", true, e);
-            }
-        }
-
-        public void Reset(){
-            try{
-                File.Delete(file);
-                File.Delete(GetBackupFile(file));
-            }catch(Exception e){
-                Program.Reporter.HandleException("Configuration Error", "Could not delete configuration files to reset the options.", true, e);
-                return;
-            }
-            
-            Reload();
-        }
-
-        private void LoadInternal(bool backup){
-            Serializer.Read(backup ? GetBackupFile(file) : file, this);
-        }
-        
-        public static UserConfig Load(string file){
-            Exception firstException = null;
-
-            for(int attempt = 0; attempt < 2; attempt++){
-                try{
-                    UserConfig config = new UserConfig(file);
-                    config.LoadInternal(attempt > 0);
-                    return config;
-                }catch(FileNotFoundException){
-                }catch(DirectoryNotFoundException){
-                    break;
-                }catch(Exception e){
-                    if (attempt == 0){
-                        firstException = e;
-                        Program.Reporter.Log(e.ToString());
-                    }
-                    else if (firstException is FormatException){
-                        Program.Reporter.HandleException("Configuration Error", "The configuration file is outdated or corrupted. If you continue, your program options will be reset.", true, e);
-                        return new UserConfig(file);
-                    }
-                    else if (firstException != null){
-                        Program.Reporter.HandleException("Configuration Error", "Could not open the backup configuration file. If you continue, your program options will be reset.", true, e);
-                        return new UserConfig(file);
-                    }
-                }
-            }
-
-            if (firstException != null){
-                Program.Reporter.HandleException("Configuration Error", "Could not open the configuration file.", true, firstException);
-            }
-
-            return new UserConfig(file);
-        }
-
-        public static string GetBackupFile(string file){
-            return file+".bak";
+        protected override ConfigManager.BaseConfig ConstructWithDefaults(ConfigManager configManager){
+            return new UserConfig(configManager);
         }
     }
 }

@@ -121,11 +121,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                         }
 
                         if (SelectedItems.HasFlag(ProfileManager.Items.SystemConfig)){
-                            try{
-                                File.Delete(Program.SystemConfigFilePath);
-                            }catch(Exception ex){
-                                Program.Reporter.HandleException("System Config Reset Error", "Could not delete system config.", true, ex);
-                            }
+                            Program.SystemConfig.Reset();
                         }
 
                         if (SelectedItems.HasFlag(ProfileManager.Items.PluginData)){
@@ -155,7 +151,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
 
                 case State.Import:
                     if (importManager.Import(SelectedItems)){
-                        Program.UserConfig.Reload();
+                        Program.UserConfig.Reload(); // TODO reload both configs and detect if restart is needed
 
                         if (importManager.IsRestarting){
                             if (SelectedItems.HasFlag(ProfileManager.Items.Session)){
@@ -190,9 +186,6 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
 
                         file = dialog.FileName;
                     }
-
-                    Program.UserConfig.Save();
-                    Program.SystemConfig.Save();
                     
                     new ProfileManager(file, plugins).Export(SelectedItems);
 
