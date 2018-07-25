@@ -247,6 +247,7 @@
     <Compile Include="Data\Serialization\FileSerializer.cs" />
     <Compile Include="Data\InjectedHTML.cs" />
     <Compile Include="Data\Serialization\ITypeConverter.cs" />
+    <Compile Include="Data\Serialization\SerializationSoftException.cs" />
     <Compile Include="Data\Serialization\SingleTypeConverter.cs" />
     <Compile Include="Data\TwoKeyDictionary.cs" />
     <Compile Include="Data\WindowState.cs" />

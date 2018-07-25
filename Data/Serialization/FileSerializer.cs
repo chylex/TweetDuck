@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.Serialization;
 using System.Text;
 using TweetDuck.Core.Utils;
 
@@ -65,6 +64,8 @@ namespace TweetDuck.Data.Serialization{
         }
 
         public void Write(string file, T obj){
+            LinkedList<string> errors = new LinkedList<string>();
+
             WindowsUtils.CreateDirectoryForFile(file);
 
             using(StreamWriter writer = new StreamWriter(new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None))){
@@ -78,14 +79,20 @@ namespace TweetDuck.Data.Serialization{
 
                     if (serializer.TryWriteType(type, value, out string converted)){
                         if (converted != null){
-                            writer.Write($"{prop.Key} {EscapeLine(converted)}");
+                            writer.Write(prop.Key);
+                            writer.Write(' ');
+                            writer.Write(EscapeLine(converted));
                             writer.Write(NewLineReal);
                         }
                     }
                     else{
-                        throw new SerializationException($"Invalid serialization type, conversion failed for: {type}");
+                        errors.AddLast($"Missing converter for type: {type}");
                     }
                 }
+            }
+
+            if (errors.First != null){
+                throw new SerializationSoftException(errors.ToArray());
             }
         }
 
@@ -103,6 +110,7 @@ namespace TweetDuck.Data.Serialization{
                 throw new FormatException("Input appears to be a binary file.");
             }
             
+            LinkedList<string> errors = new LinkedList<string>();
             int currentPos = 0;
                 
             do{
@@ -125,7 +133,8 @@ namespace TweetDuck.Data.Serialization{
                 int space = line.IndexOf(' ');
 
                 if (space == -1){
-                    throw new SerializationException($"Invalid file format, missing separator: {line}");
+                    errors.AddLast($"Missing separator on line: {line}");
+                    continue;
                 }
 
                 string property = line.Substring(0, space);
@@ -140,10 +149,14 @@ namespace TweetDuck.Data.Serialization{
                         info.SetValue(obj, converted);
                     }
                     else{
-                        throw new SerializationException($"Invalid file format, cannot convert value: {value} (property: {property})");
+                        errors.AddLast($"Failed reading property {property} with value: {value}");
                     }
                 }
             }while(currentPos != -1);
+
+            if (errors.First != null){
+                throw new SerializationSoftException(errors.ToArray());
+            }
         }
 
         public void ReadIfExists(string file, T obj){
