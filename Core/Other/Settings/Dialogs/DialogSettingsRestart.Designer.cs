@@ -40,7 +40,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.AutoSize = true;
-            this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.btnCancel.Location = new System.Drawing.Point(215, 146);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -54,7 +54,7 @@
             // 
             this.btnRestart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRestart.AutoSize = true;
-            this.btnRestart.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnRestart.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.btnRestart.Location = new System.Drawing.Point(152, 146);
             this.btnRestart.Name = "btnRestart";
             this.btnRestart.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -67,7 +67,7 @@
             // cbLogging
             // 
             this.cbLogging.AutoSize = true;
-            this.cbLogging.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.cbLogging.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.cbLogging.Location = new System.Drawing.Point(3, 3);
             this.cbLogging.Margin = new System.Windows.Forms.Padding(3, 3, 3, 2);
             this.cbLogging.Name = "cbLogging";
@@ -79,7 +79,7 @@
             // 
             // tbDataFolder
             // 
-            this.tbDataFolder.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.tbDataFolder.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.tbDataFolder.Location = new System.Drawing.Point(3, 54);
             this.tbDataFolder.Name = "tbDataFolder";
             this.tbDataFolder.Size = new System.Drawing.Size(260, 23);
@@ -92,7 +92,7 @@
             this.tbShortcutTarget.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbShortcutTarget.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.tbShortcutTarget.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.tbShortcutTarget.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.tbShortcutTarget.Location = new System.Drawing.Point(3, 110);
             this.tbShortcutTarget.Name = "tbShortcutTarget";
             this.tbShortcutTarget.ReadOnly = true;
@@ -103,7 +103,7 @@
             // labelDataFolder
             // 
             this.labelDataFolder.AutoSize = true;
-            this.labelDataFolder.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelDataFolder.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.labelDataFolder.Location = new System.Drawing.Point(3, 36);
             this.labelDataFolder.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelDataFolder.Name = "labelDataFolder";
@@ -114,7 +114,7 @@
             // labelShortcutTarget
             // 
             this.labelShortcutTarget.AutoSize = true;
-            this.labelShortcutTarget.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelShortcutTarget.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.labelShortcutTarget.Location = new System.Drawing.Point(3, 92);
             this.labelShortcutTarget.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelShortcutTarget.Name = "labelShortcutTarget";

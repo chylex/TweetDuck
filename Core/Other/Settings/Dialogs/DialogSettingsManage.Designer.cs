@@ -44,7 +44,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.AutoSize = true;
-            this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.btnCancel.Location = new System.Drawing.Point(165, 92);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -59,7 +59,7 @@
             this.btnContinue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnContinue.AutoSize = true;
             this.btnContinue.Enabled = false;
-            this.btnContinue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnContinue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.btnContinue.Location = new System.Drawing.Point(114, 92);
             this.btnContinue.Name = "btnContinue";
             this.btnContinue.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -72,7 +72,7 @@
             // cbProgramConfig
             // 
             this.cbProgramConfig.AutoSize = true;
-            this.cbProgramConfig.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.cbProgramConfig.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.cbProgramConfig.Location = new System.Drawing.Point(3, 3);
             this.cbProgramConfig.Margin = new System.Windows.Forms.Padding(3, 3, 3, 2);
             this.cbProgramConfig.Name = "cbProgramConfig";
@@ -86,7 +86,7 @@
             // cbSession
             // 
             this.cbSession.AutoSize = true;
-            this.cbSession.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.cbSession.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.cbSession.Location = new System.Drawing.Point(3, 51);
             this.cbSession.Margin = new System.Windows.Forms.Padding(3, 3, 3, 2);
             this.cbSession.Name = "cbSession";
@@ -100,7 +100,7 @@
             // cbPluginData
             // 
             this.cbPluginData.AutoSize = true;
-            this.cbPluginData.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.cbPluginData.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.cbPluginData.Location = new System.Drawing.Point(3, 75);
             this.cbPluginData.Margin = new System.Windows.Forms.Padding(3, 3, 3, 2);
             this.cbPluginData.Name = "cbPluginData";
@@ -114,7 +114,7 @@
             // cbSystemConfig
             // 
             this.cbSystemConfig.AutoSize = true;
-            this.cbSystemConfig.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.cbSystemConfig.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.cbSystemConfig.Location = new System.Drawing.Point(3, 27);
             this.cbSystemConfig.Margin = new System.Windows.Forms.Padding(3, 3, 3, 2);
             this.cbSystemConfig.Name = "cbSystemConfig";
@@ -158,7 +158,7 @@
             // radioImport
             // 
             this.radioImport.AutoSize = true;
-            this.radioImport.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.radioImport.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.radioImport.Location = new System.Drawing.Point(3, 3);
             this.radioImport.Margin = new System.Windows.Forms.Padding(3, 3, 3, 2);
             this.radioImport.Name = "radioImport";
@@ -172,7 +172,7 @@
             // radioExport
             // 
             this.radioExport.AutoSize = true;
-            this.radioExport.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.radioExport.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.radioExport.Location = new System.Drawing.Point(3, 27);
             this.radioExport.Margin = new System.Windows.Forms.Padding(3, 3, 3, 2);
             this.radioExport.Name = "radioExport";
@@ -186,7 +186,7 @@
             // radioReset
             // 
             this.radioReset.AutoSize = true;
-            this.radioReset.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.radioReset.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.radioReset.Location = new System.Drawing.Point(3, 51);
             this.radioReset.Margin = new System.Windows.Forms.Padding(3, 3, 3, 2);
             this.radioReset.Name = "radioReset";

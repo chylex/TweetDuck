@@ -36,7 +36,7 @@
             // checkTrayHighlight
             // 
             this.checkTrayHighlight.AutoSize = true;
-            this.checkTrayHighlight.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkTrayHighlight.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.checkTrayHighlight.Location = new System.Drawing.Point(6, 81);
             this.checkTrayHighlight.Margin = new System.Windows.Forms.Padding(6, 6, 3, 2);
             this.checkTrayHighlight.Name = "checkTrayHighlight";
@@ -48,7 +48,7 @@
             // comboBoxTrayType
             // 
             this.comboBoxTrayType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxTrayType.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.comboBoxTrayType.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.comboBoxTrayType.FormattingEnabled = true;
             this.comboBoxTrayType.Location = new System.Drawing.Point(5, 25);
             this.comboBoxTrayType.Margin = new System.Windows.Forms.Padding(5, 5, 3, 3);
@@ -59,7 +59,7 @@
             // labelTrayIcon
             // 
             this.labelTrayIcon.AutoSize = true;
-            this.labelTrayIcon.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelTrayIcon.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.labelTrayIcon.Location = new System.Drawing.Point(3, 60);
             this.labelTrayIcon.Margin = new System.Windows.Forms.Padding(3, 9, 3, 0);
             this.labelTrayIcon.Name = "labelTrayIcon";

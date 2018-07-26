@@ -106,7 +106,7 @@
             // labelTime
             // 
             this.labelTime.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.labelTime.Location = new System.Drawing.Point(138, 3);
             this.labelTime.Margin = new System.Windows.Forms.Padding(0, 3, 0, 5);
             this.labelTime.Name = "labelTime";
@@ -122,7 +122,7 @@
             // labelTooltip
             // 
             this.labelTooltip.AutoSize = true;
-            this.labelTooltip.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelTooltip.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.labelTooltip.ForeColor = System.Drawing.Color.White;
             this.labelTooltip.Location = new System.Drawing.Point(0, 0);
             this.labelTooltip.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);

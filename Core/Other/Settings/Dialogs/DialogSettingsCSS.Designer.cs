@@ -41,7 +41,7 @@
             // textBoxBrowserCSS
             // 
             this.textBoxBrowserCSS.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxBrowserCSS.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.textBoxBrowserCSS.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular);
             this.textBoxBrowserCSS.Location = new System.Drawing.Point(3, 3);
             this.textBoxBrowserCSS.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.textBoxBrowserCSS.Multiline = true;
@@ -84,7 +84,7 @@
             // textBoxNotificationCSS
             // 
             this.textBoxNotificationCSS.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxNotificationCSS.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.textBoxNotificationCSS.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular);
             this.textBoxNotificationCSS.Location = new System.Drawing.Point(3, 3);
             this.textBoxNotificationCSS.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.textBoxNotificationCSS.Multiline = true;
@@ -121,7 +121,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabPanel.Controls.Add(this.tabPageBrowser);
             this.tabPanel.Controls.Add(this.tabPageNotification);
-            this.tabPanel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.tabPanel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.tabPanel.Location = new System.Drawing.Point(12, 12);
             this.tabPanel.Name = "tabPanel";
             this.tabPanel.SelectedIndex = 0;

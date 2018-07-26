@@ -55,7 +55,7 @@
             // checkExpandLinks
             // 
             this.checkExpandLinks.AutoSize = true;
-            this.checkExpandLinks.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkExpandLinks.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.checkExpandLinks.Location = new System.Drawing.Point(6, 26);
             this.checkExpandLinks.Margin = new System.Windows.Forms.Padding(6, 6, 3, 2);
             this.checkExpandLinks.Name = "checkExpandLinks";
@@ -67,7 +67,7 @@
             // checkUpdateNotifications
             // 
             this.checkUpdateNotifications.AutoSize = true;
-            this.checkUpdateNotifications.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkUpdateNotifications.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.checkUpdateNotifications.Location = new System.Drawing.Point(6, 455);
             this.checkUpdateNotifications.Margin = new System.Windows.Forms.Padding(6, 6, 3, 2);
             this.checkUpdateNotifications.Name = "checkUpdateNotifications";
@@ -79,7 +79,7 @@
             // btnCheckUpdates
             // 
             this.btnCheckUpdates.AutoSize = true;
-            this.btnCheckUpdates.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnCheckUpdates.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.btnCheckUpdates.Location = new System.Drawing.Point(5, 479);
             this.btnCheckUpdates.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnCheckUpdates.Name = "btnCheckUpdates";
@@ -92,7 +92,7 @@
             // labelZoomValue
             // 
             this.labelZoomValue.BackColor = System.Drawing.Color.Transparent;
-            this.labelZoomValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelZoomValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.labelZoomValue.Location = new System.Drawing.Point(147, 4);
             this.labelZoomValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelZoomValue.Name = "labelZoomValue";
@@ -104,7 +104,7 @@
             // checkBestImageQuality
             // 
             this.checkBestImageQuality.AutoSize = true;
-            this.checkBestImageQuality.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkBestImageQuality.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.checkBestImageQuality.Location = new System.Drawing.Point(6, 98);
             this.checkBestImageQuality.Margin = new System.Windows.Forms.Padding(6, 3, 3, 2);
             this.checkBestImageQuality.Name = "checkBestImageQuality";
@@ -116,7 +116,7 @@
             // checkOpenSearchInFirstColumn
             // 
             this.checkOpenSearchInFirstColumn.AutoSize = true;
-            this.checkOpenSearchInFirstColumn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkOpenSearchInFirstColumn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.checkOpenSearchInFirstColumn.Location = new System.Drawing.Point(6, 50);
             this.checkOpenSearchInFirstColumn.Margin = new System.Windows.Forms.Padding(6, 3, 3, 2);
             this.checkOpenSearchInFirstColumn.Name = "checkOpenSearchInFirstColumn";
@@ -143,7 +143,7 @@
             // labelZoom
             // 
             this.labelZoom.AutoSize = true;
-            this.labelZoom.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelZoom.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.labelZoom.Location = new System.Drawing.Point(3, 358);
             this.labelZoom.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelZoom.Name = "labelZoom";
@@ -181,7 +181,7 @@
             // checkAnimatedAvatars
             // 
             this.checkAnimatedAvatars.AutoSize = true;
-            this.checkAnimatedAvatars.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkAnimatedAvatars.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.checkAnimatedAvatars.Location = new System.Drawing.Point(6, 122);
             this.checkAnimatedAvatars.Margin = new System.Windows.Forms.Padding(6, 3, 3, 2);
             this.checkAnimatedAvatars.Name = "checkAnimatedAvatars";
@@ -234,7 +234,7 @@
             // checkKeepLikeFollowDialogsOpen
             // 
             this.checkKeepLikeFollowDialogsOpen.AutoSize = true;
-            this.checkKeepLikeFollowDialogsOpen.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkKeepLikeFollowDialogsOpen.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.checkKeepLikeFollowDialogsOpen.Location = new System.Drawing.Point(6, 74);
             this.checkKeepLikeFollowDialogsOpen.Margin = new System.Windows.Forms.Padding(6, 3, 3, 2);
             this.checkKeepLikeFollowDialogsOpen.Name = "checkKeepLikeFollowDialogsOpen";
@@ -257,7 +257,7 @@
             // checkSmoothScrolling
             // 
             this.checkSmoothScrolling.AutoSize = true;
-            this.checkSmoothScrolling.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkSmoothScrolling.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.checkSmoothScrolling.Location = new System.Drawing.Point(6, 189);
             this.checkSmoothScrolling.Margin = new System.Windows.Forms.Padding(6, 6, 3, 2);
             this.checkSmoothScrolling.Name = "checkSmoothScrolling";
@@ -269,7 +269,7 @@
             // checkTouchAdjustment
             // 
             this.checkTouchAdjustment.AutoSize = true;
-            this.checkTouchAdjustment.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkTouchAdjustment.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.checkTouchAdjustment.Location = new System.Drawing.Point(6, 213);
             this.checkTouchAdjustment.Margin = new System.Windows.Forms.Padding(6, 3, 3, 2);
             this.checkTouchAdjustment.Name = "checkTouchAdjustment";
@@ -281,7 +281,7 @@
             // labelBrowserPath
             // 
             this.labelBrowserPath.AutoSize = true;
-            this.labelBrowserPath.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelBrowserPath.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.labelBrowserPath.Location = new System.Drawing.Point(3, 246);
             this.labelBrowserPath.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelBrowserPath.Name = "labelBrowserPath";
@@ -292,7 +292,7 @@
             // comboBoxBrowserPath
             // 
             this.comboBoxBrowserPath.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxBrowserPath.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.comboBoxBrowserPath.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.comboBoxBrowserPath.FormattingEnabled = true;
             this.comboBoxBrowserPath.Location = new System.Drawing.Point(5, 264);
             this.comboBoxBrowserPath.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
@@ -303,7 +303,7 @@
             // labelSearchEngine
             // 
             this.labelSearchEngine.AutoSize = true;
-            this.labelSearchEngine.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelSearchEngine.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.labelSearchEngine.Location = new System.Drawing.Point(3, 302);
             this.labelSearchEngine.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelSearchEngine.Name = "labelSearchEngine";
@@ -314,7 +314,7 @@
             // comboBoxSearchEngine
             // 
             this.comboBoxSearchEngine.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxSearchEngine.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.comboBoxSearchEngine.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.comboBoxSearchEngine.FormattingEnabled = true;
             this.comboBoxSearchEngine.Location = new System.Drawing.Point(5, 320);
             this.comboBoxSearchEngine.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);

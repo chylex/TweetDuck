@@ -43,7 +43,7 @@
             // btnToggleState
             // 
             this.btnToggleState.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnToggleState.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnToggleState.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.btnToggleState.Location = new System.Drawing.Point(451, 59);
             this.btnToggleState.Name = "btnToggleState";
             this.btnToggleState.Size = new System.Drawing.Size(70, 23);
@@ -56,7 +56,7 @@
             // 
             this.labelName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelName.AutoSize = true;
-            this.labelName.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelName.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.labelName.Location = new System.Drawing.Point(0, 0);
             this.labelName.Margin = new System.Windows.Forms.Padding(0);
             this.labelName.Name = "labelName";
@@ -72,7 +72,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelDescription.AutoScroll = true;
             this.panelDescription.Controls.Add(this.labelDescription);
-            this.panelDescription.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.panelDescription.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.panelDescription.Location = new System.Drawing.Point(28, 33);
             this.panelDescription.Name = "panelDescription";
             this.panelDescription.Size = new System.Drawing.Size(410, 47);
@@ -96,7 +96,7 @@
             // 
             this.labelAuthor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelAuthor.AutoSize = true;
-            this.labelAuthor.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelAuthor.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.labelAuthor.Location = new System.Drawing.Point(53, 5);
             this.labelAuthor.Margin = new System.Windows.Forms.Padding(0, 0, 0, 1);
             this.labelAuthor.Name = "labelAuthor";
@@ -125,7 +125,7 @@
             this.labelWebsite.AutoEllipsis = true;
             this.labelWebsite.AutoSize = true;
             this.labelWebsite.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.labelWebsite.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelWebsite.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Underline);
             this.labelWebsite.ForeColor = System.Drawing.Color.Blue;
             this.labelWebsite.Location = new System.Drawing.Point(100, 5);
             this.labelWebsite.Margin = new System.Windows.Forms.Padding(3, 0, 0, 1);
@@ -140,7 +140,7 @@
             // 
             this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelVersion.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelVersion.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.labelVersion.Location = new System.Drawing.Point(88, 6);
             this.labelVersion.Margin = new System.Windows.Forms.Padding(0, 0, 1, 0);
             this.labelVersion.Name = "labelVersion";
@@ -154,7 +154,7 @@
             // btnConfigure
             // 
             this.btnConfigure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnConfigure.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnConfigure.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.btnConfigure.Location = new System.Drawing.Point(451, 30);
             this.btnConfigure.Name = "btnConfigure";
             this.btnConfigure.Size = new System.Drawing.Size(70, 23);
@@ -168,7 +168,7 @@
             this.labelType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.labelType.BackColor = System.Drawing.Color.DarkGray;
-            this.labelType.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelType.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Bold);
             this.labelType.LineHeight = 0;
             this.labelType.Location = new System.Drawing.Point(0, 0);
             this.labelType.Name = "labelType";

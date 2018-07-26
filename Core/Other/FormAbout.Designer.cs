@@ -50,7 +50,7 @@ namespace TweetDuck.Core.Other {
             this.labelDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelDescription.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelDescription.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.labelDescription.Location = new System.Drawing.Point(114, 12);
             this.labelDescription.Name = "labelDescription";
             this.labelDescription.Size = new System.Drawing.Size(232, 113);
@@ -59,7 +59,7 @@ namespace TweetDuck.Core.Other {
             // labelTips
             // 
             this.labelTips.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelTips.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelTips.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular);
             this.labelTips.LinkArea = new System.Windows.Forms.LinkArea(0, 0);
             this.labelTips.Location = new System.Drawing.Point(117, 0);
             this.labelTips.Margin = new System.Windows.Forms.Padding(0);
@@ -74,7 +74,7 @@ namespace TweetDuck.Core.Other {
             // 
             this.labelWebsite.AutoSize = true;
             this.labelWebsite.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelWebsite.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelWebsite.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular);
             this.labelWebsite.LinkArea = new System.Windows.Forms.LinkArea(0, 0);
             this.labelWebsite.Location = new System.Drawing.Point(0, 0);
             this.labelWebsite.Margin = new System.Windows.Forms.Padding(0);
@@ -106,7 +106,7 @@ namespace TweetDuck.Core.Other {
             // labelIssues
             // 
             this.labelIssues.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelIssues.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelIssues.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular);
             this.labelIssues.LinkArea = new System.Windows.Forms.LinkArea(0, 0);
             this.labelIssues.Location = new System.Drawing.Point(216, 0);
             this.labelIssues.Margin = new System.Windows.Forms.Padding(0);

@@ -47,7 +47,7 @@
             // 
             this.tbCustomSound.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbCustomSound.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.tbCustomSound.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.tbCustomSound.Location = new System.Drawing.Point(3, 3);
             this.tbCustomSound.Name = "tbCustomSound";
             this.tbCustomSound.Size = new System.Drawing.Size(316, 23);
@@ -56,7 +56,7 @@
             // labelVolumeValue
             // 
             this.labelVolumeValue.BackColor = System.Drawing.Color.Transparent;
-            this.labelVolumeValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelVolumeValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.labelVolumeValue.Location = new System.Drawing.Point(147, 4);
             this.labelVolumeValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelVolumeValue.Name = "labelVolumeValue";
@@ -69,7 +69,7 @@
             // 
             this.btnPlaySound.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPlaySound.AutoSize = true;
-            this.btnPlaySound.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnPlaySound.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.btnPlaySound.Location = new System.Drawing.Point(202, 32);
             this.btnPlaySound.Name = "btnPlaySound";
             this.btnPlaySound.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -81,7 +81,7 @@
             // btnResetSound
             // 
             this.btnResetSound.AutoSize = true;
-            this.btnResetSound.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnResetSound.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.btnResetSound.Location = new System.Drawing.Point(3, 32);
             this.btnResetSound.Name = "btnResetSound";
             this.btnResetSound.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -94,7 +94,7 @@
             // 
             this.btnBrowseSound.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBrowseSound.AutoSize = true;
-            this.btnBrowseSound.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnBrowseSound.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.btnBrowseSound.Location = new System.Drawing.Point(251, 32);
             this.btnBrowseSound.Name = "btnBrowseSound";
             this.btnBrowseSound.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -130,7 +130,7 @@
             // labelVolume
             // 
             this.labelVolume.AutoSize = true;
-            this.labelVolume.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelVolume.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.labelVolume.Location = new System.Drawing.Point(3, 91);
             this.labelVolume.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelVolume.Name = "labelVolume";

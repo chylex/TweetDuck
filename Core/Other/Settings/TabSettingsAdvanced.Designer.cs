@@ -52,7 +52,7 @@
             // 
             // btnClearCache
             // 
-            this.btnClearCache.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnClearCache.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.btnClearCache.Location = new System.Drawing.Point(5, 179);
             this.btnClearCache.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnClearCache.Name = "btnClearCache";
@@ -64,7 +64,7 @@
             // checkHardwareAcceleration
             // 
             this.checkHardwareAcceleration.AutoSize = true;
-            this.checkHardwareAcceleration.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkHardwareAcceleration.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.checkHardwareAcceleration.Location = new System.Drawing.Point(6, 128);
             this.checkHardwareAcceleration.Margin = new System.Windows.Forms.Padding(6, 6, 3, 2);
             this.checkHardwareAcceleration.Name = "checkHardwareAcceleration";
@@ -75,7 +75,7 @@
             // 
             // btnEditCefArgs
             // 
-            this.btnEditCefArgs.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnEditCefArgs.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.btnEditCefArgs.Location = new System.Drawing.Point(5, 3);
             this.btnEditCefArgs.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnEditCefArgs.Name = "btnEditCefArgs";
@@ -86,7 +86,7 @@
             // 
             // btnEditCSS
             // 
-            this.btnEditCSS.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnEditCSS.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.btnEditCSS.Location = new System.Drawing.Point(155, 3);
             this.btnEditCSS.Name = "btnEditCSS";
             this.btnEditCSS.Size = new System.Drawing.Size(144, 25);
@@ -96,7 +96,7 @@
             // 
             // btnRestartArgs
             // 
-            this.btnRestartArgs.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnRestartArgs.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.btnRestartArgs.Location = new System.Drawing.Point(155, 32);
             this.btnRestartArgs.Name = "btnRestartArgs";
             this.btnRestartArgs.Size = new System.Drawing.Size(144, 25);
@@ -106,7 +106,7 @@
             // 
             // btnRestart
             // 
-            this.btnRestart.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnRestart.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.btnRestart.Location = new System.Drawing.Point(155, 3);
             this.btnRestart.Name = "btnRestart";
             this.btnRestart.Size = new System.Drawing.Size(144, 25);
@@ -116,7 +116,7 @@
             // 
             // btnOpenAppFolder
             // 
-            this.btnOpenAppFolder.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnOpenAppFolder.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.btnOpenAppFolder.Location = new System.Drawing.Point(5, 3);
             this.btnOpenAppFolder.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnOpenAppFolder.Name = "btnOpenAppFolder";
@@ -127,7 +127,7 @@
             // 
             // btnOpenDataFolder
             // 
-            this.btnOpenDataFolder.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnOpenDataFolder.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.btnOpenDataFolder.Location = new System.Drawing.Point(5, 32);
             this.btnOpenDataFolder.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnOpenDataFolder.Name = "btnOpenDataFolder";
@@ -138,7 +138,7 @@
             // 
             // numClearCacheThreshold
             // 
-            this.numClearCacheThreshold.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.numClearCacheThreshold.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.numClearCacheThreshold.Increment = new decimal(new int[] {
             50,
             0,
@@ -169,7 +169,7 @@
             // checkClearCacheAuto
             // 
             this.checkClearCacheAuto.AutoSize = true;
-            this.checkClearCacheAuto.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkClearCacheAuto.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.checkClearCacheAuto.Location = new System.Drawing.Point(6, 6);
             this.checkClearCacheAuto.Margin = new System.Windows.Forms.Padding(6, 6, 0, 2);
             this.checkClearCacheAuto.Name = "checkClearCacheAuto";
@@ -227,7 +227,7 @@
             // labelCache
             // 
             this.labelCache.AutoSize = true;
-            this.labelCache.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelCache.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.labelCache.Location = new System.Drawing.Point(3, 161);
             this.labelCache.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelCache.Name = "labelCache";

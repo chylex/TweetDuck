@@ -39,7 +39,7 @@
             // checkSpellCheck
             // 
             this.checkSpellCheck.AutoSize = true;
-            this.checkSpellCheck.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkSpellCheck.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.checkSpellCheck.Location = new System.Drawing.Point(6, 26);
             this.checkSpellCheck.Margin = new System.Windows.Forms.Padding(6, 6, 3, 2);
             this.checkSpellCheck.Name = "checkSpellCheck";
@@ -81,7 +81,7 @@
             // labelSpellCheckLanguage
             // 
             this.labelSpellCheckLanguage.AutoSize = true;
-            this.labelSpellCheckLanguage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelSpellCheckLanguage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.labelSpellCheckLanguage.Location = new System.Drawing.Point(3, 59);
             this.labelSpellCheckLanguage.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelSpellCheckLanguage.Name = "labelSpellCheckLanguage";
@@ -92,7 +92,7 @@
             // comboBoxSpellCheckLanguage
             // 
             this.comboBoxSpellCheckLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxSpellCheckLanguage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.comboBoxSpellCheckLanguage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.comboBoxSpellCheckLanguage.FormattingEnabled = true;
             this.comboBoxSpellCheckLanguage.Location = new System.Drawing.Point(5, 77);
             this.comboBoxSpellCheckLanguage.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
@@ -103,7 +103,7 @@
             // labelTranslationTarget
             // 
             this.labelTranslationTarget.AutoSize = true;
-            this.labelTranslationTarget.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelTranslationTarget.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.labelTranslationTarget.Location = new System.Drawing.Point(3, 149);
             this.labelTranslationTarget.Margin = new System.Windows.Forms.Padding(3, 6, 3, 0);
             this.labelTranslationTarget.Name = "labelTranslationTarget";
@@ -114,7 +114,7 @@
             // comboBoxTranslationTarget
             // 
             this.comboBoxTranslationTarget.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxTranslationTarget.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.comboBoxTranslationTarget.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.comboBoxTranslationTarget.FormattingEnabled = true;
             this.comboBoxTranslationTarget.Location = new System.Drawing.Point(5, 167);
             this.comboBoxTranslationTarget.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);

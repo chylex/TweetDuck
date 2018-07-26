@@ -52,7 +52,7 @@
             // labelDataCollectionLink
             // 
             this.labelDataCollectionLink.AutoSize = true;
-            this.labelDataCollectionLink.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelDataCollectionLink.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.labelDataCollectionLink.LinkArea = new System.Windows.Forms.LinkArea(1, 10);
             this.labelDataCollectionLink.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.labelDataCollectionLink.Location = new System.Drawing.Point(153, 4);
@@ -68,7 +68,7 @@
             // checkDataCollection
             // 
             this.checkDataCollection.AutoSize = true;
-            this.checkDataCollection.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkDataCollection.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.checkDataCollection.Location = new System.Drawing.Point(6, 6);
             this.checkDataCollection.Margin = new System.Windows.Forms.Padding(6, 6, 0, 2);
             this.checkDataCollection.Name = "checkDataCollection";
@@ -79,7 +79,7 @@
             // 
             // labelDataCollectionMessage
             // 
-            this.labelDataCollectionMessage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelDataCollectionMessage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.labelDataCollectionMessage.Location = new System.Drawing.Point(6, 143);
             this.labelDataCollectionMessage.Margin = new System.Windows.Forms.Padding(6);
             this.labelDataCollectionMessage.Name = "labelDataCollectionMessage";
@@ -89,7 +89,7 @@
             // btnViewReport
             // 
             this.btnViewReport.AutoSize = true;
-            this.btnViewReport.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnViewReport.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.btnViewReport.Location = new System.Drawing.Point(5, 109);
             this.btnViewReport.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnViewReport.Name = "btnViewReport";
@@ -102,7 +102,7 @@
             // btnSendFeedback
             // 
             this.btnSendFeedback.AutoSize = true;
-            this.btnSendFeedback.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnSendFeedback.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.btnSendFeedback.Location = new System.Drawing.Point(5, 23);
             this.btnSendFeedback.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnSendFeedback.Name = "btnSendFeedback";
@@ -115,7 +115,7 @@
             // labelDataCollection
             // 
             this.labelDataCollection.AutoSize = true;
-            this.labelDataCollection.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelDataCollection.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             this.labelDataCollection.Location = new System.Drawing.Point(3, 63);
             this.labelDataCollection.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelDataCollection.Name = "labelDataCollection";
