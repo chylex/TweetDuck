@@ -181,13 +181,13 @@
             // labelApp
             // 
             this.labelApp.AutoSize = true;
-            this.labelApp.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelApp.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
             this.labelApp.Location = new System.Drawing.Point(0, 0);
-            this.labelApp.Margin = new System.Windows.Forms.Padding(0);
+            this.labelApp.Margin = new System.Windows.Forms.Padding(0, 0, 0, 1);
             this.labelApp.Name = "labelApp";
-            this.labelApp.Size = new System.Drawing.Size(37, 20);
+            this.labelApp.Size = new System.Drawing.Size(97, 19);
             this.labelApp.TabIndex = 0;
-            this.labelApp.Text = "App";
+            this.labelApp.Text = "APPLICATION";
             // 
             // panelAppButtons
             // 
@@ -205,13 +205,13 @@
             // labelPerformance
             // 
             this.labelPerformance.AutoSize = true;
-            this.labelPerformance.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelPerformance.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
             this.labelPerformance.Location = new System.Drawing.Point(0, 102);
-            this.labelPerformance.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
+            this.labelPerformance.Margin = new System.Windows.Forms.Padding(0, 20, 0, 1);
             this.labelPerformance.Name = "labelPerformance";
-            this.labelPerformance.Size = new System.Drawing.Size(93, 20);
+            this.labelPerformance.Size = new System.Drawing.Size(109, 19);
             this.labelPerformance.TabIndex = 2;
-            this.labelPerformance.Text = "Performance";
+            this.labelPerformance.Text = "PERFORMANCE";
             // 
             // panelClearCacheAuto
             // 
@@ -249,13 +249,13 @@
             // labelConfiguration
             // 
             this.labelConfiguration.AutoSize = true;
-            this.labelConfiguration.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelConfiguration.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
             this.labelConfiguration.Location = new System.Drawing.Point(0, 255);
-            this.labelConfiguration.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
+            this.labelConfiguration.Margin = new System.Windows.Forms.Padding(0, 20, 0, 1);
             this.labelConfiguration.Name = "labelConfiguration";
-            this.labelConfiguration.Size = new System.Drawing.Size(100, 20);
+            this.labelConfiguration.Size = new System.Drawing.Size(123, 19);
             this.labelConfiguration.TabIndex = 7;
-            this.labelConfiguration.Text = "Configuration";
+            this.labelConfiguration.Text = "CONFIGURATION";
             // 
             // flowPanel
             // 
@@ -274,7 +274,7 @@
             this.flowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowPanel.Location = new System.Drawing.Point(9, 9);
             this.flowPanel.Name = "flowPanel";
-            this.flowPanel.Size = new System.Drawing.Size(322, 307);
+            this.flowPanel.Size = new System.Drawing.Size(322, 306);
             this.flowPanel.TabIndex = 0;
             this.flowPanel.WrapContents = false;
             // 
@@ -284,7 +284,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.flowPanel);
             this.Name = "TabSettingsAdvanced";
-            this.Size = new System.Drawing.Size(340, 325);
+            this.Size = new System.Drawing.Size(340, 324);
             ((System.ComponentModel.ISupportInitialize)(this.numClearCacheThreshold)).EndInit();
             this.panelAppButtons.ResumeLayout(false);
             this.panelClearCacheAuto.ResumeLayout(false);

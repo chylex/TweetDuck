@@ -106,13 +106,13 @@
             // labelSoundNotification
             // 
             this.labelSoundNotification.AutoSize = true;
-            this.labelSoundNotification.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelSoundNotification.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
             this.labelSoundNotification.Location = new System.Drawing.Point(0, 0);
-            this.labelSoundNotification.Margin = new System.Windows.Forms.Padding(0);
+            this.labelSoundNotification.Margin = new System.Windows.Forms.Padding(0, 0, 0, 1);
             this.labelSoundNotification.Name = "labelSoundNotification";
-            this.labelSoundNotification.Size = new System.Drawing.Size(188, 20);
+            this.labelSoundNotification.Size = new System.Drawing.Size(223, 19);
             this.labelSoundNotification.TabIndex = 0;
-            this.labelSoundNotification.Text = "Custom Sound Notification";
+            this.labelSoundNotification.Text = "CUSTOM SOUND NOTIFICATION";
             // 
             // panelSoundNotification
             // 

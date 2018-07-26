@@ -30,9 +30,9 @@
             this.flowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.labelSpellCheckLanguage = new System.Windows.Forms.Label();
             this.comboBoxSpellCheckLanguage = new System.Windows.Forms.ComboBox();
-            this.labelTranslations = new System.Windows.Forms.Label();
             this.labelTranslationTarget = new System.Windows.Forms.Label();
             this.comboBoxTranslationTarget = new System.Windows.Forms.ComboBox();
+            this.labelTranslations = new System.Windows.Forms.Label();
             this.flowPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,13 +51,13 @@
             // labelLocales
             // 
             this.labelLocales.AutoSize = true;
-            this.labelLocales.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelLocales.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
             this.labelLocales.Location = new System.Drawing.Point(0, 0);
-            this.labelLocales.Margin = new System.Windows.Forms.Padding(0);
+            this.labelLocales.Margin = new System.Windows.Forms.Padding(0, 0, 0, 1);
             this.labelLocales.Name = "labelLocales";
-            this.labelLocales.Size = new System.Drawing.Size(58, 20);
+            this.labelLocales.Size = new System.Drawing.Size(67, 19);
             this.labelLocales.TabIndex = 0;
-            this.labelLocales.Text = "Locales";
+            this.labelLocales.Text = "LOCALES";
             // 
             // flowPanel
             // 
@@ -74,7 +74,7 @@
             this.flowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowPanel.Location = new System.Drawing.Point(9, 9);
             this.flowPanel.Name = "flowPanel";
-            this.flowPanel.Size = new System.Drawing.Size(322, 201);
+            this.flowPanel.Size = new System.Drawing.Size(322, 196);
             this.flowPanel.TabIndex = 0;
             this.flowPanel.WrapContents = false;
             // 
@@ -100,23 +100,12 @@
             this.comboBoxSpellCheckLanguage.Size = new System.Drawing.Size(311, 23);
             this.comboBoxSpellCheckLanguage.TabIndex = 3;
             // 
-            // labelTranslations
-            // 
-            this.labelTranslations.AutoSize = true;
-            this.labelTranslations.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelTranslations.Location = new System.Drawing.Point(0, 123);
-            this.labelTranslations.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
-            this.labelTranslations.Name = "labelTranslations";
-            this.labelTranslations.Size = new System.Drawing.Size(109, 20);
-            this.labelTranslations.TabIndex = 4;
-            this.labelTranslations.Text = "Bing Translator";
-            // 
             // labelTranslationTarget
             // 
             this.labelTranslationTarget.AutoSize = true;
             this.labelTranslationTarget.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelTranslationTarget.Location = new System.Drawing.Point(3, 155);
-            this.labelTranslationTarget.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
+            this.labelTranslationTarget.Location = new System.Drawing.Point(3, 149);
+            this.labelTranslationTarget.Margin = new System.Windows.Forms.Padding(3, 6, 3, 0);
             this.labelTranslationTarget.Name = "labelTranslationTarget";
             this.labelTranslationTarget.Size = new System.Drawing.Size(96, 15);
             this.labelTranslationTarget.TabIndex = 5;
@@ -127,11 +116,22 @@
             this.comboBoxTranslationTarget.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTranslationTarget.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.comboBoxTranslationTarget.FormattingEnabled = true;
-            this.comboBoxTranslationTarget.Location = new System.Drawing.Point(5, 173);
+            this.comboBoxTranslationTarget.Location = new System.Drawing.Point(5, 167);
             this.comboBoxTranslationTarget.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.comboBoxTranslationTarget.Name = "comboBoxTranslationTarget";
             this.comboBoxTranslationTarget.Size = new System.Drawing.Size(311, 23);
             this.comboBoxTranslationTarget.TabIndex = 6;
+            // 
+            // labelTranslations
+            // 
+            this.labelTranslations.AutoSize = true;
+            this.labelTranslations.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
+            this.labelTranslations.Location = new System.Drawing.Point(0, 123);
+            this.labelTranslations.Margin = new System.Windows.Forms.Padding(0, 20, 0, 1);
+            this.labelTranslations.Name = "labelTranslations";
+            this.labelTranslations.Size = new System.Drawing.Size(135, 19);
+            this.labelTranslations.TabIndex = 4;
+            this.labelTranslations.Text = "BING TRANSLATOR";
             // 
             // TabSettingsLocales
             // 
@@ -139,7 +139,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.flowPanel);
             this.Name = "TabSettingsLocales";
-            this.Size = new System.Drawing.Size(340, 219);
+            this.Size = new System.Drawing.Size(340, 214);
             this.flowPanel.ResumeLayout(false);
             this.flowPanel.PerformLayout();
             this.ResumeLayout(false);
@@ -154,7 +154,7 @@
         private System.Windows.Forms.ComboBox comboBoxTranslationTarget;
         private System.Windows.Forms.Label labelTranslationTarget;
         private System.Windows.Forms.ComboBox comboBoxSpellCheckLanguage;
-        private System.Windows.Forms.Label labelTranslations;
         private System.Windows.Forms.Label labelSpellCheckLanguage;
+        private System.Windows.Forms.Label labelTranslations;
     }
 }

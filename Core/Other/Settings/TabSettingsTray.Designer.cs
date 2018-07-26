@@ -70,13 +70,13 @@
             // labelTray
             // 
             this.labelTray.AutoSize = true;
-            this.labelTray.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelTray.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
             this.labelTray.Location = new System.Drawing.Point(0, 0);
-            this.labelTray.Margin = new System.Windows.Forms.Padding(0);
+            this.labelTray.Margin = new System.Windows.Forms.Padding(0, 0, 0, 1);
             this.labelTray.Name = "labelTray";
-            this.labelTray.Size = new System.Drawing.Size(88, 20);
+            this.labelTray.Size = new System.Drawing.Size(99, 19);
             this.labelTray.TabIndex = 0;
-            this.labelTray.Text = "System Tray";
+            this.labelTray.Text = "SYSTEM TRAY";
             // 
             // flowPanel
             // 

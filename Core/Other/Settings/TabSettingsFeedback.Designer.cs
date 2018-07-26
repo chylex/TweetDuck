@@ -126,13 +126,13 @@
             // labelFeedback
             // 
             this.labelFeedback.AutoSize = true;
-            this.labelFeedback.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelFeedback.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
             this.labelFeedback.Location = new System.Drawing.Point(0, 0);
-            this.labelFeedback.Margin = new System.Windows.Forms.Padding(0);
+            this.labelFeedback.Margin = new System.Windows.Forms.Padding(0, 0, 0, 1);
             this.labelFeedback.Name = "labelFeedback";
-            this.labelFeedback.Size = new System.Drawing.Size(72, 20);
+            this.labelFeedback.Size = new System.Drawing.Size(75, 19);
             this.labelFeedback.TabIndex = 0;
-            this.labelFeedback.Text = "Feedback";
+            this.labelFeedback.Text = "FEEDBACK";
             // 
             // flowPanel
             // 

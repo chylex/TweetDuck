@@ -125,7 +125,7 @@
             // radioLocCustom
             // 
             this.radioLocCustom.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.radioLocCustom.Location = new System.Drawing.Point(205, 4);
+            this.radioLocCustom.Location = new System.Drawing.Point(213, 4);
             this.radioLocCustom.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.radioLocCustom.Name = "radioLocCustom";
             this.radioLocCustom.Size = new System.Drawing.Size(70, 43);
@@ -137,10 +137,10 @@
             // radioLocBR
             // 
             this.radioLocBR.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.radioLocBR.Location = new System.Drawing.Point(105, 28);
+            this.radioLocBR.Location = new System.Drawing.Point(109, 28);
             this.radioLocBR.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.radioLocBR.Name = "radioLocBR";
-            this.radioLocBR.Size = new System.Drawing.Size(92, 19);
+            this.radioLocBR.Size = new System.Drawing.Size(96, 19);
             this.radioLocBR.TabIndex = 3;
             this.radioLocBR.TabStop = true;
             this.radioLocBR.Text = "Bottom Right";
@@ -152,7 +152,7 @@
             this.radioLocBL.Location = new System.Drawing.Point(5, 28);
             this.radioLocBL.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.radioLocBL.Name = "radioLocBL";
-            this.radioLocBL.Size = new System.Drawing.Size(92, 19);
+            this.radioLocBL.Size = new System.Drawing.Size(96, 19);
             this.radioLocBL.TabIndex = 2;
             this.radioLocBL.TabStop = true;
             this.radioLocBL.Text = "Bottom Left";
@@ -161,10 +161,10 @@
             // radioLocTR
             // 
             this.radioLocTR.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.radioLocTR.Location = new System.Drawing.Point(105, 4);
+            this.radioLocTR.Location = new System.Drawing.Point(109, 4);
             this.radioLocTR.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.radioLocTR.Name = "radioLocTR";
-            this.radioLocTR.Size = new System.Drawing.Size(92, 19);
+            this.radioLocTR.Size = new System.Drawing.Size(96, 19);
             this.radioLocTR.TabIndex = 1;
             this.radioLocTR.TabStop = true;
             this.radioLocTR.Text = "Top Right";
@@ -176,7 +176,7 @@
             this.radioLocTL.Location = new System.Drawing.Point(5, 4);
             this.radioLocTL.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.radioLocTL.Name = "radioLocTL";
-            this.radioLocTL.Size = new System.Drawing.Size(92, 19);
+            this.radioLocTL.Size = new System.Drawing.Size(96, 19);
             this.radioLocTL.TabIndex = 0;
             this.radioLocTL.TabStop = true;
             this.radioLocTL.Text = "Top Left";
@@ -393,13 +393,13 @@
             // labelGeneral
             // 
             this.labelGeneral.AutoSize = true;
-            this.labelGeneral.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelGeneral.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
             this.labelGeneral.Location = new System.Drawing.Point(0, 0);
-            this.labelGeneral.Margin = new System.Windows.Forms.Padding(0);
+            this.labelGeneral.Margin = new System.Windows.Forms.Padding(0, 0, 0, 1);
             this.labelGeneral.Name = "labelGeneral";
-            this.labelGeneral.Size = new System.Drawing.Size(60, 20);
+            this.labelGeneral.Size = new System.Drawing.Size(69, 19);
             this.labelGeneral.TabIndex = 0;
-            this.labelGeneral.Text = "General";
+            this.labelGeneral.Text = "GENERAL";
             // 
             // panelEdgeDistance
             // 
@@ -463,13 +463,13 @@
             // labelLocation
             // 
             this.labelLocation.AutoSize = true;
-            this.labelLocation.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelLocation.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
             this.labelLocation.Location = new System.Drawing.Point(0, 382);
-            this.labelLocation.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
+            this.labelLocation.Margin = new System.Windows.Forms.Padding(0, 20, 0, 1);
             this.labelLocation.Name = "labelLocation";
-            this.labelLocation.Size = new System.Drawing.Size(66, 20);
+            this.labelLocation.Size = new System.Drawing.Size(79, 19);
             this.labelLocation.TabIndex = 13;
-            this.labelLocation.Text = "Location";
+            this.labelLocation.Text = "LOCATION";
             // 
             // panelLocation
             // 
@@ -510,24 +510,24 @@
             // labelTimer
             // 
             this.labelTimer.AutoSize = true;
-            this.labelTimer.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelTimer.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
             this.labelTimer.Location = new System.Drawing.Point(0, 195);
-            this.labelTimer.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
+            this.labelTimer.Margin = new System.Windows.Forms.Padding(0, 20, 0, 1);
             this.labelTimer.Name = "labelTimer";
-            this.labelTimer.Size = new System.Drawing.Size(47, 20);
+            this.labelTimer.Size = new System.Drawing.Size(50, 19);
             this.labelTimer.TabIndex = 7;
-            this.labelTimer.Text = "Timer";
+            this.labelTimer.Text = "TIMER";
             // 
             // labelSize
             // 
             this.labelSize.AutoSize = true;
-            this.labelSize.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelSize.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
             this.labelSize.Location = new System.Drawing.Point(0, 592);
-            this.labelSize.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
+            this.labelSize.Margin = new System.Windows.Forms.Padding(0, 20, 0, 1);
             this.labelSize.Name = "labelSize";
-            this.labelSize.Size = new System.Drawing.Size(36, 20);
+            this.labelSize.Size = new System.Drawing.Size(36, 19);
             this.labelSize.TabIndex = 19;
-            this.labelSize.Text = "Size";
+            this.labelSize.Text = "SIZE";
             // 
             // panelSize
             // 
@@ -577,7 +577,7 @@
             this.flowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowPanel.Location = new System.Drawing.Point(9, 9);
             this.flowPanel.Name = "flowPanel";
-            this.flowPanel.Size = new System.Drawing.Size(322, 698);
+            this.flowPanel.Size = new System.Drawing.Size(322, 702);
             this.flowPanel.TabIndex = 0;
             this.flowPanel.WrapContents = false;
             // 
@@ -598,7 +598,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.flowPanel);
             this.Name = "TabSettingsNotifications";
-            this.Size = new System.Drawing.Size(340, 717);
+            this.Size = new System.Drawing.Size(340, 721);
             this.ParentChanged += new System.EventHandler(this.TabSettingsNotifications_ParentChanged);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEdgeDistance)).EndInit();
             this.tableLayoutDurationButtons.ResumeLayout(false);

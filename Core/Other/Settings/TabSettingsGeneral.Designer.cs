@@ -72,7 +72,7 @@
             this.checkUpdateNotifications.Margin = new System.Windows.Forms.Padding(6, 6, 3, 2);
             this.checkUpdateNotifications.Name = "checkUpdateNotifications";
             this.checkUpdateNotifications.Size = new System.Drawing.Size(182, 19);
-            this.checkUpdateNotifications.TabIndex = 15;
+            this.checkUpdateNotifications.TabIndex = 16;
             this.checkUpdateNotifications.Text = "Check Updates Automatically";
             this.checkUpdateNotifications.UseVisualStyleBackColor = true;
             // 
@@ -85,7 +85,7 @@
             this.btnCheckUpdates.Name = "btnCheckUpdates";
             this.btnCheckUpdates.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.btnCheckUpdates.Size = new System.Drawing.Size(128, 25);
-            this.btnCheckUpdates.TabIndex = 16;
+            this.btnCheckUpdates.TabIndex = 17;
             this.btnCheckUpdates.Text = "Check Updates Now";
             this.btnCheckUpdates.UseVisualStyleBackColor = true;
             // 
@@ -148,7 +148,7 @@
             this.labelZoom.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelZoom.Name = "labelZoom";
             this.labelZoom.Size = new System.Drawing.Size(39, 15);
-            this.labelZoom.TabIndex = 12;
+            this.labelZoom.TabIndex = 13;
             this.labelZoom.Text = "Zoom";
             // 
             // zoomUpdateTimer
@@ -159,13 +159,13 @@
             // labelUI
             // 
             this.labelUI.AutoSize = true;
-            this.labelUI.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelUI.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
             this.labelUI.Location = new System.Drawing.Point(0, 0);
-            this.labelUI.Margin = new System.Windows.Forms.Padding(0);
+            this.labelUI.Margin = new System.Windows.Forms.Padding(0, 0, 0, 1);
             this.labelUI.Name = "labelUI";
-            this.labelUI.Size = new System.Drawing.Size(100, 20);
+            this.labelUI.Size = new System.Drawing.Size(118, 19);
             this.labelUI.TabIndex = 0;
-            this.labelUI.Text = "User Interface";
+            this.labelUI.Text = "USER INTERFACE";
             // 
             // panelZoom
             // 
@@ -176,7 +176,7 @@
             this.panelZoom.Margin = new System.Windows.Forms.Padding(0);
             this.panelZoom.Name = "panelZoom";
             this.panelZoom.Size = new System.Drawing.Size(322, 36);
-            this.panelZoom.TabIndex = 13;
+            this.panelZoom.TabIndex = 14;
             // 
             // checkAnimatedAvatars
             // 
@@ -193,13 +193,13 @@
             // labelUpdates
             // 
             this.labelUpdates.AutoSize = true;
-            this.labelUpdates.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelUpdates.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
             this.labelUpdates.Location = new System.Drawing.Point(0, 429);
-            this.labelUpdates.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
+            this.labelUpdates.Margin = new System.Windows.Forms.Padding(0, 20, 0, 1);
             this.labelUpdates.Name = "labelUpdates";
-            this.labelUpdates.Size = new System.Drawing.Size(64, 20);
-            this.labelUpdates.TabIndex = 14;
-            this.labelUpdates.Text = "Updates";
+            this.labelUpdates.Size = new System.Drawing.Size(69, 19);
+            this.labelUpdates.TabIndex = 15;
+            this.labelUpdates.Text = "UPDATES";
             // 
             // flowPanel
             // 
@@ -246,13 +246,13 @@
             // labelBrowserSettings
             // 
             this.labelBrowserSettings.AutoSize = true;
-            this.labelBrowserSettings.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelBrowserSettings.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
             this.labelBrowserSettings.Location = new System.Drawing.Point(0, 163);
-            this.labelBrowserSettings.Margin = new System.Windows.Forms.Padding(0, 20, 0, 0);
+            this.labelBrowserSettings.Margin = new System.Windows.Forms.Padding(0, 20, 0, 1);
             this.labelBrowserSettings.Name = "labelBrowserSettings";
-            this.labelBrowserSettings.Size = new System.Drawing.Size(119, 20);
+            this.labelBrowserSettings.Size = new System.Drawing.Size(143, 19);
             this.labelBrowserSettings.TabIndex = 6;
-            this.labelBrowserSettings.Text = "Browser Settings";
+            this.labelBrowserSettings.Text = "BROWSER SETTINGS";
             // 
             // checkSmoothScrolling
             // 
@@ -274,7 +274,7 @@
             this.checkTouchAdjustment.Margin = new System.Windows.Forms.Padding(6, 3, 3, 2);
             this.checkTouchAdjustment.Name = "checkTouchAdjustment";
             this.checkTouchAdjustment.Size = new System.Drawing.Size(163, 19);
-            this.checkTouchAdjustment.TabIndex = 17;
+            this.checkTouchAdjustment.TabIndex = 8;
             this.checkTouchAdjustment.Text = "Touch Screen Adjustment";
             this.checkTouchAdjustment.UseVisualStyleBackColor = true;
             // 
@@ -286,7 +286,7 @@
             this.labelBrowserPath.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelBrowserPath.Name = "labelBrowserPath";
             this.labelBrowserPath.Size = new System.Drawing.Size(103, 15);
-            this.labelBrowserPath.TabIndex = 8;
+            this.labelBrowserPath.TabIndex = 9;
             this.labelBrowserPath.Text = "Open Links With...";
             // 
             // comboBoxBrowserPath
@@ -298,7 +298,7 @@
             this.comboBoxBrowserPath.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.comboBoxBrowserPath.Name = "comboBoxBrowserPath";
             this.comboBoxBrowserPath.Size = new System.Drawing.Size(173, 23);
-            this.comboBoxBrowserPath.TabIndex = 9;
+            this.comboBoxBrowserPath.TabIndex = 10;
             // 
             // labelSearchEngine
             // 
@@ -308,7 +308,7 @@
             this.labelSearchEngine.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelSearchEngine.Name = "labelSearchEngine";
             this.labelSearchEngine.Size = new System.Drawing.Size(81, 15);
-            this.labelSearchEngine.TabIndex = 10;
+            this.labelSearchEngine.TabIndex = 11;
             this.labelSearchEngine.Text = "Search Engine";
             // 
             // comboBoxSearchEngine
@@ -320,7 +320,7 @@
             this.comboBoxSearchEngine.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.comboBoxSearchEngine.Name = "comboBoxSearchEngine";
             this.comboBoxSearchEngine.Size = new System.Drawing.Size(173, 23);
-            this.comboBoxSearchEngine.TabIndex = 11;
+            this.comboBoxSearchEngine.TabIndex = 12;
             // 
             // TabSettingsGeneral
             // 
