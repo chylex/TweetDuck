@@ -157,6 +157,10 @@ namespace TweetDuck.Core.Other{
                     }
                 }
 
+                if (tab.Control.Height < panelContents.Height-2){
+                    tab.Control.Height = panelContents.Height-2; // fixes off-by-pixel error on high DPI
+                }
+
                 tab.Control.OnReady();
             }
             

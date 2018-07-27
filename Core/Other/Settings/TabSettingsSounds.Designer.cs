@@ -129,11 +129,11 @@
             // labelVolume
             // 
             this.labelVolume.AutoSize = true;
-            this.labelVolume.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.labelVolume.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.labelVolume.Location = new System.Drawing.Point(3, 91);
             this.labelVolume.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelVolume.Name = "labelVolume";
-            this.labelVolume.Size = new System.Drawing.Size(48, 15);
+            this.labelVolume.Size = new System.Drawing.Size(49, 15);
             this.labelVolume.TabIndex = 2;
             this.labelVolume.Text = "Volume";
             // 
@@ -169,8 +169,8 @@
             // 
             this.panelVolume.Controls.Add(this.trackBarVolume);
             this.panelVolume.Controls.Add(this.labelVolumeValue);
-            this.panelVolume.Location = new System.Drawing.Point(0, 106);
-            this.panelVolume.Margin = new System.Windows.Forms.Padding(0);
+            this.panelVolume.Location = new System.Drawing.Point(0, 107);
+            this.panelVolume.Margin = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.panelVolume.Name = "panelVolume";
             this.panelVolume.Size = new System.Drawing.Size(322, 36);
             this.panelVolume.TabIndex = 3;

@@ -114,7 +114,7 @@
             // labelDataCollection
             // 
             this.labelDataCollection.AutoSize = true;
-            this.labelDataCollection.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.labelDataCollection.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.labelDataCollection.Location = new System.Drawing.Point(3, 63);
             this.labelDataCollection.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelDataCollection.Name = "labelDataCollection";

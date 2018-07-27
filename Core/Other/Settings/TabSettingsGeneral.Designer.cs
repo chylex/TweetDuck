@@ -157,7 +157,7 @@
             // labelZoom
             // 
             this.labelZoom.AutoSize = true;
-            this.labelZoom.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.labelZoom.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.labelZoom.Location = new System.Drawing.Point(3, 155);
             this.labelZoom.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelZoom.Name = "labelZoom";
@@ -185,8 +185,8 @@
             // 
             this.panelZoom.Controls.Add(this.trackBarZoom);
             this.panelZoom.Controls.Add(this.labelZoomValue);
-            this.panelZoom.Location = new System.Drawing.Point(0, 170);
-            this.panelZoom.Margin = new System.Windows.Forms.Padding(0);
+            this.panelZoom.Location = new System.Drawing.Point(0, 171);
+            this.panelZoom.Margin = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.panelZoom.Name = "panelZoom";
             this.panelZoom.Size = new System.Drawing.Size(300, 35);
             this.panelZoom.TabIndex = 7;
@@ -256,7 +256,7 @@
             // 
             this.labelTray.AutoSize = true;
             this.labelTray.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
-            this.labelTray.Location = new System.Drawing.Point(0, 235);
+            this.labelTray.Location = new System.Drawing.Point(0, 236);
             this.labelTray.Margin = new System.Windows.Forms.Padding(0, 30, 0, 1);
             this.labelTray.Name = "labelTray";
             this.labelTray.Size = new System.Drawing.Size(99, 19);
@@ -269,7 +269,7 @@
             this.comboBoxTrayType.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.comboBoxTrayType.FormattingEnabled = true;
             this.comboBoxTrayType.Location = new System.Drawing.Point(5, 260);
-            this.comboBoxTrayType.Margin = new System.Windows.Forms.Padding(5, 5, 3, 3);
+            this.comboBoxTrayType.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.comboBoxTrayType.Name = "comboBoxTrayType";
             this.comboBoxTrayType.Size = new System.Drawing.Size(144, 23);
             this.comboBoxTrayType.TabIndex = 9;
@@ -277,7 +277,7 @@
             // labelTrayIcon
             // 
             this.labelTrayIcon.AutoSize = true;
-            this.labelTrayIcon.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.labelTrayIcon.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.labelTrayIcon.Location = new System.Drawing.Point(3, 295);
             this.labelTrayIcon.Margin = new System.Windows.Forms.Padding(3, 9, 3, 0);
             this.labelTrayIcon.Name = "labelTrayIcon";
@@ -335,11 +335,11 @@
             // labelBrowserPath
             // 
             this.labelBrowserPath.AutoSize = true;
-            this.labelBrowserPath.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.labelBrowserPath.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.labelBrowserPath.Location = new System.Drawing.Point(3, 107);
             this.labelBrowserPath.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelBrowserPath.Name = "labelBrowserPath";
-            this.labelBrowserPath.Size = new System.Drawing.Size(103, 15);
+            this.labelBrowserPath.Size = new System.Drawing.Size(104, 15);
             this.labelBrowserPath.TabIndex = 4;
             this.labelBrowserPath.Text = "Open Links With...";
             // 
@@ -348,8 +348,8 @@
             this.comboBoxBrowserPath.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxBrowserPath.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.comboBoxBrowserPath.FormattingEnabled = true;
-            this.comboBoxBrowserPath.Location = new System.Drawing.Point(5, 127);
-            this.comboBoxBrowserPath.Margin = new System.Windows.Forms.Padding(5, 5, 3, 3);
+            this.comboBoxBrowserPath.Location = new System.Drawing.Point(5, 126);
+            this.comboBoxBrowserPath.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.comboBoxBrowserPath.Name = "comboBoxBrowserPath";
             this.comboBoxBrowserPath.Size = new System.Drawing.Size(173, 23);
             this.comboBoxBrowserPath.TabIndex = 5;
@@ -357,11 +357,11 @@
             // labelSearchEngine
             // 
             this.labelSearchEngine.AutoSize = true;
-            this.labelSearchEngine.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.labelSearchEngine.Location = new System.Drawing.Point(3, 165);
+            this.labelSearchEngine.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.labelSearchEngine.Location = new System.Drawing.Point(3, 164);
             this.labelSearchEngine.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelSearchEngine.Name = "labelSearchEngine";
-            this.labelSearchEngine.Size = new System.Drawing.Size(81, 15);
+            this.labelSearchEngine.Size = new System.Drawing.Size(82, 15);
             this.labelSearchEngine.TabIndex = 6;
             this.labelSearchEngine.Text = "Search Engine";
             // 
@@ -370,8 +370,8 @@
             this.comboBoxSearchEngine.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSearchEngine.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.comboBoxSearchEngine.FormattingEnabled = true;
-            this.comboBoxSearchEngine.Location = new System.Drawing.Point(5, 185);
-            this.comboBoxSearchEngine.Margin = new System.Windows.Forms.Padding(5, 5, 3, 3);
+            this.comboBoxSearchEngine.Location = new System.Drawing.Point(5, 183);
+            this.comboBoxSearchEngine.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.comboBoxSearchEngine.Name = "comboBoxSearchEngine";
             this.comboBoxSearchEngine.Size = new System.Drawing.Size(173, 23);
             this.comboBoxSearchEngine.TabIndex = 7;
@@ -417,8 +417,8 @@
             // 
             this.labelLocales.AutoSize = true;
             this.labelLocales.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
-            this.labelLocales.Location = new System.Drawing.Point(0, 235);
-            this.labelLocales.Margin = new System.Windows.Forms.Padding(0, 24, 0, 1);
+            this.labelLocales.Location = new System.Drawing.Point(0, 236);
+            this.labelLocales.Margin = new System.Windows.Forms.Padding(0, 27, 0, 1);
             this.labelLocales.Name = "labelLocales";
             this.labelLocales.Size = new System.Drawing.Size(67, 19);
             this.labelLocales.TabIndex = 8;
@@ -428,7 +428,7 @@
             // 
             this.checkSpellCheck.AutoSize = true;
             this.checkSpellCheck.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkSpellCheck.Location = new System.Drawing.Point(6, 261);
+            this.checkSpellCheck.Location = new System.Drawing.Point(6, 262);
             this.checkSpellCheck.Margin = new System.Windows.Forms.Padding(6, 6, 3, 2);
             this.checkSpellCheck.Name = "checkSpellCheck";
             this.checkSpellCheck.Size = new System.Drawing.Size(125, 19);
@@ -439,8 +439,8 @@
             // labelSpellCheckLanguage
             // 
             this.labelSpellCheckLanguage.AutoSize = true;
-            this.labelSpellCheckLanguage.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.labelSpellCheckLanguage.Location = new System.Drawing.Point(3, 294);
+            this.labelSpellCheckLanguage.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.labelSpellCheckLanguage.Location = new System.Drawing.Point(3, 295);
             this.labelSpellCheckLanguage.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelSpellCheckLanguage.Name = "labelSpellCheckLanguage";
             this.labelSpellCheckLanguage.Size = new System.Drawing.Size(123, 15);
@@ -453,7 +453,7 @@
             this.comboBoxSpellCheckLanguage.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.comboBoxSpellCheckLanguage.FormattingEnabled = true;
             this.comboBoxSpellCheckLanguage.Location = new System.Drawing.Point(5, 314);
-            this.comboBoxSpellCheckLanguage.Margin = new System.Windows.Forms.Padding(5, 5, 3, 3);
+            this.comboBoxSpellCheckLanguage.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.comboBoxSpellCheckLanguage.Name = "comboBoxSpellCheckLanguage";
             this.comboBoxSpellCheckLanguage.Size = new System.Drawing.Size(290, 23);
             this.comboBoxSpellCheckLanguage.TabIndex = 11;
@@ -461,7 +461,7 @@
             // labelTranslationTarget
             // 
             this.labelTranslationTarget.AutoSize = true;
-            this.labelTranslationTarget.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.labelTranslationTarget.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.labelTranslationTarget.Location = new System.Drawing.Point(3, 352);
             this.labelTranslationTarget.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelTranslationTarget.Name = "labelTranslationTarget";
@@ -474,8 +474,8 @@
             this.comboBoxTranslationTarget.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTranslationTarget.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.comboBoxTranslationTarget.FormattingEnabled = true;
-            this.comboBoxTranslationTarget.Location = new System.Drawing.Point(5, 372);
-            this.comboBoxTranslationTarget.Margin = new System.Windows.Forms.Padding(5, 5, 3, 3);
+            this.comboBoxTranslationTarget.Location = new System.Drawing.Point(5, 371);
+            this.comboBoxTranslationTarget.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.comboBoxTranslationTarget.Name = "comboBoxTranslationTarget";
             this.comboBoxTranslationTarget.Size = new System.Drawing.Size(290, 23);
             this.comboBoxTranslationTarget.TabIndex = 13;
@@ -484,7 +484,7 @@
             // 
             this.panelSeparator.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.panelSeparator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelSeparator.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.panelSeparator.Location = new System.Drawing.Point(312, 0);
             this.panelSeparator.Margin = new System.Windows.Forms.Padding(0, 0, 6, 0);
             this.panelSeparator.Name = "panelSeparator";
