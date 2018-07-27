@@ -18,6 +18,8 @@ namespace TweetDuck.Core.Other.Settings{
             this.analyticsInfo = analyticsInfo;
             this.plugins = plugins;
 
+            // feedback
+
             checkDataCollection.Checked = Config.AllowDataCollection;
 
             if (analytics != null){
@@ -32,6 +34,8 @@ namespace TweetDuck.Core.Other.Settings{
             labelDataCollectionLink.LinkClicked += labelDataCollectionLink_LinkClicked;
             btnViewReport.Click += btnViewReport_Click;
         }
+
+        #region Feedback
 
         private void btnSendFeedback_Click(object sender, EventArgs e){
             BrowserUtils.OpenExternalBrowser("https://github.com/chylex/TweetDuck/issues/new");
@@ -50,5 +54,7 @@ namespace TweetDuck.Core.Other.Settings{
                 dialog.ShowDialog();
             }
         }
+
+        #endregion
     }
 }

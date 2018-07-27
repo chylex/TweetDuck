@@ -40,19 +40,18 @@
             // 
             // panelDataCollection
             // 
-            this.panelDataCollection.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panelDataCollection.Controls.Add(this.labelDataCollectionLink);
             this.panelDataCollection.Controls.Add(this.checkDataCollection);
             this.panelDataCollection.Location = new System.Drawing.Point(0, 78);
             this.panelDataCollection.Margin = new System.Windows.Forms.Padding(0);
             this.panelDataCollection.Name = "panelDataCollection";
-            this.panelDataCollection.Size = new System.Drawing.Size(322, 28);
+            this.panelDataCollection.Size = new System.Drawing.Size(300, 28);
             this.panelDataCollection.TabIndex = 3;
             // 
             // labelDataCollectionLink
             // 
             this.labelDataCollectionLink.AutoSize = true;
-            this.labelDataCollectionLink.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
+            this.labelDataCollectionLink.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.labelDataCollectionLink.LinkArea = new System.Windows.Forms.LinkArea(1, 10);
             this.labelDataCollectionLink.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.labelDataCollectionLink.Location = new System.Drawing.Point(153, 4);
@@ -68,7 +67,7 @@
             // checkDataCollection
             // 
             this.checkDataCollection.AutoSize = true;
-            this.checkDataCollection.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
+            this.checkDataCollection.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.checkDataCollection.Location = new System.Drawing.Point(6, 6);
             this.checkDataCollection.Margin = new System.Windows.Forms.Padding(6, 6, 0, 2);
             this.checkDataCollection.Name = "checkDataCollection";
@@ -79,17 +78,17 @@
             // 
             // labelDataCollectionMessage
             // 
-            this.labelDataCollectionMessage.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
+            this.labelDataCollectionMessage.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.labelDataCollectionMessage.Location = new System.Drawing.Point(6, 143);
             this.labelDataCollectionMessage.Margin = new System.Windows.Forms.Padding(6);
             this.labelDataCollectionMessage.Name = "labelDataCollectionMessage";
-            this.labelDataCollectionMessage.Size = new System.Drawing.Size(310, 67);
+            this.labelDataCollectionMessage.Size = new System.Drawing.Size(288, 67);
             this.labelDataCollectionMessage.TabIndex = 5;
             // 
             // btnViewReport
             // 
             this.btnViewReport.AutoSize = true;
-            this.btnViewReport.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
+            this.btnViewReport.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnViewReport.Location = new System.Drawing.Point(5, 109);
             this.btnViewReport.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnViewReport.Name = "btnViewReport";
@@ -102,7 +101,7 @@
             // btnSendFeedback
             // 
             this.btnSendFeedback.AutoSize = true;
-            this.btnSendFeedback.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
+            this.btnSendFeedback.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnSendFeedback.Location = new System.Drawing.Point(5, 23);
             this.btnSendFeedback.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnSendFeedback.Name = "btnSendFeedback";
@@ -115,7 +114,7 @@
             // labelDataCollection
             // 
             this.labelDataCollection.AutoSize = true;
-            this.labelDataCollection.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
+            this.labelDataCollection.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.labelDataCollection.Location = new System.Drawing.Point(3, 63);
             this.labelDataCollection.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelDataCollection.Name = "labelDataCollection";
@@ -148,7 +147,7 @@
             this.flowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowPanel.Location = new System.Drawing.Point(9, 9);
             this.flowPanel.Name = "flowPanel";
-            this.flowPanel.Size = new System.Drawing.Size(322, 212);
+            this.flowPanel.Size = new System.Drawing.Size(300, 462);
             this.flowPanel.TabIndex = 0;
             this.flowPanel.WrapContents = false;
             // 
@@ -158,7 +157,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.flowPanel);
             this.Name = "TabSettingsFeedback";
-            this.Size = new System.Drawing.Size(340, 230);
+            this.Size = new System.Drawing.Size(631, 480);
             this.panelDataCollection.ResumeLayout(false);
             this.panelDataCollection.PerformLayout();
             this.flowPanel.ResumeLayout(false);

@@ -14,6 +14,8 @@ namespace TweetDuck.Core.Other.Settings{
 
             this.playSoundNotification = playSoundNotification;
             
+            // sound notification
+
             toolTip.SetToolTip(tbCustomSound, "When empty, the default TweetDeck sound notification is used.");
             
             trackBarVolume.SetValueSafe(Config.NotificationSoundVolume);
@@ -34,6 +36,8 @@ namespace TweetDuck.Core.Other.Settings{
             Config.NotificationSoundPath = tbCustomSound.Text;
             Config.NotificationSoundVolume = trackBarVolume.Value;
         }
+
+        #region Sound Notification
 
         private bool RefreshCanPlay(){
             bool isEmpty = string.IsNullOrEmpty(tbCustomSound.Text);
@@ -84,5 +88,7 @@ namespace TweetDuck.Core.Other.Settings{
             Config.NotificationSoundVolume = trackBarVolume.Value;
             volumeUpdateTimer.Stop();
         }
+
+        #endregion
     }
 }

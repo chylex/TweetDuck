@@ -47,7 +47,7 @@
             // 
             this.tbCustomSound.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbCustomSound.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
+            this.tbCustomSound.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.tbCustomSound.Location = new System.Drawing.Point(3, 3);
             this.tbCustomSound.Name = "tbCustomSound";
             this.tbCustomSound.Size = new System.Drawing.Size(316, 23);
@@ -56,7 +56,7 @@
             // labelVolumeValue
             // 
             this.labelVolumeValue.BackColor = System.Drawing.Color.Transparent;
-            this.labelVolumeValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
+            this.labelVolumeValue.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.labelVolumeValue.Location = new System.Drawing.Point(147, 4);
             this.labelVolumeValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelVolumeValue.Name = "labelVolumeValue";
@@ -69,7 +69,7 @@
             // 
             this.btnPlaySound.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPlaySound.AutoSize = true;
-            this.btnPlaySound.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
+            this.btnPlaySound.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnPlaySound.Location = new System.Drawing.Point(202, 32);
             this.btnPlaySound.Name = "btnPlaySound";
             this.btnPlaySound.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -81,7 +81,7 @@
             // btnResetSound
             // 
             this.btnResetSound.AutoSize = true;
-            this.btnResetSound.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
+            this.btnResetSound.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnResetSound.Location = new System.Drawing.Point(3, 32);
             this.btnResetSound.Name = "btnResetSound";
             this.btnResetSound.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -94,7 +94,7 @@
             // 
             this.btnBrowseSound.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBrowseSound.AutoSize = true;
-            this.btnBrowseSound.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
+            this.btnBrowseSound.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnBrowseSound.Location = new System.Drawing.Point(251, 32);
             this.btnBrowseSound.Name = "btnBrowseSound";
             this.btnBrowseSound.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -110,13 +110,12 @@
             this.labelSoundNotification.Location = new System.Drawing.Point(0, 0);
             this.labelSoundNotification.Margin = new System.Windows.Forms.Padding(0, 0, 0, 1);
             this.labelSoundNotification.Name = "labelSoundNotification";
-            this.labelSoundNotification.Size = new System.Drawing.Size(223, 19);
+            this.labelSoundNotification.Size = new System.Drawing.Size(160, 19);
             this.labelSoundNotification.TabIndex = 0;
-            this.labelSoundNotification.Text = "CUSTOM SOUND NOTIFICATION";
+            this.labelSoundNotification.Text = "SOUND NOTIFICATION";
             // 
             // panelSoundNotification
             // 
-            this.panelSoundNotification.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panelSoundNotification.Controls.Add(this.btnPlaySound);
             this.panelSoundNotification.Controls.Add(this.tbCustomSound);
             this.panelSoundNotification.Controls.Add(this.btnResetSound);
@@ -130,7 +129,7 @@
             // labelVolume
             // 
             this.labelVolume.AutoSize = true;
-            this.labelVolume.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
+            this.labelVolume.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.labelVolume.Location = new System.Drawing.Point(3, 91);
             this.labelVolume.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelVolume.Name = "labelVolume";
@@ -153,9 +152,8 @@
             // 
             // flowPanel
             // 
-            this.flowPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.flowPanel.Controls.Add(this.labelSoundNotification);
             this.flowPanel.Controls.Add(this.panelSoundNotification);
             this.flowPanel.Controls.Add(this.labelVolume);
@@ -163,7 +161,7 @@
             this.flowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowPanel.Location = new System.Drawing.Point(9, 9);
             this.flowPanel.Name = "flowPanel";
-            this.flowPanel.Size = new System.Drawing.Size(322, 142);
+            this.flowPanel.Size = new System.Drawing.Size(322, 462);
             this.flowPanel.TabIndex = 0;
             this.flowPanel.WrapContents = false;
             // 
@@ -188,7 +186,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.flowPanel);
             this.Name = "TabSettingsSounds";
-            this.Size = new System.Drawing.Size(340, 160);
+            this.Size = new System.Drawing.Size(631, 480);
             this.panelSoundNotification.ResumeLayout(false);
             this.panelSoundNotification.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).EndInit();

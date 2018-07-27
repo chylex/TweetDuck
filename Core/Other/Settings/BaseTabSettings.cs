@@ -5,6 +5,7 @@ using TweetDuck.Configuration;
 namespace TweetDuck.Core.Other.Settings{
     class BaseTabSettings : UserControl{
         protected static UserConfig Config => Program.UserConfig;
+        protected static SystemConfig SysConfig => Program.SystemConfig;
 
         public IEnumerable<Control> InteractiveControls{
             get{

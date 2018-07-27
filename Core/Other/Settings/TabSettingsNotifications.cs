@@ -26,27 +26,21 @@ namespace TweetDuck.Core.Other.Settings{
             this.notification.Activated += notification_Activated;
             this.notification.Show();
             
+            Disposed += (sender, args) => this.notification.Dispose();
+            
+            // general
+
             toolTip.SetToolTip(checkColumnName, "Shows column name each notification originated\r\nfrom in the notification window title.");
             toolTip.SetToolTip(checkMediaPreviews, "Shows image and video thumbnails in the notification window.");
             toolTip.SetToolTip(checkSkipOnLinkClick, "Skips current notification when a link\r\ninside the notification is clicked.");
             toolTip.SetToolTip(checkNonIntrusive, "When not idle and the cursor is within the notification window area,\r\nit will be delayed until the cursor moves away to prevent accidental clicks.");
-
             toolTip.SetToolTip(comboBoxIdlePause, "Pauses new notifications after going idle for a set amount of time.");
-            
-            toolTip.SetToolTip(checkTimerCountDown, "The notification timer counts down instead of up.");
-            toolTip.SetToolTip(labelDurationValue, "Milliseconds per character.");
-            toolTip.SetToolTip(trackBarDuration, toolTip.GetToolTip(labelDurationValue));
-
-            toolTip.SetToolTip(radioLocCustom, "Drag the example notification window to the desired location.");
-            
-            toolTip.SetToolTip(radioSizeAuto, "Notification size is based on the font size and browser zoom level.");
-            toolTip.SetToolTip(radioSizeCustom, "Resize the example notification window to the desired size.");
             
             checkColumnName.Checked = Config.DisplayNotificationColumn;
             checkMediaPreviews.Checked = Config.NotificationMediaPreviews;
             checkSkipOnLinkClick.Checked = Config.NotificationSkipOnLinkClick;
             checkNonIntrusive.Checked = Config.NotificationNonIntrusiveMode;
-
+            
             comboBoxIdlePause.Items.Add("Disabled");
             comboBoxIdlePause.Items.Add("30 seconds");
             comboBoxIdlePause.Items.Add("1 minute");
@@ -54,13 +48,23 @@ namespace TweetDuck.Core.Other.Settings{
             comboBoxIdlePause.Items.Add("5 minutes");
             comboBoxIdlePause.SelectedIndex = Math.Max(0, Array.FindIndex(IdlePauseSeconds, val => val == Config.NotificationIdlePauseSeconds));
 
+            // timer
+
+            toolTip.SetToolTip(checkTimerCountDown, "The notification timer counts down instead of up.");
+            toolTip.SetToolTip(labelDurationValue, "Milliseconds per character.");
+            toolTip.SetToolTip(trackBarDuration, toolTip.GetToolTip(labelDurationValue));
+            
             checkNotificationTimer.Checked = Config.DisplayNotificationTimer;
             checkTimerCountDown.Enabled = checkNotificationTimer.Checked;
             checkTimerCountDown.Checked = Config.NotificationTimerCountDown;
-            
+
             trackBarDuration.SetValueSafe(Config.NotificationDurationValue);
             labelDurationValue.Text = Config.NotificationDurationValue+" ms/c";
 
+            // location
+
+            toolTip.SetToolTip(radioLocCustom, "Drag the example notification window to the desired location.");
+            
             switch(Config.NotificationPosition){
                 case TweetNotification.Position.TopLeft: radioLocTL.Checked = true; break;
                 case TweetNotification.Position.TopRight: radioLocTR.Checked = true; break;
@@ -81,6 +85,11 @@ namespace TweetDuck.Core.Other.Settings{
             trackBarEdgeDistance.SetValueSafe(Config.NotificationEdgeDistance);
             labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value+" px";
 
+            // size
+
+            toolTip.SetToolTip(radioSizeAuto, "Notification size is based on the font size and browser zoom level.");
+            toolTip.SetToolTip(radioSizeCustom, "Resize the example notification window to the desired size.");
+
             switch(Config.NotificationSize){
                 case TweetNotification.Size.Auto: radioSizeAuto.Checked = true; break;
                 case TweetNotification.Size.Custom: radioSizeCustom.Checked = true; break;
@@ -88,8 +97,6 @@ namespace TweetDuck.Core.Other.Settings{
 
             trackBarScrollSpeed.SetValueSafe(Config.NotificationScrollSpeed);
             labelScrollSpeedValue.Text = trackBarScrollSpeed.Value+"%";
-            
-            Disposed += (sender, args) => this.notification.Dispose();
         }
 
         public override void OnReady(){
@@ -97,12 +104,10 @@ namespace TweetDuck.Core.Other.Settings{
             checkMediaPreviews.CheckedChanged += checkMediaPreviews_CheckedChanged;
             checkSkipOnLinkClick.CheckedChanged += checkSkipOnLinkClick_CheckedChanged;
             checkNonIntrusive.CheckedChanged += checkNonIntrusive_CheckedChanged;
-
             comboBoxIdlePause.SelectedValueChanged += comboBoxIdlePause_SelectedValueChanged;
 
             checkNotificationTimer.CheckedChanged += checkNotificationTimer_CheckedChanged;
             checkTimerCountDown.CheckedChanged += checkTimerCountDown_CheckedChanged;
-
             trackBarDuration.ValueChanged += trackBarDuration_ValueChanged;
             btnDurationShort.Click += btnDurationShort_Click;
             btnDurationMedium.Click += btnDurationMedium_Click;
@@ -113,13 +118,11 @@ namespace TweetDuck.Core.Other.Settings{
             radioLocBL.CheckedChanged += radioLoc_CheckedChanged;
             radioLocBR.CheckedChanged += radioLoc_CheckedChanged;
             radioLocCustom.Click += radioLocCustom_Click;
-
             comboBoxDisplay.SelectedValueChanged += comboBoxDisplay_SelectedValueChanged;
             trackBarEdgeDistance.ValueChanged += trackBarEdgeDistance_ValueChanged;
 
             radioSizeAuto.CheckedChanged += radioSize_CheckedChanged;
             radioSizeCustom.Click += radioSizeCustom_Click;
-
             trackBarScrollSpeed.ValueChanged += trackBarScrollSpeed_ValueChanged;
         }
 
@@ -149,6 +152,71 @@ namespace TweetDuck.Core.Other.Settings{
                 notification.ShowExampleNotification(false);
             }
         }
+
+        #region General
+
+        private void checkColumnName_CheckedChanged(object sender, EventArgs e){
+            Config.DisplayNotificationColumn = checkColumnName.Checked;
+            notification.ShowExampleNotification(false);
+        }
+
+        private void checkMediaPreviews_CheckedChanged(object sender, EventArgs e){
+            Config.NotificationMediaPreviews = checkMediaPreviews.Checked;
+        }
+
+        private void checkSkipOnLinkClick_CheckedChanged(object sender, EventArgs e){
+            Config.NotificationSkipOnLinkClick = checkSkipOnLinkClick.Checked;
+        }
+
+        private void checkNonIntrusive_CheckedChanged(object sender, EventArgs e){
+            Config.NotificationNonIntrusiveMode = checkNonIntrusive.Checked;
+        }
+
+        private void comboBoxIdlePause_SelectedValueChanged(object sender, EventArgs e){
+            Config.NotificationIdlePauseSeconds = IdlePauseSeconds[comboBoxIdlePause.SelectedIndex];
+        }
+
+        #endregion
+        #region Timer
+
+        private void checkNotificationTimer_CheckedChanged(object sender, EventArgs e){
+            Config.DisplayNotificationTimer = checkNotificationTimer.Checked;
+            checkTimerCountDown.Enabled = checkNotificationTimer.Checked;
+            notification.ShowExampleNotification(true);
+        }
+
+        private void checkTimerCountDown_CheckedChanged(object sender, EventArgs e){
+            Config.NotificationTimerCountDown = checkTimerCountDown.Checked;
+            notification.ShowExampleNotification(true);
+        }
+
+        private void trackBarDuration_ValueChanged(object sender, EventArgs e){
+            durationUpdateTimer.Stop();
+            durationUpdateTimer.Start();
+
+            Config.NotificationDurationValue = trackBarDuration.Value;
+            labelDurationValue.Text = Config.NotificationDurationValue+" ms/c";
+        }
+
+        private void btnDurationShort_Click(object sender, EventArgs e){
+            trackBarDuration.Value = 15;
+        }
+
+        private void btnDurationMedium_Click(object sender, EventArgs e){
+            trackBarDuration.Value = 25;
+        }
+
+        private void btnDurationLong_Click(object sender, EventArgs e){
+            trackBarDuration.Value = 35;
+        }
+
+        private void durationUpdateTimer_Tick(object sender, EventArgs e){
+            notification.ShowExampleNotification(true);
+            durationUpdateTimer.Stop();
+        }
+
+        #endregion
+        #region Location
 
         private void radioLoc_CheckedChanged(object sender, EventArgs e){
             if (radioLocTL.Checked)Config.NotificationPosition = TweetNotification.Position.TopLeft;
@@ -181,6 +249,20 @@ namespace TweetDuck.Core.Other.Settings{
             }
         }
 
+        private void comboBoxDisplay_SelectedValueChanged(object sender, EventArgs e){
+            Config.NotificationDisplay = comboBoxDisplay.SelectedIndex;
+            notification.ShowExampleNotification(false);
+        }
+
+        private void trackBarEdgeDistance_ValueChanged(object sender, EventArgs e){
+            labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value+" px";
+            Config.NotificationEdgeDistance = trackBarEdgeDistance.Value;
+            notification.ShowExampleNotification(false);
+        }
+
+        #endregion
+        #region Size
+
         private void radioSize_CheckedChanged(object sender, EventArgs e){
             if (radioSizeAuto.Checked){
                 Config.NotificationSize = TweetNotification.Size.Auto;
@@ -198,58 +280,6 @@ namespace TweetDuck.Core.Other.Settings{
             notification.ShowExampleNotification(false);
         }
 
-        private void trackBarDuration_ValueChanged(object sender, EventArgs e){
-            durationUpdateTimer.Stop();
-            durationUpdateTimer.Start();
-
-            Config.NotificationDurationValue = trackBarDuration.Value;
-            labelDurationValue.Text = Config.NotificationDurationValue+" ms/c";
-        }
-
-        private void btnDurationShort_Click(object sender, EventArgs e){
-            trackBarDuration.Value = 15;
-        }
-
-        private void btnDurationMedium_Click(object sender, EventArgs e){
-            trackBarDuration.Value = 25;
-        }
-
-        private void btnDurationLong_Click(object sender, EventArgs e){
-            trackBarDuration.Value = 35;
-        }
-
-        private void checkColumnName_CheckedChanged(object sender, EventArgs e){
-            Config.DisplayNotificationColumn = checkColumnName.Checked;
-            notification.ShowExampleNotification(false);
-        }
-
-        private void checkNotificationTimer_CheckedChanged(object sender, EventArgs e){
-            Config.DisplayNotificationTimer = checkNotificationTimer.Checked;
-            checkTimerCountDown.Enabled = checkNotificationTimer.Checked;
-            notification.ShowExampleNotification(true);
-        }
-
-        private void checkTimerCountDown_CheckedChanged(object sender, EventArgs e){
-            Config.NotificationTimerCountDown = checkTimerCountDown.Checked;
-            notification.ShowExampleNotification(true);
-        }
-
-        private void checkMediaPreviews_CheckedChanged(object sender, EventArgs e){
-            Config.NotificationMediaPreviews = checkMediaPreviews.Checked;
-        }
-
-        private void checkSkipOnLinkClick_CheckedChanged(object sender, EventArgs e){
-            Config.NotificationSkipOnLinkClick = checkSkipOnLinkClick.Checked;
-        }
-
-        private void checkNonIntrusive_CheckedChanged(object sender, EventArgs e){
-            Config.NotificationNonIntrusiveMode = checkNonIntrusive.Checked;
-        }
-
-        private void comboBoxIdlePause_SelectedValueChanged(object sender, EventArgs e){
-            Config.NotificationIdlePauseSeconds = IdlePauseSeconds[comboBoxIdlePause.SelectedIndex];
-        }
-
         private void trackBarScrollSpeed_ValueChanged(object sender, EventArgs e){
             if (trackBarScrollSpeed.AlignValueToTick()){
                 labelScrollSpeedValue.Text = trackBarScrollSpeed.Value+"%";
@@ -257,20 +287,6 @@ namespace TweetDuck.Core.Other.Settings{
             }
         }
 
-        private void comboBoxDisplay_SelectedValueChanged(object sender, EventArgs e){
-            Config.NotificationDisplay = comboBoxDisplay.SelectedIndex;
-            notification.ShowExampleNotification(false);
-        }
-
-        private void trackBarEdgeDistance_ValueChanged(object sender, EventArgs e){
-            labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value+" px";
-            Config.NotificationEdgeDistance = trackBarEdgeDistance.Value;
-            notification.ShowExampleNotification(false);
-        }
-
-        private void durationUpdateTimer_Tick(object sender, EventArgs e){
-            notification.ShowExampleNotification(true);
-            durationUpdateTimer.Stop();
-        }
+        #endregion
     }
 }

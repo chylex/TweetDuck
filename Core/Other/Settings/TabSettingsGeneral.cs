@@ -21,38 +21,68 @@ namespace TweetDuck.Core.Other.Settings{
         private readonly int searchEngineIndexDefault;
         private readonly int searchEngineIndexCustom;
 
-        public TabSettingsGeneral(Action reloadColumns, UpdateHandler updates){ // TODO dialog is too tall now
+        public TabSettingsGeneral(Action reloadColumns, UpdateHandler updates){
             InitializeComponent();
 
             this.reloadColumns = reloadColumns;
             
             this.updates = updates;
             this.updates.CheckFinished += updates_CheckFinished;
+
             Disposed += (sender, args) => this.updates.CheckFinished -= updates_CheckFinished;
             
+            // user interface
+
             toolTip.SetToolTip(checkExpandLinks, "Expands links inside the tweets. If disabled,\r\nthe full links show up in a tooltip instead.");
             toolTip.SetToolTip(checkOpenSearchInFirstColumn, "By default, TweetDeck adds Search columns at the end.\r\nThis option makes them appear before the first column instead.");
             toolTip.SetToolTip(checkKeepLikeFollowDialogsOpen, "Allows liking and following from multiple accounts at once,\r\ninstead of automatically closing the dialog after taking an action.");
             toolTip.SetToolTip(checkBestImageQuality, "When right-clicking a tweet image, the context menu options\r\nwill use links to the original image size (:orig in the URL).");
             toolTip.SetToolTip(checkAnimatedAvatars, "Some old Twitter avatars could be uploaded as animated GIFs.");
-
-            toolTip.SetToolTip(checkSmoothScrolling, "Toggles smooth mouse wheel scrolling.");
-            toolTip.SetToolTip(checkTouchAdjustment, "Toggles Chromium touch screen adjustment.\r\nDisabled by default, because it is very imprecise with TweetDeck.");
-            toolTip.SetToolTip(comboBoxBrowserPath, "Sets the default browser for opening links.");
             toolTip.SetToolTip(labelZoomValue, "Changes the zoom level.\r\nAlso affects notifications and screenshots.");
             toolTip.SetToolTip(trackBarZoom, toolTip.GetToolTip(labelZoomValue));
-
-            toolTip.SetToolTip(checkUpdateNotifications, "Checks for updates every hour.\r\nIf an update is dismissed, it will not appear again.");
-            toolTip.SetToolTip(btnCheckUpdates, "Forces an update check, even for updates that had been dismissed.");
 
             checkExpandLinks.Checked = Config.ExpandLinksOnHover;
             checkOpenSearchInFirstColumn.Checked = Config.OpenSearchInFirstColumn;
             checkKeepLikeFollowDialogsOpen.Checked = Config.KeepLikeFollowDialogsOpen;
             checkBestImageQuality.Checked = Config.BestImageQuality;
             checkAnimatedAvatars.Checked = Config.EnableAnimatedImages;
+            
+            trackBarZoom.SetValueSafe(Config.ZoomLevel);
+            labelZoomValue.Text = trackBarZoom.Value+"%";
 
+            // system tray
+            
+            toolTip.SetToolTip(comboBoxTrayType, "Changes behavior of the Tray icon.\r\nRight-click the icon for an action menu.");
+            toolTip.SetToolTip(checkTrayHighlight, "Highlights the tray icon if there are new tweets.\r\nOnly works for columns with popup or audio notifications.\r\nThe icon resets when the main window is restored.");
+
+            comboBoxTrayType.Items.Add("Disabled");
+            comboBoxTrayType.Items.Add("Display Icon Only");
+            comboBoxTrayType.Items.Add("Minimize to Tray");
+            comboBoxTrayType.Items.Add("Close to Tray");
+            comboBoxTrayType.Items.Add("Combined");
+            comboBoxTrayType.SelectedIndex = Math.Min(Math.Max((int)Config.TrayBehavior, 0), comboBoxTrayType.Items.Count-1);
+
+            checkTrayHighlight.Enabled = Config.TrayBehavior.ShouldDisplayIcon();
+            checkTrayHighlight.Checked = Config.EnableTrayHighlight;
+
+            // updates
+            
+            toolTip.SetToolTip(checkUpdateNotifications, "Checks for updates every hour.\r\nIf an update is dismissed, it will not appear again.");
+            toolTip.SetToolTip(btnCheckUpdates, "Forces an update check, even for updates that had been dismissed.");
+            
+            checkUpdateNotifications.Checked = Config.EnableUpdateCheck;
+
+            // browser settings
+            
+            toolTip.SetToolTip(checkSmoothScrolling, "Toggles smooth mouse wheel scrolling.");
+            toolTip.SetToolTip(checkTouchAdjustment, "Toggles Chromium touch screen adjustment.\r\nDisabled by default, because it is very imprecise with TweetDeck.");
+            toolTip.SetToolTip(checkHardwareAcceleration, "Uses graphics card to improve performance.\r\nDisable if you experience visual glitches, or to save a small amount of RAM.");
+            toolTip.SetToolTip(comboBoxBrowserPath, "Sets the default browser for opening links.");
+            toolTip.SetToolTip(comboBoxSearchEngine, "Sets the default website for opening searches.");
+            
             checkSmoothScrolling.Checked = Config.EnableSmoothScrolling;
             checkTouchAdjustment.Checked = Config.EnableTouchAdjustment;
+            checkHardwareAcceleration.Checked = SysConfig.HardwareAcceleration;
 
             foreach(WindowsUtils.Browser browserInfo in WindowsUtils.FindInstalledBrowsers()){
                 comboBoxBrowserPath.Items.Add(browserInfo);
@@ -69,11 +99,30 @@ namespace TweetDuck.Core.Other.Settings{
             searchEngineIndexDefault = comboBoxSearchEngine.Items.Add("(no engine set)");
             searchEngineIndexCustom = comboBoxSearchEngine.Items.Add("(custom url...)");
             UpdateSearchEngineSelection();
-            
-            trackBarZoom.SetValueSafe(Config.ZoomLevel);
-            labelZoomValue.Text = trackBarZoom.Value+"%";
 
-            checkUpdateNotifications.Checked = Config.EnableUpdateCheck;
+            // locales
+            
+            toolTip.SetToolTip(checkSpellCheck, "Underlines words that are spelled incorrectly.");
+            toolTip.SetToolTip(comboBoxSpellCheckLanguage, "Language used for spell check.");
+            toolTip.SetToolTip(comboBoxTranslationTarget, "Language tweets are translated into.");
+            
+            checkSpellCheck.Checked = Config.EnableSpellCheck;
+
+            try{
+                foreach(LocaleUtils.Item item in LocaleUtils.SpellCheckLanguages){
+                    comboBoxSpellCheckLanguage.Items.Add(item);
+                }
+            }catch{
+                comboBoxSpellCheckLanguage.Items.Add(new LocaleUtils.Item("en-US"));
+            }
+
+            comboBoxSpellCheckLanguage.SelectedItem = new LocaleUtils.Item(Config.SpellCheckLanguage);
+
+            foreach(LocaleUtils.Item item in LocaleUtils.TweetDeckTranslationLocales){
+                comboBoxTranslationTarget.Items.Add(item);
+            }
+
+            comboBoxTranslationTarget.SelectedItem = new LocaleUtils.Item(Config.TranslationTarget);
         }
 
         public override void OnReady(){
@@ -82,20 +131,30 @@ namespace TweetDuck.Core.Other.Settings{
             checkKeepLikeFollowDialogsOpen.CheckedChanged += checkKeepLikeFollowDialogsOpen_CheckedChanged;
             checkBestImageQuality.CheckedChanged += checkBestImageQuality_CheckedChanged;
             checkAnimatedAvatars.CheckedChanged += checkAnimatedAvatars_CheckedChanged;
+            trackBarZoom.ValueChanged += trackBarZoom_ValueChanged;
+
+            comboBoxTrayType.SelectedIndexChanged += comboBoxTrayType_SelectedIndexChanged;
+            checkTrayHighlight.CheckedChanged += checkTrayHighlight_CheckedChanged;
+            
+            checkUpdateNotifications.CheckedChanged += checkUpdateNotifications_CheckedChanged;
+            btnCheckUpdates.Click += btnCheckUpdates_Click;
 
             checkSmoothScrolling.CheckedChanged += checkSmoothScrolling_CheckedChanged;
             checkTouchAdjustment.CheckedChanged += checkTouchAdjustment_CheckedChanged;
+            checkHardwareAcceleration.CheckedChanged += checkHardwareAcceleration_CheckedChanged;
             comboBoxBrowserPath.SelectedIndexChanged += comboBoxBrowserPath_SelectedIndexChanged;
             comboBoxSearchEngine.SelectedIndexChanged += comboBoxSearchEngine_SelectedIndexChanged;
-            trackBarZoom.ValueChanged += trackBarZoom_ValueChanged;
 
-            checkUpdateNotifications.CheckedChanged += checkUpdateNotifications_CheckedChanged;
-            btnCheckUpdates.Click += btnCheckUpdates_Click;
+            checkSpellCheck.CheckedChanged += checkSpellCheck_CheckedChanged;
+            comboBoxSpellCheckLanguage.SelectedValueChanged += comboBoxSpellCheckLanguage_SelectedValueChanged;
+            comboBoxTranslationTarget.SelectedValueChanged += comboBoxTranslationTarget_SelectedValueChanged;
         }
 
         public override void OnClosing(){
             Config.ZoomLevel = trackBarZoom.Value;
         }
+
+        #region User Interface
 
         private void checkExpandLinks_CheckedChanged(object sender, EventArgs e){
             Config.ExpandLinksOnHover = checkExpandLinks.Checked;
@@ -118,12 +177,72 @@ namespace TweetDuck.Core.Other.Settings{
             BrowserProcessHandler.UpdatePrefs().ContinueWith(task => reloadColumns());
         }
 
+        private void trackBarZoom_ValueChanged(object sender, EventArgs e){
+            if (trackBarZoom.AlignValueToTick()){
+                zoomUpdateTimer.Stop();
+                zoomUpdateTimer.Start();
+                labelZoomValue.Text = trackBarZoom.Value+"%";
+            }
+        }
+
+        private void zoomUpdateTimer_Tick(object sender, EventArgs e){
+            Config.ZoomLevel = trackBarZoom.Value;
+            zoomUpdateTimer.Stop();
+        }
+
+        #endregion
+        #region System Tray
+        
+        private void comboBoxTrayType_SelectedIndexChanged(object sender, EventArgs e){
+            Config.TrayBehavior = (TrayIcon.Behavior)comboBoxTrayType.SelectedIndex;
+            checkTrayHighlight.Enabled = Config.TrayBehavior.ShouldDisplayIcon();
+        }
+
+        private void checkTrayHighlight_CheckedChanged(object sender, EventArgs e){
+            Config.EnableTrayHighlight = checkTrayHighlight.Checked;
+        }
+
+        #endregion
+        #region Updates
+        
+        private void checkUpdateNotifications_CheckedChanged(object sender, EventArgs e){
+            Config.EnableUpdateCheck = checkUpdateNotifications.Checked;
+        }
+
+        private void btnCheckUpdates_Click(object sender, EventArgs e){
+            Config.DismissedUpdate = null;
+
+            btnCheckUpdates.Enabled = false;
+            updateCheckEventId = updates.Check(true);
+        }
+
+        private void updates_CheckFinished(object sender, UpdateCheckEventArgs e){
+            if (e.EventId == updateCheckEventId){
+                btnCheckUpdates.Enabled = true;
+
+                e.Result.Handle(update => {
+                    if (update.VersionTag == Program.VersionTag){
+                        FormMessage.Information("No Updates Available", "Your version of TweetDuck is up to date.", FormMessage.OK);
+                    }
+                }, ex => {
+                    Program.Reporter.HandleException("Update Check Error", "An error occurred while checking for updates.", true, ex);
+                });
+            }
+        }
+
+        #endregion
+        #region Browser Settings
+        
         private void checkSmoothScrolling_CheckedChanged(object sender, EventArgs e){
             Config.EnableSmoothScrolling = checkSmoothScrolling.Checked;
         }
 
         private void checkTouchAdjustment_CheckedChanged(object sender, EventArgs e){
             Config.EnableTouchAdjustment = checkTouchAdjustment.Checked;
+        }
+        
+        private void checkHardwareAcceleration_CheckedChanged(object sender, EventArgs e){
+            SysConfig.HardwareAcceleration = checkHardwareAcceleration.Checked;
         }
 
         private void UpdateBrowserPathSelection(){
@@ -198,44 +317,6 @@ namespace TweetDuck.Core.Other.Settings{
             }
         }
 
-        private void trackBarZoom_ValueChanged(object sender, EventArgs e){
-            if (trackBarZoom.AlignValueToTick()){
-                zoomUpdateTimer.Stop();
-                zoomUpdateTimer.Start();
-                labelZoomValue.Text = trackBarZoom.Value+"%";
-            }
-        }
-
-        private void checkUpdateNotifications_CheckedChanged(object sender, EventArgs e){
-            Config.EnableUpdateCheck = checkUpdateNotifications.Checked;
-        }
-
-        private void btnCheckUpdates_Click(object sender, EventArgs e){
-            Config.DismissedUpdate = null;
-
-            btnCheckUpdates.Enabled = false;
-            updateCheckEventId = updates.Check(true);
-        }
-
-        private void updates_CheckFinished(object sender, UpdateCheckEventArgs e){
-            if (e.EventId == updateCheckEventId){
-                btnCheckUpdates.Enabled = true;
-
-                e.Result.Handle(update => {
-                    if (update.VersionTag == Program.VersionTag){
-                        FormMessage.Information("No Updates Available", "Your version of TweetDuck is up to date.", FormMessage.OK);
-                    }
-                }, ex => {
-                    Program.Reporter.HandleException("Update Check Error", "An error occurred while checking for updates.", true, ex);
-                });
-            }
-        }
-
-        private void zoomUpdateTimer_Tick(object sender, EventArgs e){
-            Config.ZoomLevel = trackBarZoom.Value;
-            zoomUpdateTimer.Stop();
-        }
-
         private sealed class SearchEngine{
             private string Name { get; }
             public string Url { get; }
@@ -249,5 +330,23 @@ namespace TweetDuck.Core.Other.Settings{
             public override bool Equals(object obj) => obj is SearchEngine other && Name == other.Name;
             public override string ToString() => Name;
         }
+
+        #endregion
+        #region Locales
+        
+        private void checkSpellCheck_CheckedChanged(object sender, EventArgs e){
+            Config.EnableSpellCheck = checkSpellCheck.Checked;
+            BrowserProcessHandler.UpdatePrefs();
+        }
+
+        private void comboBoxSpellCheckLanguage_SelectedValueChanged(object sender, EventArgs e){
+            Config.SpellCheckLanguage = (comboBoxSpellCheckLanguage.SelectedItem as LocaleUtils.Item)?.Code ?? "en-US";
+        }
+
+        private void comboBoxTranslationTarget_SelectedValueChanged(object sender, EventArgs e){
+            Config.TranslationTarget = (comboBoxTranslationTarget.SelectedItem as LocaleUtils.Item)?.Code ?? "en";
+        }
+
+        #endregion
     }
 }
