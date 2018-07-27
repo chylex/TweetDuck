@@ -17,6 +17,7 @@ namespace TweetDuck.Core.Utils{
         public const int GWL_STYLE = -16;
 
         public const int SB_HORZ = 0;
+        public const int EM_SETCUEBANNER = 0x1501;
 
         public const int WM_MOUSE_LL = 14;
         public const int WM_MOUSEWHEEL = 0x020A;
@@ -51,6 +52,9 @@ namespace TweetDuck.Core.Utils{
 
         [DllImport("user32.dll", EntryPoint = "SetWindowPos")]
         private static extern bool SetWindowPos(int hWnd, int hWndOrder, int x, int y, int width, int height, uint flags);
+
+        [DllImport("user32.dll")]
+        public static extern bool SendMessage(IntPtr hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
 
         [DllImport("user32.dll")]
         public static extern bool PostMessage(IntPtr hWnd, uint msg, UIntPtr wParam, IntPtr lParam);

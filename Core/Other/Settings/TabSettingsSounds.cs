@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Notification;
+using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Other.Settings{
     sealed partial class TabSettingsSounds : BaseTabSettings{
@@ -23,6 +24,7 @@ namespace TweetDuck.Core.Other.Settings{
 
             tbCustomSound.Text = Config.NotificationSoundPath;
             tbCustomSound_TextChanged(tbCustomSound, EventArgs.Empty);
+            NativeMethods.SendMessage(tbCustomSound.Handle, NativeMethods.EM_SETCUEBANNER, 0, "(default TweetDeck sound)");
         }
 
         public override void OnReady(){
