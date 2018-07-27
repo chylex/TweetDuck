@@ -2,7 +2,6 @@
 using CefSharp;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using TweetDuck.Core.Other;
