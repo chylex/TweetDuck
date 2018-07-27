@@ -13,6 +13,8 @@ try{
   $propsFiles = "..\packages\CefSharp.Common.${sharpVersion}\build\CefSharp.Common.props",
                 "..\packages\CefSharp.WinForms.${sharpVersion}\build\CefSharp.WinForms.props"
   
+  $targetFiles = "..\packages\CefSharp.Common.${sharpVersion}\build\CefSharp.Common.targets"
+  
   # Greetings
   
   $title = "CEF ${cefVersion}, CefSharp ${sharpVersion}"
@@ -35,11 +37,18 @@ try{
   
   [IO.File]::WriteAllText($browserProj, $contents)
   
-  Write-Host "Removing x64 and AnyCPU from CefSharp props..."
+  Write-Host "Removing x64 and AnyCPU from package files..."
   
   foreach($file in $propsFiles){
     $contents = [IO.File]::ReadAllText($file)
     $contents = $contents -Replace '(?<=<When Condition=")(''\$\(Platform\)'' == ''(AnyCPU|x64)'')(?=">)', 'false'
+    
+    [IO.File]::WriteAllText($file, $contents)
+  }
+  
+  foreach($file in $targetFiles){
+    $contents = [IO.File]::ReadAllText($file)
+    $contents = $contents -Replace '(?<=<ItemGroup Condition=")(''\$\(Platform\)'' == ''(AnyCPU|x64)'')(?=">)', 'false'
     
     [IO.File]::WriteAllText($file, $contents)
   }
