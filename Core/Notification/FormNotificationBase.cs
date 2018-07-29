@@ -10,7 +10,7 @@ using TweetDuck.Core.Other.Analytics;
 using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Notification{
-    partial class FormNotificationBase : Form, AnalyticsFile.IProvider{
+    abstract partial class FormNotificationBase : Form, AnalyticsFile.IProvider{
         protected static UserConfig Config => Program.Config.User;
 
         protected static int FontSizeLevel{
@@ -186,9 +186,7 @@ namespace TweetDuck.Core.Notification{
             }
         }
 
-        protected virtual string GetTweetHTML(TweetNotification tweet){
-            return tweet.GenerateHtml(IsCursorOverBrowser ? "td-notification td-hover" : "td-notification", this);
-        }
+        protected abstract string GetTweetHTML(TweetNotification tweet);
 
         protected virtual void LoadTweet(TweetNotification tweet){
             currentNotification = tweet;

@@ -9,7 +9,7 @@ namespace TweetDuck.Core.Notification.Example{
     sealed class FormNotificationExample : FormNotificationMain{
         public override bool RequiresResize => true;
         protected override bool CanDragWindow => Config.NotificationPosition == TweetNotification.Position.Custom;
-        
+
         protected override FormBorderStyle NotificationBorderStyle{
             get{
                 if (Config.NotificationSize == TweetNotification.Size.Custom){
@@ -22,6 +22,8 @@ namespace TweetDuck.Core.Notification.Example{
                 return base.NotificationBorderStyle;
             }
         }
+
+        protected override string BodyClasses => base.BodyClasses+" td-example";
 
         public event EventHandler Ready;
 
@@ -36,7 +38,7 @@ namespace TweetDuck.Core.Notification.Example{
             exampleTweetHTML = exampleTweetHTML.Replace("</p>", @"</p><div style='margin-top:256px'>Scrollbar test padding...</div>");
             #endif
 
-            exampleNotification = TweetNotification.Example(exampleTweetHTML, 176);
+            exampleNotification = new TweetNotification(string.Empty, string.Empty, "Home", exampleTweetHTML, 176, string.Empty, string.Empty);
         }
 
         private void browser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e){

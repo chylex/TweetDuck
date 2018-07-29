@@ -104,7 +104,7 @@ html[data-td-font='smallest'] .fullname-badged:before, html[data-td-font='small'
   vertical-align: sub !important;
   margin-right: 4px !important;
 }
-      
+
 .td-notification-padded .item-img {
   position: absolute;
   left: 21px;
@@ -157,6 +157,10 @@ html[data-td-font='smallest'] .fullname-badged:before, html[data-td-font='small'
   cursor: pointer;
   opacity: 0;
   transition: opacity 0.15s ease;
+}
+
+.td-example #td-skip {
+  display: none;
 }
 
 .td-hover #td-skip {

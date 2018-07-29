@@ -10,11 +10,7 @@ namespace TweetDuck.Core.Notification{
     sealed class TweetNotification{
         private const string DefaultHeadLayout = @"<html class=""scroll-v os-windows dark txt-size--14"" lang=""en-US"" id=""tduck"" data-td-font=""medium"" data-td-theme=""dark""><head><meta charset=""utf-8""><link href=""https://ton.twimg.com/tweetdeck-web/web/dist/bundle.4b1f87e09d.css"" rel=""stylesheet""><style type='text/css'>body { background: rgb(34, 36, 38) !important }</style>";
         public static readonly ResourceLink AppLogo = new ResourceLink("https://ton.twimg.com/tduck/avatar", ResourceHandler.FromByteArray(Properties.Resources.avatar, "image/png"));
-
-        public static TweetNotification Example(string html, int characters){
-            return new TweetNotification(string.Empty, string.Empty, "Home", html, characters, string.Empty, string.Empty, true);
-        }
-
+        
         public enum Position{
             TopLeft, TopRight, BottomLeft, BottomRight, Custom
         }
@@ -32,11 +28,8 @@ namespace TweetDuck.Core.Notification{
         
         private readonly string html;
         private readonly int characters;
-        private readonly bool isExample;
-
-        public TweetNotification(string columnId, string chirpId, string title, string html, int characters, string tweetUrl, string quoteUrl) : this(columnId, chirpId, title, html, characters, tweetUrl, quoteUrl, false){}
-
-        private TweetNotification(string columnId, string chirpId, string title, string html, int characters, string tweetUrl, string quoteUrl, bool isExample){
+        
+        public TweetNotification(string columnId, string chirpId, string title, string html, int characters, string tweetUrl, string quoteUrl){
             this.ColumnId = columnId;
             this.ChirpId = chirpId;
 
@@ -46,7 +39,6 @@ namespace TweetDuck.Core.Notification{
 
             this.html = html;
             this.characters = characters;
-            this.isExample = isExample;
         }
 
         public int GetDisplayDuration(int value){
@@ -70,7 +62,7 @@ namespace TweetDuck.Core.Notification{
                 build.Append(' ').Append(bodyClasses);
             }
 
-            build.Append('\'').Append(isExample ? " td-example-notification" : "").Append("><div class='column' style='width:100%!important;min-height:100vh!important;height:auto!important;overflow:initial!important;'>");
+            build.Append("'><div class='column' style='width:100%!important;min-height:100vh!important;height:auto!important;overflow:initial!important;'>");
             build.Append(html);
             build.Append("</div></body>");
             build.Append("</html>");

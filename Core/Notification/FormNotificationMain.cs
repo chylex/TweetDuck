@@ -67,6 +67,8 @@ namespace TweetDuck.Core.Notification{
                 }
             }
         }
+
+        protected virtual string BodyClasses => IsCursorOverBrowser ? "td-notification td-hover" : "td-notification";
         
         public Size BrowserSize => Config.DisplayNotificationTimer ? new Size(ClientSize.Width, ClientSize.Height-timerBarHeight) : ClientSize;
 
@@ -181,9 +183,11 @@ namespace TweetDuck.Core.Notification{
         }
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
-            if (e.Frame.IsMain && browser.Address != "about:blank"){
-                e.Frame.ExecuteJavaScriptAsync(PropertyBridge.GenerateScript(PropertyBridge.Environment.Notification));
-                ScriptLoader.ExecuteScript(e.Frame, ScriptLoader.LoadResource("notification.js", this), "root:notification");
+            IFrame frame = e.Frame;
+
+            if (frame.IsMain && browser.Address != "about:blank"){
+                frame.ExecuteJavaScriptAsync(PropertyBridge.GenerateScript(PropertyBridge.Environment.Notification));
+                ScriptLoader.ExecuteFile(frame, "notification.js", this);
             }
         }
 
@@ -247,7 +251,7 @@ namespace TweetDuck.Core.Notification{
         }
 
         protected override string GetTweetHTML(TweetNotification tweet){
-            string html = base.GetTweetHTML(tweet);
+            string html = tweet.GenerateHtml(BodyClasses, this);
 
             foreach(InjectedHTML injection in plugins.NotificationInjections){
                 html = injection.InjectInto(html);
