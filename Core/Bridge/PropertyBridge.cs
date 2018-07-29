@@ -12,7 +12,7 @@ namespace TweetDuck.Core.Bridge{
             string Str(string value) => '"'+value+"\";";
 
             UserConfig config = Program.Config.User;
-            StringBuilder build = new StringBuilder().Append("(function(x){");
+            StringBuilder build = new StringBuilder(128).Append("(function(x){");
 
             build.Append("x.expandLinksOnHover=").Append(Bool(config.ExpandLinksOnHover));
             

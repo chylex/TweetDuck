@@ -23,7 +23,7 @@ namespace TweetDuck.Core.Bridge{
 
         public static void RestoreSessionData(IFrame frame){
             if (SessionData.Count > 0){
-                StringBuilder build = new StringBuilder().Append("window.TD_SESSION={");
+                StringBuilder build = new StringBuilder(22).Append("window.TD_SESSION={");
                 
                 foreach(KeyValuePair<string, string> kvp in SessionData){
                     build.Append(kvp.Key).Append(":'").Append(kvp.Value.Replace("'", "\\'")).Append("',");

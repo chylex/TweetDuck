@@ -46,17 +46,20 @@ namespace TweetDuck.Core.Notification{
         }
 
         public string GenerateHtml(string bodyClasses, Control sync){
-            StringBuilder build = new StringBuilder();
+            string headLayout = TweetDeckBridge.NotificationHeadLayout ?? DefaultHeadLayout;
+            string mainCSS = ScriptLoader.LoadResource("styles/notification.css", sync) ?? string.Empty;
+            string customCSS = Program.Config.User.CustomNotificationCSS ?? string.Empty;
+            
+            StringBuilder build = new StringBuilder(320 + headLayout.Length + mainCSS.Length + customCSS.Length + html.Length);
             build.Append("<!DOCTYPE html>");
-            build.Append(TweetDeckBridge.NotificationHeadLayout ?? DefaultHeadLayout);
-            build.Append("<style type='text/css'>").Append(ScriptLoader.LoadResource("styles/notification.css", sync) ?? string.Empty).Append("</style>");
+            build.Append(headLayout);
+            build.Append("<style type='text/css'>").Append(mainCSS).Append("</style>");
 
-            if (!string.IsNullOrEmpty(Program.Config.User.CustomNotificationCSS)){
-                build.Append("<style type='text/css'>").Append(Program.Config.User.CustomNotificationCSS).Append("</style>");
+            if (!string.IsNullOrWhiteSpace(customCSS)){
+                build.Append("<style type='text/css'>").Append(customCSS).Append("</style>");
             }
             
-            build.Append("</head>");
-            build.Append("<body class='scroll-styled-v");
+            build.Append("</head><body class='scroll-styled-v");
 
             if (!string.IsNullOrEmpty(bodyClasses)){
                 build.Append(' ').Append(bodyClasses);
@@ -64,8 +67,7 @@ namespace TweetDuck.Core.Notification{
 
             build.Append("'><div class='column' style='width:100%!important;min-height:100vh!important;height:auto!important;overflow:initial!important;'>");
             build.Append(html);
-            build.Append("</div></body>");
-            build.Append("</html>");
+            build.Append("</div></body></html>");
             return build.ToString();
         }
     }

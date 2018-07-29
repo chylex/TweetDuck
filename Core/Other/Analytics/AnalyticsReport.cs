@@ -40,7 +40,7 @@ namespace TweetDuck.Core.Other.Analytics{
         }
 
         public override string ToString(){
-            StringBuilder build = new StringBuilder();
+            StringBuilder build = new StringBuilder(625);
 
             foreach(DictionaryEntry entry in data){
                 if (entry.Value == null){
