@@ -6,6 +6,7 @@ using System.IO;
 using System.Net;
 using System.Windows.Forms;
 using CefSharp.WinForms;
+using TweetDuck.Configuration;
 using TweetDuck.Core.Other;
 using TweetDuck.Data;
 
@@ -15,6 +16,9 @@ namespace TweetDuck.Core.Utils{
         public static string UserAgentChrome => "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/"+Cef.ChromiumVersion+" Safari/537.36";
 
         public static readonly bool HasDevTools = File.Exists(Path.Combine(Program.ProgramPath, "devtools_resources.pak"));
+
+        private static UserConfig Config => Program.Config.User;
+        private static SystemConfig SysConfig => Program.Config.System;
         
         public static void SetupCefArgs(IDictionary<string, string> args){
             if (!Program.SystemConfig.HardwareAcceleration){
@@ -69,6 +73,21 @@ namespace TweetDuck.Core.Utils{
 
         public static void SetupResourceHandler(this ChromiumWebBrowser browser, ResourceLink resource){
             browser.SetupResourceHandler(resource.Url, resource.Handler);
+        }
+
+        public static void SetupZoomEvents(this ChromiumWebBrowser browser){
+            void UpdateZoomLevel(object sender, EventArgs args){
+                SetZoomLevel(browser.GetBrowser(), Config.ZoomLevel);
+            }
+
+            Config.ZoomLevelChanged += UpdateZoomLevel;
+            browser.Disposed += (sender, args) => Config.ZoomLevelChanged -= UpdateZoomLevel;
+
+            browser.FrameLoadStart += (sender, args) => {
+                if (args.Frame.IsMain && Config.ZoomLevel != 100){
+                    SetZoomLevel(args.Browser, Config.ZoomLevel);
+                }
+            };
         }
 
         private const string TwitterTrackingUrl = "t.co";

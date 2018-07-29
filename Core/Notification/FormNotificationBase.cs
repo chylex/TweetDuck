@@ -130,8 +130,9 @@ namespace TweetDuck.Core.Notification{
             this.browser.Dock = DockStyle.None;
             this.browser.ClientSize = ClientSize;
             
-            browser.SetupResourceHandler(TwitterUtils.TweetDeckURL, this.resourceHandler);
-            browser.SetupResourceHandler(TweetNotification.AppLogo);
+            this.browser.SetupResourceHandler(TwitterUtils.TweetDeckURL, this.resourceHandler);
+            this.browser.SetupResourceHandler(TweetNotification.AppLogo);
+            this.browser.SetupZoomEvents();
 
             Controls.Add(browser);
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 using CefSharp;
 using CefSharp.WinForms;
@@ -15,7 +14,7 @@ namespace TweetDuck.Core.Other{
     sealed partial class FormGuide : Form, FormManager.IAppDialog{
         private const string GuideUrl = "https://tweetduck.chylex.com/guide/v2/";
         private const string GuidePathRegex = @"^guide(?:/v\d+)?(?:/(#.*))?";
-
+        
         private static readonly ResourceLink DummyPage = new ResourceLink("http://td/dummy", ResourceHandler.FromString(""));
 
         public static bool CheckGuideUrl(string url, out string hash){
@@ -73,7 +72,6 @@ namespace TweetDuck.Core.Other{
             };
 
             browser.LoadingStateChanged += browser_LoadingStateChanged;
-            browser.FrameLoadStart += browser_FrameLoadStart;
             browser.FrameLoadEnd += browser_FrameLoadEnd;
             
             browser.BrowserSettings.BackgroundColor = (uint)BackColor.ToArgb();
@@ -81,15 +79,13 @@ namespace TweetDuck.Core.Other{
             browser.Location = ControlExtensions.InvisibleLocation;
 
             browser.SetupResourceHandler(DummyPage);
+            browser.SetupZoomEvents();
 
             Controls.Add(browser);
 
             Disposed += (sender, args) => {
-                Program.UserConfig.ZoomLevelChanged -= Config_ZoomLevelChanged;
                 browser.Dispose();
             };
-
-            Program.UserConfig.ZoomLevelChanged += Config_ZoomLevelChanged;
         }
 
         private void Reload(string url){
@@ -116,16 +112,8 @@ namespace TweetDuck.Core.Other{
             }
         }
 
-        private void browser_FrameLoadStart(object sender, FrameLoadStartEventArgs e){
-            BrowserUtils.SetZoomLevel(browser.GetBrowser(), Program.UserConfig.ZoomLevel);
-        }
-
         private void browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             ScriptLoader.ExecuteScript(e.Frame, "Array.prototype.forEach.call(document.getElementsByTagName('A'), ele => ele.addEventListener('click', e => { e.preventDefault(); window.open(ele.getAttribute('href')); }))", "gen:links");
-        }
-
-        private void Config_ZoomLevelChanged(object sender, EventArgs e){
-            BrowserUtils.SetZoomLevel(browser.GetBrowser(), Program.UserConfig.ZoomLevel);
         }
     }
 }

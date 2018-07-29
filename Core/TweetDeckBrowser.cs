@@ -70,7 +70,7 @@ namespace TweetDuck.Core{
             owner.Controls.Add(browser);
             
             Program.UserConfig.MuteToggled += UserConfig_MuteToggled;
-            Program.UserConfig.ZoomLevelChanged += UserConfig_ZoomLevelChanged;
+            this.browser.SetupZoomEvents();
             Program.UserConfig.SoundNotificationChanged += UserConfig_SoundNotificationInfoChanged;
         }
 
@@ -90,7 +90,6 @@ namespace TweetDuck.Core{
 
         public void Dispose(){
             Program.UserConfig.MuteToggled -= UserConfig_MuteToggled;
-            Program.UserConfig.ZoomLevelChanged -= UserConfig_ZoomLevelChanged;
             Program.UserConfig.SoundNotificationChanged -= UserConfig_SoundNotificationInfoChanged;
             
             browser.Dispose();
@@ -131,10 +130,6 @@ namespace TweetDuck.Core{
             IFrame frame = e.Frame;
 
             if (frame.IsMain){
-                if (Program.UserConfig.ZoomLevel != 100){
-                    BrowserUtils.SetZoomLevel(browser.GetBrowser(), Program.UserConfig.ZoomLevel);
-                }
-
                 if (TwitterUtils.IsTwitterWebsite(frame)){
                     ScriptLoader.ExecuteFile(frame, "twitter.js", browser);
                 }
@@ -187,10 +182,6 @@ namespace TweetDuck.Core{
 
         private void UserConfig_MuteToggled(object sender, EventArgs e){
             UpdateProperties();
-        }
-
-        private void UserConfig_ZoomLevelChanged(object sender, EventArgs e){
-            BrowserUtils.SetZoomLevel(browser.GetBrowser(), Program.UserConfig.ZoomLevel);
         }
 
         private void UserConfig_SoundNotificationInfoChanged(object sender, EventArgs e){
