@@ -20,7 +20,7 @@ using TweetDuck.Updates;
 
 namespace TweetDuck.Core{
     sealed partial class FormBrowser : Form, AnalyticsFile.IProvider{
-        private static UserConfig Config => Program.UserConfig;
+        private static UserConfig Config => Program.Config.User;
 
         public bool IsWaiting{
             set{

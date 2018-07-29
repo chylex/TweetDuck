@@ -13,7 +13,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
         private readonly Action<string> reinjectBrowserCSS;
         private readonly Action openDevTools;
 
-        public DialogSettingsCSS(Action<string> reinjectBrowserCSS, Action openDevTools){
+        public DialogSettingsCSS(string browserCSS, string notificationCSS, Action<string> reinjectBrowserCSS, Action openDevTools){
             InitializeComponent();
             
             Text = Program.BrandName+" Options - CSS";
@@ -22,10 +22,10 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
             this.openDevTools = openDevTools;
             
             textBoxBrowserCSS.EnableMultilineShortcuts();
-            textBoxBrowserCSS.Text = Program.UserConfig.CustomBrowserCSS ?? "";
+            textBoxBrowserCSS.Text = browserCSS ?? "";
 
             textBoxNotificationCSS.EnableMultilineShortcuts();
-            textBoxNotificationCSS.Text = Program.UserConfig.CustomNotificationCSS ?? "";
+            textBoxNotificationCSS.Text = notificationCSS ?? "";
 
             if (!BrowserUtils.HasDevTools){
                 btnOpenDevTools.Enabled = false;

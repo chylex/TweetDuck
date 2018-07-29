@@ -6,6 +6,7 @@ using CefSharp;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
 using System.Linq;
+using TweetDuck.Configuration;
 using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Management;
 using TweetDuck.Core.Notification;
@@ -15,7 +16,9 @@ using TweetDuck.Resources;
 
 namespace TweetDuck.Core.Handling{
     abstract class ContextMenuBase : IContextMenuHandler{
-        private static TwitterUtils.ImageQuality ImageQuality => Program.UserConfig.TwitterImageQuality;
+        protected static UserConfig Config => Program.Config.User;
+
+        private static TwitterUtils.ImageQuality ImageQuality => Config.TwitterImageQuality;
         
         private const CefMenuCommand MenuOpenLinkUrl     = (CefMenuCommand)26500;
         private const CefMenuCommand MenuCopyLinkUrl     = (CefMenuCommand)26501;

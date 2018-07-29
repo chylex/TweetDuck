@@ -8,11 +8,11 @@ using TweetDuck.Resources;
 namespace TweetDuck.Core.Notification.Example{
     sealed class FormNotificationExample : FormNotificationMain{
         public override bool RequiresResize => true;
-        protected override bool CanDragWindow => Program.UserConfig.NotificationPosition == TweetNotification.Position.Custom;
+        protected override bool CanDragWindow => Config.NotificationPosition == TweetNotification.Position.Custom;
         
         protected override FormBorderStyle NotificationBorderStyle{
             get{
-                if (Program.UserConfig.NotificationSize == TweetNotification.Size.Custom){
+                if (Config.NotificationSize == TweetNotification.Size.Custom){
                     switch(base.NotificationBorderStyle){
                         case FormBorderStyle.FixedSingle: return FormBorderStyle.Sizable;
                         case FormBorderStyle.FixedToolWindow: return FormBorderStyle.SizableToolWindow;

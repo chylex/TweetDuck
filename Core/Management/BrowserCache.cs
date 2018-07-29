@@ -28,7 +28,7 @@ namespace TweetDuck.Core.Management{
         }
         
         public static void RefreshTimer(){
-            bool shouldRun = Program.SystemConfig.ClearCacheAutomatically && !ClearOnExit;
+            bool shouldRun = Program.Config.System.ClearCacheAutomatically && !ClearOnExit;
 
             if (!shouldRun && AutoClearTimer != null){
                 AutoClearTimer.Dispose();
@@ -38,7 +38,7 @@ namespace TweetDuck.Core.Management{
                 AutoClearTimer = new Timer(state => {
                     if (AutoClearTimer != null){
                         try{
-                            if (CalculateCacheSize() >= Program.SystemConfig.ClearCacheThreshold*1024L*1024L){
+                            if (CalculateCacheSize() >= Program.Config.System.ClearCacheThreshold*1024L*1024L){
                                 SetClearOnExit();
                             }
                         }catch(Exception){

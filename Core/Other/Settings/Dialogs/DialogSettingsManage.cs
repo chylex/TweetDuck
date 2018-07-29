@@ -125,11 +125,11 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                         Program.Config.ProgramRestartRequested += Config_ProgramRestartRequested;
 
                         if (SelectedItems.HasFlag(ProfileManager.Items.UserConfig)){
-                            Program.UserConfig.Reset();
+                            Program.Config.User.Reset();
                         }
 
                         if (SelectedItems.HasFlag(ProfileManager.Items.SystemConfig)){
-                            Program.SystemConfig.Reset();
+                            Program.Config.System.Reset();
                         }
 
                         Program.Config.ProgramRestartRequested -= Config_ProgramRestartRequested;

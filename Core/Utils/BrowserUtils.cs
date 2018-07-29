@@ -21,12 +21,12 @@ namespace TweetDuck.Core.Utils{
         private static SystemConfig SysConfig => Program.Config.System;
         
         public static void SetupCefArgs(IDictionary<string, string> args){
-            if (!Program.SystemConfig.HardwareAcceleration){
+            if (!SysConfig.HardwareAcceleration){
                 args["disable-gpu"] = "1";
                 args["disable-gpu-vsync"] = "1";
             }
 
-            if (Program.UserConfig.EnableSmoothScrolling){
+            if (Config.EnableSmoothScrolling){
                 args["disable-threaded-scrolling"] = "1";
 
                 if (args.TryGetValue("disable-features", out string disabledFeatures)){
@@ -40,7 +40,7 @@ namespace TweetDuck.Core.Utils{
                 args["disable-smooth-scrolling"] = "1";
             }
 
-            if (!Program.UserConfig.EnableTouchAdjustment){
+            if (!Config.EnableTouchAdjustment){
                 args["disable-touch-adjustment"] = "1";
             }
             
@@ -117,7 +117,7 @@ namespace TweetDuck.Core.Utils{
                         FormGuide.Show(hash);
                     }
                     else{
-                        string browserPath = Program.UserConfig.BrowserPath;
+                        string browserPath = Config.BrowserPath;
 
                         if (browserPath == null || !File.Exists(browserPath)){
                             WindowsUtils.OpenAssociatedProgram(url);
@@ -134,7 +134,7 @@ namespace TweetDuck.Core.Utils{
                     break;
 
                 case UrlCheckResult.Tracking:
-                    if (Program.UserConfig.IgnoreTrackingUrlWarning){
+                    if (Config.IgnoreTrackingUrlWarning){
                         goto case UrlCheckResult.Fine;
                     }
 
@@ -146,8 +146,8 @@ namespace TweetDuck.Core.Utils{
                         DialogResult result = form.ShowDialog();
 
                         if (result == DialogResult.Ignore){
-                            Program.UserConfig.IgnoreTrackingUrlWarning = true;
-                            Program.UserConfig.Save();
+                            Config.IgnoreTrackingUrlWarning = true;
+                            Config.Save();
                         }
 
                         if (result == DialogResult.Ignore || result == DialogResult.Yes){
@@ -166,7 +166,7 @@ namespace TweetDuck.Core.Utils{
         public static void OpenExternalSearch(string query){
             if (string.IsNullOrWhiteSpace(query))return;
             
-            string searchUrl = Program.UserConfig.SearchEngineUrl;
+            string searchUrl = Config.SearchEngineUrl;
             
             if (string.IsNullOrEmpty(searchUrl)){
                 if (FormMessage.Question("Search Options", "You have not configured a default search engine yet, would you like to do it now?", FormMessage.Yes, FormMessage.No)){
@@ -179,7 +179,7 @@ namespace TweetDuck.Core.Utils{
                     if (settings == null)return;
 
                     settings.FormClosed += (sender, args) => {
-                        if (args.CloseReason == CloseReason.UserClosing && Program.UserConfig.SearchEngineUrl != searchUrl){
+                        if (args.CloseReason == CloseReason.UserClosing && Config.SearchEngineUrl != searchUrl){
                             OpenExternalSearch(query);
                         }
                     };

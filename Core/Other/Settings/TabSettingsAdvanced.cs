@@ -103,7 +103,7 @@ namespace TweetDuck.Core.Other.Settings{
         #region Configuration
 
         private void btnEditCefArgs_Click(object sender, EventArgs e){
-            DialogSettingsCefArgs form = new DialogSettingsCefArgs();
+            DialogSettingsCefArgs form = new DialogSettingsCefArgs(Config.CustomCefArgs);
 
             form.VisibleChanged += (sender2, args2) => {
                 form.MoveToCenter(ParentForm);
@@ -124,7 +124,7 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void btnEditCSS_Click(object sender, EventArgs e){
-            DialogSettingsCSS form = new DialogSettingsCSS(reinjectBrowserCSS, openDevTools);
+            DialogSettingsCSS form = new DialogSettingsCSS(Config.CustomBrowserCSS, Config.CustomNotificationCSS, reinjectBrowserCSS, openDevTools);
 
             form.VisibleChanged += (sender2, args2) => {
                 form.MoveToCenter(ParentForm);

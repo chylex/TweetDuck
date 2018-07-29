@@ -119,8 +119,8 @@ namespace TweetDuck.Core.Other.Analytics{
             }.FinalizeReport();
         }
 
-        private static UserConfig UserConfig => Program.UserConfig;
-        private static SystemConfig SysConfig => Program.SystemConfig;
+        private static UserConfig UserConfig => Program.Config.User;
+        private static SystemConfig SysConfig => Program.Config.System;
 
         private static string Bool(bool value) => value ? "on" : "off";
         private static string Exact(int value) => value.ToString();

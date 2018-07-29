@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
+using TweetDuck.Configuration;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Utils;
@@ -9,6 +10,8 @@ using TweetLib.Communication;
 
 namespace TweetDuck.Core.Management{
     sealed class VideoPlayer : IDisposable{
+        private static UserConfig Config => Program.Config.User;
+
         public bool Running => currentInstance != null && currentInstance.Running;
 
         public event EventHandler ProcessExited;
@@ -37,7 +40,7 @@ namespace TweetDuck.Core.Management{
 
                 if ((process = Process.Start(new ProcessStartInfo{
                     FileName = Path.Combine(Program.ProgramPath, "TweetDuck.Video.exe"),
-                    Arguments = $"{owner.Handle} {Program.UserConfig.VideoPlayerVolume} \"{url}\" \"{pipe.GenerateToken()}\"",
+                    Arguments = $"{owner.Handle} {Config.VideoPlayerVolume} \"{url}\" \"{pipe.GenerateToken()}\"",
                     UseShellExecute = false,
                     RedirectStandardOutput = true
                 })) != null){
@@ -68,9 +71,9 @@ namespace TweetDuck.Core.Management{
             owner.InvokeSafe(() => {
                 switch(e.Key){
                     case "vol":
-                        if (int.TryParse(e.Data, out int volume) && volume != Program.UserConfig.VideoPlayerVolume){
-                            Program.UserConfig.VideoPlayerVolume = volume;
-                            Program.UserConfig.Save();
+                        if (int.TryParse(e.Data, out int volume) && volume != Config.VideoPlayerVolume){
+                            Config.VideoPlayerVolume = volume;
+                            Config.Save();
                         }
 
                         break;

@@ -8,13 +8,15 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
     sealed partial class DialogSettingsCefArgs : Form{
         public string CefArgs => textBoxArgs.Text;
 
-        public DialogSettingsCefArgs(){
+        private readonly string initialArgs;
+
+        public DialogSettingsCefArgs(string args){
             InitializeComponent();
             
             Text = Program.BrandName+" Options - CEF Arguments";
             
             textBoxArgs.EnableMultilineShortcuts();
-            textBoxArgs.Text = Program.UserConfig.CustomCefArgs ?? "";
+            textBoxArgs.Text = initialArgs = args ?? "";
             textBoxArgs.Select(textBoxArgs.Text.Length, 0);
         }
 
@@ -23,16 +25,14 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
         }
 
         private void btnApply_Click(object sender, EventArgs e){
-            string prevArgs = Program.UserConfig.CustomCefArgs;
-
-            if (CefArgs == prevArgs){
+            if (CefArgs == initialArgs){
                 DialogResult = DialogResult.Cancel;
                 Close();
                 return;
             }
 
             int count = CommandLineArgs.ReadCefArguments(CefArgs).Count;
-            string prompt = count == 0 && !string.IsNullOrWhiteSpace(prevArgs) ? "All current arguments will be removed. Continue?" : count+(count == 1 ? " argument was" : " arguments were")+" detected. Continue?";
+            string prompt = count == 0 && !string.IsNullOrWhiteSpace(initialArgs) ? "All current arguments will be removed. Continue?" : count+(count == 1 ? " argument was" : " arguments were")+" detected. Continue?";
 
             if (FormMessage.Question("Confirm CEF Arguments", prompt, FormMessage.OK, FormMessage.Cancel)){
                 DialogResult = DialogResult.OK;

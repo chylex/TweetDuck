@@ -49,11 +49,7 @@ namespace TweetDuck{
         public static CultureInfo Culture { get; }
         public static Reporter Reporter { get; }
         public static ConfigManager Config { get; }
-
-        // TODO
-        public static UserConfig UserConfig => Config.User;
-        public static SystemConfig SystemConfig => Config.System;
-
+        
         static Program(){
             Culture = CultureInfo.CurrentCulture;
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
@@ -147,7 +143,7 @@ namespace TweetDuck{
                 #endif
             };
             
-            CommandLineArgs.ReadCefArguments(UserConfig.CustomCefArgs).ToDictionary(settings.CefCommandLineArgs);
+            CommandLineArgs.ReadCefArguments(Config.User.CustomCefArgs).ToDictionary(settings.CefCommandLineArgs);
             BrowserUtils.SetupCefArgs(settings.CefCommandLineArgs);
             
             Cef.Initialize(settings, false, new BrowserProcessHandler());

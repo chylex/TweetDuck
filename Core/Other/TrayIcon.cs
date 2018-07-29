@@ -10,7 +10,7 @@ namespace TweetDuck.Core.Other{
             Disabled, DisplayOnly, MinimizeToTray, CloseToTray, Combined
         }
 
-        private static UserConfig Config => Program.UserConfig;
+        private static UserConfig Config => Program.Config.User;
 
         public event EventHandler ClickRestore;
         public event EventHandler ClickClose;
@@ -56,6 +56,7 @@ namespace TweetDuck.Core.Other{
             this.notifyIcon.Text = Program.BrandName;
 
             Config.MuteToggled += Config_MuteToggled;
+            Disposed += (sender, args) => Config.MuteToggled -= Config_MuteToggled;
         }
 
         public TrayIcon(IContainer container) : this(){

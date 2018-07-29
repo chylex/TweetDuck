@@ -16,6 +16,8 @@ using TweetDuck.Resources;
 
 namespace TweetDuck.Core{
     sealed class TweetDeckBrowser : ITweetDeckBrowser, IDisposable{
+        private static UserConfig Config => Program.Config.User;
+
         public bool Ready { get; private set; }
 
         public bool Enabled{
@@ -66,12 +68,12 @@ namespace TweetDuck.Core{
 
             this.browser.SetupResourceHandler(TweetNotification.AppLogo);
             this.browser.SetupResourceHandler(TwitterUtils.LoadingSpinner);
+            this.browser.SetupZoomEvents();
 
             owner.Controls.Add(browser);
             
-            Program.UserConfig.MuteToggled += UserConfig_MuteToggled;
-            this.browser.SetupZoomEvents();
-            Program.UserConfig.SoundNotificationChanged += UserConfig_SoundNotificationInfoChanged;
+            Config.MuteToggled += Config_MuteToggled;
+            Config.SoundNotificationChanged += Config_SoundNotificationInfoChanged;
         }
 
         // setup and management
@@ -89,8 +91,8 @@ namespace TweetDuck.Core{
         }
 
         public void Dispose(){
-            Program.UserConfig.MuteToggled -= UserConfig_MuteToggled;
-            Program.UserConfig.SoundNotificationChanged -= UserConfig_SoundNotificationInfoChanged;
+            Config.MuteToggled -= Config_MuteToggled;
+            Config.SoundNotificationChanged -= Config_SoundNotificationInfoChanged;
             
             browser.Dispose();
         }
@@ -148,8 +150,8 @@ namespace TweetDuck.Core{
                     ScriptLoader.ExecuteFile(frame, "code.js", browser);
 
                     InjectBrowserCSS();
-                    ReinjectCustomCSS(Program.UserConfig.CustomBrowserCSS);
-                    UserConfig_SoundNotificationInfoChanged(null, EventArgs.Empty);
+                    ReinjectCustomCSS(Config.CustomBrowserCSS);
+                    Config_SoundNotificationInfoChanged(null, EventArgs.Empty);
 
                     TweetDeckBridge.ResetStaticProperties();
 
@@ -157,7 +159,7 @@ namespace TweetDuck.Core{
                         ScriptLoader.ExecuteScript(frame, "TD.storage.Account.prototype.requiresConsent = function(){ return false; }", "gen:gdpr");
                     }
 
-                    if (Program.UserConfig.FirstRun){
+                    if (Config.FirstRun){
                         ScriptLoader.ExecuteFile(frame, "introduction.js", browser);
                     }
                 }
@@ -180,20 +182,22 @@ namespace TweetDuck.Core{
             }
         }
 
-        private void UserConfig_MuteToggled(object sender, EventArgs e){
+        private void Config_MuteToggled(object sender, EventArgs e){
             UpdateProperties();
         }
 
-        private void UserConfig_SoundNotificationInfoChanged(object sender, EventArgs e){
+        private void Config_SoundNotificationInfoChanged(object sender, EventArgs e){
             const string soundUrl = "https://ton.twimg.com/tduck/updatesnd";
-            bool hasCustomSound = Program.UserConfig.IsCustomSoundNotificationSet;
 
-            if (prevSoundNotificationPath != Program.UserConfig.NotificationSoundPath){
-                browser.SetupResourceHandler(soundUrl, hasCustomSound ? SoundNotification.CreateFileHandler(Program.UserConfig.NotificationSoundPath) : null);
-                prevSoundNotificationPath = Program.UserConfig.NotificationSoundPath;
+            bool hasCustomSound = Config.IsCustomSoundNotificationSet;
+            string newNotificationPath = Config.NotificationSoundPath;
+
+            if (prevSoundNotificationPath != newNotificationPath){
+                browser.SetupResourceHandler(soundUrl, hasCustomSound ? SoundNotification.CreateFileHandler(newNotificationPath) : null);
+                prevSoundNotificationPath = newNotificationPath;
             }
 
-            browser.ExecuteScriptAsync("TDGF_setSoundNotificationData", hasCustomSound, Program.UserConfig.NotificationSoundVolume);
+            browser.ExecuteScriptAsync("TDGF_setSoundNotificationData", hasCustomSound, Config.NotificationSoundVolume);
         }
 
         // external handling

@@ -77,7 +77,7 @@ namespace TweetDuck.Core.Handling{
             
                 globalMenu.AddItem(CefMenuCommand.Reload, TitleReloadBrowser);
                 globalMenu.AddCheckItem(MenuMute, TitleMuteNotifications);
-                globalMenu.SetChecked(MenuMute, Program.UserConfig.MuteNotifications);
+                globalMenu.SetChecked(MenuMute, Config.MuteNotifications);
                 globalMenu.AddSeparator();
 
                 globalMenu.AddItem(MenuSettings, TitleSettings);
@@ -163,7 +163,7 @@ namespace TweetDuck.Core.Handling{
             menu.MenuItems.Add(TitleAboutProgram,  (sender, args) => form.OpenAbout());
 
             menu.Popup += (sender, args) => {
-                menu.MenuItems[1].Checked = Program.UserConfig.MuteNotifications;
+                menu.MenuItems[1].Checked = Config.MuteNotifications;
                 form.AnalyticsFile.BrowserContextMenus.Trigger();
             };
 
@@ -171,8 +171,8 @@ namespace TweetDuck.Core.Handling{
         }
 
         private static void ToggleMuteNotifications(){
-            Program.UserConfig.MuteNotifications = !Program.UserConfig.MuteNotifications;
-            Program.UserConfig.Save();
+            Config.MuteNotifications = !Config.MuteNotifications;
+            Config.Save();
         }
     }
 }

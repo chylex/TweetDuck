@@ -39,7 +39,7 @@ namespace TweetDuck.Updates{
 
             timer.Stop();
 
-            if (Program.UserConfig.EnableUpdateCheck){
+            if (Program.Config.User.EnableUpdateCheck){
                 DateTime now = DateTime.Now;
                 TimeSpan nextHour = now.AddSeconds(60*(60-now.Minute)-now.Second)-now;
 
@@ -53,7 +53,7 @@ namespace TweetDuck.Updates{
         }
 
         public int Check(bool force){
-            if (Program.UserConfig.EnableUpdateCheck || force){
+            if (Program.Config.User.EnableUpdateCheck || force){
                 int nextEventId = unchecked(++lastEventId);
                 Task<UpdateInfo> checkTask = client.Check();
 

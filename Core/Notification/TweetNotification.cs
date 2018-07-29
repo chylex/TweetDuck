@@ -59,8 +59,8 @@ namespace TweetDuck.Core.Notification{
             build.Append(TweetDeckBridge.NotificationHeadLayout ?? DefaultHeadLayout);
             build.Append("<style type='text/css'>").Append(ScriptLoader.LoadResource("styles/notification.css", sync) ?? string.Empty).Append("</style>");
 
-            if (!string.IsNullOrEmpty(Program.UserConfig.CustomNotificationCSS)){
-                build.Append("<style type='text/css'>").Append(Program.UserConfig.CustomNotificationCSS).Append("</style>");
+            if (!string.IsNullOrEmpty(Program.Config.User.CustomNotificationCSS)){
+                build.Append("<style type='text/css'>").Append(Program.Config.User.CustomNotificationCSS).Append("</style>");
             }
             
             build.Append("</head>");

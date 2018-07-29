@@ -23,9 +23,9 @@ namespace TweetDuck.Configuration{
         public bool BestImageQuality          { get; set; } = true;
         public bool EnableAnimatedImages      { get; set; } = true;
 
-        public bool _enableSmoothScrolling = true;
-        public bool _enableTouchAdjustment = false;
-        public string _customCefArgs       = null;
+        private bool _enableSmoothScrolling = true;
+        private bool _enableTouchAdjustment = false;
+        private string _customCefArgs       = null;
 
         public string BrowserPath            { get; set; } = null;
         public bool IgnoreTrackingUrlWarning { get; set; } = false;

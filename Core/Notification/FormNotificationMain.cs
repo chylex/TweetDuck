@@ -29,7 +29,7 @@ namespace TweetDuck.Core.Notification{
 
         public virtual bool RequiresResize{
             get{
-                return !prevDisplayTimer.HasValue || !prevFontSize.HasValue || prevDisplayTimer != Program.UserConfig.DisplayNotificationTimer || prevFontSize != FontSizeLevel;
+                return !prevDisplayTimer.HasValue || !prevFontSize.HasValue || prevDisplayTimer != Config.DisplayNotificationTimer || prevFontSize != FontSizeLevel;
             }
 
             set{
@@ -38,7 +38,7 @@ namespace TweetDuck.Core.Notification{
                     prevFontSize = null;
                 }
                 else{
-                    prevDisplayTimer = Program.UserConfig.DisplayNotificationTimer;
+                    prevDisplayTimer = Config.DisplayNotificationTimer;
                     prevFontSize = FontSizeLevel;
                 }
             }
@@ -46,29 +46,29 @@ namespace TweetDuck.Core.Notification{
 
         private int BaseClientWidth{
             get{
-                switch(Program.UserConfig.NotificationSize){
+                switch(Config.NotificationSize){
                     default:
                         return BrowserUtils.Scale(284, SizeScale*(1.0+0.05*FontSizeLevel));
 
                     case TweetNotification.Size.Custom:
-                        return Program.UserConfig.CustomNotificationSize.Width;
+                        return Config.CustomNotificationSize.Width;
                 }
             }
         }
 
         private int BaseClientHeight{
             get{
-                switch(Program.UserConfig.NotificationSize){
+                switch(Config.NotificationSize){
                     default:
                         return BrowserUtils.Scale(122, SizeScale*(1.0+0.08*FontSizeLevel));
 
                     case TweetNotification.Size.Custom:
-                        return Program.UserConfig.CustomNotificationSize.Height;
+                        return Config.CustomNotificationSize.Height;
                 }
             }
         }
         
-        public Size BrowserSize => Program.UserConfig.DisplayNotificationTimer ? new Size(ClientSize.Width, ClientSize.Height-timerBarHeight) : ClientSize;
+        public Size BrowserSize => Config.DisplayNotificationTimer ? new Size(ClientSize.Width, ClientSize.Height-timerBarHeight) : ClientSize;
 
         protected FormNotificationMain(FormBrowser owner, PluginManager pluginManager, bool enableContextMenu) : base(owner, enableContextMenu){
             InitializeComponent();
@@ -131,7 +131,7 @@ namespace TweetDuck.Core.Notification{
                 int eventType = wParam.ToInt32();
 
                 if (eventType == NativeMethods.WM_MOUSEWHEEL && IsCursorOverBrowser){
-                    browser.SendMouseWheelEvent(0, 0, 0, BrowserUtils.Scale(NativeMethods.GetMouseHookData(lParam), Program.UserConfig.NotificationScrollSpeed*0.01), CefEventFlags.None);
+                    browser.SendMouseWheelEvent(0, 0, 0, BrowserUtils.Scale(NativeMethods.GetMouseHookData(lParam), Config.NotificationScrollSpeed*0.01), CefEventFlags.None);
                     return NativeMethods.HOOK_HANDLED;
                 }
                 else if (eventType == NativeMethods.WM_XBUTTONDOWN && DesktopBounds.Contains(Cursor.Position)){
@@ -200,7 +200,7 @@ namespace TweetDuck.Core.Notification{
             timeLeft -= timerProgress.Interval;
 
             int value = BrowserUtils.Scale(progressBarTimer.Maximum+25, (totalTime-timeLeft)/(double)totalTime);
-            progressBarTimer.SetValueInstant(Program.UserConfig.NotificationTimerCountDown ? progressBarTimer.Maximum-value : value);
+            progressBarTimer.SetValueInstant(Config.NotificationTimerCountDown ? progressBarTimer.Maximum-value : value);
 
             if (timeLeft <= 0){
                 FinishCurrentNotification();
@@ -216,7 +216,7 @@ namespace TweetDuck.Core.Notification{
         public override void HideNotification(){
             base.HideNotification();
             
-            progressBarTimer.Value = Program.UserConfig.NotificationTimerCountDown ? progressBarTimer.Maximum : progressBarTimer.Minimum;
+            progressBarTimer.Value = Config.NotificationTimerCountDown ? progressBarTimer.Maximum : progressBarTimer.Minimum;
             timerProgress.Stop();
             totalTime = 0;
 
@@ -258,14 +258,14 @@ namespace TweetDuck.Core.Notification{
 
         protected override void LoadTweet(TweetNotification tweet){
             timerProgress.Stop();
-            totalTime = timeLeft = tweet.GetDisplayDuration(Program.UserConfig.NotificationDurationValue);
-            progressBarTimer.Value = Program.UserConfig.NotificationTimerCountDown ? progressBarTimer.Maximum : progressBarTimer.Minimum;
+            totalTime = timeLeft = tweet.GetDisplayDuration(Config.NotificationDurationValue);
+            progressBarTimer.Value = Config.NotificationTimerCountDown ? progressBarTimer.Maximum : progressBarTimer.Minimum;
 
             base.LoadTweet(tweet);
         }
 
         protected override void SetNotificationSize(int width, int height){
-            if (Program.UserConfig.DisplayNotificationTimer){
+            if (Config.DisplayNotificationTimer){
                 ClientSize = new Size(width, height+timerBarHeight);
                 progressBarTimer.Visible = true;
             }

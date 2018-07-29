@@ -11,6 +11,8 @@ using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Notification{
     partial class FormNotificationBase : Form, AnalyticsFile.IProvider{
+        protected static UserConfig Config => Program.Config.User;
+
         protected static int FontSizeLevel{
             get{
                 switch(TweetDeckBridge.FontSize){
@@ -25,19 +27,18 @@ namespace TweetDuck.Core.Notification{
 
         protected virtual Point PrimaryLocation{
             get{
-                UserConfig config = Program.UserConfig;
                 Screen screen;
 
-                if (config.NotificationDisplay > 0 && config.NotificationDisplay <= Screen.AllScreens.Length){
-                    screen = Screen.AllScreens[config.NotificationDisplay-1];
+                if (Config.NotificationDisplay > 0 && Config.NotificationDisplay <= Screen.AllScreens.Length){
+                    screen = Screen.AllScreens[Config.NotificationDisplay-1];
                 }
                 else{
                     screen = Screen.FromControl(owner);
                 }
             
-                int edgeDist = config.NotificationEdgeDistance;
+                int edgeDist = Config.NotificationEdgeDistance;
 
-                switch(config.NotificationPosition){
+                switch(Config.NotificationPosition){
                     case TweetNotification.Position.TopLeft:
                         return new Point(screen.WorkingArea.X+edgeDist, screen.WorkingArea.Y+edgeDist);
 
@@ -51,12 +52,12 @@ namespace TweetDuck.Core.Notification{
                         return new Point(screen.WorkingArea.X+screen.WorkingArea.Width-edgeDist-Width, screen.WorkingArea.Y+screen.WorkingArea.Height-edgeDist-Height);
 
                     case TweetNotification.Position.Custom:
-                        if (!config.IsCustomNotificationPositionSet){
-                            config.CustomNotificationPosition = new Point(screen.WorkingArea.X+screen.WorkingArea.Width-edgeDist-Width, screen.WorkingArea.Y+edgeDist);
-                            config.Save();
+                        if (!Config.IsCustomNotificationPositionSet){
+                            Config.CustomNotificationPosition = new Point(screen.WorkingArea.X+screen.WorkingArea.Width-edgeDist-Width, screen.WorkingArea.Y+edgeDist);
+                            Config.Save();
                         }
 
-                        return config.CustomNotificationPosition;
+                        return Config.CustomNotificationPosition;
                 }
 
                 return Location;
@@ -93,7 +94,7 @@ namespace TweetDuck.Core.Notification{
         protected override bool ShowWithoutActivation => true;
         
         protected float DpiScale { get; }
-        protected double SizeScale => DpiScale*Program.UserConfig.ZoomLevel/100.0;
+        protected double SizeScale => DpiScale*Config.ZoomLevel/100.0;
 
         protected readonly FormBrowser owner;
         protected readonly ChromiumWebBrowser browser;
@@ -203,7 +204,7 @@ namespace TweetDuck.Core.Notification{
 
         protected virtual void UpdateTitle(){
             string title = currentNotification?.ColumnTitle;
-            Text = string.IsNullOrEmpty(title) || !Program.UserConfig.DisplayNotificationColumn ? Program.BrandName : Program.BrandName+" - "+title;
+            Text = string.IsNullOrEmpty(title) || !Config.DisplayNotificationColumn ? Program.BrandName : $"{Program.BrandName} - {title}";
         }
 
         public void ShowTweetDetail(){

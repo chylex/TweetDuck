@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using TweetDuck.Configuration;
 
 namespace TweetDuck.Core.Bridge{
     static class PropertyBridge{
@@ -10,20 +11,21 @@ namespace TweetDuck.Core.Bridge{
             string Bool(bool value) => value ? "true;" : "false;";
             string Str(string value) => '"'+value+"\";";
 
+            UserConfig config = Program.Config.User;
             StringBuilder build = new StringBuilder().Append("(function(x){");
 
-            build.Append("x.expandLinksOnHover=").Append(Bool(Program.UserConfig.ExpandLinksOnHover));
+            build.Append("x.expandLinksOnHover=").Append(Bool(config.ExpandLinksOnHover));
             
             if (environment == Environment.Browser){
-                build.Append("x.openSearchInFirstColumn=").Append(Bool(Program.UserConfig.OpenSearchInFirstColumn));
-                build.Append("x.keepLikeFollowDialogsOpen=").Append(Bool(Program.UserConfig.KeepLikeFollowDialogsOpen));
-                build.Append("x.muteNotifications=").Append(Bool(Program.UserConfig.MuteNotifications));
-                build.Append("x.notificationMediaPreviews=").Append(Bool(Program.UserConfig.NotificationMediaPreviews));
-                build.Append("x.translationTarget=").Append(Str(Program.UserConfig.TranslationTarget));
+                build.Append("x.openSearchInFirstColumn=").Append(Bool(config.OpenSearchInFirstColumn));
+                build.Append("x.keepLikeFollowDialogsOpen=").Append(Bool(config.KeepLikeFollowDialogsOpen));
+                build.Append("x.muteNotifications=").Append(Bool(config.MuteNotifications));
+                build.Append("x.notificationMediaPreviews=").Append(Bool(config.NotificationMediaPreviews));
+                build.Append("x.translationTarget=").Append(Str(config.TranslationTarget));
             }
 
             if (environment == Environment.Notification){
-                build.Append("x.skipOnLinkClick=").Append(Bool(Program.UserConfig.NotificationSkipOnLinkClick));
+                build.Append("x.skipOnLinkClick=").Append(Bool(config.NotificationSkipOnLinkClick));
             }
             
             return build.Append("})(window.$TDX=window.$TDX||{})").ToString();

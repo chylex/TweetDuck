@@ -32,10 +32,10 @@ namespace TweetDuck.Core.Notification{
         public FormNotificationTweet(FormBrowser owner, PluginManager pluginManager) : base(owner, pluginManager, true){
             InitializeComponent();
 
-            Program.UserConfig.MuteToggled += Config_MuteToggled;
-            Disposed += (sender, args) => Program.UserConfig.MuteToggled -= Config_MuteToggled;
+            Config.MuteToggled += Config_MuteToggled;
+            Disposed += (sender, args) => Config.MuteToggled -= Config_MuteToggled;
 
-            if (Program.UserConfig.MuteNotifications){
+            if (Config.MuteNotifications){
                 PauseNotification();
             }
         }
@@ -57,7 +57,7 @@ namespace TweetDuck.Core.Notification{
         // event handlers
 
         private void Config_MuteToggled(object sender, EventArgs e){
-            if (Program.UserConfig.MuteNotifications){
+            if (Config.MuteNotifications){
                 PauseNotification();
             }
             else{
@@ -73,7 +73,7 @@ namespace TweetDuck.Core.Notification{
         }
 
         private void timerIdlePauseCheck_Tick(object sender, EventArgs e){
-            if (NativeMethods.GetIdleSeconds() < Program.UserConfig.NotificationIdlePauseSeconds){
+            if (NativeMethods.GetIdleSeconds() < Config.NotificationIdlePauseSeconds){
                 ResumeNotification();
                 timerIdlePauseCheck.Stop();
             }
@@ -128,7 +128,7 @@ namespace TweetDuck.Core.Notification{
 
         private void LoadNextNotification(){
             if (!IsNotificationVisible){
-                if (Program.UserConfig.NotificationNonIntrusiveMode && IsCursorOverNotificationArea && NativeMethods.GetIdleSeconds() < NonIntrusiveIdleLimit){
+                if (Config.NotificationNonIntrusiveMode && IsCursorOverNotificationArea && NativeMethods.GetIdleSeconds() < NonIntrusiveIdleLimit){
                     if (!timerCursorCheck.Enabled){
                         PauseNotification();
                         timerCursorCheck.Start();
@@ -136,7 +136,7 @@ namespace TweetDuck.Core.Notification{
 
                     return;
                 }
-                else if (Program.UserConfig.NotificationIdlePauseSeconds > 0 && NativeMethods.GetIdleSeconds() >= Program.UserConfig.NotificationIdlePauseSeconds){
+                else if (Config.NotificationIdlePauseSeconds > 0 && NativeMethods.GetIdleSeconds() >= Config.NotificationIdlePauseSeconds){
                     if (!timerIdlePauseCheck.Enabled){
                         PauseNotification();
                         timerIdlePauseCheck.Start();

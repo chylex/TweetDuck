@@ -3,11 +3,14 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using TweetDuck.Configuration;
 using TweetDuck.Plugins;
 using TweetDuck.Plugins.Controls;
 
 namespace TweetDuck.Core.Other{
     sealed partial class FormPlugins : Form, FormManager.IAppDialog{
+        private static UserConfig Config => Program.Config.User;
+
         private readonly PluginManager pluginManager;
         
         public FormPlugins(){
@@ -19,8 +22,8 @@ namespace TweetDuck.Core.Other{
         public FormPlugins(PluginManager pluginManager) : this(){
             this.pluginManager = pluginManager;
 
-            if (!Program.UserConfig.PluginsWindowSize.IsEmpty){
-                Size targetSize = Program.UserConfig.PluginsWindowSize;
+            if (!Config.PluginsWindowSize.IsEmpty){
+                Size targetSize = Config.PluginsWindowSize;
                 Size = new Size(Math.Max(MinimumSize.Width, targetSize.Width), Math.Max(MinimumSize.Height, targetSize.Height));
             }
             
@@ -29,8 +32,8 @@ namespace TweetDuck.Core.Other{
             };
 
             FormClosed += (sender, args) => {
-                Program.UserConfig.PluginsWindowSize = Size;
-                Program.UserConfig.Save();
+                Config.PluginsWindowSize = Size;
+                Config.Save();
             };
 
             ResizeEnd += (sender, args) => {
