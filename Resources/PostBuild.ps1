@@ -34,7 +34,9 @@ try{
   New-Item -ItemType directory -Path $targetDir -Name "plugins\user" | Out-Null
   
   Copy-Item (Join-Path $projectDir "Resources\Scripts\*") -Recurse -Destination (Join-Path $targetDir "scripts")
-  Copy-Item (Join-Path $projectDir "Resources\Plugins\*") -Recurse -Destination (Join-Path $targetDir "plugins\official") -Exclude ".debug", "emoji-instructions.txt" 
+  Copy-Item (Join-Path $projectDir "Resources\Plugins\*") -Recurse -Destination (Join-Path $targetDir "plugins\official") -Exclude ".debug"
+  
+  Remove-Item (Join-Path $targetDir "plugins\official\emoji-keyboard\emoji-instructions.txt")
   
   if ($configuration -eq "Debug"){
     New-Item -ItemType directory -Path $targetDir -Name "plugins\user\.debug" | Out-Null
