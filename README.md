@@ -24,7 +24,7 @@ Note that some pre-release builds of CefSharp are not available on NuGet. To cor
 
 The `Debug` configuration uses a separate data folder by default (`%LOCALAPPDATA%\TweetDuckDebug`) to avoid affecting an existing installation of TweetDuck. You can modify this by opening **TweetDuck Properties** in Visual Studio, clicking the **Debug** tab, and changing the **Command line arguments** field.
 
-While debugging, opening the main menu and clicking **Reload browser** automatically rebuilds all resources in the `Resources/Scripts` and `Resources/Plugins` folders. This allows editing HTML/CSS/JS files and applying the changes without restarting the program, but it will cause a short delay between browser reloads.
+While debugging, opening the main menu and clicking **Reload browser** automatically rebuilds all resources in the `Resources/Scripts` and `Resources/Plugins` folders. This allows editing HTML/CSS/JS files without restarting the program, but it will cause a short delay between browser reloads. This requires a F# compiler (`C:\Program Files (x86)\Microsoft SDKs\F#\10.1\Framework\v4.0\fsc.exe`) to be present when building the project.
 
 ### Release
 
@@ -40,7 +40,7 @@ If you decide to publicly release a custom version, please make it clear that it
 
 #### Error: The command (...) exited with code 1
 - This indicates a failed post-build event, open the **Output** tab for logs
-- Determine if there was an IO error from the `rmdir` commands, or whether the error was in the **PostBuild.ps1** script (`Encountered an error while running PostBuild.ps1 on line <xyz>`)
+- Determine if there was an IO error from the `rmdir` commands, the custom MSBuild targets near the end of the [.csproj file](https://github.com/chylex/TweetDuck/blob/master/TweetDuck.csproj), or in the **PostBuild.fsx** script (`Encountered an error while running PostBuild`)
 - Some files are checked for invalid characters:
   - `Resources/Plugins/emoji-keyboard/emoji-ordering.txt` line endings must be LF (line feed); any CR (carriage return) in the file will cause a failed build, and you will need to ensure correct line endings in your text editor
 
@@ -55,17 +55,19 @@ TweetDuck uses **Inno Setup** for installers and updates. First, download and in
 
 Next, add the Inno Setup installation folder (usually `C:\Program Files (x86)\Inno Setup 5`) into your **PATH** environment variable. You may need to restart File Explorer for the change to take place.
 
-Now you can generate installers after a build by running `bld/GEN EVERYTHING.bat`. Note that this will only package the files, you still need to run the [release build](#release) in Visual Studio!
+Now you can generate installers by running `bld/GEN EVERYTHING.bat`. Note that this will only package the files, you still need to run the [release build](#release) in Visual Studio!
 
 After the window closes, three installers will be generated inside the `bld/Output` folder:
 * **TweetDuck.exe**
   * This is the main installer that creates entries in the Start Menu & Programs and Features, and an optional desktop icon
 * **TweetDuck.Update.exe**
   * This is a lightweight update installer that only contains the most important files that usually change across releases
-  * It will automatically download and apply the full installer if the user's current version of CEF does not match (the download link is in `gen_upd.iss` and points to this repository by default)
+  * It will automatically download and apply the full installer if the user's current version of CEF does not match
 * **TweetDuck.Portable.exe**
   * This is a portable installer that does not need administrator privileges
   * It automatically creates a `makeportable` file in the program folder, which forces TweetDuck to run in portable mode
+
+The installers are built for GitHub Releases, where the main and portable installers can download and install Visual C++ if it's missing, and the update installer will download and apply the full installer when needed. If you plan to distribute your own installers via GitHub, you can change the variables in the installer files (`.iss`) and in the update system to point to your repository, and use the power of the existing update system.
 
 #### Notes
 
