@@ -280,6 +280,7 @@
           html.children().first().addClass("td-notification-padded");
         }
         else if (type.includes("list_member")){
+          html.children().first().addClass("td-notification-padded td-notification-padded-alt");
           html.find(".activity-header").css("margin-top", "2px");
           html.find(".avatar").first().css("margin-bottom", "0");
         }

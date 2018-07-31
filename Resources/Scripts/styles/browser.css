@@ -174,21 +174,44 @@ html[data-td-theme='dark'] .stream-item:not(:hover) .js-user-actions-menu {
   opacity: 0.25;
 }
 
-.stream-item[data-key^="favorite"] .has-source-avatar .item-img, .stream-item[data-key^="retweet"] .has-source-avatar .item-img {
+.stream-item[data-key^="favorite"] .has-source-avatar .item-img,
+.stream-item[data-key^="retweet"] .has-source-avatar .item-img {
   position: absolute;
   left: 21px;
   top: 48px;
   width: 0 !important;
 }
 
-.stream-item[data-key^="favorite"] .has-source-avatar > .nbfc, .stream-item[data-key^="retweet"] .has-source-avatar > .nbfc {
+.stream-item[data-key^="favorite"] .has-source-avatar > .nbfc,
+.stream-item[data-key^="retweet"] .has-source-avatar > .nbfc {
   margin-left: 46px;
   line-height: unset !important;
 }
 
-.stream-item[data-key^="favorite"] .has-source-avatar > .nbfc > .avatar, .stream-item[data-key^="retweet"] .has-source-avatar > .nbfc > .avatar {
+.stream-item[data-key^="favorite"] .has-source-avatar > .nbfc > .avatar,
+.stream-item[data-key^="retweet"] .has-source-avatar > .nbfc > .avatar {
   position: absolute;
   margin-left: -34px;
+}
+
+.stream-item[data-key^="list_"] .activity-header .item-img {
+  position: relative;
+  left: 10px;
+  top: 2px;
+  width: 0 !important;
+}
+
+.stream-item[data-key^="list_"] .activity-header > .nbfc {
+  margin-left: 46px;
+  padding-bottom: 0 !important;
+  min-height: 30px !important;
+  line-height: unset !important;
+}
+
+.stream-item[data-key^="list_"] .activity-header > .nbfc > .avatar {
+  position: absolute;
+  margin-left: -34px;
+  padding-top: 1px;
 }
 
 /***********************/

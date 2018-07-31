@@ -122,6 +122,18 @@ html[data-td-font='smallest'] .fullname-badged:before, html[data-td-font='small'
   margin-left: -34px;
 }
 
+.td-notification-padded-alt .item-img {
+  /* td-notification-padded-alt is used alongside td-notification-padded to save space in the file */
+  position: relative;
+  left: 10px;
+  top: 2px;
+  width: 0 !important;
+}
+
+.td-notification-padded-alt .activity-header > .nbfc > .avatar {
+  padding-top: 1px;
+}
+
 /*********/
 /* Media */
 /*********/
