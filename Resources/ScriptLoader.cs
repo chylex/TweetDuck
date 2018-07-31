@@ -87,7 +87,7 @@ namespace TweetDuck.Resources{
         #if DEBUG
         private static readonly string HotSwapProjectRoot = FixPathSlash(Path.GetFullPath(Path.Combine(Program.ProgramPath, "../../../")));
         private static readonly string HotSwapTargetDir = FixPathSlash(Path.Combine(HotSwapProjectRoot, "bin", "tmp"));
-        private static readonly string HotSwapRebuildScript = Path.Combine(HotSwapProjectRoot, "Resources", "PostBuild.ps1");
+        private static readonly string HotSwapRebuildScript = Path.Combine(HotSwapProjectRoot, "bld", "post_build.exe");
 
         static ScriptLoader(){
             if (File.Exists(HotSwapRebuildScript)){
@@ -110,8 +110,8 @@ namespace TweetDuck.Resources{
             Stopwatch sw = Stopwatch.StartNew();
 
             using(Process process = Process.Start(new ProcessStartInfo{
-                FileName = "powershell",
-                Arguments = $"-ExecutionPolicy Unrestricted -File \"{HotSwapRebuildScript}\" \"{HotSwapTargetDir}\\\" \"{HotSwapProjectRoot}\\\" \"Debug\" \"{Program.VersionTag}\"",
+                FileName = HotSwapRebuildScript,
+                Arguments = $"\"{HotSwapTargetDir}\\\" \"{HotSwapProjectRoot}\\\" \"Debug\" \"{Program.VersionTag}\"",
                 WindowStyle = ProcessWindowStyle.Hidden
             })){
                 // ReSharper disable once PossibleNullReferenceException

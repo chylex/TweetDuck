@@ -394,15 +394,22 @@ rmdir "$(ProjectDir)bin\Release"
 rmdir "$(TargetDir)scripts" /S /Q
 rmdir "$(TargetDir)plugins" /S /Q
 
-powershell -ExecutionPolicy Unrestricted -File "$(ProjectDir)Resources\PostBuild.ps1" "$(TargetDir)\" "$(ProjectDir)\" "$(ConfigurationName)"
+IF EXIST "$(ProjectDir)bld\post_build.exe" (
+  "$(ProjectDir)bld\post_build.exe" "$(TargetDir)\" "$(ProjectDir)\" "$(ConfigurationName)"
+) ELSE (
+  "$(DevEnvDir)CommonExtensions\Microsoft\FSharp\fsi.exe" "$(ProjectDir)Resources\PostBuild.fsx" --exec --nologo -- "$(TargetDir)\" "$(ProjectDir)\" "$(ConfigurationName)"
+)
 </PostBuildEvent>
   </PropertyGroup>
+  <Target Name="BeforeBuild" Condition="(!$([System.IO.File]::Exists(&quot;$(ProjectDir)\bld\post_build.exe&quot;)) OR ($([System.IO.File]::GetLastWriteTime(&quot;$(ProjectDir)\Resources\PostBuild.fsx&quot;).Ticks) &gt; $([System.IO.File]::GetLastWriteTime(&quot;$(ProjectDir)\bld\post_build.exe&quot;).Ticks)))">
+    <Exec Command="&quot;$(ProjectDir)bld\POST BUILD.bat&quot;" WorkingDirectory="$(ProjectDir)bld\" IgnoreExitCode="true" />
+  </Target>
   <Target Name="AfterBuild" Condition="$(ConfigurationName) == Release">
     <Exec Command="del &quot;$(TargetDir)*.pdb&quot;" />
     <Exec Command="del &quot;$(TargetDir)*.xml&quot;" />
     <Delete Files="$(TargetDir)CefSharp.BrowserSubprocess.exe" />
     <Delete Files="$(TargetDir)widevinecdmadapter.dll" />
-    <Exec Command="&quot;$(ProjectDir)bld\UPDATE ONLY.bat&quot;" WorkingDirectory="$(ProjectDir)bld\" IgnoreExitCode="true" />
+    <Exec Command="&quot;$(ProjectDir)bld\GEN UPDATE ONLY.bat&quot;" WorkingDirectory="$(ProjectDir)bld\" IgnoreExitCode="true" />
   </Target>
   <PropertyGroup>
     <PreBuildEvent>powershell Get-Process TweetDuck.Browser -ErrorAction SilentlyContinue ^| Where-Object {$_.Path -eq '$(TargetDir)TweetDuck.Browser.exe'} ^| Stop-Process; Exit 0</PreBuildEvent>

@@ -55,7 +55,7 @@ TweetDuck uses **Inno Setup** for installers and updates. First, download and in
 
 Next, add the Inno Setup installation folder (usually `C:\Program Files (x86)\Inno Setup 5`) into your **PATH** environment variable. You may need to restart File Explorer for the change to take place.
 
-Now you can generate installers after a build by running `bld/RUN BUILD.bat`. Note that this will only package the files, you still need to run the [release build](#release) in Visual Studio!
+Now you can generate installers after a build by running `bld/GEN EVERYTHING.bat`. Note that this will only package the files, you still need to run the [release build](#release) in Visual Studio!
 
 After the window closes, three installers will be generated inside the `bld/Output` folder:
 * **TweetDuck.exe**
@@ -71,6 +71,6 @@ After the window closes, three installers will be generated inside the `bld/Outp
 
 > When opening **Batch Build**, you will also see `x64` and `AnyCPU` configurations. These are visible due to what I consider a Visual Studio bug, and will not work without significant changes to the project. Manually running the `Resources/PostCefUpdate.ps1` PowerShell script modifies the downloaded CefSharp packages, and removes the invalid configurations.
 
-> There is a small chance running `RUN BUILD.bat` immediately shows a resource error. If that happens, close the console window (which terminates all Inno Setup processes and leaves corrupted installers in the output folder), and run it again.
+> There is a small chance running `GEN EVERYTHING.bat` immediately shows a resource error. If that happens, close the console window (which terminates all Inno Setup processes and leaves corrupted installers in the output folder), and run it again.
 
-> Running `RUN BUILD.bat` uses about 400 MB of RAM due to high compression. You can lower this to about 140 MB by opening `gen_full.iss` and `gen_port.iss`, and changing `LZMADictionarySize=15360` to `LZMADictionarySize=4096`.
+> Running `GEN EVERYTHING.bat` uses about 400 MB of RAM due to high compression. You can lower this to about 140 MB by opening `gen_full.iss` and `gen_port.iss`, and changing `LZMADictionarySize=15360` to `LZMADictionarySize=4096`.
