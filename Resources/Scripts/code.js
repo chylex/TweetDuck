@@ -640,7 +640,7 @@
       else if (me.classList.contains("js-gif-play")){
         $TD.setRightClickedLink("video", $(this).closest(".js-media-gif-container").find("video").attr("src"));
       }
-      else{
+      else if (me.hasAttribute("data-full-url")){
         $TD.setRightClickedLink("link", me.getAttribute("data-full-url"));
       }
     });

@@ -54,24 +54,27 @@ namespace TweetDuck.Core.Handling{
             else{
                 LastLink = TweetDeckBridge.ContextInfo.Link;
                 LastChirp = TweetDeckBridge.ContextInfo.Chirp;
-            }
 
+                if (LastLink.Type == ContextInfo.LinkType.Unknown){
+                    LastLink = new ContextInfo.LinkInfo(parameters);
+                }
+            }
+            
             if (parameters.TypeFlags.HasFlag(ContextMenuType.Selection) && !parameters.TypeFlags.HasFlag(ContextMenuType.Editable)){
                 model.AddItem(MenuSearchInBrowser, "Search in browser");
                 model.AddSeparator();
                 model.AddItem(MenuReadApplyROT13, "Apply ROT13");
                 model.AddSeparator();
             }
-
-            bool hasTweetImage = LastLink.IsImage;
-            bool hasTweetVideo = LastLink.IsVideo;
-
+            
             string TextOpen(string name) => "Open "+name+" in browser";
             string TextCopy(string name) => "Copy "+name+" address";
             string TextSave(string name) => "Save "+name+" as...";
+
+            ContextInfo.LinkType type = LastLink.Type;
             
-            if (parameters.TypeFlags.HasFlag(ContextMenuType.Link) && !parameters.UnfilteredLinkUrl.EndsWith("tweetdeck.twitter.com/#", StringComparison.Ordinal) && !hasTweetImage && !hasTweetVideo){
-                if (TwitterUtils.RegexAccount.IsMatch(parameters.UnfilteredLinkUrl)){
+            if (type == ContextInfo.LinkType.Generic && !LastLink.UnsafeUrl.EndsWith("tweetdeck.twitter.com/#", StringComparison.Ordinal)){
+                if (TwitterUtils.RegexAccount.IsMatch(LastLink.UnsafeUrl)){
                     model.AddItem(MenuOpenLinkUrl, TextOpen("account"));
                     model.AddItem(MenuCopyLinkUrl, TextCopy("account"));
                     model.AddItem(MenuCopyUsername, "Copy account username");
@@ -83,14 +86,13 @@ namespace TweetDuck.Core.Handling{
 
                 model.AddSeparator();
             }
-
-            if (hasTweetVideo){
+            else if (type == ContextInfo.LinkType.Video){
                 model.AddItem(MenuOpenMediaUrl, TextOpen("video"));
                 model.AddItem(MenuCopyMediaUrl, TextCopy("video"));
                 model.AddItem(MenuSaveMedia, TextSave("video"));
                 model.AddSeparator();
             }
-            else if (((parameters.TypeFlags.HasFlag(ContextMenuType.Media) && parameters.HasImageContents) || hasTweetImage) && parameters.SourceUrl != TweetNotification.AppLogo.Url){
+            else if (type == ContextInfo.LinkType.Image && LastLink.Url != TweetNotification.AppLogo.Url){
                 model.AddItem(MenuViewImage, "View image in photo viewer");
                 model.AddItem(MenuOpenMediaUrl, TextOpen("image"));
                 model.AddItem(MenuCopyMediaUrl, TextCopy("image"));
@@ -109,25 +111,28 @@ namespace TweetDuck.Core.Handling{
 
             switch(commandId){
                 case MenuOpenLinkUrl:
-                    OpenBrowser(control, LastLink.GetUrl(parameters, true));
+                    OpenBrowser(control, LastLink.Url);
                     break;
 
                 case MenuCopyLinkUrl:
-                    SetClipboardText(control, LastLink.GetUrl(parameters, false));
+                    SetClipboardText(control, LastLink.UnsafeUrl);
                     break;
 
-                case MenuCopyUsername:
-                    Match match = TwitterUtils.RegexAccount.Match(parameters.UnfilteredLinkUrl);
-                    SetClipboardText(control, match.Success ? match.Groups[1].Value : parameters.UnfilteredLinkUrl);
+                case MenuCopyUsername: {
+                    string url = LastLink.UnsafeUrl;
+                    Match match = TwitterUtils.RegexAccount.Match(url);
+
+                    SetClipboardText(control, match.Success ? match.Groups[1].Value : url);
                     control.InvokeAsyncSafe(analytics.AnalyticsFile.CopiedUsernames.Trigger);
                     break;
+                }
 
                 case MenuOpenMediaUrl:
-                    OpenBrowser(control, TwitterUtils.GetMediaLink(LastLink.GetMediaSource(parameters), ImageQuality));
+                    OpenBrowser(control, TwitterUtils.GetMediaLink(LastLink.Url, ImageQuality));
                     break;
 
                 case MenuCopyMediaUrl:
-                    SetClipboardText(control, TwitterUtils.GetMediaLink(LastLink.GetMediaSource(parameters), ImageQuality));
+                    SetClipboardText(control, TwitterUtils.GetMediaLink(LastLink.Url, ImageQuality));
                     break;
 
                 case MenuViewImage: {
@@ -142,7 +147,7 @@ namespace TweetDuck.Core.Handling{
                         }
                     }
 
-                    string url = LastLink.GetMediaSource(parameters);
+                    string url = LastLink.Url;
                     string file = Path.Combine(BrowserCache.CacheFolder, TwitterUtils.GetImageFileName(url) ?? Path.GetRandomFileName());
 
                     control.InvokeAsyncSafe(() => {
@@ -164,8 +169,8 @@ namespace TweetDuck.Core.Handling{
                 }
 
                 case MenuSaveMedia: {
-                    bool isVideo = LastLink.IsVideo;
-                    string url = LastLink.GetMediaSource(parameters);
+                    bool isVideo = LastLink.Type == ContextInfo.LinkType.Video;
+                    string url = LastLink.Url;
                     string username = LastChirp.Authors.LastOrDefault();
                     
                     control.InvokeAsyncSafe(() => {

@@ -25,25 +25,46 @@ namespace TweetDuck.Core.Management{
 
         // Data structures
 
+        public enum LinkType{
+            Unknown, Generic, Image, Video
+        }
+
         public struct LinkInfo{
-            public bool IsLink => type == "link";
-            public bool IsImage => type == "image";
-            public bool IsVideo => type == "video";
+            public LinkType Type { get; }
 
-            public string GetUrl(IContextMenuParams parameters, bool safe){
-                return IsLink ? url : (safe ? parameters.LinkUrl : parameters.UnfilteredLinkUrl);
-            }
-
-            public string GetMediaSource(IContextMenuParams parameters){
-                return IsImage || IsVideo ? url : parameters.SourceUrl;
-            }
-
-            private readonly string type;
-            private readonly string url;
+            public string Url { get; }
+            public string UnsafeUrl { get; }
 
             public LinkInfo(string type, string url){
-                this.type = type;
-                this.url = url;
+                switch(type){
+                    case "link":  Type = LinkType.Generic; break;
+                    case "image": Type = LinkType.Image;   break;
+                    case "video": Type = LinkType.Video;   break;
+                    default:      Type = LinkType.Unknown; break;
+                }
+
+                Url = url;
+                UnsafeUrl = url;
+            }
+
+            public LinkInfo(IContextMenuParams parameters){
+                ContextMenuType type = parameters.TypeFlags;
+
+                if (type.HasFlag(ContextMenuType.Media) && parameters.HasImageContents){
+                    Type = LinkType.Image;
+                    Url = parameters.SourceUrl;
+                    UnsafeUrl = parameters.SourceUrl;
+                }
+                else if (type.HasFlag(ContextMenuType.Link)){
+                    Type = LinkType.Generic;
+                    Url = parameters.LinkUrl;
+                    UnsafeUrl = parameters.UnfilteredLinkUrl;
+                }
+                else{
+                    Type = LinkType.Unknown;
+                    Url = string.Empty;
+                    UnsafeUrl = string.Empty;
+                }
             }
         }
 
