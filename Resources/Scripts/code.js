@@ -742,6 +742,9 @@
           
           $TD.setRightClickedChirp(tweetUrl || "", quoteUrl || "", chirpAuthors, chirpImages);
         }
+        else if (tweet instanceof TD.services.TwitterActionFollow){
+          $TD.setRightClickedLink("link", tweet.following.getProfileURL());
+        }
       }
     });
     
