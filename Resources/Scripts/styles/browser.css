@@ -409,6 +409,11 @@ a:not(.tweet-detail-action) .reply-triangle {
   border-width: 0 !important;
 }
 
+#actions-modal .mdl {
+  /* fix action dialog (RT, Add to List/Collection) width with small window size */
+  max-width: 100%;
+}
+
 /***************************************************************/
 /* Fix glaring visual issues that twitter hasn't fixed yet smh */
 /***************************************************************/
