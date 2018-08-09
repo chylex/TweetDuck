@@ -1,6 +1,7 @@
 ﻿using CefSharp;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
+using TweetDuck.Core.Management;
 using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Handling{
@@ -56,12 +57,12 @@ namespace TweetDuck.Core.Handling{
                 InsertSelectionSearchItem(model, MenuSearchInColumn, "Search in a column");
             }
 
-            if (!string.IsNullOrEmpty(LastChirp.TweetUrl) && !isSelecting && !isEditing){
+            if (Context.Types.HasFlag(ContextInfo.ContextType.Chirp) && !isSelecting && !isEditing){
                 model.AddItem(MenuOpenTweetUrl, "Open tweet in browser");
                 model.AddItem(MenuCopyTweetUrl, "Copy tweet address");
                 model.AddItem(MenuScreenshotTweet, "Screenshot tweet to clipboard");
 
-                if (!string.IsNullOrEmpty(LastChirp.QuoteUrl)){
+                if (!string.IsNullOrEmpty(Context.Chirp.QuoteUrl)){
                     model.AddSeparator();
                     model.AddItem(MenuOpenQuotedTweetUrl, "Open quoted tweet in browser");
                     model.AddItem(MenuCopyQuotedTweetUrl, "Copy quoted tweet address");
@@ -119,11 +120,11 @@ namespace TweetDuck.Core.Handling{
                     return true;
 
                 case MenuOpenTweetUrl:
-                    OpenBrowser(form, LastChirp.TweetUrl);
+                    OpenBrowser(form, Context.Chirp.TweetUrl);
                     return true;
 
                 case MenuCopyTweetUrl:
-                    SetClipboardText(form, LastChirp.TweetUrl);
+                    SetClipboardText(form, Context.Chirp.TweetUrl);
                     return true;
 
                 case MenuScreenshotTweet:
@@ -131,11 +132,11 @@ namespace TweetDuck.Core.Handling{
                     return true;
 
                 case MenuOpenQuotedTweetUrl:
-                    OpenBrowser(form, LastChirp.QuoteUrl);
+                    OpenBrowser(form, Context.Chirp.QuoteUrl);
                     return true;
 
                 case MenuCopyQuotedTweetUrl:
-                    SetClipboardText(form, LastChirp.QuoteUrl);
+                    SetClipboardText(form, Context.Chirp.QuoteUrl);
                     return true;
 
                 case MenuWriteApplyROT13:

@@ -1,70 +1,54 @@
-﻿using CefSharp;
+﻿using System;
+using CefSharp;
 using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Management{
     sealed class ContextInfo{
-        public LinkInfo Link { get; private set; }
-        public ChirpInfo Chirp { get; private set; }
+        private LinkInfo link;
+        private ChirpInfo? chirp;
         
         public ContextInfo(){
             Reset();
         }
         
         public void SetLink(string type, string url){
-            Link = string.IsNullOrEmpty(url) ? new LinkInfo() : new LinkInfo(type, url);
+            link = string.IsNullOrEmpty(url) ? null : new LinkInfo(type, url);
         }
 
         public void SetChirp(string tweetUrl, string quoteUrl, string chirpAuthors, string chirpImages){
-            Chirp = new ChirpInfo(tweetUrl, quoteUrl, chirpAuthors, chirpImages);
+            chirp = string.IsNullOrEmpty(tweetUrl) ? (ChirpInfo?)null : new ChirpInfo(tweetUrl, quoteUrl, chirpAuthors, chirpImages);
         }
 
-        public void Reset(){
-            Link = new LinkInfo();
-            Chirp = new ChirpInfo();
+        public ContextData Reset(){
+            link = null;
+            chirp = null;
+            return ContextData.Empty;
+        }
+
+        public ContextData Create(IContextMenuParams parameters){
+            ContextData.Builder builder = new ContextData.Builder();
+            builder.AddContext(parameters);
+
+            if (link != null){
+                builder.AddOverride(link.Type, link.Url);
+            }
+            
+            if (chirp.HasValue){
+                builder.AddChirp(chirp.Value);
+            }
+
+            return builder.Build();
         }
 
         // Data structures
 
-        public enum LinkType{
-            Unknown, Generic, Image, Video
-        }
-
-        public struct LinkInfo{
-            public LinkType Type { get; }
-
+        private sealed class LinkInfo{
+            public string Type { get; }
             public string Url { get; }
-            public string UnsafeUrl { get; }
 
             public LinkInfo(string type, string url){
-                switch(type){
-                    case "link":  Type = LinkType.Generic; break;
-                    case "image": Type = LinkType.Image;   break;
-                    case "video": Type = LinkType.Video;   break;
-                    default:      Type = LinkType.Unknown; break;
-                }
-
-                Url = url;
-                UnsafeUrl = url;
-            }
-
-            public LinkInfo(IContextMenuParams parameters){
-                ContextMenuType type = parameters.TypeFlags;
-
-                if (type.HasFlag(ContextMenuType.Media) && parameters.HasImageContents){
-                    Type = LinkType.Image;
-                    Url = parameters.SourceUrl;
-                    UnsafeUrl = parameters.SourceUrl;
-                }
-                else if (type.HasFlag(ContextMenuType.Link)){
-                    Type = LinkType.Generic;
-                    Url = parameters.LinkUrl;
-                    UnsafeUrl = parameters.UnfilteredLinkUrl;
-                }
-                else{
-                    Type = LinkType.Unknown;
-                    Url = string.Empty;
-                    UnsafeUrl = string.Empty;
-                }
+                this.Type = type;
+                this.Url = url;
             }
         }
 
@@ -83,6 +67,94 @@ namespace TweetDuck.Core.Management{
                 this.QuoteUrl = quoteUrl;
                 this.chirpAuthors = chirpAuthors;
                 this.chirpImages = chirpImages;
+            }
+        }
+
+        // Constructed context
+
+        [Flags]
+        public enum ContextType{
+            Unknown = 0,
+            Link    = 0b0001,
+            Image   = 0b0010,
+            Video   = 0b0100,
+            Chirp   = 0b1000
+        }
+
+        public sealed class ContextData{
+            public static readonly ContextData Empty = new Builder().Build();
+
+            public ContextType Types { get; }
+
+            public string LinkUrl { get; }
+            public string UnsafeLinkUrl { get; }
+            public string MediaUrl { get; }
+
+            public ChirpInfo Chirp { get; }
+
+            public ContextData(ContextType types, string linkUrl, string unsafeLinkUrl, string mediaUrl, ChirpInfo chirp){
+                Types = types;
+                LinkUrl = linkUrl;
+                UnsafeLinkUrl = unsafeLinkUrl;
+                MediaUrl = mediaUrl;
+                Chirp = chirp;
+            }
+
+            public sealed class Builder{
+                private ContextType types = ContextType.Unknown;
+
+                private string linkUrl = string.Empty;
+                private string unsafeLinkUrl = string.Empty;
+                private string mediaUrl = string.Empty;
+
+                private ChirpInfo chirp = default(ChirpInfo);
+
+                public void AddContext(IContextMenuParams parameters){
+                    ContextMenuType flags = parameters.TypeFlags;
+
+                    if (flags.HasFlag(ContextMenuType.Media) && parameters.HasImageContents){
+                        types |= ContextType.Image;
+                        types &= ~ContextType.Video;
+                        mediaUrl = parameters.SourceUrl;
+                    }
+
+                    if (flags.HasFlag(ContextMenuType.Link)){
+                        types |= ContextType.Link;
+                        linkUrl = parameters.LinkUrl;
+                        unsafeLinkUrl = parameters.UnfilteredLinkUrl;
+                    }
+                }
+
+                public void AddOverride(string type, string url){
+                    switch(type){
+                        case "link":
+                            types |= ContextType.Link;
+                            linkUrl = url;
+                            unsafeLinkUrl = url;
+                            break;
+
+                        case "image":
+                            types |= ContextType.Image;
+                            types &= ~(ContextType.Video | ContextType.Link);
+                            mediaUrl = url;
+                            break;
+
+                        case "video":
+                            types |= ContextType.Video;
+                            types &= ~(ContextType.Image | ContextType.Link);
+                            mediaUrl = url;
+                            break;
+                    }
+                }
+
+                public void AddChirp(ChirpInfo chirp){
+                    this.types |= ContextType.Chirp;
+                    this.chirp = chirp;
+                }
+
+                public ContextData Build(){
+                    return new ContextData(types, linkUrl, unsafeLinkUrl, mediaUrl, chirp);
+                }
             }
         }
     }
