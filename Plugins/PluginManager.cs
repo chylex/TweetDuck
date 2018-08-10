@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using TweetDuck.Core.Other.Interfaces;
+using TweetDuck.Core.Utils;
 using TweetDuck.Data;
 using TweetDuck.Plugins.Enums;
 using TweetDuck.Plugins.Events;
@@ -34,7 +34,7 @@ namespace TweetDuck.Plugins{
         private readonly Dictionary<int, Plugin> tokens = new Dictionary<int, Plugin>();
         private readonly Random rand = new Random();
 
-        private ITweetDeckBrowser mainBrowser;
+        private IWebBrowser mainBrowser;
 
         public PluginManager(string rootPath, string configPath){
             this.rootPath = rootPath;
@@ -47,9 +47,16 @@ namespace TweetDuck.Plugins{
             Config.PluginChangedState += Config_PluginChangedState;
         }
 
-        public void Register(ITweetDeckBrowser browser, PluginEnvironment environment, Control sync, bool asMainBrowser = false){
-            browser.OnFrameLoaded(frame => ExecutePlugins(frame, environment, sync));
-            browser.RegisterBridge("$TDP", bridge);
+        public void Register(IWebBrowser browser, PluginEnvironment environment, Control sync, bool asMainBrowser = false){
+            browser.FrameLoadEnd += (sender, args) => {
+                IFrame frame = args.Frame;
+
+                if (frame.IsMain && TwitterUtils.IsTweetDeckWebsite(frame)){
+                    ExecutePlugins(frame, environment, sync);
+                }
+            };
+
+            browser.RegisterAsyncJsObject("$TDP", bridge);
 
             if (asMainBrowser){
                 mainBrowser = browser;
@@ -57,7 +64,7 @@ namespace TweetDuck.Plugins{
         }
 
         private void Config_PluginChangedState(object sender, PluginChangedStateEventArgs e){
-            mainBrowser?.ExecuteFunction("TDPF_setPluginState", e.Plugin, e.IsEnabled);
+            mainBrowser?.ExecuteScriptAsync("TDPF_setPluginState", e.Plugin, e.IsEnabled);
             Config.Save(configPath);
         }
 
@@ -75,7 +82,7 @@ namespace TweetDuck.Plugins{
 
         public void ConfigurePlugin(Plugin plugin){
             if (bridge.WithConfigureFunction.Contains(plugin)){
-                mainBrowser?.ExecuteFunction("TDPF_configurePlugin", plugin);
+                mainBrowser?.ExecuteScriptAsync("TDPF_configurePlugin", plugin);
             }
             else if (plugin.HasConfig){
                 if (File.Exists(plugin.ConfigPath)){

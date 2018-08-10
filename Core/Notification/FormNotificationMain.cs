@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling;
-using TweetDuck.Core.Other.Interfaces;
 using TweetDuck.Core.Utils;
 using TweetDuck.Data;
 using TweetDuck.Plugins;
@@ -13,7 +12,7 @@ using TweetDuck.Plugins.Enums;
 using TweetDuck.Resources;
 
 namespace TweetDuck.Core.Notification{
-    abstract partial class FormNotificationMain : FormNotificationBase, ITweetDeckBrowser{
+    abstract partial class FormNotificationMain : FormNotificationBase{
         private readonly PluginManager plugins;
         private readonly int timerBarHeight;
 
@@ -84,32 +83,10 @@ namespace TweetDuck.Core.Notification{
             browser.LoadingStateChanged += Browser_LoadingStateChanged;
             browser.FrameLoadEnd += Browser_FrameLoadEnd;
 
-            plugins.Register(this, PluginEnvironment.Notification, this);
+            plugins.Register(browser, PluginEnvironment.Notification, this);
 
             mouseHookDelegate = MouseHookProc;
             Disposed += (sender, args) => StopMouseHook(true);
-        }
-
-        // implementation of ITweetDeckBrowser
-
-        bool ITweetDeckBrowser.IsTweetDeckWebsite => IsNotificationVisible;
-
-        void ITweetDeckBrowser.RegisterBridge(string name, object obj){
-            browser.RegisterAsyncJsObject(name, obj);
-        }
-
-        void ITweetDeckBrowser.OnFrameLoaded(Action<IFrame> callback){
-            browser.FrameLoadEnd += (sender, args) => {
-                IFrame frame = args.Frame;
-
-                if (frame.IsMain && browser.Address != "about:blank"){
-                    callback(frame);
-                }
-            };
-        }
-
-        void ITweetDeckBrowser.ExecuteFunction(string name, params object[] args){
-            browser.ExecuteScriptAsync(name, args);
         }
 
         // mouse wheel hook

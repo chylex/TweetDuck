@@ -10,12 +10,13 @@ using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling;
 using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Notification;
-using TweetDuck.Core.Other.Interfaces;
 using TweetDuck.Core.Utils;
+using TweetDuck.Plugins;
+using TweetDuck.Plugins.Enums;
 using TweetDuck.Resources;
 
 namespace TweetDuck.Core{
-    sealed class TweetDeckBrowser : ITweetDeckBrowser, IDisposable{
+    sealed class TweetDeckBrowser : IDisposable{
         private static UserConfig Config => Program.Config.User;
 
         public bool Ready { get; private set; }
@@ -41,7 +42,7 @@ namespace TweetDuck.Core{
 
         private string prevSoundNotificationPath = null;
 
-        public TweetDeckBrowser(FormBrowser owner, TweetDeckBridge tdBridge, UpdateBridge updateBridge){
+        public TweetDeckBrowser(FormBrowser owner, PluginManager plugins, TweetDeckBridge tdBridge, UpdateBridge updateBridge){
             RequestHandlerBrowser requestHandler = new RequestHandlerBrowser();
             
             this.browser = new ChromiumWebBrowser(TwitterUtils.TweetDeckURL){
@@ -71,6 +72,7 @@ namespace TweetDuck.Core{
             this.browser.SetupZoomEvents();
 
             owner.Controls.Add(browser);
+            plugins.Register(browser, PluginEnvironment.Browser, owner, true);
             
             Config.MuteToggled += Config_MuteToggled;
             Config.SoundNotificationChanged += Config_SoundNotificationInfoChanged;
@@ -95,24 +97,6 @@ namespace TweetDuck.Core{
             Config.SoundNotificationChanged -= Config_SoundNotificationInfoChanged;
             
             browser.Dispose();
-        }
-        
-        void ITweetDeckBrowser.RegisterBridge(string name, object obj){
-            browser.RegisterAsyncJsObject(name, obj);
-        }
-
-        void ITweetDeckBrowser.OnFrameLoaded(Action<IFrame> callback){
-            browser.FrameLoadEnd += (sender, args) => {
-                IFrame frame = args.Frame;
-
-                if (frame.IsMain && TwitterUtils.IsTweetDeckWebsite(frame)){
-                    callback(frame);
-                }
-            };
-        }
-
-        void ITweetDeckBrowser.ExecuteFunction(string name, params object[] args){
-            browser.ExecuteScriptAsync(name, args);
         }
 
         // event handlers
