@@ -336,6 +336,7 @@
     <None Include="Resources\PostBuild.ps1" />
     <None Include="Resources\Plugins\.debug\.meta" />
     <None Include="Resources\Plugins\.debug\browser.js" />
+    <None Include="Resources\Plugins\.debug\notification.js" />
     <None Include="Resources\Plugins\clear-columns\.meta" />
     <None Include="Resources\Plugins\clear-columns\browser.js" />
     <None Include="Resources\Plugins\edit-design\.meta" />
