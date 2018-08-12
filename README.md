@@ -32,7 +32,7 @@ Open **Batch Build**, tick all `Release` configurations with `x86` platform, and
 
 After the build succeeds, the `bin/x86/Release` folder will contain files intended for distribution (no debug symbols or other unnecessary files). You may package these files yourself, or see the [Installers](#installers) section for automated installer generation.
 
-The `Release` configuration omits debug symbols and other unnecessary files, and it will automatically build the update [installer](#installers) if possible. You can modify this behavior by opening `TweetDuck.csproj`, and editing the `<Target Name="AfterBuild" Condition="$(ConfigurationName) == Release">` section.
+The `Release` configuration omits debug symbols and other unnecessary files, and it will automatically generate the [update installer](#installers) if the environment is setup correctly. You can modify this behavior by opening `TweetDuck.csproj`, and editing the `<Target Name="AfterBuild" Condition="$(ConfigurationName) == Release">` section.
 
 If you decide to publicly release a custom version, please make it clear that it is not an official release of TweetDuck. There are many references to the official website and this repository, especially in the update system, so search for `chylex.com` and `github.com` in all files and replace them appropriately.
 
