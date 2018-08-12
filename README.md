@@ -32,7 +32,7 @@ Open **Batch Build**, tick all `Release` configurations with `x86` platform, and
 
 After the build succeeds, the `bin/x86/Release` folder will contain files intended for distribution (no debug symbols or other unnecessary files). You may package these files yourself, or see the [Installers](#installers) section for automated installer generation.
 
-The `Release` configuration omits debug symbols and other unnecessary files. You can modify this behavior by opening `TweetDuck.csproj`, and editing the `<Target Name="AfterBuild" Condition="$(ConfigurationName) == Release">` section.
+The `Release` configuration omits debug symbols and other unnecessary files, and it will automatically build the update [installer](#installers) if possible. You can modify this behavior by opening `TweetDuck.csproj`, and editing the `<Target Name="AfterBuild" Condition="$(ConfigurationName) == Release">` section.
 
 If you decide to publicly release a custom version, please make it clear that it is not an official release of TweetDuck. There are many references to the official website and this repository, especially in the update system, so search for `chylex.com` and `github.com` in all files and replace them appropriately.
 
@@ -55,7 +55,7 @@ TweetDuck uses **Inno Setup** for installers and updates. First, download and in
 
 Next, add the Inno Setup installation folder (usually `C:\Program Files (x86)\Inno Setup 5`) into your **PATH** environment variable. You may need to restart File Explorer for the change to take place.
 
-Now you can generate installers by running `bld/GEN EVERYTHING.bat`. Note that this will only package the files, you still need to run the [release build](#release) in Visual Studio!
+Now you can generate installers by running `bld/GEN INSTALLERS.bat`. Note that this will only package the files, you still need to run the [release build](#release) in Visual Studio!
 
 After the window closes, three installers will be generated inside the `bld/Output` folder:
 * **TweetDuck.exe**
@@ -73,6 +73,6 @@ The installers are built for GitHub Releases, where the main and portable instal
 
 > When opening **Batch Build**, you will also see `x64` and `AnyCPU` configurations. These are visible due to what I consider a Visual Studio bug, and will not work without significant changes to the project. Manually running the `Resources/PostCefUpdate.ps1` PowerShell script modifies the downloaded CefSharp packages, and removes the invalid configurations.
 
-> There is a small chance running `GEN EVERYTHING.bat` immediately shows a resource error. If that happens, close the console window (which terminates all Inno Setup processes and leaves corrupted installers in the output folder), and run it again.
+> There is a small chance running `GEN INSTALLERS.bat` immediately shows a resource error. If that happens, close the console window (which terminates all Inno Setup processes and leaves corrupted installers in the output folder), and run it again.
 
-> Running `GEN EVERYTHING.bat` uses about 400 MB of RAM due to high compression. You can lower this to about 140 MB by opening `gen_full.iss` and `gen_port.iss`, and changing `LZMADictionarySize=15360` to `LZMADictionarySize=4096`.
+> Running `GEN INSTALLERS.bat` uses about 400 MB of RAM due to high compression. You can lower this to about 140 MB by opening `gen_full.iss` and `gen_port.iss`, and changing `LZMADictionarySize=15360` to `LZMADictionarySize=4096`.
