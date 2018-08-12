@@ -10,10 +10,11 @@ try{
   $sharpMatch = Select-String -Path $mainProj '<Import Project="packages\\CefSharp\.Common\.(.*?)\\'
   $sharpVersion = $sharpMatch.Matches[0].Groups[1].Value
   
-  $propsFiles = "..\packages\CefSharp.Common.${sharpVersion}\build\CefSharp.Common.props",
-                "..\packages\CefSharp.WinForms.${sharpVersion}\build\CefSharp.WinForms.props"
+  $replaceWhenTag = "..\packages\CefSharp.Common.${sharpVersion}\build\CefSharp.Common.props",
+                    "..\packages\CefSharp.WinForms.${sharpVersion}\build\CefSharp.WinForms.props",
+                    "..\packages\CefSharp.WinForms.${sharpVersion}\build\CefSharp.WinForms.targets"
   
-  $targetFiles = "..\packages\CefSharp.Common.${sharpVersion}\build\CefSharp.Common.targets"
+  $replaceItemGroupTag = "..\packages\CefSharp.Common.${sharpVersion}\build\CefSharp.Common.targets"
   
   # Greetings
   
@@ -39,14 +40,14 @@ try{
   
   Write-Host "Removing x64 and AnyCPU from package files..."
   
-  foreach($file in $propsFiles){
+  foreach($file in $replaceWhenTag){
     $contents = [IO.File]::ReadAllText($file)
     $contents = $contents -Replace '(?<=<When Condition=")(''\$\(Platform\)'' == ''(AnyCPU|x64)'')(?=">)', 'false'
     
     [IO.File]::WriteAllText($file, $contents)
   }
   
-  foreach($file in $targetFiles){
+  foreach($file in $replaceItemGroupTag){
     $contents = [IO.File]::ReadAllText($file)
     $contents = $contents -Replace '(?<=<ItemGroup Condition=")(''\$\(Platform\)'' == ''(AnyCPU|x64)'')(?=">)', 'false'
     
