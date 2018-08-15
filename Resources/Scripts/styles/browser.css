@@ -384,7 +384,7 @@ a:not(.tweet-detail-action) .reply-triangle {
   display: none !important;
 }
 
-.column-message.is-actionable span:hover > .icon-small-valigned {
+.column-message.is-actionable > span:hover .icon {
   /* add a visual response when hovering individual filter icons; black theme uses a value of 20 */
   filter: saturate(10);
 }
