@@ -130,7 +130,6 @@ namespace TweetDuck.Core{
             if (frame.IsMain){
                 if (TwitterUtils.IsTweetDeckWebsite(frame)){
                     UpdateProperties();
-                    TweetDeckBridge.RestoreSessionData(frame);
                     ScriptLoader.ExecuteFile(frame, "code.js", browser);
 
                     InjectBrowserCSS();

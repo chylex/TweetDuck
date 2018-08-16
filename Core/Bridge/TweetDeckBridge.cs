@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
-using CefSharp;
+﻿using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Management;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Utils;
-using TweetDuck.Resources;
 
 namespace TweetDuck.Core.Bridge{
     class TweetDeckBridge{
@@ -15,23 +11,8 @@ namespace TweetDuck.Core.Bridge{
         public static string NotificationHeadLayout { get; private set; }
         public static readonly ContextInfo ContextInfo = new ContextInfo();
 
-        private static readonly Dictionary<string, string> SessionData = new Dictionary<string, string>(2);
-
         public static void ResetStaticProperties(){
             FontSize = NotificationHeadLayout = null;
-        }
-
-        public static void RestoreSessionData(IFrame frame){
-            if (SessionData.Count > 0){
-                StringBuilder build = new StringBuilder(22).Append("window.TD_SESSION={");
-                
-                foreach(KeyValuePair<string, string> kvp in SessionData){
-                    build.Append(kvp.Key).Append(":'").Append(kvp.Value.Replace("'", "\\'")).Append("',");
-                }
-
-                ScriptLoader.ExecuteScript(frame, build.Append("}").ToString(), "gen:session");
-                SessionData.Clear();
-            }
         }
 
         private readonly FormBrowser form;
@@ -78,12 +59,6 @@ namespace TweetDuck.Core.Bridge{
 
             public void DisplayTooltip(string text){
                 form.InvokeAsyncSafe(() => form.DisplayTooltip(text));
-            }
-
-            public void SetSessionData(string key, string value){
-                form.InvokeSafe(() => { // do not use InvokeAsyncSafe, return only after invocation
-                    SessionData.Add(key, value);
-                });
             }
         }
 

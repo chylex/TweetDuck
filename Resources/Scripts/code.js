@@ -1587,78 +1587,11 @@
   // Block: Custom reload function with memory cleanup.
   //
   window.TDGF_reload = function(){
-    try{
-      let session = TD.storage.feedController.getAll()
-                      .filter(feed => !!feed.getTopSortIndex())
-                      .reduce((obj, feed) => (obj[feed.privateState.key] = feed.getTopSortIndex(), obj), {});
-      
-      $TD.setSessionData("gc", JSON.stringify(session)).then(() => {
-        window.gc && window.gc();
-        window.location.reload();
-      });
-    }catch(err){
-      $TD.crashDebug("Error saving session during a reload");
-      window.location.reload();
-    }
+    window.gc && window.gc();
+    window.location.reload();
     
     window.TDGF_reload = function(){}; // redefine to prevent reloading multiple times
   };
-  
-  if (window.TD_SESSION && window.TD_SESSION.gc){
-    let state;
-    
-    try{
-      state = JSON.parse(window.TD_SESSION.gc);
-    }catch(err){
-      $TD.crashDebug("Invalid session gc data: "+window.TD_SESSION.gc);
-      state = {};
-    }
-    
-    const showMissedNotifications = function(){
-      let tweets = [];
-      let columns = {};
-      
-      let tmp = new TD.services.ChirpBase;
-      
-      for(let column of Object.values(TD.controller.columnManager.getAll())){
-        for(let feed of column.getFeeds()){
-          if (feed.privateState.key in state){
-            tmp.sortIndex = state[feed.privateState.key];
-            
-            for(let tweet of [].concat.apply([], column.updateArray.map(function(chirp){
-              return chirp.getUnreadChirps(tmp);
-            }))){
-              tweets.push(tweet);
-              columns[tweet.id] = column;
-            }
-          }
-        }
-      }
-      
-      tweets.sort(TD.util.chirpReverseColumnSort);
-      
-      for(let tweet of tweets){
-        onNewTweet(columns[tweet.id], tweet);
-      }
-    };
-    
-    execSafe(function showMissedNotifications(){
-      throw 1 if !ensurePropertyExists(TD, "controller", "columnManager", "getAll");
-      
-      $(document).one("dataColumnsLoaded", function(){
-        let columns = Object.values(TD.controller.columnManager.getAll());
-        let remaining = columns.length;
-        
-        for(let column of columns){
-          column.ui.getChirpContainer().one("dataColumnFeedUpdated", () => {
-            if (--remaining === 0){
-              setTimeout(showMissedNotifications, 1);
-            }
-          });
-        }
-      });
-    });
-  }
   
   //
   // Block: Disable default TweetDeck update notification.
@@ -1693,8 +1626,6 @@
   $(document).one("TD.ready", function(){
     onAppReady.forEach(func => execSafe(func));
     onAppReady = null;
-    
-    delete window.TD_SESSION;
     
     if (window.TD_PLUGINS){
       window.TD_PLUGINS.onReady();
