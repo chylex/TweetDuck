@@ -1485,14 +1485,30 @@
   //
   // Block: Fix DM notifications not showing if the conversation is open.
   //
-  if (ensurePropertyExists(TD, "services", "TwitterConversation", "prototype", "getUnreadChirps")){
-    const prevFunc = TD.services.TwitterConversation.prototype.getUnreadChirps;
-    
-    TD.services.TwitterConversation.prototype.getUnreadChirps = function(e){
-      return (e && e.sortIndex && !e.id && !this.notificationsDisabled)
-        ? this.messages.filter(t => t.chirpType === TD.services.ChirpBase.MESSAGE && !t.isOwnChirp() && !t.read && !t.belongsBelow(e)) // changed from belongsAbove
-        : prevFunc.apply(this, arguments);
-    };
+  if (ensurePropertyExists(TD, "vo", "Column", "prototype", "mergeMissingChirps")){
+    TD.vo.Column.prototype.mergeMissingChirps = prependToFunction(TD.vo.Column.prototype.mergeMissingChirps, function(e){
+      let model = this.model;
+      
+      if (model && model.state && model.state.type === "privateMe" && !this.notificationsDisabled && e.poller.feed.managed){
+        let unread = [];
+        
+        for(let chirp of e.chirps){
+          if (Array.isArray(chirp.messages)){
+            Array.prototype.push.apply(unread, chirp.messages.filter(message => message.read === false));
+          }
+        }
+        
+        if (unread.length > 0){
+          unread.sort(TD.util.chirpReverseColumnSort);
+          
+          for(let message of unread){
+            onNewTweet(this, message);
+          }
+          
+          // TODO sound notifications are borked as well
+        }
+      }
+    });
   }
   
   //
