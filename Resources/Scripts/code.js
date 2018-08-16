@@ -1499,13 +1499,16 @@
         }
         
         if (unread.length > 0){
-          unread.sort(TD.util.chirpReverseColumnSort);
+          if (ensurePropertyExists(TD, "util", "chirpReverseColumnSort")){
+            unread.sort(TD.util.chirpReverseColumnSort);
+          }
           
           for(let message of unread){
             onNewTweet(this, message);
           }
           
           // TODO sound notifications are borked as well
+          // TODO figure out what to do with missed notifications at startup
         }
       }
     });
