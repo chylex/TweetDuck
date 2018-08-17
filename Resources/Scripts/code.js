@@ -1515,6 +1515,24 @@
   }
   
   //
+  // Block: Fix DMs not being marked as read when replying to them.
+  //
+  execSafe(function markRepliedDMsAsRead(){
+    throw 1 if !ensurePropertyExists(TD, "controller", "clients", "getClient");
+    throw 2 if !ensurePropertyExists(TD, "services", "Conversations", "prototype", "getConversation");
+    
+    $(document).on("dataDmSent", function(e, data){
+      let client = TD.controller.clients.getClient(data.request.accountKey);
+      return if !client;
+      
+      let conversation = client.conversations.getConversation(data.request.conversationId);
+      return if !conversation;
+      
+      conversation.markAsRead();
+    });
+  });
+  
+  //
   // Block: Limit amount of loaded DMs to avoid massive lag from re-opening them several times.
   //
   if (ensurePropertyExists(TD, "services", "TwitterConversation", "prototype", "renderThread")){
