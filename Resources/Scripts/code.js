@@ -1,15 +1,5 @@
 (function($TD, $TDX, $, TD){
   //
-  // Variable: Current highlighted column jQuery & data objects.
-  //
-  let highlightedColumn = null;
-  
-  //
-  // Variable: Currently highlighted tweet jQuery & data objects.
-  //
-  let highlightedTweet = null;
-  
-  //
   // Variable: Array of functions called after the website app is loaded.
   //
   let onAppReady = [];
@@ -109,6 +99,53 @@
       
       fail && fail();
     }
+  };
+  
+  //
+  // Function: Returns an object containing data about the column below the cursor.
+  //
+  const getHoveredColumn = function(){
+    let hovered = document.querySelectorAll(":hover");
+    
+    for(let index = hovered.length-1; index >= 0; index--){
+      let ele = hovered[index];
+      
+      if (ele.tagName === "SECTION" && ele.classList.contains("js-column")){
+        let obj = TD.controller.columnManager.get(ele.getAttribute("data-column"));
+        
+        if (obj){
+          return { ele, obj };
+        }
+      }
+    }
+    
+    return null;
+  };
+  
+  //
+  // Function: Returns an object containing data about the tweet below the cursor.
+  //
+  const getHoveredTweet = function(){
+    let hovered = document.querySelectorAll(":hover");
+    
+    for(let index = hovered.length-1; index >= 0; index--){
+      let ele = hovered[index];
+      
+      if (ele.tagName === "ARTICLE" && ele.classList.contains("js-stream-item") && ele.hasAttribute("data-account-key")){
+        let column = getHoveredColumn();
+        
+        if (column){
+          let wrap = column.obj.findChirp(ele.getAttribute("data-key"));
+          let obj = column.obj.findChirp(ele.getAttribute("data-tweet-id")) || wrap;
+          
+          if (obj){
+            return { ele, obj, wrap, column };
+          }
+        }
+      }
+    }
+    
+    return null;
   };
   
   //
@@ -626,8 +663,11 @@
     $(document.body).delegate("a", "contextmenu", function(){
       let me = $(this)[0];
       
-      if (me.classList.contains("js-media-image-link") && highlightedTweet){
-        let tweet = highlightedTweet.obj.hasMedia() ? highlightedTweet.obj : highlightedTweet.obj.quotedTweet;
+      if (me.classList.contains("js-media-image-link")){
+        let hovered = getHoveredTweet();
+        return if !hovered;
+        
+        let tweet = hovered.obj.hasMedia() ? hovered.obj : hovered.obj.quotedTweet;
         let media = tweet.getMedia().find(media => media.mediaId === me.getAttribute("data-media-entity-id"));
         
         if ((media.isVideo && media.service === "twitter") || media.isAnimatedGif){
@@ -678,59 +718,23 @@
   };
   
   //
-  // Block: Update highlighted column and tweet for context menu and other functionality.
+  // Block: Add tweet-related options to the context menu.
   //
-  execSafe(function setupHighlightedColumn(){
+  execSafe(function setupTweetContextMenu(){
     throw 1 if !ensurePropertyExists(TD, "controller", "columnManager", "get");
     throw 2 if !ensurePropertyExists(TD, "services", "ChirpBase", "TWEET");
-    
-    const updateHighlightedColumn = function(ele){
-      let obj = ele ? TD.controller.columnManager.get(ele.attr("data-column")) : null;
-      
-      if (obj){
-        highlightedColumn = { ele, obj };
-        return true;
-      }
-      else{
-        highlightedColumn = null;
-        return false;
-      }
-    };
-    
-    const updateHighlightedTweet = function(ele){
-      if (ele && ele[0].hasAttribute("data-account-key") && (highlightedColumn || updateHighlightedColumn(ele.closest("section.js-column")))){
-        let wrap = highlightedColumn.obj.findChirp(ele.attr("data-key"));
-        let obj = highlightedColumn.obj.findChirp(ele.attr("data-tweet-id")) || wrap;
-        
-        if (obj){
-          highlightedTweet = { ele, obj, wrap };
-          return true;
-        }
-      }
-      
-      highlightedTweet = null;
-      return false;
-    };
+    throw 3 if !ensurePropertyExists(TD, "services", "TwitterActionFollow");
     
     const processMedia = function(chirp){
       return chirp.getMedia().filter(item => !item.isAnimatedGif).map(item => item.entity.media_url_https+":small").join(";");
     };
     
     app.delegate("section.js-column", {
-      mouseenter: function(){
-        if (!highlightedColumn){
-          updateHighlightedColumn($(this));
-        }
-      },
-      
-      mouseleave: function(){
-        updateHighlightedColumn(null);
-      },
-      
       contextmenu: function(){
-        return if !highlightedTweet;
+        let hovered = getHoveredTweet();
+        return if !hovered;
         
-        let tweet = highlightedTweet.obj;
+        let tweet = hovered.obj;
         let quote = tweet.quotedTweet;
         
         if (tweet.chirpType === TD.services.ChirpBase.TWEET){
@@ -747,16 +751,6 @@
         }
       }
     });
-    
-    app.delegate("article.js-stream-item", {
-      mouseenter: function(){
-        updateHighlightedTweet($(this));
-      },
-      
-      mouseleave: function(){
-        updateHighlightedTweet(null);
-      }
-    });
   });
   
   //
@@ -764,19 +758,20 @@
   //
   execSafe(function setupTweetScreenshot(){
     window.TDGF_triggerScreenshot = function(){
-      return if !highlightedTweet || !highlightedColumn;
+      let hovered = getHoveredTweet();
+      return if !hovered;
       
-      let columnWidth = highlightedColumn.ele.width();
-      let chirp = highlightedTweet.wrap || highlightedTweet.obj;
+      let columnWidth = $(hovered.column.ele).width();
+      let tweet = hovered.wrap || hovered.obj;
       
-      let html = $(chirp.render({
+      let html = $(tweet.render({
         withFooter: false,
         withTweetActions: false,
         isInConvo: false,
         isFavorite: false,
         isRetweeted: false, // keeps retweet mark above tweet
         isPossiblySensitive: false,
-        mediaPreviewSize: highlightedColumn.obj.getMediaPreviewSize()
+        mediaPreviewSize: hovered.column.obj.getMediaPreviewSize()
       }));
       
       html.find("footer").last().remove(); // apparently withTweetActions breaks for certain tweets, nice
@@ -804,12 +799,12 @@
       let gif = html.find(".js-media-gif-container");
       
       if (gif.length){
-        gif.css("background-image", 'url("'+chirp.getMedia()[0].small()+'")');
+        gif.css("background-image", 'url("'+tweet.getMedia()[0].small()+'")');
       }
       
-      let type = chirp.getChirpType();
+      let type = tweet.getChirpType();
       
-      if ((type.startsWith("favorite") || type.startsWith("retweet")) && chirp.isAboutYou()){
+      if ((type.startsWith("favorite") || type.startsWith("retweet")) && tweet.isAboutYou()){
         html.addClass("td-notification-padded");
       }
       
@@ -878,8 +873,11 @@
     };
     
     const tryCloseHighlightedColumn = function(){
-      let column = highlightedColumn && highlightedColumn.ele.closest(".js-column");
-      return column && ((column.is(".is-shifted-2") && tryClickSelector(".js-tweet-social-proof-back", column)) || (column.is(".is-shifted-1") && tryClickSelector(".js-column-back", column)));
+      let column = getHoveredColumn();
+      return false if !column;
+      
+      let ele = $(column.ele);
+      return ((ele.is(".is-shifted-2") && tryClickSelector(".js-tweet-social-proof-back", ele)) || (ele.is(".is-shifted-1") && tryClickSelector(".js-column-back", ele)));
     };
     
     window.TDGF_onMouseClickExtra = function(button){
@@ -895,8 +893,10 @@
         $(".is-shifted-1 .js-column-back").click();
       }
       else if (button === 2){ // forward button
-        if (highlightedTweet){
-          highlightedTweet.ele.children().first().click();
+        let hovered = getHoveredTweet();
+        
+        if (hovered){
+          $(hovered.ele).children().first().click();
         }
       }
     };
@@ -1198,7 +1198,8 @@
         let src = !e.ctrlKey && getGifLink($(this).closest(".js-media-gif-container").find("video"));
         
         if (src){
-          window.TDGF_playVideo(src, getUsername(highlightedTweet.obj));
+          let hovered = getHoveredTweet();
+          window.TDGF_playVideo(src, getUsername(hovered && hovered.obj));
         }
         else{
           $TD.openBrowser(getVideoTweetLink($(this)));
