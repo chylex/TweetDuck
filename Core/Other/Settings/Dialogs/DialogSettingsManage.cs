@@ -135,8 +135,9 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                         Program.Config.ProgramRestartRequested -= Config_ProgramRestartRequested;
 
                         if (SelectedItems.HasFlag(ProfileManager.Items.PluginData)){
+                            Program.Config.Plugins.Reset();
+
                             try{
-                                File.Delete(Program.PluginConfigFilePath);
                                 Directory.Delete(Program.PluginDataPath, true);
                             }catch(Exception ex){
                                 Program.Reporter.HandleException("Profile Reset", "Could not delete plugin data.", true, ex);

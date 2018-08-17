@@ -89,7 +89,7 @@ namespace TweetDuck.Plugins.Controls{
         }
 
         private void btnToggleState_Click(object sender, EventArgs e){
-            pluginManager.Config.ToggleEnabled(plugin);
+            pluginManager.Config.SetEnabled(plugin, !pluginManager.Config.IsEnabled(plugin));
             UpdatePluginState();
         }
 

@@ -1,9 +1,10 @@
-﻿using TweetDuck.Plugins.Enums;
+﻿using System.Linq;
+using TweetDuck.Plugins.Enums;
 
 namespace TweetDuck.Plugins{
     static class PluginScriptGenerator{
-        public static string GenerateConfig(PluginConfig config){
-            return config.AnyDisabled ? "window.TD_PLUGINS.disabled = [\""+string.Join("\",\"", config.DisabledPlugins)+"\"];" : string.Empty;
+        public static string GenerateConfig(IPluginConfig config){
+            return "window.TD_PLUGINS.disabled = ["+string.Join(",", config.DisabledPlugins.Select(id => $"\"{id}\""))+"]";
         }
 
         public static string GeneratePlugin(string pluginIdentifier, string pluginContents, int pluginToken, PluginEnvironment environment){

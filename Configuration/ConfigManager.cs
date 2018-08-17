@@ -10,21 +10,25 @@ namespace TweetDuck.Configuration{
     sealed class ConfigManager{
         public UserConfig User { get; }
         public SystemConfig System { get; }
+        public PluginConfig Plugins { get; }
         
         public event EventHandler ProgramRestartRequested;
 
         private readonly FileConfigInstance<UserConfig> infoUser;
         private readonly FileConfigInstance<SystemConfig> infoSystem;
+        private readonly PluginConfigInstance infoPlugins;
 
         private readonly IConfigInstance<BaseConfig>[] infoList;
 
         public ConfigManager(){
             User = new UserConfig(this);
             System = new SystemConfig(this);
+            Plugins = new PluginConfig(this);
             
             infoList = new IConfigInstance<BaseConfig>[]{
                 infoUser = new FileConfigInstance<UserConfig>(Program.UserConfigFilePath, User, "program options"),
-                infoSystem = new FileConfigInstance<SystemConfig>(Program.SystemConfigFilePath, System, "system options")
+                infoSystem = new FileConfigInstance<SystemConfig>(Program.SystemConfigFilePath, System, "system options"),
+                infoPlugins = new PluginConfigInstance(Program.PluginConfigFilePath, Plugins)
             };
 
             // TODO refactor further
@@ -51,16 +55,19 @@ namespace TweetDuck.Configuration{
         public void LoadAll(){
             infoUser.Load();
             infoSystem.Load();
+            infoPlugins.Load();
         }
 
         public void SaveAll(){
             infoUser.Save();
             infoSystem.Save();
+            infoPlugins.Save();
         }
 
         public void ReloadAll(){
             infoUser.Reload();
             infoSystem.Reload();
+            infoPlugins.Reload();
         }
 
         private void TriggerProgramRestartRequested(){

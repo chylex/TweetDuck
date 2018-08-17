@@ -21,13 +21,12 @@ namespace TweetDuck.Plugins{
         public IEnumerable<Plugin> Plugins => plugins;
         public IEnumerable<InjectedHTML> NotificationInjections => bridge.NotificationInjections;
 
-        public PluginConfig Config { get; }
+        public IPluginConfig Config { get; }
         
         public event EventHandler<PluginErrorEventArgs> Reloaded;
         public event EventHandler<PluginErrorEventArgs> Executed;
-
+        
         private readonly string rootPath;
-        private readonly string configPath;
         private readonly PluginBridge bridge;
 
         private readonly HashSet<Plugin> plugins = new HashSet<Plugin>();
@@ -36,15 +35,12 @@ namespace TweetDuck.Plugins{
 
         private IWebBrowser mainBrowser;
 
-        public PluginManager(string rootPath, string configPath){
+        public PluginManager(IPluginConfig config, string rootPath){
+            this.Config = config;
+            this.Config.PluginChangedState += Config_PluginChangedState;
+
             this.rootPath = rootPath;
-            this.configPath = configPath;
-
-            this.Config = new PluginConfig();
             this.bridge = new PluginBridge(this);
-
-            Config.Load(configPath);
-            Config.PluginChangedState += Config_PluginChangedState;
         }
 
         public void Register(IWebBrowser browser, PluginEnvironment environment, Control sync, bool asMainBrowser = false){
@@ -65,7 +61,6 @@ namespace TweetDuck.Plugins{
 
         private void Config_PluginChangedState(object sender, PluginChangedStateEventArgs e){
             mainBrowser?.ExecuteScriptAsync("TDPF_setPluginState", e.Plugin, e.IsEnabled);
-            Config.Save(configPath);
         }
 
         public bool IsPluginInstalled(string identifier){
@@ -120,8 +115,6 @@ namespace TweetDuck.Plugins{
         }
 
         public void Reload(){
-            Config.Load(configPath);
-
             plugins.Clear();
             tokens.Clear();
 
