@@ -2,7 +2,6 @@ enabled(){
   // elements & data
   this.css = null;
   this.icons = null;
-  this.htmlModal = null;
   this.config = null;
   
   this.defaultConfig = {
@@ -40,13 +39,6 @@ enabled(){
   this.firstTimeLoad = null;
   
   const me = this;
-  
-  // modal dialog loading
-  $TDP.readFileRoot(this.$token, "modal.html").then(contents => {
-    this.htmlModal = contents;
-  }).catch(err => {
-    $TD.alert("error", "Problem loading data for the design edit plugin: "+err.message);
-  });
   
   // configuration
   const configFile = "config.json";
@@ -112,7 +104,7 @@ enabled(){
   
   // settings click event
   this.onSettingsMenuClickedEvent = () => {
-    return if this.htmlModal === null || this.config === null;
+    return if this.config === null;
     
     setTimeout(() => {
       let menu = $(".js-dropdown-content").children("ul").first();
@@ -268,12 +260,16 @@ enabled(){
       }, 1);
     });
   }).methods({
-    _render: () => $(this.htmlModal),
+    _render: function(){
+      return $(me.htmlModal);
+    },
     destroy: function(){
       if (this.reloadPage){
         window.TDPF_requestReload();
         return;
       }
+      
+      delete me.htmlModal;
       
       $("#td-design-plugin-modal").hide();
       this.supr();
@@ -670,7 +666,12 @@ ready(){
 }
 
 configure(){
-  new this.customDesignModal();
+  $TDP.readFileRoot(this.$token, "modal.html").then(contents => {
+    this.htmlModal = contents;
+    new this.customDesignModal();
+  }).catch(err => {
+    $TD.alert("error", "Error loading the configuration dialog: "+err.message);
+  });
 }
 
 disabled(){
