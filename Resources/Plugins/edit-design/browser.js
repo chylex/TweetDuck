@@ -173,20 +173,26 @@ enabled(){
       // SELECTS
       else if (tag === "SELECT"){
         let optionCustom = item.find("option[value^='custom']");
+        let optionCustomNew = item.find("option[value^='change-custom']");
         
         let resetMyValue = () => {
           if (!item.val(me.config[key]).val() && optionCustom.length === 1){
             item.val(optionCustom.attr("value"));
             optionCustom.text(getTextForCustom(key));
+            optionCustomNew.show();
+          }
+          else{
+            optionCustom.text("Custom");
+            optionCustomNew.hide();
           }
         };
         
         resetMyValue();
         
-        item.change(function(){ // TODO change doesn't fire when Custom is already selected
+        item.change(function(){
           let val = item.val();
           
-          if (val === "custom-px"){
+          if (val.endsWith("custom-px")){
             val = (prompt("Enter custom value (px):") || "").trim();
             
             if (val){
@@ -196,21 +202,17 @@ enabled(){
               
               if (/^[0-9]+$/.test(val)){
                 updateKey(key, val+"px");
-                optionCustom.text(getTextForCustom(key));
               }
               else{
                 alert("Invalid value, only px values are supported.");
-                resetMyValue();
               }
-            }
-            else{
-              resetMyValue();
             }
           }
           else{
             updateKey(key, item.val());
-            optionCustom.text("Custom");
           }
+          
+          resetMyValue();
         });
       }
       // CUSTOM ELEMENTS
