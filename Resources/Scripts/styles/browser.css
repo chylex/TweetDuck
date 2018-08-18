@@ -272,7 +272,7 @@ a[data-full-url] {
   max-width: 100% !important;
 }
 
-[data-td-icon="icon-message"] .column-header-links {
+.column[data-td-icon="icon-message"] .column-header-links {
   min-width: 86px;
 }
 
@@ -455,18 +455,18 @@ a:not(.tweet-detail-action) .reply-triangle {
 /* Fix cut off usernames in Messages column */
 /********************************************/
 
-[data-td-icon="icon-message"].is-shifted-1 .column-title-container {
+.column[data-td-icon="icon-message"].is-shifted-1 .column-title-container {
   height: 100%;
   border-bottom-color: transparent;
 }
 
-#tduck [data-td-icon="icon-message"].is-shifted-1 .column-title-items {
+#tduck .column[data-td-icon="icon-message"].is-shifted-1 .column-title-items {
   height: 100%;
   margin-left: 4px !important;
   padding-top: 1px;
 }
 
-[data-td-icon="icon-message"].is-shifted-1 .username {
+.column[data-td-icon="icon-message"].is-shifted-1 .username {
   vertical-align: bottom;
 }
 
