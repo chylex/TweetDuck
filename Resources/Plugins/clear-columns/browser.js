@@ -111,15 +111,17 @@ enabled(){
   // styles
   
   this.css = window.TDPF_createCustomStyle(this);
+  
   this.css.insert(".js-app-add-column.is-hidden + .clear-columns-btn-all-parent { display: none; }");
-  this.css.insert(".column-header-links { min-width: 51px !important; }");
-  this.css.insert(".column[data-td-icon='icon-message'] .column-header-links { min-width: 110px !important; }");
   this.css.insert(".column-navigator-overflow .clear-columns-btn-all-parent { display: none !important; }");
   this.css.insert(".column-navigator-overflow { bottom: 224px !important; }");
-  this.css.insert("[data-action='td-clearcolumns-dosingle'] { padding: 3px 0 !important; }");
-  this.css.insert("[data-action='clear'].btn-options-tray { display: none !important; }");
-  this.css.insert(".column[data-td-icon='icon-schedule'] .td-clear-column-shortcut { display: none; }");
-  this.css.insert(".column[data-td-icon='icon-custom-timeline'] .td-clear-column-shortcut { display: none; }");
+  
+  this.css.insert(".column-header-links { min-width: 51px !important; }");
+  this.css.insert(".column[data-td-icon='icon-message'] .column-header-links { min-width: 110px !important; }");
+  this.css.insert(".btn-options-tray[data-action='clear'] { display: none !important; }");
+  
+  this.css.insert(".column[data-td-icon='icon-schedule'] a[data-action='td-clearcolumns-dosingle'] { display: none; }");
+  this.css.insert(".column[data-td-icon='icon-custom-timeline'] a[data-action='td-clearcolumns-dosingle'] { display: none; }");
 }
 
 ready(){

@@ -253,9 +253,9 @@ a[data-full-url] {
   bottom: 0 !important;
 }
 
-/**********************************************************/
-/* Prevent column icons from being hidden by column title */
-/**********************************************************/
+/**************************************************************************/
+/* Prevent column icons from being hidden by column title & fix alignment */
+/**************************************************************************/
 
 .column-header-title {
   overflow: hidden !important;
@@ -270,6 +270,7 @@ a[data-full-url] {
 
 .column-header-links {
   max-width: 100% !important;
+  text-align: right;
 }
 
 .column[data-td-icon="icon-message"] .column-header-links {
