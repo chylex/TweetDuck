@@ -66,6 +66,14 @@ namespace TweetDuck.Core.Utils{
             }
         }
 
+        public static bool FileExistsAndNotEmpty(string path){
+            try{
+                return new FileInfo(path).Length > 0;
+            }catch{
+                return false;
+            }
+        }
+
         public static bool OpenAssociatedProgram(string file, string arguments = "", bool runElevated = false){
             try{
                 using(Process.Start(new ProcessStartInfo{

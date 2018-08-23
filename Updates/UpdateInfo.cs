@@ -26,7 +26,7 @@ namespace TweetDuck.Updates{
         }
 
         public void BeginSilentDownload(){
-            if (File.Exists(InstallerPath)){
+            if (WindowsUtils.FileExistsAndNotEmpty(InstallerPath)){
                 DownloadStatus = UpdateDownloadStatus.Done;
                 return;
             }

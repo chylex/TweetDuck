@@ -83,8 +83,8 @@ namespace TweetDuck.Core.Utils{
             }
 
             string file = Path.Combine(BrowserCache.CacheFolder, GetImageFileName(url) ?? Path.GetRandomFileName());
-
-            if (File.Exists(file)){
+            
+            if (WindowsUtils.FileExistsAndNotEmpty(file)){
                 ViewImageInternal(file);
             }
             else{
