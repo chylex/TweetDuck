@@ -8,6 +8,8 @@ using TweetDuck.Core.Management;
 using TweetDuck.Core.Other;
 using TweetDuck.Data;
 using System.Linq;
+using System.Threading.Tasks;
+using Cookie = CefSharp.Cookie;
 
 namespace TweetDuck.Core.Utils{
     static class TwitterUtils{
@@ -50,7 +52,10 @@ namespace TweetDuck.Core.Utils{
             if (quality == ImageQuality.Orig){
                 string result = ExtractMediaBaseLink(url);
 
-                if (result != url || url.Contains("//pbs.twimg.com/media/")){
+                if (url.Contains("//ton.twitter.com/") && url.Contains("/ton/data/dm/")){
+                    result += ":large";
+                }
+                else if (result != url || url.Contains("//pbs.twimg.com/media/")){
                     result += ":orig";
                 }
 
@@ -83,7 +88,7 @@ namespace TweetDuck.Core.Utils{
                 ViewImageInternal(file);
             }
             else{
-                BrowserUtils.DownloadFileAsync(GetMediaLink(url, quality), file, () => {
+                DownloadFileAuth(GetMediaLink(url, quality), file, () => {
                     ViewImageInternal(file);
                 }, ex => {
                     FormMessage.Error("Image Download", "An error occurred while downloading the image: "+ex.Message, FormMessage.OK);
@@ -119,14 +124,14 @@ namespace TweetDuck.Core.Utils{
                     }
 
                     if (urls.Length == 1){
-                        BrowserUtils.DownloadFileAsync(firstImageLink, dialog.FileName, null, OnFailure);
+                        DownloadFileAuth(firstImageLink, dialog.FileName, null, OnFailure);
                     }
                     else{
                         string pathBase = Path.ChangeExtension(dialog.FileName, null);
                         string pathExt = Path.GetExtension(dialog.FileName);
 
                         for(int index = 0; index < urls.Length; index++){
-                            BrowserUtils.DownloadFileAsync(GetMediaLink(urls[index], quality), $"{pathBase} {index+1}{pathExt}", null, OnFailure);
+                            DownloadFileAuth(GetMediaLink(urls[index], quality), $"{pathBase} {index+1}{pathExt}", null, OnFailure);
                         }
                     }
                 }
@@ -145,10 +150,32 @@ namespace TweetDuck.Core.Utils{
                 Filter = "Video"+(string.IsNullOrEmpty(ext) ? " (unknown)|*.*" : $" (*{ext})|*{ext}")
             }){
                 if (dialog.ShowDialog() == DialogResult.OK){
-                    BrowserUtils.DownloadFileAsync(url, dialog.FileName, null, ex => {
+                    DownloadFileAuth(url, dialog.FileName, null, ex => {
                         FormMessage.Error("Video Download", "An error occurred while downloading the video: "+ex.Message, FormMessage.OK);
                     });
                 }
+            }
+        }
+
+        private static void DownloadFileAuth(string url, string target, Action onSuccess, Action<Exception> onFailure){
+            const string AuthCookieName = "auth_token";
+
+            TaskScheduler scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+
+            using(ICookieManager cookies = Cef.GetGlobalCookieManager()){
+                cookies.VisitUrlCookiesAsync(url, true).ContinueWith(task => {
+                    string cookieStr = null;
+
+                    if (task.Status == TaskStatus.RanToCompletion){
+                        Cookie found = task.Result?.Find(cookie => cookie.Name == AuthCookieName); // the list may be null
+
+                        if (found != null){
+                            cookieStr = $"{found.Name}={found.Value}";
+                        }
+                    }
+
+                    BrowserUtils.DownloadFileAsync(url, target, cookieStr, onSuccess, onFailure);
+                }, scheduler);
             }
         }
     }

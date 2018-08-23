@@ -207,8 +207,12 @@ namespace TweetDuck.Core.Utils{
             return client;
         }
 
-        public static WebClient DownloadFileAsync(string url, string target, Action onSuccess, Action<Exception> onFailure){
+        public static WebClient DownloadFileAsync(string url, string target, string cookie, Action onSuccess, Action<Exception> onFailure){
             WebClient client = CreateWebClient();
+
+            if (cookie != null){
+                client.Headers[HttpRequestHeader.Cookie] = cookie;
+            }
 
             client.DownloadFileCompleted += (sender, args) => {
                 if (args.Cancelled){

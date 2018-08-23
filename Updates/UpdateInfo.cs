@@ -48,7 +48,7 @@ namespace TweetDuck.Updates{
                     return;
                 }
 
-                currentDownload = BrowserUtils.DownloadFileAsync(downloadUrl, InstallerPath, () => {
+                currentDownload = BrowserUtils.DownloadFileAsync(downloadUrl, InstallerPath, null, () => {
                     DownloadStatus = UpdateDownloadStatus.Done;
                     currentDownload = null;
                 }, e => {
