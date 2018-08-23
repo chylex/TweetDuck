@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using CefSharp;
@@ -123,33 +122,11 @@ namespace TweetDuck.Core.Handling{
                     break;
 
                 case MenuViewImage: {
-                    void ViewImage(string path){
-                        string ext = Path.GetExtension(path);
-
-                        if (TwitterUtils.ValidImageExtensions.Contains(ext)){
-                            WindowsUtils.OpenAssociatedProgram(path);
-                        }
-                        else{
-                            FormMessage.Error("Image Download", "Invalid file extension "+ext, FormMessage.OK);
-                        }
-                    }
-
                     string url = Context.MediaUrl;
-                    string file = Path.Combine(BrowserCache.CacheFolder, TwitterUtils.GetImageFileName(url) ?? Path.GetRandomFileName());
 
                     control.InvokeAsyncSafe(() => {
-                        if (File.Exists(file)){
-                            ViewImage(file);
-                        }
-                        else{
-                            analytics.AnalyticsFile.ViewedImages.Trigger();
-
-                            BrowserUtils.DownloadFileAsync(TwitterUtils.GetMediaLink(url, ImageQuality), file, () => {
-                                ViewImage(file);
-                            }, ex => {
-                                FormMessage.Error("Image Download", "An error occurred while downloading the image: "+ex.Message, FormMessage.OK);
-                            });
-                        }
+                        TwitterUtils.ViewImage(url, ImageQuality);
+                        analytics.AnalyticsFile.ViewedImages.Trigger();
                     });
                     
                     break;

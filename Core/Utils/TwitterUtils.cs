@@ -4,8 +4,10 @@ using System.Drawing;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using TweetDuck.Core.Management;
 using TweetDuck.Core.Other;
 using TweetDuck.Data;
+using System.Linq;
 
 namespace TweetDuck.Core.Utils{
     static class TwitterUtils{
@@ -61,6 +63,32 @@ namespace TweetDuck.Core.Utils{
 
         public static string GetImageFileName(string url){
             return BrowserUtils.GetFileNameFromUrl(ExtractMediaBaseLink(url));
+        }
+
+        public static void ViewImage(string url, ImageQuality quality){
+            void ViewImageInternal(string path){
+                string ext = Path.GetExtension(path);
+
+                if (ValidImageExtensions.Contains(ext)){
+                    WindowsUtils.OpenAssociatedProgram(path);
+                }
+                else{
+                    FormMessage.Error("Image Download", "Invalid file extension "+ext, FormMessage.OK);
+                }
+            }
+
+            string file = Path.Combine(BrowserCache.CacheFolder, GetImageFileName(url) ?? Path.GetRandomFileName());
+
+            if (File.Exists(file)){
+                ViewImageInternal(file);
+            }
+            else{
+                BrowserUtils.DownloadFileAsync(GetMediaLink(url, quality), file, () => {
+                    ViewImageInternal(file);
+                }, ex => {
+                    FormMessage.Error("Image Download", "An error occurred while downloading the image: "+ex.Message, FormMessage.OK);
+                });
+            }
         }
         
         public static void DownloadImage(string url, string username, ImageQuality quality){
