@@ -15,6 +15,7 @@ using TweetDuck.Core.Other.Settings.Dialogs;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
 using TweetDuck.Plugins.Events;
+using TweetDuck.Resources;
 using TweetDuck.Updates;
 
 namespace TweetDuck.Core{
@@ -365,7 +366,11 @@ namespace TweetDuck.Core{
 
         public void ReloadToTweetDeck(){
             #if DEBUG
-            Resources.ScriptLoader.HotSwap();
+            ScriptLoader.HotSwap();
+            #else
+            if (ModifierKeys.HasFlag(Keys.Shift)){
+                ScriptLoader.ClearCache();
+            }
             #endif
 
             ignoreUpdateCheckError = false;

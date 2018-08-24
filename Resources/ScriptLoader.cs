@@ -80,6 +80,10 @@ namespace TweetDuck.Resources{
             }
         }
 
+        public static void ClearCache(){
+            CachedData.Clear();
+        }
+
         private static void ShowLoadError(Control sync, string message){
             sync?.InvokeSafe(() => FormMessage.Error("Resource Error", message, FormMessage.OK));
         }
@@ -128,7 +132,7 @@ namespace TweetDuck.Resources{
             sw.Stop();
             Debug.WriteLine("Finished rebuild script in "+sw.ElapsedMilliseconds+" ms");
 
-            CachedData.Clear();
+            ClearCache();
 
             // Force update plugin manager setup scripts
 
