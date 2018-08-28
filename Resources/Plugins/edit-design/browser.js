@@ -14,6 +14,7 @@ enabled(){
     themeColorTweaks: true,
     revertIcons: true,
     showCharacterCount: true,
+    forceArialFont: true,
     increaseQuoteTextSize: false,
     smallComposeTextSize: false,
     optimizeAnimations: true,
@@ -430,6 +431,10 @@ enabled(){
       this.css.insert("#tduck .tweet-actions > li:nth-child(4) { margin-right: 2px !important }");
     }
     
+    if (this.config.forceArialFont){
+      this.css.insert("#tduck .system-font-stack { font-family: Arial, sans-serif; font-weight: 400 }");
+    }
+    
     if (this.config.increaseQuoteTextSize){
       this.css.insert(".quoted-tweet { font-size: 1em !important }");
     }
@@ -594,6 +599,10 @@ ${iconData.map(entry => `#tduck .icon-${entry[0]}:before{content:\"\\f0${entry[1
 <style type='text/css'>
 html[data-td-font] { font-size: ${this.config.fontSize} !important }
 .avatar { border-radius: ${this.config.avatarRadius}% !important }
+
+${this.config.forceArialFont ? `
+#tduck .system-font-stack { font-family: Arial, sans-serif; font-weight: 400 }
+` : ``}
 
 ${this.config.increaseQuoteTextSize ? `
 .quoted-tweet { font-size: 1em !important }
