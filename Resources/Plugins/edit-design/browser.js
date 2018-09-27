@@ -541,11 +541,13 @@ ${iconData.map(entry => `#tduck .icon-${entry[0]}:before{content:\"\\f0${entry[1
 
 .drawer .btn .icon, .app-header .btn .icon { line-height: 1em !important }
 .app-search-fake .icon { margin-top: -3px !important }
-#tduck .js-docked-compose .js-drawer-close { margin: 20px 0 0 !important }
 #tduck .search-input-control .icon { font-size: 20px !important; top: -4px !important }
+#tduck .js-docked-compose .js-drawer-close { margin: 20px 0 0 !important }
+#tduck .compose-media-bar-remove .icon-close, #tduck .compose-media-grid-remove .icon-close { padding: 3px 2px 1px !important }
 
 .js-column-header .column-type-icon { margin-top: 0 !important }
 .inline-reply .pull-left .Button--link { margin-top: 3px !important }
+.js-inline-compose-pop .icon-popout { font-size: 23px !important }
 
 .tweet-action-item .icon-favorite-toggle { font-size: 16px !important; }
 .tweet-action-item .heartsprite { top: -260% !important; left: -260% !important; transform: scale(0.4, 0.39) translateY(0.5px) !important; }
