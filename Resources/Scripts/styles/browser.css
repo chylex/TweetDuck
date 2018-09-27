@@ -38,7 +38,11 @@
 /* Square-ify stuff */
 /********************/
 
-button, .btn, .mdl, .mdl-content, .popover, .lst-modal, .tooltip-inner {
+#tduck .compose-media-bar-remove .icon-close, #tduck .compose-media-grid-remove .icon-close {
+  border-radius: 2px !important;
+}
+
+button, .btn, .mdl, .mdl-content, .modal-content, .popover, .lst-modal, .tooltip-inner {
   border-radius: 1px !important;
 }
 
@@ -46,7 +50,7 @@ button, .btn, .mdl, .mdl-content, .popover, .lst-modal, .tooltip-inner {
   border-radius: 1px !important;
 }
 
-.tweet-button, .app-search-fake, .app-search-input, .compose-text-container, .compose-reply-tweet, .compose-message-recipient-input-container, .compose-message-recipient, .compose-media-bar-holder, .media-grid-container, .js-quote-tweet-holder, .detail-view-inline-text {
+.tweet-button, .app-search-fake, .app-search-input, .compose-text-container, .compose-reply-tweet, .compose-message-recipient-input-container, .compose-message-recipient, .compose-media-bar-holder, .compose-media-bar-thumb, .media-grid-container, .js-add-image-description, .js-quote-tweet-holder, .detail-view-inline-text {
   border-radius: 0 !important;
 }
 
