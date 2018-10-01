@@ -36,7 +36,7 @@ body::before {
 /* Square-ify stuff */
 /********************/
 
-.media-item, .media-preview {
+.media-item, .media-preview, .media-badge {
   border-radius: 1px !important;
 }
 

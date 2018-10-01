@@ -46,7 +46,7 @@ button, .btn, .mdl, .mdl-content, .modal-content, .popover, .lst-modal, .tooltip
   border-radius: 1px !important;
 }
 
-.media-item, .media-preview, .media-image, .js-media-added .br--4, #tduck .compose-message-recipient img {
+.media-item, .media-preview, .media-image, .media-badge, .js-media-sensitive-overlay, .js-media-added .br--4, #tduck .compose-message-recipient img {
   border-radius: 1px !important;
 }
 
