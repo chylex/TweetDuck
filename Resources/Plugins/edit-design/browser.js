@@ -255,7 +255,7 @@ enabled(){
       
       setTimeout(function(){
         if (theme != TD.settings.getTheme()){
-          $(document).trigger("uiToggleTheme");
+          TD.settings.setTheme(theme);
         }
         
         me.saveConfig();
