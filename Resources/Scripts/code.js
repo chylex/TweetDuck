@@ -245,6 +245,7 @@
       if (column.model.getHasNotification()){
         let sensitive = isSensitive(tweet);
         let previews = $TDX.notificationMediaPreviews && (!sensitive || TD.settings.getDisplaySensitiveMedia());
+        // TODO new cards don't have either previews or links
         
         let html = $(tweet.render({
           withFooter: false,

@@ -54,7 +54,7 @@ button, .btn, .mdl, .mdl-content, .modal-content, .popover, .lst-modal, .tooltip
   border-radius: 0 !important;
 }
 
-.dropdown-menu, .list-item-last, .quoted-tweet, input, textarea, select, .prf-header {
+.dropdown-menu, .list-item-last, .quoted-tweet, .hw-card-container > div, input, textarea, select, .prf-header {
   border-radius: 0 !important;
 }
 
