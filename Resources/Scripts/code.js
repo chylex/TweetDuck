@@ -575,6 +575,31 @@
       data.setData("text/html", `<a href="${url}">${url}</a>`);
     });
     
+    if (ensurePropertyExists(TD, "services", "TwitterStatus", "prototype", "_generateHTMLText")){
+      TD.services.TwitterStatus.prototype._generateHTMLText = prependToFunction(TD.services.TwitterStatus.prototype._generateHTMLText, function(){
+        let card = this.card;
+        let entities = this.entities;
+        return if !(card && entities);
+        
+        let urls = entities.urls;
+        return if !(urls && urls.length);
+        
+        let shortUrl = card.url;
+        let urlObj = entities.urls.find(obj => obj.url === shortUrl && obj.expanded_url);
+        
+        if (urlObj){
+          let expandedUrl = urlObj.expanded_url;
+          card.url = expandedUrl;
+          
+          let values = card.binding_values;
+          
+          if (values && values.card_url){
+            values.card_url.string_value = expandedUrl;
+          }
+        }
+      });
+    }
+    
     if (ensurePropertyExists(TD, "services", "TwitterMedia", "prototype", "fromMediaEntity")){
       const prevFunc = TD.services.TwitterMedia.prototype.fromMediaEntity;
       
