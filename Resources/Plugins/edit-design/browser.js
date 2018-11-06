@@ -432,7 +432,8 @@ enabled(){
     }
     
     if (this.config.forceArialFont){
-      this.css.insert("#tduck .system-font-stack { font-family: Arial, sans-serif; font-weight: 400 }");
+      this.css.insert("#tduck { font-family: Arial, sans-serif; font-weight: 400 }");
+      this.css.insert("#tduck input, #tduck label, #tduck select, #tduck textarea { font-family: Arial }")
     }
     
     if (this.config.increaseQuoteTextSize){
@@ -603,7 +604,7 @@ html[data-td-font] { font-size: ${this.config.fontSize} !important }
 .avatar { border-radius: ${this.config.avatarRadius}% !important }
 
 ${this.config.forceArialFont ? `
-#tduck .system-font-stack { font-family: Arial, sans-serif; font-weight: 400 }
+#tduck { font-family: Arial, sans-serif; font-weight: 400 }
 ` : ``}
 
 ${this.config.increaseQuoteTextSize ? `

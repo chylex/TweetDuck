@@ -59,7 +59,7 @@ namespace TweetDuck.Core.Notification{
                 build.Append("<style type='text/css'>").Append(customCSS).Append("</style>");
             }
             
-            build.Append("</head><body class='scroll-styled-v system-font-stack");
+            build.Append("</head><body class='scroll-styled-v");
 
             if (!string.IsNullOrEmpty(bodyClasses)){
                 build.Append(' ').Append(bodyClasses);
