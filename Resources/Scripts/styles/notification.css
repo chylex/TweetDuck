@@ -6,6 +6,7 @@ html, body {
   height: auto !important;
   overflow-x: hidden !important;
   overflow-y: auto !important;
+  margin: 0;
 }
 
 body::before {
