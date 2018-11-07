@@ -117,7 +117,7 @@ html.dark .account-settings-bt{border-top:1px solid #e1e8ed}
 html.dark .account-settings-bb{border-bottom:1px solid #e1e8ed}
 html.dark .account-stats a{color:#66757f}
 html.dark .account-stats a:hover{color:#2b7bb9}
-html.dark .column{background-color:#222426}
+html.dark .column-panel{background-color:#222426}
 html.dark .column.is-focused{box-shadow:0 0 0 6px #7aa2c0}
 html.dark .column-background-fill{background-color:#F5F8FA}
 html.dark .more-tweets-glow{background-color:#55acee;background:radial-gradient(ellipse farthest-corner at 50% 100%,#55acee 0%,#55acee 25%,rgba(255,255,255,0) 75%)}
@@ -135,7 +135,6 @@ html.dark .column-header{background-color:#292F33}
 html.dark .is-inverted-dark .column-header{border-bottom:1px solid #ddd}
 html.dark .is-inverted-dark .column-title-edit-box{color:#111;background-color:#fff;border-color:#e1e8ed}
 html.dark .column-header{border-bottom:1px solid #222426}
-html.dark .column-header-temp{border-bottom:1px solid #ddd}
 html.dark .column-title-edit-box{color:#e1e8ed;background-color:#14171A;border-color:#111}
 html.dark .column-number{color:#66757f}
 html.dark .is-new .column-type-icon{color:#55acee}
@@ -428,8 +427,7 @@ html.dark .list-account .username{color:#8899a6}
 html.dark .list-listmember .username{color:#8899a6}
 html.dark .list-listmember .bio{color:#657786}
 html.dark .divider-bar{background-color:#ddd}
-html.dark select{background-color:#fff}
-html.dark input,html.dark textarea,html.dark select{color:#111;border:1px solid #e1e8ed}
+html.dark input,html.dark textarea,html.dark select{color:#111;border:1px solid #e1e8ed;background-color:#fff}
 html.dark input:disabled{background-color:#eaeaea;border-color:#e1e8ed}
 html.dark select:disabled{background-color:#f5f8fa}
 html.dark input:focus,html.dark select:focus,html.dark textarea:focus,html.dark .focus{border-color:rgba(80,165,230,0.8);box-shadow:inset 0 1px 3px rgba(17,17,17,0.1),0 0 8px rgba(80,165,230,0.6)}
@@ -806,3 +804,6 @@ html.dark .spinner-small,html.dark .spinner-large{filter:grayscale(80%)brightnes
 html.dark .tweet>.color-twitter-blue{color:#8bd!important}
 html.dark .hw-card-container>div{border-color:#292F33;background:transparent}
 html.dark .hw-card-container>div>div{border-color:#292F33}
+html.dark .modal-content,html.dark .lst-group{color:#292F33}
+html.dark .lst-launcher a span{color:#657786!important}
+html.dark .social-proof-names a{color:#3b94d9}

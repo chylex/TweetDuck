@@ -58,7 +58,7 @@ button, .btn, .mdl, .mdl-content, .modal-content, .popover, .lst-modal, .tooltip
   border-radius: 1px !important;
 }
 
-.tweet-button, .app-search-fake, .app-search-input, .compose-text-container, .compose-reply-tweet, .compose-message-recipient-input-container, .compose-message-recipient, .compose-media-bar-holder, .compose-media-bar-thumb, .media-grid-container, .js-add-image-description, .js-quote-tweet-holder, .detail-view-inline-text {
+.tweet-button, .app-search-fake, .app-search-input, .compose-text-container, .compose-reply-tweet, .compose-message-recipient-input-container, .compose-message-recipient, .compose-media-bar-holder, .compose-media-bar-thumb, .media-grid-container, .js-add-image-description, .js-quote-tweet-holder, .detail-view-inline-text, .mdl-column-rhs {
   border-radius: 0 !important;
 }
 

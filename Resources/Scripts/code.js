@@ -414,7 +414,7 @@
       let fontSizeName = TD.settings.getFontSize();
       let themeName = TD.settings.getTheme();
       
-      let columnBackground = getClassStyleProperty("column", "background-color");
+      let columnBackground = getClassStyleProperty("column-panel", "background-color");
       
       let tags = [
         "<html "+Array.prototype.map.call(document.documentElement.attributes, ele => `${ele.name}="${ele.value}"`).join(" ")+"><head>"
