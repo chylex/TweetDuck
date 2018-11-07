@@ -94,7 +94,7 @@ enabled(){
   
   this.btnClearOneHTML = `
 <a class="js-action-header-button column-header-link" href="#" data-action="td-clearcolumns-dosingle">
-  <i class="icon icon-clear-timeline js-show-tip" data-placement="bottom" data-original-title="Clear column (hold Shift to restore)"  data-action="td-clearcolumns-dosingle"></i>
+  <i class="icon icon-clear-timeline js-show-tip" data-placement="bottom" data-original-title="Clear column (hold Shift to restore)" data-action="td-clearcolumns-dosingle"></i>
 </a>`;
   
   this.prevNavMenuMustache = TD.mustaches["menus/column_nav_menu.mustache"];
@@ -110,6 +110,14 @@ enabled(){
   
   // styles
   
+  if (!document.getElementById("td-clearcolumns-workaround")){
+    // TD started caching mustaches so disabling the plugin doesn't update the column headers properly...
+    let workaround = document.createElement("style");
+    workaround.id = "td-clearcolumns-workaround";
+    workaround.innerText = "#tduck a[data-action='td-clearcolumns-dosingle'] { display: none }";
+    document.head.appendChild(workaround);
+  }
+  
   this.css = window.TDPF_createCustomStyle(this);
   
   this.css.insert(".js-app-add-column.is-hidden + .clear-columns-btn-all-parent { display: none; }");
@@ -120,8 +128,9 @@ enabled(){
   this.css.insert(".column[data-td-icon='icon-message'] .column-header-links { min-width: 110px !important; }");
   this.css.insert(".btn-options-tray[data-action='clear'] { display: none !important; }");
   
-  this.css.insert(".column[data-td-icon='icon-schedule'] a[data-action='td-clearcolumns-dosingle'] { display: none; }");
-  this.css.insert(".column[data-td-icon='icon-custom-timeline'] a[data-action='td-clearcolumns-dosingle'] { display: none; }");
+  this.css.insert("#tduck a[data-action='td-clearcolumns-dosingle'] { display: inline-block; }");
+  this.css.insert("#tduck .column[data-td-icon='icon-schedule'] a[data-action='td-clearcolumns-dosingle'] { display: none; }");
+  this.css.insert("#tduck .column[data-td-icon='icon-custom-timeline'] a[data-action='td-clearcolumns-dosingle'] { display: none; }");
 }
 
 ready(){
