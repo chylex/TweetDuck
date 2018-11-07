@@ -1,15 +1,7 @@
-﻿// Uncomment to force TweetDeck to load a predefined version of the vendor/bundle scripts
-// #define FREEZE_TWEETDECK_SCRIPTS
-
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using CefSharp;
 using TweetDuck.Core.Handling.Filters;
 using TweetDuck.Core.Utils;
-
-#if FREEZE_TWEETDECK_SCRIPTS
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-#endif
 
 namespace TweetDuck.Core.Handling{
     sealed class RequestHandlerBrowser : RequestHandlerBase{
@@ -36,36 +28,11 @@ namespace TweetDuck.Core.Handling{
             return base.OnBeforeBrowse(browserControl, browser, frame, request, userGesture, isRedirect);
         }
 
-        #if FREEZE_TWEETDECK_SCRIPTS
-        private static readonly Regex TweetDeckScriptUrl = new Regex(@"/dist/(.*?)\.(.*?)\.js$", RegexOptions.Compiled);
-        
-        private static readonly SortedList<string, string> TweetDeckHashes = new SortedList<string, string>(2){
-            { "vendor", "942c0a20e8" },
-            { "bundle", "1bd75b5854" }
-        };
-        #endif
-
         public override bool OnResourceResponse(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IResponse response){
             if (request.ResourceType == ResourceType.Image && request.Url.Contains("/backgrounds/spinner_blue")){
                 request.Url = TwitterUtils.LoadingSpinner.Url;
                 return true;
             }
-            #if FREEZE_TWEETDECK_SCRIPTS
-            else if (request.ResourceType == ResourceType.Script){
-                Match match = TweetDeckScriptUrl.Match(request.Url);
-
-                if (match.Success && TweetDeckHashes.TryGetValue(match.Groups[1].Value, out string hash)){
-                    if (match.Groups[2].Value == hash){
-                        System.Diagnostics.Debug.WriteLine($"accepting {request.Url}");
-                    }
-                    else{
-                        System.Diagnostics.Debug.WriteLine($"rewriting {request.Url} to {hash}");
-                        request.Url = TweetDeckScriptUrl.Replace(request.Url, "/dist/$1."+hash+".js");
-                        return true;
-                    }
-                }
-            }
-            #endif
 
             return base.OnResourceResponse(browserControl, browser, frame, request, response);
         }
