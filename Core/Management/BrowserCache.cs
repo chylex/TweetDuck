@@ -54,6 +54,14 @@ namespace TweetDuck.Core.Management{
             RefreshTimer();
         }
 
+        public static void TryClearNow(){
+            try{
+                Directory.Delete(CacheFolder, true);
+            }catch{
+                // welp, too bad
+            }
+        }
+
         public static void Exit(){
             if (AutoClearTimer != null){
                 AutoClearTimer.Dispose();
@@ -61,11 +69,7 @@ namespace TweetDuck.Core.Management{
             }
 
             if (ClearOnExit){
-                try{
-                    Directory.Delete(CacheFolder, true);
-                }catch{
-                    // welp, too bad
-                }
+                TryClearNow();
             }
         }
     }

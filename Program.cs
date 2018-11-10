@@ -126,6 +126,7 @@ namespace TweetDuck{
 
             if (Arguments.HasFlag(Arguments.ArgUpdated)){
                 WindowsUtils.TryDeleteFolderWhenAble(InstallerPath, 8000);
+                BrowserCache.TryClearNow();
             }
             
             BrowserCache.RefreshTimer();
