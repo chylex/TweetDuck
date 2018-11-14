@@ -63,12 +63,16 @@ namespace TweetDuck.Core.Other{
             Text = Program.BrandName+" Guide";
             Size = new Size(owner.Size.Width*3/4, owner.Size.Height*3/4);
             VisibleChanged += (sender, args) => this.MoveToCenter(owner);
+
+            ResourceHandlerFactory resourceHandlerFactory = new ResourceHandlerFactory();
+            resourceHandlerFactory.RegisterHandler(DummyPage);
             
             this.browser = new ChromiumWebBrowser(url){
                 MenuHandler = new ContextMenuGuide(owner),
                 JsDialogHandler = new JavaScriptDialogHandler(),
                 LifeSpanHandler = new LifeSpanHandler(),
-                RequestHandler = new RequestHandlerBase(true)
+                RequestHandler = new RequestHandlerBase(true),
+                ResourceHandlerFactory = resourceHandlerFactory
             };
 
             browser.LoadingStateChanged += browser_LoadingStateChanged;
@@ -77,8 +81,6 @@ namespace TweetDuck.Core.Other{
             browser.BrowserSettings.BackgroundColor = (uint)BackColor.ToArgb();
             browser.Dock = DockStyle.None;
             browser.Location = ControlExtensions.InvisibleLocation;
-
-            browser.SetupResourceHandler(DummyPage);
             browser.SetupZoomEvents();
 
             Controls.Add(browser);

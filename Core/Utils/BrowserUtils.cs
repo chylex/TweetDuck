@@ -60,21 +60,6 @@ namespace TweetDuck.Core.Utils{
             return (ChromiumWebBrowser)browserControl;
         }
 
-        public static void SetupResourceHandler(this ChromiumWebBrowser browser, string url, IResourceHandler handler){
-            DefaultResourceHandlerFactory factory = (DefaultResourceHandlerFactory)browser.ResourceHandlerFactory;
-
-            if (handler == null){
-                factory.UnregisterHandler(url);
-            }
-            else{
-                factory.RegisterHandler(url, handler);
-            }
-        }
-
-        public static void SetupResourceHandler(this ChromiumWebBrowser browser, ResourceLink resource){
-            browser.SetupResourceHandler(resource.Url, resource.Handler);
-        }
-
         public static void SetupZoomEvents(this ChromiumWebBrowser browser){
             void UpdateZoomLevel(object sender, EventArgs args){
                 SetZoomLevel(browser.GetBrowser(), Config.ZoomLevel);

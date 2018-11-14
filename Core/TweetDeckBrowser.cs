@@ -39,10 +39,14 @@ namespace TweetDuck.Core{
         }
         
         private readonly ChromiumWebBrowser browser;
+        private readonly ResourceHandlerFactory resourceHandlerFactory = new ResourceHandlerFactory();
 
         private string prevSoundNotificationPath = null;
 
         public TweetDeckBrowser(FormBrowser owner, PluginManager plugins, TweetDeckBridge tdBridge, UpdateBridge updateBridge){
+            resourceHandlerFactory.RegisterHandler(TweetNotification.AppLogo);
+            resourceHandlerFactory.RegisterHandler(TwitterUtils.LoadingSpinner);
+
             RequestHandlerBrowser requestHandler = new RequestHandlerBrowser();
             
             this.browser = new ChromiumWebBrowser(TwitterUtils.TweetDeckURL){
@@ -52,7 +56,8 @@ namespace TweetDuck.Core{
                 JsDialogHandler = new JavaScriptDialogHandler(),
                 KeyboardHandler = new KeyboardHandlerBrowser(owner),
                 LifeSpanHandler = new LifeSpanHandler(),
-                RequestHandler = requestHandler
+                RequestHandler = requestHandler,
+                ResourceHandlerFactory = resourceHandlerFactory
             };
 
             this.browser.LoadingStateChanged += browser_LoadingStateChanged;
@@ -66,11 +71,8 @@ namespace TweetDuck.Core{
             this.browser.BrowserSettings.BackgroundColor = (uint)TwitterUtils.BackgroundColor.ToArgb();
             this.browser.Dock = DockStyle.None;
             this.browser.Location = ControlExtensions.InvisibleLocation;
-
-            this.browser.SetupResourceHandler(TweetNotification.AppLogo);
-            this.browser.SetupResourceHandler(TwitterUtils.LoadingSpinner);
             this.browser.SetupZoomEvents();
-
+            
             owner.Controls.Add(browser);
             plugins.Register(browser, PluginEnvironment.Browser, owner, true);
             
@@ -174,10 +176,16 @@ namespace TweetDuck.Core{
 
             bool hasCustomSound = Config.IsCustomSoundNotificationSet;
             string newNotificationPath = Config.NotificationSoundPath;
-
+            
             if (prevSoundNotificationPath != newNotificationPath){
-                browser.SetupResourceHandler(soundUrl, hasCustomSound ? SoundNotification.CreateFileHandler(newNotificationPath) : null);
                 prevSoundNotificationPath = newNotificationPath;
+
+                if (hasCustomSound){
+                    resourceHandlerFactory.RegisterHandler(soundUrl, SoundNotification.CreateFileHandler(newNotificationPath));
+                }
+                else{
+                    resourceHandlerFactory.UnregisterHandler(soundUrl);
+                }
             }
 
             browser.ExecuteScriptAsync("TDGF_setSoundNotificationData", hasCustomSound, Config.NotificationSoundVolume);
