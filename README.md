@@ -45,7 +45,7 @@ If you decide to publicly release a custom version, please make it clear that it
   - `Resources/Plugins/emoji-keyboard/emoji-ordering.txt` line endings must be LF (line feed); any CR (carriage return) in the file will cause a failed build, and you will need to ensure correct line endings in your text editor
 
 #### Error: The "EmbedAllSources" parameter is not supported by the "Csc" task
-1. Open `C:\Program Files (x86)\Visual Studio\2017\<edition>\MSBuild\15.0\Bin\Microsoft.CSharp.CurrentVersion.targets` in a text editor
+1. Open `C:\Program Files (x86)\Visual Studio\2017\<edition>\MSBuild\15.0\Bin\Roslyn\Microsoft.CSharp.Core.targets` in a text editor
 2. Remove line that says `EmbedAllSources="$(EmbedAllSources)"`
 3. Hope the next Visual Studio update fixes it...
 
