@@ -8,7 +8,6 @@ using System.Windows.Forms;
 using CefSharp.WinForms;
 using TweetDuck.Configuration;
 using TweetDuck.Core.Other;
-using TweetDuck.Data;
 
 namespace TweetDuck.Core.Utils{
     static class BrowserUtils{
