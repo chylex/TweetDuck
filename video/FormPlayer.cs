@@ -57,6 +57,10 @@ namespace TweetDuck.Video{
             trackBarVolume.Value = volume; // changes player volume too if non-default
 
             labelTooltip.AttachTooltip(progressSeek, true, args => {
+                if (args.X < 0 || args.Y < 0 || args.X >= progressSeek.Width || args.Y >= progressSeek.Height){
+                    return null;
+                }
+
                 IWMPMedia media = Player.currentMedia;
                 int progress = (int)(media.duration*progressSeek.GetProgress(args.X));
 

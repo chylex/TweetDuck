@@ -19,7 +19,14 @@ namespace TweetDuck.Video.Controls{
                 Form form = control.FindForm();
                 System.Diagnostics.Debug.Assert(form != null);
                 
-                Text = tooltipFunc(args);
+                string text = tooltipFunc(args);
+
+                if (text == null){
+                    Visible = false;
+                    return;
+                }
+
+                Text = text;
 
                 Point loc = form.PointToClient(control.Parent.PointToScreen(new Point(control.Location.X+(followCursor ? args.X : control.Width/2), 0)));
                 loc.X = Math.Max(0, Math.Min(form.Width-Width, loc.X-Width/2));
