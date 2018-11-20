@@ -13,7 +13,12 @@ namespace TweetDuck.Core.Handling{
         public RequestHandlerBrowser() : base(true){}
 
         public override CefReturnValue OnBeforeResourceLoad(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IRequestCallback callback){
-            if (request.ResourceType == ResourceType.Script){
+            if (request.ResourceType == ResourceType.MainFrame){
+                if (request.Url.EndsWith("//twitter.com/")){
+                    request.Url = TwitterUtils.TweetDeckURL; // redirect plain twitter.com requests, fixes bugs with login 2FA
+                }
+            }
+            else if (request.ResourceType == ResourceType.Script){
                 string url = request.Url;
 
                 if (url.Contains("analytics.")){
