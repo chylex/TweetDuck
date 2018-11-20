@@ -19,6 +19,8 @@ namespace TweetDuck.Core{
     sealed class TweetDeckBrowser : IDisposable{
         private static UserConfig Config => Program.Config.User;
 
+        private const string ErrorUrl = "http://td/error";
+
         public bool Ready { get; private set; }
 
         public bool Enabled{
@@ -151,6 +153,10 @@ namespace TweetDuck.Core{
 
                 ScriptLoader.ExecuteFile(frame, "update.js", browser);
             }
+
+            if (frame.Url == ErrorUrl){
+                resourceHandlerFactory.UnregisterHandler(ErrorUrl);
+            }
         }
 
         private void browser_LoadError(object sender, LoadErrorEventArgs e){
@@ -162,7 +168,8 @@ namespace TweetDuck.Core{
                 string errorPage = ScriptLoader.LoadResourceSilent("pages/error.html");
 
                 if (errorPage != null){
-                    browser.LoadHtml(errorPage.Replace("{err}", BrowserUtils.GetErrorName(e.ErrorCode)), "http://td/error");
+                    resourceHandlerFactory.RegisterHandler(ErrorUrl, ResourceHandler.FromString(errorPage.Replace("{err}", BrowserUtils.GetErrorName(e.ErrorCode))));
+                    browser.Load(ErrorUrl);
                 }
             }
         }
