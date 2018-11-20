@@ -800,7 +800,7 @@ html.dark .NotificationList .Notification-body{color:#14171A}
 html.dark .DrawerModal{color:#14171A}
 /* fixes */
 html.dark .app-search-fake{border-color:transparent}
-html.dark .spinner-small,html.dark .spinner-large{filter:grayscale(80%)brightness(93%)}
+html.dark .spinner-small,html.dark .spinner-large{filter:grayscale(85%)brightness(117%)}
 html.dark .tweet>.color-twitter-blue{color:#8bd!important}
 html.dark .hw-card-container>div{border-color:#292F33;background:transparent}
 html.dark .hw-card-container>div>div{border-color:#292F33}
