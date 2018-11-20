@@ -43,6 +43,10 @@ namespace TweetDuck.Core.Utils{
             return frame.Url.Contains("//twitter.com/");
         }
 
+        public static bool IsTwitterLogin2FactorWebsite(IFrame frame){
+            return frame.Url.Contains("//twitter.com/account/login_verification");
+        }
+
         private static string ExtractMediaBaseLink(string url){
             int slash = url.LastIndexOf('/');
             return slash == -1 ? url : StringUtils.ExtractBefore(url, ':', slash);

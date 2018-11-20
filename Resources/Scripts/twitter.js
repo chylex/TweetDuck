@@ -8,15 +8,15 @@
       return;
     }
     
-    let style = document.createElement("style");
+    let link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = "https://abs.twimg.com/tduck/css";
     
-    style.innerText = `#import "styles/twitter.base.css"`;
+    document.head.appendChild(link);
     
     if (location.pathname === "/logout"){
-      style.innerText += `#import "styles/twitter.logout.css"`;
+      document.documentElement.setAttribute("logout", "");
     }
-    
-    document.head.appendChild(style);
   };
   
   setTimeout(injectCSS, 1);

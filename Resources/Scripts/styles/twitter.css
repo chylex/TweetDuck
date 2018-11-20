@@ -1,7 +1,7 @@
 /*********************/
 /* Center everything */
 /*********************/
-    
+
 #doc {
   width: 100%;
   height: 100%;
@@ -25,6 +25,17 @@
   margin: 0 auto !important;
 }
 
+.ResponsiveLayout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.Section {
+  padding: 36px !important;
+}
+
 /*******************/
 /* General styling */
 /*******************/
@@ -39,7 +50,7 @@ body {
   box-shadow: 0 0 150px rgba(255, 255, 255, 0.3) !important;
 }
 
-.topbar {
+.topbar, .TopNav {
   /* hide top bar */
   display: none !important;
 }
@@ -64,4 +75,43 @@ button[type='submit'] {
   /* custom login text */
   margin-top: 15px !important;
   font-weight: bold !important;
+}
+
+/********************************************/
+/* Fix min width and margins on logout page */
+/********************************************/
+
+html[logout] .page-canvas {
+  width: auto !important;
+  max-width: 888px;
+}
+
+html[logout] .signout-wrapper {
+  width: auto !important;
+  margin: 0 auto !important;
+}
+
+html[logout] .signout {
+  margin: 60px 0 54px !important;
+}
+
+html[logout] .buttons {
+  padding-bottom: 0 !important;
+}
+
+/*******************************/
+/* General logout page styling */
+/*******************************/
+
+html[logout] .aside {
+  /* hide elements around dialog */
+  display: none;
+}
+
+html[logout] .buttons button, html[logout] .buttons a {
+  /* style buttons */
+  display: inline-block;
+  margin: 0 4px !important;
+  border: 1px solid rgba(0, 0, 0, 0.3) !important;
+  border-radius: 0 !important;
 }

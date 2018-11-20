@@ -20,6 +20,7 @@ namespace TweetDuck.Core{
         private static UserConfig Config => Program.Config.User;
 
         private const string ErrorUrl = "http://td/error";
+        private const string TwitterStyleUrl = "https://abs.twimg.com/tduck/css";
 
         public bool Ready { get; private set; }
 
@@ -121,10 +122,15 @@ namespace TweetDuck.Core{
 
             if (frame.IsMain){
                 if (TwitterUtils.IsTwitterWebsite(frame)){
+                    string css = ScriptLoader.LoadResource("styles/twitter.css", browser);
+                    resourceHandlerFactory.RegisterHandler(TwitterStyleUrl, ResourceHandler.FromString(css, mimeType: "text/css"));
+
                     ScriptLoader.ExecuteFile(frame, "twitter.js", browser);
                 }
                 
-                frame.ExecuteJavaScriptAsync(TwitterUtils.BackgroundColorOverride);
+                if (!TwitterUtils.IsTwitterLogin2FactorWebsite(frame)){
+                    frame.ExecuteJavaScriptAsync(TwitterUtils.BackgroundColorOverride);
+                }
             }
         }
 
