@@ -115,16 +115,25 @@ namespace TweetDuck.Video{
         [HandleProcessCorruptedStateExceptions]
         private void timerSync_Tick(object sender, EventArgs e){
             if (NativeMethods.GetWindowRect(ownerHandle, out NativeMethods.RECT rect)){
-                int width = rect.Right-rect.Left+1;
-                int height = rect.Bottom-rect.Top+1;
-
                 IWMPMedia media = Player.currentMedia;
                 IWMPControls controls = Player.controls;
 
+                int ownerLeft = rect.Left;
+                int ownerTop = rect.Top;
+                int ownerWidth = rect.Right-rect.Left+1;
+                int ownerHeight = rect.Bottom-rect.Top+1;
+                
+                // roughly matches MinimumSize for client bounds
+                const int minWidth = 334;
+                const int minHeight = 388;
+
+                int maxWidth = Math.Min(media.imageSourceWidth, ownerWidth*3/4);
+                int maxHeight = Math.Min(media.imageSourceHeight, ownerHeight*3/4);
+                
                 bool isCursorInside = ClientRectangle.Contains(PointToClient(Cursor.Position));
 
-                ClientSize = new Size(Math.Max(MinimumSize.Width, Math.Min(media.imageSourceWidth, width*3/4)), Math.Max(MinimumSize.Height, Math.Min(media.imageSourceHeight, height*3/4)));
-                Location = new Point(rect.Left+(width-ClientSize.Width)/2, rect.Top+(height-ClientSize.Height+SystemInformation.CaptionHeight)/2);
+                ClientSize = new Size(Math.Max(minWidth, maxWidth), Math.Max(minHeight, maxHeight));
+                Location = new Point(ownerLeft+(ownerWidth-ClientSize.Width)/2, ownerTop+(ownerHeight-ClientSize.Height+SystemInformation.CaptionHeight)/2);
 
                 tablePanel.Visible = isCursorInside || isDragging;
 

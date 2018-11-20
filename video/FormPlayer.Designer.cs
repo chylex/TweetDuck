@@ -191,7 +191,6 @@
             this.Location = new System.Drawing.Point(-32000, -32000);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(400, 120);
             this.Name = "FormPlayer";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
