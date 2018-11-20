@@ -30,6 +30,12 @@ namespace TweetDuck.Video{
             this.videoUrl = url;
             this.pipe = DuplexPipe.CreateClient(token);
             this.pipe.DataIn += pipe_DataIn;
+
+            if (NativeMethods.GetWindowRect(ownerHandle, out NativeMethods.RECT rect)){
+                ClientSize = new Size(0, 0);
+                Location = new Point((rect.Left+rect.Right)/2, (rect.Top+rect.Bottom)/2);
+                Opacity = 0;
+            }
             
             player = new ControlWMP{
                 Dock = DockStyle.Fill
@@ -100,6 +106,11 @@ namespace TweetDuck.Video{
                 timerSync.Start();
                 NativeMethods.SetWindowOwner(Handle, ownerHandle);
                 Cursor.Current = Cursors.Default;
+
+                SuspendLayout();
+                timerSync_Tick(timerSync, EventArgs.Empty);
+                Opacity = 1;
+                ResumeLayout(true);
             }
         }
 
@@ -131,9 +142,14 @@ namespace TweetDuck.Video{
                 int maxHeight = Math.Min(media.imageSourceHeight, ownerHeight*3/4);
                 
                 bool isCursorInside = ClientRectangle.Contains(PointToClient(Cursor.Position));
-
-                ClientSize = new Size(Math.Max(minWidth, maxWidth), Math.Max(minHeight, maxHeight));
-                Location = new Point(ownerLeft+(ownerWidth-ClientSize.Width)/2, ownerTop+(ownerHeight-ClientSize.Height+SystemInformation.CaptionHeight)/2);
+                
+                Size newSize = new Size(Math.Max(minWidth, maxWidth), Math.Max(minHeight, maxHeight));
+                Point newLocation = new Point(ownerLeft+(ownerWidth-newSize.Width)/2, ownerTop+(ownerHeight-newSize.Height+SystemInformation.CaptionHeight)/2);
+                
+                if (ClientSize != newSize || Location != newLocation){
+                    ClientSize = newSize;
+                    Location = newLocation;
+                }
 
                 tablePanel.Visible = isCursorInside || isDragging;
 
@@ -152,7 +168,7 @@ namespace TweetDuck.Video{
                         progressSeek.Value = value;
                     }
                 }
-
+                
                 if (controls.currentPosition > media.duration){ // pausing near the end of the video causes WMP to play beyond the end of the video wtf
                     try{
                         controls.stop();

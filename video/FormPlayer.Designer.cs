@@ -88,6 +88,7 @@
             this.tablePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tablePanel.Size = new System.Drawing.Size(400, 34);
             this.tablePanel.TabIndex = 1;
+            this.tablePanel.Visible = false;
             // 
             // progressSeek
             // 
@@ -106,7 +107,7 @@
             // labelTime
             // 
             this.labelTime.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
+            this.labelTime.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.labelTime.Location = new System.Drawing.Point(138, 3);
             this.labelTime.Margin = new System.Windows.Forms.Padding(0, 3, 0, 5);
             this.labelTime.Name = "labelTime";
