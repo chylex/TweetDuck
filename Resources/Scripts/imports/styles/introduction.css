@@ -7,19 +7,30 @@
   min-width: 515px;
   max-width: 835px;
   height: 328px;
+  background-color: #fff;
 }
 
-#td-introduction-modal .mdl-inner {
-  padding-top: 0;
+#td-introduction-modal .mdl-header {
+  color: #8899a6;
 }
 
 #td-introduction-modal .mdl-header-title {
   cursor: default;
 }
 
+#td-introduction-modal .mdl-dismiss {
+  color: #292f33;
+}
+
+#td-introduction-modal .mdl-inner {
+  padding-top: 0;
+}
+
 #td-introduction-modal .mdl-content {
   padding: 4px 16px 0;
   overflow-y: auto;
+  border-color: #ccd6dd;
+  background: #eaeaea;
 }
 
 #td-introduction-modal p {
