@@ -494,7 +494,7 @@ namespace TweetDuck.Core{
             FormManager.TryFind<FormSettings>()?.Close();
 
             using(DialogSettingsManage dialog = new DialogSettingsManage(plugins, true)){
-                if (dialog.ShowDialog() == DialogResult.OK && !dialog.IsRestarting){
+                if (!dialog.IsDisposed && dialog.ShowDialog() == DialogResult.OK && !dialog.IsRestarting){ // needs disposal check because the dialog may be closed in constructor
                     BrowserProcessHandler.UpdatePrefs();
                     FormManager.TryFind<FormPlugins>()?.Close();
                     plugins.Reload(); // also reloads the browser

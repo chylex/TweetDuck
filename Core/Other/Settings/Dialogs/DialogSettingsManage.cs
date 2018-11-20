@@ -36,6 +36,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
 
         private State currentState;
         private ProfileManager importManager;
+        private bool openImportImmediately;
         private bool requestedRestartFromConfig;
 
         private ProfileManager.Items _selectedItems = ProfileManager.Items.None;
@@ -50,6 +51,8 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
             this.checkBoxMap[cbSystemConfig] = ProfileManager.Items.SystemConfig;
             this.checkBoxMap[cbSession] = ProfileManager.Items.Session;
             this.checkBoxMap[cbPluginData] = ProfileManager.Items.PluginData;
+
+            this.openImportImmediately = openImportImmediately;
 
             if (openImportImmediately){
                 radioImport.Checked = true;
@@ -88,6 +91,10 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                             Filter = "TweetDuck Profile (*.tdsettings)|*.tdsettings"
                         }){
                             if (dialog.ShowDialog() != DialogResult.OK){
+                                if (openImportImmediately){
+                                    Close();
+                                }
+
                                 return;
                             }
 
