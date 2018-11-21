@@ -33,10 +33,10 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
         
         private readonly PluginManager plugins;
         private readonly Dictionary<CheckBox, ProfileManager.Items> checkBoxMap = new Dictionary<CheckBox, ProfileManager.Items>(4);
+        private readonly bool openImportImmediately;
 
         private State currentState;
         private ProfileManager importManager;
-        private bool openImportImmediately;
         private bool requestedRestartFromConfig;
 
         private ProfileManager.Items _selectedItems = ProfileManager.Items.None;
