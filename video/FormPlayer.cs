@@ -13,6 +13,7 @@ namespace TweetDuck.Video{
         protected override bool ShowWithoutActivation => true;
 
         private readonly IntPtr ownerHandle;
+        private readonly float ownerDpi;
         private readonly string videoUrl;
         private readonly DuplexPipe pipe;
         
@@ -23,10 +24,11 @@ namespace TweetDuck.Video{
 
         private WindowsMediaPlayer Player => player.Ocx;
 
-        public FormPlayer(IntPtr handle, int volume, string url, string token){
+        public FormPlayer(IntPtr handle, int dpi, int volume, string url, string token){
             InitializeComponent();
 
             this.ownerHandle = handle;
+            this.ownerDpi = dpi / 100F;
             this.videoUrl = url;
             this.pipe = DuplexPipe.CreateClient(token);
             this.pipe.DataIn += pipe_DataIn;
@@ -76,6 +78,10 @@ namespace TweetDuck.Video{
             labelTooltip.AttachTooltip(imageResize, false, "Fullscreen");
 
             Application.AddMessageFilter(new MessageFilter(this));
+        }
+
+        private int DpiScaled(int value){
+            return (int)Math.Round(value*ownerDpi);
         }
 
         // Events
@@ -139,15 +145,20 @@ namespace TweetDuck.Video{
                 int ownerHeight = rect.Bottom-rect.Top+1;
                 
                 // roughly matches MinimumSize for client bounds
-                const int minWidth = 334;
-                const int minHeight = 388;
+                int minWidth = DpiScaled(332);
+                int minHeight = DpiScaled(386);
 
-                int maxWidth = Math.Min(media.imageSourceWidth, ownerWidth*3/4);
-                int maxHeight = Math.Min(media.imageSourceHeight, ownerHeight*3/4);
+                if (NativeMethods.GetClientRect(ownerHandle, out NativeMethods.RECT clientSize)){
+                    minWidth = Math.Min(minWidth, clientSize.Right);
+                    minHeight = Math.Min(minHeight, clientSize.Bottom);
+                }
+
+                int maxWidth = Math.Min(DpiScaled(media.imageSourceWidth), ownerWidth*3/4);
+                int maxHeight = Math.Min(DpiScaled(media.imageSourceHeight), ownerHeight*3/4);
                 
                 bool isCursorInside = ClientRectangle.Contains(PointToClient(Cursor.Position));
                 
-                Size newSize = new Size(Math.Max(minWidth, maxWidth), Math.Max(minHeight, maxHeight));
+                Size newSize = new Size(Math.Max(minWidth+2, maxWidth), Math.Max(minHeight+2, maxHeight));
                 Point newLocation = new Point(ownerLeft+(ownerWidth-newSize.Width)/2, ownerTop+(ownerHeight-newSize.Height+SystemInformation.CaptionHeight)/2);
                 
                 if (ClientSize != newSize || Location != newLocation){

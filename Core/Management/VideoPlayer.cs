@@ -40,7 +40,7 @@ namespace TweetDuck.Core.Management{
 
                 if ((process = Process.Start(new ProcessStartInfo{
                     FileName = Path.Combine(Program.ProgramPath, "TweetDuck.Video.exe"),
-                    Arguments = $"{owner.Handle} {Config.VideoPlayerVolume} \"{url}\" \"{pipe.GenerateToken()}\"",
+                    Arguments = $"{owner.Handle} {(int)Math.Floor(100F*owner.GetDPIScale())} {Config.VideoPlayerVolume} \"{url}\" \"{pipe.GenerateToken()}\"",
                     UseShellExecute = false,
                     RedirectStandardOutput = true
                 })) != null){

@@ -25,21 +25,23 @@ namespace TweetDuck.Video{
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
 
             IntPtr ownerHandle;
+            int ownerDpi;
             int defaultVolume;
             string videoUrl;
             string pipeToken;
 
             try{
                 ownerHandle = new IntPtr(int.Parse(args[0], NumberStyles.Integer));
-                defaultVolume = int.Parse(args[1], NumberStyles.Integer);
-                videoUrl = new Uri(args[2], UriKind.Absolute).AbsoluteUri;
-                pipeToken = args[3];
+                ownerDpi = int.Parse(args[1], NumberStyles.Integer);
+                defaultVolume = int.Parse(args[2], NumberStyles.Integer);
+                videoUrl = new Uri(args[3], UriKind.Absolute).AbsoluteUri;
+                pipeToken = args[4];
             }catch{
                 return CODE_INVALID_ARGS;
             }
 
             try{
-                Application.Run(new FormPlayer(ownerHandle, defaultVolume, videoUrl, pipeToken));
+                Application.Run(new FormPlayer(ownerHandle, ownerDpi, defaultVolume, videoUrl, pipeToken));
             }catch(Exception e){
                 Console.Out.WriteLine(e);
                 return CODE_LAUNCH_FAIL;
