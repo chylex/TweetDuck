@@ -10,6 +10,13 @@ using WMPLib;
 
 namespace TweetDuck.Video{
     sealed partial class FormPlayer : Form{
+        private bool IsCursorOverVideo{
+            get{
+                Point cursor = PointToClient(Cursor.Position);
+                return cursor.Y < tablePanel.Location.Y;
+            }
+        }
+
         protected override bool ShowWithoutActivation => true;
 
         private readonly IntPtr ownerHandle;
@@ -197,6 +204,10 @@ namespace TweetDuck.Video{
                 
                 if (isCursorInside && !wasCursorInside){
                     wasCursorInside = true;
+
+                    if (IsCursorOverVideo){
+                        Cursor.Current = Cursors.Default;
+                    }
                 }
                 else if (!isCursorInside && wasCursorInside){
                     wasCursorInside = false;
@@ -313,26 +324,19 @@ namespace TweetDuck.Video{
         internal sealed class MessageFilter : IMessageFilter{
             private readonly FormPlayer form;
 
-            private bool IsCursorOverVideo{
-                get{
-                    Point cursor = form.PointToClient(Cursor.Position);
-                    return cursor.Y < form.tablePanel.Location.Y;
-                }
-            }
-
             public MessageFilter(FormPlayer form){
                 this.form = form;
             }
 
             bool IMessageFilter.PreFilterMessage(ref Message m){
                 if (m.Msg == 0x0201){ // WM_LBUTTONDOWN
-                    if (IsCursorOverVideo){
+                    if (form.IsCursorOverVideo){
                         form.TogglePause();
                         return true;
                     }
                 }
                 else if (m.Msg == 0x0203){ // WM_LBUTTONDBLCLK
-                    if (IsCursorOverVideo){
+                    if (form.IsCursorOverVideo){
                         form.TogglePause();
                         form.Player.fullScreen = !form.Player.fullScreen;
                         return true;
