@@ -200,8 +200,8 @@ namespace TweetDuck.Video{
                 int ownerWidth = rect.Right-rect.Left+1;
                 int ownerHeight = rect.Bottom-rect.Top+1;
                 
-                // roughly matches MinimumSize for client bounds
-                int minWidth = DpiScaled(332);
+                // roughly matches MinimumSize for client bounds, adjusted a bit for weirdness with higher DPI
+                int minWidth = DpiScaled(356);
                 int minHeight = DpiScaled(386);
 
                 if (NativeMethods.GetClientRect(ownerHandle, out NativeMethods.RECT clientSize)){

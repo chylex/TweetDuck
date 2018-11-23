@@ -30,7 +30,7 @@ namespace TweetDuck.Video.Controls{
                 brushBack.Color = Parent.BackColor;
             }
             
-            Rectangle rect = e.ClipRectangle;
+            Rectangle rect = new Rectangle(0, 0, Width, Height);
             Point cursor = PointToClient(Cursor.Position);
             int width = rect.Width-1;
             int progress = (int)(width*((double)Value/Maximum));
