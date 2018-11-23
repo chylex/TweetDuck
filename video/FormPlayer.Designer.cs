@@ -26,16 +26,18 @@
             this.components = new System.ComponentModel.Container();
             this.timerSync = new System.Windows.Forms.Timer(this.components);
             this.trackBarVolume = new System.Windows.Forms.TrackBar();
-            this.tablePanel = new System.Windows.Forms.TableLayoutPanel();
+            this.tablePanelFull = new System.Windows.Forms.TableLayoutPanel();
             this.progressSeek = new TweetDuck.Video.Controls.SeekBar();
             this.labelTime = new System.Windows.Forms.Label();
-            this.timerData = new System.Windows.Forms.Timer(this.components);
-            this.labelTooltip = new TweetDuck.Video.Controls.LabelTooltip();
             this.imageResize = new System.Windows.Forms.PictureBox();
             this.imageDownload = new System.Windows.Forms.PictureBox();
             this.imageClose = new System.Windows.Forms.PictureBox();
+            this.timerData = new System.Windows.Forms.Timer(this.components);
+            this.tablePanelCompactBottom = new System.Windows.Forms.TableLayoutPanel();
+            this.tablePanelCompactTop = new System.Windows.Forms.TableLayoutPanel();
+            this.labelTooltip = new TweetDuck.Video.Controls.LabelTooltip();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).BeginInit();
-            this.tablePanel.SuspendLayout();
+            this.tablePanelFull.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imageResize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageDownload)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageClose)).BeginInit();
@@ -64,31 +66,31 @@
             this.trackBarVolume.MouseDown += new System.Windows.Forms.MouseEventHandler(this.trackBarVolume_MouseDown);
             this.trackBarVolume.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBarVolume_MouseUp);
             // 
-            // tablePanel
+            // tablePanelFull
             // 
-            this.tablePanel.BackColor = System.Drawing.SystemColors.Control;
-            this.tablePanel.ColumnCount = 6;
-            this.tablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 74F));
-            this.tablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 130F));
-            this.tablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tablePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tablePanel.Controls.Add(this.trackBarVolume, 3, 0);
-            this.tablePanel.Controls.Add(this.progressSeek, 1, 0);
-            this.tablePanel.Controls.Add(this.labelTime, 2, 0);
-            this.tablePanel.Controls.Add(this.imageResize, 5, 0);
-            this.tablePanel.Controls.Add(this.imageDownload, 4, 0);
-            this.tablePanel.Controls.Add(this.imageClose, 0, 0);
-            this.tablePanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tablePanel.Location = new System.Drawing.Point(0, 86);
-            this.tablePanel.Name = "tablePanel";
-            this.tablePanel.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.tablePanel.RowCount = 1;
-            this.tablePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tablePanel.Size = new System.Drawing.Size(400, 34);
-            this.tablePanel.TabIndex = 1;
-            this.tablePanel.Visible = false;
+            this.tablePanelFull.BackColor = System.Drawing.SystemColors.Control;
+            this.tablePanelFull.ColumnCount = 6;
+            this.tablePanelFull.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tablePanelFull.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tablePanelFull.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tablePanelFull.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 130F));
+            this.tablePanelFull.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tablePanelFull.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tablePanelFull.Controls.Add(this.trackBarVolume, 3, 0);
+            this.tablePanelFull.Controls.Add(this.progressSeek, 1, 0);
+            this.tablePanelFull.Controls.Add(this.labelTime, 2, 0);
+            this.tablePanelFull.Controls.Add(this.imageResize, 5, 0);
+            this.tablePanelFull.Controls.Add(this.imageDownload, 4, 0);
+            this.tablePanelFull.Controls.Add(this.imageClose, 0, 0);
+            this.tablePanelFull.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tablePanelFull.Location = new System.Drawing.Point(0, 86);
+            this.tablePanelFull.Name = "tablePanelFull";
+            this.tablePanelFull.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.tablePanelFull.RowCount = 1;
+            this.tablePanelFull.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tablePanelFull.Size = new System.Drawing.Size(400, 34);
+            this.tablePanelFull.TabIndex = 0;
+            this.tablePanelFull.Visible = false;
             // 
             // progressSeek
             // 
@@ -99,7 +101,7 @@
             this.progressSeek.Margin = new System.Windows.Forms.Padding(9, 10, 8, 10);
             this.progressSeek.Maximum = 5000;
             this.progressSeek.Name = "progressSeek";
-            this.progressSeek.Size = new System.Drawing.Size(91, 14);
+            this.progressSeek.Size = new System.Drawing.Size(85, 14);
             this.progressSeek.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.progressSeek.TabIndex = 0;
             this.progressSeek.MouseDown += new System.Windows.Forms.MouseEventHandler(this.progressSeek_MouseDown);
@@ -108,30 +110,12 @@
             // 
             this.labelTime.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelTime.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.labelTime.Location = new System.Drawing.Point(138, 3);
+            this.labelTime.Location = new System.Drawing.Point(132, 3);
             this.labelTime.Margin = new System.Windows.Forms.Padding(0, 3, 0, 5);
             this.labelTime.Name = "labelTime";
-            this.labelTime.Size = new System.Drawing.Size(74, 26);
+            this.labelTime.Size = new System.Drawing.Size(80, 26);
             this.labelTime.TabIndex = 1;
             this.labelTime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // timerData
-            // 
-            this.timerData.Interval = 500;
-            this.timerData.Tick += new System.EventHandler(this.timerData_Tick);
-            // 
-            // labelTooltip
-            // 
-            this.labelTooltip.AutoSize = true;
-            this.labelTooltip.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            this.labelTooltip.ForeColor = System.Drawing.Color.White;
-            this.labelTooltip.Location = new System.Drawing.Point(0, 0);
-            this.labelTooltip.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);
-            this.labelTooltip.Name = "labelTooltip";
-            this.labelTooltip.Padding = new System.Windows.Forms.Padding(4, 2, 2, 2);
-            this.labelTooltip.Size = new System.Drawing.Size(6, 19);
-            this.labelTooltip.TabIndex = 2;
-            this.labelTooltip.Visible = false;
             // 
             // imageResize
             // 
@@ -179,6 +163,66 @@
             this.imageClose.WaitOnLoad = true;
             this.imageClose.Click += new System.EventHandler(this.imageClose_Click);
             // 
+            // timerData
+            // 
+            this.timerData.Interval = 500;
+            this.timerData.Tick += new System.EventHandler(this.timerData_Tick);
+            // 
+            // tablePanelCompactBottom
+            // 
+            this.tablePanelCompactBottom.BackColor = System.Drawing.SystemColors.Control;
+            this.tablePanelCompactBottom.ColumnCount = 5;
+            this.tablePanelCompactBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tablePanelCompactBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tablePanelCompactBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 130F));
+            this.tablePanelCompactBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tablePanelCompactBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tablePanelCompactBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tablePanelCompactBottom.Enabled = false;
+            this.tablePanelCompactBottom.Location = new System.Drawing.Point(0, 52);
+            this.tablePanelCompactBottom.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
+            this.tablePanelCompactBottom.Name = "tablePanelCompactBottom";
+            this.tablePanelCompactBottom.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.tablePanelCompactBottom.RowCount = 1;
+            this.tablePanelCompactBottom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tablePanelCompactBottom.Size = new System.Drawing.Size(400, 34);
+            this.tablePanelCompactBottom.TabIndex = 1;
+            // 
+            // tablePanelCompactTop
+            // 
+            this.tablePanelCompactTop.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tablePanelCompactTop.BackColor = System.Drawing.SystemColors.Control;
+            this.tablePanelCompactTop.ColumnCount = 2;
+            this.tablePanelCompactTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tablePanelCompactTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tablePanelCompactTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tablePanelCompactTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tablePanelCompactTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tablePanelCompactTop.Enabled = false;
+            this.tablePanelCompactTop.Location = new System.Drawing.Point(0, 60);
+            this.tablePanelCompactTop.Margin = new System.Windows.Forms.Padding(0);
+            this.tablePanelCompactTop.Name = "tablePanelCompactTop";
+            this.tablePanelCompactTop.Padding = new System.Windows.Forms.Padding(2, 0, 4, 0);
+            this.tablePanelCompactTop.RowCount = 1;
+            this.tablePanelCompactTop.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tablePanelCompactTop.Size = new System.Drawing.Size(400, 34);
+            this.tablePanelCompactTop.TabIndex = 2;
+            this.tablePanelCompactTop.Visible = false;
+            // 
+            // labelTooltip
+            // 
+            this.labelTooltip.AutoSize = true;
+            this.labelTooltip.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.labelTooltip.ForeColor = System.Drawing.Color.White;
+            this.labelTooltip.Location = new System.Drawing.Point(0, 0);
+            this.labelTooltip.Margin = new System.Windows.Forms.Padding(0, 2, 0, 0);
+            this.labelTooltip.Name = "labelTooltip";
+            this.labelTooltip.Padding = new System.Windows.Forms.Padding(4, 2, 2, 2);
+            this.labelTooltip.Size = new System.Drawing.Size(6, 19);
+            this.labelTooltip.TabIndex = 3;
+            this.labelTooltip.Visible = false;
+            // 
             // FormPlayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -187,7 +231,9 @@
             this.ClientSize = new System.Drawing.Size(400, 120);
             this.ControlBox = false;
             this.Controls.Add(this.labelTooltip);
-            this.Controls.Add(this.tablePanel);
+            this.Controls.Add(this.tablePanelCompactBottom);
+            this.Controls.Add(this.tablePanelFull);
+            this.Controls.Add(this.tablePanelCompactTop);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Location = new System.Drawing.Point(-32000, -32000);
             this.MaximizeBox = false;
@@ -199,7 +245,7 @@
             this.Text = "TweetDuck Video";
             this.Load += new System.EventHandler(this.FormPlayer_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).EndInit();
-            this.tablePanel.ResumeLayout(false);
+            this.tablePanelFull.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.imageResize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageDownload)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageClose)).EndInit();
@@ -212,7 +258,7 @@
 
         private System.Windows.Forms.Timer timerSync;
         private System.Windows.Forms.TrackBar trackBarVolume;
-        private System.Windows.Forms.TableLayoutPanel tablePanel;
+        private System.Windows.Forms.TableLayoutPanel tablePanelFull;
         private Controls.SeekBar progressSeek;
         private System.Windows.Forms.Label labelTime;
         private System.Windows.Forms.Timer timerData;
@@ -220,6 +266,8 @@
         private System.Windows.Forms.PictureBox imageResize;
         private System.Windows.Forms.PictureBox imageDownload;
         private System.Windows.Forms.PictureBox imageClose;
+        private System.Windows.Forms.TableLayoutPanel tablePanelCompactBottom;
+        private System.Windows.Forms.TableLayoutPanel tablePanelCompactTop;
     }
 }
 

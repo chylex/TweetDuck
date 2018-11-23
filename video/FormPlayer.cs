@@ -13,7 +13,7 @@ namespace TweetDuck.Video{
         private bool IsCursorOverVideo{
             get{
                 Point cursor = PointToClient(Cursor.Position);
-                return cursor.Y < tablePanel.Location.Y;
+                return cursor.Y < (tablePanelFull.Enabled ? tablePanelFull.Location.Y : tablePanelCompactTop.Location.Y);
             }
         }
 
@@ -87,8 +87,57 @@ namespace TweetDuck.Video{
             Application.AddMessageFilter(new MessageFilter(this));
         }
 
+        // Layout
+
         private int DpiScaled(int value){
             return (int)Math.Round(value*ownerDpi);
+        }
+
+        private void RefreshControlPanel(){
+            bool useCompactLayout = ClientSize.Width < DpiScaled(480);
+            bool needsUpdate = useCompactLayout ? tablePanelFull.Enabled : tablePanelCompactBottom.Enabled;
+
+            if (needsUpdate){
+                void Disable(TableLayoutPanel panel){
+                    panel.Controls.Clear();
+                    panel.Visible = false;
+                    panel.Enabled = false;
+                }
+
+                tablePanelFull.SuspendLayout();
+                tablePanelCompactBottom.SuspendLayout();
+                tablePanelCompactTop.SuspendLayout();
+
+                if (useCompactLayout){
+                    Disable(tablePanelFull);
+
+                    tablePanelCompactBottom.Enabled = true;
+                    tablePanelCompactBottom.Controls.Add(imageClose, 0, 0);
+                    tablePanelCompactBottom.Controls.Add(trackBarVolume, 2, 0);
+                    tablePanelCompactBottom.Controls.Add(imageDownload, 3, 0);
+                    tablePanelCompactBottom.Controls.Add(imageResize, 4, 0);
+
+                    tablePanelCompactTop.Enabled = true;
+                    tablePanelCompactTop.Controls.Add(progressSeek, 0, 0);
+                    tablePanelCompactTop.Controls.Add(labelTime, 1, 0);
+                }
+                else{
+                    Disable(tablePanelCompactBottom);
+                    Disable(tablePanelCompactTop);
+
+                    tablePanelFull.Enabled = true;
+                    tablePanelFull.Controls.Add(imageClose, 0, 0);
+                    tablePanelFull.Controls.Add(progressSeek, 1, 0);
+                    tablePanelFull.Controls.Add(labelTime, 2, 0);
+                    tablePanelFull.Controls.Add(trackBarVolume, 3, 0);
+                    tablePanelFull.Controls.Add(imageDownload, 4, 0);
+                    tablePanelFull.Controls.Add(imageResize, 5, 0);
+                }
+                
+                tablePanelFull.ResumeLayout();
+                tablePanelCompactBottom.ResumeLayout();
+                tablePanelCompactTop.ResumeLayout();
+            }
         }
 
         // Events
@@ -171,11 +220,11 @@ namespace TweetDuck.Video{
                 if (ClientSize != newSize || Location != newLocation){
                     ClientSize = newSize;
                     Location = newLocation;
+
+                    RefreshControlPanel();
                 }
-
-                tablePanel.Visible = isCursorInside || isDragging;
-
-                if (tablePanel.Visible){
+                
+                if (isCursorInside || isDragging){
                     labelTime.Text = $"{controls.currentPositionString} / {media.durationString}";
 
                     int value = (int)Math.Round(progressSeek.Maximum*controls.currentPosition/media.duration);
@@ -189,6 +238,19 @@ namespace TweetDuck.Video{
                         progressSeek.Value = value+1;
                         progressSeek.Value = value;
                     }
+                    
+                    if (tablePanelFull.Enabled){
+                        tablePanelFull.Visible = true;
+                    }
+                    else{
+                        tablePanelCompactBottom.Visible = true;
+                        tablePanelCompactTop.Visible = true;
+                    }
+                }
+                else{
+                    tablePanelFull.Visible = false;
+                    tablePanelCompactBottom.Visible = false;
+                    tablePanelCompactTop.Visible = false;
                 }
                 
                 if (controls.currentPosition > media.duration){ // pausing near the end of the video causes WMP to play beyond the end of the video wtf
