@@ -1,4 +1,6 @@
 using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using CefSharp.BrowserSubprocess;
 
 namespace TweetDuck.Browser{
@@ -8,10 +10,20 @@ namespace TweetDuck.Browser{
         private static int Main(string[] args){
             SubProcess.EnableHighDPISupport();
             
-            const string typePrefix = "--type=";
-            string type = Array.Find(args, arg => arg.StartsWith(typePrefix, StringComparison.OrdinalIgnoreCase)).Substring(typePrefix.Length);
+            string FindArg(string key){
+                return Array.Find(args, arg => arg.StartsWith(key, StringComparison.OrdinalIgnoreCase)).Substring(key.Length);
+            }
 
-            if (type == "renderer"){
+            const string typePrefix = "--type=";
+            const string parentIdPrefix = "--host-process-id=";
+
+            if (!int.TryParse(FindArg(parentIdPrefix), out int parentId)){
+                return 0;
+            }
+
+            Task.Factory.StartNew(() => KillWhenHung(parentId), TaskCreationOptions.LongRunning);
+            
+            if (FindArg(typePrefix) == "renderer"){
                 using(SubProcess subProcess = new SubProcess(args)){
                     return subProcess.Run();
                 }
@@ -19,6 +31,19 @@ namespace TweetDuck.Browser{
             else{
                 return SubProcess.ExecuteProcess();
             }
+        }
+
+        private static async void KillWhenHung(int parentId){
+            try{
+                using(Process process = Process.GetProcessById(parentId)){
+                    process.WaitForExit();
+                }
+            }catch{
+                // ded
+            }
+
+            await Task.Delay(10000);
+            Environment.Exit(0);
         }
     }
 }
