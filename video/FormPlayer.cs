@@ -95,7 +95,7 @@ namespace TweetDuck.Video{
 
         private void RefreshControlPanel(){
             bool useCompactLayout = ClientSize.Width < DpiScaled(480);
-            bool needsUpdate = useCompactLayout ? tablePanelFull.Enabled : tablePanelCompactBottom.Enabled;
+            bool needsUpdate = !timerSync.Enabled || (useCompactLayout ? tablePanelFull.Enabled : tablePanelCompactBottom.Enabled);
 
             if (needsUpdate){
                 void Disable(TableLayoutPanel panel){
@@ -169,12 +169,12 @@ namespace TweetDuck.Video{
             else if (state == WMPPlayState.wmppsPlaying){
                 Player.PlayStateChange -= player_PlayStateChange;
                 
-                timerSync.Start();
                 NativeMethods.SetWindowOwner(Handle, ownerHandle);
                 Cursor.Current = Cursors.Default;
 
                 SuspendLayout();
                 timerSync_Tick(timerSync, EventArgs.Empty);
+                timerSync.Start();
                 Opacity = 1;
                 ResumeLayout(true);
             }
@@ -220,7 +220,6 @@ namespace TweetDuck.Video{
                 if (ClientSize != newSize || Location != newLocation){
                     ClientSize = newSize;
                     Location = newLocation;
-
                     RefreshControlPanel();
                 }
                 

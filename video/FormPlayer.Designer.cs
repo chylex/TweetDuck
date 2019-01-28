@@ -83,6 +83,7 @@
             this.tablePanelFull.Controls.Add(this.imageDownload, 4, 0);
             this.tablePanelFull.Controls.Add(this.imageClose, 0, 0);
             this.tablePanelFull.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tablePanelFull.Enabled = false;
             this.tablePanelFull.Location = new System.Drawing.Point(0, 86);
             this.tablePanelFull.Name = "tablePanelFull";
             this.tablePanelFull.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
