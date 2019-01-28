@@ -124,7 +124,7 @@ namespace TweetDuck.Configuration{
                 try{
                     File.Delete(file);
                 }catch(Exception e){
-                    Program.Reporter.Log(e.ToString());
+                    Program.Reporter.LogImportant(e.ToString());
                     return false;
                 }
             }

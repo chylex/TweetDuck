@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using TweetDuck.Configuration;
 using TweetDuck.Core.Other;
 
 namespace TweetDuck{
@@ -22,7 +23,11 @@ namespace TweetDuck{
             };
         }
 
-        public bool Log(string data){
+        public bool LogVerbose(string data){
+            return Arguments.HasFlag(Arguments.ArgLogging) && LogImportant(data);
+        }
+
+        public bool LogImportant(string data){
             #if DEBUG
             Debug.WriteLine(data);
             #endif
@@ -45,7 +50,7 @@ namespace TweetDuck{
         }
 
         public void HandleException(string caption, string message, bool canIgnore, Exception e){
-            bool loggedSuccessfully = Log(e.ToString());
+            bool loggedSuccessfully = LogImportant(e.ToString());
             
             string exceptionText = e is ExpandedLogException ? e.Message+"\n\nDetails with potentially sensitive information are in the Error Log." : e.Message;
             FormMessage form = new FormMessage(caption, message+"\nError: "+exceptionText, canIgnore ? MessageBoxIcon.Warning : MessageBoxIcon.Error);

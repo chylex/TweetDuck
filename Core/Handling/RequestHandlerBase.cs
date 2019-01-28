@@ -67,10 +67,10 @@ namespace TweetDuck.Core.Handling{
 
                 if (match.Success && TweetDeckHashes.TryGetValue($"{match.Groups[1]}.{match.Groups[3]}", out string hash)){
                     if (match.Groups[2].Value == hash){
-                        Program.Reporter.Log("[RequestHandlerBase] Accepting " + url);
+                        Program.Reporter.LogVerbose("[RequestHandlerBase] Accepting " + url);
                     }
                     else{
-                        Program.Reporter.Log("[RequestHandlerBase] Replacing " + url + " hash with " + hash);
+                        Program.Reporter.LogVerbose("[RequestHandlerBase] Replacing " + url + " hash with " + hash);
                         request.Url = TweetDeckResourceUrl.Replace(url, $"/dist/$1.{hash}.$3");
                         return true;
                     }

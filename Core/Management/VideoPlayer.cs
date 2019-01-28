@@ -135,7 +135,7 @@ namespace TweetDuck.Core.Management{
 
         private void process_OutputDataReceived(object sender, DataReceivedEventArgs e){
             if (!string.IsNullOrEmpty(e.Data)){
-                Program.Reporter.Log("[VideoPlayer] "+e.Data);
+                Program.Reporter.LogVerbose("[VideoPlayer] "+e.Data);
             }
         }
 

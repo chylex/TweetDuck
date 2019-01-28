@@ -34,7 +34,7 @@ namespace TweetDuck.Configuration.Instance{
                     LoadInternal(attempt > 0);
 
                     if (firstException != null){ // silently log exception that caused a backup restore
-                        Program.Reporter.Log(firstException.ToString());
+                        Program.Reporter.LogImportant(firstException.ToString());
                     }
 
                     return;
