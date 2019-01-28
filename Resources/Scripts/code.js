@@ -1198,6 +1198,8 @@
   //
   execSafe(function setupVideoPlayer(){
     window.TDGF_playVideo = function(url, username){
+      return if !url;
+      
       $('<div id="td-video-player-overlay" class="ovl" style="display:block"></div>').on("click contextmenu", function(){
         $TD.playVideo(null, null);
       }).appendTo(app);
