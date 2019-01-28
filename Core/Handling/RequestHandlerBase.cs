@@ -1,20 +1,45 @@
-﻿// Uncomment to force TweetDeck to load a predefined version of the vendor/bundle scripts and stylesheets
-// #define FREEZE_TWEETDECK_RESOURCES
-
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
+using System.Text.RegularExpressions;
 using CefSharp;
 using CefSharp.Handler;
 using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Utils;
 
-#if FREEZE_TWEETDECK_RESOURCES
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text.RegularExpressions;
-#endif
-
 namespace TweetDuck.Core.Handling{
     class RequestHandlerBase : DefaultRequestHandler{
+        private static readonly Regex TweetDeckResourceUrl = new Regex(@"/dist/(.*?)\.(.*?)\.(css|js)$", RegexOptions.Compiled);
+        private static readonly SortedList<string, string> TweetDeckHashes = new SortedList<string, string>(4);
+
+        public static void LoadResourceRewriteRules(string rules){
+            if (string.IsNullOrEmpty(rules)){
+                return;
+            }
+
+            TweetDeckHashes.Clear();
+
+            foreach(string rule in rules.Replace(" ", "").ToLower().Split(',')){
+                string[] split = rule.Split('=');
+
+                if (split.Length == 2){
+                    string key = split[0];
+                    string hash = split[1];
+
+                    if (hash.All(chr => char.IsDigit(chr) || (chr >= 'a' && chr <= 'f'))){
+                        TweetDeckHashes.Add(key, hash);
+                    }
+                    else{
+                        throw new ArgumentException("Invalid hash characters: "+rule);
+                    }
+                }
+                else{
+                    throw new ArgumentException("A rule must have exactly one '=' character: "+rule);
+                }
+            }
+        }
+
         private readonly bool autoReload;
 
         public RequestHandlerBase(bool autoReload){
@@ -34,34 +59,18 @@ namespace TweetDuck.Core.Handling{
 
             return base.OnBeforeResourceLoad(browserControl, browser, frame, request, callback);
         }
-        
-        public override void OnRenderProcessTerminated(IWebBrowser browserControl, IBrowser browser, CefTerminationStatus status){
-            if (autoReload){
-                browser.Reload();
-            }
-        }
-
-        #if FREEZE_TWEETDECK_RESOURCES
-        private static readonly Regex TweetDeckResourceUrl = new Regex(@"/dist/(.*?)\.(.*?)\.(css|js)$", RegexOptions.Compiled);
-        
-        private static readonly SortedList<string, string> TweetDeckHashes = new SortedList<string, string>(2){
-            { "vendor.js", "d897f6b9ed" },
-            { "bundle.js", "851d3877b9" },
-            { "vendor.css", "ce7cdd10b6" },
-            { "bundle.css", "c339f07047" }
-        };
 
         public override bool OnResourceResponse(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IResponse response){
-            if (request.ResourceType == ResourceType.Script || request.ResourceType == ResourceType.Stylesheet){
+            if ((request.ResourceType == ResourceType.Script || request.ResourceType == ResourceType.Stylesheet) && TweetDeckHashes.Count > 0){
                 string url = request.Url;
                 Match match = TweetDeckResourceUrl.Match(url);
 
                 if (match.Success && TweetDeckHashes.TryGetValue($"{match.Groups[1]}.{match.Groups[3]}", out string hash)){
                     if (match.Groups[2].Value == hash){
-                        Debug.WriteLine($"Accepting {url}");
+                        Program.Reporter.Log("[RequestHandlerBase] Accepting " + url);
                     }
                     else{
-                        Debug.WriteLine($"Rewriting {url} hash to {hash}");
+                        Program.Reporter.Log("[RequestHandlerBase] Replacing " + url + " hash with " + hash);
                         request.Url = TweetDeckResourceUrl.Replace(url, $"/dist/$1.{hash}.$3");
                         return true;
                     }
@@ -70,6 +79,11 @@ namespace TweetDuck.Core.Handling{
 
             return base.OnResourceResponse(browserControl, browser, frame, request, response);
         }
-        #endif
+        
+        public override void OnRenderProcessTerminated(IWebBrowser browserControl, IBrowser browser, CefTerminationStatus status){
+            if (autoReload){
+                browser.Reload();
+            }
+        }
     }
 }

@@ -9,6 +9,7 @@ using System.Threading;
 using System.Windows.Forms;
 using TweetDuck.Configuration;
 using TweetDuck.Core;
+using TweetDuck.Core.Handling;
 using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Management;
@@ -129,6 +130,13 @@ namespace TweetDuck{
                 BrowserCache.TryClearNow();
             }
             
+            try{
+                RequestHandlerBase.LoadResourceRewriteRules(Arguments.GetValue(Arguments.ArgFreeze, null));
+            }catch(Exception e){
+                FormMessage.Error("Resource Freeze", "Error parsing resource rewrite rules: "+e.Message, FormMessage.OK);
+                return;
+            }
+
             BrowserCache.RefreshTimer();
 
             CefSharpSettings.WcfEnabled = false;
