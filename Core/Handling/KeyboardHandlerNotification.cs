@@ -4,7 +4,7 @@ using TweetDuck.Core.Controls;
 using TweetDuck.Core.Notification;
 
 namespace TweetDuck.Core.Handling {
-    sealed class KeyboardHandlerNotification : IKeyboardHandler{
+    sealed class KeyboardHandlerNotification : KeyboardHandlerBase{
         private readonly FormNotificationBase notification;
 
         public KeyboardHandlerNotification(FormNotificationBase notification){
@@ -15,31 +15,30 @@ namespace TweetDuck.Core.Handling {
             notification.InvokeAsyncSafe(notification.AnalyticsFile.NotificationKeyboardShortcuts.Trigger);
         }
 
-        bool IKeyboardHandler.OnPreKeyEvent(IWebBrowser browserControl, IBrowser browser, KeyType type, int windowsKeyCode, int nativeKeyCode, CefEventFlags modifiers, bool isSystemKey, ref bool isKeyboardShortcut){
-            if (type == KeyType.RawKeyDown && !browser.FocusedFrame.Url.StartsWith("chrome-devtools://")){
-                switch((Keys)windowsKeyCode){
-                    case Keys.Enter:
-                        notification.InvokeAsyncSafe(notification.FinishCurrentNotification);
-                        TriggerKeyboardShortcutAnalytics();
-                        return true;
-
-                    case Keys.Escape:
-                        notification.InvokeAsyncSafe(notification.HideNotification);
-                        TriggerKeyboardShortcutAnalytics();
-                        return true;
-
-                    case Keys.Space:
-                        notification.InvokeAsyncSafe(() => notification.FreezeTimer = !notification.FreezeTimer);
-                        TriggerKeyboardShortcutAnalytics();
-                        return true;
-                }
+        protected override bool HandleRawKey(IWebBrowser browserControl, IBrowser browser, Keys key, CefEventFlags modifiers){
+            if (base.HandleRawKey(browserControl, browser, key, modifiers)){
+                return true;
             }
 
-            return false;
-        }
+            switch(key){
+                case Keys.Enter:
+                    notification.InvokeAsyncSafe(notification.FinishCurrentNotification);
+                    TriggerKeyboardShortcutAnalytics();
+                    return true;
 
-        bool IKeyboardHandler.OnKeyEvent(IWebBrowser browserControl, IBrowser browser, KeyType type, int windowsKeyCode, int nativeKeyCode, CefEventFlags modifiers, bool isSystemKey){
-            return false;
+                case Keys.Escape:
+                    notification.InvokeAsyncSafe(notification.HideNotification);
+                    TriggerKeyboardShortcutAnalytics();
+                    return true;
+
+                case Keys.Space:
+                    notification.InvokeAsyncSafe(() => notification.FreezeTimer = !notification.FreezeTimer);
+                    TriggerKeyboardShortcutAnalytics();
+                    return true;
+
+                default:
+                    return false;
+            }
         }
     }
 }

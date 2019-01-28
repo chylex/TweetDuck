@@ -92,6 +92,7 @@
       <DependentUpon>FormBrowser.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\Handling\General\FileDialogHandler.cs" />
+    <Compile Include="Core\Handling\KeyboardHandlerBase.cs" />
     <Compile Include="Core\Handling\KeyboardHandlerBrowser.cs" />
     <Compile Include="Core\Handling\KeyboardHandlerNotification.cs" />
     <Compile Include="Core\Handling\RequestHandlerBase.cs" />

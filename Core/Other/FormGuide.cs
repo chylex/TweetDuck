@@ -70,6 +70,7 @@ namespace TweetDuck.Core.Other{
             this.browser = new ChromiumWebBrowser(url){
                 MenuHandler = new ContextMenuGuide(owner),
                 JsDialogHandler = new JavaScriptDialogHandler(),
+                KeyboardHandler = new KeyboardHandlerBase(),
                 LifeSpanHandler = new LifeSpanHandler(),
                 RequestHandler = new RequestHandlerBase(true),
                 ResourceHandlerFactory = resourceHandlerFactory

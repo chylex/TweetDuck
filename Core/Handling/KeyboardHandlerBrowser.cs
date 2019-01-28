@@ -2,19 +2,19 @@
 using CefSharp;
 
 namespace TweetDuck.Core.Handling{
-    sealed class KeyboardHandlerBrowser : IKeyboardHandler{
+    sealed class KeyboardHandlerBrowser : KeyboardHandlerBase{
         private readonly FormBrowser form;
 
         public KeyboardHandlerBrowser(FormBrowser form){
             this.form = form;
         }
 
-        bool IKeyboardHandler.OnPreKeyEvent(IWebBrowser browserControl, IBrowser browser, KeyType type, int windowsKeyCode, int nativeKeyCode, CefEventFlags modifiers, bool isSystemKey, ref bool isKeyboardShortcut){
-            return type == KeyType.RawKeyDown && form.ProcessBrowserKey((Keys)windowsKeyCode);
-        }
+        protected override bool HandleRawKey(IWebBrowser browserControl, IBrowser browser, Keys key, CefEventFlags modifiers){
+            if (base.HandleRawKey(browserControl, browser, key, modifiers)){
+                return true;
+            }
 
-        bool IKeyboardHandler.OnKeyEvent(IWebBrowser browserControl, IBrowser browser, KeyType type, int windowsKeyCode, int nativeKeyCode, CefEventFlags modifiers, bool isSystemKey){
-            return false;
+            return form.ProcessBrowserKey(key);
         }
     }
 }
