@@ -383,7 +383,7 @@ enabled(){
 }
 
 ready(){
-  $(".manage-templates-btn").on("click", this.manageTemplatesButtonClickEvent);
+  $(".js-drawer[data-drawer='compose']").on("click", ".manage-templates-btn", this.manageTemplatesButtonClickEvent);
   $(document).on("uiDrawerActive", this.drawerToggleEvent);
 }
 
@@ -391,6 +391,7 @@ disabled(){
   $(".manage-templates-btn").remove();
   $("#templates-modal-wrap").remove();
   
+  $(".js-drawer[data-drawer='compose']").off("click", ".manage-templates-btn", this.manageTemplatesButtonClickEvent);
   $(document).off("uiDrawerActive", this.drawerToggleEvent);
   
   TD.mustaches["compose/docked_compose.mustache"] = this.prevComposeMustache;

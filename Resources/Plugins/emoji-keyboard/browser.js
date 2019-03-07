@@ -62,6 +62,14 @@ enabled(){
     maybeDockedComposePanel.find(".cf.margin-t--12.margin-b--30").first().append(buttonHTML);
   }
   
+  this.getDrawerInput = () => {
+    return $(".js-compose-text", me.composeDrawer);
+  };
+  
+  this.getDrawerScroller = () => {
+    return $(".js-compose-scroller > .scroll-v", me.composeDrawer);
+  };
+  
   // keyboard generation
   
   this.currentKeyboard = null;
@@ -79,12 +87,12 @@ enabled(){
     
     this.currentKeywords = [];
     
-    this.composePanelScroller.trigger("scroll");
+    this.getDrawerScroller().trigger("scroll");
     
     $(".emoji-keyboard-popup-btn").removeClass("is-selected");
     
     if (refocus){
-      this.composeInput.focus();
+      this.getDrawerInput().focus();
       
       if (lastEmojiKeyword && lastEmojiPosition === 0){
         document.execCommand("insertText", false, lastEmojiKeyword);
@@ -229,16 +237,16 @@ enabled(){
     this.currentSpanner.style.height = ($(this.currentKeyboard).height()-10)+"px";
     $(".emoji-keyboard-popup-btn").parent().after(this.currentSpanner);
     
-    this.composePanelScroller.trigger("scroll");
+    this.getDrawerScroller().trigger("scroll");
   };
   
   const getKeyboardTop = () => {
     let button = $(".emoji-keyboard-popup-btn");
-    return button.offset().top+button.outerHeight()+me.composePanelScroller.scrollTop()+8;
+    return button.offset().top + button.outerHeight() + me.getDrawerScroller().scrollTop() + 8;
   };
   
   const insertEmoji = (src, alt) => {
-    let input = this.composeInput;
+    let input = this.getDrawerInput();
     
     let val = input.val();
     let posStart = input[0].selectionStart;
@@ -378,6 +386,15 @@ enabled(){
     hideKeyboard();
   };
   
+  this.drawerToggleEvent = function(e, data){
+    if (data.activeDrawer === "compose"){
+      setTimeout(function(){
+        $(".emoji-keyboard-popup-btn", me.composeDrawer).on("click", me.emojiKeyboardButtonClickEvent);
+        $(".js-docked-compose .js-compose-scroller > .scroll-v", me.composeDrawer).on("scroll", me.composerScrollEvent);
+      }, 0);
+    }
+  };
+  
   this.documentClickEvent = function(e){
     if (me.currentKeyboard && $(e.target).closest(".compose-text-container").length === 0){
       hideKeyboard();
@@ -399,17 +416,14 @@ enabled(){
 }
 
 ready(){
-  this.composeDrawer = $("[data-drawer='compose']");
-  this.composeInput = $(".js-compose-text", ".js-docked-compose");
+  this.composeDrawer = $(".js-drawer[data-drawer='compose']");
   this.composeSelector = ".js-compose-text,.js-reply-tweetbox";
   
-  this.composePanelScroller = $(".js-compose-scroller", ".js-docked-compose").first().children().first();
-  this.composePanelScroller.on("scroll", this.composerScrollEvent);
-  
-  $(".emoji-keyboard-popup-btn").on("click", this.emojiKeyboardButtonClickEvent);
   $(document).on("click", this.documentClickEvent);
   $(document).on("keydown", this.documentKeyEvent);
+  $(document).on("uiDrawerActive", this.drawerToggleEvent);
   $(document).on("uiComposeImageAdded", this.uploadFilesEvent);
+  
   this.composeDrawer.on("uiComposeTweetSending", this.composerSendingEvent);
   
   $(document).on("keydown", this.composeSelector, this.composeInputKeyDownEvent);
@@ -529,14 +543,13 @@ disabled(){
     $(this.currentSpanner).remove();
   }
   
-  this.composePanelScroller.off("scroll", this.composerScrollEvent);
-  
-  $(".emoji-keyboard-popup-btn").off("click", this.emojiKeyboardButtonClickEvent);
   $(".emoji-keyboard-popup-btn").remove();
   
   $(document).off("click", this.documentClickEvent);
   $(document).off("keydown", this.documentKeyEvent);
+  $(document).off("uiDrawerActive", this.drawerToggleEvent);
   $(document).off("uiComposeImageAdded", this.uploadFilesEvent);
+  
   this.composeDrawer.off("uiComposeTweetSending", this.composerSendingEvent);
   
   $(document).off("keydown", this.composeSelector, this.composeInputKeyDownEvent);

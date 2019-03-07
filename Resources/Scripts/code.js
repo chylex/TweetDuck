@@ -1039,14 +1039,20 @@
   // Block: Refocus the textbox after switching accounts.
   //
   onAppReady.push(function setupAccountSwitchRefocus(){
-    const composeInput = $$(".js-compose-text", ".js-docked-compose");
-    
     const refocusInput = function(){
-      composeInput.focus();
+      $$(".js-compose-text", ".js-docked-compose").focus();
     };
     
-    $$(".js-account-list", ".js-docked-compose").delegate(".js-account-item", "click", function(e){
+    const accountItemClickEvent = function(e){
       setTimeout(refocusInput, 0);
+    };
+    
+    $(document).on("uiDrawerActive", function(e, data){
+      if (data.activeDrawer === "compose"){
+        setTimeout(function(){
+          $$(".js-account-list", ".js-docked-compose").delegate(".js-account-item", "click", accountItemClickEvent);
+        }, 0);
+      }
     });
   });
   
