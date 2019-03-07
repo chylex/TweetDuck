@@ -804,6 +804,8 @@ html.dark .spinner-small,html.dark .spinner-large{filter:grayscale(85%)brightnes
 html.dark .tweet>.color-twitter-blue{color:#8bd!important}
 html.dark .hw-card-container>div{border-color:#292F33;background:transparent}
 html.dark .hw-card-container>div>div{border-color:#292F33}
-html.dark .modal-content,html.dark .lst-group{color:#292F33}
+html.dark .modal-content,html.dark .lst-group,html.dark #actions-modal{color:#292F33}
+html.dark #actions-modal .account-link{color:#38444d}
+html.dark .mdl-accent{background-color:transparent}
 html.dark .lst-launcher a span{color:#657786!important}
 html.dark .social-proof-names a{color:#3b94d9}
