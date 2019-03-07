@@ -560,7 +560,7 @@
   execSafe(function setupShortenerBypass(){
     $(document.body).delegate("a[data-full-url]", "click auxclick", function(e){
       if (e.button === 0 || e.button === 1){ // event.which seems to be borked in auxclick
-        $TD.openBrowser($(this).attr("data-full-url"));
+        $TD.openBrowser($(this).attr("data-full-url")); // TODO detect rel="tweet"?
         e.preventDefault();
       }
     });
@@ -755,28 +755,35 @@
       return chirp.getMedia().filter(item => !item.isAnimatedGif).map(item => item.entity.media_url_https+":small").join(";");
     };
     
+    const updateContextInfo = function(chirp){
+      let quote = chirp.quotedTweet;
+      
+      if (chirp.chirpType === TD.services.ChirpBase.TWEET){
+        let tweetUrl = chirp.getChirpURL();
+        let quoteUrl = quote && quote.getChirpURL();
+        
+        let chirpAuthors = quote ? [ chirp.getMainUser().screenName, quote.getMainUser().screenName ].join(";") : chirp.getMainUser().screenName;
+        let chirpImages = chirp.hasImage() ? processMedia(chirp) : quote && quote.hasImage() ? processMedia(quote) : "";
+        
+        $TD.setRightClickedChirp(tweetUrl || "", quoteUrl || "", chirpAuthors, chirpImages);
+      }
+      else if (chirp instanceof TD.services.TwitterActionFollow){
+        $TD.setRightClickedLink("link", chirp.following.getProfileURL());
+      }
+    };
+    
     app.delegate("section.js-column", {
       contextmenu: function(){
         let hovered = getHoveredTweet();
-        return if !hovered;
-        
-        let tweet = hovered.obj;
-        let quote = tweet.quotedTweet;
-        
-        if (tweet.chirpType === TD.services.ChirpBase.TWEET){
-          let tweetUrl = tweet.getChirpURL();
-          let quoteUrl = quote && quote.getChirpURL();
-          
-          let chirpAuthors = quote ? [ tweet.getMainUser().screenName, quote.getMainUser().screenName ].join(";") : tweet.getMainUser().screenName;
-          let chirpImages = tweet.hasImage() ? processMedia(tweet) : quote && quote.hasImage() ? processMedia(quote) : "";
-          
-          $TD.setRightClickedChirp(tweetUrl || "", quoteUrl || "", chirpAuthors, chirpImages);
-        }
-        else if (tweet instanceof TD.services.TwitterActionFollow){
-          $TD.setRightClickedLink("link", tweet.following.getProfileURL());
-        }
+        hovered && updateContextInfo(hovered.obj);
       }
     });
+    
+    if (ensurePropertyExists(TD, "services", "TwitterStatus", "prototype", "renderInMediaGallery")){
+      TD.services.TwitterStatus.prototype.renderInMediaGallery = appendToFunction(TD.services.TwitterStatus.prototype.renderInMediaGallery, function(){
+        updateContextInfo(this);
+      });
+    }
   });
   
   //

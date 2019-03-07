@@ -33,7 +33,7 @@ namespace TweetDuck.Core.Notification{
                     screen = Screen.AllScreens[Config.NotificationDisplay-1];
                 }
                 else{
-                    screen = Screen.FromControl(owner);
+                    screen = Screen.FromControl(owner); // TODO may be disposed?
                 }
             
                 int edgeDist = Config.NotificationEdgeDistance;
