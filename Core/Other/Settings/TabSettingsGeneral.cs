@@ -34,6 +34,7 @@ namespace TweetDuck.Core.Other.Settings{
             // user interface
 
             toolTip.SetToolTip(checkExpandLinks, "Expands links inside the tweets. If disabled,\r\nthe full links show up in a tooltip instead.");
+            toolTip.SetToolTip(checkFocusDmInput, "Places cursor into Direct Message input\r\nfield when opening a conversation.");
             toolTip.SetToolTip(checkOpenSearchInFirstColumn, "By default, TweetDeck adds Search columns at the end.\r\nThis option makes them appear before the first column instead.");
             toolTip.SetToolTip(checkKeepLikeFollowDialogsOpen, "Allows liking and following from multiple accounts at once,\r\ninstead of automatically closing the dialog after taking an action.");
             toolTip.SetToolTip(checkBestImageQuality, "When right-clicking a tweet image, the context menu options\r\nwill use links to the original image size (:orig in the URL).");
@@ -42,6 +43,7 @@ namespace TweetDuck.Core.Other.Settings{
             toolTip.SetToolTip(trackBarZoom, toolTip.GetToolTip(labelZoomValue));
 
             checkExpandLinks.Checked = Config.ExpandLinksOnHover;
+            checkFocusDmInput.Checked = Config.FocusDmInput;
             checkOpenSearchInFirstColumn.Checked = Config.OpenSearchInFirstColumn;
             checkKeepLikeFollowDialogsOpen.Checked = Config.KeepLikeFollowDialogsOpen;
             checkBestImageQuality.Checked = Config.BestImageQuality;
@@ -127,6 +129,7 @@ namespace TweetDuck.Core.Other.Settings{
 
         public override void OnReady(){
             checkExpandLinks.CheckedChanged += checkExpandLinks_CheckedChanged;
+            checkFocusDmInput.CheckedChanged += checkFocusDmInput_CheckedChanged;
             checkOpenSearchInFirstColumn.CheckedChanged += checkOpenSearchInFirstColumn_CheckedChanged;
             checkKeepLikeFollowDialogsOpen.CheckedChanged += checkKeepLikeFollowDialogsOpen_CheckedChanged;
             checkBestImageQuality.CheckedChanged += checkBestImageQuality_CheckedChanged;
@@ -158,6 +161,10 @@ namespace TweetDuck.Core.Other.Settings{
 
         private void checkExpandLinks_CheckedChanged(object sender, EventArgs e){
             Config.ExpandLinksOnHover = checkExpandLinks.Checked;
+        }
+
+        private void checkFocusDmInput_CheckedChanged(object sender, EventArgs e){
+            Config.FocusDmInput = checkFocusDmInput.Checked;
         }
 
         private void checkOpenSearchInFirstColumn_CheckedChanged(object sender, EventArgs e){

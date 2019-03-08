@@ -1511,6 +1511,8 @@
   //
   if (ensurePropertyExists(TD, "components", "ConversationDetailView", "prototype", "showChirp")){
     TD.components.ConversationDetailView.prototype.showChirp = appendToFunction(TD.components.ConversationDetailView.prototype.showChirp, function(){
+      return if !$TDX.focusDmInput;
+      
       setTimeout(function(){
         $(".js-reply-tweetbox").first().focus();
       }, 100);

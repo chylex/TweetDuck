@@ -39,6 +39,7 @@
             this.checkAnimatedAvatars = new System.Windows.Forms.CheckBox();
             this.labelUpdates = new System.Windows.Forms.Label();
             this.flowPanelLeft = new System.Windows.Forms.FlowLayoutPanel();
+            this.checkFocusDmInput = new System.Windows.Forms.CheckBox();
             this.checkKeepLikeFollowDialogsOpen = new System.Windows.Forms.CheckBox();
             this.labelTray = new System.Windows.Forms.Label();
             this.comboBoxTrayType = new System.Windows.Forms.ComboBox();
@@ -82,11 +83,11 @@
             // 
             this.checkUpdateNotifications.AutoSize = true;
             this.checkUpdateNotifications.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkUpdateNotifications.Location = new System.Drawing.Point(6, 393);
+            this.checkUpdateNotifications.Location = new System.Drawing.Point(6, 409);
             this.checkUpdateNotifications.Margin = new System.Windows.Forms.Padding(6, 6, 3, 2);
             this.checkUpdateNotifications.Name = "checkUpdateNotifications";
             this.checkUpdateNotifications.Size = new System.Drawing.Size(182, 19);
-            this.checkUpdateNotifications.TabIndex = 13;
+            this.checkUpdateNotifications.TabIndex = 14;
             this.checkUpdateNotifications.Text = "Check Updates Automatically";
             this.checkUpdateNotifications.UseVisualStyleBackColor = true;
             // 
@@ -94,12 +95,12 @@
             // 
             this.btnCheckUpdates.AutoSize = true;
             this.btnCheckUpdates.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnCheckUpdates.Location = new System.Drawing.Point(5, 417);
+            this.btnCheckUpdates.Location = new System.Drawing.Point(5, 433);
             this.btnCheckUpdates.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnCheckUpdates.Name = "btnCheckUpdates";
             this.btnCheckUpdates.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.btnCheckUpdates.Size = new System.Drawing.Size(128, 25);
-            this.btnCheckUpdates.TabIndex = 14;
+            this.btnCheckUpdates.TabIndex = 15;
             this.btnCheckUpdates.Text = "Check Updates Now";
             this.btnCheckUpdates.UseVisualStyleBackColor = true;
             // 
@@ -119,11 +120,11 @@
             // 
             this.checkBestImageQuality.AutoSize = true;
             this.checkBestImageQuality.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkBestImageQuality.Location = new System.Drawing.Point(6, 98);
+            this.checkBestImageQuality.Location = new System.Drawing.Point(6, 122);
             this.checkBestImageQuality.Margin = new System.Windows.Forms.Padding(6, 3, 3, 2);
             this.checkBestImageQuality.Name = "checkBestImageQuality";
             this.checkBestImageQuality.Size = new System.Drawing.Size(125, 19);
-            this.checkBestImageQuality.TabIndex = 4;
+            this.checkBestImageQuality.TabIndex = 5;
             this.checkBestImageQuality.Text = "Best Image Quality";
             this.checkBestImageQuality.UseVisualStyleBackColor = true;
             // 
@@ -131,11 +132,11 @@
             // 
             this.checkOpenSearchInFirstColumn.AutoSize = true;
             this.checkOpenSearchInFirstColumn.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkOpenSearchInFirstColumn.Location = new System.Drawing.Point(6, 50);
+            this.checkOpenSearchInFirstColumn.Location = new System.Drawing.Point(6, 74);
             this.checkOpenSearchInFirstColumn.Margin = new System.Windows.Forms.Padding(6, 3, 3, 2);
             this.checkOpenSearchInFirstColumn.Name = "checkOpenSearchInFirstColumn";
             this.checkOpenSearchInFirstColumn.Size = new System.Drawing.Size(245, 19);
-            this.checkOpenSearchInFirstColumn.TabIndex = 2;
+            this.checkOpenSearchInFirstColumn.TabIndex = 3;
             this.checkOpenSearchInFirstColumn.Text = "Add Search Columns Before First Column";
             this.checkOpenSearchInFirstColumn.UseVisualStyleBackColor = true;
             // 
@@ -158,11 +159,11 @@
             // 
             this.labelZoom.AutoSize = true;
             this.labelZoom.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            this.labelZoom.Location = new System.Drawing.Point(3, 155);
+            this.labelZoom.Location = new System.Drawing.Point(3, 179);
             this.labelZoom.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelZoom.Name = "labelZoom";
             this.labelZoom.Size = new System.Drawing.Size(39, 15);
-            this.labelZoom.TabIndex = 6;
+            this.labelZoom.TabIndex = 7;
             this.labelZoom.Text = "Zoom";
             // 
             // zoomUpdateTimer
@@ -185,21 +186,21 @@
             // 
             this.panelZoom.Controls.Add(this.trackBarZoom);
             this.panelZoom.Controls.Add(this.labelZoomValue);
-            this.panelZoom.Location = new System.Drawing.Point(0, 171);
+            this.panelZoom.Location = new System.Drawing.Point(0, 195);
             this.panelZoom.Margin = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.panelZoom.Name = "panelZoom";
             this.panelZoom.Size = new System.Drawing.Size(300, 35);
-            this.panelZoom.TabIndex = 7;
+            this.panelZoom.TabIndex = 8;
             // 
             // checkAnimatedAvatars
             // 
             this.checkAnimatedAvatars.AutoSize = true;
             this.checkAnimatedAvatars.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkAnimatedAvatars.Location = new System.Drawing.Point(6, 122);
+            this.checkAnimatedAvatars.Location = new System.Drawing.Point(6, 146);
             this.checkAnimatedAvatars.Margin = new System.Windows.Forms.Padding(6, 3, 3, 2);
             this.checkAnimatedAvatars.Name = "checkAnimatedAvatars";
             this.checkAnimatedAvatars.Size = new System.Drawing.Size(158, 19);
-            this.checkAnimatedAvatars.TabIndex = 5;
+            this.checkAnimatedAvatars.TabIndex = 6;
             this.checkAnimatedAvatars.Text = "Enable Animated Avatars";
             this.checkAnimatedAvatars.UseVisualStyleBackColor = true;
             // 
@@ -207,11 +208,11 @@
             // 
             this.labelUpdates.AutoSize = true;
             this.labelUpdates.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
-            this.labelUpdates.Location = new System.Drawing.Point(0, 367);
-            this.labelUpdates.Margin = new System.Windows.Forms.Padding(0, 30, 0, 1);
+            this.labelUpdates.Location = new System.Drawing.Point(0, 383);
+            this.labelUpdates.Margin = new System.Windows.Forms.Padding(0, 27, 0, 1);
             this.labelUpdates.Name = "labelUpdates";
             this.labelUpdates.Size = new System.Drawing.Size(69, 19);
-            this.labelUpdates.TabIndex = 12;
+            this.labelUpdates.TabIndex = 13;
             this.labelUpdates.Text = "UPDATES";
             // 
             // flowPanelLeft
@@ -220,6 +221,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.flowPanelLeft.Controls.Add(this.labelUI);
             this.flowPanelLeft.Controls.Add(this.checkExpandLinks);
+            this.flowPanelLeft.Controls.Add(this.checkFocusDmInput);
             this.flowPanelLeft.Controls.Add(this.checkOpenSearchInFirstColumn);
             this.flowPanelLeft.Controls.Add(this.checkKeepLikeFollowDialogsOpen);
             this.flowPanelLeft.Controls.Add(this.checkBestImageQuality);
@@ -240,15 +242,27 @@
             this.flowPanelLeft.TabIndex = 0;
             this.flowPanelLeft.WrapContents = false;
             // 
+            // checkFocusDmInput
+            // 
+            this.checkFocusDmInput.AutoSize = true;
+            this.checkFocusDmInput.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkFocusDmInput.Location = new System.Drawing.Point(6, 50);
+            this.checkFocusDmInput.Margin = new System.Windows.Forms.Padding(6, 3, 3, 2);
+            this.checkFocusDmInput.Name = "checkFocusDmInput";
+            this.checkFocusDmInput.Size = new System.Drawing.Size(282, 19);
+            this.checkFocusDmInput.TabIndex = 2;
+            this.checkFocusDmInput.Text = "Focus Input Field When Opening Direct Message";
+            this.checkFocusDmInput.UseVisualStyleBackColor = true;
+            // 
             // checkKeepLikeFollowDialogsOpen
             // 
             this.checkKeepLikeFollowDialogsOpen.AutoSize = true;
             this.checkKeepLikeFollowDialogsOpen.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkKeepLikeFollowDialogsOpen.Location = new System.Drawing.Point(6, 74);
+            this.checkKeepLikeFollowDialogsOpen.Location = new System.Drawing.Point(6, 98);
             this.checkKeepLikeFollowDialogsOpen.Margin = new System.Windows.Forms.Padding(6, 3, 3, 2);
             this.checkKeepLikeFollowDialogsOpen.Name = "checkKeepLikeFollowDialogsOpen";
             this.checkKeepLikeFollowDialogsOpen.Size = new System.Drawing.Size(190, 19);
-            this.checkKeepLikeFollowDialogsOpen.TabIndex = 3;
+            this.checkKeepLikeFollowDialogsOpen.TabIndex = 4;
             this.checkKeepLikeFollowDialogsOpen.Text = "Keep Like/Follow Dialogs Open";
             this.checkKeepLikeFollowDialogsOpen.UseVisualStyleBackColor = true;
             // 
@@ -256,11 +270,11 @@
             // 
             this.labelTray.AutoSize = true;
             this.labelTray.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
-            this.labelTray.Location = new System.Drawing.Point(0, 236);
-            this.labelTray.Margin = new System.Windows.Forms.Padding(0, 30, 0, 1);
+            this.labelTray.Location = new System.Drawing.Point(0, 255);
+            this.labelTray.Margin = new System.Windows.Forms.Padding(0, 25, 0, 1);
             this.labelTray.Name = "labelTray";
             this.labelTray.Size = new System.Drawing.Size(99, 19);
-            this.labelTray.TabIndex = 8;
+            this.labelTray.TabIndex = 9;
             this.labelTray.Text = "SYSTEM TRAY";
             // 
             // comboBoxTrayType
@@ -268,32 +282,32 @@
             this.comboBoxTrayType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTrayType.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.comboBoxTrayType.FormattingEnabled = true;
-            this.comboBoxTrayType.Location = new System.Drawing.Point(5, 260);
+            this.comboBoxTrayType.Location = new System.Drawing.Point(5, 279);
             this.comboBoxTrayType.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.comboBoxTrayType.Name = "comboBoxTrayType";
             this.comboBoxTrayType.Size = new System.Drawing.Size(144, 23);
-            this.comboBoxTrayType.TabIndex = 9;
+            this.comboBoxTrayType.TabIndex = 10;
             // 
             // labelTrayIcon
             // 
             this.labelTrayIcon.AutoSize = true;
             this.labelTrayIcon.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            this.labelTrayIcon.Location = new System.Drawing.Point(3, 295);
+            this.labelTrayIcon.Location = new System.Drawing.Point(3, 314);
             this.labelTrayIcon.Margin = new System.Windows.Forms.Padding(3, 9, 3, 0);
             this.labelTrayIcon.Name = "labelTrayIcon";
             this.labelTrayIcon.Size = new System.Drawing.Size(56, 15);
-            this.labelTrayIcon.TabIndex = 10;
+            this.labelTrayIcon.TabIndex = 11;
             this.labelTrayIcon.Text = "Tray Icon";
             // 
             // checkTrayHighlight
             // 
             this.checkTrayHighlight.AutoSize = true;
             this.checkTrayHighlight.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkTrayHighlight.Location = new System.Drawing.Point(6, 316);
+            this.checkTrayHighlight.Location = new System.Drawing.Point(6, 335);
             this.checkTrayHighlight.Margin = new System.Windows.Forms.Padding(6, 6, 3, 2);
             this.checkTrayHighlight.Name = "checkTrayHighlight";
             this.checkTrayHighlight.Size = new System.Drawing.Size(114, 19);
-            this.checkTrayHighlight.TabIndex = 11;
+            this.checkTrayHighlight.TabIndex = 12;
             this.checkTrayHighlight.Text = "Enable Highlight";
             this.checkTrayHighlight.UseVisualStyleBackColor = true;
             // 
@@ -548,5 +562,6 @@
         private System.Windows.Forms.Label labelTranslationTarget;
         private System.Windows.Forms.ComboBox comboBoxTranslationTarget;
         private System.Windows.Forms.CheckBox checkHardwareAcceleration;
+        private System.Windows.Forms.CheckBox checkFocusDmInput;
     }
 }

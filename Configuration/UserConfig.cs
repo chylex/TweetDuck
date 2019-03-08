@@ -18,6 +18,7 @@ namespace TweetDuck.Configuration{
         public Size PluginsWindowSize    { get; set; } = Size.Empty;
 
         public bool ExpandLinksOnHover        { get; set; } = true;
+        public bool FocusDmInput              { get; set; } = true;
         public bool OpenSearchInFirstColumn   { get; set; } = true;
         public bool KeepLikeFollowDialogsOpen { get; set; } = true;
         public bool BestImageQuality          { get; set; } = true;
