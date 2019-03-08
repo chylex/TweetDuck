@@ -369,14 +369,25 @@ html[data-td-font='smallest'] .badge-verified:before {
 
 html[data-td-font='smallest'] .tweet-detail-wrapper .badge-verified:before {
   /* fix cut off badge in detail view */
-  width: 13px !important;
+  width: 14px !important;
   height: 14px !important;
   background-position: -223px -97px !important;
 }
 
 html[data-td-font='smallest'] .fullname-badged:before, html[data-td-font='small'] .fullname-badged:before {
-  /* fix cut off badge in follow chirps */
-  margin-top: -7px !important;
+  /* fix cut off badge in follow chirps and detail view */
+  margin-top: -1px !important;
+  min-width: 14px !important;
+}
+
+html[data-td-font='smallest'] .tweet-detail-wrapper .fullname-badged:before {
+  /* fix misaligned badge in detail view */
+  margin-top: -2px !important;
+}
+
+html[data-td-font='small'] .tweet-detail-wrapper .fullname-badged:before {
+  /* fix misaligned badge in detail view */
+  margin-top: 0px !important;
 }
 
 .keyboard-shortcut-list {
