@@ -87,9 +87,9 @@ enabled(){
   // update UI
   
   this.btnClearAllHTML = `
-<a class="clear-columns-btn-all-parent js-header-action link-clean cf app-nav-link padding-h--10" data-title="Clear columns (hold Shift to restore)" data-action="td-clearcolumns-doall">
+<a class="clear-columns-btn-all-parent js-header-action link-clean cf app-nav-link padding-h--16 padding-v--2" data-title="Clear columns (hold Shift to restore)" data-action="td-clearcolumns-doall">
   <div class="obj-left margin-l--2"><i class="icon icon-medium icon-clear-timeline"></i></div>
-  <div class="clear-columns-btn-all nbfc padding-ts hide-condensed txt-size--16 app-nav-link-text">Clear columns</div>
+  <div class="clear-columns-btn-all nbfc padding-ts hide-condensed txt-size--14 app-nav-link-text">Clear columns</div>
 </a>`;
   
   this.btnClearOneHTML = `
@@ -123,6 +123,7 @@ enabled(){
   this.css.insert(".js-app-add-column.is-hidden + .clear-columns-btn-all-parent { display: none; }");
   this.css.insert(".column-navigator-overflow .clear-columns-btn-all-parent { display: none !important; }");
   this.css.insert(".column-navigator-overflow { bottom: 224px !important; }");
+  this.css.insert(".app-navigator .clear-columns-btn-all-parent { font-weight: 700; }");
   
   this.css.insert(".column-header-links { min-width: 51px !important; }");
   this.css.insert(".column[data-td-icon='icon-message'] .column-header-links { min-width: 110px !important; }");
