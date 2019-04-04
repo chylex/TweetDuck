@@ -56,12 +56,6 @@ enabled(){
   this.prevComposeMustache = TD.mustaches["compose/docked_compose.mustache"];
   window.TDPF_injectMustache("compose/docked_compose.mustache", "append", '<div class="cf margin-t--12 margin-b--30">', buttonHTML);
   
-  let maybeDockedComposePanel = $(".js-docked-compose");
-  
-  if (maybeDockedComposePanel.length){
-    maybeDockedComposePanel.find(".cf.margin-t--12.margin-b--30").first().append(buttonHTML);
-  }
-  
   this.getDrawerInput = () => {
     return $(".js-compose-text", me.composeDrawer);
   };
@@ -413,6 +407,15 @@ enabled(){
       me.currentKeyboard.style.top = getKeyboardTop()+"px";
     }
   };
+  
+  // re-enabling
+  
+  let maybeDockedComposePanel = $(".js-docked-compose");
+  
+  if (maybeDockedComposePanel.length){
+    maybeDockedComposePanel.find(".cf.margin-t--12.margin-b--30").first().append(buttonHTML);
+    this.drawerToggleEvent({}, { activeDrawer: "compose" });
+  }
 }
 
 ready(){
@@ -473,7 +476,7 @@ ready(){
     };
     
     // line reading
-                      
+    
     let skinToneState = 0;
     
     for(let line of contents.split("\n")){
