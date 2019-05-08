@@ -30,11 +30,19 @@ namespace TweetDuck.Core.Utils{
 
         public sealed class Item : IComparable<Item>{
             public string Code { get; }
-            public CultureInfo Info { get; }
+
+            private string Name => info?.NativeName ?? Code;
+
+            private readonly CultureInfo info;
 
             public Item(string code, string alt = null){
                 this.Code = code;
-                this.Info = CultureInfo.GetCultureInfo(alt ?? code);
+
+                try{
+                    this.info = CultureInfo.GetCultureInfo(alt ?? code);
+                }catch(CultureNotFoundException){
+                    // ignore
+                }
             }
 
             public override bool Equals(object obj){
@@ -46,12 +54,16 @@ namespace TweetDuck.Core.Utils{
             }
 
             public override string ToString(){
-                string capitalizedName = Info.TextInfo.ToTitleCase(Info.NativeName);
-                return Info.DisplayName == Info.NativeName ? capitalizedName : $"{capitalizedName}, {Info.DisplayName}";
+                if (info == null){
+                    return Code;
+                }
+
+                string capitalizedName = info.TextInfo.ToTitleCase(info.NativeName);
+                return info.DisplayName == info.NativeName ? capitalizedName : $"{capitalizedName}, {info.DisplayName}";
             }
 
             public int CompareTo(Item other){
-                return string.Compare(Info.NativeName, other.Info.NativeName, false, CultureInfo.InvariantCulture);
+                return string.Compare(Name, other.Name, false, CultureInfo.InvariantCulture);
             }
         }
     }
