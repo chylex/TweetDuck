@@ -6,19 +6,18 @@
 
 ### Setup
 
-The program was built using Visual Studio 2017. Before opening the solution, please make sure you have the following workloads and components installed (optional components that are not listed can be deselected to save space):
+The program can be built using Visual Studio 2017 or newer. Before opening the solution, please make sure you have the following workloads and components installed (optional components that are not listed can be deselected to save space):
 * **.NET desktop development**
   * .NET Framework 4 – 4.6 development tools
   * F# desktop language support
 * **Desktop development with C++**
-  * VC++ 2017 latest v141 tools
+  * *(VS 2017)* VC++ 2017 version 15.9 v14.16 latest v141 tools
+  * *(VS 2019)* MSVC v142 - VS 2019 C++ x64/x86 build tools (v14.20)
 
 After opening the solution, right-click the solution and select **Restore NuGet Packages**, or manually run this command in the **Package Manager Console**:
 ```
-PM> Install-Package CefSharp.WinForms -Version 67.0.0-pre01
+PM> Install-Package CefSharp.WinForms -Version 67.0.0
 ```
-
-Note that some pre-release builds of CefSharp are not available on NuGet. To correctly restore packages in that case, open **Package Manager Settings**, and add `https://www.myget.org/F/cefsharp/api/v3/index.json` to the list of package sources.
 
 ### Debug
 
