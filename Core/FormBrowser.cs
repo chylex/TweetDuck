@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Microsoft.WindowsAPICodePack.Taskbar;
 using TweetDuck.Configuration;
 using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
@@ -50,6 +51,7 @@ namespace TweetDuck.Core{
         private readonly FormNotificationTweet notification;
         private readonly ContextMenu contextMenu;
         private readonly UpdateBridge updateBridge;
+        private readonly TaskbarIcon taskbarIcon;
 
         private bool isLoaded;
         private FormWindowState prevState;
@@ -84,6 +86,9 @@ namespace TweetDuck.Core{
 
             Controls.Add(new MenuStrip{ Visible = false }); // fixes Alt freezing the program in Win 10 Anniversary Update
 
+            this.taskbarIcon = new TaskbarIcon();
+            Shown += (sender, args) => taskbarIcon.UpdateIcon();
+
             Disposed += (sender, args) => {
                 Config.MuteToggled -= Config_MuteToggled;
                 Config.TrayBehaviorChanged -= Config_TrayBehaviorChanged;
@@ -91,6 +96,7 @@ namespace TweetDuck.Core{
                 browser.Dispose();
                 updates.Dispose();
                 contextMenu.Dispose();
+                taskbarIcon.Dispose();
 
                 notificationScreenshotManager?.Dispose();
                 videoPlayer?.Dispose();
@@ -104,10 +110,6 @@ namespace TweetDuck.Core{
             Config.TrayBehaviorChanged += Config_TrayBehaviorChanged;
 
             UpdateTray();
-
-            if (Config.MuteNotifications){
-                UpdateFormIcon();
-            }
 
             if (Config.AllowDataCollection){
                 analytics = new AnalyticsManager(this, plugins, Program.AnalyticsFilePath);
@@ -134,10 +136,6 @@ namespace TweetDuck.Core{
             isLoaded = true;
         }
 
-        private void UpdateFormIcon(){ // TODO fix to show icon in taskbar too
-            Icon = Config.MuteNotifications ? Properties.Resources.icon_muted : Properties.Resources.icon;
-        }
-
         private void UpdateTray(){
             trayIcon.Visible = Config.TrayBehavior.ShouldDisplayIcon();
         }
@@ -152,6 +150,7 @@ namespace TweetDuck.Core{
             if (!isLoaded)return;
 
             trayIcon.HasNotifications = false;
+            taskbarIcon.HasNotifications = false;
 
             if (!browser.Enabled){      // when taking a screenshot, the window is unfocused and
                 browser.Enabled = true; // the browser is disabled; if the user clicks back into
@@ -213,7 +212,6 @@ namespace TweetDuck.Core{
         }
 
         private void Config_MuteToggled(object sender, EventArgs e){
-            UpdateFormIcon();
             AnalyticsFile.NotificationMutes.Trigger();
         }
 
@@ -503,8 +501,12 @@ namespace TweetDuck.Core{
         }
 
         public void OnTweetNotification(){ // may be called multiple times, once for each type of notification
-            if (Config.EnableTrayHighlight && !ContainsFocus){
-                trayIcon.HasNotifications = true;
+            if (!ContainsFocus){
+                if (Config.EnableTrayHighlight){
+                    trayIcon.HasNotifications = true;
+                }
+
+                taskbarIcon.HasNotifications = false;
             }
         }
 

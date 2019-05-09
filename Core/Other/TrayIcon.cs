@@ -51,7 +51,7 @@ namespace TweetDuck.Core.Other{
             this.contextMenu.MenuItems.Add("Mute notifications", menuItemMuteNotifications_Click);
             this.contextMenu.MenuItems.Add("Close", menuItemClose_Click);
             this.contextMenu.Popup += contextMenu_Popup;
-                
+            
             this.notifyIcon.ContextMenu = contextMenu;
             this.notifyIcon.Text = Program.BrandName;
 

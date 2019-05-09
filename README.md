@@ -17,6 +17,7 @@ The program can be built using Visual Studio 2017 or newer. Before opening the s
 After opening the solution, right-click the solution and select **Restore NuGet Packages**, or manually run this command in the **Package Manager Console**:
 ```
 PM> Install-Package CefSharp.WinForms -Version 67.0.0
+PM> Install-Package WindowsAPICodePack-Shell -Version 1.1.1
 ```
 
 ### Debug

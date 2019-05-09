@@ -136,6 +136,12 @@
   <data name="icon_tray_new" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\icon-tray-new.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="overlay_muted" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\overlay-muted.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="overlay_notification" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\overlay-notification.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="spinner" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\spinner.apng;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
