@@ -57,6 +57,10 @@
       <Project>{2389a7cd-e0d3-4706-8294-092929a33a2d}</Project>
       <Name>TweetDuck</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TweetLib.Core\TweetLib.Core.csproj">
+      <Project>{93ba3cb4-a812-4949-b07d-8d393fb38937}</Project>
+      <Name>TweetLib.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

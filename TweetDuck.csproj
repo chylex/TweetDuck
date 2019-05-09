@@ -379,6 +379,10 @@
     <None Include="Resources\Scripts\update.js" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="lib\TweetLib.Core\TweetLib.Core.csproj">
+      <Project>{93ba3cb4-a812-4949-b07d-8d393fb38937}</Project>
+      <Name>TweetLib.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="subprocess\TweetDuck.Browser.csproj">
       <Project>{b10b0017-819e-4f71-870f-8256b36a26aa}</Project>
       <Name>TweetDuck.Browser</Name>

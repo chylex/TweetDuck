@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetTest.System", "lib\Twe
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TweetTest.Unit", "lib\TweetTest.Unit\TweetTest.Unit.fsproj", "{EEE1071A-28FA-48B1-82A1-9CBDC5C3F2C3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetDuck.Core", "lib\TweetLib.Core\TweetLib.Core.csproj", "{93BA3CB4-A812-4949-B07D-8D393FB38937}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -42,6 +44,10 @@ Global
 		{EEE1071A-28FA-48B1-82A1-9CBDC5C3F2C3}.Debug|x86.ActiveCfg = Debug|x86
 		{EEE1071A-28FA-48B1-82A1-9CBDC5C3F2C3}.Debug|x86.Build.0 = Debug|x86
 		{EEE1071A-28FA-48B1-82A1-9CBDC5C3F2C3}.Release|x86.ActiveCfg = Debug|x86
+		{93BA3CB4-A812-4949-B07D-8D393FB38937}.Debug|x86.ActiveCfg = Debug|x86
+		{93BA3CB4-A812-4949-B07D-8D393FB38937}.Debug|x86.Build.0 = Debug|x86
+		{93BA3CB4-A812-4949-B07D-8D393FB38937}.Release|x86.ActiveCfg = Release|x86
+		{93BA3CB4-A812-4949-B07D-8D393FB38937}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

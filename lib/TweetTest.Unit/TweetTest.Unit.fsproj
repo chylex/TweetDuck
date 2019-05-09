@@ -60,6 +60,11 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TweetLib.Core\TweetLib.Core.csproj">
+      <Name>TweetLib.Core</Name>
+      <Project>{93ba3cb4-a812-4949-b07d-8d393fb38937}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <Reference Include="Microsoft.VisualStudio.CodeCoverage.Shim">
       <HintPath>..\..\packages\Microsoft.CodeCoverage.16.1.0\lib\net45\Microsoft.VisualStudio.CodeCoverage.Shim.dll</HintPath>
     </Reference>
