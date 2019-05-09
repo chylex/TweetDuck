@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using TweetDuck.Core.Utils;
+using TweetLib.Core.Utils;
 using JsonObject = System.Collections.Generic.IDictionary<string, object>;
 
 namespace TweetDuck.Updates{
@@ -22,7 +23,7 @@ namespace TweetDuck.Updates{
         public Task<UpdateInfo> Check(){
             TaskCompletionSource<UpdateInfo> result = new TaskCompletionSource<UpdateInfo>();
 
-            WebClient client = BrowserUtils.CreateWebClient();
+            WebClient client = WebUtils.NewClient(BrowserUtils.UserAgentVanilla);
             client.Headers[HttpRequestHeader.Accept] = "application/vnd.github.v3+json";
 
             client.DownloadStringTaskAsync(ApiLatestRelease).ContinueWith(task => {

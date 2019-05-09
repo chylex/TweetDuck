@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TweetDuck.Data;
+using TweetLib.Core.Data;
 
 namespace TweetTest.Data{
     [TestClass]

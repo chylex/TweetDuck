@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="packages\Microsoft.Net.Compilers.3.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('packages\Microsoft.Net.Compilers.3.0.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="packages\CefSharp.WinForms.67.0.0\build\CefSharp.WinForms.props" Condition="Exists('packages\CefSharp.WinForms.67.0.0\build\CefSharp.WinForms.props')" />
@@ -197,10 +197,7 @@
       <DependentUpon>TabSettingsFeedback.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\TweetDeckBrowser.cs" />
-    <Compile Include="Core\Utils\LocaleUtils.cs" />
-    <Compile Include="Core\Utils\StringUtils.cs" />
     <Compile Include="Core\Utils\TwitterUtils.cs" />
-    <Compile Include="Data\CombinedFileStream.cs" />
     <Compile Include="Core\Management\ProfileManager.cs" />
     <Compile Include="Core\Other\Settings\TabSettingsAdvanced.cs">
       <SubType>UserControl</SubType>
@@ -230,19 +227,11 @@
       <DependentUpon>TabSettingsNotifications.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\Notification\Screenshot\ScreenshotBridge.cs" />
-    <Compile Include="Data\CommandLineArgs.cs" />
     <Compile Include="Core\Notification\Screenshot\FormNotificationScreenshotable.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Core\Notification\Screenshot\TweetScreenshotManager.cs" />
     <Compile Include="Data\ResourceLink.cs" />
-    <Compile Include="Data\Result.cs" />
-    <Compile Include="Data\Serialization\FileSerializer.cs" />
-    <Compile Include="Data\InjectedHTML.cs" />
-    <Compile Include="Data\Serialization\ITypeConverter.cs" />
-    <Compile Include="Data\Serialization\SerializationSoftException.cs" />
-    <Compile Include="Data\Serialization\SingleTypeConverter.cs" />
-    <Compile Include="Data\TwoKeyDictionary.cs" />
     <Compile Include="Data\WindowState.cs" />
     <Compile Include="Core\Utils\WindowsUtils.cs" />
     <Compile Include="Core\Bridge\TweetDeckBridge.cs" />

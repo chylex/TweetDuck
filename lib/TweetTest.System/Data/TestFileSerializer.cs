@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TweetDuck.Data.Serialization;
+using TweetLib.Core.Serialization;
 
 namespace TweetTest.Data{
     [TestClass]

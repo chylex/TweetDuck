@@ -2,7 +2,8 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
-using TweetDuck.Data.Serialization;
+using TweetLib.Core.Serialization;
+using TweetLib.Core.Serialization.Converters;
 
 namespace TweetDuck.Core.Other.Analytics{
     [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Local")]

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Net;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -16,7 +15,6 @@ namespace TweetDuck.Core.Utils{
         private static readonly Lazy<Regex> RegexOffsetClipboardHtml = new Lazy<Regex>(() => new Regex(@"(?<=EndHTML:|EndFragment:)(\d+)"), false);
 
         private static readonly bool IsWindows8OrNewer;
-        private static bool HasMicrosoftBeenBroughtTo2008Yet;
 
         public static int CurrentProcessID { get; }
         public static bool ShouldAvoidToolWindow { get; }
@@ -31,47 +29,6 @@ namespace TweetDuck.Core.Utils{
             IsWindows8OrNewer = ver.Major == 6 && ver.Minor == 2; // windows 8/10
 
             ShouldAvoidToolWindow = IsWindows8OrNewer;
-        }
-        
-        public static void EnsureTLS12(){
-            if (!HasMicrosoftBeenBroughtTo2008Yet){
-                ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
-                ServicePointManager.SecurityProtocol &= ~(SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11);
-                HasMicrosoftBeenBroughtTo2008Yet = true;
-            }
-        }
-
-        public static void CreateDirectoryForFile(string file){
-            string dir = Path.GetDirectoryName(file);
-
-            if (dir == null){
-                throw new ArgumentException("Invalid file path: "+file);
-            }
-            else if (dir.Length > 0){
-                Directory.CreateDirectory(dir);
-            }
-        }
-
-        public static bool CheckFolderWritePermission(string path){
-            string testFile = Path.Combine(path, ".test");
-
-            try{
-                Directory.CreateDirectory(path);
-
-                using(File.Create(testFile)){}
-                File.Delete(testFile);
-                return true;
-            }catch{
-                return false;
-            }
-        }
-
-        public static bool FileExistsAndNotEmpty(string path){
-            try{
-                return new FileInfo(path).Length > 0;
-            }catch{
-                return false;
-            }
         }
 
         public static bool OpenAssociatedProgram(string file, string arguments = "", bool runElevated = false){

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace TweetDuck.Data{
-    sealed class TwoKeyDictionary<K1, K2, V>{
+namespace TweetLib.Core.Collections{
+    public sealed class TwoKeyDictionary<K1, K2, V>{
         private readonly Dictionary<K1, Dictionary<K2, V>> dict;
         private readonly int innerCapacity;
 
@@ -85,7 +85,8 @@ namespace TweetDuck.Data{
 
                 return true;
             }
-            else return false;
+
+            return false;
         }
 
         public bool TryGetValue(K1 outerKey, K2 innerKey, out V value){
@@ -93,7 +94,7 @@ namespace TweetDuck.Data{
                 return innerDict.TryGetValue(innerKey, out value);
             }
             else{
-                value = default(V);
+                value = default;
                 return false;
             }
         }

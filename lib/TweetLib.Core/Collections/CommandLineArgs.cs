@@ -2,8 +2,8 @@
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace TweetDuck.Data{
-    sealed class CommandLineArgs{
+namespace TweetLib.Core.Collections{
+    public sealed class CommandLineArgs{
         public static CommandLineArgs FromStringArray(char entryChar, string[] array){
             CommandLineArgs args = new CommandLineArgs();
             ReadStringArray(entryChar, array, args);
@@ -15,7 +15,7 @@ namespace TweetDuck.Data{
                 string entry = array[index];
 
                 if (entry.Length > 0 && entry[0] == entryChar){
-                    if (index < array.Length-1){
+                    if (index < array.Length - 1){
                         string potentialValue = array[index+1];
 
                         if (potentialValue.Length > 0 && potentialValue[0] == entryChar){
@@ -52,7 +52,7 @@ namespace TweetDuck.Data{
                 }
                 else{
                     key = matchValue.Substring(0, indexEquals).TrimStart('-');
-                    value = matchValue.Substring(indexEquals+1).Trim('"');
+                    value = matchValue.Substring(indexEquals + 1).Trim('"');
                 }
 
                 if (key.Length != 0){
@@ -66,7 +66,7 @@ namespace TweetDuck.Data{
         private readonly HashSet<string> flags = new HashSet<string>();
         private readonly Dictionary<string, string> values = new Dictionary<string, string>();
 
-        public int Count => flags.Count+values.Count;
+        public int Count => flags.Count + values.Count;
 
         public void AddFlag(string flag){
             flags.Add(flag.ToLower());
@@ -103,7 +103,7 @@ namespace TweetDuck.Data{
                 copy.AddFlag(flag);
             }
 
-            foreach(KeyValuePair<string, string> kvp in values){
+            foreach(var kvp in values){
                 copy.SetValue(kvp.Key, kvp.Value);
             }
 
@@ -115,7 +115,7 @@ namespace TweetDuck.Data{
                 target[flag] = "1";
             }
 
-            foreach(KeyValuePair<string, string> kvp in values){
+            foreach(var kvp in values){
                 target[kvp.Key] = kvp.Value;
             }
         }
@@ -127,11 +127,11 @@ namespace TweetDuck.Data{
                 build.Append(flag).Append(' ');
             }
 
-            foreach(KeyValuePair<string, string> kvp in values){
+            foreach(var kvp in values){
                 build.Append(kvp.Key).Append(" \"").Append(kvp.Value).Append("\" ");
             }
 
-            return build.Length == 0 ? string.Empty : build.Remove(build.Length-1, 1).ToString();
+            return build.Length == 0 ? string.Empty : build.Remove(build.Length - 1, 1).ToString();
         }
     }
 }

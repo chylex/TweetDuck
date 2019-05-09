@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
-using TweetDuck.Data;
+using TweetLib.Core.Collections;
 
 namespace TweetDuck.Core.Other.Settings.Dialogs{
     sealed partial class DialogSettingsCefArgs : Form{

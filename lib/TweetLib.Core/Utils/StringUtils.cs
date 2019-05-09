@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace TweetDuck.Core.Utils{
-    static class StringUtils{
+namespace TweetLib.Core.Utils{
+    public static class StringUtils{
         public static readonly string[] EmptyArray = new string[0];
 
         public static string ExtractBefore(string str, char search, int startIndex = 0){
@@ -23,7 +23,7 @@ namespace TweetDuck.Core.Utils{
             return Regex.Replace(str, @"[a-zA-Z]", match => {
                 int code = match.Value[0];
                 int start = code <= 90 ? 65 : 97;
-                return ((char)(start+(code-start+13)%26)).ToString();
+                return ((char)(start + (code - start + 13) % 26)).ToString();
             });
         }
 

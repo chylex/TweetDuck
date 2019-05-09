@@ -12,6 +12,7 @@ using TweetDuck.Core.Notification;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
 using TweetDuck.Plugins.Enums;
+using TweetLib.Core.Utils;
 
 namespace TweetDuck.Core.Other.Analytics{
     static class AnalyticsReportGenerator{

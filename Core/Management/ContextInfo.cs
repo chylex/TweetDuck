@@ -1,6 +1,6 @@
 ﻿using System;
 using CefSharp;
-using TweetDuck.Core.Utils;
+using TweetLib.Core.Utils;
 
 namespace TweetDuck.Core.Management{
     sealed class ContextInfo{

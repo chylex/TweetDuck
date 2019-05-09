@@ -14,7 +14,8 @@ using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Management;
 using TweetDuck.Core.Utils;
-using TweetDuck.Data;
+using TweetLib.Core.Collections;
+using TweetLib.Core.Utils;
 
 namespace TweetDuck{
     static class Program{
@@ -75,7 +76,7 @@ namespace TweetDuck{
             
             WindowRestoreMessage = NativeMethods.RegisterWindowMessage("TweetDuckRestore");
 
-            if (!WindowsUtils.CheckFolderWritePermission(StoragePath)){
+            if (!FileUtils.CheckFolderWritePermission(StoragePath)){
                 FormMessage.Warning("Permission Error", "TweetDuck does not have write permissions to the storage folder: "+StoragePath, FormMessage.OK);
                 return;
             }
@@ -168,7 +169,7 @@ namespace TweetDuck{
 
                 // ProgramPath has a trailing backslash
                 string updaterArgs = "/SP- /SILENT /FORCECLOSEAPPLICATIONS /UPDATEPATH=\""+ProgramPath+"\" /RUNARGS=\""+Arguments.GetCurrentForInstallerCmd()+"\""+(IsPortable ? " /PORTABLE=1" : "");
-                bool runElevated = !IsPortable || !WindowsUtils.CheckFolderWritePermission(ProgramPath);
+                bool runElevated = !IsPortable || !FileUtils.CheckFolderWritePermission(ProgramPath);
 
                 if (WindowsUtils.OpenAssociatedProgram(mainForm.UpdateInstallerPath, updaterArgs, runElevated)){
                     Application.Exit();

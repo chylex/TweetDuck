@@ -4,10 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using TweetDuck.Core.Utils;
+using TweetLib.Core.Serialization.Converters;
+using TweetLib.Core.Utils;
 
-namespace TweetDuck.Data.Serialization{
-    sealed class FileSerializer<T>{
+namespace TweetLib.Core.Serialization{
+    public sealed class FileSerializer<T>{
         private const string NewLineReal = "\r\n";
         private const string NewLineCustom = "\r~\n";
 
@@ -49,8 +50,6 @@ namespace TweetDuck.Data.Serialization{
             return build.Append(data.Substring(index)).ToString();
         }
 
-        private static readonly ITypeConverter BasicSerializerObj = new BasicTypeConverter();
-        
         private readonly Dictionary<string, PropertyInfo> props;
         private readonly Dictionary<Type, ITypeConverter> converters;
 
@@ -66,7 +65,7 @@ namespace TweetDuck.Data.Serialization{
         public void Write(string file, T obj){
             LinkedList<string> errors = new LinkedList<string>();
 
-            WindowsUtils.CreateDirectoryForFile(file);
+            FileUtils.CreateDirectoryForFile(file);
 
             using(StreamWriter writer = new StreamWriter(new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None))){
                 foreach(KeyValuePair<string, PropertyInfo> prop in props){
@@ -74,10 +73,10 @@ namespace TweetDuck.Data.Serialization{
                     object value = prop.Value.GetValue(obj);
                     
                     if (!converters.TryGetValue(type, out ITypeConverter serializer)){
-                        serializer = BasicSerializerObj;
+                        serializer = ClrTypeConverter.Instance;
                     }
 
-                    if (serializer.TryWriteType(type, value, out string converted)){
+                    if (serializer.TryWriteType(type, value, out string? converted)){
                         if (converted != null){
                             writer.Write(prop.Key);
                             writer.Write(' ');
@@ -142,10 +141,10 @@ namespace TweetDuck.Data.Serialization{
 
                 if (props.TryGetValue(property, out PropertyInfo info)){
                     if (!converters.TryGetValue(info.PropertyType, out ITypeConverter serializer)){
-                        serializer = BasicSerializerObj;
+                        serializer = ClrTypeConverter.Instance;
                     }
 
-                    if (serializer.TryReadType(info.PropertyType, value, out object converted)){
+                    if (serializer.TryReadType(info.PropertyType, value, out object? converted)){
                         info.SetValue(obj, converted);
                     }
                     else{
@@ -164,54 +163,6 @@ namespace TweetDuck.Data.Serialization{
                 Read(file, obj);
             }catch(FileNotFoundException){
             }catch(DirectoryNotFoundException){}
-        }
-
-        private sealed class BasicTypeConverter : ITypeConverter{
-            bool ITypeConverter.TryWriteType(Type type, object value, out string converted){
-                switch(Type.GetTypeCode(type)){
-                    case TypeCode.Boolean:
-                        converted = value.ToString();
-                        return true;
-
-                    case TypeCode.Int32:
-                        converted = ((int)value).ToString(); // cast required for enums
-                        return true;
-
-                    case TypeCode.String:
-                        converted = value?.ToString();
-                        return true;
-
-                    default:
-                        converted = null;
-                        return false;
-                }
-            }
-
-            bool ITypeConverter.TryReadType(Type type, string value, out object converted){
-                switch(Type.GetTypeCode(type)){
-                    case TypeCode.Boolean:
-                        if (bool.TryParse(value, out bool b)){
-                            converted = b;
-                            return true;
-                        }
-                        else goto default;
-
-                    case TypeCode.Int32:
-                        if (int.TryParse(value, out int i)){
-                            converted = i;
-                            return true;
-                        }
-                        else goto default;
-
-                    case TypeCode.String:
-                        converted = value;
-                        return true;
-
-                    default:
-                        converted = null;
-                        return false;
-                }
-            }
         }
     }
 }

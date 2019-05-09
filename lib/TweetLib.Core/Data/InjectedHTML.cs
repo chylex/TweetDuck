@@ -1,7 +1,7 @@
 ﻿using System;
 
-namespace TweetDuck.Data{
-    sealed class InjectedHTML{
+namespace TweetLib.Core.Data{
+    public sealed class InjectedHTML{
         public enum Position{
             Before, After
         }
@@ -27,7 +27,7 @@ namespace TweetDuck.Data{
 
             switch(position){
                 case Position.Before: cutIndex = index; break;
-                case Position.After: cutIndex = index+search.Length; break;
+                case Position.After: cutIndex = index + search.Length; break;
                 default: return targetHTML;
             }
 

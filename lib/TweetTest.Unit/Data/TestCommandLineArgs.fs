@@ -1,7 +1,7 @@
 ﻿namespace TweetTest.Data.CommandLineArgs
 
 open Xunit
-open TweetDuck.Data
+open TweetLib.Core.Collections
 
 
 type _TestData =

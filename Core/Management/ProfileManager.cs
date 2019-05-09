@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TweetDuck.Core.Other;
-using TweetDuck.Data;
 using TweetDuck.Plugins;
 using TweetDuck.Plugins.Enums;
+using TweetLib.Core.Data;
 
 namespace TweetDuck.Core.Management{
     sealed class ProfileManager{

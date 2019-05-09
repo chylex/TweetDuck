@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using TweetDuck.Data.Serialization;
+using TweetLib.Core.Serialization;
 
 namespace TweetDuck.Configuration.Instance{
     sealed class FileConfigInstance<T> : IConfigInstance<T> where T : ConfigManager.BaseConfig{

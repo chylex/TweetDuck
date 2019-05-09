@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Drawing;
 using TweetDuck.Configuration.Instance;
-using TweetDuck.Core.Utils;
 using TweetDuck.Data;
-using TweetDuck.Data.Serialization;
+using TweetLib.Core.Serialization.Converters;
+using TweetLib.Core.Utils;
 
 namespace TweetDuck.Configuration{
     sealed class ConfigManager{

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-namespace TweetDuck.Core.Utils{
-    static class LocaleUtils{
+namespace TweetLib.Core.Utils{
+    public static class LocaleUtils{
         // https://cs.chromium.org/chromium/src/third_party/hunspell_dictionaries/
         public static IEnumerable<Item> SpellCheckLanguages { get; } = new List<string>{
             "af-ZA", "bg-BG", "ca-ES", "cs-CZ", "da-DK", "de-DE",
@@ -33,9 +33,9 @@ namespace TweetDuck.Core.Utils{
 
             private string Name => info?.NativeName ?? Code;
 
-            private readonly CultureInfo info;
+            private readonly CultureInfo? info;
 
-            public Item(string code, string alt = null){
+            public Item(string code, string? alt = null){
                 this.Code = code;
 
                 try{

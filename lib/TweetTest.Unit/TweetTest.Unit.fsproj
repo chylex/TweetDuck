@@ -50,9 +50,9 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
-    <Compile Include="Core\TestBrowserUtils.fs" />
     <Compile Include="Core\TestStringUtils.fs" />
     <Compile Include="Core\TestTwitterUtils.fs" />
+    <Compile Include="Core\TestUrlUtils.fs" />
     <Compile Include="Data\TestCommandLineArgs.fs" />
     <Compile Include="Data\TestInjectedHTML.fs" />
     <Compile Include="Data\TestResult.fs" />

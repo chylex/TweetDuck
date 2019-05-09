@@ -1,11 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using TweetDuck.Core.Utils;
+using TweetLib.Core.Utils;
 
-namespace TweetDuck.Data{
-    sealed class CombinedFileStream : IDisposable{
-        public const char KeySeparator = '|';
+namespace TweetLib.Core.Data{
+    public sealed class CombinedFileStream : IDisposable{
+        private const char KeySeparator = '|';
 
         private readonly Stream stream;
 
@@ -45,7 +45,7 @@ namespace TweetDuck.Data{
             stream.Write(contents, 0, contents.Length);
         }
 
-        public Entry ReadFile(){
+        public Entry? ReadFile(){
             int nameLength = stream.ReadByte();
 
             if (nameLength == -1){
@@ -64,7 +64,7 @@ namespace TweetDuck.Data{
             return new Entry(Encoding.UTF8.GetString(name), contents);
         }
 
-        public string SkipFile(){
+        public string? SkipFile(){
             int nameLength = stream.ReadByte();
 
             if (nameLength == -1){
@@ -120,7 +120,7 @@ namespace TweetDuck.Data{
 
             public void WriteToFile(string path, bool createDirectory){
                 if (createDirectory){
-                    WindowsUtils.CreateDirectoryForFile(path);
+                    FileUtils.CreateDirectoryForFile(path);
                 }
 
                 File.WriteAllBytes(path, contents);

@@ -1,5 +1,5 @@
 ﻿using System;
-using TweetDuck.Data;
+using TweetLib.Core.Data;
 
 namespace TweetDuck.Updates{
     sealed class UpdateCheckEventArgs : EventArgs{

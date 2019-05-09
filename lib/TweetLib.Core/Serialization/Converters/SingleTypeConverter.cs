@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace TweetDuck.Data.Serialization{
-    sealed class SingleTypeConverter<T> : ITypeConverter{
+namespace TweetLib.Core.Serialization.Converters{
+    public sealed class SingleTypeConverter<T> : ITypeConverter{
         public Func<T, string> ConvertToString { get; set; }
         public Func<string, T> ConvertToObject { get; set; }
 
-        bool ITypeConverter.TryWriteType(Type type, object value, out string converted){
+        bool ITypeConverter.TryWriteType(Type type, object value, out string? converted){
             try{
                 converted = ConvertToString((T)value);
                 return true;
@@ -15,7 +15,7 @@ namespace TweetDuck.Data.Serialization{
             }
         }
 
-        bool ITypeConverter.TryReadType(Type type, string value, out object converted){
+        bool ITypeConverter.TryReadType(Type type, string value, out object? converted){
             try{
                 converted = ConvertToObject(value);
                 return true;

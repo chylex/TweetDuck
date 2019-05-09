@@ -6,10 +6,10 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using TweetDuck.Core.Utils;
-using TweetDuck.Data;
 using TweetDuck.Plugins.Enums;
 using TweetDuck.Plugins.Events;
 using TweetDuck.Resources;
+using TweetLib.Core.Data;
 
 namespace TweetDuck.Plugins{
     sealed class PluginManager{

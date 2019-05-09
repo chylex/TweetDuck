@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using TweetDuck.Core.Utils;
+using TweetLib.Core.Utils;
 
 namespace TweetDuck.Updates{
     sealed class UpdateInfo{
@@ -26,7 +27,7 @@ namespace TweetDuck.Updates{
         }
 
         public void BeginSilentDownload(){
-            if (WindowsUtils.FileExistsAndNotEmpty(InstallerPath)){
+            if (FileUtils.FileExistsAndNotEmpty(InstallerPath)){
                 DownloadStatus = UpdateDownloadStatus.Done;
                 return;
             }
@@ -48,7 +49,9 @@ namespace TweetDuck.Updates{
                     return;
                 }
 
-                currentDownload = BrowserUtils.DownloadFileAsync(downloadUrl, InstallerPath, null, () => {
+                WebClient client = WebUtils.NewClient(BrowserUtils.UserAgentVanilla);
+
+                client.DownloadFileCompleted += WebUtils.FileDownloadCallback(InstallerPath, () => {
                     DownloadStatus = UpdateDownloadStatus.Done;
                     currentDownload = null;
                 }, e => {
@@ -56,6 +59,8 @@ namespace TweetDuck.Updates{
                     DownloadStatus = UpdateDownloadStatus.Failed;
                     currentDownload = null;
                 });
+
+                client.DownloadFileAsync(new Uri(downloadUrl), InstallerPath);
             }
         }
 
