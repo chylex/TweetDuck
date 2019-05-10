@@ -12,8 +12,8 @@ using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
-using TweetDuck.Plugins.Enums;
 using TweetDuck.Resources;
+using TweetLib.Core.Features.Plugins.Enums;
 
 namespace TweetDuck.Core{
     sealed class TweetDeckBrowser : IDisposable{

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using TweetDuck.Plugins.Enums;
-using TweetDuck.Plugins.Events;
 using TweetLib.Core.Collections;
 using TweetLib.Core.Data;
+using TweetLib.Core.Features.Plugins;
+using TweetLib.Core.Features.Plugins.Enums;
+using TweetLib.Core.Features.Plugins.Events;
 using TweetLib.Core.Utils;
 
 namespace TweetDuck.Plugins{

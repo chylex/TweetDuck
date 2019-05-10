@@ -1,8 +1,8 @@
 ﻿using System;
 using TweetLib.Core.Data;
 
-namespace TweetDuck.Updates{
-    sealed class UpdateCheckEventArgs : EventArgs{
+namespace TweetLib.Core.Features.Updates{
+    public sealed class UpdateCheckEventArgs : EventArgs{
         public int EventId { get; }
         public Result<UpdateInfo> Result { get; }
         

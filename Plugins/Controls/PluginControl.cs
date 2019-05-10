@@ -3,7 +3,8 @@ using System.Drawing;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
-using TweetDuck.Plugins.Enums;
+using TweetLib.Core.Features.Plugins;
+using TweetLib.Core.Features.Plugins.Enums;
 
 namespace TweetDuck.Plugins.Controls{
     sealed partial class PluginControl : UserControl{

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
-using TweetDuck.Plugins.Enums;
+using TweetLib.Core.Features.Plugins.Enums;
 
-namespace TweetDuck.Plugins{
-    sealed class Plugin{
-        private static readonly Version AppVersion = new Version(Program.VersionTag);
+namespace TweetLib.Core.Features.Plugins{
+    public sealed class Plugin{
+        private static readonly Version AppVersion = new Version(Lib.VersionTag);
 
         public string Identifier { get; }
         public PluginGroup Group { get; }
@@ -62,7 +62,7 @@ namespace TweetDuck.Plugins{
 
         public string GetScriptPath(PluginEnvironment environment){
             if (Environments.HasFlag(environment)){
-                string file = environment.GetPluginScriptFile();
+                string? file = environment.GetPluginScriptFile();
                 return file != null ? Path.Combine(pathRoot, file) : string.Empty;
             }
             else{
@@ -124,7 +124,7 @@ namespace TweetDuck.Plugins{
         public sealed class Builder{
             private static readonly Version DefaultRequiredVersion = new Version(0, 0, 0, 0);
 
-            public string Name             { get; set; }
+            public string Name             { get; set; } = string.Empty;
             public string Description      { get; set; } = string.Empty;
             public string Author           { get; set; } = "(anonymous)";
             public string Version          { get; set; } = string.Empty;
@@ -144,7 +144,7 @@ namespace TweetDuck.Plugins{
                 this.group = group;
                 this.pathRoot = pathRoot;
                 this.pathData = pathData;
-                this.identifier = group.GetIdentifierPrefix()+name;
+                this.identifier = group.GetIdentifierPrefix() + name;
             }
 
             public void AddEnvironment(PluginEnvironment environment){

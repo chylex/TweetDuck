@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using TweetDuck.Plugins;
-using TweetDuck.Plugins.Events;
+using TweetLib.Core.Features.Plugins;
+using TweetLib.Core.Features.Plugins.Events;
 
 namespace TweetDuck.Configuration{
     sealed class PluginConfig : ConfigManager.BaseConfig, IPluginConfig{

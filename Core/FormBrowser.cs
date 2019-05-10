@@ -14,9 +14,10 @@ using TweetDuck.Core.Other.Analytics;
 using TweetDuck.Core.Other.Settings.Dialogs;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
-using TweetDuck.Plugins.Events;
 using TweetDuck.Resources;
 using TweetDuck.Updates;
+using TweetLib.Core.Features.Plugins.Events;
+using TweetLib.Core.Features.Updates;
 
 namespace TweetDuck.Core{
     sealed partial class FormBrowser : Form, AnalyticsFile.IProvider{

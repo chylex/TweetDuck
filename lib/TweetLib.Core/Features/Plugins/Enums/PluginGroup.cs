@@ -1,9 +1,9 @@
-﻿namespace TweetDuck.Plugins.Enums{
-    enum PluginGroup{
+﻿namespace TweetLib.Core.Features.Plugins.Enums{
+    public enum PluginGroup{
         Official, Custom
     }
 
-    static class PluginGroupExtensions{
+    public static class PluginGroupExtensions{
         public static string GetIdentifierPrefix(this PluginGroup group){
             switch(group){
                 case PluginGroup.Official: return "official/";

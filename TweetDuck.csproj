@@ -250,25 +250,15 @@
     <Compile Include="Plugins\Controls\PluginListFlowLayout.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Plugins\Enums\PluginFolder.cs" />
-    <Compile Include="Plugins\IPluginConfig.cs" />
-    <Compile Include="Plugins\Plugin.cs" />
-    <Compile Include="Plugins\Events\PluginChangedStateEventArgs.cs" />
     <Compile Include="Plugins\PluginBridge.cs" />
     <Compile Include="Configuration\PluginConfig.cs" />
-    <Compile Include="Plugins\Enums\PluginEnvironment.cs" />
-    <Compile Include="Plugins\Enums\PluginGroup.cs" />
-    <Compile Include="Plugins\Events\PluginErrorEventArgs.cs" />
-    <Compile Include="Plugins\PluginLoader.cs" />
     <Compile Include="Plugins\PluginManager.cs" />
-    <Compile Include="Plugins\PluginScriptGenerator.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Reporter.cs" />
-    <Compile Include="Updates\UpdateCheckEventArgs.cs" />
     <Compile Include="Updates\FormUpdateDownload.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -285,9 +275,7 @@
     <Compile Include="Core\Utils\BrowserUtils.cs" />
     <Compile Include="Core\Utils\NativeMethods.cs" />
     <Compile Include="Updates\UpdateCheckClient.cs" />
-    <Compile Include="Updates\UpdateDownloadStatus.cs" />
     <Compile Include="Updates\UpdateHandler.cs" />
-    <Compile Include="Updates\UpdateInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ScriptLoader.cs" />

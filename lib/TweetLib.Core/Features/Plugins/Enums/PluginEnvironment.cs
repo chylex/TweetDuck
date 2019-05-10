@@ -4,15 +4,15 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace TweetDuck.Plugins.Enums{
+namespace TweetLib.Core.Features.Plugins.Enums{
     [Flags]
-    enum PluginEnvironment{
+    public enum PluginEnvironment{
         None = 0,
         Browser = 1,
         Notification = 2
     }
 
-    static class PluginEnvironmentExtensions{
+    public static class PluginEnvironmentExtensions{
         public static IEnumerable<PluginEnvironment> Values{
             get{
                 yield return PluginEnvironment.Browser;
@@ -24,7 +24,7 @@ namespace TweetDuck.Plugins.Enums{
             return environment == PluginEnvironment.Browser;
         }
 
-        public static string GetPluginScriptFile(this PluginEnvironment environment){
+        public static string? GetPluginScriptFile(this PluginEnvironment environment){
             switch(environment){
                 case PluginEnvironment.Browser: return "browser.js";
                 case PluginEnvironment.Notification: return "notification.js";
@@ -73,7 +73,7 @@ namespace TweetDuck.Plugins.Enums{
                     return true;
                 }
                 else{
-                    value = default(T);
+                    value = default;
                     return false;
                 }
             }

@@ -1,10 +1,10 @@
 ﻿using System.Linq;
-using TweetDuck.Plugins.Enums;
+using TweetLib.Core.Features.Plugins.Enums;
 
-namespace TweetDuck.Plugins{
-    static class PluginScriptGenerator{
+namespace TweetLib.Core.Features.Plugins{
+    public static class PluginScriptGenerator{
         public static string GenerateConfig(IPluginConfig config){
-            return "window.TD_PLUGINS.disabled = ["+string.Join(",", config.DisabledPlugins.Select(id => $"\"{id}\""))+"]";
+            return "window.TD_PLUGINS.disabled = [" + string.Join(",", config.DisabledPlugins.Select(id => '"' + id + '"')) + "]";
         }
 
         public static string GeneratePlugin(string pluginIdentifier, string pluginContents, int pluginToken, PluginEnvironment environment){

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TweetDuck.Plugins.Events{
-    sealed class PluginErrorEventArgs : EventArgs{
+namespace TweetLib.Core.Features.Plugins.Events{
+    public sealed class PluginErrorEventArgs : EventArgs{
         public bool HasErrors => Errors.Count > 0;
 
         public IList<string> Errors { get; }

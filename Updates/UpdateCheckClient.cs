@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using TweetDuck.Core.Utils;
+using TweetLib.Core.Features.Updates;
 using TweetLib.Core.Utils;
 using JsonObject = System.Collections.Generic.IDictionary<string, object>;
 

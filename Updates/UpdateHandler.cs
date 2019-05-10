@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using TweetLib.Core.Data;
+using TweetLib.Core.Features.Updates;
 using Timer = System.Windows.Forms.Timer;
 
 namespace TweetDuck.Updates{

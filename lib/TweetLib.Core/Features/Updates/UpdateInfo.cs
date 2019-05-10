@@ -1,21 +1,20 @@
 ﻿using System;
 using System.IO;
 using System.Net;
-using TweetDuck.Core.Utils;
 using TweetLib.Core.Utils;
 
-namespace TweetDuck.Updates{
-    sealed class UpdateInfo{
+namespace TweetLib.Core.Features.Updates{
+    public sealed class UpdateInfo{
         public string VersionTag { get; }
         public string ReleaseNotes { get; }
         public string InstallerPath { get; }
         
         public UpdateDownloadStatus DownloadStatus { get; private set; }
-        public Exception DownloadError { get; private set; }
+        public Exception? DownloadError { get; private set; }
 
         private readonly string downloadUrl;
         private readonly string installerFolder;
-        private WebClient currentDownload;
+        private WebClient? currentDownload;
 
         public UpdateInfo(string versionTag, string releaseNotes, string downloadUrl, string installerFolder){
             this.downloadUrl = downloadUrl;
@@ -23,7 +22,7 @@ namespace TweetDuck.Updates{
             
             this.VersionTag = versionTag;
             this.ReleaseNotes = releaseNotes;
-            this.InstallerPath = Path.Combine(installerFolder, $"TweetDuck.{versionTag}.exe");
+            this.InstallerPath = Path.Combine(installerFolder, $"{Lib.BrandName}.{versionTag}.exe");
         }
 
         public void BeginSilentDownload(){
@@ -49,7 +48,7 @@ namespace TweetDuck.Updates{
                     return;
                 }
 
-                WebClient client = WebUtils.NewClient(BrowserUtils.UserAgentVanilla);
+                WebClient client = WebUtils.NewClient($"{Lib.BrandName} {Lib.VersionTag}");
 
                 client.DownloadFileCompleted += WebUtils.FileDownloadCallback(InstallerPath, () => {
                     DownloadStatus = UpdateDownloadStatus.Done;

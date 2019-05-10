@@ -1,4 +1,4 @@
-﻿namespace TweetDuck.Updates{
+﻿namespace TweetLib.Core.Features.Updates{
     public enum UpdateDownloadStatus{
         None = 0,
         InProgress,

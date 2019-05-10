@@ -11,7 +11,8 @@ using System.Text.RegularExpressions;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
-using TweetDuck.Plugins.Enums;
+using TweetLib.Core.Features.Plugins;
+using TweetLib.Core.Features.Plugins.Enums;
 using TweetLib.Core.Utils;
 
 namespace TweetDuck.Core.Other.Analytics{

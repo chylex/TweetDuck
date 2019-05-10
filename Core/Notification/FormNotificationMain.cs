@@ -7,9 +7,9 @@ using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
-using TweetDuck.Plugins.Enums;
 using TweetDuck.Resources;
 using TweetLib.Core.Data;
+using TweetLib.Core.Features.Plugins.Enums;
 
 namespace TweetDuck.Core.Notification{
     abstract partial class FormNotificationMain : FormNotificationBase{
