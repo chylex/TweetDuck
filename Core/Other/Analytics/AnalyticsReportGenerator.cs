@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
+using TweetLib.Core;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Enums;
 using TweetLib.Core.Utils;
@@ -29,7 +30,7 @@ namespace TweetDuck.Core.Other.Analytics{
                 { "System Edition"     , SystemEdition },
                 { "System Environment" , Environment.Is64BitOperatingSystem ? "64-bit" : "32-bit" },
                 { "System Build"       , SystemBuild },
-                { "System Locale"      , Program.Culture.Name.ToLower() },
+                { "System Locale"      , Lib.Culture.Name.ToLower() },
                 0,
                 { "RAM" , Exact(RamSize) },
                 { "GPU" , GpuVendor },

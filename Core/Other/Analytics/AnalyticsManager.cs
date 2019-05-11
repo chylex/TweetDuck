@@ -9,6 +9,7 @@ using System.Timers;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
+using TweetLib.Core;
 using TweetLib.Core.Utils;
 
 namespace TweetDuck.Core.Other.Analytics{
@@ -81,7 +82,7 @@ namespace TweetDuck.Core.Other.Analytics{
         private void SetLastDataCollectionTime(DateTime dt, string message = null){
             File.LastDataCollection = new DateTime(dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, 0, dt.Kind);
             File.LastCollectionVersion = Program.VersionTag;
-            File.LastCollectionMessage = message ?? dt.ToString("g", Program.Culture);
+            File.LastCollectionMessage = message ?? dt.ToString("g", Lib.Culture);
 
             File.Save();
             RestartTimer();

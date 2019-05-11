@@ -2,10 +2,8 @@ using CefSharp;
 using CefSharp.WinForms;
 using System;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 using TweetDuck.Configuration;
 using TweetDuck.Core;
@@ -14,15 +12,16 @@ using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Management;
 using TweetDuck.Core.Utils;
+using TweetLib.Core;
 using TweetLib.Core.Collections;
 using TweetLib.Core.Utils;
 
 namespace TweetDuck{
     static class Program{
-        public const string BrandName = "TweetDuck";
-        public const string Website = "https://tweetduck.chylex.com";
+        public const string BrandName = Lib.BrandName;
+        public const string VersionTag = Lib.VersionTag;
 
-        public const string VersionTag = "1.17.4";
+        public const string Website = "https://tweetduck.chylex.com";
 
         public static readonly string ProgramPath = AppDomain.CurrentDomain.BaseDirectory;
         public static readonly bool IsPortable = File.Exists(Path.Combine(ProgramPath, "makeportable"));
@@ -49,18 +48,11 @@ namespace TweetDuck{
         private static readonly LockManager LockManager = new LockManager(Path.Combine(StoragePath, ".lock"));
         private static bool HasCleanedUp;
         
-        public static CultureInfo Culture { get; }
         public static Reporter Reporter { get; }
         public static ConfigManager Config { get; }
-        
-        static Program(){
-            Culture = CultureInfo.CurrentCulture;
-            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
 
-            #if DEBUG
-            CultureInfo.DefaultThreadCurrentUICulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-us"); // force english exceptions
-            #endif
+        static Program(){
+            Lib.Initialize();
 
             Reporter = new Reporter(ErrorLogFilePath);
             Reporter.SetupUnhandledExceptionHandler("TweetDuck Has Failed :(");

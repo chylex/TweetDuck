@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 using TweetDuck.Configuration;
 using TweetDuck.Core.Other;
+using TweetLib.Core;
 
 namespace TweetDuck{
     sealed class Reporter{
@@ -38,7 +39,7 @@ namespace TweetDuck{
                 build.Append("Please, report all issues to: https://github.com/chylex/TweetDuck/issues\r\n\r\n");
             }
 
-            build.Append("[").Append(DateTime.Now.ToString("G", Program.Culture)).Append("]\r\n");
+            build.Append("[").Append(DateTime.Now.ToString("G", Lib.Culture)).Append("]\r\n");
             build.Append(data).Append("\r\n\r\n");
 
             try{
