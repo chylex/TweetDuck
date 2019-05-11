@@ -1,5 +1,5 @@
-﻿namespace TweetDuck.Configuration.Instance{
-    interface IConfigInstance<out T>{
+﻿namespace TweetLib.Core.Features.Configuration{
+    public interface IConfigInstance<out T>{
         T Instance { get; }
 
         void Save();

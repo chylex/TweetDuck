@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using TweetLib.Core.Features.Configuration;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Events;
 
 namespace TweetDuck.Configuration{
-    sealed class PluginConfig : ConfigManager.BaseConfig, IPluginConfig{
+    sealed class PluginConfig : BaseConfig, IPluginConfig{
         private static readonly string[] DefaultDisabled = {
             "official/clear-columns",
             "official/reply-account"
@@ -36,9 +37,9 @@ namespace TweetDuck.Configuration{
         
         // END OF CONFIG
 
-        public PluginConfig(ConfigManager configManager) : base(configManager){}
+        public PluginConfig(IConfigManager configManager) : base(configManager){}
 
-        protected override ConfigManager.BaseConfig ConstructWithDefaults(ConfigManager configManager){
+        protected override BaseConfig ConstructWithDefaults(IConfigManager configManager){
             return new PluginConfig(configManager);
         }
     }

@@ -1,5 +1,7 @@
-﻿namespace TweetDuck.Configuration{
-    sealed class SystemConfig : ConfigManager.BaseConfig{
+﻿using TweetLib.Core.Features.Configuration;
+
+namespace TweetDuck.Configuration{
+    sealed class SystemConfig : BaseConfig{
 
         // CONFIGURATION DATA
         
@@ -17,9 +19,9 @@
         
         // END OF CONFIG
 
-        public SystemConfig(ConfigManager configManager) : base(configManager){}
+        public SystemConfig(IConfigManager configManager) : base(configManager){}
 
-        protected override ConfigManager.BaseConfig ConstructWithDefaults(ConfigManager configManager){
+        protected override BaseConfig ConstructWithDefaults(IConfigManager configManager){
             return new SystemConfig(configManager);
         }
     }

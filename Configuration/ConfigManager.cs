@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using TweetDuck.Configuration.Instance;
 using TweetDuck.Data;
+using TweetLib.Core.Features.Configuration;
 using TweetLib.Core.Serialization.Converters;
 using TweetLib.Core.Utils;
 
 namespace TweetDuck.Configuration{
-    sealed class ConfigManager{
+    sealed class ConfigManager : IConfigManager{
         public UserConfig User { get; }
         public SystemConfig System { get; }
         public PluginConfig Plugins { get; }
@@ -70,59 +70,13 @@ namespace TweetDuck.Configuration{
             infoPlugins.Reload();
         }
 
-        private void TriggerProgramRestartRequested(){
+        void IConfigManager.TriggerProgramRestartRequested(){
             ProgramRestartRequested?.Invoke(this, EventArgs.Empty);
         }
 
-        private IConfigInstance<BaseConfig> GetInstanceInfo(BaseConfig instance){
+        IConfigInstance<BaseConfig> IConfigManager.GetInstanceInfo(BaseConfig instance){
             Type instanceType = instance.GetType();
             return Array.Find(infoList, info => info.Instance.GetType() == instanceType); // TODO handle null
-        }
-
-        public abstract class BaseConfig{
-            private readonly ConfigManager configManager;
-
-            protected BaseConfig(ConfigManager configManager){
-                this.configManager = configManager;
-            }
-
-            // Management
-
-            public void Save(){
-                configManager.GetInstanceInfo(this).Save();
-            }
-
-            public void Reload(){
-                configManager.GetInstanceInfo(this).Reload();
-            }
-
-            public void Reset(){
-                configManager.GetInstanceInfo(this).Reset();
-            }
-
-            // Construction methods
-
-            public T ConstructWithDefaults<T>() where T : BaseConfig{
-                return ConstructWithDefaults(configManager) as T;
-            }
-
-            protected abstract BaseConfig ConstructWithDefaults(ConfigManager configManager);
-
-            // Utility methods
-
-            protected void UpdatePropertyWithEvent<T>(ref T field, T value, EventHandler eventHandler){
-                if (!EqualityComparer<T>.Default.Equals(field, value)){
-                    field = value;
-                    eventHandler?.Invoke(this, EventArgs.Empty);
-                }
-            }
-
-            protected void UpdatePropertyWithRestartRequest<T>(ref T field, T value){
-                if (!EqualityComparer<T>.Default.Equals(field, value)){
-                    field = value;
-                    configManager.TriggerProgramRestartRequested();
-                }
-            }
         }
     }
 }

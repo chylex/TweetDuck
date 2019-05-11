@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using TweetLib.Core.Features.Configuration;
 
 namespace TweetDuck.Configuration.Instance{
     class PluginConfigInstance : IConfigInstance<PluginConfig>{

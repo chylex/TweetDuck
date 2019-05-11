@@ -1,9 +1,10 @@
 ﻿using System;
 using System.IO;
+using TweetLib.Core.Features.Configuration;
 using TweetLib.Core.Serialization;
 
 namespace TweetDuck.Configuration.Instance{
-    sealed class FileConfigInstance<T> : IConfigInstance<T> where T : ConfigManager.BaseConfig{
+    sealed class FileConfigInstance<T> : IConfigInstance<T> where T : BaseConfig{
         private const string ErrorTitle = "Configuration Error";
 
         public T Instance { get; }
