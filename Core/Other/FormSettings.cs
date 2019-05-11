@@ -195,7 +195,7 @@ namespace TweetDuck.Core.Other{
         private sealed class SettingsTab{
             public Button Button { get; }
 
-            public BaseTabSettings Control => control ?? (control = constructor());
+            public BaseTabSettings Control => control ??= constructor();
             public bool IsInitialized => control != null;
 
             private readonly Func<BaseTabSettings> constructor;

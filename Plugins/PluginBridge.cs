@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 using TweetLib.Core.Collections;
@@ -10,6 +11,7 @@ using TweetLib.Core.Features.Plugins.Events;
 using TweetLib.Core.Utils;
 
 namespace TweetDuck.Plugins{
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     sealed class PluginBridge{
         private static string SanitizeCacheKey(string key){
             return key.Replace('\\', '/').Trim();

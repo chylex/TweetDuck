@@ -124,7 +124,7 @@ namespace TweetDuck{
             }
             
             try{
-                RequestHandlerBase.LoadResourceRewriteRules(Arguments.GetValue(Arguments.ArgFreeze, null));
+                RequestHandlerBase.LoadResourceRewriteRules(Arguments.GetValue(Arguments.ArgFreeze));
             }catch(Exception e){
                 FormMessage.Error("Resource Freeze", "Error parsing resource rewrite rules: "+e.Message, FormMessage.OK);
                 return;
@@ -173,7 +173,7 @@ namespace TweetDuck{
         }
 
         private static string GetDataStoragePath(){
-            string custom = Arguments.GetValue(Arguments.ArgDataFolder, null);
+            string custom = Arguments.GetValue(Arguments.ArgDataFolder);
 
             if (custom != null && (custom.Contains(Path.DirectorySeparatorChar) || custom.Contains(Path.AltDirectorySeparatorChar))){
                 if (Path.GetInvalidPathChars().Any(custom.Contains)){

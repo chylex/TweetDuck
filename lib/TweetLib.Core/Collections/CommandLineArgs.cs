@@ -84,12 +84,8 @@ namespace TweetLib.Core.Collections{
             values[key.ToLower()] = value;
         }
 
-        public bool HasValue(string key){
-            return values.ContainsKey(key.ToLower());
-        }
-
-        public string GetValue(string key, string defaultValue){
-            return values.TryGetValue(key.ToLower(), out string val) ? val : defaultValue;
+        public string? GetValue(string key){
+            return values.TryGetValue(key.ToLower(), out string val) ? val : null;
         }
 
         public void RemoveValue(string key){

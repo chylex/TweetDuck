@@ -139,52 +139,33 @@ module Flags =
 
 
 module Values =
- 
-    [<Theory>]
-    [<InlineData("val1")>]
-    [<InlineData("val2")>]
-    let ``HasValue returns false if key is missing`` (key: string) =
-        Assert.False(_TestData.empty.HasValue(key))
-        Assert.False(_TestData.flags.HasValue(key))
+
+    [<Fact>]
+    let ``GetValue returns null if key is missing`` () =
+        Assert.Null(_TestData.values.GetValue("missing"))
         
     [<Theory>]
     [<InlineData("flag1")>]
     [<InlineData("flag2")>]
     [<InlineData("flag3")>]
-    let ``HasValue returns false if the name specifies a flag`` (key: string) =
-        Assert.False(_TestData.flags.HasValue(key))
+    let ``GetValue returns null if the name specifies a flag`` (key: string) =
+        Assert.Null(_TestData.flags.GetValue(key))
         
     [<Fact>]
-    let ``HasValue returns true if the name specifies both a flag and a value key`` () =
-        Assert.True(_TestData.duplicate.HasValue("duplicate"))
-
-    [<Theory>]
-    [<InlineData("val1")>]
-    [<InlineData("val2")>]
-    let ``HasValue returns true if key is present`` (key: string) =
-        Assert.True(_TestData.values.HasValue(key))
-
-    [<Theory>]
-    [<InlineData("VAL1")>]
-    [<InlineData("VaL1")>]
-    let ``HasValue is case-insensitive`` (key: string) =
-        Assert.True(_TestData.values.HasValue(key))
+    let ``GetValue returns correct value if the name specifies both a flag and a value key`` () =
+        Assert.NotNull(_TestData.duplicate.GetValue("duplicate"))
 
     [<Theory>]
     [<InlineData("val1", "hello")>]
     [<InlineData("val2", "world")>]
     let ``GetValue returns correct value if key is present`` (key: string, expectedValue: string) =
-        Assert.Equal(expectedValue, _TestData.values.GetValue(key, ""))
+        Assert.Equal(expectedValue, _TestData.values.GetValue(key))
 
     [<Theory>]
     [<InlineData("VAL1", "hello")>]
     [<InlineData("VaL1", "hello")>]
     let ``GetValue is case-insensitive`` (key: string, expectedValue: string) =
-        Assert.Equal(expectedValue, _TestData.values.GetValue(key, ""))
-
-    [<Fact>]
-    let ``GetValue returns default value if key is missing`` () =
-        Assert.Equal("oh no", _TestData.values.GetValue("missing", "oh no"))
+        Assert.Equal(expectedValue, _TestData.values.GetValue(key))
 
     [<Fact>]
     let ``SetValue adds new value`` () =
@@ -192,7 +173,7 @@ module Values =
         args.SetValue("val3", "this is nice")
         
         Assert.Equal(3, args.Count)
-        Assert.Equal("this is nice", args.GetValue("val3", ""))
+        Assert.Equal("this is nice", args.GetValue("val3"))
 
     [<Fact>]
     let ``SetValue replaces existing value`` () =
@@ -200,7 +181,7 @@ module Values =
         args.SetValue("val2", "mom")
         
         Assert.Equal(2, args.Count)
-        Assert.Equal("mom", args.GetValue("val2", ""))
+        Assert.Equal("mom", args.GetValue("val2"))
 
     [<Theory>]
     [<InlineData("val1")>]
@@ -210,7 +191,7 @@ module Values =
         args.RemoveValue(key)
         
         Assert.Equal(1, args.Count)
-        Assert.False(args.HasValue(key))
+        Assert.Null(args.GetValue(key))
 
     [<Theory>]
     [<InlineData("VAL1")>]
@@ -220,7 +201,7 @@ module Values =
         args.RemoveValue(key)
         
         Assert.Equal(1, args.Count)
-        Assert.False(args.HasValue(key))
+        Assert.Null(args.GetValue(key))
 
     [<Fact>]
     let ``RemoveValue does nothing if key is missing`` () =
@@ -239,8 +220,8 @@ module Clone =
         Assert.True(clone.HasFlag("flag1"))
         Assert.True(clone.HasFlag("flag2"))
         Assert.True(clone.HasFlag("flag3"))
-        Assert.Equal("hello", clone.GetValue("val1", ""))
-        Assert.Equal("world", clone.GetValue("val2", ""))
+        Assert.Equal("hello", clone.GetValue("val1"))
+        Assert.Equal("world", clone.GetValue("val2"))
     
     [<Fact>]
     let ``cloning creates a new object`` () =
@@ -259,7 +240,7 @@ module Clone =
 
         Assert.True(original.HasFlag("flag1"))
         Assert.False(original.HasFlag("flag4"))
-        Assert.Equal("hello", original.GetValue("val1", ""))
+        Assert.Equal("hello", original.GetValue("val1"))
 
 
 module ToDictionary =
@@ -327,8 +308,8 @@ module FromStringArray =
         Assert.True(args.HasFlag("-flag1"))
         Assert.True(args.HasFlag("-flag2"))
         Assert.True(args.HasFlag("-flag3"))
-        Assert.Equal("first value", args.GetValue("-val1", ""))
-        Assert.Equal("second value", args.GetValue("-val2", ""))
+        Assert.Equal("first value", args.GetValue("-val1"))
+        Assert.Equal("second value", args.GetValue("-val2"))
 
 
 module ReadCefArguments =
@@ -346,23 +327,23 @@ module ReadCefArguments =
         let args = CommandLineArgs.ReadCefArguments("--first-value=10 --second-value=\"long string with spaces\"")
 
         Assert.Equal(2, args.Count)
-        Assert.Equal("10", args.GetValue("first-value", ""))
-        Assert.Equal("long string with spaces", args.GetValue("second-value", ""))
+        Assert.Equal("10", args.GetValue("first-value"))
+        Assert.Equal("long string with spaces", args.GetValue("second-value"))
 
     [<Fact>]
     let ``reads flags as value keys with values of 1`` () =
         let args = CommandLineArgs.ReadCefArguments("--first-flag-as-value --second-flag-as-value")
 
         Assert.Equal(2, args.Count)
-        Assert.Equal("1", args.GetValue("first-flag-as-value", ""))
-        Assert.Equal("1", args.GetValue("second-flag-as-value", ""))
+        Assert.Equal("1", args.GetValue("first-flag-as-value"))
+        Assert.Equal("1", args.GetValue("second-flag-as-value"))
 
     [<Fact>]
     let ``reads complex string with whitespace correctly`` () =
         let args = CommandLineArgs.ReadCefArguments("\t--first-value=55.5\r\n--first-flag-as-value\r\n --second-value=\"long string\"\t--second-flag-as-value ")
 
         Assert.Equal(4, args.Count)
-        Assert.Equal("55.5", args.GetValue("first-value", ""))
-        Assert.Equal("long string", args.GetValue("second-value", ""))
-        Assert.Equal("1", args.GetValue("first-flag-as-value", ""))
-        Assert.Equal("1", args.GetValue("second-flag-as-value", ""))
+        Assert.Equal("55.5", args.GetValue("first-value"))
+        Assert.Equal("long string", args.GetValue("second-value"))
+        Assert.Equal("1", args.GetValue("first-flag-as-value"))
+        Assert.Equal("1", args.GetValue("second-flag-as-value"))

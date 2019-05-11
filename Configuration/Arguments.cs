@@ -22,8 +22,8 @@ namespace TweetDuck.Configuration{
             return Current.HasFlag(flag);
         }
 
-        public static string GetValue(string key, string defaultValue){
-            return Current.GetValue(key, defaultValue);
+        public static string GetValue(string key){
+            return Current.GetValue(key);
         }
 
         public static CommandLineArgs GetCurrentClean(){

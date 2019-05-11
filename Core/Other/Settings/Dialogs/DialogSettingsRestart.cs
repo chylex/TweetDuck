@@ -18,7 +18,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                 tbDataFolder.Enabled = false;
             }
             else{
-                tbDataFolder.Text = currentArgs.GetValue(Arguments.ArgDataFolder, string.Empty);
+                tbDataFolder.Text = currentArgs.GetValue(Arguments.ArgDataFolder) ?? string.Empty;
                 tbDataFolder.TextChanged += control_Change;
             }
 

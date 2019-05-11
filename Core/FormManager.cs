@@ -17,8 +17,6 @@ namespace TweetDuck.Core{
             else return false;
         }
 
-        public static bool HasAnyDialogs => Application.OpenForms.OfType<IAppDialog>().Any();
-        
         public static void CloseAllDialogs(){
             foreach(IAppDialog dialog in Application.OpenForms.OfType<IAppDialog>().Reverse()){
                 ((Form)dialog).Close();
