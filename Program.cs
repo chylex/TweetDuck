@@ -52,12 +52,13 @@ namespace TweetDuck{
         public static ConfigManager Config { get; }
 
         static Program(){
-            Lib.Initialize();
-
             Reporter = new Reporter(ErrorLogFilePath);
             Reporter.SetupUnhandledExceptionHandler("TweetDuck Has Failed :(");
 
             Config = new ConfigManager();
+
+            Lib.Initialize(new App.Builder{
+            });
         }
 
         [STAThread]
