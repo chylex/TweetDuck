@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="packages\Microsoft.Net.Compilers.2.9.0\build\Microsoft.Net.Compilers.props" Condition="Exists('packages\Microsoft.Net.Compilers.2.9.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="packages\Microsoft.Net.Compilers.3.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('packages\Microsoft.Net.Compilers.3.0.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="packages\CefSharp.WinForms.67.0.0\build\CefSharp.WinForms.props" Condition="Exists('packages\CefSharp.WinForms.67.0.0\build\CefSharp.WinForms.props')" />
   <Import Project="packages\CefSharp.Common.67.0.0\build\CefSharp.Common.props" Condition="Exists('packages\CefSharp.Common.67.0.0\build\CefSharp.Common.props')" />
   <Import Project="packages\cef.redist.x86.3.3396.1786\build\cef.redist.x86.props" Condition="Exists('packages\cef.redist.x86.3.3396.1786\build\cef.redist.x86.props')" />
@@ -14,7 +14,8 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TweetDuck</RootNamespace>
     <AssemblyName>TweetDuck</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <LangVersion>8.0</LangVersion>
     <FileAlignment>512</FileAlignment>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ApplicationIcon>Resources\Images\icon.ico</ApplicationIcon>
@@ -33,7 +34,6 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
-    <LangVersion>7</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -43,7 +43,6 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
-    <LangVersion>7</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -55,10 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\Arguments.cs" />
-    <Compile Include="Configuration\Instance\FileConfigInstance.cs" />
     <Compile Include="Configuration\ConfigManager.cs" />
-    <Compile Include="Configuration\Instance\IConfigInstance.cs" />
-    <Compile Include="Configuration\Instance\PluginConfigInstance.cs" />
     <Compile Include="Configuration\LockManager.cs" />
     <Compile Include="Configuration\SystemConfig.cs" />
     <Compile Include="Configuration\UserConfig.cs" />
@@ -198,10 +194,7 @@
       <DependentUpon>TabSettingsFeedback.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\TweetDeckBrowser.cs" />
-    <Compile Include="Core\Utils\LocaleUtils.cs" />
-    <Compile Include="Core\Utils\StringUtils.cs" />
     <Compile Include="Core\Utils\TwitterUtils.cs" />
-    <Compile Include="Data\CombinedFileStream.cs" />
     <Compile Include="Core\Management\ProfileManager.cs" />
     <Compile Include="Core\Other\Settings\TabSettingsAdvanced.cs">
       <SubType>UserControl</SubType>
@@ -231,19 +224,11 @@
       <DependentUpon>TabSettingsNotifications.cs</DependentUpon>
     </Compile>
     <Compile Include="Core\Notification\Screenshot\ScreenshotBridge.cs" />
-    <Compile Include="Data\CommandLineArgs.cs" />
     <Compile Include="Core\Notification\Screenshot\FormNotificationScreenshotable.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Core\Notification\Screenshot\TweetScreenshotManager.cs" />
     <Compile Include="Data\ResourceLink.cs" />
-    <Compile Include="Data\Result.cs" />
-    <Compile Include="Data\Serialization\FileSerializer.cs" />
-    <Compile Include="Data\InjectedHTML.cs" />
-    <Compile Include="Data\Serialization\ITypeConverter.cs" />
-    <Compile Include="Data\Serialization\SerializationSoftException.cs" />
-    <Compile Include="Data\Serialization\SingleTypeConverter.cs" />
-    <Compile Include="Data\TwoKeyDictionary.cs" />
     <Compile Include="Data\WindowState.cs" />
     <Compile Include="Core\Utils\WindowsUtils.cs" />
     <Compile Include="Core\Bridge\TweetDeckBridge.cs" />
@@ -262,25 +247,15 @@
     <Compile Include="Plugins\Controls\PluginListFlowLayout.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Plugins\Enums\PluginFolder.cs" />
-    <Compile Include="Plugins\IPluginConfig.cs" />
-    <Compile Include="Plugins\Plugin.cs" />
-    <Compile Include="Plugins\Events\PluginChangedStateEventArgs.cs" />
     <Compile Include="Plugins\PluginBridge.cs" />
     <Compile Include="Configuration\PluginConfig.cs" />
-    <Compile Include="Plugins\Enums\PluginEnvironment.cs" />
-    <Compile Include="Plugins\Enums\PluginGroup.cs" />
-    <Compile Include="Plugins\Events\PluginErrorEventArgs.cs" />
-    <Compile Include="Plugins\PluginLoader.cs" />
     <Compile Include="Plugins\PluginManager.cs" />
-    <Compile Include="Plugins\PluginScriptGenerator.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Reporter.cs" />
-    <Compile Include="Updates\UpdateCheckEventArgs.cs" />
     <Compile Include="Updates\FormUpdateDownload.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -297,9 +272,6 @@
     <Compile Include="Core\Utils\BrowserUtils.cs" />
     <Compile Include="Core\Utils\NativeMethods.cs" />
     <Compile Include="Updates\UpdateCheckClient.cs" />
-    <Compile Include="Updates\UpdateDownloadStatus.cs" />
-    <Compile Include="Updates\UpdateHandler.cs" />
-    <Compile Include="Updates\UpdateInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ScriptLoader.cs" />
@@ -380,6 +352,10 @@
     <None Include="Resources\Scripts\update.js" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="lib\TweetLib.Core\TweetLib.Core.csproj">
+      <Project>{93ba3cb4-a812-4949-b07d-8d393fb38937}</Project>
+      <Name>TweetLib.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="subprocess\TweetDuck.Browser.csproj">
       <Project>{b10b0017-819e-4f71-870f-8256b36a26aa}</Project>
       <Name>TweetDuck.Browser</Name>
@@ -431,7 +407,7 @@ IF EXIST "$(ProjectDir)bld\post_build.exe" (
     <Error Condition="!Exists('packages\CefSharp.Common.67.0.0\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.Common.67.0.0\build\CefSharp.Common.targets'))" />
     <Error Condition="!Exists('packages\CefSharp.WinForms.67.0.0\build\CefSharp.WinForms.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.WinForms.67.0.0\build\CefSharp.WinForms.props'))" />
     <Error Condition="!Exists('packages\CefSharp.WinForms.67.0.0\build\CefSharp.WinForms.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.WinForms.67.0.0\build\CefSharp.WinForms.targets'))" />
-    <Error Condition="!Exists('packages\Microsoft.Net.Compilers.2.9.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Net.Compilers.2.9.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('packages\Microsoft.Net.Compilers.3.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Net.Compilers.3.0.0\build\Microsoft.Net.Compilers.props'))" />
   </Target>
   <Import Project="packages\CefSharp.Common.67.0.0\build\CefSharp.Common.targets" Condition="Exists('packages\CefSharp.Common.67.0.0\build\CefSharp.Common.targets')" />
   <Import Project="packages\CefSharp.WinForms.67.0.0\build\CefSharp.WinForms.targets" Condition="Exists('packages\CefSharp.WinForms.67.0.0\build\CefSharp.WinForms.targets')" />

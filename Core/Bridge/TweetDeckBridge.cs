@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Management;
 using TweetDuck.Core.Notification;
@@ -6,6 +7,7 @@ using TweetDuck.Core.Other;
 using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Bridge{
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     class TweetDeckBridge{
         public static string FontSize { get; private set; }
         public static string NotificationHeadLayout { get; private set; }
@@ -63,7 +65,7 @@ namespace TweetDuck.Core.Bridge{
         }
 
         // Notification only
-
+        
         public sealed class Notification : TweetDeckBridge{
             public Notification(FormBrowser form, FormNotificationMain notification) : base(form, notification){}
 

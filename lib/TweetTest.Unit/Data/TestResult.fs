@@ -1,7 +1,7 @@
 ﻿namespace TweetTest.Data.Result
 
 open Xunit
-open TweetDuck.Data
+open TweetLib.Core.Data
 open System
 
 

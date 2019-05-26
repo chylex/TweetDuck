@@ -1,7 +1,7 @@
 ﻿namespace TweetTest.Data.TwoKeyDictionary
 
 open Xunit
-open TweetDuck.Data
+open TweetLib.Core.Collections
 open System.Collections.Generic
 
 

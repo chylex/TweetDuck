@@ -5,9 +5,10 @@ using TweetDuck.Core.Notification;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Utils;
 using TweetDuck.Data;
+using TweetLib.Core.Features.Configuration;
 
 namespace TweetDuck.Configuration{
-    sealed class UserConfig : ConfigManager.BaseConfig{
+    sealed class UserConfig : BaseConfig{
         
         // CONFIGURATION DATA
 
@@ -135,9 +136,9 @@ namespace TweetDuck.Configuration{
 
         // END OF CONFIG
         
-        public UserConfig(ConfigManager configManager) : base(configManager){}
+        public UserConfig(IConfigManager configManager) : base(configManager){}
 
-        protected override ConfigManager.BaseConfig ConstructWithDefaults(ConfigManager configManager){
+        protected override BaseConfig ConstructWithDefaults(IConfigManager configManager){
             return new UserConfig(configManager);
         }
     }

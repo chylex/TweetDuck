@@ -1,6 +1,6 @@
 ﻿using System;
 using CefSharp;
-using TweetDuck.Core.Utils;
+using TweetLib.Core.Utils;
 
 namespace TweetDuck.Core.Management{
     sealed class ContextInfo{
@@ -107,7 +107,7 @@ namespace TweetDuck.Core.Management{
                 private string unsafeLinkUrl = string.Empty;
                 private string mediaUrl = string.Empty;
 
-                private ChirpInfo chirp = default(ChirpInfo);
+                private ChirpInfo chirp = default;
 
                 public void AddContext(IContextMenuParams parameters){
                     ContextMenuType flags = parameters.TypeFlags;

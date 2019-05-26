@@ -81,7 +81,7 @@ procedure TDExecuteFullDownload; forward;
 var IsPortable: Boolean;
 var UpdatePath: String;
 
-{ Check .NET Framework version on startup, ask user if they want to proceed if older than 4.5.2. Prepare full download package if required. }
+{ Check .NET Framework version on startup, ask user if they want to proceed if older than 4.7.2. Prepare full download package if required. }
 function InitializeSetup: Boolean;
 begin
   IsPortable := ExpandConstant('{param:PORTABLE}') = '1'
@@ -99,7 +99,7 @@ begin
     idpAddFile('https://github.com/{#MyAppPublisher}/{#MyAppName}/releases/download/'+TDGetAppVersionClean()+'/'+TDGetFullDownloadFileName(), ExpandConstant('{tmp}\{#MyAppName}.Full.exe'))
   end;
   
-  if (TDGetNetFrameworkVersion() < 379893) and (MsgBox('{#MyAppName} requires .NET Framework 4.5.2 or newer,'+#13+#10+'please visit {#MyAppShortURL} for a download link.'+#13+#10+#13+#10'Do you want to proceed with the setup anyway?', mbCriticalError, MB_YESNO or MB_DEFBUTTON2) = IDNO) then
+  if (TDGetNetFrameworkVersion() < 461808) and (MsgBox('{#MyAppName} requires .NET Framework 4.7.2 or newer,'+#13+#10+'please visit {#MyAppShortURL} for a download link.'+#13+#10+#13+#10'Do you want to proceed with the setup anyway?', mbCriticalError, MB_YESNO or MB_DEFBUTTON2) = IDNO) then
   begin
     Result := False
     Exit

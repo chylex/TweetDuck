@@ -12,6 +12,7 @@ using TweetDuck.Core.Notification;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Other.Analytics;
 using TweetDuck.Resources;
+using TweetLib.Core.Utils;
 
 namespace TweetDuck.Core.Handling{
     abstract class ContextMenuBase : IContextMenuHandler{

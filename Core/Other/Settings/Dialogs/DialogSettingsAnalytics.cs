@@ -5,8 +5,6 @@ using TweetDuck.Core.Other.Analytics;
 
 namespace TweetDuck.Core.Other.Settings.Dialogs{
     sealed partial class DialogSettingsAnalytics : Form{
-        public string CefArgs => textBoxReport.Text;
-
         public DialogSettingsAnalytics(AnalyticsReport report){
             InitializeComponent();
             

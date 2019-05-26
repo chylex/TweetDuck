@@ -1,7 +1,7 @@
 ﻿namespace TweetTest.Core.StringUtils
 
 open Xunit
-open TweetDuck.Core.Utils
+open TweetLib.Core.Utils
 
 
 module ExtractBefore =

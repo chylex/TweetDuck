@@ -1,8 +1,10 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 
 namespace TweetDuck.Core.Notification.Screenshot{
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     sealed class ScreenshotBridge{
         private readonly Control owner;
 

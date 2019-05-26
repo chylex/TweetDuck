@@ -6,7 +6,8 @@ using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Other.Settings.Dialogs;
 using TweetDuck.Core.Utils;
-using TweetDuck.Updates;
+using TweetLib.Core.Features.Updates;
+using TweetLib.Core.Utils;
 
 namespace TweetDuck.Core.Other.Settings{
     sealed partial class TabSettingsGeneral : BaseTabSettings{

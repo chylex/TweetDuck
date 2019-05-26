@@ -10,7 +10,7 @@ using TweetDuck.Core.Other.Settings;
 using TweetDuck.Core.Other.Settings.Dialogs;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
-using TweetDuck.Updates;
+using TweetLib.Core.Features.Updates;
 
 namespace TweetDuck.Core.Other{
     sealed partial class FormSettings : Form, FormManager.IAppDialog{
@@ -195,7 +195,7 @@ namespace TweetDuck.Core.Other{
         private sealed class SettingsTab{
             public Button Button { get; }
 
-            public BaseTabSettings Control => control ?? (control = constructor());
+            public BaseTabSettings Control => control ??= constructor();
             public bool IsInitialized => control != null;
 
             private readonly Func<BaseTabSettings> constructor;

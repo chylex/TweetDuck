@@ -6,9 +6,9 @@ using CefSharp;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Utils;
-using TweetDuck.Data;
 using TweetDuck.Plugins;
 using TweetDuck.Resources;
+using TweetLib.Core.Data;
 
 namespace TweetDuck.Core.Notification.Screenshot{
     sealed class FormNotificationScreenshotable : FormNotificationBase{

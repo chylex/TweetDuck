@@ -9,6 +9,8 @@ using System.Timers;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
+using TweetLib.Core;
+using TweetLib.Core.Utils;
 
 namespace TweetDuck.Core.Other.Analytics{
     sealed class AnalyticsManager : IDisposable{
@@ -20,7 +22,7 @@ namespace TweetDuck.Core.Other.Analytics{
             #else
             "https://tweetduck.chylex.com/breadcrumb/report"
             #endif
-            );
+        );
         
         public AnalyticsFile File { get; }
 
@@ -80,7 +82,7 @@ namespace TweetDuck.Core.Other.Analytics{
         private void SetLastDataCollectionTime(DateTime dt, string message = null){
             File.LastDataCollection = new DateTime(dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, 0, dt.Kind);
             File.LastCollectionVersion = Program.VersionTag;
-            File.LastCollectionMessage = message ?? dt.ToString("g", Program.Culture);
+            File.LastCollectionMessage = message ?? dt.ToString("g", Lib.Culture);
 
             File.Save();
             RestartTimer();
@@ -117,7 +119,7 @@ namespace TweetDuck.Core.Other.Analytics{
                 System.Diagnostics.Debugger.Break();
                 #endif
 
-                BrowserUtils.CreateWebClient().UploadValues(CollectionUrl, "POST", report.ToNameValueCollection());
+                WebUtils.NewClient(BrowserUtils.UserAgentVanilla).UploadValues(CollectionUrl, "POST", report.ToNameValueCollection());
             }).ContinueWith(task => browser.InvokeAsyncSafe(() => {
                 if (task.Status == TaskStatus.RanToCompletion){
                     SetLastDataCollectionTime(DateTime.Now);

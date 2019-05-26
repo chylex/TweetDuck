@@ -1,7 +1,7 @@
 ﻿namespace TweetTest.Data.InjectedHTML
 
 open Xunit
-open TweetDuck.Data
+open TweetLib.Core.Data
 
 
 module Inject =

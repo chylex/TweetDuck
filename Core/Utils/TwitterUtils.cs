@@ -8,7 +8,9 @@ using TweetDuck.Core.Management;
 using TweetDuck.Core.Other;
 using TweetDuck.Data;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using TweetLib.Core.Utils;
 using Cookie = CefSharp.Cookie;
 
 namespace TweetDuck.Core.Utils{
@@ -71,7 +73,7 @@ namespace TweetDuck.Core.Utils{
         }
 
         public static string GetImageFileName(string url){
-            return BrowserUtils.GetFileNameFromUrl(ExtractMediaBaseLink(url));
+            return UrlUtils.GetFileNameFromUrl(ExtractMediaBaseLink(url));
         }
 
         public static void ViewImage(string url, ImageQuality quality){
@@ -88,7 +90,7 @@ namespace TweetDuck.Core.Utils{
 
             string file = Path.Combine(BrowserCache.CacheFolder, GetImageFileName(url) ?? Path.GetRandomFileName());
             
-            if (WindowsUtils.FileExistsAndNotEmpty(file)){
+            if (FileUtils.FileExistsAndNotEmpty(file)){
                 ViewImageInternal(file);
             }
             else{
@@ -143,7 +145,7 @@ namespace TweetDuck.Core.Utils{
         }
 
         public static void DownloadVideo(string url, string username){
-            string filename = BrowserUtils.GetFileNameFromUrl(url);
+            string filename = UrlUtils.GetFileNameFromUrl(url);
             string ext = Path.GetExtension(filename);
 
             using(SaveFileDialog dialog = new SaveFileDialog{
@@ -178,7 +180,10 @@ namespace TweetDuck.Core.Utils{
                         }
                     }
 
-                    BrowserUtils.DownloadFileAsync(url, target, cookieStr, onSuccess, onFailure);
+                    WebClient client = WebUtils.NewClient(BrowserUtils.UserAgentChrome);
+                    client.Headers[HttpRequestHeader.Cookie] = cookieStr;
+                    client.DownloadFileCompleted += WebUtils.FileDownloadCallback(target, onSuccess, onFailure);
+                    client.DownloadFileAsync(new Uri(url), target);
                 }, scheduler);
             }
         }

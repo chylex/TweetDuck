@@ -2,10 +2,8 @@ using CefSharp;
 using CefSharp.WinForms;
 using System;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 using TweetDuck.Configuration;
 using TweetDuck.Core;
@@ -14,14 +12,16 @@ using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Management;
 using TweetDuck.Core.Utils;
-using TweetDuck.Data;
+using TweetLib.Core;
+using TweetLib.Core.Collections;
+using TweetLib.Core.Utils;
 
 namespace TweetDuck{
     static class Program{
-        public const string BrandName = "TweetDuck";
-        public const string Website = "https://tweetduck.chylex.com";
+        public const string BrandName = Lib.BrandName;
+        public const string VersionTag = Lib.VersionTag;
 
-        public const string VersionTag = "1.17.4";
+        public const string Website = "https://tweetduck.chylex.com";
 
         public static readonly string ProgramPath = AppDomain.CurrentDomain.BaseDirectory;
         public static readonly bool IsPortable = File.Exists(Path.Combine(ProgramPath, "makeportable"));
@@ -48,23 +48,18 @@ namespace TweetDuck{
         private static readonly LockManager LockManager = new LockManager(Path.Combine(StoragePath, ".lock"));
         private static bool HasCleanedUp;
         
-        public static CultureInfo Culture { get; }
         public static Reporter Reporter { get; }
         public static ConfigManager Config { get; }
-        
+
         static Program(){
-            Culture = CultureInfo.CurrentCulture;
-            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-            CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
-
-            #if DEBUG
-            CultureInfo.DefaultThreadCurrentUICulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-us"); // force english exceptions
-            #endif
-
             Reporter = new Reporter(ErrorLogFilePath);
             Reporter.SetupUnhandledExceptionHandler("TweetDuck Has Failed :(");
 
             Config = new ConfigManager();
+
+            Lib.Initialize(new App.Builder{
+                ErrorHandler = Reporter
+            });
         }
 
         [STAThread]
@@ -75,7 +70,7 @@ namespace TweetDuck{
             
             WindowRestoreMessage = NativeMethods.RegisterWindowMessage("TweetDuckRestore");
 
-            if (!WindowsUtils.CheckFolderWritePermission(StoragePath)){
+            if (!FileUtils.CheckFolderWritePermission(StoragePath)){
                 FormMessage.Warning("Permission Error", "TweetDuck does not have write permissions to the storage folder: "+StoragePath, FormMessage.OK);
                 return;
             }
@@ -131,7 +126,7 @@ namespace TweetDuck{
             }
             
             try{
-                RequestHandlerBase.LoadResourceRewriteRules(Arguments.GetValue(Arguments.ArgFreeze, null));
+                RequestHandlerBase.LoadResourceRewriteRules(Arguments.GetValue(Arguments.ArgFreeze));
             }catch(Exception e){
                 FormMessage.Error("Resource Freeze", "Error parsing resource rewrite rules: "+e.Message, FormMessage.OK);
                 return;
@@ -168,7 +163,7 @@ namespace TweetDuck{
 
                 // ProgramPath has a trailing backslash
                 string updaterArgs = "/SP- /SILENT /FORCECLOSEAPPLICATIONS /UPDATEPATH=\""+ProgramPath+"\" /RUNARGS=\""+Arguments.GetCurrentForInstallerCmd()+"\""+(IsPortable ? " /PORTABLE=1" : "");
-                bool runElevated = !IsPortable || !WindowsUtils.CheckFolderWritePermission(ProgramPath);
+                bool runElevated = !IsPortable || !FileUtils.CheckFolderWritePermission(ProgramPath);
 
                 if (WindowsUtils.OpenAssociatedProgram(mainForm.UpdateInstallerPath, updaterArgs, runElevated)){
                     Application.Exit();
@@ -180,7 +175,7 @@ namespace TweetDuck{
         }
 
         private static string GetDataStoragePath(){
-            string custom = Arguments.GetValue(Arguments.ArgDataFolder, null);
+            string custom = Arguments.GetValue(Arguments.ArgDataFolder);
 
             if (custom != null && (custom.Contains(Path.DirectorySeparatorChar) || custom.Contains(Path.AltDirectorySeparatorChar))){
                 if (Path.GetInvalidPathChars().Any(custom.Contains)){

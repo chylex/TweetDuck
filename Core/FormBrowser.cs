@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using TweetDuck.Configuration;
 using TweetDuck.Core.Bridge;
@@ -14,9 +15,10 @@ using TweetDuck.Core.Other.Analytics;
 using TweetDuck.Core.Other.Settings.Dialogs;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
-using TweetDuck.Plugins.Events;
 using TweetDuck.Resources;
 using TweetDuck.Updates;
+using TweetLib.Core.Features.Plugins.Events;
+using TweetLib.Core.Features.Updates;
 
 namespace TweetDuck.Core{
     sealed partial class FormBrowser : Form, AnalyticsFile.IProvider{
@@ -71,7 +73,7 @@ namespace TweetDuck.Core{
             this.notification = new FormNotificationTweet(this, plugins);
             this.notification.Show();
             
-            this.updates = new UpdateHandler(Program.InstallerPath);
+            this.updates = new UpdateHandler(new UpdateCheckClient(Program.InstallerPath), TaskScheduler.FromCurrentSynchronizationContext());
             this.updates.CheckFinished += updates_CheckFinished;
 
             this.updateBridge = new UpdateBridge(updates, this);

@@ -6,10 +6,12 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using TweetDuck.Core.Utils;
-using TweetDuck.Data;
-using TweetDuck.Plugins.Enums;
-using TweetDuck.Plugins.Events;
 using TweetDuck.Resources;
+using TweetLib.Core.Data;
+using TweetLib.Core.Features.Plugins;
+using TweetLib.Core.Features.Plugins.Config;
+using TweetLib.Core.Features.Plugins.Enums;
+using TweetLib.Core.Features.Plugins.Events;
 
 namespace TweetDuck.Plugins{
     sealed class PluginManager{
@@ -126,12 +128,19 @@ namespace TweetDuck.Plugins{
                 }
 
                 foreach(string fullDir in Directory.EnumerateDirectories(path, "*", SearchOption.TopDirectoryOnly)){
+                    string name = Path.GetFileName(fullDir);
+
+                    if (string.IsNullOrEmpty(name)){
+                        loadErrors.Add($"{group.GetIdentifierPrefix()}(?): Could not extract directory name from path: {fullDir}");
+                        continue;
+                    }
+
                     Plugin plugin;
 
                     try{
-                        plugin = PluginLoader.FromFolder(fullDir, group);
+                        plugin = PluginLoader.FromFolder(name, fullDir, Path.Combine(Program.PluginDataPath, group.GetIdentifierPrefix(), name), group);
                     }catch(Exception e){
-                        loadErrors.Add(group.GetIdentifierPrefix()+Path.GetFileName(fullDir)+": "+e.Message);
+                        loadErrors.Add($"{group.GetIdentifierPrefix()}{name}: {e.Message}");
                         continue;
                     }
 

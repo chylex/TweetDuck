@@ -1,9 +1,4 @@
-﻿using System;
-using System.Diagnostics.Contracts;
-using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TweetDuck.Configuration;
-using TweetDuck.Core.Other;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TweetTest.Configuration{
     [TestClass]

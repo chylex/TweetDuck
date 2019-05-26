@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using TweetDuck.Configuration;
 using TweetDuck.Plugins;
 using TweetDuck.Plugins.Controls;
+using TweetLib.Core.Features.Plugins;
 
 namespace TweetDuck.Core.Other{
     sealed partial class FormPlugins : Form, FormManager.IAppDialog{

@@ -1,8 +1,8 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
-using TweetDuck.Core.Utils;
-using TweetDuck.Data.Serialization;
+using TweetLib.Core.Serialization.Converters;
+using TweetLib.Core.Utils;
 
 namespace TweetDuck.Data{
     sealed class WindowState{

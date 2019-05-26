@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TweetDuck.Data.Serialization;
+using TweetLib.Core.Serialization;
 
 namespace TweetTest.Data{
     [TestClass]
     public class TestFileSerializer : TestIO{
+        [SuppressMessage("ReSharper", "UnusedMember.Local")]
         private enum TestEnum{
             A, B, C, D, E
         }

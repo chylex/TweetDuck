@@ -76,14 +76,14 @@ function TDGetNetFrameworkVersion: Cardinal; forward;
 function TDIsVCMissing: Boolean; forward;
 procedure TDInstallVCRedist; forward;
 
-{ Check .NET Framework version on startup, ask user if they want to proceed if older than 4.5.2. }
+{ Check .NET Framework version on startup, ask user if they want to proceed if older than 4.7.2. }
 function InitializeSetup: Boolean;
 begin
   UpdatePath := ExpandConstant('{param:UPDATEPATH}')
   ForceRedistPrompt := ExpandConstant('{param:PROMPTREDIST}')
   VisitedTasksPage := False
   
-  if (TDGetNetFrameworkVersion() < 379893) and (MsgBox('{#MyAppName} requires .NET Framework 4.5.2 or newer,'+#13+#10+'please visit {#MyAppShortURL} for a download link.'+#13+#10+#13+#10'Do you want to proceed with the setup anyway?', mbCriticalError, MB_YESNO or MB_DEFBUTTON2) = IDNO) then
+  if (TDGetNetFrameworkVersion() < 461808) and (MsgBox('{#MyAppName} requires .NET Framework 4.7.2 or newer,'+#13+#10+'please visit {#MyAppShortURL} for a download link.'+#13+#10+#13+#10'Do you want to proceed with the setup anyway?', mbCriticalError, MB_YESNO or MB_DEFBUTTON2) = IDNO) then
   begin
     Result := False
     Exit
