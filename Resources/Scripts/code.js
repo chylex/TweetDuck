@@ -823,7 +823,7 @@
       html.addClass($(document.documentElement).attr("class"));
       html.addClass($(document.body).attr("class"));
       
-      html.css("background-color", getClassStyleProperty("column", "background-color"));
+      html.css("background-color", getClassStyleProperty("stream-item", "background-color"));
       html.css("border", "none");
       
       for(let selector of [ ".js-quote-detail", ".js-media-preview-container", ".js-media" ]){
