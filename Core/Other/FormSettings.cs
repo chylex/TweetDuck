@@ -10,7 +10,7 @@ using TweetDuck.Core.Other.Settings;
 using TweetDuck.Core.Other.Settings.Dialogs;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
-using TweetDuck.Updates;
+using TweetLib.Core.Features.Updates;
 
 namespace TweetDuck.Core.Other{
     sealed partial class FormSettings : Form, FormManager.IAppDialog{

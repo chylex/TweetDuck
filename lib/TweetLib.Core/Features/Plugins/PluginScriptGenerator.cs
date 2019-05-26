@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using TweetLib.Core.Features.Plugins.Config;
 using TweetLib.Core.Features.Plugins.Enums;
 
 namespace TweetLib.Core.Features.Plugins{

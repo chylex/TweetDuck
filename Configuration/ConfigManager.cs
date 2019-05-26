@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
-using TweetDuck.Configuration.Instance;
 using TweetDuck.Data;
 using TweetLib.Core.Features.Configuration;
+using TweetLib.Core.Features.Plugins.Config;
 using TweetLib.Core.Serialization.Converters;
 using TweetLib.Core.Utils;
 
@@ -16,7 +16,7 @@ namespace TweetDuck.Configuration{
 
         private readonly FileConfigInstance<UserConfig> infoUser;
         private readonly FileConfigInstance<SystemConfig> infoSystem;
-        private readonly PluginConfigInstance infoPlugins;
+        private readonly PluginConfigInstance<PluginConfig> infoPlugins;
 
         private readonly IConfigInstance<BaseConfig>[] infoList;
 
@@ -28,7 +28,7 @@ namespace TweetDuck.Configuration{
             infoList = new IConfigInstance<BaseConfig>[]{
                 infoUser = new FileConfigInstance<UserConfig>(Program.UserConfigFilePath, User, "program options"),
                 infoSystem = new FileConfigInstance<SystemConfig>(Program.SystemConfigFilePath, System, "system options"),
-                infoPlugins = new PluginConfigInstance(Program.PluginConfigFilePath, Plugins)
+                infoPlugins = new PluginConfigInstance<PluginConfig>(Program.PluginConfigFilePath, Plugins)
             };
 
             // TODO refactor further

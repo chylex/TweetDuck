@@ -9,6 +9,7 @@ using TweetDuck.Core.Utils;
 using TweetDuck.Resources;
 using TweetLib.Core.Data;
 using TweetLib.Core.Features.Plugins;
+using TweetLib.Core.Features.Plugins.Config;
 using TweetLib.Core.Features.Plugins.Enums;
 using TweetLib.Core.Features.Plugins.Events;
 

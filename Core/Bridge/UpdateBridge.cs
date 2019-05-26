@@ -2,7 +2,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
-using TweetDuck.Updates;
 using TweetLib.Core.Features.Updates;
 
 namespace TweetDuck.Core.Bridge{

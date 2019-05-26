@@ -54,9 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\Arguments.cs" />
-    <Compile Include="Configuration\Instance\FileConfigInstance.cs" />
     <Compile Include="Configuration\ConfigManager.cs" />
-    <Compile Include="Configuration\Instance\PluginConfigInstance.cs" />
     <Compile Include="Configuration\LockManager.cs" />
     <Compile Include="Configuration\SystemConfig.cs" />
     <Compile Include="Configuration\UserConfig.cs" />
@@ -274,7 +272,6 @@
     <Compile Include="Core\Utils\BrowserUtils.cs" />
     <Compile Include="Core\Utils\NativeMethods.cs" />
     <Compile Include="Updates\UpdateCheckClient.cs" />
-    <Compile Include="Updates\UpdateHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ScriptLoader.cs" />

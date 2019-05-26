@@ -1,35 +1,38 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using TweetLib.Core.Data;
-using TweetLib.Core.Features.Updates;
-using Timer = System.Windows.Forms.Timer;
+using Timer = System.Timers.Timer;
 
-namespace TweetDuck.Updates{
-    sealed class UpdateHandler : IDisposable{
+namespace TweetLib.Core.Features.Updates{
+    public sealed class UpdateHandler : IDisposable{
         public const int CheckCodeUpdatesDisabled = -1;
         
-        private readonly UpdateCheckClient client;
+        private readonly IUpdateCheckClient client;
         private readonly TaskScheduler scheduler;
         private readonly Timer timer;
         
         public event EventHandler<UpdateCheckEventArgs> CheckFinished;
         private ushort lastEventId;
 
-        public UpdateHandler(string installerFolder){
-            this.client = new UpdateCheckClient(installerFolder);
-            this.scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+        public UpdateHandler(IUpdateCheckClient client, TaskScheduler scheduler){
+            this.client = client;
+            this.scheduler = scheduler;
             
-            this.timer = new Timer();
-            this.timer.Tick += timer_Tick;
+            this.timer = new Timer{
+                AutoReset = false,
+                Enabled = false
+            };
+
+            this.timer.Elapsed += timer_Elapsed;
         }
 
         public void Dispose(){
             timer.Dispose();
         }
 
-        private void timer_Tick(object sender, EventArgs e){
-            timer.Stop();
+        private void timer_Elapsed(object sender, ElapsedEventArgs e){
             Check(false);
         }
 
@@ -40,9 +43,9 @@ namespace TweetDuck.Updates{
 
             timer.Stop();
 
-            if (Program.Config.User.EnableUpdateCheck){
+            if (client.CanCheck){
                 DateTime now = DateTime.Now;
-                TimeSpan nextHour = now.AddSeconds(60*(60-now.Minute)-now.Second)-now;
+                TimeSpan nextHour = now.AddSeconds(60 * (60 - now.Minute) - now.Second) - now;
 
                 if (nextHour.TotalMinutes < 15){
                     nextHour = nextHour.Add(TimeSpan.FromHours(1));
@@ -54,7 +57,7 @@ namespace TweetDuck.Updates{
         }
 
         public int Check(bool force){
-            if (Program.Config.User.EnableUpdateCheck || force){
+            if (client.CanCheck || force){
                 int nextEventId = unchecked(++lastEventId);
                 Task<UpdateInfo> checkTask = client.Check();
 

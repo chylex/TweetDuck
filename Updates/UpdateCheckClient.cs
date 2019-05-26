@@ -11,7 +11,7 @@ using TweetLib.Core.Utils;
 using JsonObject = System.Collections.Generic.IDictionary<string, object>;
 
 namespace TweetDuck.Updates{
-    sealed class UpdateCheckClient{
+    sealed class UpdateCheckClient : IUpdateCheckClient{
         private const string ApiLatestRelease = "https://api.github.com/repos/chylex/TweetDuck/releases/latest";
         private const string UpdaterAssetName = "TweetDuck.Update.exe";
 
@@ -21,7 +21,9 @@ namespace TweetDuck.Updates{
             this.installerFolder = installerFolder;
         }
 
-        public Task<UpdateInfo> Check(){
+        bool IUpdateCheckClient.CanCheck => Program.Config.User.EnableUpdateCheck;
+
+        Task<UpdateInfo> IUpdateCheckClient.Check(){
             TaskCompletionSource<UpdateInfo> result = new TaskCompletionSource<UpdateInfo>();
 
             WebClient client = WebUtils.NewClient(BrowserUtils.UserAgentVanilla);
@@ -67,10 +69,9 @@ namespace TweetDuck.Updates{
         private static Exception ExpandWebException(Exception e){
             if (e is WebException we && we.Response is HttpWebResponse response){
                 try{
-                    using(Stream stream = response.GetResponseStream())
-                    using(StreamReader reader = new StreamReader(stream, Encoding.GetEncoding(response.CharacterSet ?? "utf-8"))){
-                        return new Reporter.ExpandedLogException(e, reader.ReadToEnd());
-                    }
+                    using var stream = response.GetResponseStream();
+                    using var reader = new StreamReader(stream, Encoding.GetEncoding(response.CharacterSet ?? "utf-8"));
+                    return new Reporter.ExpandedLogException(e, reader.ReadToEnd());
                 }catch{
                     // whatever
                 }

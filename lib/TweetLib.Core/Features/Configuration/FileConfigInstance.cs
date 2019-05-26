@@ -1,23 +1,20 @@
 ﻿using System;
 using System.IO;
-using TweetLib.Core.Features.Configuration;
 using TweetLib.Core.Serialization;
 
-namespace TweetDuck.Configuration.Instance{
-    sealed class FileConfigInstance<T> : IConfigInstance<T> where T : BaseConfig{
-        private const string ErrorTitle = "Configuration Error";
-
+namespace TweetLib.Core.Features.Configuration{
+    public sealed class FileConfigInstance<T> : IConfigInstance<T> where T : BaseConfig{
         public T Instance { get; }
         public FileSerializer<T> Serializer { get; }
 
         private readonly string filenameMain;
         private readonly string filenameBackup;
-        private readonly string errorIdentifier;
+        private readonly string identifier;
 
-        public FileConfigInstance(string filename, T instance, string errorIdentifier){
+        public FileConfigInstance(string filename, T instance, string identifier){
             this.filenameMain = filename;
-            this.filenameBackup = filename+".bak";
-            this.errorIdentifier = errorIdentifier;
+            this.filenameBackup = filename + ".bak";
+            this.identifier = identifier;
 
             this.Instance = instance;
             this.Serializer = new FileSerializer<T>();
@@ -28,14 +25,14 @@ namespace TweetDuck.Configuration.Instance{
         }
 
         public void Load(){
-            Exception firstException = null;
+            Exception? firstException = null;
             
             for(int attempt = 0; attempt < 2; attempt++){
                 try{
                     LoadInternal(attempt > 0);
 
                     if (firstException != null){ // silently log exception that caused a backup restore
-                        Program.Reporter.LogImportant(firstException.ToString());
+                        App.ErrorHandler.Log(firstException.ToString());
                     }
 
                     return;
@@ -50,13 +47,13 @@ namespace TweetDuck.Configuration.Instance{
             }
             
             if (firstException is FormatException){
-                Program.Reporter.HandleException(ErrorTitle, "The configuration file for "+errorIdentifier+" is outdated or corrupted. If you continue, your "+errorIdentifier+" will be reset.", true, firstException);
+                OnException($"The configuration file for {identifier} is outdated or corrupted. If you continue, your {identifier} will be reset.", firstException);
             }
             else if (firstException is SerializationSoftException sse){
-                Program.Reporter.HandleException(ErrorTitle, $"{sse.Errors.Count} error{(sse.Errors.Count == 1 ? " was" : "s were")} encountered while loading the configuration file for "+errorIdentifier+". If you continue, some of your "+errorIdentifier+" will be reset.", true, firstException);
+                OnException($"{sse.Errors.Count} error{(sse.Errors.Count == 1 ? " was" : "s were")} encountered while loading the configuration file for {identifier}. If you continue, some of your {identifier} will be reset.", firstException);
             }
             else if (firstException != null){
-                Program.Reporter.HandleException(ErrorTitle, "Could not open the configuration file for "+errorIdentifier+". If you continue, your "+errorIdentifier+" will be reset.", true, firstException);
+                OnException($"Could not open the configuration file for {identifier}. If you continue, your {identifier} will be reset.", firstException);
             }
         }
 
@@ -69,9 +66,9 @@ namespace TweetDuck.Configuration.Instance{
 
                 Serializer.Write(filenameMain, Instance);
             }catch(SerializationSoftException e){
-                Program.Reporter.HandleException(ErrorTitle, $"{e.Errors.Count} error{(e.Errors.Count == 1 ? " was" : "s were")} encountered while saving the configuration file for "+errorIdentifier+".", true, e);
+                OnException($"{e.Errors.Count} error{(e.Errors.Count == 1 ? " was" : "s were")} encountered while saving the configuration file for {identifier}.", e);
             }catch(Exception e){
-                Program.Reporter.HandleException(ErrorTitle, "Could not save the configuration file for "+errorIdentifier+".", true, e);
+                OnException($"Could not save the configuration file for {identifier}.", e);
             }
         }
 
@@ -83,10 +80,10 @@ namespace TweetDuck.Configuration.Instance{
                     Serializer.Write(filenameMain, Instance.ConstructWithDefaults<T>());
                     LoadInternal(false);
                 }catch(Exception e){
-                    Program.Reporter.HandleException(ErrorTitle, "Could not regenerate the configuration file for "+errorIdentifier+".", true, e);
+                    OnException($"Could not regenerate the configuration file for {identifier}.", e);
                 }
             }catch(Exception e){
-                Program.Reporter.HandleException(ErrorTitle, "Could not reload the configuration file for "+errorIdentifier+".", true, e);
+                OnException($"Could not reload the configuration file for {identifier}.", e);
             }
         }
 
@@ -95,11 +92,15 @@ namespace TweetDuck.Configuration.Instance{
                 File.Delete(filenameMain);
                 File.Delete(filenameBackup);
             }catch(Exception e){
-                Program.Reporter.HandleException(ErrorTitle, "Could not delete configuration files to reset "+errorIdentifier+".", true, e);
+                OnException($"Could not delete configuration files to reset {identifier}.", e);
                 return;
             }
             
             Reload();
+        }
+
+        private static void OnException(string message, Exception e){
+            App.ErrorHandler.HandleException("Configuration Error", message, true, e);
         }
     }
 }
