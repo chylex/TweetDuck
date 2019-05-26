@@ -380,13 +380,9 @@ enabled(){
     hideKeyboard();
   };
   
-  this.drawerToggleEvent = function(e, data){
-    if (data.activeDrawer === "compose"){
-      setTimeout(function(){
-        $(".emoji-keyboard-popup-btn", me.composeDrawer).on("click", me.emojiKeyboardButtonClickEvent);
-        $(".js-docked-compose .js-compose-scroller > .scroll-v", me.composeDrawer).on("scroll", me.composerScrollEvent);
-      }, 0);
-    }
+  this.composerActiveEvent = function(e){
+    $(".emoji-keyboard-popup-btn", me.composeDrawer).on("click", me.emojiKeyboardButtonClickEvent);
+    $(".js-docked-compose .js-compose-scroller > .scroll-v", me.composeDrawer).on("scroll", me.composerScrollEvent);
   };
   
   this.documentClickEvent = function(e){
@@ -414,7 +410,7 @@ enabled(){
   
   if (maybeDockedComposePanel.length){
     maybeDockedComposePanel.find(".cf.margin-t--12.margin-b--30").first().append(buttonHTML);
-    this.drawerToggleEvent({}, { activeDrawer: "compose" });
+    this.composerActiveEvent();
   }
 }
 
@@ -424,7 +420,7 @@ ready(){
   
   $(document).on("click", this.documentClickEvent);
   $(document).on("keydown", this.documentKeyEvent);
-  $(document).on("uiDrawerActive", this.drawerToggleEvent);
+  $(document).on("tduckOldComposerActive", this.composerActiveEvent);
   $(document).on("uiComposeImageAdded", this.uploadFilesEvent);
   
   this.composeDrawer.on("uiComposeTweetSending", this.composerSendingEvent);
@@ -550,7 +546,7 @@ disabled(){
   
   $(document).off("click", this.documentClickEvent);
   $(document).off("keydown", this.documentKeyEvent);
-  $(document).off("uiDrawerActive", this.drawerToggleEvent);
+  $(document).off("tduckOldComposerActive", this.composerActiveEvent);
   $(document).off("uiComposeImageAdded", this.uploadFilesEvent);
   
   this.composeDrawer.off("uiComposeTweetSending", this.composerSendingEvent);

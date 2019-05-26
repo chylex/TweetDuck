@@ -1060,12 +1060,8 @@
       setTimeout(refocusInput, 0);
     };
     
-    $(document).on("uiDrawerActive", function(e, data){
-      if (data.activeDrawer === "compose"){
-        setTimeout(function(){
-          $$(".js-account-list", ".js-docked-compose").delegate(".js-account-item", "click", accountItemClickEvent);
-        }, 0);
-      }
+    $(document).on("tduckOldComposerActive", function(e){
+      $$(".js-account-list", ".js-docked-compose").delegate(".js-account-item", "click", accountItemClickEvent);
     });
   });
   
