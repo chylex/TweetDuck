@@ -478,6 +478,19 @@
   });
   
   //
+  // Block: Hook into composer event.
+  //
+  execSafe(function hookComposerEvents(){
+    $(document).on("uiDrawerActive uiRwebComposerOptOut", function(e, data){
+      return if e.type === "uiDrawerActive" && data.activeDrawer !== "compose";
+      
+      setTimeout(function(){
+        $(document).trigger("tduckOldComposerActive");
+      }, 0);
+    });
+  });
+  
+  //
   // Block: Add TweetDuck buttons to the settings menu.
   //
   onAppReady.push(function setupSettingsDropdown(){
