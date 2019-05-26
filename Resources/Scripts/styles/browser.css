@@ -249,8 +249,12 @@ a[data-full-url] {
   transition: transform 0.1s ease;
 }
 
-.js-docked-compose footer {
+.js-docked-compose .compose-remember-state {
   display: none !important;
+}
+
+.js-new-composer-opt-in {
+  border-bottom: none !important;
 }
 
 .compose-content {
