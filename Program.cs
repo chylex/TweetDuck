@@ -58,6 +58,7 @@ namespace TweetDuck{
             Config = new ConfigManager();
 
             Lib.Initialize(new App.Builder{
+                ErrorHandler = Reporter
             });
         }
 

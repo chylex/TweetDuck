@@ -7,9 +7,10 @@ using System.Windows.Forms;
 using TweetDuck.Configuration;
 using TweetDuck.Core.Other;
 using TweetLib.Core;
+using TweetLib.Core.Application;
 
 namespace TweetDuck{
-    sealed class Reporter{
+    sealed class Reporter : IAppErrorHandler{
         private readonly string logFile;
 
         public Reporter(string logFile){
@@ -29,8 +30,12 @@ namespace TweetDuck{
         }
 
         public bool LogImportant(string data){
+            return ((IAppErrorHandler)this).Log(data);
+        }
+
+        bool IAppErrorHandler.Log(string text){
             #if DEBUG
-            Debug.WriteLine(data);
+            Debug.WriteLine(text);
             #endif
 
             StringBuilder build = new StringBuilder();
@@ -40,7 +45,7 @@ namespace TweetDuck{
             }
 
             build.Append("[").Append(DateTime.Now.ToString("G", Lib.Culture)).Append("]\r\n");
-            build.Append(data).Append("\r\n\r\n");
+            build.Append(text).Append("\r\n\r\n");
 
             try{
                 File.AppendAllText(logFile, build.ToString(), Encoding.UTF8);
