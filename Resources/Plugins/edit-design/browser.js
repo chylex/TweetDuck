@@ -8,6 +8,7 @@ enabled(){
     _theme: "light",
     themeOverride: false,
     columnWidth: "310px",
+    composerWidth: "default",
     fontSize: "12px",
     hideTweetActions: true,
     moveTweetActionsToRight: true,
@@ -380,8 +381,15 @@ enabled(){
     this.css.insert("#general_settings .cf { display: none !important }");
     this.css.insert("#settings-modal .js-setting-list li:nth-child(3) { border-bottom: 1px solid #ccd6dd }");
     
-    this.css.insert("html[data-td-font] { font-size: "+this.config.fontSize+" !important }");
-    this.css.insert(".avatar { border-radius: "+this.config.avatarRadius+"% !important }");
+    this.css.insert(`html[data-td-font] { font-size: ${this.config.fontSize} !important }`);
+    this.css.insert(`.avatar { border-radius: ${this.config.avatarRadius}% !important }`);
+    
+    if (this.config.composerWidth !== "default"){
+      const width = this.config.composerWidth;
+      this.css.insert(`.js-app-content.is-open { margin-right: ${width} !important; transform: translateX(${width}) !important }`);
+      this.css.insert(`#tduck .js-app-content.tduck-is-opening { margin-right: 0 !important }`);
+      this.css.insert(`.js-drawer { width: ${width} !important; left: -${width} !important }`);
+    }
     
     let currentTheme = TD.settings.getTheme();
     
@@ -638,6 +646,13 @@ ${notificationScrollbarColor ? `
       $(".js-dropdown.pos-r").toggleClass("pos-r pos-l");
     }
   };
+  
+  this.uiDrawerActiveEvent = (e, data) => {
+    return if data.activeDrawer === null || this.config.composerWidth === "default";
+    
+    const ele = $(".js-app-content").addClass("tduck-is-opening");
+    setTimeout(() => ele.removeClass("tduck-is-opening"), 250);
+  };
 }
 
 ready(){
@@ -647,6 +662,7 @@ ready(){
   
   // layout events
   $(document).on("uiShowActionsMenu", this.uiShowActionsMenuEvent);
+  $(document).on("uiDrawerActive", this.uiDrawerActiveEvent);
   
   // modal
   $("[data-action='settings-menu']").on("click", this.onSettingsMenuClickedEvent);
@@ -709,9 +725,11 @@ disabled(){
     window.clearTimeout(this.optimizationTimer);
   }
   
-  $(document).off("uiShowActionsMenu", this.uiShowActionsMenuEvent);
   $(window).off("focus", this.onWindowFocusEvent);
   $(window).off("blur", this.onWindowBlurEvent);
+  
+  $(document).off("uiShowActionsMenu", this.uiShowActionsMenuEvent);
+  $(document).off("uiDrawerActive", this.uiDrawerActiveEvent);
   
   TD.components.GlobalSettings.prototype.getInfo = this.prevFuncSettingsGetInfo;
   TD.components.GlobalSettings.prototype.switchTab = this.prevFuncSettingsSwitchTab;

@@ -55,6 +55,20 @@
             <option disabled></option>
           </select>
           
+          <!-- COMPOSER SIZE -->
+          
+          <label class="txt-uppercase touch-larger-label">
+            <b>New Tweet panel</b>
+          </label>
+          <select data-td-key="composerWidth">
+            <option value="default">Default</option>
+            <option value="270px">Narrow (270px)</option>
+            <option value="310px">Medium (310px)</option>
+            <option value="350px">Wide (350px)</option>
+            <option value="custom-px">Custom</option>
+            <option value="change-custom-px">Change custom value...</option>
+          </select>
+          
           <!-- FONT SIZE -->
           
           <label class="txt-uppercase touch-larger-label">
@@ -69,10 +83,6 @@
             <option value="custom-px">Custom</option>
             <option value="change-custom-px">Change custom value...</option>
           </select>
-          <label class="checkbox">
-            <input data-td-key="forceArialFont" class="js-theme-checkbox touch-larger-label" type="checkbox">
-            Use Arial as default font
-          </label>
           <label class="checkbox">
             <input data-td-key="increaseQuoteTextSize" class="js-theme-checkbox touch-larger-label" type="checkbox">
             Increase quoted tweet font size
@@ -115,6 +125,10 @@
           <label class="checkbox">
             <input data-td-key="themeColorTweaks" class="js-theme-checkbox touch-larger-label" type="checkbox">
             Theme color tweaks
+          </label>
+          <label class="checkbox">
+            <input data-td-key="forceArialFont" class="js-theme-checkbox touch-larger-label" type="checkbox">
+            Use Arial as default font
           </label>
           
           <!-- ADVANCED -->
@@ -172,7 +186,7 @@
   
   #edit-design-panel {
     width: 693px;
-    height: 380px;
+    height: 424px;
     background-color: #FFF;
     box-shadow: 0 0 10px rgba(17, 17, 17, 0.5);
   }
@@ -217,7 +231,7 @@
   
   #edit-design-panel-content label.radio {
     display: inline-block;
-    margin: 0 16px 5px 4px;
+    margin: 0 16px 0 4px;
     cursor: pointer;
   }
   
