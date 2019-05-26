@@ -16,7 +16,7 @@ namespace TweetLib.Core.Data{
         }
 
         public Result(Exception exception){
-            this.value = default;
+            this.value = default!;
             this.exception = exception ?? throw new ArgumentNullException(nameof(exception));
         }
 
@@ -25,12 +25,12 @@ namespace TweetLib.Core.Data{
                 onSuccess(value);
             }
             else{
-                onException(exception!!);
+                onException(exception!);
             }
         }
 
         public Result<R> Select<R>(Func<T, R> map){
-            return HasValue ? new Result<R>(map(value)) : new Result<R>(exception!!);
+            return HasValue ? new Result<R>(map(value)) : new Result<R>(exception!);
         }
     }
 }

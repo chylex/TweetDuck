@@ -94,7 +94,7 @@ namespace TweetLib.Core.Collections{
                 return innerDict.TryGetValue(innerKey, out value);
             }
             else{
-                value = default;
+                value = default!;
                 return false;
             }
         }
