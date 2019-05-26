@@ -376,7 +376,7 @@ enabled(){
   };
   
   this.drawerToggleEvent = function(e, data){
-    if (data.activeDrawer === null){
+    if (typeof data === "undefined" || data.activeDrawer !== "compose"){
       hideTemplateModal();
     }
   };
@@ -385,6 +385,7 @@ enabled(){
 ready(){
   $(".js-drawer[data-drawer='compose']").on("click", ".manage-templates-btn", this.manageTemplatesButtonClickEvent);
   $(document).on("uiDrawerActive", this.drawerToggleEvent);
+  $(document).on("click", ".js-new-composer-opt-in", this.drawerToggleEvent);
 }
 
 disabled(){
@@ -393,6 +394,7 @@ disabled(){
   
   $(".js-drawer[data-drawer='compose']").off("click", ".manage-templates-btn", this.manageTemplatesButtonClickEvent);
   $(document).off("uiDrawerActive", this.drawerToggleEvent);
+  $(document).off("click", ".js-new-composer-opt-in", this.drawerToggleEvent);
   
   TD.mustaches["compose/docked_compose.mustache"] = this.prevComposeMustache;
 }
