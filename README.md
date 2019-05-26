@@ -1,18 +1,17 @@
 # Support
 
-[Follow TweetDuck on Twitter](https://twitter.com/TryMyAwesomeApp) &nbsp;|&nbsp; [Support via PayPal](https://paypal.me/chylex) &nbsp;|&nbsp; [Support via Patreon](https://www.patreon.com/chylex)
+[Follow TweetDuck on Twitter](https://twitter.com/TryMyAwesomeApp) &nbsp;|&nbsp; [Support via Ko-fi](https://ko-fi.com/chylex) &nbsp;|&nbsp; [Support via Patreon](https://www.patreon.com/chylex)
 
 # Build Instructions
 
 ### Setup
 
-The program can be built using Visual Studio 2017 or newer. Before opening the solution, please make sure you have the following workloads and components installed (optional components that are not listed can be deselected to save space):
+The program can be built using Visual Studio 2019. Before opening the solution, please make sure you have the following workloads and components installed (optional components that are not listed can be deselected to save space):
 * **.NET desktop development**
-  * .NET Framework 4 – 4.6 development tools
+  * .NET Framework 4.7.2 SDK
   * F# desktop language support
 * **Desktop development with C++**
-  * *(VS 2017)* VC++ 2017 version 15.9 v14.16 latest v141 tools
-  * *(VS 2019)* MSVC v142 - VS 2019 C++ x64/x86 build tools (v14.20)
+  * MSVC v142 - VS 2019 C++ x64/x86 build tools (v14.20)
 
 After opening the solution, right-click the solution and select **Restore NuGet Packages**, or manually run this command in the **Package Manager Console**:
 ```
@@ -42,11 +41,6 @@ If you decide to publicly release a custom version, please make it clear that it
 - Determine if there was an IO error from the `rmdir` commands, the custom MSBuild targets near the end of the [.csproj file](https://github.com/chylex/TweetDuck/blob/master/TweetDuck.csproj), or in the **PostBuild.fsx** script (`Encountered an error while running PostBuild`)
 - Some files are checked for invalid characters:
   - `Resources/Plugins/emoji-keyboard/emoji-ordering.txt` line endings must be LF (line feed); any CR (carriage return) in the file will cause a failed build, and you will need to ensure correct line endings in your text editor
-
-#### Error: The "EmbedAllSources" parameter is not supported by the "Csc" task
-1. Open `C:\Program Files (x86)\Visual Studio\2017\<edition>\MSBuild\15.0\Bin\Roslyn\Microsoft.CSharp.Core.targets` in a text editor
-2. Remove line that says `EmbedAllSources="$(EmbedAllSources)"`
-3. Hope the next Visual Studio update fixes it...
 
 ### Installers
 
