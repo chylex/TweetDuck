@@ -238,16 +238,15 @@
     <Compile Include="Core\Other\FormSettings.Designer.cs">
       <DependentUpon>FormSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Controls\PluginControl.cs">
+    <Compile Include="Plugins\PluginControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Plugins\Controls\PluginControl.Designer.cs">
+    <Compile Include="Plugins\PluginControl.Designer.cs">
       <DependentUpon>PluginControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Controls\PluginListFlowLayout.cs">
+    <Compile Include="Plugins\PluginListFlowLayout.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Plugins\PluginBridge.cs" />
     <Compile Include="Configuration\PluginConfig.cs" />
     <Compile Include="Plugins\PluginManager.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

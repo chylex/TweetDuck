@@ -145,7 +145,7 @@ namespace TweetDuck.Resources{
 
             // ReSharper disable PossibleNullReferenceException
             object instPluginManager = typeFormBrowser.GetField("plugins", flagsInstance).GetValue(FormManager.TryFind<FormBrowser>());
-            typePluginManager.GetField("rootPath", flagsInstance).SetValue(instPluginManager, newPluginRoot);
+            typePluginManager.GetField("pluginFolder", flagsInstance).SetValue(instPluginManager, newPluginRoot);
 
             Debug.WriteLine("Reloading hot swapped plugins...");
             ((PluginManager)instPluginManager).Reload();

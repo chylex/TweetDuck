@@ -65,7 +65,7 @@ namespace TweetDuck.Core{
 
             Text = Program.BrandName;
             
-            this.plugins = new PluginManager(this, Program.Config.Plugins, Program.PluginPath);
+            this.plugins = new PluginManager(this, Program.Config.Plugins, Program.PluginPath, Program.PluginDataPath);
             this.plugins.Reloaded += plugins_Reloaded;
             this.plugins.Executed += plugins_Executed;
             this.plugins.Reload();

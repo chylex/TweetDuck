@@ -82,7 +82,7 @@ namespace TweetDuck.Core.Other.Analytics{
                 { "Custom Notification CSS" , RoundUp((UserConfig.CustomNotificationCSS ?? string.Empty).Length, 50) },
                 0,
                 { "Plugins All"     , List(plugins.Plugins.Select(Plugin)) },
-                { "Plugins Enabled" , List(plugins.Plugins.Where(plugin => plugins.Config.IsEnabled(plugin)).Select(Plugin)) },
+                { "Plugins Enabled" , List(plugins.Plugins.Where(plugins.Config.IsEnabled).Select(Plugin)) },
                 0,
                 { "Theme"               , Dict(editLayoutDesign, "_theme",                  "light/def") },
                 { "Column Width"        , Dict(editLayoutDesign, "columnWidth",             "310px/def") },

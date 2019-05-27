@@ -5,26 +5,21 @@ using System.IO;
 using System.Text;
 using TweetLib.Core.Collections;
 using TweetLib.Core.Data;
-using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Enums;
 using TweetLib.Core.Features.Plugins.Events;
 using TweetLib.Core.Utils;
 
-namespace TweetDuck.Plugins{
+namespace TweetLib.Core.Features.Plugins{
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    sealed class PluginBridge{
-        private static string SanitizeCacheKey(string key){
-            return key.Replace('\\', '/').Trim();
-        }
-
-        private readonly PluginManager manager;
-        private readonly TwoKeyDictionary<int, string, string> fileCache = new TwoKeyDictionary<int, string, string>(4, 2);
+    public sealed class PluginBridge{
+        private readonly IPluginManager manager;
+        private readonly FileCache fileCache = new FileCache();
         private readonly TwoKeyDictionary<int, string, InjectedHTML> notificationInjections = new TwoKeyDictionary<int, string, InjectedHTML>(4, 1);
 
         public IEnumerable<InjectedHTML> NotificationInjections => notificationInjections.InnerValues;
-        public HashSet<Plugin> WithConfigureFunction { get; } = new HashSet<Plugin>();
+        public ISet<Plugin> WithConfigureFunction { get; } = new HashSet<Plugin>();
 
-        public PluginBridge(PluginManager manager){
+        public PluginBridge(IPluginManager manager){
             this.manager = manager;
             this.manager.Reloaded += manager_Reloaded;
             this.manager.Config.PluginChangedState += Config_PluginChangedState;
@@ -55,7 +50,7 @@ namespace TweetDuck.Plugins{
                 switch(folder){
                     case PluginFolder.Data: throw new ArgumentException("File path has to be relative to the plugin data folder.");
                     case PluginFolder.Root: throw new ArgumentException("File path has to be relative to the plugin root folder.");
-                    default: throw new ArgumentException("Invalid folder type "+folder+", this is a TweetDuck error.");
+                    default: throw new ArgumentException($"Invalid folder type {folder}, this is a TweetDuck error.");
                 }
             }
             else{
@@ -63,15 +58,15 @@ namespace TweetDuck.Plugins{
             }
         }
 
-        private string ReadFileUnsafe(int token, string cacheKey, string fullPath, bool readCached){
-            cacheKey = SanitizeCacheKey(cacheKey);
-            
-            if (readCached && fileCache.TryGetValue(token, cacheKey, out string cachedContents)){
+        private string ReadFileUnsafe(int token, PluginFolder folder, string path, bool readCached){
+            string fullPath = GetFullPathOrThrow(token, folder, path);
+
+            if (readCached && fileCache.TryGetValue(token, folder, path, out string cachedContents)){
                 return cachedContents;
             }
 
             try{
-                return fileCache[token, cacheKey] = File.ReadAllText(fullPath, Encoding.UTF8);
+                return fileCache[token, folder, path] = File.ReadAllText(fullPath, Encoding.UTF8);
             }catch(FileNotFoundException){
                 throw new FileNotFoundException("File not found.");
             }catch(DirectoryNotFoundException){
@@ -86,17 +81,17 @@ namespace TweetDuck.Plugins{
 
             FileUtils.CreateDirectoryForFile(fullPath);
             File.WriteAllText(fullPath, contents, Encoding.UTF8);
-            fileCache[token, SanitizeCacheKey(path)] = contents;
+            fileCache[token, PluginFolder.Data, path] = contents;
         }
 
         public string ReadFile(int token, string path, bool cache){
-            return ReadFileUnsafe(token, path, GetFullPathOrThrow(token, PluginFolder.Data, path), cache);
+            return ReadFileUnsafe(token, PluginFolder.Data, path, cache);
         }
 
         public void DeleteFile(int token, string path){
             string fullPath = GetFullPathOrThrow(token, PluginFolder.Data, path);
 
-            fileCache.Remove(token, SanitizeCacheKey(path));
+            fileCache.Remove(token, PluginFolder.Data, path);
             File.Delete(fullPath);
         }
 
@@ -105,7 +100,7 @@ namespace TweetDuck.Plugins{
         }
 
         public string ReadFileRoot(int token, string path){
-            return ReadFileUnsafe(token, "root*"+path, GetFullPathOrThrow(token, PluginFolder.Root, path), true);
+            return ReadFileUnsafe(token, PluginFolder.Root, path, true);
         }
 
         public bool CheckFileExistsRoot(int token, string path){
@@ -125,6 +120,40 @@ namespace TweetDuck.Plugins{
 
             if (plugin != null){
                 WithConfigureFunction.Add(plugin);
+            }
+        }
+
+        private sealed class FileCache{
+            private readonly TwoKeyDictionary<int, string, string> cache = new TwoKeyDictionary<int, string, string>(4, 2);
+
+            public string this[int token, PluginFolder folder, string path]{
+                set => cache[token, Key(folder, path)] = value;
+            }
+
+            public void Clear(){
+                cache.Clear();
+            }
+
+            public bool TryGetValue(int token, PluginFolder folder, string path, out string contents){
+                return cache.TryGetValue(token, Key(folder, path), out contents);
+            }
+
+            public void Remove(int token){
+                cache.Remove(token);
+            }
+
+            public void Remove(int token, PluginFolder folder, string path){
+                cache.Remove(token, Key(folder, path));
+            }
+
+            private static string Key(PluginFolder folder, string path){
+                string prefix = folder switch{
+                    PluginFolder.Root => "root/",
+                    PluginFolder.Data => "data/",
+                    _ => throw new InvalidOperationException($"Invalid folder type {folder}, this is a TweetDuck error.")
+                };
+
+                return prefix + path.Replace('\\', '/').Trim();
             }
         }
     }

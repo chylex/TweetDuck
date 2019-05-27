@@ -1,4 +1,4 @@
-﻿namespace TweetDuck.Plugins.Controls {
+﻿namespace TweetDuck.Plugins {
     partial class PluginControl {
         /// <summary> 
         /// Required designer variable.

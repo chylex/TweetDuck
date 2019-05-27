@@ -1,4 +1,6 @@
-﻿namespace TweetDuck.Core.Other {
+﻿using TweetDuck.Plugins;
+
+namespace TweetDuck.Core.Other {
     partial class FormPlugins {
         /// <summary>
         /// Required designer variable.
@@ -27,7 +29,7 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.btnReload = new System.Windows.Forms.Button();
             this.btnOpenFolder = new System.Windows.Forms.Button();
-            this.flowLayoutPlugins = new TweetDuck.Plugins.Controls.PluginListFlowLayout();
+            this.flowLayoutPlugins = new PluginListFlowLayout();
             this.timerLayout = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
@@ -117,7 +119,7 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnReload;
         private System.Windows.Forms.Button btnOpenFolder;
-        private Plugins.Controls.PluginListFlowLayout flowLayoutPlugins;
+        private PluginListFlowLayout flowLayoutPlugins;
         private System.Windows.Forms.Timer timerLayout;
     }
 }

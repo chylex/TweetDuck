@@ -5,7 +5,6 @@ using System.Linq;
 using System.Windows.Forms;
 using TweetDuck.Configuration;
 using TweetDuck.Plugins;
-using TweetDuck.Plugins.Controls;
 using TweetLib.Core.Features.Plugins;
 
 namespace TweetDuck.Core.Other{

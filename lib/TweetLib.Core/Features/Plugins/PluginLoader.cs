@@ -1,12 +1,42 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using TweetLib.Core.Data;
 using TweetLib.Core.Features.Plugins.Enums;
 
 namespace TweetLib.Core.Features.Plugins{
     public static class PluginLoader{
         private static readonly string[] EndTag = { "[END]" };
+
+        public static IEnumerable<Result<Plugin>> AllInFolder(string pluginFolder, string pluginDataFolder, PluginGroup group){
+            string path = Path.Combine(pluginFolder, group.GetSubFolder());
+
+            if (!Directory.Exists(path)){
+                yield break;
+            }
+
+            foreach(string fullDir in Directory.EnumerateDirectories(path, "*", SearchOption.TopDirectoryOnly)){
+                string name = Path.GetFileName(fullDir);
+                string prefix = group.GetIdentifierPrefix();
+
+                if (string.IsNullOrEmpty(name)){
+                    yield return new Result<Plugin>(new DirectoryNotFoundException($"{prefix}(?): Could not extract directory name from path: {fullDir}"));
+                    continue;
+                }
+
+                Result<Plugin> result;
+
+                try{
+                    result = new Result<Plugin>(FromFolder(name, fullDir, Path.Combine(pluginDataFolder, prefix, name), group));
+                }catch(Exception e){
+                    result = new Result<Plugin>(new Exception($"{prefix}{name}: {e.Message}", e));
+                }
+
+                yield return result;
+            }
+        }
 
         public static Plugin FromFolder(string name, string pathRoot, string pathData, PluginGroup group){
             Plugin.Builder builder = new Plugin.Builder(group, name, pathRoot, pathData);

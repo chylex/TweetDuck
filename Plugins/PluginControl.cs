@@ -6,7 +6,7 @@ using TweetDuck.Core.Utils;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Enums;
 
-namespace TweetDuck.Plugins.Controls{
+namespace TweetDuck.Plugins{
     sealed partial class PluginControl : UserControl{
         private readonly PluginManager pluginManager;
         private readonly Plugin plugin;
@@ -56,13 +56,13 @@ namespace TweetDuck.Plugins.Controls{
         private void panelDescription_Resize(object sender, EventArgs e){
             SuspendLayout();
             
-            int maxWidth = panelDescription.Width-(panelDescription.VerticalScroll.Visible ? SystemInformation.VerticalScrollBarWidth : 0);
+            int maxWidth = panelDescription.Width - (panelDescription.VerticalScroll.Visible ? SystemInformation.VerticalScrollBarWidth : 0);
             labelDescription.MaximumSize = new Size(maxWidth, int.MaxValue);
 
             Font font = labelDescription.Font;
-            int descriptionLines = TextRenderer.MeasureText(labelDescription.Text, font, new Size(maxWidth, int.MaxValue), TextFormatFlags.WordBreak).Height/(font.Height-1);
+            int descriptionLines = TextRenderer.MeasureText(labelDescription.Text, font, new Size(maxWidth, int.MaxValue), TextFormatFlags.WordBreak).Height / (font.Height - 1);
             
-            int requiredLines = Math.Max(descriptionLines, 1+(string.IsNullOrEmpty(labelVersion.Text) ? 0 : 1)+(isConfigurable ? 1 : 0));
+            int requiredLines = Math.Max(descriptionLines, 1 + (string.IsNullOrEmpty(labelVersion.Text) ? 0 : 1) + (isConfigurable ? 1 : 0));
             
             nextHeight = requiredLines switch{
                 1 => MaximumSize.Height - 2 * (font.Height - 1),

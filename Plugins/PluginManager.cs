@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
 using TweetDuck.Resources;
 using TweetLib.Core.Data;
@@ -14,21 +15,21 @@ using TweetLib.Core.Features.Plugins.Enums;
 using TweetLib.Core.Features.Plugins.Events;
 
 namespace TweetDuck.Plugins{
-    sealed class PluginManager{
-        private static readonly IReadOnlyDictionary<PluginEnvironment, string> PluginSetupScriptNames = PluginEnvironmentExtensions.Map(null, "plugins.browser.js", "plugins.notification.js");
+    sealed class PluginManager : IPluginManager{
+        private const string SetupScriptPrefix = "plugins.";
 
-        public string PathOfficialPlugins => Path.Combine(rootPath, "official");
-        public string PathCustomPlugins => Path.Combine(rootPath, "user");
+        public string PathCustomPlugins => Path.Combine(pluginFolder, PluginGroup.Custom.GetSubFolder());
 
         public IEnumerable<Plugin> Plugins => plugins;
         public IEnumerable<InjectedHTML> NotificationInjections => bridge.NotificationInjections;
-
+        
         public IPluginConfig Config { get; }
         
         public event EventHandler<PluginErrorEventArgs> Reloaded;
         public event EventHandler<PluginErrorEventArgs> Executed;
         
-        private readonly string rootPath;
+        private readonly string pluginFolder;
+        private readonly string pluginDataFolder;
 
         private readonly Control sync;
         private readonly PluginBridge bridge;
@@ -39,11 +40,12 @@ namespace TweetDuck.Plugins{
 
         private IWebBrowser mainBrowser;
 
-        public PluginManager(Control sync, IPluginConfig config, string rootPath){
+        public PluginManager(Control sync, IPluginConfig config, string pluginFolder, string pluginDataFolder){
             this.Config = config;
             this.Config.PluginChangedState += Config_PluginChangedState;
 
-            this.rootPath = rootPath;
+            this.pluginFolder = pluginFolder;
+            this.pluginDataFolder = pluginDataFolder;
             
             this.sync = sync;
             this.bridge = new PluginBridge(this);
@@ -87,10 +89,10 @@ namespace TweetDuck.Plugins{
             }
             else if (plugin.HasConfig){
                 if (File.Exists(plugin.ConfigPath)){
-                    using(Process.Start("explorer.exe", "/select,\""+plugin.ConfigPath.Replace('/', '\\')+"\"")){}
+                    using(Process.Start("explorer.exe", "/select,\"" + plugin.ConfigPath.Replace('/', '\\') + "\"")){}
                 }
                 else{
-                    using(Process.Start("explorer.exe", '"'+plugin.GetPluginFolder(PluginFolder.Data).Replace('/', '\\')+'"')){}
+                    using(Process.Start("explorer.exe", '"' + plugin.GetPluginFolder(PluginFolder.Data).Replace('/', '\\') + '"')){}
                 }
             }
         }
@@ -109,7 +111,7 @@ namespace TweetDuck.Plugins{
             }while(tokens.ContainsKey(token) && --attempts >= 0);
             
             if (attempts < 0){
-                token = -tokens.Count-1;
+                token = -tokens.Count - 1;
             }
 
             tokens[token] = plugin;
@@ -124,42 +126,22 @@ namespace TweetDuck.Plugins{
             plugins.Clear();
             tokens.Clear();
 
-            List<string> loadErrors = new List<string>(2);
+            List<string> loadErrors = new List<string>(1);
 
-            IEnumerable<Plugin> LoadPluginsFrom(string path, PluginGroup group){
-                if (!Directory.Exists(path)){
-                    yield break;
+            foreach(var result in PluginGroupExtensions.Values.SelectMany(group => PluginLoader.AllInFolder(pluginFolder, pluginDataFolder, group))){
+                if (result.HasValue){
+                    plugins.Add(result.Value);
                 }
-
-                foreach(string fullDir in Directory.EnumerateDirectories(path, "*", SearchOption.TopDirectoryOnly)){
-                    string name = Path.GetFileName(fullDir);
-
-                    if (string.IsNullOrEmpty(name)){
-                        loadErrors.Add($"{group.GetIdentifierPrefix()}(?): Could not extract directory name from path: {fullDir}");
-                        continue;
-                    }
-
-                    Plugin plugin;
-
-                    try{
-                        plugin = PluginLoader.FromFolder(name, fullDir, Path.Combine(Program.PluginDataPath, group.GetIdentifierPrefix(), name), group);
-                    }catch(Exception e){
-                        loadErrors.Add($"{group.GetIdentifierPrefix()}{name}: {e.Message}");
-                        continue;
-                    }
-
-                    yield return plugin;
+                else{
+                    loadErrors.Add(result.Exception.Message);
                 }
             }
-            
-            plugins.UnionWith(LoadPluginsFrom(PathOfficialPlugins, PluginGroup.Official));
-            plugins.UnionWith(LoadPluginsFrom(PathCustomPlugins, PluginGroup.Custom));
 
             Reloaded?.Invoke(this, new PluginErrorEventArgs(loadErrors));
         }
 
         private void ExecutePlugins(IFrame frame, PluginEnvironment environment){
-            if (!HasAnyPlugin(environment) || !ScriptLoader.ExecuteFile(frame, PluginSetupScriptNames[environment], sync)){
+            if (!HasAnyPlugin(environment) || !ScriptLoader.ExecuteFile(frame, SetupScriptPrefix + environment.GetPluginScriptFile(), sync)){
                 return;
             }
             
@@ -183,11 +165,11 @@ namespace TweetDuck.Plugins{
                 try{
                     script = File.ReadAllText(path);
                 }catch(Exception e){
-                    failedPlugins.Add(plugin.Identifier+" ("+Path.GetFileName(path)+"): "+e.Message);
+                    failedPlugins.Add($"{plugin.Identifier} ({Path.GetFileName(path)}): {e.Message}");
                     continue;
                 }
                 
-                ScriptLoader.ExecuteScript(frame, PluginScriptGenerator.GeneratePlugin(plugin.Identifier, script, GetTokenFromPlugin(plugin), environment), "plugin:"+plugin);
+                ScriptLoader.ExecuteScript(frame, PluginScriptGenerator.GeneratePlugin(plugin.Identifier, script, GetTokenFromPlugin(plugin), environment), $"plugin:{plugin}");
             }
 
             sync.InvokeAsyncSafe(() => {
