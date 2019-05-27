@@ -12,15 +12,17 @@ namespace TweetDuck.Core.Handling.General{
             int pipe = text.IndexOf('|');
 
             if (pipe != -1){
-                switch(text.Substring(0, pipe)){
-                    case "error": icon = MessageBoxIcon.Error; break;
-                    case "warning": icon = MessageBoxIcon.Warning; break;
-                    case "info": icon = MessageBoxIcon.Information; break;
-                    case "question": icon = MessageBoxIcon.Question; break;
-                    default: return new FormMessage(caption, text, icon);
-                }
+                icon = text.Substring(0, pipe) switch{
+                    "error"    => MessageBoxIcon.Error,
+                    "warning"  => MessageBoxIcon.Warning,
+                    "info"     => MessageBoxIcon.Information,
+                    "question" => MessageBoxIcon.Question,
+                    _          => MessageBoxIcon.None
+                };
 
-                text = text.Substring(pipe+1);
+                if (icon != MessageBoxIcon.None){
+                    text = text.Substring(pipe + 1);
+                }
             }
 
             return new FormMessage(caption, text, icon);

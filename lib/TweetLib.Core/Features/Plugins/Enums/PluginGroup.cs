@@ -5,19 +5,19 @@
 
     public static class PluginGroupExtensions{
         public static string GetIdentifierPrefix(this PluginGroup group){
-            switch(group){
-                case PluginGroup.Official: return "official/";
-                case PluginGroup.Custom: return "custom/";
-                default: return "unknown/";
-            }
+            return group switch{
+                PluginGroup.Official => "official/",
+                PluginGroup.Custom   => "custom/",
+                _                    => "unknown/"
+            };
         }
 
         public static string GetIdentifierPrefixShort(this PluginGroup group){
-            switch(group){
-                case PluginGroup.Official: return "o/";
-                case PluginGroup.Custom: return "c/";
-                default: return "?/";
-            }
+            return group switch{
+                PluginGroup.Official => "o/",
+                PluginGroup.Custom   => "c/",
+                _ =>                    "?/"
+            };
         }
     }
 }

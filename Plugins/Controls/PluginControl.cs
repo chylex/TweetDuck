@@ -64,11 +64,11 @@ namespace TweetDuck.Plugins.Controls{
             
             int requiredLines = Math.Max(descriptionLines, 1+(string.IsNullOrEmpty(labelVersion.Text) ? 0 : 1)+(isConfigurable ? 1 : 0));
             
-            switch(requiredLines){
-                case 1: nextHeight = MaximumSize.Height-2*(font.Height-1); break;
-                case 2: nextHeight = MaximumSize.Height-(font.Height-1); break;
-                default: nextHeight = MaximumSize.Height; break;
-            }
+            nextHeight = requiredLines switch{
+                1 => MaximumSize.Height - 2 * (font.Height - 1),
+                2 => MaximumSize.Height - 1 * (font.Height - 1),
+                _ => MaximumSize.Height
+            };
 
             if (nextHeight != Height){
                 timerLayout.Start();

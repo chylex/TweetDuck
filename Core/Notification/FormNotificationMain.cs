@@ -44,27 +44,17 @@ namespace TweetDuck.Core.Notification{
         }
 
         private int BaseClientWidth{
-            get{
-                switch(Config.NotificationSize){
-                    default:
-                        return BrowserUtils.Scale(284, SizeScale*(1.0+0.05*FontSizeLevel));
-
-                    case TweetNotification.Size.Custom:
-                        return Config.CustomNotificationSize.Width;
-                }
-            }
+            get => Config.NotificationSize switch{
+                TweetNotification.Size.Custom => Config.CustomNotificationSize.Width,
+                _ => BrowserUtils.Scale(284, SizeScale * (1.0 + 0.05 * FontSizeLevel))
+            };
         }
 
         private int BaseClientHeight{
-            get{
-                switch(Config.NotificationSize){
-                    default:
-                        return BrowserUtils.Scale(122, SizeScale*(1.0+0.08*FontSizeLevel));
-
-                    case TweetNotification.Size.Custom:
-                        return Config.CustomNotificationSize.Height;
-                }
-            }
+            get => Config.NotificationSize switch{
+                TweetNotification.Size.Custom => Config.CustomNotificationSize.Height,
+                _ => BrowserUtils.Scale(122, SizeScale * (1.0 + 0.08 * FontSizeLevel))
+            };
         }
 
         protected virtual string BodyClasses => IsCursorOverBrowser ? "td-notification td-hover" : "td-notification";

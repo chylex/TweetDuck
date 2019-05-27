@@ -25,19 +25,19 @@ namespace TweetLib.Core.Features.Plugins.Enums{
         }
 
         public static string? GetPluginScriptFile(this PluginEnvironment environment){
-            switch(environment){
-                case PluginEnvironment.Browser: return "browser.js";
-                case PluginEnvironment.Notification: return "notification.js";
-                default: return null;
-            }
+            return environment switch{
+                PluginEnvironment.Browser      => "browser.js",
+                PluginEnvironment.Notification => "notification.js",
+                _                              => null
+            };
         }
 
         public static string GetPluginScriptVariables(this PluginEnvironment environment){
-            switch(environment){
-                case PluginEnvironment.Browser: return "$,$TD,$TDP,TD";
-                case PluginEnvironment.Notification: return "$TD,$TDP";
-                default: return string.Empty;
-            }
+            return environment switch{
+                PluginEnvironment.Browser      => "$,$TD,$TDP,TD",
+                PluginEnvironment.Notification => "$TD,$TDP",
+                _                              => string.Empty
+            };
         }
 
         public static IReadOnlyDictionary<PluginEnvironment, T> Map<T>(T forNone, T forBrowser, T forNotification){

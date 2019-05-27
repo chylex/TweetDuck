@@ -71,11 +71,11 @@ namespace TweetLib.Core.Features.Plugins{
         }
 
         public string GetPluginFolder(PluginFolder folder){
-            switch(folder){
-                case PluginFolder.Root: return pathRoot;
-                case PluginFolder.Data: return pathData;
-                default: return string.Empty;
-            }
+            return folder switch{
+                PluginFolder.Root => pathRoot,
+                PluginFolder.Data => pathData,
+                _                 => string.Empty
+            };
         }
 
         public string GetFullPathIfSafe(PluginFolder folder, string relativePath){

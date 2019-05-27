@@ -11,18 +11,16 @@ namespace TweetDuck.Core.Notification{
         public const string SupportedFormats = "*.wav;*.ogg;*.mp3;*.flac;*.opus;*.weba;*.webm";
         
         public static IResourceHandler CreateFileHandler(string path){
-            string mimeType;
-
-            switch(Path.GetExtension(path)){
-                case ".weba":
-                case ".webm": mimeType = "audio/webm"; break;
-                case ".wav": mimeType = "audio/wav"; break;
-                case ".ogg": mimeType = "audio/ogg"; break;
-                case ".mp3": mimeType = "audio/mp3"; break;
-                case ".flac": mimeType = "audio/flac"; break;
-                case ".opus": mimeType = "audio/ogg; codecs=opus"; break;
-                default: mimeType = null; break;
-            }
+            string mimeType = Path.GetExtension(path) switch{
+                ".weba" => "audio/webm",
+                ".webm" => "audio/webm",
+                ".wav"  => "audio/wav",
+                ".ogg"  => "audio/ogg",
+                ".mp3"  => "audio/mp3",
+                ".flac" => "audio/flac",
+                ".opus" => "audio/ogg; codecs=opus",
+                _       => null
+            };
 
             try{
                 return ResourceHandler.FromFilePath(path, mimeType);

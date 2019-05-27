@@ -207,36 +207,30 @@ namespace TweetDuck.Core.Other.Analytics{
         }
 
         private static string TrayMode{
-            get{
-                switch(UserConfig.TrayBehavior){
-                    case TrayIcon.Behavior.DisplayOnly: return "icon";
-                    case TrayIcon.Behavior.MinimizeToTray: return "minimize";
-                    case TrayIcon.Behavior.CloseToTray: return "close";
-                    case TrayIcon.Behavior.Combined: return "combined";
-                    default: return "off";
-                }
-            }
+            get => UserConfig.TrayBehavior switch{
+                TrayIcon.Behavior.DisplayOnly    => "icon",
+                TrayIcon.Behavior.MinimizeToTray => "minimize",
+                TrayIcon.Behavior.CloseToTray    => "close",
+                TrayIcon.Behavior.Combined       => "combined",
+                _                                => "off"
+            };
         }
 
         private static string NotificationPosition{
-            get{
-                switch(UserConfig.NotificationPosition){
-                    case TweetNotification.Position.TopLeft: return "top left";
-                    case TweetNotification.Position.TopRight: return "top right";
-                    case TweetNotification.Position.BottomLeft: return "bottom left";
-                    case TweetNotification.Position.BottomRight: return "bottom right";
-                    default: return "custom";
-                }
-            }
+            get => UserConfig.NotificationPosition switch{
+                TweetNotification.Position.TopLeft     => "top left",
+                TweetNotification.Position.TopRight    => "top right",
+                TweetNotification.Position.BottomLeft  => "bottom left",
+                TweetNotification.Position.BottomRight => "bottom right",
+                _                                      => "custom"
+            };
         }
 
         private static string NotificationSize{
-            get{
-                switch(UserConfig.NotificationSize){
-                    case TweetNotification.Size.Auto: return "auto";
-                    default: return RoundUp(UserConfig.CustomNotificationSize.Width, 20)+"x"+RoundUp(UserConfig.CustomNotificationSize.Height, 20);
-                }
-            }
+            get => UserConfig.NotificationSize switch{
+                TweetNotification.Size.Auto => "auto",
+                _ => RoundUp(UserConfig.CustomNotificationSize.Width, 20) + "x" + RoundUp(UserConfig.CustomNotificationSize.Height, 20)
+            };
         }
 
         private static string NotificationTimer{

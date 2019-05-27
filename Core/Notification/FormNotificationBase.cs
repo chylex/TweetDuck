@@ -14,15 +14,13 @@ namespace TweetDuck.Core.Notification{
         protected static UserConfig Config => Program.Config.User;
 
         protected static int FontSizeLevel{
-            get{
-                switch(TweetDeckBridge.FontSize){
-                    case "largest": return 4;
-                    case "large": return 3;
-                    case "small": return 1;
-                    case "smallest": return 0;
-                    default: return 2;
-                }
-            }
+            get => TweetDeckBridge.FontSize switch{
+                "largest"  => 4,
+                "large"    => 3,
+                "small"    => 1,
+                "smallest" => 0,
+                _          => 2
+            };
         }
 
         protected virtual Point PrimaryLocation{

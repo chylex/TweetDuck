@@ -119,14 +119,12 @@ namespace TweetDuck.Core.Bridge{
         }
 
         public void Alert(string type, string contents){
-            MessageBoxIcon icon;
-
-            switch(type){
-                case "error": icon = MessageBoxIcon.Error; break;
-                case "warning": icon = MessageBoxIcon.Warning; break;
-                case "info": icon = MessageBoxIcon.Information; break;
-                default: icon = MessageBoxIcon.None; break;
-            }
+            MessageBoxIcon icon = type switch{
+                "error"   => MessageBoxIcon.Error,
+                "warning" => MessageBoxIcon.Warning,
+                "info"    => MessageBoxIcon.Information,
+                _         => MessageBoxIcon.None
+            };
 
             FormMessage.Show("TweetDuck Browser Message", contents, icon, FormMessage.OK);
         }
