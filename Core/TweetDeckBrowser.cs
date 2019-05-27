@@ -77,7 +77,7 @@ namespace TweetDuck.Core{
             this.browser.SetupZoomEvents();
             
             owner.Controls.Add(browser);
-            plugins.Register(browser, PluginEnvironment.Browser, owner, true);
+            plugins.Register(browser, PluginEnvironment.Browser, true);
             
             Config.MuteToggled += Config_MuteToggled;
             Config.SoundNotificationChanged += Config_SoundNotificationInfoChanged;

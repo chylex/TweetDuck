@@ -73,7 +73,7 @@ namespace TweetDuck.Core.Notification{
             browser.LoadingStateChanged += Browser_LoadingStateChanged;
             browser.FrameLoadEnd += Browser_FrameLoadEnd;
 
-            plugins.Register(browser, PluginEnvironment.Notification, this);
+            plugins.Register(browser, PluginEnvironment.Notification);
 
             mouseHookDelegate = MouseHookProc;
             Disposed += (sender, args) => StopMouseHook(true);

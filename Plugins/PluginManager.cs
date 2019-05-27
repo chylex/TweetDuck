@@ -29,6 +29,8 @@ namespace TweetDuck.Plugins{
         public event EventHandler<PluginErrorEventArgs> Executed;
         
         private readonly string rootPath;
+
+        private readonly Control sync;
         private readonly PluginBridge bridge;
 
         private readonly HashSet<Plugin> plugins = new HashSet<Plugin>();
@@ -37,20 +39,22 @@ namespace TweetDuck.Plugins{
 
         private IWebBrowser mainBrowser;
 
-        public PluginManager(IPluginConfig config, string rootPath){
+        public PluginManager(Control sync, IPluginConfig config, string rootPath){
             this.Config = config;
             this.Config.PluginChangedState += Config_PluginChangedState;
 
             this.rootPath = rootPath;
+            
+            this.sync = sync;
             this.bridge = new PluginBridge(this);
         }
 
-        public void Register(IWebBrowser browser, PluginEnvironment environment, Control sync, bool asMainBrowser = false){
+        public void Register(IWebBrowser browser, PluginEnvironment environment, bool asMainBrowser = false){
             browser.FrameLoadEnd += (sender, args) => {
                 IFrame frame = args.Frame;
 
                 if (frame.IsMain && TwitterUtils.IsTweetDeckWebsite(frame)){
-                    ExecutePlugins(frame, environment, sync);
+                    ExecutePlugins(frame, environment);
                 }
             };
 
@@ -154,7 +158,7 @@ namespace TweetDuck.Plugins{
             Reloaded?.Invoke(this, new PluginErrorEventArgs(loadErrors));
         }
 
-        private void ExecutePlugins(IFrame frame, PluginEnvironment environment, Control sync){
+        private void ExecutePlugins(IFrame frame, PluginEnvironment environment){
             if (!HasAnyPlugin(environment) || !ScriptLoader.ExecuteFile(frame, PluginSetupScriptNames[environment], sync)){
                 return;
             }
@@ -186,7 +190,9 @@ namespace TweetDuck.Plugins{
                 ScriptLoader.ExecuteScript(frame, PluginScriptGenerator.GeneratePlugin(plugin.Identifier, script, GetTokenFromPlugin(plugin), environment), "plugin:"+plugin);
             }
 
-            Executed?.Invoke(this, new PluginErrorEventArgs(failedPlugins));
+            sync.InvokeAsyncSafe(() => {
+                Executed?.Invoke(this, new PluginErrorEventArgs(failedPlugins));
+            });
         }
     }
 }
