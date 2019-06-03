@@ -578,7 +578,7 @@ ${iconData.map(entry => `#tduck .icon-${entry[0]}:before{content:\"\\f0${entry[1
       let cols = this.config.columnWidth.slice(1);
       
       this.css.insert(".column { width: calc((100vw - 205px) / "+cols+" - 6px) !important; min-width: 160px }");
-      this.css.insert(".is-condensed .column { width: calc((100vw - 55px) / "+cols+" - 6px) !important }");
+      this.css.insert(".is-condensed .column { width: calc((100vw - 65px) / "+cols+" - 6px) !important }");
     }
     else{
       this.css.insert(".column { width: "+this.config.columnWidth+" !important }");
