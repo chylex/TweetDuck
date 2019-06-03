@@ -384,7 +384,7 @@ IF EXIST "$(ProjectDir)bld\post_build.exe" (
 </PostBuildEvent>
   </PropertyGroup>
   <Target Name="BeforeBuild" Condition="(!$([System.IO.File]::Exists(&quot;$(ProjectDir)\bld\post_build.exe&quot;)) OR ($([System.IO.File]::GetLastWriteTime(&quot;$(ProjectDir)\Resources\PostBuild.fsx&quot;).Ticks) &gt; $([System.IO.File]::GetLastWriteTime(&quot;$(ProjectDir)\bld\post_build.exe&quot;).Ticks)))">
-    <Exec Command="&quot;$(ProjectDir)bld\POST BUILD.bat&quot;" WorkingDirectory="$(ProjectDir)bld\" IgnoreExitCode="true" />
+    <Exec Command="&quot;$(ProjectDir)bld\POST BUILD.bat&quot; &quot;$(DevEnvDir)CommonExtensions\Microsoft\FSharp\fsc.exe&quot;" WorkingDirectory="$(ProjectDir)bld\" IgnoreExitCode="true" />
   </Target>
   <Target Name="AfterBuild" Condition="$(ConfigurationName) == Release">
     <Exec Command="del &quot;$(TargetDir)*.pdb&quot;" />

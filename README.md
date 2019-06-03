@@ -22,7 +22,7 @@ PM> Install-Package CefSharp.WinForms -Version 67.0.0
 
 The `Debug` configuration uses a separate data folder by default (`%LOCALAPPDATA%\TweetDuckDebug`) to avoid affecting an existing installation of TweetDuck. You can modify this by opening **TweetDuck Properties** in Visual Studio, clicking the **Debug** tab, and changing the **Command line arguments** field.
 
-While debugging, opening the main menu and clicking **Reload browser** automatically rebuilds all resources in `Resources/Scripts` and `Resources/Plugins`. This allows editing HTML/CSS/JS files without restarting the program, but it will cause a short delay between browser reloads. An F# compiler must be present when building the project to enable this feature: `C:\Program Files (x86)\Microsoft SDKs\F#\10.1\Framework\v4.0\fsc.exe`
+While debugging, opening the main menu and clicking **Reload browser** automatically rebuilds all resources in `Resources/Scripts` and `Resources/Plugins`. This allows editing HTML/CSS/JS files without restarting the program, but it will cause a short delay between browser reloads.
 
 ### Release
 
