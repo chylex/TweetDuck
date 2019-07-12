@@ -2,6 +2,7 @@
 
 open Xunit
 open TweetDuck.Core.Utils
+open TweetLib.Core.Features.Twitter
 
 
 [<Collection("RegexAccount")>]
@@ -60,7 +61,7 @@ module RegexAccount_Match =
 
 
 module GetMediaLink_Default =
-    let getMediaLinkDefault url = TwitterUtils.GetMediaLink(url, TwitterUtils.ImageQuality.Default)
+    let getMediaLinkDefault url = TwitterUtils.GetMediaLink(url, ImageQuality.Default)
     let domain = "https://pbs.twimg.com"
 
     [<Fact>]
@@ -77,7 +78,7 @@ module GetMediaLink_Default =
 
 
 module GetMediaLink_Orig =
-    let getMediaLinkOrig url = TwitterUtils.GetMediaLink(url, TwitterUtils.ImageQuality.Orig)
+    let getMediaLinkOrig url = TwitterUtils.GetMediaLink(url, ImageQuality.Best)
     let domain = "https://pbs.twimg.com"
     
     [<Fact>]

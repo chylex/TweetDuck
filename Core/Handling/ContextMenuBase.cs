@@ -12,13 +12,14 @@ using TweetDuck.Core.Notification;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Other.Analytics;
 using TweetDuck.Resources;
+using TweetLib.Core.Features.Twitter;
 using TweetLib.Core.Utils;
 
 namespace TweetDuck.Core.Handling{
     abstract class ContextMenuBase : IContextMenuHandler{
         protected static UserConfig Config => Program.Config.User;
 
-        private static TwitterUtils.ImageQuality ImageQuality => Config.TwitterImageQuality;
+        private static ImageQuality ImageQuality => Config.TwitterImageQuality;
         
         private const CefMenuCommand MenuOpenLinkUrl     = (CefMenuCommand)26500;
         private const CefMenuCommand MenuCopyLinkUrl     = (CefMenuCommand)26501;

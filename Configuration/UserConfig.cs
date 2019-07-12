@@ -3,9 +3,9 @@ using System.Drawing;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Other;
-using TweetDuck.Core.Utils;
 using TweetDuck.Data;
 using TweetLib.Core.Features.Configuration;
+using TweetLib.Core.Features.Twitter;
 
 namespace TweetDuck.Configuration{
     sealed class UserConfig : BaseConfig{
@@ -80,7 +80,7 @@ namespace TweetDuck.Configuration{
         public bool IsCustomNotificationSizeSet => CustomNotificationSize != Size.Empty;
         public bool IsCustomSoundNotificationSet => NotificationSoundPath != string.Empty;
 
-        public TwitterUtils.ImageQuality TwitterImageQuality => BestImageQuality ? TwitterUtils.ImageQuality.Orig : TwitterUtils.ImageQuality.Default;
+        public ImageQuality TwitterImageQuality => BestImageQuality ? ImageQuality.Best : ImageQuality.Default;
         
         public string NotificationSoundPath{
             get => _notificationSoundPath ?? string.Empty;

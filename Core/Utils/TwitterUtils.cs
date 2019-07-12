@@ -10,6 +10,7 @@ using TweetDuck.Data;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using TweetLib.Core.Features.Twitter;
 using TweetLib.Core.Utils;
 using Cookie = CefSharp.Cookie;
 
@@ -29,14 +30,6 @@ namespace TweetDuck.Core.Utils{
             "tweetdeck", "TweetDeck", "tweetduck", "TweetDuck", "TD"
         };
 
-        public static readonly string[] ValidImageExtensions = {
-            ".jpg", ".jpeg", ".png", ".gif"
-        };
-
-        public enum ImageQuality{
-            Default, Orig
-        }
-
         public static bool IsTweetDeckWebsite(IFrame frame){
             return frame.Url.Contains("//tweetdeck.twitter.com/");
         }
@@ -49,38 +42,19 @@ namespace TweetDuck.Core.Utils{
             return frame.Url.Contains("//twitter.com/account/login_verification");
         }
 
-        private static string ExtractMediaBaseLink(string url){
-            int slash = url.LastIndexOf('/');
-            return slash == -1 ? url : StringUtils.ExtractBefore(url, ':', slash);
-        }
-
         public static string GetMediaLink(string url, ImageQuality quality){
-            if (quality == ImageQuality.Orig){
-                string result = ExtractMediaBaseLink(url);
-
-                if (url.Contains("//ton.twitter.com/") && url.Contains("/ton/data/dm/")){
-                    result += ":large";
-                }
-                else if (result != url || url.Contains("//pbs.twimg.com/media/")){
-                    result += ":orig";
-                }
-
-                return result;
-            }
-            else{
-                return url;
-            }
+            return ImageUrl.TryParse(url, out var obj) ? obj.WithQuality(quality) : url;
         }
 
         public static string GetImageFileName(string url){
-            return UrlUtils.GetFileNameFromUrl(ExtractMediaBaseLink(url));
+            return UrlUtils.GetFileNameFromUrl(ImageUrl.TryParse(url, out var obj) ? obj.WithNoQuality : url);
         }
 
         public static void ViewImage(string url, ImageQuality quality){
             void ViewImageInternal(string path){
                 string ext = Path.GetExtension(path);
 
-                if (ValidImageExtensions.Contains(ext)){
+                if (ImageUrl.ValidExtensions.Contains(ext)){
                     WindowsUtils.OpenAssociatedProgram(path);
                 }
                 else{
