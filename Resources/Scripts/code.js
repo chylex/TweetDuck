@@ -1299,6 +1299,31 @@
   });
   
   //
+  // Block: Fix DM image previews not loading due to new URLs.
+  //
+  if (ensurePropertyExists(TD, "services", "TwitterMedia", "prototype", "getTwitterPreviewUrl")){
+    const prevFunc = TD.services.TwitterMedia.prototype.getTwitterPreviewUrl;
+    
+    TD.services.TwitterMedia.prototype.getTwitterPreviewUrl = function(){
+      const url = prevFunc.apply(this, arguments);
+      
+      if (url.startsWith("https://ton.twitter.com/1.1/ton/data/dm/")){
+        const format = url.match(/\?.*format=(\w+)/);
+        
+        if (format && format.length === 2){
+          const fix = `.${format[1]}?`;
+          
+          if (!url.includes(fix)){
+            return url.replace("?", fix);
+          }
+        }
+      }
+      
+      return url;
+    };
+  }
+  
+  //
   // Block: Fix youtu.be previews not showing up for https links.
   //
   if (ensurePropertyExists(TD, "services", "TwitterMedia")){
