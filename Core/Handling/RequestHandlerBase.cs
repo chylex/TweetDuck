@@ -7,6 +7,7 @@ using CefSharp;
 using CefSharp.Handler;
 using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Utils;
+using TweetLib.Core.Utils;
 
 namespace TweetDuck.Core.Handling{
     class RequestHandlerBase : DefaultRequestHandler{
@@ -21,21 +22,13 @@ namespace TweetDuck.Core.Handling{
             TweetDeckHashes.Clear();
 
             foreach(string rule in rules.Replace(" ", "").ToLower().Split(',')){
-                string[] split = rule.Split('=');
+                var (key, hash) = StringUtils.SplitInTwo(rule, '=') ?? throw new ArgumentException("A rule must have one '=' character: " + rule);
 
-                if (split.Length == 2){
-                    string key = split[0];
-                    string hash = split[1];
-
-                    if (hash.All(chr => char.IsDigit(chr) || (chr >= 'a' && chr <= 'f'))){
-                        TweetDeckHashes.Add(key, hash);
-                    }
-                    else{
-                        throw new ArgumentException("Invalid hash characters: "+rule);
-                    }
+                if (hash.All(chr => char.IsDigit(chr) || (chr >= 'a' && chr <= 'f'))){
+                    TweetDeckHashes.Add(key, hash);
                 }
                 else{
-                    throw new ArgumentException("A rule must have exactly one '=' character: "+rule);
+                    throw new ArgumentException("Invalid hash characters: " + rule);
                 }
             }
         }

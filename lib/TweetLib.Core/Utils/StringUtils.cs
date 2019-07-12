@@ -6,6 +6,16 @@ namespace TweetLib.Core.Utils{
     public static class StringUtils{
         public static readonly string[] EmptyArray = new string[0];
 
+        public static (string before, string after)? SplitInTwo(string str, char search, int startIndex = 0){
+            int index = str.IndexOf(search, startIndex);
+
+            if (index == -1){
+                return null;
+            }
+
+            return (str.Substring(0, index), str.Substring(index + 1));
+        }
+
         public static string ExtractBefore(string str, char search, int startIndex = 0){
             int index = str.IndexOf(search, startIndex);
             return index == -1 ? str : str.Substring(0, index);
