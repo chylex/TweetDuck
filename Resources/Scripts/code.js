@@ -1299,7 +1299,7 @@
   });
   
   //
-  // Block: Fix DM image previews not loading due to new URLs.
+  // Block: Fix DM image previews and GIF thumbnails not loading due to new URLs.
   //
   if (ensurePropertyExists(TD, "services", "TwitterMedia", "prototype", "getTwitterPreviewUrl")){
     const prevFunc = TD.services.TwitterMedia.prototype.getTwitterPreviewUrl;
@@ -1307,7 +1307,7 @@
     TD.services.TwitterMedia.prototype.getTwitterPreviewUrl = function(){
       const url = prevFunc.apply(this, arguments);
       
-      if (url.startsWith("https://ton.twitter.com/1.1/ton/data/dm/")){
+      if (url.startsWith("https://ton.twitter.com/1.1/ton/data/dm/") || url.startsWith("https://pbs.twimg.com/tweet_video_thumb/")){
         const format = url.match(/\?.*format=(\w+)/);
         
         if (format && format.length === 2){
