@@ -1617,7 +1617,7 @@
   }
   
   //
-  // Block: Fix broken horizontal scrolling of column container when holding Shift. TODO Fix broken smooth scrolling.
+  // Block: Fix broken horizontal scrolling of column container when holding Shift.
   //
   if (ensurePropertyExists(TD, "ui", "columns", "setupColumnScrollListeners")){
     TD.ui.columns.setupColumnScrollListeners = appendToFunction(TD.ui.columns.setupColumnScrollListeners, function(column){
@@ -1625,9 +1625,7 @@
       return if !ele.length;
       
       ele.off("onmousewheel").on("mousewheel", ".scroll-v", function(e){
-        if (e.shiftKey){
-          e.stopImmediatePropagation();
-        }
+        e.stopImmediatePropagation();
       });
       
       window.TDGF_prioritizeNewestEvent(ele[0], "mousewheel");
