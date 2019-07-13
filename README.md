@@ -44,15 +44,9 @@ If you decide to publicly release a custom version, please make it clear that it
 
 ### Installers
 
-TweetDuck uses **Inno Setup** for installers and updates. First, download and install [InnoSetup QuickStart Pack](http://www.jrsoftware.org/isdl.php) (non-unicode; editor and encryption support not required) and the [Inno Download Plugin](https://code.google.com/archive/p/inno-download-plugin).
+TweetDuck uses **Inno Setup** for installers and updates. First, download and install [InnoSetup 5.6.1](http://files.jrsoftware.org/is/5/innosetup-5.6.1.exe) (with Preprocessor support) and the [Inno Download Plugin 1.5.0](https://drive.google.com/folderview?id=0Bzw1xBVt0mokSXZrUEFIanV4azA&usp=sharing#list).
 
-Next, add the Inno Setup installation folder (usually `C:\Program Files (x86)\Inno Setup 6`) into your **PATH** environment variable. You may need to restart File Explorer for the change to take place.
-
-For Inno Setup 6, the Inno Download Plugin fails to automatically include itself in the installation scripts. To fix that, open `ISPPBuiltins.iss` in the Inno Setup 6 installation folder, and add the following line at the end:
-
-```
-#pragma include __INCLUDE__ + ";" + ReadReg(HKLM, "Software\Mitrich Software\Inno Download Plugin", "InstallDir")
-```
+Next, add the Inno Setup installation folder (usually `C:\Program Files (x86)\Inno Setup 5`) into your **PATH** environment variable. You may need to restart File Explorer and Visual Studio for the change to take place.
 
 Now you can generate installers by running `bld/GEN INSTALLERS.bat`. Note that this will only package the files, you still need to run the [release build](#release) in Visual Studio first!
 
