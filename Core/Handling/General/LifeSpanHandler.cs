@@ -4,11 +4,15 @@ using TweetDuck.Core.Utils;
 
 namespace TweetDuck.Core.Handling.General{
     sealed class LifeSpanHandler : ILifeSpanHandler{
+        private static bool IsPopupAllowed(string url){
+            return url.StartsWith("https://twitter.com/teams/authorize?");
+        }
+
         public static bool HandleLinkClick(IWebBrowser browserControl, WindowOpenDisposition targetDisposition, string targetUrl){
             switch(targetDisposition){
                 case WindowOpenDisposition.NewBackgroundTab:
                 case WindowOpenDisposition.NewForegroundTab:
-                case WindowOpenDisposition.NewPopup:
+                case WindowOpenDisposition.NewPopup when !IsPopupAllowed(targetUrl):
                 case WindowOpenDisposition.NewWindow:
                     browserControl.AsControl().InvokeAsyncSafe(() => BrowserUtils.OpenExternalBrowser(targetUrl));
                     return true;
