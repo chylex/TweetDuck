@@ -26,19 +26,24 @@ namespace TweetLib.Core.Utils{
         public static AsyncCompletedEventHandler FileDownloadCallback(string file, Action? onSuccess, Action<Exception>? onFailure){
             return (sender, args) => {
                 if (args.Cancelled){
-                    try{
-                        File.Delete(file);
-                    }catch{
-                        // didn't want it deleted anyways
-                    }
+                    TryDeleteFile(file);
                 }
                 else if (args.Error != null){
+                    TryDeleteFile(file);
                     onFailure?.Invoke(args.Error);
                 }
                 else{
                     onSuccess?.Invoke();
                 }
             };
+        }
+
+        private static void TryDeleteFile(string file){
+            try{
+                File.Delete(file);
+            }catch{
+                // didn't want it deleted anyways
+            }
         }
     }
 }
