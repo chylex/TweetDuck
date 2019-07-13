@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using TweetLib.Core.Utils;
 
@@ -55,7 +56,9 @@ namespace TweetLib.Core.Features.Twitter{
                 return false;
             }
 
-            obj = new ImageUrl(url.Substring(0, question) + imageExtension, imageQuality);
+            string originalUrl = url.Substring(0, question);
+
+            obj = new ImageUrl(Path.HasExtension(originalUrl) ? originalUrl : originalUrl + imageExtension, imageQuality);
             return true;
         }
 
