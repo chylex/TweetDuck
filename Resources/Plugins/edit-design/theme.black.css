@@ -506,18 +506,6 @@ html.dark .lst-group .selected a:hover{background:#55acee}
 html.dark .lst-group .selected .fullname,html.dark .lst-group .selected .inner strong,html.dark .lst-group .selected .list-link,html.dark .lst-group .selected .list-twitter-list,html.dark .lst-group .selected .list-subtitle,html.dark .lst-group .selected .list-account,html.dark .lst-group .selected .list-listmember,html.dark .lst-group .selected .txt-ellipsis{color:#F5F8FA}
 html.dark .lst-group .selected .username,html.dark .lst-group .selected .bytext,html.dark .lst-group .selected .subtitle,html.dark .lst-group .selected .icon-protected{color:#eef3f7}
 html.dark .itm-remove{border-top:1px solid #ddd}
-html.dark .caret-outer{border-bottom:7px solid rgba(17,17,17,0.1)}
-html.dark .caret-inner{border-bottom:6px solid #fff}
-html.dark .drp-h-divider{border-bottom:1px solid #ddd}
-html.dark .dropdown-menu .typeahead-item,html.dark .dropdown-menu [data-action]{color:#292F33}
-html.dark .dropdown-menu .is-selected{background:#55acee;color:#fff}
-html.dark .dropdown-menu .is-selected [data-action]{color:#fff}
-html.dark .dropdown-menu .is-selected a:not(:hover):not(:focus){color:#fff}
-html.dark .dropdown-menu a:not(:hover):not(:focus){color:#292F33}
-html.dark .dropdown-menu-old li:hover{background:#55acee}
-html.dark .dropdown-menu-old li:hover a{color:#fff}
-html.dark .dropdown-menu-old li:hover .attribution{color:#fff}
-html.dark .non-selectable-item{color:#292F33}
 html.dark .update-available-item:before{background-color:#FFAD1F}
 html.dark .is-selected .update-available-item:before{background-color:rgba(41,47,51,0.2)}
 html.dark .popover{background-color:#fff;box-shadow:0 0 10px rgba(17,17,17,0.7)}
