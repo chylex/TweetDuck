@@ -12,6 +12,7 @@ using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Management;
 using TweetDuck.Core.Utils;
+using TweetDuck.Impl;
 using TweetLib.Core;
 using TweetLib.Core.Collections;
 using TweetLib.Core.Utils;
@@ -58,7 +59,8 @@ namespace TweetDuck{
             Config = new ConfigManager();
 
             Lib.Initialize(new App.Builder{
-                ErrorHandler = Reporter
+                ErrorHandler = Reporter,
+                SystemHandler = new SystemHandler()
             });
         }
 

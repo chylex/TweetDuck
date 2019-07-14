@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TweetDuck.Configuration;
@@ -7,6 +6,7 @@ using TweetDuck.Core.Controls;
 using TweetDuck.Core.Management;
 using TweetDuck.Core.Other.Settings.Dialogs;
 using TweetDuck.Core.Utils;
+using TweetLib.Core;
 
 namespace TweetDuck.Core.Other.Settings{
     sealed partial class TabSettingsAdvanced : BaseTabSettings{
@@ -67,11 +67,11 @@ namespace TweetDuck.Core.Other.Settings{
         #region Application
         
         private void btnOpenAppFolder_Click(object sender, EventArgs e){
-            using(Process.Start("explorer.exe", "\""+Program.ProgramPath+"\"")){}
+            App.SystemHandler.OpenFileExplorer(Program.ProgramPath);
         }
 
         private void btnOpenDataFolder_Click(object sender, EventArgs e){
-            using(Process.Start("explorer.exe", "\""+Program.StoragePath+"\"")){}
+            App.SystemHandler.OpenFileExplorer(Program.StoragePath);
         }
 
         private void btnRestart_Click(object sender, EventArgs e){

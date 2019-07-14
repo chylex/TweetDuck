@@ -4,16 +4,19 @@ using TweetLib.Core.Application;
 namespace TweetLib.Core{
     public sealed class App{
         public static IAppErrorHandler ErrorHandler { get; private set; }
+        public static IAppSystemHandler SystemHandler { get; private set; }
 
         // Builder
 
         public sealed class Builder{
             public IAppErrorHandler? ErrorHandler { get; set; }
+            public IAppSystemHandler? SystemHandler { get; set; }
 
             // Validation
 
             internal void Initialize(){
                 App.ErrorHandler = Validate(ErrorHandler, nameof(ErrorHandler))!;
+                App.SystemHandler = Validate(SystemHandler, nameof(SystemHandler))!;
             }
 
             private T Validate<T>(T obj, string name){

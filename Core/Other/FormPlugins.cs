@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using TweetDuck.Configuration;
 using TweetDuck.Plugins;
+using TweetLib.Core;
 using TweetLib.Core.Features.Plugins;
 
 namespace TweetDuck.Core.Other{
@@ -95,7 +95,7 @@ namespace TweetDuck.Core.Other{
         }
 
         private void btnOpenFolder_Click(object sender, EventArgs e){
-            using(Process.Start("explorer.exe", '"'+pluginManager.PathCustomPlugins+'"')){}
+            App.SystemHandler.OpenFileExplorer(pluginManager.PathCustomPlugins);
         }
 
         private void btnReload_Click(object sender, EventArgs e){
