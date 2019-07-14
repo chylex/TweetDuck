@@ -247,7 +247,7 @@
       <DependentUpon>PluginControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Plugins\PluginDispatcher.cs" />
-    <Compile Include="Plugins\PluginListFlowLayout.cs">
+    <Compile Include="Core\Controls\FlowLayoutPanelNoHScroll.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Configuration\PluginConfig.cs" />

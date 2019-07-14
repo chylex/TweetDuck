@@ -1,4 +1,4 @@
-﻿using TweetDuck.Plugins;
+﻿using TweetDuck.Core.Controls;
 
 namespace TweetDuck.Core.Other {
     partial class FormPlugins {
@@ -29,7 +29,7 @@ namespace TweetDuck.Core.Other {
             this.btnClose = new System.Windows.Forms.Button();
             this.btnReload = new System.Windows.Forms.Button();
             this.btnOpenFolder = new System.Windows.Forms.Button();
-            this.flowLayoutPlugins = new PluginListFlowLayout();
+            this.flowLayoutPlugins = new FlowLayoutPanelNoHScroll();
             this.timerLayout = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
@@ -119,7 +119,7 @@ namespace TweetDuck.Core.Other {
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnReload;
         private System.Windows.Forms.Button btnOpenFolder;
-        private PluginListFlowLayout flowLayoutPlugins;
+        private FlowLayoutPanelNoHScroll flowLayoutPlugins;
         private System.Windows.Forms.Timer timerLayout;
     }
 }
