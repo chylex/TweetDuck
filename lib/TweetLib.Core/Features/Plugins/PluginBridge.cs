@@ -11,29 +11,56 @@ using TweetLib.Core.Utils;
 
 namespace TweetLib.Core.Features.Plugins{
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    public sealed class PluginBridge{
-        private readonly IPluginManager manager;
+    internal sealed class PluginBridge{
+        private readonly Dictionary<int, Plugin> tokens = new Dictionary<int, Plugin>();
+        private readonly Random rand = new Random();
+
         private readonly FileCache fileCache = new FileCache();
         private readonly TwoKeyDictionary<int, string, InjectedHTML> notificationInjections = new TwoKeyDictionary<int, string, InjectedHTML>(4, 1);
 
-        public IEnumerable<InjectedHTML> NotificationInjections => notificationInjections.InnerValues;
-        public ISet<Plugin> WithConfigureFunction { get; } = new HashSet<Plugin>();
+        internal IEnumerable<InjectedHTML> NotificationInjections => notificationInjections.InnerValues;
+        internal ISet<Plugin> WithConfigureFunction { get; } = new HashSet<Plugin>();
 
-        public PluginBridge(IPluginManager manager){
-            this.manager = manager;
-            this.manager.Reloaded += manager_Reloaded;
-            this.manager.Config.PluginChangedState += Config_PluginChangedState;
+        public PluginBridge(PluginManager manager){
+            manager.Reloaded += manager_Reloaded;
+            manager.Config.PluginChangedState += Config_PluginChangedState;
+        }
+
+        internal int GetTokenFromPlugin(Plugin plugin){
+            foreach(KeyValuePair<int, Plugin> kvp in tokens){
+                if (kvp.Value.Equals(plugin)){
+                    return kvp.Key;
+                }
+            }
+
+            int token, attempts = 1000;
+
+            do{
+                token = rand.Next();
+            }while(tokens.ContainsKey(token) && --attempts >= 0);
+            
+            if (attempts < 0){
+                token = -tokens.Count - 1;
+            }
+
+            tokens[token] = plugin;
+            return token;
+        }
+
+        private Plugin? GetPluginFromToken(int token){
+            return tokens.TryGetValue(token, out Plugin plugin) ? plugin : null;
         }
 
         // Event handlers
 
         private void manager_Reloaded(object sender, PluginErrorEventArgs e){
+            tokens.Clear();
             fileCache.Clear();
         }
 
         private void Config_PluginChangedState(object sender, PluginChangedStateEventArgs e){
             if (!e.IsEnabled){
-                int token = manager.GetTokenFromPlugin(e.Plugin);
+                int token = GetTokenFromPlugin(e.Plugin);
 
                 fileCache.Remove(token);
                 notificationInjections.Remove(token);
@@ -43,7 +70,7 @@ namespace TweetLib.Core.Features.Plugins{
         // Utility methods
 
         private string GetFullPathOrThrow(int token, PluginFolder folder, string path){
-            Plugin plugin = manager.GetPluginFromToken(token);
+            Plugin? plugin = GetPluginFromToken(token);
             string fullPath = plugin == null ? string.Empty : plugin.GetFullPathIfSafe(folder, path);
 
             if (fullPath.Length == 0){
@@ -116,7 +143,7 @@ namespace TweetLib.Core.Features.Plugins{
         }
 
         public void SetConfigurable(int token){
-            Plugin plugin = manager.GetPluginFromToken(token);
+            Plugin? plugin = GetPluginFromToken(token);
 
             if (plugin != null){
                 WithConfigureFunction.Add(plugin);

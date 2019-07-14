@@ -11,7 +11,7 @@ using TweetDuck.Core.Other;
 using System.Diagnostics;
 using System.Reflection;
 using TweetDuck.Core;
-using TweetDuck.Plugins;
+using TweetLib.Core.Features.Plugins;
 #endif
 
 namespace TweetDuck.Resources{

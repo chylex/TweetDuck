@@ -246,11 +246,11 @@
     <Compile Include="Plugins\PluginControl.Designer.cs">
       <DependentUpon>PluginControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Plugins\PluginDispatcher.cs" />
     <Compile Include="Plugins\PluginListFlowLayout.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Configuration\PluginConfig.cs" />
-    <Compile Include="Plugins\PluginManager.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

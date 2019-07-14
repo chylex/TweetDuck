@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TweetDuck.Core.Other;
-using TweetDuck.Plugins;
 using TweetLib.Core.Data;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Enums;
@@ -141,7 +140,7 @@ namespace TweetDuck.Core.Management{
 
                                     entry.WriteToFile(Path.Combine(Program.PluginDataPath, value[0], value[1]), true);
 
-                                    if (!plugins.IsPluginInstalled(value[0])){
+                                    if (!plugins.Plugins.Any(plugin => plugin.Identifier.Equals(value[0]))){
                                         missingPlugins.Add(value[0]);
                                     }
                                 }

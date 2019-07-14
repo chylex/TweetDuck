@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using TweetDuck.Plugins;
 using System.Windows.Forms;
 using TweetDuck.Core.Utils;
+using TweetLib.Core.Features.Plugins;
 
 namespace TweetDuck.Core.Notification{
     sealed partial class FormNotificationTweet : FormNotificationMain{

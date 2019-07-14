@@ -79,7 +79,7 @@ namespace TweetLib.Core.Features.Plugins{
         }
 
         private static PluginEnvironment EnvironmentFromFileName(string file){
-            return PluginEnvironmentExtensions.Values.FirstOrDefault(env => file.Equals(env.GetPluginScriptFile(), StringComparison.Ordinal));
+            return PluginEnvironments.All.FirstOrDefault(env => file.Equals(env.GetPluginScriptFile(), StringComparison.Ordinal));
         }
 
         private static void SetProperty(Plugin.Builder builder, string tag, string value){

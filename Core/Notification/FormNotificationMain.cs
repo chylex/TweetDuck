@@ -9,6 +9,7 @@ using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
 using TweetDuck.Resources;
 using TweetLib.Core.Data;
+using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Enums;
 
 namespace TweetDuck.Core.Notification{
@@ -73,7 +74,7 @@ namespace TweetDuck.Core.Notification{
             browser.LoadingStateChanged += Browser_LoadingStateChanged;
             browser.FrameLoadEnd += Browser_FrameLoadEnd;
 
-            plugins.Register(browser, PluginEnvironment.Notification);
+            plugins.Register(PluginEnvironment.Notification, new PluginDispatcher(this, browser));
 
             mouseHookDelegate = MouseHookProc;
             Disposed += (sender, args) => StopMouseHook(true);

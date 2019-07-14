@@ -13,6 +13,7 @@ using TweetDuck.Core.Notification;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
 using TweetDuck.Resources;
+using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Enums;
 
 namespace TweetDuck.Core{
@@ -77,7 +78,7 @@ namespace TweetDuck.Core{
             this.browser.SetupZoomEvents();
             
             owner.Controls.Add(browser);
-            plugins.Register(browser, PluginEnvironment.Browser, true);
+            plugins.Register(PluginEnvironment.Browser, new PluginDispatcher(owner, browser));
             
             Config.MuteToggled += Config_MuteToggled;
             Config.SoundNotificationChanged += Config_SoundNotificationInfoChanged;

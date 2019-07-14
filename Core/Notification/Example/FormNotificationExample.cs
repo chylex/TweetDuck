@@ -2,8 +2,8 @@
 using System.Windows.Forms;
 using CefSharp;
 using TweetDuck.Core.Controls;
-using TweetDuck.Plugins;
 using TweetDuck.Resources;
+using TweetLib.Core.Features.Plugins;
 
 namespace TweetDuck.Core.Notification.Example{
     sealed class FormNotificationExample : FormNotificationMain{

@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using TweetDuck.Core.Other.Analytics;
 using TweetDuck.Core.Other.Settings.Dialogs;
 using TweetDuck.Core.Utils;
-using TweetDuck.Plugins;
+using TweetLib.Core.Features.Plugins;
 
 namespace TweetDuck.Core.Other.Settings{
     sealed partial class TabSettingsFeedback : BaseTabSettings{

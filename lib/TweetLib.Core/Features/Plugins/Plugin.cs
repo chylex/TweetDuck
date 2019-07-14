@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using TweetLib.Core.Features.Plugins.Enums;
 
 namespace TweetLib.Core.Features.Plugins{
@@ -8,7 +10,6 @@ namespace TweetLib.Core.Features.Plugins{
 
         public string Identifier { get; }
         public PluginGroup Group { get; }
-        public PluginEnvironment Environments { get; }
 
         public string Name { get; }
         public string Description { get; }
@@ -39,14 +40,15 @@ namespace TweetLib.Core.Features.Plugins{
 
         private readonly string pathRoot;
         private readonly string pathData;
+        private readonly ISet<PluginEnvironment> environments;
 
         private Plugin(PluginGroup group, string identifier, string pathRoot, string pathData, Builder builder){
             this.pathRoot = pathRoot;
             this.pathData = pathData;
+            this.environments = builder.Environments;
 
             this.Group = group;
             this.Identifier = identifier;
-            this.Environments = builder.Environments;
 
             this.Name = builder.Name;
             this.Description = builder.Description;
@@ -60,8 +62,12 @@ namespace TweetLib.Core.Features.Plugins{
             this.CanRun = AppVersion >= RequiredVersion;
         }
 
+        public bool HasEnvironment(PluginEnvironment environment){
+            return environments.Contains(environment);
+        }
+
         public string GetScriptPath(PluginEnvironment environment){
-            if (Environments.HasFlag(environment)){
+            if (environments.Contains(environment)){
                 string? file = environment.GetPluginScriptFile();
                 return file != null ? Path.Combine(pathRoot, file) : string.Empty;
             }
@@ -133,7 +139,7 @@ namespace TweetLib.Core.Features.Plugins{
             public string ConfigDefault    { get; set; } = string.Empty;
             public Version RequiredVersion { get; set; } = DefaultRequiredVersion;
 
-            public PluginEnvironment Environments { get; private set; } = PluginEnvironment.None;
+            public ISet<PluginEnvironment> Environments { get; } = new HashSet<PluginEnvironment>();
 
             private readonly PluginGroup group;
             private readonly string pathRoot;
@@ -148,7 +154,7 @@ namespace TweetLib.Core.Features.Plugins{
             }
 
             public void AddEnvironment(PluginEnvironment environment){
-                this.Environments |= environment;
+                Environments.Add(environment);
             }
 
             public Plugin BuildAndSetup(){
@@ -158,7 +164,7 @@ namespace TweetLib.Core.Features.Plugins{
                     throw new InvalidOperationException("Plugin is missing a name in the .meta file");
                 }
 
-                if (plugin.Environments == PluginEnvironment.None){
+                if (!PluginEnvironments.All.Any(plugin.HasEnvironment)){
                     throw new InvalidOperationException("Plugin has no script files");
                 }
 

@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 using System.Timers;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
-using TweetDuck.Plugins;
 using TweetLib.Core;
+using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Utils;
 
 namespace TweetDuck.Core.Other.Analytics{

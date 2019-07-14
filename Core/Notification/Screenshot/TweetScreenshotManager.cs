@@ -9,7 +9,7 @@
 using System;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
-using TweetDuck.Plugins;
+using TweetLib.Core.Features.Plugins;
 
 #if GEN_SCREENSHOT_FRAMES
 using System.Drawing.Imaging;

@@ -9,7 +9,7 @@ using TweetDuck.Core.Other.Analytics;
 using TweetDuck.Core.Other.Settings;
 using TweetDuck.Core.Other.Settings.Dialogs;
 using TweetDuck.Core.Utils;
-using TweetDuck.Plugins;
+using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Updates;
 
 namespace TweetDuck.Core.Other{

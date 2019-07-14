@@ -14,9 +14,9 @@ using TweetDuck.Core.Other;
 using TweetDuck.Core.Other.Analytics;
 using TweetDuck.Core.Other.Settings.Dialogs;
 using TweetDuck.Core.Utils;
-using TweetDuck.Plugins;
 using TweetDuck.Resources;
 using TweetDuck.Updates;
+using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Events;
 using TweetLib.Core.Features.Updates;
 
@@ -65,7 +65,7 @@ namespace TweetDuck.Core{
 
             Text = Program.BrandName;
             
-            this.plugins = new PluginManager(this, Program.Config.Plugins, Program.PluginPath, Program.PluginDataPath);
+            this.plugins = new PluginManager(Program.Config.Plugins, Program.PluginPath, Program.PluginDataPath);
             this.plugins.Reloaded += plugins_Reloaded;
             this.plugins.Executed += plugins_Executed;
             this.plugins.Reload();
@@ -236,7 +236,9 @@ namespace TweetDuck.Core{
         
         private void plugins_Reloaded(object sender, PluginErrorEventArgs e){
             if (e.HasErrors){
-                FormMessage.Error("Error Loading Plugins", "The following plugins will not be available until the issues are resolved:\n\n"+string.Join("\n\n", e.Errors), FormMessage.OK);
+                this.InvokeAsyncSafe(() => { // TODO not needed but makes code consistent...
+                    FormMessage.Error("Error Loading Plugins", "The following plugins will not be available until the issues are resolved:\n\n" + string.Join("\n\n", e.Errors), FormMessage.OK);
+                });
             }
 
             if (isLoaded){
@@ -244,9 +246,11 @@ namespace TweetDuck.Core{
             }
         }
         
-        private static void plugins_Executed(object sender, PluginErrorEventArgs e){
+        private void plugins_Executed(object sender, PluginErrorEventArgs e){
             if (e.HasErrors){
-                FormMessage.Error("Error Executing Plugins", "Failed to execute the following plugins:\n\n"+string.Join("\n\n", e.Errors), FormMessage.OK);
+                this.InvokeAsyncSafe(() => {
+                    FormMessage.Error("Error Executing Plugins", "Failed to execute the following plugins:\n\n" + string.Join("\n\n", e.Errors), FormMessage.OK);
+                });
             }
         }
 

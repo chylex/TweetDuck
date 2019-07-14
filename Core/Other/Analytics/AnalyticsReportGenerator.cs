@@ -10,7 +10,6 @@ using System.Management;
 using System.Text.RegularExpressions;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Utils;
-using TweetDuck.Plugins;
 using TweetLib.Core;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Enums;

@@ -2,22 +2,16 @@
 using System.Collections.Generic;
 
 namespace TweetLib.Core.Features.Plugins.Enums{
-    [Flags]
     public enum PluginEnvironment{
-        None = 0,
-        Browser = 1,
-        Notification = 2
+        Browser,
+        Notification
     }
 
-    public static class PluginEnvironmentExtensions{
-        public static IEnumerable<PluginEnvironment> Values { get; } = new PluginEnvironment[]{
+    public static class PluginEnvironments{
+        public static IEnumerable<PluginEnvironment> All { get; } = new PluginEnvironment[]{
             PluginEnvironment.Browser,
             PluginEnvironment.Notification
         };
-
-        public static bool IncludesDisabledPlugins(this PluginEnvironment environment){
-            return environment == PluginEnvironment.Browser;
-        }
 
         public static string? GetPluginScriptFile(this PluginEnvironment environment){
             return environment switch{
