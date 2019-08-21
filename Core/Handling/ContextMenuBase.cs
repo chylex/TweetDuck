@@ -80,7 +80,7 @@ namespace TweetDuck.Core.Handling{
                 model.AddItem(MenuSaveMedia, TextSave("video"));
                 model.AddSeparator();
             }
-            else if (Context.Types.HasFlag(ContextInfo.ContextType.Image) && Context.MediaUrl != TweetNotification.AppLogo.Url){
+            else if (Context.Types.HasFlag(ContextInfo.ContextType.Image) && Context.MediaUrl != FormNotificationBase.AppLogo.Url){
                 model.AddItem(MenuViewImage, "View image in photo viewer");
                 model.AddItem(MenuOpenMediaUrl, TextOpen("image"));
                 model.AddItem(MenuCopyMediaUrl, TextCopy("image"));

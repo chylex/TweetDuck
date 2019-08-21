@@ -1,6 +1,7 @@
 ﻿using CefSharp.WinForms;
 using System.Drawing;
 using System.Windows.Forms;
+using CefSharp;
 using TweetDuck.Configuration;
 using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
@@ -8,9 +9,13 @@ using TweetDuck.Core.Handling;
 using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Other.Analytics;
 using TweetDuck.Core.Utils;
+using TweetDuck.Data;
+using TweetLib.Core.Features.Notifications;
 
 namespace TweetDuck.Core.Notification{
     abstract partial class FormNotificationBase : Form, AnalyticsFile.IProvider{
+        public static readonly ResourceLink AppLogo = new ResourceLink("https://ton.twimg.com/tduck/avatar", ResourceHandler.FromByteArray(Properties.Resources.avatar, "image/png"));
+
         protected static UserConfig Config => Program.Config.User;
 
         protected static int FontSizeLevel{
@@ -37,19 +42,19 @@ namespace TweetDuck.Core.Notification{
                 int edgeDist = Config.NotificationEdgeDistance;
 
                 switch(Config.NotificationPosition){
-                    case TweetNotification.Position.TopLeft:
+                    case DesktopNotification.Position.TopLeft:
                         return new Point(screen.WorkingArea.X+edgeDist, screen.WorkingArea.Y+edgeDist);
 
-                    case TweetNotification.Position.TopRight:
+                    case DesktopNotification.Position.TopRight:
                         return new Point(screen.WorkingArea.X+screen.WorkingArea.Width-edgeDist-Width, screen.WorkingArea.Y+edgeDist);
 
-                    case TweetNotification.Position.BottomLeft:
+                    case DesktopNotification.Position.BottomLeft:
                         return new Point(screen.WorkingArea.X+edgeDist, screen.WorkingArea.Y+screen.WorkingArea.Height-edgeDist-Height);
 
-                    case TweetNotification.Position.BottomRight:
+                    case DesktopNotification.Position.BottomRight:
                         return new Point(screen.WorkingArea.X+screen.WorkingArea.Width-edgeDist-Width, screen.WorkingArea.Y+screen.WorkingArea.Height-edgeDist-Height);
 
-                    case TweetNotification.Position.Custom:
+                    case DesktopNotification.Position.Custom:
                         if (!Config.IsCustomNotificationPositionSet){
                             Config.CustomNotificationPosition = new Point(screen.WorkingArea.X+screen.WorkingArea.Width-edgeDist-Width, screen.WorkingArea.Y+edgeDist);
                             Config.Save();
@@ -99,7 +104,7 @@ namespace TweetDuck.Core.Notification{
         
         private readonly ResourceHandlerNotification resourceHandler = new ResourceHandlerNotification();
 
-        private TweetNotification currentNotification;
+        private DesktopNotification currentNotification;
         private int pauseCounter;
         
         public string CurrentTweetUrl => currentNotification?.TweetUrl;
@@ -121,7 +126,7 @@ namespace TweetDuck.Core.Notification{
 
             ResourceHandlerFactory resourceHandlerFactory = new ResourceHandlerFactory();
             resourceHandlerFactory.RegisterHandler(TwitterUtils.TweetDeckURL, this.resourceHandler);
-            resourceHandlerFactory.RegisterHandler(TweetNotification.AppLogo);
+            resourceHandlerFactory.RegisterHandler(AppLogo);
 
             this.browser = new ChromiumWebBrowser("about:blank"){
                 MenuHandler = new ContextMenuNotification(this, enableContextMenu),
@@ -186,9 +191,9 @@ namespace TweetDuck.Core.Notification{
             }
         }
 
-        protected abstract string GetTweetHTML(TweetNotification tweet);
+        protected abstract string GetTweetHTML(DesktopNotification tweet);
 
-        protected virtual void LoadTweet(TweetNotification tweet){
+        protected virtual void LoadTweet(DesktopNotification tweet){
             currentNotification = tweet;
             resourceHandler.SetHTML(GetTweetHTML(tweet));
 

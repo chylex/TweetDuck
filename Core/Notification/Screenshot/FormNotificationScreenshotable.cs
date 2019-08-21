@@ -4,10 +4,12 @@ using System.Drawing.Imaging;
 using System.Windows.Forms;
 using CefSharp;
 using TweetDuck.Core.Adapters;
+using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Utils;
 using TweetLib.Core.Data;
+using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Features.Plugins;
 
 namespace TweetDuck.Core.Notification.Screenshot{
@@ -41,11 +43,11 @@ namespace TweetDuck.Core.Notification.Screenshot{
             };
             
             SetNotificationSize(realWidth, 1024);
-            LoadTweet(new TweetNotification(string.Empty, string.Empty, string.Empty, html, 0, string.Empty, string.Empty));
+            LoadTweet(new DesktopNotification(string.Empty, string.Empty, string.Empty, html, 0, string.Empty, string.Empty));
         }
 
-        protected override string GetTweetHTML(TweetNotification tweet){
-            string html = tweet.GenerateHtml("td-screenshot", this);
+        protected override string GetTweetHTML(DesktopNotification tweet){
+            string html = tweet.GenerateHtml("td-screenshot", TweetDeckBridge.NotificationHeadLayout, Config.CustomNotificationCSS);
 
             foreach(InjectedHTML injection in plugins.NotificationInjections){
                 html = injection.InjectInto(html);

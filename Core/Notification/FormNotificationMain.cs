@@ -9,6 +9,7 @@ using TweetDuck.Core.Handling;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
 using TweetLib.Core.Data;
+using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Enums;
 
@@ -46,14 +47,14 @@ namespace TweetDuck.Core.Notification{
 
         private int BaseClientWidth{
             get => Config.NotificationSize switch{
-                TweetNotification.Size.Custom => Config.CustomNotificationSize.Width,
+                DesktopNotification.Size.Custom => Config.CustomNotificationSize.Width,
                 _ => BrowserUtils.Scale(284, SizeScale * (1.0 + 0.05 * FontSizeLevel))
             };
         }
 
         private int BaseClientHeight{
             get => Config.NotificationSize switch{
-                TweetNotification.Size.Custom => Config.CustomNotificationSize.Height,
+                DesktopNotification.Size.Custom => Config.CustomNotificationSize.Height,
                 _ => BrowserUtils.Scale(122, SizeScale * (1.0 + 0.08 * FontSizeLevel))
             };
         }
@@ -181,7 +182,7 @@ namespace TweetDuck.Core.Notification{
 
         // notification methods
 
-        public virtual void ShowNotification(TweetNotification notification){
+        public virtual void ShowNotification(DesktopNotification notification){
             LoadTweet(notification);
         }
 
@@ -218,8 +219,8 @@ namespace TweetDuck.Core.Notification{
             }
         }
 
-        protected override string GetTweetHTML(TweetNotification tweet){
-            string html = tweet.GenerateHtml(BodyClasses, this);
+        protected override string GetTweetHTML(DesktopNotification tweet){
+            string html = tweet.GenerateHtml(BodyClasses, TweetDeckBridge.NotificationHeadLayout, Config.CustomNotificationCSS);
 
             foreach(InjectedHTML injection in plugins.NotificationInjections){
                 html = injection.InjectInto(html);
@@ -228,7 +229,7 @@ namespace TweetDuck.Core.Notification{
             return html;
         }
 
-        protected override void LoadTweet(TweetNotification tweet){
+        protected override void LoadTweet(DesktopNotification tweet){
             timerProgress.Stop();
             totalTime = timeLeft = tweet.GetDisplayDuration(Config.NotificationDurationValue);
             progressBarTimer.Value = Config.NotificationTimerCountDown ? progressBarTimer.Maximum : progressBarTimer.Minimum;

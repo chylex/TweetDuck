@@ -5,6 +5,7 @@ using TweetDuck.Core.Management;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Utils;
+using TweetLib.Core.Features.Notifications;
 
 namespace TweetDuck.Core.Bridge{
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -87,7 +88,7 @@ namespace TweetDuck.Core.Bridge{
         public void OnTweetPopup(string columnId, string chirpId, string columnName, string tweetHtml, int tweetCharacters, string tweetUrl, string quoteUrl){
             notification.InvokeAsyncSafe(() => {
                 form.OnTweetNotification();
-                notification.ShowNotification(new TweetNotification(columnId, chirpId, columnName, tweetHtml, tweetCharacters, tweetUrl, quoteUrl));
+                notification.ShowNotification(new DesktopNotification(columnId, chirpId, columnName, tweetHtml, tweetCharacters, tweetUrl, quoteUrl));
             });
         }
 

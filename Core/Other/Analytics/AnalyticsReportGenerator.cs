@@ -8,9 +8,9 @@ using TweetDuck.Configuration;
 using System.Linq;
 using System.Management;
 using System.Text.RegularExpressions;
-using TweetDuck.Core.Notification;
 using TweetDuck.Core.Utils;
 using TweetLib.Core;
+using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Enums;
 using TweetLib.Core.Utils;
@@ -217,17 +217,17 @@ namespace TweetDuck.Core.Other.Analytics{
 
         private static string NotificationPosition{
             get => UserConfig.NotificationPosition switch{
-                TweetNotification.Position.TopLeft     => "top left",
-                TweetNotification.Position.TopRight    => "top right",
-                TweetNotification.Position.BottomLeft  => "bottom left",
-                TweetNotification.Position.BottomRight => "bottom right",
-                _                                      => "custom"
+                DesktopNotification.Position.TopLeft     => "top left",
+                DesktopNotification.Position.TopRight    => "top right",
+                DesktopNotification.Position.BottomLeft  => "bottom left",
+                DesktopNotification.Position.BottomRight => "bottom right",
+                _                                        => "custom"
             };
         }
 
         private static string NotificationSize{
             get => UserConfig.NotificationSize switch{
-                TweetNotification.Size.Auto => "auto",
+                DesktopNotification.Size.Auto => "auto",
                 _ => RoundUp(UserConfig.CustomNotificationSize.Width, 20) + "x" + RoundUp(UserConfig.CustomNotificationSize.Height, 20)
             };
         }

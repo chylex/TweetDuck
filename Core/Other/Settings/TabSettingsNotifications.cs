@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
-using TweetDuck.Core.Notification;
 using TweetDuck.Core.Notification.Example;
+using TweetLib.Core.Features.Notifications;
 
 namespace TweetDuck.Core.Other.Settings{
     sealed partial class TabSettingsNotifications : BaseTabSettings{
@@ -66,11 +66,11 @@ namespace TweetDuck.Core.Other.Settings{
             toolTip.SetToolTip(radioLocCustom, "Drag the example notification window to the desired location.");
             
             switch(Config.NotificationPosition){
-                case TweetNotification.Position.TopLeft: radioLocTL.Checked = true; break;
-                case TweetNotification.Position.TopRight: radioLocTR.Checked = true; break;
-                case TweetNotification.Position.BottomLeft: radioLocBL.Checked = true; break;
-                case TweetNotification.Position.BottomRight: radioLocBR.Checked = true; break;
-                case TweetNotification.Position.Custom: radioLocCustom.Checked = true; break;
+                case DesktopNotification.Position.TopLeft: radioLocTL.Checked = true; break;
+                case DesktopNotification.Position.TopRight: radioLocTR.Checked = true; break;
+                case DesktopNotification.Position.BottomLeft: radioLocBL.Checked = true; break;
+                case DesktopNotification.Position.BottomRight: radioLocBR.Checked = true; break;
+                case DesktopNotification.Position.Custom: radioLocCustom.Checked = true; break;
             }
 
             comboBoxDisplay.Enabled = trackBarEdgeDistance.Enabled = !radioLocCustom.Checked;
@@ -91,8 +91,8 @@ namespace TweetDuck.Core.Other.Settings{
             toolTip.SetToolTip(radioSizeCustom, "Resize the example notification window to the desired size.");
 
             switch(Config.NotificationSize){
-                case TweetNotification.Size.Auto: radioSizeAuto.Checked = true; break;
-                case TweetNotification.Size.Custom: radioSizeCustom.Checked = true; break;
+                case DesktopNotification.Size.Auto: radioSizeAuto.Checked = true; break;
+                case DesktopNotification.Size.Custom: radioSizeCustom.Checked = true; break;
             }
 
             trackBarScrollSpeed.SetValueSafe(Config.NotificationScrollSpeed);
@@ -219,10 +219,10 @@ namespace TweetDuck.Core.Other.Settings{
         #region Location
 
         private void radioLoc_CheckedChanged(object sender, EventArgs e){
-            if (radioLocTL.Checked)Config.NotificationPosition = TweetNotification.Position.TopLeft;
-            else if (radioLocTR.Checked)Config.NotificationPosition = TweetNotification.Position.TopRight;
-            else if (radioLocBL.Checked)Config.NotificationPosition = TweetNotification.Position.BottomLeft;
-            else if (radioLocBR.Checked)Config.NotificationPosition = TweetNotification.Position.BottomRight;
+            if (radioLocTL.Checked)Config.NotificationPosition = DesktopNotification.Position.TopLeft;
+            else if (radioLocTR.Checked)Config.NotificationPosition = DesktopNotification.Position.TopRight;
+            else if (radioLocBL.Checked)Config.NotificationPosition = DesktopNotification.Position.BottomLeft;
+            else if (radioLocBR.Checked)Config.NotificationPosition = DesktopNotification.Position.BottomRight;
 
             comboBoxDisplay.Enabled = trackBarEdgeDistance.Enabled = true;
             notification.ShowExampleNotification(false);
@@ -233,18 +233,18 @@ namespace TweetDuck.Core.Other.Settings{
                 Config.CustomNotificationPosition = notification.Location;
             }
 
-            Config.NotificationPosition = TweetNotification.Position.Custom;
+            Config.NotificationPosition = DesktopNotification.Position.Custom;
 
             comboBoxDisplay.Enabled = trackBarEdgeDistance.Enabled = false;
             notification.ShowExampleNotification(false);
 
             if (notification.IsFullyOutsideView() && FormMessage.Question("Notification is Outside View", "The notification seems to be outside of view, would you like to reset its position?", FormMessage.Yes, FormMessage.No)){
-                Config.NotificationPosition = TweetNotification.Position.TopRight;
+                Config.NotificationPosition = DesktopNotification.Position.TopRight;
                 notification.MoveToVisibleLocation();
 
                 Config.CustomNotificationPosition = notification.Location;
 
-                Config.NotificationPosition = TweetNotification.Position.Custom;
+                Config.NotificationPosition = DesktopNotification.Position.Custom;
                 notification.MoveToVisibleLocation();
             }
         }
@@ -265,7 +265,7 @@ namespace TweetDuck.Core.Other.Settings{
 
         private void radioSize_CheckedChanged(object sender, EventArgs e){
             if (radioSizeAuto.Checked){
-                Config.NotificationSize = TweetNotification.Size.Auto;
+                Config.NotificationSize = DesktopNotification.Size.Auto;
             }
             
             notification.ShowExampleNotification(false);
@@ -276,7 +276,7 @@ namespace TweetDuck.Core.Other.Settings{
                 Config.CustomNotificationSize = notification.BrowserSize;
             }
 
-            Config.NotificationSize = TweetNotification.Size.Custom;
+            Config.NotificationSize = DesktopNotification.Size.Custom;
             notification.ShowExampleNotification(false);
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using TweetDuck.Core.Utils;
+using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Features.Plugins;
 
 namespace TweetDuck.Core.Notification{
@@ -25,7 +26,7 @@ namespace TweetDuck.Core.Notification{
             }
         }
 
-        private readonly Queue<TweetNotification> tweetQueue = new Queue<TweetNotification>(4);
+        private readonly Queue<DesktopNotification> tweetQueue = new Queue<DesktopNotification>(4);
         private bool needsTrim;
         private bool hasTemporarilyMoved;
 
@@ -81,7 +82,7 @@ namespace TweetDuck.Core.Notification{
 
         // notification methods
 
-        public override void ShowNotification(TweetNotification notification){
+        public override void ShowNotification(DesktopNotification notification){
             tweetQueue.Enqueue(notification);
             
             if (!IsPaused){

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Drawing;
 using TweetDuck.Core.Controls;
-using TweetDuck.Core.Notification;
 using TweetDuck.Core.Other;
 using TweetDuck.Data;
 using TweetLib.Core.Features.Configuration;
+using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Features.Twitter;
 
 namespace TweetDuck.Configuration{
@@ -57,14 +57,14 @@ namespace TweetDuck.Configuration{
         public bool NotificationTimerCountDown { get; set; } = false;
         public int NotificationDurationValue   { get; set; } = 25;
 
-        public TweetNotification.Position NotificationPosition { get; set; } = TweetNotification.Position.TopRight;
-        public Point CustomNotificationPosition                { get; set; } = ControlExtensions.InvisibleLocation;
-        public int NotificationDisplay                         { get; set; } = 0;
-        public int NotificationEdgeDistance                    { get; set; } = 8;
+        public DesktopNotification.Position NotificationPosition { get; set; } = DesktopNotification.Position.TopRight;
+        public Point CustomNotificationPosition                  { get; set; } = ControlExtensions.InvisibleLocation;
+        public int NotificationDisplay                           { get; set; } = 0;
+        public int NotificationEdgeDistance                      { get; set; } = 8;
 
-        public TweetNotification.Size NotificationSize { get; set; } = TweetNotification.Size.Auto;
-        public Size CustomNotificationSize             { get; set; } = Size.Empty;
-        public int NotificationScrollSpeed             { get; set; } = 100;
+        public DesktopNotification.Size NotificationSize { get; set; } = DesktopNotification.Size.Auto;
+        public Size CustomNotificationSize               { get; set; } = Size.Empty;
+        public int NotificationScrollSpeed               { get; set; } = 100;
         
         private string _notificationSoundPath;
         private int _notificationSoundVolume = 100;

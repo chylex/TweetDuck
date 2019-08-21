@@ -2,16 +2,17 @@
 using System.Windows.Forms;
 using CefSharp;
 using TweetDuck.Core.Controls;
+using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Features.Plugins;
 
 namespace TweetDuck.Core.Notification.Example{
     sealed class FormNotificationExample : FormNotificationMain{
         public override bool RequiresResize => true;
-        protected override bool CanDragWindow => Config.NotificationPosition == TweetNotification.Position.Custom;
+        protected override bool CanDragWindow => Config.NotificationPosition == DesktopNotification.Position.Custom;
 
         protected override FormBorderStyle NotificationBorderStyle{
             get{
-                if (Config.NotificationSize == TweetNotification.Size.Custom){
+                if (Config.NotificationSize == DesktopNotification.Size.Custom){
                     switch(base.NotificationBorderStyle){
                         case FormBorderStyle.FixedSingle: return FormBorderStyle.Sizable;
                         case FormBorderStyle.FixedToolWindow: return FormBorderStyle.SizableToolWindow;
@@ -26,7 +27,7 @@ namespace TweetDuck.Core.Notification.Example{
 
         public event EventHandler Ready;
 
-        private readonly TweetNotification exampleNotification;
+        private readonly DesktopNotification exampleNotification;
 
         public FormNotificationExample(FormBrowser owner, PluginManager pluginManager) : base(owner, pluginManager, false){
             browser.LoadingStateChanged += browser_LoadingStateChanged;
@@ -37,7 +38,7 @@ namespace TweetDuck.Core.Notification.Example{
             exampleTweetHTML = exampleTweetHTML.Replace("</p>", @"</p><div style='margin-top:256px'>Scrollbar test padding...</div>");
             #endif
 
-            exampleNotification = new TweetNotification(string.Empty, string.Empty, "Home", exampleTweetHTML, 176, string.Empty, string.Empty);
+            exampleNotification = new DesktopNotification(string.Empty, string.Empty, "Home", exampleTweetHTML, 176, string.Empty, string.Empty);
         }
 
         private void browser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e){
