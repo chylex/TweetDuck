@@ -11,6 +11,7 @@ using TweetDuck.Core.Other.Analytics;
 using TweetDuck.Core.Utils;
 using TweetDuck.Data;
 using TweetLib.Core.Features.Notifications;
+using TweetLib.Core.Features.Twitter;
 
 namespace TweetDuck.Core.Notification{
     abstract partial class FormNotificationBase : Form, AnalyticsFile.IProvider{
@@ -125,7 +126,7 @@ namespace TweetDuck.Core.Notification{
             this.owner.FormClosed += owner_FormClosed;
 
             ResourceHandlerFactory resourceHandlerFactory = new ResourceHandlerFactory();
-            resourceHandlerFactory.RegisterHandler(TwitterUtils.TweetDeckURL, this.resourceHandler);
+            resourceHandlerFactory.RegisterHandler(TwitterUrls.TweetDeck, this.resourceHandler);
             resourceHandlerFactory.RegisterHandler(AppLogo);
 
             this.browser = new ChromiumWebBrowser("about:blank"){
@@ -197,7 +198,7 @@ namespace TweetDuck.Core.Notification{
             currentNotification = tweet;
             resourceHandler.SetHTML(GetTweetHTML(tweet));
 
-            browser.Load(TwitterUtils.TweetDeckURL);
+            browser.Load(TwitterUrls.TweetDeck);
             DisplayTooltip(null);
         }
 

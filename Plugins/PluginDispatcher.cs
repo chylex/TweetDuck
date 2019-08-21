@@ -1,10 +1,10 @@
 ﻿using System;
 using CefSharp;
 using TweetDuck.Core.Adapters;
-using TweetDuck.Core.Utils;
 using TweetLib.Core.Browser;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Events;
+using TweetLib.Core.Features.Twitter;
 
 namespace TweetDuck.Plugins{
     sealed class PluginDispatcher : IPluginDispatcher{
@@ -26,7 +26,7 @@ namespace TweetDuck.Plugins{
         private void browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             IFrame frame = e.Frame;
 
-            if (frame.IsMain && TwitterUtils.IsTweetDeckWebsite(frame)){
+            if (frame.IsMain && TwitterUrls.IsTweetDeck(frame.Url)){
                 Ready?.Invoke(this, new PluginDispatchEventArgs(executor));
             }
         }

@@ -15,6 +15,7 @@ using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Enums;
+using TweetLib.Core.Features.Twitter;
 
 namespace TweetDuck.Core{
     sealed class TweetDeckBrowser : IDisposable{
@@ -36,9 +37,8 @@ namespace TweetDuck.Core{
                     return false;
                 }
 
-                using(IFrame frame = browser.GetBrowser().MainFrame){
-                    return TwitterUtils.IsTweetDeckWebsite(frame);
-                }
+                using IFrame frame = browser.GetBrowser().MainFrame;
+                return TwitterUrls.IsTweetDeck(frame.Url);
             }
         }
         
@@ -53,7 +53,7 @@ namespace TweetDuck.Core{
 
             RequestHandlerBrowser requestHandler = new RequestHandlerBrowser();
             
-            this.browser = new ChromiumWebBrowser(TwitterUtils.TweetDeckURL){
+            this.browser = new ChromiumWebBrowser(TwitterUrls.TweetDeck){
                 DialogHandler = new FileDialogHandler(),
                 DragHandler = new DragHandlerBrowser(requestHandler),
                 MenuHandler = new ContextMenuBrowser(owner),
@@ -122,14 +122,16 @@ namespace TweetDuck.Core{
             IFrame frame = e.Frame;
 
             if (frame.IsMain){
-                if (TwitterUtils.IsTwitterWebsite(frame)){
+                string url = frame.Url;
+
+                if (TwitterUrls.IsTwitter(url)){
                     string css = Program.Resources.Load("styles/twitter.css");
                     resourceHandlerFactory.RegisterHandler(TwitterStyleUrl, ResourceHandler.FromString(css, mimeType: "text/css"));
 
                     CefScriptExecutor.RunFile(frame, "twitter.js");
                 }
                 
-                if (!TwitterUtils.IsTwitterLogin2FactorWebsite(frame)){
+                if (!TwitterUrls.IsTwitterLogin2Factor(url)){
                     frame.ExecuteJavaScriptAsync(TwitterUtils.BackgroundColorOverride);
                 }
             }
@@ -137,9 +139,10 @@ namespace TweetDuck.Core{
 
         private void browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             IFrame frame = e.Frame;
+            string url = frame.Url;
 
             if (frame.IsMain){
-                if (TwitterUtils.IsTweetDeckWebsite(frame)){
+                if (TwitterUrls.IsTweetDeck(url)){
                     UpdateProperties();
                     CefScriptExecutor.RunFile(frame, "code.js");
 
@@ -161,7 +164,7 @@ namespace TweetDuck.Core{
                 CefScriptExecutor.RunFile(frame, "update.js");
             }
 
-            if (frame.Url == ErrorUrl){
+            if (url == ErrorUrl){
                 resourceHandlerFactory.UnregisterHandler(ErrorUrl);
             }
         }
@@ -218,7 +221,7 @@ namespace TweetDuck.Core{
         // javascript calls
 
         public void ReloadToTweetDeck(){
-            browser.ExecuteScriptAsync($"if(window.TDGF_reload)window.TDGF_reload();else window.location.href='{TwitterUtils.TweetDeckURL}'");
+            browser.ExecuteScriptAsync($"if(window.TDGF_reload)window.TDGF_reload();else window.location.href='{TwitterUrls.TweetDeck}'");
         }
 
         public void UpdateProperties(){

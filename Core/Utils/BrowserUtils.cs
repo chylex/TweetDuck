@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using CefSharp.WinForms;
 using TweetDuck.Configuration;
 using TweetDuck.Core.Other;
+using TweetLib.Core.Features.Twitter;
 using TweetLib.Core.Utils;
 
 namespace TweetDuck.Core.Utils{
@@ -77,8 +78,8 @@ namespace TweetDuck.Core.Utils{
         public static void OpenExternalBrowser(string url){
             if (string.IsNullOrWhiteSpace(url))return;
 
-            switch(UrlUtils.Check(url)){
-                case UrlUtils.CheckResult.Fine:
+            switch(TwitterUrls.Check(url)){
+                case TwitterUrls.UrlType.Fine:
                     if (FormGuide.CheckGuideUrl(url, out string hash)){
                         FormGuide.Show(hash);
                     }
@@ -99,9 +100,9 @@ namespace TweetDuck.Core.Utils{
 
                     break;
 
-                case UrlUtils.CheckResult.Tracking:
+                case TwitterUrls.UrlType.Tracking:
                     if (Config.IgnoreTrackingUrlWarning){
-                        goto case UrlUtils.CheckResult.Fine;
+                        goto case TwitterUrls.UrlType.Fine;
                     }
 
                     using(FormMessage form = new FormMessage("Blocked URL", "TweetDuck has blocked a tracking url due to privacy concerns. Do you want to visit it anyway?\n"+url, MessageBoxIcon.Warning)){
@@ -117,13 +118,13 @@ namespace TweetDuck.Core.Utils{
                         }
 
                         if (result == DialogResult.Ignore || result == DialogResult.Yes){
-                            goto case UrlUtils.CheckResult.Fine;
+                            goto case TwitterUrls.UrlType.Fine;
                         }
                     }
 
                     break;
 
-                case UrlUtils.CheckResult.Invalid:
+                case TwitterUrls.UrlType.Invalid:
                     FormMessage.Warning("Blocked URL", "A potentially malicious URL was blocked from opening:\n"+url, FormMessage.OK);
                     break;
             }

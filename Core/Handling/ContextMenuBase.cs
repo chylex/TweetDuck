@@ -42,7 +42,7 @@ namespace TweetDuck.Core.Handling{
         }
 
         public virtual void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model){
-            if (!TwitterUtils.IsTweetDeckWebsite(frame) || browser.IsLoading){
+            if (!TwitterUrls.IsTweetDeck(frame.Url) || browser.IsLoading){
                 Context = TweetDeckBridge.ContextInfo.Reset();
             }
             else{
@@ -61,7 +61,7 @@ namespace TweetDuck.Core.Handling{
             string TextSave(string name) => "Save "+name+" as...";
             
             if (Context.Types.HasFlag(ContextInfo.ContextType.Link) && !Context.UnsafeLinkUrl.EndsWith("tweetdeck.twitter.com/#", StringComparison.Ordinal)){
-                if (TwitterUtils.RegexAccount.IsMatch(Context.UnsafeLinkUrl)){
+                if (TwitterUrls.RegexAccount.IsMatch(Context.UnsafeLinkUrl)){
                     model.AddItem(MenuOpenLinkUrl, TextOpen("account"));
                     model.AddItem(MenuCopyLinkUrl, TextCopy("account"));
                     model.AddItem(MenuCopyUsername, "Copy account username");
@@ -108,7 +108,7 @@ namespace TweetDuck.Core.Handling{
 
                 case MenuCopyUsername: {
                     string url = Context.UnsafeLinkUrl;
-                    Match match = TwitterUtils.RegexAccount.Match(url);
+                    Match match = TwitterUrls.RegexAccount.Match(url);
 
                     SetClipboardText(control, match.Success ? match.Groups[1].Value : url);
                     control.InvokeAsyncSafe(analytics.AnalyticsFile.CopiedUsernames.Trigger);
@@ -116,11 +116,11 @@ namespace TweetDuck.Core.Handling{
                 }
 
                 case MenuOpenMediaUrl:
-                    OpenBrowser(control, TwitterUtils.GetMediaLink(Context.MediaUrl, ImageQuality));
+                    OpenBrowser(control, TwitterUrls.GetMediaLink(Context.MediaUrl, ImageQuality));
                     break;
 
                 case MenuCopyMediaUrl:
-                    SetClipboardText(control, TwitterUtils.GetMediaLink(Context.MediaUrl, ImageQuality));
+                    SetClipboardText(control, TwitterUrls.GetMediaLink(Context.MediaUrl, ImageQuality));
                     break;
 
                 case MenuViewImage: {

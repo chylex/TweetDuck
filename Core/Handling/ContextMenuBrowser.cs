@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Management;
-using TweetDuck.Core.Utils;
+using TweetLib.Core.Features.Twitter;
 
 namespace TweetDuck.Core.Handling{
     sealed class ContextMenuBrowser : ContextMenuBase{
@@ -53,7 +53,7 @@ namespace TweetDuck.Core.Handling{
 
             base.OnBeforeContextMenu(browserControl, browser, frame, parameters, model);
 
-            if (isSelecting && !isEditing && TwitterUtils.IsTweetDeckWebsite(frame)){
+            if (isSelecting && !isEditing && TwitterUrls.IsTweetDeck(frame.Url)){
                 InsertSelectionSearchItem(model, MenuSearchInColumn, "Search in a column");
             }
 
