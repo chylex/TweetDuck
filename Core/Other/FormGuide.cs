@@ -7,8 +7,8 @@ using TweetDuck.Core.Handling;
 using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Utils;
 using System.Text.RegularExpressions;
+using TweetDuck.Core.Adapters;
 using TweetDuck.Data;
-using TweetDuck.Resources;
 
 namespace TweetDuck.Core.Other{
     sealed partial class FormGuide : Form, FormManager.IAppDialog{
@@ -116,7 +116,7 @@ namespace TweetDuck.Core.Other{
         }
 
         private void browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
-            ScriptLoader.ExecuteScript(e.Frame, "Array.prototype.forEach.call(document.getElementsByTagName('A'), ele => ele.addEventListener('click', e => { e.preventDefault(); window.open(ele.getAttribute('href')); }))", "gen:links");
+            CefScriptExecutor.RunScript(e.Frame, "Array.prototype.forEach.call(document.getElementsByTagName('A'), ele => ele.addEventListener('click', e => { e.preventDefault(); window.open(ele.getAttribute('href')); }))", "gen:links");
         }
     }
 }

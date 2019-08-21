@@ -1,15 +1,12 @@
-﻿using System.Windows.Forms;
+﻿using System.IO;
 using CefSharp;
-using TweetDuck.Resources;
 using TweetLib.Core.Browser;
 
 namespace TweetDuck.Core.Adapters{
     sealed class CefScriptExecutor : IScriptExecutor{
-        private readonly Control sync;
         private readonly IWebBrowser browser;
 
-        public CefScriptExecutor(Control sync, IWebBrowser browser){
-            this.sync = sync;
+        public CefScriptExecutor(IWebBrowser browser){
             this.browser = browser;
         }
 
@@ -19,12 +16,26 @@ namespace TweetDuck.Core.Adapters{
 
         public void RunScript(string identifier, string script){
             using IFrame frame = browser.GetMainFrame();
-            ScriptLoader.ExecuteScript(frame, script, identifier);
+            RunScript(frame, script, identifier);
         }
 
         public bool RunFile(string file){
             using IFrame frame = browser.GetMainFrame();
-            return ScriptLoader.ExecuteFile(frame, file, sync);
+            return RunFile(frame, file);
+        }
+
+        // Helpers
+
+        public static void RunScript(IFrame frame, string script, string identifier){
+            if (script != null){
+                frame.ExecuteJavaScriptAsync(script, identifier, 1);
+            }
+        }
+
+        public static bool RunFile(IFrame frame, string file){
+            string script = Program.Resources.Load(file);
+            RunScript(frame, script, "root:" + Path.GetFileNameWithoutExtension(file));
+            return script != null;
         }
     }
 }

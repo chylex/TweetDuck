@@ -3,10 +3,10 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
 using CefSharp;
+using TweetDuck.Core.Adapters;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Utils;
-using TweetDuck.Resources;
 using TweetLib.Core.Data;
 using TweetLib.Core.Features.Plugins;
 
@@ -29,16 +29,15 @@ namespace TweetDuck.Core.Notification.Screenshot{
                     return;
                 }
 
-                string script = ScriptLoader.LoadResourceSilent("screenshot.js");
-                        
+                string script = Program.Resources.LoadSilent("screenshot.js");
+                
                 if (script == null){
                     this.InvokeAsyncSafe(callback);
                     return;
                 }
-                
-                using(IFrame frame = args.Browser.MainFrame){
-                    ScriptLoader.ExecuteScript(frame, script.Replace("{width}", realWidth.ToString()).Replace("{frames}", TweetScreenshotManager.WaitFrames.ToString()), "gen:screenshot");
-                }
+
+                using IFrame frame = args.Browser.MainFrame;
+                CefScriptExecutor.RunScript(frame, script.Replace("{width}", realWidth.ToString()).Replace("{frames}", TweetScreenshotManager.WaitFrames.ToString()), "gen:screenshot");
             };
             
             SetNotificationSize(realWidth, 1024);

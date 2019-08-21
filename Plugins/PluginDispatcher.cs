@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Forms;
 using CefSharp;
 using TweetDuck.Core.Adapters;
 using TweetDuck.Core.Utils;
@@ -14,10 +13,10 @@ namespace TweetDuck.Plugins{
         private readonly IWebBrowser browser;
         private readonly IScriptExecutor executor;
 
-        public PluginDispatcher(Control sync, IWebBrowser browser){
+        public PluginDispatcher(IWebBrowser browser){
             this.browser = browser;
             this.browser.FrameLoadEnd += browser_FrameLoadEnd;
-            this.executor = new CefScriptExecutor(sync, browser);
+            this.executor = new CefScriptExecutor(browser);
         }
 
         void IPluginDispatcher.AttachBridge(string name, object bridge){

@@ -1,11 +1,11 @@
-﻿using CefSharp;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Other;
+using TweetLib.Core.Application;
 
 #if DEBUG
 using System.Diagnostics;
@@ -15,14 +15,35 @@ using TweetLib.Core.Features.Plugins;
 #endif
 
 namespace TweetDuck.Resources{
-    static class ScriptLoader{
+    sealed class ScriptLoader : IAppResourceHandler{
         private static readonly Dictionary<string, string> CachedData = new Dictionary<string, string>(16);
 
-        public static string LoadResourceSilent(string name){
-            return LoadResource(name, null);
+        public static void ClearCache(){
+            CachedData.Clear();
         }
 
-        public static string LoadResource(string name, Control sync){
+        private Control sync;
+
+        public void Initialize(Control sync){
+            this.sync = sync;
+        }
+
+        public string Load(string path){
+            return LoadInternal(path, silent: false);
+        }
+
+        public string LoadSilent(string path){
+            return LoadInternal(path, silent: true);
+        }
+
+        private string LoadInternal(string name, bool silent){
+            if (sync == null){
+                throw new InvalidOperationException("Cannot use ScriptLoader before initialization.");
+            }
+            else if (sync.IsDisposed){
+                return null; // better than crashing I guess...?
+            }
+
             if (CachedData.TryGetValue(name, out string resourceData)){
                 return resourceData;
             }
@@ -32,7 +53,7 @@ namespace TweetDuck.Resources{
             #if DEBUG
             if (Directory.Exists(HotSwapTargetDir)){
                 path = Path.Combine(HotSwapTargetDir, "scripts");
-                Debug.WriteLine("Hot swap active, redirecting "+name);
+                Debug.WriteLine($"Hot swap active, redirecting {name}");
             }
             #endif
 
@@ -47,7 +68,7 @@ namespace TweetDuck.Resources{
                 // #<version>\n
 
                 if (contents[0] != '#'){
-                    ShowLoadError(sync, $"File {name} appears to be corrupted, please try reinstalling the app.");
+                    ShowLoadError(silent ? null : sync, $"File {name} appears to be corrupted, please try reinstalling the app.");
                     separator = 0;
                 }
                 else{
@@ -55,39 +76,25 @@ namespace TweetDuck.Resources{
                     string fileVersion = contents.Substring(1, separator-1).TrimEnd();
 
                     if (fileVersion != Program.VersionTag){
-                        ShowLoadError(sync, $"File {name} is made for a different version of TweetDuck ({fileVersion}) and may not function correctly in this version, please try reinstalling the app.");
+                        ShowLoadError(silent ? null : sync, $"File {name} is made for a different version of TweetDuck ({fileVersion}) and may not function correctly in this version, please try reinstalling the app.");
                     }
                 }
 
                 resource = contents.Substring(separator).TrimStart();
             }catch(Exception ex){
-                ShowLoadError(sync, $"Could not load {name}. The program will continue running with limited functionality.\n\n{ex.Message}");
+                ShowLoadError(silent ? null : sync, $"Could not load {name}. The program will continue running with limited functionality.\n\n{ex.Message}");
                 resource = null;
             }
 
             return CachedData[name] = resource;
         }
 
-        public static bool ExecuteFile(IFrame frame, string file, Control sync){
-            string script = LoadResource(file, sync);
-            ExecuteScript(frame, script, "root:"+Path.GetFileNameWithoutExtension(file));
-            return script != null;
-        }
-
-        public static void ExecuteScript(IFrame frame, string script, string identifier){
-            if (script != null){
-                frame.ExecuteJavaScriptAsync(script, identifier, 1);
-            }
-        }
-
-        public static void ClearCache(){
-            CachedData.Clear();
-        }
-
         private static void ShowLoadError(Control sync, string message){
             sync?.InvokeSafe(() => FormMessage.Error("Resource Error", message, FormMessage.OK));
         }
         
+        // TODO move hot swap to another implementation
+
         #if DEBUG
         private static readonly string HotSwapProjectRoot = FixPathSlash(Path.GetFullPath(Path.Combine(Program.ProgramPath, "../../../")));
         private static readonly string HotSwapTargetDir = FixPathSlash(Path.Combine(HotSwapProjectRoot, "bin", "tmp"));
@@ -104,7 +111,7 @@ namespace TweetDuck.Resources{
 
         public static void HotSwap(){
             if (!File.Exists(HotSwapRebuildScript)){
-                Debug.WriteLine("Failed resource hot swap, missing rebuild script: "+HotSwapRebuildScript);
+                Debug.WriteLine($"Failed resource hot swap, missing rebuild script: {HotSwapRebuildScript}");
                 return;
             }
             
@@ -124,13 +131,13 @@ namespace TweetDuck.Resources{
                     return;
                 }
                 else if (process.ExitCode != 0){
-                    Debug.WriteLine("Failed resource hot swap, script exited with code "+process.ExitCode);
+                    Debug.WriteLine($"Failed resource hot swap, script exited with code {process.ExitCode}");
                     return;
                 }
             }
 
             sw.Stop();
-            Debug.WriteLine("Finished rebuild script in "+sw.ElapsedMilliseconds+" ms");
+            Debug.WriteLine($"Finished rebuild script in {sw.ElapsedMilliseconds} ms");
 
             ClearCache();
 
@@ -159,7 +166,7 @@ namespace TweetDuck.Resources{
         }
 
         private static string FixPathSlash(string path){
-            return path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)+'\\';
+            return path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + '\\';
         }
         #endif
     }

@@ -6,12 +6,12 @@ using TweetDuck.Core.Controls;
 using TweetDuck.Core.Utils;
 using System.Linq;
 using TweetDuck.Configuration;
+using TweetDuck.Core.Adapters;
 using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Management;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Other.Analytics;
-using TweetDuck.Resources;
 using TweetLib.Core.Features.Twitter;
 using TweetLib.Core.Utils;
 
@@ -194,7 +194,7 @@ namespace TweetDuck.Core.Handling{
         }
 
         protected static void DeselectAll(IFrame frame){
-            ScriptLoader.ExecuteScript(frame, "window.getSelection().removeAllRanges()", "gen:deselect");
+            CefScriptExecutor.RunScript(frame, "window.getSelection().removeAllRanges()", "gen:deselect");
         }
 
         protected static void OpenBrowser(Control control, string url){

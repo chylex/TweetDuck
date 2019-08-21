@@ -2,12 +2,12 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using TweetDuck.Core.Adapters;
 using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
-using TweetDuck.Resources;
 using TweetLib.Core.Data;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Enums;
@@ -74,7 +74,7 @@ namespace TweetDuck.Core.Notification{
             browser.LoadingStateChanged += Browser_LoadingStateChanged;
             browser.FrameLoadEnd += Browser_FrameLoadEnd;
 
-            plugins.Register(PluginEnvironment.Notification, new PluginDispatcher(this, browser));
+            plugins.Register(PluginEnvironment.Notification, new PluginDispatcher(browser));
 
             mouseHookDelegate = MouseHookProc;
             Disposed += (sender, args) => StopMouseHook(true);
@@ -155,7 +155,7 @@ namespace TweetDuck.Core.Notification{
 
             if (frame.IsMain && browser.Address != "about:blank"){
                 frame.ExecuteJavaScriptAsync(PropertyBridge.GenerateScript(PropertyBridge.Environment.Notification));
-                ScriptLoader.ExecuteFile(frame, "notification.js", this);
+                CefScriptExecutor.RunFile(frame, "notification.js");
             }
         }
 

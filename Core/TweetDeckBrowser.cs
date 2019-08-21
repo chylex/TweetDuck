@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using CefSharp;
 using CefSharp.WinForms;
 using TweetDuck.Configuration;
+using TweetDuck.Core.Adapters;
 using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling;
@@ -12,7 +13,6 @@ using TweetDuck.Core.Handling.General;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Utils;
 using TweetDuck.Plugins;
-using TweetDuck.Resources;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Enums;
 
@@ -48,7 +48,7 @@ namespace TweetDuck.Core{
         private string prevSoundNotificationPath = null;
 
         public TweetDeckBrowser(FormBrowser owner, PluginManager plugins, TweetDeckBridge tdBridge, UpdateBridge updateBridge){
-            resourceHandlerFactory.RegisterHandler(TweetNotification.AppLogo);
+            resourceHandlerFactory.RegisterHandler(FormNotificationBase.AppLogo);
             resourceHandlerFactory.RegisterHandler(TwitterUtils.LoadingSpinner);
 
             RequestHandlerBrowser requestHandler = new RequestHandlerBrowser();
@@ -78,7 +78,7 @@ namespace TweetDuck.Core{
             this.browser.SetupZoomEvents();
             
             owner.Controls.Add(browser);
-            plugins.Register(PluginEnvironment.Browser, new PluginDispatcher(owner, browser));
+            plugins.Register(PluginEnvironment.Browser, new PluginDispatcher(browser));
             
             Config.MuteToggled += Config_MuteToggled;
             Config.SoundNotificationChanged += Config_SoundNotificationInfoChanged;
@@ -123,10 +123,10 @@ namespace TweetDuck.Core{
 
             if (frame.IsMain){
                 if (TwitterUtils.IsTwitterWebsite(frame)){
-                    string css = ScriptLoader.LoadResource("styles/twitter.css", browser);
+                    string css = Program.Resources.Load("styles/twitter.css");
                     resourceHandlerFactory.RegisterHandler(TwitterStyleUrl, ResourceHandler.FromString(css, mimeType: "text/css"));
 
-                    ScriptLoader.ExecuteFile(frame, "twitter.js", browser);
+                    CefScriptExecutor.RunFile(frame, "twitter.js");
                 }
                 
                 if (!TwitterUtils.IsTwitterLogin2FactorWebsite(frame)){
@@ -141,7 +141,7 @@ namespace TweetDuck.Core{
             if (frame.IsMain){
                 if (TwitterUtils.IsTweetDeckWebsite(frame)){
                     UpdateProperties();
-                    ScriptLoader.ExecuteFile(frame, "code.js", browser);
+                    CefScriptExecutor.RunFile(frame, "code.js");
 
                     InjectBrowserCSS();
                     ReinjectCustomCSS(Config.CustomBrowserCSS);
@@ -150,15 +150,15 @@ namespace TweetDuck.Core{
                     TweetDeckBridge.ResetStaticProperties();
 
                     if (Arguments.HasFlag(Arguments.ArgIgnoreGDPR)){
-                        ScriptLoader.ExecuteScript(frame, "TD.storage.Account.prototype.requiresConsent = function(){ return false; }", "gen:gdpr");
+                        CefScriptExecutor.RunScript(frame, "TD.storage.Account.prototype.requiresConsent = function(){ return false; }", "gen:gdpr");
                     }
 
                     if (Config.FirstRun){
-                        ScriptLoader.ExecuteFile(frame, "introduction.js", browser);
+                        CefScriptExecutor.RunFile(frame, "introduction.js");
                     }
                 }
 
-                ScriptLoader.ExecuteFile(frame, "update.js", browser);
+                CefScriptExecutor.RunFile(frame, "update.js");
             }
 
             if (frame.Url == ErrorUrl){
@@ -172,7 +172,7 @@ namespace TweetDuck.Core{
             }
 
             if (!e.FailedUrl.StartsWith("http://td/", StringComparison.Ordinal)){
-                string errorPage = ScriptLoader.LoadResourceSilent("pages/error.html");
+                string errorPage = Program.Resources.LoadSilent("pages/error.html");
 
                 if (errorPage != null){
                     resourceHandlerFactory.RegisterHandler(ErrorUrl, ResourceHandler.FromString(errorPage.Replace("{err}", BrowserUtils.GetErrorName(e.ErrorCode))));
@@ -226,7 +226,7 @@ namespace TweetDuck.Core{
         }
 
         public void InjectBrowserCSS(){
-            browser.ExecuteScriptAsync("TDGF_injectBrowserCSS", ScriptLoader.LoadResource("styles/browser.css", browser)?.TrimEnd() ?? string.Empty);
+            browser.ExecuteScriptAsync("TDGF_injectBrowserCSS", Program.Resources.Load("styles/browser.css")?.TrimEnd() ?? string.Empty);
         }
 
         public void ReinjectCustomCSS(string css){

@@ -13,6 +13,7 @@ using TweetDuck.Core.Other;
 using TweetDuck.Core.Management;
 using TweetDuck.Core.Utils;
 using TweetDuck.Impl;
+using TweetDuck.Resources;
 using TweetLib.Core;
 using TweetLib.Core.Collections;
 using TweetLib.Core.Utils;
@@ -51,16 +52,19 @@ namespace TweetDuck{
         
         public static Reporter Reporter { get; }
         public static ConfigManager Config { get; }
+        public static ScriptLoader Resources { get; }
 
         static Program(){
             Reporter = new Reporter(ErrorLogFilePath);
             Reporter.SetupUnhandledExceptionHandler("TweetDuck Has Failed :(");
 
             Config = new ConfigManager();
+            Resources = new ScriptLoader();
 
             Lib.Initialize(new App.Builder{
                 ErrorHandler = Reporter,
-                SystemHandler = new SystemHandler()
+                SystemHandler = new SystemHandler(),
+                ResourceHandler = Resources
             });
         }
 
@@ -158,6 +162,7 @@ namespace TweetDuck{
             Application.ApplicationExit += (sender, args) => ExitCleanup();
             
             FormBrowser mainForm = new FormBrowser();
+            Resources.Initialize(mainForm);
             Application.Run(mainForm);
 
             if (mainForm.UpdateInstallerPath != null){
