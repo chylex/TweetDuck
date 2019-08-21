@@ -59,7 +59,12 @@ namespace TweetDuck{
             Reporter.SetupUnhandledExceptionHandler("TweetDuck Has Failed :(");
 
             Config = new ConfigManager();
+
+            #if DEBUG
+            Resources = new ScriptLoaderDebug();
+            #else
             Resources = new ScriptLoader();
+            #endif
 
             Lib.Initialize(new App.Builder{
                 ErrorHandler = Reporter,

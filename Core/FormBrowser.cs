@@ -14,7 +14,6 @@ using TweetDuck.Core.Other;
 using TweetDuck.Core.Other.Analytics;
 using TweetDuck.Core.Other.Settings.Dialogs;
 using TweetDuck.Core.Utils;
-using TweetDuck.Resources;
 using TweetDuck.Updates;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Events;
@@ -371,14 +370,7 @@ namespace TweetDuck.Core{
         }
 
         public void ReloadToTweetDeck(){
-            #if DEBUG
-            ScriptLoader.HotSwap();
-            #else
-            if (ModifierKeys.HasFlag(Keys.Shift)){
-                ScriptLoader.ClearCache();
-            }
-            #endif
-
+            Program.Resources.OnReloadTriggered();
             ignoreUpdateCheckError = false;
             browser.ReloadToTweetDeck();
             AnalyticsFile.BrowserReloads.Trigger();
