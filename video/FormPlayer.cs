@@ -42,7 +42,7 @@ namespace TweetDuck.Video{
 
             if (NativeMethods.GetWindowRect(ownerHandle, out NativeMethods.RECT rect)){
                 ClientSize = new Size(0, 0);
-                Location = new Point((rect.Left+rect.Right)/2, (rect.Top+rect.Bottom)/2);
+                Location = new Point((rect.Left + rect.Right) / 2, (rect.Top + rect.Bottom) / 2);
                 Opacity = 0;
             }
             
@@ -71,11 +71,11 @@ namespace TweetDuck.Video{
                 }
 
                 IWMPMedia media = Player.currentMedia;
-                int progress = (int)(media.duration*progressSeek.GetProgress(args.X));
+                int progress = (int)(media.duration * progressSeek.GetProgress(args.X));
 
                 Marshal.ReleaseComObject(media);
 
-                return $"{(progress/60).ToString("00")}:{(progress%60).ToString("00")}";
+                return $"{(progress / 60).ToString("00")}:{(progress % 60).ToString("00")}";
             });
             
             labelTooltip.AttachTooltip(trackBarVolume, false, args => $"Volume : {trackBarVolume.Value}%");
@@ -90,7 +90,7 @@ namespace TweetDuck.Video{
         // Layout
 
         private int DpiScaled(int value){
-            return (int)Math.Round(value*ownerDpi);
+            return (int)Math.Round(value * ownerDpi);
         }
 
         private void RefreshControlPanel(){
@@ -197,8 +197,8 @@ namespace TweetDuck.Video{
 
                 int ownerLeft = rect.Left;
                 int ownerTop = rect.Top;
-                int ownerWidth = rect.Right-rect.Left+1;
-                int ownerHeight = rect.Bottom-rect.Top+1;
+                int ownerWidth = rect.Right - rect.Left + 1;
+                int ownerHeight = rect.Bottom - rect.Top + 1;
                 
                 // roughly matches MinimumSize for client bounds, adjusted a bit for weirdness with higher DPI
                 int minWidth = DpiScaled(356);
@@ -209,13 +209,13 @@ namespace TweetDuck.Video{
                     minHeight = Math.Min(minHeight, clientSize.Bottom);
                 }
 
-                int maxWidth = Math.Min(DpiScaled(media.imageSourceWidth), ownerWidth*3/4);
-                int maxHeight = Math.Min(DpiScaled(media.imageSourceHeight), ownerHeight*3/4);
+                int maxWidth = Math.Min(DpiScaled(media.imageSourceWidth), ownerWidth * 3 / 4);
+                int maxHeight = Math.Min(DpiScaled(media.imageSourceHeight), ownerHeight * 3 / 4);
                 
                 bool isCursorInside = ClientRectangle.Contains(PointToClient(Cursor.Position));
                 
-                Size newSize = new Size(Math.Max(minWidth+2, maxWidth), Math.Max(minHeight+2, maxHeight));
-                Point newLocation = new Point(ownerLeft+(ownerWidth-newSize.Width)/2, ownerTop+(ownerHeight-newSize.Height+SystemInformation.CaptionHeight)/2);
+                Size newSize = new Size(Math.Max(minWidth + 2, maxWidth), Math.Max(minHeight + 2, maxHeight));
+                Point newLocation = new Point(ownerLeft + (ownerWidth - newSize.Width) / 2, ownerTop + (ownerHeight - newSize.Height + SystemInformation.CaptionHeight) / 2);
                 
                 if (ClientSize != newSize || Location != newLocation){
                     ClientSize = newSize;
@@ -226,15 +226,15 @@ namespace TweetDuck.Video{
                 if (isCursorInside || isDragging){
                     labelTime.Text = $"{controls.currentPositionString} / {media.durationString}";
 
-                    int value = (int)Math.Round(progressSeek.Maximum*controls.currentPosition/media.duration);
+                    int value = (int)Math.Round(progressSeek.Maximum * controls.currentPosition / media.duration);
 
                     if (value >= progressSeek.Maximum){
                         progressSeek.Value = progressSeek.Maximum;
-                        progressSeek.Value = progressSeek.Maximum-1;
+                        progressSeek.Value = progressSeek.Maximum - 1;
                         progressSeek.Value = progressSeek.Maximum;
                     }
                     else{
-                        progressSeek.Value = value+1;
+                        progressSeek.Value = value + 1;
                         progressSeek.Value = value;
                     }
                     
@@ -296,7 +296,7 @@ namespace TweetDuck.Video{
                 IWMPMedia media = Player.currentMedia;
                 IWMPControls controls = Player.controls;
 
-                controls.currentPosition = media.duration*progressSeek.GetProgress(progressSeek.PointToClient(Cursor.Position).X);
+                controls.currentPosition = media.duration * progressSeek.GetProgress(progressSeek.PointToClient(Cursor.Position).X);
 
                 Marshal.ReleaseComObject(media);
                 Marshal.ReleaseComObject(controls);

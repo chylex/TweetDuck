@@ -27,7 +27,7 @@ namespace TweetDuck.Core.Other{
         public FormSettings(FormBrowser browser, PluginManager plugins, UpdateHandler updates, AnalyticsManager analytics, Type startTab){
             InitializeComponent();
 
-            Text = Program.BrandName+" Options";
+            Text = Program.BrandName + " Options";
 
             this.browser = browser;
             this.browser.PauseNotification();
@@ -110,7 +110,7 @@ namespace TweetDuck.Core.Other{
                 BackColor = SystemColors.Control,
                 FlatStyle = FlatStyle.Flat,
                 Font = SystemFonts.MessageBoxFont,
-                Location = new Point(0, (buttonHeight+1)*(panelButtons.Controls.Count/2)),
+                Location = new Point(0, (buttonHeight + 1) * (panelButtons.Controls.Count / 2)),
                 Margin = new Padding(0),
                 Size = new Size(panelButtons.Width, buttonHeight),
                 Text = title,
@@ -125,7 +125,7 @@ namespace TweetDuck.Core.Other{
 
             panelButtons.Controls.Add(new Panel{
                 BackColor = Color.DimGray,
-                Location = new Point(0, panelButtons.Controls[panelButtons.Controls.Count-1].Location.Y+buttonHeight),
+                Location = new Point(0, panelButtons.Controls[panelButtons.Controls.Count - 1].Location.Y + buttonHeight),
                 Margin = new Padding(0),
                 Size = new Size(panelButtons.Width, 1)
             });
@@ -157,8 +157,8 @@ namespace TweetDuck.Core.Other{
                     }
                 }
 
-                if (tab.Control.Height < panelContents.Height-2){
-                    tab.Control.Height = panelContents.Height-2; // fixes off-by-pixel error on high DPI
+                if (tab.Control.Height < panelContents.Height - 2){
+                    tab.Control.Height = panelContents.Height - 2; // fixes off-by-pixel error on high DPI
                 }
 
                 tab.Control.OnReady();

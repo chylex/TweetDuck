@@ -13,7 +13,7 @@ namespace TweetLib.Communication{
 
         public static Client CreateClient(string token){
             int space = token.IndexOf(' ');
-            return new Client(token.Substring(0, space), token.Substring(space+1));
+            return new Client(token.Substring(0, space), token.Substring(space + 1));
         }
         
         protected readonly PipeStream pipeIn;
@@ -74,7 +74,7 @@ namespace TweetLib.Communication{
             internal Server() : base(new AnonymousPipeServerStream(PipeDirection.In, HandleInheritability.Inheritable), new AnonymousPipeServerStream(PipeDirection.Out, HandleInheritability.Inheritable)){}
 
             public string GenerateToken(){
-                return ServerPipeIn.GetClientHandleAsString()+" "+ServerPipeOut.GetClientHandleAsString();
+                return ServerPipeIn.GetClientHandleAsString() + " " + ServerPipeOut.GetClientHandleAsString();
             }
 
             public void DisposeToken(){
@@ -100,7 +100,7 @@ namespace TweetLib.Communication{
                 }
                 else{
                     Key = line.Substring(0, separatorIndex);
-                    Data = line.Substring(separatorIndex+1);
+                    Data = line.Substring(separatorIndex + 1);
                 }
             }
         }

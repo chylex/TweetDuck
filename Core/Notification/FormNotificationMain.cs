@@ -61,7 +61,7 @@ namespace TweetDuck.Core.Notification{
 
         protected virtual string BodyClasses => IsCursorOverBrowser ? "td-notification td-hover" : "td-notification";
         
-        public Size BrowserSize => Config.DisplayNotificationTimer ? new Size(ClientSize.Width, ClientSize.Height-timerBarHeight) : ClientSize;
+        public Size BrowserSize => Config.DisplayNotificationTimer ? new Size(ClientSize.Width, ClientSize.Height - timerBarHeight) : ClientSize;
 
         protected FormNotificationMain(FormBrowser owner, PluginManager pluginManager, bool enableContextMenu) : base(owner, enableContextMenu){
             InitializeComponent();
@@ -102,7 +102,7 @@ namespace TweetDuck.Core.Notification{
                 int eventType = wParam.ToInt32();
 
                 if (eventType == NativeMethods.WM_MOUSEWHEEL && IsCursorOverBrowser){
-                    browser.SendMouseWheelEvent(0, 0, 0, BrowserUtils.Scale(NativeMethods.GetMouseHookData(lParam), Config.NotificationScrollSpeed*0.01), CefEventFlags.None);
+                    browser.SendMouseWheelEvent(0, 0, 0, BrowserUtils.Scale(NativeMethods.GetMouseHookData(lParam), Config.NotificationScrollSpeed * 0.01), CefEventFlags.None);
                     return NativeMethods.HOOK_HANDLED;
                 }
                 else if (eventType == NativeMethods.WM_XBUTTONDOWN && DesktopBounds.Contains(Cursor.Position)){
@@ -172,8 +172,8 @@ namespace TweetDuck.Core.Notification{
 
             timeLeft -= timerProgress.Interval;
 
-            int value = BrowserUtils.Scale(progressBarTimer.Maximum+25, (totalTime-timeLeft)/(double)totalTime);
-            progressBarTimer.SetValueInstant(Config.NotificationTimerCountDown ? progressBarTimer.Maximum-value : value);
+            int value = BrowserUtils.Scale(progressBarTimer.Maximum + 25, (totalTime - timeLeft) / (double)totalTime);
+            progressBarTimer.SetValueInstant(Config.NotificationTimerCountDown ? progressBarTimer.Maximum - value : value);
 
             if (timeLeft <= 0){
                 FinishCurrentNotification();
@@ -239,7 +239,7 @@ namespace TweetDuck.Core.Notification{
 
         protected override void SetNotificationSize(int width, int height){
             if (Config.DisplayNotificationTimer){
-                ClientSize = new Size(width, height+timerBarHeight);
+                ClientSize = new Size(width, height + timerBarHeight);
                 progressBarTimer.Visible = true;
             }
             else{

@@ -23,7 +23,7 @@ namespace TweetDuck.Core.Notification.Example{
             }
         }
 
-        protected override string BodyClasses => base.BodyClasses+" td-example";
+        protected override string BodyClasses => base.BodyClasses + " td-example";
 
         public event EventHandler Ready;
 

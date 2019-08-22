@@ -24,7 +24,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
 
             control_Change(this, EventArgs.Empty);
 
-            Text = Program.BrandName+" Arguments";
+            Text = Program.BrandName + " Arguments";
         }
 
         private void control_Change(object sender, EventArgs e){

@@ -154,7 +154,7 @@ namespace TweetDuck.Core.Notification{
             base.UpdateTitle();
 
             if (tweetQueue.Count > 0){
-                Text = Text+" ("+tweetQueue.Count+" more left)";
+                Text = Text + " (" + tweetQueue.Count + " more left)";
             }
         }
 

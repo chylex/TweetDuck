@@ -56,9 +56,9 @@ namespace TweetDuck.Core.Handling{
                 model.AddSeparator();
             }
 
-            static string TextOpen(string name) => "Open "+name+" in browser";
-            static string TextCopy(string name) => "Copy "+name+" address";
-            static string TextSave(string name) => "Save "+name+" as...";
+            static string TextOpen(string name) => "Open " + name + " in browser";
+            static string TextCopy(string name) => "Copy " + name + " address";
+            static string TextSave(string name) => "Save " + name + " as...";
             
             if (Context.Types.HasFlag(ContextInfo.ContextType.Link) && !Context.UnsafeLinkUrl.EndsWith("tweetdeck.twitter.com/#", StringComparison.Ordinal)){
                 if (TwitterUrls.RegexAccount.IsMatch(Context.UnsafeLinkUrl)){
@@ -206,7 +206,7 @@ namespace TweetDuck.Core.Handling{
         }
 
         protected static void InsertSelectionSearchItem(IMenuModel model, CefMenuCommand insertCommand, string insertLabel){
-            model.InsertItemAt(model.GetIndexOf(MenuSearchInBrowser)+1, insertCommand, insertLabel);
+            model.InsertItemAt(model.GetIndexOf(MenuSearchInBrowser) + 1, insertCommand, insertLabel);
         }
         
         protected static void AddDebugMenuItems(IMenuModel model){
@@ -217,13 +217,13 @@ namespace TweetDuck.Core.Handling{
         }
 
         protected static void RemoveSeparatorIfLast(IMenuModel model){
-            if (model.Count > 0 && model.GetTypeAt(model.Count-1) == MenuItemType.Separator){
-                model.RemoveAt(model.Count-1);
+            if (model.Count > 0 && model.GetTypeAt(model.Count - 1) == MenuItemType.Separator){
+                model.RemoveAt(model.Count - 1);
             }
         }
 
         protected static void AddSeparator(IMenuModel model){
-            if (model.Count > 0 && model.GetTypeAt(model.Count-1) != MenuItemType.Separator){ // do not add separators if there is nothing to separate
+            if (model.Count > 0 && model.GetTypeAt(model.Count - 1) != MenuItemType.Separator){ // do not add separators if there is nothing to separate
                 model.AddSeparator();
             }
         }

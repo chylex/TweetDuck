@@ -68,7 +68,7 @@ namespace TweetTest.Data{
 
         [TestMethod]
         public void TestTextFilesAndComplexKeys(){
-            File.WriteAllText("input_text_1", "Hello World!"+Environment.NewLine);
+            File.WriteAllText("input_text_1", "Hello World!" + Environment.NewLine);
 
             using(CombinedFileStream cfs = new CombinedFileStream(File.OpenWrite("text_files"))){
                 cfs.WriteFile(new string[]{ "key1", "a", "bb", "ccc", "dddd" }, "input_text_1");
@@ -93,7 +93,7 @@ namespace TweetTest.Data{
             }
 
             Assert.IsTrue(File.Exists("text_file_1"));
-            Assert.AreEqual("Hello World!"+Environment.NewLine, File.ReadAllText("text_file_1"));
+            Assert.AreEqual("Hello World!" + Environment.NewLine, File.ReadAllText("text_file_1"));
         }
 
         [TestMethod]

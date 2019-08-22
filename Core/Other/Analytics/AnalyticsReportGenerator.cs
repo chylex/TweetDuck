@@ -126,9 +126,9 @@ namespace TweetDuck.Core.Other.Analytics{
 
         private static string Bool(bool value) => value ? "on" : "off";
         private static string Exact(int value) => value.ToString();
-        private static string RoundUp(int value, int multiple) => (multiple*(int)Math.Ceiling((double)value/multiple)).ToString();
+        private static string RoundUp(int value, int multiple) => (multiple * (int)Math.Ceiling((double)value / multiple)).ToString();
         private static string LogRound(int value, int logBase) => (value <= 0 ? 0 : (int)Math.Pow(logBase, Math.Floor(Math.Log(value, logBase)))).ToString();
-        private static string Plugin(Plugin plugin) => plugin.Group.GetIdentifierPrefixShort()+plugin.Identifier.Substring(plugin.Group.GetIdentifierPrefix().Length);
+        private static string Plugin(Plugin plugin) => plugin.Group.GetIdentifierPrefixShort() + plugin.Identifier.Substring(plugin.Group.GetIdentifierPrefix().Length);
         private static string Dict(Dictionary<string, string> dict, string key, string def = "(unknown)") => dict.TryGetValue(key, out string value) ? value : def;
         private static string List(IEnumerable<string> list) => string.Join("|", list.DefaultIfEmpty("(none)"));
 
@@ -170,7 +170,7 @@ namespace TweetDuck.Core.Other.Analytics{
                 using ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT Capacity FROM Win32_PhysicalMemory");
 
                 foreach(ManagementBaseObject obj in searcher.Get()){
-                    RamSize += (int)((ulong)obj["Capacity"]/(1024L*1024L));
+                    RamSize += (int)((ulong)obj["Capacity"] / (1024L * 1024L));
                 }
             }catch{
                 RamSize = 0;
@@ -285,7 +285,7 @@ namespace TweetDuck.Core.Other.Analytics{
                     }
 
                     string accType = matchType.Groups[1].Value == "#" ? matchType.Groups[2].Value : "account";
-                    return matchAdvanced.Success && !matchAdvanced.Value.Contains("false") ? "advanced/"+accType : accType;
+                    return matchAdvanced.Success && !matchAdvanced.Value.Contains("false") ? "advanced/" + accType : accType;
                 }catch{
                     return "(unknown)";
                 }
@@ -306,7 +306,7 @@ namespace TweetDuck.Core.Other.Analytics{
                     }
 
                     return new ExternalInfo{
-                        Resolution = screen.Bounds.Width+"x"+screen.Bounds.Height,
+                        Resolution = screen.Bounds.Width + "x" + screen.Bounds.Height,
                         DPI = dpi
                     };
                 }

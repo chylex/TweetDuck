@@ -37,7 +37,7 @@ namespace TweetDuck.Core.Other{
         }
 
         public static void Show(string hash = null){
-            string url = GuideUrl+(hash ?? string.Empty);
+            string url = GuideUrl + (hash ?? string.Empty);
             FormGuide guide = FormManager.TryFind<FormGuide>();
             
             if (guide == null){
@@ -60,8 +60,8 @@ namespace TweetDuck.Core.Other{
         private FormGuide(string url, FormBrowser owner){
             InitializeComponent();
 
-            Text = Program.BrandName+" Guide";
-            Size = new Size(owner.Size.Width*3/4, owner.Size.Height*3/4);
+            Text = Program.BrandName + " Guide";
+            Size = new Size(owner.Size.Width * 3 / 4, owner.Size.Height * 3 / 4);
             VisibleChanged += (sender, args) => this.MoveToCenter(owner);
 
             ResourceHandlerFactory resourceHandlerFactory = new ResourceHandlerFactory();

@@ -11,8 +11,8 @@ namespace TweetDuck.Updates{
 
             this.updateInfo = info;
 
-            Text = "Updating "+Program.BrandName;
-            labelDescription.Text = "Downloading version "+info.VersionTag+"...";
+            Text = "Updating " + Program.BrandName;
+            labelDescription.Text = $"Downloading version {info.VersionTag}...";
             timerDownloadCheck.Start();
         }
 

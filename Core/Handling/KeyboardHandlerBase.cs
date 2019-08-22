@@ -22,7 +22,7 @@ namespace TweetDuck.Core.Handling{
                             extraMessage = "Please download the installer, and tick 'Install dev tools' during the installation process. The installer will automatically find and update your current installation of TweetDuck.";
                         }
 
-                        FormMessage.Information("Dev Tools", "You do not have dev tools installed. "+extraMessage, FormMessage.OK);
+                        FormMessage.Information("Dev Tools", "You do not have dev tools installed. " + extraMessage, FormMessage.OK);
                     });
                 }
 

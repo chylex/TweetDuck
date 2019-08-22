@@ -12,7 +12,7 @@ namespace TweetDuck.Core.Other{
         public FormAbout(){
             InitializeComponent();
 
-            Text = "About "+Program.BrandName+" "+Program.VersionTag;
+            Text = "About " + Program.BrandName + " " + Program.VersionTag;
 
             labelDescription.Text = "TweetDuck was created by chylex as a replacement to the discontinued official TweetDeck client for Windows.\n\nThe program is available for free under the open source MIT license.";
             

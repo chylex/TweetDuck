@@ -24,25 +24,25 @@ namespace TweetLib.Core.Serialization{
             while(true){
                 int nextIndex = data.IndexOf('\\', index);
 
-                if (nextIndex == -1 || nextIndex+1 >= data.Length){
+                if (nextIndex == -1 || nextIndex + 1 >= data.Length){
                     break;
                 }
                 else{
-                    build.Append(data.Substring(index, nextIndex-index));
+                    build.Append(data.Substring(index, nextIndex - index));
 
-                    char next = data[nextIndex+1];
+                    char next = data[nextIndex + 1];
 
                     if (next == '\\'){ // convert double backslash to single backslash
                         build.Append('\\');
-                        index = nextIndex+2;
+                        index = nextIndex + 2;
                     }
-                    else if (next == '\r' && nextIndex+2 < data.Length && data[nextIndex+2] == '\n'){ // convert backslash followed by CRLF to custom new line
+                    else if (next == '\r' && nextIndex + 2 < data.Length && data[nextIndex + 2] == '\n'){ // convert backslash followed by CRLF to custom new line
                         build.Append(NewLineCustom);
-                        index = nextIndex+3;
+                        index = nextIndex + 3;
                     }
                     else{ // single backslash
                         build.Append('\\');
-                        index = nextIndex+1;
+                        index = nextIndex + 1;
                     }
                 }
             }
@@ -125,8 +125,8 @@ namespace TweetLib.Core.Serialization{
                     }
                 }
                 else{
-                    line = contents.Substring(currentPos, nextPos-currentPos);
-                    currentPos = nextPos+NewLineReal.Length;
+                    line = contents.Substring(currentPos, nextPos - currentPos);
+                    currentPos = nextPos + NewLineReal.Length;
                 }
                     
                 int space = line.IndexOf(' ');
@@ -137,7 +137,7 @@ namespace TweetLib.Core.Serialization{
                 }
 
                 string property = line.Substring(0, space);
-                string value = UnescapeLine(line.Substring(space+1));
+                string value = UnescapeLine(line.Substring(space + 1));
 
                 if (props.TryGetValue(property, out PropertyInfo info)){
                     if (!converters.TryGetValue(info.PropertyType, out ITypeConverter serializer)){

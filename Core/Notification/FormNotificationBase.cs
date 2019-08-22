@@ -36,7 +36,7 @@ namespace TweetDuck.Core.Notification{
                 Screen screen;
 
                 if (Config.NotificationDisplay > 0 && Config.NotificationDisplay <= Screen.AllScreens.Length){
-                    screen = Screen.AllScreens[Config.NotificationDisplay-1];
+                    screen = Screen.AllScreens[Config.NotificationDisplay - 1];
                 }
                 else{
                     screen = Screen.FromControl(owner);
@@ -46,20 +46,20 @@ namespace TweetDuck.Core.Notification{
 
                 switch(Config.NotificationPosition){
                     case DesktopNotification.Position.TopLeft:
-                        return new Point(screen.WorkingArea.X+edgeDist, screen.WorkingArea.Y+edgeDist);
+                        return new Point(screen.WorkingArea.X + edgeDist, screen.WorkingArea.Y + edgeDist);
 
                     case DesktopNotification.Position.TopRight:
-                        return new Point(screen.WorkingArea.X+screen.WorkingArea.Width-edgeDist-Width, screen.WorkingArea.Y+edgeDist);
+                        return new Point(screen.WorkingArea.X + screen.WorkingArea.Width - edgeDist - Width, screen.WorkingArea.Y + edgeDist);
 
                     case DesktopNotification.Position.BottomLeft:
-                        return new Point(screen.WorkingArea.X+edgeDist, screen.WorkingArea.Y+screen.WorkingArea.Height-edgeDist-Height);
+                        return new Point(screen.WorkingArea.X + edgeDist, screen.WorkingArea.Y + screen.WorkingArea.Height - edgeDist - Height);
 
                     case DesktopNotification.Position.BottomRight:
-                        return new Point(screen.WorkingArea.X+screen.WorkingArea.Width-edgeDist-Width, screen.WorkingArea.Y+screen.WorkingArea.Height-edgeDist-Height);
+                        return new Point(screen.WorkingArea.X + screen.WorkingArea.Width - edgeDist - Width, screen.WorkingArea.Y + screen.WorkingArea.Height - edgeDist - Height);
 
                     case DesktopNotification.Position.Custom:
                         if (!Config.IsCustomNotificationPositionSet){
-                            Config.CustomNotificationPosition = new Point(screen.WorkingArea.X+screen.WorkingArea.Width-edgeDist-Width, screen.WorkingArea.Y+edgeDist);
+                            Config.CustomNotificationPosition = new Point(screen.WorkingArea.X + screen.WorkingArea.Width - edgeDist - Width, screen.WorkingArea.Y + edgeDist);
                             Config.Save();
                         }
 
@@ -100,7 +100,7 @@ namespace TweetDuck.Core.Notification{
         protected override bool ShowWithoutActivation => true;
         
         protected float DpiScale { get; }
-        protected double SizeScale => DpiScale*Config.ZoomLevel/100.0;
+        protected double SizeScale => DpiScale * Config.ZoomLevel / 100.0;
 
         protected readonly FormBrowser owner;
         protected readonly ChromiumWebBrowser browser;

@@ -16,7 +16,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
         public DialogSettingsCSS(string browserCSS, string notificationCSS, Action<string> reinjectBrowserCSS, Action openDevTools){
             InitializeComponent();
             
-            Text = Program.BrandName+" Options - CSS";
+            Text = Program.BrandName + " Options - CSS";
 
             this.reinjectBrowserCSS = reinjectBrowserCSS;
             this.openDevTools = openDevTools;
@@ -64,21 +64,21 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                         }
                     }
                     
-                    if (!(deleteTo < text.Length-1 && text[deleteTo] == '\r' && text[deleteTo+1] == '\n')){
+                    if (!(deleteTo < text.Length - 1 && text[deleteTo] == '\r' && text[deleteTo + 1] == '\n')){
                         ++deleteTo;
                     }
 
-                    tb.Select(deleteTo, tb.SelectionLength+tb.SelectionStart-deleteTo);
+                    tb.Select(deleteTo, tb.SelectionLength + tb.SelectionStart - deleteTo);
                     tb.SelectedText = string.Empty;
                 }
             }
             else if (e.KeyCode == Keys.Back && e.Modifiers == Keys.None){
                 int deleteTo = tb.SelectionStart;
 
-                if (deleteTo > 1 && text[deleteTo-1] == ' ' && text[deleteTo-2] == ' '){
+                if (deleteTo > 1 && text[deleteTo - 1] == ' ' && text[deleteTo - 2] == ' '){
                     e.SuppressKeyPress = true;
 
-                    tb.Select(deleteTo-2, 2);
+                    tb.Select(deleteTo - 2, 2);
                     tb.SelectedText = string.Empty;
                 }
             }
@@ -89,28 +89,28 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                 if (insertAt == 0){
                     return;
                 }
-                else if (text[insertAt-1] == '{'){
-                    insertText = Environment.NewLine+"  ";
+                else if (text[insertAt - 1] == '{'){
+                    insertText = Environment.NewLine + "  ";
 
-                    int nextBracket = insertAt < text.Length ? text.IndexOfAny(new char[]{ '{', '}' }, insertAt+1) : -1;
+                    int nextBracket = insertAt < text.Length ? text.IndexOfAny(new char[]{ '{', '}' }, insertAt + 1) : -1;
 
                     if (nextBracket == -1 || text[nextBracket] == '{'){
-                        string insertExtra = Environment.NewLine+"}";
+                        string insertExtra = Environment.NewLine + "}";
                         insertText += insertExtra;
                         cursorOffset -= insertExtra.Length;
                     }
                 }
                 else{
-                    int lineStart = text.LastIndexOf('\n', tb.SelectionStart-1);
+                    int lineStart = text.LastIndexOf('\n', tb.SelectionStart - 1);
 
-                    Match match = Regex.Match(text.Substring(lineStart == -1 ? 0 : lineStart+1), "^([ \t]+)");
-                    insertText = match.Success ? Environment.NewLine+match.Groups[1].Value : null;
+                    Match match = Regex.Match(text.Substring(lineStart == -1 ? 0 : lineStart + 1), "^([ \t]+)");
+                    insertText = match.Success ? Environment.NewLine + match.Groups[1].Value : null;
                 }
 
                 if (!string.IsNullOrEmpty(insertText)){
                     e.SuppressKeyPress = true;
                     tb.Text = text.Insert(insertAt, insertText);
-                    tb.SelectionStart = insertAt+cursorOffset+insertText.Length;
+                    tb.SelectionStart = insertAt + cursorOffset + insertText.Length;
                 }
             }
         }

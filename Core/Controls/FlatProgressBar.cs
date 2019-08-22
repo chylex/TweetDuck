@@ -23,7 +23,7 @@ namespace TweetDuck.Core.Controls{
             }
 
             Rectangle rect = e.ClipRectangle;
-            rect.Width = (int)(rect.Width*((double)Value/Maximum));
+            rect.Width = (int)(rect.Width * ((double)Value / Maximum));
             e.Graphics.FillRectangle(brush, rect);
         }
 

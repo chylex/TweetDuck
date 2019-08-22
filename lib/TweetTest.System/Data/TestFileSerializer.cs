@@ -30,7 +30,7 @@ namespace TweetTest.Data{
                 TestBool = true,
                 TestInt = -100,
                 TestStringBasic = "hello123",
-                TestStringNewLine = "abc"+Environment.NewLine+"def"+Environment.NewLine,
+                TestStringNewLine = "abc" + Environment.NewLine + "def" + Environment.NewLine,
                 TestStringBackslash = @"C:\Test\\\Abc\",
                 TestStringNull = null,
                 TestEnum = TestEnum.D
@@ -45,7 +45,7 @@ namespace TweetTest.Data{
             Assert.IsTrue(read.TestBool);
             Assert.AreEqual(-100, read.TestInt);
             Assert.AreEqual("hello123", read.TestStringBasic);
-            Assert.AreEqual("abc"+Environment.NewLine+"def"+Environment.NewLine, read.TestStringNewLine);
+            Assert.AreEqual("abc" + Environment.NewLine + "def" + Environment.NewLine, read.TestStringNewLine);
             Assert.AreEqual(@"C:\Test\\\Abc\", read.TestStringBackslash);
             Assert.IsNull(read.TestStringNull);
             Assert.AreEqual(TestEnum.D, read.TestEnum);

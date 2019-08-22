@@ -32,7 +32,7 @@ namespace TweetDuck.Core.Utils{
                     WindowsUtils.OpenAssociatedProgram(path);
                 }
                 else{
-                    FormMessage.Error("Image Download", "Invalid file extension "+ext, FormMessage.OK);
+                    FormMessage.Error("Image Download", "Invalid file extension " + ext, FormMessage.OK);
                 }
             }
 
@@ -45,7 +45,7 @@ namespace TweetDuck.Core.Utils{
                 DownloadFileAuth(TwitterUrls.GetMediaLink(url, quality), file, () => {
                     ViewImageInternal(file);
                 }, ex => {
-                    FormMessage.Error("Image Download", "An error occurred while downloading the image: "+ex.Message, FormMessage.OK);
+                    FormMessage.Error("Image Download", "An error occurred while downloading the image: " + ex.Message, FormMessage.OK);
                 });
             }
         }
@@ -69,12 +69,12 @@ namespace TweetDuck.Core.Utils{
                 AutoUpgradeEnabled = true,
                 OverwritePrompt = urls.Length == 1,
                 Title = "Save Image",
-                FileName = qualityIndex == -1 ? filename : $"{username} {Path.ChangeExtension(filename, null)} {firstImageLink.Substring(qualityIndex+1)}".Trim()+ext,
-                Filter = (urls.Length == 1 ? "Image" : "Images")+(string.IsNullOrEmpty(ext) ? " (unknown)|*.*" : $" (*{ext})|*{ext}")
+                FileName = qualityIndex == -1 ? filename : $"{username} {Path.ChangeExtension(filename, null)} {firstImageLink.Substring(qualityIndex + 1)}".Trim() + ext,
+                Filter = (urls.Length == 1 ? "Image" : "Images") + (string.IsNullOrEmpty(ext) ? " (unknown)|*.*" : $" (*{ext})|*{ext}")
             }){
                 if (dialog.ShowDialog() == DialogResult.OK){
                     static void OnFailure(Exception ex){
-                        FormMessage.Error("Image Download", "An error occurred while downloading the image: "+ex.Message, FormMessage.OK);
+                        FormMessage.Error("Image Download", "An error occurred while downloading the image: " + ex.Message, FormMessage.OK);
                     }
 
                     if (urls.Length == 1){
@@ -85,7 +85,7 @@ namespace TweetDuck.Core.Utils{
                         string pathExt = Path.GetExtension(dialog.FileName);
 
                         for(int index = 0; index < urls.Length; index++){
-                            DownloadFileAuth(TwitterUrls.GetMediaLink(urls[index], quality), $"{pathBase} {index+1}{pathExt}", null, OnFailure);
+                            DownloadFileAuth(TwitterUrls.GetMediaLink(urls[index], quality), $"{pathBase} {index + 1}{pathExt}", null, OnFailure);
                         }
                     }
                 }
@@ -101,11 +101,11 @@ namespace TweetDuck.Core.Utils{
                 OverwritePrompt = true,
                 Title = "Save Video",
                 FileName = string.IsNullOrEmpty(username) ? filename : $"{username} {filename}".TrimStart(),
-                Filter = "Video"+(string.IsNullOrEmpty(ext) ? " (unknown)|*.*" : $" (*{ext})|*{ext}")
+                Filter = "Video" + (string.IsNullOrEmpty(ext) ? " (unknown)|*.*" : $" (*{ext})|*{ext}")
             }){
                 if (dialog.ShowDialog() == DialogResult.OK){
                     DownloadFileAuth(url, dialog.FileName, null, ex => {
-                        FormMessage.Error("Video Download", "An error occurred while downloading the video: "+ex.Message, FormMessage.OK);
+                        FormMessage.Error("Video Download", "An error occurred while downloading the video: " + ex.Message, FormMessage.OK);
                     });
                 }
             }

@@ -25,7 +25,7 @@ namespace TweetDuck.Core.Handling.Filters{
             int responseLength = responseData.Length;
 
             if (state == State.Reading){
-                int bytesToRead = Math.Min(responseLength-offset, (int)Math.Min(dataIn?.Length ?? 0, int.MaxValue));
+                int bytesToRead = Math.Min(responseLength - offset, (int)Math.Min(dataIn?.Length ?? 0, int.MaxValue));
                 
                 dataIn?.Read(responseData, offset, bytesToRead);
                 offset += bytesToRead;
@@ -42,7 +42,7 @@ namespace TweetDuck.Core.Handling.Filters{
                 return FilterStatus.NeedMoreData;
             }
             else if (state == State.Writing){
-                int bytesToWrite = Math.Min(responseLength-offset, (int)Math.Min(dataOut.Length, int.MaxValue));
+                int bytesToWrite = Math.Min(responseLength - offset, (int)Math.Min(dataOut.Length, int.MaxValue));
 
                 if (bytesToWrite > 0){
                     dataOut.Write(responseData, offset, bytesToWrite);

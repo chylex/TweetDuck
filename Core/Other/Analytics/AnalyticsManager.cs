@@ -90,9 +90,9 @@ namespace TweetDuck.Core.Other.Analytics{
 
         private void RestartTimer(){
             TimeSpan diff = DateTime.Now.Subtract(File.LastDataCollection);
-            int minutesTillNext = (int)(CollectionInterval.TotalMinutes-Math.Floor(diff.TotalMinutes));
+            int minutesTillNext = (int)(CollectionInterval.TotalMinutes - Math.Floor(diff.TotalMinutes));
             
-            currentTimer.Interval = Math.Max(minutesTillNext, 2)*60000;
+            currentTimer.Interval = Math.Max(minutesTillNext, 2) * 60000;
             currentTimer.Start();
         }
 
@@ -139,7 +139,7 @@ namespace TweetDuck.Core.Other.Analytics{
 
                             case WebExceptionStatus.ProtocolError:
                                 HttpWebResponse response = e.Response as HttpWebResponse;
-                                message = "HTTP Error "+(response != null ? $"{(int)response.StatusCode} ({response.StatusDescription})" : "(unknown code)");
+                                message = "HTTP Error " + (response != null ? $"{(int)response.StatusCode} ({response.StatusDescription})" : "(unknown code)");
                                 break;
                         }
 
@@ -152,7 +152,7 @@ namespace TweetDuck.Core.Other.Analytics{
                         #endif
                     }
 
-                    ScheduleReportIn(TimeSpan.FromHours(4), message ?? "Error: "+(task.Exception.InnerException?.Message ?? task.Exception.Message));
+                    ScheduleReportIn(TimeSpan.FromHours(4), message ?? "Error: " + (task.Exception.InnerException?.Message ?? task.Exception.Message));
                 }
             }));
         }

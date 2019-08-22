@@ -133,7 +133,7 @@ namespace TweetDuck.Core.Other{
                 Font = SystemFonts.MessageBoxFont,
                 Location = new Point(0, 12),
                 Size = new Size(BrowserUtils.Scale(88, dpiScale), BrowserUtils.Scale(26, dpiScale)),
-                TabIndex = 256-buttonCount,
+                TabIndex = 256 - buttonCount,
                 Text = title,
                 UseVisualStyleBackColor = true
             };
@@ -171,17 +171,17 @@ namespace TweetDuck.Core.Other{
             
             control.Size = new Size(BrowserUtils.Scale(control.Width, dpiScale), BrowserUtils.Scale(control.Height, dpiScale));
 
-            minFormWidth += control.Width+control.Margin.Horizontal;
+            minFormWidth += control.Width + control.Margin.Horizontal;
             ClientWidth = Math.Max(realFormWidth, minFormWidth);
         }
         
         private void RecalculateButtonLocation(){
             int dist = ButtonDistance;
-            int start = ClientWidth-dist;
+            int start = ClientWidth - dist;
 
             for(int index = 0; index < buttonCount; index++){
                 Control control = panelActions.Controls[index];
-                control.Location = new Point(start-index*dist, control.Location.Y);
+                control.Location = new Point(start - index * dist, control.Location.Y);
             }
         }
 
@@ -194,17 +194,17 @@ namespace TweetDuck.Core.Other{
             int labelOffset = BrowserUtils.Scale(8, dpiScale);
 
             if (isMultiline && !wasLabelMultiline){
-                labelMessage.Location = new Point(labelMessage.Location.X, labelMessage.Location.Y-labelOffset);
+                labelMessage.Location = new Point(labelMessage.Location.X, labelMessage.Location.Y - labelOffset);
                 prevLabelHeight += labelOffset;
             }
             else if (!isMultiline && wasLabelMultiline){
-                labelMessage.Location = new Point(labelMessage.Location.X, labelMessage.Location.Y+labelOffset);
+                labelMessage.Location = new Point(labelMessage.Location.X, labelMessage.Location.Y + labelOffset);
                 prevLabelHeight -= labelOffset;
             }
 
-            realFormWidth = ClientWidth-(icon == null ? BrowserUtils.Scale(50, dpiScale) : 0)+labelMessage.Width-prevLabelWidth;
+            realFormWidth = ClientWidth - (icon == null ? BrowserUtils.Scale(50, dpiScale) : 0) + labelMessage.Width - prevLabelWidth;
             ClientWidth = Math.Max(realFormWidth, minFormWidth);
-            Height += labelMessage.Height-prevLabelHeight;
+            Height += labelMessage.Height - prevLabelHeight;
 
             prevLabelWidth = labelMessage.Width;
             prevLabelHeight = labelMessage.Height;
@@ -213,7 +213,7 @@ namespace TweetDuck.Core.Other{
 
         protected override void OnPaint(PaintEventArgs e){
             if (icon != null){
-                e.Graphics.DrawIcon(icon, BrowserUtils.Scale(25, dpiScale), 1+BrowserUtils.Scale(25, dpiScale));
+                e.Graphics.DrawIcon(icon, BrowserUtils.Scale(25, dpiScale), 1 + BrowserUtils.Scale(25, dpiScale));
             }
 
             base.OnPaint(e);

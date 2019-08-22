@@ -134,9 +134,9 @@ namespace TweetDuck.Core.Notification.Screenshot{
         private void debugger_Tick(object sender, EventArgs e){
             if (frameCounter < 63 && screenshot.TakeScreenshot(true)){
                 try{
-                    Clipboard.GetImage()?.Save(Path.Combine(DebugScreenshotPath, "frame_"+(++frameCounter)+".png"), ImageFormat.Png);
+                    Clipboard.GetImage()?.Save(Path.Combine(DebugScreenshotPath, "frame_" + (++frameCounter) + ".png"), ImageFormat.Png);
                 }catch{
-                    System.Diagnostics.Debug.WriteLine("Failed generating frame "+frameCounter);
+                    System.Diagnostics.Debug.WriteLine("Failed generating frame " + frameCounter);
                 }
             }
             else{

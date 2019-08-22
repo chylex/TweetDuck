@@ -16,7 +16,7 @@ namespace TweetLib.Core.Collections{
 
                 if (entry.Length > 0 && entry[0] == entryChar){
                     if (index < array.Length - 1){
-                        string potentialValue = array[index+1];
+                        string potentialValue = array[index + 1];
 
                         if (potentialValue.Length > 0 && potentialValue[0] == entryChar){
                             targetArgs.AddFlag(entry);

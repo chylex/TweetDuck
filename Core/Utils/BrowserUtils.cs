@@ -29,7 +29,7 @@ namespace TweetDuck.Core.Utils{
                 args["disable-threaded-scrolling"] = "1";
 
                 if (args.TryGetValue("disable-features", out string disabledFeatures)){
-                    args["disable-features"] = "TouchpadAndWheelScrollLatching,"+disabledFeatures;
+                    args["disable-features"] = "TouchpadAndWheelScrollLatching," + disabledFeatures;
                 }
                 else{
                     args["disable-features"] = "TouchpadAndWheelScrollLatching";
@@ -48,7 +48,7 @@ namespace TweetDuck.Core.Utils{
             args["enable-system-flash"] = "0";
 
             if (args.TryGetValue("js-flags", out string jsFlags)){
-                args["js-flags"] = "--expose-gc "+jsFlags;
+                args["js-flags"] = "--expose-gc " + jsFlags;
             }
             else{
                 args["js-flags"] = "--expose-gc";
@@ -108,7 +108,7 @@ namespace TweetDuck.Core.Utils{
                         goto case TwitterUrls.UrlType.Fine;
                     }
 
-                    using(FormMessage form = new FormMessage("Blocked URL", "TweetDuck has blocked a tracking url due to privacy concerns. Do you want to visit it anyway?\n"+url, MessageBoxIcon.Warning)){
+                    using(FormMessage form = new FormMessage("Blocked URL", "TweetDuck has blocked a tracking url due to privacy concerns. Do you want to visit it anyway?\n" + url, MessageBoxIcon.Warning)){
                         form.AddButton(FormMessage.No, DialogResult.No, ControlType.Cancel | ControlType.Focused);
                         form.AddButton(FormMessage.Yes, DialogResult.Yes, ControlType.Accept);
                         form.AddButton("Always Visit", DialogResult.Ignore);
@@ -128,7 +128,7 @@ namespace TweetDuck.Core.Utils{
                     break;
 
                 case TwitterUrls.UrlType.Invalid:
-                    FormMessage.Warning("Blocked URL", "A potentially malicious URL was blocked from opening:\n"+url, FormMessage.OK);
+                    FormMessage.Warning("Blocked URL", "A potentially malicious URL was blocked from opening:\n" + url, FormMessage.OK);
                     break;
             }
         }
@@ -158,12 +158,12 @@ namespace TweetDuck.Core.Utils{
                 }
             }
             else{
-                OpenExternalBrowser(searchUrl+Uri.EscapeUriString(query));
+                OpenExternalBrowser(searchUrl + Uri.EscapeUriString(query));
             }
         }
 
         public static int Scale(int baseValue, double scaleFactor){
-            return (int)Math.Round(baseValue*scaleFactor);
+            return (int)Math.Round(baseValue * scaleFactor);
         }
     }
 }

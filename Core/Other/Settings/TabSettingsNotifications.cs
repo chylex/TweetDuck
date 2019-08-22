@@ -59,7 +59,7 @@ namespace TweetDuck.Core.Other.Settings{
             checkTimerCountDown.Checked = Config.NotificationTimerCountDown;
 
             trackBarDuration.SetValueSafe(Config.NotificationDurationValue);
-            labelDurationValue.Text = Config.NotificationDurationValue+" ms/c";
+            labelDurationValue.Text = Config.NotificationDurationValue + " ms/c";
 
             // location
 
@@ -77,13 +77,13 @@ namespace TweetDuck.Core.Other.Settings{
             comboBoxDisplay.Items.Add("(Same as TweetDuck)");
 
             foreach(Screen screen in Screen.AllScreens){
-                comboBoxDisplay.Items.Add(screen.DeviceName.TrimStart('\\', '.')+" ("+screen.Bounds.Width+"x"+screen.Bounds.Height+")");
+                comboBoxDisplay.Items.Add($"{screen.DeviceName.TrimStart('\\', '.')} ({screen.Bounds.Width}x{screen.Bounds.Height})");
             }
 
-            comboBoxDisplay.SelectedIndex = Math.Min(comboBoxDisplay.Items.Count-1, Config.NotificationDisplay);
+            comboBoxDisplay.SelectedIndex = Math.Min(comboBoxDisplay.Items.Count - 1, Config.NotificationDisplay);
 
             trackBarEdgeDistance.SetValueSafe(Config.NotificationEdgeDistance);
-            labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value+" px";
+            labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value + " px";
 
             // size
 
@@ -96,7 +96,7 @@ namespace TweetDuck.Core.Other.Settings{
             }
 
             trackBarScrollSpeed.SetValueSafe(Config.NotificationScrollSpeed);
-            labelScrollSpeedValue.Text = trackBarScrollSpeed.Value+"%";
+            labelScrollSpeedValue.Text = trackBarScrollSpeed.Value + "%";
         }
 
         public override void OnReady(){
@@ -195,7 +195,7 @@ namespace TweetDuck.Core.Other.Settings{
             durationUpdateTimer.Start();
 
             Config.NotificationDurationValue = trackBarDuration.Value;
-            labelDurationValue.Text = Config.NotificationDurationValue+" ms/c";
+            labelDurationValue.Text = Config.NotificationDurationValue + " ms/c";
         }
 
         private void btnDurationShort_Click(object sender, EventArgs e){
@@ -255,7 +255,7 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void trackBarEdgeDistance_ValueChanged(object sender, EventArgs e){
-            labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value+" px";
+            labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value + " px";
             Config.NotificationEdgeDistance = trackBarEdgeDistance.Value;
             notification.ShowExampleNotification(false);
         }
@@ -282,7 +282,7 @@ namespace TweetDuck.Core.Other.Settings{
 
         private void trackBarScrollSpeed_ValueChanged(object sender, EventArgs e){
             if (trackBarScrollSpeed.AlignValueToTick()){
-                labelScrollSpeedValue.Text = trackBarScrollSpeed.Value+"%";
+                labelScrollSpeedValue.Text = trackBarScrollSpeed.Value + "%";
                 Config.NotificationScrollSpeed = trackBarScrollSpeed.Value;
             }
         }

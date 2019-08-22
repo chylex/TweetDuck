@@ -53,13 +53,13 @@ namespace TweetDuck.Core.Handling.General{
                     input = new TextBox{
                         Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom,
                         Font = SystemFonts.MessageBoxFont,
-                        Location = new Point(BrowserUtils.Scale(22+inputPad, dpiScale), form.ActionPanelY-BrowserUtils.Scale(46, dpiScale)),
-                        Size = new Size(form.ClientSize.Width-BrowserUtils.Scale(44+inputPad, dpiScale), BrowserUtils.Scale(23, dpiScale))
+                        Location = new Point(BrowserUtils.Scale(22 + inputPad, dpiScale), form.ActionPanelY - BrowserUtils.Scale(46, dpiScale)),
+                        Size = new Size(form.ClientSize.Width - BrowserUtils.Scale(44 + inputPad, dpiScale), BrowserUtils.Scale(23, dpiScale))
                     };
 
                     form.Controls.Add(input);
                     form.ActiveControl = input;
-                    form.Height += input.Size.Height+input.Margin.Vertical;
+                    form.Height += input.Size.Height + input.Margin.Vertical;
                 }
                 else{
                     callback.Continue(false);

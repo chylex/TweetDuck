@@ -28,9 +28,9 @@ namespace TweetDuck.Video.Controls{
 
                 Text = text;
 
-                Point loc = form.PointToClient(control.Parent.PointToScreen(new Point(control.Location.X+(followCursor ? args.X : control.Width/2), 0)));
-                loc.X = Math.Max(0, Math.Min(form.Width-Width, loc.X-Width/2));
-                loc.Y -= Height-Margin.Top+Margin.Bottom;
+                Point loc = form.PointToClient(control.Parent.PointToScreen(new Point(control.Location.X + (followCursor ? args.X : control.Width / 2), 0)));
+                loc.X = Math.Max(0, Math.Min(form.Width - Width, loc.X - Width / 2));
+                loc.Y -= Height - Margin.Top + Margin.Bottom;
                 Location = loc;
 
                 ResumeLayout();

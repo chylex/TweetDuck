@@ -16,7 +16,7 @@ namespace TweetDuck.Core.Other{
         public FormPlugins(){
             InitializeComponent();
 
-            Text = Program.BrandName+" Plugins";
+            Text = Program.BrandName + " Plugins";
         }
 
         public FormPlugins(PluginManager pluginManager) : this(){
@@ -69,8 +69,8 @@ namespace TweetDuck.Core.Other{
             timerLayout.Stop();
             
             // stupid WinForms scrollbars and panels
-            Padding = new Padding(Padding.Left, Padding.Top, Padding.Right+1, Padding.Bottom+1);
-            Padding = new Padding(Padding.Left, Padding.Top, Padding.Right-1, Padding.Bottom-1);
+            Padding = new Padding(Padding.Left, Padding.Top, Padding.Right + 1, Padding.Bottom + 1);
+            Padding = new Padding(Padding.Left, Padding.Top, Padding.Right - 1, Padding.Bottom - 1);
         }
 
         public void flowLayoutPlugins_Resize(object sender, EventArgs e){
@@ -80,17 +80,17 @@ namespace TweetDuck.Core.Other{
                 return;
             }
 
-            bool showScrollBar = lastPlugin.Location.Y+lastPlugin.Height+1 >= flowLayoutPlugins.Height;
+            bool showScrollBar = lastPlugin.Location.Y + lastPlugin.Height + 1 >= flowLayoutPlugins.Height;
             int horizontalOffset = showScrollBar ? SystemInformation.VerticalScrollBarWidth : 0;
             
             flowLayoutPlugins.AutoScroll = showScrollBar;
             flowLayoutPlugins.VerticalScroll.Visible = showScrollBar;
 
             foreach(Control control in flowLayoutPlugins.Controls){
-                control.Width = flowLayoutPlugins.Width-control.Margin.Horizontal-horizontalOffset;
+                control.Width = flowLayoutPlugins.Width - control.Margin.Horizontal - horizontalOffset;
             }
             
-            flowLayoutPlugins.Controls[flowLayoutPlugins.Controls.Count-1].Visible = !showScrollBar;
+            flowLayoutPlugins.Controls[flowLayoutPlugins.Controls.Count - 1].Visible = !showScrollBar;
             flowLayoutPlugins.Focus();
         }
 

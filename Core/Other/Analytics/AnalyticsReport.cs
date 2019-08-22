@@ -47,7 +47,7 @@ namespace TweetDuck.Core.Other.Analytics{
                     build.AppendLine();
                 }
                 else{
-                    build.AppendLine(entry.Key+": "+entry.Value);
+                    build.AppendLine(entry.Key + ": " + entry.Value);
                 }
             }
 

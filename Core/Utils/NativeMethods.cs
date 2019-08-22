@@ -133,7 +133,7 @@ namespace TweetDuck.Core.Utils{
                 ticks = (uint)Environment.TickCount;
             }
 
-            int seconds = (int)Math.Floor(TimeSpan.FromMilliseconds(ticks-info.dwTime).TotalSeconds);
+            int seconds = (int)Math.Floor(TimeSpan.FromMilliseconds(ticks - info.dwTime).TotalSeconds);
             return Math.Max(0, seconds); // ignore rollover after several weeks of uptime
         }
 

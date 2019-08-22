@@ -7,7 +7,7 @@ namespace TweetLib.Core.Utils{
             string dir = Path.GetDirectoryName(file);
 
             if (dir == null){
-                throw new ArgumentException("Invalid file path: "+file);
+                throw new ArgumentException("Invalid file path: " + file);
             }
             else if (dir.Length > 0){
                 Directory.CreateDirectory(dir);

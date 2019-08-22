@@ -124,7 +124,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
                     // Continue...
                     panelDecision.Visible = false;
                     panelSelection.Visible = true;
-                    Height += panelSelection.Height-panelDecision.Height;
+                    Height += panelSelection.Height - panelDecision.Height;
                     break;
 
                 case State.Reset:

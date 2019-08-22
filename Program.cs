@@ -84,7 +84,7 @@ namespace TweetDuck{
             WindowRestoreMessage = NativeMethods.RegisterWindowMessage("TweetDuckRestore");
 
             if (!FileUtils.CheckFolderWritePermission(StoragePath)){
-                FormMessage.Warning("Permission Error", "TweetDuck does not have write permissions to the storage folder: "+StoragePath, FormMessage.OK);
+                FormMessage.Warning("Permission Error", "TweetDuck does not have write permissions to the storage folder: " + StoragePath, FormMessage.OK);
                 return;
             }
             
@@ -143,7 +143,7 @@ namespace TweetDuck{
             try{
                 RequestHandlerBase.LoadResourceRewriteRules(Arguments.GetValue(Arguments.ArgFreeze));
             }catch(Exception e){
-                FormMessage.Error("Resource Freeze", "Error parsing resource rewrite rules: "+e.Message, FormMessage.OK);
+                FormMessage.Error("Resource Freeze", "Error parsing resource rewrite rules: " + e.Message, FormMessage.OK);
                 return;
             }
 
@@ -154,7 +154,7 @@ namespace TweetDuck{
 
             CefSettings settings = new CefSettings{
                 UserAgent = BrowserUtils.UserAgentChrome,
-                BrowserSubprocessPath = BrandName+".Browser.exe",
+                BrowserSubprocessPath = BrandName + ".Browser.exe",
                 CachePath = StoragePath,
                 UserDataPath = CefDataPath,
                 LogFile = ConsoleLogFilePath,
@@ -178,7 +178,7 @@ namespace TweetDuck{
                 ExitCleanup();
 
                 // ProgramPath has a trailing backslash
-                string updaterArgs = "/SP- /SILENT /FORCECLOSEAPPLICATIONS /UPDATEPATH=\""+ProgramPath+"\" /RUNARGS=\""+Arguments.GetCurrentForInstallerCmd()+"\""+(IsPortable ? " /PORTABLE=1" : "");
+                string updaterArgs = "/SP- /SILENT /FORCECLOSEAPPLICATIONS /UPDATEPATH=\"" + ProgramPath + "\" /RUNARGS=\"" + Arguments.GetCurrentForInstallerCmd() + "\"" + (IsPortable ? " /PORTABLE=1" : "");
                 bool runElevated = !IsPortable || !FileUtils.CheckFolderWritePermission(ProgramPath);
 
                 if (WindowsUtils.OpenAssociatedProgram(mainForm.UpdateInstallerPath, updaterArgs, runElevated)){
@@ -195,10 +195,10 @@ namespace TweetDuck{
 
             if (custom != null && (custom.Contains(Path.DirectorySeparatorChar) || custom.Contains(Path.AltDirectorySeparatorChar))){
                 if (Path.GetInvalidPathChars().Any(custom.Contains)){
-                    Reporter.HandleEarlyFailure("Data Folder Invalid", "The data folder contains invalid characters:\n"+custom);
+                    Reporter.HandleEarlyFailure("Data Folder Invalid", "The data folder contains invalid characters:\n" + custom);
                 }
                 else if (!Path.IsPathRooted(custom)){
-                    Reporter.HandleEarlyFailure("Data Folder Invalid", "The data folder has to be either a simple folder name, or a full path:\n"+custom);
+                    Reporter.HandleEarlyFailure("Data Folder Invalid", "The data folder has to be either a simple folder name, or a full path:\n" + custom);
                 }
 
                 return Environment.ExpandEnvironmentVariables(custom);

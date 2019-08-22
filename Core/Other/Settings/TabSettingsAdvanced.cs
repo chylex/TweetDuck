@@ -36,7 +36,7 @@ namespace TweetDuck.Core.Other.Settings{
             numClearCacheThreshold.SetValueSafe(SysConfig.ClearCacheThreshold);
             
             BrowserCache.GetCacheSize(task => {
-                string text = task.Status == TaskStatus.RanToCompletion ? (int)Math.Ceiling(task.Result/(1024.0*1024.0))+" MB" : "unknown";
+                string text = task.Status == TaskStatus.RanToCompletion ? (int)Math.Ceiling(task.Result / (1024.0 * 1024.0)) + " MB" : "unknown";
                 this.InvokeSafe(() => btnClearCache.Text = $"Clear Cache ({text})");
             });
 

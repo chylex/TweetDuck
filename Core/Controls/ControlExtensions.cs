@@ -30,17 +30,17 @@ namespace TweetDuck.Core.Controls{
         }
 
         public static void MoveToCenter(this Form targetForm, Form parentForm){
-            targetForm.Location = new Point(parentForm.Location.X+parentForm.Width/2-targetForm.Width/2, parentForm.Location.Y+parentForm.Height/2-targetForm.Height/2);
+            targetForm.Location = new Point(parentForm.Location.X + (parentForm.Width / 2) - (targetForm.Width / 2), parentForm.Location.Y + (parentForm.Height / 2) - (targetForm.Height / 2));
         }
 
         public static void SetValueInstant(this ProgressBar bar, int value){
             if (value == bar.Maximum){
                 bar.Value = value;
-                bar.Value = value-1;
+                bar.Value = value - 1;
                 bar.Value = value;
             }
             else{
-                bar.Value = value+1;
+                bar.Value = value + 1;
                 bar.Value = value;
             }
         }
@@ -59,7 +59,7 @@ namespace TweetDuck.Core.Controls{
 
         public static bool AlignValueToTick(this TrackBar trackBar){
             if (trackBar.Value % trackBar.SmallChange != 0){
-                trackBar.Value = trackBar.SmallChange*(int)Math.Floor(((double)trackBar.Value/trackBar.SmallChange)+0.5);
+                trackBar.Value = trackBar.SmallChange * (int)Math.Floor(((double)trackBar.Value / trackBar.SmallChange) + 0.5);
                 return false;
             }
 

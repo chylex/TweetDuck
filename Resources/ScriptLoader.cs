@@ -62,7 +62,7 @@ namespace TweetDuck.Resources{
                 }
                 else{
                     separator = contents.IndexOf('\n');
-                    string fileVersion = contents.Substring(1, separator-1).TrimEnd();
+                    string fileVersion = contents.Substring(1, separator - 1).TrimEnd();
 
                     if (fileVersion != Program.VersionTag){
                         ShowLoadError(silent ? null : sync, $"File {path} is made for a different version of TweetDuck ({fileVersion}) and may not function correctly in this version, please try reinstalling the app.");

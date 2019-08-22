@@ -8,7 +8,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
         public DialogSettingsSearchEngine(){
             InitializeComponent();
             
-            Text = Program.BrandName+" Options - Custom Search Engine";
+            Text = Program.BrandName + " Options - Custom Search Engine";
             
             textBoxUrl.Text = Program.Config.User.SearchEngineUrl ?? "";
             textBoxUrl.Select(textBoxUrl.Text.Length, 0);

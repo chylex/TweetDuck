@@ -20,7 +20,7 @@ namespace TweetDuck.Core.Other.Settings{
             toolTip.SetToolTip(tbCustomSound, "When empty, the default TweetDeck sound notification is used.");
             
             trackBarVolume.SetValueSafe(Config.NotificationSoundVolume);
-            labelVolumeValue.Text = trackBarVolume.Value+"%";
+            labelVolumeValue.Text = trackBarVolume.Value + "%";
 
             tbCustomSound.Text = Config.NotificationSoundPath;
             tbCustomSound_TextChanged(tbCustomSound, EventArgs.Empty);
@@ -83,7 +83,7 @@ namespace TweetDuck.Core.Other.Settings{
         private void trackBarVolume_ValueChanged(object sender, EventArgs e){
             volumeUpdateTimer.Stop();
             volumeUpdateTimer.Start();
-            labelVolumeValue.Text = trackBarVolume.Value+"%";
+            labelVolumeValue.Text = trackBarVolume.Value + "%";
         }
 
         private void volumeUpdateTimer_Tick(object sender, EventArgs e){

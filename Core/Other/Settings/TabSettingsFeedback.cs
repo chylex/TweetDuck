@@ -24,7 +24,7 @@ namespace TweetDuck.Core.Other.Settings{
 
             if (analytics != null){
                 string collectionTime = analyticsFile.LastCollectionMessage;
-                labelDataCollectionMessage.Text = string.IsNullOrEmpty(collectionTime) ? "No collection yet" : "Last collection: "+collectionTime;
+                labelDataCollectionMessage.Text = string.IsNullOrEmpty(collectionTime) ? "No collection yet" : "Last collection: " + collectionTime;
             }
         }
 

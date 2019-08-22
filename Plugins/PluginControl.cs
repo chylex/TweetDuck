@@ -27,7 +27,7 @@ namespace TweetDuck.Plugins{
             float dpiScale = this.GetDPIScale();
 
             if (dpiScale > 1F){
-                Size = MaximumSize = new Size(MaximumSize.Width, MaximumSize.Height+3);
+                Size = MaximumSize = new Size(MaximumSize.Width, MaximumSize.Height + 3);
             }
             
             this.labelName.Text = plugin.Name;

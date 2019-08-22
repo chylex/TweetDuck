@@ -13,7 +13,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
         public DialogSettingsCefArgs(string args){
             InitializeComponent();
             
-            Text = Program.BrandName+" Options - CEF Arguments";
+            Text = Program.BrandName + " Options - CEF Arguments";
             
             textBoxArgs.EnableMultilineShortcuts();
             textBoxArgs.Text = initialArgs = args ?? "";
@@ -32,7 +32,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
             }
 
             int count = CommandLineArgs.ReadCefArguments(CefArgs).Count;
-            string prompt = count == 0 && !string.IsNullOrWhiteSpace(initialArgs) ? "All current arguments will be removed. Continue?" : count+(count == 1 ? " argument was" : " arguments were")+" detected. Continue?";
+            string prompt = count == 0 && !string.IsNullOrWhiteSpace(initialArgs) ? "All current arguments will be removed. Continue?" : count + (count == 1 ? " argument was" : " arguments were") + " detected. Continue?";
 
             if (FormMessage.Question("Confirm CEF Arguments", prompt, FormMessage.OK, FormMessage.Cancel)){
                 DialogResult = DialogResult.OK;

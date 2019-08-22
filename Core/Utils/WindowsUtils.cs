@@ -37,7 +37,7 @@ namespace TweetDuck.Core.Utils{
             }catch(Win32Exception e) when (e.NativeErrorCode == 0x000004C7){ // operation canceled by the user
                 return false;
             }catch(Exception e){
-                Program.Reporter.HandleException("Error Opening Program", "Could not open the associated program for "+file, true, e);
+                Program.Reporter.HandleException("Error Opening Program", "Could not open the associated program for " + file, true, e);
                 return false;
             }
         }
@@ -79,8 +79,8 @@ namespace TweetDuck.Core.Utils{
 
             string updatedHtml = RegexStripHtmlStyles.Value.Replace(originalHtml, string.Empty);
 
-            int removed = originalHtml.Length-updatedHtml.Length;
-            updatedHtml = RegexOffsetClipboardHtml.Value.Replace(updatedHtml, match => (int.Parse(match.Value)-removed).ToString().PadLeft(match.Value.Length, '0'));
+            int removed = originalHtml.Length - updatedHtml.Length;
+            updatedHtml = RegexOffsetClipboardHtml.Value.Replace(updatedHtml, match => (int.Parse(match.Value) - removed).ToString().PadLeft(match.Value.Length, '0'));
             
             DataObject obj = new DataObject();
             obj.SetText(originalText, TextDataFormat.UnicodeText);
@@ -130,8 +130,8 @@ namespace TweetDuck.Core.Utils{
                         continue;
                     }
 
-                    if (browserPath[0] == '"' && browserPath[browserPath.Length-1] == '"'){
-                        browserPath = browserPath.Substring(1, browserPath.Length-2);
+                    if (browserPath[0] == '"' && browserPath[browserPath.Length - 1] == '"'){
+                        browserPath = browserPath.Substring(1, browserPath.Length - 2);
                     }
 
                     yield return new Browser(browserName, browserPath);

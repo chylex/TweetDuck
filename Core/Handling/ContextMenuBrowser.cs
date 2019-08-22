@@ -24,7 +24,7 @@ namespace TweetDuck.Core.Handling{
         private const string TitleMuteNotifications = "Mute notifications";
         private const string TitleSettings = "Options";
         private const string TitlePlugins = "Plugins";
-        private const string TitleAboutProgram = "About "+Program.BrandName;
+        private const string TitleAboutProgram = "About " + Program.BrandName;
 
         private readonly FormBrowser form;
         

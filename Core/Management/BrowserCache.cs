@@ -38,7 +38,7 @@ namespace TweetDuck.Core.Management{
                 AutoClearTimer = new Timer(state => {
                     if (AutoClearTimer != null){
                         try{
-                            if (CalculateCacheSize() >= Program.Config.System.ClearCacheThreshold*1024L*1024L){
+                            if (CalculateCacheSize() >= Program.Config.System.ClearCacheThreshold * 1024L * 1024L){
                                 SetClearOnExit();
                             }
                         }catch(Exception){

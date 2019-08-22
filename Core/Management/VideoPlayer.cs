@@ -40,7 +40,7 @@ namespace TweetDuck.Core.Management{
 
                 if ((process = Process.Start(new ProcessStartInfo{
                     FileName = Path.Combine(Program.ProgramPath, "TweetDuck.Video.exe"),
-                    Arguments = $"{owner.Handle} {(int)Math.Floor(100F*owner.GetDPIScale())} {Config.VideoPlayerVolume} \"{url}\" \"{pipe.GenerateToken()}\"",
+                    Arguments = $"{owner.Handle} {(int)Math.Floor(100F * owner.GetDPIScale())} {Config.VideoPlayerVolume} \"{url}\" \"{pipe.GenerateToken()}\"",
                     UseShellExecute = false,
                     RedirectStandardOutput = true
                 })) != null){
@@ -135,7 +135,7 @@ namespace TweetDuck.Core.Management{
 
         private void process_OutputDataReceived(object sender, DataReceivedEventArgs e){
             if (!string.IsNullOrEmpty(e.Data)){
-                Program.Reporter.LogVerbose("[VideoPlayer] "+e.Data);
+                Program.Reporter.LogVerbose("[VideoPlayer] " + e.Data);
             }
         }
 

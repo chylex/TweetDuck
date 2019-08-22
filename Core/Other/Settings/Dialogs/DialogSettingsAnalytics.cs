@@ -8,7 +8,7 @@ namespace TweetDuck.Core.Other.Settings.Dialogs{
         public DialogSettingsAnalytics(AnalyticsReport report){
             InitializeComponent();
             
-            Text = Program.BrandName+" Options - Analytics Report";
+            Text = Program.BrandName + " Options - Analytics Report";
             
             textBoxReport.EnableMultilineShortcuts();
             textBoxReport.Text = report.ToString().TrimEnd();

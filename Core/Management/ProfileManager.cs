@@ -49,7 +49,7 @@ namespace TweetDuck.Core.Management{
                                 try{
                                     stream.WriteFile(new string[]{ "plugin.data", plugin.Identifier, path.Relative }, path.Full);
                                 }catch(ArgumentOutOfRangeException e){
-                                    FormMessage.Warning("Export Profile", "Could not include a plugin file in the export. "+e.Message, FormMessage.OK);
+                                    FormMessage.Warning("Export Profile", "Could not include a plugin file in the export. " + e.Message, FormMessage.OK);
                                 }
                             }
                         }
@@ -157,7 +157,7 @@ namespace TweetDuck.Core.Management{
                 }
 
                 if (missingPlugins.Count > 0){
-                    FormMessage.Information("Profile Import", "Detected missing plugins when importing plugin data:\n"+string.Join("\n", missingPlugins), FormMessage.OK);
+                    FormMessage.Information("Profile Import", "Detected missing plugins when importing plugin data:\n" + string.Join("\n", missingPlugins), FormMessage.OK);
                 }
 
                 return true;

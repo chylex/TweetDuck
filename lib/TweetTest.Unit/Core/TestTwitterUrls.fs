@@ -85,15 +85,15 @@ module GetMediaLink_Default =
 
     [<Fact>]
     let ``does not modify URL w/o extension`` () =
-        Assert.Equal(domain+"/media/123", getMediaLinkDefault(domain+"/media/123"))
+        Assert.Equal(domain + "/media/123", getMediaLinkDefault(domain + "/media/123"))
 
     [<Fact>]
     let ``does not modify URL w/o quality suffix`` () =
-        Assert.Equal(domain+"/media/123.jpg", getMediaLinkDefault(domain+"/media/123.jpg"))
+        Assert.Equal(domain + "/media/123.jpg", getMediaLinkDefault(domain + "/media/123.jpg"))
 
     [<Fact>]
     let ``does not modify URL with quality suffix`` () =
-        Assert.Equal(domain+"/media/123.jpg:small", getMediaLinkDefault(domain+"/media/123.jpg:small"))
+        Assert.Equal(domain + "/media/123.jpg:small", getMediaLinkDefault(domain + "/media/123.jpg:small"))
 
 
 module GetMediaLink_Orig =
@@ -102,19 +102,19 @@ module GetMediaLink_Orig =
     
     [<Fact>]
     let ``appends :orig to valid URL w/o quality suffix`` () =
-        Assert.Equal(domain+"/media/123.jpg:orig", getMediaLinkOrig(domain+"/media/123.jpg"))
+        Assert.Equal(domain + "/media/123.jpg:orig", getMediaLinkOrig(domain + "/media/123.jpg"))
 
     [<Fact>]
     let ``rewrites :orig into valid URL with quality suffix`` () =
-        Assert.Equal(domain+"/media/123.jpg:orig", getMediaLinkOrig(domain+"/media/123.jpg:small"))
+        Assert.Equal(domain + "/media/123.jpg:orig", getMediaLinkOrig(domain + "/media/123.jpg:small"))
         
     [<Fact>]
     let ``does not modify unknown URL w/o quality suffix`` () =
-        Assert.Equal(domain+"/profile_images/123.jpg", getMediaLinkOrig(domain+"/profile_images/123.jpg"))
+        Assert.Equal(domain + "/profile_images/123.jpg", getMediaLinkOrig(domain + "/profile_images/123.jpg"))
         
     [<Fact>]
     let ``rewrites :orig into unknown URL with quality suffix`` () =
-        Assert.Equal(domain+"/profile_images/123.jpg:orig", getMediaLinkOrig(domain+"/profile_images/123.jpg:small"))
+        Assert.Equal(domain + "/profile_images/123.jpg:orig", getMediaLinkOrig(domain + "/profile_images/123.jpg:small"))
 
 
 module GetImageFileName =
@@ -165,13 +165,13 @@ module RegexAccount_IsMatch =
     [<InlineData("search-home")>]
     [<InlineData("search-advanced")>]
     let ``rejects reserved page names`` (name: string) =
-        Assert.False(isMatch("https://twitter.com/"+name))
+        Assert.False(isMatch("https://twitter.com/" + name))
         
     [<Theory>]
     [<InlineData("tosser")>]
     [<InlineData("searching")>]
     let ``accepts accounts starting with reserved page names`` (name: string) =
-        Assert.True(isMatch("https://twitter.com/"+name))
+        Assert.True(isMatch("https://twitter.com/" + name))
 
         
 [<Collection("RegexAccount")>]

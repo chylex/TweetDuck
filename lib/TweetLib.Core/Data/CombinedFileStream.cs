@@ -21,7 +21,7 @@ namespace TweetLib.Core.Data{
             byte[] name = Encoding.UTF8.GetBytes(identifier);
 
             if (name.Length > 255){
-                throw new ArgumentOutOfRangeException("Identifier cannot be 256 or more characters long: "+identifier);
+                throw new ArgumentOutOfRangeException("Identifier cannot be 256 or more characters long: " + identifier);
             }
 
             byte[] contents;
@@ -103,7 +103,7 @@ namespace TweetLib.Core.Data{
             public string[] KeyValue{
                 get{
                     int index = Identifier.IndexOf(KeySeparator);
-                    return index == -1 ? StringUtils.EmptyArray : Identifier.Substring(index+1).Split(KeySeparator);
+                    return index == -1 ? StringUtils.EmptyArray : Identifier.Substring(index + 1).Split(KeySeparator);
                 }
             }
 

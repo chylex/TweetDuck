@@ -51,7 +51,7 @@ namespace TweetDuck.Core.Other.Settings{
             checkAnimatedAvatars.Checked = Config.EnableAnimatedImages;
             
             trackBarZoom.SetValueSafe(Config.ZoomLevel);
-            labelZoomValue.Text = trackBarZoom.Value+"%";
+            labelZoomValue.Text = trackBarZoom.Value + "%";
 
             // system tray
             
@@ -63,7 +63,7 @@ namespace TweetDuck.Core.Other.Settings{
             comboBoxTrayType.Items.Add("Minimize to Tray");
             comboBoxTrayType.Items.Add("Close to Tray");
             comboBoxTrayType.Items.Add("Combined");
-            comboBoxTrayType.SelectedIndex = Math.Min(Math.Max((int)Config.TrayBehavior, 0), comboBoxTrayType.Items.Count-1);
+            comboBoxTrayType.SelectedIndex = Math.Min(Math.Max((int)Config.TrayBehavior, 0), comboBoxTrayType.Items.Count - 1);
 
             checkTrayHighlight.Enabled = Config.TrayBehavior.ShouldDisplayIcon();
             checkTrayHighlight.Checked = Config.EnableTrayHighlight;
@@ -189,7 +189,7 @@ namespace TweetDuck.Core.Other.Settings{
             if (trackBarZoom.AlignValueToTick()){
                 zoomUpdateTimer.Stop();
                 zoomUpdateTimer.Start();
-                labelZoomValue.Text = trackBarZoom.Value+"%";
+                labelZoomValue.Text = trackBarZoom.Value + "%";
             }
         }
 
