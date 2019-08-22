@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -333,7 +334,9 @@ namespace TweetDuck.Core{
 
         protected override void WndProc(ref Message m){
             if (isLoaded && m.Msg == Program.WindowRestoreMessage){
-                if (WindowsUtils.CurrentProcessID == m.WParam.ToInt32()){
+                using Process me = Process.GetCurrentProcess();
+
+                if (me.Id == m.WParam.ToInt32()){
                     trayIcon_ClickRestore(trayIcon, EventArgs.Empty);
                 }
 

@@ -16,15 +16,10 @@ namespace TweetDuck.Core.Utils{
 
         private static readonly bool IsWindows8OrNewer;
 
-        public static int CurrentProcessID { get; }
         public static bool ShouldAvoidToolWindow { get; }
         public static bool IsAeroEnabled => IsWindows8OrNewer || (NativeMethods.DwmIsCompositionEnabled(out bool isCompositionEnabled) == 0 && isCompositionEnabled);
 
         static WindowsUtils(){
-            using(Process me = Process.GetCurrentProcess()){
-                CurrentProcessID = me.Id;
-            }
-
             Version ver = Environment.OSVersion.Version;
             IsWindows8OrNewer = ver.Major == 6 && ver.Minor == 2; // windows 8/10
 

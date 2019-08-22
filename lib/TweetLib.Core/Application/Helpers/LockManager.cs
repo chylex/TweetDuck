@@ -1,12 +1,11 @@
 using System;
-using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading;
-using TweetDuck.Core.Utils;
 
-namespace TweetDuck.Configuration{
-    sealed class LockManager{
+namespace TweetLib.Core.Application.Helpers{
+    public sealed class LockManager{
         private const int RetryDelay = 250;
 
         public enum Result{
@@ -14,8 +13,8 @@ namespace TweetDuck.Configuration{
         }
 
         private readonly string file;
-        private FileStream lockStream;
-        private Process lockingProcess;
+        private FileStream? lockStream;
+        private Process? lockingProcess;
 
         public LockManager(string file){
             this.file = file;
@@ -37,7 +36,7 @@ namespace TweetDuck.Configuration{
         private Result TryCreateLockFile(){
             void CreateLockFileStream(){
                 lockStream = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.Read);
-                lockStream.Write(BitConverter.GetBytes(WindowsUtils.CurrentProcessID), 0, sizeof(int));
+                lockStream.Write(BitConverter.GetBytes(CurrentProcessID), 0, sizeof(int));
                 lockStream.Flush(true);
             }
 
@@ -82,13 +81,11 @@ namespace TweetDuck.Configuration{
                     try{
                         Process foundProcess = Process.GetProcessById(pid);
 
-                        using(Process currentProcess = Process.GetCurrentProcess()){
-                            if (foundProcess.MainModule.FileVersionInfo.InternalName == currentProcess.MainModule.FileVersionInfo.InternalName){
-                                lockingProcess = foundProcess;
-                            }
-                            else{
-                                foundProcess.Close();
-                            }
+                        if (MatchesCurrentProcess(foundProcess)){
+                            lockingProcess = foundProcess;
+                        }
+                        else{
+                            foundProcess.Close();
                         }
                     }catch{
                         // GetProcessById throws ArgumentException if the process is missing
@@ -124,7 +121,7 @@ namespace TweetDuck.Configuration{
                 try{
                     File.Delete(file);
                 }catch(Exception e){
-                    Program.Reporter.LogImportant(e.ToString());
+                    App.ErrorHandler.Log(e.ToString());
                     return false;
                 }
             }
@@ -133,51 +130,33 @@ namespace TweetDuck.Configuration{
         }
 
         // Locking process
+        
+        public bool RestoreLockingProcess(){
+            return lockingProcess != null && App.LockHandler.RestoreProcess(lockingProcess);
+        }
 
-        public bool RestoreLockingProcess(int failTimeout){
-            if (lockingProcess != null && lockingProcess.MainWindowHandle == IntPtr.Zero){ // restore if the original process is in tray
-                NativeMethods.BroadcastMessage(Program.WindowRestoreMessage, (uint)lockingProcess.Id, 0);
-
-                if (WindowsUtils.TrySleepUntil(() => CheckLockingProcessExited() || (lockingProcess.MainWindowHandle != IntPtr.Zero && lockingProcess.Responding), failTimeout, RetryDelay)){
-                    return true;
-                }
+        public bool CloseLockingProcess(){
+            if (lockingProcess != null && App.LockHandler.CloseProcess(lockingProcess)){
+                lockingProcess = null;
+                return true;
             }
 
             return false;
         }
 
-        public bool CloseLockingProcess(int closeTimeout, int killTimeout){
-            if (lockingProcess != null){
-                try{
-                    if (lockingProcess.CloseMainWindow()){
-                        WindowsUtils.TrySleepUntil(CheckLockingProcessExited, closeTimeout, RetryDelay);
-                    }
+        // Utilities
 
-                    if (!lockingProcess.HasExited){
-                        lockingProcess.Kill();
-                        WindowsUtils.TrySleepUntil(CheckLockingProcessExited, killTimeout, RetryDelay);
-                    }
-
-                    if (lockingProcess.HasExited){
-                        lockingProcess.Dispose();
-                        lockingProcess = null;
-                        return true;
-                    }
-                }catch(Exception ex) when (ex is InvalidOperationException || ex is Win32Exception){
-                    if (lockingProcess != null){
-                        bool hasExited = CheckLockingProcessExited();
-                        lockingProcess.Dispose();
-                        return hasExited;
-                    }
-                }
+        private static int CurrentProcessID{
+            get{
+                using Process me = Process.GetCurrentProcess();
+                return me.Id;
             }
-
-            return false;
         }
 
-        private bool CheckLockingProcessExited(){
-            lockingProcess.Refresh();
-            return lockingProcess.HasExited;
+        [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
+        private static bool MatchesCurrentProcess(Process process){
+            using Process current = Process.GetCurrentProcess();
+            return current.MainModule.FileVersionInfo.InternalName == process.MainModule.FileVersionInfo.InternalName;
         }
     }
 }

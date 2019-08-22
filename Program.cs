@@ -15,6 +15,7 @@ using TweetDuck.Core.Utils;
 using TweetDuck.Impl;
 using TweetDuck.Resources;
 using TweetLib.Core;
+using TweetLib.Core.Application.Helpers;
 using TweetLib.Core.Collections;
 using TweetLib.Core.Utils;
 
@@ -68,6 +69,7 @@ namespace TweetDuck{
 
             Lib.Initialize(new App.Builder{
                 ErrorHandler = Reporter,
+                LockHandler = new LockHandler(),
                 SystemHandler = new SystemHandler(),
                 ResourceHandler = Resources
             });
@@ -105,15 +107,17 @@ namespace TweetDuck{
                 LockManager.Result lockResult = LockManager.Lock();
                 
                 if (lockResult == LockManager.Result.HasProcess){
-                    if (!LockManager.RestoreLockingProcess(2000) && FormMessage.Error("TweetDuck is Already Running", "Another instance of TweetDuck is already running.\nDo you want to close it?", FormMessage.Yes, FormMessage.No)){
-                        if (!LockManager.CloseLockingProcess(10000, 5000)){
+                    if (!LockManager.RestoreLockingProcess() && FormMessage.Error("TweetDuck is Already Running", "Another instance of TweetDuck is already running.\nDo you want to close it?", FormMessage.Yes, FormMessage.No)){
+                        if (!LockManager.CloseLockingProcess()){
                             FormMessage.Error("TweetDuck Has Failed :(", "Could not close the other process.", FormMessage.OK);
                             return;
                         }
 
                         lockResult = LockManager.Lock();
                     }
-                    else return;
+                    else{
+                        return;
+                    }
                 }
 
                 if (lockResult != LockManager.Result.Success){
