@@ -92,7 +92,6 @@
     });
     
     onClick(ele.querySelector(".tdu-btn-later"), function(){
-      $TDU.onUpdateDelayed();
       exitSlide();
     });
     

@@ -73,28 +73,27 @@ namespace TweetDuck.Core.Management{
             Items items = Items.None;
 
             try{
-                using(CombinedFileStream stream = new CombinedFileStream(new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.None))){
-                    string key;
+                using CombinedFileStream stream = new CombinedFileStream(new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.None));
+                string key;
 
-                    while((key = stream.SkipFile()) != null){
-                        switch(key){
-                            case "config":
-                                items |= Items.UserConfig;
-                                break;
+                while((key = stream.SkipFile()) != null){
+                    switch(key){
+                        case "config":
+                            items |= Items.UserConfig;
+                            break;
 
-                            case "system":
-                                items |= Items.SystemConfig;
-                                break;
+                        case "system":
+                            items |= Items.SystemConfig;
+                            break;
 
-                            case "plugin.config":
-                            case "plugin.data":
-                                items |= Items.PluginData;
-                                break;
+                        case "plugin.config":
+                        case "plugin.data":
+                            items |= Items.PluginData;
+                            break;
 
-                            case "cookies":
-                                items |= Items.Session;
-                                break;
-                        }
+                        case "cookies":
+                            items |= Items.Session;
+                            break;
                     }
                 }
             }catch(Exception){

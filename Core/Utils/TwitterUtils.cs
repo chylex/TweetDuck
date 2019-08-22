@@ -25,7 +25,7 @@ namespace TweetDuck.Core.Utils{
         };
 
         public static void ViewImage(string url, ImageQuality quality){
-            void ViewImageInternal(string path){
+            static void ViewImageInternal(string path){
                 string ext = Path.GetExtension(path);
 
                 if (ImageUrl.ValidExtensions.Contains(ext)){
@@ -73,7 +73,7 @@ namespace TweetDuck.Core.Utils{
                 Filter = (urls.Length == 1 ? "Image" : "Images")+(string.IsNullOrEmpty(ext) ? " (unknown)|*.*" : $" (*{ext})|*{ext}")
             }){
                 if (dialog.ShowDialog() == DialogResult.OK){
-                    void OnFailure(Exception ex){
+                    static void OnFailure(Exception ex){
                         FormMessage.Error("Image Download", "An error occurred while downloading the image: "+ex.Message, FormMessage.OK);
                     }
 

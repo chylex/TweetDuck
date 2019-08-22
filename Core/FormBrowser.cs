@@ -78,7 +78,6 @@ namespace TweetDuck.Core{
 
             this.updateBridge = new UpdateBridge(updates, this);
             this.updateBridge.UpdateAccepted += updateBridge_UpdateAccepted;
-            this.updateBridge.UpdateDelayed += updateBridge_UpdateDelayed;
             this.updateBridge.UpdateDismissed += updateBridge_UpdateDismissed;
 
             this.browser = new TweetDeckBrowser(this, plugins, new TweetDeckBridge.Browser(this, notification), updateBridge);
@@ -321,10 +320,6 @@ namespace TweetDuck.Core{
 
                 downloadForm.Show();
             }
-        }
-
-        private void updateBridge_UpdateDelayed(object sender, UpdateInfo update){
-            // stops the timer
         }
 
         private void updateBridge_UpdateDismissed(object sender, UpdateInfo update){

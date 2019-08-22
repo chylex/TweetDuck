@@ -98,7 +98,7 @@ namespace TweetDuck.Video{
             bool needsUpdate = !timerSync.Enabled || (useCompactLayout ? tablePanelFull.Enabled : tablePanelCompactBottom.Enabled);
 
             if (needsUpdate){
-                void Disable(TableLayoutPanel panel){
+                static void Disable(TableLayoutPanel panel){
                     panel.Controls.Clear();
                     panel.Visible = false;
                     panel.Enabled = false;

@@ -11,19 +11,17 @@ using Microsoft.Win32;
 
 namespace TweetDuck.Core.Utils{
     static class WindowsUtils{
+        private static readonly bool IsWindows8OrNewer = OSVersionEquals(major: 6, minor: 2); // windows 8/10
+
+        public static bool ShouldAvoidToolWindow { get; } = IsWindows8OrNewer;
+        public static bool IsAeroEnabled => IsWindows8OrNewer || (NativeMethods.DwmIsCompositionEnabled(out bool isCompositionEnabled) == 0 && isCompositionEnabled);
+
         private static readonly Lazy<Regex> RegexStripHtmlStyles = new Lazy<Regex>(() => new Regex(@"\s?(?:style|class)="".*?"""), false);
         private static readonly Lazy<Regex> RegexOffsetClipboardHtml = new Lazy<Regex>(() => new Regex(@"(?<=EndHTML:|EndFragment:)(\d+)"), false);
 
-        private static readonly bool IsWindows8OrNewer;
-
-        public static bool ShouldAvoidToolWindow { get; }
-        public static bool IsAeroEnabled => IsWindows8OrNewer || (NativeMethods.DwmIsCompositionEnabled(out bool isCompositionEnabled) == 0 && isCompositionEnabled);
-
-        static WindowsUtils(){
+        private static bool OSVersionEquals(int major, int minor){
             Version ver = Environment.OSVersion.Version;
-            IsWindows8OrNewer = ver.Major == 6 && ver.Minor == 2; // windows 8/10
-
-            ShouldAvoidToolWindow = IsWindows8OrNewer;
+            return ver.Major == major && ver.Minor == minor;
         }
 
         public static bool OpenAssociatedProgram(string file, string arguments = "", bool runElevated = false){
@@ -109,34 +107,34 @@ namespace TweetDuck.Core.Utils{
         }
 
         public static IEnumerable<Browser> FindInstalledBrowsers(){
-            IEnumerable<Browser> ReadBrowsersFromKey(RegistryHive hive){
-                using(RegistryKey root = RegistryKey.OpenBaseKey(hive, RegistryView.Default))
-                using(RegistryKey browserList = root.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet", false)){
-                    if (browserList == null){
-                        yield break;
+            static IEnumerable<Browser> ReadBrowsersFromKey(RegistryHive hive){
+                using RegistryKey root = RegistryKey.OpenBaseKey(hive, RegistryView.Default);
+                using RegistryKey browserList = root.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet", false);
+
+                if (browserList == null){
+                    yield break;
+                }
+
+                foreach(string sub in browserList.GetSubKeyNames()){
+                    using RegistryKey browserKey = browserList.OpenSubKey(sub, false);
+                    using RegistryKey shellKey = browserKey?.OpenSubKey(@"shell\open\command");
+
+                    if (shellKey == null){
+                        continue;
                     }
 
-                    foreach(string sub in browserList.GetSubKeyNames()){
-                        using(RegistryKey browserKey = browserList.OpenSubKey(sub, false))
-                        using(RegistryKey shellKey = browserKey?.OpenSubKey(@"shell\open\command")){
-                            if (shellKey == null){
-                                continue;
-                            }
+                    string browserName = browserKey.GetValue(null) as string;
+                    string browserPath = shellKey.GetValue(null) as string;
 
-                            string browserName = browserKey.GetValue(null) as string;
-                            string browserPath = shellKey.GetValue(null) as string;
-
-                            if (string.IsNullOrEmpty(browserName) || string.IsNullOrEmpty(browserPath)){
-                                continue;
-                            }
-
-                            if (browserPath[0] == '"' && browserPath[browserPath.Length-1] == '"'){
-                                browserPath = browserPath.Substring(1, browserPath.Length-2);
-                            }
-
-                            yield return new Browser(browserName, browserPath);
-                        }
+                    if (string.IsNullOrEmpty(browserName) || string.IsNullOrEmpty(browserPath)){
+                        continue;
                     }
+
+                    if (browserPath[0] == '"' && browserPath[browserPath.Length-1] == '"'){
+                        browserPath = browserPath.Substring(1, browserPath.Length-2);
+                    }
+
+                    yield return new Browser(browserName, browserPath);
                 }
             }
 

@@ -3,7 +3,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using CefSharp;
 using TweetDuck.Configuration;
-using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling;
 using TweetDuck.Core.Handling.General;
@@ -17,10 +16,13 @@ namespace TweetDuck.Core.Notification{
     abstract partial class FormNotificationBase : Form, AnalyticsFile.IProvider{
         public static readonly ResourceLink AppLogo = new ResourceLink("https://ton.twimg.com/tduck/avatar", ResourceHandler.FromByteArray(Properties.Resources.avatar, "image/png"));
 
-        protected static UserConfig Config => Program.Config.User;
+        public static string FontSize = null;
+        public static string HeadLayout = null;
 
+        protected static UserConfig Config => Program.Config.User;
+        
         protected static int FontSizeLevel{
-            get => TweetDeckBridge.FontSize switch{
+            get => FontSize switch{
                 "largest"  => 4,
                 "large"    => 3,
                 "small"    => 1,

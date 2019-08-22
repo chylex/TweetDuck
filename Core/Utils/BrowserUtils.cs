@@ -8,7 +8,6 @@ using CefSharp.WinForms;
 using TweetDuck.Configuration;
 using TweetDuck.Core.Other;
 using TweetLib.Core.Features.Twitter;
-using TweetLib.Core.Utils;
 
 namespace TweetDuck.Core.Utils{
     static class BrowserUtils{
@@ -61,8 +60,12 @@ namespace TweetDuck.Core.Utils{
         }
 
         public static void SetupZoomEvents(this ChromiumWebBrowser browser){
+            static void SetZoomLevel(IBrowserHost host, int percentage){
+                host.SetZoomLevel(Math.Log(percentage / 100.0, 1.2));
+            }
+
             void UpdateZoomLevel(object sender, EventArgs args){
-                SetZoomLevel(browser.GetBrowser(), Config.ZoomLevel);
+                SetZoomLevel(browser.GetBrowserHost(), Config.ZoomLevel);
             }
 
             Config.ZoomLevelChanged += UpdateZoomLevel;
@@ -70,7 +73,7 @@ namespace TweetDuck.Core.Utils{
 
             browser.FrameLoadStart += (sender, args) => {
                 if (args.Frame.IsMain && Config.ZoomLevel != 100){
-                    SetZoomLevel(args.Browser, Config.ZoomLevel);
+                    SetZoomLevel(args.Browser.GetHost(), Config.ZoomLevel);
                 }
             };
         }
@@ -131,7 +134,9 @@ namespace TweetDuck.Core.Utils{
         }
 
         public static void OpenExternalSearch(string query){
-            if (string.IsNullOrWhiteSpace(query))return;
+            if (string.IsNullOrWhiteSpace(query)){
+                return;
+            }
             
             string searchUrl = Config.SearchEngineUrl;
             
@@ -157,16 +162,8 @@ namespace TweetDuck.Core.Utils{
             }
         }
 
-        public static string GetErrorName(CefErrorCode code){
-            return StringUtils.ConvertPascalCaseToScreamingSnakeCase(Enum.GetName(typeof(CefErrorCode), code) ?? string.Empty);
-        }
-
         public static int Scale(int baseValue, double scaleFactor){
             return (int)Math.Round(baseValue*scaleFactor);
-        }
-
-        public static void SetZoomLevel(IBrowser browser, int percentage){
-            browser.GetHost().SetZoomLevel(Math.Log(percentage/100.0, 1.2));
         }
     }
 }

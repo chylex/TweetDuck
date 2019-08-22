@@ -4,7 +4,6 @@ using System.Drawing.Imaging;
 using System.Windows.Forms;
 using CefSharp;
 using TweetDuck.Core.Adapters;
-using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Utils;
@@ -47,7 +46,7 @@ namespace TweetDuck.Core.Notification.Screenshot{
         }
 
         protected override string GetTweetHTML(DesktopNotification tweet){
-            string html = tweet.GenerateHtml("td-screenshot", TweetDeckBridge.NotificationHeadLayout, Config.CustomNotificationCSS);
+            string html = tweet.GenerateHtml("td-screenshot", HeadLayout, Config.CustomNotificationCSS);
 
             foreach(InjectedHTML injection in plugins.NotificationInjections){
                 html = injection.InjectInto(html);

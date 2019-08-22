@@ -143,19 +143,19 @@ namespace TweetDuck.Core.Other.Analytics{
             string osName, osEdition, osBuild;
 
             try{
-                using(RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion", false)){
-                    // ReSharper disable once PossibleNullReferenceException
-                    osName = key.GetValue("ProductName") as string;
-                    osBuild = key.GetValue("CurrentBuild") as string;
-                    osEdition = null;
-                    
-                    if (osName != null){
-                        Match match = Regex.Match(osName, @"^(.*?\d+(?:\.\d+)?) (.*)$");
+                using RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion", false);
 
-                        if (match.Success){
-                            osName = match.Groups[1].Value;
-                            osEdition = match.Groups[2].Value;
-                        }
+                // ReSharper disable once PossibleNullReferenceException
+                osName = key.GetValue("ProductName") as string;
+                osBuild = key.GetValue("CurrentBuild") as string;
+                osEdition = null;
+                    
+                if (osName != null){
+                    Match match = Regex.Match(osName, @"^(.*?\d+(?:\.\d+)?) (.*)$");
+
+                    if (match.Success){
+                        osName = match.Groups[1].Value;
+                        osEdition = match.Groups[2].Value;
                     }
                 }
             }catch{
@@ -167,10 +167,10 @@ namespace TweetDuck.Core.Other.Analytics{
             SystemBuild = osBuild ?? "(unknown)";
 
             try{
-                using(ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT Capacity FROM Win32_PhysicalMemory")){
-                    foreach(ManagementBaseObject obj in searcher.Get()){
-                        RamSize += (int)((ulong)obj["Capacity"]/(1024L*1024L));
-                    }
+                using ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT Capacity FROM Win32_PhysicalMemory");
+
+                foreach(ManagementBaseObject obj in searcher.Get()){
+                    RamSize += (int)((ulong)obj["Capacity"]/(1024L*1024L));
                 }
             }catch{
                 RamSize = 0;
@@ -179,13 +179,13 @@ namespace TweetDuck.Core.Other.Analytics{
             string gpu = null;
 
             try{
-                using(ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT Caption FROM Win32_VideoController")){
-                    foreach(ManagementBaseObject obj in searcher.Get()){
-                        string vendor = obj["Caption"] as string;
+                using ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT Caption FROM Win32_VideoController");
 
-                        if (!string.IsNullOrEmpty(vendor)){
-                            gpu = vendor;
-                        }
+                foreach(ManagementBaseObject obj in searcher.Get()){
+                    string vendor = obj["Caption"] as string;
+
+                    if (!string.IsNullOrEmpty(vendor)){
+                        gpu = vendor;
                     }
                 }
             }catch{

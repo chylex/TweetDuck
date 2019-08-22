@@ -220,7 +220,7 @@ namespace TweetDuck.Core.Notification{
         }
 
         protected override string GetTweetHTML(DesktopNotification tweet){
-            string html = tweet.GenerateHtml(BodyClasses, TweetDeckBridge.NotificationHeadLayout, Config.CustomNotificationCSS);
+            string html = tweet.GenerateHtml(BodyClasses, HeadLayout, Config.CustomNotificationCSS);
 
             foreach(InjectedHTML injection in plugins.NotificationInjections){
                 html = injection.InjectInto(html);

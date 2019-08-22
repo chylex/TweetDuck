@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 using TweetDuck.Core.Controls;
-using TweetDuck.Core.Management;
+using TweetDuck.Core.Handling;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Other;
 using TweetDuck.Core.Utils;
@@ -10,12 +10,9 @@ using TweetLib.Core.Features.Notifications;
 namespace TweetDuck.Core.Bridge{
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
     class TweetDeckBridge{
-        public static string FontSize { get; private set; }
-        public static string NotificationHeadLayout { get; private set; }
-        public static readonly ContextInfo ContextInfo = new ContextInfo();
-
         public static void ResetStaticProperties(){
-            FontSize = NotificationHeadLayout = null;
+            FormNotificationBase.FontSize = null;
+            FormNotificationBase.HeadLayout = null;
         }
 
         private readonly FormBrowser form;
@@ -47,17 +44,17 @@ namespace TweetDuck.Core.Bridge{
 
             public void LoadNotificationLayout(string fontSize, string headLayout){
                 form.InvokeAsyncSafe(() => {
-                    FontSize = fontSize;
-                    NotificationHeadLayout = headLayout;
+                    FormNotificationBase.FontSize = fontSize;
+                    FormNotificationBase.HeadLayout = headLayout;
                 });
             }
 
             public void SetRightClickedLink(string type, string url){
-                ContextInfo.SetLink(type, url);
+                ContextMenuBase.CurrentInfo.SetLink(type, url);
             }
 
             public void SetRightClickedChirp(string tweetUrl, string quoteUrl, string chirpAuthors, string chirpImages){
-                ContextInfo.SetChirp(tweetUrl, quoteUrl, chirpAuthors, chirpImages);
+                ContextMenuBase.CurrentInfo.SetChirp(tweetUrl, quoteUrl, chirpAuthors, chirpImages);
             }
 
             public void DisplayTooltip(string text){

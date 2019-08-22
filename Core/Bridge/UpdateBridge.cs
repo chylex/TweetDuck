@@ -13,7 +13,6 @@ namespace TweetDuck.Core.Bridge{
         private UpdateInfo nextUpdate = null;
 
         public event EventHandler<UpdateInfo> UpdateAccepted;
-        public event EventHandler<UpdateInfo> UpdateDelayed;
         public event EventHandler<UpdateInfo> UpdateDismissed;
 
         public UpdateBridge(UpdateHandler updates, Control sync){
@@ -54,10 +53,6 @@ namespace TweetDuck.Core.Bridge{
 
         public void OnUpdateAccepted(){
             HandleInteractionEvent(UpdateAccepted);
-        }
-
-        public void OnUpdateDelayed(){
-            HandleInteractionEvent(UpdateDelayed);
         }
 
         public void OnUpdateDismissed(){

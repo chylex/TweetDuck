@@ -21,9 +21,8 @@ namespace TweetDuck.Core.Controls{
         }
 
         public static float GetDPIScale(this Control control){
-            using(Graphics graphics = control.CreateGraphics()){
-                return graphics.DpiY/96F;
-            }
+            using Graphics graphics = control.CreateGraphics();
+            return graphics.DpiY / 96F;
         }
 
         public static bool IsFullyOutsideView(this Form form){
@@ -63,7 +62,8 @@ namespace TweetDuck.Core.Controls{
                 trackBar.Value = trackBar.SmallChange*(int)Math.Floor(((double)trackBar.Value/trackBar.SmallChange)+0.5);
                 return false;
             }
-            else return true;
+
+            return true;
         }
 
         public static void EnableMultilineShortcuts(this TextBox textBox){

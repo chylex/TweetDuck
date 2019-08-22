@@ -8,8 +8,8 @@ namespace TweetDuck.Core.Bridge{
         }
 
         public static string GenerateScript(Environment environment){
-            string Bool(bool value) => value ? "true;" : "false;";
-            string Str(string value) => '"'+value+"\";";
+            static string Bool(bool value) => value ? "true;" : "false;";
+            static string Str(string value) => '"'+value+"\";";
 
             UserConfig config = Program.Config.User;
             StringBuilder build = new StringBuilder(128).Append("(function(x){");

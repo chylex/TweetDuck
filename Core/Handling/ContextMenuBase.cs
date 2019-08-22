@@ -7,7 +7,6 @@ using TweetDuck.Core.Utils;
 using System.Linq;
 using TweetDuck.Configuration;
 using TweetDuck.Core.Adapters;
-using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Management;
 using TweetDuck.Core.Notification;
 using TweetDuck.Core.Other;
@@ -17,8 +16,9 @@ using TweetLib.Core.Utils;
 
 namespace TweetDuck.Core.Handling{
     abstract class ContextMenuBase : IContextMenuHandler{
-        protected static UserConfig Config => Program.Config.User;
+        public static ContextInfo CurrentInfo { get; } = new ContextInfo();
 
+        protected static UserConfig Config => Program.Config.User;
         private static ImageQuality ImageQuality => Config.TwitterImageQuality;
         
         private const CefMenuCommand MenuOpenLinkUrl     = (CefMenuCommand)26500;
@@ -43,10 +43,10 @@ namespace TweetDuck.Core.Handling{
 
         public virtual void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model){
             if (!TwitterUrls.IsTweetDeck(frame.Url) || browser.IsLoading){
-                Context = TweetDeckBridge.ContextInfo.Reset();
+                Context = CurrentInfo.Reset();
             }
             else{
-                Context = TweetDeckBridge.ContextInfo.Create(parameters);
+                Context = CurrentInfo.Create(parameters);
             }
             
             if (parameters.TypeFlags.HasFlag(ContextMenuType.Selection) && !parameters.TypeFlags.HasFlag(ContextMenuType.Editable)){
@@ -55,10 +55,10 @@ namespace TweetDuck.Core.Handling{
                 model.AddItem(MenuReadApplyROT13, "Apply ROT13");
                 model.AddSeparator();
             }
-            
-            string TextOpen(string name) => "Open "+name+" in browser";
-            string TextCopy(string name) => "Copy "+name+" address";
-            string TextSave(string name) => "Save "+name+" as...";
+
+            static string TextOpen(string name) => "Open "+name+" in browser";
+            static string TextCopy(string name) => "Copy "+name+" address";
+            static string TextSave(string name) => "Save "+name+" as...";
             
             if (Context.Types.HasFlag(ContextInfo.ContextType.Link) && !Context.UnsafeLinkUrl.EndsWith("tweetdeck.twitter.com/#", StringComparison.Ordinal)){
                 if (TwitterUrls.RegexAccount.IsMatch(Context.UnsafeLinkUrl)){
@@ -186,7 +186,7 @@ namespace TweetDuck.Core.Handling{
         }
 
         public virtual void OnContextMenuDismissed(IWebBrowser browserControl, IBrowser browser, IFrame frame){
-            Context = TweetDeckBridge.ContextInfo.Reset();
+            Context = CurrentInfo.Reset();
         }
 
         public virtual bool RunContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model, IRunContextMenuCallback callback){

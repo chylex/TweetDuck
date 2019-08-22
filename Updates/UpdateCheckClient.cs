@@ -49,11 +49,11 @@ namespace TweetDuck.Updates{
         }
 
         private UpdateInfo ParseFromJson(string json){
-            bool IsUpdaterAsset(JsonObject obj){
+            static bool IsUpdaterAsset(JsonObject obj){
                 return UpdaterAssetName == (string)obj["name"];
             }
 
-            string AssetDownloadUrl(JsonObject obj){
+            static string AssetDownloadUrl(JsonObject obj){
                 return (string)obj["browser_download_url"];
             }
             

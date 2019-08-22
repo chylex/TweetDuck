@@ -16,6 +16,7 @@ using TweetDuck.Plugins;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Enums;
 using TweetLib.Core.Features.Twitter;
+using TweetLib.Core.Utils;
 
 namespace TweetDuck.Core{
     sealed class TweetDeckBrowser : IDisposable{
@@ -178,7 +179,10 @@ namespace TweetDuck.Core{
                 string errorPage = Program.Resources.LoadSilent("pages/error.html");
 
                 if (errorPage != null){
-                    resourceHandlerFactory.RegisterHandler(ErrorUrl, ResourceHandler.FromString(errorPage.Replace("{err}", BrowserUtils.GetErrorName(e.ErrorCode))));
+                    string errorName = Enum.GetName(typeof(CefErrorCode), e.ErrorCode);
+                    string errorTitle = StringUtils.ConvertPascalCaseToScreamingSnakeCase(errorName ?? string.Empty);
+
+                    resourceHandlerFactory.RegisterHandler(ErrorUrl, ResourceHandler.FromString(errorPage.Replace("{err}", errorTitle)));
                     browser.Load(ErrorUrl);
                 }
             }
