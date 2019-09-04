@@ -396,7 +396,7 @@ IF EXIST "$(ProjectDir)bld\post_build.exe" (
     <Exec Command="start &quot;&quot; /B &quot;ISCC.exe&quot; /Q &quot;$(ProjectDir)bld\gen_upd.iss&quot;" WorkingDirectory="$(ProjectDir)bld\" IgnoreExitCode="true" />
   </Target>
   <PropertyGroup>
-    <PreBuildEvent>powershell Get-Process TweetDuck.Browser -ErrorAction SilentlyContinue ^| Where-Object {$_.Path -eq '$(TargetDir)TweetDuck.Browser.exe'} ^| Stop-Process; Exit 0</PreBuildEvent>
+    <PreBuildEvent>powershell -NoProfile -Command "$ErrorActionPreference = 'SilentlyContinue'; (Get-Process TweetDuck.Browser | Where-Object {$_.Path -eq '$(TargetDir)TweetDuck.Browser.exe'}).Kill(); Exit 0"</PreBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
