@@ -5,7 +5,7 @@ using TweetLib.Core.Utils;
 
 namespace TweetLib.Core.Features.Twitter{
     public class ImageUrl{
-        private static readonly Regex RegexImageUrlParams = new Regex(@"(format|name)=(\w+)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static readonly Regex RegexImageUrlParams = new Regex(@"(format|name)=(\w+)", RegexOptions.IgnoreCase);
 
         public static readonly string[] ValidExtensions = {
             ".jpg", ".jpeg", ".png", ".gif"

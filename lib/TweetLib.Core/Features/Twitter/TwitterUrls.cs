@@ -7,8 +7,7 @@ namespace TweetLib.Core.Features.Twitter{
         public const string TweetDeck = "https://tweetdeck.twitter.com";
         private const string TwitterTrackingUrl = "t.co";
 
-        private static readonly Lazy<Regex> RegexAccountLazy = new Lazy<Regex>(() => new Regex(@"^https?://twitter\.com/(?!signup$|tos$|privacy$|search$|search-)([^/?]+)/?$", RegexOptions.Compiled), false);
-        public static Regex RegexAccount => RegexAccountLazy.Value;
+        public static Regex RegexAccount { get; } = new Regex(@"^https?://twitter\.com/(?!signup$|tos$|privacy$|search$|search-)([^/?]+)/?$");
 
         public static bool IsTweetDeck(string url){
             return url.Contains("//tweetdeck.twitter.com/");

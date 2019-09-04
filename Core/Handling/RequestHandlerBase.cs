@@ -11,7 +11,7 @@ using TweetLib.Core.Utils;
 
 namespace TweetDuck.Core.Handling{
     class RequestHandlerBase : DefaultRequestHandler{
-        private static readonly Regex TweetDeckResourceUrl = new Regex(@"/dist/(.*?)\.(.*?)\.(css|js)$", RegexOptions.Compiled);
+        private static readonly Regex TweetDeckResourceUrl = new Regex(@"/dist/(.*?)\.(.*?)\.(css|js)$");
         private static readonly SortedList<string, string> TweetDeckHashes = new SortedList<string, string>(4);
 
         public static void LoadResourceRewriteRules(string rules){
