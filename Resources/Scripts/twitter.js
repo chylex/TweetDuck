@@ -1,4 +1,8 @@
 (function(){
+  const isLogin = location.pathname === "/login";
+  const isLogout = location.pathname === "/logout";
+  const isMobile = location.host === "mobile.twitter.com";
+  
   //
   // Function: Inject custom CSS into the page.
   //
@@ -14,51 +18,119 @@
     
     document.head.appendChild(link);
     
-    if (location.pathname === "/logout"){
+    if (isLogin){
+      document.documentElement.setAttribute("login", "");
+    }
+    else if (isLogout){
       document.documentElement.setAttribute("logout", "");
+    }
+    
+    if (isMobile){
+      document.documentElement.setAttribute("mobile", "");
+    }
+    else{
+      document.documentElement.setAttribute("desktop", "");
     }
   };
   
   setTimeout(injectCSS, 1);
   
   //
-  // Block: Make login page links external.
+  // Function: Trigger once element exists.
   //
-  if (location.pathname === "/login"){
-    document.addEventListener("DOMContentLoaded", function(){
-      const openLinkExternally = function(e){
-        let href = e.currentTarget.getAttribute("href");
-        $TD.openBrowser(href[0] === '/' ? location.origin+href : href);
-        
-        e.preventDefault();
-        e.stopPropagation();
-      };
+  const triggerWhenExists = function(query, callback){
+    let id = window.setInterval(function(){
+      let ele = document.querySelector(query);
       
-      for(let link of document.getElementsByTagName("A")){
-        link.addEventListener("click", openLinkExternally);
+      if (ele && callback(ele)){
+        window.clearInterval(id);
       }
-      
-      let texts = document.querySelector(".page-canvas > div:last-child");
-      
-      if (texts){
-        texts.insertAdjacentHTML("beforeend", `<p class="tweetduck-helper">Used the TweetDuck app before? <a href="#">Import your profile »</a></p>`);
-        
-        texts.querySelector(".tweetduck-helper > a").addEventListener("click", function(){
-          $TD.openProfileImport();
+    }, 5);
+  };
+  
+  //
+  // Block: Add profile import button & enable custom styling, make page links external on old login page.
+  //
+  if (isLogin){
+    document.addEventListener("DOMContentLoaded", function(){
+      if (isMobile){
+        triggerWhenExists("main h1", function(heading){
+          heading.parentNode.setAttribute("tweetduck-login-wrapper", "");
+          return true;
         });
+        
+        triggerWhenExists("a[href='/i/flow/signup']", function(texts){
+          texts = texts.parentNode;
+          
+          let link = texts.childNodes[0];
+          let separator = texts.childNodes[1];
+          
+          if (link && separator){
+            texts.classList.add("tweetduck-login-links");
+            
+            link = link.cloneNode(false);
+            link.id = "tweetduck-helper";
+            link.href = "#";
+            link.innerText = "Import TweetDuck profile";
+            
+            texts.appendChild(separator.cloneNode(true));
+            texts.appendChild(link);
+            
+            link.addEventListener("click", function(){
+              $TD.openProfileImport();
+            });
+            
+            return true;
+          }
+          else{
+            return false;
+          }
+        });
+      }
+      else{
+        const openLinkExternally = function(e){
+          let href = e.currentTarget.getAttribute("href");
+          $TD.openBrowser(href[0] === '/' ? location.origin+href : href);
+          
+          e.preventDefault();
+          e.stopPropagation();
+        };
+        
+        for(let link of document.getElementsByTagName("A")){
+          link.addEventListener("click", openLinkExternally);
+        }
+        
+        let texts = document.querySelector(".page-canvas > div:last-child");
+        
+        if (texts){
+          texts.insertAdjacentHTML("beforeend", `<p id="tweetduck-helper">Used the TweetDuck app before? <a href="#">Import your profile »</a></p>`);
+          
+          texts.querySelector("#tweetduck-helper > a").addEventListener("click", function(){
+            $TD.openProfileImport();
+          });
+        }
       }
     });
   }
+  
   //
-  // Block: Fix broken Cancel button on logout page.
+  // Block: Hide cookie crap.
   //
-  else if (location.pathname === "/logout"){
+  if (isMobile){
     document.addEventListener("DOMContentLoaded", function(){
-      let cancel = document.querySelector(".buttons .cancel");
-      
-      if (cancel && cancel.tagName === "A"){
-        cancel.href = "https://tweetdeck.twitter.com/";
-      }
+      triggerWhenExists("a[href^='https://help.twitter.com/rules-and-policies/twitter-cookies']", function(cookie){
+        while(!!cookie){
+          if (cookie.offsetHeight > 30){
+            cookie.remove();
+            return true;
+          }
+          else{
+            cookie = cookie.parentNode;
+          }
+        }
+        
+        return false;
+      });
     });
   }
 })();
