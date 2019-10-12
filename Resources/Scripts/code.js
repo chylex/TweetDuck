@@ -1458,6 +1458,24 @@
   }
   
   //
+  // Block: Add missing languages for Bing Translator (Bengali, Icelandic, Tagalog, Tamil, Telugu, Urdu).
+  //
+  if (ensurePropertyExists(TD, "languages", "getSupportedTranslationSourceLanguages")){
+    const newCodes = [ "bn", "is", "tl", "ta", "te", "ur" ];
+    const codeSet = new Set(TD.languages.getSupportedTranslationSourceLanguages());
+    
+    for(const lang of newCodes){
+      codeSet.add(lang);
+    }
+    
+    const codeList = [...codeSet];
+    
+    TD.languages.getSupportedTranslationSourceLanguages = function(){
+      return codeList;
+    };
+  }
+  
+  //
   // Block: Setup global function to refresh all columns.
   //
   if (ensurePropertyExists(TD, "controller", "columnManager", "getAll")){
