@@ -42,6 +42,9 @@ namespace TweetDuck.Core.Handling{
                 BlockNextUserNavUrl = string.Empty;
                 return block;
             }
+            else if (request.TransitionType.HasFlag(TransitionType.ForwardBack) && TwitterUrls.IsTweetDeck(frame.Url)){
+                return true;
+            }
 
             return base.OnBeforeBrowse(browserControl, browser, frame, request, userGesture, isRedirect);
         }

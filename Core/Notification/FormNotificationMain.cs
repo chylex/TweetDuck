@@ -166,7 +166,16 @@ namespace TweetDuck.Core.Notification{
         }
 
         private void timerHideProgress_Tick(object sender, EventArgs e){
-            if (Bounds.Contains(Cursor.Position) || FreezeTimer || ContextMenuOpen){
+            bool isCursorInside = Bounds.Contains(Cursor.Position);
+
+            if (isCursorInside){
+                StartMouseHook();
+            }
+            else{
+                StopMouseHook(false);
+            }
+
+            if (isCursorInside || FreezeTimer || ContextMenuOpen){
                 return;
             }
 
@@ -257,7 +266,6 @@ namespace TweetDuck.Core.Notification{
             }
             
             MoveToVisibleLocation();
-            StartMouseHook();
         }
 
         protected virtual void OnNotificationReady(){

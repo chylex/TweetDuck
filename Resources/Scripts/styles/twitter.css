@@ -40,78 +40,50 @@
 /* General styling */
 /*******************/
 
+* {
+  border-radius: 0 !important;
+}
+
 body {
-  /* remove scrollbar */
   overflow: hidden !important;
 }
 
-.page-canvas {
-  /* tweak page shadow */
+.page-canvas, div[tweetduck-login-wrapper], body.ResponsiveLayout > div.PageContainer > div.Section {
   box-shadow: 0 0 150px rgba(255, 255, 255, 0.3) !important;
 }
 
 .topbar, .TopNav {
-  /* hide top bar */
   display: none !important;
-}
-    
-.page-canvas, .buttons, .btn, input {
-  /* sharpen borders */
-  border-radius: 0 !important;
 }
 
 input {
-  /* tweak input padding */
   padding: 5px 8px 4px !important;
 }
 
 button[type='submit'] {
-  /* style buttons */
   border: 1px solid rgba(0, 0, 0, 0.3) !important;
-  border-radius: 0 !important;
 }
 
-.tweetduck-helper {
-  /* custom login text */
+/****************************/
+/* General per-page styling */
+/****************************/
+
+html[mobile][login] div[tweetduck-login-wrapper] {
+  /* vertically center page & fix colors */
+  margin-top: calc(50vh - 200px);
+  padding: 26px 1.1vw;
+  background-color: white;
+}
+
+html[mobile][login] #tweetduck-helper:hover {
+  text-decoration: underline;
+}
+
+html[desktop][login] #tweetduck-helper {
   margin-top: 15px !important;
   font-weight: bold !important;
 }
 
-/********************************************/
-/* Fix min width and margins on logout page */
-/********************************************/
-
-html[logout] .page-canvas {
-  width: auto !important;
-  max-width: 888px;
-}
-
-html[logout] .signout-wrapper {
-  width: auto !important;
-  margin: 0 auto !important;
-}
-
-html[logout] .signout {
-  margin: 60px 0 54px !important;
-}
-
-html[logout] .buttons {
-  padding-bottom: 0 !important;
-}
-
-/*******************************/
-/* General logout page styling */
-/*******************************/
-
-html[logout] .aside {
-  /* hide elements around dialog */
-  display: none;
-}
-
-html[logout] .buttons button, html[logout] .buttons a {
-  /* style buttons */
-  display: inline-block;
-  margin: 0 4px !important;
+html[mobile][logout] div[role="button"] {
   border: 1px solid rgba(0, 0, 0, 0.3) !important;
-  border-radius: 0 !important;
 }
