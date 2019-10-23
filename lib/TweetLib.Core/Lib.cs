@@ -4,7 +4,7 @@ using System.Threading;
 namespace TweetLib.Core{
     public static class Lib{
         public const string BrandName = "TweetDuck";
-        public const string VersionTag = "1.18.1";
+        public const string VersionTag = "1.18.2";
 
         public static CultureInfo Culture { get; private set; }
 
