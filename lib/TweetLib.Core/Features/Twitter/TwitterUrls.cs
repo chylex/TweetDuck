@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text.RegularExpressions;
+using TweetLib.Core.Utils;
 
 namespace TweetLib.Core.Features.Twitter{
     public static class TwitterUrls{
@@ -22,8 +23,7 @@ namespace TweetLib.Core.Features.Twitter{
         }
 
         public static string? GetFileNameFromUrl(string url){
-            string file = Path.GetFileName(new Uri(url).AbsolutePath);
-            return string.IsNullOrEmpty(file) ? null : file;
+            return StringUtils.NullIfEmpty(Path.GetFileName(new Uri(url).AbsolutePath));
         }
 
         public static string GetMediaLink(string url, ImageQuality quality){

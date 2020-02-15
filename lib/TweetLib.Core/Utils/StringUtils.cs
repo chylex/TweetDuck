@@ -6,6 +6,10 @@ namespace TweetLib.Core.Utils{
     public static class StringUtils{
         public static readonly string[] EmptyArray = new string[0];
 
+        public static string? NullIfEmpty(string str){
+            return string.IsNullOrEmpty(str) ? null : str;
+        }
+
         public static (string before, string after)? SplitInTwo(string str, char search, int startIndex = 0){
             int index = str.IndexOf(search, startIndex);
 
