@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
+using CefSharp;
 using TweetDuck.Core.Controls;
 using TweetDuck.Core.Handling;
 using TweetDuck.Core.Notification;
@@ -100,8 +101,12 @@ namespace TweetDuck.Core.Bridge{
             form.InvokeAsyncSafe(() => form.OnTweetScreenshotReady(html, width));
         }
 
-        public void PlayVideo(string videoUrl, string tweetUrl, string username){
-            form.InvokeAsyncSafe(() => form.PlayVideo(videoUrl, tweetUrl, username));
+        public void PlayVideo(string videoUrl, string tweetUrl, string username, IJavascriptCallback callShowOverlay){
+            form.InvokeAsyncSafe(() => form.PlayVideo(videoUrl, tweetUrl, username, callShowOverlay));
+        }
+        
+        public void StopVideo(){
+            form.InvokeAsyncSafe(form.StopVideo);
         }
 
         public void FixClipboard(){

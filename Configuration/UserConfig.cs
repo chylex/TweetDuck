@@ -34,8 +34,10 @@ namespace TweetDuck.Configuration{
         public bool IgnoreTrackingUrlWarning { get; set; } = false;
         public string SearchEngineUrl        { get; set; } = null;
         private int _zoomLevel                             = 100;
-
-        public int VideoPlayerVolume { get; set; } = 50;
+        
+        public string VideoPlayerPath     { get; set; } = null;
+        public string VideoPlayerPathArgs { get; set; } = null;
+        public int VideoPlayerVolume      { get; set; } = 50;
         
         public bool EnableSpellCheck { get; set; } = false;
         private string _spellCheckLanguage         = "en-US";

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CefSharp;
 using TweetDuck.Configuration;
 using TweetDuck.Core.Bridge;
 using TweetDuck.Core.Controls;
@@ -508,22 +510,41 @@ namespace TweetDuck.Core{
             AnalyticsFile.SoundNotifications.Trigger();
         }
 
-        public void PlayVideo(string videoUrl, string tweetUrl, string username){
-            if (string.IsNullOrEmpty(videoUrl)){
-                videoPlayer?.Close();
-                return;
-            }
+        public void PlayVideo(string videoUrl, string tweetUrl, string username, IJavascriptCallback callShowOverlay){
+            string playerPath = Config.VideoPlayerPath;
 
-            if (videoPlayer == null){
-                videoPlayer = new VideoPlayer(this);
+            if (playerPath == null || !File.Exists(playerPath)){
+                if (videoPlayer == null){
+                    videoPlayer = new VideoPlayer(this);
 
-                videoPlayer.ProcessExited += (sender, args) => {
-                    browser.HideVideoOverlay(true);
-                };
-            }
+                    videoPlayer.ProcessExited += (sender, args) => {
+                        browser.HideVideoOverlay(true);
+                    };
+                }
                 
-            videoPlayer.Launch(videoUrl, tweetUrl, username);
+                callShowOverlay.ExecuteAsync();
+                callShowOverlay.Dispose();
+
+                videoPlayer.Launch(videoUrl, tweetUrl, username);
+            }
+            else{
+                callShowOverlay.Dispose();
+
+                string quotedUrl = '"' + videoUrl + '"';
+                string playerArgs = Config.VideoPlayerPathArgs == null ? quotedUrl : Config.VideoPlayerPathArgs + ' ' + quotedUrl;
+                
+                try{
+                    using(Process.Start(playerPath, playerArgs)){}
+                }catch(Exception e){
+                    Program.Reporter.HandleException("Error Opening Video Player", "Could not open the video player.", true, e);
+                }
+            }
+            
             AnalyticsFile.VideoPlays.Trigger();
+        }
+
+        public void StopVideo(){
+            videoPlayer?.Close();
         }
 
         public bool ProcessBrowserKey(Keys key){

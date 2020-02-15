@@ -19,6 +19,9 @@ namespace TweetDuck.Core.Other.Settings{
         private readonly int browserListIndexDefault;
         private readonly int browserListIndexCustom;
 
+        private readonly int videoPlayerListIndexDefault;
+        private readonly int videoPlayerListIndexCustom;
+
         private readonly int searchEngineIndexDefault;
         private readonly int searchEngineIndexCustom;
 
@@ -95,6 +98,10 @@ namespace TweetDuck.Core.Other.Settings{
             browserListIndexCustom = comboBoxCustomBrowser.Items.Add("(custom program...)");
             UpdateBrowserPathSelection();
 
+            videoPlayerListIndexDefault = comboBoxCustomVideoPlayer.Items.Add("(default TweetDuck player)");
+            videoPlayerListIndexCustom = comboBoxCustomVideoPlayer.Items.Add("(custom program...)");
+            UpdateVideoPlayerPathSelection();
+
             comboBoxSearchEngine.Items.Add(new SearchEngine("DuckDuckGo", "https://duckduckgo.com/?q="));
             comboBoxSearchEngine.Items.Add(new SearchEngine("Google", "https://www.google.com/search?q="));
             comboBoxSearchEngine.Items.Add(new SearchEngine("Bing", "https://www.bing.com/search?q="));
@@ -148,6 +155,8 @@ namespace TweetDuck.Core.Other.Settings{
             checkHardwareAcceleration.CheckedChanged += checkHardwareAcceleration_CheckedChanged;
             comboBoxCustomBrowser.SelectedIndexChanged += comboBoxCustomBrowser_SelectedIndexChanged;
             btnCustomBrowserChange.Click += btnCustomBrowserChange_Click;
+            comboBoxCustomVideoPlayer.SelectedIndexChanged += comboBoxCustomVideoPlayer_SelectedIndexChanged;
+            btnCustomVideoPlayerChange.Click += btnCustomVideoPlayerChange_Click;
             comboBoxSearchEngine.SelectedIndexChanged += comboBoxSearchEngine_SelectedIndexChanged;
 
             checkSpellCheck.CheckedChanged += checkSpellCheck_CheckedChanged;
@@ -301,6 +310,48 @@ namespace TweetDuck.Core.Other.Settings{
             comboBoxCustomBrowser.SelectedIndexChanged -= comboBoxCustomBrowser_SelectedIndexChanged;
             UpdateBrowserPathSelection();
             comboBoxCustomBrowser.SelectedIndexChanged += comboBoxCustomBrowser_SelectedIndexChanged;
+        }
+
+        private void UpdateVideoPlayerChangeButton(){
+            btnCustomVideoPlayerChange.Visible = comboBoxCustomVideoPlayer.SelectedIndex == videoPlayerListIndexCustom;
+        }
+
+        private void UpdateVideoPlayerPathSelection(){
+            if (string.IsNullOrEmpty(Config.VideoPlayerPath) || !File.Exists(Config.VideoPlayerPath)){
+                comboBoxCustomVideoPlayer.SelectedIndex = videoPlayerListIndexDefault;
+            }
+            else{
+                comboBoxCustomVideoPlayer.SelectedIndex = videoPlayerListIndexCustom;
+            }
+
+            UpdateVideoPlayerChangeButton();
+        }
+
+        private void comboBoxCustomVideoPlayer_SelectedIndexChanged(object sender, EventArgs e){
+            if (comboBoxCustomVideoPlayer.SelectedIndex == videoPlayerListIndexCustom){
+                btnCustomVideoPlayerChange_Click(sender, e);
+            }
+            else{
+                Config.VideoPlayerPath = null;
+                Config.VideoPlayerPathArgs = null;
+                UpdateVideoPlayerChangeButton();
+            }
+        }
+
+        private void btnCustomVideoPlayerChange_Click(object sender, EventArgs e){
+            using(DialogSettingsExternalProgram dialog = new DialogSettingsExternalProgram("External Video Player", "Play Videos With..."){
+                Path = Config.VideoPlayerPath,
+                Args = Config.VideoPlayerPathArgs
+            }){
+                if (dialog.ShowDialog() == DialogResult.OK){
+                    Config.VideoPlayerPath = dialog.Path;
+                    Config.VideoPlayerPathArgs = dialog.Args;
+                }
+            }
+
+            comboBoxCustomVideoPlayer.SelectedIndexChanged -= comboBoxCustomVideoPlayer_SelectedIndexChanged;
+            UpdateVideoPlayerPathSelection();
+            comboBoxCustomVideoPlayer.SelectedIndexChanged += comboBoxCustomVideoPlayer_SelectedIndexChanged;
         }
 
         private void comboBoxSearchEngine_SelectedIndexChanged(object sender, EventArgs e){

@@ -1215,11 +1215,11 @@
     window.TDGF_playVideo = function(videoUrl, tweetUrl, username){
       return if !videoUrl;
       
-      $('<div id="td-video-player-overlay" class="ovl" style="display:block"></div>').on("click contextmenu", function(){
-        $TD.playVideo(null, null, null);
-      }).appendTo(app);
-      
-      $TD.playVideo(videoUrl, tweetUrl || videoUrl, username || null);
+      $TD.playVideo(videoUrl, tweetUrl || videoUrl, username || null, function(){
+        $('<div id="td-video-player-overlay" class="ovl" style="display:block"></div>').on("click contextmenu", function(){
+          $TD.stopVideo();
+        }).appendTo(app);
+      });
     };
     
     const getGifLink = function(ele){
