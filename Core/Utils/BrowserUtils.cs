@@ -85,7 +85,9 @@ namespace TweetDuck.Core.Utils{
         }
 
         public static void OpenExternalBrowser(string url){
-            if (string.IsNullOrWhiteSpace(url))return;
+            if (string.IsNullOrWhiteSpace(url)){
+                return;
+            }
 
             switch(TwitterUrls.Check(url)){
                 case TwitterUrls.UrlType.Fine:
@@ -99,8 +101,11 @@ namespace TweetDuck.Core.Utils{
                             WindowsUtils.OpenAssociatedProgram(url);
                         }
                         else{
+                            string quotedUrl = '"' + url + '"';
+                            string browserArgs = Config.BrowserPathArgs == null ? quotedUrl : Config.BrowserPathArgs + ' ' + quotedUrl;
+
                             try{
-                                using(Process.Start(browserPath, url)){}
+                                using(Process.Start(browserPath, browserArgs)){}
                             }catch(Exception e){
                                 Program.Reporter.HandleException("Error Opening Browser", "Could not open the browser.", true, e);
                             }
@@ -134,7 +139,7 @@ namespace TweetDuck.Core.Utils{
                     break;
 
                 case TwitterUrls.UrlType.Invalid:
-                    FormMessage.Warning("Blocked URL", "A potentially malicious URL was blocked from opening:\n" + url, FormMessage.OK);
+                    FormMessage.Warning("Blocked URL", "A potentially malicious or invalid URL was blocked from opening:\n" + url, FormMessage.OK);
                     break;
             }
         }

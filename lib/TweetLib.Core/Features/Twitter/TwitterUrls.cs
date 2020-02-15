@@ -39,6 +39,10 @@ namespace TweetLib.Core.Features.Twitter{
         }
 
         public static UrlType Check(string url){
+            if (url.Contains("\"")){
+                return UrlType.Invalid;
+            }
+
             if (Uri.TryCreate(url, UriKind.Absolute, out Uri uri)){
                 string scheme = uri.Scheme;
 

@@ -49,11 +49,13 @@
             this.checkSmoothScrolling = new System.Windows.Forms.CheckBox();
             this.checkTouchAdjustment = new System.Windows.Forms.CheckBox();
             this.labelBrowserPath = new System.Windows.Forms.Label();
-            this.comboBoxBrowserPath = new System.Windows.Forms.ComboBox();
+            this.comboBoxCustomBrowser = new System.Windows.Forms.ComboBox();
             this.labelSearchEngine = new System.Windows.Forms.Label();
             this.comboBoxSearchEngine = new System.Windows.Forms.ComboBox();
             this.flowPanelRight = new System.Windows.Forms.FlowLayoutPanel();
             this.checkHardwareAcceleration = new System.Windows.Forms.CheckBox();
+            this.panelCustomBrowser = new System.Windows.Forms.Panel();
+            this.btnCustomBrowserChange = new System.Windows.Forms.Button();
             this.labelLocales = new System.Windows.Forms.Label();
             this.checkSpellCheck = new System.Windows.Forms.CheckBox();
             this.labelSpellCheckLanguage = new System.Windows.Forms.Label();
@@ -65,6 +67,7 @@
             this.panelZoom.SuspendLayout();
             this.flowPanelLeft.SuspendLayout();
             this.flowPanelRight.SuspendLayout();
+            this.panelCustomBrowser.SuspendLayout();
             this.SuspendLayout();
             // 
             // checkExpandLinks
@@ -357,16 +360,16 @@
             this.labelBrowserPath.TabIndex = 4;
             this.labelBrowserPath.Text = "Open Links With...";
             // 
-            // comboBoxBrowserPath
+            // comboBoxCustomBrowser
             // 
-            this.comboBoxBrowserPath.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxBrowserPath.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.comboBoxBrowserPath.FormattingEnabled = true;
-            this.comboBoxBrowserPath.Location = new System.Drawing.Point(5, 126);
-            this.comboBoxBrowserPath.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
-            this.comboBoxBrowserPath.Name = "comboBoxBrowserPath";
-            this.comboBoxBrowserPath.Size = new System.Drawing.Size(173, 23);
-            this.comboBoxBrowserPath.TabIndex = 5;
+            this.comboBoxCustomBrowser.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxCustomBrowser.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.comboBoxCustomBrowser.FormattingEnabled = true;
+            this.comboBoxCustomBrowser.Location = new System.Drawing.Point(5, 1);
+            this.comboBoxCustomBrowser.Margin = new System.Windows.Forms.Padding(5, 1, 3, 0);
+            this.comboBoxCustomBrowser.Name = "comboBoxCustomBrowser";
+            this.comboBoxCustomBrowser.Size = new System.Drawing.Size(176, 23);
+            this.comboBoxCustomBrowser.TabIndex = 0;
             // 
             // labelSearchEngine
             // 
@@ -387,7 +390,7 @@
             this.comboBoxSearchEngine.Location = new System.Drawing.Point(5, 183);
             this.comboBoxSearchEngine.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.comboBoxSearchEngine.Name = "comboBoxSearchEngine";
-            this.comboBoxSearchEngine.Size = new System.Drawing.Size(173, 23);
+            this.comboBoxSearchEngine.Size = new System.Drawing.Size(176, 23);
             this.comboBoxSearchEngine.TabIndex = 7;
             // 
             // flowPanelRight
@@ -399,7 +402,7 @@
             this.flowPanelRight.Controls.Add(this.checkTouchAdjustment);
             this.flowPanelRight.Controls.Add(this.checkHardwareAcceleration);
             this.flowPanelRight.Controls.Add(this.labelBrowserPath);
-            this.flowPanelRight.Controls.Add(this.comboBoxBrowserPath);
+            this.flowPanelRight.Controls.Add(this.panelCustomBrowser);
             this.flowPanelRight.Controls.Add(this.labelSearchEngine);
             this.flowPanelRight.Controls.Add(this.comboBoxSearchEngine);
             this.flowPanelRight.Controls.Add(this.labelLocales);
@@ -426,6 +429,30 @@
             this.checkHardwareAcceleration.TabIndex = 3;
             this.checkHardwareAcceleration.Text = "Hardware Acceleration";
             this.checkHardwareAcceleration.UseVisualStyleBackColor = true;
+            // 
+            // panelCustomBrowser
+            // 
+            this.panelCustomBrowser.Controls.Add(this.comboBoxCustomBrowser);
+            this.panelCustomBrowser.Controls.Add(this.btnCustomBrowserChange);
+            this.panelCustomBrowser.Location = new System.Drawing.Point(0, 125);
+            this.panelCustomBrowser.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            this.panelCustomBrowser.Name = "panelCustomBrowser";
+            this.panelCustomBrowser.Size = new System.Drawing.Size(300, 24);
+            this.panelCustomBrowser.TabIndex = 5;
+            // 
+            // btnCustomBrowserChange
+            // 
+            this.btnCustomBrowserChange.AutoSize = true;
+            this.btnCustomBrowserChange.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnCustomBrowserChange.Location = new System.Drawing.Point(189, 0);
+            this.btnCustomBrowserChange.Margin = new System.Windows.Forms.Padding(5, 0, 3, 0);
+            this.btnCustomBrowserChange.Name = "btnCustomBrowserChange";
+            this.btnCustomBrowserChange.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.btnCustomBrowserChange.Size = new System.Drawing.Size(71, 25);
+            this.btnCustomBrowserChange.TabIndex = 1;
+            this.btnCustomBrowserChange.Text = "Change...";
+            this.btnCustomBrowserChange.UseVisualStyleBackColor = true;
+            this.btnCustomBrowserChange.Visible = false;
             // 
             // labelLocales
             // 
@@ -520,6 +547,8 @@
             this.flowPanelLeft.PerformLayout();
             this.flowPanelRight.ResumeLayout(false);
             this.flowPanelRight.PerformLayout();
+            this.panelCustomBrowser.ResumeLayout(false);
+            this.panelCustomBrowser.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -543,7 +572,7 @@
         private System.Windows.Forms.FlowLayoutPanel flowPanelLeft;
         private System.Windows.Forms.CheckBox checkKeepLikeFollowDialogsOpen;
         private System.Windows.Forms.Label labelBrowserPath;
-        private System.Windows.Forms.ComboBox comboBoxBrowserPath;
+        private System.Windows.Forms.ComboBox comboBoxCustomBrowser;
         private System.Windows.Forms.Label labelBrowserSettings;
         private System.Windows.Forms.CheckBox checkSmoothScrolling;
         private System.Windows.Forms.Label labelSearchEngine;
@@ -563,5 +592,7 @@
         private System.Windows.Forms.ComboBox comboBoxTranslationTarget;
         private System.Windows.Forms.CheckBox checkHardwareAcceleration;
         private System.Windows.Forms.CheckBox checkFocusDmInput;
+        private System.Windows.Forms.Panel panelCustomBrowser;
+        private System.Windows.Forms.Button btnCustomBrowserChange;
     }
 }

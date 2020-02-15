@@ -30,6 +30,7 @@ namespace TweetDuck.Configuration{
         private string _customCefArgs       = null;
 
         public string BrowserPath            { get; set; } = null;
+        public string BrowserPathArgs        { get; set; } = null;
         public bool IgnoreTrackingUrlWarning { get; set; } = false;
         public string SearchEngineUrl        { get; set; } = null;
         private int _zoomLevel                             = 100;

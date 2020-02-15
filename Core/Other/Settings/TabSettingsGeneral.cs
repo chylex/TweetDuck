@@ -80,7 +80,7 @@ namespace TweetDuck.Core.Other.Settings{
             toolTip.SetToolTip(checkSmoothScrolling, "Toggles smooth mouse wheel scrolling.");
             toolTip.SetToolTip(checkTouchAdjustment, "Toggles Chromium touch screen adjustment.\r\nDisabled by default, because it is very imprecise with TweetDeck.");
             toolTip.SetToolTip(checkHardwareAcceleration, "Uses graphics card to improve performance.\r\nDisable if you experience visual glitches, or to save a small amount of RAM.");
-            toolTip.SetToolTip(comboBoxBrowserPath, "Sets the default browser for opening links.");
+            toolTip.SetToolTip(comboBoxCustomBrowser, "Sets the default browser for opening links.");
             toolTip.SetToolTip(comboBoxSearchEngine, "Sets the default website for opening searches.");
             
             checkSmoothScrolling.Checked = Config.EnableSmoothScrolling;
@@ -88,11 +88,11 @@ namespace TweetDuck.Core.Other.Settings{
             checkHardwareAcceleration.Checked = SysConfig.HardwareAcceleration;
 
             foreach(WindowsUtils.Browser browserInfo in WindowsUtils.FindInstalledBrowsers()){
-                comboBoxBrowserPath.Items.Add(browserInfo);
+                comboBoxCustomBrowser.Items.Add(browserInfo);
             }
             
-            browserListIndexDefault = comboBoxBrowserPath.Items.Add("(default browser)");
-            browserListIndexCustom = comboBoxBrowserPath.Items.Add("(custom program...)");
+            browserListIndexDefault = comboBoxCustomBrowser.Items.Add("(default browser)");
+            browserListIndexCustom = comboBoxCustomBrowser.Items.Add("(custom program...)");
             UpdateBrowserPathSelection();
 
             comboBoxSearchEngine.Items.Add(new SearchEngine("DuckDuckGo", "https://duckduckgo.com/?q="));
@@ -146,7 +146,8 @@ namespace TweetDuck.Core.Other.Settings{
             checkSmoothScrolling.CheckedChanged += checkSmoothScrolling_CheckedChanged;
             checkTouchAdjustment.CheckedChanged += checkTouchAdjustment_CheckedChanged;
             checkHardwareAcceleration.CheckedChanged += checkHardwareAcceleration_CheckedChanged;
-            comboBoxBrowserPath.SelectedIndexChanged += comboBoxBrowserPath_SelectedIndexChanged;
+            comboBoxCustomBrowser.SelectedIndexChanged += comboBoxCustomBrowser_SelectedIndexChanged;
+            btnCustomBrowserChange.Click += btnCustomBrowserChange_Click;
             comboBoxSearchEngine.SelectedIndexChanged += comboBoxSearchEngine_SelectedIndexChanged;
 
             checkSpellCheck.CheckedChanged += checkSpellCheck_CheckedChanged;
@@ -253,43 +254,53 @@ namespace TweetDuck.Core.Other.Settings{
             SysConfig.HardwareAcceleration = checkHardwareAcceleration.Checked;
         }
 
+        private void UpdateBrowserChangeButton(){
+            btnCustomBrowserChange.Visible = comboBoxCustomBrowser.SelectedIndex == browserListIndexCustom;
+        }
+
         private void UpdateBrowserPathSelection(){
             if (string.IsNullOrEmpty(Config.BrowserPath) || !File.Exists(Config.BrowserPath)){
-                comboBoxBrowserPath.SelectedIndex = browserListIndexDefault;
+                comboBoxCustomBrowser.SelectedIndex = browserListIndexDefault;
             }
             else{
-                WindowsUtils.Browser browserInfo = comboBoxBrowserPath.Items.OfType<WindowsUtils.Browser>().FirstOrDefault(browser => browser.Path == Config.BrowserPath);
+                WindowsUtils.Browser browserInfo = comboBoxCustomBrowser.Items.OfType<WindowsUtils.Browser>().FirstOrDefault(browser => browser.Path == Config.BrowserPath);
 
-                if (browserInfo == null){
-                    comboBoxBrowserPath.SelectedIndex = browserListIndexCustom;
+                if (browserInfo == null || Config.BrowserPathArgs != null){
+                    comboBoxCustomBrowser.SelectedIndex = browserListIndexCustom;
                 }
                 else{
-                    comboBoxBrowserPath.SelectedItem = browserInfo;
+                    comboBoxCustomBrowser.SelectedItem = browserInfo;
                 }
+            }
+
+            UpdateBrowserChangeButton();
+        }
+
+        private void comboBoxCustomBrowser_SelectedIndexChanged(object sender, EventArgs e){
+            if (comboBoxCustomBrowser.SelectedIndex == browserListIndexCustom){
+                btnCustomBrowserChange_Click(sender, e);
+            }
+            else{
+                Config.BrowserPath = (comboBoxCustomBrowser.SelectedItem as WindowsUtils.Browser)?.Path; // default browser item is a string and casts to null
+                Config.BrowserPathArgs = null;
+                UpdateBrowserChangeButton();
             }
         }
 
-        private void comboBoxBrowserPath_SelectedIndexChanged(object sender, EventArgs e){
-            if (comboBoxBrowserPath.SelectedIndex == browserListIndexCustom){
-                using(OpenFileDialog dialog = new OpenFileDialog{
-                    AutoUpgradeEnabled = true,
-                    DereferenceLinks = true,
-                    InitialDirectory = Path.GetDirectoryName(Config.BrowserPath), // returns null if argument is null
-                    Title = "Open Links With...",
-                    Filter = "Executables (*.exe;*.bat;*.cmd)|*.exe;*.bat;*.cmd|All Files (*.*)|*.*"
-                }){
-                    if (dialog.ShowDialog() == DialogResult.OK){
-                        Config.BrowserPath = dialog.FileName;
-                    }
+        private void btnCustomBrowserChange_Click(object sender, EventArgs e){
+            using(DialogSettingsExternalProgram dialog = new DialogSettingsExternalProgram("External Browser", "Open Links With..."){
+                Path = Config.BrowserPath,
+                Args = Config.BrowserPathArgs
+            }){
+                if (dialog.ShowDialog() == DialogResult.OK){
+                    Config.BrowserPath = dialog.Path;
+                    Config.BrowserPathArgs = dialog.Args;
                 }
+            }
 
-                comboBoxBrowserPath.SelectedIndexChanged -= comboBoxBrowserPath_SelectedIndexChanged;
-                UpdateBrowserPathSelection();
-                comboBoxBrowserPath.SelectedIndexChanged += comboBoxBrowserPath_SelectedIndexChanged;
-            }
-            else{
-                Config.BrowserPath = (comboBoxBrowserPath.SelectedItem as WindowsUtils.Browser)?.Path; // default browser item is a string and casts to null
-            }
+            comboBoxCustomBrowser.SelectedIndexChanged -= comboBoxCustomBrowser_SelectedIndexChanged;
+            UpdateBrowserPathSelection();
+            comboBoxCustomBrowser.SelectedIndexChanged += comboBoxCustomBrowser_SelectedIndexChanged;
         }
 
         private void comboBoxSearchEngine_SelectedIndexChanged(object sender, EventArgs e){
