@@ -9,7 +9,7 @@ namespace TweetDuck.Core.Handling{
         protected virtual bool HandleRawKey(IWebBrowser browserControl, IBrowser browser, Keys key, CefEventFlags modifiers){
             if (modifiers == (CefEventFlags.ControlDown | CefEventFlags.ShiftDown) && key == Keys.I){
                 if (BrowserUtils.HasDevTools){
-                    browser.ShowDevTools();
+                    browserControl.OpenDevToolsCustom();
                 }
                 else{
                     browserControl.AsControl().InvokeSafe(() => {

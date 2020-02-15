@@ -273,7 +273,7 @@ namespace TweetDuck.Core{
         }
 
         public void OpenDevTools(){
-            browser.ShowDevTools();
+            browser.OpenDevToolsCustom();
         }
     }
 }

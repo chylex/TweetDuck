@@ -178,7 +178,7 @@ namespace TweetDuck.Core.Handling{
                     break;
                     
                 case MenuOpenDevTools:
-                    browserControl.ShowDevTools();
+                    browserControl.OpenDevToolsCustom();
                     break;
             }
 

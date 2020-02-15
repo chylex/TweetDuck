@@ -78,6 +78,12 @@ namespace TweetDuck.Core.Utils{
             };
         }
 
+        public static void OpenDevToolsCustom(this IWebBrowser browser){
+            var info = new WindowInfo();
+            info.SetAsPopup(IntPtr.Zero, "Dev Tools");
+            browser.GetBrowserHost().ShowDevTools(info);
+        }
+
         public static void OpenExternalBrowser(string url){
             if (string.IsNullOrWhiteSpace(url))return;
 
