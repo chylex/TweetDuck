@@ -120,10 +120,18 @@
   // Block: Setup bridges to global functions.
   //
   window.TDPF_getColumnName = window.TDGF_getColumnName;
-  window.TDPF_playVideo = window.TDGF_playVideo;
   window.TDPF_reloadColumns = window.TDGF_reloadColumns;
   window.TDPF_prioritizeNewestEvent = window.TDGF_prioritizeNewestEvent;
   window.TDPF_injectMustache = window.TDGF_injectMustache;
+  
+  window.TDPF_playVideo = function(urlOrObject, username){
+    if (typeof urlOrObject === "string"){
+      window.TDGF_playVideo(urlOrObject, null, username);
+    }
+    else{
+      window.TDGF_playVideo(urlOrObject.videoUrl, urlOrObject.tweetUrl, urlOrObject.username);
+    }
+  };
   
   #import "scripts/plugins.base.js"
 })();

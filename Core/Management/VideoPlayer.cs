@@ -26,7 +26,7 @@ namespace TweetDuck.Core.Management{
             this.owner.FormClosing += owner_FormClosing;
         }
 
-        public void Launch(string url, string username){
+        public void Launch(string videoUrl, string tweetUrl, string username){
             if (Running){
                 Destroy();
                 isClosing = false;
@@ -40,11 +40,11 @@ namespace TweetDuck.Core.Management{
 
                 if ((process = Process.Start(new ProcessStartInfo{
                     FileName = Path.Combine(Program.ProgramPath, "TweetDuck.Video.exe"),
-                    Arguments = $"{owner.Handle} {(int)Math.Floor(100F * owner.GetDPIScale())} {Config.VideoPlayerVolume} \"{url}\" \"{pipe.GenerateToken()}\"",
+                    Arguments = $"{owner.Handle} {(int)Math.Floor(100F * owner.GetDPIScale())} {Config.VideoPlayerVolume} \"{videoUrl}\" \"{pipe.GenerateToken()}\"",
                     UseShellExecute = false,
                     RedirectStandardOutput = true
                 })) != null){
-                    currentInstance = new Instance(process, pipe, url, username);
+                    currentInstance = new Instance(process, pipe, videoUrl, tweetUrl, username);
 
                     process.EnableRaisingEvents = true;
                     process.Exited += process_Exited;
@@ -81,7 +81,7 @@ namespace TweetDuck.Core.Management{
                     case "download":
                         if (currentInstance != null){
                             owner.AnalyticsFile.DownloadedVideos.Trigger();
-                            TwitterUtils.DownloadVideo(currentInstance.Url, currentInstance.Username);
+                            TwitterUtils.DownloadVideo(currentInstance.VideoUrl, currentInstance.Username);
                         }
 
                         break;
@@ -145,7 +145,7 @@ namespace TweetDuck.Core.Management{
             }
 
             int exitCode = currentInstance.Process.ExitCode;
-            string url = currentInstance.Url;
+            string tweetUrl = currentInstance.TweetUrl;
 
             currentInstance.Dispose();
             currentInstance = null;
@@ -153,14 +153,14 @@ namespace TweetDuck.Core.Management{
             switch(exitCode){
                 case 3: // CODE_LAUNCH_FAIL
                     if (FormMessage.Error("Video Playback Error", "Error launching video player, this may be caused by missing Windows Media Player. Do you want to open the video in your browser?", FormMessage.Yes, FormMessage.No)){
-                        BrowserUtils.OpenExternalBrowser(url);
+                        BrowserUtils.OpenExternalBrowser(tweetUrl);
                     }
 
                     break;
 
                 case 4: // CODE_MEDIA_ERROR
                     if (FormMessage.Error("Video Playback Error", "The video could not be loaded, most likely due to unknown format. Do you want to open the video in your browser?", FormMessage.Yes, FormMessage.No)){
-                        BrowserUtils.OpenExternalBrowser(url);
+                        BrowserUtils.OpenExternalBrowser(tweetUrl);
                     }
 
                     break;
@@ -184,13 +184,15 @@ namespace TweetDuck.Core.Management{
             public Process Process { get; }
             public DuplexPipe.Server Pipe { get; }
 
-            public string Url { get; }
+            public string VideoUrl { get; }
+            public string TweetUrl { get; }
             public string Username { get; }
 
-            public Instance(Process process, DuplexPipe.Server pipe, string url, string username){
+            public Instance(Process process, DuplexPipe.Server pipe, string videoUrl, string tweetUrl, string username){
                 this.Process = process;
                 this.Pipe = pipe;
-                this.Url = url;
+                this.VideoUrl = videoUrl;
+                this.TweetUrl = tweetUrl;
                 this.Username = username;
             }
 

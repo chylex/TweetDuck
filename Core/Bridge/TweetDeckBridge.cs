@@ -100,8 +100,8 @@ namespace TweetDuck.Core.Bridge{
             form.InvokeAsyncSafe(() => form.OnTweetScreenshotReady(html, width));
         }
 
-        public void PlayVideo(string url, string username){
-            form.InvokeAsyncSafe(() => form.PlayVideo(url, username));
+        public void PlayVideo(string videoUrl, string tweetUrl, string username){
+            form.InvokeAsyncSafe(() => form.PlayVideo(videoUrl, tweetUrl, username));
         }
 
         public void FixClipboard(){

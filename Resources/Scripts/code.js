@@ -1212,14 +1212,14 @@
   // Block: Setup video player hooks.
   //
   execSafe(function setupVideoPlayer(){
-    window.TDGF_playVideo = function(url, username){
-      return if !url;
+    window.TDGF_playVideo = function(videoUrl, tweetUrl, username){
+      return if !videoUrl;
       
       $('<div id="td-video-player-overlay" class="ovl" style="display:block"></div>').on("click contextmenu", function(){
-        $TD.playVideo(null, null);
+        $TD.playVideo(null, null, null);
       }).appendTo(app);
       
-      $TD.playVideo(url, username || null);
+      $TD.playVideo(videoUrl, tweetUrl || videoUrl, username || null);
     };
     
     const getGifLink = function(ele){
@@ -1239,13 +1239,14 @@
     app.delegate(".js-gif-play", {
       click: function(e){
         let src = !e.ctrlKey && getGifLink($(this).closest(".js-media-gif-container").find("video"));
+        let tweet = getVideoTweetLink($(this));
         
         if (src){
           let hovered = getHoveredTweet();
-          window.TDGF_playVideo(src, getUsername(hovered && hovered.obj));
+          window.TDGF_playVideo(src, tweet, getUsername(hovered && hovered.obj));
         }
         else{
-          $TD.openBrowser(getVideoTweetLink($(this)));
+          $TD.openBrowser(tweet);
         }
         
         e.stopPropagation();
@@ -1279,7 +1280,7 @@
       let media = this.chirp.getMedia().find(media => media.mediaId === this.clickedMediaEntityId);
       
       if (media && media.isVideo && media.service === "twitter"){
-        window.TDGF_playVideo(media.chooseVideoVariant().url, getUsername(this.chirp));
+        window.TDGF_playVideo(media.chooseVideoVariant().url, this.chirp.getChirpURL(), getUsername(this.chirp));
         cancelModal = true;
       }
     });

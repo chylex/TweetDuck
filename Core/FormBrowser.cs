@@ -508,8 +508,8 @@ namespace TweetDuck.Core{
             AnalyticsFile.SoundNotifications.Trigger();
         }
 
-        public void PlayVideo(string url, string username){
-            if (string.IsNullOrEmpty(url)){
+        public void PlayVideo(string videoUrl, string tweetUrl, string username){
+            if (string.IsNullOrEmpty(videoUrl)){
                 videoPlayer?.Close();
                 return;
             }
@@ -521,8 +521,8 @@ namespace TweetDuck.Core{
                     browser.HideVideoOverlay(true);
                 };
             }
-            
-            videoPlayer.Launch(url, username);
+                
+            videoPlayer.Launch(videoUrl, tweetUrl, username);
             AnalyticsFile.VideoPlays.Trigger();
         }
 
