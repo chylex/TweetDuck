@@ -1,5 +1,7 @@
 ﻿using System.Text;
 using TweetDuck.Configuration;
+using TweetLib.Core;
+using TweetLib.Core.Utils;
 
 namespace TweetDuck.Core.Bridge{
     static class PropertyBridge{
@@ -23,6 +25,7 @@ namespace TweetDuck.Core.Bridge{
                 build.Append("x.muteNotifications=").Append(Bool(config.MuteNotifications));
                 build.Append("x.notificationMediaPreviews=").Append(Bool(config.NotificationMediaPreviews));
                 build.Append("x.translationTarget=").Append(Str(config.TranslationTarget));
+                build.Append("x.firstDayOfWeek=").Append(config.CalendarFirstDay == -1 ? LocaleUtils.GetJQueryDayOfWeek(Lib.Culture.DateTimeFormat.FirstDayOfWeek) : config.CalendarFirstDay);
             }
 
             if (environment == Environment.Notification){

@@ -43,6 +43,7 @@ namespace TweetDuck.Configuration{
         private string _spellCheckLanguage         = "en-US";
 
         public string TranslationTarget { get; set; } = "en";
+        public int  CalendarFirstDay    { get; set; } = -1;
         
         private TrayIcon.Behavior _trayBehavior       = TrayIcon.Behavior.Disabled;
         public bool EnableTrayHighlight { get; set; } = true;

@@ -56,6 +56,8 @@
             this.comboBoxSpellCheckLanguage = new System.Windows.Forms.ComboBox();
             this.labelTranslationTarget = new System.Windows.Forms.Label();
             this.comboBoxTranslationTarget = new System.Windows.Forms.ComboBox();
+            this.labelFirstDayOfWeek = new System.Windows.Forms.Label();
+            this.comboBoxFirstDayOfWeek = new System.Windows.Forms.ComboBox();
             this.labelExternalApplications = new System.Windows.Forms.Label();
             this.panelCustomBrowser = new System.Windows.Forms.Panel();
             this.btnCustomBrowserChange = new System.Windows.Forms.Button();
@@ -322,11 +324,11 @@
             // 
             this.labelBrowserPath.AutoSize = true;
             this.labelBrowserPath.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            this.labelBrowserPath.Location = new System.Drawing.Point(3, 218);
+            this.labelBrowserPath.Location = new System.Drawing.Point(3, 275);
             this.labelBrowserPath.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelBrowserPath.Name = "labelBrowserPath";
             this.labelBrowserPath.Size = new System.Drawing.Size(104, 15);
-            this.labelBrowserPath.TabIndex = 7;
+            this.labelBrowserPath.TabIndex = 9;
             this.labelBrowserPath.Text = "Open Links With...";
             // 
             // comboBoxCustomBrowser
@@ -344,11 +346,11 @@
             // 
             this.labelSearchEngine.AutoSize = true;
             this.labelSearchEngine.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            this.labelSearchEngine.Location = new System.Drawing.Point(3, 332);
+            this.labelSearchEngine.Location = new System.Drawing.Point(3, 389);
             this.labelSearchEngine.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelSearchEngine.Name = "labelSearchEngine";
             this.labelSearchEngine.Size = new System.Drawing.Size(82, 15);
-            this.labelSearchEngine.TabIndex = 11;
+            this.labelSearchEngine.TabIndex = 13;
             this.labelSearchEngine.Text = "Search Engine";
             // 
             // comboBoxSearchEngine
@@ -356,11 +358,11 @@
             this.comboBoxSearchEngine.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSearchEngine.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.comboBoxSearchEngine.FormattingEnabled = true;
-            this.comboBoxSearchEngine.Location = new System.Drawing.Point(5, 351);
+            this.comboBoxSearchEngine.Location = new System.Drawing.Point(5, 408);
             this.comboBoxSearchEngine.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
             this.comboBoxSearchEngine.Name = "comboBoxSearchEngine";
             this.comboBoxSearchEngine.Size = new System.Drawing.Size(173, 23);
-            this.comboBoxSearchEngine.TabIndex = 12;
+            this.comboBoxSearchEngine.TabIndex = 14;
             // 
             // flowPanelRight
             // 
@@ -372,6 +374,8 @@
             this.flowPanelRight.Controls.Add(this.comboBoxSpellCheckLanguage);
             this.flowPanelRight.Controls.Add(this.labelTranslationTarget);
             this.flowPanelRight.Controls.Add(this.comboBoxTranslationTarget);
+            this.flowPanelRight.Controls.Add(this.labelFirstDayOfWeek);
+            this.flowPanelRight.Controls.Add(this.comboBoxFirstDayOfWeek);
             this.flowPanelRight.Controls.Add(this.labelExternalApplications);
             this.flowPanelRight.Controls.Add(this.labelBrowserPath);
             this.flowPanelRight.Controls.Add(this.panelCustomBrowser);
@@ -453,26 +457,48 @@
             this.comboBoxTranslationTarget.Size = new System.Drawing.Size(290, 23);
             this.comboBoxTranslationTarget.TabIndex = 5;
             // 
+            // labelFirstDayOfWeek
+            // 
+            this.labelFirstDayOfWeek.AutoSize = true;
+            this.labelFirstDayOfWeek.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.labelFirstDayOfWeek.Location = new System.Drawing.Point(3, 173);
+            this.labelFirstDayOfWeek.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
+            this.labelFirstDayOfWeek.Name = "labelFirstDayOfWeek";
+            this.labelFirstDayOfWeek.Size = new System.Drawing.Size(125, 15);
+            this.labelFirstDayOfWeek.TabIndex = 6;
+            this.labelFirstDayOfWeek.Text = "First Day Of The Week";
+            // 
+            // comboBoxFirstDayOfWeek
+            // 
+            this.comboBoxFirstDayOfWeek.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFirstDayOfWeek.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.comboBoxFirstDayOfWeek.FormattingEnabled = true;
+            this.comboBoxFirstDayOfWeek.Location = new System.Drawing.Point(5, 192);
+            this.comboBoxFirstDayOfWeek.Margin = new System.Windows.Forms.Padding(5, 4, 3, 3);
+            this.comboBoxFirstDayOfWeek.Name = "comboBoxFirstDayOfWeek";
+            this.comboBoxFirstDayOfWeek.Size = new System.Drawing.Size(173, 23);
+            this.comboBoxFirstDayOfWeek.TabIndex = 7;
+            // 
             // labelExternalApplications
             // 
             this.labelExternalApplications.AutoSize = true;
             this.labelExternalApplications.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
-            this.labelExternalApplications.Location = new System.Drawing.Point(0, 186);
+            this.labelExternalApplications.Location = new System.Drawing.Point(0, 243);
             this.labelExternalApplications.Margin = new System.Windows.Forms.Padding(0, 25, 0, 1);
             this.labelExternalApplications.Name = "labelExternalApplications";
             this.labelExternalApplications.Size = new System.Drawing.Size(176, 19);
-            this.labelExternalApplications.TabIndex = 6;
+            this.labelExternalApplications.TabIndex = 8;
             this.labelExternalApplications.Text = "EXTERNAL APPLICATIONS";
             // 
             // panelCustomBrowser
             // 
             this.panelCustomBrowser.Controls.Add(this.comboBoxCustomBrowser);
             this.panelCustomBrowser.Controls.Add(this.btnCustomBrowserChange);
-            this.panelCustomBrowser.Location = new System.Drawing.Point(0, 236);
+            this.panelCustomBrowser.Location = new System.Drawing.Point(0, 293);
             this.panelCustomBrowser.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.panelCustomBrowser.Name = "panelCustomBrowser";
             this.panelCustomBrowser.Size = new System.Drawing.Size(300, 24);
-            this.panelCustomBrowser.TabIndex = 8;
+            this.panelCustomBrowser.TabIndex = 10;
             // 
             // btnCustomBrowserChange
             // 
@@ -492,22 +518,22 @@
             // 
             this.labelVideoPlayerPath.AutoSize = true;
             this.labelVideoPlayerPath.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            this.labelVideoPlayerPath.Location = new System.Drawing.Point(3, 275);
+            this.labelVideoPlayerPath.Location = new System.Drawing.Point(3, 332);
             this.labelVideoPlayerPath.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelVideoPlayerPath.Name = "labelVideoPlayerPath";
             this.labelVideoPlayerPath.Size = new System.Drawing.Size(106, 15);
-            this.labelVideoPlayerPath.TabIndex = 9;
+            this.labelVideoPlayerPath.TabIndex = 11;
             this.labelVideoPlayerPath.Text = "Play Videos With...";
             // 
             // panelCustomVideoPlayer
             // 
             this.panelCustomVideoPlayer.Controls.Add(this.comboBoxCustomVideoPlayer);
             this.panelCustomVideoPlayer.Controls.Add(this.btnCustomVideoPlayerChange);
-            this.panelCustomVideoPlayer.Location = new System.Drawing.Point(0, 293);
+            this.panelCustomVideoPlayer.Location = new System.Drawing.Point(0, 350);
             this.panelCustomVideoPlayer.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.panelCustomVideoPlayer.Name = "panelCustomVideoPlayer";
             this.panelCustomVideoPlayer.Size = new System.Drawing.Size(300, 24);
-            this.panelCustomVideoPlayer.TabIndex = 10;
+            this.panelCustomVideoPlayer.TabIndex = 12;
             // 
             // comboBoxCustomVideoPlayer
             // 
@@ -610,5 +636,7 @@
         private System.Windows.Forms.ComboBox comboBoxCustomVideoPlayer;
         private System.Windows.Forms.Button btnCustomVideoPlayerChange;
         private System.Windows.Forms.Label labelExternalApplications;
+        private System.Windows.Forms.Label labelFirstDayOfWeek;
+        private System.Windows.Forms.ComboBox comboBoxFirstDayOfWeek;
     }
 }

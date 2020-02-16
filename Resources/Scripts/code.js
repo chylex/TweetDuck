@@ -1084,6 +1084,19 @@
   });
   
   //
+  // Block: Allow changing first day of week in date picker.
+  //
+  if (ensurePropertyExists($, "tools", "dateinput", "conf", "firstDay")){
+    $.tools.dateinput.conf.firstDay = $TDX.firstDayOfWeek;
+    
+    onAppReady.push(function setupDatePickerFirstDayCallback(){
+      window.TDGF_registerPropertyUpdateCallback(function($TDX){
+        $.tools.dateinput.conf.firstDay = $TDX.firstDayOfWeek;
+      });
+    });
+  }
+  
+  //
   // Block: Make middle click on tweet reply icon open the compose drawer, retweet icon trigger a quote, and favorite icon open a 'Like from accounts...' modal.
   //
   execSafe(function supportMiddleClickTweetActions(){

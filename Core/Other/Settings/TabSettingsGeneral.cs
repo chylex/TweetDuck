@@ -101,6 +101,7 @@ namespace TweetDuck.Core.Other.Settings{
             toolTip.SetToolTip(checkSpellCheck, "Underlines words that are spelled incorrectly.");
             toolTip.SetToolTip(comboBoxSpellCheckLanguage, "Language used for spell check.");
             toolTip.SetToolTip(comboBoxTranslationTarget, "Language tweets are translated into.");
+            toolTip.SetToolTip(comboBoxFirstDayOfWeek, "First day of week used in the date picker.");
             
             checkSpellCheck.Checked = Config.EnableSpellCheck;
 
@@ -119,6 +120,17 @@ namespace TweetDuck.Core.Other.Settings{
             }
 
             comboBoxTranslationTarget.SelectedItem = new LocaleUtils.Item(Config.TranslationTarget);
+
+            var daysOfWeek = comboBoxFirstDayOfWeek.Items;
+            daysOfWeek.Add("(based on system locale)");
+            daysOfWeek.Add(new DayOfWeekItem("Monday", DayOfWeek.Monday));
+            daysOfWeek.Add(new DayOfWeekItem("Tuesday", DayOfWeek.Tuesday));
+            daysOfWeek.Add(new DayOfWeekItem("Wednesday", DayOfWeek.Wednesday));
+            daysOfWeek.Add(new DayOfWeekItem("Thursday", DayOfWeek.Thursday));
+            daysOfWeek.Add(new DayOfWeekItem("Friday", DayOfWeek.Friday));
+            daysOfWeek.Add(new DayOfWeekItem("Saturday", DayOfWeek.Saturday));
+            daysOfWeek.Add(new DayOfWeekItem("Sunday", DayOfWeek.Sunday));
+            comboBoxFirstDayOfWeek.SelectedItem = daysOfWeek.OfType<DayOfWeekItem>().FirstOrDefault(dow => dow.Id == Config.CalendarFirstDay) ?? daysOfWeek[0];
         }
 
         public override void OnReady(){
@@ -145,6 +157,7 @@ namespace TweetDuck.Core.Other.Settings{
             checkSpellCheck.CheckedChanged += checkSpellCheck_CheckedChanged;
             comboBoxSpellCheckLanguage.SelectedValueChanged += comboBoxSpellCheckLanguage_SelectedValueChanged;
             comboBoxTranslationTarget.SelectedValueChanged += comboBoxTranslationTarget_SelectedValueChanged;
+            comboBoxFirstDayOfWeek.SelectedValueChanged += comboBoxFirstDayOfWeek_SelectedValueChanged;
         }
 
         public override void OnClosing(){
@@ -386,6 +399,24 @@ namespace TweetDuck.Core.Other.Settings{
 
         private void comboBoxTranslationTarget_SelectedValueChanged(object sender, EventArgs e){
             Config.TranslationTarget = (comboBoxTranslationTarget.SelectedItem as LocaleUtils.Item)?.Code ?? "en";
+        }
+
+        private void comboBoxFirstDayOfWeek_SelectedValueChanged(object sender, EventArgs e){
+            Config.CalendarFirstDay = (comboBoxFirstDayOfWeek.SelectedItem as DayOfWeekItem)?.Id ?? -1;
+        }
+
+        private sealed class DayOfWeekItem{
+            private string Name { get; }
+            public int Id { get; }
+
+            public DayOfWeekItem(string name, DayOfWeek dow){
+                Name = name;
+                Id = LocaleUtils.GetJQueryDayOfWeek(dow);
+            }
+            
+            public override int GetHashCode() => Name.GetHashCode();
+            public override bool Equals(object obj) => obj is DayOfWeekItem other && Name == other.Name;
+            public override string ToString() => Name;
         }
 
         #endregion

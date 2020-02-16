@@ -28,6 +28,18 @@ namespace TweetLib.Core.Utils{
             "th", "tr", "uk", "vi", "ar", "fa"
         }.Select(code => new Item(code)).OrderBy(code => code).ToList();
 
+        public static int GetJQueryDayOfWeek(DayOfWeek dow){
+            return dow switch{
+                DayOfWeek.Monday    => 1,
+                DayOfWeek.Tuesday   => 2,
+                DayOfWeek.Wednesday => 3,
+                DayOfWeek.Thursday  => 4,
+                DayOfWeek.Friday    => 5,
+                DayOfWeek.Saturday  => 6,
+                _                   => 0
+            };
+        }
+
         public sealed class Item : IComparable<Item>{
             public string Code { get; }
 
