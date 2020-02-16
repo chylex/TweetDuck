@@ -41,6 +41,8 @@
             this.panelConfiguration = new System.Windows.Forms.Panel();
             this.labelConfiguration = new System.Windows.Forms.Label();
             this.flowPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.labelDevTools = new System.Windows.Forms.Label();
+            this.checkDevToolsWindowOnTop = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numClearCacheThreshold)).BeginInit();
             this.panelAppButtons.SuspendLayout();
             this.panelClearCacheAuto.SuspendLayout();
@@ -240,12 +242,37 @@
             this.flowPanel.Controls.Add(this.panelClearCacheAuto);
             this.flowPanel.Controls.Add(this.labelConfiguration);
             this.flowPanel.Controls.Add(this.panelConfiguration);
+            this.flowPanel.Controls.Add(this.labelDevTools);
+            this.flowPanel.Controls.Add(this.checkDevToolsWindowOnTop);
             this.flowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowPanel.Location = new System.Drawing.Point(9, 9);
             this.flowPanel.Name = "flowPanel";
             this.flowPanel.Size = new System.Drawing.Size(300, 462);
             this.flowPanel.TabIndex = 0;
             this.flowPanel.WrapContents = false;
+            // 
+            // labelDevTools
+            // 
+            this.labelDevTools.AutoSize = true;
+            this.labelDevTools.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
+            this.labelDevTools.Location = new System.Drawing.Point(0, 302);
+            this.labelDevTools.Margin = new System.Windows.Forms.Padding(0, 30, 0, 1);
+            this.labelDevTools.Name = "labelDevTools";
+            this.labelDevTools.Size = new System.Drawing.Size(156, 19);
+            this.labelDevTools.TabIndex = 7;
+            this.labelDevTools.Text = "DEVELOPMENT TOOLS";
+            // 
+            // checkDevToolsWindowOnTop
+            // 
+            this.checkDevToolsWindowOnTop.AutoSize = true;
+            this.checkDevToolsWindowOnTop.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkDevToolsWindowOnTop.Location = new System.Drawing.Point(6, 328);
+            this.checkDevToolsWindowOnTop.Margin = new System.Windows.Forms.Padding(6, 6, 0, 2);
+            this.checkDevToolsWindowOnTop.Name = "checkDevToolsWindowOnTop";
+            this.checkDevToolsWindowOnTop.Size = new System.Drawing.Size(168, 19);
+            this.checkDevToolsWindowOnTop.TabIndex = 8;
+            this.checkDevToolsWindowOnTop.Text = "Dev Tools Window On Top";
+            this.checkDevToolsWindowOnTop.UseVisualStyleBackColor = true;
             // 
             // TabSettingsAdvanced
             // 
@@ -284,5 +311,7 @@
         private Controls.NumericUpDownEx numClearCacheThreshold;
         private System.Windows.Forms.CheckBox checkClearCacheAuto;
         private System.Windows.Forms.FlowLayoutPanel flowPanel;
+        private System.Windows.Forms.Label labelDevTools;
+        private System.Windows.Forms.CheckBox checkDevToolsWindowOnTop;
     }
 }

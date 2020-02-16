@@ -44,6 +44,16 @@ namespace TweetDuck.Core.Other.Settings{
 
             toolTip.SetToolTip(btnEditCefArgs, "Set custom command line arguments for Chromium Embedded Framework.");
             toolTip.SetToolTip(btnEditCSS, "Set custom CSS for browser and notification windows.");
+
+            // development tools
+
+            toolTip.SetToolTip(checkDevToolsWindowOnTop, "Sets whether dev tool windows appears on top of other windows.");
+
+            checkDevToolsWindowOnTop.Checked = Config.DevToolsWindowOnTop;
+
+            if (!BrowserUtils.HasDevTools){
+                checkDevToolsWindowOnTop.Enabled = false;
+            }
         }
 
         public override void OnReady(){
@@ -57,6 +67,8 @@ namespace TweetDuck.Core.Other.Settings{
             
             btnEditCefArgs.Click += btnEditCefArgs_Click;
             btnEditCSS.Click += btnEditCSS_Click;
+
+            checkDevToolsWindowOnTop.CheckedChanged += checkDevToolsWindowOnTop_CheckedChanged;
         }
 
         public override void OnClosing(){
@@ -150,6 +162,13 @@ namespace TweetDuck.Core.Other.Settings{
             if (ParentForm != null){ // when the parent is closed first, ParentForm is null in FormClosed event
                 NativeMethods.SetFormDisabled(ParentForm, false);
             }
+        }
+
+        #endregion
+        #region Development Tools
+
+        private void checkDevToolsWindowOnTop_CheckedChanged(object sender, EventArgs e){
+            Config.DevToolsWindowOnTop = checkDevToolsWindowOnTop.Checked;
         }
 
         #endregion

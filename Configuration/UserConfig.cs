@@ -76,6 +76,8 @@ namespace TweetDuck.Configuration{
 
         public string CustomBrowserCSS      { get; set; } = null;
         public string CustomNotificationCSS { get; set; } = null;
+
+        public bool DevToolsWindowOnTop     { get; set; } = true;
         
         // SPECIAL PROPERTIES
 

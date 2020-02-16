@@ -81,6 +81,11 @@ namespace TweetDuck.Core.Utils{
         public static void OpenDevToolsCustom(this IWebBrowser browser){
             var info = new WindowInfo();
             info.SetAsPopup(IntPtr.Zero, "Dev Tools");
+
+            if (Config.DevToolsWindowOnTop){
+                info.ExStyle |= 0x00000008; // WS_EX_TOPMOST
+            }
+
             browser.GetBrowserHost().ShowDevTools(info);
         }
 
