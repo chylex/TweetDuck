@@ -945,31 +945,42 @@
   // Block: Allow drag & drop behavior for dropping links on columns to open their detail view.
   //
   execSafe(function supportDragDropOverColumns(){
-    const tweetRegex = /^https?:\/\/twitter\.com\/[A-Za-z0-9_]+\/status\/(\d+)\/?\??/;
-    const selector = "section.js-column";
+    const regexTweet = /^https?:\/\/twitter\.com\/[A-Za-z0-9_]+\/status\/(\d+)\/?\??/;
+    const regexAccount = /^https?:\/\/twitter\.com\/(?!signup$|tos$|privacy$|search$|search-)([^/?]+)\/?$/;
     
-    let isDraggingValid = false;
+    let dragType = false;
     
     const events = {
       dragover: function(e){
-        e.originalEvent.dataTransfer.dropEffect = isDraggingValid ? "all" : "none";
+        e.originalEvent.dataTransfer.dropEffect = dragType ? "all" : "none";
         e.preventDefault();
         e.stopPropagation();
       },
       
       drop: function(e){
-        let match = tweetRegex.exec(e.originalEvent.dataTransfer.getData("URL"));
+        let url = e.originalEvent.dataTransfer.getData("URL");
         
-        if (match.length === 2){
-          let column = TD.controller.columnManager.get($(this).attr("data-column"));
+        if (dragType === "tweet"){
+          let match = regexTweet.exec(url);
           
-          if (column){
-            TD.controller.clients.getPreferredClient().show(match[1], function(chirp){
-              TD.ui.updates.showDetailView(column, chirp, column.findChirp(chirp) || chirp);
-              $(document).trigger("uiGridClearSelection");
-            }, function(){
-              alert("error|Could not retrieve the requested tweet.");
-            });
+          if (match.length === 2){
+            let column = TD.controller.columnManager.get($(this).attr("data-column"));
+            
+            if (column){
+              TD.controller.clients.getPreferredClient().show(match[1], function(chirp){
+                TD.ui.updates.showDetailView(column, chirp, column.findChirp(chirp) || chirp);
+                $(document).trigger("uiGridClearSelection");
+              }, function(){
+                alert("error|Could not retrieve the requested tweet.");
+              });
+            }
+          }
+        }
+        else if (dragType === "account"){
+          let match = regexAccount.exec(url);
+          
+          if (match.length === 2){
+            $(document).trigger("uiShowProfile", { id: match[1] });
           }
         }
         
@@ -978,13 +989,20 @@
       }
     };
     
+    const selectors = {
+      tweet: "section.js-column",
+      account: app
+    };
+    
     window.TDGF_onGlobalDragStart = function(type, data){
-      if (type === "link"){
-        isDraggingValid = tweetRegex.test(data);
-        app.delegate(selector, events);
+      if (dragType){
+        app.undelegate(selectors[dragType], events);
+        dragType = null;
       }
-      else{
-        app.undelegate(selector, events);
+      
+      if (type === "link"){
+        dragType = regexTweet.test(data) ? "tweet" : regexAccount.test(data) ? "account": null;
+        app.delegate(selectors[dragType], events);
       }
     };
   });
