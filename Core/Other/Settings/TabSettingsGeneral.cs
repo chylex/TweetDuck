@@ -84,6 +84,7 @@ namespace TweetDuck.Core.Other.Settings{
             toolTip.SetToolTip(checkTouchAdjustment, "Toggles Chromium touch screen adjustment.\r\nDisabled by default, because it is very imprecise with TweetDeck.");
             toolTip.SetToolTip(checkHardwareAcceleration, "Uses graphics card to improve performance.\r\nDisable if you experience visual glitches, or to save a small amount of RAM.");
             toolTip.SetToolTip(comboBoxCustomBrowser, "Sets the default browser for opening links.");
+            toolTip.SetToolTip(comboBoxCustomVideoPlayer, "Sets the default application for playing videos.");
             toolTip.SetToolTip(comboBoxSearchEngine, "Sets the default website for opening searches.");
             
             checkSmoothScrolling.Checked = Config.EnableSmoothScrolling;
