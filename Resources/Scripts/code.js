@@ -1717,6 +1717,21 @@
   };
   
   //
+  // Block: Setup global functions to respond to updating $TDX properties.
+  //
+  (function(){
+    var callbacks = [];
+    
+    window.TDGF_registerPropertyUpdateCallback = function(callback){
+      callbacks.push(callback);
+    };
+    
+    window.TDGF_onPropertiesUpdated = function(){
+      callbacks.forEach(func => func($TDX));
+    };
+  })();
+  
+  //
   // Block: Disable default TweetDeck update notification.
   //
   execSafe(function disableTweetDeckUpdates(){

@@ -12,7 +12,7 @@ namespace TweetDuck.Core.Bridge{
             static string Str(string value) => $"\"{value}\";";
 
             UserConfig config = Program.Config.User;
-            StringBuilder build = new StringBuilder(128).Append("(function(x){");
+            StringBuilder build = new StringBuilder(384).Append("(function(x){");
 
             build.Append("x.expandLinksOnHover=").Append(Bool(config.ExpandLinksOnHover));
             
@@ -29,7 +29,7 @@ namespace TweetDuck.Core.Bridge{
                 build.Append("x.skipOnLinkClick=").Append(Bool(config.NotificationSkipOnLinkClick));
             }
             
-            return build.Append("})(window.$TDX=window.$TDX||{})").ToString();
+            return build.Append("})(window.$TDX=window.$TDX||{});if(window.TDGF_onPropertiesUpdated)window.TDGF_onPropertiesUpdated()").ToString();
         }
     }
 }
