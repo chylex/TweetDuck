@@ -41,6 +41,7 @@ namespace TweetDuck.Core.Other{
             AddButton("General", () => new TabSettingsGeneral(this.browser.ReloadColumns, updates));
             AddButton("Notifications", () => new TabSettingsNotifications(new FormNotificationExample(this.browser, this.plugins)));
             AddButton("Sounds", () => new TabSettingsSounds(this.browser.PlaySoundNotification));
+            AddButton("Tray", () => new TabSettingsTray());
             AddButton("Feedback", () => new TabSettingsFeedback(analytics, AnalyticsReportGenerator.ExternalInfo.From(this.browser), this.plugins));
             AddButton("Advanced", () => new TabSettingsAdvanced(this.browser.ReinjectCustomCSS, this.browser.OpenDevTools));
 
