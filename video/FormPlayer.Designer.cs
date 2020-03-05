@@ -36,6 +36,7 @@
             this.tablePanelCompactBottom = new System.Windows.Forms.TableLayoutPanel();
             this.tablePanelCompactTop = new System.Windows.Forms.TableLayoutPanel();
             this.labelTooltip = new TweetDuck.Video.Controls.LabelTooltip();
+            this.timerUI = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).BeginInit();
             this.tablePanelFull.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imageResize)).BeginInit();
@@ -45,7 +46,7 @@
             // 
             // timerSync
             // 
-            this.timerSync.Interval = 15;
+            this.timerSync.Interval = 31;
             this.timerSync.Tick += new System.EventHandler(this.timerSync_Tick);
             // 
             // trackBarVolume
@@ -224,6 +225,12 @@
             this.labelTooltip.TabIndex = 3;
             this.labelTooltip.Visible = false;
             // 
+            // timerUI
+            // 
+            this.timerUI.Enabled = true;
+            this.timerUI.Interval = 200;
+            this.timerUI.Tick += new System.EventHandler(this.timerUI_Tick);
+            // 
             // FormPlayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -269,6 +276,7 @@
         private System.Windows.Forms.PictureBox imageClose;
         private System.Windows.Forms.TableLayoutPanel tablePanelCompactBottom;
         private System.Windows.Forms.TableLayoutPanel tablePanelCompactTop;
+        private System.Windows.Forms.Timer timerUI;
     }
 }
 

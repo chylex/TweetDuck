@@ -61,6 +61,7 @@ namespace TweetDuck.Video{
             Player.settings.setMode("loop", true);
 
             Player.PlayStateChange += player_PlayStateChange;
+            Player.PositionChange += player_PositionChange;
             Player.MediaError += player_MediaError;
             
             trackBarVolume.Value = volume; // changes player volume too if non-default
@@ -189,6 +190,21 @@ namespace TweetDuck.Video{
             Environment.Exit(Program.CODE_MEDIA_ERROR);
         }
 
+        private void player_PositionChange(double oldPosition, double newPosition){
+            timerUI_Tick(null, EventArgs.Empty);
+        }
+
+        private void timerUI_Tick(object sender, EventArgs e){
+            IWMPMedia media = Player.currentMedia;
+            IWMPControls controls = Player.controls;
+
+            string current = controls.currentPositionString;
+            labelTime.Text = $"{(string.IsNullOrEmpty(current) ? "00:00" : current)} / {media.durationString}";
+
+            Marshal.ReleaseComObject(media);
+            Marshal.ReleaseComObject(controls);
+        }
+
         [HandleProcessCorruptedStateExceptions]
         private void timerSync_Tick(object sender, EventArgs e){
             if (NativeMethods.GetWindowRect(ownerHandle, out NativeMethods.RECT rect)){
@@ -224,8 +240,6 @@ namespace TweetDuck.Video{
                 }
                 
                 if (isCursorInside || isDragging){
-                    labelTime.Text = $"{controls.currentPositionString} / {media.durationString}";
-
                     int value = (int)Math.Round(progressSeek.Maximum * controls.currentPosition / media.duration);
 
                     if (value >= progressSeek.Maximum){
@@ -261,6 +275,9 @@ namespace TweetDuck.Video{
                         // something is super retarded here because shit gets disposed between the start of this method and
                         // the controls.play() call even though it runs on the UI thread
                     }
+                }
+                else if (controls.currentPosition > media.duration - 0.05 && !isPaused){ // reset before it reaches the end to avoid black screen
+                    controls.currentPosition = 0;
                 }
                 
                 if (isCursorInside && !wasCursorInside){
