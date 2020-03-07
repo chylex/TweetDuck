@@ -276,7 +276,7 @@ namespace TweetDuck.Video{
                         // the controls.play() call even though it runs on the UI thread
                     }
                 }
-                else if (controls.currentPosition > media.duration - 0.05 && !isPaused){ // reset before it reaches the end to avoid black screen
+                else if (controls.currentPosition > media.duration - 0.2 && media.duration > 1.0 && !isPaused){ // reset before it reaches the end to avoid black screen
                     controls.currentPosition = 0;
                 }
                 
