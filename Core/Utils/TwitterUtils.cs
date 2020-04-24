@@ -64,29 +64,29 @@ namespace TweetDuck.Core.Utils{
 
             string filename = TwitterUrls.GetImageFileName(firstImageLink);
             string ext = Path.GetExtension(filename); // includes dot
-            
-            using(SaveFileDialog dialog = new SaveFileDialog{
+
+            using SaveFileDialog dialog = new SaveFileDialog{
                 AutoUpgradeEnabled = true,
                 OverwritePrompt = urls.Length == 1,
                 Title = "Save Image",
                 FileName = qualityIndex == -1 ? filename : $"{username} {Path.ChangeExtension(filename, null)} {firstImageLink.Substring(qualityIndex + 1)}".Trim() + ext,
                 Filter = (urls.Length == 1 ? "Image" : "Images") + (string.IsNullOrEmpty(ext) ? " (unknown)|*.*" : $" (*{ext})|*{ext}")
-            }){
-                if (dialog.ShowDialog() == DialogResult.OK){
-                    static void OnFailure(Exception ex){
-                        FormMessage.Error("Image Download", "An error occurred while downloading the image: " + ex.Message, FormMessage.OK);
-                    }
+            };
 
-                    if (urls.Length == 1){
-                        DownloadFileAuth(firstImageLink, dialog.FileName, null, OnFailure);
-                    }
-                    else{
-                        string pathBase = Path.ChangeExtension(dialog.FileName, null);
-                        string pathExt = Path.GetExtension(dialog.FileName);
+            if (dialog.ShowDialog() == DialogResult.OK){
+                static void OnFailure(Exception ex){
+                    FormMessage.Error("Image Download", "An error occurred while downloading the image: " + ex.Message, FormMessage.OK);
+                }
 
-                        for(int index = 0; index < urls.Length; index++){
-                            DownloadFileAuth(TwitterUrls.GetMediaLink(urls[index], quality), $"{pathBase} {index + 1}{pathExt}", null, OnFailure);
-                        }
+                if (urls.Length == 1){
+                    DownloadFileAuth(firstImageLink, dialog.FileName, null, OnFailure);
+                }
+                else{
+                    string pathBase = Path.ChangeExtension(dialog.FileName, null);
+                    string pathExt = Path.GetExtension(dialog.FileName);
+
+                    for(int index = 0; index < urls.Length; index++){
+                        DownloadFileAuth(TwitterUrls.GetMediaLink(urls[index], quality), $"{pathBase} {index + 1}{pathExt}", null, OnFailure);
                     }
                 }
             }
@@ -96,18 +96,18 @@ namespace TweetDuck.Core.Utils{
             string filename = TwitterUrls.GetFileNameFromUrl(url);
             string ext = Path.GetExtension(filename);
 
-            using(SaveFileDialog dialog = new SaveFileDialog{
+            using SaveFileDialog dialog = new SaveFileDialog{
                 AutoUpgradeEnabled = true,
                 OverwritePrompt = true,
                 Title = "Save Video",
                 FileName = string.IsNullOrEmpty(username) ? filename : $"{username} {filename}".TrimStart(),
                 Filter = "Video" + (string.IsNullOrEmpty(ext) ? " (unknown)|*.*" : $" (*{ext})|*{ext}")
-            }){
-                if (dialog.ShowDialog() == DialogResult.OK){
-                    DownloadFileAuth(url, dialog.FileName, null, ex => {
-                        FormMessage.Error("Video Download", "An error occurred while downloading the video: " + ex.Message, FormMessage.OK);
-                    });
-                }
+            };
+
+            if (dialog.ShowDialog() == DialogResult.OK){
+                DownloadFileAuth(url, dialog.FileName, null, ex => {
+                    FormMessage.Error("Video Download", "An error occurred while downloading the video: " + ex.Message, FormMessage.OK);
+                });
             }
         }
 
@@ -115,25 +115,24 @@ namespace TweetDuck.Core.Utils{
             const string AuthCookieName = "auth_token";
 
             TaskScheduler scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+            using ICookieManager cookies = Cef.GetGlobalCookieManager();
 
-            using(ICookieManager cookies = Cef.GetGlobalCookieManager()){
-                cookies.VisitUrlCookiesAsync(url, true).ContinueWith(task => {
-                    string cookieStr = null;
+            cookies.VisitUrlCookiesAsync(url, true).ContinueWith(task => {
+                string cookieStr = null;
 
-                    if (task.Status == TaskStatus.RanToCompletion){
-                        Cookie found = task.Result?.Find(cookie => cookie.Name == AuthCookieName); // the list may be null
+                if (task.Status == TaskStatus.RanToCompletion){
+                    Cookie found = task.Result?.Find(cookie => cookie.Name == AuthCookieName); // the list may be null
 
-                        if (found != null){
-                            cookieStr = $"{found.Name}={found.Value}";
-                        }
+                    if (found != null){
+                        cookieStr = $"{found.Name}={found.Value}";
                     }
+                }
 
-                    WebClient client = WebUtils.NewClient(BrowserUtils.UserAgentChrome);
-                    client.Headers[HttpRequestHeader.Cookie] = cookieStr;
-                    client.DownloadFileCompleted += WebUtils.FileDownloadCallback(target, onSuccess, onFailure);
-                    client.DownloadFileAsync(new Uri(url), target);
-                }, scheduler);
-            }
+                WebClient client = WebUtils.NewClient(BrowserUtils.UserAgentChrome);
+                client.Headers[HttpRequestHeader.Cookie] = cookieStr;
+                client.DownloadFileCompleted += WebUtils.FileDownloadCallback(target, onSuccess, onFailure);
+                client.DownloadFileAsync(new Uri(url), target);
+            }, scheduler);
         }
     }
 }

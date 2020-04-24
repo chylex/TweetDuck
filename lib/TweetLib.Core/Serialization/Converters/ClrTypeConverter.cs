@@ -33,14 +33,18 @@ namespace TweetLib.Core.Serialization.Converters{
                         converted = b;
                         return true;
                     }
-                    else goto default;
+                    else{
+                        goto default;
+                    }
 
                 case TypeCode.Int32:
                     if (int.TryParse(value, out int i)){
                         converted = i;
                         return true;
                     }
-                    else goto default;
+                    else{
+                        goto default;
+                    }
 
                 case TypeCode.String:
                     converted = value;

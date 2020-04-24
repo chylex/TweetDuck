@@ -50,9 +50,8 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void btnViewReport_Click(object sender, EventArgs e){
-            using(DialogSettingsAnalytics dialog = new DialogSettingsAnalytics(AnalyticsReportGenerator.Create(analyticsFile, analyticsInfo, plugins))){
-                dialog.ShowDialog();
-            }
+            using DialogSettingsAnalytics dialog = new DialogSettingsAnalytics(AnalyticsReportGenerator.Create(analyticsFile, analyticsInfo, plugins));
+            dialog.ShowDialog();
         }
 
         #endregion

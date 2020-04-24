@@ -37,12 +37,11 @@ namespace TweetLib.Communication{
         }
 
         private void ReaderThread(){
-            using(StreamReader read = new StreamReader(pipeIn)){
-                string data;
+            using StreamReader read = new StreamReader(pipeIn);
+            string data;
 
-                while((data = read.ReadLine()) != null){
-                    DataIn?.Invoke(this, new PipeReadEventArgs(data));
-                }
+            while((data = read.ReadLine()) != null){
+                DataIn?.Invoke(this, new PipeReadEventArgs(data));
             }
         }
 

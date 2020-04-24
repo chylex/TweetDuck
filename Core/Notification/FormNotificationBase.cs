@@ -144,16 +144,22 @@ namespace TweetDuck.Core.Notification{
             this.browser.SetupZoomEvents();
 
             Controls.Add(browser);
-
-            Disposed += (sender, args) => {
-                this.browser.Dispose();
-                this.owner.FormClosed -= owner_FormClosed;
-            };
+            Disposed += (sender, args) => this.owner.FormClosed -= owner_FormClosed;
 
             DpiScale = this.GetDPIScale();
 
             // ReSharper disable once VirtualMemberCallInContructor
             UpdateTitle();
+        }
+
+        protected override void Dispose(bool disposing){
+            if (disposing){
+                components?.Dispose();
+                browser.Dispose();
+                resourceHandler.Dispose();
+            }
+
+            base.Dispose(disposing);
         }
 
         protected override void WndProc(ref Message m){

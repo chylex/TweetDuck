@@ -28,16 +28,15 @@ namespace TweetDuck.Core.Notification{
                 FormBrowser browser = FormManager.TryFind<FormBrowser>();
 
                 browser?.InvokeAsyncSafe(() => {
-                    using(FormMessage form = new FormMessage("Sound Notification Error", "Could not find custom notification sound file:\n" + path, MessageBoxIcon.Error)){
-                        form.AddButton(FormMessage.Ignore, ControlType.Cancel | ControlType.Focused);
+                    using FormMessage form = new FormMessage("Sound Notification Error", "Could not find custom notification sound file:\n" + path, MessageBoxIcon.Error);
+                    form.AddButton(FormMessage.Ignore, ControlType.Cancel | ControlType.Focused);
                         
-                        Button btnViewOptions = form.AddButton("View Options");
-                        btnViewOptions.Width += 16;
-                        btnViewOptions.Location = new Point(btnViewOptions.Location.X - 16, btnViewOptions.Location.Y);
+                    Button btnViewOptions = form.AddButton("View Options");
+                    btnViewOptions.Width += 16;
+                    btnViewOptions.Location = new Point(btnViewOptions.Location.X - 16, btnViewOptions.Location.Y);
 
-                        if (form.ShowDialog() == DialogResult.OK && form.ClickedButton == btnViewOptions){
-                            browser.OpenSettings(typeof(TabSettingsSounds));
-                        }
+                    if (form.ShowDialog() == DialogResult.OK && form.ClickedButton == btnViewOptions){
+                        browser.OpenSettings(typeof(TabSettingsSounds));
                     }
                 });
                 

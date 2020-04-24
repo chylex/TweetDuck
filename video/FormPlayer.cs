@@ -88,6 +88,16 @@ namespace TweetDuck.Video{
             Application.AddMessageFilter(new MessageFilter(this));
         }
 
+        protected override void Dispose(bool disposing){
+            if (disposing){
+                components.Dispose();
+                player.Dispose();
+                pipe.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
+
         // Layout
 
         private int DpiScaled(int value){

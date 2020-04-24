@@ -90,14 +90,6 @@ namespace TweetDuck.Core{
             Disposed += (sender, args) => {
                 Config.MuteToggled -= Config_MuteToggled;
                 Config.TrayBehaviorChanged -= Config_TrayBehaviorChanged;
-                
-                browser.Dispose();
-                updates.Dispose();
-                contextMenu.Dispose();
-
-                notificationScreenshotManager?.Dispose();
-                videoPlayer?.Dispose();
-                analytics?.Dispose();
             };
 
             Config.MuteToggled += Config_MuteToggled;
@@ -117,6 +109,23 @@ namespace TweetDuck.Core{
             }
 
             RestoreWindow();
+        }
+
+        protected override void Dispose(bool disposing){
+            if (disposing){
+                components?.Dispose();
+
+                browser.Dispose();
+                updates.Dispose();
+                notification.Dispose();
+                contextMenu.Dispose();
+
+                notificationScreenshotManager?.Dispose();
+                videoPlayer?.Dispose();
+                analytics?.Dispose();
+            }
+
+            base.Dispose(disposing);
         }
 
         private void ShowChildForm(Form form){
@@ -152,7 +161,9 @@ namespace TweetDuck.Core{
         }
 
         private void FormBrowser_Activated(object sender, EventArgs e){
-            if (!isLoaded)return;
+            if (!isLoaded){
+                return;
+            }
 
             trayIcon.HasNotifications = false;
 
@@ -162,14 +173,18 @@ namespace TweetDuck.Core{
         }
 
         private void FormBrowser_LocationChanged(object sender, EventArgs e){
-            if (!isLoaded)return;
+            if (!isLoaded){
+                return;
+            }
             
             timerResize.Stop();
             timerResize.Start();
         }
 
         private void FormBrowser_Resize(object sender, EventArgs e){
-            if (!isLoaded)return;
+            if (!isLoaded){
+                return;
+            }
 
             if (WindowState != prevState){
                 prevState = WindowState;
@@ -190,7 +205,9 @@ namespace TweetDuck.Core{
         }
 
         private void FormBrowser_ResizeEnd(object sender, EventArgs e){ // also triggers when the window moves
-            if (!isLoaded)return;
+            if (!isLoaded){
+                return;
+            }
 
             timerResize.Stop();
             
@@ -201,7 +218,9 @@ namespace TweetDuck.Core{
         }
 
         private void FormBrowser_FormClosing(object sender, FormClosingEventArgs e){
-            if (!isLoaded)return;
+            if (!isLoaded){
+                return;
+            }
 
             if (Config.TrayBehavior.ShouldHideOnClose() && trayIcon.Visible && e.CloseReason == CloseReason.UserClosing){
                 Hide(); // hides taskbar too?! welp that works I guess
@@ -491,12 +510,12 @@ namespace TweetDuck.Core{
         public void OpenProfileImport(){
             FormManager.TryFind<FormSettings>()?.Close();
 
-            using(DialogSettingsManage dialog = new DialogSettingsManage(plugins, true)){
-                if (!dialog.IsDisposed && dialog.ShowDialog() == DialogResult.OK && !dialog.IsRestarting){ // needs disposal check because the dialog may be closed in constructor
-                    BrowserProcessHandler.UpdatePrefs();
-                    FormManager.TryFind<FormPlugins>()?.Close();
-                    plugins.Reload(); // also reloads the browser
-                }
+            using DialogSettingsManage dialog = new DialogSettingsManage(plugins, true);
+
+            if (!dialog.IsDisposed && dialog.ShowDialog() == DialogResult.OK && !dialog.IsRestarting){ // needs disposal check because the dialog may be closed in constructor
+                BrowserProcessHandler.UpdatePrefs();
+                FormManager.TryFind<FormPlugins>()?.Close();
+                plugins.Reload(); // also reloads the browser
             }
         }
 
@@ -516,10 +535,7 @@ namespace TweetDuck.Core{
             if (playerPath == null || !File.Exists(playerPath)){
                 if (videoPlayer == null){
                     videoPlayer = new VideoPlayer(this);
-
-                    videoPlayer.ProcessExited += (sender, args) => {
-                        browser.HideVideoOverlay(true);
-                    };
+                    videoPlayer.ProcessExited += (sender, args) => browser.HideVideoOverlay(true);
                 }
                 
                 callShowOverlay.ExecuteAsync();

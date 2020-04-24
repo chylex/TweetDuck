@@ -38,9 +38,7 @@ namespace TweetDuck.Core.Bridge{
             }
             
             public void OnIntroductionClosed(bool showGuide, bool allowDataCollection){
-                form.InvokeAsyncSafe(() => {
-                    form.OnIntroductionClosed(showGuide, allowDataCollection);
-                });
+                form.InvokeAsyncSafe(() => form.OnIntroductionClosed(showGuide, allowDataCollection));
             }
 
             public void LoadNotificationLayout(string fontSize, string headLayout){

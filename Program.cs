@@ -232,7 +232,9 @@ namespace TweetDuck{
         }
 
         private static void ExitCleanup(){
-            if (HasCleanedUp)return;
+            if (HasCleanedUp){
+                return;
+            }
 
             Config.SaveAll();
 

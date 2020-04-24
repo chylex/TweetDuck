@@ -161,10 +161,16 @@ namespace TweetDuck.Core.Utils{
                     bool wereSettingsOpen = FormManager.TryFind<FormSettings>() != null;
 
                     FormManager.TryFind<FormBrowser>()?.OpenSettings();
-                    if (wereSettingsOpen)return;
+
+                    if (wereSettingsOpen){
+                        return;
+                    }
 
                     FormSettings settings = FormManager.TryFind<FormSettings>();
-                    if (settings == null)return;
+
+                    if (settings == null){
+                        return;
+                    }
 
                     settings.FormClosed += (sender, args) => {
                         if (args.CloseReason == CloseReason.UserClosing && Config.SearchEngineUrl != searchUrl){

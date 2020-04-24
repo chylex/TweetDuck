@@ -43,17 +43,17 @@ namespace TweetDuck.Core.Other{
         }
 
         public static bool Show(string caption, string text, MessageBoxIcon icon, string buttonAccept, string buttonCancel){
-            using(FormMessage message = new FormMessage(caption, text, icon)){
-                if (buttonCancel == null){
-                    message.AddButton(buttonAccept, DialogResult.OK, ControlType.Cancel | ControlType.Focused);
-                }
-                else{
-                    message.AddButton(buttonCancel, DialogResult.Cancel, ControlType.Cancel);
-                    message.AddButton(buttonAccept, DialogResult.OK, ControlType.Accept | ControlType.Focused);
-                }
+            using FormMessage message = new FormMessage(caption, text, icon);
 
-                return message.ShowDialog() == DialogResult.OK;
+            if (buttonCancel == null){
+                message.AddButton(buttonAccept, DialogResult.OK, ControlType.Cancel | ControlType.Focused);
             }
+            else{
+                message.AddButton(buttonCancel, DialogResult.Cancel, ControlType.Cancel);
+                message.AddButton(buttonAccept, DialogResult.OK, ControlType.Accept | ControlType.Focused);
+            }
+
+            return message.ShowDialog() == DialogResult.OK;
         }
 
         // Instance

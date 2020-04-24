@@ -74,11 +74,11 @@ namespace TweetLib.Core.Features.Plugins{
             string fullPath = plugin == null ? string.Empty : plugin.GetFullPathIfSafe(folder, path);
 
             if (fullPath.Length == 0){
-                switch(folder){
-                    case PluginFolder.Data: throw new ArgumentException("File path has to be relative to the plugin data folder.");
-                    case PluginFolder.Root: throw new ArgumentException("File path has to be relative to the plugin root folder.");
-                    default: throw new ArgumentException($"Invalid folder type {folder}, this is a TweetDuck error.");
-                }
+                throw folder switch{
+                    PluginFolder.Data => new ArgumentException("File path has to be relative to the plugin data folder."),
+                    PluginFolder.Root => new ArgumentException("File path has to be relative to the plugin root folder."),
+                    _ => new ArgumentException($"Invalid folder type {folder}, this is a TweetDuck error.")
+                };
             }
             else{
                 return fullPath;

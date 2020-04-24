@@ -24,9 +24,8 @@ namespace TweetDuck.Browser{
             Task.Factory.StartNew(() => KillWhenHung(parentId), TaskCreationOptions.LongRunning);
             
             if (FindArg(typePrefix) == "renderer"){
-                using(SubProcess subProcess = new SubProcess(args)){
-                    return subProcess.Run();
-                }
+                using SubProcess subProcess = new SubProcess(args);
+                return subProcess.Run();
             }
             else{
                 return SubProcess.ExecuteProcess();
@@ -35,9 +34,8 @@ namespace TweetDuck.Browser{
 
         private static async void KillWhenHung(int parentId){
             try{
-                using(Process process = Process.GetProcessById(parentId)){
-                    process.WaitForExit();
-                }
+                using Process process = Process.GetProcessById(parentId);
+                process.WaitForExit();
             }catch{
                 // ded
             }

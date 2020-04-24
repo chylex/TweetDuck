@@ -63,6 +63,15 @@ namespace TweetDuck.Core.Other{
             container.Add(this);
         }
 
+        protected override void Dispose(bool disposing){
+            if (disposing){
+                components?.Dispose();
+                contextMenu.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
+
         private void UpdateIcon(){
             if (Visible){
                 notifyIcon.Icon = hasNotifications ? Res.icon_tray_new : Config.MuteNotifications ? Res.icon_tray_muted : Res.icon_tray;

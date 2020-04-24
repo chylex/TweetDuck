@@ -3,10 +3,12 @@ using TweetLib.Core.Application;
 
 namespace TweetLib.Core{
     public sealed class App{
+        #pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
         public static IAppErrorHandler ErrorHandler { get; private set; }
         public static IAppLockHandler LockHandler { get; private set; }
         public static IAppSystemHandler SystemHandler { get; private set; }
         public static IAppResourceHandler ResourceHandler { get; private set; }
+        #pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
 
         // Builder
 

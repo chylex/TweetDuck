@@ -85,10 +85,15 @@ namespace TweetDuck.Core.Other{
             browser.SetupZoomEvents();
 
             Controls.Add(browser);
+        }
 
-            Disposed += (sender, args) => {
+        protected override void Dispose(bool disposing){
+            if (disposing){
+                components?.Dispose();
                 browser.Dispose();
-            };
+            }
+
+            base.Dispose(disposing);
         }
 
         private void Reload(string url){

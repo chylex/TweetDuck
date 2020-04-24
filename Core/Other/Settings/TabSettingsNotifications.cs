@@ -219,10 +219,18 @@ namespace TweetDuck.Core.Other.Settings{
         #region Location
 
         private void radioLoc_CheckedChanged(object sender, EventArgs e){
-            if (radioLocTL.Checked)Config.NotificationPosition = DesktopNotification.Position.TopLeft;
-            else if (radioLocTR.Checked)Config.NotificationPosition = DesktopNotification.Position.TopRight;
-            else if (radioLocBL.Checked)Config.NotificationPosition = DesktopNotification.Position.BottomLeft;
-            else if (radioLocBR.Checked)Config.NotificationPosition = DesktopNotification.Position.BottomRight;
+            if (radioLocTL.Checked){
+                Config.NotificationPosition = DesktopNotification.Position.TopLeft;
+            }
+            else if (radioLocTR.Checked){
+                Config.NotificationPosition = DesktopNotification.Position.TopRight;
+            }
+            else if (radioLocBL.Checked){
+                Config.NotificationPosition = DesktopNotification.Position.BottomLeft;
+            }
+            else if (radioLocBR.Checked){
+                Config.NotificationPosition = DesktopNotification.Position.BottomRight;
+            }
 
             comboBoxDisplay.Enabled = trackBarEdgeDistance.Enabled = true;
             notification.ShowExampleNotification(false);

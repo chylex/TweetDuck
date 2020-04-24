@@ -82,16 +82,16 @@ namespace TweetDuck.Core.Notification.Screenshot{
                 return false;
             }
             else{
-                using(Bitmap bmp = new Bitmap(ClientSize.Width, Math.Max(1, height), PixelFormat.Format32bppRgb)){
-                    try{
-                        NativeMethods.RenderSourceIntoBitmap(context, bmp);
-                    }finally{
-                        NativeMethods.ReleaseDC(this.Handle, context);
-                    }
+                using Bitmap bmp = new Bitmap(ClientSize.Width, Math.Max(1, height), PixelFormat.Format32bppRgb);
 
-                    Clipboard.SetImage(bmp);
-                    return true;
+                try{
+                    NativeMethods.RenderSourceIntoBitmap(context, bmp);
+                }finally{
+                    NativeMethods.ReleaseDC(this.Handle, context);
                 }
+
+                Clipboard.SetImage(bmp);
+                return true;
             }
         }
     }

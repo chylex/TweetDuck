@@ -14,7 +14,9 @@ namespace TweetDuck.Core{
                 form.BringToFront();
                 return true;
             }
-            else return false;
+            else{
+                return false;
+            }
         }
 
         public static void CloseAllDialogs(){

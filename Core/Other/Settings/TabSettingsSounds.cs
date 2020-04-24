@@ -64,15 +64,15 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void btnBrowseSound_Click(object sender, EventArgs e){
-            using(OpenFileDialog dialog = new OpenFileDialog{
+            using OpenFileDialog dialog = new OpenFileDialog{
                 AutoUpgradeEnabled = true,
                 DereferenceLinks = true,
                 Title = "Custom Notification Sound",
                 Filter = $"Sound file ({SoundNotification.SupportedFormats})|{SoundNotification.SupportedFormats}|All files (*.*)|*.*"
-            }){
-                if (dialog.ShowDialog() == DialogResult.OK){
-                    tbCustomSound.Text = dialog.FileName;
-                }
+            };
+
+            if (dialog.ShowDialog() == DialogResult.OK){
+                tbCustomSound.Text = dialog.FileName;
             }
         }
 

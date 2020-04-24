@@ -91,10 +91,10 @@ namespace TweetDuck.Core.Other.Settings{
         }
 
         private void btnRestartArgs_Click(object sender, EventArgs e){
-            using(DialogSettingsRestart dialog = new DialogSettingsRestart(Arguments.GetCurrentClean())){
-                if (dialog.ShowDialog() == DialogResult.OK){
-                    Program.RestartWithArgs(dialog.Args);
-                }
+            using DialogSettingsRestart dialog = new DialogSettingsRestart(Arguments.GetCurrentClean());
+
+            if (dialog.ShowDialog() == DialogResult.OK){
+                Program.RestartWithArgs(dialog.Args);
             }
         }
 

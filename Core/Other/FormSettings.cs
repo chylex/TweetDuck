@@ -80,25 +80,24 @@ namespace TweetDuck.Core.Other{
         private void btnManageOptions_Click(object sender, EventArgs e){
             PrepareUnload();
 
-            using(DialogSettingsManage dialog = new DialogSettingsManage(plugins)){
-                FormClosing -= FormSettings_FormClosing;
-                
-                if (dialog.ShowDialog() == DialogResult.OK){
-                    if (!dialog.IsRestarting){
-                        browser.ResumeNotification();
+            using DialogSettingsManage dialog = new DialogSettingsManage(plugins);
+            FormClosing -= FormSettings_FormClosing;
+            
+            if (dialog.ShowDialog() == DialogResult.OK){
+                if (!dialog.IsRestarting){
+                    browser.ResumeNotification();
 
-                        if (dialog.ShouldReloadBrowser){
-                            BrowserProcessHandler.UpdatePrefs();
-                            ShouldReloadBrowser = true;
-                        }
+                    if (dialog.ShouldReloadBrowser){
+                        BrowserProcessHandler.UpdatePrefs();
+                        ShouldReloadBrowser = true;
                     }
+                }
 
-                    Close();
-                }
-                else{
-                    FormClosing += FormSettings_FormClosing;
-                    PrepareLoad();
-                }
+                Close();
+            }
+            else{
+                FormClosing += FormSettings_FormClosing;
+                PrepareLoad();
             }
         }
 

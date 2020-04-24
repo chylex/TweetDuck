@@ -138,14 +138,13 @@ namespace TweetDuck.Core.Utils{
         }
 
         public static void RenderSourceIntoBitmap(IntPtr source, Bitmap target){
-            using(Graphics graphics = Graphics.FromImage(target)){
-                IntPtr graphicsHandle = graphics.GetHdc();
+            using Graphics graphics = Graphics.FromImage(target);
+            IntPtr graphicsHandle = graphics.GetHdc();
 
-                try{
-                    BitBlt(graphicsHandle, 0, 0, target.Width, target.Height, source, 0, 0, 0x00CC0020);
-                }finally{
-                    graphics.ReleaseHdc(graphicsHandle);
-                }
+            try{
+                BitBlt(graphicsHandle, 0, 0, target.Width, target.Height, source, 0, 0, 0x00CC0020);
+            }finally{
+                graphics.ReleaseHdc(graphicsHandle);
             }
         }
     }

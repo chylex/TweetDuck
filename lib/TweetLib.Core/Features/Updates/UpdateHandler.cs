@@ -13,7 +13,7 @@ namespace TweetLib.Core.Features.Updates{
         private readonly TaskScheduler scheduler;
         private readonly Timer timer;
         
-        public event EventHandler<UpdateCheckEventArgs> CheckFinished;
+        public event EventHandler<UpdateCheckEventArgs>? CheckFinished;
         private ushort lastEventId;
 
         public UpdateHandler(IUpdateCheckClient client, TaskScheduler scheduler){

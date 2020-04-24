@@ -138,8 +138,7 @@ namespace TweetDuck.Core.Other.Analytics{
                                 break;
 
                             case WebExceptionStatus.ProtocolError:
-                                HttpWebResponse response = e.Response as HttpWebResponse;
-                                message = "HTTP Error " + (response != null ? $"{(int)response.StatusCode} ({response.StatusDescription})" : "(unknown code)");
+                                message = "HTTP Error " + (e.Response is HttpWebResponse response ? $"{(int)response.StatusCode} ({response.StatusDescription})" : "(unknown code)");
                                 break;
                         }
 

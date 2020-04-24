@@ -17,8 +17,8 @@ namespace TweetLib.Core.Features.Plugins{
         
         public IPluginConfig Config { get; }
         
-        public event EventHandler<PluginErrorEventArgs> Reloaded;
-        public event EventHandler<PluginErrorEventArgs> Executed;
+        public event EventHandler<PluginErrorEventArgs>? Reloaded;
+        public event EventHandler<PluginErrorEventArgs>? Executed;
         
         private readonly string pluginFolder;
         private readonly string pluginDataFolder;
