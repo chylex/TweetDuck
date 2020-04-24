@@ -141,6 +141,7 @@ enabled(){
         }
       }, "text").fail(function(){
         resolve([ index, "" ]);
+        alert("error|Failed executing AJAX request: " + url);
       });
     });
   };
