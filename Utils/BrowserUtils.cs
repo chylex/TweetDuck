@@ -24,7 +24,7 @@ namespace TweetDuck.Utils{
         public static void SetupCefArgs(IDictionary<string, string> args){
             if (!SysConfig.HardwareAcceleration){
                 args["disable-gpu"] = "1";
-                args["disable-gpu-vsync"] = "1";
+                args["disable-gpu-compositing"] = "1";
             }
 
             if (Config.EnableSmoothScrolling){
