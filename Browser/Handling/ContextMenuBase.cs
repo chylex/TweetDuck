@@ -28,10 +28,11 @@ namespace TweetDuck.Browser.Handling{
         private const CefMenuCommand MenuViewImage       = (CefMenuCommand)26503;
         private const CefMenuCommand MenuOpenMediaUrl    = (CefMenuCommand)26504;
         private const CefMenuCommand MenuCopyMediaUrl    = (CefMenuCommand)26505;
-        private const CefMenuCommand MenuSaveMedia       = (CefMenuCommand)26506;
-        private const CefMenuCommand MenuSaveTweetImages = (CefMenuCommand)26507;
-        private const CefMenuCommand MenuSearchInBrowser = (CefMenuCommand)26508;
-        private const CefMenuCommand MenuReadApplyROT13  = (CefMenuCommand)26509;
+        private const CefMenuCommand MenuCopyImage       = (CefMenuCommand)26506;
+        private const CefMenuCommand MenuSaveMedia       = (CefMenuCommand)26507;
+        private const CefMenuCommand MenuSaveTweetImages = (CefMenuCommand)26508;
+        private const CefMenuCommand MenuSearchInBrowser = (CefMenuCommand)26509;
+        private const CefMenuCommand MenuReadApplyROT13  = (CefMenuCommand)26510;
         private const CefMenuCommand MenuOpenDevTools    = (CefMenuCommand)26599;
         
         protected ContextInfo.ContextData Context { get; private set; }
@@ -85,6 +86,7 @@ namespace TweetDuck.Browser.Handling{
                 model.AddItem(MenuViewImage, "View image in photo viewer");
                 model.AddItem(MenuOpenMediaUrl, TextOpen("image"));
                 model.AddItem(MenuCopyMediaUrl, TextCopy("image"));
+                model.AddItem(MenuCopyImage, "Copy image");
                 model.AddItem(MenuSaveMedia, TextSave("image"));
 
                 if (Context.Chirp.Images.Length > 1){
@@ -123,6 +125,16 @@ namespace TweetDuck.Browser.Handling{
                 case MenuCopyMediaUrl:
                     SetClipboardText(control, TwitterUrls.GetMediaLink(Context.MediaUrl, ImageQuality));
                     break;
+
+                case MenuCopyImage: {
+                    string url = Context.MediaUrl;
+
+                    control.InvokeAsyncSafe(() => {
+                        TwitterUtils.CopyImage(url, ImageQuality);
+                    });
+                    
+                    break;
+                }
 
                 case MenuViewImage: {
                     string url = Context.MediaUrl;

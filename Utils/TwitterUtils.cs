@@ -24,8 +24,23 @@ namespace TweetDuck.Utils{
             "tweetdeck", "TweetDeck", "tweetduck", "TweetDuck", "TD"
         };
 
+        private static void DownloadTempImage(string url, ImageQuality quality, Action<string> process){
+            string file = Path.Combine(BrowserCache.CacheFolder, TwitterUrls.GetImageFileName(url) ?? Path.GetRandomFileName());
+            
+            if (FileUtils.FileExistsAndNotEmpty(file)){
+                process(file);
+            }
+            else{
+                DownloadFileAuth(TwitterUrls.GetMediaLink(url, quality), file, () => {
+                    process(file);
+                }, ex => {
+                    FormMessage.Error("Image Download", "An error occurred while downloading the image: " + ex.Message, FormMessage.OK);
+                });
+            }
+        }
+
         public static void ViewImage(string url, ImageQuality quality){
-            static void ViewImageInternal(string path){
+            DownloadTempImage(url, quality, path => {
                 string ext = Path.GetExtension(path);
 
                 if (ImageUrl.ValidExtensions.Contains(ext)){
@@ -34,20 +49,22 @@ namespace TweetDuck.Utils{
                 else{
                     FormMessage.Error("Image Download", "Invalid file extension " + ext, FormMessage.OK);
                 }
-            }
+            });
+        }
 
-            string file = Path.Combine(BrowserCache.CacheFolder, TwitterUrls.GetImageFileName(url) ?? Path.GetRandomFileName());
-            
-            if (FileUtils.FileExistsAndNotEmpty(file)){
-                ViewImageInternal(file);
-            }
-            else{
-                DownloadFileAuth(TwitterUrls.GetMediaLink(url, quality), file, () => {
-                    ViewImageInternal(file);
-                }, ex => {
-                    FormMessage.Error("Image Download", "An error occurred while downloading the image: " + ex.Message, FormMessage.OK);
-                });
-            }
+        public static void CopyImage(string url, ImageQuality quality){
+            DownloadTempImage(url, quality, path => {
+                Image image;
+
+                try{
+                    image = Image.FromFile(path);
+                }catch(Exception ex){
+                    FormMessage.Error("Copy Image", "An error occurred while copying the image: " + ex.Message, FormMessage.OK);
+                    return;
+                }
+
+                ClipboardManager.SetImage(image);
+            });
         }
         
         public static void DownloadImage(string url, string username, ImageQuality quality){
