@@ -33,7 +33,7 @@
             this.labelWebsite = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
             this.btnConfigure = new System.Windows.Forms.Button();
-            this.labelType = new TweetDuck.Core.Controls.LabelVertical();
+            this.labelType = new TweetDuck.Controls.LabelVertical();
             this.timerLayout = new System.Windows.Forms.Timer(this.components);
             this.panelBorder = new System.Windows.Forms.Panel();
             this.panelDescription.SuspendLayout();
@@ -227,7 +227,7 @@
         private System.Windows.Forms.Label labelWebsite;
         private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.Button btnConfigure;
-        private Core.Controls.LabelVertical labelType;
+        private Controls.LabelVertical labelType;
         private System.Windows.Forms.Timer timerLayout;
         private System.Windows.Forms.Panel panelBorder;
     }

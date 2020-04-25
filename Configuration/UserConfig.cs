@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
-using TweetDuck.Core.Controls;
-using TweetDuck.Core.Other;
-using TweetDuck.Data;
+using TweetDuck.Browser;
+using TweetDuck.Browser.Data;
+using TweetDuck.Controls;
 using TweetLib.Core.Features.Configuration;
 using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Features.Twitter;

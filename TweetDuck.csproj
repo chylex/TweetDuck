@@ -57,200 +57,197 @@
     <Compile Include="Configuration\ConfigManager.cs" />
     <Compile Include="Configuration\SystemConfig.cs" />
     <Compile Include="Configuration\UserConfig.cs" />
-    <Compile Include="Core\Adapters\CefScriptExecutor.cs" />
-    <Compile Include="Core\Bridge\PropertyBridge.cs" />
-    <Compile Include="Core\Bridge\UpdateBridge.cs" />
-    <Compile Include="Core\Controls\ControlExtensions.cs" />
-    <Compile Include="Core\Controls\FlatButton.cs">
+    <Compile Include="Browser\Adapters\CefScriptExecutor.cs" />
+    <Compile Include="Browser\Bridge\PropertyBridge.cs" />
+    <Compile Include="Browser\Bridge\UpdateBridge.cs" />
+    <Compile Include="Controls\ControlExtensions.cs" />
+    <Compile Include="Controls\FlatButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Core\Controls\FlatProgressBar.cs">
+    <Compile Include="Controls\FlatProgressBar.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Core\Controls\LabelVertical.cs">
+    <Compile Include="Controls\LabelVertical.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Core\Controls\NumericUpDownEx.cs">
+    <Compile Include="Controls\NumericUpDownEx.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Core\FormManager.cs" />
-    <Compile Include="Core\Handling\ContextMenuGuide.cs" />
-    <Compile Include="Core\Handling\DragHandlerBrowser.cs" />
-    <Compile Include="Core\Handling\Filters\ResponseFilterBase.cs" />
-    <Compile Include="Core\Handling\Filters\ResponseFilterVendor.cs" />
-    <Compile Include="Core\Handling\General\BrowserProcessHandler.cs" />
-    <Compile Include="Core\Handling\ContextMenuBase.cs" />
-    <Compile Include="Core\Handling\ContextMenuBrowser.cs" />
-    <Compile Include="Core\FormBrowser.cs">
+    <Compile Include="Management\FormManager.cs" />
+    <Compile Include="Browser\Handling\ContextMenuGuide.cs" />
+    <Compile Include="Browser\Handling\DragHandlerBrowser.cs" />
+    <Compile Include="Browser\Handling\Filters\ResponseFilterBase.cs" />
+    <Compile Include="Browser\Handling\Filters\ResponseFilterVendor.cs" />
+    <Compile Include="Browser\Handling\General\BrowserProcessHandler.cs" />
+    <Compile Include="Browser\Handling\ContextMenuBase.cs" />
+    <Compile Include="Browser\Handling\ContextMenuBrowser.cs" />
+    <Compile Include="Browser\FormBrowser.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Core\FormBrowser.Designer.cs">
+    <Compile Include="Browser\FormBrowser.Designer.cs">
       <DependentUpon>FormBrowser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Handling\General\FileDialogHandler.cs" />
-    <Compile Include="Core\Handling\KeyboardHandlerBase.cs" />
-    <Compile Include="Core\Handling\KeyboardHandlerBrowser.cs" />
-    <Compile Include="Core\Handling\KeyboardHandlerNotification.cs" />
-    <Compile Include="Core\Handling\RequestHandlerBase.cs" />
-    <Compile Include="Core\Handling\RequestHandlerBrowser.cs" />
-    <Compile Include="Core\Handling\ResourceHandlerFactory.cs" />
-    <Compile Include="Core\Handling\ResourceHandlerNotification.cs" />
-    <Compile Include="Core\Management\ContextInfo.cs" />
-    <Compile Include="Core\Notification\Example\FormNotificationExample.cs">
+    <Compile Include="Browser\Handling\General\FileDialogHandler.cs" />
+    <Compile Include="Browser\Handling\KeyboardHandlerBase.cs" />
+    <Compile Include="Browser\Handling\KeyboardHandlerBrowser.cs" />
+    <Compile Include="Browser\Handling\KeyboardHandlerNotification.cs" />
+    <Compile Include="Browser\Handling\RequestHandlerBase.cs" />
+    <Compile Include="Browser\Handling\RequestHandlerBrowser.cs" />
+    <Compile Include="Browser\Handling\ResourceHandlerFactory.cs" />
+    <Compile Include="Browser\Handling\ResourceHandlerNotification.cs" />
+    <Compile Include="Browser\Data\ContextInfo.cs" />
+    <Compile Include="Browser\Notification\Example\FormNotificationExample.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Core\Notification\FormNotificationMain.cs">
+    <Compile Include="Browser\Notification\FormNotificationMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Core\Notification\FormNotificationMain.Designer.cs">
+    <Compile Include="Browser\Notification\FormNotificationMain.Designer.cs">
       <DependentUpon>FormNotificationMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Notification\FormNotificationBase.cs">
+    <Compile Include="Browser\Notification\FormNotificationBase.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Core\Notification\FormNotificationBase.Designer.cs">
+    <Compile Include="Browser\Notification\FormNotificationBase.Designer.cs">
       <DependentUpon>FormNotificationBase.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Handling\ContextMenuNotification.cs" />
-    <Compile Include="Core\Handling\General\JavaScriptDialogHandler.cs" />
-    <Compile Include="Core\Handling\General\LifeSpanHandler.cs" />
-    <Compile Include="Core\Notification\FormNotificationTweet.cs">
+    <Compile Include="Browser\Handling\ContextMenuNotification.cs" />
+    <Compile Include="Browser\Handling\General\JavaScriptDialogHandler.cs" />
+    <Compile Include="Browser\Handling\General\LifeSpanHandler.cs" />
+    <Compile Include="Browser\Notification\FormNotificationTweet.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Core\Notification\FormNotificationTweet.Designer.cs">
+    <Compile Include="Browser\Notification\FormNotificationTweet.Designer.cs">
       <DependentUpon>FormNotificationTweet.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Notification\SoundNotification.cs" />
-    <Compile Include="Core\Other\Analytics\AnalyticsFile.cs" />
-    <Compile Include="Core\Other\Analytics\AnalyticsManager.cs" />
-    <Compile Include="Core\Other\Analytics\AnalyticsReport.cs" />
-    <Compile Include="Core\Other\Analytics\AnalyticsReportGenerator.cs" />
-    <Compile Include="Core\Other\FormAbout.cs">
+    <Compile Include="Browser\Notification\SoundNotification.cs" />
+    <Compile Include="Management\Analytics\AnalyticsFile.cs" />
+    <Compile Include="Management\Analytics\AnalyticsManager.cs" />
+    <Compile Include="Management\Analytics\AnalyticsReport.cs" />
+    <Compile Include="Management\Analytics\AnalyticsReportGenerator.cs" />
+    <Compile Include="Dialogs\FormAbout.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Core\Other\FormAbout.Designer.cs">
+    <Compile Include="Dialogs\FormAbout.Designer.cs">
       <DependentUpon>FormAbout.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Other\FormGuide.cs">
+    <Compile Include="Dialogs\FormGuide.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Core\Other\FormGuide.Designer.cs">
+    <Compile Include="Dialogs\FormGuide.Designer.cs">
       <DependentUpon>FormGuide.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Other\FormMessage.cs">
+    <Compile Include="Dialogs\FormMessage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Core\Other\FormMessage.Designer.cs">
+    <Compile Include="Dialogs\FormMessage.Designer.cs">
       <DependentUpon>FormMessage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Other\FormPlugins.cs">
+    <Compile Include="Dialogs\FormPlugins.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Core\Other\FormPlugins.Designer.cs">
+    <Compile Include="Dialogs\FormPlugins.Designer.cs">
       <DependentUpon>FormPlugins.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Management\VideoPlayer.cs" />
-    <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsAnalytics.cs">
+    <Compile Include="Management\VideoPlayer.cs" />
+    <Compile Include="Dialogs\Settings\DialogSettingsAnalytics.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsAnalytics.Designer.cs">
+    <Compile Include="Dialogs\Settings\DialogSettingsAnalytics.Designer.cs">
       <DependentUpon>DialogSettingsAnalytics.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsExternalProgram.cs">
+    <Compile Include="Dialogs\Settings\DialogSettingsExternalProgram.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsExternalProgram.Designer.cs">
+    <Compile Include="Dialogs\Settings\DialogSettingsExternalProgram.Designer.cs">
       <DependentUpon>DialogSettingsExternalProgram.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsSearchEngine.cs">
+    <Compile Include="Dialogs\Settings\DialogSettingsSearchEngine.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsSearchEngine.Designer.cs">
+    <Compile Include="Dialogs\Settings\DialogSettingsSearchEngine.Designer.cs">
       <DependentUpon>DialogSettingsSearchEngine.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsCSS.cs">
+    <Compile Include="Dialogs\Settings\DialogSettingsCSS.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsCSS.Designer.cs">
+    <Compile Include="Dialogs\Settings\DialogSettingsCSS.Designer.cs">
       <DependentUpon>DialogSettingsCSS.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsCefArgs.cs">
+    <Compile Include="Dialogs\Settings\DialogSettingsCefArgs.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsCefArgs.Designer.cs">
+    <Compile Include="Dialogs\Settings\DialogSettingsCefArgs.Designer.cs">
       <DependentUpon>DialogSettingsCefArgs.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsManage.cs">
+    <Compile Include="Dialogs\Settings\DialogSettingsManage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsManage.Designer.cs">
+    <Compile Include="Dialogs\Settings\DialogSettingsManage.Designer.cs">
       <DependentUpon>DialogSettingsManage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsRestart.cs">
+    <Compile Include="Dialogs\Settings\DialogSettingsRestart.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Core\Other\Settings\Dialogs\DialogSettingsRestart.Designer.cs">
+    <Compile Include="Dialogs\Settings\DialogSettingsRestart.Designer.cs">
       <DependentUpon>DialogSettingsRestart.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Other\Settings\TabSettingsFeedback.cs">
+    <Compile Include="Dialogs\Settings\TabSettingsFeedback.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Core\Other\Settings\TabSettingsFeedback.Designer.cs">
+    <Compile Include="Dialogs\Settings\TabSettingsFeedback.Designer.cs">
       <DependentUpon>TabSettingsFeedback.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Other\Settings\TabSettingsTray.cs">
+    <Compile Include="Dialogs\Settings\TabSettingsTray.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Core\Other\Settings\TabSettingsTray.Designer.cs">
+    <Compile Include="Dialogs\Settings\TabSettingsTray.Designer.cs">
       <DependentUpon>TabSettingsTray.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\TweetDeckBrowser.cs" />
-    <Compile Include="Core\Utils\TwitterUtils.cs" />
-    <Compile Include="Core\Management\ProfileManager.cs" />
-    <Compile Include="Core\Other\Settings\TabSettingsAdvanced.cs">
+    <Compile Include="Browser\TweetDeckBrowser.cs" />
+    <Compile Include="Utils\TwitterUtils.cs" />
+    <Compile Include="Management\ProfileManager.cs" />
+    <Compile Include="Dialogs\Settings\TabSettingsAdvanced.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Core\Other\Settings\TabSettingsAdvanced.Designer.cs">
+    <Compile Include="Dialogs\Settings\TabSettingsAdvanced.Designer.cs">
       <DependentUpon>TabSettingsAdvanced.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Other\Settings\BaseTabSettings.cs">
+    <Compile Include="Dialogs\Settings\TabSettingsGeneral.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Core\Other\Settings\TabSettingsGeneral.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Core\Other\Settings\TabSettingsGeneral.Designer.cs">
+    <Compile Include="Dialogs\Settings\TabSettingsGeneral.Designer.cs">
       <DependentUpon>TabSettingsGeneral.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Other\Settings\TabSettingsSounds.cs">
+    <Compile Include="Dialogs\Settings\TabSettingsSounds.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Core\Other\Settings\TabSettingsSounds.Designer.cs">
+    <Compile Include="Dialogs\Settings\TabSettingsSounds.Designer.cs">
       <DependentUpon>TabSettingsSounds.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Other\Settings\TabSettingsNotifications.cs">
+    <Compile Include="Dialogs\Settings\TabSettingsNotifications.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Core\Other\Settings\TabSettingsNotifications.Designer.cs">
+    <Compile Include="Dialogs\Settings\TabSettingsNotifications.Designer.cs">
       <DependentUpon>TabSettingsNotifications.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Notification\Screenshot\ScreenshotBridge.cs" />
-    <Compile Include="Core\Notification\Screenshot\FormNotificationScreenshotable.cs">
+    <Compile Include="Browser\Notification\Screenshot\ScreenshotBridge.cs" />
+    <Compile Include="Browser\Notification\Screenshot\FormNotificationScreenshotable.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Core\Notification\Screenshot\TweetScreenshotManager.cs" />
-    <Compile Include="Data\ResourceLink.cs" />
-    <Compile Include="Data\WindowState.cs" />
-    <Compile Include="Core\Utils\WindowsUtils.cs" />
-    <Compile Include="Core\Bridge\TweetDeckBridge.cs" />
-    <Compile Include="Core\Other\FormSettings.cs">
+    <Compile Include="Browser\Notification\Screenshot\TweetScreenshotManager.cs" />
+    <Compile Include="Browser\Data\ResourceLink.cs" />
+    <Compile Include="Browser\Data\WindowState.cs" />
+    <Compile Include="Utils\WindowsUtils.cs" />
+    <Compile Include="Browser\Bridge\TweetDeckBridge.cs" />
+    <Compile Include="Dialogs\FormSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Core\Other\FormSettings.Designer.cs">
+    <Compile Include="Dialogs\FormSettings.Designer.cs">
       <DependentUpon>FormSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Impl\LockHandler.cs" />
-    <Compile Include="Impl\SystemHandler.cs" />
+    <Compile Include="Application\LockHandler.cs" />
+    <Compile Include="Application\SystemHandler.cs" />
     <Compile Include="Plugins\PluginControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -258,7 +255,7 @@
       <DependentUpon>PluginControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Plugins\PluginDispatcher.cs" />
-    <Compile Include="Core\Controls\FlowLayoutPanelNoHScroll.cs">
+    <Compile Include="Controls\FlowLayoutPanelNoHScroll.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Configuration\PluginConfig.cs" />
@@ -275,15 +272,15 @@
     <Compile Include="Updates\FormUpdateDownload.Designer.cs">
       <DependentUpon>FormUpdateDownload.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Other\TrayIcon.cs">
+    <Compile Include="Browser\TrayIcon.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Core\Other\TrayIcon.Designer.cs">
+    <Compile Include="Browser\TrayIcon.Designer.cs">
       <DependentUpon>TrayIcon.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Management\BrowserCache.cs" />
-    <Compile Include="Core\Utils\BrowserUtils.cs" />
-    <Compile Include="Core\Utils\NativeMethods.cs" />
+    <Compile Include="Management\BrowserCache.cs" />
+    <Compile Include="Utils\BrowserUtils.cs" />
+    <Compile Include="Utils\NativeMethods.cs" />
     <Compile Include="Updates\UpdateCheckClient.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -302,7 +299,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Core\FormBrowser.resx">
+    <EmbeddedResource Include="Browser\FormBrowser.resx">
       <DependentUpon>FormBrowser.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>

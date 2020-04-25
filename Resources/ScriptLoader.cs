@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using TweetDuck.Core.Controls;
-using TweetDuck.Core.Other;
+using TweetDuck.Controls;
+using TweetDuck.Dialogs;
 using TweetLib.Core.Application;
 
 namespace TweetDuck.Resources{

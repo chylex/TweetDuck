@@ -3,8 +3,8 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using System.Windows.Forms;
-using TweetDuck.Core;
+using TweetDuck.Browser;
+using TweetDuck.Management;
 using TweetLib.Core.Features.Plugins;
 
 namespace TweetDuck.Resources{
@@ -22,7 +22,7 @@ namespace TweetDuck.Resources{
                 Debug.WriteLine("Activating resource hot swap...");
 
                 ResetHotSwap();
-                Application.ApplicationExit += (sender, args) => ResetHotSwap();
+                System.Windows.Forms.Application.ApplicationExit += (sender, args) => ResetHotSwap();
             }
         }
 

@@ -5,7 +5,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using TweetDuck.Configuration;
-using TweetDuck.Core.Other;
+using TweetDuck.Dialogs;
 using TweetLib.Core;
 using TweetLib.Core.Application;
 
@@ -96,9 +96,7 @@ namespace TweetDuck{
         }
 
         public static void HandleEarlyFailure(string caption, string message){
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-
+            Program.SetupWinForms();
             FormMessage.Error(caption, message, "Exit");
 
             try{

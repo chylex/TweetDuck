@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using TweetDuck.Core.Controls;
-using TweetDuck.Core.Utils;
+using TweetDuck.Controls;
+using TweetDuck.Utils;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Enums;
 

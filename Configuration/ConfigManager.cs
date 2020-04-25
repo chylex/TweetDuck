@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Drawing;
-using TweetDuck.Data;
+using TweetDuck.Browser.Data;
 using TweetLib.Core.Features.Configuration;
 using TweetLib.Core.Features.Plugins.Config;
 using TweetLib.Core.Serialization.Converters;

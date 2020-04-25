@@ -1,6 +1,6 @@
 ﻿using System;
 using CefSharp;
-using TweetDuck.Core.Adapters;
+using TweetDuck.Browser.Adapters;
 using TweetLib.Core.Browser;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Events;

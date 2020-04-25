@@ -4,20 +4,20 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
+using TweetDuck.Application;
+using TweetDuck.Browser;
+using TweetDuck.Browser.Handling;
+using TweetDuck.Browser.Handling.General;
 using TweetDuck.Configuration;
-using TweetDuck.Core;
-using TweetDuck.Core.Handling;
-using TweetDuck.Core.Handling.General;
-using TweetDuck.Core.Other;
-using TweetDuck.Core.Management;
-using TweetDuck.Core.Utils;
-using TweetDuck.Impl;
+using TweetDuck.Dialogs;
+using TweetDuck.Management;
 using TweetDuck.Resources;
+using TweetDuck.Utils;
 using TweetLib.Core;
 using TweetLib.Core.Application.Helpers;
 using TweetLib.Core.Collections;
 using TweetLib.Core.Utils;
+using Win = System.Windows.Forms;
 
 namespace TweetDuck{
     static class Program{
@@ -27,6 +27,8 @@ namespace TweetDuck{
         public const string Website = "https://tweetduck.chylex.com";
 
         public static readonly string ProgramPath = AppDomain.CurrentDomain.BaseDirectory;
+        public static readonly string ExecutablePath = Win.Application.ExecutablePath;
+
         public static readonly bool IsPortable = File.Exists(Path.Combine(ProgramPath, "makeportable"));
 
         public static readonly string ScriptPath = Path.Combine(ProgramPath, "scripts");
@@ -75,10 +77,14 @@ namespace TweetDuck{
             });
         }
 
+        internal static void SetupWinForms(){
+            Win.Application.EnableVisualStyles();
+            Win.Application.SetCompatibleTextRenderingDefault(false);
+        }
+
         [STAThread]
         private static void Main(){
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            SetupWinForms();
             Cef.EnableHighDPISupport();
             
             WindowRestoreMessage = NativeMethods.RegisterWindowMessage("TweetDuckRestore");
@@ -168,11 +174,11 @@ namespace TweetDuck{
             
             Cef.Initialize(settings, false, new BrowserProcessHandler());
 
-            Application.ApplicationExit += (sender, args) => ExitCleanup();
+            Win.Application.ApplicationExit += (sender, args) => ExitCleanup();
             
             FormBrowser mainForm = new FormBrowser();
             Resources.Initialize(mainForm);
-            Application.Run(mainForm);
+            Win.Application.Run(mainForm);
 
             if (mainForm.UpdateInstallerPath != null){
                 ExitCleanup();
@@ -182,7 +188,7 @@ namespace TweetDuck{
                 bool runElevated = !IsPortable || !FileUtils.CheckFolderWritePermission(ProgramPath);
 
                 if (WindowsUtils.OpenAssociatedProgram(mainForm.UpdateInstallerPath, updaterArgs, runElevated)){
-                    Application.Exit();
+                    Win.Application.Exit();
                 }
                 else{
                     RestartWithArgsInternal(Arguments.GetCurrentClean());
@@ -227,8 +233,8 @@ namespace TweetDuck{
 
         private static void RestartWithArgsInternal(CommandLineArgs args){
             args.AddFlag(Arguments.ArgRestart);
-            Process.Start(Application.ExecutablePath, args.ToString());
-            Application.Exit();
+            Process.Start(ExecutablePath, args.ToString());
+            Win.Application.Exit();
         }
 
         private static void ExitCleanup(){
