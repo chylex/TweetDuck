@@ -572,7 +572,9 @@
   //
   execSafe(function setupShortenerBypass(){
     $(document.body).delegate("a[data-full-url]", "click auxclick", function(e){
-      if (e.button === 0 || e.button === 1){ // event.which seems to be borked in auxclick
+      // event.which seems to be borked in auxclick
+      // tweet links open directly in the column
+      if ((e.button === 0 || e.button === 1) && $(this).attr("rel") !== "tweet"){
         $TD.openBrowser($(this).attr("data-full-url"));
         e.preventDefault();
       }
