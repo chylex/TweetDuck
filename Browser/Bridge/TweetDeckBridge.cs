@@ -5,6 +5,7 @@ using TweetDuck.Browser.Handling;
 using TweetDuck.Browser.Notification;
 using TweetDuck.Controls;
 using TweetDuck.Dialogs;
+using TweetDuck.Management;
 using TweetDuck.Utils;
 using TweetLib.Core.Features.Notifications;
 
@@ -108,7 +109,7 @@ namespace TweetDuck.Browser.Bridge{
         }
 
         public void FixClipboard(){
-            form.InvokeAsyncSafe(WindowsUtils.ClipboardStripHtmlStyles);
+            form.InvokeAsyncSafe(ClipboardManager.StripHtmlStyles);
         }
 
         public void OpenBrowser(string url){

@@ -9,6 +9,7 @@ using TweetDuck.Browser.Notification;
 using TweetDuck.Configuration;
 using TweetDuck.Controls;
 using TweetDuck.Dialogs;
+using TweetDuck.Management;
 using TweetDuck.Management.Analytics;
 using TweetDuck.Utils;
 using TweetLib.Core.Features.Twitter;
@@ -202,7 +203,7 @@ namespace TweetDuck.Browser.Handling{
         }
 
         protected static void SetClipboardText(Control control, string text){
-            control.InvokeAsyncSafe(() => WindowsUtils.SetClipboard(text, TextDataFormat.UnicodeText));
+            control.InvokeAsyncSafe(() => ClipboardManager.SetText(text, TextDataFormat.UnicodeText));
         }
 
         protected static void InsertSelectionSearchItem(IMenuModel model, CefMenuCommand insertCommand, string insertLabel){

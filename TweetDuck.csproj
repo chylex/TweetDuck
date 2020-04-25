@@ -73,6 +73,7 @@
     <Compile Include="Controls\NumericUpDownEx.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Management\ClipboardManager.cs" />
     <Compile Include="Management\FormManager.cs" />
     <Compile Include="Browser\Handling\ContextMenuGuide.cs" />
     <Compile Include="Browser\Handling\DragHandlerBrowser.cs" />
