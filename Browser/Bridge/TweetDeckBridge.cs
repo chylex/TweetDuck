@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using CefSharp;
 using TweetDuck.Browser.Handling;
@@ -8,6 +10,7 @@ using TweetDuck.Dialogs;
 using TweetDuck.Management;
 using TweetDuck.Utils;
 using TweetLib.Core.Features.Notifications;
+using TweetLib.Core.Utils;
 
 namespace TweetDuck.Browser.Bridge{
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -114,6 +117,23 @@ namespace TweetDuck.Browser.Bridge{
 
         public void OpenBrowser(string url){
             form.InvokeAsyncSafe(() => BrowserUtils.OpenExternalBrowser(url));
+        }
+
+        public void MakeGetRequest(string url, IJavascriptCallback onSuccess, IJavascriptCallback onError){
+            Task.Run(async () => {
+                var client = WebUtils.NewClient(BrowserUtils.UserAgentVanilla);
+
+                try{
+                    var result = await client.DownloadStringTaskAsync(url);
+                    await onSuccess.ExecuteAsync(result);
+                }catch(Exception e){
+                    await onError.ExecuteAsync(e.Message);
+                }finally{
+                    onSuccess.Dispose();
+                    onError.Dispose();
+                    client.Dispose();
+                }
+            });
         }
 
         public int GetIdleSeconds(){

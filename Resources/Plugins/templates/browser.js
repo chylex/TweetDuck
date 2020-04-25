@@ -132,16 +132,16 @@ enabled(){
         return;
       }
       
-      $.get(url, function(data){
+      $TD.makeGetRequest(url, function(data){
         if (evaluator){
           resolve([ index, eval(evaluator.replace(/\$/g, "'"+data.replace(/(["'\\\n\r\u2028\u2029])/g, "\\$1")+"'"))]);
         }
         else{
           resolve([ index, data ]);
         }
-      }, "text").fail(function(){
+      }, function(err){
         resolve([ index, "" ]);
-        alert("error|Failed executing AJAX request: " + url);
+        $TD.alert("error", "Error executing AJAX request: "+err);
       });
     });
   };
