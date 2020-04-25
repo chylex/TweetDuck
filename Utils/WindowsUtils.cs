@@ -14,7 +14,7 @@ namespace TweetDuck.Utils{
         public static bool IsAeroEnabled => IsWindows8OrNewer || (NativeMethods.DwmIsCompositionEnabled(out bool isCompositionEnabled) == 0 && isCompositionEnabled);
 
         private static bool OSVersionEquals(int major, int minor){
-            Version ver = Environment.OSVersion.Version;
+            System.Version ver = Environment.OSVersion.Version;
             return ver.Major == major && ver.Minor == minor;
         }
 

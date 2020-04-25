@@ -22,7 +22,7 @@ using Win = System.Windows.Forms;
 namespace TweetDuck{
     static class Program{
         public const string BrandName = Lib.BrandName;
-        public const string VersionTag = Lib.VersionTag;
+        public const string VersionTag = Version.Tag;
 
         public const string Website = "https://tweetduck.chylex.com";
 

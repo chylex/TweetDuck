@@ -53,6 +53,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Version.cs" />
     <Compile Include="Configuration\Arguments.cs" />
     <Compile Include="Configuration\ConfigManager.cs" />
     <Compile Include="Configuration\SystemConfig.cs" />

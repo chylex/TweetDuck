@@ -5,8 +5,6 @@ using System.Windows.Forms;
 
 namespace TweetDuck.Video{
     static class Program{
-        internal const string Version = "1.4.2";
-
         // referenced in VideoPlayer
         // set by task manager -- public const int CODE_PROCESS_KILLED = 1;
         public const int CODE_INVALID_ARGS = 2;

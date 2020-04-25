@@ -1,10 +1,14 @@
 ﻿using System.Globalization;
+using System.Reflection;
 using System.Threading;
+
+[assembly: AssemblyTitle("TweetDuck Core Library")]
+[assembly: AssemblyDescription("TweetDuck Core Library")]
+[assembly: AssemblyProduct("TweetCore.Lib")]
 
 namespace TweetLib.Core{
     public static class Lib{
         public const string BrandName = "TweetDuck";
-        public const string VersionTag = "1.18.3";
 
         #pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
         public static CultureInfo Culture { get; private set; }

@@ -6,7 +6,7 @@ using TweetLib.Core.Features.Plugins.Enums;
 
 namespace TweetLib.Core.Features.Plugins{
     public sealed class Plugin{
-        private static readonly Version AppVersion = new Version(Lib.VersionTag);
+        private static readonly Version AppVersion = new Version(TweetDuck.Version.Tag);
 
         public string Identifier { get; }
         public PluginGroup Group { get; }

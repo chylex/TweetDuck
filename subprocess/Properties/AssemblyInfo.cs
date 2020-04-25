@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
-using TweetDuck.Browser;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
@@ -21,16 +20,3 @@ using TweetDuck.Browser;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("b10b0017-819e-4f71-870f-8256b36a26aa")]
-
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Build and Revision Numbers
-// by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion(Program.Version)]
-[assembly: AssemblyFileVersion(Program.Version)]

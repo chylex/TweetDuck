@@ -48,7 +48,7 @@ namespace TweetLib.Core.Features.Updates{
                     return;
                 }
 
-                WebClient client = WebUtils.NewClient($"{Lib.BrandName} {Lib.VersionTag}");
+                WebClient client = WebUtils.NewClient($"{Lib.BrandName} {TweetDuck.Version.Tag}");
 
                 client.DownloadFileCompleted += WebUtils.FileDownloadCallback(InstallerPath, () => {
                     DownloadStatus = UpdateDownloadStatus.Done;
