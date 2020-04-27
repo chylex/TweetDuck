@@ -57,7 +57,7 @@
             // 
             this.labelVolumeValue.BackColor = System.Drawing.Color.Transparent;
             this.labelVolumeValue.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.labelVolumeValue.Location = new System.Drawing.Point(147, 4);
+            this.labelVolumeValue.Location = new System.Drawing.Point(176, 4);
             this.labelVolumeValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelVolumeValue.Name = "labelVolumeValue";
             this.labelVolumeValue.Size = new System.Drawing.Size(38, 15);
@@ -144,7 +144,7 @@
             this.trackBarVolume.Location = new System.Drawing.Point(3, 3);
             this.trackBarVolume.Maximum = 100;
             this.trackBarVolume.Name = "trackBarVolume";
-            this.trackBarVolume.Size = new System.Drawing.Size(148, 30);
+            this.trackBarVolume.Size = new System.Drawing.Size(177, 30);
             this.trackBarVolume.TabIndex = 0;
             this.trackBarVolume.TickFrequency = 10;
             this.trackBarVolume.Value = 100;

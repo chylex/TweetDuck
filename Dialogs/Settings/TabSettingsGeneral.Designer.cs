@@ -115,7 +115,7 @@
             // 
             this.labelZoomValue.BackColor = System.Drawing.Color.Transparent;
             this.labelZoomValue.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.labelZoomValue.Location = new System.Drawing.Point(147, 4);
+            this.labelZoomValue.Location = new System.Drawing.Point(176, 4);
             this.labelZoomValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelZoomValue.Name = "labelZoomValue";
             this.labelZoomValue.Size = new System.Drawing.Size(38, 13);
@@ -156,7 +156,7 @@
             this.trackBarZoom.Maximum = 200;
             this.trackBarZoom.Minimum = 50;
             this.trackBarZoom.Name = "trackBarZoom";
-            this.trackBarZoom.Size = new System.Drawing.Size(148, 30);
+            this.trackBarZoom.Size = new System.Drawing.Size(177, 30);
             this.trackBarZoom.SmallChange = 5;
             this.trackBarZoom.TabIndex = 0;
             this.trackBarZoom.TickFrequency = 25;

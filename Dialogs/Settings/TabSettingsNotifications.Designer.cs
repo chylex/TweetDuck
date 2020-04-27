@@ -84,7 +84,7 @@
             // labelEdgeDistanceValue
             // 
             this.labelEdgeDistanceValue.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.labelEdgeDistanceValue.Location = new System.Drawing.Point(145, 4);
+            this.labelEdgeDistanceValue.Location = new System.Drawing.Point(175, 4);
             this.labelEdgeDistanceValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelEdgeDistanceValue.Name = "labelEdgeDistanceValue";
             this.labelEdgeDistanceValue.Size = new System.Drawing.Size(40, 15);
@@ -193,7 +193,7 @@
             this.trackBarEdgeDistance.Maximum = 40;
             this.trackBarEdgeDistance.Minimum = 8;
             this.trackBarEdgeDistance.Name = "trackBarEdgeDistance";
-            this.trackBarEdgeDistance.Size = new System.Drawing.Size(148, 30);
+            this.trackBarEdgeDistance.Size = new System.Drawing.Size(177, 30);
             this.trackBarEdgeDistance.SmallChange = 2;
             this.trackBarEdgeDistance.TabIndex = 0;
             this.trackBarEdgeDistance.TickFrequency = 4;
@@ -267,7 +267,7 @@
             // 
             this.labelDurationValue.BackColor = System.Drawing.Color.Transparent;
             this.labelDurationValue.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.labelDurationValue.Location = new System.Drawing.Point(147, 4);
+            this.labelDurationValue.Location = new System.Drawing.Point(177, 4);
             this.labelDurationValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelDurationValue.Name = "labelDurationValue";
             this.labelDurationValue.Size = new System.Drawing.Size(52, 15);
@@ -282,7 +282,7 @@
             this.trackBarDuration.Maximum = 60;
             this.trackBarDuration.Minimum = 10;
             this.trackBarDuration.Name = "trackBarDuration";
-            this.trackBarDuration.Size = new System.Drawing.Size(148, 30);
+            this.trackBarDuration.Size = new System.Drawing.Size(177, 30);
             this.trackBarDuration.TabIndex = 0;
             this.trackBarDuration.TickFrequency = 5;
             this.trackBarDuration.Value = 25;
@@ -429,7 +429,7 @@
             // labelScrollSpeedValue
             // 
             this.labelScrollSpeedValue.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.labelScrollSpeedValue.Location = new System.Drawing.Point(145, 4);
+            this.labelScrollSpeedValue.Location = new System.Drawing.Point(176, 4);
             this.labelScrollSpeedValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelScrollSpeedValue.Name = "labelScrollSpeedValue";
             this.labelScrollSpeedValue.Size = new System.Drawing.Size(38, 15);
@@ -445,7 +445,7 @@
             this.trackBarScrollSpeed.Maximum = 200;
             this.trackBarScrollSpeed.Minimum = 25;
             this.trackBarScrollSpeed.Name = "trackBarScrollSpeed";
-            this.trackBarScrollSpeed.Size = new System.Drawing.Size(148, 30);
+            this.trackBarScrollSpeed.Size = new System.Drawing.Size(177, 30);
             this.trackBarScrollSpeed.SmallChange = 5;
             this.trackBarScrollSpeed.TabIndex = 0;
             this.trackBarScrollSpeed.TickFrequency = 25;
