@@ -25,6 +25,8 @@ namespace TweetDuck.Browser.Notification{
         private IntPtr mouseHook;
         private bool blockXButtonUp;
 
+        private int currentOpacity;
+
         private bool? prevDisplayTimer;
         private int? prevFontSize;
 
@@ -79,6 +81,15 @@ namespace TweetDuck.Browser.Notification{
 
             mouseHookDelegate = MouseHookProc;
             Disposed += (sender, args) => StopMouseHook(true);
+        }
+
+        // helpers
+
+        private void SetOpacity(int opacity){
+            if (currentOpacity != opacity){
+                currentOpacity = opacity;
+                Opacity = opacity / 100.0;
+            }
         }
 
         // mouse wheel hook
@@ -170,9 +181,11 @@ namespace TweetDuck.Browser.Notification{
 
             if (isCursorInside){
                 StartMouseHook();
+                SetOpacity(100);
             }
             else{
                 StopMouseHook(false);
+                SetOpacity(Config.NotificationWindowOpacity);
             }
 
             if (isCursorInside || FreezeTimer || ContextMenuOpen){
@@ -264,7 +277,8 @@ namespace TweetDuck.Browser.Notification{
                 RequiresResize = false;
                 SetNotificationSize(BaseClientWidth, BaseClientHeight);
             }
-            
+
+            SetOpacity(IsCursorOverBrowser ? 100 : Config.NotificationWindowOpacity);
             MoveToVisibleLocation();
         }
 

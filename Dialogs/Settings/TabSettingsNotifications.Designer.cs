@@ -65,6 +65,10 @@
             this.panelSize = new System.Windows.Forms.Panel();
             this.durationUpdateTimer = new System.Windows.Forms.Timer(this.components);
             this.flowPanelLeft = new System.Windows.Forms.FlowLayoutPanel();
+            this.labelOpacity = new System.Windows.Forms.Label();
+            this.panelOpacity = new System.Windows.Forms.Panel();
+            this.labelOpacityValue = new System.Windows.Forms.Label();
+            this.trackBarOpacity = new System.Windows.Forms.TrackBar();
             this.panelScrollSpeed = new System.Windows.Forms.Panel();
             this.flowPanelRight = new System.Windows.Forms.FlowLayoutPanel();
             this.panelSeparator = new System.Windows.Forms.Panel();
@@ -77,6 +81,8 @@
             this.panelTimer.SuspendLayout();
             this.panelSize.SuspendLayout();
             this.flowPanelLeft.SuspendLayout();
+            this.panelOpacity.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarOpacity)).BeginInit();
             this.panelScrollSpeed.SuspendLayout();
             this.flowPanelRight.SuspendLayout();
             this.SuspendLayout();
@@ -208,12 +214,12 @@
             this.tableLayoutDurationButtons.Controls.Add(this.btnDurationMedium, 0, 0);
             this.tableLayoutDurationButtons.Controls.Add(this.btnDurationLong, 1, 0);
             this.tableLayoutDurationButtons.Controls.Add(this.btnDurationShort, 0, 0);
-            this.tableLayoutDurationButtons.Location = new System.Drawing.Point(3, 353);
+            this.tableLayoutDurationButtons.Location = new System.Drawing.Point(3, 401);
             this.tableLayoutDurationButtons.Name = "tableLayoutDurationButtons";
             this.tableLayoutDurationButtons.RowCount = 1;
             this.tableLayoutDurationButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutDurationButtons.Size = new System.Drawing.Size(180, 27);
-            this.tableLayoutDurationButtons.TabIndex = 12;
+            this.tableLayoutDurationButtons.TabIndex = 14;
             // 
             // btnDurationMedium
             // 
@@ -349,11 +355,11 @@
             // 
             this.checkTimerCountDown.AutoSize = true;
             this.checkTimerCountDown.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkTimerCountDown.Location = new System.Drawing.Point(6, 266);
+            this.checkTimerCountDown.Location = new System.Drawing.Point(6, 314);
             this.checkTimerCountDown.Margin = new System.Windows.Forms.Padding(6, 3, 3, 2);
             this.checkTimerCountDown.Name = "checkTimerCountDown";
             this.checkTimerCountDown.Size = new System.Drawing.Size(132, 19);
-            this.checkTimerCountDown.TabIndex = 9;
+            this.checkTimerCountDown.TabIndex = 11;
             this.checkTimerCountDown.Text = "Timer Counts Down";
             this.checkTimerCountDown.UseVisualStyleBackColor = true;
             // 
@@ -361,11 +367,11 @@
             // 
             this.checkNotificationTimer.AutoSize = true;
             this.checkNotificationTimer.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkNotificationTimer.Location = new System.Drawing.Point(6, 242);
+            this.checkNotificationTimer.Location = new System.Drawing.Point(6, 290);
             this.checkNotificationTimer.Margin = new System.Windows.Forms.Padding(6, 6, 3, 2);
             this.checkNotificationTimer.Name = "checkNotificationTimer";
             this.checkNotificationTimer.Size = new System.Drawing.Size(164, 19);
-            this.checkNotificationTimer.TabIndex = 8;
+            this.checkNotificationTimer.TabIndex = 10;
             this.checkNotificationTimer.Text = "Display Notification Timer";
             this.checkNotificationTimer.UseVisualStyleBackColor = true;
             // 
@@ -490,32 +496,32 @@
             // 
             this.panelTimer.Controls.Add(this.labelDurationValue);
             this.panelTimer.Controls.Add(this.trackBarDuration);
-            this.panelTimer.Location = new System.Drawing.Point(0, 315);
+            this.panelTimer.Location = new System.Drawing.Point(0, 363);
             this.panelTimer.Margin = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.panelTimer.Name = "panelTimer";
             this.panelTimer.Size = new System.Drawing.Size(300, 35);
-            this.panelTimer.TabIndex = 11;
+            this.panelTimer.TabIndex = 13;
             // 
             // labelDuration
             // 
             this.labelDuration.AutoSize = true;
             this.labelDuration.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            this.labelDuration.Location = new System.Drawing.Point(3, 299);
+            this.labelDuration.Location = new System.Drawing.Point(3, 347);
             this.labelDuration.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelDuration.Name = "labelDuration";
             this.labelDuration.Size = new System.Drawing.Size(54, 15);
-            this.labelDuration.TabIndex = 10;
+            this.labelDuration.TabIndex = 12;
             this.labelDuration.Text = "Duration";
             // 
             // labelTimer
             // 
             this.labelTimer.AutoSize = true;
             this.labelTimer.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
-            this.labelTimer.Location = new System.Drawing.Point(0, 216);
-            this.labelTimer.Margin = new System.Windows.Forms.Padding(0, 40, 0, 1);
+            this.labelTimer.Location = new System.Drawing.Point(0, 264);
+            this.labelTimer.Margin = new System.Windows.Forms.Padding(0, 25, 0, 1);
             this.labelTimer.Name = "labelTimer";
             this.labelTimer.Size = new System.Drawing.Size(50, 19);
-            this.labelTimer.TabIndex = 7;
+            this.labelTimer.TabIndex = 9;
             this.labelTimer.Text = "TIMER";
             // 
             // labelSize
@@ -555,6 +561,8 @@
             this.flowPanelLeft.Controls.Add(this.checkNonIntrusive);
             this.flowPanelLeft.Controls.Add(this.labelIdlePause);
             this.flowPanelLeft.Controls.Add(this.comboBoxIdlePause);
+            this.flowPanelLeft.Controls.Add(this.labelOpacity);
+            this.flowPanelLeft.Controls.Add(this.panelOpacity);
             this.flowPanelLeft.Controls.Add(this.labelTimer);
             this.flowPanelLeft.Controls.Add(this.checkNotificationTimer);
             this.flowPanelLeft.Controls.Add(this.checkTimerCountDown);
@@ -567,6 +575,52 @@
             this.flowPanelLeft.Size = new System.Drawing.Size(300, 461);
             this.flowPanelLeft.TabIndex = 0;
             this.flowPanelLeft.WrapContents = false;
+            // 
+            // labelOpacity
+            // 
+            this.labelOpacity.AutoSize = true;
+            this.labelOpacity.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.labelOpacity.Location = new System.Drawing.Point(3, 188);
+            this.labelOpacity.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
+            this.labelOpacity.Name = "labelOpacity";
+            this.labelOpacity.Size = new System.Drawing.Size(48, 15);
+            this.labelOpacity.TabIndex = 7;
+            this.labelOpacity.Text = "Opacity";
+            // 
+            // panelOpacity
+            // 
+            this.panelOpacity.Controls.Add(this.labelOpacityValue);
+            this.panelOpacity.Controls.Add(this.trackBarOpacity);
+            this.panelOpacity.Location = new System.Drawing.Point(0, 204);
+            this.panelOpacity.Margin = new System.Windows.Forms.Padding(0, 1, 0, 0);
+            this.panelOpacity.Name = "panelOpacity";
+            this.panelOpacity.Size = new System.Drawing.Size(300, 35);
+            this.panelOpacity.TabIndex = 8;
+            // 
+            // labelOpacityValue
+            // 
+            this.labelOpacityValue.BackColor = System.Drawing.SystemColors.Control;
+            this.labelOpacityValue.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.labelOpacityValue.Location = new System.Drawing.Point(176, 4);
+            this.labelOpacityValue.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.labelOpacityValue.Name = "labelOpacityValue";
+            this.labelOpacityValue.Size = new System.Drawing.Size(38, 15);
+            this.labelOpacityValue.TabIndex = 1;
+            this.labelOpacityValue.Text = "100%";
+            this.labelOpacityValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // trackBarOpacity
+            // 
+            this.trackBarOpacity.AutoSize = false;
+            this.trackBarOpacity.Location = new System.Drawing.Point(3, 3);
+            this.trackBarOpacity.Maximum = 100;
+            this.trackBarOpacity.Minimum = 20;
+            this.trackBarOpacity.Name = "trackBarOpacity";
+            this.trackBarOpacity.Size = new System.Drawing.Size(177, 30);
+            this.trackBarOpacity.SmallChange = 5;
+            this.trackBarOpacity.TabIndex = 0;
+            this.trackBarOpacity.TickFrequency = 10;
+            this.trackBarOpacity.Value = 100;
             // 
             // panelScrollSpeed
             // 
@@ -630,6 +684,8 @@
             this.panelSize.ResumeLayout(false);
             this.flowPanelLeft.ResumeLayout(false);
             this.flowPanelLeft.PerformLayout();
+            this.panelOpacity.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarOpacity)).EndInit();
             this.panelScrollSpeed.ResumeLayout(false);
             this.flowPanelRight.ResumeLayout(false);
             this.flowPanelRight.PerformLayout();
@@ -682,5 +738,9 @@
         private System.Windows.Forms.Panel panelScrollSpeed;
         private System.Windows.Forms.FlowLayoutPanel flowPanelRight;
         private System.Windows.Forms.Panel panelSeparator;
+        private System.Windows.Forms.Label labelOpacity;
+        private System.Windows.Forms.Panel panelOpacity;
+        private System.Windows.Forms.Label labelOpacityValue;
+        private System.Windows.Forms.TrackBar trackBarOpacity;
     }
 }

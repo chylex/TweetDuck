@@ -48,6 +48,9 @@ namespace TweetDuck.Dialogs.Settings{
             comboBoxIdlePause.Items.Add("5 minutes");
             comboBoxIdlePause.SelectedIndex = Math.Max(0, Array.FindIndex(IdlePauseSeconds, val => val == Config.NotificationIdlePauseSeconds));
 
+            trackBarOpacity.SetValueSafe(Config.NotificationWindowOpacity);
+            labelOpacityValue.Text = Config.NotificationWindowOpacity + "%";
+
             // timer
 
             toolTip.SetToolTip(checkTimerCountDown, "The notification timer counts down instead of up.");
@@ -105,6 +108,7 @@ namespace TweetDuck.Dialogs.Settings{
             checkSkipOnLinkClick.CheckedChanged += checkSkipOnLinkClick_CheckedChanged;
             checkNonIntrusive.CheckedChanged += checkNonIntrusive_CheckedChanged;
             comboBoxIdlePause.SelectedValueChanged += comboBoxIdlePause_SelectedValueChanged;
+            trackBarOpacity.ValueChanged += trackBarOpacity_ValueChanged;
 
             checkNotificationTimer.CheckedChanged += checkNotificationTimer_CheckedChanged;
             checkTimerCountDown.CheckedChanged += checkTimerCountDown_CheckedChanged;
@@ -174,6 +178,13 @@ namespace TweetDuck.Dialogs.Settings{
 
         private void comboBoxIdlePause_SelectedValueChanged(object sender, EventArgs e){
             Config.NotificationIdlePauseSeconds = IdlePauseSeconds[comboBoxIdlePause.SelectedIndex];
+        }
+
+        private void trackBarOpacity_ValueChanged(object sender, EventArgs e){
+            if (trackBarOpacity.AlignValueToTick()){
+                Config.NotificationWindowOpacity = trackBarOpacity.Value;
+                labelOpacityValue.Text = Config.NotificationWindowOpacity + "%";
+            }
         }
 
         #endregion

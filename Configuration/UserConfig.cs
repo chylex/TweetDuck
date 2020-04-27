@@ -65,6 +65,7 @@ namespace TweetDuck.Configuration{
         public Point CustomNotificationPosition                  { get; set; } = ControlExtensions.InvisibleLocation;
         public int NotificationDisplay                           { get; set; } = 0;
         public int NotificationEdgeDistance                      { get; set; } = 8;
+        public int NotificationWindowOpacity                     { get; set; } = 100;
 
         public DesktopNotification.Size NotificationSize { get; set; } = DesktopNotification.Size.Auto;
         public Size CustomNotificationSize               { get; set; } = Size.Empty;
