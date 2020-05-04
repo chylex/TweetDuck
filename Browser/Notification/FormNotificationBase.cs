@@ -103,8 +103,11 @@ namespace TweetDuck.Browser.Notification{
         protected double SizeScale => DpiScale * Config.ZoomLevel / 100.0;
 
         protected readonly FormBrowser owner;
+
+        #pragma warning disable IDE0069 // Disposable fields should be disposed
         protected readonly ChromiumWebBrowser browser;
-        
+        #pragma warning restore IDE0069 // Disposable fields should be disposed
+
         private readonly ResourceHandlerNotification resourceHandler = new ResourceHandlerNotification();
 
         private DesktopNotification currentNotification;
@@ -144,7 +147,11 @@ namespace TweetDuck.Browser.Notification{
             this.browser.SetupZoomEvents();
 
             Controls.Add(browser);
-            Disposed += (sender, args) => this.owner.FormClosed -= owner_FormClosed;
+
+            Disposed += (sender, args) => {
+                this.owner.FormClosed -= owner_FormClosed;
+                this.browser.Dispose();
+            };
 
             DpiScale = this.GetDPIScale();
 
@@ -155,7 +162,6 @@ namespace TweetDuck.Browser.Notification{
         protected override void Dispose(bool disposing){
             if (disposing){
                 components?.Dispose();
-                browser.Dispose();
                 resourceHandler.Dispose();
             }
 

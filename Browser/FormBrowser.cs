@@ -48,10 +48,13 @@ namespace TweetDuck.Browser{
         
         public AnalyticsFile AnalyticsFile => analytics?.File ?? AnalyticsFile.Dummy;
 
+        #pragma warning disable IDE0069 // Disposable fields should be disposed
         private readonly TweetDeckBrowser browser;
+        private readonly FormNotificationTweet notification;
+        #pragma warning restore IDE0069 // Disposable fields should be disposed
+
         private readonly PluginManager plugins;
         private readonly UpdateHandler updates;
-        private readonly FormNotificationTweet notification;
         private readonly ContextMenu contextMenu;
         private readonly UpdateBridge updateBridge;
 
@@ -90,6 +93,7 @@ namespace TweetDuck.Browser{
             Disposed += (sender, args) => {
                 Config.MuteToggled -= Config_MuteToggled;
                 Config.TrayBehaviorChanged -= Config_TrayBehaviorChanged;
+                browser.Dispose();
             };
 
             Config.MuteToggled += Config_MuteToggled;
@@ -115,9 +119,7 @@ namespace TweetDuck.Browser{
             if (disposing){
                 components?.Dispose();
 
-                browser.Dispose();
                 updates.Dispose();
-                notification.Dispose();
                 contextMenu.Dispose();
 
                 notificationScreenshotManager?.Dispose();

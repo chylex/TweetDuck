@@ -56,7 +56,10 @@ namespace TweetDuck.Dialogs{
             }
         }
 
+        #pragma warning disable IDE0069 // Disposable fields should be disposed
         private readonly ChromiumWebBrowser browser;
+        #pragma warning restore IDE0069 // Disposable fields should be disposed
+
         private string nextUrl;
 
         private FormGuide(string url, FormBrowser owner){
@@ -87,12 +90,12 @@ namespace TweetDuck.Dialogs{
             browser.SetupZoomEvents();
 
             Controls.Add(browser);
+            Disposed += (sender, args) => browser.Dispose();
         }
 
         protected override void Dispose(bool disposing){
             if (disposing){
                 components?.Dispose();
-                browser.Dispose();
             }
 
             base.Dispose(disposing);
