@@ -2,7 +2,7 @@
 using System.IO;
 using TweetLib.Core.Serialization;
 
-namespace TweetLib.Core.Features.Configuration{
+namespace TweetLib.Core.Systems.Configuration{
     public sealed class FileConfigInstance<T> : IConfigInstance<T> where T : BaseConfig{
         public T Instance { get; }
         public FileSerializer<T> Serializer { get; }

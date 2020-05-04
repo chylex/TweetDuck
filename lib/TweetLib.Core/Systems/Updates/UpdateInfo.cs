@@ -3,7 +3,7 @@ using System.IO;
 using System.Net;
 using TweetLib.Core.Utils;
 
-namespace TweetLib.Core.Features.Updates{
+namespace TweetLib.Core.Systems.Updates{
     public sealed class UpdateInfo{
         public string VersionTag { get; }
         public string ReleaseNotes { get; }

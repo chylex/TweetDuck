@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading;
 
-namespace TweetLib.Core.Application.Helpers{
+namespace TweetLib.Core.Systems.Startup{
     public sealed class LockManager{
         private const int RetryDelay = 250;
 

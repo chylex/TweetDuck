@@ -5,7 +5,7 @@ using System.Timers;
 using TweetLib.Core.Data;
 using Timer = System.Timers.Timer;
 
-namespace TweetLib.Core.Features.Updates{
+namespace TweetLib.Core.Systems.Updates{
     public sealed class UpdateHandler : IDisposable{
         public const int CheckCodeUpdatesDisabled = -1;
         

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Drawing;
 using TweetDuck.Browser.Data;
-using TweetLib.Core.Features.Configuration;
 using TweetLib.Core.Features.Plugins.Config;
 using TweetLib.Core.Serialization.Converters;
+using TweetLib.Core.Systems.Configuration;
 using TweetLib.Core.Utils;
 
 namespace TweetDuck.Configuration{

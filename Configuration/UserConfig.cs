@@ -3,9 +3,9 @@ using System.Drawing;
 using TweetDuck.Browser;
 using TweetDuck.Browser.Data;
 using TweetDuck.Controls;
-using TweetLib.Core.Features.Configuration;
 using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Features.Twitter;
+using TweetLib.Core.Systems.Configuration;
 
 namespace TweetDuck.Configuration{
     sealed class UserConfig : BaseConfig{

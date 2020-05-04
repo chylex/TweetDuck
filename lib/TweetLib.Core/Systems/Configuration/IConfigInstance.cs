@@ -1,4 +1,4 @@
-﻿namespace TweetLib.Core.Features.Configuration{
+﻿namespace TweetLib.Core.Systems.Configuration{
     public interface IConfigInstance<out T>{
         T Instance { get; }
 

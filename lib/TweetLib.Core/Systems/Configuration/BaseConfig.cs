@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TweetLib.Core.Features.Configuration{
+namespace TweetLib.Core.Systems.Configuration{
     public abstract class BaseConfig{
         private readonly IConfigManager configManager;
 

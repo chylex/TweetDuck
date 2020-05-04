@@ -14,8 +14,8 @@ using TweetDuck.Management;
 using TweetDuck.Resources;
 using TweetDuck.Utils;
 using TweetLib.Core;
-using TweetLib.Core.Application.Helpers;
 using TweetLib.Core.Collections;
+using TweetLib.Core.Systems.Startup;
 using TweetLib.Core.Utils;
 using Win = System.Windows.Forms;
 

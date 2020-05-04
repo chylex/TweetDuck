@@ -20,7 +20,7 @@ using TweetDuck.Updates;
 using TweetDuck.Utils;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Events;
-using TweetLib.Core.Features.Updates;
+using TweetLib.Core.Systems.Updates;
 
 namespace TweetDuck.Browser{
     sealed partial class FormBrowser : Form, AnalyticsFile.IProvider{

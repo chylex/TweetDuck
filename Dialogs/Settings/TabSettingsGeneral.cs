@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using TweetDuck.Browser.Handling.General;
 using TweetDuck.Controls;
 using TweetDuck.Utils;
-using TweetLib.Core.Features.Updates;
+using TweetLib.Core.Systems.Updates;
 using TweetLib.Core.Utils;
 
 namespace TweetDuck.Dialogs.Settings{

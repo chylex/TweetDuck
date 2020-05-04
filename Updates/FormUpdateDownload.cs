@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using TweetLib.Core.Features.Updates;
+using TweetLib.Core.Systems.Updates;
 
 namespace TweetDuck.Updates{
     sealed partial class FormUpdateDownload : Form{

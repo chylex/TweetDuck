@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using TweetLib.Core.Features.Configuration;
+using TweetLib.Core.Systems.Configuration;
 
 namespace TweetLib.Core.Features.Plugins.Config{
     public sealed class PluginConfigInstance<T> : IConfigInstance<T> where T : BaseConfig, IPluginConfig{

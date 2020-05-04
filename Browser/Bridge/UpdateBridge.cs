@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 using TweetDuck.Controls;
-using TweetLib.Core.Features.Updates;
+using TweetLib.Core.Systems.Updates;
 
 namespace TweetDuck.Browser.Bridge{
     [SuppressMessage("ReSharper", "UnusedMember.Global")]

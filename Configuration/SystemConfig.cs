@@ -1,4 +1,4 @@
-﻿using TweetLib.Core.Features.Configuration;
+﻿using TweetLib.Core.Systems.Configuration;
 
 namespace TweetDuck.Configuration{
     sealed class SystemConfig : BaseConfig{
