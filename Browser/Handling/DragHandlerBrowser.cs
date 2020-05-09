@@ -30,6 +30,6 @@ namespace TweetDuck.Browser.Handling{
             return false;
         }
 
-        public void OnDraggableRegionsChanged(IWebBrowser browserControl, IBrowser browser, IList<DraggableRegion> regions){}
+        public void OnDraggableRegionsChanged(IWebBrowser browserControl, IBrowser browser, IFrame frame, IList<DraggableRegion> regions){}
     }
 }

@@ -148,7 +148,7 @@ namespace TweetDuck{
             }
             
             try{
-                RequestHandlerBase.LoadResourceRewriteRules(Arguments.GetValue(Arguments.ArgFreeze));
+                ResourceRequestHandlerBase.LoadResourceRewriteRules(Arguments.GetValue(Arguments.ArgFreeze));
             }catch(Exception e){
                 FormMessage.Error("Resource Freeze", "Error parsing resource rewrite rules: " + e.Message, FormMessage.OK);
                 return;

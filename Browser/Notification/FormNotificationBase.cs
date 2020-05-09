@@ -131,18 +131,20 @@ namespace TweetDuck.Browser.Notification{
 
             this.owner = owner;
             this.owner.FormClosed += owner_FormClosed;
+            
+            var resourceRequestHandler = new ResourceRequestHandlerBase();
+            var resourceHandlers = resourceRequestHandler.ResourceHandlers;
 
-            ResourceHandlerFactory resourceHandlerFactory = new ResourceHandlerFactory();
-            resourceHandlerFactory.RegisterHandler(BlankURL, ResourceHandler.FromString(string.Empty));
-            resourceHandlerFactory.RegisterHandler(TwitterUrls.TweetDeck, this.resourceHandler);
-            resourceHandlerFactory.RegisterHandler(AppLogo);
+            resourceHandlers.Register(BlankURL, ResourceHandler.FromString(string.Empty));
+            resourceHandlers.Register(TwitterUrls.TweetDeck, this.resourceHandler);
+            resourceHandlers.Register(AppLogo);
 
             this.browser = new ChromiumWebBrowser(BlankURL){
                 MenuHandler = new ContextMenuNotification(this, enableContextMenu),
                 JsDialogHandler = new JavaScriptDialogHandler(),
                 LifeSpanHandler = new LifeSpanHandler(),
                 RequestHandler = new RequestHandlerBase(false),
-                ResourceHandlerFactory = resourceHandlerFactory
+                ResourceRequestHandlerFactory = resourceRequestHandler.SelfFactory
             };
 
             this.browser.Dock = DockStyle.None;

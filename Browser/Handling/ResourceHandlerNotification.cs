@@ -3,6 +3,7 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Text;
 using CefSharp;
+using CefSharp.Callback;
 
 namespace TweetDuck.Browser.Handling{
     sealed class ResourceHandlerNotification : IResourceHandler{
@@ -21,7 +22,8 @@ namespace TweetDuck.Browser.Handling{
             }
         }
 
-        bool IResourceHandler.ProcessRequest(IRequest request, ICallback callback){
+        bool IResourceHandler.Open(IRequest request, out bool handleRequest, ICallback callback){
+            handleRequest = true;
             callback.Continue();
             return true;
         }
@@ -32,12 +34,12 @@ namespace TweetDuck.Browser.Handling{
             response.MimeType = "text/html";
             response.StatusCode = 200;
             response.StatusText = "OK";
-            response.ResponseHeaders = headers;
+            response.Headers = headers;
             responseLength = dataIn?.Length ?? 0;
         }
 
-        bool IResourceHandler.ReadResponse(Stream dataOut, out int bytesRead, ICallback callback){
-            callback.Dispose();
+        bool IResourceHandler.Read(Stream dataOut, out int bytesRead, IResourceReadCallback callback){
+            callback?.Dispose(); // TODO unnecessary null check once ReadResponse is removed
 
             try{
                 byte[] buffer = new byte[Math.Min(dataIn.Length - dataIn.Position, dataOut.Length)];
@@ -53,12 +55,18 @@ namespace TweetDuck.Browser.Handling{
             }
         }
 
-        bool IResourceHandler.CanGetCookie(Cookie cookie){
-            return true;
+        bool IResourceHandler.Skip(long bytesToSkip, out long bytesSkipped, IResourceSkipCallback callback){
+            bytesSkipped = -2; // ERR_FAILED
+            callback.Dispose();
+            return false;
         }
 
-        bool IResourceHandler.CanSetCookie(Cookie cookie){
-            return true;
+        bool IResourceHandler.ProcessRequest(IRequest request, ICallback callback){
+            return ((IResourceHandler)this).Open(request, out bool _, callback);
+        }
+
+        bool IResourceHandler.ReadResponse(Stream dataOut, out int bytesRead, ICallback callback){
+            return ((IResourceHandler)this).Read(dataOut, out bytesRead, null);
         }
 
         void IResourceHandler.Cancel(){}

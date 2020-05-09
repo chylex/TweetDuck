@@ -22,11 +22,11 @@ namespace TweetDuck.Browser{
             Task.Factory.StartNew(() => KillWhenHung(parentId), TaskCreationOptions.LongRunning);
             
             if (FindArg(typePrefix) == "renderer"){
-                using SubProcess subProcess = new SubProcess(args);
+                using SubProcess subProcess = new SubProcess(null, args);
                 return subProcess.Run();
             }
             else{
-                return SubProcess.ExecuteProcess();
+                return SubProcess.ExecuteProcess(args);
             }
         }
 

@@ -55,6 +55,10 @@
   <ItemGroup>
     <Compile Include="Plugins\PluginSchemeFactory.cs" />
     <Compile Include="Updates\UpdateInstaller.cs" />
+    <Compile Include="Browser\Data\ResourceHandlers.cs" />
+    <Compile Include="Browser\Handling\ResourceRequestHandler.cs" />
+    <Compile Include="Browser\Handling\ResourceRequestHandlerBrowser.cs" />
+    <Compile Include="Browser\Handling\ResourceRequestHandlerBase.cs" />
     <Compile Include="Version.cs" />
     <Compile Include="Configuration\Arguments.cs" />
     <Compile Include="Configuration\ConfigManager.cs" />
@@ -97,7 +101,6 @@
     <Compile Include="Browser\Handling\KeyboardHandlerNotification.cs" />
     <Compile Include="Browser\Handling\RequestHandlerBase.cs" />
     <Compile Include="Browser\Handling\RequestHandlerBrowser.cs" />
-    <Compile Include="Browser\Handling\ResourceHandlerFactory.cs" />
     <Compile Include="Browser\Handling\ResourceHandlerNotification.cs" />
     <Compile Include="Browser\Data\ContextInfo.cs" />
     <Compile Include="Browser\Notification\Example\FormNotificationExample.cs">

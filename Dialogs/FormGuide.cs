@@ -69,8 +69,8 @@ namespace TweetDuck.Dialogs{
             Size = new Size(owner.Size.Width * 3 / 4, owner.Size.Height * 3 / 4);
             VisibleChanged += (sender, args) => this.MoveToCenter(owner);
 
-            ResourceHandlerFactory resourceHandlerFactory = new ResourceHandlerFactory();
-            resourceHandlerFactory.RegisterHandler(DummyPage);
+            var resourceRequestHandler = new ResourceRequestHandlerBase();
+            resourceRequestHandler.ResourceHandlers.Register(DummyPage);
             
             this.browser = new ChromiumWebBrowser(url){
                 MenuHandler = new ContextMenuGuide(owner),
@@ -78,7 +78,7 @@ namespace TweetDuck.Dialogs{
                 KeyboardHandler = new KeyboardHandlerBase(),
                 LifeSpanHandler = new LifeSpanHandler(),
                 RequestHandler = new RequestHandlerBase(true),
-                ResourceHandlerFactory = resourceHandlerFactory
+                ResourceRequestHandlerFactory = resourceRequestHandler.SelfFactory
             };
 
             browser.LoadingStateChanged += browser_LoadingStateChanged;

@@ -6,6 +6,7 @@ using CefSharp;
 using CefSharp.WinForms;
 using TweetDuck.Browser.Adapters;
 using TweetDuck.Browser.Bridge;
+using TweetDuck.Browser.Data;
 using TweetDuck.Browser.Handling;
 using TweetDuck.Browser.Handling.General;
 using TweetDuck.Browser.Notification;
@@ -44,13 +45,16 @@ namespace TweetDuck.Browser{
         }
         
         private readonly ChromiumWebBrowser browser;
-        private readonly ResourceHandlerFactory resourceHandlerFactory = new ResourceHandlerFactory();
+        private readonly ResourceHandlers resourceHandlers;
 
         private string prevSoundNotificationPath = null;
 
         public TweetDeckBrowser(FormBrowser owner, PluginManager plugins, TweetDeckBridge tdBridge, UpdateBridge updateBridge){
-            resourceHandlerFactory.RegisterHandler(FormNotificationBase.AppLogo);
-            resourceHandlerFactory.RegisterHandler(TwitterUtils.LoadingSpinner);
+            var resourceRequestHandler = new ResourceRequestHandlerBrowser();
+            resourceHandlers = resourceRequestHandler.ResourceHandlers;
+
+            resourceHandlers.Register(FormNotificationBase.AppLogo);
+            resourceHandlers.Register(TwitterUtils.LoadingSpinner);
 
             RequestHandlerBrowser requestHandler = new RequestHandlerBrowser();
             
@@ -62,7 +66,7 @@ namespace TweetDuck.Browser{
                 KeyboardHandler = new KeyboardHandlerBrowser(owner),
                 LifeSpanHandler = new LifeSpanHandler(),
                 RequestHandler = requestHandler,
-                ResourceHandlerFactory = resourceHandlerFactory
+                ResourceRequestHandlerFactory = resourceRequestHandler.SelfFactory
             };
 
             this.browser.LoadingStateChanged += browser_LoadingStateChanged;
@@ -129,7 +133,7 @@ namespace TweetDuck.Browser{
 
                 if (TwitterUrls.IsTwitter(url)){
                     string css = Program.Resources.Load("styles/twitter.css");
-                    resourceHandlerFactory.RegisterHandler(TwitterStyleUrl, ResourceHandler.FromString(css, mimeType: "text/css"));
+                    resourceHandlers.Register(TwitterStyleUrl, ResourceHandler.FromString(css, mimeType: "text/css"));
 
                     CefScriptExecutor.RunFile(frame, "twitter.js");
                 }
@@ -168,7 +172,7 @@ namespace TweetDuck.Browser{
             }
 
             if (url == ErrorUrl){
-                resourceHandlerFactory.UnregisterHandler(ErrorUrl);
+                resourceHandlers.Unregister(ErrorUrl);
             }
         }
 
@@ -184,7 +188,7 @@ namespace TweetDuck.Browser{
                     string errorName = Enum.GetName(typeof(CefErrorCode), e.ErrorCode);
                     string errorTitle = StringUtils.ConvertPascalCaseToScreamingSnakeCase(errorName ?? string.Empty);
 
-                    resourceHandlerFactory.RegisterHandler(ErrorUrl, ResourceHandler.FromString(errorPage.Replace("{err}", errorTitle)));
+                    resourceHandlers.Register(ErrorUrl, ResourceHandler.FromString(errorPage.Replace("{err}", errorTitle)));
                     browser.Load(ErrorUrl);
                 }
             }
@@ -204,10 +208,10 @@ namespace TweetDuck.Browser{
                 prevSoundNotificationPath = newNotificationPath;
 
                 if (hasCustomSound){
-                    resourceHandlerFactory.RegisterHandler(soundUrl, SoundNotification.CreateFileHandler(newNotificationPath));
+                    resourceHandlers.Register(soundUrl, SoundNotification.CreateFileHandler(newNotificationPath));
                 }
                 else{
-                    resourceHandlerFactory.UnregisterHandler(soundUrl);
+                    resourceHandlers.Unregister(soundUrl);
                 }
             }
 
