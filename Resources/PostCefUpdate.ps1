@@ -34,6 +34,7 @@ try{
   
   $contents = [IO.File]::ReadAllText($browserProj)
   $contents = $contents -Replace '(?<=<HintPath>\.\.\\packages\\CefSharp\.Common\.)(.*?)(?=\\)', $sharpVersion
+  $contents = $contents -Replace '(?<=<Reference Include="CefSharp, Version=)(\d+)', $sharpVersion.Split(".")[0]
   $contents = $contents -Replace '(?<=<Reference Include="CefSharp\.BrowserSubprocess\.Core, Version=)(\d+)', $sharpVersion.Split(".")[0]
   
   [IO.File]::WriteAllText($browserProj, $contents)
