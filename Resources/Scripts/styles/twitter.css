@@ -68,22 +68,13 @@ button[type='submit'] {
 /* General per-page styling */
 /****************************/
 
-html[mobile][login] div[tweetduck-login-wrapper] {
+html[login] div[tweetduck-login-wrapper] {
   /* vertically center page & fix colors */
   margin-top: calc(50vh - 200px);
   padding: 26px 1.1vw;
   background-color: white;
 }
 
-html[mobile][login] #tweetduck-helper:hover {
+html[login] #tweetduck-helper:hover {
   text-decoration: underline;
-}
-
-html[desktop][login] #tweetduck-helper {
-  margin-top: 15px !important;
-  font-weight: bold !important;
-}
-
-html[mobile][logout] div[role="button"] {
-  border: 1px solid rgba(0, 0, 0, 0.3) !important;
 }
