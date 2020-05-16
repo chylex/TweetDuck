@@ -1069,6 +1069,29 @@
   });
   
   //
+  // Block: Fix docked composer not re-focusing after Alt+Tab.
+  //
+  onAppReady.push(function fixDockedComposerRefocus(){
+    $(document).on("tduckOldComposerActive", function(e){
+      const ele = $$(".js-compose-text", ".js-docked-compose");
+      const node = ele[0];
+      
+      let cancelBlur = false;
+      
+      ele.on("blur", function(e){
+        cancelBlur = true;
+        setTimeout(function(){ cancelBlur = false; }, 0);
+      });
+      
+      window.TDGF_prioritizeNewestEvent(node, "blur");
+      
+      node.blur = prependToFunction(node.blur, function(){
+        return cancelBlur;
+      });
+    });
+  });
+  
+  //
   // Block: Refocus the textbox after switching accounts.
   //
   onAppReady.push(function setupAccountSwitchRefocus(){
