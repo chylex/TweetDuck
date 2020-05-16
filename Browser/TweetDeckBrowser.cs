@@ -74,8 +74,8 @@ namespace TweetDuck.Browser{
             this.browser.FrameLoadEnd += browser_FrameLoadEnd;
             this.browser.LoadError += browser_LoadError;
 
-            this.browser.RegisterAsyncJsObject("$TD", tdBridge);
-            this.browser.RegisterAsyncJsObject("$TDU", updateBridge);
+            this.browser.RegisterJsBridge("$TD", tdBridge);
+            this.browser.RegisterJsBridge("$TDU", updateBridge);
             
             this.browser.BrowserSettings.BackgroundColor = (uint)TwitterUtils.BackgroundColor.ToArgb();
             this.browser.Dock = DockStyle.None;

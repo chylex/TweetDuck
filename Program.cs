@@ -144,6 +144,7 @@ namespace TweetDuck{
 
             if (Arguments.HasFlag(Arguments.ArgUpdated)){
                 WindowsUtils.TryDeleteFolderWhenAble(InstallerPath, 8000);
+                WindowsUtils.TryDeleteFolderWhenAble(Path.Combine(StoragePath, "Service Worker"), 4000);
                 BrowserCache.TryClearNow();
             }
             
@@ -161,7 +162,7 @@ namespace TweetDuck{
 
             CefSettings settings = new CefSettings{
                 UserAgent = BrowserUtils.UserAgentChrome,
-                BrowserSubprocessPath = BrandName + ".Browser.exe",
+                BrowserSubprocessPath = Path.Combine(ProgramPath, BrandName + ".Browser.exe"),
                 CachePath = StoragePath,
                 UserDataPath = CefDataPath,
                 LogFile = ConsoleLogFilePath,

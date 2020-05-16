@@ -73,7 +73,7 @@ namespace TweetDuck.Browser.Notification{
             this.timerBarHeight = BrowserUtils.Scale(4, DpiScale);
             
             browser.KeyboardHandler = new KeyboardHandlerNotification(this);
-            browser.RegisterAsyncJsObject("$TD", new TweetDeckBridge.Notification(owner, this));
+            browser.RegisterJsBridge("$TD", new TweetDeckBridge.Notification(owner, this));
 
             browser.LoadingStateChanged += Browser_LoadingStateChanged;
             browser.FrameLoadEnd += Browser_FrameLoadEnd;

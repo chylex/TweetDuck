@@ -23,7 +23,6 @@ namespace TweetDuck.Dialogs.Settings{
                 });
             };
 
-            this.notification.Activated += notification_Activated;
             this.notification.Show();
             
             Disposed += (sender, args) => this.notification.Dispose();
@@ -137,11 +136,6 @@ namespace TweetDuck.Dialogs.Settings{
             else{
                 notification.ShowExampleNotification(true);
             }
-        }
-
-        private void notification_Activated(object sender, EventArgs e){
-            notification.Hide();
-            notification.Activated -= notification_Activated;
         }
 
         private void notification_Move(object sender, EventArgs e){

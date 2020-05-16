@@ -81,6 +81,11 @@ namespace TweetDuck.Utils{
             };
         }
 
+        public static void RegisterJsBridge(this IWebBrowser browserControl, string name, object bridge){
+            CefSharpSettings.LegacyJavascriptBindingEnabled = true;
+            browserControl.JavascriptObjectRepository.Register(name, bridge, isAsync: true, BindingOptions.DefaultBinder);
+        }
+
         public static void OpenDevToolsCustom(this IWebBrowser browser){
             var info = new WindowInfo();
             info.SetAsPopup(IntPtr.Zero, "Dev Tools");

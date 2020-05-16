@@ -23,8 +23,13 @@ namespace TweetDuck.Browser.Handling{
         }
 
         bool IResourceHandler.Open(IRequest request, out bool handleRequest, ICallback callback){
+            callback.Dispose();
             handleRequest = true;
-            callback.Continue();
+
+            if (dataIn != null){
+                dataIn.Position = 0;
+            }
+
             return true;
         }
 
@@ -48,11 +53,11 @@ namespace TweetDuck.Browser.Handling{
                 dataIn.Read(buffer, 0, length);
                 dataOut.Write(buffer, 0, length);
                 bytesRead = length;
-                return true;
             }catch{ // catch IOException, possibly NullReferenceException if dataIn is null
                 bytesRead = 0;
-                return false;
             }
+
+            return bytesRead > 0;
         }
 
         bool IResourceHandler.Skip(long bytesToSkip, out long bytesSkipped, IResourceSkipCallback callback){

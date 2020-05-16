@@ -27,7 +27,7 @@ namespace TweetDuck.Plugins{
                     return Status(HttpStatusCode.NoContent, "File is empty."); // FromByteArray crashes CEF internals with no contents
                 }
                 else{
-                    return ResourceHandler.FromByteArray(bytes, ResourceHandler.GetMimeType(extension));
+                    return ResourceHandler.FromByteArray(bytes, Cef.GetMimeType(extension));
                 }
             }
         }

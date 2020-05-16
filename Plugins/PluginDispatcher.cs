@@ -1,6 +1,7 @@
 ﻿using System;
 using CefSharp;
 using TweetDuck.Browser.Adapters;
+using TweetDuck.Utils;
 using TweetLib.Core.Browser;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Events;
@@ -22,7 +23,7 @@ namespace TweetDuck.Plugins{
         }
 
         void IPluginDispatcher.AttachBridge(string name, object bridge){
-            browser.RegisterAsyncJsObject(name, bridge);
+            browser.RegisterJsBridge(name, bridge);
         }
 
         private void browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){

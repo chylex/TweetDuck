@@ -33,7 +33,7 @@ namespace TweetDuck.Browser.Handling{
         }
 
         bool IKeyboardHandler.OnPreKeyEvent(IWebBrowser browserControl, IBrowser browser, KeyType type, int windowsKeyCode, int nativeKeyCode, CefEventFlags modifiers, bool isSystemKey, ref bool isKeyboardShortcut){
-            if (type == KeyType.RawKeyDown && !browser.FocusedFrame.Url.StartsWith("chrome-devtools://")){
+            if (type == KeyType.RawKeyDown && !browser.FocusedFrame.Url.StartsWith("devtools://")){
                 return HandleRawKey(browserControl, browser, (Keys)windowsKeyCode, modifiers);
             }
 

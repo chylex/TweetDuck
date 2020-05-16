@@ -23,7 +23,7 @@ namespace TweetDuck.Browser.Notification.Screenshot{
 
             int realWidth = BrowserUtils.Scale(width, DpiScale);
 
-            browser.RegisterAsyncJsObject("$TD_NotificationScreenshot", new ScreenshotBridge(this, SetScreenshotHeight, callback));
+            browser.RegisterJsBridge("$TD_NotificationScreenshot", new ScreenshotBridge(this, SetScreenshotHeight, callback));
 
             browser.LoadingStateChanged += (sender, args) => {
                 if (args.IsLoading){

@@ -1,5 +1,4 @@
-﻿using System.Collections.Specialized;
-using CefSharp;
+﻿using CefSharp;
 using TweetDuck.Browser.Handling.Filters;
 using TweetDuck.Utils;
 using TweetLib.Core.Features.Twitter;
@@ -28,9 +27,7 @@ namespace TweetDuck.Browser.Handling{
                     return CefReturnValue.Cancel;
                 }
                 else if (url.Contains(UrlVendorResource)){
-                    NameValueCollection headers = request.Headers;
-                    headers["Accept-Encoding"] = "identity";
-                    request.Headers = headers;
+                    request.SetHeaderByName("Accept-Encoding", "identity", overwrite: true);
                 }
             }
 
