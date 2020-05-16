@@ -871,8 +871,6 @@
           }
           
           uploader.addFilesToUpload([ item.getAsFile() ]);
-          
-          $(".js-compose-text", ".js-docked-compose").focus();
           break;
         }
       }
@@ -1069,7 +1067,7 @@
   });
   
   //
-  // Block: Fix docked composer not re-focusing after Alt+Tab.
+  // Block: Fix docked composer not re-focusing after Alt+Tab & image upload.
   //
   onAppReady.push(function fixDockedComposerRefocus(){
     $(document).on("tduckOldComposerActive", function(e){
@@ -1088,6 +1086,10 @@
       node.blur = prependToFunction(node.blur, function(){
         return cancelBlur;
       });
+    });
+    
+    $(document).on("uiComposeImageAdded", function(){
+      $(".js-compose-text", ".js-docked-compose").focus();
     });
   });
   
