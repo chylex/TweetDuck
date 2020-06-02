@@ -16,6 +16,7 @@ using TweetDuck.Dialogs;
 using TweetDuck.Dialogs.Settings;
 using TweetDuck.Management;
 using TweetDuck.Management.Analytics;
+using TweetDuck.Plugins;
 using TweetDuck.Updates;
 using TweetDuck.Utils;
 using TweetLib.Core.Features.Plugins;
@@ -65,7 +66,7 @@ namespace TweetDuck.Browser{
         private VideoPlayer videoPlayer;
         private AnalyticsManager analytics;
 
-        public FormBrowser(){
+        public FormBrowser(PluginSchemeFactory pluginScheme){
             InitializeComponent();
 
             Text = Program.BrandName;
@@ -74,6 +75,7 @@ namespace TweetDuck.Browser{
             this.plugins.Reloaded += plugins_Reloaded;
             this.plugins.Executed += plugins_Executed;
             this.plugins.Reload();
+            pluginScheme.Setup(plugins);
 
             this.notification = new FormNotificationTweet(this, plugins);
             this.notification.Show();

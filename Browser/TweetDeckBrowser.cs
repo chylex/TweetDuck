@@ -114,6 +114,8 @@ namespace TweetDuck.Browser{
                     browser.AddWordToDictionary(word);
                 }
 
+                Cef.AddCrossOriginWhitelistEntry(TwitterUrls.TweetDeck, PluginSchemeFactory.Name, "", true);
+
                 browser.BeginInvoke(new Action(OnBrowserReady));
                 browser.LoadingStateChanged -= browser_LoadingStateChanged;
             }

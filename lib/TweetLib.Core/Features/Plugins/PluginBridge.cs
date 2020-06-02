@@ -47,7 +47,7 @@ namespace TweetLib.Core.Features.Plugins{
             return token;
         }
 
-        private Plugin? GetPluginFromToken(int token){
+        internal Plugin? GetPluginFromToken(int token){
             return tokens.TryGetValue(token, out Plugin plugin) ? plugin : null;
         }
 

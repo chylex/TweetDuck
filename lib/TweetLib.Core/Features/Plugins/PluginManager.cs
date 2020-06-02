@@ -16,14 +16,14 @@ namespace TweetLib.Core.Features.Plugins{
         public IEnumerable<InjectedHTML> NotificationInjections => bridge.NotificationInjections;
         
         public IPluginConfig Config { get; }
-        
+
         public event EventHandler<PluginErrorEventArgs>? Reloaded;
         public event EventHandler<PluginErrorEventArgs>? Executed;
         
         private readonly string pluginFolder;
         private readonly string pluginDataFolder;
 
-        private readonly PluginBridge bridge;
+        internal readonly PluginBridge bridge;
         private IScriptExecutor? browserExecutor;
 
         private readonly HashSet<Plugin> plugins = new HashSet<Plugin>();

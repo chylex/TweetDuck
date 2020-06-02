@@ -11,6 +11,7 @@ using TweetDuck.Browser.Handling.General;
 using TweetDuck.Configuration;
 using TweetDuck.Dialogs;
 using TweetDuck.Management;
+using TweetDuck.Plugins;
 using TweetDuck.Resources;
 using TweetDuck.Utils;
 using TweetLib.Core;
@@ -168,6 +169,17 @@ namespace TweetDuck{
                 LogSeverity = Arguments.HasFlag(Arguments.ArgLogging) ? LogSeverity.Info : LogSeverity.Disable
                 #endif
             };
+
+            var pluginScheme = new PluginSchemeFactory();
+
+            settings.RegisterScheme(new CefCustomScheme{
+                SchemeName = PluginSchemeFactory.Name,
+                IsStandard = false,
+                IsSecure = true,
+                IsCorsEnabled = true,
+                IsCSPBypassing = true,
+                SchemeHandlerFactory = pluginScheme
+            });
             
             CommandLineArgs.ReadCefArguments(Config.User.CustomCefArgs).ToDictionary(settings.CefCommandLineArgs);
             BrowserUtils.SetupCefArgs(settings.CefCommandLineArgs);
@@ -176,7 +188,7 @@ namespace TweetDuck{
 
             Win.Application.ApplicationExit += (sender, args) => ExitCleanup();
             
-            FormBrowser mainForm = new FormBrowser();
+            FormBrowser mainForm = new FormBrowser(pluginScheme);
             Resources.Initialize(mainForm);
             Win.Application.Run(mainForm);
 
