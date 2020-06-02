@@ -16,6 +16,8 @@ namespace TweetDuck.Browser.Notification{
     abstract partial class FormNotificationBase : Form, AnalyticsFile.IProvider{
         public static readonly ResourceLink AppLogo = new ResourceLink("https://ton.twimg.com/tduck/avatar", ResourceHandler.FromByteArray(Properties.Resources.avatar, "image/png"));
 
+        protected const string BlankURL = TwitterUrls.TweetDeck + "/?blank";
+
         public static string FontSize = null;
         public static string HeadLayout = null;
 
@@ -131,10 +133,11 @@ namespace TweetDuck.Browser.Notification{
             this.owner.FormClosed += owner_FormClosed;
 
             ResourceHandlerFactory resourceHandlerFactory = new ResourceHandlerFactory();
+            resourceHandlerFactory.RegisterHandler(BlankURL, ResourceHandler.FromString(string.Empty));
             resourceHandlerFactory.RegisterHandler(TwitterUrls.TweetDeck, this.resourceHandler);
             resourceHandlerFactory.RegisterHandler(AppLogo);
 
-            this.browser = new ChromiumWebBrowser("about:blank"){
+            this.browser = new ChromiumWebBrowser(BlankURL){
                 MenuHandler = new ContextMenuNotification(this, enableContextMenu),
                 JsDialogHandler = new JavaScriptDialogHandler(),
                 LifeSpanHandler = new LifeSpanHandler(),
@@ -185,7 +188,7 @@ namespace TweetDuck.Browser.Notification{
         // notification methods
 
         public virtual void HideNotification(){
-            browser.Load("about:blank");
+            browser.Load(BlankURL);
             DisplayTooltip(null);
 
             Location = ControlExtensions.InvisibleLocation;

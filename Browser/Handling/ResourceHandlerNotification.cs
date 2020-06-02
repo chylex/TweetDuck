@@ -33,7 +33,7 @@ namespace TweetDuck.Browser.Handling{
             response.StatusCode = 200;
             response.StatusText = "OK";
             response.ResponseHeaders = headers;
-            responseLength = dataIn?.Length ?? -1;
+            responseLength = dataIn?.Length ?? 0;
         }
 
         bool IResourceHandler.ReadResponse(Stream dataOut, out int bytesRead, ICallback callback){

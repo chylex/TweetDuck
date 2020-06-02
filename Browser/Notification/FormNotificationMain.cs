@@ -154,7 +154,7 @@ namespace TweetDuck.Browser.Notification{
         }
 
         private void Browser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e){
-            if (!e.IsLoading && browser.Address != "about:blank"){
+            if (!e.IsLoading && browser.Address != BlankURL){
                 this.InvokeSafe(() => {
                     Visible = true; // ensures repaint before moving the window to a visible location
                     timerDisplayDelay.Start();
@@ -165,7 +165,7 @@ namespace TweetDuck.Browser.Notification{
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             IFrame frame = e.Frame;
 
-            if (frame.IsMain && browser.Address != "about:blank"){
+            if (frame.IsMain && browser.Address != BlankURL){
                 frame.ExecuteJavaScriptAsync(PropertyBridge.GenerateScript(PropertyBridge.Environment.Notification));
                 CefScriptExecutor.RunFile(frame, "notification.js");
             }
