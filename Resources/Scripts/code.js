@@ -1809,6 +1809,11 @@
       window.TD_PLUGINS.onReady();
     }
   });
+
+  //
+  // Block: Ensure window.jQuery is available.
+  //
+  window.jQuery = $;
   
   //
   // Block: Skip the initial pre-login page.
