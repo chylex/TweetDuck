@@ -1,4 +1,5 @@
-﻿using System.Collections.Specialized;
+﻿using System;
+using System.Collections.Specialized;
 using System.IO;
 using System.Text;
 using CefSharp;
@@ -39,9 +40,11 @@ namespace TweetDuck.Browser.Handling{
             callback.Dispose();
 
             try{
-                int length = (int)dataIn.Length;
+                byte[] buffer = new byte[Math.Min(dataIn.Length, dataOut.Length)];
+                int length = buffer.Length;
 
-                dataIn.CopyTo(dataOut, length);
+                dataIn.Read(buffer, 0, length);
+                dataOut.Write(buffer, 0, length);
                 bytesRead = length;
                 return true;
             }catch{ // catch IOException, possibly NullReferenceException if dataIn is null
