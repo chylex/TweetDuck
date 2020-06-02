@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Plugins\PluginSchemeFactory.cs" />
+    <Compile Include="Updates\UpdateInstaller.cs" />
     <Compile Include="Version.cs" />
     <Compile Include="Configuration\Arguments.cs" />
     <Compile Include="Configuration\ConfigManager.cs" />

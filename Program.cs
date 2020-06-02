@@ -192,14 +192,10 @@ namespace TweetDuck{
             Resources.Initialize(mainForm);
             Win.Application.Run(mainForm);
 
-            if (mainForm.UpdateInstallerPath != null){
+            if (mainForm.UpdateInstaller != null){
                 ExitCleanup();
 
-                // ProgramPath has a trailing backslash
-                string updaterArgs = "/SP- /SILENT /FORCECLOSEAPPLICATIONS /UPDATEPATH=\"" + ProgramPath + "\" /RUNARGS=\"" + Arguments.GetCurrentForInstallerCmd() + "\"" + (IsPortable ? " /PORTABLE=1" : "");
-                bool runElevated = !IsPortable || !FileUtils.CheckFolderWritePermission(ProgramPath);
-
-                if (WindowsUtils.OpenAssociatedProgram(mainForm.UpdateInstallerPath, updaterArgs, runElevated)){
+                if (mainForm.UpdateInstaller.Launch()){
                     Win.Application.Exit();
                 }
                 else{

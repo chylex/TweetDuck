@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using Microsoft.Win32;
@@ -16,24 +14,6 @@ namespace TweetDuck.Utils{
         private static bool OSVersionEquals(int major, int minor){
             System.Version ver = Environment.OSVersion.Version;
             return ver.Major == major && ver.Minor == minor;
-        }
-
-        public static bool OpenAssociatedProgram(string file, string arguments = "", bool runElevated = false){
-            try{
-                using(Process.Start(new ProcessStartInfo{
-                    FileName = file,
-                    Arguments = arguments,
-                    Verb = runElevated ? "runas" : string.Empty,
-                    ErrorDialog = true
-                })){
-                    return true;
-                }
-            }catch(Win32Exception e) when (e.NativeErrorCode == 0x000004C7){ // operation canceled by the user
-                return false;
-            }catch(Exception e){
-                Program.Reporter.HandleException("Error Opening Program", "Could not open the associated program for " + file, true, e);
-                return false;
-            }
         }
 
         public static bool TrySleepUntil(Func<bool> test, int timeoutMillis, int timeStepMillis){

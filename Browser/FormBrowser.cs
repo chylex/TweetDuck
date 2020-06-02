@@ -44,7 +44,7 @@ namespace TweetDuck.Browser{
             }
         }
 
-        public string UpdateInstallerPath { get; private set; }
+        public UpdateInstaller UpdateInstaller { get; private set; }
         private bool ignoreUpdateCheckError;
         
         public AnalyticsFile AnalyticsFile => analytics?.File ?? AnalyticsFile.Dummy;
@@ -233,7 +233,7 @@ namespace TweetDuck.Browser{
         }
 
         private void FormBrowser_FormClosed(object sender, FormClosedEventArgs e){
-            if (isLoaded && UpdateInstallerPath == null){
+            if (isLoaded && UpdateInstaller == null){
                 updateBridge.Cleanup();
             }
         }
@@ -311,7 +311,7 @@ namespace TweetDuck.Browser{
                 UpdateDownloadStatus status = update.DownloadStatus;
 
                 if (status == UpdateDownloadStatus.Done){
-                    UpdateInstallerPath = update.InstallerPath;
+                    UpdateInstaller = new UpdateInstaller(update.InstallerPath);
                     ForceClose();
                 }
                 else if (status != UpdateDownloadStatus.Canceled && FormMessage.Error("Update Has Failed", "Could not automatically download the update: " + (update.DownloadError?.Message ?? "unknown error") + "\n\nWould you like to open the website and try downloading the update manually?", FormMessage.Yes, FormMessage.No)){

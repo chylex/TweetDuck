@@ -9,6 +9,7 @@ using TweetDuck.Browser;
 using TweetDuck.Configuration;
 using TweetDuck.Dialogs;
 using TweetDuck.Management;
+using TweetLib.Core;
 using TweetLib.Core.Features.Twitter;
 
 namespace TweetDuck.Utils{
@@ -105,7 +106,7 @@ namespace TweetDuck.Utils{
                         string browserPath = Config.BrowserPath;
 
                         if (browserPath == null || !File.Exists(browserPath)){
-                            WindowsUtils.OpenAssociatedProgram(url);
+                            App.SystemHandler.OpenAssociatedProgram(url);
                         }
                         else{
                             string quotedUrl = '"' + url + '"';

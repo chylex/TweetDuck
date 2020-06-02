@@ -9,6 +9,7 @@ using CefSharp;
 using TweetDuck.Browser.Data;
 using TweetDuck.Dialogs;
 using TweetDuck.Management;
+using TweetLib.Core;
 using TweetLib.Core.Features.Twitter;
 using TweetLib.Core.Utils;
 using Cookie = CefSharp.Cookie;
@@ -44,7 +45,7 @@ namespace TweetDuck.Utils{
                 string ext = Path.GetExtension(path);
 
                 if (ImageUrl.ValidExtensions.Contains(ext)){
-                    WindowsUtils.OpenAssociatedProgram(path);
+                    App.SystemHandler.OpenAssociatedProgram(path);
                 }
                 else{
                     FormMessage.Error("Image Download", "Invalid file extension " + ext, FormMessage.OK);
