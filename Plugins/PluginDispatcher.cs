@@ -12,8 +12,10 @@ namespace TweetDuck.Plugins{
 
         private readonly IWebBrowser browser;
         private readonly IScriptExecutor executor;
+        private readonly Func<string, bool> executeOnUrl;
 
-        public PluginDispatcher(IWebBrowser browser){
+        public PluginDispatcher(IWebBrowser browser, Func<string, bool> executeOnUrl){
+            this.executeOnUrl = executeOnUrl;
             this.browser = browser;
             this.browser.FrameLoadEnd += browser_FrameLoadEnd;
             this.executor = new CefScriptExecutor(browser);
@@ -26,7 +28,7 @@ namespace TweetDuck.Plugins{
         private void browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
             IFrame frame = e.Frame;
 
-            if (frame.IsMain && TwitterUrls.IsTweetDeck(frame.Url)){
+            if (frame.IsMain && executeOnUrl(frame.Url)){
                 Ready?.Invoke(this, new PluginDispatchEventArgs(executor));
             }
         }

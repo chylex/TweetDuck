@@ -79,7 +79,7 @@ namespace TweetDuck.Browser{
             this.browser.SetupZoomEvents();
             
             owner.Controls.Add(browser);
-            plugins.Register(PluginEnvironment.Browser, new PluginDispatcher(browser));
+            plugins.Register(PluginEnvironment.Browser, new PluginDispatcher(browser, TwitterUrls.IsTweetDeck));
             
             Config.MuteToggled += Config_MuteToggled;
             Config.SoundNotificationChanged += Config_SoundNotificationInfoChanged;

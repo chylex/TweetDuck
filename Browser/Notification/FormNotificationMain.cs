@@ -12,6 +12,7 @@ using TweetLib.Core.Data;
 using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Enums;
+using TweetLib.Core.Features.Twitter;
 
 namespace TweetDuck.Browser.Notification{
     abstract partial class FormNotificationMain : FormNotificationBase{
@@ -77,7 +78,7 @@ namespace TweetDuck.Browser.Notification{
             browser.LoadingStateChanged += Browser_LoadingStateChanged;
             browser.FrameLoadEnd += Browser_FrameLoadEnd;
 
-            plugins.Register(PluginEnvironment.Notification, new PluginDispatcher(browser));
+            plugins.Register(PluginEnvironment.Notification, new PluginDispatcher(browser, url => TwitterUrls.IsTweetDeck(url) && url != BlankURL));
 
             mouseHookDelegate = MouseHookProc;
             Disposed += (sender, args) => StopMouseHook(true);
