@@ -40,7 +40,7 @@ namespace TweetDuck.Browser.Handling{
             callback.Dispose();
 
             try{
-                byte[] buffer = new byte[Math.Min(dataIn.Length, dataOut.Length)];
+                byte[] buffer = new byte[Math.Min(dataIn.Length - dataIn.Position, dataOut.Length)];
                 int length = buffer.Length;
 
                 dataIn.Read(buffer, 0, length);
