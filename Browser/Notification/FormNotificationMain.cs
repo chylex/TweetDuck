@@ -114,7 +114,15 @@ namespace TweetDuck.Browser.Notification{
                 int eventType = wParam.ToInt32();
 
                 if (eventType == NativeMethods.WM_MOUSEWHEEL && IsCursorOverBrowser){
-                    browser.SendMouseWheelEvent(0, 0, 0, BrowserUtils.Scale(NativeMethods.GetMouseHookData(lParam), Config.NotificationScrollSpeed * 0.01), CefEventFlags.None);
+                    int delta = BrowserUtils.Scale(NativeMethods.GetMouseHookData(lParam), Config.NotificationScrollSpeed * 0.01);
+
+                    if (Config.EnableSmoothScrolling){
+                        browser.ExecuteScriptAsync("window.TDGF_scrollSmoothly", (int)Math.Round(-delta / 0.6));
+                    }
+                    else{
+                        browser.SendMouseWheelEvent(0, 0, 0, delta, CefEventFlags.None);
+                    }
+
                     return NativeMethods.HOOK_HANDLED;
                 }
                 else if (eventType == NativeMethods.WM_XBUTTONDOWN && DesktopBounds.Contains(Cursor.Position)){

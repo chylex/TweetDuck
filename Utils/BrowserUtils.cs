@@ -28,17 +28,7 @@ namespace TweetDuck.Utils{
                 args["disable-gpu-compositing"] = "1";
             }
 
-            if (Config.EnableSmoothScrolling){
-                args["disable-threaded-scrolling"] = "1";
-
-                if (args.TryGetValue("disable-features", out string disabledFeatures)){
-                    args["disable-features"] = "TouchpadAndWheelScrollLatching," + disabledFeatures;
-                }
-                else{
-                    args["disable-features"] = "TouchpadAndWheelScrollLatching";
-                }
-            }
-            else{
+            if (!Config.EnableSmoothScrolling){
                 args["disable-smooth-scrolling"] = "1";
             }
 
