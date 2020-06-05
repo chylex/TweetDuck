@@ -146,6 +146,8 @@ namespace TweetDuck.Browser{
 
         private void RestoreWindow(){
             Config.BrowserWindow.Restore(this, true);
+            browser.PrepareSize(ClientSize);
+
             prevState = WindowState;
             isLoaded = true;
         }
@@ -214,6 +216,7 @@ namespace TweetDuck.Browser{
             }
 
             timerResize.Stop();
+            browser.PrepareSize(ClientSize); // needed to pre-size browser control when launched in maximized state
             
             if (Location != ControlExtensions.InvisibleLocation){
                 Config.BrowserWindow.Save(this);

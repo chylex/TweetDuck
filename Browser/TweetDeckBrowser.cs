@@ -91,6 +91,12 @@ namespace TweetDuck.Browser{
 
         // setup and management
 
+        public void PrepareSize(Size size){
+            if (!Ready){
+                browser.Size = size;
+            }
+        }
+
         private void OnBrowserReady(){
             if (!Ready){
                 browser.Location = Point.Empty;
