@@ -1,4 +1,9 @@
-(function($TDU){
+(function(){
+  if (!("$TDU" in window)){
+    console.error("Missing $TDU");
+    return;
+  }
+  
   //
   // Function: Creates the update notification element. Removes the old one if already exists.
   //
@@ -140,6 +145,7 @@
     
     $(document).one("TD.ready", triggerCheck);
   }catch(err){
+    console.warn("Missing jQuery or TD.ready event");
     setTimeout(triggerCheck, 500);
   }
   
@@ -147,4 +153,4 @@
   // Block: Setup global functions.
   //
   window.TDUF_displayNotification = displayNotification;
-})($TDU);
+})();

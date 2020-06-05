@@ -1,4 +1,4 @@
-(function($TD, $TDX){
+(function(){
   //
   // Variable: Collection of all <a> tags.
   //
@@ -181,4 +181,4 @@
   // Block: Force a reset of scroll position on every load.
   //
   history.scrollRestoration = "manual";
-})($TD, $TDX);
+})();

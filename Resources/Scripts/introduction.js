@@ -1,4 +1,4 @@
-(function($, $TD){
+(function(){
   $(document).one("TD.ready", function(){
     let css = $(`<style>#import "styles/introduction.css"</style>`).appendTo(document.head);
     let ele = $(`#import "markup/introduction.html"`).appendTo(".js-app");
@@ -38,4 +38,4 @@
       });
     });
   });
-})($, $TD);
+})();

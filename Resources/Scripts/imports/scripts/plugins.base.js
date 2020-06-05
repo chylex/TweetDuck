@@ -1,4 +1,8 @@
-(function($TDP){
+(function(){
+  if (!("$TDP" in window)){
+    console.error("Missing $TDP");
+  }
+  
   //
   // Block: Setup a simple JavaScript object configuration loader.
   //
@@ -49,4 +53,4 @@
       element: element
     };
   };
-})($TDP);
+})();

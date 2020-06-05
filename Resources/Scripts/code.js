@@ -1,4 +1,16 @@
-(function($TD, $TDX, $, TD){
+(function($, TD){
+  if ($ === null){
+    console.error("Missing jQuery");
+  }
+  
+  if (!("$TD" in window)){
+    console.error("Missing $TD");
+  }
+  
+  if (!("$TDX" in window)){
+    console.error("Missing $TDX");
+  }
+  
   //
   // Variable: Array of functions called after the website app is loaded.
   //
@@ -55,13 +67,25 @@
   };
   
   //
+  // Function: Triggers an internal debug crash when something is missing.
+  //
+  const crashDebug = function(message){
+    if ("$TD" in window){
+      $TD.crashDebug(message);
+    }
+    else{
+      console.error(message);
+    }
+  }
+  
+  //
   // Function: Returns true if an object has a specified property, otherwise returns false with a debug-only error message.
   //
   const ensurePropertyExists = function(obj, ...chain){
     for(let index = 0; index < chain.length; index++){
       if (!obj.hasOwnProperty(chain[index])){
         debugger;
-        $TD.crashDebug("Missing property "+chain[index]+" in chain [obj]."+chain.join("."));
+        crashDebug("Missing property " + chain[index] + " in chain [obj]." + chain.join("."));
         return false;
       }
       
@@ -79,7 +103,7 @@
     
     if (!result.length){
       debugger;
-      $TD.crashDebug("No elements were found for selector "+selector);
+      crashDebug("No elements were found for selector "+selector);
     }
     
     return result;
@@ -95,7 +119,7 @@
       console.error(err);
       
       debugger;
-      $TD.crashDebug("Caught error in function "+func.name)
+      crashDebug("Caught error in function "+func.name)
       
       fail && fail();
     }
@@ -1234,14 +1258,14 @@
     let prev = TD.mustaches && TD.mustaches[name];
     
     if (!prev){
-      $TD.crashDebug("Mustache injection is referencing an invalid mustache: "+name);
+      crashDebug("Mustache injection is referencing an invalid mustache: "+name);
       return false;
     }
     
     TD.mustaches[name] = prev.replace(search, replacement);
     
     if (prev === TD.mustaches[name]){
-      $TD.crashDebug("Mustache injection had no effect: "+name);
+      crashDebug("Mustache injection had no effect: "+name);
       return false;
     }
     
@@ -1823,4 +1847,4 @@
       location.href = "https://twitter.com/login?hide_message=true&redirect_after_login=https%3A%2F%2Ftweetdeck.twitter.com%2F%3Fvia_twitter_login%3Dtrue";
     };
   }
-})($TD, $TDX, window.$, window.TD || {});
+})(window.$ || null, window.TD || {});
