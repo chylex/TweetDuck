@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using System.IO;
+using System.Net;
+using System.Text;
 using CefSharp;
 using TweetLib.Core.Browser;
 using TweetLib.Core.Features.Plugins;
@@ -18,8 +20,16 @@ namespace TweetDuck.Plugins{
         }
 
         private sealed class ResourceProvider : IResourceProvider<IResourceHandler>{
+            private static ResourceHandler CreateHandler(byte[] bytes){
+                var handler = ResourceHandler.FromStream(new MemoryStream(bytes), autoDisposeStream: true);
+                handler.Headers.Set("Access-Control-Allow-Origin", "*");
+                return handler;
+            }
+
             public IResourceHandler Status(HttpStatusCode code, string message){
-                return ResourceHandler.ForErrorMessage(message, code);
+                var handler = CreateHandler(Encoding.UTF8.GetBytes(message));
+                handler.StatusCode = (int)code;
+                return handler;
             }
 
             public IResourceHandler File(byte[] bytes, string extension){
@@ -27,7 +37,9 @@ namespace TweetDuck.Plugins{
                     return Status(HttpStatusCode.NoContent, "File is empty."); // FromByteArray crashes CEF internals with no contents
                 }
                 else{
-                    return ResourceHandler.FromByteArray(bytes, Cef.GetMimeType(extension));
+                    var handler = CreateHandler(bytes);
+                    handler.MimeType = Cef.GetMimeType(extension);
+                    return handler;
                 }
             }
         }
