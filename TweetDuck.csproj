@@ -53,21 +53,71 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Plugins\PluginSchemeFactory.cs" />
-    <Compile Include="Updates\UpdateInstaller.cs" />
-    <Compile Include="Browser\Data\ResourceHandlers.cs" />
-    <Compile Include="Browser\Handling\ResourceRequestHandler.cs" />
-    <Compile Include="Browser\Handling\ResourceRequestHandlerBrowser.cs" />
-    <Compile Include="Browser\Handling\ResourceRequestHandlerBase.cs" />
-    <Compile Include="Version.cs" />
-    <Compile Include="Configuration\Arguments.cs" />
-    <Compile Include="Configuration\ConfigManager.cs" />
-    <Compile Include="Configuration\SystemConfig.cs" />
-    <Compile Include="Configuration\UserConfig.cs" />
+    <Compile Include="Application\LockHandler.cs" />
+    <Compile Include="Application\SystemHandler.cs" />
     <Compile Include="Browser\Adapters\CefScriptExecutor.cs" />
     <Compile Include="Browser\Bridge\PropertyBridge.cs" />
+    <Compile Include="Browser\Bridge\TweetDeckBridge.cs" />
     <Compile Include="Browser\Bridge\UpdateBridge.cs" />
+    <Compile Include="Browser\Data\ContextInfo.cs" />
+    <Compile Include="Browser\Data\ResourceHandlers.cs" />
+    <Compile Include="Browser\Data\ResourceLink.cs" />
+    <Compile Include="Browser\Data\WindowState.cs" />
+    <Compile Include="Browser\Handling\ContextMenuBase.cs" />
+    <Compile Include="Browser\Handling\ContextMenuBrowser.cs" />
+    <Compile Include="Browser\Handling\ContextMenuGuide.cs" />
+    <Compile Include="Browser\Handling\ContextMenuNotification.cs" />
+    <Compile Include="Browser\Handling\DragHandlerBrowser.cs" />
+    <Compile Include="Browser\Handling\Filters\ResponseFilterBase.cs" />
+    <Compile Include="Browser\Handling\Filters\ResponseFilterVendor.cs" />
+    <Compile Include="Browser\Handling\General\BrowserProcessHandler.cs" />
+    <Compile Include="Browser\Handling\General\FileDialogHandler.cs" />
+    <Compile Include="Browser\Handling\General\JavaScriptDialogHandler.cs" />
+    <Compile Include="Browser\Handling\General\LifeSpanHandler.cs" />
+    <Compile Include="Browser\Handling\KeyboardHandlerBase.cs" />
+    <Compile Include="Browser\Handling\KeyboardHandlerBrowser.cs" />
+    <Compile Include="Browser\Handling\KeyboardHandlerNotification.cs" />
+    <Compile Include="Browser\Handling\RequestHandlerBase.cs" />
+    <Compile Include="Browser\Handling\RequestHandlerBrowser.cs" />
+    <Compile Include="Browser\Handling\ResourceHandlerNotification.cs" />
+    <Compile Include="Browser\Handling\ResourceRequestHandler.cs" />
+    <Compile Include="Browser\Handling\ResourceRequestHandlerBase.cs" />
+    <Compile Include="Browser\Handling\ResourceRequestHandlerBrowser.cs" />
+    <Compile Include="Browser\Notification\Screenshot\ScreenshotBridge.cs" />
+    <Compile Include="Browser\Notification\Screenshot\TweetScreenshotManager.cs" />
+    <Compile Include="Browser\Notification\SoundNotification.cs" />
+    <Compile Include="Browser\TweetDeckBrowser.cs" />
+    <Compile Include="Configuration\Arguments.cs" />
+    <Compile Include="Configuration\ConfigManager.cs" />
+    <Compile Include="Configuration\PluginConfig.cs" />
+    <Compile Include="Configuration\SystemConfig.cs" />
+    <Compile Include="Configuration\UserConfig.cs" />
     <Compile Include="Controls\ControlExtensions.cs" />
+    <Compile Include="Management\Analytics\AnalyticsFile.cs" />
+    <Compile Include="Management\Analytics\AnalyticsManager.cs" />
+    <Compile Include="Management\Analytics\AnalyticsReport.cs" />
+    <Compile Include="Management\Analytics\AnalyticsReportGenerator.cs" />
+    <Compile Include="Management\BrowserCache.cs" />
+    <Compile Include="Management\ClipboardManager.cs" />
+    <Compile Include="Management\FormManager.cs" />
+    <Compile Include="Management\ProfileManager.cs" />
+    <Compile Include="Management\VideoPlayer.cs" />
+    <Compile Include="Plugins\PluginDispatcher.cs" />
+    <Compile Include="Plugins\PluginSchemeFactory.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reporter.cs" />
+    <Compile Include="Resources\ScriptLoader.cs" />
+    <Compile Include="Resources\ScriptLoaderDebug.cs" />
+    <Compile Include="Updates\UpdateCheckClient.cs" />
+    <Compile Include="Updates\UpdateInstaller.cs" />
+    <Compile Include="Utils\BrowserUtils.cs" />
+    <Compile Include="Utils\NativeMethods.cs" />
+    <Compile Include="Utils\TwitterUtils.cs" />
+    <Compile Include="Utils\WindowsUtils.cs" />
+    <Compile Include="Version.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Controls\FlatButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -80,29 +130,12 @@
     <Compile Include="Controls\NumericUpDownEx.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Management\ClipboardManager.cs" />
-    <Compile Include="Management\FormManager.cs" />
-    <Compile Include="Browser\Handling\ContextMenuGuide.cs" />
-    <Compile Include="Browser\Handling\DragHandlerBrowser.cs" />
-    <Compile Include="Browser\Handling\Filters\ResponseFilterBase.cs" />
-    <Compile Include="Browser\Handling\Filters\ResponseFilterVendor.cs" />
-    <Compile Include="Browser\Handling\General\BrowserProcessHandler.cs" />
-    <Compile Include="Browser\Handling\ContextMenuBase.cs" />
-    <Compile Include="Browser\Handling\ContextMenuBrowser.cs" />
     <Compile Include="Browser\FormBrowser.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Browser\FormBrowser.Designer.cs">
       <DependentUpon>FormBrowser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Browser\Handling\General\FileDialogHandler.cs" />
-    <Compile Include="Browser\Handling\KeyboardHandlerBase.cs" />
-    <Compile Include="Browser\Handling\KeyboardHandlerBrowser.cs" />
-    <Compile Include="Browser\Handling\KeyboardHandlerNotification.cs" />
-    <Compile Include="Browser\Handling\RequestHandlerBase.cs" />
-    <Compile Include="Browser\Handling\RequestHandlerBrowser.cs" />
-    <Compile Include="Browser\Handling\ResourceHandlerNotification.cs" />
-    <Compile Include="Browser\Data\ContextInfo.cs" />
     <Compile Include="Browser\Notification\Example\FormNotificationExample.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,20 +151,12 @@
     <Compile Include="Browser\Notification\FormNotificationBase.Designer.cs">
       <DependentUpon>FormNotificationBase.cs</DependentUpon>
     </Compile>
-    <Compile Include="Browser\Handling\ContextMenuNotification.cs" />
-    <Compile Include="Browser\Handling\General\JavaScriptDialogHandler.cs" />
-    <Compile Include="Browser\Handling\General\LifeSpanHandler.cs" />
     <Compile Include="Browser\Notification\FormNotificationTweet.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Browser\Notification\FormNotificationTweet.Designer.cs">
       <DependentUpon>FormNotificationTweet.cs</DependentUpon>
     </Compile>
-    <Compile Include="Browser\Notification\SoundNotification.cs" />
-    <Compile Include="Management\Analytics\AnalyticsFile.cs" />
-    <Compile Include="Management\Analytics\AnalyticsManager.cs" />
-    <Compile Include="Management\Analytics\AnalyticsReport.cs" />
-    <Compile Include="Management\Analytics\AnalyticsReportGenerator.cs" />
     <Compile Include="Dialogs\FormAbout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -156,7 +181,6 @@
     <Compile Include="Dialogs\FormPlugins.Designer.cs">
       <DependentUpon>FormPlugins.cs</DependentUpon>
     </Compile>
-    <Compile Include="Management\VideoPlayer.cs" />
     <Compile Include="Dialogs\Settings\DialogSettingsAnalytics.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -211,9 +235,6 @@
     <Compile Include="Dialogs\Settings\TabSettingsTray.Designer.cs">
       <DependentUpon>TabSettingsTray.cs</DependentUpon>
     </Compile>
-    <Compile Include="Browser\TweetDeckBrowser.cs" />
-    <Compile Include="Utils\TwitterUtils.cs" />
-    <Compile Include="Management\ProfileManager.cs" />
     <Compile Include="Dialogs\Settings\TabSettingsAdvanced.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -238,41 +259,29 @@
     <Compile Include="Dialogs\Settings\TabSettingsNotifications.Designer.cs">
       <DependentUpon>TabSettingsNotifications.cs</DependentUpon>
     </Compile>
-    <Compile Include="Browser\Notification\Screenshot\ScreenshotBridge.cs" />
     <Compile Include="Browser\Notification\Screenshot\FormNotificationScreenshotable.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Browser\Notification\Screenshot\TweetScreenshotManager.cs" />
-    <Compile Include="Browser\Data\ResourceLink.cs" />
-    <Compile Include="Browser\Data\WindowState.cs" />
-    <Compile Include="Utils\WindowsUtils.cs" />
-    <Compile Include="Browser\Bridge\TweetDeckBridge.cs" />
     <Compile Include="Dialogs\FormSettings.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dialogs\FormSettings.Designer.cs">
       <DependentUpon>FormSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Application\LockHandler.cs" />
-    <Compile Include="Application\SystemHandler.cs" />
     <Compile Include="Plugins\PluginControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Plugins\PluginControl.Designer.cs">
       <DependentUpon>PluginControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\PluginDispatcher.cs" />
     <Compile Include="Controls\FlowLayoutPanelNoHScroll.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Configuration\PluginConfig.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Reporter.cs" />
-    <Compile Include="Resources\ScriptLoaderDebug.cs" />
     <Compile Include="Updates\FormUpdateDownload.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -285,13 +294,6 @@
     <Compile Include="Browser\TrayIcon.Designer.cs">
       <DependentUpon>TrayIcon.cs</DependentUpon>
     </Compile>
-    <Compile Include="Management\BrowserCache.cs" />
-    <Compile Include="Utils\BrowserUtils.cs" />
-    <Compile Include="Utils\NativeMethods.cs" />
-    <Compile Include="Updates\UpdateCheckClient.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\ScriptLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -319,12 +321,12 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Resources\Images\avatar.png" />
-    <None Include="Resources\Images\icon.ico" />
-    <None Include="Resources\Images\icon-tray-muted.ico" />
     <None Include="Resources\Images\icon-muted.ico" />
     <None Include="Resources\Images\icon-small.ico" />
+    <None Include="Resources\Images\icon-tray-muted.ico" />
     <None Include="Resources\Images\icon-tray-new.ico" />
     <None Include="Resources\Images\icon-tray.ico" />
+    <None Include="Resources\Images\icon.ico" />
     <None Include="Resources\Images\spinner.apng" />
     <None Include="Resources\Plugins\.debug\.meta" />
     <None Include="Resources\Plugins\.debug\browser.js" />
@@ -351,6 +353,11 @@
     <None Include="Resources\PostCefUpdate.ps1" />
     <None Include="Resources\Scripts\code.js" />
     <None Include="Resources\Scripts\imports\markup\introduction.html" />
+    <None Include="Resources\Scripts\imports\markup\offline.html" />
+    <None Include="Resources\Scripts\imports\markup\pin.html" />
+    <None Include="Resources\Scripts\imports\scripts\browser.features.js" />
+    <None Include="Resources\Scripts\imports\scripts\browser.globals.js" />
+    <None Include="Resources\Scripts\imports\scripts\browser.tweaks.js" />
     <None Include="Resources\Scripts\imports\scripts\plugins.base.js" />
     <None Include="Resources\Scripts\imports\styles\introduction.css" />
     <None Include="Resources\Scripts\imports\styles\twitter.base.css" />
@@ -365,6 +372,7 @@
     <None Include="Resources\Scripts\screenshot.js" />
     <None Include="Resources\Scripts\styles\browser.css" />
     <None Include="Resources\Scripts\styles\notification.css" />
+    <None Include="Resources\Scripts\styles\twitter.css" />
     <None Include="Resources\Scripts\twitter.js" />
     <None Include="Resources\Scripts\update.js" />
   </ItemGroup>
