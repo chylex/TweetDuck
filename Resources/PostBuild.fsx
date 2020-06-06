@@ -68,6 +68,7 @@ let main (argv: string[]) =
             line.TrimStart()
             
         // Functions (File Management)
+        
         let copyFile source target =
             File.Copy(source, target, true)
             
@@ -94,7 +95,7 @@ let main (argv: string[]) =
         // Functions (File Processing)
         
         let byPattern path pattern =
-            Directory.EnumerateFiles(path, pattern, SearchOption.AllDirectories)
+            Directory.EnumerateFiles(path, pattern, SearchOption.AllDirectories) |> Seq.filter (fun (file: string) -> not (file.Contains(importsDir)))
             
         let exceptEndingWith name =
             Seq.filter (fun (file: string) -> not (file.EndsWith(name)))
@@ -121,7 +122,7 @@ let main (argv: string[]) =
             let includeVersion = relativePath.StartsWith(@"scripts\") && not (relativePath.StartsWith(@"scripts\imports\"))
             let finalLines = if includeVersion then seq { yield "#" + version; yield! lines } else lines
             
-            File.WriteAllLines(fullPath, finalLines |> filterNotEmpty |> Seq.toArray)
+            File.WriteAllLines(fullPath, finalLines |> Seq.toArray)
             printfn "Processed %s" relativePath
         
         let processFiles (files: string seq) (extProcessors: IDictionary<string, (string seq -> string seq)>) =
@@ -184,6 +185,7 @@ let main (argv: string[]) =
                         |> replaceRegex @"^(.*?)((?<=^|[;{}()])\s?//(?:\s.*|$))?$" "$1"
                         |> replaceRegex @"(?<!\w)(return|throw)(\s.*?)? if (.*?);" "if ($3)$1$2;"
                     )
+                    |> filterNotEmpty
                 );
                 
                 ".css", (fun (lines: string seq) ->
@@ -204,6 +206,7 @@ let main (argv: string[]) =
                 ".html", (fun (lines: string seq) ->
                     lines
                     |> Seq.map trimStart
+                    |> filterNotEmpty
                 );
                 
                 ".meta", (fun (lines: string seq) ->
