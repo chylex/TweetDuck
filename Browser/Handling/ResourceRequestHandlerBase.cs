@@ -32,6 +32,11 @@ namespace TweetDuck.Browser.Handling{
         }
 
         protected override CefReturnValue OnBeforeResourceLoad(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IRequestCallback callback){
+            if (request.ResourceType == ResourceType.CspReport){
+                callback.Dispose();
+                return CefReturnValue.Cancel;
+            }
+
             if (BrowserUtils.HasDevTools){
                 NameValueCollection headers = request.Headers;
                 headers.Remove("x-devtools-emulate-network-conditions-client-id");
