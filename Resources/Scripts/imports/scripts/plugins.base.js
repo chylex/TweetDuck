@@ -17,10 +17,10 @@
         let obj;
         
         try{
-          obj = eval("("+contents+")");
+          obj = eval("(" + contents + ")");
         }catch(err){
           if (!(onFailure && onFailure(err))){
-            $TD.alert("warning", "Problem loading '"+fileName+"' file for '"+identifier+"' plugin, the JavaScript syntax is invalid: "+err.message);
+            $TD.alert("warning", "Problem loading '" + fileName + "' file for '" + identifier + "' plugin, the JavaScript syntax is invalid: " + err.message);
           }
           
           return;
@@ -29,12 +29,12 @@
         onSuccess && onSuccess(obj);
       }).catch(err => {
         if (!(onFailure && onFailure(err))){
-          $TD.alert("warning", "Problem loading '"+fileName+"' file for '"+identifier+"' plugin: "+err.message);
+          $TD.alert("warning", "Problem loading '" + fileName + "' file for '" + identifier + "' plugin: " + err.message);
         }
       });
     }).catch(err => {
       if (!(onFailure && onFailure(err))){
-        $TD.alert("warning", "Problem checking '"+fileNameUser+"' file for '"+identifier+"' plugin: "+err.message);
+        $TD.alert("warning", "Problem checking '" + fileNameUser + "' file for '" + identifier + "' plugin: " + err.message);
       }
     });
   };
@@ -44,7 +44,7 @@
   //
   window.TDPF_createCustomStyle = function(pluginObject){
     let element = document.createElement("style");
-    element.id = "plugin-"+pluginObject.$id+"-"+Math.random().toString(36).substring(2, 7);
+    element.id = "plugin-" + pluginObject.$id + "-"+Math.random().toString(36).substring(2, 7);
     document.head.appendChild(element);
     
     return {

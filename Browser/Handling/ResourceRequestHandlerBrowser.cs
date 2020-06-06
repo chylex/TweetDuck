@@ -7,6 +7,7 @@ namespace TweetDuck.Browser.Handling{
     class ResourceRequestHandlerBrowser : ResourceRequestHandlerBase{
         private const string UrlVendorResource = "/dist/vendor";
         private const string UrlLoadingSpinner = "/backgrounds/spinner_blue";
+        private const string UrlVersionCheck = "/web/dist/version.json";
 
         protected override CefReturnValue OnBeforeResourceLoad(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IRequestCallback callback){
             if (request.ResourceType == ResourceType.MainFrame){
@@ -28,6 +29,12 @@ namespace TweetDuck.Browser.Handling{
                 }
                 else if (url.Contains(UrlVendorResource)){
                     request.SetHeaderByName("Accept-Encoding", "identity", overwrite: true);
+                }
+            }
+            else if (request.ResourceType == ResourceType.Xhr){
+                if (request.Url.Contains(UrlVersionCheck)){
+                    callback.Dispose();
+                    return CefReturnValue.Cancel;
                 }
             }
 

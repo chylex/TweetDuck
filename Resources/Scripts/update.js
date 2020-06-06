@@ -37,7 +37,7 @@
     
     // notification
     let ele = document.getElementById("tweetduck-update");
-    let existed = !!ele;
+    const existed = !!ele;
     
     if (existed){
       ele.remove();
@@ -141,11 +141,11 @@
   };
   
   try{
-    throw false if !($._data(document, "events").TD.some(obj => obj.namespace === "ready"));
+    throw "Missing jQuery or TD.ready event" if !($._data(document, "events").TD.some(obj => obj.namespace === "ready"));
     
     $(document).one("TD.ready", triggerCheck);
   }catch(err){
-    console.warn("Missing jQuery or TD.ready event");
+    console.warn(err);
     setTimeout(triggerCheck, 500);
   }
   

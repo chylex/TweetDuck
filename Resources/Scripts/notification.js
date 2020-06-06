@@ -19,13 +19,13 @@
   (function(){
     const onLinkClick = function(e){
       if (e.button === 0 || e.button === 1){
-        let ele = e.currentTarget;
+        const ele = e.currentTarget;
         
         $TD.openBrowser(ele.href);
         e.preventDefault();
         
         if ($TDX.skipOnLinkClick){
-          let parentClasses = ele.parentNode.classList;
+          const parentClasses = ele.parentNode.classList;
           
           if (parentClasses.contains("js-tweet-text") || parentClasses.contains("js-quoted-tweet-text") || parentClasses.contains("js-timestamp")){
             $TD.loadNextNotification();
@@ -46,12 +46,12 @@
     let tooltipTimer, tooltipDisplayed;
     
     addEventListener(links, "mouseenter", function(e){
-      let me = e.currentTarget;
+      const me = e.currentTarget;
       
-      let url = me.getAttribute("data-full-url");
+      const url = me.getAttribute("data-full-url");
       return if !url;
       
-      let text = me.textContent;
+      const text = me.textContent;
       return if text.charCodeAt(text.length-1) !== 8230 && text.charCodeAt(0) !== 8230; // horizontal ellipsis
       
       if ($TDX.expandLinksOnHover){
@@ -72,7 +72,7 @@
       return if !e.currentTarget.hasAttribute("data-full-url");
       
       if ($TDX.expandLinksOnHover){
-        let prevText = e.currentTarget.getAttribute("td-prev-text");
+        const prevText = e.currentTarget.getAttribute("td-prev-text");
         
         if (prevText){
           e.currentTarget.innerHTML = prevText;
@@ -89,7 +89,7 @@
     
     addEventListener(links, "mousemove", function(e){
       if (tooltipDisplayed && (prevMouseX !== e.clientX || prevMouseY !== e.clientY)){
-        let url = e.currentTarget.getAttribute("data-full-url");
+        const url = e.currentTarget.getAttribute("data-full-url");
         return if !url;
         
         $TD.displayTooltip(url);
@@ -138,7 +138,7 @@
   //
   // Block: Work around clipboard HTML formatting.
   //
-  document.addEventListener("copy", function(e){
+  document.addEventListener("copy", function(){
     window.setTimeout($TD.fixClipboard, 0);
   });
   
@@ -146,7 +146,7 @@
   // Block: Setup a handler for 'Show this thread'.
   //
   (function(){
-    let btn = document.getElementById("tduck-show-thread");
+    const btn = document.getElementById("tduck-show-thread");
     return if !btn;
     
     btn.addEventListener("click", function(){

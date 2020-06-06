@@ -1,10 +1,11 @@
 (function(){
   $(document).one("TD.ready", function(){
-    let css = $(`<style>#import "styles/introduction.css"</style>`).appendTo(document.head);
-    let ele = $(`#import "markup/introduction.html"`).appendTo(".js-app");
+    const css = $(`<style>#import "styles/introduction.css"</style>`).appendTo(document.head);
+    const ele = $(`#import "markup/introduction.html"`).appendTo(".js-app");
     
     let tdUser = null;
-    let loadTweetDuckUser = (onSuccess, onError) => {
+    
+    const loadTweetDuckUser = (onSuccess, onError) => {
       if (tdUser !== null){
         onSuccess(tdUser);
       }
@@ -28,8 +29,8 @@
     });
     
     ele.find("button, a.mdl-dismiss").click(function(){
-      let showGuide = $(this)[0].hasAttribute("data-guide");
-      let allowDataCollection = $("#td-anonymous-data").is(":checked");
+      const showGuide = $(this)[0].hasAttribute("data-guide");
+      const allowDataCollection = $("#td-anonymous-data").is(":checked");
       
       ele.fadeOut(200, function(){
         $TD.onIntroductionClosed(showGuide, allowDataCollection);

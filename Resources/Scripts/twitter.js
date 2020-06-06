@@ -11,7 +11,7 @@
       return;
     }
     
-    let link = document.createElement("link");
+    const link = document.createElement("link");
     link.rel = "stylesheet";
     link.href = "https://abs.twimg.com/tduck/css";
     
@@ -32,7 +32,7 @@
   //
   const triggerWhenExists = function(query, callback){
     let id = window.setInterval(function(){
-      let ele = document.querySelector(query);
+      const ele = document.querySelector(query);
       
       if (ele && callback(ele)){
         window.clearInterval(id);
