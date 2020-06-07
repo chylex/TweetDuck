@@ -241,7 +241,7 @@
         "<html " + Array.prototype.map.call(doc.attributes, ele => `${ele.name}="${ele.value}"`).join(" ") + "><head>"
       ];
       
-      for(let ele of document.head.querySelectorAll("link[rel='stylesheet'],meta[charset]")){
+      for(let ele of document.head.querySelectorAll("link[rel='stylesheet']:not([data-td-exclude-notification]),meta[charset]")){
         tags.push(ele.outerHTML);
       }
       
