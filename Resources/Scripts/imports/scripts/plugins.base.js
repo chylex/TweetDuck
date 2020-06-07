@@ -3,10 +3,18 @@
     console.error("Missing $TDP");
   }
   
+  const validatePluginObject = function(pluginObject){
+    if (!("$token" in pluginObject)){
+      throw "Invalid plugin object.";
+    }
+  };
+  
   //
   // Block: Setup a simple JavaScript object configuration loader.
   //
   window.TDPF_loadConfigurationFile = function(pluginObject, fileNameUser, fileNameDefault, onSuccess, onFailure){
+    validatePluginObject(pluginObject);
+    
     let identifier = pluginObject.$id;
     let token = pluginObject.$token;
     
@@ -43,6 +51,8 @@
   // Block: Setup a function to add/remove custom CSS.
   //
   window.TDPF_createCustomStyle = function(pluginObject){
+    validatePluginObject(pluginObject);
+    
     let element = document.createElement("style");
     element.id = "plugin-" + pluginObject.$id + "-"+Math.random().toString(36).substring(2, 7);
     document.head.appendChild(element);
