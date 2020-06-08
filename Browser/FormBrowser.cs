@@ -263,9 +263,7 @@ namespace TweetDuck.Browser{
         
         private void plugins_Reloaded(object sender, PluginErrorEventArgs e){
             if (e.HasErrors){
-                this.InvokeAsyncSafe(() => { // TODO not needed but makes code consistent...
-                    FormMessage.Error("Error Loading Plugins", "The following plugins will not be available until the issues are resolved:\n\n" + string.Join("\n\n", e.Errors), FormMessage.OK);
-                });
+                FormMessage.Error("Error Loading Plugins", "The following plugins will not be available until the issues are resolved:\n\n" + string.Join("\n\n", e.Errors), FormMessage.OK);
             }
 
             if (isLoaded){
