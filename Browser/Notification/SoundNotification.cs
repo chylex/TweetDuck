@@ -1,7 +1,9 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using CefSharp;
+using TweetDuck.Browser.Data;
 using TweetDuck.Controls;
 using TweetDuck.Dialogs;
 using TweetDuck.Dialogs.Settings;
@@ -11,7 +13,7 @@ namespace TweetDuck.Browser.Notification{
     static class SoundNotification{
         public const string SupportedFormats = "*.wav;*.ogg;*.mp3;*.flac;*.opus;*.weba;*.webm";
         
-        public static IResourceHandler CreateFileHandler(string path){
+        public static Func<IResourceHandler> CreateFileHandler(string path){
             string mimeType = Path.GetExtension(path) switch{
                 ".weba" => "audio/webm",
                 ".webm" => "audio/webm",
@@ -24,7 +26,7 @@ namespace TweetDuck.Browser.Notification{
             };
 
             try{
-                return ResourceHandler.FromFilePath(path, mimeType);
+                return ResourceHandlers.ForBytes(File.ReadAllBytes(path), mimeType);
             }catch{
                 FormBrowser browser = FormManager.TryFind<FormBrowser>();
 

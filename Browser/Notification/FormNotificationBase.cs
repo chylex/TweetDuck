@@ -1,6 +1,5 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
-using CefSharp;
 using CefSharp.WinForms;
 using TweetDuck.Browser.Data;
 using TweetDuck.Browser.Handling;
@@ -14,7 +13,7 @@ using TweetLib.Core.Features.Twitter;
 
 namespace TweetDuck.Browser.Notification{
     abstract partial class FormNotificationBase : Form, AnalyticsFile.IProvider{
-        public static readonly ResourceLink AppLogo = new ResourceLink("https://ton.twimg.com/tduck/avatar", ResourceHandler.FromByteArray(Properties.Resources.avatar, "image/png"));
+        public static readonly ResourceLink AppLogo = new ResourceLink("https://ton.twimg.com/tduck/avatar", ResourceHandlers.ForBytes(Properties.Resources.avatar, "image/png"));
 
         protected const string BlankURL = TwitterUrls.TweetDeck + "/?blank";
 
@@ -135,8 +134,8 @@ namespace TweetDuck.Browser.Notification{
             var resourceRequestHandler = new ResourceRequestHandlerBase();
             var resourceHandlers = resourceRequestHandler.ResourceHandlers;
 
-            resourceHandlers.Register(BlankURL, ResourceHandler.FromString(string.Empty));
-            resourceHandlers.Register(TwitterUrls.TweetDeck, this.resourceHandler);
+            resourceHandlers.Register(BlankURL, ResourceHandlers.ForString(string.Empty));
+            resourceHandlers.Register(TwitterUrls.TweetDeck, () => this.resourceHandler);
             resourceHandlers.Register(AppLogo);
 
             this.browser = new ChromiumWebBrowser(BlankURL){

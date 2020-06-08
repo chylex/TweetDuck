@@ -17,7 +17,7 @@ namespace TweetDuck.Dialogs{
         private const string GuideUrl = "https://tweetduck.chylex.com/guide/v2/";
         private const string GuidePathRegex = @"^guide(?:/v\d+)?(?:/(#.*))?";
         
-        private static readonly ResourceLink DummyPage = new ResourceLink("http://td/dummy", ResourceHandler.FromString(""));
+        private static readonly ResourceLink DummyPage = new ResourceLink("http://td/dummy", ResourceHandlers.ForString(string.Empty));
 
         public static bool CheckGuideUrl(string url, out string hash){
             if (!url.Contains("//tweetduck.chylex.com/guide")){

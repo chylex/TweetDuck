@@ -1,13 +1,14 @@
-﻿using CefSharp;
+﻿using System;
+using CefSharp;
 
 namespace TweetDuck.Browser.Data{
     sealed class ResourceLink{
         public string Url { get; }
-        public IResourceHandler Handler { get; }
+        public Func<IResourceHandler> Factory { get; }
 
-        public ResourceLink(string url, IResourceHandler handler){
+        public ResourceLink(string url, Func<IResourceHandler> factory){
             this.Url = url;
-            this.Handler = handler;
+            this.Factory = factory;
         }
     }
 }

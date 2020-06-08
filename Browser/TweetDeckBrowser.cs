@@ -137,7 +137,7 @@ namespace TweetDuck.Browser{
 
                 if (TwitterUrls.IsTwitter(url)){
                     string css = Program.Resources.Load("styles/twitter.css");
-                    resourceHandlers.Register(TwitterStyleUrl, ResourceHandler.FromString(css, mimeType: "text/css"));
+                    resourceHandlers.Register(TwitterStyleUrl, ResourceHandlers.ForString(css, "text/css"));
 
                     CefScriptExecutor.RunFile(frame, "twitter.js");
                 }
@@ -192,7 +192,7 @@ namespace TweetDuck.Browser{
                     string errorName = Enum.GetName(typeof(CefErrorCode), e.ErrorCode);
                     string errorTitle = StringUtils.ConvertPascalCaseToScreamingSnakeCase(errorName ?? string.Empty);
 
-                    resourceHandlers.Register(ErrorUrl, ResourceHandler.FromString(errorPage.Replace("{err}", errorTitle)));
+                    resourceHandlers.Register(ErrorUrl, ResourceHandlers.ForString(errorPage.Replace("{err}", errorTitle)));
                     browser.Load(ErrorUrl);
                 }
             }

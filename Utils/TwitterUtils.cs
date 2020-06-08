@@ -19,7 +19,7 @@ namespace TweetDuck.Utils{
         public static readonly Color BackgroundColor = Color.FromArgb(28, 99, 153);
         public const string BackgroundColorOverride = "setTimeout(function f(){let h=document.head;if(!h){setTimeout(f,5);return;}let e=document.createElement('style');e.innerHTML='body,body::before{background:#1c6399!important;margin:0}';h.appendChild(e);},1)";
 
-        public static readonly ResourceLink LoadingSpinner = new ResourceLink("https://ton.twimg.com/tduck/spinner", ResourceHandler.FromByteArray(Properties.Resources.spinner, "image/apng"));
+        public static readonly ResourceLink LoadingSpinner = new ResourceLink("https://ton.twimg.com/tduck/spinner", ResourceHandlers.ForBytes(Properties.Resources.spinner, "image/apng"));
         
         public static readonly string[] DictionaryWords = {
             "tweetdeck", "TweetDeck", "tweetduck", "TweetDuck", "TD"
