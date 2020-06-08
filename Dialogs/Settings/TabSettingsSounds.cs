@@ -72,6 +72,14 @@ namespace TweetDuck.Dialogs.Settings{
             };
 
             if (dialog.ShowDialog() == DialogResult.OK){
+                try{
+                    if (new FileInfo(dialog.FileName).Length > (1024 * 1024) && !FormMessage.Warning("Sound Notification", "The sound file is larger than 1 MB, this will cause increased memory usage. Use this file anyway?", FormMessage.Yes, FormMessage.No)){
+                        return;
+                    }
+                }catch{
+                    // ignore
+                }
+
                 tbCustomSound.Text = dialog.FileName;
             }
         }
