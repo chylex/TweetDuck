@@ -95,8 +95,9 @@
           html.find(".js-media").remove();
         }
         
-        html.find("a[data-full-url]").each(function(){ // bypass t.co on all links
+        html.find("a[data-full-url]").each(function(){ // bypass t.co on all links and fix tooltips
           this.href = this.getAttribute("data-full-url");
+          this.removeAttribute("title");
         });
         
         html.find("a[href='#']").each(function(){ // remove <a> tags around links that don't lead anywhere (such as account names the tweet replied to)
@@ -303,6 +304,8 @@ execSafe(function setupLinkExpansionOrTooltip(){
         }, 200);
       }
       else{
+        me.removeAttr("title");
+        
         tooltipTimer = window.setTimeout(function(){
           $TD.displayTooltip(me.attr("data-full-url"));
           tooltipDisplayed = true;
