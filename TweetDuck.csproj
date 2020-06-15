@@ -53,7 +53,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Application\LockHandler.cs" />
+    <Compile Include="Management\LockManager.cs" />
     <Compile Include="Application\SystemHandler.cs" />
     <Compile Include="Browser\Adapters\CefScriptExecutor.cs" />
     <Compile Include="Browser\Bridge\PropertyBridge.cs" />
