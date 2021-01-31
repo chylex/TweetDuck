@@ -7,6 +7,10 @@ bld/*
 !bld/*.bat
 !bld/Resources
 
+# Rider
+.idea/.idea.TweetDuck/.idea/dictionaries
+.idea/.idea.TweetDuck/.idea/misc.xml
+
 # User-specific files
 *.suo
 *.user
