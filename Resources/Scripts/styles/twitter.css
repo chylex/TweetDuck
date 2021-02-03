@@ -44,8 +44,8 @@
   border-radius: 0 !important;
 }
 
-body {
-  overflow: hidden !important;
+html, body {
+  overflow-y: auto !important;
 }
 
 .page-canvas, div[tweetduck-login-wrapper], body.ResponsiveLayout > div.PageContainer > div.Section {
@@ -70,11 +70,16 @@ button[type='submit'] {
 
 html[login] div[tweetduck-login-wrapper] {
   /* vertically center page & fix colors */
-  margin-top: calc(50vh - 200px);
+  margin-top: calc(50vh - 237px);
   padding: 26px 1.1vw;
+  max-width: 450px;
   background-color: white;
 }
 
 html[login] #tweetduck-helper:hover {
   text-decoration: underline;
+}
+
+html[logout] {
+  overflow: hidden !important;
 }

@@ -46,7 +46,7 @@
   if (isLogin){
     document.addEventListener("DOMContentLoaded", function(){
       triggerWhenExists("main h1", function(heading){
-        heading.parentNode.setAttribute("tweetduck-login-wrapper", "");
+        heading.parentNode.parentNode.setAttribute("tweetduck-login-wrapper", "");
         return true;
       });
       
