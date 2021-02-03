@@ -1,11 +1,11 @@
 using System.Reflection;
-using Version = TweetDuck.Version;
+using TweetDuck;
 
 [assembly: AssemblyVersion(Version.Tag)]
 [assembly: AssemblyFileVersion(Version.Tag)]
 
 namespace TweetDuck{
     internal static class Version{
-        public const string Tag = "1.19.0.2";
+        public const string Tag = "1.20";
     }
 }
