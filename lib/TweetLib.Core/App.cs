@@ -5,6 +5,8 @@ using TweetLib.Browser.Request;
 using TweetLib.Core.Application;
 using TweetLib.Core.Features;
 using TweetLib.Core.Features.Plugins;
+using TweetLib.Core.Resources;
+using TweetLib.Core.Systems.Api;
 using TweetLib.Core.Systems.Configuration;
 using TweetLib.Core.Systems.Logging;
 using TweetLib.Utils.Static;
@@ -21,8 +23,11 @@ namespace TweetLib.Core {
 		internal static readonly string PluginPath    = Path.Combine(ProgramPath, "plugins");
 		internal static readonly string GuidePath     = Path.Combine(ProgramPath, "guide");
 
-		public static readonly string StoragePath = IsPortable ? Path.Combine(ProgramPath, "portable", "storage") : GetDataFolder();
-		public static readonly string LogoPath    = Path.Combine(ResourcesPath, "images/logo.png");
+		public static readonly string ExtensionPath = Path.Combine(ProgramPath, "extensions");
+		public static readonly string StoragePath   = IsPortable ? Path.Combine(ProgramPath, "portable", "storage") : GetDataFolder();
+		public static readonly string LogoPath      = Path.Combine(ResourcesPath, "images/logo.png");
+
+		public static ApiImplementation Api { get; } = new ();
 
 		public static Logger Logger               { get; } = new (Path.Combine(StoragePath, "TD_Log.txt"), Setup.IsDebugLogging);
 		public static ConfigManager ConfigManager { get; } = Setup.CreateConfigManager(StoragePath);

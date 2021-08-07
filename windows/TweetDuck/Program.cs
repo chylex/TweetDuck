@@ -16,6 +16,7 @@ using TweetLib.Browser.CEF.Utils;
 using TweetLib.Browser.Request;
 using TweetLib.Core;
 using TweetLib.Core.Application;
+using TweetLib.Core.Features.Extensions;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Config;
 using TweetLib.Core.Features.TweetDeck;
@@ -137,6 +138,9 @@ namespace TweetDuck {
 				Cef.Initialize(settings, false, new BrowserProcessHandler());
 
 				Win.Application.ApplicationExit += static (_, _) => ExitCleanup();
+
+				ApiServices.Register();
+				ExtensionLoader.LoadAllInFolder(App.ExtensionPath);
 				var updateCheckClient = new UpdateCheckClient(Path.Combine(storagePath, InstallerFolder));
 				var mainForm = new FormBrowser(resourceCache, pluginManager, updateCheckClient, lockManager.WindowRestoreMessage);
 				Win.Application.Run(mainForm);

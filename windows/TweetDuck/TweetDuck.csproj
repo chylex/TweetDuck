@@ -40,6 +40,7 @@
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\..\lib\TweetLib.Api\TweetLib.Api.csproj" />
     <ProjectReference Include="..\..\lib\TweetLib.Browser.CEF\TweetLib.Browser.CEF.csproj" />
     <ProjectReference Include="..\..\lib\TweetLib.Browser\TweetLib.Browser.csproj" />
     <ProjectReference Include="..\..\lib\TweetLib.Communication\TweetLib.Communication.csproj" />
