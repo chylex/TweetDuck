@@ -1,5 +1,5 @@
-﻿namespace TweetLib.Core.Application{
-    public interface IAppResourceHandler{
-        string? Load(string path);
-    }
+﻿namespace TweetLib.Core.Application {
+	public interface IAppResourceHandler {
+		string? Load(string path);
+	}
 }

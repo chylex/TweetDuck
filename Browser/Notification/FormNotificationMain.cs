@@ -14,286 +14,284 @@ using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Enums;
 using TweetLib.Core.Features.Twitter;
 
-namespace TweetDuck.Browser.Notification{
-    abstract partial class FormNotificationMain : FormNotificationBase{
-        private readonly PluginManager plugins;
-        private readonly int timerBarHeight;
+namespace TweetDuck.Browser.Notification {
+	abstract partial class FormNotificationMain : FormNotificationBase {
+		private readonly PluginManager plugins;
+		private readonly int timerBarHeight;
 
-        protected int timeLeft, totalTime;
-        protected bool pausedDuringNotification;
-        
-        private readonly NativeMethods.HookProc mouseHookDelegate;
-        private IntPtr mouseHook;
-        private bool blockXButtonUp;
+		protected int timeLeft, totalTime;
+		protected bool pausedDuringNotification;
 
-        private int currentOpacity;
+		private readonly NativeMethods.HookProc mouseHookDelegate;
+		private IntPtr mouseHook;
+		private bool blockXButtonUp;
 
-        private bool? prevDisplayTimer;
-        private int? prevFontSize;
+		private int currentOpacity;
 
-        public virtual bool RequiresResize{
-            get{
-                return !prevDisplayTimer.HasValue || !prevFontSize.HasValue || prevDisplayTimer != Config.DisplayNotificationTimer || prevFontSize != FontSizeLevel;
-            }
+		private bool? prevDisplayTimer;
+		private int? prevFontSize;
 
-            set{
-                if (value){
-                    prevDisplayTimer = null;
-                    prevFontSize = null;
-                }
-                else{
-                    prevDisplayTimer = Config.DisplayNotificationTimer;
-                    prevFontSize = FontSizeLevel;
-                }
-            }
-        }
+		public virtual bool RequiresResize {
+			get { return !prevDisplayTimer.HasValue || !prevFontSize.HasValue || prevDisplayTimer != Config.DisplayNotificationTimer || prevFontSize != FontSizeLevel; }
 
-        private int BaseClientWidth{
-            get => Config.NotificationSize switch{
-                DesktopNotification.Size.Custom => Config.CustomNotificationSize.Width,
-                _ => BrowserUtils.Scale(284, SizeScale * (1.0 + 0.05 * FontSizeLevel))
-            };
-        }
+			set {
+				if (value) {
+					prevDisplayTimer = null;
+					prevFontSize = null;
+				}
+				else {
+					prevDisplayTimer = Config.DisplayNotificationTimer;
+					prevFontSize = FontSizeLevel;
+				}
+			}
+		}
 
-        private int BaseClientHeight{
-            get => Config.NotificationSize switch{
-                DesktopNotification.Size.Custom => Config.CustomNotificationSize.Height,
-                _ => BrowserUtils.Scale(122, SizeScale * (1.0 + 0.08 * FontSizeLevel))
-            };
-        }
+		private int BaseClientWidth {
+			get => Config.NotificationSize switch {
+				DesktopNotification.Size.Custom => Config.CustomNotificationSize.Width,
+				_                               => BrowserUtils.Scale(284, SizeScale * (1.0 + 0.05 * FontSizeLevel))
+			};
+		}
 
-        protected virtual string BodyClasses => IsCursorOverBrowser ? "td-notification td-hover" : "td-notification";
-        
-        public Size BrowserSize => Config.DisplayNotificationTimer ? new Size(ClientSize.Width, ClientSize.Height - timerBarHeight) : ClientSize;
+		private int BaseClientHeight {
+			get => Config.NotificationSize switch {
+				DesktopNotification.Size.Custom => Config.CustomNotificationSize.Height,
+				_                               => BrowserUtils.Scale(122, SizeScale * (1.0 + 0.08 * FontSizeLevel))
+			};
+		}
 
-        protected FormNotificationMain(FormBrowser owner, PluginManager pluginManager, bool enableContextMenu) : base(owner, enableContextMenu){
-            InitializeComponent();
+		protected virtual string BodyClasses => IsCursorOverBrowser ? "td-notification td-hover" : "td-notification";
 
-            this.plugins = pluginManager;
-            this.timerBarHeight = BrowserUtils.Scale(4, DpiScale);
-            
-            browser.KeyboardHandler = new KeyboardHandlerNotification(this);
-            browser.RegisterJsBridge("$TD", new TweetDeckBridge.Notification(owner, this));
+		public Size BrowserSize => Config.DisplayNotificationTimer ? new Size(ClientSize.Width, ClientSize.Height - timerBarHeight) : ClientSize;
 
-            browser.LoadingStateChanged += Browser_LoadingStateChanged;
-            browser.FrameLoadEnd += Browser_FrameLoadEnd;
+		protected FormNotificationMain(FormBrowser owner, PluginManager pluginManager, bool enableContextMenu) : base(owner, enableContextMenu) {
+			InitializeComponent();
 
-            plugins.Register(PluginEnvironment.Notification, new PluginDispatcher(browser, url => TwitterUrls.IsTweetDeck(url) && url != BlankURL));
+			this.plugins = pluginManager;
+			this.timerBarHeight = BrowserUtils.Scale(4, DpiScale);
 
-            mouseHookDelegate = MouseHookProc;
-            Disposed += (sender, args) => StopMouseHook(true);
-        }
+			browser.KeyboardHandler = new KeyboardHandlerNotification(this);
+			browser.RegisterJsBridge("$TD", new TweetDeckBridge.Notification(owner, this));
 
-        // helpers
+			browser.LoadingStateChanged += Browser_LoadingStateChanged;
+			browser.FrameLoadEnd += Browser_FrameLoadEnd;
 
-        private void SetOpacity(int opacity){
-            if (currentOpacity != opacity){
-                currentOpacity = opacity;
-                Opacity = opacity / 100.0;
-            }
-        }
+			plugins.Register(PluginEnvironment.Notification, new PluginDispatcher(browser, url => TwitterUrls.IsTweetDeck(url) && url != BlankURL));
 
-        // mouse wheel hook
+			mouseHookDelegate = MouseHookProc;
+			Disposed += (sender, args) => StopMouseHook(true);
+		}
 
-        private void StartMouseHook(){
-            if (mouseHook == IntPtr.Zero){
-                mouseHook = NativeMethods.SetWindowsHookEx(NativeMethods.WM_MOUSE_LL, mouseHookDelegate, IntPtr.Zero, 0);
-            }
-        }
+		// helpers
 
-        private void StopMouseHook(bool force){
-            if (mouseHook != IntPtr.Zero && (force || !blockXButtonUp)){
-                NativeMethods.UnhookWindowsHookEx(mouseHook);
-                mouseHook = IntPtr.Zero;
-                blockXButtonUp = false;
-            }
-        }
+		private void SetOpacity(int opacity) {
+			if (currentOpacity != opacity) {
+				currentOpacity = opacity;
+				Opacity = opacity / 100.0;
+			}
+		}
 
-        private IntPtr MouseHookProc(int nCode, IntPtr wParam, IntPtr lParam){
-            if (nCode == 0){
-                int eventType = wParam.ToInt32();
+		// mouse wheel hook
 
-                if (eventType == NativeMethods.WM_MOUSEWHEEL && IsCursorOverBrowser){
-                    int delta = BrowserUtils.Scale(NativeMethods.GetMouseHookData(lParam), Config.NotificationScrollSpeed * 0.01);
+		private void StartMouseHook() {
+			if (mouseHook == IntPtr.Zero) {
+				mouseHook = NativeMethods.SetWindowsHookEx(NativeMethods.WM_MOUSE_LL, mouseHookDelegate, IntPtr.Zero, 0);
+			}
+		}
 
-                    if (Config.EnableSmoothScrolling){
-                        browser.ExecuteScriptAsync("window.TDGF_scrollSmoothly", (int)Math.Round(-delta / 0.6));
-                    }
-                    else{
-                        browser.SendMouseWheelEvent(0, 0, 0, delta, CefEventFlags.None);
-                    }
+		private void StopMouseHook(bool force) {
+			if (mouseHook != IntPtr.Zero && (force || !blockXButtonUp)) {
+				NativeMethods.UnhookWindowsHookEx(mouseHook);
+				mouseHook = IntPtr.Zero;
+				blockXButtonUp = false;
+			}
+		}
 
-                    return NativeMethods.HOOK_HANDLED;
-                }
-                else if (eventType == NativeMethods.WM_XBUTTONDOWN && DesktopBounds.Contains(Cursor.Position)){
-                    int extraButton = NativeMethods.GetMouseHookData(lParam);
+		private IntPtr MouseHookProc(int nCode, IntPtr wParam, IntPtr lParam) {
+			if (nCode == 0) {
+				int eventType = wParam.ToInt32();
 
-                    if (extraButton == 2){ // forward button
-                        this.InvokeAsyncSafe(FinishCurrentNotification);
-                    }
-                    else if (extraButton == 1){ // back button
-                        this.InvokeAsyncSafe(Close);
-                    }
-                    
-                    blockXButtonUp = true;
-                    this.InvokeAsyncSafe(AnalyticsFile.NotificationExtraMouseButtons.Trigger);
-                    return NativeMethods.HOOK_HANDLED;
-                }
-                else if (eventType == NativeMethods.WM_XBUTTONUP && blockXButtonUp){
-                    blockXButtonUp = false;
+				if (eventType == NativeMethods.WM_MOUSEWHEEL && IsCursorOverBrowser) {
+					int delta = BrowserUtils.Scale(NativeMethods.GetMouseHookData(lParam), Config.NotificationScrollSpeed * 0.01);
 
-                    if (!Visible){
-                        StopMouseHook(false);
-                    }
+					if (Config.EnableSmoothScrolling) {
+						browser.ExecuteScriptAsync("window.TDGF_scrollSmoothly", (int) Math.Round(-delta / 0.6));
+					}
+					else {
+						browser.SendMouseWheelEvent(0, 0, 0, delta, CefEventFlags.None);
+					}
 
-                    return NativeMethods.HOOK_HANDLED;
-                }
-            }
+					return NativeMethods.HOOK_HANDLED;
+				}
+				else if (eventType == NativeMethods.WM_XBUTTONDOWN && DesktopBounds.Contains(Cursor.Position)) {
+					int extraButton = NativeMethods.GetMouseHookData(lParam);
 
-            return NativeMethods.CallNextHookEx(mouseHook, nCode, wParam, lParam);
-        }
+					if (extraButton == 2) { // forward button
+						this.InvokeAsyncSafe(FinishCurrentNotification);
+					}
+					else if (extraButton == 1) { // back button
+						this.InvokeAsyncSafe(Close);
+					}
 
-        // event handlers
+					blockXButtonUp = true;
+					this.InvokeAsyncSafe(AnalyticsFile.NotificationExtraMouseButtons.Trigger);
+					return NativeMethods.HOOK_HANDLED;
+				}
+				else if (eventType == NativeMethods.WM_XBUTTONUP && blockXButtonUp) {
+					blockXButtonUp = false;
 
-        private void FormNotification_FormClosing(object sender, FormClosingEventArgs e){
-            if (e.CloseReason == CloseReason.UserClosing){
-                HideNotification();
-                e.Cancel = true;
-            }
-        }
+					if (!Visible) {
+						StopMouseHook(false);
+					}
 
-        private void Browser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e){
-            if (!e.IsLoading && browser.Address != BlankURL){
-                this.InvokeSafe(() => {
-                    Visible = true; // ensures repaint before moving the window to a visible location
-                    timerDisplayDelay.Start();
-                });
-            }
-        }
+					return NativeMethods.HOOK_HANDLED;
+				}
+			}
 
-        private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
-            IFrame frame = e.Frame;
+			return NativeMethods.CallNextHookEx(mouseHook, nCode, wParam, lParam);
+		}
 
-            if (frame.IsMain && browser.Address != BlankURL){
-                frame.ExecuteJavaScriptAsync(PropertyBridge.GenerateScript(PropertyBridge.Environment.Notification));
-                CefScriptExecutor.RunFile(frame, "notification.js");
-            }
-        }
+		// event handlers
 
-        private void timerDisplayDelay_Tick(object sender, EventArgs e){
-            OnNotificationReady();
-            timerDisplayDelay.Stop();
-        }
+		private void FormNotification_FormClosing(object sender, FormClosingEventArgs e) {
+			if (e.CloseReason == CloseReason.UserClosing) {
+				HideNotification();
+				e.Cancel = true;
+			}
+		}
 
-        private void timerHideProgress_Tick(object sender, EventArgs e){
-            bool isCursorInside = Bounds.Contains(Cursor.Position);
+		private void Browser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e) {
+			if (!e.IsLoading && browser.Address != BlankURL) {
+				this.InvokeSafe(() => {
+					Visible = true; // ensures repaint before moving the window to a visible location
+					timerDisplayDelay.Start();
+				});
+			}
+		}
 
-            if (isCursorInside){
-                StartMouseHook();
-                SetOpacity(100);
-            }
-            else{
-                StopMouseHook(false);
-                SetOpacity(Config.NotificationWindowOpacity);
-            }
+		private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e) {
+			IFrame frame = e.Frame;
 
-            if (isCursorInside || FreezeTimer || ContextMenuOpen){
-                return;
-            }
+			if (frame.IsMain && browser.Address != BlankURL) {
+				frame.ExecuteJavaScriptAsync(PropertyBridge.GenerateScript(PropertyBridge.Environment.Notification));
+				CefScriptExecutor.RunFile(frame, "notification.js");
+			}
+		}
 
-            timeLeft -= timerProgress.Interval;
+		private void timerDisplayDelay_Tick(object sender, EventArgs e) {
+			OnNotificationReady();
+			timerDisplayDelay.Stop();
+		}
 
-            int value = BrowserUtils.Scale(progressBarTimer.Maximum + 25, (totalTime - timeLeft) / (double)totalTime);
-            progressBarTimer.SetValueInstant(Config.NotificationTimerCountDown ? progressBarTimer.Maximum - value : value);
+		private void timerHideProgress_Tick(object sender, EventArgs e) {
+			bool isCursorInside = Bounds.Contains(Cursor.Position);
 
-            if (timeLeft <= 0){
-                FinishCurrentNotification();
-            }
-        }
+			if (isCursorInside) {
+				StartMouseHook();
+				SetOpacity(100);
+			}
+			else {
+				StopMouseHook(false);
+				SetOpacity(Config.NotificationWindowOpacity);
+			}
 
-        // notification methods
+			if (isCursorInside || FreezeTimer || ContextMenuOpen) {
+				return;
+			}
 
-        public virtual void ShowNotification(DesktopNotification notification){
-            LoadTweet(notification);
-        }
+			timeLeft -= timerProgress.Interval;
 
-        public override void HideNotification(){
-            base.HideNotification();
-            
-            progressBarTimer.Value = Config.NotificationTimerCountDown ? progressBarTimer.Maximum : progressBarTimer.Minimum;
-            timerProgress.Stop();
-            totalTime = 0;
+			int value = BrowserUtils.Scale(progressBarTimer.Maximum + 25, (totalTime - timeLeft) / (double) totalTime);
+			progressBarTimer.SetValueInstant(Config.NotificationTimerCountDown ? progressBarTimer.Maximum - value : value);
 
-            StopMouseHook(false);
-        }
+			if (timeLeft <= 0) {
+				FinishCurrentNotification();
+			}
+		}
 
-        public override void FinishCurrentNotification(){
-            timerProgress.Stop();
-        }
+		// notification methods
 
-        public override void PauseNotification(){
-            if (!IsPaused){
-                pausedDuringNotification = IsNotificationVisible;
-                timerProgress.Stop();
-                StopMouseHook(true);
-            }
+		public virtual void ShowNotification(DesktopNotification notification) {
+			LoadTweet(notification);
+		}
 
-            base.PauseNotification();
-        }
+		public override void HideNotification() {
+			base.HideNotification();
 
-        public override void ResumeNotification(){
-            bool wasPaused = IsPaused;
-            base.ResumeNotification();
+			progressBarTimer.Value = Config.NotificationTimerCountDown ? progressBarTimer.Maximum : progressBarTimer.Minimum;
+			timerProgress.Stop();
+			totalTime = 0;
 
-            if (wasPaused && !IsPaused && pausedDuringNotification){
-                OnNotificationReady();
-            }
-        }
+			StopMouseHook(false);
+		}
 
-        protected override string GetTweetHTML(DesktopNotification tweet){
-            string html = tweet.GenerateHtml(BodyClasses, HeadLayout, Config.CustomNotificationCSS);
+		public override void FinishCurrentNotification() {
+			timerProgress.Stop();
+		}
 
-            foreach(InjectedHTML injection in plugins.NotificationInjections){
-                html = injection.InjectInto(html);
-            }
+		public override void PauseNotification() {
+			if (!IsPaused) {
+				pausedDuringNotification = IsNotificationVisible;
+				timerProgress.Stop();
+				StopMouseHook(true);
+			}
 
-            return html;
-        }
+			base.PauseNotification();
+		}
 
-        protected override void LoadTweet(DesktopNotification tweet){
-            timerProgress.Stop();
-            totalTime = timeLeft = tweet.GetDisplayDuration(Config.NotificationDurationValue);
-            progressBarTimer.Value = Config.NotificationTimerCountDown ? progressBarTimer.Maximum : progressBarTimer.Minimum;
+		public override void ResumeNotification() {
+			bool wasPaused = IsPaused;
+			base.ResumeNotification();
 
-            base.LoadTweet(tweet);
-        }
+			if (wasPaused && !IsPaused && pausedDuringNotification) {
+				OnNotificationReady();
+			}
+		}
 
-        protected override void SetNotificationSize(int width, int height){
-            if (Config.DisplayNotificationTimer){
-                ClientSize = new Size(width, height + timerBarHeight);
-                progressBarTimer.Visible = true;
-            }
-            else{
-                ClientSize = new Size(width, height);
-                progressBarTimer.Visible = false;
-            }
+		protected override string GetTweetHTML(DesktopNotification tweet) {
+			string html = tweet.GenerateHtml(BodyClasses, HeadLayout, Config.CustomNotificationCSS);
 
-            browser.ClientSize = new Size(width, height);
-        }
-        
-        protected void PrepareAndDisplayWindow(){
-            if (RequiresResize){
-                RequiresResize = false;
-                SetNotificationSize(BaseClientWidth, BaseClientHeight);
-            }
+			foreach (InjectedHTML injection in plugins.NotificationInjections) {
+				html = injection.InjectInto(html);
+			}
 
-            SetOpacity(IsCursorOverBrowser ? 100 : Config.NotificationWindowOpacity);
-            MoveToVisibleLocation();
-        }
+			return html;
+		}
 
-        protected virtual void OnNotificationReady(){
-            PrepareAndDisplayWindow();
-            timerProgress.Start();
-        }
-    }
+		protected override void LoadTweet(DesktopNotification tweet) {
+			timerProgress.Stop();
+			totalTime = timeLeft = tweet.GetDisplayDuration(Config.NotificationDurationValue);
+			progressBarTimer.Value = Config.NotificationTimerCountDown ? progressBarTimer.Maximum : progressBarTimer.Minimum;
+
+			base.LoadTweet(tweet);
+		}
+
+		protected override void SetNotificationSize(int width, int height) {
+			if (Config.DisplayNotificationTimer) {
+				ClientSize = new Size(width, height + timerBarHeight);
+				progressBarTimer.Visible = true;
+			}
+			else {
+				ClientSize = new Size(width, height);
+				progressBarTimer.Visible = false;
+			}
+
+			browser.ClientSize = new Size(width, height);
+		}
+
+		protected void PrepareAndDisplayWindow() {
+			if (RequiresResize) {
+				RequiresResize = false;
+				SetNotificationSize(BaseClientWidth, BaseClientHeight);
+			}
+
+			SetOpacity(IsCursorOverBrowser ? 100 : Config.NotificationWindowOpacity);
+			MoveToVisibleLocation();
+		}
+
+		protected virtual void OnNotificationReady() {
+			PrepareAndDisplayWindow();
+			timerProgress.Start();
+		}
+	}
 }

@@ -3,92 +3,92 @@ using System.IO;
 using System.Net;
 using TweetLib.Core.Utils;
 
-namespace TweetLib.Core.Systems.Updates{
-    public sealed class UpdateInfo{
-        public string VersionTag { get; }
-        public string ReleaseNotes { get; }
-        public string InstallerPath { get; }
-        
-        public UpdateDownloadStatus DownloadStatus { get; private set; }
-        public Exception? DownloadError { get; private set; }
+namespace TweetLib.Core.Systems.Updates {
+	public sealed class UpdateInfo {
+		public string VersionTag { get; }
+		public string ReleaseNotes { get; }
+		public string InstallerPath { get; }
 
-        private readonly string downloadUrl;
-        private readonly string installerFolder;
-        private WebClient? currentDownload;
+		public UpdateDownloadStatus DownloadStatus { get; private set; }
+		public Exception? DownloadError { get; private set; }
 
-        public UpdateInfo(string versionTag, string releaseNotes, string downloadUrl, string installerFolder){
-            this.downloadUrl = downloadUrl;
-            this.installerFolder = installerFolder;
-            
-            this.VersionTag = versionTag;
-            this.ReleaseNotes = releaseNotes;
-            this.InstallerPath = Path.Combine(installerFolder, $"{Lib.BrandName}.{versionTag}.exe");
-        }
+		private readonly string downloadUrl;
+		private readonly string installerFolder;
+		private WebClient? currentDownload;
 
-        public void BeginSilentDownload(){
-            if (FileUtils.FileExistsAndNotEmpty(InstallerPath)){
-                DownloadStatus = UpdateDownloadStatus.Done;
-                return;
-            }
+		public UpdateInfo(string versionTag, string releaseNotes, string downloadUrl, string installerFolder) {
+			this.downloadUrl = downloadUrl;
+			this.installerFolder = installerFolder;
 
-            if (DownloadStatus == UpdateDownloadStatus.None || DownloadStatus == UpdateDownloadStatus.Failed){
-                DownloadStatus = UpdateDownloadStatus.InProgress;
+			this.VersionTag = versionTag;
+			this.ReleaseNotes = releaseNotes;
+			this.InstallerPath = Path.Combine(installerFolder, $"{Lib.BrandName}.{versionTag}.exe");
+		}
 
-                if (string.IsNullOrEmpty(downloadUrl)){
-                    DownloadError = new InvalidDataException("Missing installer asset.");
-                    DownloadStatus = UpdateDownloadStatus.AssetMissing;
-                    return;
-                }
+		public void BeginSilentDownload() {
+			if (FileUtils.FileExistsAndNotEmpty(InstallerPath)) {
+				DownloadStatus = UpdateDownloadStatus.Done;
+				return;
+			}
 
-                try{
-                    Directory.CreateDirectory(installerFolder);
-                }catch(Exception e){
-                    DownloadError = e;
-                    DownloadStatus = UpdateDownloadStatus.Failed;
-                    return;
-                }
+			if (DownloadStatus == UpdateDownloadStatus.None || DownloadStatus == UpdateDownloadStatus.Failed) {
+				DownloadStatus = UpdateDownloadStatus.InProgress;
 
-                WebClient client = WebUtils.NewClient($"{Lib.BrandName} {TweetDuck.Version.Tag}");
+				if (string.IsNullOrEmpty(downloadUrl)) {
+					DownloadError = new InvalidDataException("Missing installer asset.");
+					DownloadStatus = UpdateDownloadStatus.AssetMissing;
+					return;
+				}
 
-                client.DownloadFileCompleted += WebUtils.FileDownloadCallback(InstallerPath, () => {
-                    DownloadStatus = UpdateDownloadStatus.Done;
-                    currentDownload = null;
-                }, e => {
-                    DownloadError = e;
-                    DownloadStatus = UpdateDownloadStatus.Failed;
-                    currentDownload = null;
-                });
+				try {
+					Directory.CreateDirectory(installerFolder);
+				} catch (Exception e) {
+					DownloadError = e;
+					DownloadStatus = UpdateDownloadStatus.Failed;
+					return;
+				}
 
-                client.DownloadFileAsync(new Uri(downloadUrl), InstallerPath);
-            }
-        }
+				WebClient client = WebUtils.NewClient($"{Lib.BrandName} {TweetDuck.Version.Tag}");
 
-        public void DeleteInstaller(){
-            DownloadStatus = UpdateDownloadStatus.None;
+				client.DownloadFileCompleted += WebUtils.FileDownloadCallback(InstallerPath, () => {
+					DownloadStatus = UpdateDownloadStatus.Done;
+					currentDownload = null;
+				}, e => {
+					DownloadError = e;
+					DownloadStatus = UpdateDownloadStatus.Failed;
+					currentDownload = null;
+				});
 
-            if (currentDownload != null && currentDownload.IsBusy){
-                currentDownload.CancelAsync(); // deletes file when cancelled
-                return;
-            }
+				client.DownloadFileAsync(new Uri(downloadUrl), InstallerPath);
+			}
+		}
 
-            try{
-                File.Delete(InstallerPath);
-            }catch{
-                // rip
-            }
-        }
+		public void DeleteInstaller() {
+			DownloadStatus = UpdateDownloadStatus.None;
 
-        public void CancelDownload(){
-            DeleteInstaller();
-            DownloadStatus = UpdateDownloadStatus.Canceled;
-        }
+			if (currentDownload != null && currentDownload.IsBusy) {
+				currentDownload.CancelAsync(); // deletes file when cancelled
+				return;
+			}
 
-        public override bool Equals(object obj){
-            return obj is UpdateInfo info && VersionTag == info.VersionTag;
-        }
+			try {
+				File.Delete(InstallerPath);
+			} catch {
+				// rip
+			}
+		}
 
-        public override int GetHashCode(){
-            return VersionTag.GetHashCode();
-        }
-    }
+		public void CancelDownload() {
+			DeleteInstaller();
+			DownloadStatus = UpdateDownloadStatus.Canceled;
+		}
+
+		public override bool Equals(object obj) {
+			return obj is UpdateInfo info && VersionTag == info.VersionTag;
+		}
+
+		public override int GetHashCode() {
+			return VersionTag.GetHashCode();
+		}
+	}
 }

@@ -7,169 +7,168 @@ using TweetDuck.Management;
 using TweetDuck.Utils;
 using TweetLib.Core;
 
-namespace TweetDuck.Dialogs.Settings{
-    sealed partial class TabSettingsAdvanced : FormSettings.BaseTab{
-        private readonly Action<string> reinjectBrowserCSS;
-        private readonly Action openDevTools;
+namespace TweetDuck.Dialogs.Settings {
+	sealed partial class TabSettingsAdvanced : FormSettings.BaseTab {
+		private readonly Action<string> reinjectBrowserCSS;
+		private readonly Action openDevTools;
 
-        public TabSettingsAdvanced(Action<string> reinjectBrowserCSS, Action openDevTools){
-            InitializeComponent();
+		public TabSettingsAdvanced(Action<string> reinjectBrowserCSS, Action openDevTools) {
+			InitializeComponent();
 
-            this.reinjectBrowserCSS = reinjectBrowserCSS;
-            this.openDevTools = openDevTools;
+			this.reinjectBrowserCSS = reinjectBrowserCSS;
+			this.openDevTools = openDevTools;
 
-            // application
-            
-            toolTip.SetToolTip(btnOpenAppFolder, "Opens the folder where the app is located.");
-            toolTip.SetToolTip(btnOpenDataFolder, "Opens the folder where your profile data is located.");
-            toolTip.SetToolTip(btnRestart, "Restarts the program using the same command\r\nline arguments that were used at launch.");
-            toolTip.SetToolTip(btnRestartArgs, "Restarts the program with customizable\r\ncommand line arguments.");
+			// application
 
-            // browser cache
+			toolTip.SetToolTip(btnOpenAppFolder, "Opens the folder where the app is located.");
+			toolTip.SetToolTip(btnOpenDataFolder, "Opens the folder where your profile data is located.");
+			toolTip.SetToolTip(btnRestart, "Restarts the program using the same command\r\nline arguments that were used at launch.");
+			toolTip.SetToolTip(btnRestartArgs, "Restarts the program with customizable\r\ncommand line arguments.");
 
-            toolTip.SetToolTip(btnClearCache, "Clearing cache will free up space taken by downloaded images and other resources.");
-            toolTip.SetToolTip(checkClearCacheAuto, "Automatically clears cache when its size exceeds the set threshold. Note that cache can only be cleared when closing TweetDuck.");
+			// browser cache
 
-            checkClearCacheAuto.Checked = SysConfig.ClearCacheAutomatically;
-            numClearCacheThreshold.Enabled = checkClearCacheAuto.Checked;
-            numClearCacheThreshold.SetValueSafe(SysConfig.ClearCacheThreshold);
-            
-            BrowserCache.GetCacheSize(task => {
-                string text = task.Status == TaskStatus.RanToCompletion ? (int)Math.Ceiling(task.Result / (1024.0 * 1024.0)) + " MB" : "unknown";
-                this.InvokeSafe(() => btnClearCache.Text = $"Clear Cache ({text})");
-            });
+			toolTip.SetToolTip(btnClearCache, "Clearing cache will free up space taken by downloaded images and other resources.");
+			toolTip.SetToolTip(checkClearCacheAuto, "Automatically clears cache when its size exceeds the set threshold. Note that cache can only be cleared when closing TweetDuck.");
 
-            // configuration
+			checkClearCacheAuto.Checked = SysConfig.ClearCacheAutomatically;
+			numClearCacheThreshold.Enabled = checkClearCacheAuto.Checked;
+			numClearCacheThreshold.SetValueSafe(SysConfig.ClearCacheThreshold);
 
-            toolTip.SetToolTip(btnEditCefArgs, "Set custom command line arguments for Chromium Embedded Framework.");
-            toolTip.SetToolTip(btnEditCSS, "Set custom CSS for browser and notification windows.");
+			BrowserCache.GetCacheSize(task => {
+				string text = task.Status == TaskStatus.RanToCompletion ? (int) Math.Ceiling(task.Result / (1024.0 * 1024.0)) + " MB" : "unknown";
+				this.InvokeSafe(() => btnClearCache.Text = $"Clear Cache ({text})");
+			});
 
-            // development tools
+			// configuration
 
-            toolTip.SetToolTip(checkDevToolsWindowOnTop, "Sets whether dev tool windows appears on top of other windows.");
+			toolTip.SetToolTip(btnEditCefArgs, "Set custom command line arguments for Chromium Embedded Framework.");
+			toolTip.SetToolTip(btnEditCSS, "Set custom CSS for browser and notification windows.");
 
-            checkDevToolsWindowOnTop.Checked = Config.DevToolsWindowOnTop;
+			// development tools
 
-            if (!BrowserUtils.HasDevTools){
-                checkDevToolsWindowOnTop.Enabled = false;
-            }
-        }
+			toolTip.SetToolTip(checkDevToolsWindowOnTop, "Sets whether dev tool windows appears on top of other windows.");
 
-        public override void OnReady(){
-            btnOpenAppFolder.Click += btnOpenAppFolder_Click;
-            btnOpenDataFolder.Click += btnOpenDataFolder_Click;
-            btnRestart.Click += btnRestart_Click;
-            btnRestartArgs.Click += btnRestartArgs_Click;
+			checkDevToolsWindowOnTop.Checked = Config.DevToolsWindowOnTop;
 
-            btnClearCache.Click += btnClearCache_Click;
-            checkClearCacheAuto.CheckedChanged += checkClearCacheAuto_CheckedChanged;
-            
-            btnEditCefArgs.Click += btnEditCefArgs_Click;
-            btnEditCSS.Click += btnEditCSS_Click;
+			if (!BrowserUtils.HasDevTools) {
+				checkDevToolsWindowOnTop.Enabled = false;
+			}
+		}
 
-            checkDevToolsWindowOnTop.CheckedChanged += checkDevToolsWindowOnTop_CheckedChanged;
-        }
+		public override void OnReady() {
+			btnOpenAppFolder.Click += btnOpenAppFolder_Click;
+			btnOpenDataFolder.Click += btnOpenDataFolder_Click;
+			btnRestart.Click += btnRestart_Click;
+			btnRestartArgs.Click += btnRestartArgs_Click;
 
-        public override void OnClosing(){
-            SysConfig.ClearCacheAutomatically = checkClearCacheAuto.Checked;
-            SysConfig.ClearCacheThreshold = (int)numClearCacheThreshold.Value;
-        }
+			btnClearCache.Click += btnClearCache_Click;
+			checkClearCacheAuto.CheckedChanged += checkClearCacheAuto_CheckedChanged;
 
-        #region Application
-        
-        private void btnOpenAppFolder_Click(object sender, EventArgs e){
-            App.SystemHandler.OpenFileExplorer(Program.ProgramPath);
-        }
+			btnEditCefArgs.Click += btnEditCefArgs_Click;
+			btnEditCSS.Click += btnEditCSS_Click;
 
-        private void btnOpenDataFolder_Click(object sender, EventArgs e){
-            App.SystemHandler.OpenFileExplorer(Program.StoragePath);
-        }
+			checkDevToolsWindowOnTop.CheckedChanged += checkDevToolsWindowOnTop_CheckedChanged;
+		}
 
-        private void btnRestart_Click(object sender, EventArgs e){
-            Program.Restart();
-        }
+		public override void OnClosing() {
+			SysConfig.ClearCacheAutomatically = checkClearCacheAuto.Checked;
+			SysConfig.ClearCacheThreshold = (int) numClearCacheThreshold.Value;
+		}
 
-        private void btnRestartArgs_Click(object sender, EventArgs e){
-            using DialogSettingsRestart dialog = new DialogSettingsRestart(Arguments.GetCurrentClean());
+		#region Application
 
-            if (dialog.ShowDialog() == DialogResult.OK){
-                Program.RestartWithArgs(dialog.Args);
-            }
-        }
+		private void btnOpenAppFolder_Click(object sender, EventArgs e) {
+			App.SystemHandler.OpenFileExplorer(Program.ProgramPath);
+		}
 
-        #endregion
-        #region Browser Cache
+		private void btnOpenDataFolder_Click(object sender, EventArgs e) {
+			App.SystemHandler.OpenFileExplorer(Program.StoragePath);
+		}
 
-        private void btnClearCache_Click(object sender, EventArgs e){
-            btnClearCache.Enabled = false;
-            BrowserCache.SetClearOnExit();
-            FormMessage.Information("Clear Cache", "Cache will be automatically cleared when TweetDuck exits.", FormMessage.OK);
-        }
+		private void btnRestart_Click(object sender, EventArgs e) {
+			Program.Restart();
+		}
 
-        private void checkClearCacheAuto_CheckedChanged(object sender, EventArgs e){
-            numClearCacheThreshold.Enabled = checkClearCacheAuto.Checked;
-        }
+		private void btnRestartArgs_Click(object sender, EventArgs e) {
+			using DialogSettingsRestart dialog = new DialogSettingsRestart(Arguments.GetCurrentClean());
 
-        #endregion
-        #region Configuration
+			if (dialog.ShowDialog() == DialogResult.OK) {
+				Program.RestartWithArgs(dialog.Args);
+			}
+		}
 
-        private void btnEditCefArgs_Click(object sender, EventArgs e){
-            DialogSettingsCefArgs form = new DialogSettingsCefArgs(Config.CustomCefArgs);
+		#endregion
 
-            form.VisibleChanged += (sender2, args2) => {
-                form.MoveToCenter(ParentForm);
-            };
+		#region Browser Cache
 
-            form.FormClosed += (sender2, args2) => {
-                RestoreParentForm();
+		private void btnClearCache_Click(object sender, EventArgs e) {
+			btnClearCache.Enabled = false;
+			BrowserCache.SetClearOnExit();
+			FormMessage.Information("Clear Cache", "Cache will be automatically cleared when TweetDuck exits.", FormMessage.OK);
+		}
 
-                if (form.DialogResult == DialogResult.OK){
-                    Config.CustomCefArgs = form.CefArgs;
-                }
+		private void checkClearCacheAuto_CheckedChanged(object sender, EventArgs e) {
+			numClearCacheThreshold.Enabled = checkClearCacheAuto.Checked;
+		}
 
-                form.Dispose();
-            };
-            
-            form.Show(ParentForm);
-            NativeMethods.SetFormDisabled(ParentForm, true);
-        }
+		#endregion
 
-        private void btnEditCSS_Click(object sender, EventArgs e){
-            DialogSettingsCSS form = new DialogSettingsCSS(Config.CustomBrowserCSS, Config.CustomNotificationCSS, reinjectBrowserCSS, openDevTools);
+		#region Configuration
 
-            form.VisibleChanged += (sender2, args2) => {
-                form.MoveToCenter(ParentForm);
-            };
+		private void btnEditCefArgs_Click(object sender, EventArgs e) {
+			DialogSettingsCefArgs form = new DialogSettingsCefArgs(Config.CustomCefArgs);
 
-            form.FormClosed += (sender2, args2) => {
-                RestoreParentForm();
+			form.VisibleChanged += (sender2, args2) => { form.MoveToCenter(ParentForm); };
 
-                if (form.DialogResult == DialogResult.OK){
-                    Config.CustomBrowserCSS = form.BrowserCSS;
-                    Config.CustomNotificationCSS = form.NotificationCSS;
-                }
+			form.FormClosed += (sender2, args2) => {
+				RestoreParentForm();
 
-                reinjectBrowserCSS(Config.CustomBrowserCSS); // reinject on cancel too, because the CSS is updated while typing
-                form.Dispose();
-            };
-            
-            form.Show(ParentForm);
-            NativeMethods.SetFormDisabled(ParentForm, true);
-        }
+				if (form.DialogResult == DialogResult.OK) {
+					Config.CustomCefArgs = form.CefArgs;
+				}
 
-        private void RestoreParentForm(){
-            if (ParentForm != null){ // when the parent is closed first, ParentForm is null in FormClosed event
-                NativeMethods.SetFormDisabled(ParentForm, false);
-            }
-        }
+				form.Dispose();
+			};
 
-        #endregion
-        #region Development Tools
+			form.Show(ParentForm);
+			NativeMethods.SetFormDisabled(ParentForm, true);
+		}
 
-        private void checkDevToolsWindowOnTop_CheckedChanged(object sender, EventArgs e){
-            Config.DevToolsWindowOnTop = checkDevToolsWindowOnTop.Checked;
-        }
+		private void btnEditCSS_Click(object sender, EventArgs e) {
+			DialogSettingsCSS form = new DialogSettingsCSS(Config.CustomBrowserCSS, Config.CustomNotificationCSS, reinjectBrowserCSS, openDevTools);
 
-        #endregion
-    }
+			form.VisibleChanged += (sender2, args2) => { form.MoveToCenter(ParentForm); };
+
+			form.FormClosed += (sender2, args2) => {
+				RestoreParentForm();
+
+				if (form.DialogResult == DialogResult.OK) {
+					Config.CustomBrowserCSS = form.BrowserCSS;
+					Config.CustomNotificationCSS = form.NotificationCSS;
+				}
+
+				reinjectBrowserCSS(Config.CustomBrowserCSS); // reinject on cancel too, because the CSS is updated while typing
+				form.Dispose();
+			};
+
+			form.Show(ParentForm);
+			NativeMethods.SetFormDisabled(ParentForm, true);
+		}
+
+		private void RestoreParentForm() {
+			if (ParentForm != null) { // when the parent is closed first, ParentForm is null in FormClosed event
+				NativeMethods.SetFormDisabled(ParentForm, false);
+			}
+		}
+
+		#endregion
+
+		#region Development Tools
+
+		private void checkDevToolsWindowOnTop_CheckedChanged(object sender, EventArgs e) {
+			Config.DevToolsWindowOnTop = checkDevToolsWindowOnTop.Checked;
+		}
+
+		#endregion
+	}
 }

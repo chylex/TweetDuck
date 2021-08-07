@@ -12,150 +12,150 @@ using TweetDuck.Utils;
 using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Utils;
 
-namespace TweetDuck.Browser.Bridge{
-    [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    class TweetDeckBridge{
-        public static void ResetStaticProperties(){
-            FormNotificationBase.FontSize = null;
-            FormNotificationBase.HeadLayout = null;
-        }
+namespace TweetDuck.Browser.Bridge {
+	[SuppressMessage("ReSharper", "UnusedMember.Global")]
+	class TweetDeckBridge {
+		public static void ResetStaticProperties() {
+			FormNotificationBase.FontSize = null;
+			FormNotificationBase.HeadLayout = null;
+		}
 
-        private readonly FormBrowser form;
-        private readonly FormNotificationMain notification;
+		private readonly FormBrowser form;
+		private readonly FormNotificationMain notification;
 
-        protected TweetDeckBridge(FormBrowser form, FormNotificationMain notification){
-            this.form = form;
-            this.notification = notification;
-        }
+		private TweetDeckBridge(FormBrowser form, FormNotificationMain notification) {
+			this.form = form;
+			this.notification = notification;
+		}
 
-        // Browser only
+		// Browser only
 
-        public sealed class Browser : TweetDeckBridge{
-            public Browser(FormBrowser form, FormNotificationMain notification) : base(form, notification){}
+		public sealed class Browser : TweetDeckBridge {
+			public Browser(FormBrowser form, FormNotificationMain notification) : base(form, notification) {}
 
-            public void OpenContextMenu(){
-                form.InvokeAsyncSafe(form.OpenContextMenu);
-            }
+			public void OpenContextMenu() {
+				form.InvokeAsyncSafe(form.OpenContextMenu);
+			}
 
-            public void OpenProfileImport(){
-                form.InvokeAsyncSafe(form.OpenProfileImport);
-            }
-            
-            public void OnIntroductionClosed(bool showGuide, bool allowDataCollection){
-                form.InvokeAsyncSafe(() => form.OnIntroductionClosed(showGuide, allowDataCollection));
-            }
+			public void OpenProfileImport() {
+				form.InvokeAsyncSafe(form.OpenProfileImport);
+			}
 
-            public void LoadNotificationLayout(string fontSize, string headLayout){
-                form.InvokeAsyncSafe(() => {
-                    FormNotificationBase.FontSize = fontSize;
-                    FormNotificationBase.HeadLayout = headLayout;
-                });
-            }
+			public void OnIntroductionClosed(bool showGuide, bool allowDataCollection) {
+				form.InvokeAsyncSafe(() => form.OnIntroductionClosed(showGuide, allowDataCollection));
+			}
 
-            public void SetRightClickedLink(string type, string url){
-                ContextMenuBase.CurrentInfo.SetLink(type, url);
-            }
+			public void LoadNotificationLayout(string fontSize, string headLayout) {
+				form.InvokeAsyncSafe(() => {
+					FormNotificationBase.FontSize = fontSize;
+					FormNotificationBase.HeadLayout = headLayout;
+				});
+			}
 
-            public void SetRightClickedChirp(string tweetUrl, string quoteUrl, string chirpAuthors, string chirpImages){
-                ContextMenuBase.CurrentInfo.SetChirp(tweetUrl, quoteUrl, chirpAuthors, chirpImages);
-            }
+			public void SetRightClickedLink(string type, string url) {
+				ContextMenuBase.CurrentInfo.SetLink(type, url);
+			}
 
-            public void DisplayTooltip(string text){
-                form.InvokeAsyncSafe(() => form.DisplayTooltip(text));
-            }
-        }
+			public void SetRightClickedChirp(string tweetUrl, string quoteUrl, string chirpAuthors, string chirpImages) {
+				ContextMenuBase.CurrentInfo.SetChirp(tweetUrl, quoteUrl, chirpAuthors, chirpImages);
+			}
 
-        // Notification only
-        
-        public sealed class Notification : TweetDeckBridge{
-            public Notification(FormBrowser form, FormNotificationMain notification) : base(form, notification){}
+			public void DisplayTooltip(string text) {
+				form.InvokeAsyncSafe(() => form.DisplayTooltip(text));
+			}
+		}
 
-            public void DisplayTooltip(string text){
-                notification.InvokeAsyncSafe(() => notification.DisplayTooltip(text));
-            }
+		// Notification only
 
-            public void LoadNextNotification(){
-                notification.InvokeAsyncSafe(notification.FinishCurrentNotification);
-            }
+		public sealed class Notification : TweetDeckBridge {
+			public Notification(FormBrowser form, FormNotificationMain notification) : base(form, notification) {}
 
-            public void ShowTweetDetail(){
-                notification.InvokeAsyncSafe(notification.ShowTweetDetail);
-            }
-        }
+			public void DisplayTooltip(string text) {
+				notification.InvokeAsyncSafe(() => notification.DisplayTooltip(text));
+			}
 
-        // Global
+			public void LoadNextNotification() {
+				notification.InvokeAsyncSafe(notification.FinishCurrentNotification);
+			}
 
-        public void OnTweetPopup(string columnId, string chirpId, string columnName, string tweetHtml, int tweetCharacters, string tweetUrl, string quoteUrl){
-            notification.InvokeAsyncSafe(() => {
-                form.OnTweetNotification();
-                notification.ShowNotification(new DesktopNotification(columnId, chirpId, columnName, tweetHtml, tweetCharacters, tweetUrl, quoteUrl));
-            });
-        }
+			public void ShowTweetDetail() {
+				notification.InvokeAsyncSafe(notification.ShowTweetDetail);
+			}
+		}
 
-        public void OnTweetSound(){
-            form.InvokeAsyncSafe(() => {
-                form.OnTweetNotification();
-                form.OnTweetSound();
-            });
-        }
+		// Global
 
-        public void ScreenshotTweet(string html, int width){
-            form.InvokeAsyncSafe(() => form.OnTweetScreenshotReady(html, width));
-        }
+		public void OnTweetPopup(string columnId, string chirpId, string columnName, string tweetHtml, int tweetCharacters, string tweetUrl, string quoteUrl) {
+			notification.InvokeAsyncSafe(() => {
+				form.OnTweetNotification();
+				notification.ShowNotification(new DesktopNotification(columnId, chirpId, columnName, tweetHtml, tweetCharacters, tweetUrl, quoteUrl));
+			});
+		}
 
-        public void PlayVideo(string videoUrl, string tweetUrl, string username, IJavascriptCallback callShowOverlay){
-            form.InvokeAsyncSafe(() => form.PlayVideo(videoUrl, tweetUrl, username, callShowOverlay));
-        }
-        
-        public void StopVideo(){
-            form.InvokeAsyncSafe(form.StopVideo);
-        }
+		public void OnTweetSound() {
+			form.InvokeAsyncSafe(() => {
+				form.OnTweetNotification();
+				form.OnTweetSound();
+			});
+		}
 
-        public void FixClipboard(){
-            form.InvokeAsyncSafe(ClipboardManager.StripHtmlStyles);
-        }
+		public void ScreenshotTweet(string html, int width) {
+			form.InvokeAsyncSafe(() => form.OnTweetScreenshotReady(html, width));
+		}
 
-        public void OpenBrowser(string url){
-            form.InvokeAsyncSafe(() => BrowserUtils.OpenExternalBrowser(url));
-        }
+		public void PlayVideo(string videoUrl, string tweetUrl, string username, IJavascriptCallback callShowOverlay) {
+			form.InvokeAsyncSafe(() => form.PlayVideo(videoUrl, tweetUrl, username, callShowOverlay));
+		}
 
-        public void MakeGetRequest(string url, IJavascriptCallback onSuccess, IJavascriptCallback onError){
-            Task.Run(async () => {
-                var client = WebUtils.NewClient(BrowserUtils.UserAgentVanilla);
+		public void StopVideo() {
+			form.InvokeAsyncSafe(form.StopVideo);
+		}
 
-                try{
-                    var result = await client.DownloadStringTaskAsync(url);
-                    await onSuccess.ExecuteAsync(result);
-                }catch(Exception e){
-                    await onError.ExecuteAsync(e.Message);
-                }finally{
-                    onSuccess.Dispose();
-                    onError.Dispose();
-                    client.Dispose();
-                }
-            });
-        }
+		public void FixClipboard() {
+			form.InvokeAsyncSafe(ClipboardManager.StripHtmlStyles);
+		}
 
-        public int GetIdleSeconds(){
-            return NativeMethods.GetIdleSeconds();
-        }
+		public void OpenBrowser(string url) {
+			form.InvokeAsyncSafe(() => BrowserUtils.OpenExternalBrowser(url));
+		}
 
-        public void Alert(string type, string contents){
-            MessageBoxIcon icon = type switch{
-                "error"   => MessageBoxIcon.Error,
-                "warning" => MessageBoxIcon.Warning,
-                "info"    => MessageBoxIcon.Information,
-                _         => MessageBoxIcon.None
-            };
+		public void MakeGetRequest(string url, IJavascriptCallback onSuccess, IJavascriptCallback onError) {
+			Task.Run(async () => {
+				var client = WebUtils.NewClient(BrowserUtils.UserAgentVanilla);
 
-            FormMessage.Show("TweetDuck Browser Message", contents, icon, FormMessage.OK);
-        }
+				try {
+					var result = await client.DownloadStringTaskAsync(url);
+					await onSuccess.ExecuteAsync(result);
+				} catch (Exception e) {
+					await onError.ExecuteAsync(e.Message);
+				} finally {
+					onSuccess.Dispose();
+					onError.Dispose();
+					client.Dispose();
+				}
+			});
+		}
 
-        public void CrashDebug(string message){
-            #if DEBUG
-            System.Diagnostics.Debug.WriteLine(message);
-            System.Diagnostics.Debugger.Break();
-            #endif
-        }
-    }
+		public int GetIdleSeconds() {
+			return NativeMethods.GetIdleSeconds();
+		}
+
+		public void Alert(string type, string contents) {
+			MessageBoxIcon icon = type switch {
+				"error"   => MessageBoxIcon.Error,
+				"warning" => MessageBoxIcon.Warning,
+				"info"    => MessageBoxIcon.Information,
+				_         => MessageBoxIcon.None
+			};
+
+			FormMessage.Show("TweetDuck Browser Message", contents, icon, FormMessage.OK);
+		}
+
+		public void CrashDebug(string message) {
+			#if DEBUG
+			System.Diagnostics.Debug.WriteLine(message);
+			System.Diagnostics.Debugger.Break();
+			#endif
+		}
+	}
 }

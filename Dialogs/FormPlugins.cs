@@ -8,106 +8,102 @@ using TweetDuck.Plugins;
 using TweetLib.Core;
 using TweetLib.Core.Features.Plugins;
 
-namespace TweetDuck.Dialogs{
-    sealed partial class FormPlugins : Form, FormManager.IAppDialog{
-        private static UserConfig Config => Program.Config.User;
+namespace TweetDuck.Dialogs {
+	sealed partial class FormPlugins : Form, FormManager.IAppDialog {
+		private static UserConfig Config => Program.Config.User;
 
-        private readonly PluginManager pluginManager;
-        
-        public FormPlugins(){
-            InitializeComponent();
+		private readonly PluginManager pluginManager;
 
-            Text = Program.BrandName + " Plugins";
-        }
+		public FormPlugins() {
+			InitializeComponent();
 
-        public FormPlugins(PluginManager pluginManager) : this(){
-            this.pluginManager = pluginManager;
+			Text = Program.BrandName + " Plugins";
+		}
 
-            if (!Config.PluginsWindowSize.IsEmpty){
-                Size targetSize = Config.PluginsWindowSize;
-                Size = new Size(Math.Max(MinimumSize.Width, targetSize.Width), Math.Max(MinimumSize.Height, targetSize.Height));
-            }
-            
-            Shown += (sender, args) => {
-                ReloadPluginList();
-            };
+		public FormPlugins(PluginManager pluginManager) : this() {
+			this.pluginManager = pluginManager;
 
-            FormClosed += (sender, args) => {
-                Config.PluginsWindowSize = Size;
-                Config.Save();
-            };
+			if (!Config.PluginsWindowSize.IsEmpty) {
+				Size targetSize = Config.PluginsWindowSize;
+				Size = new Size(Math.Max(MinimumSize.Width, targetSize.Width), Math.Max(MinimumSize.Height, targetSize.Height));
+			}
 
-            ResizeEnd += (sender, args) => {
-                timerLayout.Start();
-            };
-        }
+			Shown += (sender, args) => { ReloadPluginList(); };
 
-        private int GetPluginOrderIndex(Plugin plugin){
-            return !plugin.CanRun ? 0 : pluginManager.Config.IsEnabled(plugin) ? 1 : 2;
-        }
+			FormClosed += (sender, args) => {
+				Config.PluginsWindowSize = Size;
+				Config.Save();
+			};
 
-        private void ReloadPluginList(){
-            flowLayoutPlugins.Controls.Clear();
-            flowLayoutPlugins.SuspendLayout();
+			ResizeEnd += (sender, args) => { timerLayout.Start(); };
+		}
 
-            foreach(Plugin plugin in pluginManager.Plugins.OrderBy(GetPluginOrderIndex).ThenBy(plugin => plugin.Name)){
-                flowLayoutPlugins.Controls.Add(new PluginControl(pluginManager, plugin));
+		private int GetPluginOrderIndex(Plugin plugin) {
+			return !plugin.CanRun ? 0 : pluginManager.Config.IsEnabled(plugin) ? 1 : 2;
+		}
 
-                flowLayoutPlugins.Controls.Add(new Panel{
-                    BackColor = Color.DimGray,
-                    Margin = new Padding(0),
-                    Size = new Size(1, 1)
-                });
-            }
+		private void ReloadPluginList() {
+			flowLayoutPlugins.Controls.Clear();
+			flowLayoutPlugins.SuspendLayout();
 
-            flowLayoutPlugins.ResumeLayout(true);
-            
-            timerLayout_Tick(null, EventArgs.Empty);
-            timerLayout.Start();
-        }
+			foreach (Plugin plugin in pluginManager.Plugins.OrderBy(GetPluginOrderIndex).ThenBy(plugin => plugin.Name)) {
+				flowLayoutPlugins.Controls.Add(new PluginControl(pluginManager, plugin));
 
-        private void timerLayout_Tick(object sender, EventArgs e){
-            timerLayout.Stop();
-            
-            // stupid WinForms scrollbars and panels
-            Padding = new Padding(Padding.Left, Padding.Top, Padding.Right + 1, Padding.Bottom + 1);
-            Padding = new Padding(Padding.Left, Padding.Top, Padding.Right - 1, Padding.Bottom - 1);
-        }
+				flowLayoutPlugins.Controls.Add(new Panel {
+					BackColor = Color.DimGray,
+					Margin = new Padding(0),
+					Size = new Size(1, 1)
+				});
+			}
 
-        public void flowLayoutPlugins_Resize(object sender, EventArgs e){
-            Control lastPlugin = flowLayoutPlugins.Controls.OfType<PluginControl>().LastOrDefault();
-            
-            if (lastPlugin == null){
-                return;
-            }
+			flowLayoutPlugins.ResumeLayout(true);
 
-            bool showScrollBar = lastPlugin.Location.Y + lastPlugin.Height + 1 >= flowLayoutPlugins.Height;
-            int horizontalOffset = showScrollBar ? SystemInformation.VerticalScrollBarWidth : 0;
-            
-            flowLayoutPlugins.AutoScroll = showScrollBar;
-            flowLayoutPlugins.VerticalScroll.Visible = showScrollBar;
+			timerLayout_Tick(null, EventArgs.Empty);
+			timerLayout.Start();
+		}
 
-            foreach(Control control in flowLayoutPlugins.Controls){
-                control.Width = flowLayoutPlugins.Width - control.Margin.Horizontal - horizontalOffset;
-            }
-            
-            flowLayoutPlugins.Controls[flowLayoutPlugins.Controls.Count - 1].Visible = !showScrollBar;
-            flowLayoutPlugins.Focus();
-        }
+		private void timerLayout_Tick(object sender, EventArgs e) {
+			timerLayout.Stop();
 
-        private void btnOpenFolder_Click(object sender, EventArgs e){
-            App.SystemHandler.OpenFileExplorer(pluginManager.PathCustomPlugins);
-        }
+			// stupid WinForms scrollbars and panels
+			Padding = new Padding(Padding.Left, Padding.Top, Padding.Right + 1, Padding.Bottom + 1);
+			Padding = new Padding(Padding.Left, Padding.Top, Padding.Right - 1, Padding.Bottom - 1);
+		}
 
-        private void btnReload_Click(object sender, EventArgs e){
-            if (FormMessage.Warning("Reloading Plugins", "This will also reload the browser window. Do you want to proceed?", FormMessage.Yes, FormMessage.No)){
-                pluginManager.Reload();
-                ReloadPluginList();
-            }
-        }
+		private void flowLayoutPlugins_Resize(object sender, EventArgs e) {
+			Control lastPlugin = flowLayoutPlugins.Controls.OfType<PluginControl>().LastOrDefault();
 
-        private void btnClose_Click(object sender, EventArgs e){
-            Close();
-        }
-    }
+			if (lastPlugin == null) {
+				return;
+			}
+
+			bool showScrollBar = lastPlugin.Location.Y + lastPlugin.Height + 1 >= flowLayoutPlugins.Height;
+			int horizontalOffset = showScrollBar ? SystemInformation.VerticalScrollBarWidth : 0;
+
+			flowLayoutPlugins.AutoScroll = showScrollBar;
+			flowLayoutPlugins.VerticalScroll.Visible = showScrollBar;
+
+			foreach (Control control in flowLayoutPlugins.Controls) {
+				control.Width = flowLayoutPlugins.Width - control.Margin.Horizontal - horizontalOffset;
+			}
+
+			flowLayoutPlugins.Controls[flowLayoutPlugins.Controls.Count - 1].Visible = !showScrollBar;
+			flowLayoutPlugins.Focus();
+		}
+
+		private void btnOpenFolder_Click(object sender, EventArgs e) {
+			App.SystemHandler.OpenFileExplorer(pluginManager.PathCustomPlugins);
+		}
+
+		private void btnReload_Click(object sender, EventArgs e) {
+			if (FormMessage.Warning("Reloading Plugins", "This will also reload the browser window. Do you want to proceed?", FormMessage.Yes, FormMessage.No)) {
+				pluginManager.Reload();
+				ReloadPluginList();
+			}
+		}
+
+		private void btnClose_Click(object sender, EventArgs e) {
+			Close();
+		}
+	}
 }

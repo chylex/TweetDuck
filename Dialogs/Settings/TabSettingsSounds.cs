@@ -6,99 +6,99 @@ using TweetDuck.Browser.Notification;
 using TweetDuck.Controls;
 using TweetDuck.Utils;
 
-namespace TweetDuck.Dialogs.Settings{
-    sealed partial class TabSettingsSounds : FormSettings.BaseTab{
-        private readonly Action playSoundNotification;
+namespace TweetDuck.Dialogs.Settings {
+	sealed partial class TabSettingsSounds : FormSettings.BaseTab {
+		private readonly Action playSoundNotification;
 
-        public TabSettingsSounds(Action playSoundNotification){
-            InitializeComponent();
+		public TabSettingsSounds(Action playSoundNotification) {
+			InitializeComponent();
 
-            this.playSoundNotification = playSoundNotification;
-            
-            // sound notification
+			this.playSoundNotification = playSoundNotification;
 
-            toolTip.SetToolTip(tbCustomSound, "When empty, the default TweetDeck sound notification is used.");
-            
-            trackBarVolume.SetValueSafe(Config.NotificationSoundVolume);
-            labelVolumeValue.Text = trackBarVolume.Value + "%";
+			// sound notification
 
-            tbCustomSound.Text = Config.NotificationSoundPath;
-            tbCustomSound_TextChanged(tbCustomSound, EventArgs.Empty);
-            NativeMethods.SendMessage(tbCustomSound.Handle, NativeMethods.EM_SETCUEBANNER, 0, "(default TweetDeck sound)");
-        }
+			toolTip.SetToolTip(tbCustomSound, "When empty, the default TweetDeck sound notification is used.");
 
-        public override void OnReady(){
-            tbCustomSound.TextChanged += tbCustomSound_TextChanged;
-            btnPlaySound.Click += btnPlaySound_Click;
-            btnBrowseSound.Click += btnBrowseSound_Click;
-            btnResetSound.Click += btnResetSound_Click;
-        }
+			trackBarVolume.SetValueSafe(Config.NotificationSoundVolume);
+			labelVolumeValue.Text = trackBarVolume.Value + "%";
 
-        public override void OnClosing(){
-            Config.NotificationSoundPath = tbCustomSound.Text;
-            Config.NotificationSoundVolume = trackBarVolume.Value;
-        }
+			tbCustomSound.Text = Config.NotificationSoundPath;
+			tbCustomSound_TextChanged(tbCustomSound, EventArgs.Empty);
+			NativeMethods.SendMessage(tbCustomSound.Handle, NativeMethods.EM_SETCUEBANNER, 0, "(default TweetDeck sound)");
+		}
 
-        #region Sound Notification
+		public override void OnReady() {
+			tbCustomSound.TextChanged += tbCustomSound_TextChanged;
+			btnPlaySound.Click += btnPlaySound_Click;
+			btnBrowseSound.Click += btnBrowseSound_Click;
+			btnResetSound.Click += btnResetSound_Click;
+		}
 
-        private bool RefreshCanPlay(){
-            bool isEmpty = string.IsNullOrEmpty(tbCustomSound.Text);
-            bool canPlay = isEmpty || File.Exists(tbCustomSound.Text);
+		public override void OnClosing() {
+			Config.NotificationSoundPath = tbCustomSound.Text;
+			Config.NotificationSoundVolume = trackBarVolume.Value;
+		}
 
-            tbCustomSound.ForeColor = canPlay ? SystemColors.WindowText : Color.Red;
-            btnPlaySound.Enabled = canPlay;
-            btnResetSound.Enabled = !isEmpty;
-            return canPlay;
-        }
+		#region Sound Notification
 
-        private void tbCustomSound_TextChanged(object sender, EventArgs e){
-            RefreshCanPlay();
-        }
+		private bool RefreshCanPlay() {
+			bool isEmpty = string.IsNullOrEmpty(tbCustomSound.Text);
+			bool canPlay = isEmpty || File.Exists(tbCustomSound.Text);
 
-        private void btnPlaySound_Click(object sender, EventArgs e){
-            if (RefreshCanPlay()){
-                Config.NotificationSoundPath = tbCustomSound.Text;
-                Config.NotificationSoundVolume = trackBarVolume.Value;
-                playSoundNotification();
-            }
-        }
+			tbCustomSound.ForeColor = canPlay ? SystemColors.WindowText : Color.Red;
+			btnPlaySound.Enabled = canPlay;
+			btnResetSound.Enabled = !isEmpty;
+			return canPlay;
+		}
 
-        private void btnBrowseSound_Click(object sender, EventArgs e){
-            using OpenFileDialog dialog = new OpenFileDialog{
-                AutoUpgradeEnabled = true,
-                DereferenceLinks = true,
-                Title = "Custom Notification Sound",
-                Filter = $"Sound file ({SoundNotification.SupportedFormats})|{SoundNotification.SupportedFormats}|All files (*.*)|*.*"
-            };
+		private void tbCustomSound_TextChanged(object sender, EventArgs e) {
+			RefreshCanPlay();
+		}
 
-            if (dialog.ShowDialog() == DialogResult.OK){
-                try{
-                    if (new FileInfo(dialog.FileName).Length > (1024 * 1024) && !FormMessage.Warning("Sound Notification", "The sound file is larger than 1 MB, this will cause increased memory usage. Use this file anyway?", FormMessage.Yes, FormMessage.No)){
-                        return;
-                    }
-                }catch{
-                    // ignore
-                }
+		private void btnPlaySound_Click(object sender, EventArgs e) {
+			if (RefreshCanPlay()) {
+				Config.NotificationSoundPath = tbCustomSound.Text;
+				Config.NotificationSoundVolume = trackBarVolume.Value;
+				playSoundNotification();
+			}
+		}
 
-                tbCustomSound.Text = dialog.FileName;
-            }
-        }
+		private void btnBrowseSound_Click(object sender, EventArgs e) {
+			using OpenFileDialog dialog = new OpenFileDialog {
+				AutoUpgradeEnabled = true,
+				DereferenceLinks = true,
+				Title = "Custom Notification Sound",
+				Filter = $"Sound file ({SoundNotification.SupportedFormats})|{SoundNotification.SupportedFormats}|All files (*.*)|*.*"
+			};
 
-        private void btnResetSound_Click(object sender, EventArgs e){
-            tbCustomSound.Text = string.Empty;
-        }
+			if (dialog.ShowDialog() == DialogResult.OK) {
+				try {
+					if (new FileInfo(dialog.FileName).Length > (1024 * 1024) && !FormMessage.Warning("Sound Notification", "The sound file is larger than 1 MB, this will cause increased memory usage. Use this file anyway?", FormMessage.Yes, FormMessage.No)) {
+						return;
+					}
+				} catch {
+					// ignore
+				}
 
-        private void trackBarVolume_ValueChanged(object sender, EventArgs e){
-            volumeUpdateTimer.Stop();
-            volumeUpdateTimer.Start();
-            labelVolumeValue.Text = trackBarVolume.Value + "%";
-        }
+				tbCustomSound.Text = dialog.FileName;
+			}
+		}
 
-        private void volumeUpdateTimer_Tick(object sender, EventArgs e){
-            Config.NotificationSoundVolume = trackBarVolume.Value;
-            volumeUpdateTimer.Stop();
-        }
+		private void btnResetSound_Click(object sender, EventArgs e) {
+			tbCustomSound.Text = string.Empty;
+		}
 
-        #endregion
-    }
+		private void trackBarVolume_ValueChanged(object sender, EventArgs e) {
+			volumeUpdateTimer.Stop();
+			volumeUpdateTimer.Start();
+			labelVolumeValue.Text = trackBarVolume.Value + "%";
+		}
+
+		private void volumeUpdateTimer_Tick(object sender, EventArgs e) {
+			Config.NotificationSoundVolume = trackBarVolume.Value;
+			volumeUpdateTimer.Stop();
+		}
+
+		#endregion
+	}
 }

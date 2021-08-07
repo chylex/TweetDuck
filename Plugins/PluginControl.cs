@@ -6,124 +6,124 @@ using TweetDuck.Utils;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Enums;
 
-namespace TweetDuck.Plugins{
-    sealed partial class PluginControl : UserControl{
-        private readonly PluginManager pluginManager;
-        private readonly Plugin plugin;
-        private readonly bool isConfigurable;
-        
-        private int nextHeight;
+namespace TweetDuck.Plugins {
+	sealed partial class PluginControl : UserControl {
+		private readonly PluginManager pluginManager;
+		private readonly Plugin plugin;
+		private readonly bool isConfigurable;
 
-        public PluginControl(){
-            InitializeComponent();
-        }
+		private int nextHeight;
 
-        public PluginControl(PluginManager pluginManager, Plugin plugin) : this(){
-            this.pluginManager = pluginManager;
-            this.plugin = plugin;
+		public PluginControl() {
+			InitializeComponent();
+		}
 
-            this.isConfigurable = pluginManager.IsPluginConfigurable(plugin);
+		public PluginControl(PluginManager pluginManager, Plugin plugin) : this() {
+			this.pluginManager = pluginManager;
+			this.plugin = plugin;
 
-            float dpiScale = this.GetDPIScale();
+			this.isConfigurable = pluginManager.IsPluginConfigurable(plugin);
 
-            if (dpiScale > 1F){
-                Size = MaximumSize = new Size(MaximumSize.Width, MaximumSize.Height + 3);
-            }
-            
-            this.labelName.Text = plugin.Name;
-            this.labelDescription.Text = plugin.CanRun ? plugin.Description : $"This plugin requires TweetDuck {plugin.RequiredVersion} or newer.";
-            this.labelAuthor.Text = string.IsNullOrWhiteSpace(plugin.Author) ? string.Empty : $"by {plugin.Author}";
-            this.labelWebsite.Text = plugin.Website;
-            this.labelVersion.Text = plugin.Version;
-            
-            this.labelType.LineHeight = BrowserUtils.Scale(11, dpiScale);
+			float dpiScale = this.GetDPIScale();
 
-            UpdatePluginState();
+			if (dpiScale > 1F) {
+				Size = MaximumSize = new Size(MaximumSize.Width, MaximumSize.Height + 3);
+			}
 
-            if (labelDescription.Text.Length == 0){
-                labelDescription.Visible = false;
-            }
-            
-            panelDescription_Resize(panelDescription, EventArgs.Empty);
-        }
+			this.labelName.Text = plugin.Name;
+			this.labelDescription.Text = plugin.CanRun ? plugin.Description : $"This plugin requires TweetDuck {plugin.RequiredVersion} or newer.";
+			this.labelAuthor.Text = string.IsNullOrWhiteSpace(plugin.Author) ? string.Empty : $"by {plugin.Author}";
+			this.labelWebsite.Text = plugin.Website;
+			this.labelVersion.Text = plugin.Version;
 
-        private void timerLayout_Tick(object sender, EventArgs e){
-            timerLayout.Stop();
-            Height = nextHeight;
-            ResumeLayout();
-        }
+			this.labelType.LineHeight = BrowserUtils.Scale(11, dpiScale);
 
-        private void panelDescription_Resize(object sender, EventArgs e){
-            SuspendLayout();
-            
-            int maxWidth = panelDescription.Width - (panelDescription.VerticalScroll.Visible ? SystemInformation.VerticalScrollBarWidth : 0);
-            labelDescription.MaximumSize = new Size(maxWidth, int.MaxValue);
+			UpdatePluginState();
 
-            Font font = labelDescription.Font;
-            int descriptionLines = TextRenderer.MeasureText(labelDescription.Text, font, new Size(maxWidth, int.MaxValue), TextFormatFlags.WordBreak).Height / (font.Height - 1);
-            
-            int requiredLines = Math.Max(descriptionLines, 1 + (string.IsNullOrEmpty(labelVersion.Text) ? 0 : 1) + (isConfigurable ? 1 : 0));
-            
-            nextHeight = requiredLines switch{
-                1 => MaximumSize.Height - 2 * (font.Height - 1),
-                2 => MaximumSize.Height - 1 * (font.Height - 1),
-                _ => MaximumSize.Height
-            };
+			if (labelDescription.Text.Length == 0) {
+				labelDescription.Visible = false;
+			}
 
-            if (nextHeight != Height){
-                timerLayout.Start();
-            }
-            else{
-                ResumeLayout();
-            }
-        }
+			panelDescription_Resize(panelDescription, EventArgs.Empty);
+		}
 
-        private void labelWebsite_Click(object sender, EventArgs e){
-            if (labelWebsite.Text.Length > 0){
-                BrowserUtils.OpenExternalBrowser(labelWebsite.Text);
-            }
-        }
+		private void timerLayout_Tick(object sender, EventArgs e) {
+			timerLayout.Stop();
+			Height = nextHeight;
+			ResumeLayout();
+		}
 
-        private void btnConfigure_Click(object sender, EventArgs e){
-            pluginManager.ConfigurePlugin(plugin);
-            ParentForm?.Close();
-        }
+		private void panelDescription_Resize(object sender, EventArgs e) {
+			SuspendLayout();
 
-        private void btnToggleState_Click(object sender, EventArgs e){
-            pluginManager.Config.SetEnabled(plugin, !pluginManager.Config.IsEnabled(plugin));
-            UpdatePluginState();
-        }
+			int maxWidth = panelDescription.Width - (panelDescription.VerticalScroll.Visible ? SystemInformation.VerticalScrollBarWidth : 0);
+			labelDescription.MaximumSize = new Size(maxWidth, int.MaxValue);
 
-        private void UpdatePluginState(){
-            bool isEnabled = pluginManager.Config.IsEnabled(plugin) && plugin.CanRun;
-            Color textColor = isEnabled ? Color.Black : Color.FromArgb(90, 90, 90);
-            
-            labelVersion.ForeColor = textColor;
-            labelAuthor.ForeColor = textColor;
-            labelWebsite.ForeColor = isEnabled ? Color.Blue : Color.FromArgb(90, 90, 249);
+			Font font = labelDescription.Font;
+			int descriptionLines = TextRenderer.MeasureText(labelDescription.Text, font, new Size(maxWidth, int.MaxValue), TextFormatFlags.WordBreak).Height / (font.Height - 1);
 
-            if (plugin.Group == PluginGroup.Official){
-                labelType.Text = "CORE";
-                labelType.BackColor = isEnabled ? Color.FromArgb(154, 195, 217) : Color.FromArgb(185, 185, 185);
-            }
-            else{
-                labelType.Text = "USER";
-                labelType.BackColor = isEnabled ? Color.FromArgb(208, 154, 217) : Color.FromArgb(185, 185, 185);
-            }
+			int requiredLines = Math.Max(descriptionLines, 1 + (string.IsNullOrEmpty(labelVersion.Text) ? 0 : 1) + (isConfigurable ? 1 : 0));
 
-            if (plugin.CanRun){
-                labelName.ForeColor = textColor;
-                labelDescription.ForeColor = textColor;
-                btnToggleState.Text = isEnabled ? "Disable" : "Enable";
-                btnConfigure.Visible = isConfigurable;
-                btnConfigure.Enabled = isEnabled;
-            }
-            else{
-                labelName.ForeColor = Color.DarkRed;
-                labelDescription.ForeColor = Color.DarkRed;
-                btnToggleState.Visible = false;
-                btnConfigure.Visible = false;
-            }
-        }
-    }
+			nextHeight = requiredLines switch {
+				1 => MaximumSize.Height - 2 * (font.Height - 1),
+				2 => MaximumSize.Height - 1 * (font.Height - 1),
+				_ => MaximumSize.Height
+			};
+
+			if (nextHeight != Height) {
+				timerLayout.Start();
+			}
+			else {
+				ResumeLayout();
+			}
+		}
+
+		private void labelWebsite_Click(object sender, EventArgs e) {
+			if (labelWebsite.Text.Length > 0) {
+				BrowserUtils.OpenExternalBrowser(labelWebsite.Text);
+			}
+		}
+
+		private void btnConfigure_Click(object sender, EventArgs e) {
+			pluginManager.ConfigurePlugin(plugin);
+			ParentForm?.Close();
+		}
+
+		private void btnToggleState_Click(object sender, EventArgs e) {
+			pluginManager.Config.SetEnabled(plugin, !pluginManager.Config.IsEnabled(plugin));
+			UpdatePluginState();
+		}
+
+		private void UpdatePluginState() {
+			bool isEnabled = pluginManager.Config.IsEnabled(plugin) && plugin.CanRun;
+			Color textColor = isEnabled ? Color.Black : Color.FromArgb(90, 90, 90);
+
+			labelVersion.ForeColor = textColor;
+			labelAuthor.ForeColor = textColor;
+			labelWebsite.ForeColor = isEnabled ? Color.Blue : Color.FromArgb(90, 90, 249);
+
+			if (plugin.Group == PluginGroup.Official) {
+				labelType.Text = "CORE";
+				labelType.BackColor = isEnabled ? Color.FromArgb(154, 195, 217) : Color.FromArgb(185, 185, 185);
+			}
+			else {
+				labelType.Text = "USER";
+				labelType.BackColor = isEnabled ? Color.FromArgb(208, 154, 217) : Color.FromArgb(185, 185, 185);
+			}
+
+			if (plugin.CanRun) {
+				labelName.ForeColor = textColor;
+				labelDescription.ForeColor = textColor;
+				btnToggleState.Text = isEnabled ? "Disable" : "Enable";
+				btnConfigure.Visible = isConfigurable;
+				btnConfigure.Enabled = isEnabled;
+			}
+			else {
+				labelName.ForeColor = Color.DarkRed;
+				labelDescription.ForeColor = Color.DarkRed;
+				btnToggleState.Visible = false;
+				btnConfigure.Visible = false;
+			}
+		}
+	}
 }

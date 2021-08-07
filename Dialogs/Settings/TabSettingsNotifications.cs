@@ -4,302 +4,319 @@ using TweetDuck.Browser.Notification.Example;
 using TweetDuck.Controls;
 using TweetLib.Core.Features.Notifications;
 
-namespace TweetDuck.Dialogs.Settings{
-    sealed partial class TabSettingsNotifications : FormSettings.BaseTab{
-        private static readonly int[] IdlePauseSeconds = { 0, 30, 60, 120, 300 };
+namespace TweetDuck.Dialogs.Settings {
+	sealed partial class TabSettingsNotifications : FormSettings.BaseTab {
+		private static readonly int[] IdlePauseSeconds = { 0, 30, 60, 120, 300 };
 
-        private readonly FormNotificationExample notification;
+		private readonly FormNotificationExample notification;
 
-        public TabSettingsNotifications(FormNotificationExample notification){
-            InitializeComponent();
+		public TabSettingsNotifications(FormNotificationExample notification) {
+			InitializeComponent();
 
-            this.notification = notification;
-            
-            this.notification.Ready += (sender, args) => {
-                this.InvokeAsyncSafe(() => {
-                    this.notification.ShowExampleNotification(true);
-                    this.notification.Move += notification_Move;
-                    this.notification.ResizeEnd += notification_ResizeEnd;
-                });
-            };
+			this.notification = notification;
 
-            this.notification.Show();
-            
-            Disposed += (sender, args) => this.notification.Dispose();
-            
-            // general
+			this.notification.Ready += (sender, args) => {
+				this.InvokeAsyncSafe(() => {
+					this.notification.ShowExampleNotification(true);
+					this.notification.Move += notification_Move;
+					this.notification.ResizeEnd += notification_ResizeEnd;
+				});
+			};
 
-            toolTip.SetToolTip(checkColumnName, "Shows column name each notification originated\r\nfrom in the notification window title.");
-            toolTip.SetToolTip(checkMediaPreviews, "Shows image and video thumbnails in the notification window.");
-            toolTip.SetToolTip(checkSkipOnLinkClick, "Skips current notification when a link\r\ninside the notification is clicked.");
-            toolTip.SetToolTip(checkNonIntrusive, "When not idle and the cursor is within the notification window area,\r\nit will be delayed until the cursor moves away to prevent accidental clicks.");
-            toolTip.SetToolTip(comboBoxIdlePause, "Pauses new notifications after going idle for a set amount of time.");
-            
-            checkColumnName.Checked = Config.DisplayNotificationColumn;
-            checkMediaPreviews.Checked = Config.NotificationMediaPreviews;
-            checkSkipOnLinkClick.Checked = Config.NotificationSkipOnLinkClick;
-            checkNonIntrusive.Checked = Config.NotificationNonIntrusiveMode;
-            
-            comboBoxIdlePause.Items.Add("Disabled");
-            comboBoxIdlePause.Items.Add("30 seconds");
-            comboBoxIdlePause.Items.Add("1 minute");
-            comboBoxIdlePause.Items.Add("2 minutes");
-            comboBoxIdlePause.Items.Add("5 minutes");
-            comboBoxIdlePause.SelectedIndex = Math.Max(0, Array.FindIndex(IdlePauseSeconds, val => val == Config.NotificationIdlePauseSeconds));
+			this.notification.Show();
 
-            trackBarOpacity.SetValueSafe(Config.NotificationWindowOpacity);
-            labelOpacityValue.Text = Config.NotificationWindowOpacity + "%";
+			Disposed += (sender, args) => this.notification.Dispose();
 
-            // timer
+			// general
 
-            toolTip.SetToolTip(checkTimerCountDown, "The notification timer counts down instead of up.");
-            toolTip.SetToolTip(labelDurationValue, "Milliseconds per character.");
-            toolTip.SetToolTip(trackBarDuration, toolTip.GetToolTip(labelDurationValue));
-            
-            checkNotificationTimer.Checked = Config.DisplayNotificationTimer;
-            checkTimerCountDown.Enabled = checkNotificationTimer.Checked;
-            checkTimerCountDown.Checked = Config.NotificationTimerCountDown;
+			toolTip.SetToolTip(checkColumnName, "Shows column name each notification originated\r\nfrom in the notification window title.");
+			toolTip.SetToolTip(checkMediaPreviews, "Shows image and video thumbnails in the notification window.");
+			toolTip.SetToolTip(checkSkipOnLinkClick, "Skips current notification when a link\r\ninside the notification is clicked.");
+			toolTip.SetToolTip(checkNonIntrusive, "When not idle and the cursor is within the notification window area,\r\nit will be delayed until the cursor moves away to prevent accidental clicks.");
+			toolTip.SetToolTip(comboBoxIdlePause, "Pauses new notifications after going idle for a set amount of time.");
 
-            trackBarDuration.SetValueSafe(Config.NotificationDurationValue);
-            labelDurationValue.Text = Config.NotificationDurationValue + " ms/c";
+			checkColumnName.Checked = Config.DisplayNotificationColumn;
+			checkMediaPreviews.Checked = Config.NotificationMediaPreviews;
+			checkSkipOnLinkClick.Checked = Config.NotificationSkipOnLinkClick;
+			checkNonIntrusive.Checked = Config.NotificationNonIntrusiveMode;
 
-            // location
+			comboBoxIdlePause.Items.Add("Disabled");
+			comboBoxIdlePause.Items.Add("30 seconds");
+			comboBoxIdlePause.Items.Add("1 minute");
+			comboBoxIdlePause.Items.Add("2 minutes");
+			comboBoxIdlePause.Items.Add("5 minutes");
+			comboBoxIdlePause.SelectedIndex = Math.Max(0, Array.FindIndex(IdlePauseSeconds, val => val == Config.NotificationIdlePauseSeconds));
 
-            toolTip.SetToolTip(radioLocCustom, "Drag the example notification window to the desired location.");
-            
-            switch(Config.NotificationPosition){
-                case DesktopNotification.Position.TopLeft: radioLocTL.Checked = true; break;
-                case DesktopNotification.Position.TopRight: radioLocTR.Checked = true; break;
-                case DesktopNotification.Position.BottomLeft: radioLocBL.Checked = true; break;
-                case DesktopNotification.Position.BottomRight: radioLocBR.Checked = true; break;
-                case DesktopNotification.Position.Custom: radioLocCustom.Checked = true; break;
-            }
+			trackBarOpacity.SetValueSafe(Config.NotificationWindowOpacity);
+			labelOpacityValue.Text = Config.NotificationWindowOpacity + "%";
 
-            comboBoxDisplay.Enabled = trackBarEdgeDistance.Enabled = !radioLocCustom.Checked;
-            comboBoxDisplay.Items.Add("(Same as TweetDuck)");
+			// timer
 
-            foreach(Screen screen in Screen.AllScreens){
-                comboBoxDisplay.Items.Add($"{screen.DeviceName.TrimStart('\\', '.')} ({screen.Bounds.Width}x{screen.Bounds.Height})");
-            }
+			toolTip.SetToolTip(checkTimerCountDown, "The notification timer counts down instead of up.");
+			toolTip.SetToolTip(labelDurationValue, "Milliseconds per character.");
+			toolTip.SetToolTip(trackBarDuration, toolTip.GetToolTip(labelDurationValue));
 
-            comboBoxDisplay.SelectedIndex = Math.Min(comboBoxDisplay.Items.Count - 1, Config.NotificationDisplay);
+			checkNotificationTimer.Checked = Config.DisplayNotificationTimer;
+			checkTimerCountDown.Enabled = checkNotificationTimer.Checked;
+			checkTimerCountDown.Checked = Config.NotificationTimerCountDown;
 
-            trackBarEdgeDistance.SetValueSafe(Config.NotificationEdgeDistance);
-            labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value + " px";
+			trackBarDuration.SetValueSafe(Config.NotificationDurationValue);
+			labelDurationValue.Text = Config.NotificationDurationValue + " ms/c";
 
-            // size
+			// location
 
-            toolTip.SetToolTip(radioSizeAuto, "Notification size is based on the font size and browser zoom level.");
-            toolTip.SetToolTip(radioSizeCustom, "Resize the example notification window to the desired size.");
+			toolTip.SetToolTip(radioLocCustom, "Drag the example notification window to the desired location.");
 
-            switch(Config.NotificationSize){
-                case DesktopNotification.Size.Auto: radioSizeAuto.Checked = true; break;
-                case DesktopNotification.Size.Custom: radioSizeCustom.Checked = true; break;
-            }
+			switch (Config.NotificationPosition) {
+				case DesktopNotification.Position.TopLeft:
+					radioLocTL.Checked = true;
+					break;
+				case DesktopNotification.Position.TopRight:
+					radioLocTR.Checked = true;
+					break;
+				case DesktopNotification.Position.BottomLeft:
+					radioLocBL.Checked = true;
+					break;
+				case DesktopNotification.Position.BottomRight:
+					radioLocBR.Checked = true;
+					break;
+				case DesktopNotification.Position.Custom:
+					radioLocCustom.Checked = true;
+					break;
+			}
 
-            trackBarScrollSpeed.SetValueSafe(Config.NotificationScrollSpeed);
-            labelScrollSpeedValue.Text = trackBarScrollSpeed.Value + "%";
-        }
+			comboBoxDisplay.Enabled = trackBarEdgeDistance.Enabled = !radioLocCustom.Checked;
+			comboBoxDisplay.Items.Add("(Same as TweetDuck)");
 
-        public override void OnReady(){
-            checkColumnName.CheckedChanged += checkColumnName_CheckedChanged;
-            checkMediaPreviews.CheckedChanged += checkMediaPreviews_CheckedChanged;
-            checkSkipOnLinkClick.CheckedChanged += checkSkipOnLinkClick_CheckedChanged;
-            checkNonIntrusive.CheckedChanged += checkNonIntrusive_CheckedChanged;
-            comboBoxIdlePause.SelectedValueChanged += comboBoxIdlePause_SelectedValueChanged;
-            trackBarOpacity.ValueChanged += trackBarOpacity_ValueChanged;
+			foreach (Screen screen in Screen.AllScreens) {
+				comboBoxDisplay.Items.Add($"{screen.DeviceName.TrimStart('\\', '.')} ({screen.Bounds.Width}x{screen.Bounds.Height})");
+			}
 
-            checkNotificationTimer.CheckedChanged += checkNotificationTimer_CheckedChanged;
-            checkTimerCountDown.CheckedChanged += checkTimerCountDown_CheckedChanged;
-            trackBarDuration.ValueChanged += trackBarDuration_ValueChanged;
-            btnDurationShort.Click += btnDurationShort_Click;
-            btnDurationMedium.Click += btnDurationMedium_Click;
-            btnDurationLong.Click += btnDurationLong_Click;
+			comboBoxDisplay.SelectedIndex = Math.Min(comboBoxDisplay.Items.Count - 1, Config.NotificationDisplay);
 
-            radioLocTL.CheckedChanged += radioLoc_CheckedChanged;
-            radioLocTR.CheckedChanged += radioLoc_CheckedChanged;
-            radioLocBL.CheckedChanged += radioLoc_CheckedChanged;
-            radioLocBR.CheckedChanged += radioLoc_CheckedChanged;
-            radioLocCustom.Click += radioLocCustom_Click;
-            comboBoxDisplay.SelectedValueChanged += comboBoxDisplay_SelectedValueChanged;
-            trackBarEdgeDistance.ValueChanged += trackBarEdgeDistance_ValueChanged;
+			trackBarEdgeDistance.SetValueSafe(Config.NotificationEdgeDistance);
+			labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value + " px";
 
-            radioSizeAuto.CheckedChanged += radioSize_CheckedChanged;
-            radioSizeCustom.Click += radioSizeCustom_Click;
-            trackBarScrollSpeed.ValueChanged += trackBarScrollSpeed_ValueChanged;
-        }
+			// size
 
-        private void TabSettingsNotifications_ParentChanged(object sender, EventArgs e){
-            if (Parent == null){
-                notification.HideNotification();
-            }
-            else{
-                notification.ShowExampleNotification(true);
-            }
-        }
+			toolTip.SetToolTip(radioSizeAuto, "Notification size is based on the font size and browser zoom level.");
+			toolTip.SetToolTip(radioSizeCustom, "Resize the example notification window to the desired size.");
 
-        private void notification_Move(object sender, EventArgs e){
-            if (radioLocCustom.Checked && notification.Location != ControlExtensions.InvisibleLocation){
-                Config.CustomNotificationPosition = notification.Location;
-            }
-        }
+			switch (Config.NotificationSize) {
+				case DesktopNotification.Size.Auto:
+					radioSizeAuto.Checked = true;
+					break;
+				case DesktopNotification.Size.Custom:
+					radioSizeCustom.Checked = true;
+					break;
+			}
 
-        private void notification_ResizeEnd(object sender, EventArgs e){
-            if (radioSizeCustom.Checked){
-                Config.CustomNotificationSize = notification.BrowserSize;
-                notification.ShowExampleNotification(false);
-            }
-        }
+			trackBarScrollSpeed.SetValueSafe(Config.NotificationScrollSpeed);
+			labelScrollSpeedValue.Text = trackBarScrollSpeed.Value + "%";
+		}
 
-        #region General
+		public override void OnReady() {
+			checkColumnName.CheckedChanged += checkColumnName_CheckedChanged;
+			checkMediaPreviews.CheckedChanged += checkMediaPreviews_CheckedChanged;
+			checkSkipOnLinkClick.CheckedChanged += checkSkipOnLinkClick_CheckedChanged;
+			checkNonIntrusive.CheckedChanged += checkNonIntrusive_CheckedChanged;
+			comboBoxIdlePause.SelectedValueChanged += comboBoxIdlePause_SelectedValueChanged;
+			trackBarOpacity.ValueChanged += trackBarOpacity_ValueChanged;
 
-        private void checkColumnName_CheckedChanged(object sender, EventArgs e){
-            Config.DisplayNotificationColumn = checkColumnName.Checked;
-            notification.ShowExampleNotification(false);
-        }
+			checkNotificationTimer.CheckedChanged += checkNotificationTimer_CheckedChanged;
+			checkTimerCountDown.CheckedChanged += checkTimerCountDown_CheckedChanged;
+			trackBarDuration.ValueChanged += trackBarDuration_ValueChanged;
+			btnDurationShort.Click += btnDurationShort_Click;
+			btnDurationMedium.Click += btnDurationMedium_Click;
+			btnDurationLong.Click += btnDurationLong_Click;
 
-        private void checkMediaPreviews_CheckedChanged(object sender, EventArgs e){
-            Config.NotificationMediaPreviews = checkMediaPreviews.Checked;
-        }
+			radioLocTL.CheckedChanged += radioLoc_CheckedChanged;
+			radioLocTR.CheckedChanged += radioLoc_CheckedChanged;
+			radioLocBL.CheckedChanged += radioLoc_CheckedChanged;
+			radioLocBR.CheckedChanged += radioLoc_CheckedChanged;
+			radioLocCustom.Click += radioLocCustom_Click;
+			comboBoxDisplay.SelectedValueChanged += comboBoxDisplay_SelectedValueChanged;
+			trackBarEdgeDistance.ValueChanged += trackBarEdgeDistance_ValueChanged;
 
-        private void checkSkipOnLinkClick_CheckedChanged(object sender, EventArgs e){
-            Config.NotificationSkipOnLinkClick = checkSkipOnLinkClick.Checked;
-        }
+			radioSizeAuto.CheckedChanged += radioSize_CheckedChanged;
+			radioSizeCustom.Click += radioSizeCustom_Click;
+			trackBarScrollSpeed.ValueChanged += trackBarScrollSpeed_ValueChanged;
+		}
 
-        private void checkNonIntrusive_CheckedChanged(object sender, EventArgs e){
-            Config.NotificationNonIntrusiveMode = checkNonIntrusive.Checked;
-        }
+		private void TabSettingsNotifications_ParentChanged(object sender, EventArgs e) {
+			if (Parent == null) {
+				notification.HideNotification();
+			}
+			else {
+				notification.ShowExampleNotification(true);
+			}
+		}
 
-        private void comboBoxIdlePause_SelectedValueChanged(object sender, EventArgs e){
-            Config.NotificationIdlePauseSeconds = IdlePauseSeconds[comboBoxIdlePause.SelectedIndex];
-        }
+		private void notification_Move(object sender, EventArgs e) {
+			if (radioLocCustom.Checked && notification.Location != ControlExtensions.InvisibleLocation) {
+				Config.CustomNotificationPosition = notification.Location;
+			}
+		}
 
-        private void trackBarOpacity_ValueChanged(object sender, EventArgs e){
-            if (trackBarOpacity.AlignValueToTick()){
-                Config.NotificationWindowOpacity = trackBarOpacity.Value;
-                labelOpacityValue.Text = Config.NotificationWindowOpacity + "%";
-            }
-        }
+		private void notification_ResizeEnd(object sender, EventArgs e) {
+			if (radioSizeCustom.Checked) {
+				Config.CustomNotificationSize = notification.BrowserSize;
+				notification.ShowExampleNotification(false);
+			}
+		}
 
-        #endregion
-        #region Timer
+		#region General
 
-        private void checkNotificationTimer_CheckedChanged(object sender, EventArgs e){
-            Config.DisplayNotificationTimer = checkNotificationTimer.Checked;
-            checkTimerCountDown.Enabled = checkNotificationTimer.Checked;
-            notification.ShowExampleNotification(true);
-        }
+		private void checkColumnName_CheckedChanged(object sender, EventArgs e) {
+			Config.DisplayNotificationColumn = checkColumnName.Checked;
+			notification.ShowExampleNotification(false);
+		}
 
-        private void checkTimerCountDown_CheckedChanged(object sender, EventArgs e){
-            Config.NotificationTimerCountDown = checkTimerCountDown.Checked;
-            notification.ShowExampleNotification(true);
-        }
+		private void checkMediaPreviews_CheckedChanged(object sender, EventArgs e) {
+			Config.NotificationMediaPreviews = checkMediaPreviews.Checked;
+		}
 
-        private void trackBarDuration_ValueChanged(object sender, EventArgs e){
-            durationUpdateTimer.Stop();
-            durationUpdateTimer.Start();
+		private void checkSkipOnLinkClick_CheckedChanged(object sender, EventArgs e) {
+			Config.NotificationSkipOnLinkClick = checkSkipOnLinkClick.Checked;
+		}
 
-            Config.NotificationDurationValue = trackBarDuration.Value;
-            labelDurationValue.Text = Config.NotificationDurationValue + " ms/c";
-        }
+		private void checkNonIntrusive_CheckedChanged(object sender, EventArgs e) {
+			Config.NotificationNonIntrusiveMode = checkNonIntrusive.Checked;
+		}
 
-        private void btnDurationShort_Click(object sender, EventArgs e){
-            trackBarDuration.Value = 15;
-        }
+		private void comboBoxIdlePause_SelectedValueChanged(object sender, EventArgs e) {
+			Config.NotificationIdlePauseSeconds = IdlePauseSeconds[comboBoxIdlePause.SelectedIndex];
+		}
 
-        private void btnDurationMedium_Click(object sender, EventArgs e){
-            trackBarDuration.Value = 25;
-        }
+		private void trackBarOpacity_ValueChanged(object sender, EventArgs e) {
+			if (trackBarOpacity.AlignValueToTick()) {
+				Config.NotificationWindowOpacity = trackBarOpacity.Value;
+				labelOpacityValue.Text = Config.NotificationWindowOpacity + "%";
+			}
+		}
 
-        private void btnDurationLong_Click(object sender, EventArgs e){
-            trackBarDuration.Value = 35;
-        }
+		#endregion
 
-        private void durationUpdateTimer_Tick(object sender, EventArgs e){
-            notification.ShowExampleNotification(true);
-            durationUpdateTimer.Stop();
-        }
+		#region Timer
 
-        #endregion
-        #region Location
+		private void checkNotificationTimer_CheckedChanged(object sender, EventArgs e) {
+			Config.DisplayNotificationTimer = checkNotificationTimer.Checked;
+			checkTimerCountDown.Enabled = checkNotificationTimer.Checked;
+			notification.ShowExampleNotification(true);
+		}
 
-        private void radioLoc_CheckedChanged(object sender, EventArgs e){
-            if (radioLocTL.Checked){
-                Config.NotificationPosition = DesktopNotification.Position.TopLeft;
-            }
-            else if (radioLocTR.Checked){
-                Config.NotificationPosition = DesktopNotification.Position.TopRight;
-            }
-            else if (radioLocBL.Checked){
-                Config.NotificationPosition = DesktopNotification.Position.BottomLeft;
-            }
-            else if (radioLocBR.Checked){
-                Config.NotificationPosition = DesktopNotification.Position.BottomRight;
-            }
+		private void checkTimerCountDown_CheckedChanged(object sender, EventArgs e) {
+			Config.NotificationTimerCountDown = checkTimerCountDown.Checked;
+			notification.ShowExampleNotification(true);
+		}
 
-            comboBoxDisplay.Enabled = trackBarEdgeDistance.Enabled = true;
-            notification.ShowExampleNotification(false);
-        }
+		private void trackBarDuration_ValueChanged(object sender, EventArgs e) {
+			durationUpdateTimer.Stop();
+			durationUpdateTimer.Start();
 
-        private void radioLocCustom_Click(object sender, EventArgs e){
-            if (!Config.IsCustomNotificationPositionSet){
-                Config.CustomNotificationPosition = notification.Location;
-            }
+			Config.NotificationDurationValue = trackBarDuration.Value;
+			labelDurationValue.Text = Config.NotificationDurationValue + " ms/c";
+		}
 
-            Config.NotificationPosition = DesktopNotification.Position.Custom;
+		private void btnDurationShort_Click(object sender, EventArgs e) {
+			trackBarDuration.Value = 15;
+		}
 
-            comboBoxDisplay.Enabled = trackBarEdgeDistance.Enabled = false;
-            notification.ShowExampleNotification(false);
+		private void btnDurationMedium_Click(object sender, EventArgs e) {
+			trackBarDuration.Value = 25;
+		}
 
-            if (notification.IsFullyOutsideView() && FormMessage.Question("Notification is Outside View", "The notification seems to be outside of view, would you like to reset its position?", FormMessage.Yes, FormMessage.No)){
-                Config.NotificationPosition = DesktopNotification.Position.TopRight;
-                notification.MoveToVisibleLocation();
+		private void btnDurationLong_Click(object sender, EventArgs e) {
+			trackBarDuration.Value = 35;
+		}
 
-                Config.CustomNotificationPosition = notification.Location;
+		private void durationUpdateTimer_Tick(object sender, EventArgs e) {
+			notification.ShowExampleNotification(true);
+			durationUpdateTimer.Stop();
+		}
 
-                Config.NotificationPosition = DesktopNotification.Position.Custom;
-                notification.MoveToVisibleLocation();
-            }
-        }
+		#endregion
 
-        private void comboBoxDisplay_SelectedValueChanged(object sender, EventArgs e){
-            Config.NotificationDisplay = comboBoxDisplay.SelectedIndex;
-            notification.ShowExampleNotification(false);
-        }
+		#region Location
 
-        private void trackBarEdgeDistance_ValueChanged(object sender, EventArgs e){
-            labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value + " px";
-            Config.NotificationEdgeDistance = trackBarEdgeDistance.Value;
-            notification.ShowExampleNotification(false);
-        }
+		private void radioLoc_CheckedChanged(object sender, EventArgs e) {
+			if (radioLocTL.Checked) {
+				Config.NotificationPosition = DesktopNotification.Position.TopLeft;
+			}
+			else if (radioLocTR.Checked) {
+				Config.NotificationPosition = DesktopNotification.Position.TopRight;
+			}
+			else if (radioLocBL.Checked) {
+				Config.NotificationPosition = DesktopNotification.Position.BottomLeft;
+			}
+			else if (radioLocBR.Checked) {
+				Config.NotificationPosition = DesktopNotification.Position.BottomRight;
+			}
 
-        #endregion
-        #region Size
+			comboBoxDisplay.Enabled = trackBarEdgeDistance.Enabled = true;
+			notification.ShowExampleNotification(false);
+		}
 
-        private void radioSize_CheckedChanged(object sender, EventArgs e){
-            if (radioSizeAuto.Checked){
-                Config.NotificationSize = DesktopNotification.Size.Auto;
-            }
-            
-            notification.ShowExampleNotification(false);
-        }
-        
-        private void radioSizeCustom_Click(object sender, EventArgs e){
-            if (!Config.IsCustomNotificationSizeSet){
-                Config.CustomNotificationSize = notification.BrowserSize;
-            }
+		private void radioLocCustom_Click(object sender, EventArgs e) {
+			if (!Config.IsCustomNotificationPositionSet) {
+				Config.CustomNotificationPosition = notification.Location;
+			}
 
-            Config.NotificationSize = DesktopNotification.Size.Custom;
-            notification.ShowExampleNotification(false);
-        }
+			Config.NotificationPosition = DesktopNotification.Position.Custom;
 
-        private void trackBarScrollSpeed_ValueChanged(object sender, EventArgs e){
-            if (trackBarScrollSpeed.AlignValueToTick()){
-                labelScrollSpeedValue.Text = trackBarScrollSpeed.Value + "%";
-                Config.NotificationScrollSpeed = trackBarScrollSpeed.Value;
-            }
-        }
+			comboBoxDisplay.Enabled = trackBarEdgeDistance.Enabled = false;
+			notification.ShowExampleNotification(false);
 
-        #endregion
-    }
+			if (notification.IsFullyOutsideView() && FormMessage.Question("Notification is Outside View", "The notification seems to be outside of view, would you like to reset its position?", FormMessage.Yes, FormMessage.No)) {
+				Config.NotificationPosition = DesktopNotification.Position.TopRight;
+				notification.MoveToVisibleLocation();
+
+				Config.CustomNotificationPosition = notification.Location;
+
+				Config.NotificationPosition = DesktopNotification.Position.Custom;
+				notification.MoveToVisibleLocation();
+			}
+		}
+
+		private void comboBoxDisplay_SelectedValueChanged(object sender, EventArgs e) {
+			Config.NotificationDisplay = comboBoxDisplay.SelectedIndex;
+			notification.ShowExampleNotification(false);
+		}
+
+		private void trackBarEdgeDistance_ValueChanged(object sender, EventArgs e) {
+			labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value + " px";
+			Config.NotificationEdgeDistance = trackBarEdgeDistance.Value;
+			notification.ShowExampleNotification(false);
+		}
+
+		#endregion
+
+		#region Size
+
+		private void radioSize_CheckedChanged(object sender, EventArgs e) {
+			if (radioSizeAuto.Checked) {
+				Config.NotificationSize = DesktopNotification.Size.Auto;
+			}
+
+			notification.ShowExampleNotification(false);
+		}
+
+		private void radioSizeCustom_Click(object sender, EventArgs e) {
+			if (!Config.IsCustomNotificationSizeSet) {
+				Config.CustomNotificationSize = notification.BrowserSize;
+			}
+
+			Config.NotificationSize = DesktopNotification.Size.Custom;
+			notification.ShowExampleNotification(false);
+		}
+
+		private void trackBarScrollSpeed_ValueChanged(object sender, EventArgs e) {
+			if (trackBarScrollSpeed.AlignValueToTick()) {
+				labelScrollSpeedValue.Text = trackBarScrollSpeed.Value + "%";
+				Config.NotificationScrollSpeed = trackBarScrollSpeed.Value;
+			}
+		}
+
+		#endregion
+	}
 }

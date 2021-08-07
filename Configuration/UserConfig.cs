@@ -7,146 +7,145 @@ using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Features.Twitter;
 using TweetLib.Core.Systems.Configuration;
 
-namespace TweetDuck.Configuration{
-    sealed class UserConfig : BaseConfig{
-        
-        // CONFIGURATION DATA
+namespace TweetDuck.Configuration {
+	sealed class UserConfig : BaseConfig {
+		// CONFIGURATION DATA
 
-        public bool FirstRun            { get; set; } = true;
-        public bool AllowDataCollection { get; set; } = false;
+		public bool FirstRun            { get; set; } = true;
+		public bool AllowDataCollection { get; set; } = false;
 
-        public WindowState BrowserWindow { get; set; } = new WindowState();
-        public Size PluginsWindowSize    { get; set; } = Size.Empty;
+		public WindowState BrowserWindow { get; set; } = new WindowState();
+		public Size PluginsWindowSize    { get; set; } = Size.Empty;
 
-        public bool ExpandLinksOnHover        { get; set; } = true;
-        public bool FocusDmInput              { get; set; } = true;
-        public bool OpenSearchInFirstColumn   { get; set; } = true;
-        public bool KeepLikeFollowDialogsOpen { get; set; } = true;
-        public bool BestImageQuality          { get; set; } = true;
-        public bool EnableAnimatedImages      { get; set; } = true;
+		public bool ExpandLinksOnHover        { get; set; } = true;
+		public bool FocusDmInput              { get; set; } = true;
+		public bool OpenSearchInFirstColumn   { get; set; } = true;
+		public bool KeepLikeFollowDialogsOpen { get; set; } = true;
+		public bool BestImageQuality          { get; set; } = true;
+		public bool EnableAnimatedImages      { get; set; } = true;
 
-        private bool _enableSmoothScrolling = true;
-        private bool _enableTouchAdjustment = false;
-        private string _customCefArgs       = null;
+		private bool _enableSmoothScrolling = true;
+		private bool _enableTouchAdjustment = false;
+		private string _customCefArgs       = null;
 
-        public string BrowserPath            { get; set; } = null;
-        public string BrowserPathArgs        { get; set; } = null;
-        public bool IgnoreTrackingUrlWarning { get; set; } = false;
-        public string SearchEngineUrl        { get; set; } = null;
-        private int _zoomLevel                             = 100;
-        
-        public string VideoPlayerPath     { get; set; } = null;
-        public string VideoPlayerPathArgs { get; set; } = null;
-        public int VideoPlayerVolume      { get; set; } = 50;
-        
-        public bool EnableSpellCheck { get; set; } = false;
-        private string _spellCheckLanguage         = "en-US";
+		public string BrowserPath            { get; set; } = null;
+		public string BrowserPathArgs        { get; set; } = null;
+		public bool IgnoreTrackingUrlWarning { get; set; } = false;
+		public string SearchEngineUrl        { get; set; } = null;
+		private int _zoomLevel                             = 100;
 
-        public string TranslationTarget { get; set; } = "en";
-        public int  CalendarFirstDay    { get; set; } = -1;
-        
-        private TrayIcon.Behavior _trayBehavior       = TrayIcon.Behavior.Disabled;
-        public bool EnableTrayHighlight { get; set; } = true;
+		public string VideoPlayerPath     { get; set; } = null;
+		public string VideoPlayerPathArgs { get; set; } = null;
+		public int VideoPlayerVolume      { get; set; } = 50;
 
-        public bool EnableUpdateCheck { get; set; } = true;
-        public string DismissedUpdate { get; set; } = null;
+		public bool EnableSpellCheck { get; set; } = false;
+		private string _spellCheckLanguage         = "en-US";
 
-        public bool DisplayNotificationColumn    { get; set; } = false;
-        public bool NotificationMediaPreviews    { get; set; } = true;
-        public bool NotificationSkipOnLinkClick  { get; set; } = false;
-        public bool NotificationNonIntrusiveMode { get; set; } = true;
-        public int NotificationIdlePauseSeconds  { get; set; } = 0;
+		public string TranslationTarget { get; set; } = "en";
+		public int  CalendarFirstDay    { get; set; } = -1;
 
-        public bool DisplayNotificationTimer   { get; set; } = true;
-        public bool NotificationTimerCountDown { get; set; } = false;
-        public int NotificationDurationValue   { get; set; } = 25;
+		private TrayIcon.Behavior _trayBehavior       = TrayIcon.Behavior.Disabled;
+		public bool EnableTrayHighlight { get; set; } = true;
 
-        public DesktopNotification.Position NotificationPosition { get; set; } = DesktopNotification.Position.TopRight;
-        public Point CustomNotificationPosition                  { get; set; } = ControlExtensions.InvisibleLocation;
-        public int NotificationDisplay                           { get; set; } = 0;
-        public int NotificationEdgeDistance                      { get; set; } = 8;
-        public int NotificationWindowOpacity                     { get; set; } = 100;
+		public bool EnableUpdateCheck { get; set; } = true;
+		public string DismissedUpdate { get; set; } = null;
 
-        public DesktopNotification.Size NotificationSize { get; set; } = DesktopNotification.Size.Auto;
-        public Size CustomNotificationSize               { get; set; } = Size.Empty;
-        public int NotificationScrollSpeed               { get; set; } = 100;
-        
-        private string _notificationSoundPath;
-        private int _notificationSoundVolume = 100;
+		public bool DisplayNotificationColumn    { get; set; } = false;
+		public bool NotificationMediaPreviews    { get; set; } = true;
+		public bool NotificationSkipOnLinkClick  { get; set; } = false;
+		public bool NotificationNonIntrusiveMode { get; set; } = true;
+		public int NotificationIdlePauseSeconds  { get; set; } = 0;
 
-        private bool _muteNotifications;
+		public bool DisplayNotificationTimer   { get; set; } = true;
+		public bool NotificationTimerCountDown { get; set; } = false;
+		public int NotificationDurationValue   { get; set; } = 25;
 
-        public string CustomBrowserCSS      { get; set; } = null;
-        public string CustomNotificationCSS { get; set; } = null;
+		public DesktopNotification.Position NotificationPosition { get; set; } = DesktopNotification.Position.TopRight;
+		public Point CustomNotificationPosition                  { get; set; } = ControlExtensions.InvisibleLocation;
+		public int NotificationDisplay                           { get; set; } = 0;
+		public int NotificationEdgeDistance                      { get; set; } = 8;
+		public int NotificationWindowOpacity                     { get; set; } = 100;
 
-        public bool DevToolsWindowOnTop     { get; set; } = true;
-        
-        // SPECIAL PROPERTIES
+		public DesktopNotification.Size NotificationSize { get; set; } = DesktopNotification.Size.Auto;
+		public Size CustomNotificationSize               { get; set; } = Size.Empty;
+		public int NotificationScrollSpeed               { get; set; } = 100;
 
-        public bool IsCustomNotificationPositionSet => CustomNotificationPosition != ControlExtensions.InvisibleLocation;
-        public bool IsCustomNotificationSizeSet => CustomNotificationSize != Size.Empty;
-        public bool IsCustomSoundNotificationSet => NotificationSoundPath != string.Empty;
+		private string _notificationSoundPath;
+		private int _notificationSoundVolume = 100;
 
-        public ImageQuality TwitterImageQuality => BestImageQuality ? ImageQuality.Best : ImageQuality.Default;
-        
-        public string NotificationSoundPath{
-            get => _notificationSoundPath ?? string.Empty;
-            set => UpdatePropertyWithEvent(ref _notificationSoundPath, value, SoundNotificationChanged);
-        }
-        
-        public int NotificationSoundVolume{
-            get => _notificationSoundVolume;
-            set => UpdatePropertyWithEvent(ref _notificationSoundVolume, value, SoundNotificationChanged);
-        }
+		private bool _muteNotifications;
 
-        public bool MuteNotifications{
-            get => _muteNotifications;
-            set => UpdatePropertyWithEvent(ref _muteNotifications, value, MuteToggled);
-        }
+		public string CustomBrowserCSS      { get; set; } = null;
+		public string CustomNotificationCSS { get; set; } = null;
 
-        public int ZoomLevel{
-            get => _zoomLevel;
-            set => UpdatePropertyWithEvent(ref _zoomLevel, value, ZoomLevelChanged);
-        }
-        
-        public TrayIcon.Behavior TrayBehavior{
-            get => _trayBehavior;
-            set => UpdatePropertyWithEvent(ref _trayBehavior, value, TrayBehaviorChanged);
-        }
-        
-        public bool EnableSmoothScrolling{
-            get => _enableSmoothScrolling;
-            set => UpdatePropertyWithRestartRequest(ref _enableSmoothScrolling, value);
-        }
+		public bool DevToolsWindowOnTop     { get; set; } = true;
 
-        public bool EnableTouchAdjustment{
-            get => _enableTouchAdjustment;
-            set => UpdatePropertyWithRestartRequest(ref _enableTouchAdjustment, value);
-        }
+		// SPECIAL PROPERTIES
 
-        public string CustomCefArgs{
-            get => _customCefArgs;
-            set => UpdatePropertyWithRestartRequest(ref _customCefArgs, value);
-        }
+		public bool IsCustomNotificationPositionSet => CustomNotificationPosition != ControlExtensions.InvisibleLocation;
+		public bool IsCustomNotificationSizeSet => CustomNotificationSize != Size.Empty;
+		public bool IsCustomSoundNotificationSet => NotificationSoundPath != string.Empty;
 
-        public string SpellCheckLanguage{
-            get => _spellCheckLanguage;
-            set => UpdatePropertyWithRestartRequest(ref _spellCheckLanguage, value);
-        }
+		public ImageQuality TwitterImageQuality => BestImageQuality ? ImageQuality.Best : ImageQuality.Default;
 
-        // EVENTS
-        
-        public event EventHandler MuteToggled;
-        public event EventHandler ZoomLevelChanged;
-        public event EventHandler TrayBehaviorChanged;
-        public event EventHandler SoundNotificationChanged;
+		public string NotificationSoundPath {
+			get => _notificationSoundPath ?? string.Empty;
+			set => UpdatePropertyWithEvent(ref _notificationSoundPath, value, SoundNotificationChanged);
+		}
 
-        // END OF CONFIG
-        
-        public UserConfig(IConfigManager configManager) : base(configManager){}
+		public int NotificationSoundVolume {
+			get => _notificationSoundVolume;
+			set => UpdatePropertyWithEvent(ref _notificationSoundVolume, value, SoundNotificationChanged);
+		}
 
-        protected override BaseConfig ConstructWithDefaults(IConfigManager configManager){
-            return new UserConfig(configManager);
-        }
-    }
+		public bool MuteNotifications {
+			get => _muteNotifications;
+			set => UpdatePropertyWithEvent(ref _muteNotifications, value, MuteToggled);
+		}
+
+		public int ZoomLevel {
+			get => _zoomLevel;
+			set => UpdatePropertyWithEvent(ref _zoomLevel, value, ZoomLevelChanged);
+		}
+
+		public TrayIcon.Behavior TrayBehavior {
+			get => _trayBehavior;
+			set => UpdatePropertyWithEvent(ref _trayBehavior, value, TrayBehaviorChanged);
+		}
+
+		public bool EnableSmoothScrolling {
+			get => _enableSmoothScrolling;
+			set => UpdatePropertyWithRestartRequest(ref _enableSmoothScrolling, value);
+		}
+
+		public bool EnableTouchAdjustment {
+			get => _enableTouchAdjustment;
+			set => UpdatePropertyWithRestartRequest(ref _enableTouchAdjustment, value);
+		}
+
+		public string CustomCefArgs {
+			get => _customCefArgs;
+			set => UpdatePropertyWithRestartRequest(ref _customCefArgs, value);
+		}
+
+		public string SpellCheckLanguage {
+			get => _spellCheckLanguage;
+			set => UpdatePropertyWithRestartRequest(ref _spellCheckLanguage, value);
+		}
+
+		// EVENTS
+
+		public event EventHandler MuteToggled;
+		public event EventHandler ZoomLevelChanged;
+		public event EventHandler TrayBehaviorChanged;
+		public event EventHandler SoundNotificationChanged;
+
+		// END OF CONFIG
+
+		public UserConfig(IConfigManager configManager) : base(configManager) {}
+
+		protected override BaseConfig ConstructWithDefaults(IConfigManager configManager) {
+			return new UserConfig(configManager);
+		}
+	}
 }

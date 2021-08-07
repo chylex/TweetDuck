@@ -2,160 +2,160 @@
 using CefSharp;
 using TweetLib.Core.Utils;
 
-namespace TweetDuck.Browser.Data{
-    sealed class ContextInfo{
-        private LinkInfo link;
-        private ChirpInfo? chirp;
-        
-        public ContextInfo(){
-            Reset();
-        }
-        
-        public void SetLink(string type, string url){
-            link = string.IsNullOrEmpty(url) ? null : new LinkInfo(type, url);
-        }
+namespace TweetDuck.Browser.Data {
+	sealed class ContextInfo {
+		private LinkInfo link;
+		private ChirpInfo? chirp;
 
-        public void SetChirp(string tweetUrl, string quoteUrl, string chirpAuthors, string chirpImages){
-            chirp = string.IsNullOrEmpty(tweetUrl) ? (ChirpInfo?)null : new ChirpInfo(tweetUrl, quoteUrl, chirpAuthors, chirpImages);
-        }
+		public ContextInfo() {
+			Reset();
+		}
 
-        public ContextData Reset(){
-            link = null;
-            chirp = null;
-            return ContextData.Empty;
-        }
+		public void SetLink(string type, string url) {
+			link = string.IsNullOrEmpty(url) ? null : new LinkInfo(type, url);
+		}
 
-        public ContextData Create(IContextMenuParams parameters){
-            ContextData.Builder builder = new ContextData.Builder();
-            builder.AddContext(parameters);
+		public void SetChirp(string tweetUrl, string quoteUrl, string chirpAuthors, string chirpImages) {
+			chirp = string.IsNullOrEmpty(tweetUrl) ? (ChirpInfo?) null : new ChirpInfo(tweetUrl, quoteUrl, chirpAuthors, chirpImages);
+		}
 
-            if (link != null){
-                builder.AddOverride(link.Type, link.Url);
-            }
-            
-            if (chirp.HasValue){
-                builder.AddChirp(chirp.Value);
-            }
+		public ContextData Reset() {
+			link = null;
+			chirp = null;
+			return ContextData.Empty;
+		}
 
-            return builder.Build();
-        }
+		public ContextData Create(IContextMenuParams parameters) {
+			ContextData.Builder builder = new ContextData.Builder();
+			builder.AddContext(parameters);
 
-        // Data structures
+			if (link != null) {
+				builder.AddOverride(link.Type, link.Url);
+			}
 
-        private sealed class LinkInfo{
-            public string Type { get; }
-            public string Url { get; }
+			if (chirp.HasValue) {
+				builder.AddChirp(chirp.Value);
+			}
 
-            public LinkInfo(string type, string url){
-                this.Type = type;
-                this.Url = url;
-            }
-        }
+			return builder.Build();
+		}
 
-        public struct ChirpInfo{
-            public string TweetUrl { get; }
-            public string QuoteUrl { get; }
+		// Data structures
 
-            public string[] Authors => chirpAuthors?.Split(';') ?? StringUtils.EmptyArray;
-            public string[] Images => chirpImages?.Split(';') ?? StringUtils.EmptyArray;
-            
-            private readonly string chirpAuthors;
-            private readonly string chirpImages;
+		private sealed class LinkInfo {
+			public string Type { get; }
+			public string Url { get; }
 
-            public ChirpInfo(string tweetUrl, string quoteUrl, string chirpAuthors, string chirpImages){
-                this.TweetUrl = tweetUrl;
-                this.QuoteUrl = quoteUrl;
-                this.chirpAuthors = chirpAuthors;
-                this.chirpImages = chirpImages;
-            }
-        }
+			public LinkInfo(string type, string url) {
+				this.Type = type;
+				this.Url = url;
+			}
+		}
 
-        // Constructed context
+		public readonly struct ChirpInfo {
+			public string TweetUrl { get; }
+			public string QuoteUrl { get; }
 
-        [Flags]
-        public enum ContextType{
-            Unknown = 0,
-            Link    = 0b0001,
-            Image   = 0b0010,
-            Video   = 0b0100,
-            Chirp   = 0b1000
-        }
+			public string[] Authors => chirpAuthors?.Split(';') ?? StringUtils.EmptyArray;
+			public string[] Images => chirpImages?.Split(';') ?? StringUtils.EmptyArray;
 
-        public sealed class ContextData{
-            public static readonly ContextData Empty = new Builder().Build();
+			private readonly string chirpAuthors;
+			private readonly string chirpImages;
 
-            public ContextType Types { get; }
+			public ChirpInfo(string tweetUrl, string quoteUrl, string chirpAuthors, string chirpImages) {
+				this.TweetUrl = tweetUrl;
+				this.QuoteUrl = quoteUrl;
+				this.chirpAuthors = chirpAuthors;
+				this.chirpImages = chirpImages;
+			}
+		}
 
-            public string LinkUrl { get; }
-            public string UnsafeLinkUrl { get; }
-            public string MediaUrl { get; }
+		// Constructed context
 
-            public ChirpInfo Chirp { get; }
+		[Flags]
+		public enum ContextType {
+			Unknown = 0,
+			Link    = 0b0001,
+			Image   = 0b0010,
+			Video   = 0b0100,
+			Chirp   = 0b1000
+		}
 
-            public ContextData(ContextType types, string linkUrl, string unsafeLinkUrl, string mediaUrl, ChirpInfo chirp){
-                Types = types;
-                LinkUrl = linkUrl;
-                UnsafeLinkUrl = unsafeLinkUrl;
-                MediaUrl = mediaUrl;
-                Chirp = chirp;
-            }
+		public sealed class ContextData {
+			public static readonly ContextData Empty = new Builder().Build();
 
-            public sealed class Builder{
-                private ContextType types = ContextType.Unknown;
+			public ContextType Types { get; }
 
-                private string linkUrl = string.Empty;
-                private string unsafeLinkUrl = string.Empty;
-                private string mediaUrl = string.Empty;
+			public string LinkUrl { get; }
+			public string UnsafeLinkUrl { get; }
+			public string MediaUrl { get; }
 
-                private ChirpInfo chirp = default;
+			public ChirpInfo Chirp { get; }
 
-                public void AddContext(IContextMenuParams parameters){
-                    ContextMenuType flags = parameters.TypeFlags;
+			private ContextData(ContextType types, string linkUrl, string unsafeLinkUrl, string mediaUrl, ChirpInfo chirp) {
+				Types = types;
+				LinkUrl = linkUrl;
+				UnsafeLinkUrl = unsafeLinkUrl;
+				MediaUrl = mediaUrl;
+				Chirp = chirp;
+			}
 
-                    if (flags.HasFlag(ContextMenuType.Media) && parameters.HasImageContents){
-                        types |= ContextType.Image;
-                        types &= ~ContextType.Video;
-                        mediaUrl = parameters.SourceUrl;
-                    }
+			public sealed class Builder {
+				private ContextType types = ContextType.Unknown;
 
-                    if (flags.HasFlag(ContextMenuType.Link)){
-                        types |= ContextType.Link;
-                        linkUrl = parameters.LinkUrl;
-                        unsafeLinkUrl = parameters.UnfilteredLinkUrl;
-                    }
-                }
+				private string linkUrl = string.Empty;
+				private string unsafeLinkUrl = string.Empty;
+				private string mediaUrl = string.Empty;
 
-                public void AddOverride(string type, string url){
-                    switch(type){
-                        case "link":
-                            types |= ContextType.Link;
-                            linkUrl = url;
-                            unsafeLinkUrl = url;
-                            break;
+				private ChirpInfo chirp = default;
 
-                        case "image":
-                            types |= ContextType.Image;
-                            types &= ~(ContextType.Video | ContextType.Link);
-                            mediaUrl = url;
-                            break;
+				public void AddContext(IContextMenuParams parameters) {
+					ContextMenuType flags = parameters.TypeFlags;
 
-                        case "video":
-                            types |= ContextType.Video;
-                            types &= ~(ContextType.Image | ContextType.Link);
-                            mediaUrl = url;
-                            break;
-                    }
-                }
+					if (flags.HasFlag(ContextMenuType.Media) && parameters.HasImageContents) {
+						types |= ContextType.Image;
+						types &= ~ContextType.Video;
+						mediaUrl = parameters.SourceUrl;
+					}
 
-                public void AddChirp(ChirpInfo chirp){
-                    this.types |= ContextType.Chirp;
-                    this.chirp = chirp;
-                }
+					if (flags.HasFlag(ContextMenuType.Link)) {
+						types |= ContextType.Link;
+						linkUrl = parameters.LinkUrl;
+						unsafeLinkUrl = parameters.UnfilteredLinkUrl;
+					}
+				}
 
-                public ContextData Build(){
-                    return new ContextData(types, linkUrl, unsafeLinkUrl, mediaUrl, chirp);
-                }
-            }
-        }
-    }
+				public void AddOverride(string type, string url) {
+					switch (type) {
+						case "link":
+							types |= ContextType.Link;
+							linkUrl = url;
+							unsafeLinkUrl = url;
+							break;
+
+						case "image":
+							types |= ContextType.Image;
+							types &= ~(ContextType.Video | ContextType.Link);
+							mediaUrl = url;
+							break;
+
+						case "video":
+							types |= ContextType.Video;
+							types &= ~(ContextType.Image | ContextType.Link);
+							mediaUrl = url;
+							break;
+					}
+				}
+
+				public void AddChirp(ChirpInfo chirp) {
+					this.types |= ContextType.Chirp;
+					this.chirp = chirp;
+				}
+
+				public ContextData Build() {
+					return new ContextData(types, linkUrl, unsafeLinkUrl, mediaUrl, chirp);
+				}
+			}
+		}
+	}
 }

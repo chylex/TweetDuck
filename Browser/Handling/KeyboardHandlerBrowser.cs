@@ -1,20 +1,16 @@
 ﻿using System.Windows.Forms;
 using CefSharp;
 
-namespace TweetDuck.Browser.Handling{
-    sealed class KeyboardHandlerBrowser : KeyboardHandlerBase{
-        private readonly FormBrowser form;
+namespace TweetDuck.Browser.Handling {
+	sealed class KeyboardHandlerBrowser : KeyboardHandlerBase {
+		private readonly FormBrowser form;
 
-        public KeyboardHandlerBrowser(FormBrowser form){
-            this.form = form;
-        }
+		public KeyboardHandlerBrowser(FormBrowser form) {
+			this.form = form;
+		}
 
-        protected override bool HandleRawKey(IWebBrowser browserControl, IBrowser browser, Keys key, CefEventFlags modifiers){
-            if (base.HandleRawKey(browserControl, browser, key, modifiers)){
-                return true;
-            }
-
-            return form.ProcessBrowserKey(key);
-        }
-    }
+		protected override bool HandleRawKey(IWebBrowser browserControl, Keys key, CefEventFlags modifiers) {
+			return base.HandleRawKey(browserControl, key, modifiers) || form.ProcessBrowserKey(key);
+		}
+	}
 }

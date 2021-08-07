@@ -1,20 +1,20 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
 
-namespace TweetDuck.Browser.Handling.Filters{
-    sealed class ResponseFilterVendor : ResponseFilterBase{
-        private static readonly Regex RegexRestoreJQuery = new Regex(@"(\w+)\.fn=\1\.prototype", RegexOptions.Compiled);
+namespace TweetDuck.Browser.Handling.Filters {
+	sealed class ResponseFilterVendor : ResponseFilterBase {
+		private static readonly Regex RegexRestoreJQuery = new Regex(@"(\w+)\.fn=\1\.prototype", RegexOptions.Compiled);
 
-        public ResponseFilterVendor(int totalBytes) : base(totalBytes, Encoding.UTF8){}
+		public ResponseFilterVendor(int totalBytes) : base(totalBytes, Encoding.UTF8) {}
 
-        public override bool InitFilter(){
-            return true;
-        }
-        
-        protected override string ProcessResponse(string text){
-            return RegexRestoreJQuery.Replace(text, "window.$$=$1;$&", 1);
-        }
+		public override bool InitFilter() {
+			return true;
+		}
 
-        public override void Dispose(){}
-    }
+		protected override string ProcessResponse(string text) {
+			return RegexRestoreJQuery.Replace(text, "window.$$=$1;$&", 1);
+		}
+
+		public override void Dispose() {}
+	}
 }

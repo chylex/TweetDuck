@@ -3,43 +3,43 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using CefSharp.BrowserSubprocess;
 
-namespace TweetDuck.Browser{
-    static class Program{
-        private static int Main(string[] args){
-            SubProcess.EnableHighDPISupport();
-            
-            string FindArg(string key){
-                return Array.Find(args, arg => arg.StartsWith(key, StringComparison.OrdinalIgnoreCase)).Substring(key.Length);
-            }
+namespace TweetDuck.Browser {
+	static class Program {
+		private static int Main(string[] args) {
+			SubProcess.EnableHighDPISupport();
 
-            const string typePrefix = "--type=";
-            const string parentIdPrefix = "--host-process-id=";
+			string FindArg(string key) {
+				return Array.Find(args, arg => arg.StartsWith(key, StringComparison.OrdinalIgnoreCase)).Substring(key.Length);
+			}
 
-            if (!int.TryParse(FindArg(parentIdPrefix), out int parentId)){
-                return 0;
-            }
+			const string typePrefix = "--type=";
+			const string parentIdPrefix = "--host-process-id=";
 
-            Task.Factory.StartNew(() => KillWhenHung(parentId), TaskCreationOptions.LongRunning);
-            
-            if (FindArg(typePrefix) == "renderer"){
-                using SubProcess subProcess = new SubProcess(null, args);
-                return subProcess.Run();
-            }
-            else{
-                return SubProcess.ExecuteProcess(args);
-            }
-        }
+			if (!int.TryParse(FindArg(parentIdPrefix), out int parentId)) {
+				return 0;
+			}
 
-        private static async void KillWhenHung(int parentId){
-            try{
-                using Process process = Process.GetProcessById(parentId);
-                process.WaitForExit();
-            }catch{
-                // ded
-            }
+			Task.Factory.StartNew(() => KillWhenHung(parentId), TaskCreationOptions.LongRunning);
 
-            await Task.Delay(10000);
-            Environment.Exit(0);
-        }
-    }
+			if (FindArg(typePrefix) == "renderer") {
+				using SubProcess subProcess = new SubProcess(null, args);
+				return subProcess.Run();
+			}
+			else {
+				return SubProcess.ExecuteProcess(args);
+			}
+		}
+
+		private static async void KillWhenHung(int parentId) {
+			try {
+				using Process process = Process.GetProcessById(parentId);
+				process.WaitForExit();
+			} catch {
+				// ded
+			}
+
+			await Task.Delay(10000);
+			Environment.Exit(0);
+		}
+	}
 }

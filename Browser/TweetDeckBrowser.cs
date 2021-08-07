@@ -19,271 +19,272 @@ using TweetLib.Core.Features.Plugins.Enums;
 using TweetLib.Core.Features.Twitter;
 using TweetLib.Core.Utils;
 
-namespace TweetDuck.Browser{
-    sealed class TweetDeckBrowser : IDisposable{
-        private static UserConfig Config => Program.Config.User;
+namespace TweetDuck.Browser {
+	sealed class TweetDeckBrowser : IDisposable {
+		private static UserConfig Config => Program.Config.User;
 
-        private const string ErrorUrl = "http://td/error";
-        private const string TwitterStyleUrl = "https://abs.twimg.com/tduck/css";
+		private const string ErrorUrl = "http://td/error";
+		private const string TwitterStyleUrl = "https://abs.twimg.com/tduck/css";
 
-        public bool Ready { get; private set; }
+		public bool Ready { get; private set; }
 
-        public bool Enabled{
-            get => browser.Enabled;
-            set => browser.Enabled = value;
-        }
+		public bool Enabled {
+			get => browser.Enabled;
+			set => browser.Enabled = value;
+		}
 
-        public bool IsTweetDeckWebsite{
-            get{
-                if (!Ready){
-                    return false;
-                }
+		public bool IsTweetDeckWebsite {
+			get {
+				if (!Ready) {
+					return false;
+				}
 
-                using IFrame frame = browser.GetBrowser().MainFrame;
-                return TwitterUrls.IsTweetDeck(frame.Url);
-            }
-        }
-        
-        private readonly ChromiumWebBrowser browser;
-        private readonly ResourceHandlers resourceHandlers;
+				using IFrame frame = browser.GetBrowser().MainFrame;
+				return TwitterUrls.IsTweetDeck(frame.Url);
+			}
+		}
 
-        private string prevSoundNotificationPath = null;
+		private readonly ChromiumWebBrowser browser;
+		private readonly ResourceHandlers resourceHandlers;
 
-        public TweetDeckBrowser(FormBrowser owner, PluginManager plugins, TweetDeckBridge tdBridge, UpdateBridge updateBridge){
-            var resourceRequestHandler = new ResourceRequestHandlerBrowser();
-            resourceHandlers = resourceRequestHandler.ResourceHandlers;
+		private string prevSoundNotificationPath = null;
 
-            resourceHandlers.Register(FormNotificationBase.AppLogo);
-            resourceHandlers.Register(TwitterUtils.LoadingSpinner);
+		public TweetDeckBrowser(FormBrowser owner, PluginManager plugins, TweetDeckBridge tdBridge, UpdateBridge updateBridge) {
+			var resourceRequestHandler = new ResourceRequestHandlerBrowser();
+			resourceHandlers = resourceRequestHandler.ResourceHandlers;
 
-            RequestHandlerBrowser requestHandler = new RequestHandlerBrowser();
-            
-            this.browser = new ChromiumWebBrowser(TwitterUrls.TweetDeck){
-                DialogHandler = new FileDialogHandler(),
-                DragHandler = new DragHandlerBrowser(requestHandler),
-                MenuHandler = new ContextMenuBrowser(owner),
-                JsDialogHandler = new JavaScriptDialogHandler(),
-                KeyboardHandler = new KeyboardHandlerBrowser(owner),
-                LifeSpanHandler = new LifeSpanHandler(),
-                RequestHandler = requestHandler,
-                ResourceRequestHandlerFactory = resourceRequestHandler.SelfFactory
-            };
+			resourceHandlers.Register(FormNotificationBase.AppLogo);
+			resourceHandlers.Register(TwitterUtils.LoadingSpinner);
 
-            this.browser.LoadingStateChanged += browser_LoadingStateChanged;
-            this.browser.FrameLoadStart += browser_FrameLoadStart;
-            this.browser.FrameLoadEnd += browser_FrameLoadEnd;
-            this.browser.LoadError += browser_LoadError;
+			RequestHandlerBrowser requestHandler = new RequestHandlerBrowser();
 
-            this.browser.RegisterJsBridge("$TD", tdBridge);
-            this.browser.RegisterJsBridge("$TDU", updateBridge);
-            
-            this.browser.BrowserSettings.BackgroundColor = (uint)TwitterUtils.BackgroundColor.ToArgb();
-            this.browser.Dock = DockStyle.None;
-            this.browser.Location = ControlExtensions.InvisibleLocation;
-            this.browser.SetupZoomEvents();
-            
-            owner.Controls.Add(browser);
-            plugins.Register(PluginEnvironment.Browser, new PluginDispatcher(browser, TwitterUrls.IsTweetDeck));
-            
-            Config.MuteToggled += Config_MuteToggled;
-            Config.SoundNotificationChanged += Config_SoundNotificationInfoChanged;
-        }
+			this.browser = new ChromiumWebBrowser(TwitterUrls.TweetDeck) {
+				DialogHandler = new FileDialogHandler(),
+				DragHandler = new DragHandlerBrowser(requestHandler),
+				MenuHandler = new ContextMenuBrowser(owner),
+				JsDialogHandler = new JavaScriptDialogHandler(),
+				KeyboardHandler = new KeyboardHandlerBrowser(owner),
+				LifeSpanHandler = new LifeSpanHandler(),
+				RequestHandler = requestHandler,
+				ResourceRequestHandlerFactory = resourceRequestHandler.SelfFactory
+			};
 
-        // setup and management
+			this.browser.LoadingStateChanged += browser_LoadingStateChanged;
+			this.browser.FrameLoadStart += browser_FrameLoadStart;
+			this.browser.FrameLoadEnd += browser_FrameLoadEnd;
+			this.browser.LoadError += browser_LoadError;
 
-        public void PrepareSize(Size size){
-            if (!Ready){
-                browser.Size = size;
-            }
-        }
+			this.browser.RegisterJsBridge("$TD", tdBridge);
+			this.browser.RegisterJsBridge("$TDU", updateBridge);
 
-        private void OnBrowserReady(){
-            if (!Ready){
-                browser.Location = Point.Empty;
-                browser.Dock = DockStyle.Fill;
-                Ready = true;
-            }
-        }
+			// ReSharper disable once PossiblyImpureMethodCallOnReadonlyVariable
+			this.browser.BrowserSettings.BackgroundColor = (uint) TwitterUtils.BackgroundColor.ToArgb();
+			this.browser.Dock = DockStyle.None;
+			this.browser.Location = ControlExtensions.InvisibleLocation;
+			this.browser.SetupZoomEvents();
 
-        public void Focus(){
-            browser.Focus();
-        }
+			owner.Controls.Add(browser);
+			plugins.Register(PluginEnvironment.Browser, new PluginDispatcher(browser, TwitterUrls.IsTweetDeck));
 
-        public void Dispose(){
-            Config.MuteToggled -= Config_MuteToggled;
-            Config.SoundNotificationChanged -= Config_SoundNotificationInfoChanged;
-            
-            browser.Dispose();
-        }
+			Config.MuteToggled += Config_MuteToggled;
+			Config.SoundNotificationChanged += Config_SoundNotificationInfoChanged;
+		}
 
-        // event handlers
+		// setup and management
 
-        private void browser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e){
-            if (!e.IsLoading){
-                foreach(string word in TwitterUtils.DictionaryWords){
-                    browser.AddWordToDictionary(word);
-                }
+		public void PrepareSize(Size size) {
+			if (!Ready) {
+				browser.Size = size;
+			}
+		}
 
-                browser.BeginInvoke(new Action(OnBrowserReady));
-                browser.LoadingStateChanged -= browser_LoadingStateChanged;
-            }
-        }
+		private void OnBrowserReady() {
+			if (!Ready) {
+				browser.Location = Point.Empty;
+				browser.Dock = DockStyle.Fill;
+				Ready = true;
+			}
+		}
 
-        private void browser_FrameLoadStart(object sender, FrameLoadStartEventArgs e){
-            IFrame frame = e.Frame;
+		public void Focus() {
+			browser.Focus();
+		}
 
-            if (frame.IsMain){
-                string url = frame.Url;
+		public void Dispose() {
+			Config.MuteToggled -= Config_MuteToggled;
+			Config.SoundNotificationChanged -= Config_SoundNotificationInfoChanged;
 
-                if (TwitterUrls.IsTwitter(url)){
-                    string css = Program.Resources.Load("styles/twitter.css");
-                    resourceHandlers.Register(TwitterStyleUrl, ResourceHandlers.ForString(css, "text/css"));
+			browser.Dispose();
+		}
 
-                    CefScriptExecutor.RunFile(frame, "twitter.js");
-                }
-                
-                if (!TwitterUrls.IsTwitterLogin2Factor(url)){
-                    frame.ExecuteJavaScriptAsync(TwitterUtils.BackgroundColorOverride);
-                }
-            }
-        }
+		// event handlers
 
-        private void browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e){
-            IFrame frame = e.Frame;
-            string url = frame.Url;
+		private void browser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e) {
+			if (!e.IsLoading) {
+				foreach (string word in TwitterUtils.DictionaryWords) {
+					browser.AddWordToDictionary(word);
+				}
 
-            if (frame.IsMain){
-                if (TwitterUrls.IsTweetDeck(url)){
-                    UpdateProperties();
-                    CefScriptExecutor.RunFile(frame, "code.js");
+				browser.BeginInvoke(new Action(OnBrowserReady));
+				browser.LoadingStateChanged -= browser_LoadingStateChanged;
+			}
+		}
 
-                    InjectBrowserCSS();
-                    ReinjectCustomCSS(Config.CustomBrowserCSS);
-                    Config_SoundNotificationInfoChanged(null, EventArgs.Empty);
+		private void browser_FrameLoadStart(object sender, FrameLoadStartEventArgs e) {
+			IFrame frame = e.Frame;
 
-                    TweetDeckBridge.ResetStaticProperties();
+			if (frame.IsMain) {
+				string url = frame.Url;
 
-                    if (Arguments.HasFlag(Arguments.ArgIgnoreGDPR)){
-                        CefScriptExecutor.RunScript(frame, "TD.storage.Account.prototype.requiresConsent = function(){ return false; }", "gen:gdpr");
-                    }
+				if (TwitterUrls.IsTwitter(url)) {
+					string css = Program.Resources.Load("styles/twitter.css");
+					resourceHandlers.Register(TwitterStyleUrl, ResourceHandlers.ForString(css, "text/css"));
 
-                    if (Config.FirstRun){
-                        CefScriptExecutor.RunFile(frame, "introduction.js");
-                    }
-                }
+					CefScriptExecutor.RunFile(frame, "twitter.js");
+				}
 
-                CefScriptExecutor.RunFile(frame, "update.js");
-            }
+				if (!TwitterUrls.IsTwitterLogin2Factor(url)) {
+					frame.ExecuteJavaScriptAsync(TwitterUtils.BackgroundColorOverride);
+				}
+			}
+		}
 
-            if (url == ErrorUrl){
-                resourceHandlers.Unregister(ErrorUrl);
-            }
-        }
+		private void browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e) {
+			IFrame frame = e.Frame;
+			string url = frame.Url;
 
-        private void browser_LoadError(object sender, LoadErrorEventArgs e){
-            if (e.ErrorCode == CefErrorCode.Aborted){
-                return;
-            }
+			if (frame.IsMain) {
+				if (TwitterUrls.IsTweetDeck(url)) {
+					UpdateProperties();
+					CefScriptExecutor.RunFile(frame, "code.js");
 
-            if (!e.FailedUrl.StartsWith("http://td/", StringComparison.Ordinal)){
-                string errorPage = Program.Resources.LoadSilent("pages/error.html");
+					InjectBrowserCSS();
+					ReinjectCustomCSS(Config.CustomBrowserCSS);
+					Config_SoundNotificationInfoChanged(null, EventArgs.Empty);
 
-                if (errorPage != null){
-                    string errorName = Enum.GetName(typeof(CefErrorCode), e.ErrorCode);
-                    string errorTitle = StringUtils.ConvertPascalCaseToScreamingSnakeCase(errorName ?? string.Empty);
+					TweetDeckBridge.ResetStaticProperties();
 
-                    resourceHandlers.Register(ErrorUrl, ResourceHandlers.ForString(errorPage.Replace("{err}", errorTitle)));
-                    browser.Load(ErrorUrl);
-                }
-            }
-        }
+					if (Arguments.HasFlag(Arguments.ArgIgnoreGDPR)) {
+						CefScriptExecutor.RunScript(frame, "TD.storage.Account.prototype.requiresConsent = function(){ return false; }", "gen:gdpr");
+					}
 
-        private void Config_MuteToggled(object sender, EventArgs e){
-            UpdateProperties();
-        }
+					if (Config.FirstRun) {
+						CefScriptExecutor.RunFile(frame, "introduction.js");
+					}
+				}
 
-        private void Config_SoundNotificationInfoChanged(object sender, EventArgs e){
-            const string soundUrl = "https://ton.twimg.com/tduck/updatesnd";
+				CefScriptExecutor.RunFile(frame, "update.js");
+			}
 
-            bool hasCustomSound = Config.IsCustomSoundNotificationSet;
-            string newNotificationPath = Config.NotificationSoundPath;
-            
-            if (prevSoundNotificationPath != newNotificationPath){
-                prevSoundNotificationPath = newNotificationPath;
+			if (url == ErrorUrl) {
+				resourceHandlers.Unregister(ErrorUrl);
+			}
+		}
 
-                if (hasCustomSound){
-                    resourceHandlers.Register(soundUrl, SoundNotification.CreateFileHandler(newNotificationPath));
-                }
-                else{
-                    resourceHandlers.Unregister(soundUrl);
-                }
-            }
+		private void browser_LoadError(object sender, LoadErrorEventArgs e) {
+			if (e.ErrorCode == CefErrorCode.Aborted) {
+				return;
+			}
 
-            browser.ExecuteScriptAsync("TDGF_setSoundNotificationData", hasCustomSound, Config.NotificationSoundVolume);
-        }
+			if (!e.FailedUrl.StartsWith("http://td/", StringComparison.Ordinal)) {
+				string errorPage = Program.Resources.LoadSilent("pages/error.html");
 
-        // external handling
+				if (errorPage != null) {
+					string errorName = Enum.GetName(typeof(CefErrorCode), e.ErrorCode);
+					string errorTitle = StringUtils.ConvertPascalCaseToScreamingSnakeCase(errorName ?? string.Empty);
 
-        public void HideVideoOverlay(bool focus){
-            if (focus){
-                browser.GetBrowser().GetHost().SendFocusEvent(true);
-            }
+					resourceHandlers.Register(ErrorUrl, ResourceHandlers.ForString(errorPage.Replace("{err}", errorTitle)));
+					browser.Load(ErrorUrl);
+				}
+			}
+		}
 
-            browser.ExecuteScriptAsync("$('#td-video-player-overlay').remove()");
-        }
+		private void Config_MuteToggled(object sender, EventArgs e) {
+			UpdateProperties();
+		}
 
-        // javascript calls
+		private void Config_SoundNotificationInfoChanged(object sender, EventArgs e) {
+			const string soundUrl = "https://ton.twimg.com/tduck/updatesnd";
 
-        public void ReloadToTweetDeck(){
-            browser.ExecuteScriptAsync($"if(window.TDGF_reload)window.TDGF_reload();else window.location.href='{TwitterUrls.TweetDeck}'");
-        }
+			bool hasCustomSound = Config.IsCustomSoundNotificationSet;
+			string newNotificationPath = Config.NotificationSoundPath;
 
-        public void UpdateProperties(){
-            browser.ExecuteScriptAsync(PropertyBridge.GenerateScript(PropertyBridge.Environment.Browser));
-        }
+			if (prevSoundNotificationPath != newNotificationPath) {
+				prevSoundNotificationPath = newNotificationPath;
 
-        public void InjectBrowserCSS(){
-            browser.ExecuteScriptAsync("TDGF_injectBrowserCSS", Program.Resources.Load("styles/browser.css")?.TrimEnd() ?? string.Empty);
-        }
+				if (hasCustomSound) {
+					resourceHandlers.Register(soundUrl, SoundNotification.CreateFileHandler(newNotificationPath));
+				}
+				else {
+					resourceHandlers.Unregister(soundUrl);
+				}
+			}
 
-        public void ReinjectCustomCSS(string css){
-            browser.ExecuteScriptAsync("TDGF_reinjectCustomCSS", css?.Replace(Environment.NewLine, " ") ?? string.Empty);
-        }
+			browser.ExecuteScriptAsync("TDGF_setSoundNotificationData", hasCustomSound, Config.NotificationSoundVolume);
+		}
 
-        public void OnMouseClickExtra(IntPtr param){
-            browser.ExecuteScriptAsync("TDGF_onMouseClickExtra", (param.ToInt32() >> 16) & 0xFFFF);
-        }
+		// external handling
 
-        public void ShowTweetDetail(string columnId, string chirpId, string fallbackUrl){
-            browser.ExecuteScriptAsync("TDGF_showTweetDetail", columnId, chirpId, fallbackUrl);
-        }
+		public void HideVideoOverlay(bool focus) {
+			if (focus) {
+				browser.GetBrowser().GetHost().SendFocusEvent(true);
+			}
 
-        public void AddSearchColumn(string query){
-            browser.ExecuteScriptAsync("TDGF_performSearch", query);
-        }
+			browser.ExecuteScriptAsync("$('#td-video-player-overlay').remove()");
+		}
 
-        public void TriggerTweetScreenshot(){
-            browser.ExecuteScriptAsync("TDGF_triggerScreenshot()");
-        }
+		// javascript calls
 
-        public void ReloadColumns(){
-            browser.ExecuteScriptAsync("TDGF_reloadColumns()");
-        }
+		public void ReloadToTweetDeck() {
+			browser.ExecuteScriptAsync($"if(window.TDGF_reload)window.TDGF_reload();else window.location.href='{TwitterUrls.TweetDeck}'");
+		}
 
-        public void PlaySoundNotification(){
-            browser.ExecuteScriptAsync("TDGF_playSoundNotification()");
-        }
+		public void UpdateProperties() {
+			browser.ExecuteScriptAsync(PropertyBridge.GenerateScript(PropertyBridge.Environment.Browser));
+		}
 
-        public void ApplyROT13(){
-            browser.ExecuteScriptAsync("TDGF_applyROT13()");
-        }
+		public void InjectBrowserCSS() {
+			browser.ExecuteScriptAsync("TDGF_injectBrowserCSS", Program.Resources.Load("styles/browser.css")?.TrimEnd() ?? string.Empty);
+		}
 
-        public void ShowUpdateNotification(string versionTag, string releaseNotes){
-            browser.ExecuteScriptAsync("TDUF_displayNotification", versionTag, Convert.ToBase64String(Encoding.GetEncoding("iso-8859-1").GetBytes(releaseNotes)));
-        }
+		public void ReinjectCustomCSS(string css) {
+			browser.ExecuteScriptAsync("TDGF_reinjectCustomCSS", css?.Replace(Environment.NewLine, " ") ?? string.Empty);
+		}
 
-        public void OpenDevTools(){
-            browser.OpenDevToolsCustom();
-        }
-    }
+		public void OnMouseClickExtra(IntPtr param) {
+			browser.ExecuteScriptAsync("TDGF_onMouseClickExtra", (param.ToInt32() >> 16) & 0xFFFF);
+		}
+
+		public void ShowTweetDetail(string columnId, string chirpId, string fallbackUrl) {
+			browser.ExecuteScriptAsync("TDGF_showTweetDetail", columnId, chirpId, fallbackUrl);
+		}
+
+		public void AddSearchColumn(string query) {
+			browser.ExecuteScriptAsync("TDGF_performSearch", query);
+		}
+
+		public void TriggerTweetScreenshot() {
+			browser.ExecuteScriptAsync("TDGF_triggerScreenshot()");
+		}
+
+		public void ReloadColumns() {
+			browser.ExecuteScriptAsync("TDGF_reloadColumns()");
+		}
+
+		public void PlaySoundNotification() {
+			browser.ExecuteScriptAsync("TDGF_playSoundNotification()");
+		}
+
+		public void ApplyROT13() {
+			browser.ExecuteScriptAsync("TDGF_applyROT13()");
+		}
+
+		public void ShowUpdateNotification(string versionTag, string releaseNotes) {
+			browser.ExecuteScriptAsync("TDUF_displayNotification", versionTag, Convert.ToBase64String(Encoding.GetEncoding("iso-8859-1").GetBytes(releaseNotes)));
+		}
+
+		public void OpenDevTools() {
+			browser.OpenDevToolsCustom();
+		}
+	}
 }

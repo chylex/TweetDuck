@@ -10,74 +10,74 @@ using TweetLib.Core.Systems.Updates;
 using TweetLib.Core.Utils;
 using JsonObject = System.Collections.Generic.IDictionary<string, object>;
 
-namespace TweetDuck.Updates{
-    sealed class UpdateCheckClient : IUpdateCheckClient{
-        private const string ApiLatestRelease = "https://api.github.com/repos/chylex/TweetDuck/releases/latest";
-        private const string UpdaterAssetName = "TweetDuck.Update.exe";
+namespace TweetDuck.Updates {
+	sealed class UpdateCheckClient : IUpdateCheckClient {
+		private const string ApiLatestRelease = "https://api.github.com/repos/chylex/TweetDuck/releases/latest";
+		private const string UpdaterAssetName = "TweetDuck.Update.exe";
 
-        private readonly string installerFolder;
+		private readonly string installerFolder;
 
-        public UpdateCheckClient(string installerFolder){
-            this.installerFolder = installerFolder;
-        }
+		public UpdateCheckClient(string installerFolder) {
+			this.installerFolder = installerFolder;
+		}
 
-        bool IUpdateCheckClient.CanCheck => Program.Config.User.EnableUpdateCheck;
+		bool IUpdateCheckClient.CanCheck => Program.Config.User.EnableUpdateCheck;
 
-        Task<UpdateInfo> IUpdateCheckClient.Check(){
-            TaskCompletionSource<UpdateInfo> result = new TaskCompletionSource<UpdateInfo>();
+		Task<UpdateInfo> IUpdateCheckClient.Check() {
+			TaskCompletionSource<UpdateInfo> result = new TaskCompletionSource<UpdateInfo>();
 
-            WebClient client = WebUtils.NewClient(BrowserUtils.UserAgentVanilla);
-            client.Headers[HttpRequestHeader.Accept] = "application/vnd.github.v3+json";
+			WebClient client = WebUtils.NewClient(BrowserUtils.UserAgentVanilla);
+			client.Headers[HttpRequestHeader.Accept] = "application/vnd.github.v3+json";
 
-            client.DownloadStringTaskAsync(ApiLatestRelease).ContinueWith(task => {
-                if (task.IsCanceled){
-                    result.SetCanceled();
-                }
-                else if (task.IsFaulted){
-                    result.SetException(ExpandWebException(task.Exception.InnerException));
-                }
-                else{
-                    try{
-                        result.SetResult(ParseFromJson(task.Result));
-                    }catch(Exception e){
-                        result.SetException(e);
-                    }
-                }
-            });
-            
-            return result.Task;
-        }
+			client.DownloadStringTaskAsync(ApiLatestRelease).ContinueWith(task => {
+				if (task.IsCanceled) {
+					result.SetCanceled();
+				}
+				else if (task.IsFaulted) {
+					result.SetException(ExpandWebException(task.Exception.InnerException));
+				}
+				else {
+					try {
+						result.SetResult(ParseFromJson(task.Result));
+					} catch (Exception e) {
+						result.SetException(e);
+					}
+				}
+			});
 
-        private UpdateInfo ParseFromJson(string json){
-            static bool IsUpdaterAsset(JsonObject obj){
-                return UpdaterAssetName == (string)obj["name"];
-            }
+			return result.Task;
+		}
 
-            static string AssetDownloadUrl(JsonObject obj){
-                return (string)obj["browser_download_url"];
-            }
-            
-            JsonObject root = (JsonObject)new JavaScriptSerializer().DeserializeObject(json);
+		private UpdateInfo ParseFromJson(string json) {
+			static bool IsUpdaterAsset(JsonObject obj) {
+				return UpdaterAssetName == (string) obj["name"];
+			}
 
-            string versionTag = (string)root["tag_name"];
-            string releaseNotes = (string)root["body"];
-            string downloadUrl = ((Array)root["assets"]).Cast<JsonObject>().Where(IsUpdaterAsset).Select(AssetDownloadUrl).FirstOrDefault();
+			static string AssetDownloadUrl(JsonObject obj) {
+				return (string) obj["browser_download_url"];
+			}
 
-            return new UpdateInfo(versionTag, releaseNotes, downloadUrl, installerFolder);
-        }
+			JsonObject root = (JsonObject) new JavaScriptSerializer().DeserializeObject(json);
 
-        private static Exception ExpandWebException(Exception e){
-            if (e is WebException we && we.Response is HttpWebResponse response){
-                try{
-                    using var stream = response.GetResponseStream();
-                    using var reader = new StreamReader(stream, Encoding.GetEncoding(response.CharacterSet ?? "utf-8"));
-                    return new Reporter.ExpandedLogException(e, reader.ReadToEnd());
-                }catch{
-                    // whatever
-                }
-            }
+			string versionTag = (string) root["tag_name"];
+			string releaseNotes = (string) root["body"];
+			string downloadUrl = ((Array) root["assets"]).Cast<JsonObject>().Where(IsUpdaterAsset).Select(AssetDownloadUrl).FirstOrDefault();
 
-            return e;
-        }
-    }
+			return new UpdateInfo(versionTag, releaseNotes, downloadUrl, installerFolder);
+		}
+
+		private static Exception ExpandWebException(Exception e) {
+			if (e is WebException we && we.Response is HttpWebResponse response) {
+				try {
+					using var stream = response.GetResponseStream();
+					using var reader = new StreamReader(stream, Encoding.GetEncoding(response.CharacterSet ?? "utf-8"));
+					return new Reporter.ExpandedLogException(e, reader.ReadToEnd());
+				} catch {
+					// whatever
+				}
+			}
+
+			return e;
+		}
+	}
 }

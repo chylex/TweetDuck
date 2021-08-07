@@ -10,113 +10,112 @@ using System;
 using System.Windows.Forms;
 using TweetDuck.Controls;
 using TweetLib.Core.Features.Plugins;
-
 #if GEN_SCREENSHOT_FRAMES
 using System.Drawing.Imaging;
 using System.IO;
 using TweetDuck.Core.Utils;
 #endif
 
-namespace TweetDuck.Browser.Notification.Screenshot{
-    sealed class TweetScreenshotManager : IDisposable{
-        private readonly FormBrowser owner;
-        private readonly PluginManager plugins;
-        private readonly Timer timeout;
-        private readonly Timer disposer;
+namespace TweetDuck.Browser.Notification.Screenshot {
+	sealed class TweetScreenshotManager : IDisposable {
+		private readonly FormBrowser owner;
+		private readonly PluginManager plugins;
+		private readonly Timer timeout;
+		private readonly Timer disposer;
 
-        #if GEN_SCREENSHOT_FRAMES
+		#if GEN_SCREENSHOT_FRAMES
         private readonly Timer debugger;
         private int frameCounter;
 
         public const int WaitFrames = 60;
-        #else
-        public const int WaitFrames = 5;
-        #endif
-        
-        private FormNotificationScreenshotable screenshot;
+		#else
+		public const int WaitFrames = 5;
+		#endif
 
-        public TweetScreenshotManager(FormBrowser owner, PluginManager pluginManager){
-            this.owner = owner;
-            this.plugins = pluginManager;
+		private FormNotificationScreenshotable screenshot;
 
-            this.timeout = new Timer{ Interval = 8000 };
-            this.timeout.Tick += timeout_Tick;
+		public TweetScreenshotManager(FormBrowser owner, PluginManager pluginManager) {
+			this.owner = owner;
+			this.plugins = pluginManager;
 
-            this.disposer = new Timer{ Interval = 1 };
-            this.disposer.Tick += disposer_Tick;
+			this.timeout = new Timer { Interval = 8000 };
+			this.timeout.Tick += timeout_Tick;
 
-            #if GEN_SCREENSHOT_FRAMES
+			this.disposer = new Timer { Interval = 1 };
+			this.disposer.Tick += disposer_Tick;
+
+			#if GEN_SCREENSHOT_FRAMES
             this.debugger = new Timer{ Interval = 16 };
             this.debugger.Tick += debugger_Tick;
-            #endif
-        }
+			#endif
+		}
 
-        private void timeout_Tick(object sender, EventArgs e){
-            timeout.Stop();
-            OnFinished();
-        }
+		private void timeout_Tick(object sender, EventArgs e) {
+			timeout.Stop();
+			OnFinished();
+		}
 
-        private void disposer_Tick(object sender, EventArgs e){
-            disposer.Stop();
-            screenshot.Dispose();
-            screenshot = null;
-        }
+		private void disposer_Tick(object sender, EventArgs e) {
+			disposer.Stop();
+			screenshot.Dispose();
+			screenshot = null;
+		}
 
-        public void Trigger(string html, int width){
-            if (screenshot != null){
-                return;
-            }
+		public void Trigger(string html, int width) {
+			if (screenshot != null) {
+				return;
+			}
 
-            screenshot = new FormNotificationScreenshotable(Callback, owner, plugins, html, width);
-            screenshot.Show();
-            timeout.Start();
+			screenshot = new FormNotificationScreenshotable(Callback, owner, plugins, html, width);
+			screenshot.Show();
+			timeout.Start();
 
-            #if GEN_SCREENSHOT_FRAMES
+			#if GEN_SCREENSHOT_FRAMES
             StartDebugger();
-            #endif
+			#endif
 
-            #if !NO_HIDE_SCREENSHOTS
-            owner.IsWaiting = true;
-            #endif
-        }
+			#if !NO_HIDE_SCREENSHOTS
+			owner.IsWaiting = true;
+			#endif
+		}
 
-        private void Callback(){
-            if (!timeout.Enabled){
-                return;
-            }
+		private void Callback() {
+			if (!timeout.Enabled) {
+				return;
+			}
 
-            timeout.Stop();
-            screenshot.TakeScreenshot();
-            
-            #if !NO_HIDE_SCREENSHOTS
-            OnFinished();
-            #else
+			timeout.Stop();
+			screenshot.TakeScreenshot();
+
+			#if !NO_HIDE_SCREENSHOTS
+			OnFinished();
+			#else
             screenshot.MoveToVisibleLocation();
             screenshot.FormClosed += (sender, args) => disposer.Start();
-            #endif
-        }
+			#endif
+		}
 
-        private void OnFinished(){
-            #if GEN_SCREENSHOT_FRAMES
+		private void OnFinished() {
+			#if GEN_SCREENSHOT_FRAMES
             debugger.Stop();
-            #endif
+			#endif
 
-            screenshot.Location = ControlExtensions.InvisibleLocation;
-            owner.IsWaiting = false;
-            disposer.Start();
-        }
+			screenshot.Location = ControlExtensions.InvisibleLocation;
+			owner.IsWaiting = false;
+			disposer.Start();
+		}
 
-        public void Dispose(){
-            #if GEN_SCREENSHOT_FRAMES
+		public void Dispose() {
+			#if GEN_SCREENSHOT_FRAMES
             debugger.Dispose();
-            #endif
+			#endif
 
-            timeout.Dispose();
-            disposer.Dispose();
-            screenshot?.Dispose();
-        }
+			timeout.Dispose();
+			disposer.Dispose();
+			screenshot?.Dispose();
+		}
 
-        #if GEN_SCREENSHOT_FRAMES
+		#if GEN_SCREENSHOT_FRAMES
         private static readonly string DebugScreenshotPath = Path.Combine(Program.StoragePath, "TD_Screenshots");
 
         private void StartDebugger(){
@@ -143,6 +142,6 @@ namespace TweetDuck.Browser.Notification.Screenshot{
                 debugger.Stop();
             }
         }
-        #endif
-    }
+		#endif
+	}
 }

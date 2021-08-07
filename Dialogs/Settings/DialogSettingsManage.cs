@@ -7,238 +7,241 @@ using TweetDuck.Management;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Utils;
 
-namespace TweetDuck.Dialogs.Settings{
-    sealed partial class DialogSettingsManage : Form{
-        private enum State{
-            Deciding, Reset, Import, Export
-        }
+namespace TweetDuck.Dialogs.Settings {
+	sealed partial class DialogSettingsManage : Form {
+		private enum State {
+			Deciding,
+			Reset,
+			Import,
+			Export
+		}
 
-        private ProfileManager.Items SelectedItems{
-            get => _selectedItems;
+		private ProfileManager.Items SelectedItems {
+			get => _selectedItems;
 
-            set{
-                // this will call events and SetFlag, which also updates the UI
-                foreach(KeyValuePair<CheckBox, ProfileManager.Items> kvp in checkBoxMap){
-                    kvp.Key.Checked = value.HasFlag(kvp.Value);
-                }
-            }
-        }
+			set {
+				// this will call events and SetFlag, which also updates the UI
+				foreach (KeyValuePair<CheckBox, ProfileManager.Items> kvp in checkBoxMap) {
+					kvp.Key.Checked = value.HasFlag(kvp.Value);
+				}
+			}
+		}
 
-        private bool SelectedItemsForceRestart{
-            get => _selectedItems.HasFlag(ProfileManager.Items.Session);
-        }
-        
-        public bool IsRestarting { get; private set; }
-        public bool ShouldReloadBrowser { get; private set; }
-        
-        private readonly PluginManager plugins;
-        private readonly Dictionary<CheckBox, ProfileManager.Items> checkBoxMap = new Dictionary<CheckBox, ProfileManager.Items>(4);
-        private readonly bool openImportImmediately;
+		private bool SelectedItemsForceRestart {
+			get => _selectedItems.HasFlag(ProfileManager.Items.Session);
+		}
 
-        private State currentState;
-        private ProfileManager importManager;
-        private bool requestedRestartFromConfig;
+		public bool IsRestarting { get; private set; }
+		public bool ShouldReloadBrowser { get; private set; }
 
-        private ProfileManager.Items _selectedItems = ProfileManager.Items.None;
+		private readonly PluginManager plugins;
+		private readonly Dictionary<CheckBox, ProfileManager.Items> checkBoxMap = new Dictionary<CheckBox, ProfileManager.Items>(4);
+		private readonly bool openImportImmediately;
 
-        public DialogSettingsManage(PluginManager plugins, bool openImportImmediately = false){
-            InitializeComponent();
+		private State currentState;
+		private ProfileManager importManager;
+		private bool requestedRestartFromConfig;
 
-            this.plugins = plugins;
-            this.currentState = State.Deciding;
+		private ProfileManager.Items _selectedItems = ProfileManager.Items.None;
 
-            this.checkBoxMap[cbProgramConfig] = ProfileManager.Items.UserConfig;
-            this.checkBoxMap[cbSystemConfig] = ProfileManager.Items.SystemConfig;
-            this.checkBoxMap[cbSession] = ProfileManager.Items.Session;
-            this.checkBoxMap[cbPluginData] = ProfileManager.Items.PluginData;
+		public DialogSettingsManage(PluginManager plugins, bool openImportImmediately = false) {
+			InitializeComponent();
 
-            this.openImportImmediately = openImportImmediately;
+			this.plugins = plugins;
+			this.currentState = State.Deciding;
 
-            if (openImportImmediately){
-                radioImport.Checked = true;
-                btnContinue_Click(null, EventArgs.Empty);
-            }
-        }
+			this.checkBoxMap[cbProgramConfig] = ProfileManager.Items.UserConfig;
+			this.checkBoxMap[cbSystemConfig] = ProfileManager.Items.SystemConfig;
+			this.checkBoxMap[cbSession] = ProfileManager.Items.Session;
+			this.checkBoxMap[cbPluginData] = ProfileManager.Items.PluginData;
 
-        private void radioDecision_CheckedChanged(object sender, EventArgs e){
-            btnContinue.Enabled = true;
-        }
+			this.openImportImmediately = openImportImmediately;
 
-        private void checkBoxSelection_CheckedChanged(object sender, EventArgs e){
-            CheckBox cb = (CheckBox)sender;
-            SetFlag(checkBoxMap[cb], cb.Checked);
-        }
+			if (openImportImmediately) {
+				radioImport.Checked = true;
+				btnContinue_Click(null, EventArgs.Empty);
+			}
+		}
 
-        private void btnContinue_Click(object sender, EventArgs e){
-            string file;
+		private void radioDecision_CheckedChanged(object sender, EventArgs e) {
+			btnContinue.Enabled = true;
+		}
 
-            switch(currentState){
-                case State.Deciding:
-                    // Reset
-                    if (radioReset.Checked){
-                        currentState = State.Reset;
+		private void checkBoxSelection_CheckedChanged(object sender, EventArgs e) {
+			CheckBox cb = (CheckBox) sender;
+			SetFlag(checkBoxMap[cb], cb.Checked);
+		}
 
-                        Text = "Restore Defaults";
-                        SelectedItems = ProfileManager.Items.UserConfig;
-                    }
+		private void btnContinue_Click(object sender, EventArgs e) {
+			string file;
 
-                    // Import
-                    else if (radioImport.Checked){
-                        using(OpenFileDialog dialog = new OpenFileDialog{
-                            AutoUpgradeEnabled = true,
-                            DereferenceLinks = true,
-                            Title = "Import TweetDuck Profile",
-                            Filter = "TweetDuck Profile (*.tdsettings)|*.tdsettings"
-                        }){
-                            if (dialog.ShowDialog() != DialogResult.OK){
-                                if (openImportImmediately){
-                                    Close();
-                                }
+			switch (currentState) {
+				case State.Deciding:
+					// Reset
+					if (radioReset.Checked) {
+						currentState = State.Reset;
 
-                                return;
-                            }
+						Text = "Restore Defaults";
+						SelectedItems = ProfileManager.Items.UserConfig;
+					}
 
-                            file = dialog.FileName;
-                        }
+					// Import
+					else if (radioImport.Checked) {
+						using (OpenFileDialog dialog = new OpenFileDialog {
+							AutoUpgradeEnabled = true,
+							DereferenceLinks = true,
+							Title = "Import TweetDuck Profile",
+							Filter = "TweetDuck Profile (*.tdsettings)|*.tdsettings"
+						}) {
+							if (dialog.ShowDialog() != DialogResult.OK) {
+								if (openImportImmediately) {
+									Close();
+								}
 
-                        importManager = new ProfileManager(file, plugins);
-                        currentState = State.Import;
+								return;
+							}
 
-                        Text = "Import Profile";
-                        SelectedItems = importManager.FindImportItems();
+							file = dialog.FileName;
+						}
 
-                        foreach(CheckBox cb in checkBoxMap.Keys){
-                            cb.Enabled = cb.Checked;
-                        }
-                    }
+						importManager = new ProfileManager(file, plugins);
+						currentState = State.Import;
 
-                    // Export
-                    else if (radioExport.Checked){
-                        currentState = State.Export;
+						Text = "Import Profile";
+						SelectedItems = importManager.FindImportItems();
 
-                        Text = "Export Profile";
-                        btnContinue.Text = "Export Profile";
-                        SelectedItems = ProfileManager.Items.UserConfig | ProfileManager.Items.PluginData;
-                    }
-                    
-                    // Continue...
-                    panelDecision.Visible = false;
-                    panelSelection.Visible = true;
-                    Height += panelSelection.Height - panelDecision.Height;
-                    break;
+						foreach (CheckBox cb in checkBoxMap.Keys) {
+							cb.Enabled = cb.Checked;
+						}
+					}
 
-                case State.Reset:
-                    if (FormMessage.Warning("Reset TweetDuck Options", "This will reset the selected items. Are you sure you want to proceed?", FormMessage.Yes, FormMessage.No)){
-                        Program.Config.ProgramRestartRequested += Config_ProgramRestartRequested;
+					// Export
+					else if (radioExport.Checked) {
+						currentState = State.Export;
 
-                        if (SelectedItems.HasFlag(ProfileManager.Items.UserConfig)){
-                            Program.Config.User.Reset();
-                        }
+						Text = "Export Profile";
+						btnContinue.Text = "Export Profile";
+						SelectedItems = ProfileManager.Items.UserConfig | ProfileManager.Items.PluginData;
+					}
 
-                        if (SelectedItems.HasFlag(ProfileManager.Items.SystemConfig)){
-                            Program.Config.System.Reset();
-                        }
+					// Continue...
+					panelDecision.Visible = false;
+					panelSelection.Visible = true;
+					Height += panelSelection.Height - panelDecision.Height;
+					break;
 
-                        Program.Config.ProgramRestartRequested -= Config_ProgramRestartRequested;
+				case State.Reset:
+					if (FormMessage.Warning("Reset TweetDuck Options", "This will reset the selected items. Are you sure you want to proceed?", FormMessage.Yes, FormMessage.No)) {
+						Program.Config.ProgramRestartRequested += Config_ProgramRestartRequested;
 
-                        if (SelectedItems.HasFlag(ProfileManager.Items.PluginData)){
-                            Program.Config.Plugins.Reset();
+						if (SelectedItems.HasFlag(ProfileManager.Items.UserConfig)) {
+							Program.Config.User.Reset();
+						}
 
-                            try{
-                                Directory.Delete(Program.PluginDataPath, true);
-                            }catch(Exception ex){
-                                Program.Reporter.HandleException("Profile Reset", "Could not delete plugin data.", true, ex);
-                            }
-                        }
+						if (SelectedItems.HasFlag(ProfileManager.Items.SystemConfig)) {
+							Program.Config.System.Reset();
+						}
 
-                        if (SelectedItemsForceRestart){
-                            RestartProgram(SelectedItems.HasFlag(ProfileManager.Items.Session) ? new string[]{ Arguments.ArgDeleteCookies } : StringUtils.EmptyArray);
-                        }
-                        else if (requestedRestartFromConfig){
-                            if (FormMessage.Information("Profile Reset", "The application must restart for some of the restored options to take place. Do you want to restart now?", FormMessage.Yes, FormMessage.No)){
-                                RestartProgram();
-                            }
-                        }
+						Program.Config.ProgramRestartRequested -= Config_ProgramRestartRequested;
 
-                        ShouldReloadBrowser = true;
+						if (SelectedItems.HasFlag(ProfileManager.Items.PluginData)) {
+							Program.Config.Plugins.Reset();
 
-                        DialogResult = DialogResult.OK;
-                        Close();
-                    }
+							try {
+								Directory.Delete(Program.PluginDataPath, true);
+							} catch (Exception ex) {
+								Program.Reporter.HandleException("Profile Reset", "Could not delete plugin data.", true, ex);
+							}
+						}
 
-                    break;
+						if (SelectedItemsForceRestart) {
+							RestartProgram(SelectedItems.HasFlag(ProfileManager.Items.Session) ? new string[] { Arguments.ArgDeleteCookies } : StringUtils.EmptyArray);
+						}
+						else if (requestedRestartFromConfig) {
+							if (FormMessage.Information("Profile Reset", "The application must restart for some of the restored options to take place. Do you want to restart now?", FormMessage.Yes, FormMessage.No)) {
+								RestartProgram();
+							}
+						}
 
-                case State.Import:
-                    if (importManager.Import(SelectedItems)){
-                        Program.Config.ProgramRestartRequested += Config_ProgramRestartRequested;
-                        Program.Config.ReloadAll();
-                        Program.Config.ProgramRestartRequested -= Config_ProgramRestartRequested;
-                        
-                        if (SelectedItemsForceRestart){
-                            RestartProgram(SelectedItems.HasFlag(ProfileManager.Items.Session) ? new string[]{ Arguments.ArgImportCookies } : StringUtils.EmptyArray);
-                        }
-                        else if (requestedRestartFromConfig){
-                            if (FormMessage.Information("Profile Import", "The application must restart for some of the imported options to take place. Do you want to restart now?", FormMessage.Yes, FormMessage.No)){
-                                RestartProgram();
-                            }
-                        }
-                    }
-                    
-                    ShouldReloadBrowser = true;
+						ShouldReloadBrowser = true;
 
-                    DialogResult = DialogResult.OK;
-                    Close();
-                    break;
+						DialogResult = DialogResult.OK;
+						Close();
+					}
 
-                case State.Export:
-                    using(SaveFileDialog dialog = new SaveFileDialog{
-                        AddExtension = true,
-                        AutoUpgradeEnabled = true,
-                        OverwritePrompt = true,
-                        DefaultExt = "tdsettings",
-                        FileName = "TweetDuck.tdsettings",
-                        Title = "Export TweetDuck Profile",
-                        Filter = "TweetDuck Profile (*.tdsettings)|*.tdsettings"
-                    }){
-                        if (dialog.ShowDialog() != DialogResult.OK){
-                            return;
-                        }
+					break;
 
-                        file = dialog.FileName;
-                    }
-                    
-                    new ProfileManager(file, plugins).Export(SelectedItems);
+				case State.Import:
+					if (importManager.Import(SelectedItems)) {
+						Program.Config.ProgramRestartRequested += Config_ProgramRestartRequested;
+						Program.Config.ReloadAll();
+						Program.Config.ProgramRestartRequested -= Config_ProgramRestartRequested;
 
-                    DialogResult = DialogResult.OK;
-                    Close();
-                    break;
-            }
-        }
+						if (SelectedItemsForceRestart) {
+							RestartProgram(SelectedItems.HasFlag(ProfileManager.Items.Session) ? new string[] { Arguments.ArgImportCookies } : StringUtils.EmptyArray);
+						}
+						else if (requestedRestartFromConfig) {
+							if (FormMessage.Information("Profile Import", "The application must restart for some of the imported options to take place. Do you want to restart now?", FormMessage.Yes, FormMessage.No)) {
+								RestartProgram();
+							}
+						}
+					}
 
-        private void btnCancel_Click(object sender, EventArgs e){
-            DialogResult = DialogResult.Cancel;
-            Close();
-        }
+					ShouldReloadBrowser = true;
 
-        private void Config_ProgramRestartRequested(object sender, EventArgs e){
-            requestedRestartFromConfig = true;
-        }
+					DialogResult = DialogResult.OK;
+					Close();
+					break;
 
-        private void SetFlag(ProfileManager.Items flag, bool enable){
-            _selectedItems = enable ? _selectedItems | flag : _selectedItems & ~flag;
-            btnContinue.Enabled = _selectedItems != ProfileManager.Items.None;
-            
-            if (currentState == State.Import){
-                btnContinue.Text = SelectedItemsForceRestart ? "Import && Restart" : "Import Profile";
-            }
-            else if (currentState == State.Reset){
-                btnContinue.Text = SelectedItemsForceRestart ? "Restore && Restart" : "Restore Defaults";
-            }
-        }
+				case State.Export:
+					using (SaveFileDialog dialog = new SaveFileDialog {
+						AddExtension = true,
+						AutoUpgradeEnabled = true,
+						OverwritePrompt = true,
+						DefaultExt = "tdsettings",
+						FileName = "TweetDuck.tdsettings",
+						Title = "Export TweetDuck Profile",
+						Filter = "TweetDuck Profile (*.tdsettings)|*.tdsettings"
+					}) {
+						if (dialog.ShowDialog() != DialogResult.OK) {
+							return;
+						}
 
-        private void RestartProgram(params string[] extraArgs){
-            IsRestarting = true;
-            Program.Restart(extraArgs);
-        }
-    }
+						file = dialog.FileName;
+					}
+
+					new ProfileManager(file, plugins).Export(SelectedItems);
+
+					DialogResult = DialogResult.OK;
+					Close();
+					break;
+			}
+		}
+
+		private void btnCancel_Click(object sender, EventArgs e) {
+			DialogResult = DialogResult.Cancel;
+			Close();
+		}
+
+		private void Config_ProgramRestartRequested(object sender, EventArgs e) {
+			requestedRestartFromConfig = true;
+		}
+
+		private void SetFlag(ProfileManager.Items flag, bool enable) {
+			_selectedItems = enable ? _selectedItems | flag : _selectedItems & ~flag;
+			btnContinue.Enabled = _selectedItems != ProfileManager.Items.None;
+
+			if (currentState == State.Import) {
+				btnContinue.Text = SelectedItemsForceRestart ? "Import && Restart" : "Import Profile";
+			}
+			else if (currentState == State.Reset) {
+				btnContinue.Text = SelectedItemsForceRestart ? "Restore && Restart" : "Restore Defaults";
+			}
+		}
+
+		private void RestartProgram(params string[] extraArgs) {
+			IsRestarting = true;
+			Program.Restart(extraArgs);
+		}
+	}
 }

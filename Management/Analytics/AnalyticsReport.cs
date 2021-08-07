@@ -2,56 +2,56 @@
 using System.Collections.Specialized;
 using System.Text;
 
-namespace TweetDuck.Management.Analytics{
-    sealed class AnalyticsReport : IEnumerable{
-        private OrderedDictionary data = new OrderedDictionary(32);
-        private int separators;
+namespace TweetDuck.Management.Analytics {
+	sealed class AnalyticsReport : IEnumerable {
+		private OrderedDictionary data = new OrderedDictionary(32);
+		private int separators;
 
-        public void Add(int ignored){ // adding separators to pretty print
-            data.Add((++separators).ToString(), null);
-        }
+		public void Add(int ignored) { // adding separators to pretty print
+			data.Add((++separators).ToString(), null);
+		}
 
-        public void Add(string key, string value){
-            data.Add(key, value);
-        }
+		public void Add(string key, string value) {
+			data.Add(key, value);
+		}
 
-        public AnalyticsReport FinalizeReport(){
-            if (!data.IsReadOnly){
-                data = data.AsReadOnly();
-            }
+		public AnalyticsReport FinalizeReport() {
+			if (!data.IsReadOnly) {
+				data = data.AsReadOnly();
+			}
 
-            return this;
-        }
+			return this;
+		}
 
-        public IEnumerator GetEnumerator(){
-            return data.GetEnumerator();
-        }
+		public IEnumerator GetEnumerator() {
+			return data.GetEnumerator();
+		}
 
-        public NameValueCollection ToNameValueCollection(){
-            NameValueCollection collection = new NameValueCollection();
+		public NameValueCollection ToNameValueCollection() {
+			NameValueCollection collection = new NameValueCollection();
 
-            foreach(DictionaryEntry entry in data){
-                if (entry.Value != null){
-                    collection.Add(((string)entry.Key).ToLower().Replace(' ', '_'), (string)entry.Value);
-                }
-            }
+			foreach (DictionaryEntry entry in data) {
+				if (entry.Value != null) {
+					collection.Add(((string) entry.Key).ToLower().Replace(' ', '_'), (string) entry.Value);
+				}
+			}
 
-            return collection;
-        }
+			return collection;
+		}
 
-        public override string ToString(){
-            StringBuilder build = new StringBuilder(625);
+		public override string ToString() {
+			StringBuilder build = new StringBuilder(625);
 
-            foreach(DictionaryEntry entry in data){
-                if (entry.Value == null){
-                    build.AppendLine();
-                }
-                else{
-                    build.AppendLine(entry.Key + ": " + entry.Value);
-                }
-            }
+			foreach (DictionaryEntry entry in data) {
+				if (entry.Value == null) {
+					build.AppendLine();
+				}
+				else {
+					build.AppendLine(entry.Key + ": " + entry.Value);
+				}
+			}
 
-            return build.ToString();
-        }
-    }
+			return build.ToString();
+		}
+	}
 }

@@ -4,101 +4,101 @@ using System.IO;
 using System.Threading;
 using Microsoft.Win32;
 
-namespace TweetDuck.Utils{
-    static class WindowsUtils{
-        private static readonly bool IsWindows8OrNewer = OSVersionEquals(major: 6, minor: 2); // windows 8/10
+namespace TweetDuck.Utils {
+	static class WindowsUtils {
+		private static readonly bool IsWindows8OrNewer = OSVersionEquals(major: 6, minor: 2); // windows 8/10
 
-        public static bool ShouldAvoidToolWindow { get; } = IsWindows8OrNewer;
-        public static bool IsAeroEnabled => IsWindows8OrNewer || (NativeMethods.DwmIsCompositionEnabled(out bool isCompositionEnabled) == 0 && isCompositionEnabled);
+		public static bool ShouldAvoidToolWindow { get; } = IsWindows8OrNewer;
+		public static bool IsAeroEnabled => IsWindows8OrNewer || (NativeMethods.DwmIsCompositionEnabled(out bool isCompositionEnabled) == 0 && isCompositionEnabled);
 
-        private static bool OSVersionEquals(int major, int minor){
-            System.Version ver = Environment.OSVersion.Version;
-            return ver.Major == major && ver.Minor == minor;
-        }
+		private static bool OSVersionEquals(int major, int minor) {
+			System.Version ver = Environment.OSVersion.Version;
+			return ver.Major == major && ver.Minor == minor;
+		}
 
-        public static bool TrySleepUntil(Func<bool> test, int timeoutMillis, int timeStepMillis){
-            for(int waited = 0; waited < timeoutMillis; waited += timeStepMillis){
-                if (test()){
-                    return true;
-                }
+		public static bool TrySleepUntil(Func<bool> test, int timeoutMillis, int timeStepMillis) {
+			for (int waited = 0; waited < timeoutMillis; waited += timeStepMillis) {
+				if (test()) {
+					return true;
+				}
 
-                Thread.Sleep(timeStepMillis);
-            }
+				Thread.Sleep(timeStepMillis);
+			}
 
-            return false;
-        }
+			return false;
+		}
 
-        public static void TryDeleteFolderWhenAble(string path, int timeout){
-            new Thread(() => {
-                TrySleepUntil(() => {
-                    try{
-                        Directory.Delete(path, true);
-                        return true;
-                    }catch(DirectoryNotFoundException){
-                        return true;
-                    }catch{
-                        return false;
-                    }
-                }, timeout, 500);
-            }).Start();
-        }
+		public static void TryDeleteFolderWhenAble(string path, int timeout) {
+			new Thread(() => {
+				TrySleepUntil(() => {
+					try {
+						Directory.Delete(path, true);
+						return true;
+					} catch (DirectoryNotFoundException) {
+						return true;
+					} catch {
+						return false;
+					}
+				}, timeout, 500);
+			}).Start();
+		}
 
-        public static IEnumerable<Browser> FindInstalledBrowsers(){
-            static IEnumerable<Browser> ReadBrowsersFromKey(RegistryHive hive){
-                using RegistryKey root = RegistryKey.OpenBaseKey(hive, RegistryView.Default);
-                using RegistryKey browserList = root.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet", false);
+		public static IEnumerable<Browser> FindInstalledBrowsers() {
+			static IEnumerable<Browser> ReadBrowsersFromKey(RegistryHive hive) {
+				using RegistryKey root = RegistryKey.OpenBaseKey(hive, RegistryView.Default);
+				using RegistryKey browserList = root.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet", false);
 
-                if (browserList == null){
-                    yield break;
-                }
+				if (browserList == null) {
+					yield break;
+				}
 
-                foreach(string sub in browserList.GetSubKeyNames()){
-                    using RegistryKey browserKey = browserList.OpenSubKey(sub, false);
-                    using RegistryKey shellKey = browserKey?.OpenSubKey(@"shell\open\command");
+				foreach (string sub in browserList.GetSubKeyNames()) {
+					using RegistryKey browserKey = browserList.OpenSubKey(sub, false);
+					using RegistryKey shellKey = browserKey?.OpenSubKey(@"shell\open\command");
 
-                    if (shellKey == null){
-                        continue;
-                    }
+					if (shellKey == null) {
+						continue;
+					}
 
-                    string browserName = browserKey.GetValue(null) as string;
-                    string browserPath = shellKey.GetValue(null) as string;
+					string browserName = browserKey.GetValue(null) as string;
+					string browserPath = shellKey.GetValue(null) as string;
 
-                    if (string.IsNullOrEmpty(browserName) || string.IsNullOrEmpty(browserPath)){
-                        continue;
-                    }
+					if (string.IsNullOrEmpty(browserName) || string.IsNullOrEmpty(browserPath)) {
+						continue;
+					}
 
-                    if (browserPath[0] == '"' && browserPath[browserPath.Length - 1] == '"'){
-                        browserPath = browserPath.Substring(1, browserPath.Length - 2);
-                    }
+					if (browserPath[0] == '"' && browserPath[browserPath.Length - 1] == '"') {
+						browserPath = browserPath.Substring(1, browserPath.Length - 2);
+					}
 
-                    yield return new Browser(browserName, browserPath);
-                }
-            }
+					yield return new Browser(browserName, browserPath);
+				}
+			}
 
-            HashSet<Browser> browsers = new HashSet<Browser>();
-            
-            try{
-                browsers.UnionWith(ReadBrowsersFromKey(RegistryHive.CurrentUser));
-                browsers.UnionWith(ReadBrowsersFromKey(RegistryHive.LocalMachine));
-            }catch{
-                // oops I guess
-            }
+			HashSet<Browser> browsers = new HashSet<Browser>();
 
-            return browsers;
-        }
+			try {
+				browsers.UnionWith(ReadBrowsersFromKey(RegistryHive.CurrentUser));
+				browsers.UnionWith(ReadBrowsersFromKey(RegistryHive.LocalMachine));
+			} catch {
+				// oops I guess
+			}
 
-        public sealed class Browser{
-            public string Name { get; }
-            public string Path { get; }
+			return browsers;
+		}
 
-            public Browser(string name, string path){
-                this.Name = name;
-                this.Path = path;
-            }
+		public sealed class Browser {
+			public string Name { get; }
+			public string Path { get; }
 
-            public override int GetHashCode() => Name.GetHashCode();
-            public override bool Equals(object obj) => obj is Browser other && Name == other.Name;
-            public override string ToString() => Name;
-        }
-    }
+			public Browser(string name, string path) {
+				this.Name = name;
+				this.Path = path;
+			}
+
+			public override int GetHashCode() => Name.GetHashCode();
+			public override bool Equals(object obj) => obj is Browser other && Name == other.Name;
+			public override string ToString() => Name;
+		}
+	}
 }

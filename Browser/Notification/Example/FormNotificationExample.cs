@@ -5,64 +5,64 @@ using TweetDuck.Controls;
 using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Features.Plugins;
 
-namespace TweetDuck.Browser.Notification.Example{
-    sealed class FormNotificationExample : FormNotificationMain{
-        public override bool RequiresResize => true;
-        protected override bool CanDragWindow => Config.NotificationPosition == DesktopNotification.Position.Custom;
+namespace TweetDuck.Browser.Notification.Example {
+	sealed class FormNotificationExample : FormNotificationMain {
+		public override bool RequiresResize => true;
+		protected override bool CanDragWindow => Config.NotificationPosition == DesktopNotification.Position.Custom;
 
-        protected override FormBorderStyle NotificationBorderStyle{
-            get{
-                if (Config.NotificationSize == DesktopNotification.Size.Custom){
-                    switch(base.NotificationBorderStyle){
-                        case FormBorderStyle.FixedSingle: return FormBorderStyle.Sizable;
-                        case FormBorderStyle.FixedToolWindow: return FormBorderStyle.SizableToolWindow;
-                    }
-                }
+		protected override FormBorderStyle NotificationBorderStyle {
+			get {
+				if (Config.NotificationSize == DesktopNotification.Size.Custom) {
+					switch (base.NotificationBorderStyle) {
+						case FormBorderStyle.FixedSingle: return FormBorderStyle.Sizable;
+						case FormBorderStyle.FixedToolWindow: return FormBorderStyle.SizableToolWindow;
+					}
+				}
 
-                return base.NotificationBorderStyle;
-            }
-        }
+				return base.NotificationBorderStyle;
+			}
+		}
 
-        protected override string BodyClasses => base.BodyClasses + " td-example";
+		protected override string BodyClasses => base.BodyClasses + " td-example";
 
-        public event EventHandler Ready;
+		public event EventHandler Ready;
 
-        private readonly DesktopNotification exampleNotification;
+		private readonly DesktopNotification exampleNotification;
 
-        public FormNotificationExample(FormBrowser owner, PluginManager pluginManager) : base(owner, pluginManager, false){
-            browser.LoadingStateChanged += browser_LoadingStateChanged;
+		public FormNotificationExample(FormBrowser owner, PluginManager pluginManager) : base(owner, pluginManager, false) {
+			browser.LoadingStateChanged += browser_LoadingStateChanged;
 
-            string exampleTweetHTML = Program.Resources.LoadSilent("pages/example.html")?.Replace("{avatar}", AppLogo.Url) ?? string.Empty;
+			string exampleTweetHTML = Program.Resources.LoadSilent("pages/example.html")?.Replace("{avatar}", AppLogo.Url) ?? string.Empty;
 
-            #if DEBUG
-            exampleTweetHTML = exampleTweetHTML.Replace("</p>", @"</p><div style='margin-top:256px'>Scrollbar test padding...</div>");
-            #endif
+			#if DEBUG
+			exampleTweetHTML = exampleTweetHTML.Replace("</p>", @"</p><div style='margin-top:256px'>Scrollbar test padding...</div>");
+			#endif
 
-            exampleNotification = new DesktopNotification(string.Empty, string.Empty, "Home", exampleTweetHTML, 176, string.Empty, string.Empty);
-        }
+			exampleNotification = new DesktopNotification(string.Empty, string.Empty, "Home", exampleTweetHTML, 176, string.Empty, string.Empty);
+		}
 
-        private void browser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e){
-            if (!e.IsLoading){
-                Ready?.Invoke(this, EventArgs.Empty);
-                browser.LoadingStateChanged -= browser_LoadingStateChanged;
-            }
-        }
+		private void browser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e) {
+			if (!e.IsLoading) {
+				Ready?.Invoke(this, EventArgs.Empty);
+				browser.LoadingStateChanged -= browser_LoadingStateChanged;
+			}
+		}
 
-        public override void HideNotification(){
-            Location = ControlExtensions.InvisibleLocation;
-        }
+		public override void HideNotification() {
+			Location = ControlExtensions.InvisibleLocation;
+		}
 
-        public override void FinishCurrentNotification(){}
+		public override void FinishCurrentNotification() {}
 
-        public void ShowExampleNotification(bool reset){
-            if (reset){
-                LoadTweet(exampleNotification);
-            }
-            else{
-                PrepareAndDisplayWindow();
-            }
+		public void ShowExampleNotification(bool reset) {
+			if (reset) {
+				LoadTweet(exampleNotification);
+			}
+			else {
+				PrepareAndDisplayWindow();
+			}
 
-            UpdateTitle();
-        }
-    }
+			UpdateTitle();
+		}
+	}
 }

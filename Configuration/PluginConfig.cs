@@ -5,47 +5,47 @@ using TweetLib.Core.Features.Plugins.Config;
 using TweetLib.Core.Features.Plugins.Events;
 using TweetLib.Core.Systems.Configuration;
 
-namespace TweetDuck.Configuration{
-    sealed class PluginConfig : BaseConfig, IPluginConfig{
-        private static readonly string[] DefaultDisabled = {
-            "official/clear-columns",
-            "official/reply-account"
-        };
+namespace TweetDuck.Configuration {
+	sealed class PluginConfig : BaseConfig, IPluginConfig {
+		private static readonly string[] DefaultDisabled = {
+			"official/clear-columns",
+			"official/reply-account"
+		};
 
-        // CONFIGURATION DATA
+		// CONFIGURATION DATA
 
-        private readonly HashSet<string> disabled = new HashSet<string>(DefaultDisabled);
+		private readonly HashSet<string> disabled = new HashSet<string>(DefaultDisabled);
 
-        // EVENTS
-        
-        public event EventHandler<PluginChangedStateEventArgs> PluginChangedState;
-        
-        // END OF CONFIG
+		// EVENTS
 
-        public PluginConfig(IConfigManager configManager) : base(configManager){}
+		public event EventHandler<PluginChangedStateEventArgs> PluginChangedState;
 
-        protected override BaseConfig ConstructWithDefaults(IConfigManager configManager){
-            return new PluginConfig(configManager);
-        }
+		// END OF CONFIG
 
-        // INTERFACE IMPLEMENTATION
+		public PluginConfig(IConfigManager configManager) : base(configManager) {}
 
-        IEnumerable<string> IPluginConfig.DisabledPlugins => disabled;
+		protected override BaseConfig ConstructWithDefaults(IConfigManager configManager) {
+			return new PluginConfig(configManager);
+		}
 
-        void IPluginConfig.Reset(IEnumerable<string> newDisabledPlugins){
-            disabled.Clear();
-            disabled.UnionWith(newDisabledPlugins);
-        }
+		// INTERFACE IMPLEMENTATION
 
-        public void SetEnabled(Plugin plugin, bool enabled){
-            if ((enabled && disabled.Remove(plugin.Identifier)) || (!enabled && disabled.Add(plugin.Identifier))){
-                PluginChangedState?.Invoke(this, new PluginChangedStateEventArgs(plugin, enabled));
-                Save();
-            }
-        }
+		IEnumerable<string> IPluginConfig.DisabledPlugins => disabled;
 
-        public bool IsEnabled(Plugin plugin){
-            return !disabled.Contains(plugin.Identifier);
-        }
-    }
+		void IPluginConfig.Reset(IEnumerable<string> newDisabledPlugins) {
+			disabled.Clear();
+			disabled.UnionWith(newDisabledPlugins);
+		}
+
+		public void SetEnabled(Plugin plugin, bool enabled) {
+			if ((enabled && disabled.Remove(plugin.Identifier)) || (!enabled && disabled.Add(plugin.Identifier))) {
+				PluginChangedState?.Invoke(this, new PluginChangedStateEventArgs(plugin, enabled));
+				Save();
+			}
+		}
+
+		public bool IsEnabled(Plugin plugin) {
+			return !disabled.Contains(plugin.Identifier);
+		}
+	}
 }

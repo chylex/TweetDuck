@@ -1,28 +1,27 @@
 ﻿using TweetLib.Core.Systems.Configuration;
 
-namespace TweetDuck.Configuration{
-    sealed class SystemConfig : BaseConfig{
+namespace TweetDuck.Configuration {
+	sealed class SystemConfig : BaseConfig {
+		// CONFIGURATION DATA
 
-        // CONFIGURATION DATA
-        
-        public bool _hardwareAcceleration = true;
-        
-        public bool ClearCacheAutomatically { get; set; } = true;
-        public int ClearCacheThreshold      { get; set; } = 250;
+		private bool _hardwareAcceleration = true;
 
-        // SPECIAL PROPERTIES
-        
-        public bool HardwareAcceleration{
-            get => _hardwareAcceleration;
-            set => UpdatePropertyWithRestartRequest(ref _hardwareAcceleration, value);
-        }
-        
-        // END OF CONFIG
+		public bool ClearCacheAutomatically { get; set; } = true;
+		public int ClearCacheThreshold      { get; set; } = 250;
 
-        public SystemConfig(IConfigManager configManager) : base(configManager){}
+		// SPECIAL PROPERTIES
 
-        protected override BaseConfig ConstructWithDefaults(IConfigManager configManager){
-            return new SystemConfig(configManager);
-        }
-    }
+		public bool HardwareAcceleration {
+			get => _hardwareAcceleration;
+			set => UpdatePropertyWithRestartRequest(ref _hardwareAcceleration, value);
+		}
+
+		// END OF CONFIG
+
+		public SystemConfig(IConfigManager configManager) : base(configManager) {}
+
+		protected override BaseConfig ConstructWithDefaults(IConfigManager configManager) {
+			return new SystemConfig(configManager);
+		}
+	}
 }

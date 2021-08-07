@@ -34,7 +34,7 @@ type _TestData =
 
 
 module Indexer =
-    
+
     [<Theory>]
     [<InlineData("first", 3, 30.0)>]
     [<InlineData("second", 2, 200.0)>]
@@ -92,7 +92,7 @@ module TryGetValue =
 
     [<Fact>]
     let ``returns true and correct value for existing key`` () =
-        let (success, result) = _TestData.uniquevals.TryGetValue("first", 3)
+        let success, result = _TestData.uniquevals.TryGetValue("first", 3)
 
         Assert.True(success)
         Assert.Equal(30.0, result)
@@ -136,7 +136,7 @@ module Contains =
     [<InlineData("third")>]
     let ``returns true if outer key exists`` (outerKey: string) =
         Assert.True(_TestData.uniquevals.Contains(outerKey))
-        
+
     [<Theory>]
     [<InlineData(1)>]
     [<InlineData(2)>]
@@ -162,7 +162,7 @@ module Count =
     [<Fact>]
     let ``counts all values for dictionary with duplicated values`` () =
         Assert.Equal(6, _TestData.duplicatevals.Count())
-        
+
     [<Theory>]
     [<InlineData("first", 3)>]
     [<InlineData("second", 2)>]
@@ -188,14 +188,14 @@ module Clear =
     let ``clears all values for specified key`` () =
         let copy = _TestData.uniquevals
         copy.Clear("first")
-        
+
         Assert.True(copy.Contains("first"))
         Assert.Equal(0, copy.Count("first"))
         Assert.Equal(3, copy.Count())
 
     [<Fact>]
     let ``throws on missing key`` () =
-        Assert.Throws<KeyNotFoundException>(fun () -> _TestData.uniquevals.Clear("missing") |> ignore)
+        Assert.Throws<KeyNotFoundException>(fun () -> _TestData.uniquevals.Clear("missing"))
 
 
 module Remove =

@@ -9,179 +9,179 @@ using TweetLib.Core.Features.Plugins.Enums;
 using TweetLib.Core.Features.Plugins.Events;
 using TweetLib.Core.Utils;
 
-namespace TweetLib.Core.Features.Plugins{
-    [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    internal sealed class PluginBridge{
-        private readonly Dictionary<int, Plugin> tokens = new Dictionary<int, Plugin>();
-        private readonly Random rand = new Random();
+namespace TweetLib.Core.Features.Plugins {
+	[SuppressMessage("ReSharper", "UnusedMember.Global")]
+	internal sealed class PluginBridge {
+		private readonly Dictionary<int, Plugin> tokens = new Dictionary<int, Plugin>();
+		private readonly Random rand = new Random();
 
-        private readonly FileCache fileCache = new FileCache();
-        private readonly TwoKeyDictionary<int, string, InjectedHTML> notificationInjections = new TwoKeyDictionary<int, string, InjectedHTML>(4, 1);
+		private readonly FileCache fileCache = new FileCache();
+		private readonly TwoKeyDictionary<int, string, InjectedHTML> notificationInjections = new TwoKeyDictionary<int, string, InjectedHTML>(4, 1);
 
-        internal IEnumerable<InjectedHTML> NotificationInjections => notificationInjections.InnerValues;
-        internal ISet<Plugin> WithConfigureFunction { get; } = new HashSet<Plugin>();
+		internal IEnumerable<InjectedHTML> NotificationInjections => notificationInjections.InnerValues;
+		internal ISet<Plugin> WithConfigureFunction { get; } = new HashSet<Plugin>();
 
-        public PluginBridge(PluginManager manager){
-            manager.Reloaded += manager_Reloaded;
-            manager.Config.PluginChangedState += Config_PluginChangedState;
-        }
+		public PluginBridge(PluginManager manager) {
+			manager.Reloaded += manager_Reloaded;
+			manager.Config.PluginChangedState += Config_PluginChangedState;
+		}
 
-        internal int GetTokenFromPlugin(Plugin plugin){
-            foreach(KeyValuePair<int, Plugin> kvp in tokens){
-                if (kvp.Value.Equals(plugin)){
-                    return kvp.Key;
-                }
-            }
+		internal int GetTokenFromPlugin(Plugin plugin) {
+			foreach (var kvp in tokens) {
+				if (kvp.Value.Equals(plugin)) {
+					return kvp.Key;
+				}
+			}
 
-            int token, attempts = 1000;
+			int token, attempts = 1000;
 
-            do{
-                token = rand.Next();
-            }while(tokens.ContainsKey(token) && --attempts >= 0);
-            
-            if (attempts < 0){
-                token = -tokens.Count - 1;
-            }
+			do {
+				token = rand.Next();
+			} while (tokens.ContainsKey(token) && --attempts >= 0);
 
-            tokens[token] = plugin;
-            return token;
-        }
+			if (attempts < 0) {
+				token = -tokens.Count - 1;
+			}
 
-        internal Plugin? GetPluginFromToken(int token){
-            return tokens.TryGetValue(token, out Plugin plugin) ? plugin : null;
-        }
+			tokens[token] = plugin;
+			return token;
+		}
 
-        // Event handlers
+		internal Plugin? GetPluginFromToken(int token) {
+			return tokens.TryGetValue(token, out Plugin plugin) ? plugin : null;
+		}
 
-        private void manager_Reloaded(object sender, PluginErrorEventArgs e){
-            tokens.Clear();
-            fileCache.Clear();
-        }
+		// Event handlers
 
-        private void Config_PluginChangedState(object sender, PluginChangedStateEventArgs e){
-            if (!e.IsEnabled){
-                int token = GetTokenFromPlugin(e.Plugin);
+		private void manager_Reloaded(object sender, PluginErrorEventArgs e) {
+			tokens.Clear();
+			fileCache.Clear();
+		}
 
-                fileCache.Remove(token);
-                notificationInjections.Remove(token);
-            }
-        }
+		private void Config_PluginChangedState(object sender, PluginChangedStateEventArgs e) {
+			if (!e.IsEnabled) {
+				int token = GetTokenFromPlugin(e.Plugin);
 
-        // Utility methods
+				fileCache.Remove(token);
+				notificationInjections.Remove(token);
+			}
+		}
 
-        private string GetFullPathOrThrow(int token, PluginFolder folder, string path){
-            Plugin? plugin = GetPluginFromToken(token);
-            string fullPath = plugin == null ? string.Empty : plugin.GetFullPathIfSafe(folder, path);
+		// Utility methods
 
-            if (fullPath.Length == 0){
-                throw folder switch{
-                    PluginFolder.Data => new ArgumentException("File path has to be relative to the plugin data folder."),
-                    PluginFolder.Root => new ArgumentException("File path has to be relative to the plugin root folder."),
-                    _ => new ArgumentException($"Invalid folder type {folder}, this is a TweetDuck error.")
-                };
-            }
-            else{
-                return fullPath;
-            }
-        }
+		private string GetFullPathOrThrow(int token, PluginFolder folder, string path) {
+			Plugin? plugin = GetPluginFromToken(token);
+			string fullPath = plugin == null ? string.Empty : plugin.GetFullPathIfSafe(folder, path);
 
-        private string ReadFileUnsafe(int token, PluginFolder folder, string path, bool readCached){
-            string fullPath = GetFullPathOrThrow(token, folder, path);
+			if (fullPath.Length == 0) {
+				throw folder switch {
+					PluginFolder.Data => new ArgumentException("File path has to be relative to the plugin data folder."),
+					PluginFolder.Root => new ArgumentException("File path has to be relative to the plugin root folder."),
+					_                 => new ArgumentException($"Invalid folder type {folder}, this is a TweetDuck error.")
+				};
+			}
+			else {
+				return fullPath;
+			}
+		}
 
-            if (readCached && fileCache.TryGetValue(token, folder, path, out string cachedContents)){
-                return cachedContents;
-            }
+		private string ReadFileUnsafe(int token, PluginFolder folder, string path, bool readCached) {
+			string fullPath = GetFullPathOrThrow(token, folder, path);
 
-            try{
-                return fileCache[token, folder, path] = File.ReadAllText(fullPath, Encoding.UTF8);
-            }catch(FileNotFoundException){
-                throw new FileNotFoundException("File not found.");
-            }catch(DirectoryNotFoundException){
-                throw new DirectoryNotFoundException("Directory not found.");
-            }
-        }
+			if (readCached && fileCache.TryGetValue(token, folder, path, out string cachedContents)) {
+				return cachedContents;
+			}
 
-        // Public methods
+			try {
+				return fileCache[token, folder, path] = File.ReadAllText(fullPath, Encoding.UTF8);
+			} catch (FileNotFoundException) {
+				throw new FileNotFoundException("File not found.");
+			} catch (DirectoryNotFoundException) {
+				throw new DirectoryNotFoundException("Directory not found.");
+			}
+		}
 
-        public void WriteFile(int token, string path, string contents){
-            string fullPath = GetFullPathOrThrow(token, PluginFolder.Data, path);
+		// Public methods
 
-            FileUtils.CreateDirectoryForFile(fullPath);
-            File.WriteAllText(fullPath, contents, Encoding.UTF8);
-            fileCache[token, PluginFolder.Data, path] = contents;
-        }
+		public void WriteFile(int token, string path, string contents) {
+			string fullPath = GetFullPathOrThrow(token, PluginFolder.Data, path);
 
-        public string ReadFile(int token, string path, bool cache){
-            return ReadFileUnsafe(token, PluginFolder.Data, path, cache);
-        }
+			FileUtils.CreateDirectoryForFile(fullPath);
+			File.WriteAllText(fullPath, contents, Encoding.UTF8);
+			fileCache[token, PluginFolder.Data, path] = contents;
+		}
 
-        public void DeleteFile(int token, string path){
-            string fullPath = GetFullPathOrThrow(token, PluginFolder.Data, path);
+		public string ReadFile(int token, string path, bool cache) {
+			return ReadFileUnsafe(token, PluginFolder.Data, path, cache);
+		}
 
-            fileCache.Remove(token, PluginFolder.Data, path);
-            File.Delete(fullPath);
-        }
+		public void DeleteFile(int token, string path) {
+			string fullPath = GetFullPathOrThrow(token, PluginFolder.Data, path);
 
-        public bool CheckFileExists(int token, string path){
-            return File.Exists(GetFullPathOrThrow(token, PluginFolder.Data, path));
-        }
+			fileCache.Remove(token, PluginFolder.Data, path);
+			File.Delete(fullPath);
+		}
 
-        public string ReadFileRoot(int token, string path){
-            return ReadFileUnsafe(token, PluginFolder.Root, path, true);
-        }
+		public bool CheckFileExists(int token, string path) {
+			return File.Exists(GetFullPathOrThrow(token, PluginFolder.Data, path));
+		}
 
-        public bool CheckFileExistsRoot(int token, string path){
-            return File.Exists(GetFullPathOrThrow(token, PluginFolder.Root, path));
-        }
+		public string ReadFileRoot(int token, string path) {
+			return ReadFileUnsafe(token, PluginFolder.Root, path, true);
+		}
 
-        public void InjectIntoNotificationsBefore(int token, string key, string search, string html){
-            notificationInjections[token, key] = new InjectedHTML(InjectedHTML.Position.Before, search, html);
-        }
+		public bool CheckFileExistsRoot(int token, string path) {
+			return File.Exists(GetFullPathOrThrow(token, PluginFolder.Root, path));
+		}
 
-        public void InjectIntoNotificationsAfter(int token, string key, string search, string html){
-            notificationInjections[token, key] = new InjectedHTML(InjectedHTML.Position.After, search, html);
-        }
+		public void InjectIntoNotificationsBefore(int token, string key, string search, string html) {
+			notificationInjections[token, key] = new InjectedHTML(InjectedHTML.Position.Before, search, html);
+		}
 
-        public void SetConfigurable(int token){
-            Plugin? plugin = GetPluginFromToken(token);
+		public void InjectIntoNotificationsAfter(int token, string key, string search, string html) {
+			notificationInjections[token, key] = new InjectedHTML(InjectedHTML.Position.After, search, html);
+		}
 
-            if (plugin != null){
-                WithConfigureFunction.Add(plugin);
-            }
-        }
+		public void SetConfigurable(int token) {
+			Plugin? plugin = GetPluginFromToken(token);
 
-        private sealed class FileCache{
-            private readonly TwoKeyDictionary<int, string, string> cache = new TwoKeyDictionary<int, string, string>(4, 2);
+			if (plugin != null) {
+				WithConfigureFunction.Add(plugin);
+			}
+		}
 
-            public string this[int token, PluginFolder folder, string path]{
-                set => cache[token, Key(folder, path)] = value;
-            }
+		private sealed class FileCache {
+			private readonly TwoKeyDictionary<int, string, string> cache = new TwoKeyDictionary<int, string, string>(4, 2);
 
-            public void Clear(){
-                cache.Clear();
-            }
+			public string this[int token, PluginFolder folder, string path] {
+				set => cache[token, Key(folder, path)] = value;
+			}
 
-            public bool TryGetValue(int token, PluginFolder folder, string path, out string contents){
-                return cache.TryGetValue(token, Key(folder, path), out contents);
-            }
+			public void Clear() {
+				cache.Clear();
+			}
 
-            public void Remove(int token){
-                cache.Remove(token);
-            }
+			public bool TryGetValue(int token, PluginFolder folder, string path, out string contents) {
+				return cache.TryGetValue(token, Key(folder, path), out contents);
+			}
 
-            public void Remove(int token, PluginFolder folder, string path){
-                cache.Remove(token, Key(folder, path));
-            }
+			public void Remove(int token) {
+				cache.Remove(token);
+			}
 
-            private static string Key(PluginFolder folder, string path){
-                string prefix = folder switch{
-                    PluginFolder.Root => "root/",
-                    PluginFolder.Data => "data/",
-                    _ => throw new InvalidOperationException($"Invalid folder type {folder}, this is a TweetDuck error.")
-                };
+			public void Remove(int token, PluginFolder folder, string path) {
+				cache.Remove(token, Key(folder, path));
+			}
 
-                return prefix + path.Replace('\\', '/').Trim();
-            }
-        }
-    }
+			private static string Key(PluginFolder folder, string path) {
+				string prefix = folder switch {
+					PluginFolder.Root => "root/",
+					PluginFolder.Data => "data/",
+					_                 => throw new InvalidOperationException($"Invalid folder type {folder}, this is a TweetDuck error.")
+				};
+
+				return prefix + path.Replace('\\', '/').Trim();
+			}
+		}
+	}
 }

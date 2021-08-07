@@ -5,138 +5,138 @@ using System.Windows.Forms;
 using TweetDuck.Controls;
 using TweetDuck.Utils;
 
-namespace TweetDuck.Dialogs.Settings{
-    sealed partial class DialogSettingsCSS : Form{
-        public string BrowserCSS => textBoxBrowserCSS.Text;
-        public string NotificationCSS => textBoxNotificationCSS.Text;
+namespace TweetDuck.Dialogs.Settings {
+	sealed partial class DialogSettingsCSS : Form {
+		public string BrowserCSS => textBoxBrowserCSS.Text;
+		public string NotificationCSS => textBoxNotificationCSS.Text;
 
-        private readonly Action<string> reinjectBrowserCSS;
-        private readonly Action openDevTools;
+		private readonly Action<string> reinjectBrowserCSS;
+		private readonly Action openDevTools;
 
-        public DialogSettingsCSS(string browserCSS, string notificationCSS, Action<string> reinjectBrowserCSS, Action openDevTools){
-            InitializeComponent();
-            
-            Text = Program.BrandName + " Options - CSS";
+		public DialogSettingsCSS(string browserCSS, string notificationCSS, Action<string> reinjectBrowserCSS, Action openDevTools) {
+			InitializeComponent();
 
-            this.reinjectBrowserCSS = reinjectBrowserCSS;
-            this.openDevTools = openDevTools;
-            
-            textBoxBrowserCSS.EnableMultilineShortcuts();
-            textBoxBrowserCSS.Text = browserCSS ?? "";
+			Text = Program.BrandName + " Options - CSS";
 
-            textBoxNotificationCSS.EnableMultilineShortcuts();
-            textBoxNotificationCSS.Text = notificationCSS ?? "";
+			this.reinjectBrowserCSS = reinjectBrowserCSS;
+			this.openDevTools = openDevTools;
 
-            if (!BrowserUtils.HasDevTools){
-                btnOpenDevTools.Enabled = false;
-            }
+			textBoxBrowserCSS.EnableMultilineShortcuts();
+			textBoxBrowserCSS.Text = browserCSS ?? "";
 
-            ActiveControl = textBoxBrowserCSS;
-            textBoxBrowserCSS.Select(textBoxBrowserCSS.TextLength, 0);
-        }
+			textBoxNotificationCSS.EnableMultilineShortcuts();
+			textBoxNotificationCSS.Text = notificationCSS ?? "";
 
-        private void tabPanel_SelectedIndexChanged(object sender, EventArgs e){
-            TextBox tb = tabPanel.SelectedTab.Controls.OfType<TextBox>().FirstOrDefault();
+			if (!BrowserUtils.HasDevTools) {
+				btnOpenDevTools.Enabled = false;
+			}
 
-            if (tb != null){
-                tb.Focus();
-                tb.Select(tb.TextLength, 0);
-            }
-        }
+			ActiveControl = textBoxBrowserCSS;
+			textBoxBrowserCSS.Select(textBoxBrowserCSS.TextLength, 0);
+		}
 
-        private void textBoxCSS_KeyDown(object sender, KeyEventArgs e){
-            TextBox tb = (TextBox)sender;
-            string text = tb.Text;
+		private void tabPanel_SelectedIndexChanged(object sender, EventArgs e) {
+			TextBox tb = tabPanel.SelectedTab.Controls.OfType<TextBox>().FirstOrDefault();
 
-            if (e.KeyCode == Keys.Back && e.Modifiers == Keys.Control){
-                e.SuppressKeyPress = true;
+			if (tb != null) {
+				tb.Focus();
+				tb.Select(tb.TextLength, 0);
+			}
+		}
 
-                int deleteTo = tb.SelectionStart;
+		private void textBoxCSS_KeyDown(object sender, KeyEventArgs e) {
+			TextBox tb = (TextBox) sender;
+			string text = tb.Text;
 
-                if (deleteTo > 0){
-                    char initialChar = text[--deleteTo];
-                    bool shouldDeleteAlphanumeric = char.IsLetterOrDigit(initialChar);
-                
-                    while(--deleteTo >= 0){
-                        if ((shouldDeleteAlphanumeric && !char.IsLetterOrDigit(text[deleteTo])) ||
-                            (!shouldDeleteAlphanumeric && text[deleteTo] != initialChar)){
-                            break;
-                        }
-                    }
-                    
-                    if (!(deleteTo < text.Length - 1 && text[deleteTo] == '\r' && text[deleteTo + 1] == '\n')){
-                        ++deleteTo;
-                    }
+			if (e.KeyCode == Keys.Back && e.Modifiers == Keys.Control) {
+				e.SuppressKeyPress = true;
 
-                    tb.Select(deleteTo, tb.SelectionLength + tb.SelectionStart - deleteTo);
-                    tb.SelectedText = string.Empty;
-                }
-            }
-            else if (e.KeyCode == Keys.Back && e.Modifiers == Keys.None){
-                int deleteTo = tb.SelectionStart;
+				int deleteTo = tb.SelectionStart;
 
-                if (deleteTo > 1 && text[deleteTo - 1] == ' ' && text[deleteTo - 2] == ' '){
-                    e.SuppressKeyPress = true;
+				if (deleteTo > 0) {
+					char initialChar = text[--deleteTo];
+					bool shouldDeleteAlphanumeric = char.IsLetterOrDigit(initialChar);
 
-                    tb.Select(deleteTo - 2, 2);
-                    tb.SelectedText = string.Empty;
-                }
-            }
-            else if (e.KeyCode == Keys.Enter && e.Modifiers == Keys.None && tb.SelectionLength == 0){
-                int insertAt = tb.SelectionStart, cursorOffset = 0;
-                string insertText;
+					while (--deleteTo >= 0) {
+						if ((shouldDeleteAlphanumeric && !char.IsLetterOrDigit(text[deleteTo])) ||
+						    (!shouldDeleteAlphanumeric && text[deleteTo] != initialChar)) {
+							break;
+						}
+					}
 
-                if (insertAt == 0){
-                    return;
-                }
-                else if (text[insertAt - 1] == '{'){
-                    insertText = Environment.NewLine + "  ";
+					if (!(deleteTo < text.Length - 1 && text[deleteTo] == '\r' && text[deleteTo + 1] == '\n')) {
+						++deleteTo;
+					}
 
-                    int nextBracket = insertAt < text.Length ? text.IndexOfAny(new char[]{ '{', '}' }, insertAt + 1) : -1;
+					tb.Select(deleteTo, tb.SelectionLength + tb.SelectionStart - deleteTo);
+					tb.SelectedText = string.Empty;
+				}
+			}
+			else if (e.KeyCode == Keys.Back && e.Modifiers == Keys.None) {
+				int deleteTo = tb.SelectionStart;
 
-                    if (nextBracket == -1 || text[nextBracket] == '{'){
-                        string insertExtra = Environment.NewLine + "}";
-                        insertText += insertExtra;
-                        cursorOffset -= insertExtra.Length;
-                    }
-                }
-                else{
-                    int lineStart = text.LastIndexOf('\n', tb.SelectionStart - 1);
+				if (deleteTo > 1 && text[deleteTo - 1] == ' ' && text[deleteTo - 2] == ' ') {
+					e.SuppressKeyPress = true;
 
-                    Match match = Regex.Match(text.Substring(lineStart == -1 ? 0 : lineStart + 1), "^([ \t]+)");
-                    insertText = match.Success ? Environment.NewLine + match.Groups[1].Value : null;
-                }
+					tb.Select(deleteTo - 2, 2);
+					tb.SelectedText = string.Empty;
+				}
+			}
+			else if (e.KeyCode == Keys.Enter && e.Modifiers == Keys.None && tb.SelectionLength == 0) {
+				int insertAt = tb.SelectionStart, cursorOffset = 0;
+				string insertText;
 
-                if (!string.IsNullOrEmpty(insertText)){
-                    e.SuppressKeyPress = true;
-                    tb.Text = text.Insert(insertAt, insertText);
-                    tb.SelectionStart = insertAt + cursorOffset + insertText.Length;
-                }
-            }
-        }
+				if (insertAt == 0) {
+					return;
+				}
+				else if (text[insertAt - 1] == '{') {
+					insertText = Environment.NewLine + "  ";
 
-        private void textBoxBrowserCSS_KeyUp(object sender, KeyEventArgs e){
-            timerTestBrowser.Stop();
-            timerTestBrowser.Start();
-        }
+					int nextBracket = insertAt < text.Length ? text.IndexOfAny(new char[] { '{', '}' }, insertAt + 1) : -1;
 
-        private void timerTestBrowser_Tick(object sender, EventArgs e){
-            reinjectBrowserCSS(textBoxBrowserCSS.Text);
-            timerTestBrowser.Stop();
-        }
+					if (nextBracket == -1 || text[nextBracket] == '{') {
+						string insertExtra = Environment.NewLine + "}";
+						insertText += insertExtra;
+						cursorOffset -= insertExtra.Length;
+					}
+				}
+				else {
+					int lineStart = text.LastIndexOf('\n', tb.SelectionStart - 1);
 
-        private void btnOpenDevTools_Click(object sender, EventArgs e){
-            openDevTools();
-        }
+					Match match = Regex.Match(text.Substring(lineStart == -1 ? 0 : lineStart + 1), "^([ \t]+)");
+					insertText = match.Success ? Environment.NewLine + match.Groups[1].Value : null;
+				}
 
-        private void btnApply_Click(object sender, EventArgs e){
-            DialogResult = DialogResult.OK;
-            Close();
-        }
+				if (!string.IsNullOrEmpty(insertText)) {
+					e.SuppressKeyPress = true;
+					tb.Text = text.Insert(insertAt, insertText);
+					tb.SelectionStart = insertAt + cursorOffset + insertText.Length;
+				}
+			}
+		}
 
-        private void btnCancel_Click(object sender, EventArgs e){
-            DialogResult = DialogResult.Cancel;
-            Close();
-        }
-    }
+		private void textBoxBrowserCSS_KeyUp(object sender, KeyEventArgs e) {
+			timerTestBrowser.Stop();
+			timerTestBrowser.Start();
+		}
+
+		private void timerTestBrowser_Tick(object sender, EventArgs e) {
+			reinjectBrowserCSS(textBoxBrowserCSS.Text);
+			timerTestBrowser.Stop();
+		}
+
+		private void btnOpenDevTools_Click(object sender, EventArgs e) {
+			openDevTools();
+		}
+
+		private void btnApply_Click(object sender, EventArgs e) {
+			DialogResult = DialogResult.OK;
+			Close();
+		}
+
+		private void btnCancel_Click(object sender, EventArgs e) {
+			DialogResult = DialogResult.Cancel;
+			Close();
+		}
+	}
 }

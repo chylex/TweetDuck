@@ -1,18 +1,18 @@
 ﻿using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace TweetDuck.Controls{
-    sealed class NumericUpDownEx : NumericUpDown{
-        public string TextSuffix { get; set ; }
+namespace TweetDuck.Controls {
+	sealed class NumericUpDownEx : NumericUpDown {
+		public string TextSuffix { get; set ; }
 
-        protected override void UpdateEditText(){
-            base.UpdateEditText();
+		protected override void UpdateEditText() {
+			base.UpdateEditText();
 
-            if (LicenseManager.UsageMode != LicenseUsageMode.Designtime){
-                ChangingText = true;
-                Text += TextSuffix;
-                ChangingText = false;
-            }
-        }
-    }
+			if (LicenseManager.UsageMode != LicenseUsageMode.Designtime) {
+				ChangingText = true;
+				Text += TextSuffix;
+				ChangingText = false;
+			}
+		}
+	}
 }

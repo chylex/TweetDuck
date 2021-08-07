@@ -3,105 +3,105 @@ using System.IO;
 using System.IO.Pipes;
 using System.Threading;
 
-namespace TweetLib.Communication{
-    public abstract class DuplexPipe : IDisposable{
-        private const string Separator = "\x1F";
+namespace TweetLib.Communication {
+	public abstract class DuplexPipe : IDisposable {
+		private const string Separator = "\x1F";
 
-        public static Server CreateServer(){
-            return new Server();
-        }
+		public static Server CreateServer() {
+			return new Server();
+		}
 
-        public static Client CreateClient(string token){
-            int space = token.IndexOf(' ');
-            return new Client(token.Substring(0, space), token.Substring(space + 1));
-        }
-        
-        protected readonly PipeStream pipeIn;
-        protected readonly PipeStream pipeOut;
+		public static Client CreateClient(string token) {
+			int space = token.IndexOf(' ');
+			return new Client(token.Substring(0, space), token.Substring(space + 1));
+		}
 
-        private readonly Thread readerThread;
-        private readonly StreamWriter writerStream;
+		private readonly PipeStream pipeIn;
+		private readonly PipeStream pipeOut;
 
-        public event EventHandler<PipeReadEventArgs> DataIn;
+		private readonly Thread readerThread;
+		private readonly StreamWriter writerStream;
 
-        protected DuplexPipe(PipeStream pipeIn, PipeStream pipeOut){
-            this.pipeIn = pipeIn;
-            this.pipeOut = pipeOut;
+		public event EventHandler<PipeReadEventArgs>? DataIn;
 
-            this.readerThread = new Thread(ReaderThread){
-                IsBackground = true
-            };
+		private DuplexPipe(PipeStream pipeIn, PipeStream pipeOut) {
+			this.pipeIn = pipeIn;
+			this.pipeOut = pipeOut;
 
-            this.readerThread.Start();
-            this.writerStream = new StreamWriter(this.pipeOut);
-        }
+			this.readerThread = new Thread(ReaderThread) {
+				IsBackground = true
+			};
 
-        private void ReaderThread(){
-            using StreamReader read = new StreamReader(pipeIn);
-            string data;
+			this.readerThread.Start();
+			this.writerStream = new StreamWriter(this.pipeOut);
+		}
 
-            while((data = read.ReadLine()) != null){
-                DataIn?.Invoke(this, new PipeReadEventArgs(data));
-            }
-        }
+		private void ReaderThread() {
+			using StreamReader read = new StreamReader(pipeIn);
+			string? data;
 
-        public void Write(string key){
-            writerStream.WriteLine(key);
-            writerStream.Flush();
-        }
+			while ((data = read.ReadLine()) != null) {
+				DataIn?.Invoke(this, new PipeReadEventArgs(data));
+			}
+		}
 
-        public void Write(string key, string data){
-            writerStream.WriteLine(string.Concat(key, Separator, data));
-            writerStream.Flush();
-        }
+		public void Write(string key) {
+			writerStream.WriteLine(key);
+			writerStream.Flush();
+		}
 
-        public void Dispose(){
-            try{
-                readerThread.Abort();
-            }catch{
-                // /shrug
-            }
+		public void Write(string key, string data) {
+			writerStream.WriteLine(string.Concat(key, Separator, data));
+			writerStream.Flush();
+		}
 
-            pipeIn.Dispose();
-            writerStream.Dispose();
-        }
+		public void Dispose() {
+			try {
+				readerThread.Abort();
+			} catch {
+				// /shrug
+			}
 
-        public sealed class Server : DuplexPipe{
-            private AnonymousPipeServerStream ServerPipeIn => (AnonymousPipeServerStream)pipeIn;
-            private AnonymousPipeServerStream ServerPipeOut => (AnonymousPipeServerStream)pipeOut;
+			pipeIn.Dispose();
+			writerStream.Dispose();
+		}
 
-            internal Server() : base(new AnonymousPipeServerStream(PipeDirection.In, HandleInheritability.Inheritable), new AnonymousPipeServerStream(PipeDirection.Out, HandleInheritability.Inheritable)){}
+		public sealed class Server : DuplexPipe {
+			private AnonymousPipeServerStream ServerPipeIn => (AnonymousPipeServerStream) pipeIn;
+			private AnonymousPipeServerStream ServerPipeOut => (AnonymousPipeServerStream) pipeOut;
 
-            public string GenerateToken(){
-                return ServerPipeIn.GetClientHandleAsString() + " " + ServerPipeOut.GetClientHandleAsString();
-            }
+			internal Server() : base(new AnonymousPipeServerStream(PipeDirection.In, HandleInheritability.Inheritable), new AnonymousPipeServerStream(PipeDirection.Out, HandleInheritability.Inheritable)) {}
 
-            public void DisposeToken(){
-                ServerPipeIn.DisposeLocalCopyOfClientHandle();
-                ServerPipeOut.DisposeLocalCopyOfClientHandle();
-            }
-        }
+			public string GenerateToken() {
+				return ServerPipeIn.GetClientHandleAsString() + " " + ServerPipeOut.GetClientHandleAsString();
+			}
 
-        public sealed class Client : DuplexPipe{
-            internal Client(string handleOut, string handleIn) : base(new AnonymousPipeClientStream(PipeDirection.In, handleIn), new AnonymousPipeClientStream(PipeDirection.Out, handleOut)){}
-        }
+			public void DisposeToken() {
+				ServerPipeIn.DisposeLocalCopyOfClientHandle();
+				ServerPipeOut.DisposeLocalCopyOfClientHandle();
+			}
+		}
 
-        public sealed class PipeReadEventArgs : EventArgs{
-            public string Key { get; }
-            public string Data { get; }
-            
-            internal PipeReadEventArgs(string line){
-                int separatorIndex = line.IndexOf(Separator, StringComparison.Ordinal);
+		public sealed class Client : DuplexPipe {
+			internal Client(string handleOut, string handleIn) : base(new AnonymousPipeClientStream(PipeDirection.In, handleIn), new AnonymousPipeClientStream(PipeDirection.Out, handleOut)) {}
+		}
 
-                if (separatorIndex == -1){
-                    Key = line;
-                    Data = string.Empty;
-                }
-                else{
-                    Key = line.Substring(0, separatorIndex);
-                    Data = line.Substring(separatorIndex + 1);
-                }
-            }
-        }
-    }
+		public sealed class PipeReadEventArgs : EventArgs {
+			public string Key { get; }
+			public string Data { get; }
+
+			internal PipeReadEventArgs(string line) {
+				int separatorIndex = line.IndexOf(Separator, StringComparison.Ordinal);
+
+				if (separatorIndex == -1) {
+					Key = line;
+					Data = string.Empty;
+				}
+				else {
+					Key = line.Substring(0, separatorIndex);
+					Data = line.Substring(separatorIndex + 1);
+				}
+			}
+		}
+	}
 }

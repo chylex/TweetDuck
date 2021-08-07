@@ -51,7 +51,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>call "$(DevEnvDir)..\..\VC\Auxiliary\Build\vcvars32.bat"
+    <PostBuildEvent>call "$(DevEnvDir)\..\..\VC\Auxiliary\Build\vcvars32.bat"
 editbin /largeaddressaware /TSAWARE "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

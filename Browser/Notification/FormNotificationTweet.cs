@@ -6,161 +6,161 @@ using TweetDuck.Utils;
 using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Features.Plugins;
 
-namespace TweetDuck.Browser.Notification{
-    sealed partial class FormNotificationTweet : FormNotificationMain{
-        private const int NonIntrusiveIdleLimit = 30;
-        private const int TrimMinimum = 32;
+namespace TweetDuck.Browser.Notification {
+	sealed partial class FormNotificationTweet : FormNotificationMain {
+		private const int NonIntrusiveIdleLimit = 30;
+		private const int TrimMinimum = 32;
 
-        protected override Point PrimaryLocation => hasTemporarilyMoved && IsNotificationVisible ? Location : base.PrimaryLocation;
-        private bool IsCursorOverNotificationArea => new Rectangle(PrimaryLocation, Size).Contains(Cursor.Position);
+		protected override Point PrimaryLocation => hasTemporarilyMoved && IsNotificationVisible ? Location : base.PrimaryLocation;
+		private bool IsCursorOverNotificationArea => new Rectangle(PrimaryLocation, Size).Contains(Cursor.Position);
 
-        protected override bool CanDragWindow{
-            get{
-                if (ModifierKeys.HasFlag(Keys.Alt)){
-                    hasTemporarilyMoved = true;
-                    return true;
-                }
-                else{
-                    return false;
-                }
-            }
-        }
+		protected override bool CanDragWindow {
+			get {
+				if (ModifierKeys.HasFlag(Keys.Alt)) {
+					hasTemporarilyMoved = true;
+					return true;
+				}
+				else {
+					return false;
+				}
+			}
+		}
 
-        private readonly Queue<DesktopNotification> tweetQueue = new Queue<DesktopNotification>(4);
-        private bool needsTrim;
-        private bool hasTemporarilyMoved;
+		private readonly Queue<DesktopNotification> tweetQueue = new Queue<DesktopNotification>(4);
+		private bool needsTrim;
+		private bool hasTemporarilyMoved;
 
-        public FormNotificationTweet(FormBrowser owner, PluginManager pluginManager) : base(owner, pluginManager, true){
-            InitializeComponent();
+		public FormNotificationTweet(FormBrowser owner, PluginManager pluginManager) : base(owner, pluginManager, true) {
+			InitializeComponent();
 
-            Config.MuteToggled += Config_MuteToggled;
-            Disposed += (sender, args) => Config.MuteToggled -= Config_MuteToggled;
+			Config.MuteToggled += Config_MuteToggled;
+			Disposed += (sender, args) => Config.MuteToggled -= Config_MuteToggled;
 
-            if (Config.MuteNotifications){
-                PauseNotification();
-            }
-        }
+			if (Config.MuteNotifications) {
+				PauseNotification();
+			}
+		}
 
-        protected override void WndProc(ref Message m){
-            if (m.Msg == 0x00A7){ // WM_NCMBUTTONDOWN
-                int hitTest = m.WParam.ToInt32();
+		protected override void WndProc(ref Message m) {
+			if (m.Msg == 0x00A7) { // WM_NCMBUTTONDOWN
+				int hitTest = m.WParam.ToInt32();
 
-                if (hitTest == 2 || hitTest == 20){ // HTCAPTION, HTCLOSE
-                    hasTemporarilyMoved = false;
-                    MoveToVisibleLocation();
-                    return;
-                }
-            }
+				if (hitTest == 2 || hitTest == 20) { // HTCAPTION, HTCLOSE
+					hasTemporarilyMoved = false;
+					MoveToVisibleLocation();
+					return;
+				}
+			}
 
-            base.WndProc(ref m);
-        }
+			base.WndProc(ref m);
+		}
 
-        // event handlers
+		// event handlers
 
-        private void Config_MuteToggled(object sender, EventArgs e){
-            if (Config.MuteNotifications){
-                PauseNotification();
-            }
-            else{
-                ResumeNotification();
-            }
-        }
+		private void Config_MuteToggled(object sender, EventArgs e) {
+			if (Config.MuteNotifications) {
+				PauseNotification();
+			}
+			else {
+				ResumeNotification();
+			}
+		}
 
-        private void timerCursorCheck_Tick(object sender, EventArgs e){
-            if (!IsCursorOverNotificationArea){
-                ResumeNotification();
-                timerCursorCheck.Stop();
-            }
-        }
+		private void timerCursorCheck_Tick(object sender, EventArgs e) {
+			if (!IsCursorOverNotificationArea) {
+				ResumeNotification();
+				timerCursorCheck.Stop();
+			}
+		}
 
-        private void timerIdlePauseCheck_Tick(object sender, EventArgs e){
-            if (NativeMethods.GetIdleSeconds() < Config.NotificationIdlePauseSeconds){
-                ResumeNotification();
-                timerIdlePauseCheck.Stop();
-            }
-        }
+		private void timerIdlePauseCheck_Tick(object sender, EventArgs e) {
+			if (NativeMethods.GetIdleSeconds() < Config.NotificationIdlePauseSeconds) {
+				ResumeNotification();
+				timerIdlePauseCheck.Stop();
+			}
+		}
 
-        // notification methods
+		// notification methods
 
-        public override void ShowNotification(DesktopNotification notification){
-            tweetQueue.Enqueue(notification);
-            
-            if (!IsPaused){
-                UpdateTitle();
+		public override void ShowNotification(DesktopNotification notification) {
+			tweetQueue.Enqueue(notification);
 
-                if (totalTime == 0){
-                    LoadNextNotification();
-                }
-            }
+			if (!IsPaused) {
+				UpdateTitle();
 
-            needsTrim |= tweetQueue.Count >= TrimMinimum;
-            AnalyticsFile.DesktopNotifications.Trigger();
-        }
+				if (totalTime == 0) {
+					LoadNextNotification();
+				}
+			}
 
-        public override void HideNotification(){
-            base.HideNotification();
-            tweetQueue.Clear();
+			needsTrim |= tweetQueue.Count >= TrimMinimum;
+			AnalyticsFile.DesktopNotifications.Trigger();
+		}
 
-            if (needsTrim){
-                tweetQueue.TrimExcess();
-                needsTrim = false;
-            }
+		public override void HideNotification() {
+			base.HideNotification();
+			tweetQueue.Clear();
 
-            hasTemporarilyMoved = false;
-        }
+			if (needsTrim) {
+				tweetQueue.TrimExcess();
+				needsTrim = false;
+			}
 
-        public override void FinishCurrentNotification(){
-            if (tweetQueue.Count > 0){
-                LoadNextNotification();
-            }
-            else{
-                HideNotification();
-            }
-        }
+			hasTemporarilyMoved = false;
+		}
 
-        public override void ResumeNotification(){
-            bool wasPaused = IsPaused;
-            base.ResumeNotification();
+		public override void FinishCurrentNotification() {
+			if (tweetQueue.Count > 0) {
+				LoadNextNotification();
+			}
+			else {
+				HideNotification();
+			}
+		}
 
-            if (wasPaused && !IsPaused && !pausedDuringNotification && tweetQueue.Count > 0){
-                LoadNextNotification();
-            }
-        }
+		public override void ResumeNotification() {
+			bool wasPaused = IsPaused;
+			base.ResumeNotification();
 
-        private void LoadNextNotification(){
-            if (!IsNotificationVisible){
-                if (Config.NotificationNonIntrusiveMode && IsCursorOverNotificationArea && NativeMethods.GetIdleSeconds() < NonIntrusiveIdleLimit){
-                    if (!timerCursorCheck.Enabled){
-                        PauseNotification();
-                        timerCursorCheck.Start();
-                    }
+			if (wasPaused && !IsPaused && !pausedDuringNotification && tweetQueue.Count > 0) {
+				LoadNextNotification();
+			}
+		}
 
-                    return;
-                }
-                else if (Config.NotificationIdlePauseSeconds > 0 && NativeMethods.GetIdleSeconds() >= Config.NotificationIdlePauseSeconds){
-                    if (!timerIdlePauseCheck.Enabled){
-                        PauseNotification();
-                        timerIdlePauseCheck.Start();
-                    }
+		private void LoadNextNotification() {
+			if (!IsNotificationVisible) {
+				if (Config.NotificationNonIntrusiveMode && IsCursorOverNotificationArea && NativeMethods.GetIdleSeconds() < NonIntrusiveIdleLimit) {
+					if (!timerCursorCheck.Enabled) {
+						PauseNotification();
+						timerCursorCheck.Start();
+					}
 
-                    return;
-                }
-            }
-            
-            LoadTweet(tweetQueue.Dequeue());
-        }
+					return;
+				}
+				else if (Config.NotificationIdlePauseSeconds > 0 && NativeMethods.GetIdleSeconds() >= Config.NotificationIdlePauseSeconds) {
+					if (!timerIdlePauseCheck.Enabled) {
+						PauseNotification();
+						timerIdlePauseCheck.Start();
+					}
 
-        protected override void UpdateTitle(){
-            base.UpdateTitle();
+					return;
+				}
+			}
 
-            if (tweetQueue.Count > 0){
-                Text = Text + " (" + tweetQueue.Count + " more left)";
-            }
-        }
+			LoadTweet(tweetQueue.Dequeue());
+		}
 
-        protected override void OnNotificationReady(){
-            UpdateTitle();
-            base.OnNotificationReady();
-        }
-    }
+		protected override void UpdateTitle() {
+			base.UpdateTitle();
+
+			if (tweetQueue.Count > 0) {
+				Text = Text + " (" + tweetQueue.Count + " more left)";
+			}
+		}
+
+		protected override void OnNotificationReady() {
+			UpdateTitle();
+			base.OnNotificationReady();
+		}
+	}
 }

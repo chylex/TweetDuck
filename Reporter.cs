@@ -9,111 +9,111 @@ using TweetDuck.Dialogs;
 using TweetLib.Core;
 using TweetLib.Core.Application;
 
-namespace TweetDuck{
-    sealed class Reporter : IAppErrorHandler{
-        private readonly string logFile;
+namespace TweetDuck {
+	sealed class Reporter : IAppErrorHandler {
+		private readonly string logFile;
 
-        public Reporter(string logFile){
-            this.logFile = logFile;
-        }
+		public Reporter(string logFile) {
+			this.logFile = logFile;
+		}
 
-        public void SetupUnhandledExceptionHandler(string caption){
-            AppDomain.CurrentDomain.UnhandledException += (sender, args) => {
-                if (args.ExceptionObject is Exception ex){
-                    HandleException(caption, "An unhandled exception has occurred.", false, ex);
-                }
-            };
-        }
+		public void SetupUnhandledExceptionHandler(string caption) {
+			AppDomain.CurrentDomain.UnhandledException += (sender, args) => {
+				if (args.ExceptionObject is Exception ex) {
+					HandleException(caption, "An unhandled exception has occurred.", false, ex);
+				}
+			};
+		}
 
-        public bool LogVerbose(string data){
-            return Arguments.HasFlag(Arguments.ArgLogging) && LogImportant(data);
-        }
+		public bool LogVerbose(string data) {
+			return Arguments.HasFlag(Arguments.ArgLogging) && LogImportant(data);
+		}
 
-        public bool LogImportant(string data){
-            return ((IAppErrorHandler)this).Log(data);
-        }
+		public bool LogImportant(string data) {
+			return ((IAppErrorHandler) this).Log(data);
+		}
 
-        bool IAppErrorHandler.Log(string text){
-            #if DEBUG
-            Debug.WriteLine(text);
-            #endif
+		bool IAppErrorHandler.Log(string text) {
+			#if DEBUG
+			Debug.WriteLine(text);
+			#endif
 
-            StringBuilder build = new StringBuilder();
+			StringBuilder build = new StringBuilder();
 
-            if (!File.Exists(logFile)){
-                build.Append("Please, report all issues to: https://github.com/chylex/TweetDuck/issues\r\n\r\n");
-            }
+			if (!File.Exists(logFile)) {
+				build.Append("Please, report all issues to: https://github.com/chylex/TweetDuck/issues\r\n\r\n");
+			}
 
-            build.Append("[").Append(DateTime.Now.ToString("G", Lib.Culture)).Append("]\r\n");
-            build.Append(text).Append("\r\n\r\n");
+			build.Append("[").Append(DateTime.Now.ToString("G", Lib.Culture)).Append("]\r\n");
+			build.Append(text).Append("\r\n\r\n");
 
-            try{
-                File.AppendAllText(logFile, build.ToString(), Encoding.UTF8);
-                return true;
-            }catch{
-                return false;
-            }
-        }
+			try {
+				File.AppendAllText(logFile, build.ToString(), Encoding.UTF8);
+				return true;
+			} catch {
+				return false;
+			}
+		}
 
-        public void HandleException(string caption, string message, bool canIgnore, Exception e){
-            bool loggedSuccessfully = LogImportant(e.ToString());
-            
-            string exceptionText = e is ExpandedLogException ? e.Message + "\n\nDetails with potentially sensitive information are in the Error Log." : e.Message;
-            FormMessage form = new FormMessage(caption, message + "\nError: " + exceptionText, canIgnore ? MessageBoxIcon.Warning : MessageBoxIcon.Error);
-            
-            Button btnExit = form.AddButton(FormMessage.Exit);
-            Button btnIgnore = form.AddButton(FormMessage.Ignore, DialogResult.Ignore, ControlType.Cancel);
+		public void HandleException(string caption, string message, bool canIgnore, Exception e) {
+			bool loggedSuccessfully = LogImportant(e.ToString());
 
-            btnIgnore.Enabled = canIgnore;
-            form.ActiveControl = canIgnore ? btnIgnore : btnExit;
+			string exceptionText = e is ExpandedLogException ? e.Message + "\n\nDetails with potentially sensitive information are in the Error Log." : e.Message;
+			FormMessage form = new FormMessage(caption, message + "\nError: " + exceptionText, canIgnore ? MessageBoxIcon.Warning : MessageBoxIcon.Error);
 
-            Button btnOpenLog = new Button{
-                Anchor = AnchorStyles.Bottom | AnchorStyles.Left,
-                Enabled = loggedSuccessfully,
-                Font = SystemFonts.MessageBoxFont,
-                Location = new Point(9, 12),
-                Margin = new Padding(0, 0, 48, 0),
-                Size = new Size(106, 26),
-                Text = "Show Error Log",
-                UseVisualStyleBackColor = true
-            };
+			Button btnExit = form.AddButton(FormMessage.Exit);
+			Button btnIgnore = form.AddButton(FormMessage.Ignore, DialogResult.Ignore, ControlType.Cancel);
 
-            btnOpenLog.Click += (sender, args) => {
-                using(Process.Start(logFile)){}
-            };
+			btnIgnore.Enabled = canIgnore;
+			form.ActiveControl = canIgnore ? btnIgnore : btnExit;
 
-            form.AddActionControl(btnOpenLog);
+			Button btnOpenLog = new Button {
+				Anchor = AnchorStyles.Bottom | AnchorStyles.Left,
+				Enabled = loggedSuccessfully,
+				Font = SystemFonts.MessageBoxFont,
+				Location = new Point(9, 12),
+				Margin = new Padding(0, 0, 48, 0),
+				Size = new Size(106, 26),
+				Text = "Show Error Log",
+				UseVisualStyleBackColor = true
+			};
 
-            if (form.ShowDialog() == DialogResult.Ignore){
-                return;
-            }
+			btnOpenLog.Click += (sender, args) => {
+				using (Process.Start(logFile)) {}
+			};
 
-            try{
-                Process.GetCurrentProcess().Kill();
-            }catch{
-                Environment.FailFast(message, e);
-            }
-        }
+			form.AddActionControl(btnOpenLog);
 
-        public static void HandleEarlyFailure(string caption, string message){
-            Program.SetupWinForms();
-            FormMessage.Error(caption, message, "Exit");
+			if (form.ShowDialog() == DialogResult.Ignore) {
+				return;
+			}
 
-            try{
-                Process.GetCurrentProcess().Kill();
-            }catch{
-                Environment.FailFast(message, new Exception(message));
-            }
-        }
+			try {
+				Process.GetCurrentProcess().Kill();
+			} catch {
+				Environment.FailFast(message, e);
+			}
+		}
 
-        public sealed class ExpandedLogException : Exception{
-            private readonly string details;
+		public static void HandleEarlyFailure(string caption, string message) {
+			Program.SetupWinForms();
+			FormMessage.Error(caption, message, "Exit");
 
-            public ExpandedLogException(Exception source, string details) : base(source.Message, source){
-                this.details = details;
-            }
+			try {
+				Process.GetCurrentProcess().Kill();
+			} catch {
+				Environment.FailFast(message, new Exception(message));
+			}
+		}
 
-            public override string ToString() => base.ToString() + "\r\n" + details;
-        }
-    }
+		public sealed class ExpandedLogException : Exception {
+			private readonly string details;
+
+			public ExpandedLogException(Exception source, string details) : base(source.Message, source) {
+				this.details = details;
+			}
+
+			public override string ToString() => base.ToString() + "\r\n" + details;
+		}
+	}
 }

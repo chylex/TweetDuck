@@ -1,102 +1,102 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace TweetLib.Core.Collections{
-    public sealed class TwoKeyDictionary<K1, K2, V>{
-        private readonly Dictionary<K1, Dictionary<K2, V>> dict;
-        private readonly int innerCapacity;
+namespace TweetLib.Core.Collections {
+	public sealed class TwoKeyDictionary<K1, K2, V> {
+		private readonly Dictionary<K1, Dictionary<K2, V>> dict;
+		private readonly int innerCapacity;
 
-        public TwoKeyDictionary() : this(16, 16){}
+		public TwoKeyDictionary() : this(16, 16) {}
 
-        public TwoKeyDictionary(int outerCapacity, int innerCapacity){
-            this.dict = new Dictionary<K1, Dictionary<K2, V>>(outerCapacity);
-            this.innerCapacity = innerCapacity;
-        }
+		public TwoKeyDictionary(int outerCapacity, int innerCapacity) {
+			this.dict = new Dictionary<K1, Dictionary<K2, V>>(outerCapacity);
+			this.innerCapacity = innerCapacity;
+		}
 
-        // Properties
+		// Properties
 
-        public V this[K1 outerKey, K2 innerKey]{
-            get{ // throws on missing key
-                return dict[outerKey][innerKey];
-            }
+		public V this[K1 outerKey, K2 innerKey] {
+			get { // throws on missing key
+				return dict[outerKey][innerKey];
+			}
 
-            set{
-                if (!dict.TryGetValue(outerKey, out Dictionary<K2, V> innerDict)){
-                    dict.Add(outerKey, innerDict = new Dictionary<K2, V>(innerCapacity));
-                }
+			set {
+				if (!dict.TryGetValue(outerKey, out Dictionary<K2, V> innerDict)) {
+					dict.Add(outerKey, innerDict = new Dictionary<K2, V>(innerCapacity));
+				}
 
-                innerDict[innerKey] = value;
-            }
-        }
+				innerDict[innerKey] = value;
+			}
+		}
 
-        public IEnumerable<V> InnerValues{
-            get{
-                foreach(Dictionary<K2, V> innerDict in dict.Values){
-                    foreach(V value in innerDict.Values){
-                        yield return value;
-                    }
-                }
-            }
-        }
+		public IEnumerable<V> InnerValues {
+			get {
+				foreach (Dictionary<K2, V> innerDict in dict.Values) {
+					foreach (V value in innerDict.Values) {
+						yield return value;
+					}
+				}
+			}
+		}
 
-        // Members
+		// Members
 
-        public void Add(K1 outerKey, K2 innerKey, V value){ // throws on duplicate
-            if (!dict.TryGetValue(outerKey, out Dictionary<K2, V> innerDict)){
-                dict.Add(outerKey, innerDict = new Dictionary<K2, V>(innerCapacity));
-            }
+		public void Add(K1 outerKey, K2 innerKey, V value) { // throws on duplicate
+			if (!dict.TryGetValue(outerKey, out Dictionary<K2, V> innerDict)) {
+				dict.Add(outerKey, innerDict = new Dictionary<K2, V>(innerCapacity));
+			}
 
-            innerDict.Add(innerKey, value);
-        }
-        
-        public void Clear(){
-            dict.Clear();
-        }
+			innerDict.Add(innerKey, value);
+		}
 
-        public void Clear(K1 outerKey){ // throws on missing key, but keeps the key unlike Remove(K1)
-            dict[outerKey].Clear();
-        }
-        
-        public bool Contains(K1 outerKey){
-            return dict.ContainsKey(outerKey);
-        }
-        
-        public bool Contains(K1 outerKey, K2 innerKey){
-            return dict.TryGetValue(outerKey, out Dictionary<K2, V> innerDict) && innerDict.ContainsKey(innerKey);
-        }
+		public void Clear() {
+			dict.Clear();
+		}
 
-        public int Count(){
-            return dict.Values.Sum(d => d.Count);
-        }
+		public void Clear(K1 outerKey) { // throws on missing key, but keeps the key unlike Remove(K1)
+			dict[outerKey].Clear();
+		}
 
-        public int Count(K1 outerKey){ // throws on missing key
-            return dict[outerKey].Count;
-        }
+		public bool Contains(K1 outerKey) {
+			return dict.ContainsKey(outerKey);
+		}
 
-        public bool Remove(K1 outerKey){
-            return dict.Remove(outerKey);
-        }
-        
-        public bool Remove(K1 outerKey, K2 innerKey){
-            if (dict.TryGetValue(outerKey, out Dictionary<K2, V> innerDict) && innerDict.Remove(innerKey)){
-                if (innerDict.Count == 0) {
-                    dict.Remove(outerKey);
-                }
+		public bool Contains(K1 outerKey, K2 innerKey) {
+			return dict.TryGetValue(outerKey, out Dictionary<K2, V> innerDict) && innerDict.ContainsKey(innerKey);
+		}
 
-                return true;
-            }
+		public int Count() {
+			return dict.Values.Sum(d => d.Count);
+		}
 
-            return false;
-        }
+		public int Count(K1 outerKey) { // throws on missing key
+			return dict[outerKey].Count;
+		}
 
-        public bool TryGetValue(K1 outerKey, K2 innerKey, out V value){
-            if (dict.TryGetValue(outerKey, out Dictionary<K2, V> innerDict)){
-                return innerDict.TryGetValue(innerKey, out value);
-            }
-            else{
-                value = default!;
-                return false;
-            }
-        }
-    }
+		public bool Remove(K1 outerKey) {
+			return dict.Remove(outerKey);
+		}
+
+		public bool Remove(K1 outerKey, K2 innerKey) {
+			if (dict.TryGetValue(outerKey, out Dictionary<K2, V> innerDict) && innerDict.Remove(innerKey)) {
+				if (innerDict.Count == 0) {
+					dict.Remove(outerKey);
+				}
+
+				return true;
+			}
+
+			return false;
+		}
+
+		public bool TryGetValue(K1 outerKey, K2 innerKey, out V value) {
+			if (dict.TryGetValue(outerKey, out Dictionary<K2, V> innerDict)) {
+				return innerDict.TryGetValue(innerKey, out value);
+			}
+			else {
+				value = default!;
+				return false;
+			}
+		}
+	}
 }
