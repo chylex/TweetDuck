@@ -22,15 +22,7 @@ namespace TweetDuck.Browser.Notification {
 
 		protected virtual Point PrimaryLocation {
 			get {
-				Screen screen;
-
-				if (Config.NotificationDisplay > 0 && Config.NotificationDisplay <= Screen.AllScreens.Length) {
-					screen = Screen.AllScreens[Config.NotificationDisplay - 1];
-				}
-				else {
-					screen = Screen.FromControl(owner);
-				}
-
+				Screen screen = Config.NotificationDisplay.PickScreen(owner);
 				int edgeDist = Config.NotificationEdgeDistance;
 
 				switch (Config.NotificationPosition) {

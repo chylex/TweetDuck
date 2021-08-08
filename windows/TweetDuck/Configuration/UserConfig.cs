@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using TweetDuck.Browser;
+using TweetDuck.Browser.Notification;
 using TweetDuck.Controls;
 using TweetLib.Core;
 using TweetLib.Core.Application;
@@ -66,7 +67,7 @@ namespace TweetDuck.Configuration {
 
 		public DesktopNotification.Position NotificationPosition { get; set; } = DesktopNotification.Position.TopRight;
 		public Point CustomNotificationPosition                  { get; set; } = ControlExtensions.InvisibleLocation;
-		public int NotificationDisplay                           { get; set; } = 0;
+		public NotificationScreen NotificationDisplay            { get; set; } = NotificationScreen.SameAsTweetDuck.Instance;
 		public int NotificationEdgeDistance                      { get; set; } = 8;
 		public int NotificationWindowOpacity                     { get; set; } = 100;
 

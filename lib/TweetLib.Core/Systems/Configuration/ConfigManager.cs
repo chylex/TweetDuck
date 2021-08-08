@@ -10,7 +10,7 @@ using TweetLib.Utils.Static;
 
 namespace TweetLib.Core.Systems.Configuration {
 	public abstract class ConfigManager {
-		protected static TypeConverterRegistry ConverterRegistry { get; } = new ();
+		public static TypeConverterRegistry ConverterRegistry { get; } = new ();
 
 		static ConfigManager() {
 			ConverterRegistry.Register(typeof(WindowState), new BasicTypeConverter<WindowState> {

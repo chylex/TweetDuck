@@ -86,13 +86,21 @@ namespace TweetDuck.Dialogs.Settings {
 			}
 
 			comboBoxDisplay.Enabled = trackBarEdgeDistance.Enabled = !radioLocCustom.Checked;
-			comboBoxDisplay.Items.Add("(Same as TweetDuck)");
 
-			foreach (Screen screen in Screen.AllScreens) {
-				comboBoxDisplay.Items.Add($"{screen.DeviceName.TrimStart('\\', '.')} ({screen.Bounds.Width}x{screen.Bounds.Height})");
+			bool foundScreen = false;
+
+			foreach (var screen in NotificationScreen.All) {
+				comboBoxDisplay.Items.Add(new NotificationScreenItem(screen));
+				if (screen.Equals(Config.NotificationDisplay)) {
+					comboBoxDisplay.SelectedIndex = comboBoxDisplay.Items.Count - 1;
+					foundScreen = true;
+				}
 			}
 
-			comboBoxDisplay.SelectedIndex = Math.Min(comboBoxDisplay.Items.Count - 1, Config.NotificationDisplay);
+			if (!foundScreen) {
+				comboBoxDisplay.Items.Add(new NotificationScreenItem(Config.NotificationDisplay));
+				comboBoxDisplay.SelectedIndex = comboBoxDisplay.Items.Count - 1;
+			}
 
 			trackBarEdgeDistance.SetValueSafe(Config.NotificationEdgeDistance);
 			labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value + " px";
@@ -279,7 +287,7 @@ namespace TweetDuck.Dialogs.Settings {
 		}
 
 		private void comboBoxDisplay_SelectedValueChanged(object? sender, EventArgs e) {
-			Config.NotificationDisplay = comboBoxDisplay.SelectedIndex;
+			Config.NotificationDisplay = ((NotificationScreenItem) comboBoxDisplay.SelectedItem).Screen;
 			notification.ShowExampleNotification(false);
 		}
 
@@ -287,6 +295,21 @@ namespace TweetDuck.Dialogs.Settings {
 			labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value + " px";
 			Config.NotificationEdgeDistance = trackBarEdgeDistance.Value;
 			notification.ShowExampleNotification(false);
+		}
+
+		private class NotificationScreenItem {
+			public NotificationScreen Screen { get; }
+
+			private readonly string displayName;
+
+			public NotificationScreenItem(NotificationScreen screen) {
+				this.Screen = screen;
+				this.displayName = screen.DisplayName;
+			}
+
+			public override string ToString() {
+				return displayName;
+			}
 		}
 
 		#endregion

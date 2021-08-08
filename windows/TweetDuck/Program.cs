@@ -6,6 +6,7 @@ using CefSharp.WinForms;
 using TweetDuck.Application;
 using TweetDuck.Browser;
 using TweetDuck.Browser.Base;
+using TweetDuck.Browser.Notification;
 using TweetDuck.Configuration;
 using TweetDuck.Dialogs;
 using TweetDuck.Management;
@@ -91,6 +92,7 @@ namespace TweetDuck {
 			public string? ResourceRewriteRules => Arguments.GetValue(Arguments.ArgFreeze);
 
 			public ConfigManager CreateConfigManager(string storagePath) {
+				ConfigManager.ConverterRegistry.Register(typeof(NotificationScreen), NotificationScreen.Converter);
 				return new ConfigManager<UserConfig, SystemConfig>(storagePath, Config);
 			}
 
