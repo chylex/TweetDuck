@@ -209,7 +209,7 @@ namespace TweetDuck.Dialogs {
 			}
 		}
 
-		internal abstract class BaseTab : UserControl {
+		internal class BaseTab : UserControl {
 			protected static UserConfig Config => Program.Config.User;
 			protected static SystemConfig SysConfig => Program.Config.System;
 

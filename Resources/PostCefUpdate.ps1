@@ -10,12 +10,6 @@ try{
   $sharpMatch = Select-String -Path $mainProj '<Import Project="packages\\CefSharp\.Common\.(.*?)\\'
   $sharpVersion = $sharpMatch.Matches[0].Groups[1].Value
   
-  $replaceWhenTag = "..\packages\CefSharp.Common.${sharpVersion}\build\CefSharp.Common.props",
-                    "..\packages\CefSharp.WinForms.${sharpVersion}\build\CefSharp.WinForms.props",
-                    "..\packages\CefSharp.WinForms.${sharpVersion}\build\CefSharp.WinForms.targets"
-  
-  $replaceItemGroupTag = "..\packages\CefSharp.Common.${sharpVersion}\build\CefSharp.Common.targets"
-  
   # Greetings
   
   $title = "CEF ${cefVersion}, CefSharp ${sharpVersion}"
@@ -26,10 +20,6 @@ try{
   
   # Perform update
   
-  Write-Host "Copying dev tools to repository..."
-  
-  Copy-Item "..\packages\cef.redist.x86.${cefVersion}\CEF\devtools_resources.pak" -Destination "..\bld\Resources\" -Force
-  
   Write-Host "Updating browser subprocess reference..."
   
   $contents = [IO.File]::ReadAllText($browserProj)
@@ -38,22 +28,6 @@ try{
   $contents = $contents -Replace '(?<=<Reference Include="CefSharp\.BrowserSubprocess\.Core, Version=)(\d+)', $sharpVersion.Split(".")[0]
   
   [IO.File]::WriteAllText($browserProj, $contents)
-  
-  Write-Host "Removing x64 and AnyCPU from package files..."
-  
-  foreach($file in $replaceWhenTag){
-    $contents = [IO.File]::ReadAllText($file)
-    $contents = $contents -Replace '(?<=<When Condition=")(''\$\(Platform\)'' == ''(AnyCPU|x64)'')(?=">)', 'false'
-    
-    [IO.File]::WriteAllText($file, $contents)
-  }
-  
-  foreach($file in $replaceItemGroupTag){
-    $contents = [IO.File]::ReadAllText($file)
-    $contents = $contents -Replace '(?<=<ItemGroup Condition=")(''\$\(Platform\)'' == ''(AnyCPU|x64)'')(?=">)', 'false'
-    
-    [IO.File]::WriteAllText($file, $contents)
-  }
   
   # Finished
   

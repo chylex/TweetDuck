@@ -122,7 +122,6 @@ namespace TweetDuck {
 			BrowserCache.RefreshTimer();
 
 			CefSharpSettings.WcfEnabled = false;
-			CefSharpSettings.LegacyJavascriptBindingEnabled = true;
 
 			CefSettings settings = new CefSettings {
 				UserAgent = BrowserUtils.UserAgentChrome,

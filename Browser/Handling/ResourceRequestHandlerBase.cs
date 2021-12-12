@@ -4,7 +4,6 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text.RegularExpressions;
 using CefSharp;
-using TweetDuck.Utils;
 using TweetLib.Core.Utils;
 
 namespace TweetDuck.Browser.Handling {
@@ -37,11 +36,9 @@ namespace TweetDuck.Browser.Handling {
 				return CefReturnValue.Cancel;
 			}
 
-			if (BrowserUtils.HasDevTools) {
-				NameValueCollection headers = request.Headers;
-				headers.Remove("x-devtools-emulate-network-conditions-client-id");
-				request.Headers = headers;
-			}
+			NameValueCollection headers = request.Headers;
+			headers.Remove("x-devtools-emulate-network-conditions-client-id");
+			request.Headers = headers;
 
 			return base.OnBeforeResourceLoad(browserControl, browser, frame, request, callback);
 		}

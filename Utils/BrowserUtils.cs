@@ -17,8 +17,6 @@ namespace TweetDuck.Utils {
 		public static string UserAgentVanilla => Program.BrandName + " " + System.Windows.Forms.Application.ProductVersion;
 		public static string UserAgentChrome => "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/" + Cef.ChromiumVersion + " Safari/537.36";
 
-		public static readonly bool HasDevTools = File.Exists(Path.Combine(Program.ProgramPath, "devtools_resources.pak"));
-
 		private static UserConfig Config => Program.Config.User;
 		private static SystemConfig SysConfig => Program.Config.System;
 
@@ -72,7 +70,7 @@ namespace TweetDuck.Utils {
 		}
 
 		public static void RegisterJsBridge(this IWebBrowser browserControl, string name, object bridge) {
-			CefSharpSettings.LegacyJavascriptBindingEnabled = true;
+			browserControl.JavascriptObjectRepository.Settings.LegacyBindingEnabled = true;
 			browserControl.JavascriptObjectRepository.Register(name, bridge, isAsync: true, BindingOptions.DefaultBinder);
 		}
 

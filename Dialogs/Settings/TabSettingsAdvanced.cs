@@ -46,13 +46,11 @@ namespace TweetDuck.Dialogs.Settings {
 
 			// development tools
 
+			toolTip.SetToolTip(checkDevToolsInContextMenu, "Sets whether all context menus include an option to open dev tools.");
 			toolTip.SetToolTip(checkDevToolsWindowOnTop, "Sets whether dev tool windows appears on top of other windows.");
 
+			checkDevToolsInContextMenu.Checked = Config.DevToolsInContextMenu;
 			checkDevToolsWindowOnTop.Checked = Config.DevToolsWindowOnTop;
-
-			if (!BrowserUtils.HasDevTools) {
-				checkDevToolsWindowOnTop.Enabled = false;
-			}
 		}
 
 		public override void OnReady() {
@@ -68,6 +66,7 @@ namespace TweetDuck.Dialogs.Settings {
 			btnEditCSS.Click += btnEditCSS_Click;
 
 			checkDevToolsWindowOnTop.CheckedChanged += checkDevToolsWindowOnTop_CheckedChanged;
+			checkDevToolsInContextMenu.CheckedChanged += checkDevToolsInContextMenuOnCheckedChanged;
 		}
 
 		public override void OnClosing() {
@@ -164,6 +163,10 @@ namespace TweetDuck.Dialogs.Settings {
 		#endregion
 
 		#region Development Tools
+
+		private void checkDevToolsInContextMenuOnCheckedChanged(object sender, EventArgs e) {
+			Config.DevToolsInContextMenu = checkDevToolsInContextMenu.Checked;
+		}
 
 		private void checkDevToolsWindowOnTop_CheckedChanged(object sender, EventArgs e) {
 			Config.DevToolsWindowOnTop = checkDevToolsWindowOnTop.Checked;

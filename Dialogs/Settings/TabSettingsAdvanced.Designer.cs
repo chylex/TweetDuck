@@ -1,11 +1,11 @@
 ﻿namespace TweetDuck.Dialogs.Settings {
     partial class TabSettingsAdvanced {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -18,8 +18,8 @@
 
         #region Component Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
@@ -42,16 +42,17 @@
             this.labelConfiguration = new System.Windows.Forms.Label();
             this.flowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.labelDevTools = new System.Windows.Forms.Label();
+            this.checkDevToolsInContextMenu = new System.Windows.Forms.CheckBox();
             this.checkDevToolsWindowOnTop = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.numClearCacheThreshold)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.numClearCacheThreshold)).BeginInit();
             this.panelAppButtons.SuspendLayout();
             this.panelClearCacheAuto.SuspendLayout();
             this.panelConfiguration.SuspendLayout();
             this.flowPanel.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // btnClearCache
-            // 
+            //
             this.btnClearCache.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnClearCache.Location = new System.Drawing.Point(5, 135);
             this.btnClearCache.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
@@ -60,9 +61,9 @@
             this.btnClearCache.TabIndex = 3;
             this.btnClearCache.Text = "Clear Cache (...)";
             this.btnClearCache.UseVisualStyleBackColor = true;
-            // 
+            //
             // btnEditCefArgs
-            // 
+            //
             this.btnEditCefArgs.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnEditCefArgs.Location = new System.Drawing.Point(5, 3);
             this.btnEditCefArgs.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
@@ -71,9 +72,9 @@
             this.btnEditCefArgs.TabIndex = 0;
             this.btnEditCefArgs.Text = "Edit CEF Arguments";
             this.btnEditCefArgs.UseVisualStyleBackColor = true;
-            // 
+            //
             // btnEditCSS
-            // 
+            //
             this.btnEditCSS.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnEditCSS.Location = new System.Drawing.Point(154, 3);
             this.btnEditCSS.Name = "btnEditCSS";
@@ -81,9 +82,9 @@
             this.btnEditCSS.TabIndex = 1;
             this.btnEditCSS.Text = "Edit CSS";
             this.btnEditCSS.UseVisualStyleBackColor = true;
-            // 
+            //
             // btnRestartArgs
-            // 
+            //
             this.btnRestartArgs.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnRestartArgs.Location = new System.Drawing.Point(154, 32);
             this.btnRestartArgs.Name = "btnRestartArgs";
@@ -91,9 +92,9 @@
             this.btnRestartArgs.TabIndex = 3;
             this.btnRestartArgs.Text = "Restart with Arguments";
             this.btnRestartArgs.UseVisualStyleBackColor = true;
-            // 
+            //
             // btnRestart
-            // 
+            //
             this.btnRestart.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnRestart.Location = new System.Drawing.Point(154, 3);
             this.btnRestart.Name = "btnRestart";
@@ -101,9 +102,9 @@
             this.btnRestart.TabIndex = 2;
             this.btnRestart.Text = "Restart the Program";
             this.btnRestart.UseVisualStyleBackColor = true;
-            // 
+            //
             // btnOpenAppFolder
-            // 
+            //
             this.btnOpenAppFolder.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnOpenAppFolder.Location = new System.Drawing.Point(5, 3);
             this.btnOpenAppFolder.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
@@ -112,9 +113,9 @@
             this.btnOpenAppFolder.TabIndex = 0;
             this.btnOpenAppFolder.Text = "Open Program Folder";
             this.btnOpenAppFolder.UseVisualStyleBackColor = true;
-            // 
+            //
             // btnOpenDataFolder
-            // 
+            //
             this.btnOpenDataFolder.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnOpenDataFolder.Location = new System.Drawing.Point(5, 32);
             this.btnOpenDataFolder.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
@@ -123,39 +124,23 @@
             this.btnOpenDataFolder.TabIndex = 1;
             this.btnOpenDataFolder.Text = "Open Data Folder";
             this.btnOpenDataFolder.UseVisualStyleBackColor = true;
-            // 
+            //
             // numClearCacheThreshold
-            // 
+            //
             this.numClearCacheThreshold.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.numClearCacheThreshold.Increment = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
+            this.numClearCacheThreshold.Increment = new decimal(new int[] { 50, 0, 0, 0 });
             this.numClearCacheThreshold.Location = new System.Drawing.Point(210, 5);
-            this.numClearCacheThreshold.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numClearCacheThreshold.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
+            this.numClearCacheThreshold.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
+            this.numClearCacheThreshold.Minimum = new decimal(new int[] { 100, 0, 0, 0 });
             this.numClearCacheThreshold.Name = "numClearCacheThreshold";
             this.numClearCacheThreshold.Size = new System.Drawing.Size(89, 23);
             this.numClearCacheThreshold.TabIndex = 1;
             this.numClearCacheThreshold.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numClearCacheThreshold.TextSuffix = " MB";
-            this.numClearCacheThreshold.Value = new decimal(new int[] {
-            250,
-            0,
-            0,
-            0});
-            // 
+            this.numClearCacheThreshold.Value = new decimal(new int[] { 250, 0, 0, 0 });
+            //
             // checkClearCacheAuto
-            // 
+            //
             this.checkClearCacheAuto.AutoSize = true;
             this.checkClearCacheAuto.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.checkClearCacheAuto.Location = new System.Drawing.Point(6, 6);
@@ -165,9 +150,9 @@
             this.checkClearCacheAuto.TabIndex = 0;
             this.checkClearCacheAuto.Text = "Clear Automatically When Above";
             this.checkClearCacheAuto.UseVisualStyleBackColor = true;
-            // 
+            //
             // labelApp
-            // 
+            //
             this.labelApp.AutoSize = true;
             this.labelApp.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
             this.labelApp.Location = new System.Drawing.Point(0, 0);
@@ -176,9 +161,9 @@
             this.labelApp.Size = new System.Drawing.Size(97, 19);
             this.labelApp.TabIndex = 0;
             this.labelApp.Text = "APPLICATION";
-            // 
+            //
             // panelAppButtons
-            // 
+            //
             this.panelAppButtons.Controls.Add(this.btnOpenDataFolder);
             this.panelAppButtons.Controls.Add(this.btnOpenAppFolder);
             this.panelAppButtons.Controls.Add(this.btnRestart);
@@ -188,9 +173,9 @@
             this.panelAppButtons.Name = "panelAppButtons";
             this.panelAppButtons.Size = new System.Drawing.Size(300, 62);
             this.panelAppButtons.TabIndex = 1;
-            // 
+            //
             // labelCache
-            // 
+            //
             this.labelCache.AutoSize = true;
             this.labelCache.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
             this.labelCache.Location = new System.Drawing.Point(0, 112);
@@ -199,9 +184,9 @@
             this.labelCache.Size = new System.Drawing.Size(123, 19);
             this.labelCache.TabIndex = 2;
             this.labelCache.Text = "BROWSER CACHE";
-            // 
+            //
             // panelClearCacheAuto
-            // 
+            //
             this.panelClearCacheAuto.Controls.Add(this.checkClearCacheAuto);
             this.panelClearCacheAuto.Controls.Add(this.numClearCacheThreshold);
             this.panelClearCacheAuto.Location = new System.Drawing.Point(0, 163);
@@ -209,9 +194,9 @@
             this.panelClearCacheAuto.Name = "panelClearCacheAuto";
             this.panelClearCacheAuto.Size = new System.Drawing.Size(300, 28);
             this.panelClearCacheAuto.TabIndex = 4;
-            // 
+            //
             // panelConfiguration
-            // 
+            //
             this.panelConfiguration.Controls.Add(this.btnEditCSS);
             this.panelConfiguration.Controls.Add(this.btnEditCefArgs);
             this.panelConfiguration.Location = new System.Drawing.Point(0, 241);
@@ -219,9 +204,9 @@
             this.panelConfiguration.Name = "panelConfiguration";
             this.panelConfiguration.Size = new System.Drawing.Size(300, 31);
             this.panelConfiguration.TabIndex = 6;
-            // 
+            //
             // labelConfiguration
-            // 
+            //
             this.labelConfiguration.AutoSize = true;
             this.labelConfiguration.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
             this.labelConfiguration.Location = new System.Drawing.Point(0, 221);
@@ -230,11 +215,10 @@
             this.labelConfiguration.Size = new System.Drawing.Size(123, 19);
             this.labelConfiguration.TabIndex = 5;
             this.labelConfiguration.Text = "CONFIGURATION";
-            // 
+            //
             // flowPanel
-            // 
-            this.flowPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            //
+            this.flowPanel.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left)));
             this.flowPanel.Controls.Add(this.labelApp);
             this.flowPanel.Controls.Add(this.panelAppButtons);
             this.flowPanel.Controls.Add(this.labelCache);
@@ -243,6 +227,7 @@
             this.flowPanel.Controls.Add(this.labelConfiguration);
             this.flowPanel.Controls.Add(this.panelConfiguration);
             this.flowPanel.Controls.Add(this.labelDevTools);
+            this.flowPanel.Controls.Add(this.checkDevToolsInContextMenu);
             this.flowPanel.Controls.Add(this.checkDevToolsWindowOnTop);
             this.flowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowPanel.Location = new System.Drawing.Point(9, 9);
@@ -250,9 +235,9 @@
             this.flowPanel.Size = new System.Drawing.Size(300, 462);
             this.flowPanel.TabIndex = 0;
             this.flowPanel.WrapContents = false;
-            // 
+            //
             // labelDevTools
-            // 
+            //
             this.labelDevTools.AutoSize = true;
             this.labelDevTools.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
             this.labelDevTools.Location = new System.Drawing.Point(0, 302);
@@ -261,27 +246,39 @@
             this.labelDevTools.Size = new System.Drawing.Size(156, 19);
             this.labelDevTools.TabIndex = 7;
             this.labelDevTools.Text = "DEVELOPMENT TOOLS";
-            // 
+            //
+            // checkDevToolsInContextMenu
+            //
+            this.checkDevToolsInContextMenu.AutoSize = true;
+            this.checkDevToolsInContextMenu.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkDevToolsInContextMenu.Location = new System.Drawing.Point(6, 328);
+            this.checkDevToolsInContextMenu.Margin = new System.Windows.Forms.Padding(6, 6, 3, 2);
+            this.checkDevToolsInContextMenu.Name = "checkDevToolsInContextMenu";
+            this.checkDevToolsInContextMenu.Size = new System.Drawing.Size(201, 19);
+            this.checkDevToolsInContextMenu.TabIndex = 8;
+            this.checkDevToolsInContextMenu.Text = "Show Dev Tools in Context Menu";
+            this.checkDevToolsInContextMenu.UseVisualStyleBackColor = true;
+            //
             // checkDevToolsWindowOnTop
-            // 
+            //
             this.checkDevToolsWindowOnTop.AutoSize = true;
             this.checkDevToolsWindowOnTop.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkDevToolsWindowOnTop.Location = new System.Drawing.Point(6, 328);
-            this.checkDevToolsWindowOnTop.Margin = new System.Windows.Forms.Padding(6, 6, 0, 2);
+            this.checkDevToolsWindowOnTop.Location = new System.Drawing.Point(6, 352);
+            this.checkDevToolsWindowOnTop.Margin = new System.Windows.Forms.Padding(6, 3, 3, 2);
             this.checkDevToolsWindowOnTop.Name = "checkDevToolsWindowOnTop";
             this.checkDevToolsWindowOnTop.Size = new System.Drawing.Size(168, 19);
-            this.checkDevToolsWindowOnTop.TabIndex = 8;
+            this.checkDevToolsWindowOnTop.TabIndex = 9;
             this.checkDevToolsWindowOnTop.Text = "Dev Tools Window On Top";
             this.checkDevToolsWindowOnTop.UseVisualStyleBackColor = true;
-            // 
+            //
             // TabSettingsAdvanced
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.flowPanel);
             this.Name = "TabSettingsAdvanced";
             this.Size = new System.Drawing.Size(631, 480);
-            ((System.ComponentModel.ISupportInitialize)(this.numClearCacheThreshold)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.numClearCacheThreshold)).EndInit();
             this.panelAppButtons.ResumeLayout(false);
             this.panelClearCacheAuto.ResumeLayout(false);
             this.panelClearCacheAuto.PerformLayout();
@@ -289,10 +286,7 @@
             this.flowPanel.ResumeLayout(false);
             this.flowPanel.PerformLayout();
             this.ResumeLayout(false);
-
         }
-
-        #endregion
 
         private System.Windows.Forms.Button btnClearCache;
         private System.Windows.Forms.ToolTip toolTip;
@@ -312,6 +306,9 @@
         private System.Windows.Forms.CheckBox checkClearCacheAuto;
         private System.Windows.Forms.FlowLayoutPanel flowPanel;
         private System.Windows.Forms.Label labelDevTools;
+        private System.Windows.Forms.CheckBox checkDevToolsInContextMenu;
         private System.Windows.Forms.CheckBox checkDevToolsWindowOnTop;
+
+        #endregion
     }
 }

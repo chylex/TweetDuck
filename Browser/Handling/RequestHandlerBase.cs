@@ -11,7 +11,7 @@ namespace TweetDuck.Browser.Handling {
 		}
 
 		protected override bool OnOpenUrlFromTab(IWebBrowser browserControl, IBrowser browser, IFrame frame, string targetUrl, WindowOpenDisposition targetDisposition, bool userGesture) {
-			return LifeSpanHandler.HandleLinkClick(browserControl, targetDisposition, targetUrl);
+			return CustomLifeSpanHandler.HandleLinkClick(browserControl, targetDisposition, targetUrl);
 		}
 
 		protected override void OnRenderProcessTerminated(IWebBrowser browserControl, IBrowser browser, CefTerminationStatus status) {

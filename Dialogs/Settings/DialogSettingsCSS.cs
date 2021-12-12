@@ -3,7 +3,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using TweetDuck.Controls;
-using TweetDuck.Utils;
 
 namespace TweetDuck.Dialogs.Settings {
 	sealed partial class DialogSettingsCSS : Form {
@@ -26,10 +25,6 @@ namespace TweetDuck.Dialogs.Settings {
 
 			textBoxNotificationCSS.EnableMultilineShortcuts();
 			textBoxNotificationCSS.Text = notificationCSS ?? "";
-
-			if (!BrowserUtils.HasDevTools) {
-				btnOpenDevTools.Enabled = false;
-			}
 
 			ActiveControl = textBoxBrowserCSS;
 			textBoxBrowserCSS.Select(textBoxBrowserCSS.TextLength, 0);

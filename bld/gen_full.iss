@@ -42,12 +42,10 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalTasks}"; Flags: unchecked
-Name: "devtools"; Description: "{cm:TaskDevTools}"; GroupDescription: "{cm:AdditionalTasks}"; Flags: unchecked
 
 [Files]
 Source: "..\bin\x86\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x86\Release\devtools_resources.pak"; DestDir: "{app}"; Flags: ignoreversion; Tasks: devtools
-Source: "..\bin\x86\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Excludes: "devtools_resources.pak"
+Source: "..\bin\x86\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Check: TDIsUninstallable
@@ -65,7 +63,6 @@ Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\GPUCache"
 
 [CustomMessages]
 AdditionalTasks=Additional shortcuts and components:
-TaskDevTools=Install dev tools
 
 [Code]
 var UpdatePath: String;
@@ -117,13 +114,12 @@ begin
   Result := (PageID = wpSelectDir) and (UpdatePath <> '')
 end;
 
-{ Check the desktop icon task if not updating, and dev tools task if already installed. }
+{ Check the desktop icon task if not updating. }
 procedure CurPageChanged(CurPageID: Integer);
 begin
   if (CurPageID = wpSelectTasks) and (not VisitedTasksPage) then
   begin
-    WizardForm.TasksList.Checked[WizardForm.TasksList.Items.Count-2] := (UpdatePath = '')
-    WizardForm.TasksList.Checked[WizardForm.TasksList.Items.Count-1] := FileExists(ExpandConstant('{app}\devtools_resources.pak'))
+    WizardForm.TasksList.Checked[WizardForm.TasksList.Items.Count-1] := (UpdatePath = '')
     VisitedTasksPage := True
   end;
 end;

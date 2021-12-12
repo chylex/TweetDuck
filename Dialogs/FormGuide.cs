@@ -76,7 +76,7 @@ namespace TweetDuck.Dialogs {
 				MenuHandler = new ContextMenuGuide(owner),
 				JsDialogHandler = new JavaScriptDialogHandler(),
 				KeyboardHandler = new KeyboardHandlerBase(),
-				LifeSpanHandler = new LifeSpanHandler(),
+				LifeSpanHandler = new CustomLifeSpanHandler(),
 				RequestHandler = new RequestHandlerBase(true),
 				ResourceRequestHandlerFactory = resourceRequestHandler.SelfFactory
 			};

@@ -64,7 +64,7 @@ namespace TweetDuck.Browser {
 				MenuHandler = new ContextMenuBrowser(owner),
 				JsDialogHandler = new JavaScriptDialogHandler(),
 				KeyboardHandler = new KeyboardHandlerBrowser(owner),
-				LifeSpanHandler = new LifeSpanHandler(),
+				LifeSpanHandler = new CustomLifeSpanHandler(),
 				RequestHandler = requestHandler,
 				ResourceRequestHandlerFactory = resourceRequestHandler.SelfFactory
 			};

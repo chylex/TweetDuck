@@ -9,7 +9,6 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 using TweetDuck.Browser;
 using TweetDuck.Configuration;
-using TweetDuck.Utils;
 using TweetLib.Core;
 using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Features.Plugins;
@@ -24,7 +23,7 @@ namespace TweetDuck.Management.Analytics {
 			return new AnalyticsReport {
 				{ "App Version"   , Program.VersionTag },
 				{ "App Type"      , Program.IsPortable ? "portable" : "installed" },
-				{ "App Dev Tools" , Bool(BrowserUtils.HasDevTools) },
+				{ "App Dev Tools" , Bool(UserConfig.DevToolsInContextMenu) },
 				0,
 				{ "System Name"        , SystemName },
 				{ "System Edition"     , SystemEdition },

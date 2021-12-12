@@ -1,9 +1,10 @@
 ﻿using CefSharp;
+using CefSharp.Handler;
 using TweetDuck.Controls;
 using TweetDuck.Utils;
 
 namespace TweetDuck.Browser.Handling.General {
-	sealed class LifeSpanHandler : ILifeSpanHandler {
+	sealed class CustomLifeSpanHandler : LifeSpanHandler {
 		private static bool IsPopupAllowed(string url) {
 			return url.StartsWith("https://twitter.com/teams/authorize?");
 		}
@@ -22,17 +23,13 @@ namespace TweetDuck.Browser.Handling.General {
 			}
 		}
 
-		public bool OnBeforePopup(IWebBrowser browserControl, IBrowser browser, IFrame frame, string targetUrl, string targetFrameName, WindowOpenDisposition targetDisposition, bool userGesture, IPopupFeatures popupFeatures, IWindowInfo windowInfo, IBrowserSettings browserSettings, ref bool noJavascriptAccess, out IWebBrowser newBrowser) {
+		protected override bool OnBeforePopup(IWebBrowser browserControl, IBrowser browser, IFrame frame, string targetUrl, string targetFrameName, WindowOpenDisposition targetDisposition, bool userGesture, IPopupFeatures popupFeatures, IWindowInfo windowInfo, IBrowserSettings browserSettings, ref bool noJavascriptAccess, out IWebBrowser newBrowser) {
 			newBrowser = null;
 			return HandleLinkClick(browserControl, targetDisposition, targetUrl);
 		}
 
-		public void OnAfterCreated(IWebBrowser browserControl, IBrowser browser) {}
-
-		public bool DoClose(IWebBrowser browserControl, IBrowser browser) {
+		protected override bool DoClose(IWebBrowser browserControl, IBrowser browser) {
 			return false;
 		}
-
-		public void OnBeforeClose(IWebBrowser browserControl, IBrowser browser) {}
 	}
 }

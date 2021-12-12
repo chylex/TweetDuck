@@ -139,7 +139,7 @@ namespace TweetDuck.Browser.Notification {
 			this.browser = new ChromiumWebBrowser(BlankURL) {
 				MenuHandler = new ContextMenuNotification(this, enableContextMenu),
 				JsDialogHandler = new JavaScriptDialogHandler(),
-				LifeSpanHandler = new LifeSpanHandler(),
+				LifeSpanHandler = new CustomLifeSpanHandler(),
 				RequestHandler = new RequestHandlerBase(false),
 				ResourceRequestHandlerFactory = resourceRequestHandler.SelfFactory
 			};

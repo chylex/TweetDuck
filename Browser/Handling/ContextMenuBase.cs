@@ -221,7 +221,7 @@ namespace TweetDuck.Browser.Handling {
 		}
 
 		protected static void AddDebugMenuItems(IMenuModel model) {
-			if (BrowserUtils.HasDevTools) {
+			if (Config.DevToolsInContextMenu) {
 				AddSeparator(model);
 				model.AddItem(MenuOpenDevTools, "Open dev tools");
 			}
