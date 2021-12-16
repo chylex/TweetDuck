@@ -37,14 +37,15 @@ namespace TweetDuck.Management {
 				DuplexPipe.Server pipe = DuplexPipe.CreateServer();
 				pipe.DataIn += pipe_DataIn;
 
-				Process process;
+				ProcessStartInfo startInfo = new ProcessStartInfo {
+					FileName = Path.Combine(Program.ProgramPath, "TweetDuck.Video.exe"),
+					Arguments = $"{owner.Handle} {(int) Math.Floor(100F * owner.GetDPIScale())} {Config.VideoPlayerVolume} \"{videoUrl}\" \"{pipe.GenerateToken()}\"",
+					UseShellExecute = false,
+					RedirectStandardOutput = true
+				};
 
-				if ((process = Process.Start(new ProcessStartInfo {
-						    FileName = Path.Combine(Program.ProgramPath, "TweetDuck.Video.exe"),
-						    Arguments = $"{owner.Handle} {(int) Math.Floor(100F * owner.GetDPIScale())} {Config.VideoPlayerVolume} \"{videoUrl}\" \"{pipe.GenerateToken()}\"",
-						    UseShellExecute = false,
-						    RedirectStandardOutput = true
-					    })) != null) {
+				Process process;
+				if ((process = Process.Start(startInfo)) != null) {
 					currentInstance = new Instance(process, pipe, videoUrl, tweetUrl, username);
 
 					process.EnableRaisingEvents = true;

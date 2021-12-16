@@ -19,7 +19,7 @@ namespace TweetDuck.Management.Analytics {
 
 		private static readonly Uri CollectionUrl = new Uri(
 			#if (DEBUG && ANALYTICS_LOCALHOST)
-            "http://localhost/newhome/tweetduck/~breadcrumb/request.php?type=report"
+			"http://localhost/newhome/tweetduck/~breadcrumb/request.php?type=report"
 			#else
 			"https://tweetduck.chylex.com/breadcrumb/report"
 			#endif
@@ -52,7 +52,7 @@ namespace TweetDuck.Management.Analytics {
 			}
 
 			#if (DEBUG && ANALYTICS_INSTANT)
-            SendReport();
+			SendReport();
 			#endif
 		}
 

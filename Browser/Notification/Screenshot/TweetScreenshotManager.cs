@@ -24,10 +24,10 @@ namespace TweetDuck.Browser.Notification.Screenshot {
 		private readonly Timer disposer;
 
 		#if GEN_SCREENSHOT_FRAMES
-        private readonly Timer debugger;
-        private int frameCounter;
+		private readonly Timer debugger;
+		private int frameCounter;
 
-        public const int WaitFrames = 60;
+		public const int WaitFrames = 60;
 		#else
 		public const int WaitFrames = 5;
 		#endif
@@ -45,8 +45,8 @@ namespace TweetDuck.Browser.Notification.Screenshot {
 			this.disposer.Tick += disposer_Tick;
 
 			#if GEN_SCREENSHOT_FRAMES
-            this.debugger = new Timer{ Interval = 16 };
-            this.debugger.Tick += debugger_Tick;
+			this.debugger = new Timer{ Interval = 16 };
+			this.debugger.Tick += debugger_Tick;
 			#endif
 		}
 
@@ -71,7 +71,7 @@ namespace TweetDuck.Browser.Notification.Screenshot {
 			timeout.Start();
 
 			#if GEN_SCREENSHOT_FRAMES
-            StartDebugger();
+			StartDebugger();
 			#endif
 
 			#if !NO_HIDE_SCREENSHOTS
@@ -90,14 +90,14 @@ namespace TweetDuck.Browser.Notification.Screenshot {
 			#if !NO_HIDE_SCREENSHOTS
 			OnFinished();
 			#else
-            screenshot.MoveToVisibleLocation();
-            screenshot.FormClosed += (sender, args) => disposer.Start();
+			screenshot.MoveToVisibleLocation();
+			screenshot.FormClosed += (sender, args) => disposer.Start();
 			#endif
 		}
 
 		private void OnFinished() {
 			#if GEN_SCREENSHOT_FRAMES
-            debugger.Stop();
+			debugger.Stop();
 			#endif
 
 			screenshot.Location = ControlExtensions.InvisibleLocation;
@@ -107,7 +107,7 @@ namespace TweetDuck.Browser.Notification.Screenshot {
 
 		public void Dispose() {
 			#if GEN_SCREENSHOT_FRAMES
-            debugger.Dispose();
+			debugger.Dispose();
 			#endif
 
 			timeout.Dispose();
@@ -116,32 +116,32 @@ namespace TweetDuck.Browser.Notification.Screenshot {
 		}
 
 		#if GEN_SCREENSHOT_FRAMES
-        private static readonly string DebugScreenshotPath = Path.Combine(Program.StoragePath, "TD_Screenshots");
+		private static readonly string DebugScreenshotPath = Path.Combine(Program.StoragePath, "TD_Screenshots");
 
-        private void StartDebugger(){
-            frameCounter = 0;
+		private void StartDebugger(){
+			frameCounter = 0;
 
-            try{
-                Directory.Delete(DebugScreenshotPath, true);
-                WindowsUtils.TrySleepUntil(() => !Directory.Exists(DebugScreenshotPath), 1000, 10);
-            }catch(DirectoryNotFoundException){}
-            
-            Directory.CreateDirectory(DebugScreenshotPath);
-            debugger.Start();
-        }
+			try{
+				Directory.Delete(DebugScreenshotPath, true);
+				WindowsUtils.TrySleepUntil(() => !Directory.Exists(DebugScreenshotPath), 1000, 10);
+			}catch(DirectoryNotFoundException){}
 
-        private void debugger_Tick(object sender, EventArgs e){
-            if (frameCounter < 63 && screenshot.TakeScreenshot(true)){
-                try{
-                    Clipboard.GetImage()?.Save(Path.Combine(DebugScreenshotPath, "frame_" + (++frameCounter) + ".png"), ImageFormat.Png);
-                }catch{
-                    System.Diagnostics.Debug.WriteLine("Failed generating frame " + frameCounter);
-                }
-            }
-            else{
-                debugger.Stop();
-            }
-        }
+			Directory.CreateDirectory(DebugScreenshotPath);
+			debugger.Start();
+		}
+
+		private void debugger_Tick(object sender, EventArgs e){
+			if (frameCounter < 63 && screenshot.TakeScreenshot(true)){
+				try{
+					Clipboard.GetImage()?.Save(Path.Combine(DebugScreenshotPath, "frame_" + (++frameCounter) + ".png"), ImageFormat.Png);
+				}catch{
+					System.Diagnostics.Debug.WriteLine("Failed generating frame " + frameCounter);
+				}
+			}
+			else{
+				debugger.Stop();
+			}
+		}
 		#endif
 	}
 }
