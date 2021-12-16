@@ -7,7 +7,7 @@ using TweetDuck.Configuration;
 using TweetDuck.Controls;
 using TweetDuck.Dialogs;
 using TweetDuck.Utils;
-using TweetLib.Communication;
+using TweetLib.Communication.Pipe;
 
 namespace TweetDuck.Management {
 	sealed class VideoPlayer : IDisposable {

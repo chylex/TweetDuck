@@ -3,7 +3,7 @@ using System.IO;
 using System.IO.Pipes;
 using System.Threading;
 
-namespace TweetLib.Communication {
+namespace TweetLib.Communication.Pipe {
 	public abstract class DuplexPipe : IDisposable {
 		private const string Separator = "\x1F";
 

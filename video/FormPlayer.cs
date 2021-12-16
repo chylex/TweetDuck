@@ -5,7 +5,7 @@ using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using TweetDuck.Video.Controls;
-using TweetLib.Communication;
+using TweetLib.Communication.Pipe;
 using WMPLib;
 
 namespace TweetDuck.Video {
