@@ -10,7 +10,12 @@ using TweetLib.Core.Features.Plugins.Enums;
 namespace TweetDuck.Management {
 	sealed class ProfileManager {
 		private static readonly string CookiesPath = Path.Combine(Program.StoragePath, "Cookies");
+		private static readonly string LocalPrefsPath = Path.Combine(Program.StoragePath, "LocalPrefs.json");
+
 		private static readonly string TempCookiesPath = Path.Combine(Program.StoragePath, "CookiesTmp");
+		private static readonly string TempLocalPrefsPath = Path.Combine(Program.StoragePath, "LocalPrefsTmp.json");
+
+		private static readonly int SessionFileCount = 2;
 
 		[Flags]
 		public enum Items {
@@ -58,6 +63,7 @@ namespace TweetDuck.Management {
 
 				if (items.HasFlag(Items.Session)) {
 					stream.WriteFile("cookies", CookiesPath);
+					stream.WriteFile("localprefs", LocalPrefsPath);
 				}
 
 				stream.Flush();
@@ -91,6 +97,7 @@ namespace TweetDuck.Management {
 							break;
 
 						case "cookies":
+						case "localprefs":
 							items |= Items.Session;
 							break;
 					}
@@ -104,7 +111,8 @@ namespace TweetDuck.Management {
 
 		public bool Import(Items items) {
 			try {
-				HashSet<string> missingPlugins = new HashSet<string>();
+				var missingPlugins = new HashSet<string>();
+				var sessionFiles = new HashSet<string>();
 
 				using (CombinedFileStream stream = new CombinedFileStream(new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.None))) {
 					CombinedFileStream.Entry entry;
@@ -147,12 +155,28 @@ namespace TweetDuck.Management {
 
 							case "cookies":
 								if (items.HasFlag(Items.Session)) {
-									entry.WriteToFile(Path.Combine(Program.StoragePath, TempCookiesPath));
+									entry.WriteToFile(TempCookiesPath);
+									sessionFiles.Add(entry.KeyName);
+								}
+
+								break;
+
+							case "localprefs":
+								if (items.HasFlag(Items.Session)) {
+									entry.WriteToFile(TempLocalPrefsPath);
+									sessionFiles.Add(entry.KeyName);
 								}
 
 								break;
 						}
 					}
+				}
+
+				if (items.HasFlag(Items.Session) && sessionFiles.Count != SessionFileCount) {
+					FormMessage.Error("Profile Import Error", "Cannot import login session from an older version of TweetDuck.", FormMessage.OK);
+					File.Delete(TempCookiesPath);
+					File.Delete(TempLocalPrefsPath);
+					return false;
 				}
 
 				if (missingPlugins.Count > 0) {
@@ -167,13 +191,18 @@ namespace TweetDuck.Management {
 		}
 
 		public static void ImportCookies() {
-			if (File.Exists(TempCookiesPath)) {
+			if (File.Exists(TempCookiesPath) && File.Exists(TempLocalPrefsPath)) {
 				try {
 					if (File.Exists(CookiesPath)) {
 						File.Delete(CookiesPath);
 					}
 
+					if (File.Exists(LocalPrefsPath)) {
+						File.Delete(LocalPrefsPath);
+					}
+
 					File.Move(TempCookiesPath, CookiesPath);
+					File.Move(TempLocalPrefsPath, LocalPrefsPath);
 				} catch (Exception e) {
 					Program.Reporter.HandleException("Profile Import Error", "Could not import the cookie file to restore login session.", true, e);
 				}
