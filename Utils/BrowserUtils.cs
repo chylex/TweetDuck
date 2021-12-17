@@ -34,6 +34,7 @@ namespace TweetDuck.Utils {
 				args["disable-touch-adjustment"] = "1";
 			}
 
+			args["disable-component-update"] = "1";
 			args["disable-pdf-extension"] = "1";
 			args["disable-plugins-discovery"] = "1";
 			args["enable-system-flash"] = "0";
