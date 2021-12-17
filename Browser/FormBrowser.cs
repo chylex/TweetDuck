@@ -15,7 +15,6 @@ using TweetDuck.Controls;
 using TweetDuck.Dialogs;
 using TweetDuck.Dialogs.Settings;
 using TweetDuck.Management;
-using TweetDuck.Management.Analytics;
 using TweetDuck.Plugins;
 using TweetDuck.Updates;
 using TweetDuck.Utils;
@@ -24,7 +23,7 @@ using TweetLib.Core.Features.Plugins.Events;
 using TweetLib.Core.Systems.Updates;
 
 namespace TweetDuck.Browser {
-	sealed partial class FormBrowser : Form, AnalyticsFile.IProvider {
+	sealed partial class FormBrowser : Form {
 		private static UserConfig Config => Program.Config.User;
 
 		public bool IsWaiting {
@@ -47,8 +46,6 @@ namespace TweetDuck.Browser {
 		public UpdateInstaller UpdateInstaller { get; private set; }
 		private bool ignoreUpdateCheckError;
 
-		public AnalyticsFile AnalyticsFile => analytics?.File ?? AnalyticsFile.Dummy;
-
 		#pragma warning disable IDE0069 // Disposable fields should be disposed
 		private readonly TweetDeckBrowser browser;
 		private readonly FormNotificationTweet notification;
@@ -64,7 +61,6 @@ namespace TweetDuck.Browser {
 
 		private TweetScreenshotManager notificationScreenshotManager;
 		private VideoPlayer videoPlayer;
-		private AnalyticsManager analytics;
 
 		public FormBrowser(PluginSchemeFactory pluginScheme) {
 			InitializeComponent();
@@ -110,10 +106,6 @@ namespace TweetDuck.Browser {
 				UpdateFormIcon();
 			}
 
-			if (Config.AllowDataCollection) {
-				analytics = new AnalyticsManager(this, plugins, Program.AnalyticsFilePath);
-			}
-
 			RestoreWindow();
 		}
 
@@ -126,7 +118,6 @@ namespace TweetDuck.Browser {
 
 				notificationScreenshotManager?.Dispose();
 				videoPlayer?.Dispose();
-				analytics?.Dispose();
 			}
 
 			base.Dispose(disposing);
@@ -243,7 +234,6 @@ namespace TweetDuck.Browser {
 
 		private void Config_MuteToggled(object sender, EventArgs e) {
 			UpdateFormIcon();
-			AnalyticsFile.NotificationMutes.Trigger();
 		}
 
 		private void Config_TrayBehaviorChanged(object sender, EventArgs e) {
@@ -368,7 +358,6 @@ namespace TweetDuck.Browser {
 				}
 				else {
 					browser.OnMouseClickExtra(m.WParam);
-					AnalyticsFile.BrowserExtraMouseButtons.Trigger();
 				}
 
 				return;
@@ -395,7 +384,6 @@ namespace TweetDuck.Browser {
 			Program.Resources.OnReloadTriggered();
 			ignoreUpdateCheckError = false;
 			browser.ReloadToTweetDeck();
-			AnalyticsFile.BrowserReloads.Trigger();
 		}
 
 		public void AddSearchColumn(string query) {
@@ -416,7 +404,6 @@ namespace TweetDuck.Browser {
 
 		public void ApplyROT13() {
 			browser.ApplyROT13();
-			AnalyticsFile.UsedROT13.Trigger();
 		}
 
 		public void OpenDevTools() {
@@ -425,15 +412,10 @@ namespace TweetDuck.Browser {
 
 		// callback handlers
 
-		public void OnIntroductionClosed(bool showGuide, bool allowDataCollection) {
+		public void OnIntroductionClosed(bool showGuide) {
 			if (Config.FirstRun) {
 				Config.FirstRun = false;
-				Config.AllowDataCollection = allowDataCollection;
 				Config.Save();
-
-				if (allowDataCollection && analytics == null) {
-					analytics = new AnalyticsManager(this, plugins, Program.AnalyticsFilePath);
-				}
 			}
 
 			if (showGuide) {
@@ -453,7 +435,7 @@ namespace TweetDuck.Browser {
 			if (!FormManager.TryBringToFront<FormSettings>()) {
 				bool prevEnableUpdateCheck = Config.EnableUpdateCheck;
 
-				FormSettings form = new FormSettings(this, plugins, updates, analytics, startTab);
+				FormSettings form = new FormSettings(this, plugins, updates, startTab);
 
 				form.FormClosed += (sender, args) => {
 					if (!prevEnableUpdateCheck && Config.EnableUpdateCheck) {
@@ -465,14 +447,6 @@ namespace TweetDuck.Browser {
 
 					if (!Config.EnableTrayHighlight) {
 						trayIcon.HasNotifications = false;
-					}
-
-					if (Config.AllowDataCollection) {
-						analytics ??= new AnalyticsManager(this, plugins, Program.AnalyticsFilePath);
-					}
-					else if (analytics != null) {
-						analytics.Dispose();
-						analytics = null;
 					}
 
 					BrowserCache.RefreshTimer();
@@ -489,21 +463,18 @@ namespace TweetDuck.Browser {
 					form.Dispose();
 				};
 
-				AnalyticsFile.OpenOptions.Trigger();
 				ShowChildForm(form);
 			}
 		}
 
 		public void OpenAbout() {
 			if (!FormManager.TryBringToFront<FormAbout>()) {
-				AnalyticsFile.OpenAbout.Trigger();
 				ShowChildForm(new FormAbout());
 			}
 		}
 
 		public void OpenPlugins() {
 			if (!FormManager.TryBringToFront<FormPlugins>()) {
-				AnalyticsFile.OpenPlugins.Trigger();
 				ShowChildForm(new FormPlugins(plugins));
 			}
 		}
@@ -526,9 +497,7 @@ namespace TweetDuck.Browser {
 			}
 		}
 
-		public void OnTweetSound() {
-			AnalyticsFile.SoundNotifications.Trigger();
-		}
+		public void OnTweetSound() {}
 
 		public void PlayVideo(string videoUrl, string tweetUrl, string username, IJavascriptCallback callShowOverlay) {
 			string playerPath = Config.VideoPlayerPath;
@@ -556,8 +525,6 @@ namespace TweetDuck.Browser {
 					Program.Reporter.HandleException("Error Opening Video Player", "Could not open the video player.", true, e);
 				}
 			}
-
-			AnalyticsFile.VideoPlays.Trigger();
 		}
 
 		public void StopVideo() {
@@ -583,13 +550,11 @@ namespace TweetDuck.Browser {
 
 			notification.FinishCurrentNotification();
 			browser.ShowTweetDetail(columnId, chirpId, fallbackUrl);
-			AnalyticsFile.TweetDetails.Trigger();
 		}
 
 		public void OnTweetScreenshotReady(string html, int width) {
 			notificationScreenshotManager ??= new TweetScreenshotManager(this, plugins);
 			notificationScreenshotManager.Trigger(html, width);
-			AnalyticsFile.TweetScreenshots.Trigger();
 		}
 
 		public void DisplayTooltip(string text) {

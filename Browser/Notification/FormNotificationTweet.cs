@@ -94,7 +94,6 @@ namespace TweetDuck.Browser.Notification {
 			}
 
 			needsTrim |= tweetQueue.Count >= TrimMinimum;
-			AnalyticsFile.DesktopNotifications.Trigger();
 		}
 
 		public override void HideNotification() {

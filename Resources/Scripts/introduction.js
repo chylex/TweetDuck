@@ -30,10 +30,9 @@
     
     ele.find("button, a.mdl-dismiss").click(function(){
       const showGuide = $(this)[0].hasAttribute("data-guide");
-      const allowDataCollection = $("#td-anonymous-data").is(":checked");
       
       ele.fadeOut(200, function(){
-        $TD.onIntroductionClosed(showGuide, allowDataCollection);
+        $TD.onIntroductionClosed(showGuide);
         ele.remove();
         css.remove();
       });

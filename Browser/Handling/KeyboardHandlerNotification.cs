@@ -11,10 +11,6 @@ namespace TweetDuck.Browser.Handling {
 			this.notification = notification;
 		}
 
-		private void TriggerKeyboardShortcutAnalytics() {
-			notification.InvokeAsyncSafe(notification.AnalyticsFile.NotificationKeyboardShortcuts.Trigger);
-		}
-
 		protected override bool HandleRawKey(IWebBrowser browserControl, Keys key, CefEventFlags modifiers) {
 			if (base.HandleRawKey(browserControl, key, modifiers)) {
 				return true;
@@ -23,17 +19,14 @@ namespace TweetDuck.Browser.Handling {
 			switch (key) {
 				case Keys.Enter:
 					notification.InvokeAsyncSafe(notification.FinishCurrentNotification);
-					TriggerKeyboardShortcutAnalytics();
 					return true;
 
 				case Keys.Escape:
 					notification.InvokeAsyncSafe(notification.HideNotification);
-					TriggerKeyboardShortcutAnalytics();
 					return true;
 
 				case Keys.Space:
 					notification.InvokeAsyncSafe(() => notification.FreezeTimer = !notification.FreezeTimer);
-					TriggerKeyboardShortcutAnalytics();
 					return true;
 
 				default:

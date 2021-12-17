@@ -46,7 +46,6 @@ namespace TweetDuck.Dialogs {
 				FormBrowser owner = FormManager.TryFind<FormBrowser>();
 
 				if (owner != null) {
-					owner.AnalyticsFile.OpenGuide.Trigger();
 					new FormGuide(url, owner).Show(owner);
 				}
 			}
@@ -73,7 +72,7 @@ namespace TweetDuck.Dialogs {
 			resourceRequestHandler.ResourceHandlers.Register(DummyPage);
 
 			this.browser = new ChromiumWebBrowser(url) {
-				MenuHandler = new ContextMenuGuide(owner),
+				MenuHandler = new ContextMenuGuide(),
 				JsDialogHandler = new JavaScriptDialogHandler(),
 				KeyboardHandler = new KeyboardHandlerBase(),
 				LifeSpanHandler = new CustomLifeSpanHandler(),

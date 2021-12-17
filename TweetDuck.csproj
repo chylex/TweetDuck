@@ -102,10 +102,6 @@
     <Compile Include="Configuration\SystemConfig.cs" />
     <Compile Include="Configuration\UserConfig.cs" />
     <Compile Include="Controls\ControlExtensions.cs" />
-    <Compile Include="Management\Analytics\AnalyticsFile.cs" />
-    <Compile Include="Management\Analytics\AnalyticsManager.cs" />
-    <Compile Include="Management\Analytics\AnalyticsReport.cs" />
-    <Compile Include="Management\Analytics\AnalyticsReportGenerator.cs" />
     <Compile Include="Management\BrowserCache.cs" />
     <Compile Include="Management\ClipboardManager.cs" />
     <Compile Include="Management\FormManager.cs" />
@@ -189,12 +185,6 @@
     </Compile>
     <Compile Include="Dialogs\FormPlugins.Designer.cs">
       <DependentUpon>FormPlugins.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Settings\DialogSettingsAnalytics.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\Settings\DialogSettingsAnalytics.Designer.cs">
-      <DependentUpon>DialogSettingsAnalytics.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\Settings\DialogSettingsExternalProgram.cs">
       <SubType>Form</SubType>

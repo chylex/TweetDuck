@@ -43,7 +43,6 @@ namespace TweetDuck {
 		public static string UserConfigFilePath => Path.Combine(StoragePath, "TD_UserConfig.cfg");
 		public static string SystemConfigFilePath => Path.Combine(StoragePath, "TD_SystemConfig.cfg");
 		public static string PluginConfigFilePath => Path.Combine(StoragePath, "TD_PluginConfig.cfg");
-		public static string AnalyticsFilePath => Path.Combine(StoragePath, "TD_Analytics.cfg");
 
 		private static string ErrorLogFilePath => Path.Combine(StoragePath, "TD_Log.txt");
 		private static string ConsoleLogFilePath => Path.Combine(StoragePath, "TD_Console.txt");

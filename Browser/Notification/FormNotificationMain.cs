@@ -134,7 +134,6 @@ namespace TweetDuck.Browser.Notification {
 					}
 
 					blockXButtonUp = true;
-					this.InvokeAsyncSafe(AnalyticsFile.NotificationExtraMouseButtons.Trigger);
 					return NativeMethods.HOOK_HANDLED;
 				}
 				else if (eventType == NativeMethods.WM_XBUTTONUP && blockXButtonUp) {

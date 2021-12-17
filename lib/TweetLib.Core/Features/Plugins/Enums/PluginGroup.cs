@@ -28,13 +28,5 @@ namespace TweetLib.Core.Features.Plugins.Enums {
 				_                    => "unknown/"
 			};
 		}
-
-		public static string GetIdentifierPrefixShort(this PluginGroup group) {
-			return group switch {
-				PluginGroup.Official => "o/",
-				PluginGroup.Custom   => "c/",
-				_                    => "?/"
-			};
-		}
 	}
 }

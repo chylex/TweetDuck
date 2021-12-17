@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using TweetDuck.Browser;
 using TweetDuck.Browser.Data;
@@ -12,6 +13,8 @@ namespace TweetDuck.Configuration {
 		// CONFIGURATION DATA
 
 		public bool FirstRun            { get; set; } = true;
+
+		[SuppressMessage("ReSharper", "UnusedMember.Global")]
 		public bool AllowDataCollection { get; set; } = false;
 
 		public WindowState BrowserWindow { get; set; } = new WindowState();

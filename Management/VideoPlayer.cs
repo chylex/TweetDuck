@@ -82,7 +82,6 @@ namespace TweetDuck.Management {
 
 					case "download":
 						if (currentInstance != null) {
-							owner.AnalyticsFile.DownloadedVideos.Trigger();
 							TwitterUtils.DownloadVideo(currentInstance.VideoUrl, currentInstance.Username);
 						}
 

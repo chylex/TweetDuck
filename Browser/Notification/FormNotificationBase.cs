@@ -6,13 +6,12 @@ using TweetDuck.Browser.Handling;
 using TweetDuck.Browser.Handling.General;
 using TweetDuck.Configuration;
 using TweetDuck.Controls;
-using TweetDuck.Management.Analytics;
 using TweetDuck.Utils;
 using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Features.Twitter;
 
 namespace TweetDuck.Browser.Notification {
-	abstract partial class FormNotificationBase : Form, AnalyticsFile.IProvider {
+	abstract partial class FormNotificationBase : Form {
 		public static readonly ResourceLink AppLogo = new ResourceLink("https://ton.twimg.com/tduck/avatar", ResourceHandlers.ForBytes(Properties.Resources.avatar, "image/png"));
 
 		protected const string BlankURL = TwitterUrls.TweetDeck + "/?blank";
@@ -93,8 +92,6 @@ namespace TweetDuck.Browser.Notification {
 				}
 			}
 		}
-
-		public AnalyticsFile AnalyticsFile => owner.AnalyticsFile;
 
 		protected override bool ShowWithoutActivation => true;
 

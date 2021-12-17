@@ -41,8 +41,8 @@ namespace TweetDuck.Browser.Bridge {
 				form.InvokeAsyncSafe(form.OpenProfileImport);
 			}
 
-			public void OnIntroductionClosed(bool showGuide, bool allowDataCollection) {
-				form.InvokeAsyncSafe(() => form.OnIntroductionClosed(showGuide, allowDataCollection));
+			public void OnIntroductionClosed(bool showGuide) {
+				form.InvokeAsyncSafe(() => form.OnIntroductionClosed(showGuide));
 			}
 
 			public void LoadNotificationLayout(string fontSize, string headLayout) {

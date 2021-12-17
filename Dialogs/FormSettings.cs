@@ -9,7 +9,6 @@ using TweetDuck.Configuration;
 using TweetDuck.Controls;
 using TweetDuck.Dialogs.Settings;
 using TweetDuck.Management;
-using TweetDuck.Management.Analytics;
 using TweetDuck.Utils;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Systems.Updates;
@@ -26,7 +25,7 @@ namespace TweetDuck.Dialogs {
 		private readonly Dictionary<Type, SettingsTab> tabs = new Dictionary<Type, SettingsTab>(8);
 		private SettingsTab currentTab;
 
-		public FormSettings(FormBrowser browser, PluginManager plugins, UpdateHandler updates, AnalyticsManager analytics, Type startTab) {
+		public FormSettings(FormBrowser browser, PluginManager plugins, UpdateHandler updates, Type startTab) {
 			InitializeComponent();
 
 			Text = Program.BrandName + " Options";
@@ -44,7 +43,7 @@ namespace TweetDuck.Dialogs {
 			AddButton("Notifications", () => new TabSettingsNotifications(new FormNotificationExample(this.browser, this.plugins)));
 			AddButton("Sounds", () => new TabSettingsSounds(this.browser.PlaySoundNotification));
 			AddButton("Tray", () => new TabSettingsTray());
-			AddButton("Feedback", () => new TabSettingsFeedback(analytics, AnalyticsReportGenerator.ExternalInfo.From(this.browser), this.plugins));
+			AddButton("Feedback", () => new TabSettingsFeedback());
 			AddButton("Advanced", () => new TabSettingsAdvanced(this.browser.ReinjectCustomCSS, this.browser.OpenDevTools));
 
 			SelectTab(tabs[startTab ?? typeof(TabSettingsGeneral)]);

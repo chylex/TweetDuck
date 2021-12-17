@@ -10,7 +10,6 @@ using TweetDuck.Configuration;
 using TweetDuck.Controls;
 using TweetDuck.Dialogs;
 using TweetDuck.Management;
-using TweetDuck.Management.Analytics;
 using TweetDuck.Utils;
 using TweetLib.Core.Features.Twitter;
 using TweetLib.Core.Utils;
@@ -36,12 +35,6 @@ namespace TweetDuck.Browser.Handling {
 		private const CefMenuCommand MenuOpenDevTools    = (CefMenuCommand) 26599;
 
 		protected ContextInfo.ContextData Context { get; private set; }
-
-		private readonly AnalyticsFile.IProvider analytics;
-
-		protected ContextMenuBase(AnalyticsFile.IProvider analytics) {
-			this.analytics = analytics;
-		}
 
 		public virtual void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model) {
 			if (!TwitterUrls.IsTweetDeck(frame.Url) || browser.IsLoading) {
@@ -114,7 +107,6 @@ namespace TweetDuck.Browser.Handling {
 					Match match = TwitterUrls.RegexAccount.Match(url);
 
 					SetClipboardText(control, match.Success ? match.Groups[1].Value : url);
-					control.InvokeAsyncSafe(analytics.AnalyticsFile.CopiedUsernames.Trigger);
 					break;
 				}
 
@@ -139,7 +131,6 @@ namespace TweetDuck.Browser.Handling {
 
 					control.InvokeAsyncSafe(() => {
 						TwitterUtils.ViewImage(url, ImageQuality);
-						analytics.AnalyticsFile.ViewedImages.Trigger();
 					});
 
 					break;
@@ -153,11 +144,9 @@ namespace TweetDuck.Browser.Handling {
 					control.InvokeAsyncSafe(() => {
 						if (isVideo) {
 							TwitterUtils.DownloadVideo(url, username);
-							analytics.AnalyticsFile.DownloadedVideos.Trigger();
 						}
 						else {
 							TwitterUtils.DownloadImage(url, username, ImageQuality);
-							analytics.AnalyticsFile.DownloadedImages.Trigger();
 						}
 					});
 
@@ -170,7 +159,6 @@ namespace TweetDuck.Browser.Handling {
 
 					control.InvokeAsyncSafe(() => {
 						TwitterUtils.DownloadImages(urls, username, ImageQuality);
-						analytics.AnalyticsFile.DownloadedImages.Trigger();
 					});
 
 					break;
@@ -179,7 +167,6 @@ namespace TweetDuck.Browser.Handling {
 				case MenuReadApplyROT13:
 					string selection = parameters.SelectionText;
 					control.InvokeAsyncSafe(() => FormMessage.Information("ROT13", StringUtils.ConvertRot13(selection), FormMessage.OK));
-					control.InvokeAsyncSafe(analytics.AnalyticsFile.UsedROT13.Trigger);
 					return true;
 
 				case MenuSearchInBrowser:

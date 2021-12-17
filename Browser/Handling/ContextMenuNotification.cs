@@ -13,7 +13,7 @@ namespace TweetDuck.Browser.Handling {
 		private readonly FormNotificationBase form;
 		private readonly bool enableCustomMenu;
 
-		public ContextMenuNotification(FormNotificationBase form, bool enableCustomMenu) : base(form) {
+		public ContextMenuNotification(FormNotificationBase form, bool enableCustomMenu) {
 			this.form = form;
 			this.enableCustomMenu = enableCustomMenu;
 		}
@@ -52,7 +52,6 @@ namespace TweetDuck.Browser.Handling {
 
 			form.InvokeAsyncSafe(() => {
 				form.ContextMenuOpen = true;
-				form.AnalyticsFile.NotificationContextMenus.Trigger();
 			});
 		}
 
