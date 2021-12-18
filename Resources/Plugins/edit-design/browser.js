@@ -79,7 +79,7 @@ enabled(){
   else{
     $(document).one("dataSettingsValues", () => this.onStageReady());
   }
-    
+  
   $TDP.checkFileExists(this.$token, configFile).then(exists => {
     if (!exists){
       loadConfigObject(null);
@@ -129,7 +129,7 @@ enabled(){
       }, function(){
         $(this).removeClass("is-selected");
       });
-    }, 1);
+    }, 2);
   };
   
   // modal dialog setup

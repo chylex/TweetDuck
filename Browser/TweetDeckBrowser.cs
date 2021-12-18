@@ -156,11 +156,7 @@ namespace TweetDuck.Browser {
 			if (frame.IsMain) {
 				if (TwitterUrls.IsTweetDeck(url)) {
 					UpdateProperties();
-					CefScriptExecutor.RunFile(frame, "code.js");
-
-					InjectBrowserCSS();
-					ReinjectCustomCSS(Config.CustomBrowserCSS);
-					Config_SoundNotificationInfoChanged(null, EventArgs.Empty);
+					CefScriptExecutor.RunFile(frame, "bootstrap.tweetdeck.js");
 
 					TweetDeckBridge.ResetStaticProperties();
 
@@ -237,6 +233,12 @@ namespace TweetDuck.Browser {
 
 		public void ReloadToTweetDeck() {
 			browser.ExecuteJsAsync($"if(window.TDGF_reload)window.TDGF_reload();else window.location.href='{TwitterUrls.TweetDeck}'");
+		}
+
+		public void OnFeaturesLoaded() {
+			InjectBrowserCSS();
+			ReinjectCustomCSS(Config.CustomBrowserCSS);
+			Config_SoundNotificationInfoChanged(null, EventArgs.Empty);
 		}
 
 		public void UpdateProperties() {

@@ -368,6 +368,10 @@ namespace TweetDuck.Browser {
 
 		// bridge methods
 
+		public void OnFeaturesLoaded() {
+			browser.OnFeaturesLoaded();
+		}
+
 		public void PauseNotification() {
 			notification.PauseNotification();
 		}

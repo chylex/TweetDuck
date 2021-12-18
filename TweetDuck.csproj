@@ -353,13 +353,7 @@
     <None Include="Resources\Plugins\timeline-polls\browser.js" />
     <None Include="Resources\PostBuild.fsx" />
     <None Include="Resources\PostCefUpdate.ps1" />
-    <None Include="Resources\Scripts\code.js" />
     <None Include="Resources\Scripts\imports\markup\introduction.html" />
-    <None Include="Resources\Scripts\imports\markup\offline.html" />
-    <None Include="Resources\Scripts\imports\markup\pin.html" />
-    <None Include="Resources\Scripts\imports\scripts\browser.features.js" />
-    <None Include="Resources\Scripts\imports\scripts\browser.globals.js" />
-    <None Include="Resources\Scripts\imports\scripts\browser.tweaks.js" />
     <None Include="Resources\Scripts\imports\scripts\plugins.base.js" />
     <None Include="Resources\Scripts\imports\styles\introduction.css" />
     <None Include="Resources\Scripts\imports\styles\twitter.base.css" />
@@ -398,6 +392,74 @@
       <Project>{72473763-4b9d-4fb6-a923-9364b2680f06}</Project>
       <Name>TweetLib.Communication</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Content\.all.js" />
+    <Content Include="Resources\Content\api\bridge.js" />
+    <Content Include="Resources\Content\api\ready.js" />
+    <Content Include="Resources\Content\api\jquery.js" />
+    <Content Include="Resources\Content\api\td.js" />
+    <Content Include="Resources\Content\api\utils.js" />
+    <Content Include="Resources\Content\bootstrap.js" />
+    <Content Include="Resources\Content\features\perform_search.js" />
+    <Content Include="Resources\Content\features\screenshot_tweet.js" />
+    <Content Include="Resources\Content\features\bypass_t.co_links.js" />
+    <Content Include="Resources\Content\features\clear_search_input.js" />
+    <Content Include="Resources\Content\features\configure_language_for_translations.js" />
+    <Content Include="Resources\Content\features\disable_clipboard_formatting.js" />
+    <Content Include="Resources\Content\features\disable_td_metrics.js" />
+    <Content Include="Resources\Content\features\drag_links_onto_columns.js" />
+    <Content Include="Resources\Content\features\expand_links_or_show_tooltip.js" />
+    <Content Include="Resources\Content\features\fix_dm_input_box_focus.js" />
+    <Content Include="Resources\Content\features\fix_horizontal_scrolling_of_column_container.js" />
+    <Content Include="Resources\Content\features\fix_marking_dm_as_read_when_replying.js" />
+    <Content Include="Resources\Content\features\fix_media_preview_urls.js" />
+    <Content Include="Resources\Content\features\fix_missing_bing_translator_languages.js" />
+    <Content Include="Resources\Content\features\fix_os_name.js" />
+    <Content Include="Resources\Content\features\fix_scheduled_tweets_not_appearing.js" />
+    <Content Include="Resources\Content\features\fix_youtube_previews.js" />
+    <Content Include="Resources\Content\features\focus_composer_after_alt_tab.js" />
+    <Content Include="Resources\Content\features\focus_composer_after_image_upload.js" />
+    <Content Include="Resources\Content\features\focus_composer_after_switching_account.js" />
+    <Content Include="Resources\Content\features\keep_like_follow_dialogs_open.js" />
+    <Content Include="Resources\Content\features\limit_loaded_dm_count.js" />
+    <Content Include="Resources\Content\features\middle_click_tweet_icon_actions.js" />
+    <Content Include="Resources\Content\features\move_accounts_above_hashtags_in_search.js" />
+    <Content Include="Resources\Content\features\offline_notification.js" />
+    <Content Include="Resources\Content\features\open_search_in_first_column.js" />
+    <Content Include="Resources\Content\features\paste_images_from_clipboard.js" />
+    <Content Include="Resources\Content\features\ready_plugins.js" />
+    <Content Include="Resources\Content\features\make_retweets_lowercase.js" />
+    <Content Include="Resources\Content\features\register_global_functions.js" />
+    <Content Include="Resources\Content\features\restore_cleared_column.js" />
+    <Content Include="Resources\Content\features\open_search_externally.js" />
+    <Content Include="Resources\Content\features\setup_column_type_attributes.js" />
+    <Content Include="Resources\Content\features\register_composer_active_event.js" />
+    <Content Include="Resources\Content\features\inject_css.js" />
+    <Content Include="Resources\Content\features\setup_desktop_notifications.js" />
+    <Content Include="Resources\Content\features\setup_link_context_menu.js" />
+    <Content Include="Resources\Content\features\setup_sound_notifications.js" />
+    <Content Include="Resources\Content\features\add_tweetduck_to_settings_menu.js" />
+    <Content Include="Resources\Content\features\hook_theme_settings.js" />
+    <Content Include="Resources\Content\features\setup_tweetduck_account_bamboozle.js" />
+    <Content Include="Resources\Content\features\setup_tweet_context_menu.js" />
+    <Content Include="Resources\Content\features\setup_video_player.js" />
+    <Content Include="Resources\Content\features\configure_first_day_of_week.js" />
+    <Content Include="Resources\Content\features\skip_pre_login_page.js" />
+    <Content Include="Resources\Content\features\handle_extra_mouse_buttons.js" />
+    <Content Include="Resources\Content\features\pin_composer_icon.js" />
+    <Content Include="Resources\Content\globals\reload_browser.js" />
+    <Content Include="Resources\Content\globals\apply_rot13.js" />
+    <Content Include="Resources\Content\globals\get_class_style_property.js" />
+    <Content Include="Resources\Content\globals\get_column_name.js" />
+    <Content Include="Resources\Content\globals\get_hovered_column.js" />
+    <Content Include="Resources\Content\globals\get_hovered_tweet.js" />
+    <Content Include="Resources\Content\globals\inject_mustache.js" />
+    <Content Include="Resources\Content\globals\patch_functions.js" />
+    <Content Include="Resources\Content\globals\prioritize_newest_event.js" />
+    <Content Include="Resources\Content\globals\reload_columns.js" />
+    <Content Include="Resources\Content\globals\show_tweet_detail.js" />
+    <Content Include="Resources\Scripts\bootstrap.tweetdeck.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

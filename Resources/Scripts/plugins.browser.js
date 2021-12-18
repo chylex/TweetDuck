@@ -19,7 +19,9 @@
     constructor(){
       this.installed = [];
       this.disabled = [];
-      this.waiting = [];
+      this.waitingForFeatures = [];
+      this.waitingForReady = [];
+      this.areFeaturesLoaded = false;
     }
     
     isDisabled(plugin){
@@ -38,8 +40,17 @@
       }
       
       if (!this.isDisabled(plugin)){
-        plugin.obj.enabled();
+        this.runWhenFeaturesLoaded(plugin);
         this.runWhenReady(plugin);
+      }
+    }
+    
+    runWhenFeaturesLoaded(plugin){
+      if (this.areFeaturesLoaded){
+        plugin.obj.enabled();
+      }
+      else{
+        this.waitingForFeatures.push(plugin);
       }
     }
     
@@ -48,7 +59,7 @@
         plugin.obj.ready();
       }
       else{
-        this.waiting.push(plugin);
+        this.waitingForReady.push(plugin);
       }
     }
     
@@ -82,9 +93,29 @@
       }
     }
     
+    onFeaturesLoaded(){
+      window.TDPF_getColumnName = window.TDGF_getColumnName;
+      window.TDPF_reloadColumns = window.TDGF_reloadColumns;
+      window.TDPF_prioritizeNewestEvent = window.TDGF_prioritizeNewestEvent;
+      window.TDPF_injectMustache = window.TDGF_injectMustache;
+      window.TDPF_registerPropertyUpdateCallback = window.TDGF_registerPropertyUpdateCallback;
+      window.TDPF_playVideo = function(urlOrObject, username){
+        if (typeof urlOrObject === "string"){
+          window.TDGF_playVideo(urlOrObject, null, username);
+        }
+        else{
+          window.TDGF_playVideo(urlOrObject.videoUrl, urlOrObject.tweetUrl, urlOrObject.username);
+        }
+      };
+      
+      this.waitingForFeatures.forEach(plugin => plugin.obj.enabled());
+      this.waitingForFeatures = [];
+      this.areFeaturesLoaded = true;
+    }
+    
     onReady(){
-      this.waiting.forEach(plugin => plugin.obj.ready());
-      this.waiting = [];
+      this.waitingForReady.forEach(plugin => plugin.obj.ready());
+      this.waitingForReady = [];
     }
   };
   
@@ -115,24 +146,6 @@
       }
     };
   })();
-  
-  //
-  // Block: Setup bridges to global functions.
-  //
-  window.TDPF_getColumnName = window.TDGF_getColumnName;
-  window.TDPF_reloadColumns = window.TDGF_reloadColumns;
-  window.TDPF_prioritizeNewestEvent = window.TDGF_prioritizeNewestEvent;
-  window.TDPF_injectMustache = window.TDGF_injectMustache;
-  window.TDPF_registerPropertyUpdateCallback = window.TDGF_registerPropertyUpdateCallback;
-  
-  window.TDPF_playVideo = function(urlOrObject, username){
-    if (typeof urlOrObject === "string"){
-      window.TDGF_playVideo(urlOrObject, null, username);
-    }
-    else{
-      window.TDGF_playVideo(urlOrObject.videoUrl, urlOrObject.tweetUrl, urlOrObject.username);
-    }
-  };
   
   #import "scripts/plugins.base.js"
 })();

@@ -33,6 +33,10 @@ namespace TweetDuck.Browser.Bridge {
 		public sealed class Browser : TweetDeckBridge {
 			public Browser(FormBrowser form, FormNotificationMain notification) : base(form, notification) {}
 
+			public void OnFeaturesLoaded() {
+				form.InvokeAsyncSafe(form.OnFeaturesLoaded);
+			}
+
 			public void OpenContextMenu() {
 				form.InvokeAsyncSafe(form.OpenContextMenu);
 			}
