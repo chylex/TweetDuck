@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TweetLib.Core.Features.Plugins.Enums;
+using TweetLib.Core.Utils;
 
 namespace TweetLib.Core.Features.Plugins {
 	public sealed class Plugin {
@@ -80,30 +81,7 @@ namespace TweetLib.Core.Features.Plugins {
 
 		public string GetFullPathIfSafe(PluginFolder folder, string relativePath) {
 			string rootFolder = GetPluginFolder(folder);
-			string fullPath = Path.Combine(rootFolder, relativePath);
-
-			try {
-				string folderPathName = new DirectoryInfo(rootFolder).FullName;
-				DirectoryInfo currentInfo = new DirectoryInfo(fullPath); // initially points to the file, which is convenient for the Attributes check below
-				DirectoryInfo? parentInfo = currentInfo.Parent;
-
-				while (parentInfo != null) {
-					if (currentInfo.Exists && currentInfo.Attributes.HasFlag(FileAttributes.ReparsePoint)) {
-						return string.Empty; // no reason why a plugin should have files/folders with symlinks, junctions, or any other crap
-					}
-
-					if (parentInfo.FullName == folderPathName) {
-						return fullPath;
-					}
-
-					currentInfo = parentInfo;
-					parentInfo = currentInfo.Parent;
-				}
-			} catch {
-				// ignore
-			}
-
-			return string.Empty;
+			return FileUtils.ResolveRelativePathSafely(rootFolder, relativePath);
 		}
 
 		public override string ToString() {

@@ -36,5 +36,32 @@ namespace TweetLib.Core.Utils {
 				return false;
 			}
 		}
+
+		public static string ResolveRelativePathSafely(string rootFolder, string relativePath) {
+			string fullPath = Path.Combine(rootFolder, relativePath);
+
+			try {
+				string folderPathName = new DirectoryInfo(rootFolder).FullName;
+				DirectoryInfo currentInfo = new DirectoryInfo(fullPath); // initially points to the file, which is convenient for the Attributes check below
+				DirectoryInfo? parentInfo = currentInfo.Parent;
+
+				while (parentInfo != null) {
+					if (currentInfo.Exists && currentInfo.Attributes.HasFlag(FileAttributes.ReparsePoint)) {
+						return string.Empty; // no reason why there should be any files/folders with symlinks, junctions, or any other crap
+					}
+
+					if (parentInfo.FullName == folderPathName) {
+						return fullPath;
+					}
+
+					currentInfo = parentInfo;
+					parentInfo = currentInfo.Parent;
+				}
+			} catch {
+				// ignore
+			}
+
+			return string.Empty;
+		}
 	}
 }

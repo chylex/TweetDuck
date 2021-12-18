@@ -135,14 +135,7 @@ namespace TweetDuck {
 
 			var pluginScheme = new PluginSchemeFactory();
 
-			settings.RegisterScheme(new CefCustomScheme {
-				SchemeName = PluginSchemeFactory.Name,
-				IsStandard = false,
-				IsSecure = true,
-				IsCorsEnabled = true,
-				IsCSPBypassing = true,
-				SchemeHandlerFactory = pluginScheme
-			});
+			settings.SetupCustomScheme(PluginSchemeFactory.Name, pluginScheme);
 
 			CommandLineArgs.ReadCefArguments(Config.User.CustomCefArgs).ToDictionary(settings.CefCommandLineArgs);
 			BrowserUtils.SetupCefArgs(settings.CefCommandLineArgs);

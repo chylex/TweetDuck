@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using System.Net;
 using TweetLib.Core.Browser;
@@ -50,20 +49,7 @@ namespace TweetLib.Core.Features.Plugins {
 
 			Plugin? plugin = bridge?.GetPluginFromToken(identifier);
 			string fullPath = plugin == null ? string.Empty : plugin.GetFullPathIfSafe(PluginFolder.Root, path);
-
-			if (fullPath.Length == 0) {
-				return resourceProvider.Status(HttpStatusCode.Forbidden, "File path has to be relative to the plugin root folder.");
-			}
-
-			try {
-				return resourceProvider.File(File.ReadAllBytes(fullPath), Path.GetExtension(path));
-			} catch (FileNotFoundException) {
-				return resourceProvider.Status(HttpStatusCode.NotFound, "File not found.");
-			} catch (DirectoryNotFoundException) {
-				return resourceProvider.Status(HttpStatusCode.NotFound, "Directory not found.");
-			} catch (Exception e) {
-				return resourceProvider.Status(HttpStatusCode.InternalServerError, e.Message);
-			}
+			return fullPath.Length == 0 ? resourceProvider.Status(HttpStatusCode.Forbidden, "File path has to be relative to the plugin root folder.") : resourceProvider.File(fullPath);
 		}
 	}
 }

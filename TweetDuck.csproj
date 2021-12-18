@@ -62,6 +62,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Browser\Handling\ResourceProvider.cs" />
     <Compile Include="Management\LockManager.cs" />
     <Compile Include="Application\SystemHandler.cs" />
     <Compile Include="Browser\Adapters\CefScriptExecutor.cs" />

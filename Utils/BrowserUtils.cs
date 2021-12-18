@@ -48,6 +48,17 @@ namespace TweetDuck.Utils {
 			}
 		}
 
+		public static void SetupCustomScheme(this CefSettings settings, string name, ISchemeHandlerFactory factory) {
+			settings.RegisterScheme(new CefCustomScheme {
+				SchemeName = name,
+				IsStandard = false,
+				IsSecure = true,
+				IsCorsEnabled = true,
+				IsCSPBypassing = true,
+				SchemeHandlerFactory = factory
+			});
+		}
+
 		public static ChromiumWebBrowser AsControl(this IWebBrowser browserControl) {
 			return (ChromiumWebBrowser) browserControl;
 		}
