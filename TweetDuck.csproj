@@ -405,15 +405,11 @@ rmdir "$(ProjectDir)bin\Release"
 rmdir "$(TargetDir)scripts" /S /Q
 rmdir "$(TargetDir)plugins" /S /Q
 
-IF EXIST "$(ProjectDir)bld\post_build.exe" (
-  "$(ProjectDir)bld\post_build.exe" "$(TargetDir)\" "$(ProjectDir)\" "$(ConfigurationName)"
-) ELSE (
-  "$(DevEnvDir)CommonExtensions\Microsoft\FSharp\fsi.exe" "$(ProjectDir)Resources\PostBuild.fsx" --exec --nologo -- "$(TargetDir)\" "$(ProjectDir)\" "$(ConfigurationName)"
-)
+"$(ProjectDir)bld\post_build.exe" "$(TargetDir)\" "$(ProjectDir)\" "$(ConfigurationName)"
 </PostBuildEvent>
   </PropertyGroup>
-  <Target Name="BeforeBuild" Condition="(!$([System.IO.File]::Exists(&quot;$(ProjectDir)\bld\post_build.exe&quot;)) OR ($([System.IO.File]::GetLastWriteTime(&quot;$(ProjectDir)\Resources\PostBuild.fsx&quot;).Ticks) &gt; $([System.IO.File]::GetLastWriteTime(&quot;$(ProjectDir)\bld\post_build.exe&quot;).Ticks)))">
-    <Exec Command="&quot;$(ProjectDir)bld\POST BUILD.bat&quot; &quot;$(DevEnvDir)CommonExtensions\Microsoft\FSharp\fsc.exe&quot;" WorkingDirectory="$(ProjectDir)bld\" IgnoreExitCode="true" />
+  <Target Name="BeforeBuild" Condition="(!$([System.IO.File]::Exists(&quot;$(ProjectDir)bld\post_build.exe&quot;)) OR ($([System.IO.File]::GetLastWriteTime(&quot;$(ProjectDir)Resources\PostBuild.fsx&quot;).Ticks) &gt; $([System.IO.File]::GetLastWriteTime(&quot;$(ProjectDir)bld\post_build.exe&quot;).Ticks)))">
+    <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(ProjectDir)bld\POST BUILD.ps1&quot; &quot;$(DevEnvDir)\CommonExtensions\Microsoft\FSharp&quot;" WorkingDirectory="$(ProjectDir)bld\" IgnoreExitCode="true" />
   </Target>
   <Target Name="AfterBuild" Condition="$(ConfigurationName) == Release">
     <Exec Command="del &quot;$(TargetDir)*.pdb&quot;" />

@@ -5,6 +5,7 @@
 bld/*
 !bld/*.iss
 !bld/*.bat
+!bld/*.ps1
 !bld/Redist
 !bld/Resources
 
