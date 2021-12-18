@@ -50,6 +50,7 @@ let main (argv: string[]) =
         
         let localesDir = targetDir +/ "locales"
         let scriptsDir = targetDir +/ "scripts"
+        let resourcesDir = targetDir +/ "resources"
         let pluginsDir = targetDir +/ "plugins"
         let importsDir = scriptsDir +/ "imports"
         
@@ -100,7 +101,7 @@ let main (argv: string[]) =
         let byPattern path pattern =
             Directory.EnumerateFiles(path, pattern, SearchOption.AllDirectories) |> Seq.filter (fun (file: string) -> not (file.Contains(importsDir)))
             
-        let exceptEndingWith name =
+        let exceptEndingWith (name: string) =
             Seq.filter (fun (file: string) -> not (file.EndsWith(name)))
             
         let iterateFiles (files: string seq) (func: string -> unit) =
@@ -150,6 +151,7 @@ let main (argv: string[]) =
         copyFile (projectDir +/ "bld/Resources/LICENSES.txt") (targetDir +/ "LICENSES.txt")
         
         copyDirectoryContents (projectDir +/ "Resources/Scripts") scriptsDir
+        copyDirectoryContents (projectDir +/ "Resources/Content") resourcesDir
         
         createDirectory (pluginsDir +/ "official")
         createDirectory (pluginsDir +/ "user")

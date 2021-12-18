@@ -32,6 +32,7 @@ namespace TweetDuck {
 		public static readonly bool IsPortable = File.Exists(Path.Combine(ProgramPath, "makeportable"));
 
 		public static readonly string ScriptPath = Path.Combine(ProgramPath, "scripts");
+		public static readonly string ResourcesPath = Path.Combine(ProgramPath, "resources");
 		public static readonly string PluginPath = Path.Combine(ProgramPath, "plugins");
 
 		public static readonly string StoragePath = IsPortable ? Path.Combine(ProgramPath, "portable", "storage") : GetDataStoragePath();
@@ -133,8 +134,10 @@ namespace TweetDuck {
 				#endif
 			};
 
+			var resourceScheme = new ResourceSchemeFactory();
 			var pluginScheme = new PluginSchemeFactory();
 
+			settings.SetupCustomScheme(ResourceSchemeFactory.Name, resourceScheme);
 			settings.SetupCustomScheme(PluginSchemeFactory.Name, pluginScheme);
 
 			CommandLineArgs.ReadCefArguments(Config.User.CustomCefArgs).ToDictionary(settings.CefCommandLineArgs);
