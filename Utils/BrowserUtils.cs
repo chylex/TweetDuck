@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using CefSharp;
@@ -75,7 +76,7 @@ namespace TweetDuck.Utils {
 			browserControl.JavascriptObjectRepository.Register(name, bridge, isAsync: true, BindingOptions.DefaultBinder);
 		}
 
-		public static void OpenDevToolsCustom(this IWebBrowser browser) {
+		public static void OpenDevToolsCustom(this IWebBrowser browser, Point? inspectPoint = null) {
 			var info = new WindowInfo();
 			info.SetAsPopup(IntPtr.Zero, "Dev Tools");
 
@@ -83,7 +84,8 @@ namespace TweetDuck.Utils {
 				info.ExStyle |= 0x00000008; // WS_EX_TOPMOST
 			}
 
-			browser.GetBrowserHost().ShowDevTools(info);
+			Point p = inspectPoint ?? Point.Empty;
+			browser.GetBrowserHost().ShowDevTools(info, p.X, p.Y);
 		}
 
 		public static void OpenExternalBrowser(string url) {

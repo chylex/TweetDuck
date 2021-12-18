@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -176,7 +177,7 @@ namespace TweetDuck.Browser.Handling {
 					break;
 
 				case MenuOpenDevTools:
-					browserControl.OpenDevToolsCustom();
+					browserControl.OpenDevToolsCustom(new Point(parameters.XCoord, parameters.YCoord));
 					break;
 			}
 
