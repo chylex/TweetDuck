@@ -64,6 +64,9 @@ let main (argv: string[]) =
         let collapseLines separator (sequence: string seq) =
             String.Join(separator, sequence)
             
+        let splitLines (separator: char) (str: string) =
+            str.Split(separator) |> Seq.ofArray
+            
         let trimStart (line: string) =
             line.TrimStart()
             
@@ -181,11 +184,9 @@ let main (argv: string[]) =
                     lines
                     |> Seq.map (fun line ->
                         line
-                        |> trimStart
                         |> replaceRegex @"^(.*?)((?<=^|[;{}()])\s?//(?:\s.*|$))?$" "$1"
                         |> replaceRegex @"(?<!\w)(return|throw)(\s.*?)? if (.*?);" "if ($3)$1$2;"
                     )
-                    |> filterNotEmpty
                 );
                 
                 ".css", (fun (lines: string seq) ->
@@ -193,20 +194,18 @@ let main (argv: string[]) =
                     |> Seq.map (fun line ->
                         line
                         |> replaceRegex @"\s*/\*.*?\*/" ""
-                        |> replaceRegex @"^(\S.*) {$" "$1{"
+                        |> replaceRegex @"^(\S.*) {$" "$1 { "
                         |> replaceRegex @"^\s+(.+?):\s*(.+?)(?:\s*(!important))?;$" "$1:$2$3;"
                     )
                     |> filterNotEmpty
                     |> collapseLines " "
                     |> replaceRegex @"([{};])\s" "$1"
-                    |> replaceRegex @";}" "}"
-                    |> Seq.singleton
+                    |> replaceRegex @";?}" " }\n"
+                    |> splitLines '\n'
                 );
                 
                 ".html", (fun (lines: string seq) ->
                     lines
-                    |> Seq.map trimStart
-                    |> filterNotEmpty
                 );
                 
                 ".meta", (fun (lines: string seq) ->
