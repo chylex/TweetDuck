@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using CefSharp;
 using CefSharp.Enums;
+using TweetDuck.Utils;
 
 namespace TweetDuck.Browser.Handling {
 	sealed class DragHandlerBrowser : IDragHandler {
@@ -12,7 +13,7 @@ namespace TweetDuck.Browser.Handling {
 
 		public bool OnDragEnter(IWebBrowser browserControl, IBrowser browser, IDragData dragData, DragOperationsMask mask) {
 			void TriggerDragStart(string type, string data = null) {
-				browserControl.ExecuteScriptAsync("window.TDGF_onGlobalDragStart", type, data);
+				browserControl.ExecuteJsAsync("window.TDGF_onGlobalDragStart", type, data);
 			}
 
 			requestHandler.BlockNextUserNavUrl = dragData.LinkUrl; // empty if not a link

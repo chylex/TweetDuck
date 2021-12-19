@@ -76,6 +76,15 @@ namespace TweetDuck.Utils {
 			browserControl.JavascriptObjectRepository.Register(name, bridge, isAsync: true, BindingOptions.DefaultBinder);
 		}
 
+		public static void ExecuteJsAsync(this IWebBrowser browserControl, string scriptOrMethodName, params object[] args) {
+			if (args.Length == 0) {
+				browserControl.BrowserCore.ExecuteScriptAsync(scriptOrMethodName);
+			}
+			else {
+				browserControl.BrowserCore.ExecuteScriptAsync(scriptOrMethodName, args);
+			}
+		}
+
 		public static void OpenDevToolsCustom(this IWebBrowser browser, Point? inspectPoint = null) {
 			var info = new WindowInfo();
 			info.SetAsPopup(IntPtr.Zero, "Dev Tools");

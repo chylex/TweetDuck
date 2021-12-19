@@ -115,7 +115,7 @@ namespace TweetDuck.Browser.Notification {
 					int delta = BrowserUtils.Scale(NativeMethods.GetMouseHookData(lParam), Config.NotificationScrollSpeed * 0.01);
 
 					if (Config.EnableSmoothScrolling) {
-						browser.ExecuteScriptAsync("window.TDGF_scrollSmoothly", (int) Math.Round(-delta / 0.6));
+						browser.ExecuteJsAsync("window.TDGF_scrollSmoothly", (int) Math.Round(-delta / 0.6));
 					}
 					else {
 						browser.SendMouseWheelEvent(0, 0, 0, delta, CefEventFlags.None);

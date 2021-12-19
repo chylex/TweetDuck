@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using CefSharp;
+using TweetDuck.Utils;
 using TweetLib.Core.Browser;
 
 namespace TweetDuck.Browser.Adapters {
@@ -11,7 +12,7 @@ namespace TweetDuck.Browser.Adapters {
 		}
 
 		public void RunFunction(string name, params object[] args) {
-			browser.ExecuteScriptAsync(name, args);
+			browser.ExecuteJsAsync(name, args);
 		}
 
 		public void RunScript(string identifier, string script) {

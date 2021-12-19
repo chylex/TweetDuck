@@ -220,7 +220,7 @@ namespace TweetDuck.Browser {
 				}
 			}
 
-			browser.ExecuteScriptAsync("TDGF_setSoundNotificationData", hasCustomSound, Config.NotificationSoundVolume);
+			browser.ExecuteJsAsync("TDGF_setSoundNotificationData", hasCustomSound, Config.NotificationSoundVolume);
 		}
 
 		// external handling
@@ -230,57 +230,57 @@ namespace TweetDuck.Browser {
 				browser.GetBrowser().GetHost().SendFocusEvent(true);
 			}
 
-			browser.ExecuteScriptAsync("$('#td-video-player-overlay').remove()");
+			browser.ExecuteJsAsync("$('#td-video-player-overlay').remove()");
 		}
 
 		// javascript calls
 
 		public void ReloadToTweetDeck() {
-			browser.ExecuteScriptAsync($"if(window.TDGF_reload)window.TDGF_reload();else window.location.href='{TwitterUrls.TweetDeck}'");
+			browser.ExecuteJsAsync($"if(window.TDGF_reload)window.TDGF_reload();else window.location.href='{TwitterUrls.TweetDeck}'");
 		}
 
 		public void UpdateProperties() {
-			browser.ExecuteScriptAsync(PropertyBridge.GenerateScript(PropertyBridge.Environment.Browser));
+			browser.ExecuteJsAsync(PropertyBridge.GenerateScript(PropertyBridge.Environment.Browser));
 		}
 
 		public void InjectBrowserCSS() {
-			browser.ExecuteScriptAsync("TDGF_injectBrowserCSS", Program.Resources.Load("styles/browser.css")?.TrimEnd() ?? string.Empty);
+			browser.ExecuteJsAsync("TDGF_injectBrowserCSS", Program.Resources.Load("styles/browser.css")?.TrimEnd() ?? string.Empty);
 		}
 
 		public void ReinjectCustomCSS(string css) {
-			browser.ExecuteScriptAsync("TDGF_reinjectCustomCSS", css?.Replace(Environment.NewLine, " ") ?? string.Empty);
+			browser.ExecuteJsAsync("TDGF_reinjectCustomCSS", css?.Replace(Environment.NewLine, " ") ?? string.Empty);
 		}
 
 		public void OnMouseClickExtra(IntPtr param) {
-			browser.ExecuteScriptAsync("TDGF_onMouseClickExtra", (param.ToInt32() >> 16) & 0xFFFF);
+			browser.ExecuteJsAsync("TDGF_onMouseClickExtra", (param.ToInt32() >> 16) & 0xFFFF);
 		}
 
 		public void ShowTweetDetail(string columnId, string chirpId, string fallbackUrl) {
-			browser.ExecuteScriptAsync("TDGF_showTweetDetail", columnId, chirpId, fallbackUrl);
+			browser.ExecuteJsAsync("TDGF_showTweetDetail", columnId, chirpId, fallbackUrl);
 		}
 
 		public void AddSearchColumn(string query) {
-			browser.ExecuteScriptAsync("TDGF_performSearch", query);
+			browser.ExecuteJsAsync("TDGF_performSearch", query);
 		}
 
 		public void TriggerTweetScreenshot() {
-			browser.ExecuteScriptAsync("TDGF_triggerScreenshot()");
+			browser.ExecuteJsAsync("TDGF_triggerScreenshot()");
 		}
 
 		public void ReloadColumns() {
-			browser.ExecuteScriptAsync("TDGF_reloadColumns()");
+			browser.ExecuteJsAsync("TDGF_reloadColumns()");
 		}
 
 		public void PlaySoundNotification() {
-			browser.ExecuteScriptAsync("TDGF_playSoundNotification()");
+			browser.ExecuteJsAsync("TDGF_playSoundNotification()");
 		}
 
 		public void ApplyROT13() {
-			browser.ExecuteScriptAsync("TDGF_applyROT13()");
+			browser.ExecuteJsAsync("TDGF_applyROT13()");
 		}
 
 		public void ShowUpdateNotification(string versionTag, string releaseNotes) {
-			browser.ExecuteScriptAsync("TDUF_displayNotification", versionTag, Convert.ToBase64String(Encoding.GetEncoding("iso-8859-1").GetBytes(releaseNotes)));
+			browser.ExecuteJsAsync("TDUF_displayNotification", versionTag, Convert.ToBase64String(Encoding.GetEncoding("iso-8859-1").GetBytes(releaseNotes)));
 		}
 
 		public void OpenDevTools() {
