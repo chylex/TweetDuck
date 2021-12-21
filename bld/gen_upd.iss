@@ -66,6 +66,7 @@ Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\GPUCache"
 Type: files; Name: "{app}\CEFSHARP-LICENSE.txt"
 Type: files; Name: "{app}\LICENSE.txt"
 Type: files; Name: "{app}\natives_blob.bin"
+Type: files; Name: "{app}\devtools_resources.pak"
 Type: filesandordirs; Name: "{app}\scripts"
 Type: filesandordirs; Name: "{app}\plugins\official"
 
