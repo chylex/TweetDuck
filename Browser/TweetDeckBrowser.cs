@@ -158,7 +158,7 @@ namespace TweetDuck.Browser {
 					}
 
 					if (Config.FirstRun) {
-						CefScriptExecutor.RunFile(frame, "introduction.js");
+						CefScriptExecutor.RunBootstrap(frame, "introduction", "introduction.css");
 					}
 				}
 				else if (TwitterUrls.IsTwitter(url)) {

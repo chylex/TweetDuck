@@ -322,6 +322,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="Resources\Content\styles\introduction.css" />
     <None Include="Resources\Content\styles\tweetdeck.css" />
     <None Include="Resources\Content\styles\login.css" />
     <None Include="Resources\Images\avatar.png" />
@@ -355,11 +356,8 @@
     <None Include="Resources\Plugins\timeline-polls\browser.js" />
     <None Include="Resources\PostBuild.fsx" />
     <None Include="Resources\PostCefUpdate.ps1" />
-    <None Include="Resources\Scripts\imports\markup\introduction.html" />
     <None Include="Resources\Scripts\imports\scripts\plugins.base.js" />
-    <None Include="Resources\Scripts\imports\styles\introduction.css" />
     <None Include="Resources\Scripts\imports\styles\update.css" />
-    <None Include="Resources\Scripts\introduction.js" />
     <None Include="Resources\Scripts\notification.js" />
     <None Include="Resources\Scripts\pages\error.html" />
     <None Include="Resources\Scripts\pages\example.html" />
@@ -397,6 +395,7 @@
     <Content Include="Resources\Content\api\jquery.js" />
     <Content Include="Resources\Content\api\td.js" />
     <Content Include="Resources\Content\api\utils.js" />
+    <Content Include="Resources\Content\introduction\show_introduction.js" />
     <Content Include="Resources\Content\load.js" />
     <Content Include="Resources\Content\features\perform_search.js" />
     <Content Include="Resources\Content\features\screenshot_tweet.js" />

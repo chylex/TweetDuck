@@ -267,6 +267,7 @@ if (!("TD" in window)) {
  * @property {function(chirp: ChirpBase)} callback
  * @property {string} chirpId
  * @property {TwitterConversations} conversations
+ * @property {function(ids: string[], onSuccess: function(users: TwitterUser[]), onError: function)} getUsersByIds
  */
 
 /**

@@ -19,6 +19,7 @@ if (!("$TDX" in window)) {
  * @property {function} onTweetSound
  * @property {function(url: string)} openBrowser
  * @property {function} openContextMenu
+ * @property {function(showGuide: boolean)} onIntroductionClosed
  * @property {function(videoUrl: string, tweetUrl: string, username: string, callback: function)} playVideo
  * @property {function(tweetUrl: string, quoteUrl: string, chirpAuthors: string, chirpImages: string)} setRightClickedChirp
  * @property {function(type: string, url: string)} setRightClickedLink
