@@ -94,7 +94,7 @@
     }
     
     onModulesLoaded(namespace){
-      if (namespace !== "features") {
+      if (namespace !== "tweetdeck") {
         return;
       }
       window.TDPF_getColumnName = window.TDGF_getColumnName;

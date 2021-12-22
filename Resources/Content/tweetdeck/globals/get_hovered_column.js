@@ -1,4 +1,4 @@
-import { TD } from "../api/td.js";
+import { TD } from "../../api/td.js";
 
 /**
  * Returns an object containing data about the column below the cursor.

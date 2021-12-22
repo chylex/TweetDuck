@@ -1,7 +1,7 @@
 import { $TDX } from "../api/bridge.js";
 import { TD } from "../api/td.js";
 import { ensurePropertyExists } from "../api/utils.js";
-import { runAfterFunction } from "../globals/patch_functions.js";
+import { runAfterFunction } from "./globals/patch_functions.js";
 
 function focusDmInput() {
 	document.querySelector(".js-reply-tweetbox").focus();

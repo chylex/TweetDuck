@@ -1,5 +1,5 @@
 import { $TD } from "../api/bridge.js";
-import { getHoveredTweet } from "../globals/get_hovered_tweet.js";
+import { getHoveredTweet } from "./globals/get_hovered_tweet.js";
 
 /**
  * @this HTMLAnchorElement

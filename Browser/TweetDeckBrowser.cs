@@ -24,7 +24,7 @@ namespace TweetDuck.Browser {
 		private static UserConfig Config => Program.Config.User;
 
 		private const string ErrorUrl = "http://td/error";
-		private const string NamespaceFeatures = "features";
+		private const string NamespaceTweetDeck = "tweetdeck";
 
 		public bool Ready { get; private set; }
 
@@ -149,7 +149,7 @@ namespace TweetDuck.Browser {
 			if (frame.IsMain) {
 				if (TwitterUrls.IsTweetDeck(url)) {
 					UpdateProperties();
-					CefScriptExecutor.RunBootstrap(frame, NamespaceFeatures, "tweetdeck.css");
+					CefScriptExecutor.RunBootstrap(frame, NamespaceTweetDeck);
 
 					TweetDeckBridge.ResetStaticProperties();
 
@@ -158,14 +158,14 @@ namespace TweetDuck.Browser {
 					}
 
 					if (Config.FirstRun) {
-						CefScriptExecutor.RunBootstrap(frame, "introduction", "introduction.css");
+						CefScriptExecutor.RunBootstrap(frame, "introduction");
 					}
 				}
 				else if (TwitterUrls.IsTwitter(url)) {
-					CefScriptExecutor.RunBootstrap(frame, "login", "login.css");
+					CefScriptExecutor.RunBootstrap(frame, "login");
 				}
 
-				CefScriptExecutor.RunBootstrap(frame, "update", "update.css");
+				CefScriptExecutor.RunBootstrap(frame, "update");
 			}
 
 			if (url == ErrorUrl) {
@@ -232,7 +232,7 @@ namespace TweetDuck.Browser {
 		}
 
 		public void OnModulesLoaded(string moduleNamespace) {
-			if (moduleNamespace == NamespaceFeatures) {
+			if (moduleNamespace == NamespaceTweetDeck) {
 				ReinjectCustomCSS(Config.CustomBrowserCSS);
 				Config_SoundNotificationInfoChanged(null, EventArgs.Empty);
 			}

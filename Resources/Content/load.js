@@ -27,8 +27,8 @@
 		const modules = script.getAttribute("data-modules").split("|");
 		
 		let successes = 0;
-		for (const feature of modules) {
-			if (await loadModule(`./${namespace}/${feature}.js`)) {
+		for (const module of modules) {
+			if (await loadModule(`./${namespace}/${module}.js`)) {
 				++successes;
 			}
 		}

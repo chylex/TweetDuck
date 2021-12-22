@@ -1,5 +1,5 @@
-import { TD } from "../api/td.js";
-import { crashDebug } from "../api/utils.js";
+import { TD } from "../../api/td.js";
+import { crashDebug } from "../../api/utils.js";
 
 /**
  * Injects custom HTML into mustache templates.

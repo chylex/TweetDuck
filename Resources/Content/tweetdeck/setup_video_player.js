@@ -1,9 +1,9 @@
 import { $TD } from "../api/bridge.js";
 import { TD } from "../api/td.js";
 import { checkPropertyExists, noop } from "../api/utils.js";
-import { getHoveredTweet } from "../globals/get_hovered_tweet.js";
-import { injectMustache } from "../globals/inject_mustache.js";
-import { replaceFunction, runAfterFunction } from "../globals/patch_functions.js";
+import { getHoveredTweet } from "./globals/get_hovered_tweet.js";
+import { injectMustache } from "./globals/inject_mustache.js";
+import { replaceFunction, runAfterFunction } from "./globals/patch_functions.js";
 
 /**
  * @param {HTMLElement} ele

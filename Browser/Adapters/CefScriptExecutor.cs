@@ -1,5 +1,5 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.IO;
 using CefSharp;
 using TweetDuck.Utils;
 using TweetLib.Core.Browser;
@@ -40,18 +40,33 @@ namespace TweetDuck.Browser.Adapters {
 			return script != null;
 		}
 
-		public static void RunBootstrap(IFrame frame, string moduleNamespace, string stylesheetName) {
+		public static void RunBootstrap(IFrame frame, string moduleNamespace) {
 			string script = Program.Resources.Load("bootstrap.js");
 			if (script == null) {
 				return;
 			}
 
 			string path = Path.Combine(Program.ResourcesPath, moduleNamespace);
-			string[] moduleNames = new DirectoryInfo(path).GetFiles().Select(o => Path.GetFileNameWithoutExtension(o.Name)).ToArray();
+			var files = new DirectoryInfo(path).GetFiles();
 
-			script = script.Replace("{namespace}", moduleNamespace);
-			script = script.Replace("{modules}", string.Join("|", moduleNames));
-			script = script.Replace("{stylesheet}", stylesheetName);
+			var moduleNames = new List<string>();
+			var stylesheetNames = new List<string>();
+
+			foreach (var file in files) {
+				var ext = Path.GetExtension(file.Name);
+
+				var targetList = ext switch {
+					".js"  => moduleNames,
+					".css" => stylesheetNames,
+					_      => null
+				};
+
+				targetList?.Add(Path.GetFileNameWithoutExtension(file.Name));
+			}
+
+			script = script.Replace("{{namespace}}", moduleNamespace);
+			script = script.Replace("{{modules}}", string.Join("|", moduleNames));
+			script = script.Replace("{{stylesheets}}", string.Join("|", stylesheetNames));
 
 			RunScript(frame, script, "bootstrap");
 		}

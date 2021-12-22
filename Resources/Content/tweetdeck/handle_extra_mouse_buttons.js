@@ -1,6 +1,6 @@
 import { $ } from "../api/jquery.js";
-import { getHoveredColumn } from "../globals/get_hovered_column.js";
-import { getHoveredTweet } from "../globals/get_hovered_tweet.js";
+import { getHoveredColumn } from "./globals/get_hovered_column.js";
+import { getHoveredTweet } from "./globals/get_hovered_tweet.js";
 
 const tryClickSelector = function(selector, parent) {
 	return $(selector, parent).click().length;

@@ -1,8 +1,8 @@
-import { $TD } from "../api/bridge.js";
-import { $ } from "../api/jquery.js";
-import { isAppReady, onAppReady } from "../api/ready.js";
-import { TD } from "../api/td.js";
-import { checkPropertyExists } from "../api/utils.js";
+import { $TD } from "../../api/bridge.js";
+import { $ } from "../../api/jquery.js";
+import { isAppReady, onAppReady } from "../../api/ready.js";
+import { TD } from "../../api/td.js";
+import { checkPropertyExists } from "../../api/utils.js";
 
 function isSupported() {
 	return checkPropertyExists(TD, "ui", "updates", "showDetailView") &&

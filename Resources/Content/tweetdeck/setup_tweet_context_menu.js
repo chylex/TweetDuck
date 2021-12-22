@@ -1,7 +1,7 @@
 import { $TD } from "../api/bridge.js";
 import { TD } from "../api/td.js";
 import { ensurePropertyExists } from "../api/utils.js";
-import { getHoveredTweet } from "../globals/get_hovered_tweet.js";
+import { getHoveredTweet } from "./globals/get_hovered_tweet.js";
 
 function processMedia(chirp) {
 	return chirp.getMedia().filter(item => !item.isAnimatedGif).map(item => item.entity.media_url_https + ":small").join(";");

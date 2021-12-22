@@ -62,7 +62,7 @@ export default function() {
 		
 		dialog.fadeOut(200, function() {
 			$TD.onIntroductionClosed(showGuide);
-			document.getElementById("tweetduck-styles-introduction").remove();
+			document.getElementById("tweetduck-styles-introduction-introduction").remove();
 			dialog.remove();
 		});
 	});

@@ -1,5 +1,5 @@
-import { TD } from "../api/td.js";
-import { checkPropertyExists, noop } from "../api/utils.js";
+import { TD } from "../../api/td.js";
+import { checkPropertyExists, noop } from "../../api/utils.js";
 
 function isSupported() {
 	return checkPropertyExists(TD, "controller", "columnManager", "getAll");

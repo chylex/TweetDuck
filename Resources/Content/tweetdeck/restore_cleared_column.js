@@ -1,7 +1,7 @@
 import { $ } from "../api/jquery.js";
 import { TD } from "../api/td.js";
 import { checkPropertyExists } from "../api/utils.js";
-import { replaceFunction } from "../globals/patch_functions.js";
+import { replaceFunction } from "./globals/patch_functions.js";
 
 /**
  * Allows restoring cleared columns by holding Shift.

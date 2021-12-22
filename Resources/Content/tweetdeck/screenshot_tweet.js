@@ -1,7 +1,7 @@
 import { $TD } from "../api/bridge.js";
 import { $ } from "../api/jquery.js";
-import { getClassStyleProperty } from "../globals/get_class_style_property.js";
-import { getHoveredTweet } from "../globals/get_hovered_tweet.js";
+import { getClassStyleProperty } from "./globals/get_class_style_property.js";
+import { getHoveredTweet } from "./globals/get_hovered_tweet.js";
 
 export default function() {
 	/**

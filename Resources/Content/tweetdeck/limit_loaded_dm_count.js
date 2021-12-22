@@ -2,7 +2,7 @@
 
 import { TD } from "../api/td.js";
 import { ensurePropertyExists } from "../api/utils.js";
-import { replaceFunction } from "../globals/patch_functions.js";
+import { replaceFunction } from "./globals/patch_functions.js";
 
 /**
  * Limits amount of loaded DMs to avoid massive lag from re-opening them several times.

@@ -1,7 +1,7 @@
 import { TD } from "../api/td.js";
 import { checkPropertyExists } from "../api/utils.js";
-import { injectMustache } from "../globals/inject_mustache.js";
-import { runAfterFunction } from "../globals/patch_functions.js";
+import { injectMustache } from "./globals/inject_mustache.js";
+import { runAfterFunction } from "./globals/patch_functions.js";
 
 /**
  * Makes texts saying 'Retweet' lowercase.

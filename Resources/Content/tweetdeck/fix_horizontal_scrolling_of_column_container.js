@@ -1,8 +1,8 @@
 import { $ } from "../api/jquery.js";
 import { TD } from "../api/td.js";
 import { ensurePropertyExists } from "../api/utils.js";
-import { runAfterFunction } from "../globals/patch_functions.js";
-import { prioritizeNewestEvent } from "../globals/prioritize_newest_event.js";
+import { runAfterFunction } from "./globals/patch_functions.js";
+import { prioritizeNewestEvent } from "./globals/prioritize_newest_event.js";
 
 /**
  * Fixes broken horizontal scrolling of column container when holding Shift.

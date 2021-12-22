@@ -1,7 +1,7 @@
 import { $TD } from "../api/bridge.js";
 import { $, $$ } from "../api/jquery.js";
 import { onAppReady } from "../api/ready.js";
-import { prioritizeNewestEvent } from "../globals/prioritize_newest_event.js";
+import { prioritizeNewestEvent } from "./globals/prioritize_newest_event.js";
 
 const openSearchExternally = function(event, input) {
 	$TD.openBrowser("https://twitter.com/search/?q=" + encodeURIComponent(input.val() || ""));

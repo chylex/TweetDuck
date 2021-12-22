@@ -1,4 +1,4 @@
-import { getEvents } from "../api/jquery.js";
+import { getEvents } from "../../api/jquery.js";
 
 /**
  * Pushes the newest jQuery event to the beginning of the event handler list, so that it runs before anything else.
