@@ -40,12 +40,12 @@
       }
       
       if (!this.isDisabled(plugin)){
-        this.runWhenFeaturesLoaded(plugin);
+        this.runWhenModulesLoaded(plugin);
         this.runWhenReady(plugin);
       }
     }
     
-    runWhenFeaturesLoaded(plugin){
+    runWhenModulesLoaded(plugin){
       if (this.areFeaturesLoaded){
         plugin.obj.enabled();
       }
@@ -93,7 +93,10 @@
       }
     }
     
-    onFeaturesLoaded(){
+    onModulesLoaded(namespace){
+      if (namespace !== "features") {
+        return;
+      }
       window.TDPF_getColumnName = window.TDGF_getColumnName;
       window.TDPF_reloadColumns = window.TDGF_reloadColumns;
       window.TDPF_prioritizeNewestEvent = window.TDGF_prioritizeNewestEvent;

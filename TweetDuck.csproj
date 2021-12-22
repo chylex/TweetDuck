@@ -400,7 +400,7 @@
     <Content Include="Resources\Content\api\jquery.js" />
     <Content Include="Resources\Content\api\td.js" />
     <Content Include="Resources\Content\api\utils.js" />
-    <Content Include="Resources\Content\bootstrap.js" />
+    <Content Include="Resources\Content\load.js" />
     <Content Include="Resources\Content\features\perform_search.js" />
     <Content Include="Resources\Content\features\screenshot_tweet.js" />
     <Content Include="Resources\Content\features\bypass_t.co_links.js" />
@@ -459,7 +459,7 @@
     <Content Include="Resources\Content\globals\prioritize_newest_event.js" />
     <Content Include="Resources\Content\globals\reload_columns.js" />
     <Content Include="Resources\Content\globals\show_tweet_detail.js" />
-    <Content Include="Resources\Scripts\bootstrap.tweetdeck.js" />
+    <Content Include="Resources\Scripts\bootstrap.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

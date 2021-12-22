@@ -14,7 +14,7 @@ if (!("$TDX" in window)) {
  * @property {function(tooltip: string|null)} displayTooltip
  * @property {function} fixClipboard
  * @property {function(fontSize: string, headLayout: string)} loadNotificationLayout
- * @property {function} onFeaturesLoaded
+ * @property {function(namespace: string)} onModulesLoaded
  * @property {function(columnId: string, chirpId: string, columnName: string, tweetHtml: string, tweetCharacters: int, tweetUrl: string, quoteUrl: string)} onTweetPopup
  * @property {function} onTweetSound
  * @property {function(url: string)} openBrowser

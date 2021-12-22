@@ -8,6 +8,7 @@ import { reloadColumns } from "../globals/reload_columns.js";
 import { showTweetDetail } from "../globals/show_tweet_detail.js";
 
 export default function() {
+	window.jQuery = window.$;
 	window.TDGF_applyROT13 = applyROT13;
 	window.TDGF_getColumnName = getColumnName;
 	window.TDGF_injectMustache = injectMustache;

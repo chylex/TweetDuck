@@ -368,8 +368,8 @@ namespace TweetDuck.Browser {
 
 		// bridge methods
 
-		public void OnFeaturesLoaded() {
-			browser.OnFeaturesLoaded();
+		public void OnModulesLoaded(string moduleNamespace) {
+			browser.OnModulesLoaded(moduleNamespace);
 		}
 
 		public void PauseNotification() {
