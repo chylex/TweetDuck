@@ -165,7 +165,7 @@ namespace TweetDuck.Browser {
 					CefScriptExecutor.RunBootstrap(frame, "login", "login.css");
 				}
 
-				CefScriptExecutor.RunFile(frame, "update.js");
+				CefScriptExecutor.RunBootstrap(frame, "update", "update.css");
 			}
 
 			if (url == ErrorUrl) {

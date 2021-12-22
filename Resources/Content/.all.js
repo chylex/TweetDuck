@@ -53,6 +53,7 @@ import setup_video_player from "./features/setup_video_player.js";
 import skip_pre_login_page from "./features/skip_pre_login_page.js";
 import show_introduction from "./introduction/show_introduction.js";
 import hide_cookie_bar from "./login/hide_cookie_bar.js";
+import check_updates from "./update/check_updates.js";
 
 const globalFunctions = [
 	window.TDGF_applyROT13,
@@ -71,5 +72,6 @@ const globalFunctions = [
 	window.TDGF_setSoundNotificationData,
 	window.TDGF_showTweetDetail,
 	window.TDGF_triggerScreenshot,
+	window.TDUF_displayNotification,
 	window.jQuery,
 ];

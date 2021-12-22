@@ -325,6 +325,7 @@
     <None Include="Resources\Content\styles\introduction.css" />
     <None Include="Resources\Content\styles\tweetdeck.css" />
     <None Include="Resources\Content\styles\login.css" />
+    <None Include="Resources\Content\styles\update.css" />
     <None Include="Resources\Images\avatar.png" />
     <None Include="Resources\Images\icon-muted.ico" />
     <None Include="Resources\Images\icon-small.ico" />
@@ -357,7 +358,6 @@
     <None Include="Resources\PostBuild.fsx" />
     <None Include="Resources\PostCefUpdate.ps1" />
     <None Include="Resources\Scripts\imports\scripts\plugins.base.js" />
-    <None Include="Resources\Scripts\imports\styles\update.css" />
     <None Include="Resources\Scripts\notification.js" />
     <None Include="Resources\Scripts\pages\error.html" />
     <None Include="Resources\Scripts\pages\example.html" />
@@ -365,7 +365,6 @@
     <None Include="Resources\Scripts\plugins.notification.js" />
     <None Include="Resources\Scripts\screenshot.js" />
     <None Include="Resources\Scripts\styles\notification.css" />
-    <None Include="Resources\Scripts\update.js" />
   </ItemGroup>
   <ItemGroup>
     <Redist Include="$(ProjectDir)bld\Redist\*.*" />
@@ -457,6 +456,7 @@
     <Content Include="Resources\Content\globals\show_tweet_detail.js" />
     <Content Include="Resources\Content\login\hide_cookie_bar.js" />
     <Content Include="Resources\Content\login\setup_document_attributes.js" />
+    <Content Include="Resources\Content\update\check_updates.js" />
     <Content Include="Resources\Scripts\bootstrap.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
