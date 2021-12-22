@@ -52,7 +52,6 @@ let main (argv: string[]) =
         let scriptsDir = targetDir +/ "scripts"
         let resourcesDir = targetDir +/ "resources"
         let pluginsDir = targetDir +/ "plugins"
-        let importsDir = scriptsDir +/ "imports"
         
         // Functions (Strings)
         
@@ -99,7 +98,7 @@ let main (argv: string[]) =
         // Functions (File Processing)
         
         let byPattern path pattern =
-            Directory.EnumerateFiles(path, pattern, SearchOption.AllDirectories) |> Seq.filter (fun (file: string) -> not (file.Contains(importsDir)))
+            Directory.EnumerateFiles(path, pattern, SearchOption.AllDirectories)
             
         let exceptEndingWith (name: string) =
             Seq.filter (fun (file: string) -> not (file.EndsWith(name)))
@@ -123,7 +122,7 @@ let main (argv: string[]) =
         
         let writeFile (fullPath: string) (lines: string seq) =
             let relativePath = fullPath.[(targetDir.Length)..]
-            let includeVersion = relativePath.StartsWith(@"scripts\") && not (relativePath.StartsWith(@"scripts\imports\"))
+            let includeVersion = relativePath.StartsWith(@"scripts\")
             let finalLines = if includeVersion then seq { yield "#" + version; yield! lines } else lines
             
             File.WriteAllLines(fullPath, finalLines |> Seq.toArray)
@@ -133,13 +132,6 @@ let main (argv: string[]) =
             let rec processFileContents file =
                 readFile file
                 |> extProcessors.[Path.GetExtension(file)]
-                |> Seq.map (fun line ->
-                    Regex.Replace(line, @"#import ""(.*?)""", (fun matchInfo ->
-                        processFileContents(importsDir +/ matchInfo.Groups.[1].Value.Trim())
-                        |> collapseLines (Environment.NewLine)
-                        |> (fun contents -> contents.TrimEnd())
-                    ))
-                )
                 
             iterateFiles files (fun file ->
                 processFileContents file
@@ -220,10 +212,6 @@ let main (argv: string[]) =
         processFiles (byPattern targetDir "*.css") fileProcessors
         processFiles (byPattern targetDir "*.html") fileProcessors
         processFiles (byPattern pluginsDir "*.meta") fileProcessors
-        
-        // Cleanup
-        
-        Directory.Delete(importsDir, true)
         
         // Finished
         

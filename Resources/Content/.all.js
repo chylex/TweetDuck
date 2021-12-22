@@ -58,6 +58,7 @@ import skip_pre_login_page from "./tweetdeck/skip_pre_login_page.js";
 import update from "./update/update.js";
 
 const globalFunctions = [
+	window.PluginBase,
 	window.TDGF_applyROT13,
 	window.TDGF_getColumnName,
 	window.TDGF_injectMustache,
@@ -74,6 +75,15 @@ const globalFunctions = [
 	window.TDGF_setSoundNotificationData,
 	window.TDGF_showTweetDetail,
 	window.TDGF_triggerScreenshot,
+	window.TDPF_configurePlugin,
+	window.TDPF_createCustomStyle,
+	window.TDPF_createStorage,
+	window.TDPF_loadConfigurationFile,
+	window.TDPF_playVideo,
+	window.TDPF_registerPropertyUpdateCallback,
+	window.TDPF_requestReload,
+	window.TDPF_setPluginState,
 	window.TDUF_displayNotification,
+	window.TD_PLUGINS_INSTALL,
 	window.jQuery,
 ];

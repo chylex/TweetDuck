@@ -10,6 +10,7 @@ if (!("$TDX" in window)) {
  * @typedef TD_Bridge
  * @type {Object}
  *
+ * @property {function(type: "error"|"warning"|"info"|"", contents: string)} alert
  * @property {function(message: string)} crashDebug
  * @property {function(tooltip: string|null)} displayTooltip
  * @property {function} fixClipboard

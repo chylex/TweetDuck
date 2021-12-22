@@ -69,9 +69,11 @@ namespace TweetLib.Core.Features.Plugins {
 		}
 
 		private void Execute(PluginEnvironment environment, IScriptExecutor executor) {
-			if (!plugins.Any(plugin => plugin.HasEnvironment(environment)) || !executor.RunFile($"plugins.{environment.GetPluginScriptFile()}")) {
+			if (!plugins.Any(plugin => plugin.HasEnvironment(environment))) {
 				return;
 			}
+
+			executor.RunScript("gen:pluginstall", PluginScriptGenerator.GenerateInstaller());
 
 			bool includeDisabled = environment == PluginEnvironment.Browser;
 
@@ -99,6 +101,8 @@ namespace TweetLib.Core.Features.Plugins {
 
 				executor.RunScript($"plugin:{plugin}", PluginScriptGenerator.GeneratePlugin(plugin.Identifier, script, bridge.GetTokenFromPlugin(plugin), environment));
 			}
+
+			executor.RunBootstrap($"plugins/{environment.GetPluginScriptNamespace()}");
 
 			Executed?.Invoke(this, new PluginErrorEventArgs(errors));
 		}

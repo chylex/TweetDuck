@@ -323,6 +323,8 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Resources\Content\error\error.html" />
+    <None Include="Resources\Content\plugins\notification\plugins.js" />
+    <None Include="Resources\Content\plugins\tweetdeck\plugins.js" />
     <None Include="Resources\Images\avatar.png" />
     <None Include="Resources\Images\icon-muted.ico" />
     <None Include="Resources\Images\icon-small.ico" />
@@ -354,11 +356,8 @@
     <None Include="Resources\Plugins\timeline-polls\browser.js" />
     <None Include="Resources\PostBuild.fsx" />
     <None Include="Resources\PostCefUpdate.ps1" />
-    <None Include="Resources\Scripts\imports\scripts\plugins.base.js" />
     <None Include="Resources\Scripts\notification.js" />
     <None Include="Resources\Scripts\pages\example.html" />
-    <None Include="Resources\Scripts\plugins.browser.js" />
-    <None Include="Resources\Scripts\plugins.notification.js" />
     <None Include="Resources\Scripts\screenshot.js" />
     <None Include="Resources\Scripts\styles\notification.css" />
   </ItemGroup>
@@ -396,6 +395,8 @@
     <Content Include="Resources\Content\login\hide_cookie_bar.js" />
     <Content Include="Resources\Content\login\login.css" />
     <Content Include="Resources\Content\login\setup_document_attributes.js" />
+    <Content Include="Resources\Content\plugins\base.js" />
+    <Content Include="Resources\Content\plugins\setup.js" />
     <Content Include="Resources\Content\tweetdeck\add_tweetduck_to_settings_menu.js" />
     <Content Include="Resources\Content\tweetdeck\bypass_t.co_links.js" />
     <Content Include="Resources\Content\tweetdeck\clear_search_input.js" />

@@ -26,6 +26,11 @@ namespace TweetDuck.Browser.Adapters {
 			return RunFile(frame, file);
 		}
 
+		public void RunBootstrap(string moduleNamespace) {
+			using IFrame frame = browser.GetMainFrame();
+			RunBootstrap(frame, moduleNamespace);
+		}
+
 		// Helpers
 
 		public static void RunScript(IFrame frame, string script, string identifier) {

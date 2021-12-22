@@ -2,13 +2,11 @@
 using System.Drawing;
 using System.Windows.Forms;
 using CefSharp;
-using TweetDuck.Browser.Adapters;
 using TweetDuck.Browser.Bridge;
 using TweetDuck.Browser.Handling;
 using TweetDuck.Controls;
 using TweetDuck.Plugins;
 using TweetDuck.Utils;
-using TweetLib.Core.Data;
 using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Enums;
@@ -74,7 +72,6 @@ namespace TweetDuck.Browser.Notification {
 			browser.RegisterJsBridge("$TD", new TweetDeckBridge.Notification(owner, this));
 
 			browser.LoadingStateChanged += Browser_LoadingStateChanged;
-			browser.FrameLoadEnd += Browser_FrameLoadEnd;
 
 			plugins.Register(PluginEnvironment.Notification, new PluginDispatcher(browser, url => TwitterUrls.IsTweetDeck(url) && url != BlankURL));
 
@@ -168,15 +165,6 @@ namespace TweetDuck.Browser.Notification {
 			}
 		}
 
-		private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e) {
-			IFrame frame = e.Frame;
-
-			if (frame.IsMain && browser.Address != BlankURL) {
-				frame.ExecuteJavaScriptAsync(PropertyBridge.GenerateScript(PropertyBridge.Environment.Notification));
-				CefScriptExecutor.RunFile(frame, "notification.js");
-			}
-		}
-
 		private void timerDisplayDelay_Tick(object sender, EventArgs e) {
 			OnNotificationReady();
 			timerDisplayDelay.Stop();
@@ -248,13 +236,10 @@ namespace TweetDuck.Browser.Notification {
 		}
 
 		protected override string GetTweetHTML(DesktopNotification tweet) {
-			string html = tweet.GenerateHtml(BodyClasses, HeadLayout, Config.CustomNotificationCSS);
-
-			foreach (InjectedHTML injection in plugins.NotificationInjections) {
-				html = injection.InjectInto(html);
-			}
-
-			return html;
+			return tweet.GenerateHtml(BodyClasses, HeadLayout, Config.CustomNotificationCSS, plugins.NotificationInjections, new string[] {
+				PropertyBridge.GenerateScript(PropertyBridge.Environment.Notification),
+				Program.Resources.Load("notification.js")
+			});
 		}
 
 		protected override void LoadTweet(DesktopNotification tweet) {

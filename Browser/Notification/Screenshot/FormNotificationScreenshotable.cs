@@ -7,7 +7,6 @@ using TweetDuck.Browser.Adapters;
 using TweetDuck.Controls;
 using TweetDuck.Dialogs;
 using TweetDuck.Utils;
-using TweetLib.Core.Data;
 using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Features.Plugins;
 
@@ -46,13 +45,7 @@ namespace TweetDuck.Browser.Notification.Screenshot {
 		}
 
 		protected override string GetTweetHTML(DesktopNotification tweet) {
-			string html = tweet.GenerateHtml("td-screenshot", HeadLayout, Config.CustomNotificationCSS);
-
-			foreach (InjectedHTML injection in plugins.NotificationInjections) {
-				html = injection.InjectInto(html);
-			}
-
-			return html;
+			return tweet.GenerateHtml("td-screenshot", HeadLayout, Config.CustomNotificationCSS, plugins.NotificationInjections, Array.Empty<string>());
 		}
 
 		private void SetScreenshotHeight(int browserHeight) {

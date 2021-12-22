@@ -13,6 +13,14 @@ namespace TweetLib.Core.Features.Plugins.Enums {
 			PluginEnvironment.Notification
 		};
 
+		public static string GetPluginScriptNamespace(this PluginEnvironment environment) {
+			return environment switch {
+				PluginEnvironment.Browser      => "tweetdeck",
+				PluginEnvironment.Notification => "notification",
+				_                              => throw new InvalidOperationException($"Invalid plugin environment: {environment}")
+			};
+		}
+
 		public static string GetPluginScriptFile(this PluginEnvironment environment) {
 			return environment switch {
 				PluginEnvironment.Browser      => "browser.js",
