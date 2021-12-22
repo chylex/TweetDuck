@@ -6,6 +6,7 @@
 
 import introduction from "./introduction/introduction.js";
 import hide_cookie_bar from "./login/hide_cookie_bar.js";
+import setup_document_attributes from "./login/setup_document_attributes.js";
 import add_tweetduck_to_settings_menu from "./tweetdeck/add_tweetduck_to_settings_menu.js";
 import bypass_tco_links from "./tweetdeck/bypass_t.co_links.js";
 import clear_search_input from "./tweetdeck/clear_search_input.js";
