@@ -23,7 +23,6 @@ namespace TweetDuck.Browser {
 	sealed class TweetDeckBrowser : IDisposable {
 		private static UserConfig Config => Program.Config.User;
 
-		private const string ErrorUrl = "http://td/error";
 		private const string NamespaceTweetDeck = "tweetdeck";
 
 		public bool Ready { get; private set; }
@@ -167,10 +166,6 @@ namespace TweetDuck.Browser {
 
 				CefScriptExecutor.RunBootstrap(frame, "update");
 			}
-
-			if (url == ErrorUrl) {
-				resourceHandlers.Unregister(ErrorUrl);
-			}
 		}
 
 		private void browser_LoadError(object sender, LoadErrorEventArgs e) {
@@ -178,16 +173,10 @@ namespace TweetDuck.Browser {
 				return;
 			}
 
-			if (!e.FailedUrl.StartsWith("http://td/", StringComparison.Ordinal)) {
-				string errorPage = Program.Resources.LoadSilent("pages/error.html");
-
-				if (errorPage != null) {
-					string errorName = Enum.GetName(typeof(CefErrorCode), e.ErrorCode);
-					string errorTitle = StringUtils.ConvertPascalCaseToScreamingSnakeCase(errorName ?? string.Empty);
-
-					resourceHandlers.Register(ErrorUrl, ResourceHandlers.ForString(errorPage.Replace("{err}", errorTitle)));
-					browser.Load(ErrorUrl);
-				}
+			if (!e.FailedUrl.StartsWith("td://", StringComparison.Ordinal)) {
+				string errorName = Enum.GetName(typeof(CefErrorCode), e.ErrorCode);
+				string errorTitle = StringUtils.ConvertPascalCaseToScreamingSnakeCase(errorName ?? string.Empty);
+				browser.Load("td://resources/error/error.html#" + Uri.EscapeDataString(errorTitle));
 			}
 		}
 

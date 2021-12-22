@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <style type="text/css">
+    <title>TweetDuck Error</title>
+    <meta charset="UTF-8">
+    <style>
       body {
         color: #e1e8ed;
         background-color: #1c6399;
@@ -16,9 +18,10 @@
         display: table;
       }
       
-      center {
+      main {
         display: table-cell;
         vertical-align: middle;
+        text-align: center;
       }
       
       h1 {
@@ -39,11 +42,14 @@
     </style>
   </head>
   <body>
-    <center>
+    <main>
       <h1>Connection Error</h1>
-      <p>{err}</p>
-      <button onclick="location.href = 'https://tweetdeck.twitter.com'; [].forEach.call(document.getElementsByTagName('button'), e => e.style.visibility = 'hidden')">Retry</button>
-      <button onclick="window.close()">Exit</button>
-    </center>
+      <p id="error"></p>
+      <button onclick="location.href = 'https://tweetdeck.twitter.com'; Array.from(document.getElementsByTagName('button')).forEach(e => e.style.visibility = 'hidden');">Retry</button>
+      <button onclick="window.close();">Exit</button>
+    </main>
+    <script type="text/javascript">
+        document.getElementById("error").innerText = decodeURIComponent(location.hash.slice(1));
+    </script>
   </body>
 </html>
