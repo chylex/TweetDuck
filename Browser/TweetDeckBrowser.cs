@@ -136,10 +136,6 @@ namespace TweetDuck.Browser {
 			if (frame.IsMain) {
 				string url = frame.Url;
 
-				if (TwitterUrls.IsTwitter(url)) {
-					CefScriptExecutor.RunFile(frame, "twitter.js");
-				}
-
 				if (!TwitterUrls.IsTwitterLogin2Factor(url)) {
 					frame.ExecuteJavaScriptAsync(TwitterUtils.BackgroundColorOverride);
 				}
@@ -164,6 +160,9 @@ namespace TweetDuck.Browser {
 					if (Config.FirstRun) {
 						CefScriptExecutor.RunFile(frame, "introduction.js");
 					}
+				}
+				else if (TwitterUrls.IsTwitter(url)) {
+					CefScriptExecutor.RunBootstrap(frame, "login", "login.css");
 				}
 
 				CefScriptExecutor.RunFile(frame, "update.js");

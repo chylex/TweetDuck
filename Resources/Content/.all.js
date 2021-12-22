@@ -51,6 +51,7 @@ import setup_tweet_context_menu from "./features/setup_tweet_context_menu.js";
 import setup_tweetduck_account_bamboozle from "./features/setup_tweetduck_account_bamboozle.js";
 import setup_video_player from "./features/setup_video_player.js";
 import skip_pre_login_page from "./features/skip_pre_login_page.js";
+import hide_cookie_bar from "./login/hide_cookie_bar.js";
 
 const globalFunctions = [
 	window.TDGF_applyROT13,
