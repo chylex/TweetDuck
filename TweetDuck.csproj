@@ -444,6 +444,7 @@
     <Content Include="Resources\Content\tweetdeck\ready_plugins.js" />
     <Content Include="Resources\Content\tweetdeck\register_composer_active_event.js" />
     <Content Include="Resources\Content\tweetdeck\register_global_functions.js" />
+    <Content Include="Resources\Content\tweetdeck\register_global_functions_jquery.js" />
     <Content Include="Resources\Content\tweetdeck\restore_cleared_column.js" />
     <Content Include="Resources\Content\tweetdeck\screenshot_tweet.js" />
     <Content Include="Resources\Content\tweetdeck\setup_column_type_attributes.js" />

@@ -36,13 +36,21 @@
 		return [ successes, modules.length ];
 	}
 	
+	function notifyModulesLoaded(obj) {
+		try {
+			obj.onModulesLoaded(namespace);
+		} catch (e) {
+			console.error(`${tag} Error in post-load notification: ${e}`);
+		}
+	}
+	
 	loadModules().then(([ successes, total ]) => {
 		if ("$TD" in window) {
-			window.$TD.onModulesLoaded(namespace);
+			notifyModulesLoaded(window.$TD);
 		}
 		
 		if ("TD_PLUGINS" in window) {
-			window.TD_PLUGINS.onModulesLoaded(namespace);
+			notifyModulesLoaded(window.TD_PLUGINS);
 		}
 		
 		console.info(`${tag} Successfully loaded ${successes} / ${total} module(s).`);

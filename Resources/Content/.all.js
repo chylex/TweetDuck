@@ -43,6 +43,7 @@ import pin_composer_icon from "./tweetdeck/pin_composer_icon.js";
 import ready_plugins from "./tweetdeck/ready_plugins.js";
 import register_composer_active_event from "./tweetdeck/register_composer_active_event.js";
 import register_global_functions from "./tweetdeck/register_global_functions.js";
+import register_global_functions_jquery from "./tweetdeck/register_global_functions_jquery.js";
 import restore_cleared_column from "./tweetdeck/restore_cleared_column.js";
 import screenshot_tweet from "./tweetdeck/screenshot_tweet.js";
 import setup_column_type_attributes from "./tweetdeck/setup_column_type_attributes.js";
