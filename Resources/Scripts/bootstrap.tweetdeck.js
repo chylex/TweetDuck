@@ -59,4 +59,9 @@
 	script.src = "td://resources/bootstrap.js";
 	script.setAttribute("data-features", features.join("|"));
 	document.head.appendChild(script);
+	
+	const style = document.createElement("link");
+	style.rel = "stylesheet";
+	style.href = "td://resources/styles/tweetdeck.css";
+	document.head.appendChild(style);
 })();

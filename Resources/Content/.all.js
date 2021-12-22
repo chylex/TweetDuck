@@ -55,7 +55,6 @@ import skip_pre_login_page from "./features/skip_pre_login_page.js";
 const globalFunctions = [
 	window.TDGF_applyROT13,
 	window.TDGF_getColumnName,
-	window.TDGF_injectBrowserCSS,
 	window.TDGF_injectMustache,
 	window.TDGF_onGlobalDragStart,
 	window.TDGF_onMouseClickExtra,

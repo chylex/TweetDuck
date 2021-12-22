@@ -322,6 +322,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="Resources\Content\styles\tweetdeck.css" />
     <None Include="Resources\Images\avatar.png" />
     <None Include="Resources\Images\icon-muted.ico" />
     <None Include="Resources\Images\icon-small.ico" />
@@ -366,7 +367,6 @@
     <None Include="Resources\Scripts\plugins.browser.js" />
     <None Include="Resources\Scripts\plugins.notification.js" />
     <None Include="Resources\Scripts\screenshot.js" />
-    <None Include="Resources\Scripts\styles\browser.css" />
     <None Include="Resources\Scripts\styles\notification.css" />
     <None Include="Resources\Scripts\styles\twitter.css" />
     <None Include="Resources\Scripts\twitter.js" />

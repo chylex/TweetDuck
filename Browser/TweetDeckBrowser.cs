@@ -24,7 +24,6 @@ namespace TweetDuck.Browser {
 		private static UserConfig Config => Program.Config.User;
 
 		private const string ErrorUrl = "http://td/error";
-		private const string TwitterStyleUrl = "https://abs.twimg.com/tduck/css";
 
 		public bool Ready { get; private set; }
 
@@ -137,9 +136,6 @@ namespace TweetDuck.Browser {
 				string url = frame.Url;
 
 				if (TwitterUrls.IsTwitter(url)) {
-					string css = Program.Resources.Load("styles/twitter.css");
-					resourceHandlers.Register(TwitterStyleUrl, ResourceHandlers.ForString(css, "text/css"));
-
 					CefScriptExecutor.RunFile(frame, "twitter.js");
 				}
 
@@ -236,17 +232,12 @@ namespace TweetDuck.Browser {
 		}
 
 		public void OnFeaturesLoaded() {
-			InjectBrowserCSS();
 			ReinjectCustomCSS(Config.CustomBrowserCSS);
 			Config_SoundNotificationInfoChanged(null, EventArgs.Empty);
 		}
 
 		public void UpdateProperties() {
 			browser.ExecuteJsAsync(PropertyBridge.GenerateScript(PropertyBridge.Environment.Browser));
-		}
-
-		public void InjectBrowserCSS() {
-			browser.ExecuteJsAsync("TDGF_injectBrowserCSS", Program.Resources.Load("styles/browser.css")?.TrimEnd() ?? string.Empty);
 		}
 
 		public void ReinjectCustomCSS(string css) {

@@ -10,15 +10,6 @@ function createStyle(id, styles) {
  */
 export default function() {
 	/**
-	 * @param {string} styles
-	 */
-	window.TDGF_injectBrowserCSS = function(styles) {
-		if (!document.getElementById("tweetduck-browser-css")) {
-			createStyle("tweetduck-browser-css", styles);
-		}
-	};
-	
-	/**
 	 * @param {string|null} styles
 	 */
 	window.TDGF_reinjectCustomCSS = function(styles) {
