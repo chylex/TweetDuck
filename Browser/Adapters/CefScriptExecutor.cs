@@ -46,9 +46,18 @@ namespace TweetDuck.Browser.Adapters {
 		}
 
 		public static void RunBootstrap(IFrame frame, string moduleNamespace) {
+			string script = GetBootstrapScript(moduleNamespace, includeStylesheets: true);
+
+			if (script != null) {
+				RunScript(frame, script, "bootstrap");
+			}
+		}
+
+		public static string GetBootstrapScript(string moduleNamespace, bool includeStylesheets) {
 			string script = Program.Resources.Load("bootstrap.js");
+
 			if (script == null) {
-				return;
+				return null;
 			}
 
 			string path = Path.Combine(Program.ResourcesPath, moduleNamespace);
@@ -62,7 +71,7 @@ namespace TweetDuck.Browser.Adapters {
 
 				var targetList = ext switch {
 					".js"  => moduleNames,
-					".css" => stylesheetNames,
+					".css" => includeStylesheets ? stylesheetNames : null,
 					_      => null
 				};
 
@@ -73,7 +82,7 @@ namespace TweetDuck.Browser.Adapters {
 			script = script.Replace("{{modules}}", string.Join("|", moduleNames));
 			script = script.Replace("{{stylesheets}}", string.Join("|", stylesheetNames));
 
-			RunScript(frame, script, "bootstrap");
+			return script;
 		}
 	}
 }

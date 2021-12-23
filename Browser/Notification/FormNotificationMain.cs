@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using CefSharp;
+using TweetDuck.Browser.Adapters;
 using TweetDuck.Browser.Bridge;
 using TweetDuck.Browser.Handling;
 using TweetDuck.Controls;
@@ -238,7 +239,7 @@ namespace TweetDuck.Browser.Notification {
 		protected override string GetTweetHTML(DesktopNotification tweet) {
 			return tweet.GenerateHtml(BodyClasses, HeadLayout, Config.CustomNotificationCSS, plugins.NotificationInjections, new string[] {
 				PropertyBridge.GenerateScript(PropertyBridge.Environment.Notification),
-				Program.Resources.Load("notification.js")
+				CefScriptExecutor.GetBootstrapScript("notification", includeStylesheets: false)
 			});
 		}
 

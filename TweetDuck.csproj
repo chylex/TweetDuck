@@ -323,6 +323,9 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Resources\Content\error\error.html" />
+    <None Include="Resources\Content\notification\example\example.html" />
+    <None Include="Resources\Content\notification\notification.css" />
+    <None Include="Resources\Content\notification\screenshot\screenshot.js" />
     <None Include="Resources\Content\plugins\notification\plugins.js" />
     <None Include="Resources\Content\plugins\tweetdeck\plugins.js" />
     <None Include="Resources\Images\avatar.png" />
@@ -356,10 +359,6 @@
     <None Include="Resources\Plugins\timeline-polls\browser.js" />
     <None Include="Resources\PostBuild.fsx" />
     <None Include="Resources\PostCefUpdate.ps1" />
-    <None Include="Resources\Scripts\notification.js" />
-    <None Include="Resources\Scripts\pages\example.html" />
-    <None Include="Resources\Scripts\screenshot.js" />
-    <None Include="Resources\Scripts\styles\notification.css" />
   </ItemGroup>
   <ItemGroup>
     <Redist Include="$(ProjectDir)bld\Redist\*.*" />
@@ -389,12 +388,21 @@
     <Content Include="Resources\Content\api\ready.js" />
     <Content Include="Resources\Content\api\td.js" />
     <Content Include="Resources\Content\api\utils.js" />
+    <Content Include="Resources\Content\bootstrap.js" />
     <Content Include="Resources\Content\introduction\introduction.css" />
     <Content Include="Resources\Content\introduction\introduction.js" />
     <Content Include="Resources\Content\load.js" />
     <Content Include="Resources\Content\login\hide_cookie_bar.js" />
     <Content Include="Resources\Content\login\login.css" />
     <Content Include="Resources\Content\login\setup_document_attributes.js" />
+    <Content Include="Resources\Content\notification\add_skip_button.js" />
+    <Content Include="Resources\Content\notification\disable_clipboard_formatting.js" />
+    <Content Include="Resources\Content\notification\expand_links_or_show_tooltip.js" />
+    <Content Include="Resources\Content\notification\handle_links.js" />
+    <Content Include="Resources\Content\notification\handle_show_this_thread_link.js" />
+    <Content Include="Resources\Content\notification\reset_scroll_position_on_load.js" />
+    <Content Include="Resources\Content\notification\scroll_smoothly.js" />
+    <Content Include="Resources\Content\notification\setup_body_hover_class.js" />
     <Content Include="Resources\Content\plugins\base.js" />
     <Content Include="Resources\Content\plugins\setup.js" />
     <Content Include="Resources\Content\tweetdeck\add_tweetduck_to_settings_menu.js" />
@@ -459,7 +467,9 @@
     <Content Include="Resources\Content\tweetdeck\tweetdeck.css" />
     <Content Include="Resources\Content\update\update.js" />
     <Content Include="Resources\Content\update\update.css" />
-    <Content Include="Resources\Scripts\bootstrap.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Scripts" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

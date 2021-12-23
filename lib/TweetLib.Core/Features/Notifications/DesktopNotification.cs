@@ -50,15 +50,13 @@ namespace TweetLib.Core.Features.Notifications {
 			headLayout ??= DefaultHeadLayout;
 			customStyles ??= string.Empty;
 
-			string mainCSS = App.ResourceHandler.Load("styles/notification.css") ?? string.Empty;
-
 			StringBuilder build = new StringBuilder(1000);
 			build.Append("<!DOCTYPE html>");
 			build.Append(headLayout);
-			build.Append("<style type='text/css'>").Append(mainCSS).Append("</style>");
+			build.Append("<link rel='stylesheet' href='td://resources/notification/notification.css'>");
 
 			if (!string.IsNullOrWhiteSpace(customStyles)) {
-				build.Append("<style type='text/css'>").Append(customStyles).Append("</style>");
+				build.Append("<style>").Append(customStyles).Append("</style>");
 			}
 
 			build.Append("</head><body class='scroll-styled-v");

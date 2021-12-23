@@ -30,7 +30,7 @@ namespace TweetDuck.Resources {
 		public string LoadSilent(string path) => LoadInternal(path, silent: true);
 
 		protected virtual string LocateFile(string path) {
-			return Path.Combine(Program.ScriptPath, path);
+			return Path.Combine(Program.ResourcesPath, path);
 		}
 
 		private string LoadInternal(string path, bool silent) {
@@ -49,27 +49,7 @@ namespace TweetDuck.Resources {
 			string resource;
 
 			try {
-				string contents = File.ReadAllText(location, Encoding.UTF8);
-				int separator;
-
-				// first line can be either:
-				// #<version>\r\n
-				// #<version>\n
-
-				if (contents[0] != '#') {
-					ShowLoadError(silent ? null : sync, $"File {path} appears to be corrupted, please try reinstalling the app.");
-					separator = 0;
-				}
-				else {
-					separator = contents.IndexOf('\n');
-					string fileVersion = contents.Substring(1, separator - 1).TrimEnd();
-
-					if (fileVersion != Program.VersionTag) {
-						ShowLoadError(silent ? null : sync, $"File {path} is made for a different version of TweetDuck ({fileVersion}) and may not function correctly in this version, please try reinstalling the app.");
-					}
-				}
-
-				resource = contents.Substring(separator).TrimStart();
+				resource = File.ReadAllText(location, Encoding.UTF8);
 			} catch (Exception ex) {
 				ShowLoadError(silent ? null : sync, $"Could not load {path}. The program will continue running with limited functionality.\n\n{ex.Message}");
 				resource = null;

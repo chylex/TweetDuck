@@ -29,7 +29,7 @@ namespace TweetDuck.Browser.Notification.Screenshot {
 					return;
 				}
 
-				string script = Program.Resources.LoadSilent("screenshot.js");
+				string script = Program.Resources.LoadSilent("notification/screenshot/screenshot.js");
 
 				if (script == null) {
 					this.InvokeAsyncSafe(callback);
@@ -37,7 +37,7 @@ namespace TweetDuck.Browser.Notification.Screenshot {
 				}
 
 				using IFrame frame = args.Browser.MainFrame;
-				CefScriptExecutor.RunScript(frame, script.Replace("{width}", realWidth.ToString()).Replace("{frames}", TweetScreenshotManager.WaitFrames.ToString()), "gen:screenshot");
+				CefScriptExecutor.RunScript(frame, script.Replace("{width}", realWidth.ToString()).Replace("1/*FRAMES*/", TweetScreenshotManager.WaitFrames.ToString()), "gen:screenshot");
 			};
 
 			SetNotificationSize(realWidth, 1024);

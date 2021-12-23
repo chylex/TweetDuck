@@ -14,6 +14,7 @@ if (!("$TDX" in window)) {
  * @property {function(message: string)} crashDebug
  * @property {function(tooltip: string|null)} displayTooltip
  * @property {function} fixClipboard
+ * @property {function} loadNextNotification
  * @property {function(fontSize: string, headLayout: string)} loadNotificationLayout
  * @property {function(namespace: string)} onModulesLoaded
  * @property {function(columnId: string, chirpId: string, columnName: string, tweetHtml: string, tweetCharacters: int, tweetUrl: string, quoteUrl: string)} onTweetPopup
@@ -24,6 +25,7 @@ if (!("$TDX" in window)) {
  * @property {function(videoUrl: string, tweetUrl: string, username: string, callback: function)} playVideo
  * @property {function(tweetUrl: string, quoteUrl: string, chirpAuthors: string, chirpImages: string)} setRightClickedChirp
  * @property {function(type: string, url: string)} setRightClickedLink
+ * @property {function} showTweetDetail
  * @property {function(html: string, width: number)} screenshotTweet
  * @property {function} stopVideo
  */
@@ -39,6 +41,7 @@ if (!("$TDX" in window)) {
  * @property {boolean} [muteNotifications]
  * @property {boolean} [notificationMediaPreviews]
  * @property {boolean} [openSearchInFirstColumn]
+ * @property {boolean} [skipOnLinkClick]
  * @property {string} [translationTarget]
  */
 

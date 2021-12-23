@@ -32,7 +32,7 @@ namespace TweetDuck.Browser.Notification.Example {
 		public FormNotificationExample(FormBrowser owner, PluginManager pluginManager) : base(owner, pluginManager, false) {
 			browser.LoadingStateChanged += browser_LoadingStateChanged;
 
-			string exampleTweetHTML = Program.Resources.LoadSilent("pages/example.html")?.Replace("{avatar}", AppLogo.Url) ?? string.Empty;
+			string exampleTweetHTML = Program.Resources.LoadSilent("notification/example/example.html")?.Replace("{avatar}", AppLogo.Url) ?? string.Empty;
 
 			#if DEBUG
 			exampleTweetHTML = exampleTweetHTML.Replace("</p>", @"</p><div style='margin-top:256px'>Scrollbar test padding...</div>");

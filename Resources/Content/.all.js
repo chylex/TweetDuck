@@ -7,6 +7,14 @@
 import introduction from "./introduction/introduction.js";
 import hide_cookie_bar from "./login/hide_cookie_bar.js";
 import setup_document_attributes from "./login/setup_document_attributes.js";
+import add_skip_button from "./notification/add_skip_button.js";
+import disable_clipboard_formatting_notification from "./notification/disable_clipboard_formatting.js";
+import expand_links_or_show_tooltip_notification from "./notification/expand_links_or_show_tooltip.js";
+import handle_links from "./notification/handle_links.js";
+import handle_show_this_thread_link from "./notification/handle_show_this_thread_link.js";
+import reset_scroll_position_on_load from "./notification/reset_scroll_position_on_load.js";
+import scroll_smoothly from "./notification/scroll_smoothly.js";
+import setup_body_hover_class from "./notification/setup_body_hover_class.js";
 import add_tweetduck_to_settings_menu from "./tweetdeck/add_tweetduck_to_settings_menu.js";
 import bypass_tco_links from "./tweetdeck/bypass_t.co_links.js";
 import clear_search_input from "./tweetdeck/clear_search_input.js";
@@ -72,6 +80,7 @@ const globalFunctions = [
 	window.TDGF_reinjectCustomCSS,
 	window.TDGF_reload,
 	window.TDGF_reloadColumns,
+	window.TDGF_scrollSmoothly,
 	window.TDGF_setSoundNotificationData,
 	window.TDGF_showTweetDetail,
 	window.TDGF_triggerScreenshot,
