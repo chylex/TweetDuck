@@ -133,8 +133,9 @@ namespace TweetDuck {
 				#endif
 			};
 
-			var resourceScheme = new ResourceSchemeFactory();
-			var pluginScheme = new PluginSchemeFactory();
+			var resourceProvider = new ResourceProvider();
+			var resourceScheme = new ResourceSchemeFactory(resourceProvider);
+			var pluginScheme = new PluginSchemeFactory(resourceProvider);
 
 			settings.SetupCustomScheme(ResourceSchemeFactory.Name, resourceScheme);
 			settings.SetupCustomScheme(PluginSchemeFactory.Name, pluginScheme);

@@ -6,7 +6,11 @@ namespace TweetDuck.Plugins {
 	sealed class PluginSchemeFactory : ISchemeHandlerFactory {
 		public const string Name = PluginSchemeHandler<IResourceHandler>.Name;
 
-		private readonly PluginSchemeHandler<IResourceHandler> handler = new PluginSchemeHandler<IResourceHandler>(new ResourceProvider());
+		private readonly PluginSchemeHandler<IResourceHandler> handler;
+
+		public PluginSchemeFactory(ResourceProvider resourceProvider) {
+			handler = new PluginSchemeHandler<IResourceHandler>(resourceProvider);
+		}
 
 		internal void Setup(PluginManager plugins) {
 			handler.Setup(plugins);
