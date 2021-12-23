@@ -47,7 +47,6 @@ Source: "..\bin\x86\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignorever
 Source: "..\bin\x86\Release\TweetDuck.*"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\bin\x86\Release\TweetLib.*"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\bin\x86\Release\resources\*.*"; DestDir: "{app}\resources"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "..\bin\x86\Release\scripts\*.*"; DestDir: "{app}\scripts"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\bin\x86\Release\plugins\*.*"; DestDir: "{app}\plugins"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
@@ -60,7 +59,6 @@ Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChang
 Type: files; Name: "{app}\*.*"
 Type: filesandordirs; Name: "{app}\locales"
 Type: filesandordirs; Name: "{app}\resources"
-Type: filesandordirs; Name: "{app}\scripts"
 Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\Cache"
 Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\GPUCache"
 

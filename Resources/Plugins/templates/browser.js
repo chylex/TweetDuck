@@ -148,7 +148,9 @@ enabled(){
   
   const useTemplate = (contents, append) => {
     let ele = $(".js-compose-text");
-    return if ele.length === 0;
+    if (ele.length === 0) {
+      return;
+    }
     
     let value = append ? ele.val()+contents : contents;
     let prevLength = value.length;

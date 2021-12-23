@@ -106,14 +106,20 @@ enabled(){
   
   // settings click event
   this.onSettingsMenuClickedEvent = () => {
-    return if this.config === null;
+    if (this.config === null) {
+      return;
+    }
     
     setTimeout(() => {
       let menu = $(".js-dropdown-content").children("ul").first();
-      return if menu.length === 0;
+      if (menu.length === 0) {
+        return;
+      }
       
       let itemTD = menu.children("[data-tweetduck]").first();
-      return if itemTD.length === 0;
+      if (itemTD.length === 0) {
+        return;
+      }
       
       if (!itemTD.prev().hasClass("drp-h-divider")){
         itemTD.before('<li class="drp-h-divider"></li>');
@@ -648,7 +654,9 @@ ${notificationScrollbarColor ? `
   };
   
   this.uiDrawerActiveEvent = (e, data) => {
-    return if data.activeDrawer === null || this.config.composerWidth === "default";
+    if (data.activeDrawer === null || this.config.composerWidth === "default") {
+      return;
+    }
     
     const ele = $(".js-app-content").addClass("tduck-is-opening");
     setTimeout(() => ele.removeClass("tduck-is-opening"), 250);

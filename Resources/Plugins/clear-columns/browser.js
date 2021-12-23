@@ -49,7 +49,9 @@ enabled(){
   };
   
   this.eventKeyDown = function(e){
-    return if !(document.activeElement === null || document.activeElement === document.body);
+    if (!(document.activeElement === null || document.activeElement === document.body)) {
+      return;
+    }
     
     updateShiftState(e.shiftKey);
     

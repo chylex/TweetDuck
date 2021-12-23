@@ -305,13 +305,19 @@ enabled(){
       let val = ele.val();
       
       let firstColon = val.lastIndexOf(':', ele[0].selectionStart);
-      return if firstColon === -1;
+      if (firstColon === -1) {
+        return;
+      }
       
       let search = val.substring(firstColon+1, ele[0].selectionStart).toLowerCase();
-      return if !/^[a-z_]+$/.test(search);
+      if (!/^[a-z_]+$/.test(search)) {
+        return;
+      }
       
       let keywords = search.split("_").filter(kw => kw.length > 0).map(kw => kw.toLowerCase());
-      return if keywords.length === 0;
+      if (keywords.length === 0) {
+        return;
+      }
       
       let foundNames = me.emojiNames.filter(name => keywords.every(kw => name.includes(kw)));
       

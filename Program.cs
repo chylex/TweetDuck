@@ -31,7 +31,6 @@ namespace TweetDuck {
 
 		public static readonly bool IsPortable = File.Exists(Path.Combine(ProgramPath, "makeportable"));
 
-		public static readonly string ScriptPath = Path.Combine(ProgramPath, "scripts");
 		public static readonly string ResourcesPath = Path.Combine(ProgramPath, "resources");
 		public static readonly string PluginPath = Path.Combine(ProgramPath, "plugins");
 

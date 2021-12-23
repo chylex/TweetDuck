@@ -33,7 +33,7 @@ namespace TweetDuck.Resources {
 		protected override string LocateFile(string path) {
 			if (Directory.Exists(HotSwapTargetDir)) {
 				Debug.WriteLine($"Hot swap active, redirecting {path}");
-				return Path.Combine(HotSwapTargetDir, "scripts", path);
+				return Path.Combine(HotSwapTargetDir, "resources", path);
 			}
 
 			return base.LocateFile(path);

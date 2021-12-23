@@ -6,7 +6,9 @@ enabled(){
   this.lastSelectedAccount = null;
   
   this.uiComposeTweetEvent = (e, data) => {
-    return if !(data.type === "reply" || (data.type === "tweet" && "quotedTweet" in data)) || data.popFromInline || !("element" in data);
+    if (!(data.type === "reply" || (data.type === "tweet" && "quotedTweet" in data)) || data.popFromInline || !("element" in data)) {
+      return;
+    }
     
     let query;
     
@@ -96,7 +98,9 @@ enabled(){
         break;
       
       case "#last":
-        return if this.lastSelectedAccount === null;
+        if (this.lastSelectedAccount === null) {
+          return;
+        }
         
         identifier = this.lastSelectedAccount;
         break;

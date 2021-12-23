@@ -468,9 +468,6 @@
     <Content Include="Resources\Content\update\update.js" />
     <Content Include="Resources\Content\update\update.css" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\Scripts" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>rmdir "$(ProjectDir)bin\Debug"

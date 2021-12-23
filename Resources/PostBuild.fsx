@@ -2,7 +2,6 @@ open System
 open System.Collections.Generic
 open System.Diagnostics
 open System.IO
-open System.Text.RegularExpressions
 open System.Threading.Tasks
 
 // "$(DevEnvDir)CommonExtensions\Microsoft\FSharp\fsi.exe" "$(ProjectDir)Resources\PostBuild.fsx" --exec --nologo -- "$(TargetDir)\" "$(ProjectDir)\" "$(ConfigurationName)"
@@ -49,27 +48,9 @@ let main (argv: string[]) =
         printfn "--------------------------"
         
         let localesDir = targetDir +/ "locales"
-        let scriptsDir = targetDir +/ "scripts"
         let resourcesDir = targetDir +/ "resources"
         let pluginsDir = targetDir +/ "plugins"
         
-        // Functions (Strings)
-        
-        let filterNotEmpty =
-            Seq.filter (not << String.IsNullOrEmpty)
-            
-        let replaceRegex (pattern: string) (replacement: string) input =
-            Regex.Replace(input, pattern, replacement)
-            
-        let collapseLines separator (sequence: string seq) =
-            String.Join(separator, sequence)
-            
-        let splitLines (separator: char) (str: string) =
-            str.Split(separator) |> Seq.ofArray
-            
-        let trimStart (line: string) =
-            line.TrimStart()
-            
         // Functions (File Management)
         
         let copyFile source target =
@@ -122,10 +103,7 @@ let main (argv: string[]) =
         
         let writeFile (fullPath: string) (lines: string seq) =
             let relativePath = fullPath.[(targetDir.Length)..]
-            let includeVersion = relativePath.StartsWith(@"scripts\")
-            let finalLines = if includeVersion then seq { yield "#" + version; yield! lines } else lines
-            
-            File.WriteAllLines(fullPath, finalLines |> Seq.toArray)
+            File.WriteAllLines(fullPath, lines |> Seq.toArray)
             printfn "Processed %s" relativePath
         
         let processFiles (files: string seq) (extProcessors: IDictionary<string, (string seq -> string seq)>) =
@@ -142,7 +120,6 @@ let main (argv: string[]) =
             
         copyFile (projectDir +/ "bld/Resources/LICENSES.txt") (targetDir +/ "LICENSES.txt")
         
-        copyDirectoryContents (projectDir +/ "Resources/Scripts") scriptsDir
         copyDirectoryContents (projectDir +/ "Resources/Content") resourcesDir
         
         createDirectory (pluginsDir +/ "official")
@@ -161,7 +138,7 @@ let main (argv: string[]) =
         if Directory.Exists(localesDir) || configuration = "Release" then
             Directory.EnumerateFiles(localesDir, "*.pak")
             |> exceptEndingWith @"\en-US.pak"
-            |> Seq.iter (File.Delete)
+            |> Seq.iter File.Delete
             
         // Validation
         
@@ -174,41 +151,16 @@ let main (argv: string[]) =
         
         let fileProcessors =
             dict [
-                ".js", (fun (lines: string seq) ->
-                    lines
-                    |> Seq.map (fun line ->
-                        line
-                        |> replaceRegex @"^(.*?)((?<=^|[;{}()])\s?//(?:\s.*|$))?$" "$1"
-                        |> replaceRegex @"(?<!\w)(return|throw)(\s.*?)? if (.*?);" "if ($3)$1$2;"
-                    )
-                );
-                
-                ".css", (fun (lines: string seq) ->
-                    lines
-                    |> Seq.map (fun line ->
-                        line
-                        |> replaceRegex @"\s*/\*.*?\*/" ""
-                        |> replaceRegex @"^(\S.*) {$" "$1 { "
-                        |> replaceRegex @"^\s+(.+?):\s*(.+?)(?:\s*(!important))?;$" "$1:$2$3;"
-                    )
-                    |> filterNotEmpty
-                    |> collapseLines " "
-                    |> replaceRegex @"([{};])\s" "$1"
-                    |> replaceRegex @";?}" " }\n"
-                    |> splitLines '\n'
-                );
-                
-                ".html", (fun (lines: string seq) ->
-                    lines
-                );
-                
+                ".js", id;
+                ".css", id;
+                ".html", id;
                 ".meta", (fun (lines: string seq) ->
                     lines
                     |> Seq.map (fun line -> line.Replace("{version}", version))
                 );
             ]
             
-        processFiles ((byPattern targetDir "*.js") |> exceptEndingWith @"\configuration.default.js") fileProcessors
+        processFiles (byPattern targetDir "*.js") fileProcessors
         processFiles (byPattern targetDir "*.css") fileProcessors
         processFiles (byPattern targetDir "*.html") fileProcessors
         processFiles (byPattern pluginsDir "*.meta") fileProcessors
