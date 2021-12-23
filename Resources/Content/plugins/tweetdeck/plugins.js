@@ -27,6 +27,7 @@ export default function() {
 			this.waitingForModules = [];
 			this.waitingForReady = [];
 			this.areModulesLoaded = false;
+			this.isAppReady = false;
 		}
 		
 		isDisabled(plugin) {
@@ -99,7 +100,7 @@ export default function() {
 		}
 		
 		onModulesLoaded(namespace) {
-			if (namespace === "tweetdeck") {
+			if (namespace === "tweetdeck" && !this.areModulesLoaded) {
 				window.TDPF_getColumnName = window.TDGF_getColumnName;
 				window.TDPF_reloadColumns = window.TDGF_reloadColumns;
 				window.TDPF_prioritizeNewestEvent = window.TDGF_prioritizeNewestEvent;
@@ -118,12 +119,20 @@ export default function() {
 				this.waitingForModules.forEach(plugin => plugin.obj.enabled());
 				this.waitingForModules = [];
 				this.areModulesLoaded = true;
+				
+				if (this.isAppReady) {
+					this.onReady();
+				}
 			}
 		}
 		
 		onReady() {
-			this.waitingForReady.forEach(plugin => plugin.obj.ready());
-			this.waitingForReady = [];
+			this.isAppReady = true;
+			
+			if (this.areModulesLoaded) {
+				this.waitingForReady.forEach(plugin => plugin.obj.ready());
+				this.waitingForReady = [];
+			}
 		}
 	};
 	
