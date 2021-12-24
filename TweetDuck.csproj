@@ -473,7 +473,6 @@
     <PostBuildEvent>rmdir "$(ProjectDir)bin\Debug"
 rmdir "$(ProjectDir)bin\Release"
 
-rmdir "$(TargetDir)scripts" /S /Q
 rmdir "$(TargetDir)resources" /S /Q
 rmdir "$(TargetDir)plugins" /S /Q
 
