@@ -99,6 +99,7 @@ const onNewTweet = (function() {
 				mediaPreviewSize: "medium"
 			}));
 			
+			html.find("time[data-time] a").text(""); // remove time since tweet was sent, since it will be recalculated anyway
 			html.find("footer").last().remove(); // apparently withTweetActions breaks for certain tweets, nice
 			html.find(".js-quote-detail").removeClass("is-actionable margin-b--8"); // prevent quoted tweets from changing the cursor and reduce bottom margin
 			

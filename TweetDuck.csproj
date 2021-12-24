@@ -399,6 +399,7 @@
     <Content Include="Resources\Content\notification\expand_links_or_show_tooltip.js" />
     <Content Include="Resources\Content\notification\handle_links.js" />
     <Content Include="Resources\Content\notification\handle_show_this_thread_link.js" />
+    <Content Include="Resources\Content\notification\recalculate_tweet_sent_time.js" />
     <Content Include="Resources\Content\notification\reset_scroll_position_on_load.js" />
     <Content Include="Resources\Content\notification\scroll_smoothly.js" />
     <Content Include="Resources\Content\notification\setup_body_hover_class.js" />

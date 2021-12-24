@@ -12,6 +12,7 @@ import disable_clipboard_formatting_notification from "./notification/disable_cl
 import expand_links_or_show_tooltip_notification from "./notification/expand_links_or_show_tooltip.js";
 import handle_links from "./notification/handle_links.js";
 import handle_show_this_thread_link from "./notification/handle_show_this_thread_link.js";
+import recalculate_tweet_sent_time from "./notification/recalculate_tweet_sent_time.js";
 import reset_scroll_position_on_load from "./notification/reset_scroll_position_on_load.js";
 import scroll_smoothly from "./notification/scroll_smoothly.js";
 import setup_body_hover_class from "./notification/setup_body_hover_class.js";
