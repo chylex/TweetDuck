@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
-using System.Windows.Forms;
+using System.Threading.Tasks;
 using CefSharp;
+using CefSharp.DevTools.Page;
 using TweetDuck.Browser.Adapters;
 using TweetDuck.Controls;
 using TweetDuck.Dialogs;
@@ -54,40 +54,38 @@ namespace TweetDuck.Browser.Notification.Screenshot {
 			this.height = BrowserUtils.Scale(browserHeight, SizeScale);
 		}
 
-		public bool TakeScreenshot(bool ignoreHeightError = false) {
+		public Task<Image> TakeScreenshot(bool ignoreHeightError = false) {
 			if (!ignoreHeightError) {
 				if (height == 0) {
 					FormMessage.Error("Screenshot Failed", "Could not detect screenshot size.", FormMessage.OK);
-					return false;
+					return null;
 				}
 				else if (height > ClientSize.Height) {
 					FormMessage.Error("Screenshot Failed", $"Screenshot is too large: {height}px > {ClientSize.Height}px", FormMessage.OK);
-					return false;
+					return null;
 				}
 			}
 
-			if (!WindowsUtils.IsAeroEnabled) {
-				MoveToVisibleLocation(); // TODO make this look nicer I guess
+			return Task.Run(TakeScreenshotImpl);
+		}
+
+		private async Task<Image> TakeScreenshotImpl() {
+			if (this.height == 0) {
+				return null;
 			}
 
-			IntPtr context = NativeMethods.GetDC(this.Handle);
+			Viewport viewport = new Viewport {
+				Width = this.ClientSize.Width,
+				Height = this.height,
+				Scale = 1
+			};
 
-			if (context == IntPtr.Zero) {
-				FormMessage.Error("Screenshot Failed", "Could not retrieve a graphics context handle for the notification window to take the screenshot.", FormMessage.OK);
-				return false;
+			byte[] data;
+			using (var devToolsClient = browser.GetDevToolsClient()) {
+				data = (await devToolsClient.Page.CaptureScreenshotAsync(CaptureScreenshotFormat.Png, clip: viewport)).Data;
 			}
-			else {
-				using Bitmap bmp = new Bitmap(ClientSize.Width, Math.Max(1, height), PixelFormat.Format32bppRgb);
 
-				try {
-					NativeMethods.RenderSourceIntoBitmap(context, bmp);
-				} finally {
-					NativeMethods.ReleaseDC(this.Handle, context);
-				}
-
-				Clipboard.SetImage(bmp);
-				return true;
-			}
+			return Image.FromStream(new MemoryStream(data));
 		}
 	}
 }

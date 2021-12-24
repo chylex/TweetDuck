@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -69,19 +68,6 @@ namespace TweetDuck.Utils {
 		private static extern bool GetLastInputInfo(ref LASTINPUTINFO info);
 
 		[DllImport("user32.dll")]
-		public static extern IntPtr GetDC(IntPtr hWnd);
-
-		[DllImport("user32.dll")]
-		public static extern bool ReleaseDC(IntPtr hWnd, IntPtr hDC);
-
-		[DllImport("gdi32.dll")]
-		[return: MarshalAs(UnmanagedType.Bool)]
-		private static extern bool BitBlt(IntPtr hdc, int nXDest, int nYDest, int nWidth, int nHeight, IntPtr hdcSrc, int nXSrc, int nYSrc, uint dwRop);
-
-		[DllImport("dwmapi.dll")]
-		public static extern int DwmIsCompositionEnabled(out bool enabled);
-
-		[DllImport("user32.dll")]
 		[return: MarshalAs(UnmanagedType.Bool)]
 		public static extern bool ShowScrollBar(IntPtr hWnd, int wBar, bool bShow);
 
@@ -138,17 +124,6 @@ namespace TweetDuck.Utils {
 
 			int seconds = (int) Math.Floor(TimeSpan.FromMilliseconds(ticks - info.dwTime).TotalSeconds);
 			return Math.Max(0, seconds); // ignore rollover after several weeks of uptime
-		}
-
-		public static void RenderSourceIntoBitmap(IntPtr source, Bitmap target) {
-			using Graphics graphics = Graphics.FromImage(target);
-			IntPtr graphicsHandle = graphics.GetHdc();
-
-			try {
-				BitBlt(graphicsHandle, 0, 0, target.Width, target.Height, source, 0, 0, 0x00CC0020);
-			} finally {
-				graphics.ReleaseHdc(graphicsHandle);
-			}
 		}
 	}
 }

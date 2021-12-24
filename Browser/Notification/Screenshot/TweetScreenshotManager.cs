@@ -7,13 +7,15 @@
 #endif
 
 using System;
+using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using TweetDuck.Controls;
 using TweetLib.Core.Features.Plugins;
 #if GEN_SCREENSHOT_FRAMES
 using System.Drawing.Imaging;
 using System.IO;
-using TweetDuck.Core.Utils;
+using TweetDuck.Utils;
 #endif
 
 namespace TweetDuck.Browser.Notification.Screenshot {
@@ -45,7 +47,7 @@ namespace TweetDuck.Browser.Notification.Screenshot {
 			this.disposer.Tick += disposer_Tick;
 
 			#if GEN_SCREENSHOT_FRAMES
-			this.debugger = new Timer{ Interval = 16 };
+			this.debugger = new Timer { Interval = 16 };
 			this.debugger.Tick += debugger_Tick;
 			#endif
 		}
@@ -85,14 +87,22 @@ namespace TweetDuck.Browser.Notification.Screenshot {
 			}
 
 			timeout.Stop();
-			screenshot.TakeScreenshot();
+			screenshot.TakeScreenshot().ContinueWith(HandleResult, TaskScheduler.FromCurrentSynchronizationContext());
+		}
 
-			#if !NO_HIDE_SCREENSHOTS
-			OnFinished();
-			#else
-			screenshot.MoveToVisibleLocation();
-			screenshot.FormClosed += (sender, args) => disposer.Start();
-			#endif
+		private void HandleResult(Task<Image> task) {
+			if (task.IsFaulted) {
+				Program.Reporter.HandleException("Screenshot Failed", "An error occurred while taking a screenshot.", true, task.Exception!.InnerException);
+			}
+			else if (task.IsCompleted) {
+				Clipboard.SetImage(task.Result);
+				#if !NO_HIDE_SCREENSHOTS
+				OnFinished();
+				#else
+				screenshot.MoveToVisibleLocation();
+				screenshot.FormClosed += (sender, args) => disposer.Start();
+				#endif
+			}
 		}
 
 		private void OnFinished() {
@@ -118,28 +128,34 @@ namespace TweetDuck.Browser.Notification.Screenshot {
 		#if GEN_SCREENSHOT_FRAMES
 		private static readonly string DebugScreenshotPath = Path.Combine(Program.StoragePath, "TD_Screenshots");
 
-		private void StartDebugger(){
+		private void StartDebugger() {
 			frameCounter = 0;
 
-			try{
+			try {
 				Directory.Delete(DebugScreenshotPath, true);
 				WindowsUtils.TrySleepUntil(() => !Directory.Exists(DebugScreenshotPath), 1000, 10);
-			}catch(DirectoryNotFoundException){}
+			} catch (DirectoryNotFoundException) {}
 
 			Directory.CreateDirectory(DebugScreenshotPath);
 			debugger.Start();
 		}
 
-		private void debugger_Tick(object sender, EventArgs e){
-			if (frameCounter < 63 && screenshot.TakeScreenshot(true)){
-				try{
-					Clipboard.GetImage()?.Save(Path.Combine(DebugScreenshotPath, "frame_" + (++frameCounter) + ".png"), ImageFormat.Png);
-				}catch{
-					System.Diagnostics.Debug.WriteLine("Failed generating frame " + frameCounter);
-				}
+		private void debugger_Tick(object sender, EventArgs e) {
+			if (frameCounter < 63) {
+				int frame = ++frameCounter;
+				screenshot.TakeScreenshot(true).ContinueWith(task => SaveDebugFrame(task, frame), TaskScheduler.FromCurrentSynchronizationContext());
 			}
-			else{
+			else {
 				debugger.Stop();
+			}
+		}
+
+		private static void SaveDebugFrame(Task<Image> task, int frame) {
+			if (task.IsFaulted) {
+				System.Diagnostics.Debug.WriteLine("Failed generating frame " + frame + ": " + task.Exception!.InnerException);
+			}
+			else if (task.IsCompleted) {
+				task.Result?.Save(Path.Combine(DebugScreenshotPath, "frame_" + (++frame) + ".png"), ImageFormat.Png);
 			}
 		}
 		#endif

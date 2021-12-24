@@ -6,10 +6,7 @@ using Microsoft.Win32;
 
 namespace TweetDuck.Utils {
 	static class WindowsUtils {
-		private static readonly bool IsWindows8OrNewer = OSVersionEquals(major: 6, minor: 2); // windows 8/10
-
-		public static bool ShouldAvoidToolWindow { get; } = IsWindows8OrNewer;
-		public static bool IsAeroEnabled => IsWindows8OrNewer || (NativeMethods.DwmIsCompositionEnabled(out bool isCompositionEnabled) == 0 && isCompositionEnabled);
+		public static bool ShouldAvoidToolWindow { get; } = OSVersionEquals(major: 6, minor: 2); // windows 8/10
 
 		private static bool OSVersionEquals(int major, int minor) {
 			System.Version ver = Environment.OSVersion.Version;
