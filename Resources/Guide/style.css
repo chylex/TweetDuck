@@ -23,7 +23,7 @@ body {
   flex-direction: column;
 }
 
-@media(max-width: 408px) {
+@media (max-width: 408px) {
   #guide section {
     min-width: calc(100vw - 48px);
   }

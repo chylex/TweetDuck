@@ -55,8 +55,9 @@ Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChang
 
 [UninstallDelete]
 Type: files; Name: "{app}\*.*"
-Type: filesandordirs; Name: "{app}\resources"
+Type: filesandordirs; Name: "{app}\guide"
 Type: filesandordirs; Name: "{app}\locales"
+Type: filesandordirs; Name: "{app}\resources"
 Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\Cache"
 Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\GPUCache"
 

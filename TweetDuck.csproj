@@ -467,14 +467,35 @@
     <Content Include="Resources\Content\tweetdeck\tweetdeck.css" />
     <Content Include="Resources\Content\update\update.js" />
     <Content Include="Resources\Content\update\update.css" />
+    <Content Include="Resources\Guide\img\app-menu.png" />
+    <Content Include="Resources\Guide\img\column-clear-header.png" />
+    <Content Include="Resources\Guide\img\column-clear-preferences.png" />
+    <Content Include="Resources\Guide\img\column-preferences.png" />
+    <Content Include="Resources\Guide\img\icon.ico" />
+    <Content Include="Resources\Guide\img\new-tweet-emoji.png" />
+    <Content Include="Resources\Guide\img\new-tweet-pin.png" />
+    <Content Include="Resources\Guide\img\new-tweet-template-advanced.png" />
+    <Content Include="Resources\Guide\img\new-tweet-template-basic.png" />
+    <Content Include="Resources\Guide\img\options-manage-export.png" />
+    <Content Include="Resources\Guide\img\options-manage-reset.png" />
+    <Content Include="Resources\Guide\img\options-manage.png" />
+    <Content Include="Resources\Guide\img\options-notifications-location.png" />
+    <Content Include="Resources\Guide\img\options-notifications-size.png" />
+    <Content Include="Resources\Guide\img\options-sounds.png" />
+    <Content Include="Resources\Guide\img\settings-dropdown.png" />
+    <Content Include="Resources\Guide\img\settings-editdesign.png" />
+    <Content Include="Resources\Guide\index.html" />
+    <Content Include="Resources\Guide\script.js" />
+    <Content Include="Resources\Guide\style.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>rmdir "$(ProjectDir)bin\Debug"
 rmdir "$(ProjectDir)bin\Release"
 
-rmdir "$(TargetDir)resources" /S /Q
+rmdir "$(TargetDir)guide" /S /Q
 rmdir "$(TargetDir)plugins" /S /Q
+rmdir "$(TargetDir)resources" /S /Q
 
 "$(ProjectDir)bld\post_build.exe" "$(TargetDir)\" "$(ProjectDir)\" "$(ConfigurationName)"
 </PostBuildEvent>

@@ -47,9 +47,10 @@ let main (argv: string[]) =
         printfn "TweetDuck version %s" version
         printfn "--------------------------"
         
+        let guideDir = targetDir +/ "guide"
         let localesDir = targetDir +/ "locales"
-        let resourcesDir = targetDir +/ "resources"
         let pluginsDir = targetDir +/ "plugins"
+        let resourcesDir = targetDir +/ "resources"
         
         // Functions (File Management)
         
@@ -120,6 +121,7 @@ let main (argv: string[]) =
             
         copyFile (projectDir +/ "bld/Resources/LICENSES.txt") (targetDir +/ "LICENSES.txt")
         
+        copyDirectoryContents (projectDir +/ "Resources/Guide") guideDir
         copyDirectoryContents (projectDir +/ "Resources/Content") resourcesDir
         
         createDirectory (pluginsDir +/ "official")

@@ -33,6 +33,7 @@ namespace TweetDuck {
 
 		public static readonly string ResourcesPath = Path.Combine(ProgramPath, "resources");
 		public static readonly string PluginPath = Path.Combine(ProgramPath, "plugins");
+		public static readonly string GuidePath = Path.Combine(ProgramPath, "guide");
 
 		public static readonly string StoragePath = IsPortable ? Path.Combine(ProgramPath, "portable", "storage") : GetDataStoragePath();
 

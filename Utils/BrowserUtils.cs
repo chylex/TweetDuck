@@ -115,24 +115,19 @@ namespace TweetDuck.Utils {
 
 			switch (TwitterUrls.Check(url)) {
 				case TwitterUrls.UrlType.Fine:
-					if (FormGuide.CheckGuideUrl(url, out string hash)) {
-						FormGuide.Show(hash);
+					string browserPath = Config.BrowserPath;
+
+					if (browserPath == null || !File.Exists(browserPath)) {
+						App.SystemHandler.OpenAssociatedProgram(url);
 					}
 					else {
-						string browserPath = Config.BrowserPath;
+						string quotedUrl = '"' + url + '"';
+						string browserArgs = Config.BrowserPathArgs == null ? quotedUrl : Config.BrowserPathArgs + ' ' + quotedUrl;
 
-						if (browserPath == null || !File.Exists(browserPath)) {
-							App.SystemHandler.OpenAssociatedProgram(url);
-						}
-						else {
-							string quotedUrl = '"' + url + '"';
-							string browserArgs = Config.BrowserPathArgs == null ? quotedUrl : Config.BrowserPathArgs + ' ' + quotedUrl;
-
-							try {
-								using (Process.Start(browserPath, browserArgs)) {}
-							} catch (Exception e) {
-								Program.Reporter.HandleException("Error Opening Browser", "Could not open the browser.", true, e);
-							}
+						try {
+							using (Process.Start(browserPath, browserArgs)) {}
+						} catch (Exception e) {
+							Program.Reporter.HandleException("Error Opening Browser", "Could not open the browser.", true, e);
 						}
 					}
 

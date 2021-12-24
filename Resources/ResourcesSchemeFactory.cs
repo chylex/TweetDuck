@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Net;
 using CefSharp;
 using TweetLib.Core.Browser;
@@ -8,8 +7,6 @@ using TweetLib.Core.Utils;
 namespace TweetDuck.Resources {
 	public class ResourceSchemeFactory : ISchemeHandlerFactory {
 		public const string Name = "td";
-
-		private static readonly string RootPath = Path.Combine(Program.ResourcesPath);
 
 		private readonly IResourceProvider<IResourceHandler> resourceProvider;
 
@@ -22,12 +19,18 @@ namespace TweetDuck.Resources {
 				return null;
 			}
 
-			if (uri.Authority != "resources") {
-				return null;
+			string rootPath = uri.Authority switch {
+				"resources" => Program.ResourcesPath,
+				"guide"     => Program.GuidePath,
+				_           => null
+			};
+
+			if (rootPath == null) {
+				return resourceProvider.Status(HttpStatusCode.NotFound, "Invalid URL.");
 			}
 
-			string filePath = FileUtils.ResolveRelativePathSafely(RootPath, uri.AbsolutePath.TrimStart('/'));
-			return filePath.Length == 0 ? resourceProvider.Status(HttpStatusCode.Forbidden, "File path has to be relative to the resources root folder.") : resourceProvider.File(filePath);
+			string filePath = FileUtils.ResolveRelativePathSafely(rootPath, uri.AbsolutePath.TrimStart('/'));
+			return filePath.Length == 0 ? resourceProvider.Status(HttpStatusCode.Forbidden, "File path has to be relative to the root folder.") : resourceProvider.File(filePath);
 		}
 	}
 }

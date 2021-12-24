@@ -1,10 +1,8 @@
 ﻿using System.Drawing;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using CefSharp;
 using CefSharp.WinForms;
 using TweetDuck.Browser;
-using TweetDuck.Browser.Adapters;
 using TweetDuck.Browser.Data;
 using TweetDuck.Browser.Handling;
 using TweetDuck.Browser.Handling.General;
@@ -14,32 +12,12 @@ using TweetDuck.Utils;
 
 namespace TweetDuck.Dialogs {
 	sealed partial class FormGuide : Form, FormManager.IAppDialog {
-		private const string GuideUrl = "https://tweetduck.chylex.com/guide/v2/";
-		private const string GuidePathRegex = @"^guide(?:/v\d+)?(?:/(#.*))?";
+		private const string GuideUrl = @"td://guide/index.html";
 
 		private static readonly ResourceLink DummyPage = new ResourceLink("http://td/dummy", ResourceHandlers.ForString(string.Empty));
 
-		public static bool CheckGuideUrl(string url, out string hash) {
-			if (!url.Contains("//tweetduck.chylex.com/guide")) {
-				hash = null;
-				return false;
-			}
-
-			string path = url.Substring(url.IndexOf("/guide") + 1);
-			Match match = Regex.Match(path, GuidePathRegex);
-
-			if (match.Success) {
-				hash = match.Groups[1].Value;
-				return true;
-			}
-			else {
-				hash = null;
-				return false;
-			}
-		}
-
 		public static void Show(string hash = null) {
-			string url = GuideUrl + (hash ?? string.Empty);
+			string url = GuideUrl + (string.IsNullOrEmpty(hash) ? string.Empty : "#" + hash);
 			FormGuide guide = FormManager.TryFind<FormGuide>();
 
 			if (guide == null) {
@@ -81,7 +59,6 @@ namespace TweetDuck.Dialogs {
 			};
 
 			browser.LoadingStateChanged += browser_LoadingStateChanged;
-			browser.FrameLoadEnd += browser_FrameLoadEnd;
 
 			browser.BrowserSettings.BackgroundColor = (uint) BackColor.ToArgb();
 			browser.Dock = DockStyle.None;
@@ -122,10 +99,6 @@ namespace TweetDuck.Dialogs {
 					browser.LoadingStateChanged -= browser_LoadingStateChanged;
 				}
 			}
-		}
-
-		private void browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e) {
-			CefScriptExecutor.RunScript(e.Frame, "Array.prototype.forEach.call(document.getElementsByTagName('A'), ele => ele.addEventListener('click', e => { e.preventDefault(); window.open(ele.getAttribute('href')); }))", "gen:links");
 		}
 	}
 }
