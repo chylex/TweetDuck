@@ -54,7 +54,6 @@ namespace TweetDuck {
 
 		public static Reporter Reporter { get; }
 		public static ConfigManager Config { get; }
-		public static ScriptLoader Resources { get; }
 
 		static Program() {
 			Reporter = new Reporter(ErrorLogFilePath);
@@ -62,16 +61,9 @@ namespace TweetDuck {
 
 			Config = new ConfigManager();
 
-			#if DEBUG
-			Resources = new ScriptLoaderDebug();
-			#else
-			Resources = new ScriptLoader();
-			#endif
-
 			Lib.Initialize(new App.Builder {
 				ErrorHandler = Reporter,
 				SystemHandler = new SystemHandler(),
-				ResourceHandler = Resources
 			});
 		}
 
@@ -147,8 +139,7 @@ namespace TweetDuck {
 
 			Win.Application.ApplicationExit += (sender, args) => ExitCleanup();
 
-			FormBrowser mainForm = new FormBrowser(pluginScheme);
-			Resources.Initialize(mainForm);
+			FormBrowser mainForm = new FormBrowser(resourceProvider, pluginScheme);
 			Win.Application.Run(mainForm);
 
 			if (mainForm.UpdateInstaller != null) {

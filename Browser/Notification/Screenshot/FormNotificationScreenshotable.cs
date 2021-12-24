@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Windows.Forms;
 using CefSharp;
 using TweetDuck.Browser.Adapters;
@@ -9,6 +10,7 @@ using TweetDuck.Dialogs;
 using TweetDuck.Utils;
 using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Features.Plugins;
+using TweetLib.Core.Utils;
 
 namespace TweetDuck.Browser.Notification.Screenshot {
 	sealed class FormNotificationScreenshotable : FormNotificationBase {
@@ -29,7 +31,7 @@ namespace TweetDuck.Browser.Notification.Screenshot {
 					return;
 				}
 
-				string script = Program.Resources.LoadSilent("notification/screenshot/screenshot.js");
+				string script = FileUtils.ReadFileOrNull(Path.Combine(Program.ResourcesPath, "notification/screenshot/screenshot.js"));
 
 				if (script == null) {
 					this.InvokeAsyncSafe(callback);

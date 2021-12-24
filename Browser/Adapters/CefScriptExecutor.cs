@@ -3,6 +3,7 @@ using System.IO;
 using CefSharp;
 using TweetDuck.Utils;
 using TweetLib.Core.Browser;
+using TweetLib.Core.Utils;
 
 namespace TweetDuck.Browser.Adapters {
 	sealed class CefScriptExecutor : IScriptExecutor {
@@ -21,11 +22,6 @@ namespace TweetDuck.Browser.Adapters {
 			RunScript(frame, script, identifier);
 		}
 
-		public bool RunFile(string file) {
-			using IFrame frame = browser.GetMainFrame();
-			return RunFile(frame, file);
-		}
-
 		public void RunBootstrap(string moduleNamespace) {
 			using IFrame frame = browser.GetMainFrame();
 			RunBootstrap(frame, moduleNamespace);
@@ -39,12 +35,6 @@ namespace TweetDuck.Browser.Adapters {
 			}
 		}
 
-		public static bool RunFile(IFrame frame, string file) {
-			string script = Program.Resources.Load(file);
-			RunScript(frame, script, "root:" + Path.GetFileNameWithoutExtension(file));
-			return script != null;
-		}
-
 		public static void RunBootstrap(IFrame frame, string moduleNamespace) {
 			string script = GetBootstrapScript(moduleNamespace, includeStylesheets: true);
 
@@ -54,7 +44,7 @@ namespace TweetDuck.Browser.Adapters {
 		}
 
 		public static string GetBootstrapScript(string moduleNamespace, bool includeStylesheets) {
-			string script = Program.Resources.Load("bootstrap.js");
+			string script = FileUtils.ReadFileOrNull(Path.Combine(Program.ResourcesPath, "bootstrap.js"));
 
 			if (script == null) {
 				return null;

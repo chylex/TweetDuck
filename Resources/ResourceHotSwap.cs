@@ -1,14 +1,9 @@
 ﻿#if DEBUG
-using System;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
-using TweetDuck.Browser;
-using TweetDuck.Management;
-using TweetLib.Core.Features.Plugins;
 
 namespace TweetDuck.Resources {
-	sealed class ScriptLoaderDebug : ScriptLoader {
+	static class ResourceHotSwap {
 		private static readonly string HotSwapProjectRoot = FixPathSlash(Path.GetFullPath(Path.Combine(Program.ProgramPath, "../../../")));
 		private static readonly string HotSwapTargetDir = FixPathSlash(Path.Combine(HotSwapProjectRoot, "bin", "tmp"));
 		private static readonly string HotSwapRebuildScript = Path.Combine(HotSwapProjectRoot, "bld", "post_build.exe");
@@ -17,35 +12,15 @@ namespace TweetDuck.Resources {
 			return path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + '\\';
 		}
 
-		public ScriptLoaderDebug() {
-			if (File.Exists(HotSwapRebuildScript)) {
-				Debug.WriteLine("Activating resource hot swap...");
-
-				ResetHotSwap();
-				System.Windows.Forms.Application.ApplicationExit += (sender, args) => ResetHotSwap();
-			}
-		}
-
-		public override void OnReloadTriggered() {
-			HotSwap();
-		}
-
-		protected override string LocateFile(string path) {
-			if (Directory.Exists(HotSwapTargetDir)) {
-				Debug.WriteLine($"Hot swap active, redirecting {path}");
-				return Path.Combine(HotSwapTargetDir, "resources", path);
-			}
-
-			return base.LocateFile(path);
-		}
-
-		private void HotSwap() {
+		public static void Run() {
 			if (!File.Exists(HotSwapRebuildScript)) {
 				Debug.WriteLine($"Failed resource hot swap, missing rebuild script: {HotSwapRebuildScript}");
 				return;
 			}
 
-			ResetHotSwap();
+			Debug.WriteLine("Performing resource hot swap...");
+
+			DeleteHotSwapFolder();
 			Directory.CreateDirectory(HotSwapTargetDir);
 
 			Stopwatch sw = Stopwatch.StartNew();
@@ -69,32 +44,20 @@ namespace TweetDuck.Resources {
 			sw.Stop();
 			Debug.WriteLine($"Finished rebuild script in {sw.ElapsedMilliseconds} ms");
 
-			ClearCache();
+			Directory.Delete(Program.ResourcesPath, true);
+			Directory.Delete(Program.PluginPath, true);
 
-			// Force update plugin manager setup scripts
+			Directory.Move(Path.Combine(HotSwapTargetDir, "resources"), Program.ResourcesPath);
+			Directory.Move(Path.Combine(HotSwapTargetDir, "plugins"), Program.PluginPath);
 
-			string newPluginRoot = Path.Combine(HotSwapTargetDir, "plugins");
-
-			const BindingFlags flagsInstance = BindingFlags.Instance | BindingFlags.NonPublic;
-
-			Type typePluginManager = typeof(PluginManager);
-			Type typeFormBrowser = typeof(FormBrowser);
-
-			// ReSharper disable PossibleNullReferenceException
-			object instPluginManager = typeFormBrowser.GetField("plugins", flagsInstance).GetValue(FormManager.TryFind<FormBrowser>());
-			typePluginManager.GetField("pluginFolder", flagsInstance).SetValue(instPluginManager, newPluginRoot);
-
-			Debug.WriteLine("Reloading hot swapped plugins...");
-			((PluginManager) instPluginManager).Reload();
-			// ReSharper restore PossibleNullReferenceException
+			DeleteHotSwapFolder();
 		}
 
-		private void ResetHotSwap() {
+		private static void DeleteHotSwapFolder() {
 			try {
 				Directory.Delete(HotSwapTargetDir, true);
 			} catch (DirectoryNotFoundException) {}
 		}
 	}
 }
-
 #endif

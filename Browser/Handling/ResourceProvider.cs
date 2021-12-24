@@ -9,29 +9,6 @@ using IOFile = System.IO.File;
 
 namespace TweetDuck.Browser.Handling {
 	internal sealed class ResourceProvider : IResourceProvider<IResourceHandler> {
-		private static ResourceHandler CreateHandler(byte[] bytes) {
-			var handler = ResourceHandler.FromStream(new MemoryStream(bytes), autoDisposeStream: true);
-			handler.Headers.Set("Access-Control-Allow-Origin", "*");
-			return handler;
-		}
-
-		private static IResourceHandler CreateFileContentsHandler(byte[] bytes, string extension) {
-			if (bytes.Length == 0) {
-				return CreateStatusHandler(HttpStatusCode.NoContent, "File is empty."); // FromByteArray crashes CEF internals with no contents
-			}
-			else {
-				var handler = CreateHandler(bytes);
-				handler.MimeType = Cef.GetMimeType(extension);
-				return handler;
-			}
-		}
-
-		private static IResourceHandler CreateStatusHandler(HttpStatusCode code, string message) {
-			var handler = CreateHandler(Encoding.UTF8.GetBytes(message));
-			handler.StatusCode = (int) code;
-			return handler;
-		}
-
 		private readonly Dictionary<string, ICachedResource> cache = new Dictionary<string, ICachedResource>();
 
 		public IResourceHandler Status(HttpStatusCode code, string message) {
@@ -60,6 +37,33 @@ namespace TweetDuck.Browser.Handling {
 			} catch (Exception e) {
 				return new CachedStatus(HttpStatusCode.InternalServerError, e.Message);
 			}
+		}
+
+		public void ClearCache() {
+			cache.Clear();
+		}
+
+		private static ResourceHandler CreateHandler(byte[] bytes) {
+			var handler = ResourceHandler.FromStream(new MemoryStream(bytes), autoDisposeStream: true);
+			handler.Headers.Set("Access-Control-Allow-Origin", "*");
+			return handler;
+		}
+
+		private static IResourceHandler CreateFileContentsHandler(byte[] bytes, string extension) {
+			if (bytes.Length == 0) {
+				return CreateStatusHandler(HttpStatusCode.NoContent, "File is empty."); // FromByteArray crashes CEF internals with no contents
+			}
+			else {
+				var handler = CreateHandler(bytes);
+				handler.MimeType = Cef.GetMimeType(extension);
+				return handler;
+			}
+		}
+
+		private static IResourceHandler CreateStatusHandler(HttpStatusCode code, string message) {
+			var handler = CreateHandler(Encoding.UTF8.GetBytes(message));
+			handler.StatusCode = (int) code;
+			return handler;
 		}
 
 		private interface ICachedResource {

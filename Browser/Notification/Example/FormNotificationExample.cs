@@ -1,9 +1,11 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 using CefSharp;
 using TweetDuck.Controls;
 using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Features.Plugins;
+using TweetLib.Core.Utils;
 
 namespace TweetDuck.Browser.Notification.Example {
 	sealed class FormNotificationExample : FormNotificationMain {
@@ -32,7 +34,7 @@ namespace TweetDuck.Browser.Notification.Example {
 		public FormNotificationExample(FormBrowser owner, PluginManager pluginManager) : base(owner, pluginManager, false) {
 			browser.LoadingStateChanged += browser_LoadingStateChanged;
 
-			string exampleTweetHTML = Program.Resources.LoadSilent("notification/example/example.html")?.Replace("{avatar}", AppLogo.Url) ?? string.Empty;
+			string exampleTweetHTML = FileUtils.ReadFileOrNull(Path.Combine(Program.ResourcesPath, "notification/example/example.html"))?.Replace("{avatar}", AppLogo.Url) ?? string.Empty;
 
 			#if DEBUG
 			exampleTweetHTML = exampleTweetHTML.Replace("</p>", @"</p><div style='margin-top:256px'>Scrollbar test padding...</div>");

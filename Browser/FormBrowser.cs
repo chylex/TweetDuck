@@ -16,6 +16,7 @@ using TweetDuck.Dialogs;
 using TweetDuck.Dialogs.Settings;
 using TweetDuck.Management;
 using TweetDuck.Plugins;
+using TweetDuck.Resources;
 using TweetDuck.Updates;
 using TweetDuck.Utils;
 using TweetLib.Core.Features.Plugins;
@@ -51,6 +52,7 @@ namespace TweetDuck.Browser {
 		private readonly FormNotificationTweet notification;
 		#pragma warning restore IDE0069 // Disposable fields should be disposed
 
+		private readonly ResourceProvider resourceProvider;
 		private readonly PluginManager plugins;
 		private readonly UpdateHandler updates;
 		private readonly ContextMenu contextMenu;
@@ -62,10 +64,12 @@ namespace TweetDuck.Browser {
 		private TweetScreenshotManager notificationScreenshotManager;
 		private VideoPlayer videoPlayer;
 
-		public FormBrowser(PluginSchemeFactory pluginScheme) {
+		public FormBrowser(ResourceProvider resourceProvider, PluginSchemeFactory pluginScheme) {
 			InitializeComponent();
 
 			Text = Program.BrandName;
+
+			this.resourceProvider = resourceProvider;
 
 			this.plugins = new PluginManager(Program.Config.Plugins, Program.PluginPath, Program.PluginDataPath);
 			this.plugins.Reloaded += plugins_Reloaded;
@@ -385,7 +389,15 @@ namespace TweetDuck.Browser {
 		}
 
 		public void ReloadToTweetDeck() {
-			Program.Resources.OnReloadTriggered();
+			#if DEBUG
+			ResourceHotSwap.Run();
+			resourceProvider.ClearCache();
+			#else
+			if (ModifierKeys.HasFlag(Keys.Shift)) {
+				resourceProvider.ClearCache();
+			}
+			#endif
+
 			ignoreUpdateCheckError = false;
 			browser.ReloadToTweetDeck();
 		}

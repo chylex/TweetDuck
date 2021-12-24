@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 
 namespace TweetLib.Core.Utils {
 	public static class FileUtils {
@@ -34,6 +35,16 @@ namespace TweetLib.Core.Utils {
 				return new FileInfo(path).Length > 0;
 			} catch {
 				return false;
+			}
+		}
+
+		public static string? ReadFileOrNull(string path) {
+			try {
+				return File.ReadAllText(path, Encoding.UTF8);
+			} catch (Exception e) {
+				App.ErrorHandler.Log("Error reading file: " + path);
+				App.ErrorHandler.Log(e.ToString());
+				return null;
 			}
 		}
 
