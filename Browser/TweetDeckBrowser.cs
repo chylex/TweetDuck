@@ -76,8 +76,6 @@ namespace TweetDuck.Browser {
 			this.browser.RegisterJsBridge("$TD", tdBridge);
 			this.browser.RegisterJsBridge("$TDU", updateBridge);
 
-			// ReSharper disable once PossiblyImpureMethodCallOnReadonlyVariable
-			this.browser.BrowserSettings.BackgroundColor = (uint) TwitterUtils.BackgroundColor.ToArgb();
 			this.browser.Dock = DockStyle.None;
 			this.browser.Location = ControlExtensions.InvisibleLocation;
 			this.browser.SetupZoomEvents();
@@ -135,7 +133,7 @@ namespace TweetDuck.Browser {
 			if (frame.IsMain) {
 				string url = frame.Url;
 
-				if (!TwitterUrls.IsTwitterLogin2Factor(url)) {
+				if (TwitterUrls.IsTweetDeck(url) || (TwitterUrls.IsTwitter(url) && !TwitterUrls.IsTwitterLogin2Factor(url))) {
 					frame.ExecuteJavaScriptAsync(TwitterUtils.BackgroundColorOverride);
 				}
 			}
