@@ -6,10 +6,12 @@ import { getClassStyleProperty } from "./globals/get_class_style_property.js";
 import { runAfterFunction } from "./globals/patch_functions.js";
 
 function refreshSettings() {
-	const doc = document.documentElement;
-	
 	const fontSizeName = TD.settings.getFontSize();
 	const themeName = TD.settings.getTheme();
+	
+	const doc = document.documentElement;
+	doc.setAttribute("data-td-font", fontSizeName);
+	doc.setAttribute("data-td-theme", themeName);
 	
 	// noinspection HtmlMissingClosingTag,HtmlRequiredLangAttribute,HtmlRequiredTitleElement
 	const tags = [
@@ -22,8 +24,6 @@ function refreshSettings() {
 	
 	tags.push("<style>body { background: " + getClassStyleProperty("column-panel", "background-color") + " !important; }</style>");
 	
-	doc.setAttribute("data-td-font", fontSizeName);
-	doc.setAttribute("data-td-theme", themeName);
 	$TD.loadNotificationLayout(fontSizeName, tags.join(""));
 }
 
