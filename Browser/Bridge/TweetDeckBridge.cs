@@ -60,8 +60,8 @@ namespace TweetDuck.Browser.Bridge {
 				ContextMenuBase.CurrentInfo.SetLink(type, url);
 			}
 
-			public void SetRightClickedChirp(string tweetUrl, string quoteUrl, string chirpAuthors, string chirpImages) {
-				ContextMenuBase.CurrentInfo.SetChirp(tweetUrl, quoteUrl, chirpAuthors, chirpImages);
+			public void SetRightClickedChirp(string columnId, string chirpId, string tweetUrl, string quoteUrl, string chirpAuthors, string chirpImages) {
+				ContextMenuBase.CurrentInfo.SetChirp(columnId, chirpId, tweetUrl, quoteUrl, chirpAuthors, chirpImages);
 			}
 
 			public void DisplayTooltip(string text) {

@@ -3,12 +3,14 @@ import { $ } from "../../api/jquery.js";
 import { isAppReady, onAppReady } from "../../api/ready.js";
 import { TD } from "../../api/td.js";
 import { checkPropertyExists } from "../../api/utils.js";
+import { COLUMN_NOT_FOUND, retrieveTweet, TWEET_NOT_FOUND } from "./retrieve_tweet.js";
 
 function isSupported() {
 	return checkPropertyExists(TD, "ui", "updates", "showDetailView") &&
 	       checkPropertyExists(TD, "controller", "columnManager", "showColumn") &&
 	       checkPropertyExists(TD, "controller", "columnManager", "getByApiid") &&
-	       checkPropertyExists(TD, "controller", "clients", "getPreferredClient");
+	       checkPropertyExists(TD, "controller", "clients", "getPreferredClient") &&
+	       checkPropertyExists(TD, "services", "TwitterClient", "prototype", "show");
 }
 
 /**
@@ -33,28 +35,16 @@ function showTweetDetailImpl(columnId, chirpId, fallbackUrl) {
 		return;
 	}
 	
-	const column = TD.controller.columnManager.getByApiid(columnId);
-	if (!column) {
-		if (confirm("error|The column which contained the tweet no longer exists. Would you like to open the tweet in your browser instead?")) {
+	retrieveTweet(columnId, chirpId, showTweetDetailInternal, error => {
+		// noinspection NestedConditionalExpressionJS
+		const message = error === COLUMN_NOT_FOUND ? "The column which contained the tweet no longer exists." :
+		                error === TWEET_NOT_FOUND ? "Could not retrieve the requested tweet." :
+		                null;
+		
+		if (message && confirm("error|" + message + " Would you like to open the tweet in your browser instead?")) {
 			$TD.openBrowser(fallbackUrl);
 		}
-		
-		return;
-	}
-	
-	const chirp = column.findMostInterestingChirp(chirpId);
-	if (chirp) {
-		showTweetDetailInternal(column, chirp);
-	}
-	else {
-		TD.controller.clients.getPreferredClient().show(chirpId, function(chirp) {
-			showTweetDetailInternal(column, chirp);
-		}, function() {
-			if (confirm("error|Could not retrieve the requested tweet. Would you like to open the tweet in your browser instead?")) {
-				$TD.openBrowser(fallbackUrl);
-			}
-		});
-	}
+	});
 }
 
 /**

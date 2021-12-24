@@ -247,8 +247,8 @@ namespace TweetDuck.Browser {
 			browser.ExecuteJsAsync("TDGF_performSearch", query);
 		}
 
-		public void TriggerTweetScreenshot() {
-			browser.ExecuteJsAsync("TDGF_triggerScreenshot()");
+		public void TriggerTweetScreenshot(string columnId, string chirpId) {
+			browser.ExecuteJsAsync("TDGF_triggerScreenshot", columnId, chirpId);
 		}
 
 		public void ReloadColumns() {

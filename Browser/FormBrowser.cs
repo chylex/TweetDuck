@@ -406,8 +406,8 @@ namespace TweetDuck.Browser {
 			browser.AddSearchColumn(query);
 		}
 
-		public void TriggerTweetScreenshot() {
-			browser.TriggerTweetScreenshot();
+		public void TriggerTweetScreenshot(string columnId, string chirpId) {
+			browser.TriggerTweetScreenshot(columnId, chirpId);
 		}
 
 		public void ReloadColumns() {

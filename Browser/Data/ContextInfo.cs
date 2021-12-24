@@ -15,8 +15,8 @@ namespace TweetDuck.Browser.Data {
 			link = string.IsNullOrEmpty(url) ? null : new LinkInfo(type, url);
 		}
 
-		public void SetChirp(string tweetUrl, string quoteUrl, string chirpAuthors, string chirpImages) {
-			chirp = string.IsNullOrEmpty(tweetUrl) ? (ChirpInfo?) null : new ChirpInfo(tweetUrl, quoteUrl, chirpAuthors, chirpImages);
+		public void SetChirp(string columnId, string chirpId, string tweetUrl, string quoteUrl, string chirpAuthors, string chirpImages) {
+			chirp = string.IsNullOrEmpty(tweetUrl) ? (ChirpInfo?) null : new ChirpInfo(columnId, chirpId, tweetUrl, quoteUrl, chirpAuthors, chirpImages);
 		}
 
 		public ContextData Reset() {
@@ -53,6 +53,9 @@ namespace TweetDuck.Browser.Data {
 		}
 
 		public readonly struct ChirpInfo {
+			public string ColumnId { get; }
+			public string ChirpId { get; }
+
 			public string TweetUrl { get; }
 			public string QuoteUrl { get; }
 
@@ -62,7 +65,9 @@ namespace TweetDuck.Browser.Data {
 			private readonly string chirpAuthors;
 			private readonly string chirpImages;
 
-			public ChirpInfo(string tweetUrl, string quoteUrl, string chirpAuthors, string chirpImages) {
+			public ChirpInfo(string columnId, string chirpId, string tweetUrl, string quoteUrl, string chirpAuthors, string chirpImages) {
+				this.ColumnId = columnId;
+				this.ChirpId = chirpId;
 				this.TweetUrl = tweetUrl;
 				this.QuoteUrl = quoteUrl;
 				this.chirpAuthors = chirpAuthors;

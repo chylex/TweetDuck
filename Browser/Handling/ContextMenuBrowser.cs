@@ -126,7 +126,10 @@ namespace TweetDuck.Browser.Handling {
 					return true;
 
 				case MenuScreenshotTweet:
-					form.InvokeAsyncSafe(form.TriggerTweetScreenshot);
+					var chirp = Context.Chirp;
+
+					form.InvokeAsyncSafe(() => form.TriggerTweetScreenshot(chirp.ColumnId, chirp.ChirpId));
+
 					return true;
 
 				case MenuOpenQuotedTweetUrl:

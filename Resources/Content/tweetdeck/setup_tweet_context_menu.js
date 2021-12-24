@@ -17,13 +17,15 @@ function handleTweetContextMenu() {
 	const quote = tweet.quotedTweet;
 	
 	if (tweet.chirpType === TD.services.ChirpBase.TWEET) {
+		const columnId = hovered.column.obj.model.privateState.apiid;
+		
 		const tweetUrl = tweet.getChirpURL();
 		const quoteUrl = quote && quote.getChirpURL();
 		
 		const chirpAuthors = quote ? [ tweet.getMainUser().screenName, quote.getMainUser().screenName ].join(";") : tweet.getMainUser().screenName;
 		const chirpImages = tweet.hasImage() ? processMedia(tweet) : quote?.hasImage() ? processMedia(quote) : "";
 		
-		$TD.setRightClickedChirp(tweetUrl || "", quoteUrl || "", chirpAuthors, chirpImages);
+		$TD.setRightClickedChirp(columnId, tweet.id, tweetUrl || "", quoteUrl || "", chirpAuthors, chirpImages);
 	}
 	else if (tweet instanceof TD.services.TwitterActionFollow) {
 		$TD.setRightClickedLink("link", tweet.following.getProfileURL());

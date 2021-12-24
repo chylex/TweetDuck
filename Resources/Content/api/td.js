@@ -40,6 +40,7 @@ if (!("TD" in window)) {
  * @property {TD_Column_Model} model
  * @property {boolean} notificationsDisabled
  * @property {function} reloadTweets
+ * @property {{ columnWidth: number }} visibility
  */
 
 /**

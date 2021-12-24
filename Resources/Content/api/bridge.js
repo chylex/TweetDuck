@@ -23,7 +23,7 @@ if (!("$TDX" in window)) {
  * @property {function} openContextMenu
  * @property {function(showGuide: boolean)} onIntroductionClosed
  * @property {function(videoUrl: string, tweetUrl: string, username: string, callback: function)} playVideo
- * @property {function(tweetUrl: string, quoteUrl: string, chirpAuthors: string, chirpImages: string)} setRightClickedChirp
+ * @property {function(columnId: string, chirpId: string, tweetUrl: string, quoteUrl: string, chirpAuthors: string, chirpImages: string)} setRightClickedChirp
  * @property {function(type: string, url: string)} setRightClickedLink
  * @property {function} showTweetDetail
  * @property {function(html: string, width: number)} screenshotTweet

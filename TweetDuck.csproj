@@ -434,6 +434,7 @@
     <Content Include="Resources\Content\tweetdeck\globals\prioritize_newest_event.js" />
     <Content Include="Resources\Content\tweetdeck\globals\reload_browser.js" />
     <Content Include="Resources\Content\tweetdeck\globals\reload_columns.js" />
+    <Content Include="Resources\Content\tweetdeck\globals\retrieve_tweet.js" />
     <Content Include="Resources\Content\tweetdeck\globals\show_tweet_detail.js" />
     <Content Include="Resources\Content\tweetdeck\handle_extra_mouse_buttons.js" />
     <Content Include="Resources\Content\tweetdeck\hook_theme_settings.js" />
