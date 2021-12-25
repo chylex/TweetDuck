@@ -44,6 +44,12 @@ namespace TweetDuck.Dialogs.Settings {
 			toolTip.SetToolTip(btnEditCefArgs, "Set custom command line arguments for Chromium Embedded Framework.");
 			toolTip.SetToolTip(btnEditCSS, "Set custom CSS for browser and notification windows.");
 
+			// proxy
+
+			toolTip.SetToolTip(checkUseSystemProxyForAllConnections, "Sets whether all connections should automatically detect and use the system proxy.\r\nBy default, only the browser component uses the system proxy, while other parts (such as update checks) ignore it.\r\nDisabled by default because Windows' proxy detection can be really slow.");
+
+			checkUseSystemProxyForAllConnections.Checked = Config.UseSystemProxyForAllConnections;
+
 			// development tools
 
 			toolTip.SetToolTip(checkDevToolsInContextMenu, "Sets whether all context menus include an option to open dev tools.");
@@ -64,6 +70,8 @@ namespace TweetDuck.Dialogs.Settings {
 
 			btnEditCefArgs.Click += btnEditCefArgs_Click;
 			btnEditCSS.Click += btnEditCSS_Click;
+
+			checkUseSystemProxyForAllConnections.CheckedChanged += checkUseSystemProxyForAllConnections_CheckedChanged;
 
 			checkDevToolsWindowOnTop.CheckedChanged += checkDevToolsWindowOnTop_CheckedChanged;
 			checkDevToolsInContextMenu.CheckedChanged += checkDevToolsInContextMenuOnCheckedChanged;
@@ -158,6 +166,14 @@ namespace TweetDuck.Dialogs.Settings {
 			if (ParentForm != null) { // when the parent is closed first, ParentForm is null in FormClosed event
 				NativeMethods.SetFormDisabled(ParentForm, false);
 			}
+		}
+
+		#endregion
+
+		#region Proxy
+
+		private void checkUseSystemProxyForAllConnections_CheckedChanged(object sender, EventArgs e) {
+			Config.UseSystemProxyForAllConnections = checkUseSystemProxyForAllConnections.Checked;
 		}
 
 		#endregion

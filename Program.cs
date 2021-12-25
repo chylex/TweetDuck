@@ -111,6 +111,10 @@ namespace TweetDuck {
 				return;
 			}
 
+			if (Config.User.UseSystemProxyForAllConnections) {
+				WebUtils.EnableSystemProxy();
+			}
+
 			BrowserCache.RefreshTimer();
 
 			CefSharpSettings.WcfEnabled = false;

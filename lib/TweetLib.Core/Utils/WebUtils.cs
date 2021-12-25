@@ -6,6 +6,7 @@ using System.Net;
 namespace TweetLib.Core.Utils {
 	public static class WebUtils {
 		private static bool hasMicrosoftBeenBroughtTo2008Yet;
+		private static bool hasSystemProxyBeenEnabled;
 
 		private static void EnsureTLS12() {
 			if (!hasMicrosoftBeenBroughtTo2008Yet) {
@@ -15,10 +16,24 @@ namespace TweetLib.Core.Utils {
 			}
 		}
 
+		private static bool UseSystemProxy { get; set; } = false;
+
+		public static void EnableSystemProxy() {
+			if (!hasSystemProxyBeenEnabled) {
+				UseSystemProxy = true;
+				hasSystemProxyBeenEnabled = true;
+			}
+		}
+
 		public static WebClient NewClient(string userAgent) {
 			EnsureTLS12();
 
-			WebClient client = new WebClient { Proxy = null };
+			WebClient client = new WebClient();
+
+			if (!UseSystemProxy) {
+				client.Proxy = null;
+			}
+
 			client.Headers[HttpRequestHeader.UserAgent] = userAgent;
 			return client;
 		}

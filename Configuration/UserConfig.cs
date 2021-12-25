@@ -82,6 +82,8 @@ namespace TweetDuck.Configuration {
 		public string CustomBrowserCSS      { get; set; } = null;
 		public string CustomNotificationCSS { get; set; } = null;
 
+		private bool _useSystemProxyForAllConnections;
+
 		public bool DevToolsInContextMenu { get; set; } = false;
 		public bool DevToolsWindowOnTop   { get; set; } = true;
 
@@ -131,6 +133,11 @@ namespace TweetDuck.Configuration {
 		public bool EnableColorProfileDetection {
 			get => _enableColorProfileDetection;
 			set => UpdatePropertyWithRestartRequest(ref _enableColorProfileDetection, value);
+		}
+
+		public bool UseSystemProxyForAllConnections {
+			get => _useSystemProxyForAllConnections;
+			set => UpdatePropertyWithRestartRequest(ref _useSystemProxyForAllConnections, value);
 		}
 
 		public string CustomCefArgs {
