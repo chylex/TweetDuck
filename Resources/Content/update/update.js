@@ -61,7 +61,6 @@ function displayNotification(version, changelog) {
 	const exitNow = function() {
 		ele.remove();
 		log.remove();
-		css.remove();
 	};
 	
 	const exitSlide = function() {
