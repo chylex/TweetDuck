@@ -1,4 +1,5 @@
 import { $TDX } from "../api/bridge.js";
+import { isAppReady } from "../api/ready.js";
 import { replaceFunction } from "./globals/patch_functions.js";
 
 /**
@@ -35,7 +36,7 @@ export default function() {
 	};
 	
 	replaceFunction(HTMLAudioElement.prototype, "play", function(func, args) {
-		if (!$TDX.muteNotifications) {
+		if (!$TDX.muteNotifications && isAppReady()) {
 			func.apply(this, args);
 		}
 	});

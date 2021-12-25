@@ -45,7 +45,7 @@
 	}
 	
 	loadModules().then(([ successes, total ]) => {
-		if ("$TD" in window && "notifyModulesLoaded" in window.$TD) {
+		if ("$TD" in window && "onModulesLoaded" in window.$TD) {
 			notifyModulesLoaded(window.$TD);
 		}
 		
