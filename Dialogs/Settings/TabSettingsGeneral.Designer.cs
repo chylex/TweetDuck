@@ -1,11 +1,11 @@
 ﻿namespace TweetDuck.Dialogs.Settings {
     partial class TabSettingsGeneral {
-        /// <summary> 
+        /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -18,8 +18,8 @@
 
         #region Component Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
@@ -44,6 +44,7 @@
             this.labelBrowserSettings = new System.Windows.Forms.Label();
             this.checkSmoothScrolling = new System.Windows.Forms.CheckBox();
             this.checkTouchAdjustment = new System.Windows.Forms.CheckBox();
+            this.checkAutomaticallyDetectColorProfile = new System.Windows.Forms.CheckBox();
             this.checkHardwareAcceleration = new System.Windows.Forms.CheckBox();
             this.labelBrowserPath = new System.Windows.Forms.Label();
             this.comboBoxCustomBrowser = new System.Windows.Forms.ComboBox();
@@ -73,9 +74,9 @@
             this.panelCustomBrowser.SuspendLayout();
             this.panelCustomVideoPlayer.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // checkExpandLinks
-            // 
+            //
             this.checkExpandLinks.AutoSize = true;
             this.checkExpandLinks.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.checkExpandLinks.Location = new System.Drawing.Point(6, 26);
@@ -85,34 +86,34 @@
             this.checkExpandLinks.TabIndex = 1;
             this.checkExpandLinks.Text = "Expand Links When Hovered";
             this.checkExpandLinks.UseVisualStyleBackColor = true;
-            // 
+            //
             // checkUpdateNotifications
-            // 
+            //
             this.checkUpdateNotifications.AutoSize = true;
             this.checkUpdateNotifications.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkUpdateNotifications.Location = new System.Drawing.Point(6, 403);
+            this.checkUpdateNotifications.Location = new System.Drawing.Point(6, 409);
             this.checkUpdateNotifications.Margin = new System.Windows.Forms.Padding(6, 6, 3, 2);
             this.checkUpdateNotifications.Name = "checkUpdateNotifications";
             this.checkUpdateNotifications.Size = new System.Drawing.Size(182, 19);
-            this.checkUpdateNotifications.TabIndex = 14;
+            this.checkUpdateNotifications.TabIndex = 15;
             this.checkUpdateNotifications.Text = "Check Updates Automatically";
             this.checkUpdateNotifications.UseVisualStyleBackColor = true;
-            // 
+            //
             // btnCheckUpdates
-            // 
+            //
             this.btnCheckUpdates.AutoSize = true;
             this.btnCheckUpdates.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnCheckUpdates.Location = new System.Drawing.Point(5, 427);
+            this.btnCheckUpdates.Location = new System.Drawing.Point(5, 433);
             this.btnCheckUpdates.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnCheckUpdates.Name = "btnCheckUpdates";
             this.btnCheckUpdates.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.btnCheckUpdates.Size = new System.Drawing.Size(128, 25);
-            this.btnCheckUpdates.TabIndex = 15;
+            this.btnCheckUpdates.TabIndex = 16;
             this.btnCheckUpdates.Text = "Check Updates Now";
             this.btnCheckUpdates.UseVisualStyleBackColor = true;
-            // 
+            //
             // labelZoomValue
-            // 
+            //
             this.labelZoomValue.BackColor = System.Drawing.Color.Transparent;
             this.labelZoomValue.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.labelZoomValue.Location = new System.Drawing.Point(176, 4);
@@ -122,9 +123,9 @@
             this.labelZoomValue.TabIndex = 1;
             this.labelZoomValue.Text = "100%";
             this.labelZoomValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
+            //
             // checkBestImageQuality
-            // 
+            //
             this.checkBestImageQuality.AutoSize = true;
             this.checkBestImageQuality.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.checkBestImageQuality.Location = new System.Drawing.Point(6, 122);
@@ -134,9 +135,9 @@
             this.checkBestImageQuality.TabIndex = 5;
             this.checkBestImageQuality.Text = "Best Image Quality";
             this.checkBestImageQuality.UseVisualStyleBackColor = true;
-            // 
+            //
             // checkOpenSearchInFirstColumn
-            // 
+            //
             this.checkOpenSearchInFirstColumn.AutoSize = true;
             this.checkOpenSearchInFirstColumn.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.checkOpenSearchInFirstColumn.Location = new System.Drawing.Point(6, 74);
@@ -146,9 +147,9 @@
             this.checkOpenSearchInFirstColumn.TabIndex = 3;
             this.checkOpenSearchInFirstColumn.Text = "Add Search Columns Before First Column";
             this.checkOpenSearchInFirstColumn.UseVisualStyleBackColor = true;
-            // 
+            //
             // trackBarZoom
-            // 
+            //
             this.trackBarZoom.AutoSize = false;
             this.trackBarZoom.BackColor = System.Drawing.SystemColors.Control;
             this.trackBarZoom.LargeChange = 25;
@@ -161,25 +162,25 @@
             this.trackBarZoom.TabIndex = 0;
             this.trackBarZoom.TickFrequency = 25;
             this.trackBarZoom.Value = 100;
-            // 
+            //
             // labelZoom
-            // 
+            //
             this.labelZoom.AutoSize = true;
             this.labelZoom.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            this.labelZoom.Location = new System.Drawing.Point(3, 299);
+            this.labelZoom.Location = new System.Drawing.Point(3, 323);
             this.labelZoom.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelZoom.Name = "labelZoom";
             this.labelZoom.Size = new System.Drawing.Size(39, 15);
-            this.labelZoom.TabIndex = 11;
+            this.labelZoom.TabIndex = 12;
             this.labelZoom.Text = "Zoom";
-            // 
+            //
             // zoomUpdateTimer
-            // 
+            //
             this.zoomUpdateTimer.Interval = 250;
             this.zoomUpdateTimer.Tick += new System.EventHandler(this.zoomUpdateTimer_Tick);
-            // 
+            //
             // labelUI
-            // 
+            //
             this.labelUI.AutoSize = true;
             this.labelUI.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
             this.labelUI.Location = new System.Drawing.Point(0, 0);
@@ -188,19 +189,19 @@
             this.labelUI.Size = new System.Drawing.Size(118, 19);
             this.labelUI.TabIndex = 0;
             this.labelUI.Text = "USER INTERFACE";
-            // 
+            //
             // panelZoom
-            // 
+            //
             this.panelZoom.Controls.Add(this.trackBarZoom);
             this.panelZoom.Controls.Add(this.labelZoomValue);
-            this.panelZoom.Location = new System.Drawing.Point(0, 315);
+            this.panelZoom.Location = new System.Drawing.Point(0, 339);
             this.panelZoom.Margin = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.panelZoom.Name = "panelZoom";
             this.panelZoom.Size = new System.Drawing.Size(300, 35);
-            this.panelZoom.TabIndex = 12;
-            // 
+            this.panelZoom.TabIndex = 13;
+            //
             // checkAnimatedAvatars
-            // 
+            //
             this.checkAnimatedAvatars.AutoSize = true;
             this.checkAnimatedAvatars.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.checkAnimatedAvatars.Location = new System.Drawing.Point(6, 146);
@@ -210,21 +211,21 @@
             this.checkAnimatedAvatars.TabIndex = 6;
             this.checkAnimatedAvatars.Text = "Enable Animated Avatars";
             this.checkAnimatedAvatars.UseVisualStyleBackColor = true;
-            // 
+            //
             // labelUpdates
-            // 
+            //
             this.labelUpdates.AutoSize = true;
             this.labelUpdates.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
-            this.labelUpdates.Location = new System.Drawing.Point(0, 377);
-            this.labelUpdates.Margin = new System.Windows.Forms.Padding(0, 27, 0, 1);
+            this.labelUpdates.Location = new System.Drawing.Point(0, 383);
+            this.labelUpdates.Margin = new System.Windows.Forms.Padding(0, 7, 0, 1);
             this.labelUpdates.Name = "labelUpdates";
             this.labelUpdates.Size = new System.Drawing.Size(69, 19);
-            this.labelUpdates.TabIndex = 13;
+            this.labelUpdates.TabIndex = 14;
             this.labelUpdates.Text = "UPDATES";
-            // 
+            //
             // flowPanelLeft
-            // 
-            this.flowPanelLeft.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            //
+            this.flowPanelLeft.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this.flowPanelLeft.Controls.Add(this.labelUI);
             this.flowPanelLeft.Controls.Add(this.checkExpandLinks);
@@ -236,6 +237,7 @@
             this.flowPanelLeft.Controls.Add(this.labelBrowserSettings);
             this.flowPanelLeft.Controls.Add(this.checkSmoothScrolling);
             this.flowPanelLeft.Controls.Add(this.checkTouchAdjustment);
+            this.flowPanelLeft.Controls.Add(this.checkAutomaticallyDetectColorProfile);
             this.flowPanelLeft.Controls.Add(this.checkHardwareAcceleration);
             this.flowPanelLeft.Controls.Add(this.labelZoom);
             this.flowPanelLeft.Controls.Add(this.panelZoom);
@@ -248,9 +250,9 @@
             this.flowPanelLeft.Size = new System.Drawing.Size(300, 462);
             this.flowPanelLeft.TabIndex = 0;
             this.flowPanelLeft.WrapContents = false;
-            // 
+            //
             // checkFocusDmInput
-            // 
+            //
             this.checkFocusDmInput.AutoSize = true;
             this.checkFocusDmInput.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.checkFocusDmInput.Location = new System.Drawing.Point(6, 50);
@@ -260,9 +262,9 @@
             this.checkFocusDmInput.TabIndex = 2;
             this.checkFocusDmInput.Text = "Focus Input Field When Opening Direct Message";
             this.checkFocusDmInput.UseVisualStyleBackColor = true;
-            // 
+            //
             // checkKeepLikeFollowDialogsOpen
-            // 
+            //
             this.checkKeepLikeFollowDialogsOpen.AutoSize = true;
             this.checkKeepLikeFollowDialogsOpen.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.checkKeepLikeFollowDialogsOpen.Location = new System.Drawing.Point(6, 98);
@@ -272,9 +274,9 @@
             this.checkKeepLikeFollowDialogsOpen.TabIndex = 4;
             this.checkKeepLikeFollowDialogsOpen.Text = "Keep Like/Follow Dialogs Open";
             this.checkKeepLikeFollowDialogsOpen.UseVisualStyleBackColor = true;
-            // 
+            //
             // labelBrowserSettings
-            // 
+            //
             this.labelBrowserSettings.AutoSize = true;
             this.labelBrowserSettings.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
             this.labelBrowserSettings.Location = new System.Drawing.Point(0, 192);
@@ -283,9 +285,9 @@
             this.labelBrowserSettings.Size = new System.Drawing.Size(143, 19);
             this.labelBrowserSettings.TabIndex = 7;
             this.labelBrowserSettings.Text = "BROWSER SETTINGS";
-            // 
+            //
             // checkSmoothScrolling
-            // 
+            //
             this.checkSmoothScrolling.AutoSize = true;
             this.checkSmoothScrolling.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.checkSmoothScrolling.Location = new System.Drawing.Point(6, 218);
@@ -295,9 +297,9 @@
             this.checkSmoothScrolling.TabIndex = 8;
             this.checkSmoothScrolling.Text = "Smooth Scrolling";
             this.checkSmoothScrolling.UseVisualStyleBackColor = true;
-            // 
+            //
             // checkTouchAdjustment
-            // 
+            //
             this.checkTouchAdjustment.AutoSize = true;
             this.checkTouchAdjustment.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.checkTouchAdjustment.Location = new System.Drawing.Point(6, 242);
@@ -307,21 +309,33 @@
             this.checkTouchAdjustment.TabIndex = 9;
             this.checkTouchAdjustment.Text = "Touch Screen Adjustment";
             this.checkTouchAdjustment.UseVisualStyleBackColor = true;
-            // 
+            //
+            // checkAutomaticallyDetectColorProfile
+            //
+            this.checkAutomaticallyDetectColorProfile.AutoSize = true;
+            this.checkAutomaticallyDetectColorProfile.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkAutomaticallyDetectColorProfile.Location = new System.Drawing.Point(6, 266);
+            this.checkAutomaticallyDetectColorProfile.Margin = new System.Windows.Forms.Padding(6, 3, 3, 2);
+            this.checkAutomaticallyDetectColorProfile.Name = "checkAutomaticallyDetectColorProfile";
+            this.checkAutomaticallyDetectColorProfile.Size = new System.Drawing.Size(206, 19);
+            this.checkAutomaticallyDetectColorProfile.TabIndex = 10;
+            this.checkAutomaticallyDetectColorProfile.Text = "Automatically Detect Color Profile";
+            this.checkAutomaticallyDetectColorProfile.UseVisualStyleBackColor = true;
+            //
             // checkHardwareAcceleration
-            // 
+            //
             this.checkHardwareAcceleration.AutoSize = true;
             this.checkHardwareAcceleration.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkHardwareAcceleration.Location = new System.Drawing.Point(6, 266);
+            this.checkHardwareAcceleration.Location = new System.Drawing.Point(6, 290);
             this.checkHardwareAcceleration.Margin = new System.Windows.Forms.Padding(6, 3, 3, 2);
             this.checkHardwareAcceleration.Name = "checkHardwareAcceleration";
             this.checkHardwareAcceleration.Size = new System.Drawing.Size(146, 19);
-            this.checkHardwareAcceleration.TabIndex = 10;
+            this.checkHardwareAcceleration.TabIndex = 11;
             this.checkHardwareAcceleration.Text = "Hardware Acceleration";
             this.checkHardwareAcceleration.UseVisualStyleBackColor = true;
-            // 
+            //
             // labelBrowserPath
-            // 
+            //
             this.labelBrowserPath.AutoSize = true;
             this.labelBrowserPath.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.labelBrowserPath.Location = new System.Drawing.Point(3, 275);
@@ -330,9 +344,9 @@
             this.labelBrowserPath.Size = new System.Drawing.Size(104, 15);
             this.labelBrowserPath.TabIndex = 9;
             this.labelBrowserPath.Text = "Open Links With...";
-            // 
+            //
             // comboBoxCustomBrowser
-            // 
+            //
             this.comboBoxCustomBrowser.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCustomBrowser.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.comboBoxCustomBrowser.FormattingEnabled = true;
@@ -341,9 +355,9 @@
             this.comboBoxCustomBrowser.Name = "comboBoxCustomBrowser";
             this.comboBoxCustomBrowser.Size = new System.Drawing.Size(173, 23);
             this.comboBoxCustomBrowser.TabIndex = 0;
-            // 
+            //
             // labelSearchEngine
-            // 
+            //
             this.labelSearchEngine.AutoSize = true;
             this.labelSearchEngine.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.labelSearchEngine.Location = new System.Drawing.Point(3, 389);
@@ -352,9 +366,9 @@
             this.labelSearchEngine.Size = new System.Drawing.Size(82, 15);
             this.labelSearchEngine.TabIndex = 13;
             this.labelSearchEngine.Text = "Search Engine";
-            // 
+            //
             // comboBoxSearchEngine
-            // 
+            //
             this.comboBoxSearchEngine.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSearchEngine.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.comboBoxSearchEngine.FormattingEnabled = true;
@@ -363,10 +377,10 @@
             this.comboBoxSearchEngine.Name = "comboBoxSearchEngine";
             this.comboBoxSearchEngine.Size = new System.Drawing.Size(173, 23);
             this.comboBoxSearchEngine.TabIndex = 14;
-            // 
+            //
             // flowPanelRight
-            // 
-            this.flowPanelRight.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            //
+            this.flowPanelRight.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this.flowPanelRight.Controls.Add(this.labelLocales);
             this.flowPanelRight.Controls.Add(this.checkSpellCheck);
@@ -389,9 +403,9 @@
             this.flowPanelRight.Size = new System.Drawing.Size(300, 462);
             this.flowPanelRight.TabIndex = 1;
             this.flowPanelRight.WrapContents = false;
-            // 
+            //
             // labelLocales
-            // 
+            //
             this.labelLocales.AutoSize = true;
             this.labelLocales.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
             this.labelLocales.Location = new System.Drawing.Point(0, 0);
@@ -400,9 +414,9 @@
             this.labelLocales.Size = new System.Drawing.Size(67, 19);
             this.labelLocales.TabIndex = 0;
             this.labelLocales.Text = "LOCALES";
-            // 
+            //
             // checkSpellCheck
-            // 
+            //
             this.checkSpellCheck.AutoSize = true;
             this.checkSpellCheck.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.checkSpellCheck.Location = new System.Drawing.Point(6, 26);
@@ -412,9 +426,9 @@
             this.checkSpellCheck.TabIndex = 1;
             this.checkSpellCheck.Text = "Enable Spell Check";
             this.checkSpellCheck.UseVisualStyleBackColor = true;
-            // 
+            //
             // labelSpellCheckLanguage
-            // 
+            //
             this.labelSpellCheckLanguage.AutoSize = true;
             this.labelSpellCheckLanguage.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.labelSpellCheckLanguage.Location = new System.Drawing.Point(3, 59);
@@ -423,9 +437,9 @@
             this.labelSpellCheckLanguage.Size = new System.Drawing.Size(123, 15);
             this.labelSpellCheckLanguage.TabIndex = 2;
             this.labelSpellCheckLanguage.Text = "Spell Check Language";
-            // 
+            //
             // comboBoxSpellCheckLanguage
-            // 
+            //
             this.comboBoxSpellCheckLanguage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxSpellCheckLanguage.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.comboBoxSpellCheckLanguage.FormattingEnabled = true;
@@ -434,9 +448,9 @@
             this.comboBoxSpellCheckLanguage.Name = "comboBoxSpellCheckLanguage";
             this.comboBoxSpellCheckLanguage.Size = new System.Drawing.Size(290, 23);
             this.comboBoxSpellCheckLanguage.TabIndex = 3;
-            // 
+            //
             // labelTranslationTarget
-            // 
+            //
             this.labelTranslationTarget.AutoSize = true;
             this.labelTranslationTarget.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.labelTranslationTarget.Location = new System.Drawing.Point(3, 116);
@@ -445,9 +459,9 @@
             this.labelTranslationTarget.Size = new System.Drawing.Size(142, 15);
             this.labelTranslationTarget.TabIndex = 4;
             this.labelTranslationTarget.Text = "Bing Translator Language";
-            // 
+            //
             // comboBoxTranslationTarget
-            // 
+            //
             this.comboBoxTranslationTarget.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxTranslationTarget.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.comboBoxTranslationTarget.FormattingEnabled = true;
@@ -456,9 +470,9 @@
             this.comboBoxTranslationTarget.Name = "comboBoxTranslationTarget";
             this.comboBoxTranslationTarget.Size = new System.Drawing.Size(290, 23);
             this.comboBoxTranslationTarget.TabIndex = 5;
-            // 
+            //
             // labelFirstDayOfWeek
-            // 
+            //
             this.labelFirstDayOfWeek.AutoSize = true;
             this.labelFirstDayOfWeek.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.labelFirstDayOfWeek.Location = new System.Drawing.Point(3, 173);
@@ -467,9 +481,9 @@
             this.labelFirstDayOfWeek.Size = new System.Drawing.Size(125, 15);
             this.labelFirstDayOfWeek.TabIndex = 6;
             this.labelFirstDayOfWeek.Text = "First Day Of The Week";
-            // 
+            //
             // comboBoxFirstDayOfWeek
-            // 
+            //
             this.comboBoxFirstDayOfWeek.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxFirstDayOfWeek.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.comboBoxFirstDayOfWeek.FormattingEnabled = true;
@@ -478,9 +492,9 @@
             this.comboBoxFirstDayOfWeek.Name = "comboBoxFirstDayOfWeek";
             this.comboBoxFirstDayOfWeek.Size = new System.Drawing.Size(173, 23);
             this.comboBoxFirstDayOfWeek.TabIndex = 7;
-            // 
+            //
             // labelExternalApplications
-            // 
+            //
             this.labelExternalApplications.AutoSize = true;
             this.labelExternalApplications.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
             this.labelExternalApplications.Location = new System.Drawing.Point(0, 243);
@@ -489,9 +503,9 @@
             this.labelExternalApplications.Size = new System.Drawing.Size(176, 19);
             this.labelExternalApplications.TabIndex = 8;
             this.labelExternalApplications.Text = "EXTERNAL APPLICATIONS";
-            // 
+            //
             // panelCustomBrowser
-            // 
+            //
             this.panelCustomBrowser.Controls.Add(this.comboBoxCustomBrowser);
             this.panelCustomBrowser.Controls.Add(this.btnCustomBrowserChange);
             this.panelCustomBrowser.Location = new System.Drawing.Point(0, 293);
@@ -499,9 +513,9 @@
             this.panelCustomBrowser.Name = "panelCustomBrowser";
             this.panelCustomBrowser.Size = new System.Drawing.Size(300, 24);
             this.panelCustomBrowser.TabIndex = 10;
-            // 
+            //
             // btnCustomBrowserChange
-            // 
+            //
             this.btnCustomBrowserChange.AutoSize = true;
             this.btnCustomBrowserChange.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnCustomBrowserChange.Location = new System.Drawing.Point(186, 0);
@@ -513,9 +527,9 @@
             this.btnCustomBrowserChange.Text = "Change...";
             this.btnCustomBrowserChange.UseVisualStyleBackColor = true;
             this.btnCustomBrowserChange.Visible = false;
-            // 
+            //
             // labelVideoPlayerPath
-            // 
+            //
             this.labelVideoPlayerPath.AutoSize = true;
             this.labelVideoPlayerPath.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.labelVideoPlayerPath.Location = new System.Drawing.Point(3, 332);
@@ -524,9 +538,9 @@
             this.labelVideoPlayerPath.Size = new System.Drawing.Size(106, 15);
             this.labelVideoPlayerPath.TabIndex = 11;
             this.labelVideoPlayerPath.Text = "Play Videos With...";
-            // 
+            //
             // panelCustomVideoPlayer
-            // 
+            //
             this.panelCustomVideoPlayer.Controls.Add(this.comboBoxCustomVideoPlayer);
             this.panelCustomVideoPlayer.Controls.Add(this.btnCustomVideoPlayerChange);
             this.panelCustomVideoPlayer.Location = new System.Drawing.Point(0, 350);
@@ -534,9 +548,9 @@
             this.panelCustomVideoPlayer.Name = "panelCustomVideoPlayer";
             this.panelCustomVideoPlayer.Size = new System.Drawing.Size(300, 24);
             this.panelCustomVideoPlayer.TabIndex = 12;
-            // 
+            //
             // comboBoxCustomVideoPlayer
-            // 
+            //
             this.comboBoxCustomVideoPlayer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCustomVideoPlayer.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.comboBoxCustomVideoPlayer.FormattingEnabled = true;
@@ -545,9 +559,9 @@
             this.comboBoxCustomVideoPlayer.Name = "comboBoxCustomVideoPlayer";
             this.comboBoxCustomVideoPlayer.Size = new System.Drawing.Size(173, 23);
             this.comboBoxCustomVideoPlayer.TabIndex = 0;
-            // 
+            //
             // btnCustomVideoPlayerChange
-            // 
+            //
             this.btnCustomVideoPlayerChange.AutoSize = true;
             this.btnCustomVideoPlayerChange.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnCustomVideoPlayerChange.Location = new System.Drawing.Point(186, 0);
@@ -559,10 +573,10 @@
             this.btnCustomVideoPlayerChange.Text = "Change...";
             this.btnCustomVideoPlayerChange.UseVisualStyleBackColor = true;
             this.btnCustomVideoPlayerChange.Visible = false;
-            // 
+            //
             // panelSeparator
-            // 
-            this.panelSeparator.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            //
+            this.panelSeparator.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this.panelSeparator.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.panelSeparator.Location = new System.Drawing.Point(312, 0);
@@ -570,9 +584,9 @@
             this.panelSeparator.Name = "panelSeparator";
             this.panelSeparator.Size = new System.Drawing.Size(1, 480);
             this.panelSeparator.TabIndex = 2;
-            // 
+            //
             // TabSettingsGeneral
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panelSeparator);
@@ -619,6 +633,7 @@
         private System.Windows.Forms.Label labelSearchEngine;
         private System.Windows.Forms.ComboBox comboBoxSearchEngine;
         private System.Windows.Forms.CheckBox checkTouchAdjustment;
+        private System.Windows.Forms.CheckBox checkAutomaticallyDetectColorProfile;
         private System.Windows.Forms.FlowLayoutPanel flowPanelRight;
         private System.Windows.Forms.Panel panelSeparator;
         private System.Windows.Forms.Label labelLocales;

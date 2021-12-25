@@ -66,6 +66,7 @@ namespace TweetDuck.Dialogs.Settings {
 
 			toolTip.SetToolTip(checkSmoothScrolling, "Toggles smooth mouse wheel scrolling.");
 			toolTip.SetToolTip(checkTouchAdjustment, "Toggles Chromium touch screen adjustment.\r\nDisabled by default, because it is very imprecise with TweetDeck.");
+			toolTip.SetToolTip(checkAutomaticallyDetectColorProfile, "Automatically detects the color profile of your system.\r\nUses the sRGB profile if disabled.");
 			toolTip.SetToolTip(checkHardwareAcceleration, "Uses graphics card to improve performance.\r\nDisable if you experience visual glitches, or to save a small amount of RAM.");
 			toolTip.SetToolTip(comboBoxCustomBrowser, "Sets the default browser for opening links.");
 			toolTip.SetToolTip(comboBoxCustomVideoPlayer, "Sets the default application for playing videos.");
@@ -73,6 +74,7 @@ namespace TweetDuck.Dialogs.Settings {
 
 			checkSmoothScrolling.Checked = Config.EnableSmoothScrolling;
 			checkTouchAdjustment.Checked = Config.EnableTouchAdjustment;
+			checkAutomaticallyDetectColorProfile.Checked = Config.EnableColorProfileDetection;
 			checkHardwareAcceleration.Checked = SysConfig.HardwareAcceleration;
 
 			foreach (WindowsUtils.Browser browserInfo in WindowsUtils.FindInstalledBrowsers()) {
@@ -146,6 +148,7 @@ namespace TweetDuck.Dialogs.Settings {
 
 			checkSmoothScrolling.CheckedChanged += checkSmoothScrolling_CheckedChanged;
 			checkTouchAdjustment.CheckedChanged += checkTouchAdjustment_CheckedChanged;
+			checkAutomaticallyDetectColorProfile.CheckedChanged += checkAutomaticallyDetectColorProfile_CheckedChanged;
 			checkHardwareAcceleration.CheckedChanged += checkHardwareAcceleration_CheckedChanged;
 			comboBoxCustomBrowser.SelectedIndexChanged += comboBoxCustomBrowser_SelectedIndexChanged;
 			btnCustomBrowserChange.Click += btnCustomBrowserChange_Click;
@@ -242,6 +245,10 @@ namespace TweetDuck.Dialogs.Settings {
 
 		private void checkTouchAdjustment_CheckedChanged(object sender, EventArgs e) {
 			Config.EnableTouchAdjustment = checkTouchAdjustment.Checked;
+		}
+
+		private void checkAutomaticallyDetectColorProfile_CheckedChanged(object sender, EventArgs e) {
+			Config.EnableColorProfileDetection = checkAutomaticallyDetectColorProfile.Checked;
 		}
 
 		private void checkHardwareAcceleration_CheckedChanged(object sender, EventArgs e) {

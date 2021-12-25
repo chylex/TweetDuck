@@ -35,6 +35,10 @@ namespace TweetDuck.Utils {
 				args["disable-touch-adjustment"] = "1";
 			}
 
+			if (!Config.EnableColorProfileDetection) {
+				args["force-color-profile"] = "srgb";
+			}
+
 			args["disable-component-update"] = "1";
 			args["disable-pdf-extension"] = "1";
 			args["disable-plugins-discovery"] = "1";
