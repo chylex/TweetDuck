@@ -14,6 +14,20 @@ namespace TweetLib.Utils.Static {
 		}
 
 		/// <summary>
+		/// Returns whether the <paramref name="str"/> starts with <paramref name="search"/>, using ordinal comparison.
+		/// </summary>
+		public static bool StartsWithOrdinal(this string str, string search) {
+			return str.StartsWith(search, StringComparison.Ordinal);
+		}
+
+		/// <summary>
+		/// Returns whether the <paramref name="str"/> ends with <paramref name="search"/>, using ordinal comparison.
+		/// </summary>
+		public static bool EndsWithOrdinal(this string str, string search) {
+			return str.EndsWith(search, StringComparison.Ordinal);
+		}
+
+		/// <summary>
 		/// Splits <paramref name="str"/> into two parts:
 		///  - A substring from the beginning until <paramref name="search"/> (exclusive)
 		///  - A substring from the first character following <paramref name="search"/> until the end
@@ -57,7 +71,7 @@ namespace TweetLib.Utils.Static {
 		/// Applies the ROT13 cipher to <paramref name="str"/>.
 		/// </summary>
 		public static string ConvertRot13(string str) {
-			return Regex.Replace(str, @"[a-zA-Z]", match => {
+			return Regex.Replace(str, @"[a-zA-Z]", static match => {
 				int code = match.Value[0];
 				int start = code <= 90 ? 65 : 97;
 				return ((char) (start + (code - start + 13) % 26)).ToString();

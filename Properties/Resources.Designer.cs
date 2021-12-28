@@ -61,16 +61,6 @@ namespace TweetDuck.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] avatar {
-            get {
-                object obj = ResourceManager.GetObject("avatar", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon icon {
@@ -117,16 +107,6 @@ namespace TweetDuck.Properties {
             get {
                 object obj = ResourceManager.GetObject("icon_tray_new", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] spinner {
-            get {
-                object obj = ResourceManager.GetObject("spinner", resourceCulture);
-                return ((byte[])(obj));
             }
         }
     }

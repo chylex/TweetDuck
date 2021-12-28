@@ -1,8 +1,12 @@
 ﻿using System.Windows.Forms;
 using CefSharp;
-using TweetDuck.Browser.Data;
+using TweetDuck.Browser.Adapters;
+using TweetDuck.Configuration;
 using TweetDuck.Controls;
+using TweetLib.Browser.Contexts;
+using TweetLib.Core.Features.TweetDeck;
 using TweetLib.Core.Features.Twitter;
+using IContextMenuHandler = TweetLib.Browser.Interfaces.IContextMenuHandler;
 
 namespace TweetDuck.Browser.Handling {
 	sealed class ContextMenuBrowser : ContextMenuBase {
@@ -12,14 +16,6 @@ namespace TweetDuck.Browser.Handling {
 		private const CefMenuCommand MenuPlugins  = (CefMenuCommand) 26003;
 		private const CefMenuCommand MenuAbout    = (CefMenuCommand) 26604;
 
-		private const CefMenuCommand MenuOpenTweetUrl       = (CefMenuCommand) 26610;
-		private const CefMenuCommand MenuCopyTweetUrl       = (CefMenuCommand) 26611;
-		private const CefMenuCommand MenuOpenQuotedTweetUrl = (CefMenuCommand) 26612;
-		private const CefMenuCommand MenuCopyQuotedTweetUrl = (CefMenuCommand) 26613;
-		private const CefMenuCommand MenuScreenshotTweet    = (CefMenuCommand) 26614;
-		private const CefMenuCommand MenuWriteApplyROT13    = (CefMenuCommand) 26615;
-		private const CefMenuCommand MenuSearchInColumn     = (CefMenuCommand) 26616;
-
 		private const string TitleReloadBrowser = "Reload browser";
 		private const string TitleMuteNotifications = "Mute notifications";
 		private const string TitleSettings = "Options";
@@ -27,49 +23,26 @@ namespace TweetDuck.Browser.Handling {
 		private const string TitleAboutProgram = "About " + Program.BrandName;
 
 		private readonly FormBrowser form;
+		private readonly TweetDeckExtraContext extraContext;
 
-		public ContextMenuBrowser(FormBrowser form) {
+		public ContextMenuBrowser(FormBrowser form, IContextMenuHandler handler, TweetDeckExtraContext extraContext) : base(handler) {
 			this.form = form;
+			this.extraContext = extraContext;
+		}
+
+		protected override Context CreateContext(IContextMenuParams parameters) {
+			return CefContextMenuModel.CreateContext(parameters, extraContext, Config.TwitterImageQuality);
 		}
 
 		public override void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model) {
-			bool isSelecting = parameters.TypeFlags.HasFlag(ContextMenuType.Selection);
-			bool isEditing = parameters.TypeFlags.HasFlag(ContextMenuType.Editable);
-
-			model.Remove(CefMenuCommand.Back);
-			model.Remove(CefMenuCommand.Forward);
-			model.Remove(CefMenuCommand.Print);
-			model.Remove(CefMenuCommand.ViewSource);
-			RemoveSeparatorIfLast(model);
-
-			if (isSelecting) {
-				if (isEditing) {
-					model.AddSeparator();
-					model.AddItem(MenuWriteApplyROT13, "Apply ROT13");
-				}
-
-				model.AddSeparator();
+			if (!TwitterUrls.IsTweetDeck(frame.Url) || browser.IsLoading) {
+				extraContext.Reset();
 			}
 
 			base.OnBeforeContextMenu(browserControl, browser, frame, parameters, model);
 
-			if (isSelecting && !isEditing && TwitterUrls.IsTweetDeck(frame.Url)) {
-				InsertSelectionSearchItem(model, MenuSearchInColumn, "Search in a column");
-			}
-
-			if (Context.Types.HasFlag(ContextInfo.ContextType.Chirp) && !isSelecting && !isEditing) {
-				model.AddItem(MenuOpenTweetUrl, "Open tweet in browser");
-				model.AddItem(MenuCopyTweetUrl, "Copy tweet address");
-				model.AddItem(MenuScreenshotTweet, "Screenshot tweet to clipboard");
-
-				if (!string.IsNullOrEmpty(Context.Chirp.QuoteUrl)) {
-					model.AddSeparator();
-					model.AddItem(MenuOpenQuotedTweetUrl, "Open quoted tweet in browser");
-					model.AddItem(MenuCopyQuotedTweetUrl, "Copy quoted tweet address");
-				}
-
-				model.AddSeparator();
-			}
+			bool isSelecting = parameters.TypeFlags.HasFlag(ContextMenuType.Selection);
+			bool isEditing = parameters.TypeFlags.HasFlag(ContextMenuType.Editable);
 
 			if (!isSelecting && !isEditing) {
 				AddSeparator(model);
@@ -87,8 +60,6 @@ namespace TweetDuck.Browser.Handling {
 
 				AddDebugMenuItems(globalMenu);
 			}
-
-			RemoveSeparatorIfLast(model);
 		}
 
 		public override bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags) {
@@ -117,41 +88,14 @@ namespace TweetDuck.Browser.Handling {
 					form.InvokeAsyncSafe(ToggleMuteNotifications);
 					return true;
 
-				case MenuOpenTweetUrl:
-					OpenBrowser(form, Context.Chirp.TweetUrl);
-					return true;
-
-				case MenuCopyTweetUrl:
-					SetClipboardText(form, Context.Chirp.TweetUrl);
-					return true;
-
-				case MenuScreenshotTweet:
-					var chirp = Context.Chirp;
-
-					form.InvokeAsyncSafe(() => form.TriggerTweetScreenshot(chirp.ColumnId, chirp.ChirpId));
-
-					return true;
-
-				case MenuOpenQuotedTweetUrl:
-					OpenBrowser(form, Context.Chirp.QuoteUrl);
-					return true;
-
-				case MenuCopyQuotedTweetUrl:
-					SetClipboardText(form, Context.Chirp.QuoteUrl);
-					return true;
-
-				case MenuWriteApplyROT13:
-					form.InvokeAsyncSafe(form.ApplyROT13);
-					return true;
-
-				case MenuSearchInColumn:
-					string query = parameters.SelectionText;
-					form.InvokeAsyncSafe(() => form.AddSearchColumn(query));
-					DeselectAll(frame);
-					break;
+				default:
+					return false;
 			}
+		}
 
-			return false;
+		public override void OnContextMenuDismissed(IWebBrowser browserControl, IBrowser browser, IFrame frame) {
+			base.OnContextMenuDismissed(browserControl, browser, frame);
+			extraContext.Reset();
 		}
 
 		public static ContextMenu CreateMenu(FormBrowser form) {

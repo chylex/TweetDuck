@@ -11,6 +11,6 @@ namespace TweetLib.Core.Features.Twitter {
 			"hu", "id", "it", "ja", "ko", "lv", "lt", "no",
 			"pl", "pt", "ro", "ru", "sk", "sl", "es", "sv",
 			"th", "tr", "uk", "vi", "ar", "fa"
-		}.Select(code => new Language(code)).OrderBy(code => code).ToList();
+		}.Select(static code => new Language(code)).OrderBy(static code => code).ToList();
 	}
 }

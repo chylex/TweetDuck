@@ -1,35 +1,20 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using CefSharp.WinForms;
-using TweetDuck.Browser.Data;
+using TweetDuck.Browser.Adapters;
 using TweetDuck.Browser.Handling;
-using TweetDuck.Browser.Handling.General;
 using TweetDuck.Configuration;
 using TweetDuck.Controls;
 using TweetDuck.Utils;
+using TweetLib.Browser.Interfaces;
 using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Features.Twitter;
 
 namespace TweetDuck.Browser.Notification {
 	abstract partial class FormNotificationBase : Form {
-		public static readonly ResourceLink AppLogo = new ResourceLink("https://ton.twimg.com/tduck/avatar", ResourceHandlers.ForBytes(Properties.Resources.avatar, "image/png"));
-
-		protected const string BlankURL = TwitterUrls.TweetDeck + "/?blank";
-
-		public static string FontSize = null;
-		public static string HeadLayout = null;
-
 		protected static UserConfig Config => Program.Config.User;
 
-		protected static int FontSizeLevel {
-			get => FontSize switch {
-				"largest"  => 4,
-				"large"    => 3,
-				"small"    => 1,
-				"smallest" => 0,
-				_          => 2
-			};
-		}
+		protected delegate NotificationBrowser CreateBrowserImplFunc(FormNotificationBase form, IBrowserComponent browserComponent);
 
 		protected virtual Point PrimaryLocation {
 			get {
@@ -100,6 +85,9 @@ namespace TweetDuck.Browser.Notification {
 
 		private readonly FormBrowser owner;
 
+		protected readonly IBrowserComponent browserComponent;
+		private readonly NotificationBrowser browserImpl;
+
 		#pragma warning disable IDE0069 // Disposable fields should be disposed
 		protected readonly ChromiumWebBrowser browser;
 		#pragma warning restore IDE0069 // Disposable fields should be disposed
@@ -112,43 +100,33 @@ namespace TweetDuck.Browser.Notification {
 		public string CurrentTweetUrl => currentNotification?.TweetUrl;
 		public string CurrentQuoteUrl => currentNotification?.QuoteUrl;
 
-		public bool CanViewDetail => currentNotification != null && !string.IsNullOrEmpty(currentNotification.ColumnId) && !string.IsNullOrEmpty(currentNotification.ChirpId);
-
 		protected bool IsPaused => pauseCounter > 0;
-		protected bool IsCursorOverBrowser => browser.Bounds.Contains(PointToClient(Cursor.Position));
+		protected internal bool IsCursorOverBrowser => browser.Bounds.Contains(PointToClient(Cursor.Position));
 
 		public bool FreezeTimer { get; set; }
 		public bool ContextMenuOpen { get; set; }
 
-		protected FormNotificationBase(FormBrowser owner, bool enableContextMenu) {
+		protected FormNotificationBase(FormBrowser owner, CreateBrowserImplFunc createBrowserImpl) {
 			InitializeComponent();
 
 			this.owner = owner;
 			this.owner.FormClosed += owner_FormClosed;
 
-			var resourceRequestHandler = new ResourceRequestHandlerBase();
-			var resourceHandlers = resourceRequestHandler.ResourceHandlers;
-
-			resourceHandlers.Register(BlankURL, ResourceHandlers.ForString(string.Empty));
-			resourceHandlers.Register(TwitterUrls.TweetDeck, () => this.resourceHandler);
-			resourceHandlers.Register(AppLogo);
-
-			this.browser = new ChromiumWebBrowser(BlankURL) {
-				MenuHandler = new ContextMenuNotification(this, enableContextMenu),
-				JsDialogHandler = new JavaScriptDialogHandler(),
-				LifeSpanHandler = new CustomLifeSpanHandler(),
-				RequestHandler = new RequestHandlerBase(false),
-				ResourceRequestHandlerFactory = resourceRequestHandler.SelfFactory
+			this.browser = new ChromiumWebBrowser(NotificationBrowser.BlankURL) {
+				RequestHandler = new RequestHandlerBase(false)
 			};
+
+			this.browserComponent = new ComponentImpl(browser, this);
+			this.browserImpl = createBrowserImpl(this, browserComponent);
 
 			this.browser.Dock = DockStyle.None;
 			this.browser.ClientSize = ClientSize;
-			this.browser.SetupZoomEvents();
 
 			Controls.Add(browser);
 
 			Disposed += (sender, args) => {
 				this.owner.FormClosed -= owner_FormClosed;
+				this.browserImpl.Dispose();
 				this.browser.Dispose();
 			};
 
@@ -156,6 +134,25 @@ namespace TweetDuck.Browser.Notification {
 
 			// ReSharper disable once VirtualMemberCallInContructor
 			UpdateTitle();
+		}
+
+		protected sealed class ComponentImpl : CefBrowserComponent {
+			private readonly FormNotificationBase owner;
+
+			public ComponentImpl(ChromiumWebBrowser browser, FormNotificationBase owner) : base(browser) {
+				this.owner = owner;
+			}
+
+			protected override ContextMenuBase SetupContextMenu(IContextMenuHandler handler) {
+				return new ContextMenuNotification(owner, handler);
+			}
+
+			protected override CefResourceHandlerFactory SetupResourceHandlerFactory(IResourceRequestHandler handler) {
+				var registry = new CefResourceHandlerRegistry();
+				registry.RegisterStatic(NotificationBrowser.BlankURL, string.Empty);
+				registry.RegisterDynamic(TwitterUrls.TweetDeck, owner.resourceHandler);
+				return new CefResourceHandlerFactory(handler, registry);
+			}
 		}
 
 		protected override void Dispose(bool disposing) {
@@ -184,7 +181,7 @@ namespace TweetDuck.Browser.Notification {
 		// notification methods
 
 		public virtual void HideNotification() {
-			browser.Load(BlankURL);
+			browser.Load(NotificationBrowser.BlankURL);
 			DisplayTooltip(null);
 
 			Location = ControlExtensions.InvisibleLocation;
@@ -205,11 +202,9 @@ namespace TweetDuck.Browser.Notification {
 			}
 		}
 
-		protected abstract string GetTweetHTML(DesktopNotification tweet);
-
 		protected virtual void LoadTweet(DesktopNotification tweet) {
 			currentNotification = tweet;
-			resourceHandler.SetHTML(GetTweetHTML(tweet));
+			resourceHandler.SetHTML(browserImpl.GetTweetHTML(tweet));
 
 			browser.Load(TwitterUrls.TweetDeck);
 			DisplayTooltip(null);
@@ -225,8 +220,8 @@ namespace TweetDuck.Browser.Notification {
 		}
 
 		public void ShowTweetDetail() {
-			if (currentNotification != null) {
-				owner.ShowTweetDetail(currentNotification.ColumnId, currentNotification.ChirpId, currentNotification.TweetUrl);
+			if (currentNotification != null && owner.ShowTweetDetail(currentNotification.ColumnId, currentNotification.ChirpId, currentNotification.TweetUrl)) {
+				FinishCurrentNotification();
 			}
 		}
 

@@ -149,7 +149,7 @@ namespace TweetDuck.Dialogs.Settings {
 							Program.Config.Plugins.Reset();
 
 							try {
-								Directory.Delete(Program.PluginDataPath, true);
+								Directory.Delete(plugins.PluginDataFolder, true);
 							} catch (Exception ex) {
 								App.ErrorHandler.HandleException("Profile Reset", "Could not delete plugin data.", true, ex);
 							}

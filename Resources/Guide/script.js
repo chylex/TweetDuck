@@ -34,3 +34,7 @@ if (location.hash.length > 1) {
 		}
 	}
 }
+
+window.addEventListener("hashchange", function() {
+	location.reload();
+});

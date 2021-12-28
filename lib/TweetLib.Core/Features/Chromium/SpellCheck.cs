@@ -14,9 +14,9 @@ namespace TweetLib.Core.Features.Chromium {
 			"lv-LV", "nb-NO", "nl-NL", "pl-PL", "pt-BR", "pt-PT",
 			"ro-RO", "ru-RU", "sk-SK", "sl-SI", "sq"   , "sr",
 			"sv-SE", "ta-IN", "tg-TG", "tr"   , "uk-UA", "vi-VN"
-		}.Select(code => {
+		}.Select(static code => {
 			string lang = StringUtils.ExtractBefore(code, '-', 2);
-			return lang == "en" || lang == "pt" ? new Language(code) : new Language(code, lang);
-		}).OrderBy(code => code).ToList();
+			return lang is "en" or "pt" ? new Language(code) : new Language(code, lang);
+		}).OrderBy(static code => code).ToList();
 	}
 }

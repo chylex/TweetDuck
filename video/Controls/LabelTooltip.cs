@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -17,7 +18,7 @@ namespace TweetDuck.Video.Controls {
 				SuspendLayout();
 
 				Form? form = control.FindForm();
-				System.Diagnostics.Debug.Assert(form != null);
+				Debug.Assert(form != null);
 
 				string? text = tooltipFunc(args);
 

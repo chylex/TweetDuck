@@ -10,13 +10,13 @@ using TweetLib.Utils.IO;
 
 namespace TweetDuck.Management {
 	sealed class ProfileManager {
-		private static readonly string CookiesPath = Path.Combine(Program.StoragePath, "Cookies");
-		private static readonly string LocalPrefsPath = Path.Combine(Program.StoragePath, "LocalPrefs.json");
+		private static readonly string CookiesPath = Path.Combine(App.StoragePath, "Cookies");
+		private static readonly string LocalPrefsPath = Path.Combine(App.StoragePath, "LocalPrefs.json");
 
-		private static readonly string TempCookiesPath = Path.Combine(Program.StoragePath, "CookiesTmp");
-		private static readonly string TempLocalPrefsPath = Path.Combine(Program.StoragePath, "LocalPrefsTmp.json");
+		private static readonly string TempCookiesPath = Path.Combine(App.StoragePath, "CookiesTmp");
+		private static readonly string TempLocalPrefsPath = Path.Combine(App.StoragePath, "LocalPrefsTmp.json");
 
-		private static readonly int SessionFileCount = 2;
+		private const int SessionFileCount = 2;
 
 		[Flags]
 		public enum Items {
@@ -41,15 +41,15 @@ namespace TweetDuck.Management {
 				using CombinedFileStream stream = new CombinedFileStream(new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None));
 
 				if (items.HasFlag(Items.UserConfig)) {
-					stream.WriteFile("config", Program.UserConfigFilePath);
+					stream.WriteFile("config", Program.Config.FilePaths.UserConfig);
 				}
 
 				if (items.HasFlag(Items.SystemConfig)) {
-					stream.WriteFile("system", Program.SystemConfigFilePath);
+					stream.WriteFile("system", Program.Config.FilePaths.SystemConfig);
 				}
 
 				if (items.HasFlag(Items.PluginData)) {
-					stream.WriteFile("plugin.config", Program.PluginConfigFilePath);
+					stream.WriteFile("plugin.config", Program.Config.FilePaths.PluginConfig);
 
 					foreach (Plugin plugin in plugins.Plugins) {
 						foreach (PathInfo path in EnumerateFilesRelative(plugin.GetPluginFolder(PluginFolder.Data))) {
@@ -122,21 +122,21 @@ namespace TweetDuck.Management {
 						switch (entry.KeyName) {
 							case "config":
 								if (items.HasFlag(Items.UserConfig)) {
-									entry.WriteToFile(Program.UserConfigFilePath);
+									entry.WriteToFile(Program.Config.FilePaths.UserConfig);
 								}
 
 								break;
 
 							case "system":
 								if (items.HasFlag(Items.SystemConfig)) {
-									entry.WriteToFile(Program.SystemConfigFilePath);
+									entry.WriteToFile(Program.Config.FilePaths.SystemConfig);
 								}
 
 								break;
 
 							case "plugin.config":
 								if (items.HasFlag(Items.PluginData)) {
-									entry.WriteToFile(Program.PluginConfigFilePath);
+									entry.WriteToFile(Program.Config.FilePaths.PluginConfig);
 								}
 
 								break;
@@ -145,7 +145,7 @@ namespace TweetDuck.Management {
 								if (items.HasFlag(Items.PluginData)) {
 									string[] value = entry.KeyValue;
 
-									entry.WriteToFile(Path.Combine(Program.PluginDataPath, value[0], value[1]), true);
+									entry.WriteToFile(Path.Combine(plugins.PluginDataFolder, value[0], value[1]), true);
 
 									if (!plugins.Plugins.Any(plugin => plugin.Identifier.Equals(value[0]))) {
 										missingPlugins.Add(value[0]);

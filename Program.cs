@@ -1,21 +1,24 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using CefSharp;
 using CefSharp.WinForms;
 using TweetDuck.Application;
 using TweetDuck.Browser;
+using TweetDuck.Browser.Adapters;
 using TweetDuck.Browser.Handling;
-using TweetDuck.Browser.Handling.General;
 using TweetDuck.Configuration;
 using TweetDuck.Dialogs;
 using TweetDuck.Management;
-using TweetDuck.Plugins;
-using TweetDuck.Resources;
+using TweetDuck.Updates;
 using TweetDuck.Utils;
 using TweetLib.Core;
+using TweetLib.Core.Application;
+using TweetLib.Core.Features;
 using TweetLib.Core.Features.Chromium;
+using TweetLib.Core.Features.Plugins;
+using TweetLib.Core.Features.TweetDeck;
+using TweetLib.Core.Resources;
 using TweetLib.Utils.Collections;
 using TweetLib.Utils.Static;
 using Win = System.Windows.Forms;
@@ -27,47 +30,22 @@ namespace TweetDuck {
 
 		public const string Website = "https://tweetduck.chylex.com";
 
-		public static readonly string ProgramPath = AppDomain.CurrentDomain.BaseDirectory;
-		public static readonly string ExecutablePath = Win.Application.ExecutablePath;
+		private const string PluginDataFolder = "TD_Plugins";
+		private const string InstallerFolder = "TD_Updates";
+		private const string CefDataFolder = "TD_Chromium";
 
-		public static readonly bool IsPortable = File.Exists(Path.Combine(ProgramPath, "makeportable"));
+		private const string ProgramLogFile = "TD_Log.txt";
+		private const string ConsoleLogFile = "TD_Console.txt";
 
-		public static readonly string ResourcesPath = Path.Combine(ProgramPath, "resources");
-		public static readonly string PluginPath = Path.Combine(ProgramPath, "plugins");
-		public static readonly string GuidePath = Path.Combine(ProgramPath, "guide");
-
-		public static readonly string StoragePath = IsPortable ? Path.Combine(ProgramPath, "portable", "storage") : GetDataStoragePath();
-
-		public static readonly string PluginDataPath = Path.Combine(StoragePath, "TD_Plugins");
-		public static readonly string InstallerPath = Path.Combine(StoragePath, "TD_Updates");
-		private static readonly string CefDataPath = Path.Combine(StoragePath, "TD_Chromium");
-
-		public static string UserConfigFilePath => Path.Combine(StoragePath, "TD_UserConfig.cfg");
-		public static string SystemConfigFilePath => Path.Combine(StoragePath, "TD_SystemConfig.cfg");
-		public static string PluginConfigFilePath => Path.Combine(StoragePath, "TD_PluginConfig.cfg");
-
-		private static string ErrorLogFilePath => Path.Combine(StoragePath, "TD_Log.txt");
-		private static string ConsoleLogFilePath => Path.Combine(StoragePath, "TD_Console.txt");
+		public static string ExecutablePath => Win.Application.ExecutablePath;
 
 		public static uint WindowRestoreMessage;
 
-		private static readonly LockManager LockManager = new LockManager(Path.Combine(StoragePath, ".lock"));
+		private static LockManager lockManager;
+		private static Reporter errorReporter;
 		private static bool hasCleanedUp;
 
-		public static Reporter Reporter { get; }
-		public static ConfigManager Config { get; }
-
-		static Program() {
-			Reporter = new Reporter(ErrorLogFilePath);
-			Reporter.SetupUnhandledExceptionHandler("TweetDuck Has Failed :(");
-
-			Config = new ConfigManager();
-
-			Lib.Initialize(new App.Builder {
-				ErrorHandler = Reporter,
-				SystemHandler = new SystemHandler(),
-			});
-		}
+		public static ConfigManager Config { get; private set; }
 
 		internal static void SetupWinForms() {
 			Win.Application.EnableVisualStyles();
@@ -76,17 +54,46 @@ namespace TweetDuck {
 
 		[STAThread]
 		private static void Main() {
+			AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
+
 			SetupWinForms();
 			Cef.EnableHighDPISupport();
 
+			var startup = new AppStartup {
+				CustomDataFolder = Arguments.GetValue(Arguments.ArgDataFolder)
+			};
+
+			var reporter = new Reporter();
+			var userConfig = new UserConfig();
+
+			Lib.Initialize(new AppBuilder {
+				Startup = startup,
+				Logger = new Logger(ProgramLogFile),
+				ErrorHandler = reporter,
+				SystemHandler = new SystemHandler(),
+				DialogHandler = new DialogHandler(),
+				UserConfiguration = userConfig
+			});
+
+			LaunchApp(reporter, userConfig);
+		}
+
+		private static void LaunchApp(Reporter reporter, UserConfig userConfig) {
+			App.Launch();
+
+			errorReporter = reporter;
+			string storagePath = App.StoragePath;
+
+			Config = new ConfigManager(userConfig, new ConfigManager.Paths {
+				UserConfig   = Path.Combine(storagePath, "TD_UserConfig.cfg"),
+				SystemConfig = Path.Combine(storagePath, "TD_SystemConfig.cfg"),
+				PluginConfig = Path.Combine(storagePath, "TD_PluginConfig.cfg")
+			});
+
+			lockManager = new LockManager(Path.Combine(storagePath, ".lock"));
 			WindowRestoreMessage = NativeMethods.RegisterWindowMessage("TweetDuckRestore");
 
-			if (!FileUtils.CheckFolderWritePermission(StoragePath)) {
-				FormMessage.Warning("Permission Error", "TweetDuck does not have write permissions to the storage folder: " + StoragePath, FormMessage.OK);
-				return;
-			}
-
-			if (!LockManager.Lock(Arguments.HasFlag(Arguments.ArgRestart))) {
+			if (!lockManager.Lock(Arguments.HasFlag(Arguments.ArgRestart))) {
 				return;
 			}
 
@@ -99,18 +106,22 @@ namespace TweetDuck {
 				ProfileManager.DeleteCookies();
 			}
 
+			var installerFolderPath = Path.Combine(storagePath, InstallerFolder);
+
 			if (Arguments.HasFlag(Arguments.ArgUpdated)) {
-				WindowsUtils.TryDeleteFolderWhenAble(InstallerPath, 8000);
-				WindowsUtils.TryDeleteFolderWhenAble(Path.Combine(StoragePath, "Service Worker"), 4000);
+				WindowsUtils.TryDeleteFolderWhenAble(installerFolderPath, 8000);
+				WindowsUtils.TryDeleteFolderWhenAble(Path.Combine(storagePath, "Service Worker"), 4000);
 				BrowserCache.TryClearNow();
 			}
 
 			try {
-				ResourceRequestHandlerBase.LoadResourceRewriteRules(Arguments.GetValue(Arguments.ArgFreeze));
+				BaseResourceRequestHandler.LoadResourceRewriteRules(Arguments.GetValue(Arguments.ArgFreeze));
 			} catch (Exception e) {
 				FormMessage.Error("Resource Freeze", "Error parsing resource rewrite rules: " + e.Message, FormMessage.OK);
 				return;
 			}
+
+			WebUtils.DefaultUserAgent = BrowserUtils.UserAgentVanilla;
 
 			if (Config.User.UseSystemProxyForAllConnections) {
 				WebUtils.EnableSystemProxy();
@@ -122,21 +133,20 @@ namespace TweetDuck {
 
 			CefSettings settings = new CefSettings {
 				UserAgent = BrowserUtils.UserAgentChrome,
-				BrowserSubprocessPath = Path.Combine(ProgramPath, BrandName + ".Browser.exe"),
-				CachePath = StoragePath,
-				UserDataPath = CefDataPath,
-				LogFile = ConsoleLogFilePath,
+				BrowserSubprocessPath = Path.Combine(App.ProgramPath, BrandName + ".Browser.exe"),
+				CachePath = storagePath,
+				UserDataPath = Path.Combine(storagePath, CefDataFolder),
+				LogFile = Path.Combine(storagePath, ConsoleLogFile),
 				#if !DEBUG
 				LogSeverity = Arguments.HasFlag(Arguments.ArgLogging) ? LogSeverity.Info : LogSeverity.Disable
 				#endif
 			};
 
-			var resourceProvider = new ResourceProvider();
-			var resourceScheme = new ResourceSchemeFactory(resourceProvider);
-			var pluginScheme = new PluginSchemeFactory(resourceProvider);
+			var resourceProvider = new CachingResourceProvider<IResourceHandler>(new ResourceProvider());
+			var pluginManager = new PluginManager(Config.Plugins, Path.Combine(storagePath, PluginDataFolder));
 
-			settings.SetupCustomScheme(ResourceSchemeFactory.Name, resourceScheme);
-			settings.SetupCustomScheme(PluginSchemeFactory.Name, pluginScheme);
+			CefSchemeHandlerFactory.Register(settings, new TweetDuckSchemeHandler<IResourceHandler>(resourceProvider));
+			CefSchemeHandlerFactory.Register(settings, new PluginSchemeHandler<IResourceHandler>(resourceProvider, pluginManager));
 
 			CefUtils.ParseCommandLineArguments(Config.User.CustomCefArgs).ToDictionary(settings.CefCommandLineArgs);
 			BrowserUtils.SetupCefArgs(settings.CefCommandLineArgs);
@@ -144,8 +154,7 @@ namespace TweetDuck {
 			Cef.Initialize(settings, false, new BrowserProcessHandler());
 
 			Win.Application.ApplicationExit += (sender, args) => ExitCleanup();
-
-			FormBrowser mainForm = new FormBrowser(resourceProvider, pluginScheme);
+			FormBrowser mainForm = new FormBrowser(resourceProvider, pluginManager, new UpdateCheckClient(installerFolderPath));
 			Win.Application.Run(mainForm);
 
 			if (mainForm.UpdateInstaller != null) {
@@ -160,21 +169,19 @@ namespace TweetDuck {
 			}
 		}
 
-		private static string GetDataStoragePath() {
-			string custom = Arguments.GetValue(Arguments.ArgDataFolder);
+		private static void OnUnhandledException(object sender, UnhandledExceptionEventArgs e) {
+			if (e.ExceptionObject is Exception ex) {
+				AppException appEx = ex.GetBaseException() as AppException;
+				string title = appEx?.Title ?? "TweetDuck Has Failed :(";
+				string message = appEx?.Message ?? "An unhandled exception has occurred: " + ex.Message;
 
-			if (custom != null && (custom.Contains(Path.DirectorySeparatorChar) || custom.Contains(Path.AltDirectorySeparatorChar))) {
-				if (Path.GetInvalidPathChars().Any(custom.Contains)) {
-					Reporter.HandleEarlyFailure("Data Folder Invalid", "The data folder contains invalid characters:\n" + custom);
+				if (errorReporter == null) {
+					Debug.WriteLine(ex);
+					Reporter.HandleEarlyFailure(title, message);
 				}
-				else if (!Path.IsPathRooted(custom)) {
-					Reporter.HandleEarlyFailure("Data Folder Invalid", "The data folder has to be either a simple folder name, or a full path:\n" + custom);
+				else {
+					errorReporter.HandleException(title, message, false, ex);
 				}
-
-				return Environment.ExpandEnvironmentVariables(custom);
-			}
-			else {
-				return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), custom ?? BrandName);
 			}
 		}
 
@@ -211,7 +218,7 @@ namespace TweetDuck {
 			Cef.Shutdown();
 			BrowserCache.Exit();
 
-			LockManager.Unlock();
+			lockManager.Unlock();
 			hasCleanedUp = true;
 		}
 	}

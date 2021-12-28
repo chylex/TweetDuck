@@ -5,8 +5,8 @@ using System.Text.RegularExpressions;
 using TweetLib.Utils.Static;
 
 namespace TweetLib.Core.Features.Twitter {
-	public class ImageUrl {
-		private static readonly Regex RegexImageUrlParams = new Regex(@"(format|name)=(\w+)", RegexOptions.IgnoreCase);
+	sealed class ImageUrl {
+		private static readonly Regex RegexImageUrlParams = new (@"(format|name)=(\w+)", RegexOptions.IgnoreCase);
 
 		public static readonly string[] ValidExtensions = {
 			".jpg", ".jpeg", ".png", ".gif"
@@ -76,10 +76,10 @@ namespace TweetLib.Core.Features.Twitter {
 
 		public string WithQuality(ImageQuality newQuality) {
 			if (newQuality == ImageQuality.Best) {
-				if (baseUrl.Contains("//ton.twitter.com/") && baseUrl.Contains("/ton/data/dm/")) {
+				if (baseUrl.Contains("://ton.twitter.com/") && baseUrl.Contains("/ton/data/dm/")) {
 					return baseUrl + ":large";
 				}
-				else if (baseUrl.Contains("//pbs.twimg.com/media/")) {
+				else if (baseUrl.Contains("://pbs.twimg.com/media/")) {
 					return baseUrl + ":orig";
 				}
 			}

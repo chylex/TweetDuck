@@ -54,7 +54,7 @@ namespace TweetLib.Utils.Serialization {
 		private readonly Dictionary<Type, ITypeConverter> converters;
 
 		public SimpleObjectSerializer() {
-			this.props = typeof(T).GetProperties(BindingFlags.Instance | BindingFlags.Public).Where(prop => prop.CanWrite).ToDictionary(prop => prop.Name);
+			this.props = typeof(T).GetProperties(BindingFlags.Instance | BindingFlags.Public).Where(static prop => prop.CanWrite).ToDictionary(static prop => prop.Name);
 			this.converters = new Dictionary<Type, ITypeConverter>();
 		}
 
@@ -63,7 +63,7 @@ namespace TweetLib.Utils.Serialization {
 		}
 
 		public void Write(string file, T obj) {
-			LinkedList<string> errors = new LinkedList<string>();
+			var errors = new LinkedList<string>();
 
 			FileUtils.CreateDirectoryForFile(file);
 
@@ -109,7 +109,7 @@ namespace TweetLib.Utils.Serialization {
 				throw new FormatException("Input appears to be a binary file.");
 			}
 
-			LinkedList<string> errors = new LinkedList<string>();
+			var errors = new LinkedList<string>();
 			int currentPos = 0;
 
 			do {

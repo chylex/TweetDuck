@@ -8,18 +8,18 @@ namespace TweetLib.Core.Features.Twitter {
 		public const string TweetDeck = "https://tweetdeck.twitter.com";
 		private const string TwitterTrackingUrl = "t.co";
 
-		public static Regex RegexAccount { get; } = new Regex(@"^https?://twitter\.com/(?!signup$|tos$|privacy$|search$|search-)([^/?]+)/?$");
+		public static Regex RegexAccount { get; } = new (@"^https?://twitter\.com/(?!signup$|tos$|privacy$|search$|search-)([^/?]+)/?$");
 
 		public static bool IsTweetDeck(string url) {
-			return url.Contains("//tweetdeck.twitter.com/");
+			return url.Contains("://tweetdeck.twitter.com/");
 		}
 
 		public static bool IsTwitter(string url) {
-			return url.Contains("//twitter.com/") || url.Contains("//mobile.twitter.com/");
+			return url.Contains("://twitter.com/") || url.Contains("://mobile.twitter.com/");
 		}
 
 		public static bool IsTwitterLogin2Factor(string url) {
-			return url.Contains("//twitter.com/account/login_verification") || url.Contains("//mobile.twitter.com/account/login_verification");
+			return url.Contains("://twitter.com/account/login_verification") || url.Contains("://mobile.twitter.com/account/login_verification");
 		}
 
 		public static string? GetFileNameFromUrl(string url) {

@@ -6,7 +6,7 @@ namespace TweetLib.Core.Systems.Updates {
 		public int EventId { get; }
 		public Result<UpdateInfo> Result { get; }
 
-		public UpdateCheckEventArgs(int eventId, Result<UpdateInfo> result) {
+		internal UpdateCheckEventArgs(int eventId, Result<UpdateInfo> result) {
 			this.EventId = eventId;
 			this.Result = result;
 		}

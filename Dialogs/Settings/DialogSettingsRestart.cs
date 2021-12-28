@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using TweetDuck.Configuration;
+using TweetLib.Core;
 using TweetLib.Utils.Collections;
 
 namespace TweetDuck.Dialogs.Settings {
@@ -13,7 +14,7 @@ namespace TweetDuck.Dialogs.Settings {
 			cbLogging.Checked = currentArgs.HasFlag(Arguments.ArgLogging);
 			cbLogging.CheckedChanged += control_Change;
 
-			if (Program.IsPortable) {
+			if (App.IsPortable) {
 				tbDataFolder.Text = "Not available in portable version";
 				tbDataFolder.Enabled = false;
 			}

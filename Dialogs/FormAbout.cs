@@ -1,9 +1,10 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using TweetDuck.Management;
-using TweetDuck.Utils;
+using TweetLib.Core;
 
 namespace TweetDuck.Dialogs {
 	sealed partial class FormAbout : Form, FormManager.IAppDialog {
@@ -21,13 +22,15 @@ namespace TweetDuck.Dialogs {
 			labelTips.Links.Add(new LinkLabel.Link(0, labelTips.Text.Length, TipsLink));
 			labelIssues.Links.Add(new LinkLabel.Link(0, labelIssues.Text.Length, IssuesLink));
 
-			MemoryStream logoStream = new MemoryStream(Properties.Resources.avatar);
-			pictureLogo.Image = Image.FromStream(logoStream);
-			Disposed += (sender, args) => logoStream.Dispose();
+			try {
+				pictureLogo.Image = Image.FromFile(Path.Combine(App.ResourcesPath, "images/logo.png"));
+			} catch (Exception) {
+				// ignore
+			}
 		}
 
 		private void OnLinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-			BrowserUtils.OpenExternalBrowser(e.Link.LinkData as string);
+			App.SystemHandler.OpenBrowser(e.Link.LinkData as string);
 		}
 
 		private void FormAbout_HelpRequested(object sender, HelpEventArgs hlpevent) {

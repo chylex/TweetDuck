@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using TweetLib.Utils.Static;
+using Version = TweetDuck.Version;
 
 namespace TweetLib.Core.Systems.Updates {
 	public sealed class UpdateInfo {
@@ -12,11 +13,11 @@ namespace TweetLib.Core.Systems.Updates {
 		public UpdateDownloadStatus DownloadStatus { get; private set; }
 		public Exception? DownloadError { get; private set; }
 
-		private readonly string downloadUrl;
+		private readonly string? downloadUrl;
 		private readonly string installerFolder;
 		private WebClient? currentDownload;
 
-		public UpdateInfo(string versionTag, string releaseNotes, string downloadUrl, string installerFolder) {
+		public UpdateInfo(string versionTag, string releaseNotes, string? downloadUrl, string installerFolder) {
 			this.downloadUrl = downloadUrl;
 			this.installerFolder = installerFolder;
 
@@ -25,13 +26,13 @@ namespace TweetLib.Core.Systems.Updates {
 			this.InstallerPath = Path.Combine(installerFolder, $"{Lib.BrandName}.{versionTag}.exe");
 		}
 
-		public void BeginSilentDownload() {
+		internal void BeginSilentDownload() {
 			if (FileUtils.FileExistsAndNotEmpty(InstallerPath)) {
 				DownloadStatus = UpdateDownloadStatus.Done;
 				return;
 			}
 
-			if (DownloadStatus == UpdateDownloadStatus.None || DownloadStatus == UpdateDownloadStatus.Failed) {
+			if (DownloadStatus is UpdateDownloadStatus.None or UpdateDownloadStatus.Failed) {
 				DownloadStatus = UpdateDownloadStatus.InProgress;
 
 				if (string.IsNullOrEmpty(downloadUrl)) {
@@ -48,7 +49,7 @@ namespace TweetLib.Core.Systems.Updates {
 					return;
 				}
 
-				WebClient client = WebUtils.NewClient($"{Lib.BrandName} {TweetDuck.Version.Tag}");
+				WebClient client = WebUtils.NewClient($"{Lib.BrandName} {Version.Tag}");
 
 				client.DownloadFileCompleted += WebUtils.FileDownloadCallback(InstallerPath, () => {
 					DownloadStatus = UpdateDownloadStatus.Done;
@@ -59,11 +60,11 @@ namespace TweetLib.Core.Systems.Updates {
 					currentDownload = null;
 				});
 
-				client.DownloadFileAsync(new Uri(downloadUrl), InstallerPath);
+				client.DownloadFileAsync(new Uri(downloadUrl!), InstallerPath);
 			}
 		}
 
-		public void DeleteInstaller() {
+		internal void DeleteInstaller() {
 			DownloadStatus = UpdateDownloadStatus.None;
 
 			if (currentDownload != null && currentDownload.IsBusy) {
@@ -83,7 +84,7 @@ namespace TweetLib.Core.Systems.Updates {
 			DownloadStatus = UpdateDownloadStatus.Canceled;
 		}
 
-		public override bool Equals(object obj) {
+		public override bool Equals(object? obj) {
 			return obj is UpdateInfo info && VersionTag == info.VersionTag;
 		}
 

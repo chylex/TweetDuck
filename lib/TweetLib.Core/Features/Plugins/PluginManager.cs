@@ -2,61 +2,52 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using TweetLib.Core.Browser;
+using TweetLib.Browser.Interfaces;
 using TweetLib.Core.Features.Plugins.Config;
 using TweetLib.Core.Features.Plugins.Enums;
 using TweetLib.Core.Features.Plugins.Events;
+using TweetLib.Core.Resources;
 using TweetLib.Utils.Data;
 
 namespace TweetLib.Core.Features.Plugins {
 	public sealed class PluginManager {
-		public string PathCustomPlugins => Path.Combine(pluginFolder, PluginGroup.Custom.GetSubFolder());
+		public string CustomPluginFolder => Path.Combine(App.PluginPath, PluginGroup.Custom.GetSubFolder());
 
 		public IEnumerable<Plugin> Plugins => plugins;
 		public IEnumerable<InjectedString> NotificationInjections => bridge.NotificationInjections;
 
 		public IPluginConfig Config { get; }
+		public string PluginDataFolder { get; }
 
 		public event EventHandler<PluginErrorEventArgs>? Reloaded;
 		public event EventHandler<PluginErrorEventArgs>? Executed;
-
-		private readonly string pluginFolder;
-		private readonly string pluginDataFolder;
 
 		internal readonly PluginBridge bridge;
 		private IScriptExecutor? browserExecutor;
 
 		private readonly HashSet<Plugin> plugins = new ();
 
-		public PluginManager(IPluginConfig config, string pluginFolder, string pluginDataFolder) {
+		public PluginManager(IPluginConfig config, string pluginDataFolder) {
 			this.Config = config;
 			this.Config.PluginChangedState += Config_PluginChangedState;
-
-			this.pluginFolder = pluginFolder;
-			this.pluginDataFolder = pluginDataFolder;
-
+			this.PluginDataFolder = pluginDataFolder;
 			this.bridge = new PluginBridge(this);
 		}
 
-		public void Register(PluginEnvironment environment, IPluginDispatcher dispatcher) {
-			dispatcher.AttachBridge("$TDP", bridge);
-			dispatcher.Ready += (_, args) => {
-				IScriptExecutor executor = args.Executor;
+		internal void Register(PluginEnvironment environment, IBrowserComponent browserComponent) {
+			browserComponent.AttachBridgeObject("$TDP", bridge);
 
-				if (environment == PluginEnvironment.Browser) {
-					browserExecutor = executor;
-				}
-
-				Execute(environment, executor);
-			};
+			if (environment == PluginEnvironment.Browser) {
+				browserExecutor = browserComponent;
+			}
 		}
 
 		public void Reload() {
 			plugins.Clear();
 
-			List<string> errors = new List<string>(1);
+			var errors = new List<string>(1);
 
-			foreach (var result in PluginGroups.All.SelectMany(group => PluginLoader.AllInFolder(pluginFolder, pluginDataFolder, group))) {
+			foreach (var result in PluginGroups.All.SelectMany(group => PluginLoader.AllInFolder(App.PluginPath, PluginDataFolder, group))) {
 				if (result.HasValue) {
 					plugins.Add(result.Value);
 				}
@@ -68,7 +59,7 @@ namespace TweetLib.Core.Features.Plugins {
 			Reloaded?.Invoke(this, new PluginErrorEventArgs(errors));
 		}
 
-		private void Execute(PluginEnvironment environment, IScriptExecutor executor) {
+		internal void Execute(PluginEnvironment environment, IScriptExecutor executor) {
 			if (!plugins.Any(plugin => plugin.HasEnvironment(environment))) {
 				return;
 			}
@@ -81,7 +72,7 @@ namespace TweetLib.Core.Features.Plugins {
 				executor.RunScript("gen:pluginconfig", PluginScriptGenerator.GenerateConfig(Config));
 			}
 
-			List<string> errors = new List<string>(1);
+			var errors = new List<string>(1);
 
 			foreach (Plugin plugin in Plugins) {
 				string path = plugin.GetScriptPath(environment);

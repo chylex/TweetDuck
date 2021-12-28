@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Drawing;
-using TweetDuck.Browser.Data;
+using TweetDuck.Dialogs;
 using TweetLib.Core.Features.Plugins.Config;
 using TweetLib.Core.Systems.Configuration;
 using TweetLib.Utils.Serialization.Converters;
@@ -8,6 +8,14 @@ using TweetLib.Utils.Static;
 
 namespace TweetDuck.Configuration {
 	sealed class ConfigManager : IConfigManager {
+		internal sealed class Paths {
+			public string UserConfig { get; set; }
+			public string SystemConfig { get; set; }
+			public string PluginConfig { get; set; }
+		}
+
+		public Paths FilePaths { get; }
+
 		public UserConfig User { get; }
 		public SystemConfig System { get; }
 		public PluginConfig Plugins { get; }
@@ -20,15 +28,17 @@ namespace TweetDuck.Configuration {
 
 		private readonly IConfigInstance<BaseConfig>[] infoList;
 
-		public ConfigManager() {
-			User = new UserConfig(this);
-			System = new SystemConfig(this);
-			Plugins = new PluginConfig(this);
+		public ConfigManager(UserConfig userConfig, Paths paths) {
+			FilePaths = paths;
+
+			User = userConfig;
+			System = new SystemConfig();
+			Plugins = new PluginConfig();
 
 			infoList = new IConfigInstance<BaseConfig>[] {
-				infoUser = new FileConfigInstance<UserConfig>(Program.UserConfigFilePath, User, "program options"),
-				infoSystem = new FileConfigInstance<SystemConfig>(Program.SystemConfigFilePath, System, "system options"),
-				infoPlugins = new PluginConfigInstance<PluginConfig>(Program.PluginConfigFilePath, Plugins)
+				infoUser = new FileConfigInstance<UserConfig>(paths.UserConfig, User, "program options"),
+				infoSystem = new FileConfigInstance<SystemConfig>(paths.SystemConfig, System, "system options"),
+				infoPlugins = new PluginConfigInstance<PluginConfig>(paths.PluginConfig, Plugins)
 			};
 
 			// TODO refactor further
@@ -70,13 +80,31 @@ namespace TweetDuck.Configuration {
 			infoPlugins.Reload();
 		}
 
-		void IConfigManager.TriggerProgramRestartRequested() {
+		public void Save(BaseConfig instance) {
+			((IConfigManager) this).GetInstanceInfo(instance).Save();
+		}
+
+		public void Reset(BaseConfig instance) {
+			((IConfigManager) this).GetInstanceInfo(instance).Reset();
+		}
+
+		public void TriggerProgramRestartRequested() {
 			ProgramRestartRequested?.Invoke(this, EventArgs.Empty);
 		}
 
 		IConfigInstance<BaseConfig> IConfigManager.GetInstanceInfo(BaseConfig instance) {
 			Type instanceType = instance.GetType();
 			return Array.Find(infoList, info => info.Instance.GetType() == instanceType); // TODO handle null
+		}
+	}
+
+	static class ConfigManagerExtensions {
+		public static void Save(this BaseConfig instance) {
+			Program.Config.Save(instance);
+		}
+
+		public static void Reset(this BaseConfig instance) {
+			Program.Config.Reset(instance);
 		}
 	}
 }

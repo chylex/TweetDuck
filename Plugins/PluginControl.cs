@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using TweetDuck.Controls;
 using TweetDuck.Utils;
+using TweetLib.Core;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Enums;
 
@@ -80,7 +81,7 @@ namespace TweetDuck.Plugins {
 
 		private void labelWebsite_Click(object sender, EventArgs e) {
 			if (labelWebsite.Text.Length > 0) {
-				BrowserUtils.OpenExternalBrowser(labelWebsite.Text);
+				App.SystemHandler.OpenBrowser(labelWebsite.Text);
 			}
 		}
 

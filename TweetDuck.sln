@@ -10,7 +10,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetDuck.Video", "video\Tw
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetLib.Communication", "lib\TweetLib.Communication\TweetLib.Communication.csproj", "{72473763-4B9D-4FB6-A923-9364B2680F06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetDuck.Core", "lib\TweetLib.Core\TweetLib.Core.csproj", "{93BA3CB4-A812-4949-B07D-8D393FB38937}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetLib.Core", "lib\TweetLib.Core\TweetLib.Core.csproj", "{93BA3CB4-A812-4949-B07D-8D393FB38937}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetLib.Browser", "lib\TweetLib.Browser\TweetLib.Browser.csproj", "{EEFB1F37-7CAD-46BD-8042-66E7B502AB02}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetLib.Utils", "lib\TweetLib.Utils\TweetLib.Utils.csproj", "{476B1007-B12C-447F-B855-9886048201D6}"
 EndProject
@@ -44,6 +46,10 @@ Global
 		{93BA3CB4-A812-4949-B07D-8D393FB38937}.Debug|x86.Build.0 = Debug|x86
 		{93BA3CB4-A812-4949-B07D-8D393FB38937}.Release|x86.ActiveCfg = Release|x86
 		{93BA3CB4-A812-4949-B07D-8D393FB38937}.Release|x86.Build.0 = Release|x86
+		{EEFB1F37-7CAD-46BD-8042-66E7B502AB02}.Debug|x86.ActiveCfg = Debug|x86
+		{EEFB1F37-7CAD-46BD-8042-66E7B502AB02}.Debug|x86.Build.0 = Debug|x86
+		{EEFB1F37-7CAD-46BD-8042-66E7B502AB02}.Release|x86.ActiveCfg = Release|x86
+		{EEFB1F37-7CAD-46BD-8042-66E7B502AB02}.Release|x86.Build.0 = Release|x86
 		{476B1007-B12C-447F-B855-9886048201D6}.Debug|x86.ActiveCfg = Debug|x86
 		{476B1007-B12C-447F-B855-9886048201D6}.Debug|x86.Build.0 = Debug|x86
 		{476B1007-B12C-447F-B855-9886048201D6}.Release|x86.ActiveCfg = Release|x86

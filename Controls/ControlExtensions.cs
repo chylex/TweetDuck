@@ -17,7 +17,12 @@ namespace TweetDuck.Controls {
 		}
 
 		public static void InvokeAsyncSafe(this Control control, Action func) {
-			control.BeginInvoke(func);
+			if (control.InvokeRequired) {
+				control.BeginInvoke(func);
+			}
+			else {
+				func();
+			}
 		}
 
 		public static float GetDPIScale(this Control control) {

@@ -1,19 +1,36 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using CefSharp;
-using TweetDuck.Browser.Data;
+using TweetDuck.Browser.Adapters;
 using TweetDuck.Controls;
 using TweetDuck.Dialogs;
 using TweetDuck.Dialogs.Settings;
 using TweetDuck.Management;
+using TweetLib.Core.Features.TweetDeck;
 
 namespace TweetDuck.Browser.Notification {
-	static class SoundNotification {
+	sealed class SoundNotification : ISoundNotificationHandler {
 		public const string SupportedFormats = "*.wav;*.ogg;*.mp3;*.flac;*.opus;*.weba;*.webm";
 
-		public static Func<IResourceHandler> CreateFileHandler(string path) {
+		private readonly CefResourceHandlerRegistry registry;
+
+		public SoundNotification(CefResourceHandlerRegistry registry) {
+			this.registry = registry;
+		}
+
+		public void Unregister(string url) {
+			registry.Unregister(url);
+		}
+
+		public void Register(string url, string path) {
+			var fileHandler = CreateFileHandler(path);
+			if (fileHandler.HasValue) {
+				var (data, mimeType) = fileHandler.Value;
+				registry.RegisterStatic(url, data, mimeType);
+			}
+		}
+
+		private static (byte[] data, string mimeType)? CreateFileHandler(string path) {
 			string mimeType = Path.GetExtension(path) switch {
 				".weba" => "audio/webm",
 				".webm" => "audio/webm",
@@ -26,7 +43,7 @@ namespace TweetDuck.Browser.Notification {
 			};
 
 			try {
-				return ResourceHandlers.ForBytes(File.ReadAllBytes(path), mimeType);
+				return (File.ReadAllBytes(path), mimeType);
 			} catch {
 				FormBrowser browser = FormManager.TryFind<FormBrowser>();
 

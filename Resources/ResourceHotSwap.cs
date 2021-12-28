@@ -1,10 +1,11 @@
 ﻿#if DEBUG
 using System.Diagnostics;
 using System.IO;
+using TweetLib.Core;
 
 namespace TweetDuck.Resources {
 	static class ResourceHotSwap {
-		private static readonly string HotSwapProjectRoot = FixPathSlash(Path.GetFullPath(Path.Combine(Program.ProgramPath, "../../../")));
+		private static readonly string HotSwapProjectRoot = FixPathSlash(Path.GetFullPath(Path.Combine(App.ProgramPath, "../../../")));
 		private static readonly string HotSwapTargetDir = FixPathSlash(Path.Combine(HotSwapProjectRoot, "bin", "tmp"));
 		private static readonly string HotSwapRebuildScript = Path.Combine(HotSwapProjectRoot, "bld", "post_build.exe");
 
@@ -44,11 +45,11 @@ namespace TweetDuck.Resources {
 			sw.Stop();
 			Debug.WriteLine($"Finished rebuild script in {sw.ElapsedMilliseconds} ms");
 
-			Directory.Delete(Program.ResourcesPath, true);
-			Directory.Delete(Program.PluginPath, true);
+			Directory.Delete(App.ResourcesPath, true);
+			Directory.Delete(App.PluginPath, true);
 
-			Directory.Move(Path.Combine(HotSwapTargetDir, "resources"), Program.ResourcesPath);
-			Directory.Move(Path.Combine(HotSwapTargetDir, "plugins"), Program.PluginPath);
+			Directory.Move(Path.Combine(HotSwapTargetDir, "resources"), App.ResourcesPath);
+			Directory.Move(Path.Combine(HotSwapTargetDir, "plugins"), App.PluginPath);
 
 			DeleteHotSwapFolder();
 		}

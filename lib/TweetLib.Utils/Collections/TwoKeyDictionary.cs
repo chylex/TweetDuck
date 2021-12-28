@@ -104,7 +104,7 @@ namespace TweetLib.Utils.Collections {
 		/// Returns the number of values in the dictionary.
 		/// </summary>
 		public int Count() {
-			return dict.Values.Sum(d => d.Count);
+			return dict.Values.Sum(static d => d.Count);
 		}
 
 		/// <summary>

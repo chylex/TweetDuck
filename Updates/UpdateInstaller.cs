@@ -15,8 +15,8 @@ namespace TweetDuck.Updates {
 
 		public bool Launch() {
 			// ProgramPath has a trailing backslash
-			string arguments = "/SP- /SILENT /FORCECLOSEAPPLICATIONS /UPDATEPATH=\"" + Program.ProgramPath + "\" /RUNARGS=\"" + Arguments.GetCurrentForInstallerCmd() + "\"" + (Program.IsPortable ? " /PORTABLE=1" : "");
-			bool runElevated = !Program.IsPortable || !FileUtils.CheckFolderWritePermission(Program.ProgramPath);
+			string arguments = "/SP- /SILENT /FORCECLOSEAPPLICATIONS /UPDATEPATH=\"" + App.ProgramPath + "\" /RUNARGS=\"" + Arguments.GetCurrentForInstallerCmd() + "\"" + (App.IsPortable ? " /PORTABLE=1" : "");
+			bool runElevated = !App.IsPortable || !FileUtils.CheckFolderWritePermission(App.ProgramPath);
 
 			try {
 				using (Process.Start(new ProcessStartInfo {

@@ -12,11 +12,11 @@ using TweetLib.Utils.Static;
 namespace TweetLib.Core.Features.Plugins {
 	[SuppressMessage("ReSharper", "UnusedMember.Global")]
 	internal sealed class PluginBridge {
-		private readonly Dictionary<int, Plugin> tokens = new Dictionary<int, Plugin>();
-		private readonly Random rand = new Random();
+		private readonly Dictionary<int, Plugin> tokens = new ();
+		private readonly Random rand = new ();
 
-		private readonly FileCache fileCache = new FileCache();
-		private readonly TwoKeyDictionary<int, string, InjectedString> notificationInjections = new TwoKeyDictionary<int, string, InjectedString>(4, 1);
+		private readonly FileCache fileCache = new ();
+		private readonly TwoKeyDictionary<int, string, InjectedString> notificationInjections = new (4, 1);
 
 		internal IEnumerable<InjectedString> NotificationInjections => notificationInjections.InnerValues;
 		internal ISet<Plugin> WithConfigureFunction { get; } = new HashSet<Plugin>();
@@ -151,7 +151,7 @@ namespace TweetLib.Core.Features.Plugins {
 		}
 
 		private sealed class FileCache {
-			private readonly TwoKeyDictionary<int, string, string> cache = new TwoKeyDictionary<int, string, string>(4, 2);
+			private readonly TwoKeyDictionary<int, string, string> cache = new (4, 2);
 
 			public string this[int token, PluginFolder folder, string path] {
 				set => cache[token, Key(folder, path)] = value;

@@ -72,7 +72,7 @@ namespace TweetDuck.Utils {
 				}
 			}
 
-			HashSet<Browser> browsers = new HashSet<Browser>();
+			var browsers = new HashSet<Browser>();
 
 			try {
 				browsers.UnionWith(ReadBrowsersFromKey(RegistryHive.CurrentUser));

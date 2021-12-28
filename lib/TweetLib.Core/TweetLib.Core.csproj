@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TweetLib.Browser\TweetLib.Browser.csproj" />
     <ProjectReference Include="..\TweetLib.Utils\TweetLib.Utils.csproj" />
   </ItemGroup>
 

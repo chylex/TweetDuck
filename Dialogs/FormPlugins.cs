@@ -92,7 +92,7 @@ namespace TweetDuck.Dialogs {
 		}
 
 		private void btnOpenFolder_Click(object sender, EventArgs e) {
-			App.SystemHandler.OpenFileExplorer(pluginManager.PathCustomPlugins);
+			App.SystemHandler.OpenFileExplorer(pluginManager.CustomPluginFolder);
 		}
 
 		private void btnReload_Click(object sender, EventArgs e) {

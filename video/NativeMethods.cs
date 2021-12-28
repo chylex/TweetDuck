@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
 namespace TweetDuck.Video {
+	[SuppressMessage("ReSharper", "InconsistentNaming")]
 	static class NativeMethods {
 		private const int GWL_HWNDPARENT = -8;
 
@@ -28,6 +29,7 @@ namespace TweetDuck.Video {
 
 		[StructLayout(LayoutKind.Sequential)]
 		[SuppressMessage("ReSharper", "InconsistentNaming")]
+		[SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Global")]
 		public struct RECT {
 			public int Left;
 			public int Top;

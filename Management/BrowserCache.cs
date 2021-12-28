@@ -3,10 +3,11 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using TweetLib.Core;
 
 namespace TweetDuck.Management {
 	static class BrowserCache {
-		public static string CacheFolder => Path.Combine(Program.StoragePath, "Cache");
+		public static string CacheFolder => Path.Combine(App.StoragePath, "Cache");
 
 		private static bool clearOnExit;
 		private static Timer autoClearTimer;
@@ -22,7 +23,7 @@ namespace TweetDuck.Management {
 		}
 
 		public static void GetCacheSize(Action<Task<long>> callbackBytes) {
-			Task<long> task = new Task<long>(CalculateCacheSize);
+			var task = new Task<long>(CalculateCacheSize);
 			task.ContinueWith(callbackBytes);
 			task.Start();
 		}

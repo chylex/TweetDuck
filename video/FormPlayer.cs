@@ -197,7 +197,7 @@ namespace TweetDuck.Video {
 
 			Marshal.ReleaseComObject(error);
 			Marshal.ReleaseComObject(pMediaObject);
-			Environment.Exit(Program.CODE_MEDIA_ERROR);
+			Environment.Exit(Program.CodeMediaError);
 		}
 
 		private void player_PositionChange(double oldPosition, double newPosition) {
@@ -309,7 +309,7 @@ namespace TweetDuck.Video {
 				Marshal.ReleaseComObject(controls);
 			}
 			else {
-				Environment.Exit(Program.CODE_OWNER_GONE);
+				Environment.Exit(Program.CodeOwnerGone);
 			}
 		}
 
@@ -435,7 +435,7 @@ namespace TweetDuck.Video {
 				}
 				else if (m.Msg == 0x020B && ((m.WParam.ToInt32() >> 16) & 0xFFFF) == 1) { // WM_XBUTTONDOWN
 					NativeMethods.SetForegroundWindow(form.ownerHandle);
-					Environment.Exit(Program.CODE_USER_REQUESTED);
+					Environment.Exit(Program.CodeUserRequested);
 				}
 
 				return false;

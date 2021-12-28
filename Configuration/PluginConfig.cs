@@ -22,10 +22,8 @@ namespace TweetDuck.Configuration {
 
 		// END OF CONFIG
 
-		public PluginConfig(IConfigManager configManager) : base(configManager) {}
-
-		protected override BaseConfig ConstructWithDefaults(IConfigManager configManager) {
-			return new PluginConfig(configManager);
+		protected override BaseConfig ConstructWithDefaults() {
+			return new PluginConfig();
 		}
 
 		// INTERFACE IMPLEMENTATION
@@ -40,7 +38,7 @@ namespace TweetDuck.Configuration {
 		public void SetEnabled(Plugin plugin, bool enabled) {
 			if ((enabled && disabled.Remove(plugin.Identifier)) || (!enabled && disabled.Add(plugin.Identifier))) {
 				PluginChangedState?.Invoke(this, new PluginChangedStateEventArgs(plugin, enabled));
-				Save();
+				this.Save();
 			}
 		}
 

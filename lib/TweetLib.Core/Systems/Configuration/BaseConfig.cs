@@ -3,35 +3,11 @@ using System.Collections.Generic;
 
 namespace TweetLib.Core.Systems.Configuration {
 	public abstract class BaseConfig {
-		private readonly IConfigManager configManager;
-
-		protected BaseConfig(IConfigManager configManager) {
-			this.configManager = configManager;
+		internal T ConstructWithDefaults<T>() where T : BaseConfig {
+			return (T) ConstructWithDefaults();
 		}
 
-		// Management
-
-		public void Save() {
-			configManager.GetInstanceInfo(this).Save();
-		}
-
-		public void Reload() {
-			configManager.GetInstanceInfo(this).Reload();
-		}
-
-		public void Reset() {
-			configManager.GetInstanceInfo(this).Reset();
-		}
-
-		// Construction methods
-
-		public T ConstructWithDefaults<T>() where T : BaseConfig {
-			return (T) ConstructWithDefaults(configManager);
-		}
-
-		protected abstract BaseConfig ConstructWithDefaults(IConfigManager configManager);
-
-		// Utility methods
+		protected abstract BaseConfig ConstructWithDefaults();
 
 		protected void UpdatePropertyWithEvent<T>(ref T field, T value, EventHandler? eventHandler) {
 			if (!EqualityComparer<T>.Default.Equals(field, value)) {
@@ -40,10 +16,10 @@ namespace TweetLib.Core.Systems.Configuration {
 			}
 		}
 
-		protected void UpdatePropertyWithRestartRequest<T>(ref T field, T value) {
+		protected void UpdatePropertyWithCallback<T>(ref T field, T value, Action action) {
 			if (!EqualityComparer<T>.Default.Equals(field, value)) {
 				field = value;
-				configManager.TriggerProgramRestartRequested();
+				action();
 			}
 		}
 	}

@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using TweetDuck.Utils;
+using TweetLib.Browser.Interfaces;
 using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Features.Plugins;
+using TweetLib.Core.Features.TweetDeck;
 
 namespace TweetDuck.Browser.Notification {
 	sealed partial class FormNotificationTweet : FormNotificationMain {
+		private static NotificationBrowser CreateBrowserImpl(IBrowserComponent browserComponent, INotificationInterface notificationInterface, ITweetDeckInterface tweetDeckInterface, PluginManager pluginManager) {
+			return new NotificationBrowser.Tweet(browserComponent, notificationInterface, tweetDeckInterface, pluginManager);
+		}
+
 		private const int NonIntrusiveIdleLimit = 30;
 		private const int TrimMinimum = 32;
 
@@ -30,7 +36,7 @@ namespace TweetDuck.Browser.Notification {
 		private bool needsTrim;
 		private bool hasTemporarilyMoved;
 
-		public FormNotificationTweet(FormBrowser owner, PluginManager pluginManager) : base(owner, pluginManager, true) {
+		public FormNotificationTweet(FormBrowser owner, ITweetDeckInterface tweetDeckInterface, PluginManager pluginManager) : base(owner, (form, browserComponent) => CreateBrowserImpl(browserComponent, new NotificationInterfaceImpl(form), tweetDeckInterface, pluginManager)) {
 			InitializeComponent();
 
 			Config.MuteToggled += Config_MuteToggled;

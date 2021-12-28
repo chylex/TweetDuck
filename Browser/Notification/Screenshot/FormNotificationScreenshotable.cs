@@ -4,33 +4,30 @@ using System.IO;
 using System.Threading.Tasks;
 using CefSharp;
 using CefSharp.DevTools.Page;
-using TweetDuck.Browser.Adapters;
 using TweetDuck.Controls;
 using TweetDuck.Dialogs;
-using TweetDuck.Resources;
 using TweetDuck.Utils;
+using TweetLib.Browser.Interfaces;
 using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Features.Plugins;
+using TweetLib.Core.Resources;
 
 namespace TweetDuck.Browser.Notification.Screenshot {
 	sealed class FormNotificationScreenshotable : FormNotificationBase {
+		private static NotificationBrowser CreateBrowserImpl( IBrowserComponent browserComponent, PluginManager pluginManager) {
+			return new NotificationBrowser.Screenshot(browserComponent, pluginManager.NotificationInjections);
+		}
+
 		protected override bool CanDragWindow => false;
 
-		private readonly PluginManager plugins;
 		private int height;
 
-		public FormNotificationScreenshotable(Action callback, FormBrowser owner, PluginManager pluginManager, string html, int width) : base(owner, false) {
-			this.plugins = pluginManager;
-
+		public FormNotificationScreenshotable(Action callback, FormBrowser owner, PluginManager pluginManager, string html, int width) : base(owner, (_, browserComponent) => CreateBrowserImpl(browserComponent, pluginManager)) {
 			int realWidth = BrowserUtils.Scale(width, DpiScale);
 
-			browser.RegisterJsBridge("$TD_NotificationScreenshot", new ScreenshotBridge(this, SetScreenshotHeight, callback));
+			browserComponent.AttachBridgeObject("$TD_NotificationScreenshot", new ScreenshotBridge(this, SetScreenshotHeight, callback));
 
-			browser.LoadingStateChanged += (sender, args) => {
-				if (args.IsLoading) {
-					return;
-				}
-
+			browserComponent.BrowserLoaded += (sender, args) => {
 				string script = ResourceUtils.ReadFileOrNull("notification/screenshot/screenshot.js");
 
 				if (script == null) {
@@ -38,16 +35,12 @@ namespace TweetDuck.Browser.Notification.Screenshot {
 					return;
 				}
 
-				using IFrame frame = args.Browser.MainFrame;
-				CefScriptExecutor.RunScript(frame, script.Replace("{width}", realWidth.ToString()).Replace("1/*FRAMES*/", TweetScreenshotManager.WaitFrames.ToString()), "gen:screenshot");
+				string substituted = script.Replace("{width}", realWidth.ToString()).Replace("1/*FRAMES*/", TweetScreenshotManager.WaitFrames.ToString());
+				browserComponent.RunScript("gen:screenshot", substituted);
 			};
 
 			SetNotificationSize(realWidth, 1024);
 			LoadTweet(new DesktopNotification(string.Empty, string.Empty, string.Empty, html, 0, string.Empty, string.Empty));
-		}
-
-		protected override string GetTweetHTML(DesktopNotification tweet) {
-			return tweet.GenerateHtml("td-screenshot", HeadLayout, Config.CustomNotificationCSS, plugins.NotificationInjections, Array.Empty<string>());
 		}
 
 		private void SetScreenshotHeight(int browserHeight) {

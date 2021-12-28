@@ -13,12 +13,12 @@ namespace TweetLib.Core.Systems.Startup {
 			return name;
 		}
 
-		public static LockResult Success { get; } = new LockResult("Success");
+		public static LockResult Success { get; } = new ("Success");
 
 		public sealed class Fail : LockResult {
 			public Exception Exception { get; }
 
-			public Fail(Exception exception) : base("Fail") {
+			internal Fail(Exception exception) : base("Fail") {
 				this.Exception = exception;
 			}
 		}
@@ -26,7 +26,7 @@ namespace TweetLib.Core.Systems.Startup {
 		public sealed class HasProcess : LockResult, IDisposable {
 			public Process Process { get; }
 
-			public HasProcess(Process process) : base("HasProcess") {
+			internal HasProcess(Process process) : base("HasProcess") {
 				this.Process = process;
 			}
 

@@ -12,7 +12,7 @@ namespace TweetLib.Core {
 
 		public static CultureInfo Culture { get; } = CultureInfo.CurrentCulture;
 
-		public static void Initialize(App.Builder app) {
+		public static void Initialize(AppBuilder app) {
 			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 			CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
 
@@ -20,7 +20,7 @@ namespace TweetLib.Core {
 			CultureInfo.DefaultThreadCurrentUICulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-us"); // force english exceptions
 			#endif
 
-			app.Initialize();
+			app.Build();
 		}
 	}
 }

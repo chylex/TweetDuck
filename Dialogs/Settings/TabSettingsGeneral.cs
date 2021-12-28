@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using TweetDuck.Browser.Handling.General;
+using TweetDuck.Browser.Handling;
 using TweetDuck.Controls;
 using TweetDuck.Utils;
 using TweetLib.Core;
@@ -15,7 +15,7 @@ namespace TweetDuck.Dialogs.Settings {
 	sealed partial class TabSettingsGeneral : FormSettings.BaseTab {
 		private readonly Action reloadColumns;
 
-		private readonly UpdateHandler updates;
+		private readonly UpdateChecker updates;
 		private int updateCheckEventId = -1;
 
 		private readonly int browserListIndexDefault;
@@ -27,7 +27,7 @@ namespace TweetDuck.Dialogs.Settings {
 		private readonly int searchEngineIndexDefault;
 		private readonly int searchEngineIndexCustom;
 
-		public TabSettingsGeneral(Action reloadColumns, UpdateHandler updates) {
+		public TabSettingsGeneral(Action reloadColumns, UpdateChecker updates) {
 			InitializeComponent();
 
 			this.reloadColumns = reloadColumns;

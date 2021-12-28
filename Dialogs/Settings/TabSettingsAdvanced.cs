@@ -85,11 +85,11 @@ namespace TweetDuck.Dialogs.Settings {
 		#region Application
 
 		private void btnOpenAppFolder_Click(object sender, EventArgs e) {
-			App.SystemHandler.OpenFileExplorer(Program.ProgramPath);
+			App.SystemHandler.OpenFileExplorer(App.ProgramPath);
 		}
 
 		private void btnOpenDataFolder_Click(object sender, EventArgs e) {
-			App.SystemHandler.OpenFileExplorer(Program.StoragePath);
+			App.SystemHandler.OpenFileExplorer(App.StoragePath);
 		}
 
 		private void btnRestart_Click(object sender, EventArgs e) {

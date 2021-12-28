@@ -62,36 +62,37 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\DialogHandler.cs" />
+    <Compile Include="Application\Logger.cs" />
+    <Compile Include="Browser\Adapters\CefBrowserComponent.cs" />
+    <Compile Include="Browser\Adapters\CefContextMenuActionRegistry.cs" />
+    <Compile Include="Browser\Adapters\CefContextMenuModel.cs" />
+    <Compile Include="Browser\Adapters\CefResourceHandlerFactory.cs" />
+    <Compile Include="Browser\Adapters\CefResourceHandlerRegistry.cs" />
+    <Compile Include="Browser\Adapters\CefResourceProvider.cs" />
+    <Compile Include="Browser\Adapters\CefResourceRequestHandler.cs" />
+    <Compile Include="Browser\Adapters\CefSchemeHandlerFactory.cs" />
+    <Compile Include="Browser\Handling\BrowserProcessHandler.cs" />
+    <Compile Include="Browser\Handling\CustomLifeSpanHandler.cs" />
+    <Compile Include="Browser\Handling\FileDialogHandler.cs" />
+    <Compile Include="Browser\Handling\JavaScriptDialogHandler.cs" />
+    <Compile Include="Browser\Handling\ResponseFilter.cs" />
+    <Compile Include="Browser\Notification\FormNotificationExample.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Browser\TweetDeckInterfaceImpl.cs" />
+    <Compile Include="Dialogs\WindowState.cs" />
     <Compile Include="Management\LockManager.cs" />
     <Compile Include="Application\SystemHandler.cs" />
-    <Compile Include="Browser\Adapters\CefScriptExecutor.cs" />
-    <Compile Include="Browser\Bridge\PropertyBridge.cs" />
-    <Compile Include="Browser\Bridge\TweetDeckBridge.cs" />
-    <Compile Include="Browser\Bridge\UpdateBridge.cs" />
-    <Compile Include="Browser\Data\ContextInfo.cs" />
-    <Compile Include="Browser\Data\ResourceHandlers.cs" />
-    <Compile Include="Browser\Data\ResourceLink.cs" />
-    <Compile Include="Browser\Data\WindowState.cs" />
     <Compile Include="Browser\Handling\ContextMenuBase.cs" />
     <Compile Include="Browser\Handling\ContextMenuBrowser.cs" />
     <Compile Include="Browser\Handling\ContextMenuGuide.cs" />
     <Compile Include="Browser\Handling\ContextMenuNotification.cs" />
     <Compile Include="Browser\Handling\DragHandlerBrowser.cs" />
-    <Compile Include="Browser\Handling\Filters\ResponseFilterBase.cs" />
-    <Compile Include="Browser\Handling\Filters\ResponseFilterVendor.cs" />
-    <Compile Include="Browser\Handling\General\BrowserProcessHandler.cs" />
-    <Compile Include="Browser\Handling\General\FileDialogHandler.cs" />
-    <Compile Include="Browser\Handling\General\JavaScriptDialogHandler.cs" />
-    <Compile Include="Browser\Handling\General\CustomLifeSpanHandler.cs" />
-    <Compile Include="Browser\Handling\KeyboardHandlerBase.cs" />
-    <Compile Include="Browser\Handling\KeyboardHandlerBrowser.cs" />
-    <Compile Include="Browser\Handling\KeyboardHandlerNotification.cs" />
+    <Compile Include="Browser\Handling\CustomKeyboardHandler.cs" />
     <Compile Include="Browser\Handling\RequestHandlerBase.cs" />
     <Compile Include="Browser\Handling\RequestHandlerBrowser.cs" />
     <Compile Include="Browser\Handling\ResourceHandlerNotification.cs" />
-    <Compile Include="Browser\Handling\ResourceRequestHandler.cs" />
-    <Compile Include="Browser\Handling\ResourceRequestHandlerBase.cs" />
-    <Compile Include="Browser\Handling\ResourceRequestHandlerBrowser.cs" />
     <Compile Include="Browser\Notification\Screenshot\ScreenshotBridge.cs" />
     <Compile Include="Browser\Notification\Screenshot\TweetScreenshotManager.cs" />
     <Compile Include="Browser\Notification\SoundNotification.cs" />
@@ -107,20 +108,15 @@
     <Compile Include="Management\FormManager.cs" />
     <Compile Include="Management\ProfileManager.cs" />
     <Compile Include="Management\VideoPlayer.cs" />
-    <Compile Include="Plugins\PluginDispatcher.cs" />
-    <Compile Include="Plugins\PluginSchemeFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reporter.cs" />
-    <Compile Include="Resources\ResourcesSchemeFactory.cs" />
     <Compile Include="Resources\ResourceHotSwap.cs" />
-    <Compile Include="Resources\ResourceProvider.cs" />
-    <Compile Include="Resources\ResourceUtils.cs" />
     <Compile Include="Updates\UpdateCheckClient.cs" />
     <Compile Include="Updates\UpdateInstaller.cs" />
     <Compile Include="Utils\BrowserUtils.cs" />
     <Compile Include="Utils\NativeMethods.cs" />
-    <Compile Include="Utils\TwitterUtils.cs" />
+    <Compile Include="Utils\TwitterFileDownloader.cs" />
     <Compile Include="Utils\WindowsUtils.cs" />
     <Compile Include="Version.cs" />
   </ItemGroup>
@@ -142,9 +138,6 @@
     </Compile>
     <Compile Include="Browser\FormBrowser.Designer.cs">
       <DependentUpon>FormBrowser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Browser\Notification\Example\FormNotificationExample.cs">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Browser\Notification\FormNotificationMain.cs">
       <SubType>Form</SubType>
@@ -323,19 +316,19 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Resources\Content\error\error.html" />
+    <None Include="Resources\Content\images\logo.png" />
+    <None Include="Resources\Content\images\spinner.apng" />
     <None Include="Resources\Content\notification\example\example.html" />
     <None Include="Resources\Content\notification\notification.css" />
     <None Include="Resources\Content\notification\screenshot\screenshot.js" />
     <None Include="Resources\Content\plugins\notification\plugins.js" />
     <None Include="Resources\Content\plugins\tweetdeck\plugins.js" />
-    <None Include="Resources\Images\avatar.png" />
     <None Include="Resources\Images\icon-muted.ico" />
     <None Include="Resources\Images\icon-small.ico" />
     <None Include="Resources\Images\icon-tray-muted.ico" />
     <None Include="Resources\Images\icon-tray-new.ico" />
     <None Include="Resources\Images\icon-tray.ico" />
     <None Include="Resources\Images\icon.ico" />
-    <None Include="Resources\Images\spinner.apng" />
     <None Include="Resources\Plugins\.debug\.meta" />
     <None Include="Resources\Plugins\.debug\browser.js" />
     <None Include="Resources\Plugins\.debug\notification.js" />
@@ -364,6 +357,10 @@
     <Redist Include="$(ProjectDir)bld\Redist\*.*" Visible="false" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="lib\TweetLib.Browser\TweetLib.Browser.csproj">
+      <Project>{eefb1f37-7cad-46bd-8042-66e7b502ab02}</Project>
+      <Name>TweetLib.Browser</Name>
+    </ProjectReference>
     <ProjectReference Include="lib\TweetLib.Core\TweetLib.Core.csproj">
       <Project>{93ba3cb4-a812-4949-b07d-8d393fb38937}</Project>
       <Name>TweetLib.Core</Name>

@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 using CefSharp;
 using CefSharp.WinForms;
-using TweetDuck.Browser;
 using TweetDuck.Configuration;
-using TweetDuck.Dialogs;
-using TweetDuck.Management;
-using TweetLib.Core;
-using TweetLib.Core.Features.Twitter;
+using TweetDuck.Controls;
+using TweetLib.Browser.Interfaces;
 
 namespace TweetDuck.Utils {
 	static class BrowserUtils {
@@ -52,19 +47,16 @@ namespace TweetDuck.Utils {
 			}
 		}
 
-		public static void SetupCustomScheme(this CefSettings settings, string name, ISchemeHandlerFactory factory) {
-			settings.RegisterScheme(new CefCustomScheme {
-				SchemeName = name,
-				IsStandard = false,
-				IsSecure = true,
-				IsCorsEnabled = true,
-				IsCSPBypassing = true,
-				SchemeHandlerFactory = factory
-			});
-		}
+		public static void SetupDockOnLoad(IBrowserComponent browserComponent, ChromiumWebBrowser browser) {
+			browser.Dock = DockStyle.None;
+			browser.Location = ControlExtensions.InvisibleLocation;
 
-		public static ChromiumWebBrowser AsControl(this IWebBrowser browserControl) {
-			return (ChromiumWebBrowser) browserControl;
+			browserComponent.BrowserLoaded += (sender, args) => {
+				browser.InvokeAsyncSafe(() => {
+					browser.Location = Point.Empty;
+					browser.Dock = DockStyle.Fill;
+				});
+			};
 		}
 
 		public static void SetupZoomEvents(this ChromiumWebBrowser browser) {
@@ -86,20 +78,6 @@ namespace TweetDuck.Utils {
 			};
 		}
 
-		public static void RegisterJsBridge(this IWebBrowser browserControl, string name, object bridge) {
-			browserControl.JavascriptObjectRepository.Settings.LegacyBindingEnabled = true;
-			browserControl.JavascriptObjectRepository.Register(name, bridge, isAsync: true, BindingOptions.DefaultBinder);
-		}
-
-		public static void ExecuteJsAsync(this IWebBrowser browserControl, string scriptOrMethodName, params object[] args) {
-			if (args.Length == 0) {
-				browserControl.BrowserCore.ExecuteScriptAsync(scriptOrMethodName);
-			}
-			else {
-				browserControl.BrowserCore.ExecuteScriptAsync(scriptOrMethodName, args);
-			}
-		}
-
 		public static void OpenDevToolsCustom(this IWebBrowser browser, Point? inspectPoint = null) {
 			var info = new WindowInfo();
 			info.SetAsPopup(IntPtr.Zero, "Dev Tools");
@@ -110,96 +88,6 @@ namespace TweetDuck.Utils {
 
 			Point p = inspectPoint ?? Point.Empty;
 			browser.GetBrowserHost().ShowDevTools(info, p.X, p.Y);
-		}
-
-		public static void OpenExternalBrowser(string url) {
-			if (string.IsNullOrWhiteSpace(url)) {
-				return;
-			}
-
-			switch (TwitterUrls.Check(url)) {
-				case TwitterUrls.UrlType.Fine:
-					string browserPath = Config.BrowserPath;
-
-					if (browserPath == null || !File.Exists(browserPath)) {
-						App.SystemHandler.OpenAssociatedProgram(url);
-					}
-					else {
-						string quotedUrl = '"' + url + '"';
-						string browserArgs = Config.BrowserPathArgs == null ? quotedUrl : Config.BrowserPathArgs + ' ' + quotedUrl;
-
-						try {
-							using (Process.Start(browserPath, browserArgs)) {}
-						} catch (Exception e) {
-							App.ErrorHandler.HandleException("Error Opening Browser", "Could not open the browser.", true, e);
-						}
-					}
-
-					break;
-
-				case TwitterUrls.UrlType.Tracking:
-					if (Config.IgnoreTrackingUrlWarning) {
-						goto case TwitterUrls.UrlType.Fine;
-					}
-
-					using (FormMessage form = new FormMessage("Blocked URL", "TweetDuck has blocked a tracking url due to privacy concerns. Do you want to visit it anyway?\n" + url, MessageBoxIcon.Warning)) {
-						form.AddButton(FormMessage.No, DialogResult.No, ControlType.Cancel | ControlType.Focused);
-						form.AddButton(FormMessage.Yes, DialogResult.Yes, ControlType.Accept);
-						form.AddButton("Always Visit", DialogResult.Ignore);
-
-						DialogResult result = form.ShowDialog();
-
-						if (result == DialogResult.Ignore) {
-							Config.IgnoreTrackingUrlWarning = true;
-							Config.Save();
-						}
-
-						if (result == DialogResult.Ignore || result == DialogResult.Yes) {
-							goto case TwitterUrls.UrlType.Fine;
-						}
-					}
-
-					break;
-
-				case TwitterUrls.UrlType.Invalid:
-					FormMessage.Warning("Blocked URL", "A potentially malicious or invalid URL was blocked from opening:\n" + url, FormMessage.OK);
-					break;
-			}
-		}
-
-		public static void OpenExternalSearch(string query) {
-			if (string.IsNullOrWhiteSpace(query)) {
-				return;
-			}
-
-			string searchUrl = Config.SearchEngineUrl;
-
-			if (string.IsNullOrEmpty(searchUrl)) {
-				if (FormMessage.Question("Search Options", "You have not configured a default search engine yet, would you like to do it now?", FormMessage.Yes, FormMessage.No)) {
-					bool wereSettingsOpen = FormManager.TryFind<FormSettings>() != null;
-
-					FormManager.TryFind<FormBrowser>()?.OpenSettings();
-
-					if (wereSettingsOpen) {
-						return;
-					}
-
-					FormSettings settings = FormManager.TryFind<FormSettings>();
-
-					if (settings == null) {
-						return;
-					}
-
-					settings.FormClosed += (sender, args) => {
-						if (args.CloseReason == CloseReason.UserClosing && Config.SearchEngineUrl != searchUrl) {
-							OpenExternalSearch(query);
-						}
-					};
-				}
-			}
-			else {
-				OpenExternalBrowser(searchUrl + Uri.EscapeUriString(query));
-			}
 		}
 
 		public static int Scale(int baseValue, double scaleFactor) {

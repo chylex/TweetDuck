@@ -1,6 +1,5 @@
 ﻿using CefSharp;
 using CefSharp.Handler;
-using TweetDuck.Browser.Handling.General;
 
 namespace TweetDuck.Browser.Handling {
 	class RequestHandlerBase : RequestHandler {
@@ -11,7 +10,7 @@ namespace TweetDuck.Browser.Handling {
 		}
 
 		protected override bool OnOpenUrlFromTab(IWebBrowser browserControl, IBrowser browser, IFrame frame, string targetUrl, WindowOpenDisposition targetDisposition, bool userGesture) {
-			return CustomLifeSpanHandler.HandleLinkClick(browserControl, targetDisposition, targetUrl);
+			return CustomLifeSpanHandler.HandleLinkClick(targetDisposition, targetUrl);
 		}
 
 		protected override void OnRenderProcessTerminated(IWebBrowser browserControl, IBrowser browser, CefTerminationStatus status) {

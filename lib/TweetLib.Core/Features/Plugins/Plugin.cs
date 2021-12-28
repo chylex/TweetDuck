@@ -7,7 +7,7 @@ using TweetLib.Utils.Static;
 
 namespace TweetLib.Core.Features.Plugins {
 	public sealed class Plugin {
-		private static readonly Version AppVersion = new Version(TweetDuck.Version.Tag);
+		private static readonly Version AppVersion = new (TweetDuck.Version.Tag);
 
 		public string Identifier { get; }
 		public PluginGroup Group { get; }
@@ -99,7 +99,7 @@ namespace TweetLib.Core.Features.Plugins {
 		// Builder
 
 		public sealed class Builder {
-			private static readonly Version DefaultRequiredVersion = new Version(0, 0, 0, 0);
+			private static readonly Version DefaultRequiredVersion = new (0, 0, 0, 0);
 
 			public string Name             { get; set; } = string.Empty;
 			public string Description      { get; set; } = string.Empty;

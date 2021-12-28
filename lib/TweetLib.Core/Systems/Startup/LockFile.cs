@@ -84,7 +84,7 @@ namespace TweetLib.Core.Systems.Startup {
 				try {
 					File.Delete(path);
 				} catch (Exception e) {
-					App.ErrorHandler.Log(e.ToString());
+					App.Logger.Error(e.ToString());
 					return false;
 				}
 			}

@@ -5,7 +5,6 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
-using TweetDuck.Utils;
 using TweetLib.Core.Systems.Updates;
 using TweetLib.Utils.Static;
 using JsonObject = System.Collections.Generic.IDictionary<string, object>;
@@ -24,9 +23,9 @@ namespace TweetDuck.Updates {
 		bool IUpdateCheckClient.CanCheck => Program.Config.User.EnableUpdateCheck;
 
 		Task<UpdateInfo> IUpdateCheckClient.Check() {
-			TaskCompletionSource<UpdateInfo> result = new TaskCompletionSource<UpdateInfo>();
+			var result = new TaskCompletionSource<UpdateInfo>();
 
-			WebClient client = WebUtils.NewClient(BrowserUtils.UserAgentVanilla);
+			WebClient client = WebUtils.NewClient();
 			client.Headers[HttpRequestHeader.Accept] = "application/vnd.github.v3+json";
 
 			client.DownloadStringTaskAsync(ApiLatestRelease).ContinueWith(task => {
@@ -57,7 +56,7 @@ namespace TweetDuck.Updates {
 				return (string) obj["browser_download_url"];
 			}
 
-			JsonObject root = (JsonObject) new JavaScriptSerializer().DeserializeObject(json);
+			var root = (JsonObject) new JavaScriptSerializer().DeserializeObject(json);
 
 			string versionTag = (string) root["tag_name"];
 			string releaseNotes = (string) root["body"];
@@ -67,7 +66,7 @@ namespace TweetDuck.Updates {
 		}
 
 		private static Exception ExpandWebException(Exception e) {
-			if (e is WebException we && we.Response is HttpWebResponse response) {
+			if (e is WebException { Response: HttpWebResponse response } ) {
 				try {
 					using var stream = response.GetResponseStream();
 					using var reader = new StreamReader(stream, Encoding.GetEncoding(response.CharacterSet ?? "utf-8"));

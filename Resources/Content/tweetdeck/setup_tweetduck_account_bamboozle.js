@@ -7,7 +7,7 @@ import { checkPropertyExists } from "../api/utils.js";
  */
 export default function() {
 	const realDisplayName = "TweetDuck";
-	const realAvatar = "https://ton.twimg.com/tduck/avatar";
+	const realAvatar = "td://resources/images/logo.png";
 	const accountId = "957608948189880320";
 	
 	if (checkPropertyExists(TD, "services", "TwitterUser", "prototype")) {

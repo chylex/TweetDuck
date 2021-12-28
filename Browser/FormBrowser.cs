@@ -5,9 +5,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CefSharp;
-using TweetDuck.Browser.Bridge;
 using TweetDuck.Browser.Handling;
-using TweetDuck.Browser.Handling.General;
 using TweetDuck.Browser.Notification;
 using TweetDuck.Browser.Notification.Screenshot;
 using TweetDuck.Configuration;
@@ -15,17 +13,18 @@ using TweetDuck.Controls;
 using TweetDuck.Dialogs;
 using TweetDuck.Dialogs.Settings;
 using TweetDuck.Management;
-using TweetDuck.Plugins;
 using TweetDuck.Resources;
 using TweetDuck.Updates;
 using TweetDuck.Utils;
 using TweetLib.Core;
+using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Features.Plugins;
-using TweetLib.Core.Features.Plugins.Events;
+using TweetLib.Core.Features.TweetDeck;
+using TweetLib.Core.Resources;
 using TweetLib.Core.Systems.Updates;
 
 namespace TweetDuck.Browser {
-	sealed partial class FormBrowser : Form {
+	sealed partial class FormBrowser : Form, CustomKeyboardHandler.IBrowserKeyHandler {
 		private static UserConfig Config => Program.Config.User;
 
 		public bool IsWaiting {
@@ -46,18 +45,17 @@ namespace TweetDuck.Browser {
 		}
 
 		public UpdateInstaller UpdateInstaller { get; private set; }
-		private bool ignoreUpdateCheckError;
 
 		#pragma warning disable IDE0069 // Disposable fields should be disposed
 		private readonly TweetDeckBrowser browser;
 		private readonly FormNotificationTweet notification;
 		#pragma warning restore IDE0069 // Disposable fields should be disposed
 
-		private readonly ResourceProvider resourceProvider;
+		private readonly CachingResourceProvider<IResourceHandler> resourceProvider;
+		private readonly ITweetDeckInterface tweetDeckInterface;
 		private readonly PluginManager plugins;
-		private readonly UpdateHandler updates;
+		private readonly UpdateChecker updates;
 		private readonly ContextMenu contextMenu;
-		private readonly UpdateBridge updateBridge;
 
 		private bool isLoaded;
 		private FormWindowState prevState;
@@ -65,30 +63,25 @@ namespace TweetDuck.Browser {
 		private TweetScreenshotManager notificationScreenshotManager;
 		private VideoPlayer videoPlayer;
 
-		public FormBrowser(ResourceProvider resourceProvider, PluginSchemeFactory pluginScheme) {
+		public FormBrowser(CachingResourceProvider<IResourceHandler> resourceProvider, PluginManager pluginManager, IUpdateCheckClient updateCheckClient) {
 			InitializeComponent();
 
 			Text = Program.BrandName;
 
 			this.resourceProvider = resourceProvider;
 
-			this.plugins = new PluginManager(Program.Config.Plugins, Program.PluginPath, Program.PluginDataPath);
-			this.plugins.Reloaded += plugins_Reloaded;
-			this.plugins.Executed += plugins_Executed;
-			this.plugins.Reload();
-			pluginScheme.Setup(plugins);
+			this.plugins = pluginManager;
 
-			this.notification = new FormNotificationTweet(this, plugins);
+			this.tweetDeckInterface = new TweetDeckInterfaceImpl(this);
+
+			this.notification = new FormNotificationTweet(this, tweetDeckInterface, plugins);
 			this.notification.Show();
 
-			this.updates = new UpdateHandler(new UpdateCheckClient(Program.InstallerPath), TaskScheduler.FromCurrentSynchronizationContext());
-			this.updates.CheckFinished += updates_CheckFinished;
+			this.updates = new UpdateChecker(updateCheckClient, TaskScheduler.FromCurrentSynchronizationContext());
+			this.updates.InteractionManager.UpdateAccepted += updateInteractionManager_UpdateAccepted;
+			this.updates.InteractionManager.UpdateDismissed += updateInteractionManager_UpdateDismissed;
 
-			this.updateBridge = new UpdateBridge(updates, this);
-			this.updateBridge.UpdateAccepted += updateBridge_UpdateAccepted;
-			this.updateBridge.UpdateDismissed += updateBridge_UpdateDismissed;
-
-			this.browser = new TweetDeckBrowser(this, plugins, new TweetDeckBridge.Browser(this, notification), updateBridge);
+			this.browser = new TweetDeckBrowser(this, plugins, tweetDeckInterface, updates);
 			this.contextMenu = ContextMenuBrowser.CreateMenu(this);
 
 			Controls.Add(new MenuStrip { Visible = false }); // fixes Alt freezing the program in Win 10 Anniversary Update
@@ -233,7 +226,8 @@ namespace TweetDuck.Browser {
 
 		private void FormBrowser_FormClosed(object sender, FormClosedEventArgs e) {
 			if (isLoaded && UpdateInstaller == null) {
-				updateBridge.Cleanup();
+				updates.InteractionManager.ClearUpdate();
+				updates.InteractionManager.Dispose();
 			}
 		}
 
@@ -256,94 +250,61 @@ namespace TweetDuck.Browser {
 			ForceClose();
 		}
 
-		private void plugins_Reloaded(object sender, PluginErrorEventArgs e) {
-			if (e.HasErrors) {
-				FormMessage.Error("Error Loading Plugins", "The following plugins will not be available until the issues are resolved:\n\n" + string.Join("\n\n", e.Errors), FormMessage.OK);
-			}
+		private void updateInteractionManager_UpdateAccepted(object sender, UpdateInfo update) {
+			this.InvokeAsyncSafe(() => {
+				FormManager.CloseAllDialogs();
 
-			if (isLoaded) {
-				browser.ReloadToTweetDeck();
-			}
-		}
+				if (!string.IsNullOrEmpty(Config.DismissedUpdate)) {
+					Config.DismissedUpdate = null;
+					Config.Save();
+				}
 
-		private void plugins_Executed(object sender, PluginErrorEventArgs e) {
-			if (e.HasErrors) {
-				this.InvokeAsyncSafe(() => { FormMessage.Error("Error Executing Plugins", "Failed to execute the following plugins:\n\n" + string.Join("\n\n", e.Errors), FormMessage.OK); });
-			}
-		}
+				void OnFinished() {
+					UpdateDownloadStatus status = update.DownloadStatus;
 
-		private void updates_CheckFinished(object sender, UpdateCheckEventArgs e) {
-			e.Result.Handle(update => {
-				string tag = update.VersionTag;
+					if (status == UpdateDownloadStatus.Done) {
+						UpdateInstaller = new UpdateInstaller(update.InstallerPath);
+						ForceClose();
+					}
+					else if (status != UpdateDownloadStatus.Canceled && FormMessage.Error("Update Has Failed", "Could not automatically download the update: " + (update.DownloadError?.Message ?? "unknown error") + "\n\nWould you like to open the website and try downloading the update manually?", FormMessage.Yes, FormMessage.No)) {
+						App.SystemHandler.OpenBrowser(Program.Website);
+						ForceClose();
+					}
+					else {
+						Show();
+					}
+				}
 
-				if (tag != Program.VersionTag && tag != Config.DismissedUpdate) {
-					update.BeginSilentDownload();
-					browser.ShowUpdateNotification(tag, update.ReleaseNotes);
+				if (update.DownloadStatus.IsFinished(true)) {
+					OnFinished();
 				}
 				else {
-					updates.StartTimer();
-				}
-			}, ex => {
-				if (!ignoreUpdateCheckError) {
-					App.ErrorHandler.HandleException("Update Check Error", "An error occurred while checking for updates.", true, ex);
-					updates.StartTimer();
+					FormUpdateDownload downloadForm = new FormUpdateDownload(update);
+
+					downloadForm.VisibleChanged += (sender2, args2) => {
+						downloadForm.MoveToCenter(this);
+						Hide();
+					};
+
+					downloadForm.FormClosed += (sender2, args2) => {
+						if (downloadForm.DialogResult != DialogResult.OK) {
+							update.CancelDownload();
+						}
+
+						downloadForm.Dispose();
+						OnFinished();
+					};
+
+					downloadForm.Show();
 				}
 			});
-
-			ignoreUpdateCheckError = true;
 		}
 
-		private void updateBridge_UpdateAccepted(object sender, UpdateInfo update) {
-			FormManager.CloseAllDialogs();
-
-			if (!string.IsNullOrEmpty(Config.DismissedUpdate)) {
-				Config.DismissedUpdate = null;
+		private void updateInteractionManager_UpdateDismissed(object sender, UpdateInfo update) {
+			this.InvokeAsyncSafe(() => {
+				Config.DismissedUpdate = update.VersionTag;
 				Config.Save();
-			}
-
-			void OnFinished() {
-				UpdateDownloadStatus status = update.DownloadStatus;
-
-				if (status == UpdateDownloadStatus.Done) {
-					UpdateInstaller = new UpdateInstaller(update.InstallerPath);
-					ForceClose();
-				}
-				else if (status != UpdateDownloadStatus.Canceled && FormMessage.Error("Update Has Failed", "Could not automatically download the update: " + (update.DownloadError?.Message ?? "unknown error") + "\n\nWould you like to open the website and try downloading the update manually?", FormMessage.Yes, FormMessage.No)) {
-					BrowserUtils.OpenExternalBrowser(Program.Website);
-					ForceClose();
-				}
-				else {
-					Show();
-				}
-			}
-
-			if (update.DownloadStatus.IsFinished(true)) {
-				OnFinished();
-			}
-			else {
-				FormUpdateDownload downloadForm = new FormUpdateDownload(update);
-
-				downloadForm.VisibleChanged += (sender2, args2) => {
-					downloadForm.MoveToCenter(this);
-					Hide();
-				};
-
-				downloadForm.FormClosed += (sender2, args2) => {
-					if (downloadForm.DialogResult != DialogResult.OK) {
-						update.CancelDownload();
-					}
-
-					downloadForm.Dispose();
-					OnFinished();
-				};
-
-				downloadForm.Show();
-			}
-		}
-
-		private void updateBridge_UpdateDismissed(object sender, UpdateInfo update) {
-			Config.DismissedUpdate = update.VersionTag;
-			Config.Save();
+			});
 		}
 
 		protected override void WndProc(ref Message m) {
@@ -358,11 +319,11 @@ namespace TweetDuck.Browser {
 			}
 
 			if (browser.Ready && m.Msg == NativeMethods.WM_PARENTNOTIFY && (m.WParam.ToInt32() & 0xFFFF) == NativeMethods.WM_XBUTTONDOWN) {
-				if (videoPlayer != null && videoPlayer.Running) {
+				if (videoPlayer is { Running: true }) {
 					videoPlayer.Close();
 				}
 				else {
-					browser.OnMouseClickExtra(m.WParam);
+					browser.Functions.OnMouseClickExtra((m.WParam.ToInt32() >> 16) & 0xFFFF);
 				}
 
 				return;
@@ -373,20 +334,12 @@ namespace TweetDuck.Browser {
 
 		// bridge methods
 
-		public void OnModulesLoaded(string moduleNamespace) {
-			browser.OnModulesLoaded(moduleNamespace);
-		}
-
 		public void PauseNotification() {
 			notification.PauseNotification();
 		}
 
 		public void ResumeNotification() {
 			notification.ResumeNotification();
-		}
-
-		public void ReinjectCustomCSS(string css) {
-			browser.ReinjectCustomCSS(css);
 		}
 
 		public void ReloadToTweetDeck() {
@@ -399,28 +352,7 @@ namespace TweetDuck.Browser {
 			}
 			#endif
 
-			ignoreUpdateCheckError = false;
 			browser.ReloadToTweetDeck();
-		}
-
-		public void AddSearchColumn(string query) {
-			browser.AddSearchColumn(query);
-		}
-
-		public void TriggerTweetScreenshot(string columnId, string chirpId) {
-			browser.TriggerTweetScreenshot(columnId, chirpId);
-		}
-
-		public void ReloadColumns() {
-			browser.ReloadColumns();
-		}
-
-		public void PlaySoundNotification() {
-			browser.PlaySoundNotification();
-		}
-
-		public void ApplyROT13() {
-			browser.ApplyROT13();
 		}
 
 		public void OpenDevTools() {
@@ -452,7 +384,7 @@ namespace TweetDuck.Browser {
 			if (!FormManager.TryBringToFront<FormSettings>()) {
 				bool prevEnableUpdateCheck = Config.EnableUpdateCheck;
 
-				FormSettings form = new FormSettings(this, plugins, updates, startTab);
+				FormSettings form = new FormSettings(this, plugins, updates, browser.Functions, startTab);
 
 				form.FormClosed += (sender, args) => {
 					if (!prevEnableUpdateCheck && Config.EnableUpdateCheck) {
@@ -473,7 +405,7 @@ namespace TweetDuck.Browser {
 						plugins.Reload(); // also reloads the browser
 					}
 					else {
-						browser.UpdateProperties();
+						Program.Config.User.TriggerOptionsDialogClosed();
 					}
 
 					notification.RequiresResize = true;
@@ -508,13 +440,19 @@ namespace TweetDuck.Browser {
 			}
 		}
 
+		public void ShowDesktopNotification(DesktopNotification notification) {
+			this.notification.ShowNotification(notification);
+		}
+
 		public void OnTweetNotification() { // may be called multiple times, once for each type of notification
 			if (Config.EnableTrayHighlight && !ContainsFocus) {
 				trayIcon.HasNotifications = true;
 			}
 		}
 
-		public void OnTweetSound() {}
+		public void SaveVideo(string url, string username) {
+			browser.SaveVideo(url, username);
+		}
 
 		public void PlayVideo(string videoUrl, string tweetUrl, string username, IJavascriptCallback callShowOverlay) {
 			string playerPath = Config.VideoPlayerPath;
@@ -548,25 +486,16 @@ namespace TweetDuck.Browser {
 			videoPlayer?.Close();
 		}
 
-		public bool ProcessBrowserKey(Keys key) {
-			if (videoPlayer != null && videoPlayer.Running) {
-				videoPlayer.SendKeyEvent(key);
-				return true;
-			}
-
-			return false;
-		}
-
-		public void ShowTweetDetail(string columnId, string chirpId, string fallbackUrl) {
+		public bool ShowTweetDetail(string columnId, string chirpId, string fallbackUrl) {
 			Activate();
 
 			if (!browser.IsTweetDeckWebsite) {
 				FormMessage.Error("View Tweet Detail", "TweetDeck is not currently loaded.", FormMessage.OK);
-				return;
+				return false;
 			}
 
-			notification.FinishCurrentNotification();
-			browser.ShowTweetDetail(columnId, chirpId, fallbackUrl);
+			browser.Functions.ShowTweetDetail(columnId, chirpId, fallbackUrl);
+			return true;
 		}
 
 		public void OnTweetScreenshotReady(string html, int width) {
@@ -583,6 +512,19 @@ namespace TweetDuck.Browser {
 				position.Offset(20, 10);
 				toolTip.Show(text, this, position);
 			}
+		}
+
+		public FormNotificationExample CreateExampleNotification() {
+			return new FormNotificationExample(this, tweetDeckInterface, plugins);
+		}
+
+		bool CustomKeyboardHandler.IBrowserKeyHandler.HandleBrowserKey(Keys key) {
+			if (videoPlayer is { Running: true }) {
+				videoPlayer.SendKeyEvent(key);
+				return true;
+			}
+
+			return false;
 		}
 	}
 }

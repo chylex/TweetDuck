@@ -12,7 +12,7 @@ namespace TweetLib.Core.Systems.Configuration {
 		private readonly string identifier;
 
 		public FileConfigInstance(string filename, T instance, string identifier) {
-			this.filenameMain = filename;
+			this.filenameMain = filename ?? throw new ArgumentNullException(nameof(filename), "Config file name must not be null!");
 			this.filenameBackup = filename + ".bak";
 			this.identifier = identifier;
 
@@ -32,7 +32,7 @@ namespace TweetLib.Core.Systems.Configuration {
 					LoadInternal(attempt > 0);
 
 					if (firstException != null) { // silently log exception that caused a backup restore
-						App.ErrorHandler.Log(firstException.ToString());
+						App.Logger.Error(firstException.ToString());
 					}
 
 					return;

@@ -3,9 +3,9 @@ using TweetLib.Core.Features.Plugins.Config;
 using TweetLib.Core.Features.Plugins.Enums;
 
 namespace TweetLib.Core.Features.Plugins {
-	public static class PluginScriptGenerator {
+	internal static class PluginScriptGenerator {
 		public static string GenerateConfig(IPluginConfig config) {
-			return "window.TD_PLUGINS_DISABLE = [" + string.Join(",", config.DisabledPlugins.Select(id => '"' + id + '"')) + "]";
+			return "window.TD_PLUGINS_DISABLE = [" + string.Join(",", config.DisabledPlugins.Select(static id => '"' + id + '"')) + "]";
 		}
 
 		public static string GenerateInstaller() {

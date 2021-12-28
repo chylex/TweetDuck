@@ -1,34 +1,28 @@
 ﻿using System;
 using System.Linq;
 using System.Net;
-using TweetLib.Core.Browser;
+using TweetLib.Browser.Interfaces;
 using TweetLib.Core.Features.Plugins.Enums;
+using TweetLib.Core.Resources;
 
 namespace TweetLib.Core.Features.Plugins {
-	public sealed class PluginSchemeHandler<T> where T : class {
-		public const string Name = "tdp";
+	public sealed class PluginSchemeHandler<T> : ICustomSchemeHandler<T> where T : class {
+		public string Protocol => "tdp";
 
-		private readonly IResourceProvider<T> resourceProvider;
-		private PluginBridge? bridge = null;
+		private readonly CachingResourceProvider<T> resourceProvider;
+		private readonly PluginBridge bridge;
 
-		public PluginSchemeHandler(IResourceProvider<T> resourceProvider) {
+		public PluginSchemeHandler(CachingResourceProvider<T> resourceProvider, PluginManager pluginManager) {
 			this.resourceProvider = resourceProvider;
+			this.bridge = pluginManager.bridge;
 		}
 
-		public void Setup(PluginManager plugins) {
-			if (this.bridge != null) {
-				throw new InvalidOperationException("Plugin scheme handler is already setup.");
-			}
-
-			this.bridge = plugins.bridge;
-		}
-
-		public T? Process(string url) {
-			if (!Uri.TryCreate(url, UriKind.Absolute, out var uri) || uri.Scheme != Name || !int.TryParse(uri.Authority, out var identifier)) {
+		public T? Resolve(Uri uri) {
+			if (!uri.IsAbsoluteUri || uri.Scheme != Protocol || !int.TryParse(uri.Authority, out var identifier)) {
 				return null;
 			}
 
-			var segments = uri.Segments.Select(segment => segment.TrimEnd('/')).Where(segment => !string.IsNullOrEmpty(segment)).ToArray();
+			var segments = uri.Segments.Select(static segment => segment.TrimEnd('/')).Where(static segment => !string.IsNullOrEmpty(segment)).ToArray();
 
 			if (segments.Length > 0) {
 				var handler = segments[0] switch {
@@ -47,9 +41,9 @@ namespace TweetLib.Core.Features.Plugins {
 		private T DoReadRootFile(int identifier, string[] segments) {
 			string path = string.Join("/", segments, 1, segments.Length - 1);
 
-			Plugin? plugin = bridge?.GetPluginFromToken(identifier);
+			Plugin? plugin = bridge.GetPluginFromToken(identifier);
 			string fullPath = plugin == null ? string.Empty : plugin.GetFullPathIfSafe(PluginFolder.Root, path);
-			return fullPath.Length == 0 ? resourceProvider.Status(HttpStatusCode.Forbidden, "File path has to be relative to the plugin root folder.") : resourceProvider.File(fullPath);
+			return fullPath.Length == 0 ? resourceProvider.Status(HttpStatusCode.Forbidden, "File path has to be relative to the plugin root folder.") : resourceProvider.CachedFile(fullPath);
 		}
 	}
 }

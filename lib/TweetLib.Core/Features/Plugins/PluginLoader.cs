@@ -7,7 +7,7 @@ using TweetLib.Core.Features.Plugins.Enums;
 using TweetLib.Utils.Data;
 
 namespace TweetLib.Core.Features.Plugins {
-	public static class PluginLoader {
+	internal static class PluginLoader {
 		private static readonly string[] EndTag = { "[END]" };
 
 		public static IEnumerable<Result<Plugin>> AllInFolder(string pluginFolder, string pluginDataFolder, PluginGroup group) {
@@ -54,7 +54,7 @@ namespace TweetLib.Core.Features.Plugins {
 			string? currentTag = null;
 			string currentContents = string.Empty;
 
-			foreach (string line in File.ReadAllLines(metaFile, Encoding.UTF8).Concat(EndTag).Select(line => line.TrimEnd()).Where(line => line.Length > 0)) {
+			foreach (string line in File.ReadAllLines(metaFile, Encoding.UTF8).Concat(EndTag).Select(static line => line.TrimEnd()).Where(static line => line.Length > 0)) {
 				if (line[0] == '[' && line[line.Length - 1] == ']') {
 					if (currentTag != null) {
 						SetProperty(builder, currentTag, currentContents);

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using TweetDuck.Browser.Notification.Example;
+using TweetDuck.Browser.Notification;
 using TweetDuck.Controls;
 using TweetLib.Core.Features.Notifications;
 

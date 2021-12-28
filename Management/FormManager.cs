@@ -1,9 +1,20 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Windows.Forms;
+using TweetDuck.Browser;
+using TweetDuck.Controls;
 
 namespace TweetDuck.Management {
 	static class FormManager {
 		private static FormCollection OpenForms => System.Windows.Forms.Application.OpenForms;
+
+		public static void RunOnUIThread(Action action) {
+			TryFind<FormBrowser>()?.InvokeSafe(action);
+		}
+
+		public static void RunOnUIThreadAsync(Action action) {
+			TryFind<FormBrowser>()?.InvokeAsyncSafe(action);
+		}
 
 		public static T TryFind<T>() where T : Form {
 			return OpenForms.OfType<T>().FirstOrDefault();

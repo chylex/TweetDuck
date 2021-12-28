@@ -7,7 +7,7 @@ namespace TweetLib.Core.Features.Plugins.Events {
 
 		public IList<string> Errors { get; }
 
-		public PluginErrorEventArgs(IList<string> errors) {
+		internal PluginErrorEventArgs(IList<string> errors) {
 			this.Errors = errors;
 		}
 	}

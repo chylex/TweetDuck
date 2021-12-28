@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using TweetDuck.Controls;
-using TweetDuck.Utils;
+using TweetLib.Core;
 using TweetLib.Core.Features.Chromium;
 
 namespace TweetDuck.Dialogs.Settings {
@@ -21,7 +21,7 @@ namespace TweetDuck.Dialogs.Settings {
 		}
 
 		private void btnHelp_Click(object sender, EventArgs e) {
-			BrowserUtils.OpenExternalBrowser("http://peter.sh/experiments/chromium-command-line-switches/");
+			App.SystemHandler.OpenBrowser("http://peter.sh/experiments/chromium-command-line-switches/");
 		}
 
 		private void btnApply_Click(object sender, EventArgs e) {

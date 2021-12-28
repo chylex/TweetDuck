@@ -133,7 +133,7 @@ namespace TweetLib.Utils.IO {
 
 			private readonly byte[] contents;
 
-			public Entry(string identifier, byte[] contents) {
+			internal Entry(string identifier, byte[] contents) {
 				this.Identifier = identifier;
 				this.contents = contents;
 			}

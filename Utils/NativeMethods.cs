@@ -6,6 +6,7 @@ using System.Windows.Forms;
 namespace TweetDuck.Utils {
 	[SuppressMessage("ReSharper", "FieldCanBeMadeReadOnly.Local")]
 	[SuppressMessage("ReSharper", "MemberCanBePrivate.Local")]
+	[SuppressMessage("ReSharper", "InconsistentNaming")]
 	static class NativeMethods {
 		public static readonly IntPtr HWND_BROADCAST = new IntPtr(0xFFFF);
 		public static readonly IntPtr HOOK_HANDLED = new IntPtr(-1);

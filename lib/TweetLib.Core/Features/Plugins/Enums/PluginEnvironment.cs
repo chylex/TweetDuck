@@ -7,7 +7,7 @@ namespace TweetLib.Core.Features.Plugins.Enums {
 		Notification
 	}
 
-	public static class PluginEnvironments {
+	internal static class PluginEnvironments {
 		public static IEnumerable<PluginEnvironment> All { get; } = new PluginEnvironment[] {
 			PluginEnvironment.Browser,
 			PluginEnvironment.Notification

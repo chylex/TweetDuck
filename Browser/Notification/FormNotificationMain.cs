@@ -2,20 +2,50 @@
 using System.Drawing;
 using System.Windows.Forms;
 using CefSharp;
-using TweetDuck.Browser.Adapters;
-using TweetDuck.Browser.Bridge;
 using TweetDuck.Browser.Handling;
 using TweetDuck.Controls;
-using TweetDuck.Plugins;
 using TweetDuck.Utils;
 using TweetLib.Core.Features.Notifications;
-using TweetLib.Core.Features.Plugins;
-using TweetLib.Core.Features.Plugins.Enums;
-using TweetLib.Core.Features.Twitter;
 
 namespace TweetDuck.Browser.Notification {
-	abstract partial class FormNotificationMain : FormNotificationBase {
-		private readonly PluginManager plugins;
+	abstract partial class FormNotificationMain : FormNotificationBase, CustomKeyboardHandler.IBrowserKeyHandler {
+		protected sealed class NotificationInterfaceImpl : INotificationInterface {
+			public bool FreezeTimer {
+				get => notification.FreezeTimer;
+				set => notification.FreezeTimer = value;
+			}
+
+			public bool IsHovered => notification.IsCursorOverBrowser;
+
+			private readonly FormNotificationBase notification;
+
+			public NotificationInterfaceImpl(FormNotificationBase notification) {
+				this.notification = notification;
+			}
+
+			public void DisplayTooltip(string text) {
+				notification.InvokeAsyncSafe(() => notification.DisplayTooltip(text));
+			}
+
+			public void FinishCurrentNotification() {
+				notification.InvokeAsyncSafe(notification.FinishCurrentNotification);
+			}
+
+			public void ShowTweetDetail() {
+				notification.InvokeAsyncSafe(notification.ShowTweetDetail);
+			}
+		}
+
+		private static int FontSizeLevel {
+			get => NotificationBrowser.FontSize switch {
+				"largest"  => 4,
+				"large"    => 3,
+				"small"    => 1,
+				"smallest" => 0,
+				_          => 2
+			};
+		}
+
 		private readonly int timerBarHeight;
 
 		protected int timeLeft, totalTime;
@@ -59,28 +89,20 @@ namespace TweetDuck.Browser.Notification {
 			};
 		}
 
-		protected virtual string BodyClasses => IsCursorOverBrowser ? "td-notification td-hover" : "td-notification";
-
 		public Size BrowserSize => Config.DisplayNotificationTimer ? new Size(ClientSize.Width, ClientSize.Height - timerBarHeight) : ClientSize;
 
-		protected FormNotificationMain(FormBrowser owner, PluginManager pluginManager, bool enableContextMenu) : base(owner, enableContextMenu) {
+		protected FormNotificationMain(FormBrowser owner, CreateBrowserImplFunc createBrowserImpl) : base(owner, createBrowserImpl) {
 			InitializeComponent();
 
-			this.plugins = pluginManager;
 			this.timerBarHeight = BrowserUtils.Scale(4, DpiScale);
 
-			browser.KeyboardHandler = new KeyboardHandlerNotification(this);
-			browser.RegisterJsBridge("$TD", new TweetDeckBridge.Notification(owner, this));
+			browser.KeyboardHandler = new CustomKeyboardHandler(this);
 
 			browser.LoadingStateChanged += Browser_LoadingStateChanged;
-
-			plugins.Register(PluginEnvironment.Notification, new PluginDispatcher(browser, url => TwitterUrls.IsTweetDeck(url) && url != BlankURL));
 
 			mouseHookDelegate = MouseHookProc;
 			Disposed += (sender, args) => StopMouseHook(true);
 		}
-
-		// helpers
 
 		private void SetOpacity(int opacity) {
 			if (currentOpacity != opacity) {
@@ -113,7 +135,7 @@ namespace TweetDuck.Browser.Notification {
 					int delta = BrowserUtils.Scale(NativeMethods.GetMouseHookData(lParam), Config.NotificationScrollSpeed * 0.01);
 
 					if (Config.EnableSmoothScrolling) {
-						browser.ExecuteJsAsync("window.TDGF_scrollSmoothly", (int) Math.Round(-delta / 0.6));
+						browser.BrowserCore.ExecuteScriptAsync("window.TDGF_scrollSmoothly", (int) Math.Round(-delta / 0.6));
 					}
 					else {
 						browser.SendMouseWheelEvent(0, 0, 0, delta, CefEventFlags.None);
@@ -158,7 +180,7 @@ namespace TweetDuck.Browser.Notification {
 		}
 
 		private void Browser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e) {
-			if (!e.IsLoading && browser.Address != BlankURL) {
+			if (!e.IsLoading && browser.Address != NotificationBrowser.BlankURL) {
 				this.InvokeSafe(() => {
 					Visible = true; // ensures repaint before moving the window to a visible location
 					timerDisplayDelay.Start();
@@ -236,13 +258,6 @@ namespace TweetDuck.Browser.Notification {
 			}
 		}
 
-		protected override string GetTweetHTML(DesktopNotification tweet) {
-			return tweet.GenerateHtml(BodyClasses, HeadLayout, Config.CustomNotificationCSS, plugins.NotificationInjections, new string[] {
-				PropertyBridge.GenerateScript(PropertyBridge.Environment.Notification),
-				CefScriptExecutor.GetBootstrapScript("notification", includeStylesheets: false)
-			});
-		}
-
 		protected override void LoadTweet(DesktopNotification tweet) {
 			timerProgress.Stop();
 			totalTime = timeLeft = tweet.GetDisplayDuration(Config.NotificationDurationValue);
@@ -277,6 +292,25 @@ namespace TweetDuck.Browser.Notification {
 		protected virtual void OnNotificationReady() {
 			PrepareAndDisplayWindow();
 			timerProgress.Start();
+		}
+
+		bool CustomKeyboardHandler.IBrowserKeyHandler.HandleBrowserKey(Keys key) {
+			switch (key) {
+				case Keys.Enter:
+					this.InvokeAsyncSafe(FinishCurrentNotification);
+					return true;
+
+				case Keys.Escape:
+					this.InvokeAsyncSafe(HideNotification);
+					return true;
+
+				case Keys.Space:
+					this.InvokeAsyncSafe(() => FreezeTimer = !FreezeTimer);
+					return true;
+
+				default:
+					return false;
+			}
 		}
 	}
 }

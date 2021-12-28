@@ -1,5 +1,5 @@
 ﻿using System;
-using TweetDuck.Utils;
+using TweetLib.Core;
 
 namespace TweetDuck.Dialogs.Settings {
 	sealed partial class TabSettingsFeedback : FormSettings.BaseTab {
@@ -14,7 +14,7 @@ namespace TweetDuck.Dialogs.Settings {
 		#region Feedback
 
 		private void btnSendFeedback_Click(object sender, EventArgs e) {
-			BrowserUtils.OpenExternalBrowser("https://github.com/chylex/TweetDuck/issues/new");
+			App.SystemHandler.OpenBrowser("https://github.com/chylex/TweetDuck/issues/new");
 		}
 
 		#endregion

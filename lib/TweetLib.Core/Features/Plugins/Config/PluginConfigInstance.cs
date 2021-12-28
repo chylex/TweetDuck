@@ -21,7 +21,7 @@ namespace TweetLib.Core.Features.Plugins.Config {
 				string? line = reader.ReadLine();
 
 				if (line == "#Disabled") {
-					HashSet<string> newDisabled = new HashSet<string>();
+					var newDisabled = new HashSet<string>();
 
 					while ((line = reader.ReadLine()) != null) {
 						newDisabled.Add(line);

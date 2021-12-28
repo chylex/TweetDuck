@@ -5,6 +5,8 @@ using System.Net;
 
 namespace TweetLib.Utils.Static {
 	public static class WebUtils {
+		public static string DefaultUserAgent { get; set; } = "";
+
 		private static bool hasMicrosoftBeenBroughtTo2008Yet;
 		private static bool hasSystemProxyBeenEnabled;
 
@@ -25,7 +27,7 @@ namespace TweetLib.Utils.Static {
 			}
 		}
 
-		public static WebClient NewClient(string userAgent) {
+		public static WebClient NewClient(string? userAgent = null) {
 			EnsureTLS12();
 
 			WebClient client = new WebClient();
@@ -34,12 +36,12 @@ namespace TweetLib.Utils.Static {
 				client.Proxy = null;
 			}
 
-			client.Headers[HttpRequestHeader.UserAgent] = userAgent;
+			client.Headers[HttpRequestHeader.UserAgent] = userAgent ?? DefaultUserAgent;
 			return client;
 		}
 
 		public static AsyncCompletedEventHandler FileDownloadCallback(string file, Action? onSuccess, Action<Exception>? onFailure) {
-			return (sender, args) => {
+			return (_, args) => {
 				if (args.Cancelled) {
 					TryDeleteFile(file);
 				}

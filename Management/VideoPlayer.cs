@@ -6,7 +6,6 @@ using TweetDuck.Browser;
 using TweetDuck.Configuration;
 using TweetDuck.Controls;
 using TweetDuck.Dialogs;
-using TweetDuck.Utils;
 using TweetLib.Communication.Pipe;
 using TweetLib.Core;
 
@@ -14,7 +13,7 @@ namespace TweetDuck.Management {
 	sealed class VideoPlayer : IDisposable {
 		private static UserConfig Config => Program.Config.User;
 
-		public bool Running => currentInstance != null && currentInstance.Running;
+		public bool Running => currentInstance is { Running: true };
 
 		public event EventHandler ProcessExited;
 
@@ -39,7 +38,7 @@ namespace TweetDuck.Management {
 				pipe.DataIn += pipe_DataIn;
 
 				ProcessStartInfo startInfo = new ProcessStartInfo {
-					FileName = Path.Combine(Program.ProgramPath, "TweetDuck.Video.exe"),
+					FileName = Path.Combine(App.ProgramPath, "TweetDuck.Video.exe"),
 					Arguments = $"{owner.Handle} {(int) Math.Floor(100F * owner.GetDPIScale())} {Config.VideoPlayerVolume} \"{videoUrl}\" \"{pipe.GenerateToken()}\"",
 					UseShellExecute = false,
 					RedirectStandardOutput = true
@@ -83,7 +82,7 @@ namespace TweetDuck.Management {
 
 					case "download":
 						if (currentInstance != null) {
-							TwitterUtils.DownloadVideo(currentInstance.VideoUrl, currentInstance.Username);
+							owner.SaveVideo(currentInstance.VideoUrl, currentInstance.Username);
 						}
 
 						break;
@@ -137,7 +136,7 @@ namespace TweetDuck.Management {
 
 		private void process_OutputDataReceived(object sender, DataReceivedEventArgs e) {
 			if (!string.IsNullOrEmpty(e.Data)) {
-				Program.Reporter.LogVerbose("[VideoPlayer] " + e.Data);
+				App.Logger.Debug("[VideoPlayer] " + e.Data);
 			}
 		}
 
@@ -155,14 +154,14 @@ namespace TweetDuck.Management {
 			switch (exitCode) {
 				case 3: // CODE_LAUNCH_FAIL
 					if (FormMessage.Error("Video Playback Error", "Error launching video player, this may be caused by missing Windows Media Player. Do you want to open the video in your browser?", FormMessage.Yes, FormMessage.No)) {
-						BrowserUtils.OpenExternalBrowser(tweetUrl);
+						App.SystemHandler.OpenBrowser(tweetUrl);
 					}
 
 					break;
 
 				case 4: // CODE_MEDIA_ERROR
 					if (FormMessage.Error("Video Playback Error", "The video could not be loaded, most likely due to unknown format. Do you want to open the video in your browser?", FormMessage.Yes, FormMessage.No)) {
-						BrowserUtils.OpenExternalBrowser(tweetUrl);
+						App.SystemHandler.OpenBrowser(tweetUrl);
 					}
 
 					break;
