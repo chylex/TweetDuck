@@ -8,6 +8,7 @@ using TweetDuck.Controls;
 using TweetDuck.Dialogs;
 using TweetDuck.Utils;
 using TweetLib.Communication.Pipe;
+using TweetLib.Core;
 
 namespace TweetDuck.Management {
 	sealed class VideoPlayer : IDisposable {
@@ -61,7 +62,7 @@ namespace TweetDuck.Management {
 					pipe.Dispose();
 				}
 			} catch (Exception e) {
-				Program.Reporter.HandleException("Video Playback Error", "Error launching video player.", true, e);
+				App.ErrorHandler.HandleException("Video Playback Error", "Error launching video player.", true, e);
 			}
 		}
 

@@ -1,5 +1,5 @@
 ﻿using System;
-using TweetLib.Core.Data;
+using TweetLib.Utils.Data;
 
 namespace TweetLib.Core.Systems.Updates {
 	public sealed class UpdateCheckEventArgs : EventArgs {

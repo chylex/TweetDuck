@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
-using TweetLib.Core.Data;
+using TweetLib.Utils.Data;
 using Timer = System.Timers.Timer;
 
 namespace TweetLib.Core.Systems.Updates {

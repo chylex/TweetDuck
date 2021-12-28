@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using TweetLib.Core.Data;
 using TweetLib.Core.Features.Plugins.Enums;
+using TweetLib.Utils.Data;
 
 namespace TweetLib.Core.Features.Plugins {
 	public static class PluginLoader {

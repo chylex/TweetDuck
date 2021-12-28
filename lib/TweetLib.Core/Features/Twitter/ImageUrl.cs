@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using TweetLib.Core.Utils;
+using TweetLib.Utils.Static;
 
 namespace TweetLib.Core.Features.Twitter {
 	public class ImageUrl {

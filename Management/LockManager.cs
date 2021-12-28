@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using TweetDuck.Dialogs;
 using TweetDuck.Utils;
+using TweetLib.Core;
 using TweetLib.Core.Systems.Startup;
 
 namespace TweetDuck.Management {
@@ -79,7 +80,7 @@ namespace TweetDuck.Management {
 		// Helpers
 
 		private static void ShowGenericException(LockResult.Fail fail) {
-			Program.Reporter.HandleException("TweetDuck Has Failed :(", "An unknown error occurred accessing the data folder. Please, make sure TweetDuck is not already running. If the problem persists, try restarting your system.", false, fail.Exception);
+			App.ErrorHandler.HandleException("TweetDuck Has Failed :(", "An unknown error occurred accessing the data folder. Please, make sure TweetDuck is not already running. If the problem persists, try restarting your system.", false, fail.Exception);
 		}
 
 		private static bool RestoreProcess(Process process) {

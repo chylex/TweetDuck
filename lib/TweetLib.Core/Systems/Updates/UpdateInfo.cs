@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net;
-using TweetLib.Core.Utils;
+using TweetLib.Utils.Static;
 
 namespace TweetLib.Core.Systems.Updates {
 	public sealed class UpdateInfo {

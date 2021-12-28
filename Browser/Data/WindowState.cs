@@ -1,8 +1,8 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using TweetDuck.Controls;
-using TweetLib.Core.Serialization.Converters;
-using TweetLib.Core.Utils;
+using TweetLib.Utils.Serialization.Converters;
+using TweetLib.Utils.Static;
 
 namespace TweetDuck.Browser.Data {
 	sealed class WindowState {
@@ -27,7 +27,7 @@ namespace TweetDuck.Browser.Data {
 			}
 		}
 
-		public static readonly SingleTypeConverter<WindowState> Converter = new SingleTypeConverter<WindowState> {
+		public static readonly BasicTypeConverter<WindowState> Converter = new BasicTypeConverter<WindowState> {
 			ConvertToString = value => $"{(value.isMaximized ? 'M' : '_')}{value.rect.X} {value.rect.Y} {value.rect.Width} {value.rect.Height}",
 			ConvertToObject = value => {
 				int[] elements = StringUtils.ParseInts(value.Substring(1), ' ');

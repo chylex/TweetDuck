@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using CefSharp;
+using TweetDuck.Resources;
 using TweetDuck.Utils;
 using TweetLib.Core.Browser;
-using TweetLib.Core.Utils;
 
 namespace TweetDuck.Browser.Adapters {
 	sealed class CefScriptExecutor : IScriptExecutor {
@@ -44,7 +44,7 @@ namespace TweetDuck.Browser.Adapters {
 		}
 
 		public static string GetBootstrapScript(string moduleNamespace, bool includeStylesheets) {
-			string script = FileUtils.ReadFileOrNull(Path.Combine(Program.ResourcesPath, "bootstrap.js"));
+			string script = ResourceUtils.ReadFileOrNull("bootstrap.js");
 
 			if (script == null) {
 				return null;

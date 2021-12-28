@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
-using TweetLib.Core.Collections;
-using TweetLib.Core.Data;
 using TweetLib.Core.Features.Plugins.Enums;
 using TweetLib.Core.Features.Plugins.Events;
-using TweetLib.Core.Utils;
+using TweetLib.Utils.Collections;
+using TweetLib.Utils.Data;
+using TweetLib.Utils.Static;
 
 namespace TweetLib.Core.Features.Plugins {
 	[SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -16,9 +16,9 @@ namespace TweetLib.Core.Features.Plugins {
 		private readonly Random rand = new Random();
 
 		private readonly FileCache fileCache = new FileCache();
-		private readonly TwoKeyDictionary<int, string, InjectedHTML> notificationInjections = new TwoKeyDictionary<int, string, InjectedHTML>(4, 1);
+		private readonly TwoKeyDictionary<int, string, InjectedString> notificationInjections = new TwoKeyDictionary<int, string, InjectedString>(4, 1);
 
-		internal IEnumerable<InjectedHTML> NotificationInjections => notificationInjections.InnerValues;
+		internal IEnumerable<InjectedString> NotificationInjections => notificationInjections.InnerValues;
 		internal ISet<Plugin> WithConfigureFunction { get; } = new HashSet<Plugin>();
 
 		public PluginBridge(PluginManager manager) {
@@ -135,11 +135,11 @@ namespace TweetLib.Core.Features.Plugins {
 		}
 
 		public void InjectIntoNotificationsBefore(int token, string key, string search, string html) {
-			notificationInjections[token, key] = new InjectedHTML(InjectedHTML.Position.Before, search, html);
+			notificationInjections[token, key] = new InjectedString(InjectedString.Position.Before, search, html);
 		}
 
 		public void InjectIntoNotificationsAfter(int token, string key, string search, string html) {
-			notificationInjections[token, key] = new InjectedHTML(InjectedHTML.Position.After, search, html);
+			notificationInjections[token, key] = new InjectedString(InjectedString.Position.After, search, html);
 		}
 
 		public void SetConfigurable(int token) {

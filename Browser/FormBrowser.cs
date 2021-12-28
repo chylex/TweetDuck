@@ -18,6 +18,7 @@ using TweetDuck.Management;
 using TweetDuck.Plugins;
 using TweetDuck.Updates;
 using TweetDuck.Utils;
+using TweetLib.Core;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Events;
 using TweetLib.Core.Systems.Updates;
@@ -286,7 +287,7 @@ namespace TweetDuck.Browser {
 				}
 			}, ex => {
 				if (!ignoreUpdateCheckError) {
-					Program.Reporter.HandleException("Update Check Error", "An error occurred while checking for updates.", true, ex);
+					App.ErrorHandler.HandleException("Update Check Error", "An error occurred while checking for updates.", true, ex);
 					updates.StartTimer();
 				}
 			});
@@ -540,7 +541,7 @@ namespace TweetDuck.Browser {
 				try {
 					using (Process.Start(playerPath, playerArgs)) {}
 				} catch (Exception e) {
-					Program.Reporter.HandleException("Error Opening Video Player", "Could not open the video player.", true, e);
+					App.ErrorHandler.HandleException("Error Opening Video Player", "Could not open the video player.", true, e);
 				}
 			}
 		}

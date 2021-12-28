@@ -1,11 +1,11 @@
 ﻿using System;
 using System.IO;
-using TweetLib.Core.Serialization;
+using TweetLib.Utils.Serialization;
 
 namespace TweetLib.Core.Systems.Configuration {
 	public sealed class FileConfigInstance<T> : IConfigInstance<T> where T : BaseConfig {
 		public T Instance { get; }
-		public FileSerializer<T> Serializer { get; }
+		public SimpleObjectSerializer<T> Serializer { get; }
 
 		private readonly string filenameMain;
 		private readonly string filenameBackup;
@@ -17,7 +17,7 @@ namespace TweetLib.Core.Systems.Configuration {
 			this.identifier = identifier;
 
 			this.Instance = instance;
-			this.Serializer = new FileSerializer<T>();
+			this.Serializer = new SimpleObjectSerializer<T>();
 		}
 
 		private void LoadInternal(bool backup) {

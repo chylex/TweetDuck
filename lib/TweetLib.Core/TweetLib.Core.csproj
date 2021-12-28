@@ -3,13 +3,17 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Platforms>x86</Platforms>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>9</LangVersion>
     <Nullable>enable</Nullable>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Include="..\..\Version.cs" Link="Version.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TweetLib.Utils\TweetLib.Utils.csproj" />
   </ItemGroup>
 
 </Project>

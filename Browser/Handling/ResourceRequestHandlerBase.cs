@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text.RegularExpressions;
 using CefSharp;
-using TweetLib.Core.Utils;
+using TweetLib.Utils.Static;
 
 namespace TweetDuck.Browser.Handling {
 	class ResourceRequestHandlerBase : ResourceRequestHandler {

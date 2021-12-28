@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading;
-using TweetLib.Core.Utils;
+using TweetLib.Utils.Static;
 
 namespace TweetLib.Core.Systems.Startup {
 	public sealed class LockFile {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text.RegularExpressions;
-using TweetLib.Core.Utils;
+using TweetLib.Utils.Static;
 
 namespace TweetLib.Core.Features.Twitter {
 	public static class TwitterUrls {

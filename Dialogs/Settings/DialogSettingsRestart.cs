@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using TweetDuck.Configuration;
-using TweetLib.Core.Collections;
+using TweetLib.Utils.Collections;
 
 namespace TweetDuck.Dialogs.Settings {
 	sealed partial class DialogSettingsRestart : Form {

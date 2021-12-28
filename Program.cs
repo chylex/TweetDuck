@@ -15,8 +15,9 @@ using TweetDuck.Plugins;
 using TweetDuck.Resources;
 using TweetDuck.Utils;
 using TweetLib.Core;
-using TweetLib.Core.Collections;
-using TweetLib.Core.Utils;
+using TweetLib.Core.Features.Chromium;
+using TweetLib.Utils.Collections;
+using TweetLib.Utils.Static;
 using Win = System.Windows.Forms;
 
 namespace TweetDuck {
@@ -137,7 +138,7 @@ namespace TweetDuck {
 			settings.SetupCustomScheme(ResourceSchemeFactory.Name, resourceScheme);
 			settings.SetupCustomScheme(PluginSchemeFactory.Name, pluginScheme);
 
-			CommandLineArgs.ReadCefArguments(Config.User.CustomCefArgs).ToDictionary(settings.CefCommandLineArgs);
+			CefUtils.ParseCommandLineArguments(Config.User.CustomCefArgs).ToDictionary(settings.CefCommandLineArgs);
 			BrowserUtils.SetupCefArgs(settings.CefCommandLineArgs);
 
 			Cef.Initialize(settings, false, new BrowserProcessHandler());

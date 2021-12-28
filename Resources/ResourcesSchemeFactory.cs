@@ -2,7 +2,7 @@ using System;
 using System.Net;
 using CefSharp;
 using TweetLib.Core.Browser;
-using TweetLib.Core.Utils;
+using TweetLib.Utils.Static;
 
 namespace TweetDuck.Resources {
 	public class ResourceSchemeFactory : ISchemeHandlerFactory {

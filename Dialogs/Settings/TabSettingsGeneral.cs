@@ -5,8 +5,11 @@ using System.Windows.Forms;
 using TweetDuck.Browser.Handling.General;
 using TweetDuck.Controls;
 using TweetDuck.Utils;
+using TweetLib.Core;
+using TweetLib.Core.Features.Chromium;
+using TweetLib.Core.Features.Twitter;
 using TweetLib.Core.Systems.Updates;
-using TweetLib.Core.Utils;
+using TweetLib.Utils.Globalization;
 
 namespace TweetDuck.Dialogs.Settings {
 	sealed partial class TabSettingsGeneral : FormSettings.BaseTab {
@@ -107,20 +110,20 @@ namespace TweetDuck.Dialogs.Settings {
 			checkSpellCheck.Checked = Config.EnableSpellCheck;
 
 			try {
-				foreach (LocaleUtils.Item item in LocaleUtils.SpellCheckLanguages) {
+				foreach (Language item in SpellCheck.SupportedLanguages) {
 					comboBoxSpellCheckLanguage.Items.Add(item);
 				}
 			} catch {
-				comboBoxSpellCheckLanguage.Items.Add(new LocaleUtils.Item("en-US"));
+				comboBoxSpellCheckLanguage.Items.Add(new Language("en-US"));
 			}
 
-			comboBoxSpellCheckLanguage.SelectedItem = new LocaleUtils.Item(Config.SpellCheckLanguage);
+			comboBoxSpellCheckLanguage.SelectedItem = new Language(Config.SpellCheckLanguage);
 
-			foreach (LocaleUtils.Item item in LocaleUtils.TweetDeckTranslationLocales) {
+			foreach (Language item in TweetDeckTranslations.SupportedLanguages) {
 				comboBoxTranslationTarget.Items.Add(item);
 			}
 
-			comboBoxTranslationTarget.SelectedItem = new LocaleUtils.Item(Config.TranslationTarget);
+			comboBoxTranslationTarget.SelectedItem = new Language(Config.TranslationTarget);
 
 			var daysOfWeek = comboBoxFirstDayOfWeek.Items;
 			daysOfWeek.Add("(based on system locale)");
@@ -230,7 +233,7 @@ namespace TweetDuck.Dialogs.Settings {
 						FormMessage.Information("No Updates Available", "Your version of TweetDuck is up to date.", FormMessage.OK);
 					}
 				}, ex => {
-					Program.Reporter.HandleException("Update Check Error", "An error occurred while checking for updates.", true, ex);
+					App.ErrorHandler.HandleException("Update Check Error", "An error occurred while checking for updates.", true, ex);
 				});
 			}
 		}
@@ -403,11 +406,11 @@ namespace TweetDuck.Dialogs.Settings {
 		}
 
 		private void comboBoxSpellCheckLanguage_SelectedValueChanged(object sender, EventArgs e) {
-			Config.SpellCheckLanguage = (comboBoxSpellCheckLanguage.SelectedItem as LocaleUtils.Item)?.Code ?? "en-US";
+			Config.SpellCheckLanguage = (comboBoxSpellCheckLanguage.SelectedItem as Language)?.Code ?? "en-US";
 		}
 
 		private void comboBoxTranslationTarget_SelectedValueChanged(object sender, EventArgs e) {
-			Config.TranslationTarget = (comboBoxTranslationTarget.SelectedItem as LocaleUtils.Item)?.Code ?? "en";
+			Config.TranslationTarget = (comboBoxTranslationTarget.SelectedItem as Language)?.Code ?? "en";
 		}
 
 		private void comboBoxFirstDayOfWeek_SelectedValueChanged(object sender, EventArgs e) {
@@ -420,7 +423,7 @@ namespace TweetDuck.Dialogs.Settings {
 
 			public DayOfWeekItem(string name, DayOfWeek dow) {
 				Name = name;
-				Id = LocaleUtils.GetJQueryDayOfWeek(dow);
+				Id = JQuery.GetDatePickerDayOfWeek(dow);
 			}
 
 			public override int GetHashCode() => Name.GetHashCode();

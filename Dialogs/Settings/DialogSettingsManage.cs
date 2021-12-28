@@ -4,8 +4,9 @@ using System.IO;
 using System.Windows.Forms;
 using TweetDuck.Configuration;
 using TweetDuck.Management;
+using TweetLib.Core;
 using TweetLib.Core.Features.Plugins;
-using TweetLib.Core.Utils;
+using TweetLib.Utils.Static;
 
 namespace TweetDuck.Dialogs.Settings {
 	sealed partial class DialogSettingsManage : Form {
@@ -150,7 +151,7 @@ namespace TweetDuck.Dialogs.Settings {
 							try {
 								Directory.Delete(Program.PluginDataPath, true);
 							} catch (Exception ex) {
-								Program.Reporter.HandleException("Profile Reset", "Could not delete plugin data.", true, ex);
+								App.ErrorHandler.HandleException("Profile Reset", "Could not delete plugin data.", true, ex);
 							}
 						}
 

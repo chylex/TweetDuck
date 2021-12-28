@@ -2,7 +2,8 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using TweetDuck.Configuration;
-using TweetLib.Core.Utils;
+using TweetLib.Core;
+using TweetLib.Utils.Static;
 
 namespace TweetDuck.Updates {
 	sealed class UpdateInstaller {
@@ -29,7 +30,7 @@ namespace TweetDuck.Updates {
 			} catch (Win32Exception e) when (e.NativeErrorCode == 0x000004C7) { // operation canceled by the user
 				return false;
 			} catch (Exception e) {
-				Program.Reporter.HandleException("Update Installer Error", "Could not launch update installer.", true, e);
+				App.ErrorHandler.HandleException("Update Installer Error", "Could not launch update installer.", true, e);
 				return false;
 			}
 		}

@@ -62,7 +62,6 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Browser\Handling\ResourceProvider.cs" />
     <Compile Include="Management\LockManager.cs" />
     <Compile Include="Application\SystemHandler.cs" />
     <Compile Include="Browser\Adapters\CefScriptExecutor.cs" />
@@ -115,6 +114,8 @@
     <Compile Include="Reporter.cs" />
     <Compile Include="Resources\ResourcesSchemeFactory.cs" />
     <Compile Include="Resources\ResourceHotSwap.cs" />
+    <Compile Include="Resources\ResourceProvider.cs" />
+    <Compile Include="Resources\ResourceUtils.cs" />
     <Compile Include="Updates\UpdateCheckClient.cs" />
     <Compile Include="Updates\UpdateInstaller.cs" />
     <Compile Include="Utils\BrowserUtils.cs" />
@@ -366,6 +367,10 @@
     <ProjectReference Include="lib\TweetLib.Core\TweetLib.Core.csproj">
       <Project>{93ba3cb4-a812-4949-b07d-8d393fb38937}</Project>
       <Name>TweetLib.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="lib\TweetLib.Utils\TweetLib.Utils.csproj">
+      <Project>{476b1007-b12c-447f-b855-9886048201d6}</Project>
+      <Name>TweetLib.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="subprocess\TweetDuck.Browser.csproj">
       <Project>{b10b0017-819e-4f71-870f-8256b36a26aa}</Project>

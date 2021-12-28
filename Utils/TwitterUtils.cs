@@ -11,7 +11,7 @@ using TweetDuck.Dialogs;
 using TweetDuck.Management;
 using TweetLib.Core;
 using TweetLib.Core.Features.Twitter;
-using TweetLib.Core.Utils;
+using TweetLib.Utils.Static;
 using Cookie = CefSharp.Cookie;
 
 namespace TweetDuck.Utils {

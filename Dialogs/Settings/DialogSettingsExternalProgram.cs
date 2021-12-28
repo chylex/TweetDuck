@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using TweetLib.Core.Utils;
+using TweetLib.Utils.Static;
 using IOPath = System.IO.Path;
 
 namespace TweetDuck.Dialogs.Settings {

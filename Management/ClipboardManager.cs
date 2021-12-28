@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using TweetLib.Core;
 
 namespace TweetDuck.Management {
 	static class ClipboardManager {
@@ -29,7 +30,7 @@ namespace TweetDuck.Management {
 			try {
 				Clipboard.SetDataObject(obj);
 			} catch (ExternalException e) {
-				Program.Reporter.HandleException("Clipboard Error", "TweetDuck could not access the clipboard as it is currently used by another process.", true, e);
+				App.ErrorHandler.HandleException("Clipboard Error", "TweetDuck could not access the clipboard as it is currently used by another process.", true, e);
 			}
 		}
 

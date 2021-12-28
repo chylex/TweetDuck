@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TweetLib.Core.Features.Plugins.Enums;
-using TweetLib.Core.Utils;
+using TweetLib.Utils.Static;
 
 namespace TweetLib.Core.Features.Plugins {
 	public sealed class Plugin {

@@ -10,7 +10,7 @@ using TweetDuck.Dialogs;
 using TweetDuck.Management;
 using TweetDuck.Utils;
 using TweetLib.Core.Features.Notifications;
-using TweetLib.Core.Utils;
+using TweetLib.Utils.Static;
 
 namespace TweetDuck.Browser.Bridge {
 	[SuppressMessage("ReSharper", "UnusedMember.Global")]

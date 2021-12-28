@@ -1,5 +1,5 @@
 ﻿using CefSharp;
-using TweetDuck.Browser.Handling;
+using TweetDuck.Resources;
 using TweetLib.Core.Features.Plugins;
 
 namespace TweetDuck.Plugins {

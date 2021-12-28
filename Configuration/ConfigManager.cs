@@ -2,9 +2,9 @@
 using System.Drawing;
 using TweetDuck.Browser.Data;
 using TweetLib.Core.Features.Plugins.Config;
-using TweetLib.Core.Serialization.Converters;
 using TweetLib.Core.Systems.Configuration;
-using TweetLib.Core.Utils;
+using TweetLib.Utils.Serialization.Converters;
+using TweetLib.Utils.Static;
 
 namespace TweetDuck.Configuration {
 	sealed class ConfigManager : IConfigManager {
@@ -35,7 +35,7 @@ namespace TweetDuck.Configuration {
 
 			infoUser.Serializer.RegisterTypeConverter(typeof(WindowState), WindowState.Converter);
 
-			infoUser.Serializer.RegisterTypeConverter(typeof(Point), new SingleTypeConverter<Point> {
+			infoUser.Serializer.RegisterTypeConverter(typeof(Point), new BasicTypeConverter<Point> {
 				ConvertToString = value => $"{value.X} {value.Y}",
 				ConvertToObject = value => {
 					int[] elements = StringUtils.ParseInts(value, ' ');
@@ -43,7 +43,7 @@ namespace TweetDuck.Configuration {
 				}
 			});
 
-			infoUser.Serializer.RegisterTypeConverter(typeof(Size), new SingleTypeConverter<Size> {
+			infoUser.Serializer.RegisterTypeConverter(typeof(Size), new BasicTypeConverter<Size> {
 				ConvertToString = value => $"{value.Width} {value.Height}",
 				ConvertToObject = value => {
 					int[] elements = StringUtils.ParseInts(value, ' ');

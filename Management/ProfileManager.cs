@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TweetDuck.Dialogs;
-using TweetLib.Core.Data;
+using TweetLib.Core;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Enums;
+using TweetLib.Utils.IO;
 
 namespace TweetDuck.Management {
 	sealed class ProfileManager {
@@ -69,7 +70,7 @@ namespace TweetDuck.Management {
 				stream.Flush();
 				return true;
 			} catch (Exception e) {
-				Program.Reporter.HandleException("Profile Export Error", "An exception happened while exporting TweetDuck profile.", true, e);
+				App.ErrorHandler.HandleException("Profile Export Error", "An exception happened while exporting TweetDuck profile.", true, e);
 				return false;
 			}
 		}
@@ -185,7 +186,7 @@ namespace TweetDuck.Management {
 
 				return true;
 			} catch (Exception e) {
-				Program.Reporter.HandleException("Profile Import", "An exception happened while importing TweetDuck profile.", true, e);
+				App.ErrorHandler.HandleException("Profile Import", "An exception happened while importing TweetDuck profile.", true, e);
 				return false;
 			}
 		}
@@ -204,7 +205,7 @@ namespace TweetDuck.Management {
 					File.Move(TempCookiesPath, CookiesPath);
 					File.Move(TempLocalPrefsPath, LocalPrefsPath);
 				} catch (Exception e) {
-					Program.Reporter.HandleException("Profile Import Error", "Could not import the cookie file to restore login session.", true, e);
+					App.ErrorHandler.HandleException("Profile Import Error", "Could not import the cookie file to restore login session.", true, e);
 				}
 			}
 		}
@@ -215,7 +216,7 @@ namespace TweetDuck.Management {
 					File.Delete(CookiesPath);
 				}
 			} catch (Exception e) {
-				Program.Reporter.HandleException("Session Reset Error", "Could not remove the cookie file to reset the login session.", true, e);
+				App.ErrorHandler.HandleException("Session Reset Error", "Could not remove the cookie file to reset the login session.", true, e);
 			}
 		}
 

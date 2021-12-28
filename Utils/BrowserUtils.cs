@@ -131,7 +131,7 @@ namespace TweetDuck.Utils {
 						try {
 							using (Process.Start(browserPath, browserArgs)) {}
 						} catch (Exception e) {
-							Program.Reporter.HandleException("Error Opening Browser", "Could not open the browser.", true, e);
+							App.ErrorHandler.HandleException("Error Opening Browser", "Could not open the browser.", true, e);
 						}
 					}
 

@@ -11,6 +11,7 @@ using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TweetDuck.Controls;
+using TweetLib.Core;
 using TweetLib.Core.Features.Plugins;
 #if GEN_SCREENSHOT_FRAMES
 using System.Drawing.Imaging;
@@ -92,7 +93,7 @@ namespace TweetDuck.Browser.Notification.Screenshot {
 
 		private void HandleResult(Task<Image> task) {
 			if (task.IsFaulted) {
-				Program.Reporter.HandleException("Screenshot Failed", "An error occurred while taking a screenshot.", true, task.Exception!.InnerException);
+				App.ErrorHandler.HandleException("Screenshot Failed", "An error occurred while taking a screenshot.", true, task.Exception!.InnerException);
 			}
 			else if (task.IsCompleted) {
 				Clipboard.SetImage(task.Result);

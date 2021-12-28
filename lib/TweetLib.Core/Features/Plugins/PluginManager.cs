@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TweetLib.Core.Browser;
-using TweetLib.Core.Data;
 using TweetLib.Core.Features.Plugins.Config;
 using TweetLib.Core.Features.Plugins.Enums;
 using TweetLib.Core.Features.Plugins.Events;
+using TweetLib.Utils.Data;
 
 namespace TweetLib.Core.Features.Plugins {
 	public sealed class PluginManager {
 		public string PathCustomPlugins => Path.Combine(pluginFolder, PluginGroup.Custom.GetSubFolder());
 
 		public IEnumerable<Plugin> Plugins => plugins;
-		public IEnumerable<InjectedHTML> NotificationInjections => bridge.NotificationInjections;
+		public IEnumerable<InjectedString> NotificationInjections => bridge.NotificationInjections;
 
 		public IPluginConfig Config { get; }
 
@@ -26,7 +26,7 @@ namespace TweetLib.Core.Features.Plugins {
 		internal readonly PluginBridge bridge;
 		private IScriptExecutor? browserExecutor;
 
-		private readonly HashSet<Plugin> plugins = new HashSet<Plugin>();
+		private readonly HashSet<Plugin> plugins = new ();
 
 		public PluginManager(IPluginConfig config, string pluginFolder, string pluginDataFolder) {
 			this.Config = config;
@@ -40,7 +40,7 @@ namespace TweetLib.Core.Features.Plugins {
 
 		public void Register(PluginEnvironment environment, IPluginDispatcher dispatcher) {
 			dispatcher.AttachBridge("$TDP", bridge);
-			dispatcher.Ready += (sender, args) => {
+			dispatcher.Ready += (_, args) => {
 				IScriptExecutor executor = args.Executor;
 
 				if (environment == PluginEnvironment.Browser) {

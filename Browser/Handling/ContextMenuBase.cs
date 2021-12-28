@@ -13,7 +13,7 @@ using TweetDuck.Dialogs;
 using TweetDuck.Management;
 using TweetDuck.Utils;
 using TweetLib.Core.Features.Twitter;
-using TweetLib.Core.Utils;
+using TweetLib.Utils.Static;
 
 namespace TweetDuck.Browser.Handling {
 	abstract class ContextMenuBase : IContextMenuHandler {

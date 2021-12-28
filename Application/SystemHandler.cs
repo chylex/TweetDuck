@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using TweetLib.Core;
 using TweetLib.Core.Application;
 
 namespace TweetDuck.Application {
@@ -12,7 +13,7 @@ namespace TweetDuck.Application {
 					ErrorDialog = true
 				})) {}
 			} catch (Exception e) {
-				Program.Reporter.HandleException("Error Opening Program", "Could not open the associated program for " + path, true, e);
+				App.ErrorHandler.HandleException("Error Opening Program", "Could not open the associated program for " + path, true, e);
 			}
 		}
 
