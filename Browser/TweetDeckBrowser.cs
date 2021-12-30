@@ -171,7 +171,7 @@ namespace TweetDuck.Browser {
 				return;
 			}
 
-			if (!e.FailedUrl.StartsWith("td://", StringComparison.Ordinal)) {
+			if (!e.FailedUrl.StartsWith("td://resources/error/", StringComparison.Ordinal)) {
 				string errorName = Enum.GetName(typeof(CefErrorCode), e.ErrorCode);
 				string errorTitle = StringUtils.ConvertPascalCaseToScreamingSnakeCase(errorName ?? string.Empty);
 				browser.Load("td://resources/error/error.html#" + Uri.EscapeDataString(errorTitle));
