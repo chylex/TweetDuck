@@ -361,7 +361,7 @@
     <None Include="Resources\PostCefUpdate.ps1" />
   </ItemGroup>
   <ItemGroup>
-    <Redist Include="$(ProjectDir)bld\Redist\*.*" />
+    <Redist Include="$(ProjectDir)bld\Redist\*.*" Visible="false" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="lib\TweetLib.Core\TweetLib.Core.csproj">
