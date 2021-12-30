@@ -76,6 +76,8 @@ namespace TweetDuck.Browser {
 			this.browser.RegisterJsBridge("$TD", tdBridge);
 			this.browser.RegisterJsBridge("$TDU", updateBridge);
 
+			// ReSharper disable once PossiblyImpureMethodCallOnReadonlyVariable
+			this.browser.BrowserSettings.BackgroundColor = (uint) TwitterUtils.BackgroundColor.ToArgb();
 			this.browser.Dock = DockStyle.None;
 			this.browser.Location = ControlExtensions.InvisibleLocation;
 			this.browser.SetupZoomEvents();
