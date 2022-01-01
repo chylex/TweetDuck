@@ -16,15 +16,13 @@ using TweetDuck.Dialogs;
 using TweetDuck.Dialogs.Settings;
 using TweetDuck.Management;
 using TweetDuck.Plugins;
+using TweetDuck.Resources;
 using TweetDuck.Updates;
 using TweetDuck.Utils;
 using TweetLib.Core;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Events;
 using TweetLib.Core.Systems.Updates;
-#if DEBUG
-using TweetDuck.Resources;
-#endif
 
 namespace TweetDuck.Browser {
 	sealed partial class FormBrowser : Form {
