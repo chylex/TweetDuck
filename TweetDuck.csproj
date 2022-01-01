@@ -389,6 +389,7 @@
     <Content Include="Resources\Content\.all.js" />
     <Content Include="Resources\Content\api\bridge.js" />
     <Content Include="Resources\Content\api\jquery.js" />
+    <Content Include="Resources\Content\api\patch.js" />
     <Content Include="Resources\Content\api\ready.js" />
     <Content Include="Resources\Content\api\td.js" />
     <Content Include="Resources\Content\api\utils.js" />
@@ -398,6 +399,7 @@
     <Content Include="Resources\Content\load.js" />
     <Content Include="Resources\Content\login\hide_cookie_bar.js" />
     <Content Include="Resources\Content\login\login.css" />
+    <Content Include="Resources\Content\login\redirect_plain_twitter_com.js" />
     <Content Include="Resources\Content\login\setup_document_attributes.js" />
     <Content Include="Resources\Content\notification\add_skip_button.js" />
     <Content Include="Resources\Content\notification\disable_clipboard_formatting.js" />
@@ -436,7 +438,6 @@
     <Content Include="Resources\Content\tweetdeck\globals\get_hovered_column.js" />
     <Content Include="Resources\Content\tweetdeck\globals\get_hovered_tweet.js" />
     <Content Include="Resources\Content\tweetdeck\globals\inject_mustache.js" />
-    <Content Include="Resources\Content\tweetdeck\globals\patch_functions.js" />
     <Content Include="Resources\Content\tweetdeck\globals\prioritize_newest_event.js" />
     <Content Include="Resources\Content\tweetdeck\globals\reload_browser.js" />
     <Content Include="Resources\Content\tweetdeck\globals\reload_columns.js" />

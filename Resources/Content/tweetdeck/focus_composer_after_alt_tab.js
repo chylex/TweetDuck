@@ -1,6 +1,6 @@
 import { $ } from "../api/jquery.js";
+import { replaceFunction } from "../api/patch.js";
 import { onAppReady } from "../api/ready.js";
-import { replaceFunction } from "./globals/patch_functions.js";
 import { prioritizeNewestEvent } from "./globals/prioritize_newest_event.js";
 
 /**

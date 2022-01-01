@@ -1,6 +1,6 @@
+import { replaceFunction } from "../api/patch.js";
 import { TD } from "../api/td.js";
 import { checkPropertyExists } from "../api/utils.js";
-import { replaceFunction } from "./globals/patch_functions.js";
 
 /**
  * Replaces displayed name and avatar of the official TweetDuck account.

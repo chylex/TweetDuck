@@ -6,6 +6,7 @@
 
 import introduction from "./introduction/introduction.js";
 import hide_cookie_bar from "./login/hide_cookie_bar.js";
+import redirect_plain_twitter_com from "./login/redirect_plain_twitter_com";
 import setup_document_attributes from "./login/setup_document_attributes.js";
 import add_skip_button from "./notification/add_skip_button.js";
 import disable_clipboard_formatting_notification from "./notification/disable_clipboard_formatting.js";

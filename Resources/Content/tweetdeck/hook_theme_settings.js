@@ -1,9 +1,9 @@
 import { $TD } from "../api/bridge.js";
+import { runAfterFunction } from "../api/patch.js";
 import { onAppReady } from "../api/ready.js";
 import { TD } from "../api/td.js";
 import { ensurePropertyExists } from "../api/utils.js";
 import { getClassStyleProperty } from "./globals/get_class_style_property.js";
-import { runAfterFunction } from "./globals/patch_functions.js";
 
 function refreshSettings() {
 	const fontSizeName = TD.settings.getFontSize();

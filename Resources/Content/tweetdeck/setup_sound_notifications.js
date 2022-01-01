@@ -1,6 +1,6 @@
 import { $TDX } from "../api/bridge.js";
+import { replaceFunction } from "../api/patch.js";
 import { isAppReady } from "../api/ready.js";
-import { replaceFunction } from "./globals/patch_functions.js";
 
 /**
  * Adds support for sound notification settings.

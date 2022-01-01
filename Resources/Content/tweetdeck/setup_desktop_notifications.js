@@ -1,9 +1,9 @@
 import { $TD, $TDX } from "../api/bridge.js";
 import { $ } from "../api/jquery.js";
+import { replaceFunction } from "../api/patch.js";
 import { TD } from "../api/td.js";
 import { checkPropertyExists, ensurePropertyExists } from "../api/utils.js";
 import { getColumnName } from "./globals/get_column_name.js";
-import { replaceFunction } from "./globals/patch_functions.js";
 
 /**
  * Event callback for a new tweet.

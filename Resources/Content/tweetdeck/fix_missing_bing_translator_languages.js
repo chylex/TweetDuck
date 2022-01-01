@@ -1,6 +1,6 @@
+import { replaceFunction } from "../api/patch.js";
 import { TD } from "../api/td.js";
 import { ensurePropertyExists } from "../api/utils.js";
-import { replaceFunction } from "./globals/patch_functions.js";
 
 /**
  * Adds missing languages for Bing Translator (Bengali, Icelandic, Tagalog, Tamil, Telugu, Urdu).

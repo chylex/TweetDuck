@@ -1,6 +1,6 @@
+import { replaceFunction } from "../api/patch.js";
 import { TD } from "../api/td.js";
 import { ensurePropertyExists } from "../api/utils.js";
-import { replaceFunction } from "./globals/patch_functions.js";
 
 /**
  * Skips the pre-login page so that users immediately see the login page.

@@ -1,7 +1,7 @@
 import { $TDX } from "../api/bridge.js";
+import { replaceFunction } from "../api/patch.js";
 import { TD } from "../api/td.js";
 import { ensurePropertyExists } from "../api/utils.js";
-import { replaceFunction } from "./globals/patch_functions.js";
 
 /**
  * Sets language for automatic translations.

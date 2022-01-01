@@ -1,7 +1,7 @@
 import { $ } from "../api/jquery.js";
+import { runAfterFunction } from "../api/patch.js";
 import { TD } from "../api/td.js";
 import { ensurePropertyExists } from "../api/utils.js";
-import { runAfterFunction } from "./globals/patch_functions.js";
 import { prioritizeNewestEvent } from "./globals/prioritize_newest_event.js";
 
 /**

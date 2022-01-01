@@ -1,4 +1,4 @@
-import { crashDebug } from "../../api/utils.js";
+import { crashDebug } from "./utils.js";
 
 /**
  * @callback FunctionReplacementCallback
