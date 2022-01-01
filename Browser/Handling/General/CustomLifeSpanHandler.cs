@@ -1,4 +1,5 @@
-﻿using CefSharp;
+﻿using System;
+using CefSharp;
 using CefSharp.Handler;
 using TweetDuck.Controls;
 using TweetDuck.Utils;
@@ -6,7 +7,9 @@ using TweetDuck.Utils;
 namespace TweetDuck.Browser.Handling.General {
 	sealed class CustomLifeSpanHandler : LifeSpanHandler {
 		private static bool IsPopupAllowed(string url) {
-			return url.StartsWith("https://twitter.com/teams/authorize?");
+			return url.StartsWith("https://twitter.com/teams/authorize?", StringComparison.Ordinal) ||
+			       url.StartsWith("https://accounts.google.com/", StringComparison.Ordinal) ||
+			       url.StartsWith("https://appleid.apple.com/", StringComparison.Ordinal);
 		}
 
 		public static bool HandleLinkClick(IWebBrowser browserControl, WindowOpenDisposition targetDisposition, string targetUrl) {
