@@ -14,8 +14,12 @@ namespace TweetDuck.Browser.Handling {
 		}
 
 		bool IKeyboardHandler.OnPreKeyEvent(IWebBrowser browserControl, IBrowser browser, KeyType type, int windowsKeyCode, int nativeKeyCode, CefEventFlags modifiers, bool isSystemKey, ref bool isKeyboardShortcut) {
-			if (type == KeyType.RawKeyDown && !browser.FocusedFrame.Url.StartsWith("devtools://")) {
-				return HandleRawKey(browserControl, (Keys) windowsKeyCode, modifiers);
+			if (type == KeyType.RawKeyDown) {
+				using var frame = browser.FocusedFrame;
+
+				if (!frame.Url.StartsWith("devtools://")) {
+					return HandleRawKey(browserControl, (Keys) windowsKeyCode, modifiers);
+				}
 			}
 
 			return false;
