@@ -14,7 +14,6 @@ using TweetDuck.Controls;
 using TweetDuck.Dialogs;
 using TweetDuck.Dialogs.Settings;
 using TweetDuck.Management;
-using TweetDuck.Resources;
 using TweetDuck.Updates;
 using TweetDuck.Utils;
 using TweetLib.Core;
@@ -345,7 +344,7 @@ namespace TweetDuck.Browser {
 
 		public void ReloadToTweetDeck() {
 			#if DEBUG
-			ResourceHotSwap.Run();
+			Resources.ResourceHotSwap.Run();
 			resourceProvider.ClearCache();
 			#else
 			if (ModifierKeys.HasFlag(Keys.Shift)) {

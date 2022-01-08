@@ -19,7 +19,7 @@ namespace TweetDuck.Application {
 			#if DEBUG
 			return Log("DEBUG", message);
 			#else
-			return Arguments.HasFlag(Arguments.ArgLogging) && Log(message);
+			return Configuration.Arguments.HasFlag(Configuration.Arguments.ArgLogging) && Log("DEBUG", message);
 			#endif
 		}
 
