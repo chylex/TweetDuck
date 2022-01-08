@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CefSharp;
@@ -455,6 +456,10 @@ namespace TweetDuck.Browser {
 		}
 
 		public void PlayVideo(string videoUrl, string tweetUrl, string username, IJavascriptCallback callShowOverlay) {
+			if (Arguments.HasFlag(Arguments.ArgHttpVideo)) {
+				videoUrl = Regex.Replace(videoUrl, "^https://", "http://");
+			}
+
 			string playerPath = Config.VideoPlayerPath;
 
 			if (playerPath == null || !File.Exists(playerPath)) {
