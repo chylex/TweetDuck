@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Platforms>x86</Platforms>
+    <Configurations>Debug;Release</Configurations>
+    <Platforms>x86;x64</Platforms>
     <LangVersion>9</LangVersion>
     <Nullable>enable</Nullable>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -18,13 +19,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="$(SolutionDir)resources\Content\**\*.*">
+    <Content Include="$(ProjectDir)..\..\resources\Content\**\*.*">
       <Link>Resources\Content\%(RecursiveDir)%(Filename)%(Extension)</Link>
     </Content>
-    <Content Include="$(SolutionDir)resources\Guide\**\*.*">
+    <Content Include="$(ProjectDir)..\..\resources\Guide\**\*.*">
       <Link>Resources\Guide\%(RecursiveDir)%(Filename)%(Extension)</Link>
     </Content>
-    <Content Include="$(SolutionDir)resources\Plugins\**\*.*">
+    <Content Include="$(ProjectDir)..\..\resources\Plugins\**\*.*">
       <Link>Resources\Plugins\%(RecursiveDir)%(Filename)%(Extension)</Link>
     </Content>
   </ItemGroup>

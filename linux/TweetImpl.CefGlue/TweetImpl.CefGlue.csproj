@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Configurations>Debug;Release</Configurations>
+    <Platforms>x64</Platforms>
+    <Nullable>enable</Nullable>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <PackageId>TweetImpl.CefGlue</PackageId>
+    <Product>TweetImpl.CefGlue</Product>
+    <Authors>chylex</Authors>
+    <Version>0.0.1.0</Version>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
+    <PackageVersion>$(Version)</PackageVersion>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Lunixo.ChromiumGtk.Linux64" Version="2.0.4638.1" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\lib\TweetLib.Browser.CEF\TweetLib.Browser.CEF.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\bridge.skeleton.js" />
+  </ItemGroup>
+
+</Project>

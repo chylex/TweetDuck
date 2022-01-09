@@ -59,6 +59,11 @@ namespace TweetLib.Utils.Serialization {
 		}
 
 		public void Write(string file, T obj) {
+			if (props.Count == 0) {
+				File.Delete(file);
+				return;
+			}
+
 			var errors = new LinkedList<string>();
 
 			FileUtils.CreateDirectoryForFile(file);

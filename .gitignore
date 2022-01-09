@@ -10,8 +10,8 @@ bld/*
 !bld/Resources
 
 # Rider
-.idea/.idea.TweetDuck/.idea/dictionaries
-.idea/.idea.TweetDuck/.idea/misc.xml
+**/.idea/dictionaries
+**/.idea/misc.xml
 
 # User-specific files
 *.suo

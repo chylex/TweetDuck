@@ -10,6 +10,8 @@ namespace TweetLib.Browser.CEF.Logic {
 
 	[SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
 	public sealed class ByteArrayResourceHandlerLogic<TResponse> : ByteArrayResourceHandlerLogic {
+		public int RemainingBytes => resource.Length - position;
+
 		private readonly ByteArrayResource resource;
 		private readonly IResponseAdapter<TResponse> responseAdapter;
 
@@ -57,7 +59,7 @@ namespace TweetLib.Browser.CEF.Logic {
 		}
 
 		public bool Read<T>(WriteToOut<T> write, T dataOut, out int bytesRead, IDisposable callback) {
-			return Read(write, dataOut, resource.Length - position, out bytesRead, callback);
+			return Read(write, dataOut, RemainingBytes, out bytesRead, callback);
 		}
 	}
 }

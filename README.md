@@ -17,15 +17,21 @@
             - [TweetDuck.Browser](#tweetduckbrowser)
             - [TweetDuck.Video](#tweetduckvideo)
             - [TweetImpl.CefSharp](#tweetimplcefsharp)
+        + [Linux Projects](#linux-projects)
+            - [TweetDuck](#tweetduck-1)
+            - [TweetImpl.CefGlue](#tweetimplcefglue)
         + [Miscellaneous](#miscellaneous)
             - [TweetLib.Communication](#tweetlibcommunication)
             - [TweetLib.Utils](#tweetlibutils)
             - [TweetTest.*](#tweettest)
-    * [Development](#development)
-        + [Building](#building)
-        + [Debugging](#debugging)
+3. [Development (Windows)](#development-windows)
+    * [Building](#building)
+    * [Debugging](#debugging)
     * [Release](#release)
         + [Installers](#installers-1)
+4. [Development (Linux)](#development-linux)
+    * [Building](#building-1)
+    * [Release](#release-1)
 
 # Installation
 
@@ -35,7 +41,7 @@ Download links and system requirements are on the [official website](https://twe
 
 ## Requirements
 
-Building TweetDuck requires at minimum [Visual Studio 2019](https://visualstudio.microsoft.com/downloads) and Windows 7. Before opening the solution, open Visual Studio Installer and make sure you have the following Visual Studio workloads and components installed:
+Building TweetDuck for Windows requires at minimum [Visual Studio 2019](https://visualstudio.microsoft.com/downloads) and Windows 7. Before opening the solution, open Visual Studio Installer and make sure you have the following Visual Studio workloads and components installed:
 * **.NET desktop development**
   * .NET Framework 4.7.2 targeting pack
   * F# desktop language support
@@ -43,6 +49,8 @@ Building TweetDuck requires at minimum [Visual Studio 2019](https://visualstudio
   * MSVC v142 - VS 2019 C++ x64/x86 build tools (v14.20 / Latest)
 
 In the **Installation details** panel, you can expand the workloads you selected, and uncheck any components that are not listed above to save space.
+
+Building TweetDuck for Linux requires [.NET 5](https://docs.microsoft.com/en-us/dotnet/core/install/linux). The Linux project has its own solution file in the `linux/` folder.
 
 ### Editors
 
@@ -57,7 +65,7 @@ Icons and logos were designed in [Affinity Designer](https://affinity.serif.com/
 
 > If you don't want to build installers using the existing foundations, you can skip this section.
 
-Official installers are built using [InnoSetup](https://jrsoftware.org/isinfo.php) and [Inno Download Plugin](https://mitrichsoftware.wordpress.com/inno-setup-tools/inno-download-plugin/), specifically:
+Official Windows installers are built using [InnoSetup](https://jrsoftware.org/isinfo.php) and [Inno Download Plugin](https://mitrichsoftware.wordpress.com/inno-setup-tools/inno-download-plugin/), specifically:
 * [InnoSetup 5.6.1](https://files.jrsoftware.org/is/5/innosetup-5.6.1.exe) with Preprocessor support
 * [Inno Download Plugin 1.5.0](https://drive.google.com/folderview?id=0Bzw1xBVt0mokSXZrUEFIanV4azA&usp=sharing#list)
 
@@ -70,12 +78,17 @@ You may need to restart Visual Studio after changing `PATH` for the change to ta
 
 ## Solution Overview
 
-Open the solution file `TweetDuck.sln` in an IDE, and use the **Restore NuGet Packages** option in your IDE to install dependencies. TweetDuck uses the [CefSharp](https://github.com/cefsharp/CefSharp/) library for the browser component, which is based on the [CEF](https://bitbucket.org/chromiumembedded/cef/) project.
+Open the solution file `TweetDuck.sln` (or `linux/TweetDuck.Linux.sln`) in an IDE, and use the **Restore NuGet Packages** option in your IDE to install dependencies.
+
+On Windows, TweetDuck uses the [CefSharp](https://github.com/cefsharp/CefSharp/) library for the browser component, and Windows Forms for the GUI.
+
+On Linux, TweetDuck uses the [ChromiumGtk](https://github.com/lunixo/ChromiumGtk) library, which combines [CefGlue](https://gitlab.com/xiliumhq/chromiumembedded/cefglue) for the browser component and [GtkSharp](https://github.com/GtkSharp/GtkSharp) for the GUI.
 
 The solution contains several C# projects for executables and libraries, and F# projects for automated tests.
 
 Projects are organized into folders:
 * Windows projects are in the `windows/` folder, and target `.NET Framework 4.7.2` + `C# 8.0`
+* Linux projects are in the `linux/` folder, and target `.NET 5` + `C#`
 * Libraries (`TweetLib.*`) are in the `lib/` folder, and target `.NET Standard 2.0` + `C# 9.0`
 * Tests (`TweetTest.*`) are also in the `lib/` folder, and target `.NET Framework 4.7.2` + `F#`
 
@@ -109,8 +122,6 @@ This library is a partial implementation of `TweetLib.Browser` based on [CEF](ht
 
 While `TweetLib.Browser` is highly generic, most browser libraries are likely to be using some form of [CEF](https://bitbucket.org/chromiumembedded/cef/), so this library significantly reduces the amount of work required to swap between browser libraries that are based on [CEF](https://bitbucket.org/chromiumembedded/cef/).
 
-Note: The repository contains an experimental `linux` branch, which uses [CefGlue](https://gitlab.com/xiliumhq/chromiumembedded/cefglue) as its browser library instead of [CefSharp](https://github.com/cefsharp/CefSharp/) which only works on Windows.
-
 ### Windows Projects
 
 #### TweetDuck
@@ -131,6 +142,16 @@ By default, [CefSharp](https://github.com/cefsharp/CefSharp/) is not built with 
 
 Windows library that implements `TweetLib.Browser.CEF` using the [CefSharp](https://github.com/cefsharp/CefSharp/) library and Windows Forms.
 
+### Linux Projects
+
+#### TweetDuck
+
+Main Linux executable. It has a transitive dependency on [ChromiumGtk](https://github.com/lunixo/ChromiumGtk). Here you will find the entry point that bootstraps the main application, as well as code for GUIs and Linux-specific functionality.
+
+#### TweetImpl.CefGlue
+
+Linux library that implements `TweetLib.Browser.CEF` using [ChromiumGtk](https://github.com/lunixo/ChromiumGtk), which is based on [CefGlue](https://gitlab.com/xiliumhq/chromiumembedded/cefglue) and [GtkSharp](https://github.com/GtkSharp/GtkSharp).
+
 ### Miscellaneous
 
 #### TweetLib.Communication
@@ -145,22 +166,22 @@ This library contains various utilities that fill some very specific holes in th
 
 These are F# projects with automated tests.
 
-## Development
+# Development (Windows)
 
 When developing with [Rider](https://www.jetbrains.com/rider/), it must be configured to use MSBuild from Visual Studio. You can set it in **File | Settings | Build, Execution, Deployment | Toolset and Build** with the `Use MSBuild version` drop-down.
 
-### Building
+## Building
 
 The `windows/TweetDuck/TweetDuck.csproj` project file has several tasks (targets) that run before and after a build:
 * `PreBuildEvent` runs a PowerShell script that kills `TweetDuck.Browser` processes, in case they got stuck
-* `CopyResources` copies resource files into the build folder, and validates them using the `PostBuild.ps1` PowerShell script
+* `CopyResources` copies resource files into the build folder, and patches and validates them using the `PostBuild.ps1` PowerShell script
 * `FinalizeDebug` copies a debug plugin (`Resources/Plugins/.debug`) into the build folder (Debug only)
 * `FinalizeRelease` prepares the build folder for publishing, and if InnoSetup is installed, regenerates the [update installer](#installers-1) (Release only)
 
 If the build fails, usually with an error like `The command (...) exited with code 1`, open the **Output** tab for detailed logs. A possible cause is the `PostBuild.ps1` script's file validation:
 * `Resources/Plugins/emoji-keyboard/emoji-ordering.txt` line endings must be LF (line feed); if the file contains any CR (carriage return) characters, the build will fail
 
-### Debugging
+## Debugging
 
 The `Debug` configuration uses a separate data folder by default (`%LOCALAPPDATA%\TweetDuckDebug`) to avoid affecting an existing installation of TweetDuck. You can modify this by opening **TweetDuck Properties** in Visual Studio, clicking the **Debug** tab, and changing the **Command line arguments** field.
 
@@ -193,3 +214,23 @@ If you plan to distribute your own installers, you can change the variables in t
 > There is a small chance running `GEN INSTALLERS.bat` immediately shows a resource error. If that happens, close the console window (which terminates all Inno Setup processes and leaves corrupted installers in the output folder), and run it again.
 
 > Running `GEN INSTALLERS.bat` uses about 400 MB of RAM due to high compression. You can lower this to about 140 MB by opening `gen_full.iss` and `gen_port.iss`, and changing `LZMADictionarySize=15360` to `LZMADictionarySize=4096`.
+
+## Development (Linux)
+
+Unfortunately the development experience on Linux is terrible, likely due to mixed C# and native code. The .NET debugger seems to crash the moment it enters native code, so the only way to run the app is without the debugger attached. If any C# code throws an exception, it will crash the whole application with no usable stack trace or error message. Please let me know if you find a way to make this better.
+
+### Building
+
+The `linux/TweetDuck/TweetDuck.csproj` project file has several tasks (targets) that run after a build:
+
+* `CopyResources` copies resource files into the build folder, and patches and validates them using the `build.sh` Bash script
+* `FinalizeDebug` copies a debug plugin (`Resources/Plugins/.debug`) into the build folder (Debug only)
+* `FinalizeRelease` prepares the build folder for publishing (Release only)
+
+### Release
+
+To change the application version before a release, search for the `<Version>` tag in every `.csproj` file in the `linux/` folder and modify it.
+
+To build the application, execute the `linux/publish.sh` Bash script. This will build the Release configuration for the `linux-x64` runtime platform, and create a tarball in the `linux/bld/` folder.
+
+If you decide to publicly release a custom version, please change all references to the TweetDuck name, website, and other links such as the issue tracker. The source files contain several constants and references to the official website and this repository, so don't forget to search all files for `chylex.com` and `github.com` in all files and replace them appropriately.

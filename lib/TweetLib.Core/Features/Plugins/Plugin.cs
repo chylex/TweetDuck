@@ -7,7 +7,7 @@ using TweetLib.Utils.Static;
 
 namespace TweetLib.Core.Features.Plugins {
 	public sealed class Plugin {
-		private static readonly Version AppVersion = new (TweetDuck.Version.Tag);
+		public static Version LibVersion { get; } = new (TweetDuck.Version.Tag);
 
 		public string Identifier { get; }
 		public PluginGroup Group { get; }
@@ -40,7 +40,7 @@ namespace TweetLib.Core.Features.Plugins {
 		private readonly string pathRoot;
 		private readonly string pathData;
 		private readonly ISet<PluginEnvironment> environments;
-		
+
 		private readonly string configFile;
 		private readonly string configDefault;
 
@@ -61,7 +61,7 @@ namespace TweetLib.Core.Features.Plugins {
 			this.configDefault = builder.ConfigDefault;
 			this.RequiredVersion = builder.RequiredVersion;
 
-			this.CanRun = AppVersion >= RequiredVersion;
+			this.CanRun = LibVersion >= RequiredVersion;
 		}
 
 		internal bool HasEnvironment(PluginEnvironment environment) {
@@ -141,7 +141,7 @@ namespace TweetLib.Core.Features.Plugins {
 				}
 
 				if (plugin.Group == PluginGroup.Official) {
-					if (plugin.RequiredVersion != AppVersion) {
+					if (plugin.RequiredVersion != LibVersion) {
 						throw new InvalidOperationException("Plugin is not supported in this version of TweetDuck, this may indicate a failed update or an unsupported plugin that was not removed automatically.");
 					}
 					else if (!string.IsNullOrEmpty(plugin.Version)) {

@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetDuck.Linux", "TweetDuck\TweetDuck.csproj", "{8F1110E1-F9A6-4DE0-A56B-053759876AEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetImpl.CefGlue", "TweetImpl.CefGlue\TweetImpl.CefGlue.csproj", "{E4C03F28-9717-4BBE-BEAF-62919E69FB29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetLib.Core", "..\lib\TweetLib.Core\TweetLib.Core.csproj", "{E0D41A1B-4446-4B94-8A2C-40AE14B6F920}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetLib.Browser", "..\lib\TweetLib.Browser\TweetLib.Browser.csproj", "{4E328871-EC1D-4EA0-B833-4B4ED6C19F05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetLib.Browser.CEF", "..\lib\TweetLib.Browser.CEF\TweetLib.Browser.CEF.csproj", "{37B9B83F-DE7E-49E0-8B56-AAE413C5E5FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetLib.Utils", "..\lib\TweetLib.Utils\TweetLib.Utils.csproj", "{755D7F1C-171A-436B-B233-162240601DE3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Release|x64 = Release|x64
+		Debug|x64 = Debug|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8F1110E1-F9A6-4DE0-A56B-053759876AEB}.Release|x64.ActiveCfg = Release|x64
+		{8F1110E1-F9A6-4DE0-A56B-053759876AEB}.Release|x64.Build.0 = Release|x64
+		{8F1110E1-F9A6-4DE0-A56B-053759876AEB}.Debug|x64.ActiveCfg = Debug|x64
+		{8F1110E1-F9A6-4DE0-A56B-053759876AEB}.Debug|x64.Build.0 = Debug|x64
+		{E4C03F28-9717-4BBE-BEAF-62919E69FB29}.Release|x64.ActiveCfg = Release|x64
+		{E4C03F28-9717-4BBE-BEAF-62919E69FB29}.Release|x64.Build.0 = Release|x64
+		{E4C03F28-9717-4BBE-BEAF-62919E69FB29}.Debug|x64.ActiveCfg = Debug|x64
+		{E4C03F28-9717-4BBE-BEAF-62919E69FB29}.Debug|x64.Build.0 = Debug|x64
+		{E0D41A1B-4446-4B94-8A2C-40AE14B6F920}.Release|x64.ActiveCfg = Release|x64
+		{E0D41A1B-4446-4B94-8A2C-40AE14B6F920}.Release|x64.Build.0 = Release|x64
+		{E0D41A1B-4446-4B94-8A2C-40AE14B6F920}.Debug|x64.ActiveCfg = Debug|x64
+		{E0D41A1B-4446-4B94-8A2C-40AE14B6F920}.Debug|x64.Build.0 = Debug|x64
+		{4E328871-EC1D-4EA0-B833-4B4ED6C19F05}.Release|x64.ActiveCfg = Release|x64
+		{4E328871-EC1D-4EA0-B833-4B4ED6C19F05}.Release|x64.Build.0 = Release|x64
+		{4E328871-EC1D-4EA0-B833-4B4ED6C19F05}.Debug|x64.ActiveCfg = Debug|x64
+		{4E328871-EC1D-4EA0-B833-4B4ED6C19F05}.Debug|x64.Build.0 = Debug|x64
+		{37B9B83F-DE7E-49E0-8B56-AAE413C5E5FD}.Debug|x64.ActiveCfg = Debug|x64
+		{37B9B83F-DE7E-49E0-8B56-AAE413C5E5FD}.Debug|x64.Build.0 = Debug|x64
+		{37B9B83F-DE7E-49E0-8B56-AAE413C5E5FD}.Release|x64.ActiveCfg = Release|x64
+		{37B9B83F-DE7E-49E0-8B56-AAE413C5E5FD}.Release|x64.Build.0 = Release|x64
+		{755D7F1C-171A-436B-B233-162240601DE3}.Release|x64.ActiveCfg = Release|x64
+		{755D7F1C-171A-436B-B233-162240601DE3}.Release|x64.Build.0 = Release|x64
+		{755D7F1C-171A-436B-B233-162240601DE3}.Debug|x64.ActiveCfg = Debug|x64
+		{755D7F1C-171A-436B-B233-162240601DE3}.Debug|x64.Build.0 = Debug|x64
+	EndGlobalSection
+EndGlobal

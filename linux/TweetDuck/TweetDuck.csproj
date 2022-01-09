@@ -1,0 +1,74 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Configurations>Debug;Release</Configurations>
+    <Platforms>x64</Platforms>
+    <OutputType>WinExe</OutputType>
+    <Nullable>enable</Nullable>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <RootDir>$(ProjectDir)..\..\</RootDir>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <PackageId>TweetDuck</PackageId>
+    <Product>TweetDuck</Product>
+    <Authors>chylex</Authors>
+    <Version>0.0.1.0</Version>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
+    <PackageVersion>$(Version)</PackageVersion>
+    <ApplicationIcon>$(RootDir)windows\TweetDuck\Resources\Images\icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <ResourcesContent Include="$(RootDir)resources\Content\**\*.*" Visible="false" />
+    <ResourcesGuide Include="$(RootDir)resources\Guide\**\*.*" Visible="false" />
+    <ResourcesPlugins Include="$(RootDir)resources\Plugins\**\*.*" Visible="false" />
+    <ResourcesPlugins Remove="$(RootDir)resources\Plugins\.debug\**\*.*" />
+    <ResourcesPlugins Remove="$(RootDir)resources\Plugins\emoji-keyboard\emoji-instructions.txt" />
+    <ResourcesPluginsDebug Include="$(RootDir)resources\Plugins\.debug\**\*.*" Visible="false" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\lib\TweetLib.Browser.CEF\TweetLib.Browser.CEF.csproj" />
+    <ProjectReference Include="..\..\lib\TweetLib.Core\TweetLib.Core.csproj" />
+    <ProjectReference Include="..\TweetImpl.CefGlue\TweetImpl.CefGlue.csproj" />
+  </ItemGroup>
+  
+<!--  <Target Name="CopyLibraries" AfterTargets="Build">-->
+<!--    <Copy SourceFiles="@(Redist)" DestinationFiles="@(Redist->'$(TargetDir)\%(RecursiveDir)%(Filename)%(Extension)')" />-->
+<!--  </Target>-->
+  
+  <Target Name="CopyResources" AfterTargets="Build">
+    <ItemGroup>
+      <UpToDateCheckInput Include="$(ProjectDir)Resources\build.sh" />
+    </ItemGroup>
+    <Move SourceFiles="$(TargetDir)cefsimple" DestinationFiles="$(TargetDir)TweetDuck.Browser" />
+    <RemoveDir Directories="$(TargetDir)resources" />
+    <RemoveDir Directories="$(TargetDir)guide" />
+    <RemoveDir Directories="$(TargetDir)plugins" />
+    <MakeDir Directories="$(TargetDir)plugins\official" />
+    <MakeDir Directories="$(TargetDir)plugins\user" />
+    <Copy SourceFiles="@(ResourcesContent)" DestinationFiles="@(ResourcesContent->'$(TargetDir)\resources\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(ResourcesGuide)" DestinationFiles="@(ResourcesGuide->'$(TargetDir)\guide\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(ResourcesPlugins)" DestinationFiles="@(ResourcesPlugins->'$(TargetDir)\plugins\official\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="$(RootDir)windows\TweetDuck\Resources\Images\icon.ico" DestinationFolder="$(TargetDir)" />
+    <Exec Command="$(ProjectDir)Resources\build.sh &quot;$(TargetDir)&quot;" IgnoreExitCode="false" />
+  </Target>
+  
+  <Target Name="FinalizeDebug" AfterTargets="CopyResources" Condition="$(ConfigurationName) == Debug">
+    <Copy SourceFiles="@(ResourcesPluginsDebug)" DestinationFiles="@(ResourcesPluginsDebug->'$(TargetDir)\plugins\user\.debug\%(RecursiveDir)%(Filename)%(Extension)')" />
+  </Target>
+  
+  <Target Name="FinalizeRelease" AfterTargets="CopyResources" Condition="$(ConfigurationName) == Release">
+    <ItemGroup>
+      <UpToDateCheckInput Include="$(ProjectDir)Resources\LICENSES.txt" />
+    </ItemGroup>
+    <Copy SourceFiles="$(ProjectDir)Resources\LICENSES.txt" DestinationFolder="$(TargetDir)" />
+  </Target>
+  
+</Project>

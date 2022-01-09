@@ -2,7 +2,8 @@
   
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Platforms>x86</Platforms>
+    <Configurations>Debug;Release</Configurations>
+    <Platforms>x86;x64</Platforms>
     <LangVersion>9</LangVersion>
     <Nullable>enable</Nullable>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
