@@ -125,7 +125,9 @@ namespace TweetDuck.Dialogs.Settings {
 		private void btnEditCefArgs_Click(object sender, EventArgs e) {
 			DialogSettingsCefArgs form = new DialogSettingsCefArgs(Config.CustomCefArgs);
 
-			form.VisibleChanged += (sender2, args2) => { form.MoveToCenter(ParentForm); };
+			form.VisibleChanged += (sender2, args2) => {
+				form.MoveToCenter(ParentForm);
+			};
 
 			form.FormClosed += (sender2, args2) => {
 				RestoreParentForm();
@@ -144,7 +146,9 @@ namespace TweetDuck.Dialogs.Settings {
 		private void btnEditCSS_Click(object sender, EventArgs e) {
 			DialogSettingsCSS form = new DialogSettingsCSS(Config.CustomBrowserCSS, Config.CustomNotificationCSS, reinjectBrowserCSS, openDevTools);
 
-			form.VisibleChanged += (sender2, args2) => { form.MoveToCenter(ParentForm); };
+			form.VisibleChanged += (sender2, args2) => {
+				form.MoveToCenter(ParentForm);
+			};
 
 			form.FormClosed += (sender2, args2) => {
 				RestoreParentForm();

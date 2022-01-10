@@ -9,6 +9,7 @@ using TweetDuck.Utils;
 using TweetLib.Browser.Interfaces;
 using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Features.Twitter;
+using TweetLib.Core.Systems.Configuration;
 
 namespace TweetDuck.Browser.Notification {
 	abstract partial class FormNotificationBase : Form {
@@ -59,7 +60,9 @@ namespace TweetDuck.Browser.Notification {
 		protected virtual bool CanDragWindow => true;
 
 		public new Point Location {
-			get { return base.Location; }
+			get {
+				return base.Location;
+			}
 
 			set {
 				Visible = (base.Location = value) != ControlExtensions.InvisibleLocation;

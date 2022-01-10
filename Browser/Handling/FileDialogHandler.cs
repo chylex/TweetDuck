@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using CefSharp;
+using TweetLib.Core;
 using TweetLib.Utils.Static;
 
 namespace TweetDuck.Browser.Handling {
@@ -46,17 +47,22 @@ namespace TweetDuck.Browser.Handling {
 				return new string[] { type };
 			}
 
-			switch (type) {
-				case "image/jpeg": return new string[] { ".jpg", ".jpeg" };
-				case "image/png": return new string[] { ".png" };
-				case "image/gif": return new string[] { ".gif" };
-				case "image/webp": return new string[] { ".webp" };
-				case "video/mp4": return new string[] { ".mp4" };
-				case "video/quicktime": return new string[] { ".mov", ".qt" };
+			string[] extensions = type switch {
+				"image/jpeg"      => new string[] { ".jpg", ".jpeg" },
+				"image/png"       => new string[] { ".png" },
+				"image/gif"       => new string[] { ".gif" },
+				"image/webp"      => new string[] { ".webp" },
+				"video/mp4"       => new string[] { ".mp4" },
+				"video/quicktime" => new string[] { ".mov", ".qt" },
+				_                 => StringUtils.EmptyArray
+			};
+
+			if (extensions.Length == 0) {
+				App.Logger.Warn("Unknown file type: " + type);
+				Debugger.Break();
 			}
 
-			Debugger.Break();
-			return StringUtils.EmptyArray;
+			return extensions;
 		}
 	}
 }

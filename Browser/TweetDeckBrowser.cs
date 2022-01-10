@@ -66,7 +66,7 @@ namespace TweetDuck.Browser {
 			if (Arguments.HasFlag(Arguments.ArgIgnoreGDPR)) {
 				browserComponent.PageLoadEnd += (sender, args) => {
 					if (TwitterUrls.IsTweetDeck(args.Url)) {
-						browserImpl.ScriptExecutor.RunScript("gen:gdpr", "TD.storage.Account.prototype.requiresConsent = function() { return false; }");
+						browserComponent.RunScript("gen:gdpr", "TD.storage.Account.prototype.requiresConsent = function() { return false; }");
 					}
 				};
 			}
@@ -126,7 +126,7 @@ namespace TweetDuck.Browser {
 				browser.GetBrowser().GetHost().SendFocusEvent(true);
 			}
 
-			browserImpl.ScriptExecutor.RunScript("gen:hidevideo", "$('#td-video-player-overlay').remove()");
+			browserComponent.RunScript("gen:hidevideo", "$('#td-video-player-overlay').remove()");
 		}
 	}
 }

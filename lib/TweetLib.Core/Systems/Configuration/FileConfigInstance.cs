@@ -3,25 +3,26 @@ using System.IO;
 using TweetLib.Utils.Serialization;
 
 namespace TweetLib.Core.Systems.Configuration {
-	public sealed class FileConfigInstance<T> : IConfigInstance<T> where T : BaseConfig {
+	internal sealed class FileConfigInstance<T> : IConfigInstance where T : IConfigObject<T> {
 		public T Instance { get; }
-		public SimpleObjectSerializer<T> Serializer { get; }
+
+		private readonly SimpleObjectSerializer<T> serializer;
 
 		private readonly string filenameMain;
 		private readonly string filenameBackup;
 		private readonly string identifier;
 
-		public FileConfigInstance(string filename, T instance, string identifier) {
+		public FileConfigInstance(string filename, T instance, string identifier, TypeConverterRegistry converterRegistry) {
+			this.Instance = instance;
+			this.serializer = new SimpleObjectSerializer<T>(converterRegistry);
+
 			this.filenameMain = filename ?? throw new ArgumentNullException(nameof(filename), "Config file name must not be null!");
 			this.filenameBackup = filename + ".bak";
 			this.identifier = identifier;
-
-			this.Instance = instance;
-			this.Serializer = new SimpleObjectSerializer<T>();
 		}
 
 		private void LoadInternal(bool backup) {
-			Serializer.Read(backup ? filenameBackup : filenameMain, Instance);
+			serializer.Read(backup ? filenameBackup : filenameMain, Instance);
 		}
 
 		public void Load() {
@@ -63,7 +64,7 @@ namespace TweetLib.Core.Systems.Configuration {
 					File.Move(filenameMain, filenameBackup);
 				}
 
-				Serializer.Write(filenameMain, Instance);
+				serializer.Write(filenameMain, Instance);
 			} catch (SerializationSoftException e) {
 				OnException($"{e.Errors.Count} error{(e.Errors.Count == 1 ? " was" : "s were")} encountered while saving the configuration file for {identifier}.", e);
 			} catch (Exception e) {
@@ -76,7 +77,7 @@ namespace TweetLib.Core.Systems.Configuration {
 				LoadInternal(false);
 			} catch (FileNotFoundException) {
 				try {
-					Serializer.Write(filenameMain, Instance.ConstructWithDefaults<T>());
+					serializer.Write(filenameMain, Instance.ConstructWithDefaults());
 					LoadInternal(false);
 				} catch (Exception e) {
 					OnException($"Could not regenerate the configuration file for {identifier}.", e);

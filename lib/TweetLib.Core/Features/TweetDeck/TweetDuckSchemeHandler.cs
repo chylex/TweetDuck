@@ -1,20 +1,24 @@
 using System;
 using System.Net;
 using TweetLib.Browser.Interfaces;
+using TweetLib.Browser.Request;
 using TweetLib.Core.Resources;
 using TweetLib.Utils.Static;
 
 namespace TweetLib.Core.Features.TweetDeck {
-	public sealed class TweetDuckSchemeHandler<T> : ICustomSchemeHandler<T> where T : class {
+	public sealed class TweetDuckSchemeHandler : ICustomSchemeHandler {
+		private static readonly SchemeResource InvalidUrl = new SchemeResource.Status(HttpStatusCode.NotFound, "Invalid URL.");
+		private static readonly SchemeResource PathMustBeRelativeToRoot = new SchemeResource.Status(HttpStatusCode.Forbidden, "File path has to be relative to the root folder.");
+
 		public string Protocol => "td";
 
-		private readonly CachingResourceProvider<T> resourceProvider;
+		private readonly ResourceCache resourceCache;
 
-		public TweetDuckSchemeHandler(CachingResourceProvider<T> resourceProvider) {
-			this.resourceProvider = resourceProvider;
+		public TweetDuckSchemeHandler(ResourceCache resourceCache) {
+			this.resourceCache = resourceCache;
 		}
 
-		public T Resolve(Uri uri) {
+		public SchemeResource Resolve(Uri uri) {
 			string? rootPath = uri.Authority switch {
 				"resources" => App.ResourcesPath,
 				"guide"     => App.GuidePath,
@@ -22,11 +26,11 @@ namespace TweetLib.Core.Features.TweetDeck {
 			};
 
 			if (rootPath == null) {
-				return resourceProvider.Status(HttpStatusCode.NotFound, "Invalid URL.");
+				return InvalidUrl;
 			}
 
 			string filePath = FileUtils.ResolveRelativePathSafely(rootPath, uri.AbsolutePath.TrimStart('/'));
-			return filePath.Length == 0 ? resourceProvider.Status(HttpStatusCode.Forbidden, "File path has to be relative to the root folder.") : resourceProvider.CachedFile(filePath);
+			return filePath.Length == 0 ? PathMustBeRelativeToRoot : resourceCache.ReadFile(filePath);
 		}
 	}
 }

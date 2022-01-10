@@ -5,14 +5,14 @@ using System.Text;
 using TweetLib.Core.Systems.Configuration;
 
 namespace TweetLib.Core.Features.Plugins.Config {
-	public sealed class PluginConfigInstance<T> : IConfigInstance<T> where T : BaseConfig, IPluginConfig {
-		public T Instance { get; }
+	internal sealed class PluginConfigInstance : IConfigInstance {
+		public PluginConfig Instance { get; }
 
 		private readonly string filename;
 
-		public PluginConfigInstance(string filename, T instance) {
-			this.filename = filename;
+		public PluginConfigInstance(string filename, PluginConfig instance) {
 			this.Instance = instance;
+			this.filename = filename;
 		}
 
 		public void Load() {
@@ -58,7 +58,7 @@ namespace TweetLib.Core.Features.Plugins.Config {
 		public void Reset() {
 			try {
 				File.Delete(filename);
-				Instance.Reset(Instance.ConstructWithDefaults<T>().DisabledPlugins);
+				Instance.ResetToDefault();
 			} catch (Exception e) {
 				OnException("Could not delete the plugin configuration file.", e);
 				return;

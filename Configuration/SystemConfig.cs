@@ -1,7 +1,8 @@
-﻿using TweetLib.Core.Systems.Configuration;
+﻿using TweetLib.Core;
+using TweetLib.Core.Systems.Configuration;
 
 namespace TweetDuck.Configuration {
-	sealed class SystemConfig : BaseConfig {
+	sealed class SystemConfig : BaseConfig<SystemConfig> {
 		private bool _hardwareAcceleration = true;
 
 		public bool ClearCacheAutomatically { get; set; } = true;
@@ -11,12 +12,12 @@ namespace TweetDuck.Configuration {
 
 		public bool HardwareAcceleration {
 			get => _hardwareAcceleration;
-			set => UpdatePropertyWithCallback(ref _hardwareAcceleration, value, Program.Config.TriggerProgramRestartRequested);
+			set => UpdatePropertyWithCallback(ref _hardwareAcceleration, value, App.ConfigManager.TriggerProgramRestartRequested);
 		}
 
 		// END OF CONFIG
 
-		protected override BaseConfig ConstructWithDefaults() {
+		public override SystemConfig ConstructWithDefaults() {
 			return new SystemConfig();
 		}
 	}

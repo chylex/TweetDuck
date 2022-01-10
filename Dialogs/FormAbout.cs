@@ -9,7 +9,6 @@ using TweetLib.Core;
 namespace TweetDuck.Dialogs {
 	sealed partial class FormAbout : Form, FormManager.IAppDialog {
 		private const string TipsLink = "https://github.com/chylex/TweetDuck/wiki";
-		private const string IssuesLink = "https://github.com/chylex/TweetDuck/issues";
 
 		public FormAbout() {
 			InitializeComponent();
@@ -20,7 +19,7 @@ namespace TweetDuck.Dialogs {
 
 			labelWebsite.Links.Add(new LinkLabel.Link(0, labelWebsite.Text.Length, Program.Website));
 			labelTips.Links.Add(new LinkLabel.Link(0, labelTips.Text.Length, TipsLink));
-			labelIssues.Links.Add(new LinkLabel.Link(0, labelIssues.Text.Length, IssuesLink));
+			labelIssues.Links.Add(new LinkLabel.Link(0, labelIssues.Text.Length, Lib.IssueTrackerUrl));
 
 			try {
 				pictureLogo.Image = Image.FromFile(Path.Combine(App.ResourcesPath, "images/logo.png"));

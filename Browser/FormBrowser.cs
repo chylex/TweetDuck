@@ -21,6 +21,7 @@ using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.TweetDeck;
 using TweetLib.Core.Resources;
+using TweetLib.Core.Systems.Configuration;
 using TweetLib.Core.Systems.Updates;
 
 namespace TweetDuck.Browser {
@@ -51,11 +52,12 @@ namespace TweetDuck.Browser {
 		private readonly FormNotificationTweet notification;
 		#pragma warning restore IDE0069 // Disposable fields should be disposed
 
-		private readonly CachingResourceProvider<IResourceHandler> resourceProvider;
+		private readonly ResourceCache resourceCache;
 		private readonly ITweetDeckInterface tweetDeckInterface;
 		private readonly PluginManager plugins;
 		private readonly UpdateChecker updates;
 		private readonly ContextMenu contextMenu;
+		private readonly uint windowRestoreMessage;
 
 		private bool isLoaded;
 		private FormWindowState prevState;
@@ -63,12 +65,12 @@ namespace TweetDuck.Browser {
 		private TweetScreenshotManager notificationScreenshotManager;
 		private VideoPlayer videoPlayer;
 
-		public FormBrowser(CachingResourceProvider<IResourceHandler> resourceProvider, PluginManager pluginManager, IUpdateCheckClient updateCheckClient) {
+		public FormBrowser(ResourceCache resourceCache, PluginManager pluginManager, IUpdateCheckClient updateCheckClient, uint windowRestoreMessage) {
 			InitializeComponent();
 
 			Text = Program.BrandName;
 
-			this.resourceProvider = resourceProvider;
+			this.resourceCache = resourceCache;
 
 			this.plugins = pluginManager;
 
@@ -84,7 +86,12 @@ namespace TweetDuck.Browser {
 			this.browser = new TweetDeckBrowser(this, plugins, tweetDeckInterface, updates);
 			this.contextMenu = ContextMenuBrowser.CreateMenu(this);
 
+			this.windowRestoreMessage = windowRestoreMessage;
+
 			Controls.Add(new MenuStrip { Visible = false }); // fixes Alt freezing the program in Win 10 Anniversary Update
+
+			Config.MuteToggled += Config_MuteToggled;
+			Config.TrayBehaviorChanged += Config_TrayBehaviorChanged;
 
 			Disposed += (sender, args) => {
 				Config.MuteToggled -= Config_MuteToggled;
@@ -92,11 +99,8 @@ namespace TweetDuck.Browser {
 				browser.Dispose();
 			};
 
-			Config.MuteToggled += Config_MuteToggled;
-
 			this.trayIcon.ClickRestore += trayIcon_ClickRestore;
 			this.trayIcon.ClickClose += trayIcon_ClickClose;
-			Config.TrayBehaviorChanged += Config_TrayBehaviorChanged;
 
 			UpdateTray();
 
@@ -162,7 +166,7 @@ namespace TweetDuck.Browser {
 
 			trayIcon.HasNotifications = false;
 
-			if (!browser.Enabled) {      // when taking a screenshot, the window is unfocused and
+			if (!browser.Enabled) {     // when taking a screenshot, the window is unfocused and
 				browser.Enabled = true; // the browser is disabled; if the user clicks back into
 			}                           // the window, enable the browser again
 		}
@@ -308,7 +312,7 @@ namespace TweetDuck.Browser {
 		}
 
 		protected override void WndProc(ref Message m) {
-			if (isLoaded && m.Msg == Program.WindowRestoreMessage) {
+			if (isLoaded && m.Msg == windowRestoreMessage) {
 				using Process me = Process.GetCurrentProcess();
 
 				if (me.Id == m.WParam.ToInt32()) {
@@ -345,10 +349,10 @@ namespace TweetDuck.Browser {
 		public void ReloadToTweetDeck() {
 			#if DEBUG
 			Resources.ResourceHotSwap.Run();
-			resourceProvider.ClearCache();
+			resourceCache.ClearCache();
 			#else
 			if (ModifierKeys.HasFlag(Keys.Shift)) {
-				resourceProvider.ClearCache();
+				resourceCache.ClearCache();
 			}
 			#endif
 
@@ -361,7 +365,7 @@ namespace TweetDuck.Browser {
 
 		// callback handlers
 
-		public void OnIntroductionClosed(bool showGuide) {
+		private void OnIntroductionClosed(bool showGuide) {
 			if (Config.FirstRun) {
 				Config.FirstRun = false;
 				Config.Save();
@@ -372,7 +376,7 @@ namespace TweetDuck.Browser {
 			}
 		}
 
-		public void OpenContextMenu() {
+		private void OpenContextMenu() {
 			contextMenu.Show(this, PointToClient(Cursor.Position));
 		}
 
@@ -428,7 +432,7 @@ namespace TweetDuck.Browser {
 			}
 		}
 
-		public void OpenProfileImport() {
+		private void OpenProfileImport() {
 			FormManager.TryFind<FormSettings>()?.Close();
 
 			using DialogSettingsManage dialog = new DialogSettingsManage(plugins, true);
@@ -440,11 +444,11 @@ namespace TweetDuck.Browser {
 			}
 		}
 
-		public void ShowDesktopNotification(DesktopNotification notification) {
+		private void ShowDesktopNotification(DesktopNotification notification) {
 			this.notification.ShowNotification(notification);
 		}
 
-		public void OnTweetNotification() { // may be called multiple times, once for each type of notification
+		private void OnTweetNotification() { // may be called multiple times, once for each type of notification
 			if (Config.EnableTrayHighlight && !ContainsFocus) {
 				trayIcon.HasNotifications = true;
 			}
@@ -454,7 +458,7 @@ namespace TweetDuck.Browser {
 			browser.SaveVideo(url, username);
 		}
 
-		public void PlayVideo(string videoUrl, string tweetUrl, string username, IJavascriptCallback callShowOverlay) {
+		private void PlayVideo(string videoUrl, string tweetUrl, string username, IJavascriptCallback callShowOverlay) {
 			if (Arguments.HasFlag(Arguments.ArgHttpVideo)) {
 				videoUrl = Regex.Replace(videoUrl, "^https://", "http://");
 			}
@@ -486,7 +490,7 @@ namespace TweetDuck.Browser {
 			}
 		}
 
-		public void StopVideo() {
+		private void StopVideo() {
 			videoPlayer?.Close();
 		}
 
@@ -502,12 +506,12 @@ namespace TweetDuck.Browser {
 			return true;
 		}
 
-		public void OnTweetScreenshotReady(string html, int width) {
+		private void OnTweetScreenshotReady(string html, int width) {
 			notificationScreenshotManager ??= new TweetScreenshotManager(this, plugins);
 			notificationScreenshotManager.Trigger(html, width);
 		}
 
-		public void DisplayTooltip(string text) {
+		private void DisplayTooltip(string text) {
 			if (string.IsNullOrEmpty(text)) {
 				toolTip.Hide(this);
 			}
@@ -529,6 +533,76 @@ namespace TweetDuck.Browser {
 			}
 
 			return false;
+		}
+
+		private sealed class TweetDeckInterfaceImpl : ITweetDeckInterface {
+			private readonly FormBrowser form;
+
+			public TweetDeckInterfaceImpl(FormBrowser form) {
+				this.form = form;
+			}
+
+			public void Alert(string type, string contents) {
+				MessageBoxIcon icon = type switch {
+					"error"   => MessageBoxIcon.Error,
+					"warning" => MessageBoxIcon.Warning,
+					"info"    => MessageBoxIcon.Information,
+					_         => MessageBoxIcon.None
+				};
+
+				FormMessage.Show("TweetDuck Browser Message", contents, icon, FormMessage.OK);
+			}
+
+			public void DisplayTooltip(string text) {
+				form.InvokeAsyncSafe(() => form.DisplayTooltip(text));
+			}
+
+			public void FixClipboard() {
+				form.InvokeAsyncSafe(ClipboardManager.StripHtmlStyles);
+			}
+
+			public int GetIdleSeconds() {
+				return NativeMethods.GetIdleSeconds();
+			}
+
+			public void OnIntroductionClosed(bool showGuide) {
+				form.InvokeAsyncSafe(() => form.OnIntroductionClosed(showGuide));
+			}
+
+			public void OnSoundNotification() {
+				form.InvokeAsyncSafe(form.OnTweetNotification);
+			}
+
+			public void OpenContextMenu() {
+				form.InvokeAsyncSafe(form.OpenContextMenu);
+			}
+
+			public void OpenProfileImport() {
+				form.InvokeAsyncSafe(form.OpenProfileImport);
+			}
+
+			public void PlayVideo(string videoUrl, string tweetUrl, string username, object callShowOverlay) {
+				form.InvokeAsyncSafe(() => form.PlayVideo(videoUrl, tweetUrl, username, (IJavascriptCallback) callShowOverlay));
+			}
+
+			public void ScreenshotTweet(string html, int width) {
+				form.InvokeAsyncSafe(() => form.OnTweetScreenshotReady(html, width));
+			}
+
+			public void ShowDesktopNotification(DesktopNotification notification) {
+				form.InvokeAsyncSafe(() => {
+					form.OnTweetNotification();
+					form.ShowDesktopNotification(notification);
+				});
+			}
+
+			public void StopVideo() {
+				form.InvokeAsyncSafe(form.StopVideo);
+			}
+
+			public Task ExecuteCallback(object callback, params object[] parameters) {
+				return ((IJavascriptCallback) callback).ExecuteAsync(parameters);
+			}
 		}
 	}
 }

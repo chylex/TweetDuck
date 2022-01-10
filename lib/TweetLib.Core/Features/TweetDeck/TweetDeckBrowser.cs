@@ -10,7 +10,6 @@ using TweetLib.Core.Features.Plugins.Enums;
 using TweetLib.Core.Features.Plugins.Events;
 using TweetLib.Core.Features.Twitter;
 using TweetLib.Core.Resources;
-using TweetLib.Core.Systems.Dialogs;
 using TweetLib.Core.Systems.Updates;
 using TweetLib.Utils.Static;
 using Version = TweetDuck.Version;
@@ -21,21 +20,17 @@ namespace TweetLib.Core.Features.TweetDeck {
 		private const string BackgroundColorOverride = "setTimeout(function f(){let h=document.head;if(!h){setTimeout(f,5);return;}let e=document.createElement('style');e.innerHTML='body,body::before{background:#1c6399!important;margin:0}';h.appendChild(e);},1)";
 
 		public TweetDeckFunctions Functions { get; }
-		public FileDownloadManager FileDownloadManager => new (browserComponent);
+		public FileDownloadManager FileDownloadManager => new (browserComponent.FileDownloader);
 
 		private readonly ISoundNotificationHandler soundNotificationHandler;
 		private readonly PluginManager pluginManager;
-		private readonly UpdateChecker updateChecker;
 
 		private bool isBrowserReady;
 		private bool ignoreUpdateCheckError;
 		private string? prevSoundNotificationPath = null;
 
-		public TweetDeckBrowser(IBrowserComponent browserComponent, ITweetDeckInterface tweetDeckInterface, TweetDeckExtraContext extraContext, ISoundNotificationHandler soundNotificationHandler, PluginManager pluginManager, UpdateChecker updateChecker) : base(browserComponent, CreateSetupObject) {
+		public TweetDeckBrowser(IBrowserComponent browserComponent, ITweetDeckInterface tweetDeckInterface, TweetDeckExtraContext extraContext, ISoundNotificationHandler soundNotificationHandler, PluginManager pluginManager, UpdateChecker? updateChecker = null) : base(browserComponent, CreateSetupObject) {
 			this.Functions = new TweetDeckFunctions(this.browserComponent);
-
-			this.browserComponent.AttachBridgeObject("$TD", new TweetDeckBridgeObject(tweetDeckInterface, this, extraContext));
-			this.browserComponent.AttachBridgeObject("$TDU", updateChecker.InteractionManager.BridgeObject);
 
 			this.soundNotificationHandler = soundNotificationHandler;
 
@@ -45,12 +40,16 @@ namespace TweetLib.Core.Features.TweetDeck {
 			this.pluginManager.Executed += pluginManager_Executed;
 			this.pluginManager.Reload();
 
-			this.updateChecker = updateChecker;
-			this.updateChecker.CheckFinished += updateChecker_CheckFinished;
-
 			this.browserComponent.BrowserLoaded += browserComponent_BrowserLoaded;
 			this.browserComponent.PageLoadStart += browserComponent_PageLoadStart;
 			this.browserComponent.PageLoadEnd += browserComponent_PageLoadEnd;
+
+			this.browserComponent.AttachBridgeObject("$TD", new TweetDeckBridgeObject(tweetDeckInterface, this, extraContext));
+
+			if (updateChecker != null) {
+				updateChecker.CheckFinished += updateChecker_CheckFinished;
+				this.browserComponent.AttachBridgeObject("$TDU", updateChecker.InteractionManager.BridgeObject);
+			}
 
 			App.UserConfiguration.MuteToggled += UserConfiguration_GeneralEventHandler;
 			App.UserConfiguration.OptionsDialogClosed += UserConfiguration_GeneralEventHandler;
@@ -105,7 +104,7 @@ namespace TweetLib.Core.Features.TweetDeck {
 
 		private void pluginManager_Reloaded(object sender, PluginErrorEventArgs e) {
 			if (e.HasErrors) {
-				App.DialogHandler.Error("Error Loading Plugins", "The following plugins will not be available until the issues are resolved:\n\n" + string.Join("\n\n", e.Errors), Dialogs.OK);
+				App.MessageDialogs.Error("Error Loading Plugins", "The following plugins will not be available until the issues are resolved:\n\n" + string.Join("\n\n", e.Errors));
 			}
 
 			if (isBrowserReady) {
@@ -115,11 +114,13 @@ namespace TweetLib.Core.Features.TweetDeck {
 
 		private void pluginManager_Executed(object sender, PluginErrorEventArgs e) {
 			if (e.HasErrors) {
-				App.DialogHandler.Error("Error Executing Plugins", "Failed to execute the following plugins:\n\n" + string.Join("\n\n", e.Errors), Dialogs.OK);
+				App.MessageDialogs.Error("Error Executing Plugins", "Failed to execute the following plugins:\n\n" + string.Join("\n\n", e.Errors));
 			}
 		}
 
 		private void updateChecker_CheckFinished(object sender, UpdateCheckEventArgs e) {
+			var updateChecker = (UpdateChecker) sender;
+
 			e.Result.Handle(update => {
 				string tag = update.VersionTag;
 
@@ -201,14 +202,14 @@ namespace TweetLib.Core.Features.TweetDeck {
 				base.Show(menu, context);
 
 				if (context.Selection == null && context.Tweet is {} tweet) {
-					menu.AddAction("Open tweet in browser", OpenLink(tweet.Url));
-					menu.AddAction("Copy tweet address", CopyText(tweet.Url));
+					AddOpenAction(menu, "Open tweet in browser", tweet.Url);
+					AddCopyAction(menu, "Copy tweet address", tweet.Url);
 					menu.AddAction("Screenshot tweet to clipboard", () => owner.Functions.TriggerTweetScreenshot(tweet.ColumnId, tweet.ChirpId));
 					menu.AddSeparator();
 
 					if (!string.IsNullOrEmpty(tweet.QuoteUrl)) {
-						menu.AddAction("Open quoted tweet in browser", OpenLink(tweet.QuoteUrl!));
-						menu.AddAction("Copy quoted tweet address", CopyText(tweet.QuoteUrl!));
+						AddOpenAction(menu, "Open quoted tweet in browser", tweet.QuoteUrl!);
+						AddCopyAction(menu, "Copy quoted tweet address", tweet.QuoteUrl!);
 						menu.AddSeparator();
 					}
 				}

@@ -17,8 +17,8 @@ namespace TweetLib.Core.Features.Notifications {
 			private readonly PluginManager pluginManager;
 
 			protected Tweet(IBrowserComponent browserComponent, INotificationInterface notificationInterface, ICommonInterface commonInterface, PluginManager pluginManager, Func<NotificationBrowser, BrowserSetup> setup) : base(browserComponent, setup) {
-				this.browserComponent.AttachBridgeObject("$TD", new NotificationBridgeObject(notificationInterface, commonInterface));
 				this.browserComponent.PageLoadEnd += BrowserComponentOnPageLoadEnd;
+				this.browserComponent.AttachBridgeObject("$TD", new NotificationBridgeObject(notificationInterface, commonInterface));
 
 				this.notificationInterface = notificationInterface;
 				this.pluginManager = pluginManager;
@@ -56,10 +56,10 @@ namespace TweetLib.Core.Features.Notifications {
 					menu.AddSeparator();
 
 					if (context.Notification is {} notification) {
-						menu.AddAction("Copy tweet address", CopyText(notification.TweetUrl));
+						AddCopyAction(menu, "Copy tweet address", notification.TweetUrl);
 
 						if (!string.IsNullOrEmpty(notification.QuoteUrl)) {
-							menu.AddAction("Copy quoted tweet address", CopyText(notification.QuoteUrl!));
+							AddCopyAction(menu, "Copy quoted tweet address", notification.QuoteUrl!);
 						}
 
 						menu.AddSeparator();

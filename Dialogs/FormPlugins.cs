@@ -7,6 +7,8 @@ using TweetDuck.Management;
 using TweetDuck.Plugins;
 using TweetLib.Core;
 using TweetLib.Core.Features.Plugins;
+using TweetLib.Core.Features.Plugins.Enums;
+using TweetLib.Core.Systems.Configuration;
 
 namespace TweetDuck.Dialogs {
 	sealed partial class FormPlugins : Form, FormManager.IAppDialog {
@@ -28,14 +30,18 @@ namespace TweetDuck.Dialogs {
 				Size = new Size(Math.Max(MinimumSize.Width, targetSize.Width), Math.Max(MinimumSize.Height, targetSize.Height));
 			}
 
-			Shown += (sender, args) => { ReloadPluginList(); };
+			Shown += (sender, args) => {
+				ReloadPluginList();
+			};
 
 			FormClosed += (sender, args) => {
 				Config.PluginsWindowSize = Size;
 				Config.Save();
 			};
 
-			ResizeEnd += (sender, args) => { timerLayout.Start(); };
+			ResizeEnd += (sender, args) => {
+				timerLayout.Start();
+			};
 		}
 
 		private int GetPluginOrderIndex(Plugin plugin) {
@@ -92,7 +98,7 @@ namespace TweetDuck.Dialogs {
 		}
 
 		private void btnOpenFolder_Click(object sender, EventArgs e) {
-			App.SystemHandler.OpenFileExplorer(pluginManager.CustomPluginFolder);
+			App.SystemHandler.OpenFileExplorer(pluginManager.GetPluginFolder(PluginGroup.Custom));
 		}
 
 		private void btnReload_Click(object sender, EventArgs e) {

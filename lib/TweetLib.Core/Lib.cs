@@ -9,10 +9,13 @@ using System.Threading;
 namespace TweetLib.Core {
 	public static class Lib {
 		public const string BrandName = "TweetDuck";
+		public const string IssueTrackerUrl = "https://github.com/chylex/TweetDuck/issues";
 
 		public static CultureInfo Culture { get; } = CultureInfo.CurrentCulture;
 
-		public static void Initialize(AppBuilder app) {
+		public delegate void AppLauncher();
+
+		public static AppLauncher Initialize(AppBuilder app) {
 			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 			CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
 
@@ -20,7 +23,7 @@ namespace TweetLib.Core {
 			CultureInfo.DefaultThreadCurrentUICulture = Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-us"); // force english exceptions
 			#endif
 
-			app.Build();
+			return app.Build();
 		}
 	}
 }

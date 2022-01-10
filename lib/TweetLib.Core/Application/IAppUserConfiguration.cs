@@ -3,8 +3,8 @@ using TweetLib.Core.Features.Twitter;
 
 namespace TweetLib.Core.Application {
 	public interface IAppUserConfiguration {
-		string CustomBrowserCSS { get; }
-		string CustomNotificationCSS { get; }
+		string? CustomBrowserCSS { get; }
+		string? CustomNotificationCSS { get; }
 		string? DismissedUpdate { get; }
 		bool ExpandLinksOnHover { get; }
 		bool FirstRun { get; }
@@ -20,6 +20,7 @@ namespace TweetLib.Core.Application {
 		int CalendarFirstDay { get; }
 		string TranslationTarget { get; }
 		ImageQuality TwitterImageQuality { get; }
+		bool UseSystemProxyForAllConnections { get; }
 
 		event EventHandler MuteToggled;
 		event EventHandler OptionsDialogClosed;

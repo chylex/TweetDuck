@@ -61,7 +61,9 @@ namespace TweetDuck.Browser.Notification {
 		private int? prevFontSize;
 
 		public virtual bool RequiresResize {
-			get { return !prevDisplayTimer.HasValue || !prevFontSize.HasValue || prevDisplayTimer != Config.DisplayNotificationTimer || prevFontSize != FontSizeLevel; }
+			get {
+				return !prevDisplayTimer.HasValue || !prevFontSize.HasValue || prevDisplayTimer != Config.DisplayNotificationTimer || prevFontSize != FontSizeLevel;
+			}
 
 			set {
 				if (value) {

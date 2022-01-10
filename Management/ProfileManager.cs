@@ -24,8 +24,7 @@ namespace TweetDuck.Management {
 			UserConfig = 1,
 			SystemConfig = 2,
 			Session = 4,
-			PluginData = 8,
-			All = UserConfig | SystemConfig | Session | PluginData
+			PluginData = 8
 		}
 
 		private readonly string file;
@@ -41,15 +40,15 @@ namespace TweetDuck.Management {
 				using CombinedFileStream stream = new CombinedFileStream(new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None));
 
 				if (items.HasFlag(Items.UserConfig)) {
-					stream.WriteFile("config", Program.Config.FilePaths.UserConfig);
+					stream.WriteFile("config", App.ConfigManager.UserPath);
 				}
 
 				if (items.HasFlag(Items.SystemConfig)) {
-					stream.WriteFile("system", Program.Config.FilePaths.SystemConfig);
+					stream.WriteFile("system", App.ConfigManager.SystemPath);
 				}
 
 				if (items.HasFlag(Items.PluginData)) {
-					stream.WriteFile("plugin.config", Program.Config.FilePaths.PluginConfig);
+					stream.WriteFile("plugin.config", App.ConfigManager.PluginsPath);
 
 					foreach (Plugin plugin in plugins.Plugins) {
 						foreach (PathInfo path in EnumerateFilesRelative(plugin.GetPluginFolder(PluginFolder.Data))) {
@@ -122,21 +121,21 @@ namespace TweetDuck.Management {
 						switch (entry.KeyName) {
 							case "config":
 								if (items.HasFlag(Items.UserConfig)) {
-									entry.WriteToFile(Program.Config.FilePaths.UserConfig);
+									entry.WriteToFile(App.ConfigManager.UserPath);
 								}
 
 								break;
 
 							case "system":
 								if (items.HasFlag(Items.SystemConfig)) {
-									entry.WriteToFile(Program.Config.FilePaths.SystemConfig);
+									entry.WriteToFile(App.ConfigManager.SystemPath);
 								}
 
 								break;
 
 							case "plugin.config":
 								if (items.HasFlag(Items.PluginData)) {
-									entry.WriteToFile(Program.Config.FilePaths.PluginConfig);
+									entry.WriteToFile(App.ConfigManager.PluginsPath);
 								}
 
 								break;

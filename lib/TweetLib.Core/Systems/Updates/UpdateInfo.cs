@@ -2,7 +2,6 @@
 using System.IO;
 using System.Net;
 using TweetLib.Utils.Static;
-using Version = TweetDuck.Version;
 
 namespace TweetLib.Core.Systems.Updates {
 	public sealed class UpdateInfo {
@@ -49,7 +48,7 @@ namespace TweetLib.Core.Systems.Updates {
 					return;
 				}
 
-				WebClient client = WebUtils.NewClient($"{Lib.BrandName} {Version.Tag}");
+				WebClient client = WebUtils.NewClient();
 
 				client.DownloadFileCompleted += WebUtils.FileDownloadCallback(InstallerPath, () => {
 					DownloadStatus = UpdateDownloadStatus.Done;

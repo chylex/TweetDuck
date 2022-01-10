@@ -1,11 +1,11 @@
 ﻿using System.Windows.Forms;
 using CefSharp;
 using TweetDuck.Browser.Adapters;
-using TweetDuck.Configuration;
 using TweetDuck.Controls;
 using TweetLib.Browser.Contexts;
 using TweetLib.Core.Features.TweetDeck;
 using TweetLib.Core.Features.Twitter;
+using TweetLib.Core.Systems.Configuration;
 using IContextMenuHandler = TweetLib.Browser.Interfaces.IContextMenuHandler;
 
 namespace TweetDuck.Browser.Handling {

@@ -7,7 +7,7 @@ using TweetLib.Browser.Request;
 using TweetLib.Utils.Static;
 
 namespace TweetLib.Core.Features {
-	public class BaseResourceRequestHandler : IResourceRequestHandler {
+	internal class BaseResourceRequestHandler : IResourceRequestHandler {
 		private static readonly Regex TweetDeckResourceUrl = new (@"/dist/(.*?)\.(.*?)\.(css|js)$");
 		private static readonly SortedList<string, string> TweetDeckHashes = new (4);
 

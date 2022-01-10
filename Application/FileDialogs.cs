@@ -2,21 +2,12 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using TweetDuck.Dialogs;
 using TweetDuck.Management;
 using TweetLib.Core.Application;
 using TweetLib.Core.Systems.Dialogs;
 
 namespace TweetDuck.Application {
-	sealed class DialogHandler : IAppDialogHandler {
-		public void Information(string caption, string text, string buttonAccept, string buttonCancel = null) {
-			FormManager.RunOnUIThreadAsync(() => FormMessage.Information(caption, text, buttonAccept, buttonCancel));
-		}
-
-		public void Error(string caption, string text, string buttonAccept, string buttonCancel = null) {
-			FormManager.RunOnUIThreadAsync(() => FormMessage.Error(caption, text, buttonAccept, buttonCancel));
-		}
-
+	sealed class FileDialogs : IAppFileDialogs {
 		public void SaveFile(SaveFileDialogSettings settings, Action<string> onAccepted) {
 			static string FormatFilter(FileDialogFilter filter) {
 				var builder = new StringBuilder();

@@ -50,16 +50,12 @@ namespace TweetLib.Utils.Serialization {
 			return build.Append(data.Substring(index)).ToString();
 		}
 
+		private readonly TypeConverterRegistry converterRegistry;
 		private readonly Dictionary<string, PropertyInfo> props;
-		private readonly Dictionary<Type, ITypeConverter> converters;
 
-		public SimpleObjectSerializer() {
+		public SimpleObjectSerializer(TypeConverterRegistry converterRegistry) {
+			this.converterRegistry = converterRegistry;
 			this.props = typeof(T).GetProperties(BindingFlags.Instance | BindingFlags.Public).Where(static prop => prop.CanWrite).ToDictionary(static prop => prop.Name);
-			this.converters = new Dictionary<Type, ITypeConverter>();
-		}
-
-		public void RegisterTypeConverter(Type type, ITypeConverter converter) {
-			converters[type] = converter;
 		}
 
 		public void Write(string file, T obj) {
@@ -69,14 +65,10 @@ namespace TweetLib.Utils.Serialization {
 
 			using (StreamWriter writer = new StreamWriter(new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None))) {
 				foreach (KeyValuePair<string, PropertyInfo> prop in props) {
-					Type type = prop.Value.PropertyType;
-					object value = prop.Value.GetValue(obj);
+					var type = prop.Value.PropertyType;
+					var converter = converterRegistry.TryGet(type) ?? ClrTypeConverter.Instance;
 
-					if (!converters.TryGetValue(type, out ITypeConverter serializer)) {
-						serializer = ClrTypeConverter.Instance;
-					}
-
-					if (serializer.TryWriteType(type, value, out string? converted)) {
+					if (converter.TryWriteType(type, prop.Value.GetValue(obj), out string? converted)) {
 						if (converted != null) {
 							writer.Write(prop.Key);
 							writer.Write(' ');
@@ -140,11 +132,10 @@ namespace TweetLib.Utils.Serialization {
 				string value = UnescapeLine(line.Substring(space + 1));
 
 				if (props.TryGetValue(property, out PropertyInfo info)) {
-					if (!converters.TryGetValue(info.PropertyType, out ITypeConverter serializer)) {
-						serializer = ClrTypeConverter.Instance;
-					}
+					var type = info.PropertyType;
+					var converter = converterRegistry.TryGet(type) ?? ClrTypeConverter.Instance;
 
-					if (serializer.TryReadType(info.PropertyType, value, out object? converted)) {
+					if (converter.TryReadType(type, value, out object? converted)) {
 						info.SetValue(obj, converted);
 					}
 					else {

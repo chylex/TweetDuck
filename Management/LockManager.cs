@@ -13,6 +13,8 @@ namespace TweetDuck.Management {
 		private const int CloseNaturallyTimeout = 10000;
 		private const int CloseKillTimeout = 5000;
 
+		public uint WindowRestoreMessage { get; } = NativeMethods.RegisterWindowMessage("TweetDuckRestore");
+
 		private readonly LockFile lockFile;
 
 		public LockManager(string path) {
@@ -33,7 +35,7 @@ namespace TweetDuck.Management {
 			LockResult lockResult = lockFile.Lock();
 
 			if (lockResult is LockResult.HasProcess info) {
-				if (!RestoreProcess(info.Process) && FormMessage.Error("TweetDuck is Already Running", "Another instance of TweetDuck is already running.\nDo you want to close it?", FormMessage.Yes, FormMessage.No)) {
+				if (!RestoreProcess(info.Process, WindowRestoreMessage) && FormMessage.Error("TweetDuck is Already Running", "Another instance of TweetDuck is already running.\nDo you want to close it?", FormMessage.Yes, FormMessage.No)) {
 					if (!CloseProcess(info.Process)) {
 						FormMessage.Error("TweetDuck Has Failed :(", "Could not close the other process.", FormMessage.OK);
 						return false;
@@ -83,9 +85,9 @@ namespace TweetDuck.Management {
 			App.ErrorHandler.HandleException("TweetDuck Has Failed :(", "An unknown error occurred accessing the data folder. Please, make sure TweetDuck is not already running. If the problem persists, try restarting your system.", false, fail.Exception);
 		}
 
-		private static bool RestoreProcess(Process process) {
+		private static bool RestoreProcess(Process process, uint windowRestoreMessage) {
 			if (process.MainWindowHandle == IntPtr.Zero) { // restore if the original process is in tray
-				NativeMethods.BroadcastMessage(Program.WindowRestoreMessage, (uint) process.Id, 0);
+				NativeMethods.BroadcastMessage(windowRestoreMessage, (uint) process.Id, 0);
 
 				if (WindowsUtils.TrySleepUntil(() => CheckProcessExited(process) || (process.MainWindowHandle != IntPtr.Zero && process.Responding), RestoreFailTimeout, WaitRetryDelay)) {
 					return true;

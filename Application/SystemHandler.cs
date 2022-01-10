@@ -4,26 +4,15 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using TweetDuck.Browser;
-using TweetDuck.Configuration;
 using TweetDuck.Dialogs;
 using TweetDuck.Management;
 using TweetLib.Core;
 using TweetLib.Core.Application;
 using TweetLib.Core.Features.Twitter;
+using TweetLib.Core.Systems.Configuration;
 
 namespace TweetDuck.Application {
 	sealed class SystemHandler : IAppSystemHandler {
-		public void OpenAssociatedProgram(string path) {
-			try {
-				using (Process.Start(new ProcessStartInfo {
-					FileName = path,
-					ErrorDialog = true
-				})) {}
-			} catch (Exception e) {
-				App.ErrorHandler.HandleException("Error Opening Program", "Could not open the associated program for " + path, true, e);
-			}
-		}
-
 		public void OpenBrowser(string url) {
 			if (string.IsNullOrWhiteSpace(url)) {
 				return;
@@ -92,7 +81,19 @@ namespace TweetDuck.Application {
 			}
 		}
 
-		public void CopyImageFromFile(string path) {
+		public IAppSystemHandler.OpenAssociatedProgramFunc OpenAssociatedProgram { get; } = path => {
+			try {
+				using (Process.Start(new ProcessStartInfo {
+					FileName = path,
+					ErrorDialog = true
+				})) {}
+			} catch (Exception e) {
+				App.ErrorHandler.HandleException("Error Opening Program", "Could not open the associated program for " + path, true, e);
+			}
+		};
+
+
+		public IAppSystemHandler.CopyImageFromFileFunc CopyImageFromFile { get; } = path => {
 			FormManager.RunOnUIThreadAsync(() => {
 				Image image;
 
@@ -105,18 +106,18 @@ namespace TweetDuck.Application {
 
 				ClipboardManager.SetImage(image);
 			});
-		}
+		};
 
-		public void CopyText(string text) {
+		public IAppSystemHandler.CopyTextFunc CopyText { get; } = text => {
 			FormManager.RunOnUIThreadAsync(() => ClipboardManager.SetText(text, TextDataFormat.UnicodeText));
-		}
+		};
 
-		public void SearchText(string text) {
+		public IAppSystemHandler.SearchTextFunc SearchText { get; } = text => {
 			if (string.IsNullOrWhiteSpace(text)) {
 				return;
 			}
 
-			FormManager.RunOnUIThreadAsync(() => {
+			void PerformSearch() {
 				var config = Program.Config.User;
 				string searchUrl = config.SearchEngineUrl;
 
@@ -138,15 +139,17 @@ namespace TweetDuck.Application {
 
 						settings.FormClosed += (sender, args) => {
 							if (args.CloseReason == CloseReason.UserClosing && config.SearchEngineUrl != searchUrl) {
-								SearchText(text);
+								PerformSearch();
 							}
 						};
 					}
 				}
 				else {
-					OpenBrowser(searchUrl + Uri.EscapeUriString(text));
+					App.SystemHandler.OpenBrowser(searchUrl + Uri.EscapeUriString(text));
 				}
-			});
-		}
+			}
+
+			FormManager.RunOnUIThreadAsync(PerformSearch);
+		};
 	}
 }

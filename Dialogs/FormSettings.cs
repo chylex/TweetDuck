@@ -9,6 +9,7 @@ using TweetDuck.Controls;
 using TweetDuck.Dialogs.Settings;
 using TweetDuck.Management;
 using TweetDuck.Utils;
+using TweetLib.Core;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.TweetDeck;
 using TweetLib.Core.Systems.Updates;
@@ -50,14 +51,14 @@ namespace TweetDuck.Dialogs {
 		}
 
 		private void PrepareLoad() {
-			Program.Config.ProgramRestartRequested += Config_ProgramRestartRequested;
+			App.ConfigManager.ProgramRestartRequested += Config_ProgramRestartRequested;
 		}
 
 		private void PrepareUnload() { // TODO refactor this further later
 			currentTab.Control.OnClosing();
 
-			Program.Config.ProgramRestartRequested -= Config_ProgramRestartRequested;
-			Program.Config.SaveAll();
+			App.ConfigManager.ProgramRestartRequested -= Config_ProgramRestartRequested;
+			App.ConfigManager.SaveAll();
 		}
 
 		private void Config_ProgramRestartRequested(object sender, EventArgs e) {

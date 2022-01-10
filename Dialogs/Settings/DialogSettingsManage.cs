@@ -6,6 +6,7 @@ using TweetDuck.Configuration;
 using TweetDuck.Management;
 using TweetLib.Core;
 using TweetLib.Core.Features.Plugins;
+using TweetLib.Core.Systems.Configuration;
 using TweetLib.Utils.Static;
 
 namespace TweetDuck.Dialogs.Settings {
@@ -133,7 +134,7 @@ namespace TweetDuck.Dialogs.Settings {
 
 				case State.Reset:
 					if (FormMessage.Warning("Reset TweetDuck Options", "This will reset the selected items. Are you sure you want to proceed?", FormMessage.Yes, FormMessage.No)) {
-						Program.Config.ProgramRestartRequested += Config_ProgramRestartRequested;
+						App.ConfigManager.ProgramRestartRequested += Config_ProgramRestartRequested;
 
 						if (SelectedItems.HasFlag(ProfileManager.Items.UserConfig)) {
 							Program.Config.User.Reset();
@@ -143,7 +144,7 @@ namespace TweetDuck.Dialogs.Settings {
 							Program.Config.System.Reset();
 						}
 
-						Program.Config.ProgramRestartRequested -= Config_ProgramRestartRequested;
+						App.ConfigManager.ProgramRestartRequested -= Config_ProgramRestartRequested;
 
 						if (SelectedItems.HasFlag(ProfileManager.Items.PluginData)) {
 							Program.Config.Plugins.Reset();
@@ -174,9 +175,9 @@ namespace TweetDuck.Dialogs.Settings {
 
 				case State.Import:
 					if (importManager.Import(SelectedItems)) {
-						Program.Config.ProgramRestartRequested += Config_ProgramRestartRequested;
-						Program.Config.ReloadAll();
-						Program.Config.ProgramRestartRequested -= Config_ProgramRestartRequested;
+						App.ConfigManager.ProgramRestartRequested += Config_ProgramRestartRequested;
+						App.ConfigManager.ReloadAll();
+						App.ConfigManager.ProgramRestartRequested -= Config_ProgramRestartRequested;
 
 						if (SelectedItemsForceRestart) {
 							RestartProgram(SelectedItems.HasFlag(ProfileManager.Items.Session) ? new string[] { Arguments.ArgImportCookies } : StringUtils.EmptyArray);

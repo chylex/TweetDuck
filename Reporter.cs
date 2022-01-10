@@ -48,7 +48,7 @@ namespace TweetDuck {
 				};
 
 				btnOpenLog.Click += (sender, args) => {
-					if (!App.Logger.OpenLogFile()) {
+					if (!OpenLogFile()) {
 						FormMessage.Error("Error Log", "Cannot open error log.", FormMessage.OK);
 					}
 				};
@@ -59,6 +59,16 @@ namespace TweetDuck {
 					Exit(message, e);
 				}
 			});
+		}
+
+		private static bool OpenLogFile() {
+			try {
+				using (Process.Start(App.Logger.LogFilePath)) {}
+			} catch (Exception) {
+				return false;
+			}
+
+			return true;
 		}
 
 		public sealed class ExpandedLogException : Exception {

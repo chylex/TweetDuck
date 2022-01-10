@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using TweetLib.Browser.Interfaces;
@@ -7,16 +8,21 @@ using TweetLib.Core.Systems.Dialogs;
 using TweetLib.Utils.Static;
 
 namespace TweetLib.Core.Features {
+	[SuppressMessage("ReSharper", "MemberCanBeInternal")]
 	public sealed class FileDownloadManager {
-		private readonly IBrowserComponent browser;
+		public bool SupportsViewingImage => App.SystemHandler.OpenAssociatedProgram != null;
+		public bool SupportsCopyingImage => App.SystemHandler.CopyImageFromFile != null;
+		public bool SupportsFileSaving => App.FileDialogs != null;
 
-		internal FileDownloadManager(IBrowserComponent browser) {
-			this.browser = browser;
+		private readonly IFileDownloader fileDownloader;
+
+		internal FileDownloadManager(IFileDownloader fileDownloader) {
+			this.fileDownloader = fileDownloader;
 		}
 
 		private void DownloadTempImage(string url, Action<string> process) {
 			string? staticFileName = TwitterUrls.GetImageFileName(url);
-			string file = Path.Combine(browser.FileDownloader.CacheFolder, staticFileName ?? Path.GetRandomFileName());
+			string file = Path.Combine(fileDownloader.CacheFolder, staticFileName ?? Path.GetRandomFileName());
 
 			if (staticFileName != null && FileUtils.FileExistsAndNotEmpty(file)) {
 				process(file);
@@ -27,14 +33,18 @@ namespace TweetLib.Core.Features {
 				}
 
 				static void OnFailure(Exception ex) {
-					App.DialogHandler.Error("Image Download", "An error occurred while downloading the image: " + ex.Message, Dialogs.OK);
+					App.MessageDialogs.Error("Image Download", "An error occurred while downloading the image: " + ex.Message);
 				}
 
-				browser.FileDownloader.DownloadFile(url, file, OnSuccess, OnFailure);
+				fileDownloader.DownloadFile(url, file, OnSuccess, OnFailure);
 			}
 		}
 
 		public void ViewImage(string url) {
+			if (App.SystemHandler.OpenAssociatedProgram == null) {
+				return;
+			}
+
 			DownloadTempImage(url, static path => {
 				string ext = Path.GetExtension(path);
 
@@ -42,16 +52,24 @@ namespace TweetLib.Core.Features {
 					App.SystemHandler.OpenAssociatedProgram(path);
 				}
 				else {
-					App.DialogHandler.Error("Image Download", "Unknown image file extension: " + ext, Dialogs.OK);
+					App.MessageDialogs.Error("Image Download", "Unknown image file extension: " + ext);
 				}
 			});
 		}
 
 		public void CopyImage(string url) {
-			DownloadTempImage(url, App.SystemHandler.CopyImageFromFile);
+			if (App.SystemHandler.CopyImageFromFile is {} copyImageFromFile) {
+				DownloadTempImage(url, new Action<string>(copyImageFromFile));
+			}
 		}
 
 		public void SaveImages(string[] urls, string? author) {
+			var fileDialogs = App.FileDialogs;
+			if (fileDialogs == null) {
+				App.MessageDialogs.Error("Image Download", "Saving files is not supported!");
+				return;
+			}
+
 			if (urls.Length == 0) {
 				return;
 			}
@@ -70,26 +88,32 @@ namespace TweetLib.Core.Features {
 				Filters = new [] { new FileDialogFilter(oneImage ? "Image" : "Images", string.IsNullOrEmpty(ext) ? Array.Empty<string>() : new [] { ext }) }
 			};
 
-			App.DialogHandler.SaveFile(settings, path => {
+			fileDialogs.SaveFile(settings, path => {
 				static void OnFailure(Exception ex) {
-					App.DialogHandler.Error("Image Download", "An error occurred while downloading the image: " + ex.Message, Dialogs.OK);
+					App.MessageDialogs.Error("Image Download", "An error occurred while downloading the image: " + ex.Message);
 				}
 
 				if (oneImage) {
-					browser.FileDownloader.DownloadFile(firstImageLink, path, null, OnFailure);
+					fileDownloader.DownloadFile(firstImageLink, path, null, OnFailure);
 				}
 				else {
 					string pathBase = Path.ChangeExtension(path, null);
 					string pathExt = Path.GetExtension(path);
 
 					for (int index = 0; index < urls.Length; index++) {
-						browser.FileDownloader.DownloadFile(urls[index], $"{pathBase} {index + 1}{pathExt}", null, OnFailure);
+						fileDownloader.DownloadFile(urls[index], $"{pathBase} {index + 1}{pathExt}", null, OnFailure);
 					}
 				}
 			});
 		}
 
 		public void SaveVideo(string url, string? author) {
+			var fileDialogs = App.FileDialogs;
+			if (fileDialogs == null) {
+				App.MessageDialogs.Error("Video Download", "Saving files is not supported!");
+				return;
+			}
+
 			string? filename = TwitterUrls.GetFileNameFromUrl(url);
 			string? ext = Path.GetExtension(filename);
 
@@ -100,12 +124,12 @@ namespace TweetLib.Core.Features {
 				Filters = new [] { new FileDialogFilter("Video", string.IsNullOrEmpty(ext) ? Array.Empty<string>() : new [] { ext }) }
 			};
 
-			App.DialogHandler.SaveFile(settings, path => {
+			fileDialogs.SaveFile(settings, path => {
 				static void OnError(Exception ex) {
-					App.DialogHandler.Error("Video Download", "An error occurred while downloading the video: " + ex.Message, Dialogs.OK);
+					App.MessageDialogs.Error("Video Download", "An error occurred while downloading the video: " + ex.Message);
 				}
 
-				browser.FileDownloader.DownloadFile(url, path, null, OnError);
+				fileDownloader.DownloadFile(url, path, null, OnError);
 			});
 		}
 	}

@@ -38,11 +38,7 @@ namespace TweetDuck.Dialogs {
 			return Show(caption, text, MessageBoxIcon.Question, buttonAccept, buttonCancel);
 		}
 
-		public static bool Show(string caption, string text, MessageBoxIcon icon, string button) {
-			return Show(caption, text, icon, button, null);
-		}
-
-		public static bool Show(string caption, string text, MessageBoxIcon icon, string buttonAccept, string buttonCancel) {
+		public static bool Show(string caption, string text, MessageBoxIcon icon, string buttonAccept, string buttonCancel = null) {
 			using FormMessage message = new FormMessage(caption, text, icon);
 
 			if (buttonCancel == null) {

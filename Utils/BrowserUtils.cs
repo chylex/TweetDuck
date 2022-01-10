@@ -10,7 +10,6 @@ using TweetLib.Browser.Interfaces;
 
 namespace TweetDuck.Utils {
 	static class BrowserUtils {
-		public static string UserAgentVanilla => Program.BrandName + " " + System.Windows.Forms.Application.ProductVersion;
 		public static string UserAgentChrome => "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/" + Cef.ChromiumVersion + " Safari/537.36";
 
 		private static UserConfig Config => Program.Config.User;

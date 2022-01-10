@@ -11,12 +11,11 @@ using TweetLib.Utils.Data;
 
 namespace TweetLib.Core.Features.Plugins {
 	public sealed class PluginManager {
-		public string CustomPluginFolder => Path.Combine(App.PluginPath, PluginGroup.Custom.GetSubFolder());
-
 		public IEnumerable<Plugin> Plugins => plugins;
 		public IEnumerable<InjectedString> NotificationInjections => bridge.NotificationInjections;
 
-		public IPluginConfig Config { get; }
+		public PluginConfig Config { get; }
+		public string PluginFolder { get; }
 		public string PluginDataFolder { get; }
 
 		public event EventHandler<PluginErrorEventArgs>? Reloaded;
@@ -27,11 +26,16 @@ namespace TweetLib.Core.Features.Plugins {
 
 		private readonly HashSet<Plugin> plugins = new ();
 
-		public PluginManager(IPluginConfig config, string pluginDataFolder) {
+		public PluginManager(PluginConfig config, string pluginFolder, string pluginDataFolder) {
 			this.Config = config;
 			this.Config.PluginChangedState += Config_PluginChangedState;
+			this.PluginFolder = pluginFolder;
 			this.PluginDataFolder = pluginDataFolder;
 			this.bridge = new PluginBridge(this);
+		}
+
+		public string GetPluginFolder(PluginGroup group) {
+			return Path.Combine(PluginFolder, group.GetSubFolder());
 		}
 
 		internal void Register(PluginEnvironment environment, IBrowserComponent browserComponent) {
@@ -47,7 +51,7 @@ namespace TweetLib.Core.Features.Plugins {
 
 			var errors = new List<string>(1);
 
-			foreach (var result in PluginGroups.All.SelectMany(group => PluginLoader.AllInFolder(App.PluginPath, PluginDataFolder, group))) {
+			foreach (var result in PluginGroups.All.SelectMany(group => PluginLoader.AllInFolder(PluginFolder, PluginDataFolder, group))) {
 				if (result.HasValue) {
 					plugins.Add(result.Value);
 				}
@@ -111,7 +115,7 @@ namespace TweetLib.Core.Features.Plugins {
 				browserExecutor.RunFunction("TDPF_configurePlugin", plugin);
 			}
 			else if (plugin.HasConfig) {
-				App.SystemHandler.OpenFileExplorer(File.Exists(plugin.ConfigPath) ? plugin.ConfigPath : plugin.GetPluginFolder(PluginFolder.Data));
+				App.SystemHandler.OpenFileExplorer(File.Exists(plugin.ConfigPath) ? plugin.ConfigPath : plugin.GetPluginFolder(Enums.PluginFolder.Data));
 			}
 		}
 	}

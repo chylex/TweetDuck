@@ -1,8 +1,9 @@
 using System;
+using TweetLib.Browser.Request;
 
 namespace TweetLib.Browser.Interfaces {
-	public interface ICustomSchemeHandler<T> where T : class {
+	public interface ICustomSchemeHandler {
 		string Protocol { get; }
-		T? Resolve(Uri uri);
+		SchemeResource? Resolve(Uri uri);
 	}
 }

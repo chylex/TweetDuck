@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Forms;
 using TweetDuck.Configuration;
+using TweetLib.Core.Systems.Configuration;
 using Res = TweetDuck.Properties.Resources;
 
 namespace TweetDuck.Browser {
@@ -20,7 +21,9 @@ namespace TweetDuck.Browser {
 		public event EventHandler ClickClose;
 
 		public bool Visible {
-			get { return notifyIcon.Visible; }
+			get {
+				return notifyIcon.Visible;
+			}
 
 			set {
 				notifyIcon.Visible = value;
@@ -30,7 +33,9 @@ namespace TweetDuck.Browser {
 		}
 
 		public bool HasNotifications {
-			get { return hasNotifications; }
+			get {
+				return hasNotifications;
+			}
 
 			set {
 				if (hasNotifications != value) {
@@ -74,7 +79,7 @@ namespace TweetDuck.Browser {
 
 		private void UpdateIcon() {
 			if (Visible) {
-				notifyIcon.Icon = hasNotifications ? Res.icon_tray_new : Config.MuteNotifications ? Res.icon_tray_muted : Res.icon_tray;
+				notifyIcon.Icon = HasNotifications ? Res.icon_tray_new : Config.MuteNotifications ? Res.icon_tray_muted : Res.icon_tray;
 			}
 		}
 

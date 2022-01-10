@@ -2,6 +2,7 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using TweetLib.Utils.Data;
 
 namespace TweetDuck.Controls {
 	static class ControlExtensions {
@@ -79,6 +80,24 @@ namespace TweetDuck.Controls {
 					args.Handled = true;
 				}
 			};
+		}
+
+		public static void Save(this WindowState state, Form form) {
+			state.Bounds = form.WindowState == FormWindowState.Normal ? form.DesktopBounds : form.RestoreBounds;
+			state.IsMaximized = form.WindowState == FormWindowState.Maximized;
+		}
+
+		public static void Restore(this WindowState state, Form form, bool firstTimeFullscreen) {
+			if (state.Bounds != Rectangle.Empty) {
+				form.DesktopBounds = state.Bounds;
+				form.WindowState = state.IsMaximized ? FormWindowState.Maximized : FormWindowState.Normal;
+			}
+
+			if ((state.Bounds == Rectangle.Empty && firstTimeFullscreen) || form.IsFullyOutsideView()) {
+				form.DesktopBounds = Screen.PrimaryScreen.WorkingArea;
+				form.WindowState = FormWindowState.Maximized;
+				state.Save(form);
+			}
 		}
 	}
 }

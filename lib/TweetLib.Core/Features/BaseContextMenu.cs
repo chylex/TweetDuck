@@ -1,9 +1,7 @@
-using System;
 using System.Text.RegularExpressions;
 using TweetLib.Browser.Contexts;
 using TweetLib.Browser.Interfaces;
 using TweetLib.Core.Features.Twitter;
-using TweetLib.Core.Systems.Dialogs;
 using TweetLib.Utils.Static;
 
 namespace TweetLib.Core.Features {
@@ -13,14 +11,14 @@ namespace TweetLib.Core.Features {
 
 		public BaseContextMenu(IBrowserComponent browser) {
 			this.browser = browser;
-			this.fileDownloadManager = new FileDownloadManager(browser);
+			this.fileDownloadManager = new FileDownloadManager(browser.FileDownloader);
 		}
 
 		public virtual void Show(IContextMenuBuilder menu, Context context) {
 			if (context.Selection is { Editable: false } selection) {
 				AddSearchSelectionItems(menu, selection.Text);
 				menu.AddSeparator();
-				menu.AddAction("Apply ROT13", () => App.DialogHandler.Information("ROT13", StringUtils.ConvertRot13(selection.Text), Dialogs.OK));
+				menu.AddAction("Apply ROT13", () => App.MessageDialogs.Information("ROT13", StringUtils.ConvertRot13(selection.Text)));
 				menu.AddSeparator();
 			}
 
@@ -32,13 +30,13 @@ namespace TweetLib.Core.Features {
 				Match match = TwitterUrls.RegexAccount.Match(link.CopyUrl);
 
 				if (match.Success) {
-					menu.AddAction(TextOpen("account"), OpenLink(link.Url));
-					menu.AddAction(TextCopy("account"), CopyText(link.CopyUrl));
-					menu.AddAction("Copy account username", CopyText(match.Groups[1].Value));
+					AddOpenAction(menu, TextOpen("account"), link.Url);
+					AddCopyAction(menu, TextCopy("account"), link.CopyUrl);
+					AddCopyAction(menu, "Copy account username", match.Groups[1].Value);
 				}
 				else {
-					menu.AddAction(TextOpen("link"), OpenLink(link.Url));
-					menu.AddAction(TextCopy("link"), CopyText(link.CopyUrl));
+					AddOpenAction(menu, TextOpen("link"), link.Url);
+					AddCopyAction(menu, TextCopy("link"), link.CopyUrl);
 				}
 
 				menu.AddSeparator();
@@ -49,24 +47,37 @@ namespace TweetLib.Core.Features {
 
 				switch (media.MediaType) {
 					case Media.Type.Image:
-						menu.AddAction("View image in photo viewer", () => fileDownloadManager.ViewImage(media.Url));
-						menu.AddAction(TextOpen("image"), OpenLink(media.Url));
-						menu.AddAction(TextCopy("image"), CopyText(media.Url));
-						menu.AddAction("Copy image", () => fileDownloadManager.CopyImage(media.Url));
-						menu.AddAction(TextSave("image"), () => fileDownloadManager.SaveImages(new string[] { media.Url }, tweet?.MediaAuthor));
+						if (fileDownloadManager.SupportsViewingImage) {
+							menu.AddAction("View image in photo viewer", () => fileDownloadManager.ViewImage(media.Url));
+						}
 
-						var imageUrls = tweet?.ImageUrls;
-						if (imageUrls?.Length > 1) {
-							menu.AddAction(TextSave("all images"), () => fileDownloadManager.SaveImages(imageUrls, tweet?.MediaAuthor));
+						AddOpenAction(menu, TextOpen("image"), media.Url);
+						AddCopyAction(menu, TextCopy("image"), media.Url);
+
+						if (fileDownloadManager.SupportsCopyingImage) {
+							menu.AddAction("Copy image", () => fileDownloadManager.CopyImage(media.Url));
+						}
+
+						if (fileDownloadManager.SupportsFileSaving) {
+							menu.AddAction(TextSave("image"), () => fileDownloadManager.SaveImages(new string[] { media.Url }, tweet?.MediaAuthor));
+
+							var imageUrls = tweet?.ImageUrls;
+							if (imageUrls?.Length > 1) {
+								menu.AddAction(TextSave("all images"), () => fileDownloadManager.SaveImages(imageUrls, tweet?.MediaAuthor));
+							}
 						}
 
 						menu.AddSeparator();
 						break;
 
 					case Media.Type.Video:
-						menu.AddAction(TextOpen("video"), OpenLink(media.Url));
-						menu.AddAction(TextCopy("video"), CopyText(media.Url));
-						menu.AddAction(TextSave("video"), () => fileDownloadManager.SaveVideo(media.Url, tweet?.MediaAuthor));
+						AddOpenAction(menu, TextOpen("video"), media.Url);
+						AddCopyAction(menu, TextCopy("video"), media.Url);
+
+						if (fileDownloadManager.SupportsFileSaving) {
+							menu.AddAction(TextSave("video"), () => fileDownloadManager.SaveVideo(media.Url, tweet?.MediaAuthor));
+						}
+
 						menu.AddSeparator();
 						break;
 				}
@@ -74,22 +85,26 @@ namespace TweetLib.Core.Features {
 		}
 
 		protected virtual void AddSearchSelectionItems(IContextMenuBuilder menu, string selectedText) {
-			menu.AddAction("Search in browser", () => {
-				App.SystemHandler.SearchText(selectedText);
-				DeselectAll();
-			});
+			if (App.SystemHandler.SearchText is {} searchText) {
+				menu.AddAction("Search in browser", () => {
+					searchText(selectedText);
+					DeselectAll();
+				});
+			}
 		}
 
 		protected void DeselectAll() {
 			browser.RunScript("gen:deselect", "window.getSelection().removeAllRanges()");
 		}
 
-		protected static Action OpenLink(string url) {
-			return () => App.SystemHandler.OpenBrowser(url);
+		protected static void AddOpenAction(IContextMenuBuilder menu, string title, string url) {
+			menu.AddAction(title, () => App.SystemHandler.OpenBrowser(url));
 		}
 
-		protected static Action CopyText(string text) {
-			return () => App.SystemHandler.CopyText(text);
+		protected static void AddCopyAction(IContextMenuBuilder menu, string title, string textToCopy) {
+			if (App.SystemHandler.CopyText is {} copyText) {
+				menu.AddAction(title, () => copyText(textToCopy));
+			}
 		}
 	}
 }

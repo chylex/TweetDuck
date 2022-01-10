@@ -8,19 +8,18 @@ using TweetDuck.Browser;
 using TweetDuck.Browser.Adapters;
 using TweetDuck.Browser.Handling;
 using TweetDuck.Configuration;
-using TweetDuck.Dialogs;
 using TweetDuck.Management;
 using TweetDuck.Updates;
 using TweetDuck.Utils;
 using TweetLib.Core;
 using TweetLib.Core.Application;
-using TweetLib.Core.Features;
 using TweetLib.Core.Features.Chromium;
 using TweetLib.Core.Features.Plugins;
+using TweetLib.Core.Features.Plugins.Config;
 using TweetLib.Core.Features.TweetDeck;
 using TweetLib.Core.Resources;
+using TweetLib.Core.Systems.Configuration;
 using TweetLib.Utils.Collections;
-using TweetLib.Utils.Static;
 using Win = System.Windows.Forms;
 
 namespace TweetDuck {
@@ -30,22 +29,17 @@ namespace TweetDuck {
 
 		public const string Website = "https://tweetduck.chylex.com";
 
-		private const string PluginDataFolder = "TD_Plugins";
 		private const string InstallerFolder = "TD_Updates";
 		private const string CefDataFolder = "TD_Chromium";
-
-		private const string ProgramLogFile = "TD_Log.txt";
 		private const string ConsoleLogFile = "TD_Console.txt";
 
 		public static string ExecutablePath => Win.Application.ExecutablePath;
 
-		public static uint WindowRestoreMessage;
-
-		private static LockManager lockManager;
 		private static Reporter errorReporter;
+		private static LockManager lockManager;
 		private static bool hasCleanedUp;
 
-		public static ConfigManager Config { get; private set; }
+		public static ConfigObjects<UserConfig, SystemConfig> Config { get; private set; }
 
 		internal static void SetupWinForms() {
 			Win.Application.EnableVisualStyles();
@@ -59,112 +53,99 @@ namespace TweetDuck {
 			SetupWinForms();
 			Cef.EnableHighDPISupport();
 
-			var startup = new AppStartup {
-				CustomDataFolder = Arguments.GetValue(Arguments.ArgDataFolder)
-			};
-
 			var reporter = new Reporter();
-			var userConfig = new UserConfig();
 
-			Lib.Initialize(new AppBuilder {
-				Startup = startup,
-				Logger = new Logger(ProgramLogFile),
+			Config = new ConfigObjects<UserConfig, SystemConfig>(
+				new UserConfig(),
+				new SystemConfig(),
+				new PluginConfig(new string[] {
+					"official/clear-columns",
+					"official/reply-account"
+				})
+			);
+
+			Lib.AppLauncher launch = Lib.Initialize(new AppBuilder {
+				Setup = new Setup(),
 				ErrorHandler = reporter,
 				SystemHandler = new SystemHandler(),
-				DialogHandler = new DialogHandler(),
-				UserConfiguration = userConfig
+				MessageDialogs = new MessageDialogs(),
+				FileDialogs = new FileDialogs(),
 			});
-
-			LaunchApp(reporter, userConfig);
-		}
-
-		private static void LaunchApp(Reporter reporter, UserConfig userConfig) {
-			App.Launch();
 
 			errorReporter = reporter;
-			string storagePath = App.StoragePath;
+			launch();
+		}
 
-			Config = new ConfigManager(userConfig, new ConfigManager.Paths {
-				UserConfig   = Path.Combine(storagePath, "TD_UserConfig.cfg"),
-				SystemConfig = Path.Combine(storagePath, "TD_SystemConfig.cfg"),
-				PluginConfig = Path.Combine(storagePath, "TD_PluginConfig.cfg")
-			});
+		private sealed class Setup : IAppSetup {
+			public bool IsPortable => File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "makeportable"));
+			public bool IsDebugLogging => Arguments.HasFlag(Arguments.ArgLogging);
+			public string CustomDataFolder => Arguments.GetValue(Arguments.ArgDataFolder);
+			public string ResourceRewriteRules => Arguments.GetValue(Arguments.ArgFreeze);
 
-			lockManager = new LockManager(Path.Combine(storagePath, ".lock"));
-			WindowRestoreMessage = NativeMethods.RegisterWindowMessage("TweetDuckRestore");
-
-			if (!lockManager.Lock(Arguments.HasFlag(Arguments.ArgRestart))) {
-				return;
+			public ConfigManager CreateConfigManager(string storagePath) {
+				return new ConfigManager<UserConfig, SystemConfig>(storagePath, Config);
 			}
 
-			Config.LoadAll();
-
-			if (Arguments.HasFlag(Arguments.ArgImportCookies)) {
-				ProfileManager.ImportCookies();
-			}
-			else if (Arguments.HasFlag(Arguments.ArgDeleteCookies)) {
-				ProfileManager.DeleteCookies();
+			public bool TryLockDataFolder(string lockFile) {
+				lockManager = new LockManager(lockFile);
+				return lockManager.Lock(Arguments.HasFlag(Arguments.ArgRestart));
 			}
 
-			var installerFolderPath = Path.Combine(storagePath, InstallerFolder);
-
-			if (Arguments.HasFlag(Arguments.ArgUpdated)) {
-				WindowsUtils.TryDeleteFolderWhenAble(installerFolderPath, 8000);
-				WindowsUtils.TryDeleteFolderWhenAble(Path.Combine(storagePath, "Service Worker"), 4000);
-				BrowserCache.TryClearNow();
-			}
-
-			try {
-				BaseResourceRequestHandler.LoadResourceRewriteRules(Arguments.GetValue(Arguments.ArgFreeze));
-			} catch (Exception e) {
-				FormMessage.Error("Resource Freeze", "Error parsing resource rewrite rules: " + e.Message, FormMessage.OK);
-				return;
-			}
-
-			WebUtils.DefaultUserAgent = BrowserUtils.UserAgentVanilla;
-
-			if (Config.User.UseSystemProxyForAllConnections) {
-				WebUtils.EnableSystemProxy();
-			}
-
-			BrowserCache.RefreshTimer();
-
-			CefSharpSettings.WcfEnabled = false;
-
-			CefSettings settings = new CefSettings {
-				UserAgent = BrowserUtils.UserAgentChrome,
-				BrowserSubprocessPath = Path.Combine(App.ProgramPath, BrandName + ".Browser.exe"),
-				CachePath = storagePath,
-				UserDataPath = Path.Combine(storagePath, CefDataFolder),
-				LogFile = Path.Combine(storagePath, ConsoleLogFile),
-				#if !DEBUG
-				LogSeverity = Arguments.HasFlag(Arguments.ArgLogging) ? LogSeverity.Info : LogSeverity.Disable
-				#endif
-			};
-
-			var resourceProvider = new CachingResourceProvider<IResourceHandler>(new ResourceProvider());
-			var pluginManager = new PluginManager(Config.Plugins, Path.Combine(storagePath, PluginDataFolder));
-
-			CefSchemeHandlerFactory.Register(settings, new TweetDuckSchemeHandler<IResourceHandler>(resourceProvider));
-			CefSchemeHandlerFactory.Register(settings, new PluginSchemeHandler<IResourceHandler>(resourceProvider, pluginManager));
-
-			CefUtils.ParseCommandLineArguments(Config.User.CustomCefArgs).ToDictionary(settings.CefCommandLineArgs);
-			BrowserUtils.SetupCefArgs(settings.CefCommandLineArgs);
-
-			Cef.Initialize(settings, false, new BrowserProcessHandler());
-
-			Win.Application.ApplicationExit += (sender, args) => ExitCleanup();
-			FormBrowser mainForm = new FormBrowser(resourceProvider, pluginManager, new UpdateCheckClient(installerFolderPath));
-			Win.Application.Run(mainForm);
-
-			if (mainForm.UpdateInstaller != null) {
-				ExitCleanup();
-
-				if (mainForm.UpdateInstaller.Launch()) {
-					Win.Application.Exit();
+			public void BeforeLaunch() {
+				if (Arguments.HasFlag(Arguments.ArgImportCookies)) {
+					ProfileManager.ImportCookies();
 				}
-				else {
-					RestartWithArgsInternal(Arguments.GetCurrentClean());
+				else if (Arguments.HasFlag(Arguments.ArgDeleteCookies)) {
+					ProfileManager.DeleteCookies();
+				}
+
+				if (Arguments.HasFlag(Arguments.ArgUpdated)) {
+					WindowsUtils.TryDeleteFolderWhenAble(Path.Combine(App.StoragePath, InstallerFolder), 8000);
+					WindowsUtils.TryDeleteFolderWhenAble(Path.Combine(App.StoragePath, "Service Worker"), 4000);
+					BrowserCache.TryClearNow();
+				}
+			}
+
+			public void Launch(ResourceCache resourceCache, PluginManager pluginManager) {
+				string storagePath = App.StoragePath;
+
+				BrowserCache.RefreshTimer();
+
+				CefSharpSettings.WcfEnabled = false;
+
+				CefSettings settings = new CefSettings {
+					UserAgent = BrowserUtils.UserAgentChrome,
+					BrowserSubprocessPath = Path.Combine(App.ProgramPath, BrandName + ".Browser.exe"),
+					CachePath = storagePath,
+					UserDataPath = Path.Combine(storagePath, CefDataFolder),
+					LogFile = Path.Combine(storagePath, ConsoleLogFile),
+					#if !DEBUG
+					LogSeverity = Arguments.HasFlag(Arguments.ArgLogging) ? LogSeverity.Info : LogSeverity.Disable
+					#endif
+				};
+
+				CefSchemeHandlerFactory.Register(settings, new TweetDuckSchemeHandler(resourceCache));
+				CefSchemeHandlerFactory.Register(settings, new PluginSchemeHandler(resourceCache, pluginManager));
+
+				CefUtils.ParseCommandLineArguments(Config.User.CustomCefArgs).ToDictionary(settings.CefCommandLineArgs);
+				BrowserUtils.SetupCefArgs(settings.CefCommandLineArgs);
+
+				Cef.Initialize(settings, false, new BrowserProcessHandler());
+
+				Win.Application.ApplicationExit += (sender, args) => ExitCleanup();
+				var updateCheckClient = new UpdateCheckClient(Path.Combine(storagePath, InstallerFolder));
+				var mainForm = new FormBrowser(resourceCache, pluginManager, updateCheckClient, lockManager.WindowRestoreMessage);
+				Win.Application.Run(mainForm);
+
+				if (mainForm.UpdateInstaller != null) {
+					ExitCleanup();
+
+					if (mainForm.UpdateInstaller.Launch()) {
+						Win.Application.Exit();
+					}
+					else {
+						RestartWithArgsInternal(Arguments.GetCurrentClean());
+					}
 				}
 			}
 		}
@@ -213,7 +194,7 @@ namespace TweetDuck {
 				return;
 			}
 
-			Config.SaveAll();
+			App.Close();
 
 			Cef.Shutdown();
 			BrowserCache.Exit();

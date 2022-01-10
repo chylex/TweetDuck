@@ -6,6 +6,7 @@ using TweetDuck.Utils;
 using TweetLib.Core;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.Plugins.Enums;
+using TweetLib.Core.Systems.Configuration;
 
 namespace TweetDuck.Plugins {
 	sealed partial class PluginControl : UserControl {
@@ -92,6 +93,7 @@ namespace TweetDuck.Plugins {
 
 		private void btnToggleState_Click(object sender, EventArgs e) {
 			pluginManager.Config.SetEnabled(plugin, !pluginManager.Config.IsEnabled(plugin));
+			pluginManager.Config.Save();
 			UpdatePluginState();
 		}
 

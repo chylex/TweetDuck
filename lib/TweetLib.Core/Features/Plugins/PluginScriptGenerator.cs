@@ -4,7 +4,7 @@ using TweetLib.Core.Features.Plugins.Enums;
 
 namespace TweetLib.Core.Features.Plugins {
 	internal static class PluginScriptGenerator {
-		public static string GenerateConfig(IPluginConfig config) {
+		public static string GenerateConfig(PluginConfig config) {
 			return "window.TD_PLUGINS_DISABLE = [" + string.Join(",", config.DisabledPlugins.Select(static id => '"' + id + '"')) + "]";
 		}
 

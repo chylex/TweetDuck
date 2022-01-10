@@ -14,7 +14,7 @@ namespace TweetDuck.Dialogs.Settings {
 		#region Feedback
 
 		private void btnSendFeedback_Click(object sender, EventArgs e) {
-			App.SystemHandler.OpenBrowser("https://github.com/chylex/TweetDuck/issues/new");
+			App.SystemHandler.OpenBrowser(Lib.IssueTrackerUrl + "/new");
 		}
 
 		#endregion

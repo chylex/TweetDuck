@@ -62,14 +62,14 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Application\DialogHandler.cs" />
-    <Compile Include="Application\Logger.cs" />
+    <Compile Include="Application\FileDialogs.cs" />
+    <Compile Include="Application\MessageDialogs.cs" />
     <Compile Include="Browser\Adapters\CefBrowserComponent.cs" />
     <Compile Include="Browser\Adapters\CefContextMenuActionRegistry.cs" />
     <Compile Include="Browser\Adapters\CefContextMenuModel.cs" />
     <Compile Include="Browser\Adapters\CefResourceHandlerFactory.cs" />
     <Compile Include="Browser\Adapters\CefResourceHandlerRegistry.cs" />
-    <Compile Include="Browser\Adapters\CefResourceProvider.cs" />
+    <Compile Include="Browser\Adapters\CefSchemeResourceVisitor.cs" />
     <Compile Include="Browser\Adapters\CefResourceRequestHandler.cs" />
     <Compile Include="Browser\Adapters\CefSchemeHandlerFactory.cs" />
     <Compile Include="Browser\Handling\BrowserProcessHandler.cs" />
@@ -80,8 +80,6 @@
     <Compile Include="Browser\Notification\FormNotificationExample.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Browser\TweetDeckInterfaceImpl.cs" />
-    <Compile Include="Dialogs\WindowState.cs" />
     <Compile Include="Management\LockManager.cs" />
     <Compile Include="Application\SystemHandler.cs" />
     <Compile Include="Browser\Handling\ContextMenuBase.cs" />
@@ -98,8 +96,6 @@
     <Compile Include="Browser\Notification\SoundNotification.cs" />
     <Compile Include="Browser\TweetDeckBrowser.cs" />
     <Compile Include="Configuration\Arguments.cs" />
-    <Compile Include="Configuration\ConfigManager.cs" />
-    <Compile Include="Configuration\PluginConfig.cs" />
     <Compile Include="Configuration\SystemConfig.cs" />
     <Compile Include="Configuration\UserConfig.cs" />
     <Compile Include="Controls\ControlExtensions.cs" />

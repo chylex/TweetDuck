@@ -3,14 +3,15 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using TweetDuck.Browser;
 using TweetDuck.Controls;
-using TweetDuck.Dialogs;
+using TweetLib.Core;
 using TweetLib.Core.Application;
 using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Features.Twitter;
 using TweetLib.Core.Systems.Configuration;
+using TweetLib.Utils.Data;
 
 namespace TweetDuck.Configuration {
-	sealed class UserConfig : BaseConfig, IAppUserConfiguration {
+	sealed class UserConfig : BaseConfig<UserConfig>, IAppUserConfiguration {
 		public bool FirstRun { get; set; } = true;
 
 		[SuppressMessage("ReSharper", "UnusedMember.Global")]
@@ -45,7 +46,7 @@ namespace TweetDuck.Configuration {
 		private string _spellCheckLanguage         = "en-US";
 
 		public string TranslationTarget { get; set; } = "en";
-		public int  CalendarFirstDay    { get; set; } = -1;
+		public int CalendarFirstDay     { get; set; } = -1;
 
 		private TrayIcon.Behavior _trayBehavior       = TrayIcon.Behavior.Disabled;
 		public bool EnableTrayHighlight { get; set; } = true;
@@ -121,32 +122,32 @@ namespace TweetDuck.Configuration {
 
 		public bool EnableSmoothScrolling {
 			get => _enableSmoothScrolling;
-			set => UpdatePropertyWithCallback(ref _enableSmoothScrolling, value, Program.Config.TriggerProgramRestartRequested);
+			set => UpdatePropertyWithCallback(ref _enableSmoothScrolling, value, App.ConfigManager.TriggerProgramRestartRequested);
 		}
 
 		public bool EnableTouchAdjustment {
 			get => _enableTouchAdjustment;
-			set => UpdatePropertyWithCallback(ref _enableTouchAdjustment, value, Program.Config.TriggerProgramRestartRequested);
+			set => UpdatePropertyWithCallback(ref _enableTouchAdjustment, value, App.ConfigManager.TriggerProgramRestartRequested);
 		}
 
 		public bool EnableColorProfileDetection {
 			get => _enableColorProfileDetection;
-			set => UpdatePropertyWithCallback(ref _enableColorProfileDetection, value, Program.Config.TriggerProgramRestartRequested);
+			set => UpdatePropertyWithCallback(ref _enableColorProfileDetection, value, App.ConfigManager.TriggerProgramRestartRequested);
 		}
 
 		public bool UseSystemProxyForAllConnections {
 			get => _useSystemProxyForAllConnections;
-			set => UpdatePropertyWithCallback(ref _useSystemProxyForAllConnections, value, Program.Config.TriggerProgramRestartRequested);
+			set => UpdatePropertyWithCallback(ref _useSystemProxyForAllConnections, value, App.ConfigManager.TriggerProgramRestartRequested);
 		}
 
 		public string CustomCefArgs {
 			get => _customCefArgs;
-			set => UpdatePropertyWithCallback(ref _customCefArgs, value, Program.Config.TriggerProgramRestartRequested);
+			set => UpdatePropertyWithCallback(ref _customCefArgs, value, App.ConfigManager.TriggerProgramRestartRequested);
 		}
 
 		public string SpellCheckLanguage {
 			get => _spellCheckLanguage;
-			set => UpdatePropertyWithCallback(ref _spellCheckLanguage, value, Program.Config.TriggerProgramRestartRequested);
+			set => UpdatePropertyWithCallback(ref _spellCheckLanguage, value, App.ConfigManager.TriggerProgramRestartRequested);
 		}
 
 		// EVENTS
@@ -163,7 +164,7 @@ namespace TweetDuck.Configuration {
 
 		// END OF CONFIG
 
-		protected override BaseConfig ConstructWithDefaults() {
+		public override UserConfig ConstructWithDefaults() {
 			return new UserConfig();
 		}
 	}
