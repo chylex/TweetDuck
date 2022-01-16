@@ -67,6 +67,7 @@ Type: filesandordirs; Name: "{localappdata}\{#MyAppName}\GPUCache"
 [InstallDelete]
 Type: files; Name: "{app}\CEFSHARP-LICENSE.txt"
 Type: files; Name: "{app}\LICENSE.txt"
+Type: files; Name: "{app}\README.txt"
 Type: files; Name: "{app}\natives_blob.bin"
 Type: files; Name: "{app}\cef.pak"
 Type: files; Name: "{app}\cef_100_percent.pak"
