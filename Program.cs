@@ -8,6 +8,7 @@ using TweetDuck.Browser;
 using TweetDuck.Browser.Adapters;
 using TweetDuck.Browser.Handling;
 using TweetDuck.Configuration;
+using TweetDuck.Dialogs;
 using TweetDuck.Management;
 using TweetDuck.Updates;
 using TweetDuck.Utils;
@@ -64,16 +65,20 @@ namespace TweetDuck {
 				})
 			);
 
-			Lib.AppLauncher launch = Lib.Initialize(new AppBuilder {
-				Setup = new Setup(),
-				ErrorHandler = reporter,
-				SystemHandler = new SystemHandler(),
-				MessageDialogs = new MessageDialogs(),
-				FileDialogs = new FileDialogs(),
-			});
+			try {
+				Lib.AppLauncher launch = Lib.Initialize(new AppBuilder {
+					Setup = new Setup(),
+					ErrorHandler = reporter,
+					SystemHandler = new SystemHandler(),
+					MessageDialogs = new MessageDialogs(),
+					FileDialogs = new FileDialogs(),
+				});
 
-			errorReporter = reporter;
-			launch();
+				errorReporter = reporter;
+				launch();
+			} catch (AppException e) {
+				FormMessage.Error(e.Title, e.Message, FormMessage.OK);
+			}
 		}
 
 		private sealed class Setup : IAppSetup {
@@ -153,9 +158,8 @@ namespace TweetDuck {
 
 		private static void OnUnhandledException(object sender, UnhandledExceptionEventArgs e) {
 			if (e.ExceptionObject is Exception ex) {
-				AppException appEx = ex.GetBaseException() as AppException;
-				string title = appEx?.Title ?? "TweetDuck Has Failed :(";
-				string message = appEx?.Message ?? "An unhandled exception has occurred: " + ex.Message;
+				const string title = "TweetDuck Has Failed :(";
+				string message = "An unhandled exception has occurred: " + ex.Message;
 
 				if (errorReporter == null) {
 					Debug.WriteLine(ex);

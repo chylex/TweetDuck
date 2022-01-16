@@ -9,11 +9,23 @@ namespace TweetDuck.Management {
 		private static FormCollection OpenForms => System.Windows.Forms.Application.OpenForms;
 
 		public static void RunOnUIThread(Action action) {
-			TryFind<FormBrowser>()?.InvokeSafe(action);
+			var form = TryFind<FormBrowser>();
+			if (form == null) {
+				action();
+			}
+			else {
+				form.InvokeSafe(action);
+			}
 		}
 
 		public static void RunOnUIThreadAsync(Action action) {
-			TryFind<FormBrowser>()?.InvokeAsyncSafe(action);
+			var form = TryFind<FormBrowser>();
+			if (form == null) {
+				action();
+			}
+			else {
+				form.InvokeAsyncSafe(action);
+			}
 		}
 
 		public static T TryFind<T>() where T : Form {
