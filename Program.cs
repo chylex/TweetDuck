@@ -112,6 +112,7 @@ namespace TweetDuck {
 				BrowserCache.RefreshTimer();
 
 				CefSharpSettings.WcfEnabled = false;
+				CefSharpSettings.SubprocessExitIfParentProcessClosed = false;
 
 				CefSettings settings = new CefSettings {
 					UserAgent = BrowserUtils.UserAgentChrome,
