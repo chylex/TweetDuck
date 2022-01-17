@@ -31,12 +31,16 @@ export default function() {
 		audio.load();
 	};
 	
-	window.TDGF_playSoundNotification = function() {
+	let forcePlayNotification = false;
+	
+	window.TDGF_playSoundNotification = function(force) {
+		forcePlayNotification = force;
 		document.getElementById("update-sound").play();
+		forcePlayNotification = false;
 	};
 	
 	replaceFunction(HTMLAudioElement.prototype, "play", function(func, args) {
-		if (!$TDX.muteNotifications && isAppReady()) {
+		if ((!$TDX.muteNotifications || forcePlayNotification) && isAppReady()) {
 			func.apply(this, args);
 		}
 	});

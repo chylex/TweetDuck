@@ -42,7 +42,7 @@ namespace TweetDuck.Dialogs {
 
 			AddButton("General", () => new TabSettingsGeneral(tweetDeckFunctions.ReloadColumns, updates));
 			AddButton("Notifications", () => new TabSettingsNotifications(this.browser.CreateExampleNotification()));
-			AddButton("Sounds", () => new TabSettingsSounds(tweetDeckFunctions.PlaySoundNotification));
+			AddButton("Sounds", () => new TabSettingsSounds(() => tweetDeckFunctions.PlaySoundNotification(true)));
 			AddButton("Tray", () => new TabSettingsTray());
 			AddButton("Feedback", () => new TabSettingsFeedback());
 			AddButton("Advanced", () => new TabSettingsAdvanced(tweetDeckFunctions.ReinjectCustomCSS, this.browser.OpenDevTools));

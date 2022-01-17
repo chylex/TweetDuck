@@ -35,8 +35,8 @@ namespace TweetLib.Core.Features.TweetDeck {
 			executor.RunFunction("TDGF_reloadColumns");
 		}
 
-		public void PlaySoundNotification() {
-			executor.RunFunction("TDGF_playSoundNotification");
+		public void PlaySoundNotification(bool force) {
+			executor.RunFunction("TDGF_playSoundNotification", force);
 		}
 
 		public void ApplyROT13() {
