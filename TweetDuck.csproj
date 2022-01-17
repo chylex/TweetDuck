@@ -90,33 +90,32 @@
   <ItemGroup>
     <Compile Include="Application\FileDialogs.cs" />
     <Compile Include="Application\MessageDialogs.cs" />
+    <Compile Include="Application\SystemHandler.cs" />
     <Compile Include="Browser\Adapters\CefBrowserComponent.cs" />
     <Compile Include="Browser\Adapters\CefContextMenuActionRegistry.cs" />
     <Compile Include="Browser\Adapters\CefContextMenuModel.cs" />
     <Compile Include="Browser\Adapters\CefResourceHandlerFactory.cs" />
     <Compile Include="Browser\Adapters\CefResourceHandlerRegistry.cs" />
-    <Compile Include="Browser\Adapters\CefSchemeResourceVisitor.cs" />
     <Compile Include="Browser\Adapters\CefResourceRequestHandler.cs" />
     <Compile Include="Browser\Adapters\CefSchemeHandlerFactory.cs" />
+    <Compile Include="Browser\Adapters\CefSchemeResourceVisitor.cs" />
     <Compile Include="Browser\Handling\BrowserProcessHandler.cs" />
-    <Compile Include="Browser\Handling\CustomLifeSpanHandler.cs" />
-    <Compile Include="Browser\Handling\FileDialogHandler.cs" />
-    <Compile Include="Browser\Handling\JavaScriptDialogHandler.cs" />
-    <Compile Include="Browser\Handling\ResponseFilter.cs" />
-    <Compile Include="Browser\Notification\FormNotificationExample.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Management\LockManager.cs" />
-    <Compile Include="Application\SystemHandler.cs" />
     <Compile Include="Browser\Handling\ContextMenuBase.cs" />
     <Compile Include="Browser\Handling\ContextMenuBrowser.cs" />
     <Compile Include="Browser\Handling\ContextMenuGuide.cs" />
     <Compile Include="Browser\Handling\ContextMenuNotification.cs" />
-    <Compile Include="Browser\Handling\DragHandlerBrowser.cs" />
     <Compile Include="Browser\Handling\CustomKeyboardHandler.cs" />
+    <Compile Include="Browser\Handling\CustomLifeSpanHandler.cs" />
+    <Compile Include="Browser\Handling\DragHandlerBrowser.cs" />
+    <Compile Include="Browser\Handling\FileDialogHandler.cs" />
+    <Compile Include="Browser\Handling\JavaScriptDialogHandler.cs" />
     <Compile Include="Browser\Handling\RequestHandlerBase.cs" />
     <Compile Include="Browser\Handling\RequestHandlerBrowser.cs" />
     <Compile Include="Browser\Handling\ResourceHandlerNotification.cs" />
+    <Compile Include="Browser\Handling\ResponseFilter.cs" />
+    <Compile Include="Browser\Notification\FormNotificationExample.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Browser\Notification\Screenshot\ScreenshotBridge.cs" />
     <Compile Include="Browser\Notification\Screenshot\TweetScreenshotManager.cs" />
     <Compile Include="Browser\Notification\SoundNotification.cs" />
@@ -128,6 +127,7 @@
     <Compile Include="Management\BrowserCache.cs" />
     <Compile Include="Management\ClipboardManager.cs" />
     <Compile Include="Management\FormManager.cs" />
+    <Compile Include="Management\LockManager.cs" />
     <Compile Include="Management\ProfileManager.cs" />
     <Compile Include="Management\VideoPlayer.cs" />
     <Compile Include="Program.cs" />
@@ -520,7 +520,6 @@
       <XmlFiles Include="$(TargetDir)*.xml" Visible="false" />
       <TxtFiles Include="$(TargetDir)*.txt" Visible="false" />
     </ItemGroup>
-    <RemoveDir Directories="$(TargetDir)plugins\official\.debug" />
     <Delete Files="$(TargetDir)CefSharp.BrowserSubprocess.exe" />
     <Delete Files="$(TargetDir)widevinecdmadapter.dll" />
     <Delete Files="@(PdbFiles)" />
