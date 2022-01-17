@@ -173,6 +173,15 @@ enabled(){
 			return "Custom (" + me.config[key] + ")";
 		};
 		
+		let validatePositiveNumber = function(val) {
+			if (/^[0-9]+$/.test(val) && parseInt(val, 10) > 0) {
+				return true;
+			}
+			
+			alert("The value must be a number larger than 0.");
+			return false;
+		};
+		
 		modal.find("[data-td-key]").each(function() {
 			let item = $(this);
 			let tag = item.prop("tagName");
@@ -196,15 +205,45 @@ enabled(){
 				let optionCustomNew = item.find("option[value^='change-custom']");
 				
 				let resetMyValue = () => {
-					if (!item.val(me.config[key]).val() && optionCustom.length === 1) {
+					const val = me.config[key];
+					
+					if (key === "columnWidth") {
+						if (!item.val(val).val()) {
+							const optionCustomPx = item.find("option[value='custom-px']");
+							const optionCustomPxNew = item.find("option[value='change-custom-px']");
+							const optionCustomCols = item.find("option[value='custom-cols']");
+							const optionCustomColsNew = item.find("option[value='change-custom-cols']");
+							
+							if (val.length > 0 && val[0] === "/") {
+								const cols = val.substring(1);
+								item.val(optionCustomCols.attr("value"));
+								optionCustomCols.text("Custom (" + cols + (cols === "1" ? " column" : " columns") + ")");
+								optionCustomColsNew.show();
+								
+								optionCustomPx.text("Custom");
+								optionCustomPxNew.hide();
+							}
+							else {
+								item.val(optionCustomPx.attr("value"));
+								optionCustomPx.text(getTextForCustom(key));
+								optionCustomPxNew.show();
+								
+								optionCustomCols.text("Custom");
+								optionCustomColsNew.hide();
+							}
+							
+							return;
+						}
+					}
+					else if (!item.val(val).val() && optionCustom.length === 1) {
 						item.val(optionCustom.attr("value"));
 						optionCustom.text(getTextForCustom(key));
 						optionCustomNew.show();
+						return;
 					}
-					else {
-						optionCustom.text("Custom");
-						optionCustomNew.hide();
-					}
+					
+					optionCustom.text("Custom");
+					optionCustomNew.hide();
 				};
 				
 				resetMyValue();
@@ -220,12 +259,16 @@ enabled(){
 								val = val.slice(0, -2).trim();
 							}
 							
-							if (/^[0-9]+$/.test(val)) {
+							if (validatePositiveNumber(val)) {
 								updateKey(key, val + "px");
 							}
-							else {
-								alert("Invalid value, only px values are supported.");
-							}
+						}
+					}
+					else if (val.endsWith("custom-cols")) {
+						val = (prompt("Enter how many columns you want to see on the screen:") || "").trim();
+						
+						if (val && validatePositiveNumber(val)) {
+							updateKey(key, "/" + val);
 						}
 					}
 					else {
