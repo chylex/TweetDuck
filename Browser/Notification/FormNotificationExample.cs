@@ -39,11 +39,6 @@ namespace TweetDuck.Browser.Notification {
 			};
 
 			string exampleTweetHTML = ResourceUtils.ReadFileOrNull("notification/example/example.html") ?? string.Empty;
-
-			#if DEBUG
-			exampleTweetHTML = exampleTweetHTML.Replace("</p>", @"</p><div style='margin-top:256px'>Scrollbar test padding...</div>");
-			#endif
-
 			exampleNotification = new DesktopNotification(string.Empty, string.Empty, "Home", exampleTweetHTML, 176, string.Empty, string.Empty);
 		}
 
