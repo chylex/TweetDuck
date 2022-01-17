@@ -4,7 +4,7 @@ using System.Resources;
 using System.Runtime.InteropServices;
 using TweetDuck;
 
-// General Information about an assembly is controlled through the following 
+// General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("TweetDeck Client for Windows")]
@@ -16,8 +16,8 @@ using TweetDuck;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-// Setting ComVisible to false makes the types in this assembly not visible 
-// to COM components.  If you need to access a type in this assembly from 
+// Setting ComVisible to false makes the types in this assembly not visible
+// to COM components.  If you need to access a type in this assembly from
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
@@ -27,8 +27,3 @@ using TweetDuck;
 [assembly: NeutralResourcesLanguage("en")]
 
 [assembly: CLSCompliant(true)]
-
-#if DEBUG
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("TweetTest.System")]
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("TweetTest.Unit")]
-#endif
