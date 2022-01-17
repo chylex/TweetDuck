@@ -48,7 +48,7 @@ namespace TweetDuck.Dialogs.Settings {
 
 			toolTip.SetToolTip(checkUseSystemProxyForAllConnections, "Sets whether all connections should automatically detect and use the system proxy.\r\nBy default, only the browser component uses the system proxy, while other parts (such as update checks) ignore it.\r\nDisabled by default because Windows' proxy detection can be really slow.");
 
-			checkUseSystemProxyForAllConnections.Checked = Config.UseSystemProxyForAllConnections;
+			checkUseSystemProxyForAllConnections.Checked = SysConfig.UseSystemProxyForAllConnections;
 
 			// development tools
 
@@ -177,7 +177,7 @@ namespace TweetDuck.Dialogs.Settings {
 		#region Proxy
 
 		private void checkUseSystemProxyForAllConnections_CheckedChanged(object sender, EventArgs e) {
-			Config.UseSystemProxyForAllConnections = checkUseSystemProxyForAllConnections.Checked;
+			SysConfig.UseSystemProxyForAllConnections = checkUseSystemProxyForAllConnections.Checked;
 		}
 
 		#endregion

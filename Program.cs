@@ -109,6 +109,10 @@ namespace TweetDuck {
 					WindowsUtils.TryDeleteFolderWhenAble(Path.Combine(App.StoragePath, "Service Worker"), 4000);
 					BrowserCache.TryClearNow();
 				}
+
+				if (Config.System.Migrate()) {
+					Config.System.Save();
+				}
 			}
 
 			public void Launch(ResourceCache resourceCache, PluginManager pluginManager) {

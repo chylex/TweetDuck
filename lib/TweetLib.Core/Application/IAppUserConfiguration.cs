@@ -20,7 +20,6 @@ namespace TweetLib.Core.Application {
 		int CalendarFirstDay { get; }
 		string TranslationTarget { get; }
 		ImageQuality TwitterImageQuality { get; }
-		bool UseSystemProxyForAllConnections { get; }
 
 		event EventHandler MuteToggled;
 		event EventHandler OptionsDialogClosed;

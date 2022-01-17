@@ -177,6 +177,7 @@ namespace TweetDuck.Dialogs.Settings {
 					if (importManager.Import(SelectedItems)) {
 						App.ConfigManager.ProgramRestartRequested += Config_ProgramRestartRequested;
 						App.ConfigManager.ReloadAll();
+						App.ConfigManager.SaveAll();
 						App.ConfigManager.ProgramRestartRequested -= Config_ProgramRestartRequested;
 
 						if (SelectedItemsForceRestart) {

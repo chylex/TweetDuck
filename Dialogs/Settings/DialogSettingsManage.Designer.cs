@@ -121,7 +121,7 @@
             this.cbSystemConfig.Size = new System.Drawing.Size(109, 19);
             this.cbSystemConfig.TabIndex = 1;
             this.cbSystemConfig.Text = "System Options";
-            this.toolTip.SetToolTip(this.cbSystemConfig, "Hardware acceleration and cache options.");
+            this.toolTip.SetToolTip(this.cbSystemConfig, "Options related to the current system and hardware,\r\nsuch as hardware acceleration, proxy, and cache settings.");
             this.cbSystemConfig.UseVisualStyleBackColor = true;
             this.cbSystemConfig.CheckedChanged += new System.EventHandler(this.checkBoxSelection_CheckedChanged);
             // 

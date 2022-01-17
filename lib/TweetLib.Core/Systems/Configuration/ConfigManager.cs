@@ -49,14 +49,16 @@ namespace TweetLib.Core.Systems.Configuration {
 		public event EventHandler? ProgramRestartRequested;
 
 		internal IAppUserConfiguration User { get; }
+		internal IAppSystemConfiguration System { get; }
 		internal PluginConfig Plugins { get; }
 
-		protected ConfigManager(string storagePath, IAppUserConfiguration user, PluginConfig plugins) {
+		protected ConfigManager(string storagePath, IAppUserConfiguration user, IAppSystemConfiguration system, PluginConfig plugins) {
 			UserPath = Path.Combine(storagePath, "TD_UserConfig.cfg");
 			SystemPath = Path.Combine(storagePath, "TD_SystemConfig.cfg");
 			PluginsPath = Path.Combine(storagePath, "TD_PluginConfig.cfg");
 
 			User = user;
+			System = system;
 			Plugins = plugins;
 		}
 
@@ -79,15 +81,15 @@ namespace TweetLib.Core.Systems.Configuration {
 		protected abstract IConfigInstance GetInstanceInfo(IConfigObject instance);
 	}
 
-	public sealed class ConfigManager<TUser, TSystem> : ConfigManager where TUser : class, IAppUserConfiguration, IConfigObject<TUser> where TSystem : class, IConfigObject<TSystem> {
+	public sealed class ConfigManager<TUser, TSystem> : ConfigManager where TUser : class, IAppUserConfiguration, IConfigObject<TUser> where TSystem : class, IAppSystemConfiguration, IConfigObject<TSystem> {
 		private new TUser User { get; }
-		private TSystem System { get; }
+		private new TSystem System { get; }
 
 		private readonly FileConfigInstance<TUser> infoUser;
 		private readonly FileConfigInstance<TSystem> infoSystem;
 		private readonly PluginConfigInstance infoPlugins;
 
-		public ConfigManager(string storagePath, ConfigObjects<TUser, TSystem> configObjects) : base(storagePath, configObjects.User, configObjects.Plugins) {
+		public ConfigManager(string storagePath, ConfigObjects<TUser, TSystem> configObjects) : base(storagePath, configObjects.User, configObjects.System, configObjects.Plugins) {
 			User = configObjects.User;
 			System = configObjects.System;
 

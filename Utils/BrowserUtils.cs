@@ -25,11 +25,11 @@ namespace TweetDuck.Utils {
 				args["disable-smooth-scrolling"] = "1";
 			}
 
-			if (!Config.EnableTouchAdjustment) {
+			if (!SysConfig.EnableTouchAdjustment) {
 				args["disable-touch-adjustment"] = "1";
 			}
 
-			if (!Config.EnableColorProfileDetection) {
+			if (!SysConfig.EnableColorProfileDetection) {
 				args["force-color-profile"] = "srgb";
 			}
 

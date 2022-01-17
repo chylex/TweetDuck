@@ -32,6 +32,7 @@ namespace TweetLib.Core {
 		public static IAppFileDialogs? FileDialogs      { get; } = Builder.FileDialogs;
 
 		internal static IAppUserConfiguration UserConfiguration => ConfigManager.User;
+		internal static IAppSystemConfiguration SystemConfiguration => ConfigManager.System;
 
 		private static string GetDataFolder() {
 			string? custom = Setup.CustomDataFolder;
@@ -74,7 +75,7 @@ namespace TweetLib.Core {
 
 			WebUtils.DefaultUserAgent = Lib.BrandName + " " + Version.Tag;
 
-			if (UserConfiguration.UseSystemProxyForAllConnections) {
+			if (SystemConfiguration.UseSystemProxyForAllConnections) {
 				WebUtils.EnableSystemProxy();
 			}
 

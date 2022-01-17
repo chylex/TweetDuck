@@ -27,10 +27,8 @@ namespace TweetDuck.Configuration {
 		public bool BestImageQuality          { get; set; } = true;
 		public bool EnableAnimatedImages      { get; set; } = true;
 
-		private bool _enableSmoothScrolling       = true;
-		private bool _enableTouchAdjustment       = false;
-		private bool _enableColorProfileDetection = false;
-		private string _customCefArgs             = null;
+		private bool _enableSmoothScrolling = true;
+		private string _customCefArgs       = null;
 
 		public string BrowserPath            { get; set; } = null;
 		public string BrowserPathArgs        { get; set; } = null;
@@ -82,8 +80,6 @@ namespace TweetDuck.Configuration {
 		public string CustomBrowserCSS      { get; set; } = null;
 		public string CustomNotificationCSS { get; set; } = null;
 
-		private bool _useSystemProxyForAllConnections;
-
 		public bool DevToolsInContextMenu { get; set; } = false;
 		public bool DevToolsWindowOnTop   { get; set; } = true;
 
@@ -125,21 +121,6 @@ namespace TweetDuck.Configuration {
 			set => UpdatePropertyWithCallback(ref _enableSmoothScrolling, value, App.ConfigManager.TriggerProgramRestartRequested);
 		}
 
-		public bool EnableTouchAdjustment {
-			get => _enableTouchAdjustment;
-			set => UpdatePropertyWithCallback(ref _enableTouchAdjustment, value, App.ConfigManager.TriggerProgramRestartRequested);
-		}
-
-		public bool EnableColorProfileDetection {
-			get => _enableColorProfileDetection;
-			set => UpdatePropertyWithCallback(ref _enableColorProfileDetection, value, App.ConfigManager.TriggerProgramRestartRequested);
-		}
-
-		public bool UseSystemProxyForAllConnections {
-			get => _useSystemProxyForAllConnections;
-			set => UpdatePropertyWithCallback(ref _useSystemProxyForAllConnections, value, App.ConfigManager.TriggerProgramRestartRequested);
-		}
-
 		public string CustomCefArgs {
 			get => _customCefArgs;
 			set => UpdatePropertyWithCallback(ref _customCefArgs, value, App.ConfigManager.TriggerProgramRestartRequested);
@@ -149,6 +130,20 @@ namespace TweetDuck.Configuration {
 			get => _spellCheckLanguage;
 			set => UpdatePropertyWithCallback(ref _spellCheckLanguage, value, App.ConfigManager.TriggerProgramRestartRequested);
 		}
+
+		// DEPRECATED
+
+		[Obsolete("Moved to SystemConfig")]
+		[SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
+		public bool EnableTouchAdjustment { get; set; }
+
+		[Obsolete("Moved to SystemConfig")]
+		[SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
+		public bool EnableColorProfileDetection { get; set; }
+
+		[Obsolete("Moved to SystemConfig")]
+		[SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
+		public bool UseSystemProxyForAllConnections { get; set; }
 
 		// EVENTS
 

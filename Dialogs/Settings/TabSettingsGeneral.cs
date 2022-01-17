@@ -76,8 +76,8 @@ namespace TweetDuck.Dialogs.Settings {
 			toolTip.SetToolTip(comboBoxSearchEngine, "Sets the default website for opening searches.");
 
 			checkSmoothScrolling.Checked = Config.EnableSmoothScrolling;
-			checkTouchAdjustment.Checked = Config.EnableTouchAdjustment;
-			checkAutomaticallyDetectColorProfile.Checked = Config.EnableColorProfileDetection;
+			checkTouchAdjustment.Checked = SysConfig.EnableTouchAdjustment;
+			checkAutomaticallyDetectColorProfile.Checked = SysConfig.EnableColorProfileDetection;
 			checkHardwareAcceleration.Checked = SysConfig.HardwareAcceleration;
 
 			foreach (WindowsUtils.Browser browserInfo in WindowsUtils.FindInstalledBrowsers()) {
@@ -247,11 +247,11 @@ namespace TweetDuck.Dialogs.Settings {
 		}
 
 		private void checkTouchAdjustment_CheckedChanged(object sender, EventArgs e) {
-			Config.EnableTouchAdjustment = checkTouchAdjustment.Checked;
+			SysConfig.EnableTouchAdjustment = checkTouchAdjustment.Checked;
 		}
 
 		private void checkAutomaticallyDetectColorProfile_CheckedChanged(object sender, EventArgs e) {
-			Config.EnableColorProfileDetection = checkAutomaticallyDetectColorProfile.Checked;
+			SysConfig.EnableColorProfileDetection = checkAutomaticallyDetectColorProfile.Checked;
 		}
 
 		private void checkHardwareAcceleration_CheckedChanged(object sender, EventArgs e) {
