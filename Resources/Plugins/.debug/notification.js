@@ -1,3 +1,3 @@
 run(){
-  console.info("executed debug plugin in notification");
+	console.info("executed debug plugin in notification");
 }
