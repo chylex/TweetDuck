@@ -96,10 +96,6 @@ namespace TweetDuck.Browser.Adapters {
 			browser.JavascriptObjectRepository.Register(name, bridge, isAsync: true, BindingOptions.DefaultBinder);
 		}
 
-		public void RunFunction(string name, params object[] args) {
-			browser.BrowserCore.ExecuteScriptAsync(name, args);
-		}
-
 		public void RunScript(string identifier, string script) {
 			using IFrame frame = browser.GetMainFrame();
 			frame.ExecuteJavaScriptAsync(script, identifier, 1);
