@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using TweetDuck.Configuration;
 using TweetDuck.Management;
 using TweetLib.Core;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Systems.Configuration;
-using TweetLib.Utils.Static;
 
 namespace TweetDuck.Dialogs.Settings {
 	sealed partial class DialogSettingsManage : Form {
@@ -27,10 +25,6 @@ namespace TweetDuck.Dialogs.Settings {
 					kvp.Key.Checked = value.HasFlag(kvp.Value);
 				}
 			}
-		}
-
-		private bool SelectedItemsForceRestart {
-			get => _selectedItems.HasFlag(ProfileManager.Items.Session);
 		}
 
 		public bool IsRestarting { get; private set; }
@@ -146,6 +140,10 @@ namespace TweetDuck.Dialogs.Settings {
 
 						App.ConfigManager.ProgramRestartRequested -= Config_ProgramRestartRequested;
 
+						if (SelectedItems.HasFlag(ProfileManager.Items.Session)) {
+							ProfileManager.DeleteAuthCookie();
+						}
+
 						if (SelectedItems.HasFlag(ProfileManager.Items.PluginData)) {
 							Program.Config.Plugins.Reset();
 
@@ -156,13 +154,8 @@ namespace TweetDuck.Dialogs.Settings {
 							}
 						}
 
-						if (SelectedItemsForceRestart) {
-							RestartProgram(SelectedItems.HasFlag(ProfileManager.Items.Session) ? new string[] { Arguments.ArgDeleteCookies } : StringUtils.EmptyArray);
-						}
-						else if (requestedRestartFromConfig) {
-							if (FormMessage.Information("Profile Reset", "The application must restart for some of the restored options to take place. Do you want to restart now?", FormMessage.Yes, FormMessage.No)) {
-								RestartProgram();
-							}
+						if (requestedRestartFromConfig && FormMessage.Information("Profile Reset", "The application must restart for some of the restored options to take place. Do you want to restart now?", FormMessage.Yes, FormMessage.No)) {
+							RestartProgram();
 						}
 
 						ShouldReloadBrowser = true;
@@ -180,13 +173,8 @@ namespace TweetDuck.Dialogs.Settings {
 						App.ConfigManager.SaveAll();
 						App.ConfigManager.ProgramRestartRequested -= Config_ProgramRestartRequested;
 
-						if (SelectedItemsForceRestart) {
-							RestartProgram(SelectedItems.HasFlag(ProfileManager.Items.Session) ? new string[] { Arguments.ArgImportCookies } : StringUtils.EmptyArray);
-						}
-						else if (requestedRestartFromConfig) {
-							if (FormMessage.Information("Profile Import", "The application must restart for some of the imported options to take place. Do you want to restart now?", FormMessage.Yes, FormMessage.No)) {
-								RestartProgram();
-							}
+						if (requestedRestartFromConfig && FormMessage.Information("Profile Import", "The application must restart for some of the imported options to take place. Do you want to restart now?", FormMessage.Yes, FormMessage.No)) {
+							RestartProgram();
 						}
 					}
 
@@ -235,16 +223,16 @@ namespace TweetDuck.Dialogs.Settings {
 			btnContinue.Enabled = _selectedItems != ProfileManager.Items.None;
 
 			if (currentState == State.Import) {
-				btnContinue.Text = SelectedItemsForceRestart ? "Import && Restart" : "Import Profile";
+				btnContinue.Text = "Import Profile";
 			}
 			else if (currentState == State.Reset) {
-				btnContinue.Text = SelectedItemsForceRestart ? "Restore && Restart" : "Restore Defaults";
+				btnContinue.Text = "Restore Defaults";
 			}
 		}
 
-		private void RestartProgram(params string[] extraArgs) {
+		private void RestartProgram() {
 			IsRestarting = true;
-			Program.Restart(extraArgs);
+			Program.Restart();
 		}
 	}
 }

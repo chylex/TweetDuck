@@ -97,13 +97,6 @@ namespace TweetDuck {
 			}
 
 			public void BeforeLaunch() {
-				if (Arguments.HasFlag(Arguments.ArgImportCookies)) {
-					ProfileManager.ImportCookies();
-				}
-				else if (Arguments.HasFlag(Arguments.ArgDeleteCookies)) {
-					ProfileManager.DeleteCookies();
-				}
-
 				if (Arguments.HasFlag(Arguments.ArgUpdated)) {
 					WindowsUtils.TryDeleteFolderWhenAble(Path.Combine(App.StoragePath, InstallerFolder), 8000);
 					WindowsUtils.TryDeleteFolderWhenAble(Path.Combine(App.StoragePath, "Service Worker"), 4000);
@@ -175,10 +168,8 @@ namespace TweetDuck {
 			}
 		}
 
-		public static void Restart(params string[] extraArgs) {
-			CommandLineArgs args = Arguments.GetCurrentClean();
-			CommandLineArgs.ReadStringArray('-', extraArgs, args);
-			RestartWithArgs(args);
+		public static void Restart() {
+			RestartWithArgs(Arguments.GetCurrentClean());
 		}
 
 		public static void RestartWithArgs(CommandLineArgs args) {

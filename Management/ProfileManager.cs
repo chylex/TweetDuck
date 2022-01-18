@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
+using CefSharp;
 using TweetDuck.Dialogs;
 using TweetLib.Core;
 using TweetLib.Core.Features.Plugins;
@@ -10,13 +12,10 @@ using TweetLib.Utils.IO;
 
 namespace TweetDuck.Management {
 	sealed class ProfileManager {
-		private static readonly string CookiesPath = Path.Combine(App.StoragePath, "Cookies");
-		private static readonly string LocalPrefsPath = Path.Combine(App.StoragePath, "LocalPrefs.json");
-
-		private static readonly string TempCookiesPath = Path.Combine(App.StoragePath, "CookiesTmp");
-		private static readonly string TempLocalPrefsPath = Path.Combine(App.StoragePath, "LocalPrefsTmp.json");
-
-		private const int SessionFileCount = 2;
+		private const string AuthCookieUrl = "https://twitter.com";
+		private const string AuthCookieName = "auth_token";
+		private const string AuthCookieDomain = ".twitter.com";
+		private const string AuthCookiePath = "/";
 
 		[Flags]
 		public enum Items {
@@ -62,8 +61,14 @@ namespace TweetDuck.Management {
 				}
 
 				if (items.HasFlag(Items.Session)) {
-					stream.WriteFile("cookies", CookiesPath);
-					stream.WriteFile("localprefs", LocalPrefsPath);
+					string authToken = ReadAuthCookie();
+
+					if (authToken != null) {
+						stream.WriteString("cookie.auth", authToken);
+					}
+					else {
+						FormMessage.Warning("Export Profile", "Could not find any login session.", FormMessage.OK);
+					}
 				}
 
 				stream.Flush();
@@ -98,6 +103,7 @@ namespace TweetDuck.Management {
 
 						case "cookies":
 						case "localprefs":
+						case "cookie.auth":
 							items |= Items.Session;
 							break;
 					}
@@ -112,7 +118,7 @@ namespace TweetDuck.Management {
 		public bool Import(Items items) {
 			try {
 				var missingPlugins = new HashSet<string>();
-				var sessionFiles = new HashSet<string>();
+				bool oldCookies = false;
 
 				using (CombinedFileStream stream = new CombinedFileStream(new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.None))) {
 					CombinedFileStream.Entry entry;
@@ -154,17 +160,30 @@ namespace TweetDuck.Management {
 								break;
 
 							case "cookies":
+							case "localprefs":
 								if (items.HasFlag(Items.Session)) {
-									entry.WriteToFile(TempCookiesPath);
-									sessionFiles.Add(entry.KeyName);
+									oldCookies = true;
 								}
 
 								break;
 
-							case "localprefs":
+							case "cookie.auth":
 								if (items.HasFlag(Items.Session)) {
-									entry.WriteToFile(TempLocalPrefsPath);
-									sessionFiles.Add(entry.KeyName);
+									using ICookieManager cookies = Cef.GetGlobalCookieManager();
+
+									var _ = cookies.SetCookieAsync(AuthCookieUrl, new Cookie {
+										Name = AuthCookieName,
+										Domain = AuthCookieDomain,
+										Path = AuthCookiePath,
+										Value = Encoding.UTF8.GetString(entry.Contents),
+										Expires = DateTime.Now.Add(TimeSpan.FromDays(365 * 5)),
+										HttpOnly = true,
+										Secure = true
+									}).ContinueWith(t => {
+										// ReSharper disable once AccessToDisposedClosure
+										// ReSharper disable once ConvertToLambdaExpression
+										return cookies.FlushStoreAsync();
+									}).Result;
 								}
 
 								break;
@@ -172,10 +191,8 @@ namespace TweetDuck.Management {
 					}
 				}
 
-				if (items.HasFlag(Items.Session) && sessionFiles.Count != SessionFileCount) {
+				if (items.HasFlag(Items.Session) && oldCookies) {
 					FormMessage.Error("Profile Import Error", "Cannot import login session from an older version of TweetDuck.", FormMessage.OK);
-					File.Delete(TempCookiesPath);
-					File.Delete(TempLocalPrefsPath);
 					return false;
 				}
 
@@ -187,35 +204,6 @@ namespace TweetDuck.Management {
 			} catch (Exception e) {
 				App.ErrorHandler.HandleException("Profile Import", "An exception happened while importing TweetDuck profile.", true, e);
 				return false;
-			}
-		}
-
-		public static void ImportCookies() {
-			if (File.Exists(TempCookiesPath) && File.Exists(TempLocalPrefsPath)) {
-				try {
-					if (File.Exists(CookiesPath)) {
-						File.Delete(CookiesPath);
-					}
-
-					if (File.Exists(LocalPrefsPath)) {
-						File.Delete(LocalPrefsPath);
-					}
-
-					File.Move(TempCookiesPath, CookiesPath);
-					File.Move(TempLocalPrefsPath, LocalPrefsPath);
-				} catch (Exception e) {
-					App.ErrorHandler.HandleException("Profile Import Error", "Could not import the cookie file to restore login session.", true, e);
-				}
-			}
-		}
-
-		public static void DeleteCookies() {
-			try {
-				if (File.Exists(CookiesPath)) {
-					File.Delete(CookiesPath);
-				}
-			} catch (Exception e) {
-				App.ErrorHandler.HandleException("Session Reset Error", "Could not remove the cookie file to reset the login session.", true, e);
 			}
 		}
 
@@ -237,6 +225,23 @@ namespace TweetDuck.Management {
 				this.Full = fullPath;
 				this.Relative = fullPath.Substring(rootLength).TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar); // strip leading separator character
 			}
+		}
+
+		private static string ReadAuthCookie() {
+			using var cookieManager = Cef.GetGlobalCookieManager();
+
+			foreach (var cookie in cookieManager.VisitUrlCookiesAsync(AuthCookieUrl, true).Result) {
+				if (cookie.Name == AuthCookieName && cookie.Domain == AuthCookieDomain && cookie.Path == AuthCookiePath && cookie.HttpOnly && cookie.Secure) {
+					return cookie.Value;
+				}
+			}
+
+			return null;
+		}
+
+		public static void DeleteAuthCookie() {
+			using var cookieManager = Cef.GetGlobalCookieManager();
+			var _ = cookieManager.DeleteCookiesAsync(AuthCookieUrl, "auth_token").Result;
 		}
 	}
 }

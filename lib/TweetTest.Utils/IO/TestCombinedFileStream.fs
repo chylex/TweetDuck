@@ -26,12 +26,12 @@ type internal TestData =
 
     static member singleFile =
         TestData.setup (fun f ->
-            f.WriteStream("File 1", new MemoryStream(Encoding.UTF8.GetBytes("test file\n123")))
+            f.WriteString("File 1", "test file\n123")
         )
 
     static member singleFileWithMultiIdentifier =
         TestData.setup (fun f ->
-            f.WriteStream([| "File 1"; "A"; "B" |], new MemoryStream(Encoding.UTF8.GetBytes("test file\n123")))
+            f.WriteString([| "File 1"; "A"; "B" |], "test file\n123")
         )
 
     static member singleFileStreams =
@@ -40,9 +40,9 @@ type internal TestData =
 
     static member threeFiles =
         TestData.setup (fun f ->
-            f.WriteStream("File 1", new MemoryStream(Encoding.UTF8.GetBytes("Contents of\nFile 1")))
-            f.WriteStream("File 2", new MemoryStream(Encoding.UTF8.GetBytes("Contents of\nFile 2")))
-            f.WriteStream("File 3", new MemoryStream(Encoding.UTF8.GetBytes("Contents of\nFile 3")))
+            f.WriteString("File 1", "Contents of\nFile 1")
+            f.WriteString("File 2", "Contents of\nFile 2")
+            f.WriteString("File 3", "Contents of\nFile 3")
         )
 
 
@@ -52,21 +52,21 @@ module Validation =
     let ``an identifier containing '|' throws`` () =
         TestData.setup (fun f ->
             Assert.Throws<ArgumentException>(fun () ->
-                f.WriteStream("File|1", new MemoryStream(Array.empty))
+                f.WriteString("File|1", "")
             ) |> ignore
         )
 
     [<Fact>]
     let ``an identifier 255 bytes long does not throw`` () =
         TestData.setup (fun f ->
-            f.WriteStream(String.replicate 255 "a", new MemoryStream(Array.empty))
+            f.WriteString(String.replicate 255 "a", "")
         )
 
     [<Fact>]
     let ``an identifier 256 bytes long throws`` () =
         TestData.setup (fun f ->
             Assert.Throws<ArgumentOutOfRangeException>(fun () ->
-                f.WriteStream(String.replicate 256 "a", new MemoryStream(Array.empty))
+                f.WriteString(String.replicate 256 "a", "")
             ) |> ignore
         )
 

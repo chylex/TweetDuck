@@ -28,21 +28,23 @@ namespace TweetLib.Utils.IO {
 		}
 
 		public void WriteFile(string[] identifier, string path) {
-			using FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+			using var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 			WriteStreamImpl(JoinIdentifier(identifier), fileStream);
 		}
 
 		public void WriteFile(string identifier, string path) {
-			using FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+			using var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 			WriteStreamImpl(ValidateIdentifier(identifier), fileStream);
 		}
 
-		public void WriteStream(string[] identifier, Stream sourceStream) {
-			WriteStreamImpl(JoinIdentifier(identifier), sourceStream);
+		public void WriteString(string[] identifier, string contents) {
+			using var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(contents));
+			WriteStreamImpl(JoinIdentifier(identifier), memoryStream);
 		}
 
-		public void WriteStream(string identifier, Stream sourceStream) {
-			WriteStreamImpl(ValidateIdentifier(identifier), sourceStream);
+		public void WriteString(string identifier, string contents) {
+			using var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(contents));
+			WriteStreamImpl(ValidateIdentifier(identifier), memoryStream);
 		}
 
 		private void WriteStreamImpl(string identifier, Stream sourceStream) {
