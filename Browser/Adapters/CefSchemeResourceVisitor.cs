@@ -1,6 +1,6 @@
+using System;
 using System.IO;
 using System.Net;
-using System.Text;
 using CefSharp;
 using TweetLib.Browser.Interfaces;
 using TweetLib.Browser.Request;
@@ -14,8 +14,9 @@ namespace TweetDuck.Browser.Adapters {
 		private CefSchemeResourceVisitor() {}
 
 		public IResourceHandler Status(SchemeResource.Status status) {
-			var handler = CreateHandler(Encoding.UTF8.GetBytes(status.Message));
+			var handler = CreateHandler(Array.Empty<byte>());
 			handler.StatusCode = (int) status.Code;
+			handler.StatusText = status.Message;
 			return handler;
 		}
 
@@ -31,9 +32,7 @@ namespace TweetDuck.Browser.Adapters {
 		}
 
 		private static ResourceHandler CreateHandler(byte[] bytes) {
-			var handler = ResourceHandler.FromStream(new MemoryStream(bytes), autoDisposeStream: true);
-			handler.Headers.Set("Access-Control-Allow-Origin", "*");
-			return handler;
+			return ResourceHandler.FromStream(new MemoryStream(bytes), autoDisposeStream: true);
 		}
 	}
 }
