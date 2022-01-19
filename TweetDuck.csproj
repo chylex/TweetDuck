@@ -106,6 +106,7 @@
     <Compile Include="Browser\Handling\ContextMenuNotification.cs" />
     <Compile Include="Browser\Handling\CustomKeyboardHandler.cs" />
     <Compile Include="Browser\Handling\CustomLifeSpanHandler.cs" />
+    <Compile Include="Browser\Handling\DownloadRequestClient.cs" />
     <Compile Include="Browser\Handling\DragHandlerBrowser.cs" />
     <Compile Include="Browser\Handling\FileDialogHandler.cs" />
     <Compile Include="Browser\Handling\JavaScriptDialogHandler.cs" />
@@ -138,7 +139,6 @@
     <Compile Include="Updates\UpdateInstaller.cs" />
     <Compile Include="Utils\BrowserUtils.cs" />
     <Compile Include="Utils\NativeMethods.cs" />
-    <Compile Include="Utils\TwitterFileDownloader.cs" />
     <Compile Include="Utils\WindowsUtils.cs" />
     <Compile Include="Version.cs" />
   </ItemGroup>

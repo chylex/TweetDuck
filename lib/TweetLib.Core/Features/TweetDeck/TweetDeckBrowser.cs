@@ -20,7 +20,7 @@ namespace TweetLib.Core.Features.TweetDeck {
 		private const string BackgroundColorOverride = "setTimeout(function f(){let h=document.head;if(!h){setTimeout(f,5);return;}let e=document.createElement('style');e.innerHTML='body,body::before{background:#1c6399!important;margin:0}';h.appendChild(e);},1)";
 
 		public TweetDeckFunctions Functions { get; }
-		public FileDownloadManager FileDownloadManager => new (browserComponent.FileDownloader);
+		public FileDownloadManager FileDownloadManager => new (browserComponent);
 
 		private readonly ISoundNotificationHandler soundNotificationHandler;
 		private readonly PluginManager pluginManager;

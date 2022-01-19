@@ -5,8 +5,7 @@ using TweetLib.Browser.Events;
 namespace TweetLib.Browser.Interfaces {
 	public interface IBrowserComponent : IScriptExecutor {
 		string Url { get; }
-
-		IFileDownloader FileDownloader { get; }
+		string CacheFolder { get; }
 
 		event EventHandler<BrowserLoadedEventArgs> BrowserLoaded;
 		event EventHandler<PageLoadEventArgs> PageLoadStart;
@@ -14,5 +13,6 @@ namespace TweetLib.Browser.Interfaces {
 
 		void Setup(BrowserSetup setup);
 		void AttachBridgeObject(string name, object bridge);
+		void DownloadFile(string url, string path, Action? onSuccess, Action<Exception>? onError);
 	}
 }

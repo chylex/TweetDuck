@@ -11,7 +11,7 @@ namespace TweetLib.Core.Features {
 
 		public BaseContextMenu(IBrowserComponent browser) {
 			this.browser = browser;
-			this.fileDownloadManager = new FileDownloadManager(browser.FileDownloader);
+			this.fileDownloadManager = new FileDownloadManager(browser);
 		}
 
 		public virtual void Show(IContextMenuBuilder menu, Context context) {

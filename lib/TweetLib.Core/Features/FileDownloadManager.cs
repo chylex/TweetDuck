@@ -14,15 +14,15 @@ namespace TweetLib.Core.Features {
 		public bool SupportsCopyingImage => App.SystemHandler.CopyImageFromFile != null;
 		public bool SupportsFileSaving => App.FileDialogs != null;
 
-		private readonly IFileDownloader fileDownloader;
+		private readonly IBrowserComponent browserComponent;
 
-		internal FileDownloadManager(IFileDownloader fileDownloader) {
-			this.fileDownloader = fileDownloader;
+		internal FileDownloadManager(IBrowserComponent browserComponent) {
+			this.browserComponent = browserComponent;
 		}
 
 		private void DownloadTempImage(string url, Action<string> process) {
 			string? staticFileName = TwitterUrls.GetImageFileName(url);
-			string file = Path.Combine(fileDownloader.CacheFolder, staticFileName ?? Path.GetRandomFileName());
+			string file = Path.Combine(browserComponent.CacheFolder, staticFileName ?? Path.GetRandomFileName());
 
 			if (staticFileName != null && FileUtils.FileExistsAndNotEmpty(file)) {
 				process(file);
@@ -36,7 +36,7 @@ namespace TweetLib.Core.Features {
 					App.MessageDialogs.Error("Image Download", "An error occurred while downloading the image: " + ex.Message);
 				}
 
-				fileDownloader.DownloadFile(url, file, OnSuccess, OnFailure);
+				browserComponent.DownloadFile(url, file, OnSuccess, OnFailure);
 			}
 		}
 
@@ -94,14 +94,14 @@ namespace TweetLib.Core.Features {
 				}
 
 				if (oneImage) {
-					fileDownloader.DownloadFile(firstImageLink, path, null, OnFailure);
+					browserComponent.DownloadFile(firstImageLink, path, null, OnFailure);
 				}
 				else {
 					string pathBase = Path.ChangeExtension(path, null);
 					string pathExt = Path.GetExtension(path);
 
 					for (int index = 0; index < urls.Length; index++) {
-						fileDownloader.DownloadFile(urls[index], $"{pathBase} {index + 1}{pathExt}", null, OnFailure);
+						browserComponent.DownloadFile(urls[index], $"{pathBase} {index + 1}{pathExt}", null, OnFailure);
 					}
 				}
 			});
@@ -129,7 +129,7 @@ namespace TweetLib.Core.Features {
 					App.MessageDialogs.Error("Video Download", "An error occurred while downloading the video: " + ex.Message);
 				}
 
-				fileDownloader.DownloadFile(url, path, null, OnError);
+				browserComponent.DownloadFile(url, path, null, OnError);
 			});
 		}
 	}

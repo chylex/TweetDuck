@@ -1,7 +1,9 @@
 using System;
+using System.IO;
 using CefSharp;
 using CefSharp.WinForms;
 using TweetDuck.Browser.Handling;
+using TweetDuck.Management;
 using TweetDuck.Utils;
 using TweetLib.Browser.Base;
 using TweetLib.Browser.Events;
@@ -15,8 +17,7 @@ namespace TweetDuck.Browser.Adapters {
 		public bool Ready { get; private set; }
 
 		public string Url => browser.Address;
-
-		public IFileDownloader FileDownloader => TwitterFileDownloader.Instance;
+		public string CacheFolder => BrowserCache.CacheFolder;
 
 		public event EventHandler<BrowserLoadedEventArgs> BrowserLoaded;
 		public event EventHandler<PageLoadEventArgs> PageLoadStart;
@@ -99,6 +100,26 @@ namespace TweetDuck.Browser.Adapters {
 		public void RunScript(string identifier, string script) {
 			using IFrame frame = browser.GetMainFrame();
 			frame.ExecuteJavaScriptAsync(script, identifier, 1);
+		}
+
+		public void DownloadFile(string url, string path, Action onSuccess, Action<Exception> onError) {
+			Cef.UIThreadTaskFactory.StartNew(() => {
+				try {
+					using IFrame frame = browser.GetMainFrame();
+					var request = frame.CreateRequest(false);
+
+					request.Method = "GET";
+					request.Url = url;
+					request.Flags = UrlRequestFlags.AllowStoredCredentials;
+					request.SetReferrer(Url, ReferrerPolicy.Default);
+
+					var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.Read);
+					var client = new DownloadRequestClient(fileStream, onSuccess, onError);
+					frame.CreateUrlRequest(request, client);
+				} catch (Exception e) {
+					onError?.Invoke(e);
+				}
+			});
 		}
 	}
 }
