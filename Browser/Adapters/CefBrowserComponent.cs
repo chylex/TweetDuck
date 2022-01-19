@@ -13,7 +13,7 @@ using IContextMenuHandler = TweetLib.Browser.Interfaces.IContextMenuHandler;
 using IResourceRequestHandler = TweetLib.Browser.Interfaces.IResourceRequestHandler;
 
 namespace TweetDuck.Browser.Adapters {
-	internal abstract class CefBrowserComponent : IBrowserComponent {
+	abstract class CefBrowserComponent : IBrowserComponent {
 		public bool Ready { get; private set; }
 
 		public string Url => browser.Address;

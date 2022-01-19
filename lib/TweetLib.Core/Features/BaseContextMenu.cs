@@ -5,7 +5,7 @@ using TweetLib.Core.Features.Twitter;
 using TweetLib.Utils.Static;
 
 namespace TweetLib.Core.Features {
-	internal class BaseContextMenu : IContextMenuHandler {
+	class BaseContextMenu : IContextMenuHandler {
 		private readonly IBrowserComponent browser;
 		private readonly FileDownloadManager fileDownloadManager;
 

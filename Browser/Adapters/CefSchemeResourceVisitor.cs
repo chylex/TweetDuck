@@ -6,7 +6,7 @@ using TweetLib.Browser.Interfaces;
 using TweetLib.Browser.Request;
 
 namespace TweetDuck.Browser.Adapters {
-	internal sealed class CefSchemeResourceVisitor : ISchemeResourceVisitor<IResourceHandler> {
+	sealed class CefSchemeResourceVisitor : ISchemeResourceVisitor<IResourceHandler> {
 		public static CefSchemeResourceVisitor Instance { get; } = new CefSchemeResourceVisitor();
 
 		private static readonly SchemeResource.Status FileIsEmpty = new SchemeResource.Status(HttpStatusCode.NoContent, "File is empty.");

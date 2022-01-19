@@ -5,7 +5,7 @@ using System.Text;
 using TweetLib.Core.Systems.Configuration;
 
 namespace TweetLib.Core.Features.Plugins.Config {
-	internal sealed class PluginConfigInstance : IConfigInstance {
+	sealed class PluginConfigInstance : IConfigInstance {
 		public PluginConfig Instance { get; }
 
 		private readonly string filename;

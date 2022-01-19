@@ -6,7 +6,7 @@ using TweetLib.Core.Features.TweetDeck;
 using TweetLib.Core.Features.Twitter;
 
 namespace TweetDuck.Browser.Adapters {
-	internal sealed class CefContextMenuModel : IContextMenuBuilder {
+	sealed class CefContextMenuModel : IContextMenuBuilder {
 		private readonly IMenuModel model;
 		private readonly CefContextMenuActionRegistry actionRegistry;
 

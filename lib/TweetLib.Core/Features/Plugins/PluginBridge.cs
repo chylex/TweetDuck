@@ -11,7 +11,7 @@ using TweetLib.Utils.Static;
 
 namespace TweetLib.Core.Features.Plugins {
 	[SuppressMessage("ReSharper", "UnusedMember.Global")]
-	internal sealed class PluginBridge {
+	sealed class PluginBridge {
 		private readonly Dictionary<int, Plugin> tokens = new ();
 		private readonly Random rand = new ();
 

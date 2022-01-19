@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace TweetLib.Utils.Serialization.Converters {
-	internal sealed class ClrTypeConverter : ITypeConverter {
+	sealed class ClrTypeConverter : ITypeConverter {
 		public static ITypeConverter Instance { get; } = new ClrTypeConverter();
 
 		private ClrTypeConverter() {}

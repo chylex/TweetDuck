@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CefSharp;
 
 namespace TweetDuck.Browser.Adapters {
-	internal sealed class CefContextMenuActionRegistry {
+	sealed class CefContextMenuActionRegistry {
 		private readonly Dictionary<CefMenuCommand, Action> actions = new Dictionary<CefMenuCommand, Action>();
 
 		public CefMenuCommand AddAction(Action action) {

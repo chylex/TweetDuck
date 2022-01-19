@@ -4,7 +4,7 @@ using CefSharp.WinForms;
 using TweetLib.Browser.Interfaces;
 
 namespace TweetDuck.Browser.Adapters {
-	internal sealed class CefSchemeHandlerFactory : ISchemeHandlerFactory {
+	sealed class CefSchemeHandlerFactory : ISchemeHandlerFactory {
 		public static void Register(CefSettings settings, ICustomSchemeHandler handler) {
 			settings.RegisterScheme(new CefCustomScheme {
 				SchemeName = handler.Protocol,

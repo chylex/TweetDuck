@@ -4,7 +4,7 @@ using System.Text;
 using CefSharp;
 
 namespace TweetDuck.Browser.Adapters {
-	internal sealed class CefResourceHandlerRegistry {
+	sealed class CefResourceHandlerRegistry {
 		private readonly ConcurrentDictionary<string, Func<IResourceHandler>> resourceHandlers = new ConcurrentDictionary<string, Func<IResourceHandler>>(StringComparer.OrdinalIgnoreCase);
 
 		public bool HasHandler(string url) {

@@ -3,7 +3,7 @@ using System.IO;
 using TweetLib.Utils.Serialization;
 
 namespace TweetLib.Core.Systems.Configuration {
-	internal sealed class FileConfigInstance<T> : IConfigInstance where T : IConfigObject<T> {
+	sealed class FileConfigInstance<T> : IConfigInstance where T : IConfigObject<T> {
 		public T Instance { get; }
 
 		private readonly SimpleObjectSerializer<T> serializer;
