@@ -25,6 +25,16 @@ namespace TweetDuck.Dialogs.Settings {
 			toolTip.SetToolTip(btnRestart, "Restarts the program using the same command\r\nline arguments that were used at launch.");
 			toolTip.SetToolTip(btnRestartArgs, "Restarts the program with customizable\r\ncommand line arguments.");
 
+			// browser settings
+
+			toolTip.SetToolTip(checkTouchAdjustment, "Toggles Chromium touch screen adjustment.\r\nDisabled by default, because it is very imprecise with TweetDeck.");
+			toolTip.SetToolTip(checkAutomaticallyDetectColorProfile, "Automatically detects the color profile of your system.\r\nUses the sRGB profile if disabled.");
+			toolTip.SetToolTip(checkHardwareAcceleration, "Uses graphics card to improve performance.\r\nDisable if you experience visual glitches, or to save a small amount of RAM.");
+
+			checkTouchAdjustment.Checked = SysConfig.EnableTouchAdjustment;
+			checkAutomaticallyDetectColorProfile.Checked = SysConfig.EnableColorProfileDetection;
+			checkHardwareAcceleration.Checked = SysConfig.HardwareAcceleration;
+
 			// browser cache
 
 			toolTip.SetToolTip(btnClearCache, "Clearing cache will free up space taken by downloaded images and other resources.");
@@ -65,6 +75,10 @@ namespace TweetDuck.Dialogs.Settings {
 			btnRestart.Click += btnRestart_Click;
 			btnRestartArgs.Click += btnRestartArgs_Click;
 
+			checkTouchAdjustment.CheckedChanged += checkTouchAdjustment_CheckedChanged;
+			checkAutomaticallyDetectColorProfile.CheckedChanged += checkAutomaticallyDetectColorProfile_CheckedChanged;
+			checkHardwareAcceleration.CheckedChanged += checkHardwareAcceleration_CheckedChanged;
+
 			btnClearCache.Click += btnClearCache_Click;
 			checkClearCacheAuto.CheckedChanged += checkClearCacheAuto_CheckedChanged;
 
@@ -102,6 +116,22 @@ namespace TweetDuck.Dialogs.Settings {
 			if (dialog.ShowDialog() == DialogResult.OK) {
 				Program.RestartWithArgs(dialog.Args);
 			}
+		}
+
+		#endregion
+
+		#region Browser Settings
+
+		private void checkTouchAdjustment_CheckedChanged(object sender, EventArgs e) {
+			SysConfig.EnableTouchAdjustment = checkTouchAdjustment.Checked;
+		}
+
+		private void checkAutomaticallyDetectColorProfile_CheckedChanged(object sender, EventArgs e) {
+			SysConfig.EnableColorProfileDetection = checkAutomaticallyDetectColorProfile.Checked;
+		}
+
+		private void checkHardwareAcceleration_CheckedChanged(object sender, EventArgs e) {
+			SysConfig.HardwareAcceleration = checkHardwareAcceleration.Checked;
 		}
 
 		#endregion

@@ -40,27 +40,34 @@
             this.panelClearCacheAuto = new System.Windows.Forms.Panel();
             this.panelConfiguration = new System.Windows.Forms.Panel();
             this.labelConfiguration = new System.Windows.Forms.Label();
-            this.flowPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowPanelLeft = new System.Windows.Forms.FlowLayoutPanel();
+            this.labelBrowserSettings = new System.Windows.Forms.Label();
+            this.checkHardwareAcceleration = new System.Windows.Forms.CheckBox();
+            this.checkAutomaticallyDetectColorProfile = new System.Windows.Forms.CheckBox();
+            this.checkTouchAdjustment = new System.Windows.Forms.CheckBox();
             this.labelProxy = new System.Windows.Forms.Label();
             this.checkUseSystemProxyForAllConnections = new System.Windows.Forms.CheckBox();
             this.labelDevTools = new System.Windows.Forms.Label();
             this.checkDevToolsInContextMenu = new System.Windows.Forms.CheckBox();
             this.checkDevToolsWindowOnTop = new System.Windows.Forms.CheckBox();
+            this.flowPanelRight = new System.Windows.Forms.FlowLayoutPanel();
+            this.panelSeparator = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.numClearCacheThreshold)).BeginInit();
             this.panelAppButtons.SuspendLayout();
             this.panelClearCacheAuto.SuspendLayout();
             this.panelConfiguration.SuspendLayout();
-            this.flowPanel.SuspendLayout();
+            this.flowPanelLeft.SuspendLayout();
+            this.flowPanelRight.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnClearCache
             // 
             this.btnClearCache.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnClearCache.Location = new System.Drawing.Point(5, 135);
+            this.btnClearCache.Location = new System.Drawing.Point(5, 145);
             this.btnClearCache.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnClearCache.Name = "btnClearCache";
             this.btnClearCache.Size = new System.Drawing.Size(143, 25);
-            this.btnClearCache.TabIndex = 3;
+            this.btnClearCache.TabIndex = 5;
             this.btnClearCache.Text = "Clear Cache (...)";
             this.btnClearCache.UseVisualStyleBackColor = true;
             // 
@@ -147,7 +154,7 @@
             0,
             0});
             this.numClearCacheThreshold.Name = "numClearCacheThreshold";
-            this.numClearCacheThreshold.Size = new System.Drawing.Size(89, 23);
+            this.numClearCacheThreshold.Size = new System.Drawing.Size(80, 23);
             this.numClearCacheThreshold.TabIndex = 1;
             this.numClearCacheThreshold.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numClearCacheThreshold.TextSuffix = " MB";
@@ -196,72 +203,119 @@
             // 
             this.labelCache.AutoSize = true;
             this.labelCache.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
-            this.labelCache.Location = new System.Drawing.Point(0, 112);
+            this.labelCache.Location = new System.Drawing.Point(0, 122);
             this.labelCache.Margin = new System.Windows.Forms.Padding(0, 30, 0, 1);
             this.labelCache.Name = "labelCache";
             this.labelCache.Size = new System.Drawing.Size(123, 19);
-            this.labelCache.TabIndex = 2;
+            this.labelCache.TabIndex = 4;
             this.labelCache.Text = "BROWSER CACHE";
             // 
             // panelClearCacheAuto
             // 
             this.panelClearCacheAuto.Controls.Add(this.checkClearCacheAuto);
             this.panelClearCacheAuto.Controls.Add(this.numClearCacheThreshold);
-            this.panelClearCacheAuto.Location = new System.Drawing.Point(0, 163);
+            this.panelClearCacheAuto.Location = new System.Drawing.Point(0, 173);
             this.panelClearCacheAuto.Margin = new System.Windows.Forms.Padding(0);
             this.panelClearCacheAuto.Name = "panelClearCacheAuto";
             this.panelClearCacheAuto.Size = new System.Drawing.Size(300, 28);
-            this.panelClearCacheAuto.TabIndex = 4;
+            this.panelClearCacheAuto.TabIndex = 6;
             // 
             // panelConfiguration
             // 
             this.panelConfiguration.Controls.Add(this.btnEditCSS);
             this.panelConfiguration.Controls.Add(this.btnEditCefArgs);
-            this.panelConfiguration.Location = new System.Drawing.Point(0, 241);
+            this.panelConfiguration.Location = new System.Drawing.Point(0, 132);
             this.panelConfiguration.Margin = new System.Windows.Forms.Padding(0);
             this.panelConfiguration.Name = "panelConfiguration";
             this.panelConfiguration.Size = new System.Drawing.Size(300, 31);
-            this.panelConfiguration.TabIndex = 6;
+            this.panelConfiguration.TabIndex = 3;
             // 
             // labelConfiguration
             // 
             this.labelConfiguration.AutoSize = true;
             this.labelConfiguration.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
-            this.labelConfiguration.Location = new System.Drawing.Point(0, 221);
+            this.labelConfiguration.Location = new System.Drawing.Point(0, 112);
             this.labelConfiguration.Margin = new System.Windows.Forms.Padding(0, 30, 0, 1);
             this.labelConfiguration.Name = "labelConfiguration";
             this.labelConfiguration.Size = new System.Drawing.Size(123, 19);
-            this.labelConfiguration.TabIndex = 5;
+            this.labelConfiguration.TabIndex = 2;
             this.labelConfiguration.Text = "CONFIGURATION";
             // 
-            // flowPanel
+            // flowPanelLeft
             // 
-            this.flowPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.flowPanelLeft.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.flowPanel.Controls.Add(this.labelApp);
-            this.flowPanel.Controls.Add(this.panelAppButtons);
-            this.flowPanel.Controls.Add(this.labelCache);
-            this.flowPanel.Controls.Add(this.btnClearCache);
-            this.flowPanel.Controls.Add(this.panelClearCacheAuto);
-            this.flowPanel.Controls.Add(this.labelConfiguration);
-            this.flowPanel.Controls.Add(this.panelConfiguration);
-            this.flowPanel.Controls.Add(this.labelProxy);
-            this.flowPanel.Controls.Add(this.checkUseSystemProxyForAllConnections);
-            this.flowPanel.Controls.Add(this.labelDevTools);
-            this.flowPanel.Controls.Add(this.checkDevToolsInContextMenu);
-            this.flowPanel.Controls.Add(this.checkDevToolsWindowOnTop);
-            this.flowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowPanel.Location = new System.Drawing.Point(9, 9);
-            this.flowPanel.Name = "flowPanel";
-            this.flowPanel.Size = new System.Drawing.Size(300, 462);
-            this.flowPanel.TabIndex = 0;
-            this.flowPanel.WrapContents = false;
+            this.flowPanelLeft.Controls.Add(this.labelBrowserSettings);
+            this.flowPanelLeft.Controls.Add(this.checkHardwareAcceleration);
+            this.flowPanelLeft.Controls.Add(this.checkAutomaticallyDetectColorProfile);
+            this.flowPanelLeft.Controls.Add(this.checkTouchAdjustment);
+            this.flowPanelLeft.Controls.Add(this.labelCache);
+            this.flowPanelLeft.Controls.Add(this.btnClearCache);
+            this.flowPanelLeft.Controls.Add(this.panelClearCacheAuto);
+            this.flowPanelLeft.Controls.Add(this.labelProxy);
+            this.flowPanelLeft.Controls.Add(this.checkUseSystemProxyForAllConnections);
+            this.flowPanelLeft.Controls.Add(this.labelDevTools);
+            this.flowPanelLeft.Controls.Add(this.checkDevToolsInContextMenu);
+            this.flowPanelLeft.Controls.Add(this.checkDevToolsWindowOnTop);
+            this.flowPanelLeft.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowPanelLeft.Location = new System.Drawing.Point(9, 9);
+            this.flowPanelLeft.Name = "flowPanelLeft";
+            this.flowPanelLeft.Size = new System.Drawing.Size(300, 462);
+            this.flowPanelLeft.TabIndex = 0;
+            this.flowPanelLeft.WrapContents = false;
+            // 
+            // labelBrowserSettings
+            // 
+            this.labelBrowserSettings.AutoSize = true;
+            this.labelBrowserSettings.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
+            this.labelBrowserSettings.Location = new System.Drawing.Point(0, 0);
+            this.labelBrowserSettings.Margin = new System.Windows.Forms.Padding(0, 0, 0, 1);
+            this.labelBrowserSettings.Name = "labelBrowserSettings";
+            this.labelBrowserSettings.Size = new System.Drawing.Size(143, 19);
+            this.labelBrowserSettings.TabIndex = 0;
+            this.labelBrowserSettings.Text = "BROWSER SETTINGS";
+            // 
+            // checkHardwareAcceleration
+            // 
+            this.checkHardwareAcceleration.AutoSize = true;
+            this.checkHardwareAcceleration.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkHardwareAcceleration.Location = new System.Drawing.Point(6, 23);
+            this.checkHardwareAcceleration.Margin = new System.Windows.Forms.Padding(6, 3, 3, 2);
+            this.checkHardwareAcceleration.Name = "checkHardwareAcceleration";
+            this.checkHardwareAcceleration.Size = new System.Drawing.Size(146, 19);
+            this.checkHardwareAcceleration.TabIndex = 1;
+            this.checkHardwareAcceleration.Text = "Hardware Acceleration";
+            this.checkHardwareAcceleration.UseVisualStyleBackColor = true;
+            // 
+            // checkAutomaticallyDetectColorProfile
+            // 
+            this.checkAutomaticallyDetectColorProfile.AutoSize = true;
+            this.checkAutomaticallyDetectColorProfile.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkAutomaticallyDetectColorProfile.Location = new System.Drawing.Point(6, 47);
+            this.checkAutomaticallyDetectColorProfile.Margin = new System.Windows.Forms.Padding(6, 3, 3, 2);
+            this.checkAutomaticallyDetectColorProfile.Name = "checkAutomaticallyDetectColorProfile";
+            this.checkAutomaticallyDetectColorProfile.Size = new System.Drawing.Size(206, 19);
+            this.checkAutomaticallyDetectColorProfile.TabIndex = 2;
+            this.checkAutomaticallyDetectColorProfile.Text = "Automatically Detect Color Profile";
+            this.checkAutomaticallyDetectColorProfile.UseVisualStyleBackColor = true;
+            // 
+            // checkTouchAdjustment
+            // 
+            this.checkTouchAdjustment.AutoSize = true;
+            this.checkTouchAdjustment.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkTouchAdjustment.Location = new System.Drawing.Point(6, 71);
+            this.checkTouchAdjustment.Margin = new System.Windows.Forms.Padding(6, 3, 3, 2);
+            this.checkTouchAdjustment.Name = "checkTouchAdjustment";
+            this.checkTouchAdjustment.Size = new System.Drawing.Size(163, 19);
+            this.checkTouchAdjustment.TabIndex = 3;
+            this.checkTouchAdjustment.Text = "Touch Screen Adjustment";
+            this.checkTouchAdjustment.UseVisualStyleBackColor = true;
             // 
             // labelProxy
             // 
             this.labelProxy.AutoSize = true;
             this.labelProxy.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
-            this.labelProxy.Location = new System.Drawing.Point(0, 302);
+            this.labelProxy.Location = new System.Drawing.Point(0, 231);
             this.labelProxy.Margin = new System.Windows.Forms.Padding(0, 30, 0, 1);
             this.labelProxy.Name = "labelProxy";
             this.labelProxy.Size = new System.Drawing.Size(54, 19);
@@ -272,7 +326,7 @@
             // 
             this.checkUseSystemProxyForAllConnections.AutoSize = true;
             this.checkUseSystemProxyForAllConnections.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkUseSystemProxyForAllConnections.Location = new System.Drawing.Point(6, 328);
+            this.checkUseSystemProxyForAllConnections.Location = new System.Drawing.Point(6, 257);
             this.checkUseSystemProxyForAllConnections.Margin = new System.Windows.Forms.Padding(6, 6, 3, 2);
             this.checkUseSystemProxyForAllConnections.Name = "checkUseSystemProxyForAllConnections";
             this.checkUseSystemProxyForAllConnections.Size = new System.Drawing.Size(223, 19);
@@ -284,7 +338,7 @@
             // 
             this.labelDevTools.AutoSize = true;
             this.labelDevTools.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
-            this.labelDevTools.Location = new System.Drawing.Point(0, 379);
+            this.labelDevTools.Location = new System.Drawing.Point(0, 308);
             this.labelDevTools.Margin = new System.Windows.Forms.Padding(0, 30, 0, 1);
             this.labelDevTools.Name = "labelDevTools";
             this.labelDevTools.Size = new System.Drawing.Size(156, 19);
@@ -295,7 +349,7 @@
             // 
             this.checkDevToolsInContextMenu.AutoSize = true;
             this.checkDevToolsInContextMenu.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkDevToolsInContextMenu.Location = new System.Drawing.Point(6, 405);
+            this.checkDevToolsInContextMenu.Location = new System.Drawing.Point(6, 334);
             this.checkDevToolsInContextMenu.Margin = new System.Windows.Forms.Padding(6, 6, 3, 2);
             this.checkDevToolsInContextMenu.Name = "checkDevToolsInContextMenu";
             this.checkDevToolsInContextMenu.Size = new System.Drawing.Size(201, 19);
@@ -307,7 +361,7 @@
             // 
             this.checkDevToolsWindowOnTop.AutoSize = true;
             this.checkDevToolsWindowOnTop.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkDevToolsWindowOnTop.Location = new System.Drawing.Point(6, 429);
+            this.checkDevToolsWindowOnTop.Location = new System.Drawing.Point(6, 358);
             this.checkDevToolsWindowOnTop.Margin = new System.Windows.Forms.Padding(6, 3, 3, 2);
             this.checkDevToolsWindowOnTop.Name = "checkDevToolsWindowOnTop";
             this.checkDevToolsWindowOnTop.Size = new System.Drawing.Size(168, 19);
@@ -315,11 +369,39 @@
             this.checkDevToolsWindowOnTop.Text = "Dev Tools Window On Top";
             this.checkDevToolsWindowOnTop.UseVisualStyleBackColor = true;
             // 
+            // flowPanelRight
+            // 
+            this.flowPanelRight.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.flowPanelRight.Controls.Add(this.labelApp);
+            this.flowPanelRight.Controls.Add(this.panelAppButtons);
+            this.flowPanelRight.Controls.Add(this.labelConfiguration);
+            this.flowPanelRight.Controls.Add(this.panelConfiguration);
+            this.flowPanelRight.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowPanelRight.Location = new System.Drawing.Point(322, 9);
+            this.flowPanelRight.Name = "flowPanelRight";
+            this.flowPanelRight.Size = new System.Drawing.Size(300, 462);
+            this.flowPanelRight.TabIndex = 1;
+            this.flowPanelRight.WrapContents = false;
+            // 
+            // panelSeparator
+            // 
+            this.panelSeparator.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.panelSeparator.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.panelSeparator.Location = new System.Drawing.Point(312, 0);
+            this.panelSeparator.Margin = new System.Windows.Forms.Padding(0, 0, 6, 0);
+            this.panelSeparator.Name = "panelSeparator";
+            this.panelSeparator.Size = new System.Drawing.Size(1, 480);
+            this.panelSeparator.TabIndex = 3;
+            // 
             // TabSettingsAdvanced
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.flowPanel);
+            this.Controls.Add(this.panelSeparator);
+            this.Controls.Add(this.flowPanelRight);
+            this.Controls.Add(this.flowPanelLeft);
             this.Name = "TabSettingsAdvanced";
             this.Size = new System.Drawing.Size(631, 480);
             ((System.ComponentModel.ISupportInitialize)(this.numClearCacheThreshold)).EndInit();
@@ -327,8 +409,10 @@
             this.panelClearCacheAuto.ResumeLayout(false);
             this.panelClearCacheAuto.PerformLayout();
             this.panelConfiguration.ResumeLayout(false);
-            this.flowPanel.ResumeLayout(false);
-            this.flowPanel.PerformLayout();
+            this.flowPanelLeft.ResumeLayout(false);
+            this.flowPanelLeft.PerformLayout();
+            this.flowPanelRight.ResumeLayout(false);
+            this.flowPanelRight.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -351,11 +435,17 @@
         private System.Windows.Forms.Label labelConfiguration;
         private Controls.NumericUpDownEx numClearCacheThreshold;
         private System.Windows.Forms.CheckBox checkClearCacheAuto;
-        private System.Windows.Forms.FlowLayoutPanel flowPanel;
+        private System.Windows.Forms.FlowLayoutPanel flowPanelLeft;
         private System.Windows.Forms.Label labelDevTools;
         private System.Windows.Forms.CheckBox checkDevToolsInContextMenu;
         private System.Windows.Forms.CheckBox checkDevToolsWindowOnTop;
         private System.Windows.Forms.Label labelProxy;
         private System.Windows.Forms.CheckBox checkUseSystemProxyForAllConnections;
+        private System.Windows.Forms.FlowLayoutPanel flowPanelRight;
+        private System.Windows.Forms.Label labelBrowserSettings;
+        private System.Windows.Forms.CheckBox checkTouchAdjustment;
+        private System.Windows.Forms.CheckBox checkAutomaticallyDetectColorProfile;
+        private System.Windows.Forms.CheckBox checkHardwareAcceleration;
+        private System.Windows.Forms.Panel panelSeparator;
     }
 }

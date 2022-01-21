@@ -45,6 +45,7 @@ namespace TweetDuck.Dialogs.Settings {
 			toolTip.SetToolTip(checkKeepLikeFollowDialogsOpen, "Allows liking and following from multiple accounts at once,\r\ninstead of automatically closing the dialog after taking an action.");
 			toolTip.SetToolTip(checkBestImageQuality, "When right-clicking a tweet image, the context menu options\r\nwill use links to the original image size (:orig in the URL).");
 			toolTip.SetToolTip(checkAnimatedAvatars, "Some old Twitter avatars could be uploaded as animated GIFs.");
+			toolTip.SetToolTip(checkSmoothScrolling, "Toggles smooth mouse wheel scrolling.");
 			toolTip.SetToolTip(labelZoomValue, "Changes the zoom level.\r\nAlso affects notifications and screenshots.");
 			toolTip.SetToolTip(trackBarZoom, toolTip.GetToolTip(labelZoomValue));
 
@@ -54,6 +55,7 @@ namespace TweetDuck.Dialogs.Settings {
 			checkKeepLikeFollowDialogsOpen.Checked = Config.KeepLikeFollowDialogsOpen;
 			checkBestImageQuality.Checked = Config.BestImageQuality;
 			checkAnimatedAvatars.Checked = Config.EnableAnimatedImages;
+			checkSmoothScrolling.Checked = Config.EnableSmoothScrolling;
 
 			trackBarZoom.SetValueSafe(Config.ZoomLevel);
 			labelZoomValue.Text = trackBarZoom.Value + "%";
@@ -65,20 +67,11 @@ namespace TweetDuck.Dialogs.Settings {
 
 			checkUpdateNotifications.Checked = Config.EnableUpdateCheck;
 
-			// browser settings
+			// external applications
 
-			toolTip.SetToolTip(checkSmoothScrolling, "Toggles smooth mouse wheel scrolling.");
-			toolTip.SetToolTip(checkTouchAdjustment, "Toggles Chromium touch screen adjustment.\r\nDisabled by default, because it is very imprecise with TweetDeck.");
-			toolTip.SetToolTip(checkAutomaticallyDetectColorProfile, "Automatically detects the color profile of your system.\r\nUses the sRGB profile if disabled.");
-			toolTip.SetToolTip(checkHardwareAcceleration, "Uses graphics card to improve performance.\r\nDisable if you experience visual glitches, or to save a small amount of RAM.");
 			toolTip.SetToolTip(comboBoxCustomBrowser, "Sets the default browser for opening links.");
 			toolTip.SetToolTip(comboBoxCustomVideoPlayer, "Sets the default application for playing videos.");
 			toolTip.SetToolTip(comboBoxSearchEngine, "Sets the default website for opening searches.");
-
-			checkSmoothScrolling.Checked = Config.EnableSmoothScrolling;
-			checkTouchAdjustment.Checked = SysConfig.EnableTouchAdjustment;
-			checkAutomaticallyDetectColorProfile.Checked = SysConfig.EnableColorProfileDetection;
-			checkHardwareAcceleration.Checked = SysConfig.HardwareAcceleration;
 
 			foreach (WindowsUtils.Browser browserInfo in WindowsUtils.FindInstalledBrowsers()) {
 				comboBoxCustomBrowser.Items.Add(browserInfo);
@@ -144,15 +137,12 @@ namespace TweetDuck.Dialogs.Settings {
 			checkKeepLikeFollowDialogsOpen.CheckedChanged += checkKeepLikeFollowDialogsOpen_CheckedChanged;
 			checkBestImageQuality.CheckedChanged += checkBestImageQuality_CheckedChanged;
 			checkAnimatedAvatars.CheckedChanged += checkAnimatedAvatars_CheckedChanged;
+			checkSmoothScrolling.CheckedChanged += checkSmoothScrolling_CheckedChanged;
 			trackBarZoom.ValueChanged += trackBarZoom_ValueChanged;
 
 			checkUpdateNotifications.CheckedChanged += checkUpdateNotifications_CheckedChanged;
 			btnCheckUpdates.Click += btnCheckUpdates_Click;
 
-			checkSmoothScrolling.CheckedChanged += checkSmoothScrolling_CheckedChanged;
-			checkTouchAdjustment.CheckedChanged += checkTouchAdjustment_CheckedChanged;
-			checkAutomaticallyDetectColorProfile.CheckedChanged += checkAutomaticallyDetectColorProfile_CheckedChanged;
-			checkHardwareAcceleration.CheckedChanged += checkHardwareAcceleration_CheckedChanged;
 			comboBoxCustomBrowser.SelectedIndexChanged += comboBoxCustomBrowser_SelectedIndexChanged;
 			btnCustomBrowserChange.Click += btnCustomBrowserChange_Click;
 			comboBoxCustomVideoPlayer.SelectedIndexChanged += comboBoxCustomVideoPlayer_SelectedIndexChanged;
@@ -194,6 +184,10 @@ namespace TweetDuck.Dialogs.Settings {
 		private void checkAnimatedAvatars_CheckedChanged(object sender, EventArgs e) {
 			Config.EnableAnimatedImages = checkAnimatedAvatars.Checked;
 			BrowserProcessHandler.UpdatePrefs().ContinueWith(task => reloadColumns());
+		}
+
+		private void checkSmoothScrolling_CheckedChanged(object sender, EventArgs e) {
+			Config.EnableSmoothScrolling = checkSmoothScrolling.Checked;
 		}
 
 		private void trackBarZoom_ValueChanged(object sender, EventArgs e) {
@@ -240,23 +234,7 @@ namespace TweetDuck.Dialogs.Settings {
 
 		#endregion
 
-		#region Browser Settings
-
-		private void checkSmoothScrolling_CheckedChanged(object sender, EventArgs e) {
-			Config.EnableSmoothScrolling = checkSmoothScrolling.Checked;
-		}
-
-		private void checkTouchAdjustment_CheckedChanged(object sender, EventArgs e) {
-			SysConfig.EnableTouchAdjustment = checkTouchAdjustment.Checked;
-		}
-
-		private void checkAutomaticallyDetectColorProfile_CheckedChanged(object sender, EventArgs e) {
-			SysConfig.EnableColorProfileDetection = checkAutomaticallyDetectColorProfile.Checked;
-		}
-
-		private void checkHardwareAcceleration_CheckedChanged(object sender, EventArgs e) {
-			SysConfig.HardwareAcceleration = checkHardwareAcceleration.Checked;
-		}
+		#region External Applications
 
 		private void UpdateBrowserChangeButton() {
 			btnCustomBrowserChange.Visible = comboBoxCustomBrowser.SelectedIndex == browserListIndexCustom;
