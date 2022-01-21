@@ -40,6 +40,7 @@ if (!("TD" in window)) {
  * @property {TD_Column_Model} model
  * @property {boolean} notificationsDisabled
  * @property {function} reloadTweets
+ * @property {ChirpBase[]} updateArray
  * @property {{ columnWidth: number }} visibility
  */
 
@@ -272,10 +273,14 @@ if (!("TD" in window)) {
  * @typedef TwitterClient
  * @type {Object}
  *
+ * @property {string} API_BASE_URL
+ * @property {function(id: string)} addIdToMuteList
  * @property {function(chirp: ChirpBase)} callback
  * @property {string} chirpId
  * @property {TwitterConversations} conversations
  * @property {function(ids: string[], onSuccess: function(users: TwitterUser[]), onError: function)} getUsersByIds
+ * @property {function(url: string, data: object, method: "GET"|"POST", responseProcessor: function, onSuccess: function, onError: function)} makeTwitterCall
+ * @property {function(json: string[]): TwitterUser[]} processUsers
  */
 
 /**
@@ -360,6 +365,7 @@ if (!("TD" in window)) {
  * @typedef TwitterUserJSON
  * @type {Object}
  *
+ * @property {boolean} [ext_has_nft_avatar]
  * @property {string} id
  * @property {string} id_str
  * @property {string} name

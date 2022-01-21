@@ -9,6 +9,7 @@ namespace TweetLib.Core.Application {
 		bool ExpandLinksOnHover { get; }
 		bool FirstRun { get; }
 		bool FocusDmInput { get; }
+		bool HideTweetsByNftUsers { get; }
 		bool IsCustomSoundNotificationSet { get; }
 		bool KeepLikeFollowDialogsOpen { get; }
 		bool MuteNotifications { get; }

@@ -4,6 +4,7 @@ import { replaceFunction } from "../api/patch.js";
 import { TD } from "../api/td.js";
 import { checkPropertyExists, ensurePropertyExists } from "../api/utils.js";
 import { getColumnName } from "./globals/get_column_name.js";
+import { checkUserNftStatus, getTweetUserId } from "./globals/user_nft_status.js";
 
 /**
  * Event callback for a new tweet.
@@ -67,20 +68,7 @@ const onNewTweet = (function() {
 	 * @param {TD_Column} column
 	 * @param {ChirpBase} tweet
 	 */
-	return function(column, tweet) {
-		if (tweet instanceof TD.services.TwitterConversation || tweet instanceof TD.services.TwitterConversationMessageEvent) {
-			if (checkTweetCache(recentMessages, tweet.id)) {
-				return;
-			}
-		}
-		else {
-			if (checkTweetCache(recentTweets, tweet.id)) {
-				return;
-			}
-		}
-		
-		startRecentTweetTimer();
-		
+	const showTweetNotification = function(column, tweet) {
 		if (column.model.getHasNotification()) {
 			const sensitive = isSensitive(tweet);
 			const previews = $TDX.notificationMediaPreviews && (!sensitive || TD.settings.getDisplaySensitiveMedia());
@@ -182,6 +170,36 @@ const onNewTweet = (function() {
 		
 		if (column.model.getHasSound()) {
 			$TD.onTweetSound();
+		}
+	};
+	
+	/**
+	 * @param {TD_Column} column
+	 * @param {ChirpBase} tweet
+	 */
+	return function(column, tweet) {
+		if (tweet instanceof TD.services.TwitterConversation || tweet instanceof TD.services.TwitterConversationMessageEvent) {
+			if (checkTweetCache(recentMessages, tweet.id)) {
+				return;
+			}
+		}
+		else {
+			if (checkTweetCache(recentTweets, tweet.id)) {
+				return;
+			}
+		}
+		
+		startRecentTweetTimer();
+		
+		if (!$TDX.hideTweetsByNftUsers) {
+			showTweetNotification(column, tweet);
+		}
+		else {
+			checkUserNftStatus(getTweetUserId(tweet), function(nft) {
+				if (!nft) {
+					showTweetNotification(column, tweet);
+				}
+			});
 		}
 	};
 })();

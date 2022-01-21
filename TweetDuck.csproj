@@ -402,6 +402,7 @@
     <None Include="Resources\Content\tweetdeck\globals\reload_columns.js" />
     <None Include="Resources\Content\tweetdeck\globals\retrieve_tweet.js" />
     <None Include="Resources\Content\tweetdeck\globals\show_tweet_detail.js" />
+    <None Include="Resources\Content\tweetdeck\globals\user_nft_status.js" />
     <None Include="Resources\Content\tweetdeck\handle_extra_mouse_buttons.js" />
     <None Include="Resources\Content\tweetdeck\hook_theme_settings.js" />
     <None Include="Resources\Content\tweetdeck\inject_css.js" />
@@ -410,6 +411,7 @@
     <None Include="Resources\Content\tweetdeck\make_retweets_lowercase.js" />
     <None Include="Resources\Content\tweetdeck\middle_click_tweet_icon_actions.js" />
     <None Include="Resources\Content\tweetdeck\move_accounts_above_hashtags_in_search.js" />
+    <None Include="Resources\Content\tweetdeck\mute_accounts_with_nft_avatars.js" />
     <None Include="Resources\Content\tweetdeck\offline_notification.js" />
     <None Include="Resources\Content\tweetdeck\open_search_externally.js" />
     <None Include="Resources\Content\tweetdeck\open_search_in_first_column.js" />

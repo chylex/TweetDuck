@@ -37,6 +37,7 @@ if (!("$TDX" in window)) {
  * @property {boolean} [expandLinksOnHover]
  * @property {number} [firstDayOfWeek]
  * @property {boolean} [focusDmInput]
+ * @property {boolean} [hideTweetsByNftUsers]
  * @property {boolean} [keepLikeFollowDialogsOpen]
  * @property {boolean} [muteNotifications]
  * @property {boolean} [notificationMediaPreviews]

@@ -13,6 +13,7 @@ using TweetLib.Utils.Globalization;
 
 namespace TweetDuck.Dialogs.Settings {
 	sealed partial class TabSettingsGeneral : FormSettings.BaseTab {
+		private readonly Action reloadTweetDeck;
 		private readonly Action reloadColumns;
 
 		private readonly UpdateChecker updates;
@@ -27,9 +28,10 @@ namespace TweetDuck.Dialogs.Settings {
 		private readonly int searchEngineIndexDefault;
 		private readonly int searchEngineIndexCustom;
 
-		public TabSettingsGeneral(Action reloadColumns, UpdateChecker updates) {
+		public TabSettingsGeneral(Action reloadTweetDeck, Action reloadColumns, UpdateChecker updates) {
 			InitializeComponent();
 
+			this.reloadTweetDeck = reloadTweetDeck;
 			this.reloadColumns = reloadColumns;
 
 			this.updates = updates;
@@ -43,8 +45,6 @@ namespace TweetDuck.Dialogs.Settings {
 			toolTip.SetToolTip(checkFocusDmInput, "Places cursor into Direct Message input\r\nfield when opening a conversation.");
 			toolTip.SetToolTip(checkOpenSearchInFirstColumn, "By default, TweetDeck adds Search columns at the end.\r\nThis option makes them appear before the first column instead.");
 			toolTip.SetToolTip(checkKeepLikeFollowDialogsOpen, "Allows liking and following from multiple accounts at once,\r\ninstead of automatically closing the dialog after taking an action.");
-			toolTip.SetToolTip(checkBestImageQuality, "When right-clicking a tweet image, the context menu options\r\nwill use links to the original image size (:orig in the URL).");
-			toolTip.SetToolTip(checkAnimatedAvatars, "Some old Twitter avatars could be uploaded as animated GIFs.");
 			toolTip.SetToolTip(checkSmoothScrolling, "Toggles smooth mouse wheel scrolling.");
 			toolTip.SetToolTip(labelZoomValue, "Changes the zoom level.\r\nAlso affects notifications and screenshots.");
 			toolTip.SetToolTip(trackBarZoom, toolTip.GetToolTip(labelZoomValue));
@@ -53,12 +53,20 @@ namespace TweetDuck.Dialogs.Settings {
 			checkFocusDmInput.Checked = Config.FocusDmInput;
 			checkOpenSearchInFirstColumn.Checked = Config.OpenSearchInFirstColumn;
 			checkKeepLikeFollowDialogsOpen.Checked = Config.KeepLikeFollowDialogsOpen;
-			checkBestImageQuality.Checked = Config.BestImageQuality;
-			checkAnimatedAvatars.Checked = Config.EnableAnimatedImages;
 			checkSmoothScrolling.Checked = Config.EnableSmoothScrolling;
 
 			trackBarZoom.SetValueSafe(Config.ZoomLevel);
 			labelZoomValue.Text = trackBarZoom.Value + "%";
+
+			// twitter
+
+			toolTip.SetToolTip(checkBestImageQuality, "When right-clicking a tweet image, the context menu options\r\nwill use links to the original image size (:orig in the URL).");
+			toolTip.SetToolTip(checkHideTweetsByNftUsers, "Hides tweets created by users who use Twitter's NFT avatar integration.\r\nThis feature is somewhat experimental, some accounts might not be detected immediately.");
+			toolTip.SetToolTip(checkAnimatedAvatars, "Some old Twitter avatars could be uploaded as animated GIFs.");
+
+			checkBestImageQuality.Checked = Config.BestImageQuality;
+			checkHideTweetsByNftUsers.Checked = Config.HideTweetsByNftUsers;
+			checkAnimatedAvatars.Checked = Config.EnableAnimatedImages;
 
 			// updates
 
@@ -135,10 +143,12 @@ namespace TweetDuck.Dialogs.Settings {
 			checkFocusDmInput.CheckedChanged += checkFocusDmInput_CheckedChanged;
 			checkOpenSearchInFirstColumn.CheckedChanged += checkOpenSearchInFirstColumn_CheckedChanged;
 			checkKeepLikeFollowDialogsOpen.CheckedChanged += checkKeepLikeFollowDialogsOpen_CheckedChanged;
-			checkBestImageQuality.CheckedChanged += checkBestImageQuality_CheckedChanged;
-			checkAnimatedAvatars.CheckedChanged += checkAnimatedAvatars_CheckedChanged;
 			checkSmoothScrolling.CheckedChanged += checkSmoothScrolling_CheckedChanged;
 			trackBarZoom.ValueChanged += trackBarZoom_ValueChanged;
+
+			checkBestImageQuality.CheckedChanged += checkBestImageQuality_CheckedChanged;
+			checkHideTweetsByNftUsers.CheckedChanged += checkHideTweetsByNftUsers_CheckedChanged;
+			checkAnimatedAvatars.CheckedChanged += checkAnimatedAvatars_CheckedChanged;
 
 			checkUpdateNotifications.CheckedChanged += checkUpdateNotifications_CheckedChanged;
 			btnCheckUpdates.Click += btnCheckUpdates_Click;
@@ -177,15 +187,6 @@ namespace TweetDuck.Dialogs.Settings {
 			Config.KeepLikeFollowDialogsOpen = checkKeepLikeFollowDialogsOpen.Checked;
 		}
 
-		private void checkBestImageQuality_CheckedChanged(object sender, EventArgs e) {
-			Config.BestImageQuality = checkBestImageQuality.Checked;
-		}
-
-		private void checkAnimatedAvatars_CheckedChanged(object sender, EventArgs e) {
-			Config.EnableAnimatedImages = checkAnimatedAvatars.Checked;
-			BrowserProcessHandler.UpdatePrefs().ContinueWith(task => reloadColumns());
-		}
-
 		private void checkSmoothScrolling_CheckedChanged(object sender, EventArgs e) {
 			Config.EnableSmoothScrolling = checkSmoothScrolling.Checked;
 		}
@@ -201,6 +202,24 @@ namespace TweetDuck.Dialogs.Settings {
 		private void zoomUpdateTimer_Tick(object sender, EventArgs e) {
 			Config.ZoomLevel = trackBarZoom.Value;
 			zoomUpdateTimer.Stop();
+		}
+
+		#endregion
+
+		#region Twitter
+
+		private void checkBestImageQuality_CheckedChanged(object sender, EventArgs e) {
+			Config.BestImageQuality = checkBestImageQuality.Checked;
+		}
+
+		private void checkHideTweetsByNftUsers_CheckedChanged(object sender, EventArgs e) {
+			Config.HideTweetsByNftUsers = checkHideTweetsByNftUsers.Checked;
+			BeginInvoke(reloadTweetDeck);
+		}
+
+		private void checkAnimatedAvatars_CheckedChanged(object sender, EventArgs e) {
+			Config.EnableAnimatedImages = checkAnimatedAvatars.Checked;
+			BrowserProcessHandler.UpdatePrefs().ContinueWith(task => reloadColumns());
 		}
 
 		#endregion

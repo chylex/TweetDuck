@@ -13,7 +13,7 @@ namespace TweetLib.Core.Features {
 			static string Bool(bool value) => value ? "true;" : "false;";
 			static string Str(string value) => $"\"{value}\";";
 
-			StringBuilder build = new StringBuilder(384).Append("(function(x){");
+			StringBuilder build = new StringBuilder(414).Append("(function(x){");
 
 			build.Append("x.expandLinksOnHover=").Append(Bool(config.ExpandLinksOnHover));
 
@@ -24,6 +24,7 @@ namespace TweetLib.Core.Features {
 				build.Append("x.muteNotifications=").Append(Bool(config.MuteNotifications));
 				build.Append("x.notificationMediaPreviews=").Append(Bool(config.NotificationMediaPreviews));
 				build.Append("x.translationTarget=").Append(Str(config.TranslationTarget));
+				build.Append("x.hideTweetsByNftUsers=").Append(Bool(config.HideTweetsByNftUsers));
 				build.Append("x.firstDayOfWeek=").Append(config.CalendarFirstDay == -1 ? JQuery.GetDatePickerDayOfWeek(Lib.Culture.DateTimeFormat.FirstDayOfWeek) : config.CalendarFirstDay);
 			}
 

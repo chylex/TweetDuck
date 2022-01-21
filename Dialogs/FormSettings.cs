@@ -40,7 +40,7 @@ namespace TweetDuck.Dialogs {
 
 			PrepareLoad();
 
-			AddButton("General", () => new TabSettingsGeneral(tweetDeckFunctions.ReloadColumns, updates));
+			AddButton("General", () => new TabSettingsGeneral(this.browser.ReloadToTweetDeck, tweetDeckFunctions.ReloadColumns, updates));
 			AddButton("Notifications", () => new TabSettingsNotifications(this.browser.CreateExampleNotification()));
 			AddButton("Sounds", () => new TabSettingsSounds(() => tweetDeckFunctions.PlaySoundNotification(true)));
 			AddButton("Tray", () => new TabSettingsTray());

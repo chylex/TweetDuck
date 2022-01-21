@@ -26,6 +26,7 @@ namespace TweetDuck.Configuration {
 		public bool KeepLikeFollowDialogsOpen { get; set; } = true;
 		public bool BestImageQuality          { get; set; } = true;
 		public bool EnableAnimatedImages      { get; set; } = true;
+		public bool HideTweetsByNftUsers      { get; set; } = false;
 
 		private bool _enableSmoothScrolling = true;
 		private string _customCefArgs       = null;

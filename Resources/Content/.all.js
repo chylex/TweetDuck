@@ -45,6 +45,7 @@ import limit_loaded_dm_count from "./tweetdeck/limit_loaded_dm_count.js";
 import make_retweets_lowercase from "./tweetdeck/make_retweets_lowercase.js";
 import middle_click_tweet_icon_actions from "./tweetdeck/middle_click_tweet_icon_actions.js";
 import move_accounts_above_hashtags_in_search from "./tweetdeck/move_accounts_above_hashtags_in_search.js";
+import mute_accounts_with_nft_avatars from "./tweetdeck/mute_accounts_with_nft_avatars.js";
 import offline_notification from "./tweetdeck/offline_notification.js";
 import open_search_externally from "./tweetdeck/open_search_externally.js";
 import open_search_in_first_column from "./tweetdeck/open_search_in_first_column.js";

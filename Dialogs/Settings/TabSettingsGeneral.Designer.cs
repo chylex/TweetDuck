@@ -42,6 +42,8 @@
             this.checkFocusDmInput = new System.Windows.Forms.CheckBox();
             this.checkKeepLikeFollowDialogsOpen = new System.Windows.Forms.CheckBox();
             this.checkSmoothScrolling = new System.Windows.Forms.CheckBox();
+            this.labelTweetDeckSettings = new System.Windows.Forms.Label();
+            this.checkHideTweetsByNftUsers = new System.Windows.Forms.CheckBox();
             this.labelBrowserPath = new System.Windows.Forms.Label();
             this.comboBoxCustomBrowser = new System.Windows.Forms.ComboBox();
             this.labelSearchEngine = new System.Windows.Forms.Label();
@@ -87,11 +89,11 @@
             // 
             this.checkUpdateNotifications.AutoSize = true;
             this.checkUpdateNotifications.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkUpdateNotifications.Location = new System.Drawing.Point(6, 307);
+            this.checkUpdateNotifications.Location = new System.Drawing.Point(6, 381);
             this.checkUpdateNotifications.Margin = new System.Windows.Forms.Padding(6, 6, 3, 2);
             this.checkUpdateNotifications.Name = "checkUpdateNotifications";
             this.checkUpdateNotifications.Size = new System.Drawing.Size(182, 19);
-            this.checkUpdateNotifications.TabIndex = 11;
+            this.checkUpdateNotifications.TabIndex = 13;
             this.checkUpdateNotifications.Text = "Check Updates Automatically";
             this.checkUpdateNotifications.UseVisualStyleBackColor = true;
             // 
@@ -99,12 +101,12 @@
             // 
             this.btnCheckUpdates.AutoSize = true;
             this.btnCheckUpdates.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnCheckUpdates.Location = new System.Drawing.Point(5, 331);
+            this.btnCheckUpdates.Location = new System.Drawing.Point(5, 405);
             this.btnCheckUpdates.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
             this.btnCheckUpdates.Name = "btnCheckUpdates";
             this.btnCheckUpdates.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.btnCheckUpdates.Size = new System.Drawing.Size(128, 25);
-            this.btnCheckUpdates.TabIndex = 12;
+            this.btnCheckUpdates.TabIndex = 14;
             this.btnCheckUpdates.Text = "Check Updates Now";
             this.btnCheckUpdates.UseVisualStyleBackColor = true;
             // 
@@ -124,12 +126,12 @@
             // 
             this.checkBestImageQuality.AutoSize = true;
             this.checkBestImageQuality.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkBestImageQuality.Location = new System.Drawing.Point(6, 122);
-            this.checkBestImageQuality.Margin = new System.Windows.Forms.Padding(6, 3, 3, 2);
+            this.checkBestImageQuality.Location = new System.Drawing.Point(6, 259);
+            this.checkBestImageQuality.Margin = new System.Windows.Forms.Padding(6, 6, 3, 2);
             this.checkBestImageQuality.Name = "checkBestImageQuality";
-            this.checkBestImageQuality.Size = new System.Drawing.Size(125, 19);
-            this.checkBestImageQuality.TabIndex = 5;
-            this.checkBestImageQuality.Text = "Best Image Quality";
+            this.checkBestImageQuality.Size = new System.Drawing.Size(182, 19);
+            this.checkBestImageQuality.TabIndex = 9;
+            this.checkBestImageQuality.Text = "Download Best Image Quality";
             this.checkBestImageQuality.UseVisualStyleBackColor = true;
             // 
             // checkOpenSearchInFirstColumn
@@ -163,11 +165,11 @@
             // 
             this.labelZoom.AutoSize = true;
             this.labelZoom.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
-            this.labelZoom.Location = new System.Drawing.Point(3, 203);
+            this.labelZoom.Location = new System.Drawing.Point(3, 155);
             this.labelZoom.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.labelZoom.Name = "labelZoom";
             this.labelZoom.Size = new System.Drawing.Size(39, 15);
-            this.labelZoom.TabIndex = 8;
+            this.labelZoom.TabIndex = 6;
             this.labelZoom.Text = "Zoom";
             // 
             // zoomUpdateTimer
@@ -179,21 +181,21 @@
             // 
             this.panelZoom.Controls.Add(this.trackBarZoom);
             this.panelZoom.Controls.Add(this.labelZoomValue);
-            this.panelZoom.Location = new System.Drawing.Point(0, 219);
+            this.panelZoom.Location = new System.Drawing.Point(0, 171);
             this.panelZoom.Margin = new System.Windows.Forms.Padding(0, 1, 0, 0);
             this.panelZoom.Name = "panelZoom";
             this.panelZoom.Size = new System.Drawing.Size(300, 35);
-            this.panelZoom.TabIndex = 9;
+            this.panelZoom.TabIndex = 7;
             // 
             // checkAnimatedAvatars
             // 
             this.checkAnimatedAvatars.AutoSize = true;
             this.checkAnimatedAvatars.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkAnimatedAvatars.Location = new System.Drawing.Point(6, 146);
+            this.checkAnimatedAvatars.Location = new System.Drawing.Point(6, 307);
             this.checkAnimatedAvatars.Margin = new System.Windows.Forms.Padding(6, 3, 3, 2);
             this.checkAnimatedAvatars.Name = "checkAnimatedAvatars";
             this.checkAnimatedAvatars.Size = new System.Drawing.Size(158, 19);
-            this.checkAnimatedAvatars.TabIndex = 6;
+            this.checkAnimatedAvatars.TabIndex = 11;
             this.checkAnimatedAvatars.Text = "Enable Animated Avatars";
             this.checkAnimatedAvatars.UseVisualStyleBackColor = true;
             // 
@@ -201,11 +203,11 @@
             // 
             this.labelUpdates.AutoSize = true;
             this.labelUpdates.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
-            this.labelUpdates.Location = new System.Drawing.Point(0, 281);
+            this.labelUpdates.Location = new System.Drawing.Point(0, 355);
             this.labelUpdates.Margin = new System.Windows.Forms.Padding(0, 27, 0, 1);
             this.labelUpdates.Name = "labelUpdates";
             this.labelUpdates.Size = new System.Drawing.Size(69, 19);
-            this.labelUpdates.TabIndex = 10;
+            this.labelUpdates.TabIndex = 12;
             this.labelUpdates.Text = "UPDATES";
             // 
             // flowPanelLeft
@@ -217,11 +219,13 @@
             this.flowPanelLeft.Controls.Add(this.checkFocusDmInput);
             this.flowPanelLeft.Controls.Add(this.checkOpenSearchInFirstColumn);
             this.flowPanelLeft.Controls.Add(this.checkKeepLikeFollowDialogsOpen);
-            this.flowPanelLeft.Controls.Add(this.checkBestImageQuality);
-            this.flowPanelLeft.Controls.Add(this.checkAnimatedAvatars);
             this.flowPanelLeft.Controls.Add(this.checkSmoothScrolling);
             this.flowPanelLeft.Controls.Add(this.labelZoom);
             this.flowPanelLeft.Controls.Add(this.panelZoom);
+            this.flowPanelLeft.Controls.Add(this.labelTweetDeckSettings);
+            this.flowPanelLeft.Controls.Add(this.checkBestImageQuality);
+            this.flowPanelLeft.Controls.Add(this.checkHideTweetsByNftUsers);
+            this.flowPanelLeft.Controls.Add(this.checkAnimatedAvatars);
             this.flowPanelLeft.Controls.Add(this.labelUpdates);
             this.flowPanelLeft.Controls.Add(this.checkUpdateNotifications);
             this.flowPanelLeft.Controls.Add(this.btnCheckUpdates);
@@ -271,13 +275,36 @@
             // 
             this.checkSmoothScrolling.AutoSize = true;
             this.checkSmoothScrolling.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkSmoothScrolling.Location = new System.Drawing.Point(6, 170);
+            this.checkSmoothScrolling.Location = new System.Drawing.Point(6, 122);
             this.checkSmoothScrolling.Margin = new System.Windows.Forms.Padding(6, 3, 3, 2);
             this.checkSmoothScrolling.Name = "checkSmoothScrolling";
             this.checkSmoothScrolling.Size = new System.Drawing.Size(117, 19);
-            this.checkSmoothScrolling.TabIndex = 7;
+            this.checkSmoothScrolling.TabIndex = 5;
             this.checkSmoothScrolling.Text = "Smooth Scrolling";
             this.checkSmoothScrolling.UseVisualStyleBackColor = true;
+            // 
+            // labelTweetDeckSettings
+            // 
+            this.labelTweetDeckSettings.AutoSize = true;
+            this.labelTweetDeckSettings.Font = new System.Drawing.Font("Segoe UI Semibold", 10.5F, System.Drawing.FontStyle.Bold);
+            this.labelTweetDeckSettings.Location = new System.Drawing.Point(0, 233);
+            this.labelTweetDeckSettings.Margin = new System.Windows.Forms.Padding(0, 27, 0, 1);
+            this.labelTweetDeckSettings.Name = "labelTweetDeckSettings";
+            this.labelTweetDeckSettings.Size = new System.Drawing.Size(67, 19);
+            this.labelTweetDeckSettings.TabIndex = 8;
+            this.labelTweetDeckSettings.Text = "TWITTER";
+            // 
+            // checkHideTweetsByNftUsers
+            // 
+            this.checkHideTweetsByNftUsers.AutoSize = true;
+            this.checkHideTweetsByNftUsers.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkHideTweetsByNftUsers.Location = new System.Drawing.Point(6, 283);
+            this.checkHideTweetsByNftUsers.Margin = new System.Windows.Forms.Padding(6, 3, 3, 2);
+            this.checkHideTweetsByNftUsers.Name = "checkHideTweetsByNftUsers";
+            this.checkHideTweetsByNftUsers.Size = new System.Drawing.Size(231, 19);
+            this.checkHideTweetsByNftUsers.TabIndex = 10;
+            this.checkHideTweetsByNftUsers.Text = "Hide Tweets by Users with NFT Avatars";
+            this.checkHideTweetsByNftUsers.UseVisualStyleBackColor = true;
             // 
             // labelBrowserPath
             // 
@@ -594,5 +621,7 @@
         private System.Windows.Forms.Label labelFirstDayOfWeek;
         private System.Windows.Forms.ComboBox comboBoxFirstDayOfWeek;
         private System.Windows.Forms.Label labelUI;
+        private System.Windows.Forms.CheckBox checkHideTweetsByNftUsers;
+        private System.Windows.Forms.Label labelTweetDeckSettings;
     }
 }
