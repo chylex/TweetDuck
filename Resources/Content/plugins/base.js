@@ -49,7 +49,7 @@ export function loadConfigurationFile(pluginObject, fileNameUser, fileNameDefaul
 	const token = pluginObject.$token;
 	
 	$TDP.checkFileExists(token, fileNameUser).then(exists => {
-		/** @type string|null */
+		/** @type {string|null} */
 		const fileName = exists ? fileNameUser : fileNameDefault;
 		
 		if (fileName === null) {

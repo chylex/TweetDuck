@@ -136,7 +136,7 @@ if (!("TD" in window)) {
  * @property {Class} TwitterActionRetweetedInteraction
  * @property {Class<TwitterClient>} TwitterClient
  * @property {Class<TwitterConversation>} TwitterConversation
- * @property {Class} TwitterConversationMessageEvent
+ * @property {Class<TwitterConversationMessageEvent>} TwitterConversationMessageEvent
  * @property {TwitterMedia_Class} TwitterMedia
  * @property {Class<TwitterStatus>} TwitterStatus
  * @property {Class<TwitterUser>} TwitterUser
@@ -225,13 +225,20 @@ if (!("TD" in window)) {
  * @typedef ChirpRenderSettings
  * @type {Object}
  *
- * @property {boolean} withFooter
- * @property {boolean} withTweetActions
- * @property {boolean} isInConvo
- * @property {boolean} isFavorite
- * @property {boolean} isRetweeted
- * @property {boolean} isPossiblySensitive
- * @property {string} mediaPreviewSize
+ * @property {boolean} [isFavorite}
+ * @property {boolean} [isInConvo}
+ * @property {boolean} [isMediaPreviewCompact}
+ * @property {boolean} [isMediaPreviewInQuoted}
+ * @property {boolean} [isMediaPreviewLarge}
+ * @property {boolean} [isMediaPreviewOff}
+ * @property {boolean} [isMediaPreviewSmall}
+ * @property {boolean} [isPossiblySensitive}
+ * @property {boolean} [isRetweeted}
+ * @property {string} [mediaPreviewSize}
+ * @property {string} [thumbSizeClass}
+ * @property {boolean} [withFooter}
+ * @property {boolean} [withMediaPreview}
+ * @property {boolean} [withTweetActions}
  */
 
 /**
@@ -273,6 +280,7 @@ if (!("TD" in window)) {
 
 /**
  * @typedef TwitterConversation
+ * @extends ChirpBase
  * @type {Object}
  *
  * @property {function} markAsRead

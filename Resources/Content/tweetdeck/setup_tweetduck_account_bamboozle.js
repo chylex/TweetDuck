@@ -12,7 +12,7 @@ export default function() {
 	
 	if (checkPropertyExists(TD, "services", "TwitterUser", "prototype")) {
 		replaceFunction(TD.services.TwitterUser.prototype, "fromJSONObject", function(func, args) {
-			/** @type TwitterUser */
+			/** @type {TwitterUser} */
 			const user = func.apply(this, args);
 			
 			if (user.id === accountId) {

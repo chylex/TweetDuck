@@ -16,7 +16,13 @@ export default function() {
 	ensurePropertyExists(TD, "controller", "clients", "getClient");
 	ensurePropertyExists(TD, "services", "Conversations", "prototype", "getConversation");
 	
-	$(document).on("dataDmSent", function(e, /** @type DmSentEventData */ data) {
+	/**
+	 * @param e
+	 * @param {DmSentEventData} data
+	 */
+	const onDataDmSent = function(e, data) {
 		TD.controller.clients.getClient(data.request.accountKey)?.conversations.getConversation(data.request.conversationId)?.markAsRead();
-	});
+	};
+	
+	$(document).on("dataDmSent", onDataDmSent);
 };

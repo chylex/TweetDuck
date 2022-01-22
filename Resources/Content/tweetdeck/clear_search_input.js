@@ -19,10 +19,16 @@ export default function() {
 	ensurePropertyExists(TD, "controller", "columnManager", "_columnOrder");
 	ensurePropertyExists(TD, "controller", "columnManager", "move");
 	
-	$(document).on("uiSearchNoTemporaryColumn", function(e, /** @type SearchEventData */ data) {
+	/**
+	 * @param e
+	 * @param {SearchEventData} data
+	 */
+	const onSearch = function(e, data) {
 		if (data.query && data.searchScope !== "users" && !data.columnKey && !("tduckResetInput" in data)) {
 			$(".js-app-search-input").val("");
 			$(".js-perform-search").blur();
 		}
-	});
+	};
+	
+	$(document).on("uiSearchNoTemporaryColumn", onSearch);
 };

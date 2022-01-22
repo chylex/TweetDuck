@@ -20,7 +20,11 @@ export default function() {
 	ensurePropertyExists(TD, "controller", "columnManager", "_columnOrder");
 	ensurePropertyExists(TD, "controller", "columnManager", "move");
 	
-	$(document).on("uiSearchNoTemporaryColumn", function(e, /** @type SearchEventData */ data) {
+	/**
+	 * @param e
+	 * @param {SearchEventData} data
+	 */
+	const onSearch = function(e, data) {
 		if (data.query && data.searchScope !== "users" && !data.columnKey && $TDX.openSearchInFirstColumn) {
 			const order = TD.controller.columnManager._columnOrder;
 			
@@ -32,5 +36,7 @@ export default function() {
 				TD.controller.columnManager.move(columnKey, "left");
 			}
 		}
-	});
+	};
+	
+	$(document).on("uiSearchNoTemporaryColumn", onSearch);
 };

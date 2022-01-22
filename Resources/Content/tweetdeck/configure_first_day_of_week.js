@@ -23,7 +23,7 @@ import { ensurePropertyExists } from "../api/utils.js";
 export default function() {
 	ensurePropertyExists($, "tools", "dateinput", "conf", "firstDay");
 	
-	/** @type DateInput */
+	/** @type {DateInput} */
 	const dateinput = $["tools"]["dateinput"];
 	
 	onAppReady(function setupDatePickerFirstDayCallback() {

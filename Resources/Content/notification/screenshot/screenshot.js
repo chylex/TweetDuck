@@ -34,4 +34,4 @@
 		
 		onNextFrame();
 	});
-})(/** @type TD_Screenshot_Bridge */ $TD_NotificationScreenshot);
+})(/** @type {TD_Screenshot_Bridge} */ $TD_NotificationScreenshot);
