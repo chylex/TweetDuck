@@ -13,16 +13,15 @@ The program can be built using Visual Studio 2019. Before opening the solution, 
 * **Desktop development with C++**
   * MSVC v142 - VS 2019 C++ x64/x86 build tools (v14.20)
 
-After opening the solution, right-click the solution and select **Restore NuGet Packages**, or manually run this command in the **Package Manager Console**:
-```
-PM> Install-Package CefSharp.WinForms -Version 67.0.0
-```
+After opening the solution, right-click the solution and select **Restore NuGet Packages** to install all used libraries.
+
+Development with Rider is also supported, as long as it is configured to use MSBuild from Visual Studio. You can set it in *File | Settings | Build, Execution, Deployment | Toolset and Build* with the `Use MSBuild version` drop-down.
 
 ### Debug
 
 The `Debug` configuration uses a separate data folder by default (`%LOCALAPPDATA%\TweetDuckDebug`) to avoid affecting an existing installation of TweetDuck. You can modify this by opening **TweetDuck Properties** in Visual Studio, clicking the **Debug** tab, and changing the **Command line arguments** field.
 
-While debugging, opening the main menu and clicking **Reload browser** automatically rebuilds all resources in `Resources/Scripts` and `Resources/Plugins`. This allows editing HTML/CSS/JS files without restarting the program, but it will cause a short delay between browser reloads.
+While debugging, opening the main menu and clicking **Reload browser** automatically applies all changes to HTML/CSS/JS files in the `Resources` folder. This allows editing and testing resource files without restarting the program, but it will cause a short delay between browser reloads.
 
 ### Release
 
@@ -30,15 +29,15 @@ Open **Batch Build**, tick all `Release` configurations with `x86` platform, and
 
 After the build succeeds, the `bin/x86/Release` folder will contain files intended for distribution (no debug symbols or other unnecessary files). You may package these files yourself, or see the [Installers](#installers) section for automated installer generation.
 
-The `Release` configuration omits debug symbols and other unnecessary files, and it will automatically generate the [update installer](#installers) if the environment is setup correctly. You can modify this behavior by opening `TweetDuck.csproj`, and editing the `<Target Name="AfterBuild" Condition="$(ConfigurationName) == Release">` section.
+Building the `Release` configuration automatically generates the [update installer](#installers) if the environment is setup correctly. You can modify this behavior by opening `TweetDuck.csproj`, and editing the `<Target Name="FinalizeRelease" ...>` section.
 
-If you decide to publicly release a custom version, please make it clear that it is not an official release of TweetDuck. There are many references to the official website and this repository, especially in the update system, so search for `chylex.com` and `github.com` in all files and replace them appropriately.
+If you decide to publicly release a custom version, please change all references to the TweetDuck name, website, and other links such as the issue tracker. The source files contain several constants and references to the official website and this repository, so don't forget to search all files for `chylex.com` and `github.com` in all files and replace them appropriately.
 
 ### Troubleshooting
 
 #### Error: The command (...) exited with code 1
 - This indicates a failed post-build event, open the **Output** tab for logs
-- Determine if there was an IO error from the `rmdir` commands, the custom MSBuild targets near the end of the [.csproj file](https://github.com/chylex/TweetDuck/blob/master/TweetDuck.csproj), or in the **PostBuild.fsx** script (`Encountered an error while running PostBuild`)
+- Determine if there was an IO error from the `rmdir` commands, the custom MSBuild targets near the end of the [.csproj file](https://github.com/chylex/TweetDuck/blob/master/TweetDuck.csproj), or in the **PostBuild.ps1** script (`Encountered an error while running PostBuild`)
 - Some files are checked for invalid characters:
   - `Resources/Plugins/emoji-keyboard/emoji-ordering.txt` line endings must be LF (line feed); any CR (carriage return) in the file will cause a failed build, and you will need to ensure correct line endings in your text editor
 
@@ -60,11 +59,9 @@ After the window closes, three installers will be generated inside the `bld/Outp
   * This is a portable installer that does not need administrator privileges
   * It automatically creates a `makeportable` file in the program folder, which forces TweetDuck to run in portable mode
 
-The installers are built for GitHub Releases, where the main and portable installers can download and install Visual C++ if it's missing, and the update installer will download and apply the full installer when needed. If you plan to distribute your own installers via GitHub, you can change the variables in the installer files (`.iss`) and in the update system to point to your repository, and use the power of the existing update system.
+If you plan to distribute your own installers, you can change the variables in the installer files (`.iss`) and in the update system to point to your own repository, and use the power of the existing update system.
 
 #### Notes
-
-> When opening **Batch Build**, you will also see `x64` and `AnyCPU` configurations. These are visible due to what I consider a Visual Studio bug, and will not work without significant changes to the project. Manually running the `Resources/PostCefUpdate.ps1` PowerShell script modifies the downloaded CefSharp packages, and removes the invalid configurations.
 
 > There is a small chance running `GEN INSTALLERS.bat` immediately shows a resource error. If that happens, close the console window (which terminates all Inno Setup processes and leaves corrupted installers in the output folder), and run it again.
 
