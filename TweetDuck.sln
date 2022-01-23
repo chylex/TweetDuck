@@ -14,9 +14,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetLib.Core", "lib\TweetL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetLib.Browser", "lib\TweetLib.Browser\TweetLib.Browser.csproj", "{EEFB1F37-7CAD-46BD-8042-66E7B502AB02}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetLib.Browser.CEF", "lib\TweetLib.Browser.CEF\TweetLib.Browser.CEF.csproj", "{1B7793C6-9002-483E-9BD7-897FE6CD18FB}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetLib.Utils", "lib\TweetLib.Utils\TweetLib.Utils.csproj", "{476B1007-B12C-447F-B855-9886048201D6}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TweetTest.Core", "lib\TweetTest.Core\TweetTest.Core.fsproj", "{2D7DFBA6-057D-4111-B61B-E4CB1E2BF369}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TweetTest.Browser.CEF", "lib\TweetTest.Browser.CEF\TweetTest.Browser.CEF.fsproj", "{651B77C2-3745-4DAA-982C-398C2856E038}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TweetTest.Utils", "lib\TweetTest.Utils\TweetTest.Utils.fsproj", "{07F6D350-B16F-44E2-804D-C1142E1E345F}"
 EndProject
@@ -50,6 +54,10 @@ Global
 		{EEFB1F37-7CAD-46BD-8042-66E7B502AB02}.Debug|x86.Build.0 = Debug|x86
 		{EEFB1F37-7CAD-46BD-8042-66E7B502AB02}.Release|x86.ActiveCfg = Release|x86
 		{EEFB1F37-7CAD-46BD-8042-66E7B502AB02}.Release|x86.Build.0 = Release|x86
+		{1B7793C6-9002-483E-9BD7-897FE6CD18FB}.Debug|x86.ActiveCfg = Debug|x86
+		{1B7793C6-9002-483E-9BD7-897FE6CD18FB}.Debug|x86.Build.0 = Debug|x86
+		{1B7793C6-9002-483E-9BD7-897FE6CD18FB}.Release|x86.ActiveCfg = Release|x86
+		{1B7793C6-9002-483E-9BD7-897FE6CD18FB}.Release|x86.Build.0 = Release|x86
 		{476B1007-B12C-447F-B855-9886048201D6}.Debug|x86.ActiveCfg = Debug|x86
 		{476B1007-B12C-447F-B855-9886048201D6}.Debug|x86.Build.0 = Debug|x86
 		{476B1007-B12C-447F-B855-9886048201D6}.Release|x86.ActiveCfg = Release|x86
@@ -58,6 +66,10 @@ Global
 		{2D7DFBA6-057D-4111-B61B-E4CB1E2BF369}.Debug|x86.Build.0 = Debug|x86
 		{2D7DFBA6-057D-4111-B61B-E4CB1E2BF369}.Release|x86.ActiveCfg = Release|x86
 		{2D7DFBA6-057D-4111-B61B-E4CB1E2BF369}.Release|x86.Build.0 = Release|x86
+		{651B77C2-3745-4DAA-982C-398C2856E038}.Debug|x86.ActiveCfg = Debug|x86
+		{651B77C2-3745-4DAA-982C-398C2856E038}.Debug|x86.Build.0 = Debug|x86
+		{651B77C2-3745-4DAA-982C-398C2856E038}.Release|x86.ActiveCfg = Release|x86
+		{651B77C2-3745-4DAA-982C-398C2856E038}.Release|x86.Build.0 = Release|x86
 		{07F6D350-B16F-44E2-804D-C1142E1E345F}.Debug|x86.ActiveCfg = Debug|x86
 		{07F6D350-B16F-44E2-804D-C1142E1E345F}.Debug|x86.Build.0 = Debug|x86
 		{07F6D350-B16F-44E2-804D-C1142E1E345F}.Release|x86.ActiveCfg = Release|x86

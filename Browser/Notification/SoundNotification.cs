@@ -1,20 +1,21 @@
 ﻿using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using TweetDuck.Browser.Adapters;
+using CefSharp;
 using TweetDuck.Controls;
 using TweetDuck.Dialogs;
 using TweetDuck.Dialogs.Settings;
 using TweetDuck.Management;
+using TweetLib.Browser.CEF.Data;
 using TweetLib.Core.Features.TweetDeck;
 
 namespace TweetDuck.Browser.Notification {
 	sealed class SoundNotification : ISoundNotificationHandler {
 		public const string SupportedFormats = "*.wav;*.ogg;*.mp3;*.flac;*.opus;*.weba;*.webm";
 
-		private readonly CefResourceHandlerRegistry registry;
+		private readonly ResourceHandlerRegistry<IResourceHandler> registry;
 
-		public SoundNotification(CefResourceHandlerRegistry registry) {
+		public SoundNotification(ResourceHandlerRegistry<IResourceHandler> registry) {
 			this.registry = registry;
 		}
 

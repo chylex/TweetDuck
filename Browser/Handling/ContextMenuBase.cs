@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using CefSharp;
-using TweetDuck.Browser.Adapters;
+using TweetDuck.Browser.Base;
 using TweetDuck.Configuration;
 using TweetDuck.Utils;
+using TweetLib.Browser.CEF.Data;
 using TweetLib.Browser.Contexts;
 
 namespace TweetDuck.Browser.Handling {
-	abstract class ContextMenuBase : IContextMenuHandler {
+	class ContextMenuBase : IContextMenuHandler {
 		private const CefMenuCommand MenuOpenDevTools = (CefMenuCommand) 26500;
 
 		private static readonly HashSet<CefMenuCommand> AllowedCefCommands = new HashSet<CefMenuCommand> {
@@ -31,11 +32,17 @@ namespace TweetDuck.Browser.Handling {
 		protected static UserConfig Config => Program.Config.User;
 
 		private readonly TweetLib.Browser.Interfaces.IContextMenuHandler handler;
-		private readonly CefContextMenuActionRegistry actionRegistry;
+		private readonly ContextMenuActionRegistry actionRegistry;
 
-		protected ContextMenuBase(TweetLib.Browser.Interfaces.IContextMenuHandler handler) {
+		public ContextMenuBase(TweetLib.Browser.Interfaces.IContextMenuHandler handler) {
 			this.handler = handler;
-			this.actionRegistry = new CefContextMenuActionRegistry();
+			this.actionRegistry = new ContextMenuActionRegistry();
+		}
+
+		private sealed class ContextMenuActionRegistry : ContextMenuActionRegistry<CefMenuCommand> {
+			protected override CefMenuCommand NextId(int n) {
+				return CefMenuCommand.UserFirst + 500 + n;
+			}
 		}
 
 		protected virtual Context CreateContext(IContextMenuParams parameters) {
@@ -62,8 +69,13 @@ namespace TweetDuck.Browser.Handling {
 			}
 
 			AddSeparator(model);
-			handler.Show(new CefContextMenuModel(model, actionRegistry), CreateContext(parameters));
+			handler?.Show(new CefContextMenuModel(model, actionRegistry), CreateContext(parameters));
 			RemoveSeparatorIfLast(model);
+			AddLastContextMenuItems(model);
+		}
+
+		protected virtual void AddLastContextMenuItems(IMenuModel model) {
+			AddDebugMenuItems(model);
 		}
 
 		public virtual bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags) {
@@ -94,15 +106,15 @@ namespace TweetDuck.Browser.Handling {
 			}
 		}
 
-		protected static void RemoveSeparatorIfLast(IMenuModel model) {
-			if (model.Count > 0 && model.GetTypeAt(model.Count - 1) == MenuItemType.Separator) {
-				model.RemoveAt(model.Count - 1);
-			}
-		}
-
 		protected static void AddSeparator(IMenuModel model) {
 			if (model.Count > 0 && model.GetTypeAt(model.Count - 1) != MenuItemType.Separator) { // do not add separators if there is nothing to separate
 				model.AddSeparator();
+			}
+		}
+
+		private static void RemoveSeparatorIfLast(IMenuModel model) {
+			if (model.Count > 0 && model.GetTypeAt(model.Count - 1) == MenuItemType.Separator) {
+				model.RemoveAt(model.Count - 1);
 			}
 		}
 	}

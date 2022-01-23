@@ -47,13 +47,10 @@ namespace TweetDuck.Browser {
 
 		public UpdateInstaller UpdateInstaller { get; private set; }
 
-		#pragma warning disable IDE0069 // Disposable fields should be disposed
-		private readonly TweetDeckBrowser browser;
-		private readonly FormNotificationTweet notification;
-		#pragma warning restore IDE0069 // Disposable fields should be disposed
-
 		private readonly ResourceCache resourceCache;
+		private readonly TweetDeckBrowser browser;
 		private readonly ITweetDeckInterface tweetDeckInterface;
+		private readonly FormNotificationTweet notification;
 		private readonly PluginManager plugins;
 		private readonly UpdateChecker updates;
 		private readonly ContextMenu contextMenu;

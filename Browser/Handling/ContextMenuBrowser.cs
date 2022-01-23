@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 using CefSharp;
-using TweetDuck.Browser.Adapters;
+using TweetDuck.Browser.Base;
 using TweetDuck.Controls;
 using TweetLib.Browser.Contexts;
 using TweetLib.Core.Features.TweetDeck;
@@ -61,6 +61,8 @@ namespace TweetDuck.Browser.Handling {
 				AddDebugMenuItems(globalMenu);
 			}
 		}
+
+		protected override void AddLastContextMenuItems(IMenuModel model) {}
 
 		public override bool OnContextMenuCommand(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, CefMenuCommand commandId, CefEventFlags eventFlags) {
 			if (base.OnContextMenuCommand(browserControl, browser, frame, parameters, commandId, eventFlags)) {

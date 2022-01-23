@@ -18,11 +18,11 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\TweetLib.Core\TweetLib.Core.csproj" />
+    <ProjectReference Include="..\TweetLib.Browser.CEF\TweetLib.Browser.CEF.csproj" />
   </ItemGroup>
   
   <ItemGroup>
-    <Compile Include="Features\Twitter\TestTwitterUrls.fs" />
+    <Compile Include="Utils\TestCefUtils.fs" />
   </ItemGroup>
 
 </Project>

@@ -2,7 +2,7 @@
 using System.Drawing;
 using CefSharp;
 using CefSharp.WinForms;
-using TweetDuck.Browser.Adapters;
+using TweetDuck.Browser.Base;
 using TweetDuck.Browser.Handling;
 using TweetDuck.Browser.Notification;
 using TweetDuck.Configuration;
@@ -11,8 +11,6 @@ using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.TweetDeck;
 using TweetLib.Core.Features.Twitter;
 using TweetLib.Core.Systems.Updates;
-using IContextMenuHandler = TweetLib.Browser.Interfaces.IContextMenuHandler;
-using IResourceRequestHandler = TweetLib.Browser.Interfaces.IResourceRequestHandler;
 using TweetDeckBrowserImpl = TweetLib.Core.Features.TweetDeck.TweetDeckBrowser;
 
 namespace TweetDuck.Browser {
@@ -42,24 +40,18 @@ namespace TweetDuck.Browser {
 		private readonly ChromiumWebBrowser browser;
 
 		public TweetDeckBrowser(FormBrowser owner, PluginManager pluginManager, ITweetDeckInterface tweetDeckInterface, UpdateChecker updateChecker) {
-			RequestHandlerBrowser requestHandler = new RequestHandlerBrowser();
-
 			this.browser = new ChromiumWebBrowser(TwitterUrls.TweetDeck) {
 				DialogHandler = new FileDialogHandler(),
-				DragHandler = new DragHandlerBrowser(requestHandler),
-				KeyboardHandler = new CustomKeyboardHandler(owner),
-				RequestHandler = requestHandler
+				KeyboardHandler = new CustomKeyboardHandler(owner)
 			};
 
 			// ReSharper disable once PossiblyImpureMethodCallOnReadonlyVariable
 			this.browser.BrowserSettings.BackgroundColor = (uint) TweetDeckBrowserImpl.BackgroundColor.ToArgb();
 
 			var extraContext = new TweetDeckExtraContext();
-			var resourceHandlerRegistry = new CefResourceHandlerRegistry();
-			var soundNotificationHandler = new SoundNotification(resourceHandlerRegistry);
 
-			this.browserComponent = new ComponentImpl(browser, owner, extraContext, resourceHandlerRegistry);
-			this.browserImpl = new TweetDeckBrowserImpl(browserComponent, tweetDeckInterface, extraContext, soundNotificationHandler, pluginManager, updateChecker);
+			this.browserComponent = new CefBrowserComponent(browser, handler => new ContextMenuBrowser(owner, handler, extraContext));
+			this.browserImpl = new TweetDeckBrowserImpl(browserComponent, tweetDeckInterface, extraContext, new SoundNotification(browserComponent.ResourceHandlerRegistry), pluginManager, updateChecker);
 
 			if (Arguments.HasFlag(Arguments.ArgIgnoreGDPR)) {
 				browserComponent.PageLoadEnd += (sender, args) => {
@@ -70,26 +62,6 @@ namespace TweetDuck.Browser {
 			}
 
 			owner.Controls.Add(browser);
-		}
-
-		private sealed class ComponentImpl : CefBrowserComponent {
-			private readonly FormBrowser owner;
-			private readonly TweetDeckExtraContext extraContext;
-			private readonly CefResourceHandlerRegistry registry;
-
-			public ComponentImpl(ChromiumWebBrowser browser, FormBrowser owner, TweetDeckExtraContext extraContext, CefResourceHandlerRegistry registry) : base(browser) {
-				this.owner = owner;
-				this.extraContext = extraContext;
-				this.registry = registry;
-			}
-
-			protected override ContextMenuBase SetupContextMenu(IContextMenuHandler handler) {
-				return new ContextMenuBrowser(owner, handler, extraContext);
-			}
-
-			protected override CefResourceHandlerFactory SetupResourceHandlerFactory(IResourceRequestHandler handler) {
-				return new CefResourceHandlerFactory(handler, registry);
-			}
 		}
 
 		public void PrepareSize(Size size) {

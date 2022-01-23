@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using TweetDuck.Controls;
+using TweetLib.Browser.CEF.Utils;
 using TweetLib.Core;
-using TweetLib.Core.Features.Chromium;
 
 namespace TweetDuck.Dialogs.Settings {
 	sealed partial class DialogSettingsCefArgs : Form {

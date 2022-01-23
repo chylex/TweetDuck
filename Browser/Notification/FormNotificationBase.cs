@@ -1,11 +1,13 @@
 ﻿using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 using CefSharp.WinForms;
-using TweetDuck.Browser.Adapters;
+using TweetDuck.Browser.Base;
 using TweetDuck.Browser.Handling;
 using TweetDuck.Configuration;
 using TweetDuck.Controls;
 using TweetDuck.Utils;
+using TweetLib.Browser.CEF.Data;
 using TweetLib.Browser.Interfaces;
 using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Features.Twitter;
@@ -88,14 +90,11 @@ namespace TweetDuck.Browser.Notification {
 
 		private readonly FormBrowser owner;
 
-		protected readonly IBrowserComponent browserComponent;
+		protected readonly ChromiumWebBrowser browser;
+		protected readonly CefBrowserComponent browserComponent;
 		private readonly NotificationBrowser browserImpl;
 
-		#pragma warning disable IDE0069 // Disposable fields should be disposed
-		protected readonly ChromiumWebBrowser browser;
-		#pragma warning restore IDE0069 // Disposable fields should be disposed
-
-		private readonly ResourceHandlerNotification resourceHandler = new ResourceHandlerNotification();
+		private readonly CefByteArrayResourceHandler resourceHandler = new CefByteArrayResourceHandler();
 
 		private DesktopNotification currentNotification;
 		private int pauseCounter;
@@ -115,11 +114,10 @@ namespace TweetDuck.Browser.Notification {
 			this.owner = owner;
 			this.owner.FormClosed += owner_FormClosed;
 
-			this.browser = new ChromiumWebBrowser(NotificationBrowser.BlankURL) {
-				RequestHandler = new RequestHandlerBase(false)
-			};
-
-			this.browserComponent = new ComponentImpl(browser, this);
+			this.browser = new ChromiumWebBrowser(NotificationBrowser.BlankURL);
+			this.browserComponent = new CefBrowserComponent(browser, handler => new ContextMenuNotification(this, handler), autoReload: false);
+			this.browserComponent.ResourceHandlerRegistry.RegisterStatic(NotificationBrowser.BlankURL, string.Empty);
+			this.browserComponent.ResourceHandlerRegistry.RegisterDynamic(TwitterUrls.TweetDeck, resourceHandler);
 			this.browserImpl = createBrowserImpl(this, browserComponent);
 
 			this.browser.Dock = DockStyle.None;
@@ -139,29 +137,9 @@ namespace TweetDuck.Browser.Notification {
 			UpdateTitle();
 		}
 
-		protected sealed class ComponentImpl : CefBrowserComponent {
-			private readonly FormNotificationBase owner;
-
-			public ComponentImpl(ChromiumWebBrowser browser, FormNotificationBase owner) : base(browser) {
-				this.owner = owner;
-			}
-
-			protected override ContextMenuBase SetupContextMenu(IContextMenuHandler handler) {
-				return new ContextMenuNotification(owner, handler);
-			}
-
-			protected override CefResourceHandlerFactory SetupResourceHandlerFactory(IResourceRequestHandler handler) {
-				var registry = new CefResourceHandlerRegistry();
-				registry.RegisterStatic(NotificationBrowser.BlankURL, string.Empty);
-				registry.RegisterDynamic(TwitterUrls.TweetDeck, owner.resourceHandler);
-				return new CefResourceHandlerFactory(handler, registry);
-			}
-		}
-
 		protected override void Dispose(bool disposing) {
 			if (disposing) {
 				components?.Dispose();
-				resourceHandler.Dispose();
 			}
 
 			base.Dispose(disposing);
@@ -207,7 +185,7 @@ namespace TweetDuck.Browser.Notification {
 
 		protected virtual void LoadTweet(DesktopNotification tweet) {
 			currentNotification = tweet;
-			resourceHandler.SetHTML(browserImpl.GetTweetHTML(tweet));
+			resourceHandler.SetResource(new ByteArrayResource(browserImpl.GetTweetHTML(tweet), Encoding.UTF8));
 
 			browser.Load(TwitterUrls.TweetDeck);
 			DisplayTooltip(null);

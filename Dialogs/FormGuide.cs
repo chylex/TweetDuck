@@ -2,12 +2,11 @@
 using System.Windows.Forms;
 using CefSharp.WinForms;
 using TweetDuck.Browser;
-using TweetDuck.Browser.Adapters;
+using TweetDuck.Browser.Base;
 using TweetDuck.Browser.Handling;
 using TweetDuck.Controls;
 using TweetDuck.Management;
 using TweetDuck.Utils;
-using TweetLib.Browser.Interfaces;
 using TweetLib.Core.Features;
 
 namespace TweetDuck.Dialogs {
@@ -31,9 +30,7 @@ namespace TweetDuck.Dialogs {
 			}
 		}
 
-		#pragma warning disable IDE0069 // Disposable fields should be disposed
 		private readonly ChromiumWebBrowser browser;
-		#pragma warning restore IDE0069 // Disposable fields should be disposed
 
 		private FormGuide(string url, Form owner) {
 			InitializeComponent();
@@ -43,13 +40,12 @@ namespace TweetDuck.Dialogs {
 			VisibleChanged += (sender, args) => this.MoveToCenter(owner);
 
 			browser = new ChromiumWebBrowser(url) {
-				KeyboardHandler = new CustomKeyboardHandler(null),
-				RequestHandler = new RequestHandlerBase(true)
+				KeyboardHandler = new CustomKeyboardHandler(null)
 			};
 
 			browser.BrowserSettings.BackgroundColor = (uint) BackColor.ToArgb();
 
-			var browserComponent = new ComponentImpl(browser);
+			var browserComponent = new CefBrowserComponent(browser);
 			var browserImpl = new BaseBrowser(browserComponent);
 
 			BrowserUtils.SetupDockOnLoad(browserComponent, browser);
@@ -60,18 +56,6 @@ namespace TweetDuck.Dialogs {
 				browserImpl.Dispose();
 				browser.Dispose();
 			};
-		}
-
-		private sealed class ComponentImpl : CefBrowserComponent {
-			public ComponentImpl(ChromiumWebBrowser browser) : base(browser) {}
-
-			protected override ContextMenuBase SetupContextMenu(IContextMenuHandler handler) {
-				return new ContextMenuGuide(handler);
-			}
-
-			protected override CefResourceHandlerFactory SetupResourceHandlerFactory(IResourceRequestHandler handler) {
-				return new CefResourceHandlerFactory(handler, null);
-			}
 		}
 
 		protected override void Dispose(bool disposing) {
