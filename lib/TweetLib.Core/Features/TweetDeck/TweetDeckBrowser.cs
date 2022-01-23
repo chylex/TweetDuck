@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using TweetLib.Browser.Base;
 using TweetLib.Browser.Contexts;
 using TweetLib.Browser.Events;
@@ -16,6 +17,8 @@ using Version = TweetDuck.Version;
 
 namespace TweetLib.Core.Features.TweetDeck {
 	public sealed class TweetDeckBrowser : BaseBrowser<TweetDeckBrowser> {
+		public static readonly Color BackgroundColor = Color.FromArgb(28, 99, 153);
+
 		private const string NamespaceTweetDeck = "tweetdeck";
 		private const string BackgroundColorOverride = "setTimeout(function f(){let h=document.head;if(!h){setTimeout(f,5);return;}let e=document.createElement('style');e.innerHTML='body,body::before{background:#1c6399!important;margin:0}';h.appendChild(e);},1)";
 

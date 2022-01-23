@@ -22,6 +22,12 @@ namespace TweetLib.Core.Features.Twitter {
 			return url.Contains("://twitter.com/account/login_verification") || url.Contains("://mobile.twitter.com/account/login_verification");
 		}
 
+		public static bool IsAllowedPopupUrl(string url) {
+			return url.StartsWithOrdinal("https://twitter.com/teams/authorize?") ||
+			       url.StartsWithOrdinal("https://accounts.google.com/") ||
+			       url.StartsWithOrdinal("https://appleid.apple.com/");
+		}
+
 		public static string? GetFileNameFromUrl(string url) {
 			return StringUtils.NullIfEmpty(Path.GetFileName(new Uri(url).AbsolutePath));
 		}

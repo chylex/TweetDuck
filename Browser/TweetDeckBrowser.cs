@@ -17,8 +17,6 @@ using TweetDeckBrowserImpl = TweetLib.Core.Features.TweetDeck.TweetDeckBrowser;
 
 namespace TweetDuck.Browser {
 	sealed class TweetDeckBrowser : IDisposable {
-		public static readonly Color BackgroundColor = Color.FromArgb(28, 99, 153);
-
 		public bool Ready => browserComponent.Ready;
 
 		public bool Enabled {
@@ -54,7 +52,7 @@ namespace TweetDuck.Browser {
 			};
 
 			// ReSharper disable once PossiblyImpureMethodCallOnReadonlyVariable
-			this.browser.BrowserSettings.BackgroundColor = (uint) BackgroundColor.ToArgb();
+			this.browser.BrowserSettings.BackgroundColor = (uint) TweetDeckBrowserImpl.BackgroundColor.ToArgb();
 
 			var extraContext = new TweetDeckExtraContext();
 			var resourceHandlerRegistry = new CefResourceHandlerRegistry();

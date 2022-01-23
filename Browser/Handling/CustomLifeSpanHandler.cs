@@ -1,21 +1,15 @@
 ﻿using CefSharp;
 using CefSharp.Handler;
 using TweetLib.Core;
-using TweetLib.Utils.Static;
+using TweetLib.Core.Features.Twitter;
 
 namespace TweetDuck.Browser.Handling {
 	sealed class CustomLifeSpanHandler : LifeSpanHandler {
-		private static bool IsPopupAllowed(string url) {
-			return url.StartsWithOrdinal("https://twitter.com/teams/authorize?") ||
-			       url.StartsWithOrdinal("https://accounts.google.com/") ||
-			       url.StartsWithOrdinal("https://appleid.apple.com/");
-		}
-
 		public static bool HandleLinkClick(WindowOpenDisposition targetDisposition, string targetUrl) {
 			switch (targetDisposition) {
 				case WindowOpenDisposition.NewBackgroundTab:
 				case WindowOpenDisposition.NewForegroundTab:
-				case WindowOpenDisposition.NewPopup when !IsPopupAllowed(targetUrl):
+				case WindowOpenDisposition.NewPopup when !TwitterUrls.IsAllowedPopupUrl(targetUrl):
 				case WindowOpenDisposition.NewWindow:
 					App.SystemHandler.OpenBrowser(targetUrl);
 					return true;
