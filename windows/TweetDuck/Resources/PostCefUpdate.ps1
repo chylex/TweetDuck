@@ -2,12 +2,12 @@ $ErrorActionPreference = "Stop"
 
 try{
   $mainProj = "..\TweetDuck.csproj"
-  $browserProj = "..\subprocess\TweetDuck.Browser.csproj"
+  $browserProj = "..\..\TweetDuck.Browser\TweetDuck.Browser.csproj"
   
-  $cefMatch = Select-String -Path $mainProj '<Import Project="packages\\cef\.redist\.x86\.(.*?)\\'
+  $cefMatch = Select-String -Path $mainProj '<Import Project="..\\..\\packages\\cef\.redist\.x86\.(.*?)\\'
   $cefVersion = $cefMatch.Matches[0].Groups[1].Value
   
-  $sharpMatch = Select-String -Path $mainProj '<Import Project="packages\\CefSharp\.Common\.(.*?)\\'
+  $sharpMatch = Select-String -Path $mainProj '<Import Project="..\\..\\packages\\CefSharp\.Common\.(.*?)\\'
   $sharpVersion = $sharpMatch.Matches[0].Groups[1].Value
   
   # Greetings
@@ -23,7 +23,7 @@ try{
   Write-Host "Updating browser subprocess reference..."
   
   $contents = [IO.File]::ReadAllText($browserProj)
-  $contents = $contents -Replace '(?<=<HintPath>\.\.\\packages\\CefSharp\.Common\.)(.*?)(?=\\)', $sharpVersion
+  $contents = $contents -Replace '(?<=<HintPath>\.\.\\\.\.\\packages\\CefSharp\.Common\.)(.*?)(?=\\)', $sharpVersion
   $contents = $contents -Replace '(?<=<Reference Include="CefSharp, Version=)(\d+)', $sharpVersion.Split(".")[0]
   $contents = $contents -Replace '(?<=<Reference Include="CefSharp\.BrowserSubprocess\.Core, Version=)(\d+)', $sharpVersion.Split(".")[0]
   
