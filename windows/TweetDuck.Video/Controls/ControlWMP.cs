@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿#nullable enable
+using System.ComponentModel;
 using System.Windows.Forms;
 using WMPLib;
 

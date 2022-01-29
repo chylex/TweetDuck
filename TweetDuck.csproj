@@ -78,17 +78,17 @@
       <Project>{476b1007-b12c-447f-b855-9886048201d6}</Project>
       <Name>TweetLib.Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="subprocess\TweetDuck.Browser.csproj">
-      <Project>{b10b0017-819e-4f71-870f-8256b36a26aa}</Project>
-      <Name>TweetDuck.Browser</Name>
-    </ProjectReference>
-    <ProjectReference Include="video\TweetDuck.Video.csproj">
-      <Project>{278b2d11-402d-44b6-b6a1-8fa67db65565}</Project>
-      <Name>TweetDuck.Video</Name>
-    </ProjectReference>
     <ProjectReference Include="lib\TweetLib.Communication\TweetLib.Communication.csproj">
       <Project>{72473763-4b9d-4fb6-a923-9364b2680f06}</Project>
       <Name>TweetLib.Communication</Name>
+    </ProjectReference>
+    <ProjectReference Include="windows\TweetDuck.Browser\TweetDuck.Browser.csproj">
+      <Project>{b10b0017-819e-4f71-870f-8256b36a26aa}</Project>
+      <Name>TweetDuck.Browser</Name>
+    </ProjectReference>
+    <ProjectReference Include="windows\TweetDuck.Video\TweetDuck.Video.csproj">
+      <Project>{278b2d11-402d-44b6-b6a1-8fa67db65565}</Project>
+      <Name>TweetDuck.Video</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

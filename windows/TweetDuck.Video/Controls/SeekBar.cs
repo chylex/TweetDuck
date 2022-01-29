@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿#nullable enable
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace TweetDuck.Video.Controls {
