@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28729.10
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetDuck", "TweetDuck.csproj", "{2389A7CD-E0D3-4706-8294-092929A33A2D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetDuck", "windows\TweetDuck\TweetDuck.csproj", "{2389A7CD-E0D3-4706-8294-092929A33A2D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetDuck.Browser", "windows\TweetDuck.Browser\TweetDuck.Browser.csproj", "{B10B0017-819E-4F71-870F-8256B36A26AA}"
 EndProject

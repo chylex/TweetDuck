@@ -8,8 +8,8 @@
 #define MyAppExeName "TweetDuck.exe"
 
 #define MyAppID "8C25A716-7E11-4AAD-9992-8B5D0C78AE06"
-#define MyAppVersion GetFileVersion("..\bin\x86\Release\TweetDuck.exe")
-#define CefVersion GetFileVersion("..\bin\x86\Release\libcef.dll")
+#define MyAppVersion GetFileVersion("..\windows\TweetDuck\bin\x86\Release\TweetDuck.exe")
+#define CefVersion GetFileVersion("..\windows\TweetDuck\bin\x86\Release\libcef.dll")
 
 [Setup]
 AppId={{{#MyAppID}}
@@ -43,12 +43,12 @@ MinVersion=0,6.1
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "..\bin\x86\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x86\Release\TweetDuck.*"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x86\Release\TweetLib.*"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x86\Release\guide\*.*"; DestDir: "{app}\guide"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "..\bin\x86\Release\resources\*.*"; DestDir: "{app}\resources"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "..\bin\x86\Release\plugins\*.*"; DestDir: "{app}\plugins"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\windows\TweetDuck\bin\x86\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\windows\TweetDuck\bin\x86\Release\TweetDuck.*"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\windows\TweetDuck\bin\x86\Release\TweetLib.*"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\windows\TweetDuck\bin\x86\Release\guide\*.*"; DestDir: "{app}\guide"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\windows\TweetDuck\bin\x86\Release\resources\*.*"; DestDir: "{app}\resources"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\windows\TweetDuck\bin\x86\Release\plugins\*.*"; DestDir: "{app}\plugins"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Check: TDIsUninstallable

@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="packages\CefSharp.Common.96.0.180\build\CefSharp.Common.props" Condition="Exists('packages\CefSharp.Common.96.0.180\build\CefSharp.Common.props')" />
-  <Import Project="packages\cef.redist.x86.96.0.18\build\cef.redist.x86.props" Condition="Exists('packages\cef.redist.x86.96.0.18\build\cef.redist.x86.props')" />
-  <Import Project="packages\cef.redist.x64.96.0.18\build\cef.redist.x64.props" Condition="Exists('packages\cef.redist.x64.96.0.18\build\cef.redist.x64.props')" />
-  <Import Project="packages\CefSharp.WinForms.92.0.260\build\CefSharp.WinForms.props" Condition="Exists('packages\CefSharp.WinForms.92.0.260\build\CefSharp.WinForms.props')" />
-  <Import Project="packages\Microsoft.Net.Compilers.3.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('packages\Microsoft.Net.Compilers.3.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\..\packages\CefSharp.Common.96.0.180\build\CefSharp.Common.props" Condition="Exists('..\..\packages\CefSharp.Common.96.0.180\build\CefSharp.Common.props')" />
+  <Import Project="..\..\packages\cef.redist.x86.96.0.18\build\cef.redist.x86.props" Condition="Exists('..\..\packages\cef.redist.x86.96.0.18\build\cef.redist.x86.props')" />
+  <Import Project="..\..\packages\cef.redist.x64.96.0.18\build\cef.redist.x64.props" Condition="Exists('..\..\packages\cef.redist.x64.96.0.18\build\cef.redist.x64.props')" />
+  <Import Project="..\..\packages\CefSharp.WinForms.92.0.260\build\CefSharp.WinForms.props" Condition="Exists('..\..\packages\CefSharp.WinForms.92.0.260\build\CefSharp.WinForms.props')" />
+  <Import Project="..\..\packages\Microsoft.Net.Compilers.3.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\..\packages\Microsoft.Net.Compilers.3.0.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -46,13 +46,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CefSharp, Version=96.0.180.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
-      <HintPath>packages\CefSharp.Common.96.0.180\lib\net452\CefSharp.dll</HintPath>
+      <HintPath>..\..\packages\CefSharp.Common.96.0.180\lib\net452\CefSharp.dll</HintPath>
     </Reference>
     <Reference Include="CefSharp.Core, Version=96.0.180.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
-      <HintPath>packages\CefSharp.Common.96.0.180\lib\net452\CefSharp.Core.dll</HintPath>
+      <HintPath>..\..\packages\CefSharp.Common.96.0.180\lib\net452\CefSharp.Core.dll</HintPath>
     </Reference>
     <Reference Include="CefSharp.WinForms, Version=96.0.180.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
-      <HintPath>packages\CefSharp.WinForms.96.0.180\lib\net462\CefSharp.WinForms.dll</HintPath>
+      <HintPath>..\..\packages\CefSharp.WinForms.96.0.180\lib\net462\CefSharp.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -62,33 +62,33 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="lib\TweetLib.Browser\TweetLib.Browser.csproj">
-      <Project>{eefb1f37-7cad-46bd-8042-66e7b502ab02}</Project>
-      <Name>TweetLib.Browser</Name>
-    </ProjectReference>
-    <ProjectReference Include="lib\TweetLib.Browser.CEF\TweetLib.Browser.CEF.csproj">
-      <Project>{1b7793c6-9002-483e-9bd7-897fe6cd18fb}</Project>
-      <Name>TweetLib.Browser.CEF</Name>
-    </ProjectReference>
-    <ProjectReference Include="lib\TweetLib.Core\TweetLib.Core.csproj">
-      <Project>{93ba3cb4-a812-4949-b07d-8d393fb38937}</Project>
-      <Name>TweetLib.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="lib\TweetLib.Utils\TweetLib.Utils.csproj">
-      <Project>{476b1007-b12c-447f-b855-9886048201d6}</Project>
-      <Name>TweetLib.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="lib\TweetLib.Communication\TweetLib.Communication.csproj">
-      <Project>{72473763-4b9d-4fb6-a923-9364b2680f06}</Project>
-      <Name>TweetLib.Communication</Name>
-    </ProjectReference>
-    <ProjectReference Include="windows\TweetDuck.Browser\TweetDuck.Browser.csproj">
+    <ProjectReference Include="..\TweetDuck.Browser\TweetDuck.Browser.csproj">
       <Project>{b10b0017-819e-4f71-870f-8256b36a26aa}</Project>
       <Name>TweetDuck.Browser</Name>
     </ProjectReference>
-    <ProjectReference Include="windows\TweetDuck.Video\TweetDuck.Video.csproj">
+    <ProjectReference Include="..\TweetDuck.Video\TweetDuck.Video.csproj">
       <Project>{278b2d11-402d-44b6-b6a1-8fa67db65565}</Project>
       <Name>TweetDuck.Video</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\TweetLib.Browser\TweetLib.Browser.csproj">
+      <Project>{eefb1f37-7cad-46bd-8042-66e7b502ab02}</Project>
+      <Name>TweetLib.Browser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\TweetLib.Browser.CEF\TweetLib.Browser.CEF.csproj">
+      <Project>{1b7793c6-9002-483e-9bd7-897fe6cd18fb}</Project>
+      <Name>TweetLib.Browser.CEF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\TweetLib.Core\TweetLib.Core.csproj">
+      <Project>{93ba3cb4-a812-4949-b07d-8d393fb38937}</Project>
+      <Name>TweetLib.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\TweetLib.Utils\TweetLib.Utils.csproj">
+      <Project>{476b1007-b12c-447f-b855-9886048201d6}</Project>
+      <Name>TweetLib.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\TweetLib.Communication\TweetLib.Communication.csproj">
+      <Project>{72473763-4b9d-4fb6-a923-9364b2680f06}</Project>
+      <Name>TweetLib.Communication</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -147,9 +147,11 @@
     <Compile Include="Utils\BrowserUtils.cs" />
     <Compile Include="Utils\NativeMethods.cs" />
     <Compile Include="Utils\WindowsUtils.cs" />
-    <Compile Include="Version.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\Version.cs">
+      <Link>Version.cs</Link>
+    </Compile>
     <Compile Include="Controls\FlatButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -344,162 +346,23 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="Resources\Content\.all.js" />
-    <None Include="Resources\Content\api\bridge.js" />
-    <None Include="Resources\Content\api\jquery.js" />
-    <None Include="Resources\Content\api\patch.js" />
-    <None Include="Resources\Content\api\ready.js" />
-    <None Include="Resources\Content\api\td.js" />
-    <None Include="Resources\Content\api\utils.js" />
-    <None Include="Resources\Content\bootstrap.js" />
-    <None Include="Resources\Content\error\error.html" />
-    <None Include="Resources\Content\images\logo.png" />
-    <None Include="Resources\Content\images\spinner.apng" />
-    <None Include="Resources\Content\introduction\introduction.css" />
-    <None Include="Resources\Content\introduction\introduction.js" />
-    <None Include="Resources\Content\load.js" />
-    <None Include="Resources\Content\login\hide_cookie_bar.js" />
-    <None Include="Resources\Content\login\login.css" />
-    <None Include="Resources\Content\login\redirect_plain_twitter_com.js" />
-    <None Include="Resources\Content\login\setup_document_attributes.js" />
-    <None Include="Resources\Content\notification\add_skip_button.js" />
-    <None Include="Resources\Content\notification\disable_clipboard_formatting.js" />
-    <None Include="Resources\Content\notification\example\example.html" />
-    <None Include="Resources\Content\notification\expand_links_or_show_tooltip.js" />
-    <None Include="Resources\Content\notification\handle_links.js" />
-    <None Include="Resources\Content\notification\handle_show_this_thread_link.js" />
-    <None Include="Resources\Content\notification\notification.css" />
-    <None Include="Resources\Content\notification\recalculate_tweet_sent_time.js" />
-    <None Include="Resources\Content\notification\reset_scroll_position_on_load.js" />
-    <None Include="Resources\Content\notification\screenshot\screenshot.js" />
-    <None Include="Resources\Content\notification\scroll_smoothly.js" />
-    <None Include="Resources\Content\notification\setup_body_hover_class.js" />
-    <None Include="Resources\Content\plugins\base.js" />
-    <None Include="Resources\Content\plugins\notification\plugins.js" />
-    <None Include="Resources\Content\plugins\setup.js" />
-    <None Include="Resources\Content\plugins\tweetdeck\plugins.js" />
-    <None Include="Resources\Content\tweetdeck\add_tweetduck_to_settings_menu.js" />
-    <None Include="Resources\Content\tweetdeck\bypass_t.co_links.js" />
-    <None Include="Resources\Content\tweetdeck\clear_search_input.js" />
-    <None Include="Resources\Content\tweetdeck\configure_first_day_of_week.js" />
-    <None Include="Resources\Content\tweetdeck\configure_language_for_translations.js" />
-    <None Include="Resources\Content\tweetdeck\disable_clipboard_formatting.js" />
-    <None Include="Resources\Content\tweetdeck\disable_td_metrics.js" />
-    <None Include="Resources\Content\tweetdeck\drag_links_onto_columns.js" />
-    <None Include="Resources\Content\tweetdeck\expand_links_or_show_tooltip.js" />
-    <None Include="Resources\Content\tweetdeck\fix_dm_input_box_focus.js" />
-    <None Include="Resources\Content\tweetdeck\fix_horizontal_scrolling_of_column_container.js" />
-    <None Include="Resources\Content\tweetdeck\fix_marking_dm_as_read_when_replying.js" />
-    <None Include="Resources\Content\tweetdeck\fix_media_preview_urls.js" />
-    <None Include="Resources\Content\tweetdeck\fix_missing_bing_translator_languages.js" />
-    <None Include="Resources\Content\tweetdeck\fix_os_name.js" />
-    <None Include="Resources\Content\tweetdeck\fix_scheduled_tweets_not_appearing.js" />
-    <None Include="Resources\Content\tweetdeck\fix_youtube_previews.js" />
-    <None Include="Resources\Content\tweetdeck\focus_composer_after_alt_tab.js" />
-    <None Include="Resources\Content\tweetdeck\focus_composer_after_image_upload.js" />
-    <None Include="Resources\Content\tweetdeck\focus_composer_after_switching_account.js" />
-    <None Include="Resources\Content\tweetdeck\globals\apply_rot13.js" />
-    <None Include="Resources\Content\tweetdeck\globals\get_class_style_property.js" />
-    <None Include="Resources\Content\tweetdeck\globals\get_column_name.js" />
-    <None Include="Resources\Content\tweetdeck\globals\get_hovered_column.js" />
-    <None Include="Resources\Content\tweetdeck\globals\get_hovered_tweet.js" />
-    <None Include="Resources\Content\tweetdeck\globals\inject_mustache.js" />
-    <None Include="Resources\Content\tweetdeck\globals\prioritize_newest_event.js" />
-    <None Include="Resources\Content\tweetdeck\globals\reload_browser.js" />
-    <None Include="Resources\Content\tweetdeck\globals\reload_columns.js" />
-    <None Include="Resources\Content\tweetdeck\globals\retrieve_tweet.js" />
-    <None Include="Resources\Content\tweetdeck\globals\show_tweet_detail.js" />
-    <None Include="Resources\Content\tweetdeck\globals\user_nft_status.js" />
-    <None Include="Resources\Content\tweetdeck\handle_extra_mouse_buttons.js" />
-    <None Include="Resources\Content\tweetdeck\hook_theme_settings.js" />
-    <None Include="Resources\Content\tweetdeck\inject_css.js" />
-    <None Include="Resources\Content\tweetdeck\keep_like_follow_dialogs_open.js" />
-    <None Include="Resources\Content\tweetdeck\limit_loaded_dm_count.js" />
-    <None Include="Resources\Content\tweetdeck\make_retweets_lowercase.js" />
-    <None Include="Resources\Content\tweetdeck\middle_click_tweet_icon_actions.js" />
-    <None Include="Resources\Content\tweetdeck\move_accounts_above_hashtags_in_search.js" />
-    <None Include="Resources\Content\tweetdeck\mute_accounts_with_nft_avatars.js" />
-    <None Include="Resources\Content\tweetdeck\offline_notification.js" />
-    <None Include="Resources\Content\tweetdeck\open_search_externally.js" />
-    <None Include="Resources\Content\tweetdeck\open_search_in_first_column.js" />
-    <None Include="Resources\Content\tweetdeck\paste_images_from_clipboard.js" />
-    <None Include="Resources\Content\tweetdeck\perform_search.js" />
-    <None Include="Resources\Content\tweetdeck\pin_composer_icon.js" />
-    <None Include="Resources\Content\tweetdeck\ready_plugins.js" />
-    <None Include="Resources\Content\tweetdeck\register_composer_active_event.js" />
-    <None Include="Resources\Content\tweetdeck\register_global_functions.js" />
-    <None Include="Resources\Content\tweetdeck\register_global_functions_jquery.js" />
-    <None Include="Resources\Content\tweetdeck\restore_cleared_column.js" />
-    <None Include="Resources\Content\tweetdeck\screenshot_tweet.js" />
-    <None Include="Resources\Content\tweetdeck\setup_column_type_attributes.js" />
-    <None Include="Resources\Content\tweetdeck\setup_desktop_notifications.js" />
-    <None Include="Resources\Content\tweetdeck\setup_link_context_menu.js" />
-    <None Include="Resources\Content\tweetdeck\setup_sound_notifications.js" />
-    <None Include="Resources\Content\tweetdeck\setup_tweet_context_menu.js" />
-    <None Include="Resources\Content\tweetdeck\setup_tweetduck_account_bamboozle.js" />
-    <None Include="Resources\Content\tweetdeck\setup_video_player.js" />
-    <None Include="Resources\Content\tweetdeck\skip_pre_login_page.js" />
-    <None Include="Resources\Content\tweetdeck\tweetdeck.css" />
-    <None Include="Resources\Content\update\update.css" />
-    <None Include="Resources\Content\update\update.js" />
-    <None Include="Resources\Guide\img\app-menu.png" />
-    <None Include="Resources\Guide\img\column-clear-header.png" />
-    <None Include="Resources\Guide\img\column-clear-preferences.png" />
-    <None Include="Resources\Guide\img\column-preferences.png" />
-    <None Include="Resources\Guide\img\icon.ico" />
-    <None Include="Resources\Guide\img\new-tweet-emoji.png" />
-    <None Include="Resources\Guide\img\new-tweet-pin.png" />
-    <None Include="Resources\Guide\img\new-tweet-template-advanced.png" />
-    <None Include="Resources\Guide\img\new-tweet-template-basic.png" />
-    <None Include="Resources\Guide\img\options-manage-export.png" />
-    <None Include="Resources\Guide\img\options-manage-reset.png" />
-    <None Include="Resources\Guide\img\options-manage.png" />
-    <None Include="Resources\Guide\img\options-notifications-location.png" />
-    <None Include="Resources\Guide\img\options-notifications-size.png" />
-    <None Include="Resources\Guide\img\options-sounds.png" />
-    <None Include="Resources\Guide\img\settings-dropdown.png" />
-    <None Include="Resources\Guide\img\settings-editdesign.png" />
-    <None Include="Resources\Guide\index.html" />
-    <None Include="Resources\Guide\script.js" />
-    <None Include="Resources\Guide\style.css" />
     <None Include="Resources\Images\icon-muted.ico" />
     <None Include="Resources\Images\icon-small.ico" />
     <None Include="Resources\Images\icon-tray-muted.ico" />
     <None Include="Resources\Images\icon-tray-new.ico" />
     <None Include="Resources\Images\icon-tray.ico" />
     <None Include="Resources\Images\icon.ico" />
-    <None Include="Resources\Plugins\.debug\.meta" />
-    <None Include="Resources\Plugins\.debug\browser.js" />
-    <None Include="Resources\Plugins\.debug\notification.js" />
-    <None Include="Resources\Plugins\clear-columns\.meta" />
-    <None Include="Resources\Plugins\clear-columns\browser.js" />
-    <None Include="Resources\Plugins\edit-design\.meta" />
-    <None Include="Resources\Plugins\edit-design\browser.js" />
-    <None Include="Resources\Plugins\edit-design\modal.html" />
-    <None Include="Resources\Plugins\edit-design\theme.black.css" />
-    <None Include="Resources\Plugins\emoji-keyboard\.meta" />
-    <None Include="Resources\Plugins\emoji-keyboard\browser.js" />
-    <None Include="Resources\Plugins\emoji-keyboard\emoji-instructions.txt" />
-    <None Include="Resources\Plugins\emoji-keyboard\emoji-ordering.txt" />
-    <None Include="Resources\Plugins\reply-account\.meta" />
-    <None Include="Resources\Plugins\reply-account\browser.js" />
-    <None Include="Resources\Plugins\reply-account\configuration.default.js" />
-    <None Include="Resources\Plugins\templates\.meta" />
-    <None Include="Resources\Plugins\templates\browser.js" />
-    <None Include="Resources\Plugins\templates\modal.html" />
-    <None Include="Resources\Plugins\timeline-polls\.meta" />
-    <None Include="Resources\Plugins\timeline-polls\browser.js" />
     <None Include="Resources\PostBuild.ps1" />
     <None Include="Resources\PostCefUpdate.ps1" />
   </ItemGroup>
   <ItemGroup>
-    <ResourcesContent Include="$(ProjectDir)Resources\Content\**\*.*" Visible="false" />
-    <ResourcesGuide Include="$(ProjectDir)Resources\Guide\**\*.*" Visible="false" />
-    <ResourcesPlugins Include="$(ProjectDir)Resources\Plugins\**\*.*" Visible="false" />
-    <ResourcesPlugins Remove="$(ProjectDir)Resources\Plugins\.debug\**\*.*" />
-    <ResourcesPlugins Remove="$(ProjectDir)Resources\Plugins\emoji-keyboard\emoji-instructions.txt" />
-    <ResourcesPluginsDebug Include="$(ProjectDir)Resources\Plugins\.debug\**\*.*" Visible="false" />
-    <Redist Include="$(ProjectDir)bld\Redist\*.*" Visible="false" />
+    <ResourcesContent Include="$(SolutionDir)resources\Content\**\*.*" Visible="false" />
+    <ResourcesGuide Include="$(SolutionDir)resources\Guide\**\*.*" Visible="false" />
+    <ResourcesPlugins Include="$(SolutionDir)resources\Plugins\**\*.*" Visible="false" />
+    <ResourcesPlugins Remove="$(SolutionDir)resources\Plugins\.debug\**\*.*" />
+    <ResourcesPlugins Remove="$(SolutionDir)resources\Plugins\emoji-keyboard\emoji-instructions.txt" />
+    <ResourcesPluginsDebug Include="$(SolutionDir)resources\Plugins\.debug\**\*.*" Visible="false" />
+    <Redist Include="$(SolutionDir)bld\Redist\*.*" Visible="false" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
@@ -535,18 +398,18 @@
     <Delete Files="@(XmlFiles)" />
     <Delete Files="@(TxtFiles)" />
     <Copy SourceFiles="@(Redist)" DestinationFolder="$(TargetDir)" />
-    <Copy SourceFiles="$(ProjectDir)bld\Resources\LICENSES.txt" DestinationFolder="$(TargetDir)" />
-    <Exec Command="start &quot;&quot; /B &quot;ISCC.exe&quot; /Q &quot;$(ProjectDir)bld\gen_upd.iss&quot;" WorkingDirectory="$(ProjectDir)bld\" IgnoreExitCode="true" />
+    <Copy SourceFiles="$(SolutionDir)bld\Resources\LICENSES.txt" DestinationFolder="$(TargetDir)" />
+    <Exec Command="start &quot;&quot; /B &quot;ISCC.exe&quot; /Q &quot;$(SolutionDir)bld\gen_upd.iss&quot;" WorkingDirectory="$(SolutionDir)bld\" IgnoreExitCode="true" />
   </Target>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\Microsoft.Net.Compilers.3.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Net.Compilers.3.0.0\build\Microsoft.Net.Compilers.props'))" />
-    <Error Condition="!Exists('packages\cef.redist.x64.96.0.18\build\cef.redist.x64.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\cef.redist.x64.96.0.18\build\cef.redist.x64.props'))" />
-    <Error Condition="!Exists('packages\cef.redist.x86.96.0.18\build\cef.redist.x86.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\cef.redist.x86.96.0.18\build\cef.redist.x86.props'))" />
-    <Error Condition="!Exists('packages\CefSharp.Common.96.0.180\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.Common.96.0.180\build\CefSharp.Common.props'))" />
-    <Error Condition="!Exists('packages\CefSharp.Common.96.0.180\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\CefSharp.Common.96.0.180\build\CefSharp.Common.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Microsoft.Net.Compilers.3.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Net.Compilers.3.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\..\packages\cef.redist.x64.96.0.18\build\cef.redist.x64.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\cef.redist.x64.96.0.18\build\cef.redist.x64.props'))" />
+    <Error Condition="!Exists('..\..\packages\cef.redist.x86.96.0.18\build\cef.redist.x86.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\cef.redist.x86.96.0.18\build\cef.redist.x86.props'))" />
+    <Error Condition="!Exists('..\..\packages\CefSharp.Common.96.0.180\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\CefSharp.Common.96.0.180\build\CefSharp.Common.props'))" />
+    <Error Condition="!Exists('..\..\packages\CefSharp.Common.96.0.180\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\CefSharp.Common.96.0.180\build\CefSharp.Common.targets'))" />
   </Target>
-  <Import Project="packages\CefSharp.Common.96.0.180\build\CefSharp.Common.targets" Condition="Exists('packages\CefSharp.Common.96.0.180\build\CefSharp.Common.targets')" />
+  <Import Project="..\..\packages\CefSharp.Common.96.0.180\build\CefSharp.Common.targets" Condition="Exists('..\..\packages\CefSharp.Common.96.0.180\build\CefSharp.Common.targets')" />
 </Project>

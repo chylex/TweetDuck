@@ -7,7 +7,7 @@
 #define MyAppShortURL "https://td.chylex.com"
 #define MyAppExeName "TweetDuck.exe"
 
-#define MyAppVersion GetFileVersion("..\bin\x86\Release\TweetDuck.exe")
+#define MyAppVersion GetFileVersion("..\windows\TweetDuck\bin\x86\Release\TweetDuck.exe")
 
 [Setup]
 AppId={{8C25A716-7E11-4AAD-9992-8B5D0C78AE06}
@@ -40,8 +40,8 @@ MinVersion=0,6.1
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "..\bin\x86\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\x86\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\windows\TweetDuck\bin\x86\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\windows\TweetDuck\bin\x86\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall shellexec skipifsilent

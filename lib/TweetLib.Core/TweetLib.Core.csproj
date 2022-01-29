@@ -17,4 +17,16 @@
     <ProjectReference Include="..\TweetLib.Utils\TweetLib.Utils.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="$(SolutionDir)resources\Content\**\*.*">
+      <Link>Resources\Content\%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </Content>
+    <Content Include="$(SolutionDir)resources\Guide\**\*.*">
+      <Link>Resources\Guide\%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </Content>
+    <Content Include="$(SolutionDir)resources\Plugins\**\*.*">
+      <Link>Resources\Plugins\%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </Content>
+  </ItemGroup>
+  
 </Project>
