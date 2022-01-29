@@ -4,9 +4,9 @@ VisualStudioVersion = 16.0.28729.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetDuck", "TweetDuck.csproj", "{2389A7CD-E0D3-4706-8294-092929A33A2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetDuck.Browser", "subprocess\TweetDuck.Browser.csproj", "{B10B0017-819E-4F71-870F-8256B36A26AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetDuck.Browser", "windows\TweetDuck.Browser\TweetDuck.Browser.csproj", "{B10B0017-819E-4F71-870F-8256B36A26AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetDuck.Video", "video\TweetDuck.Video.csproj", "{278B2D11-402D-44B6-B6A1-8FA67DB65565}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetDuck.Video", "windows\TweetDuck.Video\TweetDuck.Video.csproj", "{278B2D11-402D-44B6-B6A1-8FA67DB65565}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweetLib.Communication", "lib\TweetLib.Communication\TweetLib.Communication.csproj", "{72473763-4B9D-4FB6-A923-9364B2680F06}"
 EndProject
