@@ -354,6 +354,9 @@
     <None Include="Resources\Images\icon.ico" />
     <None Include="Resources\PostBuild.ps1" />
     <None Include="Resources\PostCefUpdate.ps1" />
+    <None Include="$(SolutionDir)README.md">
+      <Link>Resources\README.md</Link>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourcesContent Include="$(SolutionDir)resources\Content\**\*.*" Visible="false" />
