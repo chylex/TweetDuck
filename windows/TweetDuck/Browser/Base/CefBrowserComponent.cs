@@ -73,19 +73,20 @@ namespace TweetDuck.Browser.Base {
 
 		public override void DownloadFile(string url, string path, Action onSuccess, Action<Exception> onError) {
 			Cef.UIThreadTaskFactory.StartNew(() => {
+				var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.Read);
+
 				try {
 					using IFrame frame = browser.GetMainFrame();
-					var request = frame.CreateRequest(false);
 
+					var request = frame.CreateRequest(false);
 					request.Method = "GET";
 					request.Url = url;
 					request.Flags = UrlRequestFlags.AllowStoredCredentials;
 					request.SetReferrer(Url, ReferrerPolicy.Default);
 
-					var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.Read);
-					var client = new CefDownloadRequestClient(fileStream, onSuccess, onError);
-					frame.CreateUrlRequest(request, client);
+					frame.CreateUrlRequest(request, new CefDownloadRequestClient(fileStream, onSuccess, onError));
 				} catch (Exception e) {
+					fileStream.Dispose();
 					onError?.Invoke(e);
 				}
 			});
