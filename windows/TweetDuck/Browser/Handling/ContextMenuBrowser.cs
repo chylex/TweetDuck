@@ -1,6 +1,5 @@
 ﻿using System.Windows.Forms;
 using CefSharp;
-using TweetDuck.Browser.Base;
 using TweetDuck.Controls;
 using TweetLib.Browser.Contexts;
 using TweetLib.Core.Features.TweetDeck;
@@ -31,7 +30,7 @@ namespace TweetDuck.Browser.Handling {
 		}
 
 		protected override Context CreateContext(IContextMenuParams parameters) {
-			return CefContextMenuModel.CreateContext(parameters, extraContext, Config.TwitterImageQuality);
+			return CreateContext(parameters, extraContext, Config.TwitterImageQuality);
 		}
 
 		public override void OnBeforeContextMenu(IWebBrowser browserControl, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model) {

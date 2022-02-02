@@ -1,5 +1,3 @@
-using System;
-using System.IO;
 using CefSharp;
 using CefSharp.WinForms;
 using TweetDuck.Browser.Handling;
@@ -11,7 +9,7 @@ using TweetLib.Browser.CEF.Data;
 using IContextMenuHandler = TweetLib.Browser.Interfaces.IContextMenuHandler;
 
 namespace TweetDuck.Browser.Base {
-	sealed class CefBrowserComponent : BrowserComponent<IFrame> {
+	sealed class CefBrowserComponent : BrowserComponent<IFrame, IRequest> {
 		public delegate ContextMenuBase CreateContextMenu(IContextMenuHandler handler);
 
 		private static readonly CreateContextMenu DefaultContextMenuFactory = handler => new ContextMenuBase(handler);
@@ -25,7 +23,7 @@ namespace TweetDuck.Browser.Base {
 
 		private CreateContextMenu createContextMenu;
 
-		public CefBrowserComponent(ChromiumWebBrowser browser, CreateContextMenu createContextMenu = null, bool autoReload = true) : base(new CefBrowserAdapter(browser), CefFrameAdapter.Instance) {
+		public CefBrowserComponent(ChromiumWebBrowser browser, CreateContextMenu createContextMenu = null, bool autoReload = true) : base(new CefBrowserAdapter(browser), CefAdapter.Instance, CefFrameAdapter.Instance, CefRequestAdapter.Instance) {
 			this.browser = browser;
 			this.browser.LoadingStateChanged += OnLoadingStateChanged;
 			this.browser.LoadError += OnLoadError;
@@ -69,27 +67,6 @@ namespace TweetDuck.Browser.Base {
 
 		private void OnFrameLoadEnd(object sender, FrameLoadEndEventArgs e) {
 			base.OnFrameLoadEnd(e.Url, e.Frame);
-		}
-
-		public override void DownloadFile(string url, string path, Action onSuccess, Action<Exception> onError) {
-			Cef.UIThreadTaskFactory.StartNew(() => {
-				var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.Read);
-
-				try {
-					using IFrame frame = browser.GetMainFrame();
-
-					var request = frame.CreateRequest(false);
-					request.Method = "GET";
-					request.Url = url;
-					request.Flags = UrlRequestFlags.AllowStoredCredentials;
-					request.SetReferrer(Url, ReferrerPolicy.Default);
-
-					frame.CreateUrlRequest(request, new CefDownloadRequestClient(fileStream, onSuccess, onError));
-				} catch (Exception e) {
-					fileStream.Dispose();
-					onError?.Invoke(e);
-				}
-			});
 		}
 	}
 }

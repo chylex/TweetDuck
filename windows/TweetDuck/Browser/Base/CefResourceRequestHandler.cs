@@ -21,8 +21,7 @@ namespace TweetDuck.Browser.Base {
 		}
 
 		protected override IResponseFilter GetResourceResponseFilter(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IResponse response) {
-			var filter = logic.GetResourceResponseFilter(request, response);
-			return filter == null ? null : new CefResponseFilter(filter);
+			return CefResponseFilter.Create(logic.GetResourceResponseFilter(request, response));
 		}
 
 		protected override void OnResourceLoadComplete(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, IResponse response, UrlRequestStatus status, long receivedContentLength) {

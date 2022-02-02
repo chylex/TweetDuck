@@ -20,6 +20,10 @@ namespace TweetDuck.Browser.Base {
 			request.Url = url;
 		}
 
+		public void SetMethod(IRequest request, string method) {
+			request.Method = method;
+		}
+
 		public bool IsTransitionForwardBack(IRequest request) {
 			return request.TransitionType.HasFlag(TransitionType.ForwardBack);
 		}
@@ -41,6 +45,14 @@ namespace TweetDuck.Browser.Base {
 
 		public void SetHeader(IRequest request, string header, string value) {
 			request.SetHeaderByName(header, value, overwrite: true);
+		}
+
+		public void SetReferrer(IRequest request, string referrer) {
+			request.SetReferrer(referrer, ReferrerPolicy.Default);
+		}
+
+		public void SetAllowStoredCredentials(IRequest request) {
+			request.Flags |= UrlRequestFlags.AllowStoredCredentials;
 		}
 	}
 }

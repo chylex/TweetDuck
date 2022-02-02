@@ -5,9 +5,13 @@ using TweetLib.Browser.CEF.Logic;
 
 namespace TweetDuck.Browser.Base {
 	sealed class CefResponseFilter : IResponseFilter {
+		public static CefResponseFilter Create(ResponseFilterLogic logic) {
+			return logic == null ? null : new CefResponseFilter(logic);
+		}
+
 		private readonly ResponseFilterLogic logic;
 
-		public CefResponseFilter(ResponseFilterLogic logic) {
+		private CefResponseFilter(ResponseFilterLogic logic) {
 			this.logic = logic;
 		}
 

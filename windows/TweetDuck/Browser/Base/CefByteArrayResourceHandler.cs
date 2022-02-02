@@ -7,7 +7,7 @@ using TweetLib.Browser.CEF.Logic;
 
 namespace TweetDuck.Browser.Base {
 	sealed class CefByteArrayResourceHandler : IResourceHandler {
-		private static readonly ByteArrayResourceHandlerLogic<IResponse>.WriteToOut<Stream> WriteToOut = delegate (Stream dataOut, byte[] dataIn, int position, int length) {
+		private static readonly ByteArrayResourceHandlerLogic.WriteToOut<Stream> WriteToOut = delegate (Stream dataOut, byte[] dataIn, int position, int length) {
 			dataOut.Write(dataIn, position, length);
 		};
 

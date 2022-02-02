@@ -4,10 +4,12 @@ using TweetLib.Browser.CEF.Data;
 using TweetLib.Browser.CEF.Interfaces;
 
 namespace TweetLib.Browser.CEF.Logic {
-	[SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
-	public sealed class ByteArrayResourceHandlerLogic<TResponse> {
+	public abstract class ByteArrayResourceHandlerLogic {
 		public delegate void WriteToOut<T>(T dataOut, byte[] dataIn, int position, int length);
+	}
 
+	[SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+	public sealed class ByteArrayResourceHandlerLogic<TResponse> : ByteArrayResourceHandlerLogic {
 		private readonly ByteArrayResource resource;
 		private readonly IResponseAdapter<TResponse> responseAdapter;
 

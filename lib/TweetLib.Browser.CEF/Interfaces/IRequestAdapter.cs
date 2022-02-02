@@ -8,6 +8,8 @@ namespace TweetLib.Browser.CEF.Interfaces {
 
 		void SetUrl(T request, string url);
 
+		void SetMethod(T request, string method);
+
 		bool IsTransitionForwardBack(T request);
 
 		bool IsCspReport(T request);
@@ -15,5 +17,9 @@ namespace TweetLib.Browser.CEF.Interfaces {
 		ResourceType GetResourceType(T request);
 
 		void SetHeader(T request, string header, string value);
+
+		void SetReferrer(T request, string referrer);
+
+		void SetAllowStoredCredentials(T request);
 	}
 }

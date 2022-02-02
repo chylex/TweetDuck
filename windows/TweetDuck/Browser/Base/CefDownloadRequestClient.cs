@@ -1,6 +1,6 @@
-using System;
 using System.IO;
 using CefSharp;
+using TweetLib.Browser.CEF.Data;
 using TweetLib.Browser.CEF.Logic;
 using static TweetLib.Browser.CEF.Logic.DownloadRequestClientLogic.RequestStatus;
 
@@ -8,8 +8,8 @@ namespace TweetDuck.Browser.Base {
 	sealed class CefDownloadRequestClient : UrlRequestClient {
 		private readonly DownloadRequestClientLogic logic;
 
-		public CefDownloadRequestClient(FileStream fileStream, Action onSuccess, Action<Exception> onError) {
-			this.logic = new DownloadRequestClientLogic(fileStream, onSuccess, onError);
+		public CefDownloadRequestClient(DownloadCallbacks callbacks) {
+			this.logic = new DownloadRequestClientLogic(callbacks);
 		}
 
 		protected override bool GetAuthCredentials(bool isProxy, string host, int port, string realm, string scheme, IAuthCallback callback) {

@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using TweetLib.Browser.CEF.Data;
 
 namespace TweetLib.Browser.CEF.Logic {
 	public sealed class DownloadRequestClientLogic {
@@ -10,24 +11,18 @@ namespace TweetLib.Browser.CEF.Logic {
 			Failed
 		}
 
-		private readonly FileStream fileStream;
-		private readonly Action? onSuccess;
-		private readonly Action<Exception>? onError;
-
+		private readonly DownloadCallbacks callbacks;
 		private bool hasFailed;
 
-		public DownloadRequestClientLogic(FileStream fileStream, Action? onSuccess, Action<Exception>? onError) {
-			this.fileStream = fileStream;
-			this.onSuccess = onSuccess;
-			this.onError = onError;
+		public DownloadRequestClientLogic(DownloadCallbacks callbacks) {
+			this.callbacks = callbacks;
 		}
 
 		public bool GetAuthCredentials(IDisposable callback) {
 			callback.Dispose();
 
 			hasFailed = true;
-			fileStream.Dispose();
-			onError?.Invoke(new Exception("This URL requires authentication."));
+			callbacks.OnError(new Exception("This URL requires authentication."));
 
 			return false;
 		}
@@ -38,10 +33,9 @@ namespace TweetLib.Browser.CEF.Logic {
 			}
 
 			try {
-				data.CopyTo(fileStream);
+				callbacks.OnData(data);
 			} catch (Exception e) {
-				fileStream.Dispose();
-				onError?.Invoke(e);
+				callbacks.OnError(e);
 				hasFailed = true;
 			}
 		}
@@ -52,20 +46,17 @@ namespace TweetLib.Browser.CEF.Logic {
 				return;
 			}
 
-			bool isEmpty = fileStream.Position == 0;
-			fileStream.Dispose();
-
 			switch (status) {
-				case RequestStatus.Failed:
-					onError?.Invoke(new Exception("Unknown error."));
+				case RequestStatus.Success when callbacks.HasData:
+					callbacks.OnSuccess();
 					break;
 
-				case RequestStatus.Success when isEmpty:
-					onError?.Invoke(new Exception("File is empty."));
-					return;
-
 				case RequestStatus.Success:
-					onSuccess?.Invoke();
+					callbacks.OnError(new Exception("File is empty."));
+					break;
+
+				default:
+					callbacks.OnError(new Exception("Unknown error."));
 					break;
 			}
 		}
