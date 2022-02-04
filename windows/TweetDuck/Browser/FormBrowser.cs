@@ -345,7 +345,7 @@ namespace TweetDuck.Browser {
 
 		public void ReloadToTweetDeck() {
 			#if DEBUG
-			Resources.ResourceHotSwap.Run();
+			ResourceHotSwap.Run();
 			resourceCache.ClearCache();
 			#else
 			if (ModifierKeys.HasFlag(Keys.Shift)) {
