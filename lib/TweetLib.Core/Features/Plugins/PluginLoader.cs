@@ -48,7 +48,7 @@ namespace TweetLib.Core.Features.Plugins {
 			string metaFile = Path.Combine(pathRoot, ".meta");
 
 			if (!File.Exists(metaFile)) {
-				throw new ArgumentException("Plugin is missing a .meta file");
+				throw new ArgumentException("Plugin is missing a .meta file.");
 			}
 
 			string? currentTag = null;

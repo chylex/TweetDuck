@@ -66,7 +66,7 @@ namespace TweetLib.Browser.CEF.Logic {
 				}
 			}
 			else {
-				throw new InvalidOperationException("This resource filter cannot be reused.");
+				throw new InvalidOperationException("This resource filter cannot be reused!");
 			}
 		}
 	}

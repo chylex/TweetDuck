@@ -91,20 +91,20 @@ namespace TweetLib.Core {
 
 		// Setup
 
-		private static AppBuilder Builder => AppBuilder.Instance ?? throw new InvalidOperationException("App is initializing too early");
+		private static AppBuilder Builder => AppBuilder.Instance ?? throw new InvalidOperationException("App is initializing too early!");
 
 		private static bool isInitialized = false;
 
 		internal static void Initialize() {
 			if (isInitialized) {
-				throw new InvalidOperationException("App is already initialized");
+				throw new InvalidOperationException("App is already initialized!");
 			}
 
 			isInitialized = true;
 		}
 
 		private static T Validate<T>(T? obj, string name) where T : class {
-			return obj ?? throw new InvalidOperationException("Missing property " + name + " on the provided App");
+			return obj ?? throw new InvalidOperationException("Missing property " + name + " on the provided App.");
 		}
 	}
 

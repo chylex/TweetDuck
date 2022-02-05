@@ -11,7 +11,7 @@ namespace TweetLib.Utils.IO {
 
 		private static string ValidateIdentifier(string identifier) {
 			if (identifier.IndexOf(KeySeparator) != -1) {
-				throw new ArgumentException("Identifier must not contain the '|' character");
+				throw new ArgumentException("Identifier must not contain the '|' character!");
 			}
 
 			return identifier;

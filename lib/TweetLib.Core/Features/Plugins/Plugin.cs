@@ -132,19 +132,19 @@ namespace TweetLib.Core.Features.Plugins {
 				Plugin plugin = new Plugin(group, identifier, pathRoot, pathData, this);
 
 				if (plugin.Name.Length == 0) {
-					throw new InvalidOperationException("Plugin is missing a name in the .meta file");
+					throw new InvalidOperationException("Plugin is missing a name in the .meta file.");
 				}
 
 				if (!PluginEnvironments.All.Any(plugin.HasEnvironment)) {
-					throw new InvalidOperationException("Plugin has no script files");
+					throw new InvalidOperationException("Plugin has no script files.");
 				}
 
 				if (plugin.Group == PluginGroup.Official) {
 					if (plugin.RequiredVersion != AppVersion) {
-						throw new InvalidOperationException("Plugin is not supported in this version of TweetDuck, this may indicate a failed update or an unsupported plugin that was not removed automatically");
+						throw new InvalidOperationException("Plugin is not supported in this version of TweetDuck, this may indicate a failed update or an unsupported plugin that was not removed automatically.");
 					}
 					else if (!string.IsNullOrEmpty(plugin.Version)) {
-						throw new InvalidOperationException("Official plugins cannot have a version identifier");
+						throw new InvalidOperationException("Official plugins cannot have a version identifier.");
 					}
 				}
 
