@@ -8,8 +8,8 @@ namespace TweetDuck.Video {
 	static class Program {
 		// referenced in VideoPlayer
 		// set by task manager -- public const int "CodeProcessKilled" = 1;
-		public const int CodeInvalidArgs = 2;
-		public const int CodeLaunchFail = 3;
+		private const int CodeInvalidArgs = 2;
+		private const int CodeLaunchFail = 3;
 		public const int CodeMediaError = 4;
 		public const int CodeOwnerGone = 5;
 		public const int CodeUserRequested = 6;

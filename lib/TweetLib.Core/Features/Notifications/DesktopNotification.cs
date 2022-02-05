@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TweetLib.Utils.Data;
 
@@ -46,7 +47,7 @@ namespace TweetLib.Core.Features.Notifications {
 			return 2000 + Math.Max(1000, value * characters);
 		}
 
-		public string GenerateHtml(string bodyClasses, string? headLayout, string? customStyles, IEnumerable<InjectedString> injections, string[] scripts) { // TODO
+		internal string GenerateHtml(string bodyClasses, string? headLayout, string? customStyles, IEnumerable<InjectedString> injections, string[] scripts) { // TODO
 			headLayout ??= DefaultHeadLayout;
 			customStyles ??= string.Empty;
 
@@ -71,12 +72,7 @@ namespace TweetLib.Core.Features.Notifications {
 			build.Append("<tweetduck-script-placeholder></body></html>");
 
 			string result = build.ToString();
-
-			foreach (var injection in injections) {
-				result = injection.InjectInto(result);
-			}
-
-			return result.Replace("<tweetduck-script-placeholder>", GenerateScripts(scripts));
+			return injections.Aggregate(result, static (current, injection) => injection.InjectInto(current)).Replace("<tweetduck-script-placeholder>", GenerateScripts(scripts));
 		}
 
 		private string GenerateScripts(string[] scripts) {

@@ -7,7 +7,7 @@ namespace TweetLib.Core.Features.Plugins.Config {
 	public sealed class PluginConfig : IConfigObject<PluginConfig> {
 		internal IEnumerable<string> DisabledPlugins => disabled;
 
-		public event EventHandler<PluginChangedStateEventArgs>? PluginChangedState;
+		internal event EventHandler<PluginChangedStateEventArgs>? PluginChangedState;
 
 		private readonly HashSet<string> defaultDisabled;
 		private readonly HashSet<string> disabled;

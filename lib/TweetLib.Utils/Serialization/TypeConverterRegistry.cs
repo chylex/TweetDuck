@@ -9,7 +9,7 @@ namespace TweetLib.Utils.Serialization {
 			converters[type] = converter;
 		}
 
-		public ITypeConverter? TryGet(Type type) {
+		internal ITypeConverter? TryGet(Type type) {
 			return converters.TryGetValue(type, out var converter) ? converter : null;
 		}
 	}

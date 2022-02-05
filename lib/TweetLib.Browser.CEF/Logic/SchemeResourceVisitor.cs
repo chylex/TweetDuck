@@ -6,11 +6,11 @@ using TweetLib.Browser.Interfaces;
 using TweetLib.Browser.Request;
 
 namespace TweetLib.Browser.CEF.Logic {
-	internal abstract class SchemeResourceVisitor {
+	abstract class SchemeResourceVisitor {
 		protected static readonly SchemeResource.Status FileIsEmpty = new (HttpStatusCode.NoContent, "File is empty.");
 	}
 
-	internal sealed class SchemeResourceVisitor<TResourceHandler> : SchemeResourceVisitor, ISchemeResourceVisitor<TResourceHandler> {
+	sealed class SchemeResourceVisitor<TResourceHandler> : SchemeResourceVisitor, ISchemeResourceVisitor<TResourceHandler> {
 		private readonly IResourceHandlerFactory<TResourceHandler> factory;
 
 		public SchemeResourceVisitor(IResourceHandlerFactory<TResourceHandler> factory) {

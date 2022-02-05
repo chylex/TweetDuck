@@ -18,15 +18,15 @@ namespace TweetLib.Core.Features.Plugins {
 		public string PluginFolder { get; }
 		public string PluginDataFolder { get; }
 
-		public event EventHandler<PluginErrorEventArgs>? Reloaded;
-		public event EventHandler<PluginErrorEventArgs>? Executed;
+		internal event EventHandler<PluginErrorEventArgs>? Reloaded;
+		internal event EventHandler<PluginErrorEventArgs>? Executed;
 
 		internal readonly PluginBridge bridge;
 		private IScriptExecutor? browserExecutor;
 
 		private readonly HashSet<Plugin> plugins = new ();
 
-		public PluginManager(PluginConfig config, string pluginFolder, string pluginDataFolder) {
+		internal PluginManager(PluginConfig config, string pluginFolder, string pluginDataFolder) {
 			this.Config = config;
 			this.Config.PluginChangedState += Config_PluginChangedState;
 			this.PluginFolder = pluginFolder;

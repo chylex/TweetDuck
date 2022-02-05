@@ -24,7 +24,7 @@ namespace TweetDuck.Dialogs.Settings {
 
 			tbCustomSound.Text = Config.NotificationSoundPath;
 			tbCustomSound_TextChanged(tbCustomSound, EventArgs.Empty);
-			NativeMethods.SendMessage(tbCustomSound.Handle, NativeMethods.EM_SETCUEBANNER, 0, "(default TweetDeck sound)");
+			NativeMethods.SetCueBanner(tbCustomSound, "(default TweetDeck sound)");
 		}
 
 		public override void OnReady() {

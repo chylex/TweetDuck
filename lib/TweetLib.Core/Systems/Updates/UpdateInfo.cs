@@ -66,7 +66,7 @@ namespace TweetLib.Core.Systems.Updates {
 		internal void DeleteInstaller() {
 			DownloadStatus = UpdateDownloadStatus.None;
 
-			if (currentDownload != null && currentDownload.IsBusy) {
+			if (currentDownload is { IsBusy: true }) {
 				currentDownload.CancelAsync(); // deletes file when cancelled
 				return;
 			}

@@ -16,7 +16,7 @@ namespace TweetDuck.Dialogs {
 
 		private readonly PluginManager pluginManager;
 
-		public FormPlugins() {
+		private FormPlugins() {
 			InitializeComponent();
 
 			Text = Program.BrandName + " Plugins";

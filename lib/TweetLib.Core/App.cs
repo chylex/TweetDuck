@@ -17,22 +17,23 @@ namespace TweetLib.Core {
 		public static readonly string ProgramPath = AppDomain.CurrentDomain.BaseDirectory;
 		public static readonly bool IsPortable = Setup.IsPortable;
 
-		public static readonly string ResourcesPath = Path.Combine(ProgramPath, "resources");
-		public static readonly string PluginPath    = Path.Combine(ProgramPath, "plugins");
-		public static readonly string GuidePath     = Path.Combine(ProgramPath, "guide");
+		internal static readonly string ResourcesPath = Path.Combine(ProgramPath, "resources");
+		internal static readonly string PluginPath    = Path.Combine(ProgramPath, "plugins");
+		internal static readonly string GuidePath     = Path.Combine(ProgramPath, "guide");
 
 		public static readonly string StoragePath = IsPortable ? Path.Combine(ProgramPath, "portable", "storage") : GetDataFolder();
+		public static readonly string LogoPath    = Path.Combine(ResourcesPath, "images/logo.png");
 
 		public static Logger Logger               { get; } = new (Path.Combine(StoragePath, "TD_Log.txt"), Setup.IsDebugLogging);
 		public static ConfigManager ConfigManager { get; } = Setup.CreateConfigManager(StoragePath);
 
 		public static IAppErrorHandler ErrorHandler     { get; } = Validate(Builder.ErrorHandler, nameof(Builder.ErrorHandler));
 		public static IAppSystemHandler SystemHandler   { get; } = Validate(Builder.SystemHandler, nameof(Builder.SystemHandler));
-		public static IAppMessageDialogs MessageDialogs { get; } = Validate(Builder.MessageDialogs, nameof(Builder.MessageDialogs));
-		public static IAppFileDialogs? FileDialogs      { get; } = Builder.FileDialogs;
-
+		
+		internal static IAppMessageDialogs MessageDialogs { get; } = Validate(Builder.MessageDialogs, nameof(Builder.MessageDialogs));
+		internal static IAppFileDialogs? FileDialogs      { get; } = Builder.FileDialogs;
+		
 		internal static IAppUserConfiguration UserConfiguration => ConfigManager.User;
-		internal static IAppSystemConfiguration SystemConfiguration => ConfigManager.System;
 
 		private static string GetDataFolder() {
 			string? custom = Setup.CustomDataFolder;
@@ -75,7 +76,7 @@ namespace TweetLib.Core {
 
 			WebUtils.DefaultUserAgent = Lib.BrandName + " " + Version.Tag;
 
-			if (SystemConfiguration.UseSystemProxyForAllConnections) {
+			if (ConfigManager.System.UseSystemProxyForAllConnections) {
 				WebUtils.EnableSystemProxy();
 			}
 

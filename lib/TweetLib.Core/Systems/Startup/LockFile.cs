@@ -99,7 +99,11 @@ namespace TweetLib.Core.Systems.Startup {
 
 				using (var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
 					byte[] bytes = new byte[sizeof(int)];
-					fileStream.Read(bytes, 0, bytes.Length);
+					
+					if (fileStream.Read(bytes, 0, bytes.Length) != bytes.Length) {
+						throw new IOException("Read fewer bytes than requested!");
+					}
+					
 					pid = BitConverter.ToInt32(bytes, 0);
 				}
 

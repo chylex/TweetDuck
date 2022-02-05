@@ -17,31 +17,32 @@ namespace TweetLib.Core.Features.Plugins {
 		public string Author { get; }
 		public string Version { get; }
 		public string Website { get; }
-		public string ConfigFile { get; }
-		public string ConfigDefault { get; }
 		public Version RequiredVersion { get; }
 
 		public bool CanRun { get; }
 
-		public bool HasConfig {
-			get => ConfigFile.Length > 0 && GetFullPathIfSafe(PluginFolder.Data, ConfigFile).Length > 0;
+		internal bool HasConfig {
+			get => configFile.Length > 0 && GetFullPathIfSafe(PluginFolder.Data, configFile).Length > 0;
 		}
 
-		public string ConfigPath {
-			get => HasConfig ? Path.Combine(GetPluginFolder(PluginFolder.Data), ConfigFile) : string.Empty;
+		internal string ConfigPath {
+			get => HasConfig ? Path.Combine(GetPluginFolder(PluginFolder.Data), configFile) : string.Empty;
 		}
 
-		public bool HasDefaultConfig {
-			get => ConfigDefault.Length > 0 && GetFullPathIfSafe(PluginFolder.Root, ConfigDefault).Length > 0;
+		private bool HasDefaultConfig {
+			get => configDefault.Length > 0 && GetFullPathIfSafe(PluginFolder.Root, configDefault).Length > 0;
 		}
 
-		public string DefaultConfigPath {
-			get => HasDefaultConfig ? Path.Combine(GetPluginFolder(PluginFolder.Root), ConfigDefault) : string.Empty;
+		private string DefaultConfigPath {
+			get => HasDefaultConfig ? Path.Combine(GetPluginFolder(PluginFolder.Root), configDefault) : string.Empty;
 		}
 
 		private readonly string pathRoot;
 		private readonly string pathData;
 		private readonly ISet<PluginEnvironment> environments;
+		
+		private readonly string configFile;
+		private readonly string configDefault;
 
 		private Plugin(PluginGroup group, string identifier, string pathRoot, string pathData, Builder builder) {
 			this.pathRoot = pathRoot;
@@ -56,18 +57,18 @@ namespace TweetLib.Core.Features.Plugins {
 			this.Author = builder.Author;
 			this.Version = builder.Version;
 			this.Website = builder.Website;
-			this.ConfigFile = builder.ConfigFile;
-			this.ConfigDefault = builder.ConfigDefault;
+			this.configFile = builder.ConfigFile;
+			this.configDefault = builder.ConfigDefault;
 			this.RequiredVersion = builder.RequiredVersion;
 
 			this.CanRun = AppVersion >= RequiredVersion;
 		}
 
-		public bool HasEnvironment(PluginEnvironment environment) {
+		internal bool HasEnvironment(PluginEnvironment environment) {
 			return environments.Contains(environment);
 		}
 
-		public string GetScriptPath(PluginEnvironment environment) {
+		internal string GetScriptPath(PluginEnvironment environment) {
 			return environments.Contains(environment) ? Path.Combine(pathRoot, environment.GetPluginScriptFile()) : string.Empty;
 		}
 
@@ -79,7 +80,7 @@ namespace TweetLib.Core.Features.Plugins {
 			};
 		}
 
-		public string GetFullPathIfSafe(PluginFolder folder, string relativePath) {
+		internal string GetFullPathIfSafe(PluginFolder folder, string relativePath) {
 			string rootFolder = GetPluginFolder(folder);
 			return FileUtils.ResolveRelativePathSafely(rootFolder, relativePath);
 		}
@@ -98,7 +99,7 @@ namespace TweetLib.Core.Features.Plugins {
 
 		// Builder
 
-		public sealed class Builder {
+		internal sealed class Builder {
 			private static readonly Version DefaultRequiredVersion = new (0, 0, 0, 0);
 
 			public string Name             { get; set; } = string.Empty;

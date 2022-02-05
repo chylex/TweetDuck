@@ -1,7 +1,9 @@
 using TweetLib.Browser.Interfaces;
 
 namespace TweetLib.Browser.Request {
-	public abstract class RequestHandleResult {
+	public class RequestHandleResult {
+		public static RequestHandleResult Cancel { get; } = new ();
+		
 		private RequestHandleResult() {}
 
 		public sealed class Redirect : RequestHandleResult {
@@ -18,12 +20,6 @@ namespace TweetLib.Browser.Request {
 			public Process(IResponseProcessor processor) {
 				Processor = processor;
 			}
-		}
-
-		public sealed class Cancel : RequestHandleResult {
-			public static Cancel Instance { get; } = new ();
-
-			private Cancel() {}
 		}
 	}
 }

@@ -77,7 +77,7 @@ namespace TweetDuck.Video {
 
 				Marshal.ReleaseComObject(media);
 
-				return $"{(progress / 60).ToString("00")}:{(progress % 60).ToString("00")}";
+				return $"{(progress / 60):00}:{(progress % 60):00}";
 			});
 
 			labelTooltip.AttachTooltip(trackBarVolume, false, args => $"Volume : {trackBarVolume.Value}%");

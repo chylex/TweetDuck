@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 
 namespace TweetLib.Core.Features.Plugins.Enums {
-	public enum PluginEnvironment {
+	enum PluginEnvironment {
 		Browser,
 		Notification
 	}
 
-	internal static class PluginEnvironments {
+	static class PluginEnvironments {
 		public static IEnumerable<PluginEnvironment> All { get; } = new PluginEnvironment[] {
 			PluginEnvironment.Browser,
 			PluginEnvironment.Notification

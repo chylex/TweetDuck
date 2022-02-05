@@ -30,19 +30,16 @@ namespace TweetLib.Browser.CEF.Logic {
 			if (resourceRequestHandler != null) {
 				var result = resourceRequestHandler.Handle(requestAdapter.GetUrl(request), requestAdapter.GetResourceType(request));
 
-				switch (result) {
-					case RequestHandleResult.Redirect redirect:
-						requestAdapter.SetUrl(request, redirect.Url);
-						break;
-
-					case RequestHandleResult.Process process:
-						requestAdapter.SetHeader(request, "Accept-Encoding", "identity");
-						responseProcessors[requestAdapter.GetIdentifier(request)] = process.Processor;
-						break;
-
-					case RequestHandleResult.Cancel:
-						callback.Dispose();
-						return false;
+				if (result is RequestHandleResult.Redirect redirect) {
+					requestAdapter.SetUrl(request, redirect.Url);
+				}
+				else if (result is RequestHandleResult.Process process) {
+					requestAdapter.SetHeader(request, "Accept-Encoding", "identity");
+					responseProcessors[requestAdapter.GetIdentifier(request)] = process.Processor;
+				}
+				else if (result == RequestHandleResult.Cancel) {
+					callback.Dispose();
+					return false;
 				}
 			}
 

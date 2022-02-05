@@ -48,7 +48,7 @@ namespace TweetDuck.Browser {
 		private readonly ContextMenu contextMenu;
 		private bool hasNotifications;
 
-		public TrayIcon() {
+		private TrayIcon() {
 			InitializeComponent();
 
 			this.contextMenu = new ContextMenu();

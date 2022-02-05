@@ -10,7 +10,7 @@
 
 	public static class UpdateDownloadStatusExtensions {
 		public static bool IsFinished(this UpdateDownloadStatus status, bool canRetry) {
-			return status == UpdateDownloadStatus.AssetMissing || status == UpdateDownloadStatus.Done || (status == UpdateDownloadStatus.Failed && !canRetry);
+			return status is UpdateDownloadStatus.AssetMissing or UpdateDownloadStatus.Done || (status == UpdateDownloadStatus.Failed && !canRetry);
 		}
 	}
 }

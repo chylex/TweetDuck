@@ -4,8 +4,7 @@ using TweetLib.Utils.Serialization;
 
 namespace TweetLib.Core.Systems.Configuration {
 	sealed class FileConfigInstance<T> : IConfigInstance where T : IConfigObject<T> {
-		public T Instance { get; }
-
+		private readonly T instance;
 		private readonly SimpleObjectSerializer<T> serializer;
 
 		private readonly string filenameMain;
@@ -13,7 +12,7 @@ namespace TweetLib.Core.Systems.Configuration {
 		private readonly string identifier;
 
 		public FileConfigInstance(string filename, T instance, string identifier, TypeConverterRegistry converterRegistry) {
-			this.Instance = instance;
+			this.instance = instance;
 			this.serializer = new SimpleObjectSerializer<T>(converterRegistry);
 
 			this.filenameMain = filename ?? throw new ArgumentNullException(nameof(filename), "Config file name must not be null!");
@@ -22,7 +21,7 @@ namespace TweetLib.Core.Systems.Configuration {
 		}
 
 		private void LoadInternal(bool backup) {
-			serializer.Read(backup ? filenameBackup : filenameMain, Instance);
+			serializer.Read(backup ? filenameBackup : filenameMain, instance);
 		}
 
 		public void Load() {
@@ -64,7 +63,7 @@ namespace TweetLib.Core.Systems.Configuration {
 					File.Move(filenameMain, filenameBackup);
 				}
 
-				serializer.Write(filenameMain, Instance);
+				serializer.Write(filenameMain, instance);
 			} catch (SerializationSoftException e) {
 				OnException($"{e.Errors.Count} error{(e.Errors.Count == 1 ? " was" : "s were")} encountered while saving the configuration file for {identifier}.", e);
 			} catch (Exception e) {
@@ -77,7 +76,7 @@ namespace TweetLib.Core.Systems.Configuration {
 				LoadInternal(false);
 			} catch (FileNotFoundException) {
 				try {
-					serializer.Write(filenameMain, Instance.ConstructWithDefaults());
+					serializer.Write(filenameMain, instance.ConstructWithDefaults());
 					LoadInternal(false);
 				} catch (Exception e) {
 					OnException($"Could not regenerate the configuration file for {identifier}.", e);

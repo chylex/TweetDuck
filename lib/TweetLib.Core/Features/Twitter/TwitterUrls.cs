@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text.RegularExpressions;
 using TweetLib.Utils.Static;
 
 namespace TweetLib.Core.Features.Twitter {
+	[SuppressMessage("ReSharper", "MemberCanBeInternal")]
 	public static class TwitterUrls {
 		public const string TweetDeck = "https://tweetdeck.twitter.com";
 		private const string TwitterTrackingUrl = "t.co";

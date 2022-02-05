@@ -12,7 +12,7 @@ namespace TweetLib.Utils.Collections {
 			return args;
 		}
 
-		public static void ReadStringArray(char entryChar, string[] array, CommandLineArgs targetArgs) {
+		private static void ReadStringArray(char entryChar, string[] array, CommandLineArgs targetArgs) {
 			for (int index = 0; index < array.Length; index++) {
 				string entry = array[index];
 

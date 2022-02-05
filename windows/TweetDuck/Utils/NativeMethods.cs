@@ -8,16 +8,16 @@ namespace TweetDuck.Utils {
 	[SuppressMessage("ReSharper", "MemberCanBePrivate.Local")]
 	[SuppressMessage("ReSharper", "InconsistentNaming")]
 	static class NativeMethods {
-		public static readonly IntPtr HWND_BROADCAST = new IntPtr(0xFFFF);
+		private static readonly IntPtr HWND_BROADCAST = new IntPtr(0xFFFF);
 		public static readonly IntPtr HOOK_HANDLED = new IntPtr(-1);
 
 		public const int HWND_TOPMOST = -1;
 		public const uint SWP_NOACTIVATE = 0x0010;
-		public const int WS_DISABLED = 0x08000000;
-		public const int GWL_STYLE = -16;
-
 		public const int SB_HORZ = 0;
-		public const int EM_SETCUEBANNER = 0x1501;
+		
+		private const int WS_DISABLED = 0x08000000;
+		private const int GWL_STYLE = -16;
+		private const int EM_SETCUEBANNER = 0x1501;
 
 		public const int WM_MOUSE_LL = 14;
 		public const int WM_MOUSEWHEEL = 0x020A;
@@ -57,10 +57,10 @@ namespace TweetDuck.Utils {
 		private static extern bool SetWindowPos(int hWnd, int hWndOrder, int x, int y, int width, int height, uint flags);
 
 		[DllImport("user32.dll")]
-		public static extern bool SendMessage(IntPtr hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
+		private static extern bool SendMessage(IntPtr hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
 
 		[DllImport("user32.dll")]
-		public static extern bool PostMessage(IntPtr hWnd, uint msg, UIntPtr wParam, IntPtr lParam);
+		private static extern bool PostMessage(IntPtr hWnd, uint msg, UIntPtr wParam, IntPtr lParam);
 
 		[DllImport("user32.dll")]
 		public static extern uint RegisterWindowMessage(string messageName);
@@ -98,6 +98,10 @@ namespace TweetDuck.Utils {
 			else {
 				SetWindowLong(form.Handle, GWL_STYLE, GetWindowLong(form.Handle, GWL_STYLE) & ~WS_DISABLED);
 			}
+		}
+
+		public static void SetCueBanner(Control control, string cueText) {
+			SendMessage(control.Handle, EM_SETCUEBANNER, 0, cueText);
 		}
 
 		public static void BroadcastMessage(uint msg, uint wParam, int lParam) {

@@ -247,10 +247,10 @@ namespace TweetLib.Core.Features.TweetDeck {
 						return new RequestHandleResult.Process(VendorScriptProcessor.Instance);
 
 					case ResourceType.Script when url.Contains("analytics."):
-						return RequestHandleResult.Cancel.Instance;
+						return RequestHandleResult.Cancel;
 
 					case ResourceType.Xhr when url.Contains(UrlVersionCheck):
-						return RequestHandleResult.Cancel.Instance;
+						return RequestHandleResult.Cancel;
 
 					case ResourceType.Xhr when url.Contains("://api.twitter.com/") && url.Contains("include_entities=1") && !url.Contains("&include_ext_has_nft_avatar=1"):
 						return new RequestHandleResult.Redirect(url.Replace("include_entities=1", "include_entities=1&include_ext_has_nft_avatar=1"));

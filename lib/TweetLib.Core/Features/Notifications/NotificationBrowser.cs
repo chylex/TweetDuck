@@ -13,7 +13,7 @@ namespace TweetLib.Core.Features.Notifications {
 		}
 
 		public static string? FontSize { get; private set; }
-		public static string? HeadLayout { get; private set; }
+		private static string? HeadLayout { get; set; }
 
 		private NotificationBrowser(IBrowserComponent browserComponent, Func<NotificationBrowser, BrowserSetup> setup) : base(browserComponent, setup) {}
 

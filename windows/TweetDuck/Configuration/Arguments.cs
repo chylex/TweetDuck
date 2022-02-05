@@ -32,7 +32,7 @@ namespace TweetDuck.Configuration {
 			return args;
 		}
 
-		public static CommandLineArgs GetCurrentForInstaller() {
+		private static CommandLineArgs GetCurrentForInstaller() {
 			CommandLineArgs args = GetCurrentClean();
 			args.AddFlag(ArgUpdated);
 			return args;

@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace TweetLib.Core.Features.Plugins.Events {
-	public sealed class PluginChangedStateEventArgs : EventArgs {
+	internal sealed class PluginChangedStateEventArgs : EventArgs {
 		public Plugin Plugin { get; }
 		public bool IsEnabled { get; }
 

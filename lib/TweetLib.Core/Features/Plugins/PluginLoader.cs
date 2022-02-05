@@ -7,7 +7,7 @@ using TweetLib.Core.Features.Plugins.Enums;
 using TweetLib.Utils.Data;
 
 namespace TweetLib.Core.Features.Plugins {
-	internal static class PluginLoader {
+	static class PluginLoader {
 		private static readonly string[] EndTag = { "[END]" };
 
 		public static IEnumerable<Result<Plugin>> AllInFolder(string pluginFolder, string pluginDataFolder, PluginGroup group) {
@@ -38,7 +38,7 @@ namespace TweetLib.Core.Features.Plugins {
 			}
 		}
 
-		public static Plugin FromFolder(string name, string pathRoot, string pathData, PluginGroup group) {
+		private static Plugin FromFolder(string name, string pathRoot, string pathData, PluginGroup group) {
 			Plugin.Builder builder = new Plugin.Builder(group, name, pathRoot, pathData);
 
 			foreach (var environment in Directory.EnumerateFiles(pathRoot, "*.js", SearchOption.TopDirectoryOnly).Select(Path.GetFileName).Select(EnvironmentFromFileName)) {

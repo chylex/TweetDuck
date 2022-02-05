@@ -3,8 +3,8 @@ using TweetLib.Core.Application;
 using TweetLib.Core.Features.Twitter;
 
 namespace TweetLib.Core.Features {
-	public static class PropertyObjectScript {
-		public enum Environment {
+	static class PropertyObjectScript {
+		internal enum Environment {
 			Browser,
 			Notification
 		}

@@ -48,7 +48,8 @@ namespace TweetDuck.Browser.Notification {
 
 		private readonly int timerBarHeight;
 
-		protected int timeLeft, totalTime;
+		private int timeLeft;
+		protected int totalTime;
 		protected bool pausedDuringNotification;
 
 		private readonly NativeMethods.HookProc mouseHookDelegate;

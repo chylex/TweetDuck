@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace TweetLib.Utils.Collections {
@@ -8,6 +9,8 @@ namespace TweetLib.Utils.Collections {
 	/// <typeparam name="K1">The type of the outer key.</typeparam>
 	/// <typeparam name="K2">The type of the inner key.</typeparam>
 	/// <typeparam name="V">The type of the values.</typeparam>
+	[SuppressMessage("ReSharper", "UnusedMethodReturnValue.Global")]
+	[SuppressMessage("ReSharper", "UnusedMember.Global")]
 	public sealed class TwoKeyDictionary<K1, K2, V> {
 		private readonly Dictionary<K1, Dictionary<K2, V>> dict;
 		private readonly int innerCapacity;

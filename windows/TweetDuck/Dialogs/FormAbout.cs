@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 using TweetDuck.Management;
 using TweetLib.Core;
@@ -22,7 +21,7 @@ namespace TweetDuck.Dialogs {
 			labelIssues.Links.Add(new LinkLabel.Link(0, labelIssues.Text.Length, Lib.IssueTrackerUrl));
 
 			try {
-				pictureLogo.Image = Image.FromFile(Path.Combine(App.ResourcesPath, "images/logo.png"));
+				pictureLogo.Image = Image.FromFile(App.LogoPath);
 			} catch (Exception) {
 				// ignore
 			}

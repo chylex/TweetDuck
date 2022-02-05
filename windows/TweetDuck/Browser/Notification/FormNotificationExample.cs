@@ -18,14 +18,17 @@ namespace TweetDuck.Browser.Notification {
 
 		protected override FormBorderStyle NotificationBorderStyle {
 			get {
+				var style = base.NotificationBorderStyle;
+				
 				if (Config.NotificationSize == DesktopNotification.Size.Custom) {
-					switch (base.NotificationBorderStyle) {
-						case FormBorderStyle.FixedSingle: return FormBorderStyle.Sizable;
-						case FormBorderStyle.FixedToolWindow: return FormBorderStyle.SizableToolWindow;
-					}
+					return style switch {
+						FormBorderStyle.FixedSingle     => FormBorderStyle.Sizable,
+						FormBorderStyle.FixedToolWindow => FormBorderStyle.SizableToolWindow,
+						_                               => style
+					};
 				}
 
-				return base.NotificationBorderStyle;
+				return style;
 			}
 		}
 

@@ -30,10 +30,13 @@ namespace TweetLib.Utils.Data {
 				case Position.Before:
 					cutIndex = index;
 					break;
+
 				case Position.After:
 					cutIndex = index + search.Length;
 					break;
-				default: return targetHTML;
+
+				default:
+					return targetHTML;
 			}
 
 			return targetHTML.Insert(cutIndex, html);

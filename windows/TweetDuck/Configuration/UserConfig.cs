@@ -11,6 +11,7 @@ using TweetLib.Core.Systems.Configuration;
 using TweetLib.Utils.Data;
 
 namespace TweetDuck.Configuration {
+	[SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Global")]
 	sealed class UserConfig : BaseConfig<UserConfig>, IAppUserConfiguration {
 		public bool FirstRun { get; set; } = true;
 

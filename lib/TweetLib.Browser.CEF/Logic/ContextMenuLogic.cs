@@ -28,7 +28,7 @@ namespace TweetLib.Browser.CEF.Logic {
 			206  // AddToDictionary
 		};
 
-		protected sealed class ContextMenuActionRegistry : ContextMenuActionRegistry<int> {
+		private protected sealed class ContextMenuActionRegistry : ContextMenuActionRegistry<int> {
 			private const int CommandUserFirst = 26500;
 
 			protected override int NextId(int n) {

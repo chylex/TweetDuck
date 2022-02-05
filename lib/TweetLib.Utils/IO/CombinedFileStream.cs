@@ -21,6 +21,15 @@ namespace TweetLib.Utils.IO {
 			return string.Join(KeySeparator.ToString(), identifier.Select(ValidateIdentifier));
 		}
 
+		private static void ReadExactly(Stream stream, byte[] buffer) {
+			var length = buffer.Length;
+			var read = stream.Read(buffer, 0, length);
+			
+			if (read != length) {
+				throw new IOException("Read fewer bytes than requested: " + read + " < " + length);
+			}
+		}
+
 		private readonly Stream stream;
 
 		public CombinedFileStream(Stream stream) {
@@ -79,13 +88,13 @@ namespace TweetLib.Utils.IO {
 			}
 
 			byte[] name = new byte[nameLength];
-			stream.Read(name, 0, nameLength);
+			ReadExactly(stream, name);
 
 			byte[] contentLength = new byte[4];
-			stream.Read(contentLength, 0, 4);
+			ReadExactly(stream, contentLength);
 
 			byte[] contents = new byte[BitConverter.ToInt32(contentLength, 0)];
-			stream.Read(contents, 0, contents.Length);
+			ReadExactly(stream, contents);
 
 			return new Entry(Encoding.UTF8.GetString(name), contents);
 		}
@@ -98,10 +107,10 @@ namespace TweetLib.Utils.IO {
 			}
 
 			byte[] name = new byte[nameLength];
-			stream.Read(name, 0, nameLength);
+			ReadExactly(stream, name);
 
 			byte[] contentLength = new byte[4];
-			stream.Read(contentLength, 0, 4);
+			ReadExactly(stream, contentLength);
 
 			stream.Position += BitConverter.ToInt32(contentLength, 0);
 
@@ -120,9 +129,7 @@ namespace TweetLib.Utils.IO {
 		public sealed class Entry {
 			private string Identifier { get; }
 
-			public string KeyName {
-				get { return StringUtils.ExtractBefore(Identifier, KeySeparator); }
-			}
+			public string KeyName => StringUtils.ExtractBefore(Identifier, KeySeparator);
 
 			public string[] KeyValue {
 				get {

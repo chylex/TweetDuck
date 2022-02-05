@@ -16,7 +16,7 @@ namespace TweetDuck.Plugins {
 
 		private int nextHeight;
 
-		public PluginControl() {
+		private PluginControl() {
 			InitializeComponent();
 		}
 

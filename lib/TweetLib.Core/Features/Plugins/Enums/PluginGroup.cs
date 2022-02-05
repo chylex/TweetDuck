@@ -7,7 +7,7 @@ namespace TweetLib.Core.Features.Plugins.Enums {
 		Custom
 	}
 
-	internal static class PluginGroups {
+	static class PluginGroups {
 		public static IEnumerable<PluginGroup> All { get; } = new PluginGroup[] {
 			PluginGroup.Official,
 			PluginGroup.Custom

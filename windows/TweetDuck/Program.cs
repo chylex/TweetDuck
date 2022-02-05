@@ -71,7 +71,7 @@ namespace TweetDuck {
 					ErrorHandler = reporter,
 					SystemHandler = new SystemHandler(),
 					MessageDialogs = new MessageDialogs(),
-					FileDialogs = new FileDialogs(),
+					FileDialogs = new FileDialogs()
 				});
 
 				errorReporter = reporter;

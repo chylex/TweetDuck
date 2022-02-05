@@ -6,12 +6,11 @@ using TweetLib.Core.Systems.Configuration;
 
 namespace TweetLib.Core.Features.Plugins.Config {
 	sealed class PluginConfigInstance : IConfigInstance {
-		public PluginConfig Instance { get; }
-
+		private readonly PluginConfig instance;
 		private readonly string filename;
 
 		public PluginConfigInstance(string filename, PluginConfig instance) {
-			this.Instance = instance;
+			this.instance = instance;
 			this.filename = filename;
 		}
 
@@ -27,7 +26,7 @@ namespace TweetLib.Core.Features.Plugins.Config {
 						newDisabled.Add(line);
 					}
 
-					Instance.Reset(newDisabled);
+					instance.Reset(newDisabled);
 				}
 			} catch (FileNotFoundException) {
 				// ignore
@@ -43,7 +42,7 @@ namespace TweetLib.Core.Features.Plugins.Config {
 				using var writer = new StreamWriter(new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.None), Encoding.UTF8);
 				writer.WriteLine("#Disabled");
 
-				foreach (string identifier in Instance.DisabledPlugins) {
+				foreach (string identifier in instance.DisabledPlugins) {
 					writer.WriteLine(identifier);
 				}
 			} catch (Exception e) {
@@ -58,7 +57,7 @@ namespace TweetLib.Core.Features.Plugins.Config {
 		public void Reset() {
 			try {
 				File.Delete(filename);
-				Instance.ResetToDefault();
+				instance.ResetToDefault();
 			} catch (Exception e) {
 				OnException("Could not delete the plugin configuration file.", e);
 				return;
