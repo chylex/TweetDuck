@@ -50,6 +50,7 @@ namespace TweetDuck {
 		[STAThread]
 		private static void Main() {
 			AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
+			WindowsSessionManager.Register();
 
 			SetupWinForms();
 			Cef.EnableHighDPISupport();

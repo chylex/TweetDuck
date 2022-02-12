@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using TweetDuck.Management;
 using TweetDuck.Utils;
 using TweetLib.Browser.Interfaces;
 using TweetLib.Core.Features.Notifications;
@@ -40,10 +41,24 @@ namespace TweetDuck.Browser.Notification {
 			InitializeComponent();
 
 			Config.MuteToggled += Config_MuteToggled;
-			Disposed += (sender, args) => Config.MuteToggled -= Config_MuteToggled;
+			WindowsSessionManager.LockStateChanged += WindowsSessionManager_LockStateChanged;
+			
+			Disposed += (sender, args) => {
+				Config.MuteToggled -= Config_MuteToggled;
+				WindowsSessionManager.LockStateChanged -= WindowsSessionManager_LockStateChanged;
+			};
 
 			if (Config.MuteNotifications) {
 				PauseNotification(NotificationPauseReason.UserConfiguration);
+			}
+		}
+
+		private void WindowsSessionManager_LockStateChanged(object sender, EventArgs e) {
+			if (WindowsSessionManager.IsLocked) {
+				PauseNotification(NotificationPauseReason.WindowsSessionLocked);
+			}
+			else {
+				ResumeNotification(NotificationPauseReason.WindowsSessionLocked);
 			}
 		}
 
