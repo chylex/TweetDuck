@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\..\packages\CefSharp.Common.96.0.180\build\CefSharp.Common.props" Condition="Exists('..\..\packages\CefSharp.Common.96.0.180\build\CefSharp.Common.props')" />
   <Import Project="..\..\packages\cef.redist.x86.96.0.18\build\cef.redist.x86.props" Condition="Exists('..\..\packages\cef.redist.x86.96.0.18\build\cef.redist.x86.props')" />
   <Import Project="..\..\packages\cef.redist.x64.96.0.18\build\cef.redist.x64.props" Condition="Exists('..\..\packages\cef.redist.x64.96.0.18\build\cef.redist.x64.props')" />
@@ -45,13 +45,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CefSharp, Version=96.0.180.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
+    <Reference Include="CefSharp, Version=96.0.180.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138">
       <HintPath>..\..\packages\CefSharp.Common.96.0.180\lib\net452\CefSharp.dll</HintPath>
     </Reference>
-    <Reference Include="CefSharp.Core, Version=96.0.180.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
+    <Reference Include="CefSharp.Core, Version=96.0.180.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138">
       <HintPath>..\..\packages\CefSharp.Common.96.0.180\lib\net452\CefSharp.Core.dll</HintPath>
     </Reference>
-    <Reference Include="CefSharp.WinForms, Version=96.0.180.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
+    <Reference Include="CefSharp.WinForms, Version=96.0.180.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138">
       <HintPath>..\..\packages\CefSharp.WinForms.96.0.180\lib\net462\CefSharp.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -90,39 +90,24 @@
       <Project>{72473763-4b9d-4fb6-a923-9364b2680f06}</Project>
       <Name>TweetLib.Communication</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TweetImpl.CefSharp\TweetImpl.CefSharp.csproj">
+      <Project>{44df3e2e-f465-4a31-8b43-f40fffb018ba}</Project>
+      <Name>TweetImpl.CefSharp</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\FileDialogs.cs" />
     <Compile Include="Application\MessageDialogs.cs" />
     <Compile Include="Application\SystemHandler.cs" />
-    <Compile Include="Browser\Base\CefAdapter.cs" />
-    <Compile Include="Browser\Base\CefBrowserAdapter.cs" />
+    <Compile Include="Browser\Base\BrowserProcessHandler.cs" />
     <Compile Include="Browser\Base\CefBrowserComponent.cs" />
-    <Compile Include="Browser\Base\CefContextMenuHandler.cs" />
-    <Compile Include="Browser\Base\CefDownloadRequestClient.cs" />
-    <Compile Include="Browser\Base\CefDragDataAdapter.cs" />
-    <Compile Include="Browser\Base\CefDragHandler.cs" />
-    <Compile Include="Browser\Base\CefErrorCodeAdapter.cs" />
-    <Compile Include="Browser\Base\CefFrameAdapter.cs" />
-    <Compile Include="Browser\Base\CefLifeSpanHandler.cs" />
-    <Compile Include="Browser\Base\CefMenuModelAdapter.cs" />
-    <Compile Include="Browser\Base\CefRequestAdapter.cs" />
-    <Compile Include="Browser\Base\CefRequestHandler.cs" />
-    <Compile Include="Browser\Base\CefResourceHandlerFactory.cs" />
-    <Compile Include="Browser\Base\CefByteArrayResourceHandler.cs" />
-    <Compile Include="Browser\Base\CefResourceRequestHandlerFactory.cs" />
-    <Compile Include="Browser\Base\CefResourceRequestHandler.cs" />
-    <Compile Include="Browser\Base\CefResponseAdapter.cs" />
-    <Compile Include="Browser\Base\CefResponseFilter.cs" />
-    <Compile Include="Browser\Base\CefSchemeHandlerFactory.cs" />
-    <Compile Include="Browser\Handling\BrowserProcessHandler.cs" />
-    <Compile Include="Browser\Handling\ContextMenuBase.cs" />
-    <Compile Include="Browser\Handling\ContextMenuBrowser.cs" />
-    <Compile Include="Browser\Handling\ContextMenuNotification.cs" />
-    <Compile Include="Browser\Handling\CustomKeyboardHandler.cs" />
-    <Compile Include="Browser\Handling\FileDialogHandler.cs" />
-    <Compile Include="Browser\Handling\CustomJsDialogHandler.cs" />
-    <Compile Include="Browser\Handling\PopupHandler.cs" />
+    <Compile Include="Browser\Base\ContextMenuBase.cs" />
+    <Compile Include="Browser\Base\ContextMenuBrowser.cs" />
+    <Compile Include="Browser\Base\ContextMenuNotification.cs" />
+    <Compile Include="Browser\Base\CustomKeyboardHandler.cs" />
+    <Compile Include="Browser\Base\FileDialogHandler.cs" />
+    <Compile Include="Browser\Base\CustomJsDialogHandler.cs" />
+    <Compile Include="Browser\Base\PopupHandler.cs" />
     <Compile Include="Browser\Notification\FormNotificationExample.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -45,6 +45,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 [Files]
 Source: "..\windows\TweetDuck\bin\x86\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\windows\TweetDuck\bin\x86\Release\TweetDuck.*"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\windows\TweetDuck\bin\x86\Release\TweetImpl.*"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\windows\TweetDuck\bin\x86\Release\TweetLib.*"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\windows\TweetDuck\bin\x86\Release\guide\*.*"; DestDir: "{app}\guide"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "..\windows\TweetDuck\bin\x86\Release\resources\*.*"; DestDir: "{app}\resources"; Flags: ignoreversion recursesubdirs createallsubdirs

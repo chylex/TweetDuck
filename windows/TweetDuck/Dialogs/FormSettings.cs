@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using TweetDuck.Browser;
-using TweetDuck.Browser.Handling;
+using TweetDuck.Browser.Base;
 using TweetDuck.Browser.Notification;
 using TweetDuck.Configuration;
 using TweetDuck.Controls;

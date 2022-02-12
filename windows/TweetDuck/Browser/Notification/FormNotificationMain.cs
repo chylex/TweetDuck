@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using CefSharp;
-using TweetDuck.Browser.Handling;
+using TweetDuck.Browser.Base;
 using TweetDuck.Controls;
 using TweetDuck.Utils;
 using TweetLib.Core.Features.Notifications;

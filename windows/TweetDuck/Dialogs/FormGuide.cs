@@ -3,7 +3,6 @@ using System.Windows.Forms;
 using CefSharp.WinForms;
 using TweetDuck.Browser;
 using TweetDuck.Browser.Base;
-using TweetDuck.Browser.Handling;
 using TweetDuck.Controls;
 using TweetDuck.Management;
 using TweetDuck.Utils;

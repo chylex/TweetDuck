@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using TweetDuck.Browser.Handling;
+using TweetDuck.Browser.Base;
 using TweetDuck.Controls;
 using TweetDuck.Utils;
 using TweetLib.Core;

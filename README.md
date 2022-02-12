@@ -8,15 +8,19 @@
         + [Editors](#editors)
         + [Installers](#installers)
     * [Solution Overview](#solution-overview)
-        + [Project: TweetDuck](#project-tweetduck)
-        + [Project: TweetDuck.Browser](#project-tweetduckbrowser)
-        + [Project: TweetDuck.Video](#project-tweetduckvideo)
-        + [Project: TweetLib.Core](#project-tweetlibcore)
-        + [Project: TweetLib.Browser](#project-tweetlibbrowser)
-        + [Project: TweetLib.Browser.CEF](#project-tweetlibbrowsercef)
-        + [Project: TweetLib.Communication](#project-tweetlibcommunication)
-        + [Project: TweetLib.Utils](#project-tweetlibutils)
-        + [Projects: TweetTest.*](#projects-tweettest)
+        + [Core Libraries](#core-libraries)
+            - [TweetLib.Core](#tweetlibcore)
+            - [TweetLib.Browser](#tweetlibbrowser)
+            - [TweetLib.Browser.CEF](#tweetlibbrowsercef)
+        + [Windows Projects](#windows-projects)
+            - [TweetDuck](#tweetduck)
+            - [TweetDuck.Browser](#tweetduckbrowser)
+            - [TweetDuck.Video](#tweetduckvideo)
+            - [TweetImpl.CefSharp](#tweetimplcefsharp)
+        + [Miscellaneous](#miscellaneous)
+            - [TweetLib.Communication](#tweetlibcommunication)
+            - [TweetLib.Utils](#tweetlibutils)
+            - [TweetTest.*](#tweettest)
     * [Development](#development)
         + [Building](#building)
         + [Debugging](#debugging)
@@ -71,14 +75,14 @@ Open the solution file `TweetDuck.sln` in an IDE, and use the **Restore NuGet Pa
 The solution contains several C# projects for executables and libraries, and F# projects for automated tests.
 
 Projects are organized into folders:
-* Windows executables are in the `windows/` folder, and target `.NET Framework 4.7.2` + `C# 8.0`
+* Windows projects are in the `windows/` folder, and target `.NET Framework 4.7.2` + `C# 8.0`
 * Libraries (`TweetLib.*`) are in the `lib/` folder, and target `.NET Standard 2.0` + `C# 9.0`
 * Tests (`TweetTest.*`) are also in the `lib/` folder, and target `.NET Framework 4.7.2` + `F#`
 
 Here are a few things to keep in mind:
 * Executable projects have their entry points in `Program.cs`
-* Library projects have their assembly information in `Lib.cs`
-* Most projects include a link to the `Version.cs` file in the root of the repository, which allows changing the version of all executables and library files in one place
+* Library projects targeting `.NET Standard` have their assembly information in `Lib.cs`
+* All non-test projects include a link to the `Version.cs` file in the root of the repository, which allows changing the version of all executables and library files in one place
 
 Web resource files (HTML, CSS, JS) are in the `Resources/` folder:
 * `Resources/Content/` contains all the core features of TweetDuck injected into the browser components
@@ -87,31 +91,19 @@ Web resource files (HTML, CSS, JS) are in the `Resources/` folder:
 
 These resource folders are linked as part of the `TweetLib.Core` project so they can be edited directly within an IDE. Alternatively, you can edit them using [VS Code](https://code.visualstudio.com/) by opening the workspace file `Resources/..code-workspace`.
 
-### Project: TweetDuck
+### Core Libraries
 
-Main Windows executable. It has a dependency on Windows Forms and [CefSharp](https://github.com/cefsharp/CefSharp/). Here you will mostly find implementations of interfaces from the library projects, and all the Windows and GUI code.
-
-### Project: TweetDuck.Browser
-
-Windows executable that hosts various Chromium processes. It depends on two specific DLLs from the [CefSharp](https://github.com/cefsharp/CefSharp/) package. After updating [CefSharp](https://github.com/cefsharp/CefSharp/), run the `windows/TweetDuck/Resources/PostCefUpdate.ps1` PowerShell script to update these dependencies to the new version.
-
-### Project: TweetDuck.Video
-
-Windows executable that hosts a video player, which is based on the WMPLib ActiveX component responsible for integrating Windows Media Player into .NET Framework.
-
-By default, [CefSharp](https://github.com/cefsharp/CefSharp/) is not built with support for H.264 video playback due to software patent nonsense, and even though TweetDuck could be moved entirely to Europe where MPEG LA's patent means nothing, it would require building a custom version of Chromium which requires too many resources. Instead, when a Twitter video played, TweetDuck launches this video player process, which uses Windows Media Player to play H.264 videos.
-
-### Project: TweetLib.Core
+#### TweetLib.Core
 
 This library contains the core TweetDuck application and browser logic. It is built around simple dependency injection that makes it independent of any concrete OS, GUI framework, or browser implementation.
 
 To simplify porting to other systems, it is not necessary to implement all interfaces, but some functionality will be missing (for ex. if clipboard-related interfaces are not implemented, then context menus will not contain options to copy text or images to clipboard).
 
-### Project: TweetLib.Browser
+#### TweetLib.Browser
 
 This library provides a zero-dependency abstraction of browser components and logic. It defines interfaces, events, and container objects that are used by the `TweetLib.Core` library to describe how a browser should behave, while making as few assumptions about the actual browser implementation as possible.
 
-### Project: TweetLib.Browser.CEF
+#### TweetLib.Browser.CEF
 
 This library is a partial implementation of `TweetLib.Browser` based on [CEF](https://bitbucket.org/chromiumembedded/cef/) interfaces and conventions.
 
@@ -119,15 +111,37 @@ While `TweetLib.Browser` is highly generic, most browser libraries are likely to
 
 Note: The repository contains an experimental `linux` branch, which uses [CefGlue](https://gitlab.com/xiliumhq/chromiumembedded/cefglue) as its browser library instead of [CefSharp](https://github.com/cefsharp/CefSharp/) which only works on Windows.
 
-### Project: TweetLib.Communication
+### Windows Projects
+
+#### TweetDuck
+
+Main Windows executable. It has a dependency on [CefSharp](https://github.com/cefsharp/CefSharp/) and Windows Forms. Here you will find the entry point that bootstraps the main application, as well as code for GUIs and Windows-specific functionality.
+
+#### TweetDuck.Browser
+
+Windows executable that hosts various Chromium processes. It depends on two specific DLLs from the [CefSharp](https://github.com/cefsharp/CefSharp/) package. After updating [CefSharp](https://github.com/cefsharp/CefSharp/), run the `windows/TweetDuck/Resources/PostCefUpdate.ps1` PowerShell script to update these dependencies to the new version.
+
+#### TweetDuck.Video
+
+Windows executable that hosts a video player, which is based on the WMPLib ActiveX component responsible for integrating Windows Media Player into .NET Framework.
+
+By default, [CefSharp](https://github.com/cefsharp/CefSharp/) is not built with support for H.264 video playback due to software patent nonsense, and even though TweetDuck could be moved entirely to Europe where MPEG LA's patent means nothing, it would require building a custom version of Chromium which requires too many resources. Instead, when a Twitter video played, TweetDuck launches this video player process, which uses Windows Media Player to play H.264 videos.
+
+#### TweetImpl.CefSharp
+
+Windows library that implements `TweetLib.Browser.CEF` using the [CefSharp](https://github.com/cefsharp/CefSharp/) library and Windows Forms.
+
+### Miscellaneous
+
+#### TweetLib.Communication
 
 This library provides a `DuplexPipe` class for two-way communication between processes.
 
-### Project: TweetLib.Utils
+#### TweetLib.Utils
 
 This library contains various utilities that fill some very specific holes in the .NET standard library.
 
-### Projects: TweetTest.*
+#### TweetTest.*
 
 These are F# projects with automated tests.
 

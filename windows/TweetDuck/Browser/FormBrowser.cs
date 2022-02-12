@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CefSharp;
-using TweetDuck.Browser.Handling;
+using TweetDuck.Browser.Base;
 using TweetDuck.Browser.Notification;
 using TweetDuck.Browser.Notification.Screenshot;
 using TweetDuck.Configuration;
