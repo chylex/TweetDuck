@@ -43,7 +43,7 @@ namespace TweetDuck.Browser.Notification {
 			Disposed += (sender, args) => Config.MuteToggled -= Config_MuteToggled;
 
 			if (Config.MuteNotifications) {
-				PauseNotification();
+				PauseNotification(NotificationPauseReason.UserConfiguration);
 			}
 		}
 
@@ -65,23 +65,23 @@ namespace TweetDuck.Browser.Notification {
 
 		private void Config_MuteToggled(object sender, EventArgs e) {
 			if (Config.MuteNotifications) {
-				PauseNotification();
+				PauseNotification(NotificationPauseReason.UserConfiguration);
 			}
 			else {
-				ResumeNotification();
+				ResumeNotification(NotificationPauseReason.UserConfiguration);
 			}
 		}
 
 		private void timerCursorCheck_Tick(object sender, EventArgs e) {
 			if (!IsCursorOverNotificationArea) {
-				ResumeNotification();
+				ResumeNotification(NotificationPauseReason.CursorOverNotificationArea);
 				timerCursorCheck.Stop();
 			}
 		}
 
 		private void timerIdlePauseCheck_Tick(object sender, EventArgs e) {
 			if (NativeMethods.GetIdleSeconds() < Config.NotificationIdlePauseSeconds) {
-				ResumeNotification();
+				ResumeNotification(NotificationPauseReason.SystemIdle);
 				timerIdlePauseCheck.Stop();
 			}
 		}
@@ -123,9 +123,9 @@ namespace TweetDuck.Browser.Notification {
 			}
 		}
 
-		public override void ResumeNotification() {
+		public override void ResumeNotification(NotificationPauseReason reason) {
 			bool wasPaused = IsPaused;
-			base.ResumeNotification();
+			base.ResumeNotification(reason);
 
 			if (wasPaused && !IsPaused && !pausedDuringNotification && tweetQueue.Count > 0) {
 				LoadNextNotification();
@@ -136,7 +136,7 @@ namespace TweetDuck.Browser.Notification {
 			if (!IsNotificationVisible) {
 				if (Config.NotificationNonIntrusiveMode && IsCursorOverNotificationArea && NativeMethods.GetIdleSeconds() < NonIntrusiveIdleLimit) {
 					if (!timerCursorCheck.Enabled) {
-						PauseNotification();
+						PauseNotification(NotificationPauseReason.CursorOverNotificationArea);
 						timerCursorCheck.Start();
 					}
 
@@ -144,7 +144,7 @@ namespace TweetDuck.Browser.Notification {
 				}
 				else if (Config.NotificationIdlePauseSeconds > 0 && NativeMethods.GetIdleSeconds() >= Config.NotificationIdlePauseSeconds) {
 					if (!timerIdlePauseCheck.Enabled) {
-						PauseNotification();
+						PauseNotification(NotificationPauseReason.SystemIdle);
 						timerIdlePauseCheck.Start();
 					}
 

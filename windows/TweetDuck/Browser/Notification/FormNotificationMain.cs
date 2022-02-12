@@ -242,19 +242,19 @@ namespace TweetDuck.Browser.Notification {
 			timerProgress.Stop();
 		}
 
-		public override void PauseNotification() {
+		public override void PauseNotification(NotificationPauseReason reason) {
 			if (!IsPaused) {
 				pausedDuringNotification = IsNotificationVisible;
 				timerProgress.Stop();
 				StopMouseHook(true);
 			}
 
-			base.PauseNotification();
+			base.PauseNotification(reason);
 		}
 
-		public override void ResumeNotification() {
+		public override void ResumeNotification(NotificationPauseReason reason) {
 			bool wasPaused = IsPaused;
-			base.ResumeNotification();
+			base.ResumeNotification(reason);
 
 			if (wasPaused && !IsPaused && pausedDuringNotification) {
 				OnNotificationReady();

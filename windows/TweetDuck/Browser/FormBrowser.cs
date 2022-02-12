@@ -335,12 +335,12 @@ namespace TweetDuck.Browser {
 
 		// bridge methods
 
-		public void PauseNotification() {
-			notification.PauseNotification();
+		public void PauseNotification(NotificationPauseReason reason) {
+			notification.PauseNotification(reason);
 		}
 
-		public void ResumeNotification() {
-			notification.ResumeNotification();
+		public void ResumeNotification(NotificationPauseReason reason) {
+			notification.ResumeNotification(reason);
 		}
 
 		public void ReloadToTweetDeck() {

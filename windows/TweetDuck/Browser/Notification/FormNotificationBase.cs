@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using CefSharp.WinForms;
@@ -97,12 +98,12 @@ namespace TweetDuck.Browser.Notification {
 		private readonly CefByteArrayResourceHandler resourceHandler = new CefByteArrayResourceHandler();
 
 		private DesktopNotification currentNotification;
-		private int pauseCounter;
+		private readonly HashSet<NotificationPauseReason> pauseReasons = new HashSet<NotificationPauseReason>();
 
 		public string CurrentTweetUrl => currentNotification?.TweetUrl;
 		public string CurrentQuoteUrl => currentNotification?.QuoteUrl;
 
-		protected bool IsPaused => pauseCounter > 0;
+		protected bool IsPaused => pauseReasons.Count > 0;
 		protected internal bool IsCursorOverBrowser => browser.Bounds.Contains(PointToClient(Cursor.Position));
 
 		public bool FreezeTimer { get; set; }
@@ -171,16 +172,14 @@ namespace TweetDuck.Browser.Notification {
 
 		public virtual void FinishCurrentNotification() {}
 
-		public virtual void PauseNotification() {
-			if (pauseCounter++ == 0 && IsNotificationVisible) {
+		public virtual void PauseNotification(NotificationPauseReason reason) {
+			if (pauseReasons.Add(reason) && IsNotificationVisible) {
 				Location = ControlExtensions.InvisibleLocation;
 			}
 		}
 
-		public virtual void ResumeNotification() {
-			if (pauseCounter > 0) {
-				--pauseCounter;
-			}
+		public virtual void ResumeNotification(NotificationPauseReason reason) {
+			pauseReasons.Remove(reason);
 		}
 
 		protected virtual void LoadTweet(DesktopNotification tweet) {

@@ -126,6 +126,7 @@
     <Compile Include="Browser\Notification\FormNotificationExample.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Browser\Notification\NotificationPauseReason.cs" />
     <Compile Include="Browser\Notification\Screenshot\ScreenshotBridge.cs" />
     <Compile Include="Browser\Notification\Screenshot\TweetScreenshotManager.cs" />
     <Compile Include="Browser\Notification\SoundNotification.cs" />

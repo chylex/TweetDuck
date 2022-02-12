@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using TweetDuck.Browser;
 using TweetDuck.Browser.Handling;
+using TweetDuck.Browser.Notification;
 using TweetDuck.Configuration;
 using TweetDuck.Controls;
 using TweetDuck.Dialogs.Settings;
@@ -32,7 +33,7 @@ namespace TweetDuck.Dialogs {
 			Text = Program.BrandName + " Options";
 
 			this.browser = browser;
-			this.browser.PauseNotification();
+			this.browser.PauseNotification(NotificationPauseReason.SettingsDialogOpen);
 
 			this.plugins = plugins;
 
@@ -76,7 +77,7 @@ namespace TweetDuck.Dialogs {
 				}
 			}
 
-			browser.ResumeNotification();
+			browser.ResumeNotification(NotificationPauseReason.SettingsDialogOpen);
 		}
 
 		private void btnManageOptions_Click(object sender, EventArgs e) {
@@ -87,7 +88,7 @@ namespace TweetDuck.Dialogs {
 
 			if (dialog.ShowDialog() == DialogResult.OK) {
 				if (!dialog.IsRestarting) {
-					browser.ResumeNotification();
+					browser.ResumeNotification(NotificationPauseReason.SettingsDialogOpen);
 
 					if (dialog.ShouldReloadBrowser) {
 						BrowserProcessHandler.UpdatePrefs();
