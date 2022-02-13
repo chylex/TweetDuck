@@ -14,18 +14,20 @@ namespace TweetImpl.CefSharp.Component {
 
 		public ResourceHandlerRegistry<IResourceHandler> ResourceHandlerRegistry { get; } = new ResourceHandlerRegistry<IResourceHandler>(CefResourceHandlerFactory.Instance);
 
-		protected readonly ChromiumWebBrowser browser;
+		private readonly ChromiumWebBrowser browser;
 		private readonly CreateContextMenu createContextMenu;
+		private readonly IJsDialogOpener jsDialogOpener;
 		private readonly IPopupHandler popupHandler;
 		private readonly bool autoReload;
 
-		protected BrowserComponentBase(ChromiumWebBrowser browser, CreateContextMenu createContextMenu, IPopupHandler popupHandler, bool autoReload) : base(new CefBrowserAdapter(browser), CefAdapter.Instance, CefFrameAdapter.Instance, CefRequestAdapter.Instance) {
+		protected BrowserComponentBase(ChromiumWebBrowser browser, CreateContextMenu createContextMenu, IJsDialogOpener jsDialogOpener, IPopupHandler popupHandler, bool autoReload) : base(new CefBrowserAdapter(browser), CefAdapter.Instance, CefFrameAdapter.Instance, CefRequestAdapter.Instance) {
 			this.browser = browser;
 			this.browser.LoadingStateChanged += OnLoadingStateChanged;
 			this.browser.LoadError += OnLoadError;
 			this.browser.FrameLoadStart += OnFrameLoadStart;
 			this.browser.FrameLoadEnd += OnFrameLoadEnd;
 			this.createContextMenu = createContextMenu;
+			this.jsDialogOpener = jsDialogOpener;
 			this.popupHandler = popupHandler;
 			this.autoReload = autoReload;
 		}
@@ -34,8 +36,10 @@ namespace TweetImpl.CefSharp.Component {
 			var lifeSpanHandler = new CefLifeSpanHandler(popupHandler);
 			var requestHandler = new CefRequestHandler(lifeSpanHandler, autoReload);
 
+			browser.DialogHandler = new CefFileDialogHandler();
 			browser.DragHandler = new CefDragHandler(requestHandler, this);
 			browser.LifeSpanHandler = lifeSpanHandler;
+			browser.JsDialogHandler = new CefJsDialogHandler(jsDialogOpener);
 			browser.MenuHandler = createContextMenu(setup.ContextMenuHandler);
 			browser.RequestHandler = requestHandler;
 			browser.ResourceRequestHandlerFactory = new CefResourceRequestHandlerFactory(setup.ResourceRequestHandler, ResourceHandlerRegistry);

@@ -105,8 +105,7 @@
     <Compile Include="Browser\Base\ContextMenuBrowser.cs" />
     <Compile Include="Browser\Base\ContextMenuNotification.cs" />
     <Compile Include="Browser\Base\CustomKeyboardHandler.cs" />
-    <Compile Include="Browser\Base\FileDialogHandler.cs" />
-    <Compile Include="Browser\Base\CustomJsDialogHandler.cs" />
+    <Compile Include="Browser\Base\JsDialogOpener.cs" />
     <Compile Include="Browser\Base\PopupHandler.cs" />
     <Compile Include="Browser\Notification\FormNotificationExample.cs">
       <SubType>Form</SubType>

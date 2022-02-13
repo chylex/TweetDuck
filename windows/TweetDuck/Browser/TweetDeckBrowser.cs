@@ -40,7 +40,6 @@ namespace TweetDuck.Browser {
 
 		public TweetDeckBrowser(FormBrowser owner, PluginManager pluginManager, ITweetDeckInterface tweetDeckInterface, UpdateChecker updateChecker) {
 			this.browser = new ChromiumWebBrowser(TwitterUrls.TweetDeck) {
-				DialogHandler = new FileDialogHandler(),
 				KeyboardHandler = new CustomKeyboardHandler(owner)
 			};
 
