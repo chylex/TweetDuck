@@ -79,6 +79,7 @@ namespace TweetDuck.Browser.Base {
 					input.Dispose();
 				}
 
+				callback.Dispose();
 				form.Dispose();
 			});
 

@@ -3,7 +3,7 @@ namespace TweetLib.Core.Features.Notifications {
 		bool FreezeTimer { get; set; }
 		bool IsHovered { get; }
 
-		void DisplayTooltip(string text);
+		void DisplayTooltip(string? text);
 		void FinishCurrentNotification();
 		void ShowTweetDetail();
 	}

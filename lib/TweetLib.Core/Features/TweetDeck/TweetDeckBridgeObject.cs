@@ -38,7 +38,7 @@ namespace TweetLib.Core.Features.TweetDeck {
 			NotificationBrowser.SetNotificationLayout(fontSize, headLayout);
 		}
 
-		public void DisplayTooltip(string text) {
+		public void DisplayTooltip(string? text) {
 			i.DisplayTooltip(text);
 		}
 

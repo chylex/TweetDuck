@@ -9,7 +9,7 @@ namespace TweetLib.Core.Features.Notifications {
 			this.i = notificationInterface;
 		}
 
-		public void DisplayTooltip(string text) {
+		public void DisplayTooltip(string? text) {
 			i.DisplayTooltip(text);
 		}
 

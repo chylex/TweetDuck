@@ -8,7 +8,7 @@ using TweetLib.Core;
 
 namespace TweetDuck.Management {
 	static class BrowserCache {
-		public static string CacheFolder => CefUtils.GetCacheFolder(App.StoragePath);
+		private static string CacheFolder => CefUtils.GetCacheFolder(App.StoragePath);
 
 		private static bool clearOnExit;
 		private static Timer autoClearTimer;
