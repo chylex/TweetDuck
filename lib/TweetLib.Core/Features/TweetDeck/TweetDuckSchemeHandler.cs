@@ -2,7 +2,6 @@ using System;
 using System.Net;
 using TweetLib.Browser.Interfaces;
 using TweetLib.Browser.Request;
-using TweetLib.Core.Resources;
 using TweetLib.Utils.Static;
 
 namespace TweetLib.Core.Features.TweetDeck {

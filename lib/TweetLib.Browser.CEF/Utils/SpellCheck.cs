@@ -3,7 +3,7 @@ using System.Linq;
 using TweetLib.Utils.Globalization;
 using TweetLib.Utils.Static;
 
-namespace TweetLib.Core.Features.Chromium {
+namespace TweetLib.Browser.CEF.Utils {
 	public static class SpellCheck {
 		// https://cs.chromium.org/chromium/src/third_party/hunspell_dictionaries/
 		public static IEnumerable<Language> SupportedLanguages { get; } = new List<string> {

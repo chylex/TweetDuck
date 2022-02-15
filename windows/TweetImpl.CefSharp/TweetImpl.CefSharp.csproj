@@ -62,6 +62,10 @@
       <Project>{eefb1f37-7cad-46bd-8042-66e7b502ab02}</Project>
       <Name>TweetLib.Browser</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\lib\TweetLib.Utils\TweetLib.Utils.csproj">
+      <Project>{476b1007-b12c-447f-b855-9886048201d6}</Project>
+      <Name>TweetLib.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\Version.cs" Link="Version.cs" />

@@ -1,5 +1,5 @@
+using TweetLib.Browser.Request;
 using TweetLib.Core.Features.Plugins;
-using TweetLib.Core.Resources;
 using TweetLib.Core.Systems.Configuration;
 
 namespace TweetLib.Core.Application {

@@ -1,5 +1,5 @@
 using System;
-using TweetLib.Core.Systems.Dialogs;
+using TweetLib.Utils.Dialogs;
 
 namespace TweetLib.Core.Application {
 	public interface IAppFileDialogs {

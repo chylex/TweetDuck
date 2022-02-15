@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace TweetLib.Core.Systems.Startup {
+namespace TweetLib.Utils.Startup {
 	public class LockResult {
 		private readonly string name;
 

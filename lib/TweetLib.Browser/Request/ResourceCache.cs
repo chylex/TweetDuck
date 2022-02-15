@@ -2,18 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using TweetLib.Browser.Request;
 using IOFile = System.IO.File;
 
-namespace TweetLib.Core.Resources {
+namespace TweetLib.Browser.Request {
 	public sealed class ResourceCache {
 		private readonly Dictionary<string, SchemeResource> cache = new ();
 
-		public void ClearCache() {
+		public void Clear() {
 			cache.Clear();
 		}
 
-		internal SchemeResource ReadFile(string path) {
+		public SchemeResource ReadFile(string path) {
 			string key = new Uri(path).LocalPath;
 
 			if (cache.TryGetValue(key, out var cachedResource)) {

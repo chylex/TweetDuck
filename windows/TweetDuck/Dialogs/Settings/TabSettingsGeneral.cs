@@ -5,8 +5,8 @@ using System.Windows.Forms;
 using TweetDuck.Browser.Base;
 using TweetDuck.Controls;
 using TweetDuck.Utils;
+using TweetLib.Browser.CEF.Utils;
 using TweetLib.Core;
-using TweetLib.Core.Features.Chromium;
 using TweetLib.Core.Features.Twitter;
 using TweetLib.Core.Systems.Updates;
 using TweetLib.Utils.Globalization;
@@ -115,7 +115,7 @@ namespace TweetDuck.Dialogs.Settings {
 					comboBoxSpellCheckLanguage.Items.Add(item);
 				}
 			} catch {
-				comboBoxSpellCheckLanguage.Items.Add(new Language("en-US"));
+				comboBoxSpellCheckLanguage.Items.Add(Language.English);
 			}
 
 			comboBoxSpellCheckLanguage.SelectedItem = new Language(Config.SpellCheckLanguage);

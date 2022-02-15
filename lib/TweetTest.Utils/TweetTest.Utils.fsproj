@@ -27,6 +27,7 @@
     <Compile Include="Collections\TestTwoKeyDictionary.fs" />
     <Compile Include="Data\TestInjectedString.fs" />
     <Compile Include="Data\TestResult.fs" />
+    <Compile Include="Dialogs\TestFileDialogFilter.fs" />
     <Compile Include="IO\TestCombinedFileStream.fs" />
     <Compile Include="Static\TestStringUtils.fs" />
   </ItemGroup>

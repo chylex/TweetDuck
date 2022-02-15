@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using TweetLib.Browser.CEF.Dialogs;
 using TweetLib.Browser.CEF.Interfaces;
+using TweetLib.Utils.Dialogs;
 using TweetLib.Utils.Static;
 
 namespace TweetLib.Browser.CEF.Logic {
@@ -19,11 +21,16 @@ namespace TweetLib.Browser.CEF.Logic {
 		public bool OnFileDialog(FileDialogType type, IEnumerable<string> acceptFilters, TCallback callback) {
 			if (type is FileDialogType.Open or FileDialogType.OpenMultiple) {
 				var multiple = type == FileDialogType.OpenMultiple;
-				var supportedExtensions = acceptFilters.SelectMany(ParseFileType).Where(static filter => !string.IsNullOrEmpty(filter)).ToList();
+				var supportedExtensions = acceptFilters.SelectMany(ParseFileType).Where(static filter => !string.IsNullOrEmpty(filter)).ToArray();
+				
+				var filters = new List<FileDialogFilter> {
+					new ("All Supported Formats", supportedExtensions),
+					new ("All Files", ".*")
+				};
 
-				fileDialogOpener.OpenFile("Open Files", multiple, supportedExtensions, files => {
+				fileDialogOpener.OpenFile("Open Files", multiple, filters, files => {
 					string ext = Path.GetExtension(files[0])!.ToLower();
-					callbackAdapter.Continue(callback, supportedExtensions.FindIndex(filter => ParseFileType(filter).Contains(ext)), files);
+					callbackAdapter.Continue(callback, Array.FindIndex(supportedExtensions, filter => ParseFileType(filter).Contains(ext)), files);
 					callbackAdapter.Dispose(callback);
 				}, () => {
 					callbackAdapter.Cancel(callback);

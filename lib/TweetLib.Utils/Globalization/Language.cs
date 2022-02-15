@@ -3,6 +3,8 @@ using System.Globalization;
 
 namespace TweetLib.Utils.Globalization {
 	public sealed class Language : IComparable<Language> {
+		public static Language English { get; } = new ("en-US");
+		
 		public string Code { get; }
 
 		private string Name => cultureInfo?.NativeName ?? Code;

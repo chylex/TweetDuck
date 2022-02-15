@@ -5,7 +5,7 @@ using System.IO;
 using System.Threading;
 using TweetLib.Utils.Static;
 
-namespace TweetLib.Core.Systems.Startup {
+namespace TweetLib.Utils.Startup {
 	public sealed class LockFile {
 		private static int CurrentProcessID {
 			get {
@@ -79,17 +79,16 @@ namespace TweetLib.Core.Systems.Startup {
 			return Lock();
 		}
 
-		public bool Unlock() {
+		public UnlockResult Unlock() {
 			if (ReleaseLockFileStream()) {
 				try {
 					File.Delete(path);
 				} catch (Exception e) {
-					App.Logger.Error(e.ToString());
-					return false;
+					return new UnlockResult.Fail(e);
 				}
 			}
 
-			return true;
+			return UnlockResult.Success;
 		}
 
 		[SuppressMessage("ReSharper", "PossibleNullReferenceException")]

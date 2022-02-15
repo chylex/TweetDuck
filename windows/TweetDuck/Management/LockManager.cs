@@ -4,7 +4,7 @@ using System.Diagnostics;
 using TweetDuck.Dialogs;
 using TweetDuck.Utils;
 using TweetLib.Core;
-using TweetLib.Core.Systems.Startup;
+using TweetLib.Utils.Startup;
 
 namespace TweetDuck.Management {
 	sealed class LockManager {
@@ -26,15 +26,25 @@ namespace TweetDuck.Management {
 		}
 
 		public bool Unlock() {
-			return lockFile.Unlock();
+			UnlockResult result = lockFile.Unlock();
+
+			if (result is UnlockResult.Fail fail) {
+				App.Logger.Error(fail.Exception.ToString());
+				return false;
+			}
+			else if (result != UnlockResult.Success) {
+				return false;
+			}
+			
+			return true;
 		}
 
 		// Locking
 
 		private bool LaunchNormally() {
-			LockResult lockResult = lockFile.Lock();
+			LockResult result = lockFile.Lock();
 
-			if (lockResult is LockResult.HasProcess info) {
+			if (result is LockResult.HasProcess info) {
 				if (!RestoreProcess(info.Process, WindowRestoreMessage) && FormMessage.Error("TweetDuck is Already Running", "Another instance of TweetDuck is already running.\nDo you want to close it?", FormMessage.Yes, FormMessage.No)) {
 					if (!CloseProcess(info.Process)) {
 						FormMessage.Error("TweetDuck Has Failed :(", "Could not close the other process.", FormMessage.OK);
@@ -42,18 +52,18 @@ namespace TweetDuck.Management {
 					}
 
 					info.Dispose();
-					lockResult = lockFile.Lock();
+					result = lockFile.Lock();
 				}
 				else {
 					return false;
 				}
 			}
 
-			if (lockResult is LockResult.Fail fail) {
+			if (result is LockResult.Fail fail) {
 				ShowGenericException(fail);
 				return false;
 			}
-			else if (lockResult != LockResult.Success) {
+			else if (result != LockResult.Success) {
 				FormMessage.Error("TweetDuck Has Failed :(", "An unknown error occurred accessing the data folder. Please, make sure TweetDuck is not already running. If the problem persists, try restarting your system.", FormMessage.OK);
 				return false;
 			}
@@ -62,10 +72,10 @@ namespace TweetDuck.Management {
 		}
 
 		private bool LaunchAfterRestart() {
-			LockResult lockResult = lockFile.LockWait(10000, WaitRetryDelay);
+			LockResult result = lockFile.LockWait(10000, WaitRetryDelay);
 
-			while (lockResult != LockResult.Success) {
-				if (lockResult is LockResult.Fail fail) {
+			while (result != LockResult.Success) {
+				if (result is LockResult.Fail fail) {
 					ShowGenericException(fail);
 					return false;
 				}
@@ -73,7 +83,7 @@ namespace TweetDuck.Management {
 					return false;
 				}
 
-				lockResult = lockFile.LockWait(5000, WaitRetryDelay);
+				result = lockFile.LockWait(5000, WaitRetryDelay);
 			}
 
 			return true;

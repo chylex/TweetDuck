@@ -4,7 +4,6 @@ using System.Net;
 using TweetLib.Browser.Interfaces;
 using TweetLib.Browser.Request;
 using TweetLib.Core.Features.Plugins.Enums;
-using TweetLib.Core.Resources;
 
 namespace TweetLib.Core.Features.Plugins {
 	public sealed class PluginSchemeHandler : ICustomSchemeHandler {

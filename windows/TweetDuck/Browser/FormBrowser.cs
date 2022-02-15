@@ -14,15 +14,19 @@ using TweetDuck.Controls;
 using TweetDuck.Dialogs;
 using TweetDuck.Dialogs.Settings;
 using TweetDuck.Management;
+using TweetDuck.Properties;
 using TweetDuck.Updates;
 using TweetDuck.Utils;
+using TweetLib.Browser.Request;
 using TweetLib.Core;
 using TweetLib.Core.Features.Notifications;
 using TweetLib.Core.Features.Plugins;
 using TweetLib.Core.Features.TweetDeck;
-using TweetLib.Core.Resources;
 using TweetLib.Core.Systems.Configuration;
 using TweetLib.Core.Systems.Updates;
+#if DEBUG
+using TweetLib.Core.Resources;
+#endif
 
 namespace TweetDuck.Browser {
 	sealed partial class FormBrowser : Form, CustomKeyboardHandler.IBrowserKeyHandler {
@@ -143,7 +147,7 @@ namespace TweetDuck.Browser {
 		}
 
 		private void UpdateFormIcon() { // TODO fix to show icon in taskbar too
-			Icon = Config.MuteNotifications ? Properties.Resources.icon_muted : Properties.Resources.icon;
+			Icon = Config.MuteNotifications ? Resources.icon_muted : Resources.icon;
 		}
 
 		private void UpdateTray() {
@@ -346,10 +350,10 @@ namespace TweetDuck.Browser {
 		public void ReloadToTweetDeck() {
 			#if DEBUG
 			ResourceHotSwap.Run();
-			resourceCache.ClearCache();
+			resourceCache.Clear();
 			#else
 			if (ModifierKeys.HasFlag(Keys.Shift)) {
-				resourceCache.ClearCache();
+				resourceCache.Clear();
 			}
 			#endif
 

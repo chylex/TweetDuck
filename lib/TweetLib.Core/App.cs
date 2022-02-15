@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using TweetLib.Browser.Request;
 using TweetLib.Core.Application;
 using TweetLib.Core.Features;
 using TweetLib.Core.Features.Plugins;
-using TweetLib.Core.Resources;
 using TweetLib.Core.Systems.Configuration;
 using TweetLib.Core.Systems.Logging;
 using TweetLib.Utils.Static;

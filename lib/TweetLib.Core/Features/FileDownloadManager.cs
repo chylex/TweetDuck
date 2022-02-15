@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using TweetLib.Browser.Interfaces;
 using TweetLib.Core.Features.Twitter;
-using TweetLib.Core.Systems.Dialogs;
+using TweetLib.Utils.Dialogs;
 using TweetLib.Utils.Static;
 
 namespace TweetLib.Core.Features {
