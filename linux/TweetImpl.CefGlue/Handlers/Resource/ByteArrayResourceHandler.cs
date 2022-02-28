@@ -38,7 +38,7 @@ namespace TweetImpl.CefGlue.Handlers.Resource {
 		}
 
 		protected override bool Read(IntPtr dataOut, int bytesToRead, out int bytesRead, CefResourceReadCallback callback) {
-			return logic!.Read(WriteToOut, dataOut, Math.Min(bytesToRead, logic.RemainingBytes), out bytesRead, callback);
+			return logic!.Read(WriteToOut, dataOut, bytesToRead, out bytesRead, callback);
 		}
 
 		protected override void Cancel() {}

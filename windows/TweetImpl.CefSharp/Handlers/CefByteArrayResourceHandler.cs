@@ -39,7 +39,7 @@ namespace TweetImpl.CefSharp.Handlers {
 		}
 
 		bool IResourceHandler.Read(Stream dataOut, out int bytesRead, IResourceReadCallback callback) {
-			return logic.Read(WriteToOut, dataOut, out bytesRead, callback);
+			return logic.Read(WriteToOut, dataOut, dataOut.Length, out bytesRead, callback);
 		}
 
 		bool IResourceHandler.ProcessRequest(IRequest request, ICallback callback) {
