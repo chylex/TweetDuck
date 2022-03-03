@@ -4,7 +4,7 @@ import { TD } from "../api/td.js";
 import { ensurePropertyExists } from "../api/utils.js";
 
 function focusDmInput() {
-	document.querySelector(".js-reply-tweetbox").focus();
+	document.querySelector(".js-reply-tweetbox")?.focus();
 }
 
 /**
