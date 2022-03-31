@@ -215,11 +215,11 @@ If you plan to distribute your own installers, you can change the variables in t
 
 > Running `GEN INSTALLERS.bat` uses about 400 MB of RAM due to high compression. You can lower this to about 140 MB by opening `gen_full.iss` and `gen_port.iss`, and changing `LZMADictionarySize=15360` to `LZMADictionarySize=4096`.
 
-## Development (Linux)
+# Development (Linux)
 
 Unfortunately the development experience on Linux is terrible, likely due to mixed C# and native code. The .NET debugger seems to crash the moment it enters native code, so the only way to run the app is without the debugger attached. If any C# code throws an exception, it will crash the whole application with no usable stack trace or error message. Please let me know if you find a way to make this better.
 
-### Building
+## Building
 
 The `linux/TweetDuck/TweetDuck.csproj` project file has several tasks (targets) that run after a build:
 
@@ -227,7 +227,7 @@ The `linux/TweetDuck/TweetDuck.csproj` project file has several tasks (targets) 
 * `FinalizeDebug` copies a debug plugin (`Resources/Plugins/.debug`) into the build folder (Debug only)
 * `FinalizeRelease` prepares the build folder for publishing (Release only)
 
-### Release
+## Release
 
 To change the application version before a release, search for the `<Version>` tag in every `.csproj` file in the `linux/` folder and modify it.
 
