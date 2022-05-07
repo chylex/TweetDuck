@@ -8,6 +8,7 @@ if (!("TD" in window)) {
  *
  * @property {TD_Clients} clients
  * @property {TD_Components} components
+ * @property {TD_Config} config
  * @property {TD_Controller} controller
  * @property {TD_Languages} languages
  * @property {TD_Metrics} metrics
@@ -62,6 +63,13 @@ if (!("TD" in window)) {
  * @property {Class<BaseModal>} BaseModal
  * @property {Class} ConversationDetailView
  * @property {Class<MediaGallery>} MediaGallery
+ */
+
+/**
+ * @typedef TD_Config
+ * @type {Object}
+ * 
+ * @property {Object} config_overlay
  */
 
 /**

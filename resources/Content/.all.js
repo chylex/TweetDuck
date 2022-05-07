@@ -24,6 +24,7 @@ import configure_first_day_of_week from "./tweetdeck/configure_first_day_of_week
 import configure_language_for_translations from "./tweetdeck/configure_language_for_translations.js";
 import disable_clipboard_formatting from "./tweetdeck/disable_clipboard_formatting.js";
 import disable_td_metrics from "./tweetdeck/disable_td_metrics.js";
+import disable_tweetdeck_preview from "./tweetdeck/disable_tweetdeck_preview.js";
 import drag_links_onto_columns from "./tweetdeck/drag_links_onto_columns.js";
 import expand_links_or_show_tooltip from "./tweetdeck/expand_links_or_show_tooltip.js";
 import fix_dm_input_box_focus from "./tweetdeck/fix_dm_input_box_focus.js";
