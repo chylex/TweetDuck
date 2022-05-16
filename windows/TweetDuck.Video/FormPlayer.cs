@@ -2,7 +2,6 @@
 using System;
 using System.Drawing;
 using System.Globalization;
-using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using TweetDuck.Video.Controls;
@@ -216,7 +215,6 @@ namespace TweetDuck.Video {
 			Marshal.ReleaseComObject(controls);
 		}
 
-		[HandleProcessCorruptedStateExceptions]
 		private void timerSync_Tick(object sender, EventArgs e) {
 			if (NativeMethods.GetWindowRect(ownerHandle, out NativeMethods.RECT rect)) {
 				IWMPMedia media = Player.currentMedia;

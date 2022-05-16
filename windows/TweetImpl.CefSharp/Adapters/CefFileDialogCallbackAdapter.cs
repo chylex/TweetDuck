@@ -9,7 +9,7 @@ namespace TweetImpl.CefSharp.Adapters {
 		private CefFileDialogCallbackAdapter() {}
 
 		public void Continue(IFileDialogCallback callback, int selectedAcceptFilter, string[] filePaths) {
-			callback.Continue(selectedAcceptFilter, filePaths.ToList());
+			callback.Continue(filePaths.ToList());
 		}
 
 		public void Cancel(IFileDialogCallback callback) {

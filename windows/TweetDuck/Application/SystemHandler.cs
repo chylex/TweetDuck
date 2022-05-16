@@ -85,6 +85,7 @@ namespace TweetDuck.Application {
 			try {
 				using (Process.Start(new ProcessStartInfo {
 					FileName = path,
+					UseShellExecute = true,
 					ErrorDialog = true
 				})) {}
 			} catch (Exception e) {

@@ -14,7 +14,7 @@ namespace TweetImpl.CefSharp.Handlers {
 			this.logic = new DialogHandlerLogic<IFileDialogCallback>(FileDialogOpener.Instance, CefFileDialogCallbackAdapter.Instance);
 		}
 
-		public bool OnFileDialog(IWebBrowser chromiumWebBrowser, IBrowser browser, CefFileDialogMode mode, CefFileDialogFlags flags, string title, string defaultFilePath, List<string> acceptFilters, int selectedAcceptFilter, IFileDialogCallback callback) {
+		public bool OnFileDialog(IWebBrowser chromiumWebBrowser, IBrowser browser, CefFileDialogMode mode, string title, string defaultFilePath, List<string> acceptFilters, IFileDialogCallback callback) {
 			return logic.OnFileDialog(ConvertDialogType(mode), acceptFilters, callback);
 		}
 

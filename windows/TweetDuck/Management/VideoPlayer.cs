@@ -41,7 +41,6 @@ namespace TweetDuck.Management {
 				ProcessStartInfo startInfo = new ProcessStartInfo {
 					FileName = Path.Combine(App.ProgramPath, "TweetDuck.Video.exe"),
 					Arguments = $"{owner.Handle} {(int) Math.Floor(100F * owner.GetDPIScale())} {Config.VideoPlayerVolume} \"{videoUrl}\" \"{pipe.GenerateToken()}\"",
-					UseShellExecute = false,
 					RedirectStandardOutput = true
 				};
 

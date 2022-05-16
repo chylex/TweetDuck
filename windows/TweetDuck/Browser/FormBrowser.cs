@@ -57,7 +57,7 @@ namespace TweetDuck.Browser {
 		private readonly FormNotificationTweet notification;
 		private readonly PluginManager plugins;
 		private readonly UpdateChecker updates;
-		private readonly ContextMenu contextMenu;
+		private readonly ContextMenuStrip contextMenu;
 		private readonly uint windowRestoreMessage;
 
 		private bool isLoaded;

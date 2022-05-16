@@ -47,7 +47,7 @@ namespace TweetImpl.CefSharp.Component {
 
 		public override void AttachBridgeObject(string name, object bridge) {
 			browser.JavascriptObjectRepository.Settings.LegacyBindingEnabled = true;
-			browser.JavascriptObjectRepository.Register(name, bridge, isAsync: true, BindingOptions.DefaultBinder);
+			browser.JavascriptObjectRepository.Register(name, bridge);
 		}
 
 		private void OnLoadingStateChanged(object sender, LoadingStateChangedEventArgs e) {

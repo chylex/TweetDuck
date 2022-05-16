@@ -38,10 +38,13 @@ namespace TweetLib.Communication.Pipe {
 
 		private void ReaderThread() {
 			using StreamReader read = new StreamReader(pipeIn);
-			string? data;
 
-			while ((data = read.ReadLine()) != null) {
-				DataIn?.Invoke(this, new PipeReadEventArgs(data));
+			try {
+				while (read.ReadLine() is {} data) {
+					DataIn?.Invoke(this, new PipeReadEventArgs(data));
+				}
+			} catch (ObjectDisposedException) {
+				// expected
 			}
 		}
 
@@ -56,12 +59,6 @@ namespace TweetLib.Communication.Pipe {
 		}
 
 		public void Dispose() {
-			try {
-				readerThread.Abort();
-			} catch {
-				// /shrug
-			}
-
 			pipeIn.Dispose();
 			writerStream.Dispose();
 		}

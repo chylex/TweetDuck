@@ -1,338 +1,61 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\packages\CefSharp.Common.98.1.210\build\CefSharp.Common.props" Condition="Exists('..\..\packages\CefSharp.Common.98.1.210\build\CefSharp.Common.props')" />
-  <Import Project="..\..\packages\cef.redist.x86.98.1.21\build\cef.redist.x86.props" Condition="Exists('..\..\packages\cef.redist.x86.98.1.21\build\cef.redist.x86.props')" />
-  <Import Project="..\..\packages\cef.redist.x64.98.1.21\build\cef.redist.x64.props" Condition="Exists('..\..\packages\cef.redist.x64.98.1.21\build\cef.redist.x64.props')" />
-  <Import Project="..\..\packages\CefSharp.WinForms.98.1.210\build\CefSharp.WinForms.props" Condition="Exists('..\..\packages\CefSharp.WinForms.98.1.210\build\CefSharp.WinForms.props')" />
-  <Import Project="..\..\packages\Microsoft.Net.Compilers.3.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\..\packages\Microsoft.Net.Compilers.3.0.0\build\Microsoft.Net.Compilers.props')" />
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{2389A7CD-E0D3-4706-8294-092929A33A2D}</ProjectGuid>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Configurations>Debug;Release</Configurations>
+    <Platforms>x86</Platforms>
+    <RuntimeIdentifier>win7-x86</RuntimeIdentifier>
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  
+  <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <UseWindowsForms>true</UseWindowsForms>
     <RootNamespace>TweetDuck</RootNamespace>
     <AssemblyName>TweetDuck</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <LangVersion>8.0</LangVersion>
-    <FileAlignment>512</FileAlignment>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
     <ApplicationIcon>Resources\Images\icon.ico</ApplicationIcon>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+  
+  <PropertyGroup>
+    <SelfContained>true</SelfContained>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <StartArguments>-datafolder TweetDuckDebug</StartArguments>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+  
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
+    <DebugType>none</DebugType>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <OutputPath>bin\x86\Release\</OutputPath>
-    <Optimize>true</Optimize>
-    <PlatformTarget>x86</PlatformTarget>
-    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
+  
   <ItemGroup>
-    <Reference Include="CefSharp, Version=98.1.210.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CefSharp.Common.98.1.210\lib\net452\CefSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="CefSharp.Core, Version=98.1.210.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CefSharp.Common.98.1.210\lib\net452\CefSharp.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="CefSharp.WinForms, Version=98.1.210.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CefSharp.WinForms.98.1.210\lib\net462\CefSharp.WinForms.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Management" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Windows.Forms" />
+    <PackageReference Include="CefSharp.WinForms.NETCore" Version="102.0.90" />
   </ItemGroup>
+  
   <ItemGroup>
-    <ProjectReference Include="..\TweetDuck.Browser\TweetDuck.Browser.csproj">
-      <Project>{b10b0017-819e-4f71-870f-8256b36a26aa}</Project>
-      <Name>TweetDuck.Browser</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TweetDuck.Video\TweetDuck.Video.csproj">
-      <Project>{278b2d11-402d-44b6-b6a1-8fa67db65565}</Project>
-      <Name>TweetDuck.Video</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\lib\TweetLib.Browser\TweetLib.Browser.csproj">
-      <Project>{eefb1f37-7cad-46bd-8042-66e7b502ab02}</Project>
-      <Name>TweetLib.Browser</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\lib\TweetLib.Browser.CEF\TweetLib.Browser.CEF.csproj">
-      <Project>{1b7793c6-9002-483e-9bd7-897fe6cd18fb}</Project>
-      <Name>TweetLib.Browser.CEF</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\lib\TweetLib.Core\TweetLib.Core.csproj">
-      <Project>{93ba3cb4-a812-4949-b07d-8d393fb38937}</Project>
-      <Name>TweetLib.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\lib\TweetLib.Utils\TweetLib.Utils.csproj">
-      <Project>{476b1007-b12c-447f-b855-9886048201d6}</Project>
-      <Name>TweetLib.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\lib\TweetLib.Communication\TweetLib.Communication.csproj">
-      <Project>{72473763-4b9d-4fb6-a923-9364b2680f06}</Project>
-      <Name>TweetLib.Communication</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TweetImpl.CefSharp\TweetImpl.CefSharp.csproj">
-      <Project>{44df3e2e-f465-4a31-8b43-f40fffb018ba}</Project>
-      <Name>TweetImpl.CefSharp</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\..\lib\TweetLib.Browser.CEF\TweetLib.Browser.CEF.csproj" />
+    <ProjectReference Include="..\..\lib\TweetLib.Browser\TweetLib.Browser.csproj" />
+    <ProjectReference Include="..\..\lib\TweetLib.Communication\TweetLib.Communication.csproj" />
+    <ProjectReference Include="..\..\lib\TweetLib.Core\TweetLib.Core.csproj" />
+    <ProjectReference Include="..\..\lib\TweetLib.Utils\TweetLib.Utils.csproj" />
+    <ProjectReference Include="..\TweetDuck.Browser\TweetDuck.Browser.csproj" />
+    <ProjectReference Include="..\TweetDuck.Video\TweetDuck.Video.csproj" />
+    <ProjectReference Include="..\TweetImpl.CefSharp\TweetImpl.CefSharp.csproj" />
   </ItemGroup>
+  
   <ItemGroup>
-    <Compile Include="Application\FileDialogs.cs" />
-    <Compile Include="Application\MessageDialogs.cs" />
-    <Compile Include="Application\SystemHandler.cs" />
-    <Compile Include="Browser\Base\BrowserProcessHandler.cs" />
-    <Compile Include="Browser\Base\CefBrowserComponent.cs" />
-    <Compile Include="Browser\Base\ContextMenuBase.cs" />
-    <Compile Include="Browser\Base\ContextMenuBrowser.cs" />
-    <Compile Include="Browser\Base\ContextMenuNotification.cs" />
-    <Compile Include="Browser\Base\CustomKeyboardHandler.cs" />
-    <Compile Include="Browser\Base\JsDialogOpener.cs" />
-    <Compile Include="Browser\Base\PopupHandler.cs" />
-    <Compile Include="Browser\Notification\FormNotificationExample.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Browser\Notification\NotificationPauseReason.cs" />
-    <Compile Include="Browser\Notification\Screenshot\ScreenshotBridge.cs" />
-    <Compile Include="Browser\Notification\Screenshot\TweetScreenshotManager.cs" />
-    <Compile Include="Browser\Notification\SoundNotification.cs" />
-    <Compile Include="Browser\TweetDeckBrowser.cs" />
-    <Compile Include="Configuration\Arguments.cs" />
-    <Compile Include="Configuration\SystemConfig.cs" />
-    <Compile Include="Configuration\UserConfig.cs" />
-    <Compile Include="Controls\ControlExtensions.cs" />
-    <Compile Include="Management\BrowserCache.cs" />
-    <Compile Include="Management\ClipboardManager.cs" />
-    <Compile Include="Management\FormManager.cs" />
-    <Compile Include="Management\LockManager.cs" />
-    <Compile Include="Management\ProfileManager.cs" />
-    <Compile Include="Management\VideoPlayer.cs" />
-    <Compile Include="Management\WindowsSessionManager.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reporter.cs" />
-    <Compile Include="Updates\UpdateCheckClient.cs" />
-    <Compile Include="Updates\UpdateInstaller.cs" />
-    <Compile Include="Utils\BrowserUtils.cs" />
-    <Compile Include="Utils\NativeMethods.cs" />
-    <Compile Include="Utils\WindowsUtils.cs" />
+    <Compile Include="..\..\Version.cs" Link="Version.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\..\Version.cs">
-      <Link>Version.cs</Link>
-    </Compile>
-    <Compile Include="Controls\FlatButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\FlatProgressBar.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\LabelVertical.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controls\NumericUpDownEx.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Browser\FormBrowser.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Browser\FormBrowser.Designer.cs">
-      <DependentUpon>FormBrowser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Browser\Notification\FormNotificationMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Browser\Notification\FormNotificationMain.Designer.cs">
-      <DependentUpon>FormNotificationMain.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Browser\Notification\FormNotificationBase.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Browser\Notification\FormNotificationBase.Designer.cs">
-      <DependentUpon>FormNotificationBase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Browser\Notification\FormNotificationTweet.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Browser\Notification\FormNotificationTweet.Designer.cs">
-      <DependentUpon>FormNotificationTweet.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\FormAbout.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\FormAbout.Designer.cs">
-      <DependentUpon>FormAbout.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\FormGuide.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\FormGuide.Designer.cs">
-      <DependentUpon>FormGuide.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\FormMessage.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\FormMessage.Designer.cs">
-      <DependentUpon>FormMessage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\FormPlugins.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\FormPlugins.Designer.cs">
-      <DependentUpon>FormPlugins.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Settings\DialogSettingsExternalProgram.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\Settings\DialogSettingsExternalProgram.Designer.cs">
-      <DependentUpon>DialogSettingsExternalProgram.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Settings\DialogSettingsSearchEngine.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\Settings\DialogSettingsSearchEngine.Designer.cs">
-      <DependentUpon>DialogSettingsSearchEngine.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Settings\DialogSettingsCSS.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\Settings\DialogSettingsCSS.Designer.cs">
-      <DependentUpon>DialogSettingsCSS.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Settings\DialogSettingsCefArgs.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\Settings\DialogSettingsCefArgs.Designer.cs">
-      <DependentUpon>DialogSettingsCefArgs.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Settings\DialogSettingsManage.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\Settings\DialogSettingsManage.Designer.cs">
-      <DependentUpon>DialogSettingsManage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Settings\DialogSettingsRestart.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\Settings\DialogSettingsRestart.Designer.cs">
-      <DependentUpon>DialogSettingsRestart.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Settings\TabSettingsFeedback.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Dialogs\Settings\TabSettingsFeedback.Designer.cs">
-      <DependentUpon>TabSettingsFeedback.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Settings\TabSettingsTray.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Dialogs\Settings\TabSettingsTray.Designer.cs">
-      <DependentUpon>TabSettingsTray.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Settings\TabSettingsAdvanced.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Dialogs\Settings\TabSettingsAdvanced.Designer.cs">
-      <DependentUpon>TabSettingsAdvanced.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Settings\TabSettingsGeneral.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Dialogs\Settings\TabSettingsGeneral.Designer.cs">
-      <DependentUpon>TabSettingsGeneral.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Settings\TabSettingsSounds.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Dialogs\Settings\TabSettingsSounds.Designer.cs">
-      <DependentUpon>TabSettingsSounds.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\Settings\TabSettingsNotifications.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Dialogs\Settings\TabSettingsNotifications.Designer.cs">
-      <DependentUpon>TabSettingsNotifications.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Browser\Notification\Screenshot\FormNotificationScreenshotable.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\FormSettings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\FormSettings.Designer.cs">
-      <DependentUpon>FormSettings.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Plugins\PluginControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Plugins\PluginControl.Designer.cs">
-      <DependentUpon>PluginControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\FlowLayoutPanelNoHScroll.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Updates\FormUpdateDownload.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Updates\FormUpdateDownload.Designer.cs">
-      <DependentUpon>FormUpdateDownload.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Browser\TrayIcon.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Browser\TrayIcon.Designer.cs">
-      <DependentUpon>TrayIcon.cs</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Browser\FormBrowser.resx">
-      <DependentUpon>FormBrowser.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
+  
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
     <None Include="Resources\Images\icon-muted.ico" />
     <None Include="Resources\Images\icon-small.ico" />
     <None Include="Resources\Images\icon-tray-muted.ico" />
@@ -340,11 +63,13 @@
     <None Include="Resources\Images\icon-tray.ico" />
     <None Include="Resources\Images\icon.ico" />
     <None Include="Resources\PostBuild.ps1" />
-    <None Include="Resources\PostCefUpdate.ps1" />
     <None Include="$(SolutionDir)README.md">
       <Link>Resources\README.md</Link>
     </None>
+    <Compile Remove="Resources\Utilities\CompareStylesheets.cs" />
+    <None Include="Resources\Utilities\CompareStylesheets.cs" />
   </ItemGroup>
+  
   <ItemGroup>
     <ResourcesContent Include="$(SolutionDir)resources\Content\**\*.*" Visible="false" />
     <ResourcesGuide Include="$(SolutionDir)resources\Guide\**\*.*" Visible="false" />
@@ -352,17 +77,40 @@
     <ResourcesPlugins Remove="$(SolutionDir)resources\Plugins\.debug\**\*.*" />
     <ResourcesPlugins Remove="$(SolutionDir)resources\Plugins\emoji-keyboard\emoji-instructions.txt" />
     <ResourcesPluginsDebug Include="$(SolutionDir)resources\Plugins\.debug\**\*.*" Visible="false" />
-    <Redist Include="$(SolutionDir)bld\Redist\*.*" Visible="false" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  
   <PropertyGroup>
     <PreBuildEvent>powershell -NoProfile -Command "$ErrorActionPreference = 'SilentlyContinue'; (Get-Process TweetDuck.Browser | Where-Object {$_.Path -eq '$(TargetDir)TweetDuck.Browser.exe'}).Kill(); Exit 0"</PreBuildEvent>
   </PropertyGroup>
+  
   <Target Name="CopyResources" AfterTargets="Build">
     <ItemGroup>
       <LocalesToDelete Include="$(TargetDir)locales\*.pak" Exclude="$(TargetDir)locales\en-US.pak" Visible="false" />
     </ItemGroup>
+    <ItemGroup>
+      <!-- WinForms -->
+      <DllsToDelete Include="$(TargetDir)System.Windows.Controls.Ribbon.dll" Visible="false" />
+      <DllsToDelete Include="$(TargetDir)System.Windows.Forms.Design.dll" Visible="false" />
+      <DllsToDelete Include="$(TargetDir)System.Windows.Forms.Design.Editors.dll" Visible="false" />
+      <!-- WPF -->
+      <DllsToDelete Include="$(TargetDir)D3DCompiler_47_cor3.dll" Visible="false" />
+      <DllsToDelete Include="$(TargetDir)DirectWriteForwarder.dll" Visible="false" />
+      <DllsToDelete Include="$(TargetDir)PenImc_cor3.dll" Visible="false" />
+      <DllsToDelete Include="$(TargetDir)PresentationCore.dll" Visible="false" />
+      <DllsToDelete Include="$(TargetDir)PresentationFramework*.dll" Visible="false" />
+      <DllsToDelete Include="$(TargetDir)PresentationNative_cor3.dll" Visible="false" />
+      <DllsToDelete Include="$(TargetDir)PresentationUI.dll" Visible="false" />
+      <DllsToDelete Include="$(TargetDir)ReachFramework.dll" Visible="false" />
+      <DllsToDelete Include="$(TargetDir)System.Xaml.dll" Visible="false" />
+      <DllsToDelete Include="$(TargetDir)System.Windows.Input.Manipulations.dll" Visible="false" />
+      <DllsToDelete Include="$(TargetDir)UIAutomation*.dll" Visible="false" />
+      <DllsToDelete Include="$(TargetDir)vcruntime140_cor3.dll" Visible="false" />
+      <DllsToDelete Include="$(TargetDir)WindowsBase.dll" Visible="false" />
+      <DllsToDelete Include="$(TargetDir)WindowsFormsIntegration.dll" Visible="false" />
+      <DllsToDelete Include="$(TargetDir)wpfgfx_cor3.dll" Visible="false" />
+    </ItemGroup>
     <Delete Files="@(LocalesToDelete)" />
+    <Delete Files="@(DllsToDelete)" />
     <RemoveDir Directories="$(TargetDir)resources" />
     <RemoveDir Directories="$(TargetDir)guide" />
     <RemoveDir Directories="$(TargetDir)plugins" />
@@ -373,9 +121,11 @@
     <Copy SourceFiles="@(ResourcesPlugins)" DestinationFiles="@(ResourcesPlugins->'$(TargetDir)\plugins\official\%(RecursiveDir)%(Filename)%(Extension)')" />
     <Exec Command="powershell -NoProfile -ExecutionPolicy Unrestricted -File &quot;$(ProjectDir)Resources\PostBuild.ps1&quot; &quot;$(TargetDir)\&quot;" IgnoreExitCode="false" />
   </Target>
+  
   <Target Name="FinalizeDebug" AfterTargets="CopyResources" Condition="$(ConfigurationName) == Debug">
     <Copy SourceFiles="@(ResourcesPluginsDebug)" DestinationFiles="@(ResourcesPluginsDebug->'$(TargetDir)\plugins\user\.debug\%(RecursiveDir)%(Filename)%(Extension)')" />
   </Target>
+  
   <Target Name="FinalizeRelease" AfterTargets="CopyResources" Condition="$(ConfigurationName) == Release">
     <ItemGroup>
       <PdbFiles Include="$(TargetDir)*.pdb" Visible="false" />
@@ -387,19 +137,8 @@
     <Delete Files="@(PdbFiles)" />
     <Delete Files="@(XmlFiles)" />
     <Delete Files="@(TxtFiles)" />
-    <Copy SourceFiles="@(Redist)" DestinationFolder="$(TargetDir)" />
     <Copy SourceFiles="$(SolutionDir)bld\Resources\LICENSES.txt" DestinationFolder="$(TargetDir)" />
     <Exec Command="start &quot;&quot; /B &quot;ISCC.exe&quot; /Q &quot;$(SolutionDir)bld\gen_upd.iss&quot;" WorkingDirectory="$(SolutionDir)bld\" IgnoreExitCode="true" />
   </Target>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Microsoft.Net.Compilers.3.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Net.Compilers.3.0.0\build\Microsoft.Net.Compilers.props'))" />
-    <Error Condition="!Exists('..\..\packages\cef.redist.x64.98.1.21\build\cef.redist.x64.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\cef.redist.x64.98.1.21\build\cef.redist.x64.props'))" />
-    <Error Condition="!Exists('..\..\packages\cef.redist.x86.98.1.21\build\cef.redist.x86.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\cef.redist.x86.98.1.21\build\cef.redist.x86.props'))" />
-    <Error Condition="!Exists('..\..\packages\CefSharp.Common.98.1.210\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\CefSharp.Common.98.1.210\build\CefSharp.Common.props'))" />
-    <Error Condition="!Exists('..\..\packages\CefSharp.Common.98.1.210\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\CefSharp.Common.98.1.210\build\CefSharp.Common.targets'))" />
-  </Target>
-  <Import Project="..\..\packages\CefSharp.Common.98.1.210\build\CefSharp.Common.targets" Condition="Exists('..\..\packages\CefSharp.Common.98.1.210\build\CefSharp.Common.targets')" />
+
 </Project>

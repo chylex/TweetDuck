@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
-using System.Web.Script.Serialization;
 using TweetLib.Core.Systems.Updates;
 using TweetLib.Utils.Static;
-using JsonObject = System.Collections.Generic.IDictionary<string, object>;
 
 namespace TweetDuck.Updates {
 	sealed class UpdateCheckClient : IUpdateCheckClient {
@@ -48,19 +48,19 @@ namespace TweetDuck.Updates {
 		}
 
 		private UpdateInfo ParseFromJson(string json) {
-			static bool IsUpdaterAsset(JsonObject obj) {
-				return UpdaterAssetName == (string) obj["name"];
+			static bool IsUpdaterAsset(JsonElement obj) {
+				return UpdaterAssetName == obj.GetProperty("name").GetString();
 			}
 
-			static string AssetDownloadUrl(JsonObject obj) {
-				return (string) obj["browser_download_url"];
+			static string AssetDownloadUrl(JsonElement obj) {
+				return obj.GetProperty("browser_download_url").GetString()!;
 			}
 
-			var root = (JsonObject) new JavaScriptSerializer().DeserializeObject(json);
+			var root = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(json)!;
 
-			string versionTag = (string) root["tag_name"];
-			string releaseNotes = (string) root["body"];
-			string downloadUrl = ((Array) root["assets"]).Cast<JsonObject>().Where(IsUpdaterAsset).Select(AssetDownloadUrl).FirstOrDefault();
+			string versionTag = root["tag_name"].GetString()!;
+			string releaseNotes = root["body"].GetString()!;
+			string? downloadUrl = root["assets"].EnumerateArray().Where(IsUpdaterAsset).Select(AssetDownloadUrl).FirstOrDefault();
 
 			return new UpdateInfo(versionTag, releaseNotes, downloadUrl, installerFolder);
 		}

@@ -63,7 +63,7 @@ namespace TweetDuck {
 
 		private static bool OpenLogFile() {
 			try {
-				using (Process.Start(App.Logger.LogFilePath)) {}
+				using (Process.Start(new ProcessStartInfo(App.Logger.LogFilePath) { UseShellExecute = true })) {}
 			} catch (Exception) {
 				return false;
 			}

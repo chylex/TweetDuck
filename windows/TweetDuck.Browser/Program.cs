@@ -1,33 +1,25 @@
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using CefSharp.BrowserSubprocess;
+using CefSharp.Core;
 
 namespace TweetDuck.Browser {
 	static class Program {
+		private const string ParentIdPrefix = "--host-process-id=";
+
 		private static int Main(string[] args) {
-			SubProcess.EnableHighDPISupport();
-
-			string FindArg(string key) {
-				return Array.Find(args, arg => arg.StartsWith(key, StringComparison.OrdinalIgnoreCase)).Substring(key.Length);
-			}
-
-			const string typePrefix = "--type=";
-			const string parentIdPrefix = "--host-process-id=";
-
-			if (!int.TryParse(FindArg(parentIdPrefix), out int parentId)) {
+			if (!int.TryParse(FindArg(args, ParentIdPrefix), out int parentId)) {
 				return 0;
 			}
 
 			Task.Factory.StartNew(() => KillWhenHung(parentId), TaskCreationOptions.LongRunning);
 
-			if (FindArg(typePrefix) == "renderer") {
-				using SubProcess subProcess = new SubProcess(null, args);
-				return subProcess.Run();
-			}
-			else {
-				return SubProcess.ExecuteProcess(args);
-			}
+			Cef.EnableHighDPISupport();
+			return CefSharp.BrowserSubprocess.SelfHost.Main(args);
+		}
+
+		private static string? FindArg(string[] args, string key) {
+			return Array.Find(args, arg => arg.StartsWith(key, StringComparison.OrdinalIgnoreCase))?[key.Length..];
 		}
 
 		private static async void KillWhenHung(int parentId) {

@@ -29,7 +29,7 @@ namespace TweetLib.Browser.CEF.Logic {
 				};
 
 				fileDialogOpener.OpenFile("Open Files", multiple, filters, files => {
-					string ext = Path.GetExtension(files[0])!.ToLower();
+					string ext = Path.GetExtension(files[0]).ToLower();
 					callbackAdapter.Continue(callback, Array.FindIndex(supportedExtensions, filter => ParseFileType(filter).Contains(ext)), files);
 					callbackAdapter.Dispose(callback);
 				}, () => {

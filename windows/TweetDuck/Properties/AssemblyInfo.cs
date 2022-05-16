@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 using TweetDuck;
 
 // General Information about an assembly is controlled through the following
@@ -24,6 +25,6 @@ using TweetDuck;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("7f09373d-8beb-416f-a48d-45d8aaeb8caf")]
 
+[assembly: SupportedOSPlatform("windows")]
 [assembly: NeutralResourcesLanguage("en")]
-
 [assembly: CLSCompliant(true)]

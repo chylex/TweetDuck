@@ -99,18 +99,18 @@ namespace TweetDuck.Browser.Base {
 			extraContext.Reset();
 		}
 
-		public static ContextMenu CreateMenu(FormBrowser form) {
-			ContextMenu menu = new ContextMenu();
+		public static ContextMenuStrip CreateMenu(FormBrowser form) {
+			ContextMenuStrip menu = new ContextMenuStrip();
 
-			menu.MenuItems.Add(TitleReloadBrowser, (sender, args) => form.ReloadToTweetDeck());
-			menu.MenuItems.Add(TitleMuteNotifications, (sender, args) => ToggleMuteNotifications());
-			menu.MenuItems.Add("-");
-			menu.MenuItems.Add(TitleSettings, (sender, args) => form.OpenSettings());
-			menu.MenuItems.Add(TitlePlugins, (sender, args) => form.OpenPlugins());
-			menu.MenuItems.Add(TitleAboutProgram,  (sender, args) => form.OpenAbout());
+			menu.Items.Add(TitleReloadBrowser, null, (sender, args) => form.ReloadToTweetDeck());
+			menu.Items.Add(TitleMuteNotifications, null, (sender, args) => ToggleMuteNotifications());
+			menu.Items.Add("-");
+			menu.Items.Add(TitleSettings, null, (sender, args) => form.OpenSettings());
+			menu.Items.Add(TitlePlugins, null, (sender, args) => form.OpenPlugins());
+			menu.Items.Add(TitleAboutProgram, null,  (sender, args) => form.OpenAbout());
 
-			menu.Popup += (sender, args) => {
-				menu.MenuItems[1].Checked = Config.MuteNotifications;
+			menu.Opening += (sender, args) => {
+				((ToolStripMenuItem) menu.Items[1]).Checked = Config.MuteNotifications;
 			};
 
 			return menu;

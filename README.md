@@ -43,14 +43,14 @@ Download links and system requirements are on the [official website](https://twe
 
 Building TweetDuck for Windows requires at minimum [Visual Studio 2019](https://visualstudio.microsoft.com/downloads) and Windows 7. Before opening the solution, open Visual Studio Installer and make sure you have the following Visual Studio workloads and components installed:
 * **.NET desktop development**
-  * .NET Framework 4.7.2 targeting pack
+  * .NET SDK
   * F# desktop language support
 * **Desktop development with C++**
   * MSVC v142 - VS 2019 C++ x64/x86 build tools (v14.20 / Latest)
 
-In the **Installation details** panel, you can expand the workloads you selected, and uncheck any components that are not listed above to save space.
+In the **Installation details** panel, you can expand the workloads you selected, and uncheck any components that are not listed above to save space. You may uncheck the .NET SDK component if you installed the [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) directly.
 
-Building TweetDuck for Linux requires [.NET 5](https://docs.microsoft.com/en-us/dotnet/core/install/linux). The Linux project has its own solution file in the `linux/` folder.
+Building TweetDuck for Linux requires [.NET 6 SDK](https://docs.microsoft.com/en-us/dotnet/core/install/linux). The Linux project has its own solution file in the `linux/` folder.
 
 ### Editors
 
@@ -84,13 +84,13 @@ On Windows, TweetDuck uses the [CefSharp](https://github.com/cefsharp/CefSharp/)
 
 On Linux, TweetDuck uses the [ChromiumGtk](https://github.com/lunixo/ChromiumGtk) library, which combines [CefGlue](https://gitlab.com/xiliumhq/chromiumembedded/cefglue) for the browser component and [GtkSharp](https://github.com/GtkSharp/GtkSharp) for the GUI.
 
-The solution contains several C# projects for executables and libraries, and F# projects for automated tests.
+The solution contains several C# projects for executables and libraries, and F# projects for automated tests. All projects target `.NET 6`.
 
 Projects are organized into folders:
-* Windows projects are in the `windows/` folder, and target `.NET Framework 4.7.2` + `C# 8.0`
-* Linux projects are in the `linux/` folder, and target `.NET 5` + `C#`
-* Libraries (`TweetLib.*`) are in the `lib/` folder, and target `.NET Standard 2.0` + `C# 9.0`
-* Tests (`TweetTest.*`) are also in the `lib/` folder, and target `.NET Framework 4.7.2` + `F#`
+* Windows projects are in the `windows/` folder
+* Linux projects are in the `linux/` folder
+* Libraries (`TweetLib.*`) are in the `lib/` folder
+* Tests (`TweetTest.*`) are also in the `lib/` folder
 
 Here are a few things to keep in mind:
 * Executable projects have their entry points in `Program.cs`
@@ -130,7 +130,7 @@ Main Windows executable. It has a dependency on [CefSharp](https://github.com/ce
 
 #### TweetDuck.Browser
 
-Windows executable that hosts various Chromium processes. It depends on two specific DLLs from the [CefSharp](https://github.com/cefsharp/CefSharp/) package. After updating [CefSharp](https://github.com/cefsharp/CefSharp/), run the `windows/TweetDuck/Resources/PostCefUpdate.ps1` PowerShell script to update these dependencies to the new version.
+Windows executable that hosts various Chromium processes. It has a dependency on [CefSharp](https://github.com/cefsharp/CefSharp/).
 
 #### TweetDuck.Video
 
