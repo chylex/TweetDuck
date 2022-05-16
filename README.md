@@ -168,7 +168,13 @@ These are F# projects with automated tests.
 
 # Development (Windows)
 
-When developing with [Rider](https://www.jetbrains.com/rider/), it must be configured to use MSBuild from Visual Studio. You can set it in **File | Settings | Build, Execution, Deployment | Toolset and Build** with the `Use MSBuild version` drop-down.
+When developing with [Rider](https://www.jetbrains.com/rider/), it must be configured to use MSBuild from Visual Studio, and the `DevEnvDir` property must be set to the full path to the `Common7\IDE` folder which is inside Visual Studio's installation folder. You can set both in **File | Settings | Build, Execution, Deployment | Toolset and Build**:
+
+1. Click the `MSBuild version` drop-down, and select the path that includes the Visual Studio installation folder.
+2. Click the Edit button next to `MSBuild global properties`.
+3. Add a new property named `DevEnvDir`, and set its value to the full path to `Common7\IDE`. For example:
+   - `VS 2019 Community` - `C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE`
+   - `VS 2022 Community` - `C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE`
 
 ## Building
 
