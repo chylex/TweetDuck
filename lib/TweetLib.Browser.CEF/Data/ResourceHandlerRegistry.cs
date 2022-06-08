@@ -21,7 +21,7 @@ namespace TweetLib.Browser.CEF.Data {
 		}
 
 		private void Register(string url, Func<TResourceHandler> factory) {
-			if (!Uri.TryCreate(url, UriKind.Absolute, out Uri uri)) {
+			if (!Uri.TryCreate(url, UriKind.Absolute, out var uri)) {
 				throw new ArgumentException("Resource handler URL must be absolute!");
 			}
 

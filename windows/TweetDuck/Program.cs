@@ -36,11 +36,11 @@ namespace TweetDuck {
 
 		public static string ExecutablePath => Win.Application.ExecutablePath;
 
-		private static Reporter errorReporter;
-		private static LockManager lockManager;
+		private static Reporter? errorReporter;
+		private static LockManager lockManager = null!;
 		private static bool hasCleanedUp;
 
-		public static ConfigObjects<UserConfig, SystemConfig> Config { get; private set; }
+		public static ConfigObjects<UserConfig, SystemConfig> Config { get; private set; } = null!;
 
 		internal static void SetupWinForms() {
 			Win.Application.EnableVisualStyles();
@@ -85,8 +85,8 @@ namespace TweetDuck {
 		private sealed class Setup : IAppSetup {
 			public bool IsPortable => File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "makeportable"));
 			public bool IsDebugLogging => Arguments.HasFlag(Arguments.ArgLogging);
-			public string CustomDataFolder => Arguments.GetValue(Arguments.ArgDataFolder);
-			public string ResourceRewriteRules => Arguments.GetValue(Arguments.ArgFreeze);
+			public string? CustomDataFolder => Arguments.GetValue(Arguments.ArgDataFolder);
+			public string? ResourceRewriteRules => Arguments.GetValue(Arguments.ArgFreeze);
 
 			public ConfigManager CreateConfigManager(string storagePath) {
 				return new ConfigManager<UserConfig, SystemConfig>(storagePath, Config);
@@ -153,7 +153,7 @@ namespace TweetDuck {
 			}
 		}
 
-		private static void OnUnhandledException(object sender, UnhandledExceptionEventArgs e) {
+		private static void OnUnhandledException(object? sender, UnhandledExceptionEventArgs e) {
 			if (e.ExceptionObject is Exception ex) {
 				const string title = "TweetDuck Has Failed :(";
 				string message = "An unhandled exception has occurred: " + ex.Message;
@@ -173,7 +173,7 @@ namespace TweetDuck {
 		}
 
 		public static void RestartWithArgs(CommandLineArgs args) {
-			FormBrowser browserForm = FormManager.TryFind<FormBrowser>();
+			FormBrowser? browserForm = FormManager.TryFind<FormBrowser>();
 
 			if (browserForm != null) {
 				browserForm.ForceClose();

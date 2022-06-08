@@ -97,11 +97,11 @@ namespace TweetDuck.Browser.Notification {
 
 		private readonly CefByteArrayResourceHandler resourceHandler = new CefByteArrayResourceHandler();
 
-		private DesktopNotification currentNotification;
+		private DesktopNotification? currentNotification;
 		private readonly HashSet<NotificationPauseReason> pauseReasons = new HashSet<NotificationPauseReason>();
 
-		public string CurrentTweetUrl => currentNotification?.TweetUrl;
-		public string CurrentQuoteUrl => currentNotification?.QuoteUrl;
+		public string? CurrentTweetUrl => currentNotification?.TweetUrl;
+		public string? CurrentQuoteUrl => currentNotification?.QuoteUrl;
 
 		protected bool IsPaused => pauseReasons.Count > 0;
 		protected internal bool IsCursorOverBrowser => browser.Bounds.Contains(PointToClient(Cursor.Position));
@@ -156,7 +156,7 @@ namespace TweetDuck.Browser.Notification {
 
 		// event handlers
 
-		private void owner_FormClosed(object sender, FormClosedEventArgs e) {
+		private void owner_FormClosed(object? sender, FormClosedEventArgs e) {
 			Close();
 		}
 
@@ -195,7 +195,7 @@ namespace TweetDuck.Browser.Notification {
 		}
 
 		protected virtual void UpdateTitle() {
-			string title = currentNotification?.ColumnTitle;
+			string? title = currentNotification?.ColumnTitle;
 			Text = string.IsNullOrEmpty(title) || !Config.DisplayNotificationColumn ? Program.BrandName : $"{Program.BrandName} - {title}";
 		}
 
@@ -214,7 +214,7 @@ namespace TweetDuck.Browser.Notification {
 			}
 		}
 
-		public void DisplayTooltip(string text) {
+		public void DisplayTooltip(string? text) {
 			if (string.IsNullOrEmpty(text)) {
 				toolTip.Hide(this);
 			}

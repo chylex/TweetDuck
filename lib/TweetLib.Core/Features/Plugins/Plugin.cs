@@ -93,7 +93,7 @@ namespace TweetLib.Core.Features.Plugins {
 			return Identifier.GetHashCode();
 		}
 
-		public override bool Equals(object obj) {
+		public override bool Equals(object? obj) {
 			return obj is Plugin plugin && plugin.Identifier.Equals(Identifier);
 		}
 

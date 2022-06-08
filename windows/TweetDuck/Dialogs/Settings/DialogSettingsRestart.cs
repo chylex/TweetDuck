@@ -6,7 +6,7 @@ using TweetLib.Utils.Collections;
 
 namespace TweetDuck.Dialogs.Settings {
 	sealed partial class DialogSettingsRestart : Form {
-		public CommandLineArgs Args { get; private set; }
+		public CommandLineArgs Args { get; private set; } = null!;
 
 		public DialogSettingsRestart(CommandLineArgs currentArgs) {
 			InitializeComponent();
@@ -28,7 +28,7 @@ namespace TweetDuck.Dialogs.Settings {
 			Text = Program.BrandName + " Arguments";
 		}
 
-		private void control_Change(object sender, EventArgs e) {
+		private void control_Change(object? sender, EventArgs e) {
 			Args = new CommandLineArgs();
 
 			if (cbLogging.Checked) {
@@ -43,18 +43,18 @@ namespace TweetDuck.Dialogs.Settings {
 			tbShortcutTarget.Select(tbShortcutTarget.Text.Length, 0);
 		}
 
-		private void tbShortcutTarget_Click(object sender, EventArgs e) {
+		private void tbShortcutTarget_Click(object? sender, EventArgs e) {
 			if (tbShortcutTarget.SelectionLength == 0) {
 				tbShortcutTarget.SelectAll();
 			}
 		}
 
-		private void btnRestart_Click(object sender, EventArgs e) {
+		private void btnRestart_Click(object? sender, EventArgs e) {
 			DialogResult = DialogResult.OK;
 			Close();
 		}
 
-		private void btnCancel_Click(object sender, EventArgs e) {
+		private void btnCancel_Click(object? sender, EventArgs e) {
 			DialogResult = DialogResult.Cancel;
 			Close();
 		}

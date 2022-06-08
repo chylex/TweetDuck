@@ -16,11 +16,12 @@ namespace TweetDuck.Dialogs {
 
 		private readonly PluginManager pluginManager;
 
+		#pragma warning disable CS8618
 		private FormPlugins() {
 			InitializeComponent();
-
 			Text = Program.BrandName + " Plugins";
 		}
+		#pragma warning restore CS8618
 
 		public FormPlugins(PluginManager pluginManager) : this() {
 			this.pluginManager = pluginManager;
@@ -68,7 +69,7 @@ namespace TweetDuck.Dialogs {
 			timerLayout.Start();
 		}
 
-		private void timerLayout_Tick(object sender, EventArgs e) {
+		private void timerLayout_Tick(object? sender, EventArgs e) {
 			timerLayout.Stop();
 
 			// stupid WinForms scrollbars and panels
@@ -76,8 +77,8 @@ namespace TweetDuck.Dialogs {
 			Padding = new Padding(Padding.Left, Padding.Top, Padding.Right - 1, Padding.Bottom - 1);
 		}
 
-		private void flowLayoutPlugins_Resize(object sender, EventArgs e) {
-			Control lastPlugin = flowLayoutPlugins.Controls.OfType<PluginControl>().LastOrDefault();
+		private void flowLayoutPlugins_Resize(object? sender, EventArgs e) {
+			Control? lastPlugin = flowLayoutPlugins.Controls.OfType<PluginControl>().LastOrDefault();
 
 			if (lastPlugin == null) {
 				return;
@@ -93,22 +94,22 @@ namespace TweetDuck.Dialogs {
 				control.Width = flowLayoutPlugins.Width - control.Margin.Horizontal - horizontalOffset;
 			}
 
-			flowLayoutPlugins.Controls[flowLayoutPlugins.Controls.Count - 1].Visible = !showScrollBar;
+			flowLayoutPlugins.Controls[^1].Visible = !showScrollBar;
 			flowLayoutPlugins.Focus();
 		}
 
-		private void btnOpenFolder_Click(object sender, EventArgs e) {
+		private void btnOpenFolder_Click(object? sender, EventArgs e) {
 			App.SystemHandler.OpenFileExplorer(pluginManager.GetPluginFolder(PluginGroup.Custom));
 		}
 
-		private void btnReload_Click(object sender, EventArgs e) {
+		private void btnReload_Click(object? sender, EventArgs e) {
 			if (FormMessage.Warning("Reloading Plugins", "This will also reload the browser window. Do you want to proceed?", FormMessage.Yes, FormMessage.No)) {
 				pluginManager.Reload();
 				ReloadPluginList();
 			}
 		}
 
-		private void btnClose_Click(object sender, EventArgs e) {
+		private void btnClose_Click(object? sender, EventArgs e) {
 			Close();
 		}
 	}

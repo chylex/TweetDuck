@@ -2,12 +2,12 @@
 
 namespace TweetLib.Utils.Serialization.Converters {
 	public sealed class BasicTypeConverter<T> : ITypeConverter {
-		public Func<T, string>? ConvertToString { get; set; }
-		public Func<string, T>? ConvertToObject { get; set; }
+		public Func<T, string>? ConvertToString { get; init; }
+		public Func<string, T>? ConvertToObject { get; init; }
 
-		bool ITypeConverter.TryWriteType(Type type, object value, out string? converted) {
+		bool ITypeConverter.TryWriteType(Type type, object? value, out string? converted) {
 			try {
-				converted = ConvertToString!((T) value);
+				converted = ConvertToString!((T) value!);
 				return true;
 			} catch {
 				converted = null;

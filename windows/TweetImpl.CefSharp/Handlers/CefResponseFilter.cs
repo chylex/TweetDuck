@@ -5,7 +5,7 @@ using TweetLib.Browser.CEF.Logic;
 
 namespace TweetImpl.CefSharp.Handlers {
 	sealed class CefResponseFilter : IResponseFilter {
-		public static CefResponseFilter Create(ResponseFilterLogic logic) {
+		public static CefResponseFilter? Create(ResponseFilterLogic? logic) {
 			return logic == null ? null : new CefResponseFilter(logic);
 		}
 

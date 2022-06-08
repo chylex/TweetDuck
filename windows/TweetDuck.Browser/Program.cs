@@ -25,7 +25,7 @@ namespace TweetDuck.Browser {
 		private static async void KillWhenHung(int parentId) {
 			try {
 				using Process process = Process.GetProcessById(parentId);
-				process.WaitForExit();
+				await process.WaitForExitAsync();
 			} catch {
 				// ded
 			}

@@ -34,7 +34,7 @@ namespace TweetLib.Core.Features {
 			if (resourceType is ResourceType.Script or ResourceType.Stylesheet && TweetDeckHashes.Count > 0) {
 				Match match = TweetDeckResourceUrl.Match(url);
 
-				if (match.Success && TweetDeckHashes.TryGetValue($"{match.Groups[1]}.{match.Groups[3]}", out string hash)) {
+				if (match.Success && TweetDeckHashes.TryGetValue($"{match.Groups[1]}.{match.Groups[3]}", out var hash)) {
 					if (match.Groups[2].Value == hash) {
 						App.Logger.Debug("[RequestHandlerBase] Accepting " + url);
 					}

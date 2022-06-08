@@ -134,7 +134,7 @@ namespace TweetLib.Utils.IO {
 			public string[] KeyValue {
 				get {
 					int index = Identifier.IndexOf(KeySeparator);
-					return index == -1 ? StringUtils.EmptyArray : Identifier.Substring(index + 1).Split(KeySeparator);
+					return index == -1 ? StringUtils.EmptyArray : Identifier[(index + 1)..].Split(KeySeparator);
 				}
 			}
 

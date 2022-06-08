@@ -143,7 +143,7 @@ namespace TweetDuck.Dialogs.Settings {
 			trackBarScrollSpeed.ValueChanged += trackBarScrollSpeed_ValueChanged;
 		}
 
-		private void TabSettingsNotifications_ParentChanged(object sender, EventArgs e) {
+		private void TabSettingsNotifications_ParentChanged(object? sender, EventArgs e) {
 			if (Parent == null) {
 				notification.HideNotification();
 			}
@@ -152,13 +152,13 @@ namespace TweetDuck.Dialogs.Settings {
 			}
 		}
 
-		private void notification_Move(object sender, EventArgs e) {
+		private void notification_Move(object? sender, EventArgs e) {
 			if (radioLocCustom.Checked && notification.Location != ControlExtensions.InvisibleLocation) {
 				Config.CustomNotificationPosition = notification.Location;
 			}
 		}
 
-		private void notification_ResizeEnd(object sender, EventArgs e) {
+		private void notification_ResizeEnd(object? sender, EventArgs e) {
 			if (radioSizeCustom.Checked) {
 				Config.CustomNotificationSize = notification.BrowserSize;
 				notification.ShowExampleNotification(false);
@@ -167,28 +167,28 @@ namespace TweetDuck.Dialogs.Settings {
 
 		#region General
 
-		private void checkColumnName_CheckedChanged(object sender, EventArgs e) {
+		private void checkColumnName_CheckedChanged(object? sender, EventArgs e) {
 			Config.DisplayNotificationColumn = checkColumnName.Checked;
 			notification.ShowExampleNotification(false);
 		}
 
-		private void checkMediaPreviews_CheckedChanged(object sender, EventArgs e) {
+		private void checkMediaPreviews_CheckedChanged(object? sender, EventArgs e) {
 			Config.NotificationMediaPreviews = checkMediaPreviews.Checked;
 		}
 
-		private void checkSkipOnLinkClick_CheckedChanged(object sender, EventArgs e) {
+		private void checkSkipOnLinkClick_CheckedChanged(object? sender, EventArgs e) {
 			Config.NotificationSkipOnLinkClick = checkSkipOnLinkClick.Checked;
 		}
 
-		private void checkNonIntrusive_CheckedChanged(object sender, EventArgs e) {
+		private void checkNonIntrusive_CheckedChanged(object? sender, EventArgs e) {
 			Config.NotificationNonIntrusiveMode = checkNonIntrusive.Checked;
 		}
 
-		private void comboBoxIdlePause_SelectedValueChanged(object sender, EventArgs e) {
+		private void comboBoxIdlePause_SelectedValueChanged(object? sender, EventArgs e) {
 			Config.NotificationIdlePauseSeconds = IdlePauseSeconds[comboBoxIdlePause.SelectedIndex];
 		}
 
-		private void trackBarOpacity_ValueChanged(object sender, EventArgs e) {
+		private void trackBarOpacity_ValueChanged(object? sender, EventArgs e) {
 			if (trackBarOpacity.AlignValueToTick()) {
 				Config.NotificationWindowOpacity = trackBarOpacity.Value;
 				labelOpacityValue.Text = Config.NotificationWindowOpacity + "%";
@@ -199,18 +199,18 @@ namespace TweetDuck.Dialogs.Settings {
 
 		#region Timer
 
-		private void checkNotificationTimer_CheckedChanged(object sender, EventArgs e) {
+		private void checkNotificationTimer_CheckedChanged(object? sender, EventArgs e) {
 			Config.DisplayNotificationTimer = checkNotificationTimer.Checked;
 			checkTimerCountDown.Enabled = checkNotificationTimer.Checked;
 			notification.ShowExampleNotification(true);
 		}
 
-		private void checkTimerCountDown_CheckedChanged(object sender, EventArgs e) {
+		private void checkTimerCountDown_CheckedChanged(object? sender, EventArgs e) {
 			Config.NotificationTimerCountDown = checkTimerCountDown.Checked;
 			notification.ShowExampleNotification(true);
 		}
 
-		private void trackBarDuration_ValueChanged(object sender, EventArgs e) {
+		private void trackBarDuration_ValueChanged(object? sender, EventArgs e) {
 			durationUpdateTimer.Stop();
 			durationUpdateTimer.Start();
 
@@ -218,19 +218,19 @@ namespace TweetDuck.Dialogs.Settings {
 			labelDurationValue.Text = Config.NotificationDurationValue + " ms/c";
 		}
 
-		private void btnDurationShort_Click(object sender, EventArgs e) {
+		private void btnDurationShort_Click(object? sender, EventArgs e) {
 			trackBarDuration.Value = 15;
 		}
 
-		private void btnDurationMedium_Click(object sender, EventArgs e) {
+		private void btnDurationMedium_Click(object? sender, EventArgs e) {
 			trackBarDuration.Value = 25;
 		}
 
-		private void btnDurationLong_Click(object sender, EventArgs e) {
+		private void btnDurationLong_Click(object? sender, EventArgs e) {
 			trackBarDuration.Value = 35;
 		}
 
-		private void durationUpdateTimer_Tick(object sender, EventArgs e) {
+		private void durationUpdateTimer_Tick(object? sender, EventArgs e) {
 			notification.ShowExampleNotification(true);
 			durationUpdateTimer.Stop();
 		}
@@ -239,7 +239,7 @@ namespace TweetDuck.Dialogs.Settings {
 
 		#region Location
 
-		private void radioLoc_CheckedChanged(object sender, EventArgs e) {
+		private void radioLoc_CheckedChanged(object? sender, EventArgs e) {
 			if (radioLocTL.Checked) {
 				Config.NotificationPosition = DesktopNotification.Position.TopLeft;
 			}
@@ -257,7 +257,7 @@ namespace TweetDuck.Dialogs.Settings {
 			notification.ShowExampleNotification(false);
 		}
 
-		private void radioLocCustom_Click(object sender, EventArgs e) {
+		private void radioLocCustom_Click(object? sender, EventArgs e) {
 			if (!Config.IsCustomNotificationPositionSet) {
 				Config.CustomNotificationPosition = notification.Location;
 			}
@@ -278,12 +278,12 @@ namespace TweetDuck.Dialogs.Settings {
 			}
 		}
 
-		private void comboBoxDisplay_SelectedValueChanged(object sender, EventArgs e) {
+		private void comboBoxDisplay_SelectedValueChanged(object? sender, EventArgs e) {
 			Config.NotificationDisplay = comboBoxDisplay.SelectedIndex;
 			notification.ShowExampleNotification(false);
 		}
 
-		private void trackBarEdgeDistance_ValueChanged(object sender, EventArgs e) {
+		private void trackBarEdgeDistance_ValueChanged(object? sender, EventArgs e) {
 			labelEdgeDistanceValue.Text = trackBarEdgeDistance.Value + " px";
 			Config.NotificationEdgeDistance = trackBarEdgeDistance.Value;
 			notification.ShowExampleNotification(false);
@@ -293,7 +293,7 @@ namespace TweetDuck.Dialogs.Settings {
 
 		#region Size
 
-		private void radioSize_CheckedChanged(object sender, EventArgs e) {
+		private void radioSize_CheckedChanged(object? sender, EventArgs e) {
 			if (radioSizeAuto.Checked) {
 				Config.NotificationSize = DesktopNotification.Size.Auto;
 			}
@@ -301,7 +301,7 @@ namespace TweetDuck.Dialogs.Settings {
 			notification.ShowExampleNotification(false);
 		}
 
-		private void radioSizeCustom_Click(object sender, EventArgs e) {
+		private void radioSizeCustom_Click(object? sender, EventArgs e) {
 			if (!Config.IsCustomNotificationSizeSet) {
 				Config.CustomNotificationSize = notification.BrowserSize;
 			}
@@ -310,7 +310,7 @@ namespace TweetDuck.Dialogs.Settings {
 			notification.ShowExampleNotification(false);
 		}
 
-		private void trackBarScrollSpeed_ValueChanged(object sender, EventArgs e) {
+		private void trackBarScrollSpeed_ValueChanged(object? sender, EventArgs e) {
 			if (trackBarScrollSpeed.AlignValueToTick()) {
 				labelScrollSpeedValue.Text = trackBarScrollSpeed.Value + "%";
 				Config.NotificationScrollSpeed = trackBarScrollSpeed.Value;

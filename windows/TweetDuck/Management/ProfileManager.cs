@@ -61,7 +61,7 @@ namespace TweetDuck.Management {
 				}
 
 				if (items.HasFlag(Items.Session)) {
-					string authToken = ReadAuthCookie();
+					string? authToken = ReadAuthCookie();
 
 					if (authToken != null) {
 						stream.WriteString("cookie.auth", authToken);
@@ -84,9 +84,8 @@ namespace TweetDuck.Management {
 
 			try {
 				using CombinedFileStream stream = new CombinedFileStream(new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.None));
-				string key;
 
-				while ((key = stream.SkipFile()) != null) {
+				while (stream.SkipFile() is {} key) {
 					switch (key) {
 						case "config":
 							items |= Items.UserConfig;
@@ -121,9 +120,7 @@ namespace TweetDuck.Management {
 				bool oldCookies = false;
 
 				using (CombinedFileStream stream = new CombinedFileStream(new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.None))) {
-					CombinedFileStream.Entry entry;
-
-					while ((entry = stream.ReadFile()) != null) {
+					while (stream.ReadFile() is {} entry) {
 						switch (entry.KeyName) {
 							case "config":
 								if (items.HasFlag(Items.UserConfig)) {
@@ -223,11 +220,11 @@ namespace TweetDuck.Management {
 
 			public PathInfo(string fullPath, int rootLength) {
 				this.Full = fullPath;
-				this.Relative = fullPath.Substring(rootLength).TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar); // strip leading separator character
+				this.Relative = fullPath[rootLength..].TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar); // strip leading separator character
 			}
 		}
 
-		private static string ReadAuthCookie() {
+		private static string? ReadAuthCookie() {
 			using var cookieManager = Cef.GetGlobalCookieManager();
 
 			foreach (var cookie in cookieManager.VisitUrlCookiesAsync(AuthCookieUrl, true).Result) {

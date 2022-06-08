@@ -13,7 +13,7 @@ namespace TweetDuck.Dialogs.Settings {
 
 		#region Feedback
 
-		private void btnSendFeedback_Click(object sender, EventArgs e) {
+		private void btnSendFeedback_Click(object? sender, EventArgs e) {
 			App.SystemHandler.OpenBrowser(Lib.IssueTrackerUrl + "/new");
 		}
 

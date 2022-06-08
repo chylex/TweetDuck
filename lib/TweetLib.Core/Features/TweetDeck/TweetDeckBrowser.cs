@@ -71,12 +71,12 @@ namespace TweetLib.Core.Features.TweetDeck {
 			App.UserConfiguration.SoundNotificationChanged -= UserConfiguration_SoundNotificationChanged;
 		}
 
-		private void browserComponent_BrowserLoaded(object sender, BrowserLoadedEventArgs e) {
+		private void browserComponent_BrowserLoaded(object? sender, BrowserLoadedEventArgs e) {
 			e.AddDictionaryWords("tweetdeck", "TweetDeck", "tweetduck", "TweetDuck", "TD");
 			isBrowserReady = true;
 		}
 
-		private void browserComponent_PageLoadStart(object sender, PageLoadEventArgs e) {
+		private void browserComponent_PageLoadStart(object? sender, PageLoadEventArgs e) {
 			string url = e.Url;
 
 			if (TwitterUrls.IsTweetDeck(url) || (TwitterUrls.IsTwitter(url) && !TwitterUrls.IsTwitterLogin2Factor(url))) {
@@ -84,7 +84,7 @@ namespace TweetLib.Core.Features.TweetDeck {
 			}
 		}
 
-		private void browserComponent_PageLoadEnd(object sender, PageLoadEventArgs e) {
+		private void browserComponent_PageLoadEnd(object? sender, PageLoadEventArgs e) {
 			string url = e.Url;
 
 			if (TwitterUrls.IsTweetDeck(url)) {
@@ -105,7 +105,7 @@ namespace TweetLib.Core.Features.TweetDeck {
 			browserComponent.RunBootstrap("update");
 		}
 
-		private void pluginManager_Reloaded(object sender, PluginErrorEventArgs e) {
+		private void pluginManager_Reloaded(object? sender, PluginErrorEventArgs e) {
 			if (e.HasErrors) {
 				App.MessageDialogs.Error("Error Loading Plugins", "The following plugins will not be available until the issues are resolved:\n\n" + string.Join("\n\n", e.Errors));
 			}
@@ -115,14 +115,14 @@ namespace TweetLib.Core.Features.TweetDeck {
 			}
 		}
 
-		private void pluginManager_Executed(object sender, PluginErrorEventArgs e) {
+		private void pluginManager_Executed(object? sender, PluginErrorEventArgs e) {
 			if (e.HasErrors) {
 				App.MessageDialogs.Error("Error Executing Plugins", "Failed to execute the following plugins:\n\n" + string.Join("\n\n", e.Errors));
 			}
 		}
 
-		private void updateChecker_CheckFinished(object sender, UpdateCheckEventArgs e) {
-			var updateChecker = (UpdateChecker) sender;
+		private void updateChecker_CheckFinished(object? sender, UpdateCheckEventArgs e) {
+			var updateChecker = (UpdateChecker) sender!;
 
 			e.Result.Handle(update => {
 				string tag = update.VersionTag;
@@ -144,7 +144,7 @@ namespace TweetLib.Core.Features.TweetDeck {
 			ignoreUpdateCheckError = true;
 		}
 
-		private void UserConfiguration_GeneralEventHandler(object sender, EventArgs e) {
+		private void UserConfiguration_GeneralEventHandler(object? sender, EventArgs e) {
 			UpdatePropertyObject();
 		}
 

@@ -30,7 +30,7 @@ namespace TweetDuck.Video.Controls {
 
 				Text = text;
 
-				Point loc = form!.PointToClient(control.Parent.PointToScreen(new Point(control.Location.X + (followCursor ? args.X : control.Width / 2), 0)));
+				Point loc = form.PointToClient(control.Parent.PointToScreen(new Point(control.Location.X + (followCursor ? args.X : control.Width / 2), 0)));
 				loc.X = Math.Max(0, Math.Min(form.Width - Width, loc.X - Width / 2));
 				loc.Y -= Height - Margin.Top + Margin.Bottom;
 				Location = loc;
@@ -42,7 +42,7 @@ namespace TweetDuck.Video.Controls {
 			control.MouseLeave += control_MouseLeave;
 		}
 
-		private void control_MouseLeave(object sender, EventArgs e) {
+		private void control_MouseLeave(object? sender, EventArgs e) {
 			Visible = false;
 		}
 	}

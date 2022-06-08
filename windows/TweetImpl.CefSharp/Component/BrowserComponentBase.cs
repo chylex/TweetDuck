@@ -10,7 +10,7 @@ using IContextMenuHandler = TweetLib.Browser.Interfaces.IContextMenuHandler;
 
 namespace TweetImpl.CefSharp.Component {
 	public abstract class BrowserComponentBase : BrowserComponent<IFrame, IRequest> {
-		public delegate CefContextMenuHandler CreateContextMenu(IContextMenuHandler handler);
+		public delegate CefContextMenuHandler CreateContextMenu(IContextMenuHandler? handler);
 
 		public ResourceHandlerRegistry<IResourceHandler> ResourceHandlerRegistry { get; } = new ResourceHandlerRegistry<IResourceHandler>(CefResourceHandlerFactory.Instance);
 
@@ -50,19 +50,19 @@ namespace TweetImpl.CefSharp.Component {
 			browser.JavascriptObjectRepository.Register(name, bridge);
 		}
 
-		private void OnLoadingStateChanged(object sender, LoadingStateChangedEventArgs e) {
+		private void OnLoadingStateChanged(object? sender, LoadingStateChangedEventArgs e) {
 			base.OnLoadingStateChanged(e.IsLoading);
 		}
 
-		private void OnLoadError(object sender, LoadErrorEventArgs e) {
+		private void OnLoadError(object? sender, LoadErrorEventArgs e) {
 			base.OnLoadError(e.FailedUrl, e.ErrorCode, CefErrorCodeAdapter.Instance);
 		}
 
-		private void OnFrameLoadStart(object sender, FrameLoadStartEventArgs e) {
+		private void OnFrameLoadStart(object? sender, FrameLoadStartEventArgs e) {
 			base.OnFrameLoadStart(e.Url, e.Frame);
 		}
 
-		private void OnFrameLoadEnd(object sender, FrameLoadEndEventArgs e) {
+		private void OnFrameLoadEnd(object? sender, FrameLoadEndEventArgs e) {
 			base.OnFrameLoadEnd(e.Url, e.Frame);
 		}
 	}

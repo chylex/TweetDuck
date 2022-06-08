@@ -24,7 +24,7 @@ namespace TweetDuck.Browser.Base {
 		private readonly FormBrowser form;
 		private readonly TweetDeckExtraContext extraContext;
 
-		public ContextMenuBrowser(FormBrowser form, IContextMenuHandler handler, TweetDeckExtraContext extraContext) : base(handler) {
+		public ContextMenuBrowser(FormBrowser form, IContextMenuHandler? handler, TweetDeckExtraContext extraContext) : base(handler) {
 			this.form = form;
 			this.extraContext = extraContext;
 		}

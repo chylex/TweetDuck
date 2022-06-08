@@ -56,7 +56,9 @@ namespace TweetLib.Core.Features.Notifications {
 					menu.AddSeparator();
 
 					if (context.Notification is {} notification) {
-						AddCopyAction(menu, "Copy tweet address", notification.TweetUrl);
+						if (!string.IsNullOrEmpty(notification.TweetUrl)) {
+							AddCopyAction(menu, "Copy tweet address", notification.TweetUrl);
+						}
 
 						if (!string.IsNullOrEmpty(notification.QuoteUrl)) {
 							AddCopyAction(menu, "Copy quoted tweet address", notification.QuoteUrl!);
@@ -72,7 +74,7 @@ namespace TweetLib.Core.Features.Notifications {
 				this.browserComponent.PageLoadEnd -= BrowserComponentOnPageLoadEnd;
 			}
 
-			private void BrowserComponentOnPageLoadEnd(object sender, PageLoadEventArgs e) {
+			private void BrowserComponentOnPageLoadEnd(object? sender, PageLoadEventArgs e) {
 				string url = e.Url;
 
 				if (TwitterUrls.IsTweetDeck(url) && url != BlankURL) {

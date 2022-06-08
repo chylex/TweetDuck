@@ -26,7 +26,7 @@ namespace TweetLib.Core.Systems.Updates {
 			nextUpdate = null;
 		}
 
-		private void updates_CheckFinished(object sender, UpdateCheckEventArgs e) {
+		private void updates_CheckFinished(object? sender, UpdateCheckEventArgs e) {
 			UpdateInfo? foundUpdate = e.Result.HasValue ? e.Result.Value : null;
 
 			if (nextUpdate != null && !nextUpdate.Equals(foundUpdate)) {

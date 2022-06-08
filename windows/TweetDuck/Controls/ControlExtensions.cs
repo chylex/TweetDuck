@@ -74,8 +74,8 @@ namespace TweetDuck.Controls {
 
 		public static void EnableMultilineShortcuts(this TextBox textBox) {
 			textBox.KeyDown += (sender, args) => {
-				if (args.Control && args.KeyCode == Keys.A) {
-					((TextBox) sender).SelectAll();
+				if (args.Control && args.KeyCode == Keys.A && sender is TextBox tb) {
+					tb.SelectAll();
 					args.SuppressKeyPress = true;
 					args.Handled = true;
 				}

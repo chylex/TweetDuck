@@ -24,7 +24,7 @@ namespace TweetImpl.CefSharp.Adapters {
 			response.SetHeaderByName(header, value, overwrite: true);
 		}
 
-		public string GetHeader(IResponse response, string header) {
+		public string? GetHeader(IResponse response, string header) {
 			return response.Headers[header];
 		}
 	}

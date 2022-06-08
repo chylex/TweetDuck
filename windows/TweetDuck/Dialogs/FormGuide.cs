@@ -12,12 +12,12 @@ namespace TweetDuck.Dialogs {
 	sealed partial class FormGuide : Form, FormManager.IAppDialog {
 		private const string GuideUrl = "td://guide/index.html";
 
-		public static void Show(string hash = null) {
+		public static void Show(string? hash = null) {
 			string url = GuideUrl + (string.IsNullOrEmpty(hash) ? string.Empty : "#" + hash);
-			FormGuide guide = FormManager.TryFind<FormGuide>();
+			FormGuide? guide = FormManager.TryFind<FormGuide>();
 
 			if (guide == null) {
-				FormBrowser owner = FormManager.TryFind<FormBrowser>();
+				FormBrowser? owner = FormManager.TryFind<FormBrowser>();
 
 				if (owner != null) {
 					new FormGuide(url, owner).Show(owner);

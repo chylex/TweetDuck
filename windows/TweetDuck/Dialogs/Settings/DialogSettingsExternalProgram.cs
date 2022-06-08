@@ -5,12 +5,12 @@ using IOPath = System.IO.Path;
 
 namespace TweetDuck.Dialogs.Settings {
 	sealed partial class DialogSettingsExternalProgram : Form {
-		public string Path {
+		public string? Path {
 			get => StringUtils.NullIfEmpty(textBoxPath.Text);
 			set => textBoxPath.Text = value ?? string.Empty;
 		}
 
-		public string Args {
+		public string? Args {
 			get => StringUtils.NullIfEmpty(textBoxArgs.Text);
 			set => textBoxArgs.Text = value ?? string.Empty;
 		}
@@ -27,7 +27,7 @@ namespace TweetDuck.Dialogs.Settings {
 			this.fileDialogTitle = fileDialogTitle;
 		}
 
-		private void btnBrowse_Click(object sender, EventArgs e) {
+		private void btnBrowse_Click(object? sender, EventArgs e) {
 			using OpenFileDialog dialog = new OpenFileDialog {
 				AutoUpgradeEnabled = true,
 				DereferenceLinks = true,
@@ -42,12 +42,12 @@ namespace TweetDuck.Dialogs.Settings {
 			}
 		}
 
-		private void btnApply_Click(object sender, EventArgs e) {
+		private void btnApply_Click(object? sender, EventArgs e) {
 			DialogResult = DialogResult.OK;
 			Close();
 		}
 
-		private void btnCancel_Click(object sender, EventArgs e) {
+		private void btnCancel_Click(object? sender, EventArgs e) {
 			DialogResult = DialogResult.Cancel;
 			Close();
 		}

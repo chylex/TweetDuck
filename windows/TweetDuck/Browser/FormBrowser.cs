@@ -49,7 +49,7 @@ namespace TweetDuck.Browser {
 			}
 		}
 
-		public UpdateInstaller UpdateInstaller { get; private set; }
+		public UpdateInstaller? UpdateInstaller { get; private set; }
 
 		private readonly ResourceCache resourceCache;
 		private readonly TweetDeckBrowser browser;
@@ -63,8 +63,8 @@ namespace TweetDuck.Browser {
 		private bool isLoaded;
 		private FormWindowState prevState;
 
-		private TweetScreenshotManager notificationScreenshotManager;
-		private VideoPlayer videoPlayer;
+		private TweetScreenshotManager? notificationScreenshotManager;
+		private VideoPlayer? videoPlayer;
 
 		public FormBrowser(ResourceCache resourceCache, PluginManager pluginManager, IUpdateCheckClient updateCheckClient, uint windowRestoreMessage) {
 			InitializeComponent();
@@ -156,11 +156,11 @@ namespace TweetDuck.Browser {
 
 		// event handlers
 
-		private void timerResize_Tick(object sender, EventArgs e) {
+		private void timerResize_Tick(object? sender, EventArgs e) {
 			FormBrowser_ResizeEnd(this, e); // also stops timer
 		}
 
-		private void FormBrowser_Activated(object sender, EventArgs e) {
+		private void FormBrowser_Activated(object? sender, EventArgs e) {
 			if (!isLoaded) {
 				return;
 			}
@@ -172,7 +172,7 @@ namespace TweetDuck.Browser {
 			}                           // the window, enable the browser again
 		}
 
-		private void FormBrowser_LocationChanged(object sender, EventArgs e) {
+		private void FormBrowser_LocationChanged(object? sender, EventArgs e) {
 			if (!isLoaded) {
 				return;
 			}
@@ -181,7 +181,7 @@ namespace TweetDuck.Browser {
 			timerResize.Start();
 		}
 
-		private void FormBrowser_Resize(object sender, EventArgs e) {
+		private void FormBrowser_Resize(object? sender, EventArgs e) {
 			if (!isLoaded) {
 				return;
 			}
@@ -204,7 +204,7 @@ namespace TweetDuck.Browser {
 			}
 		}
 
-		private void FormBrowser_ResizeEnd(object sender, EventArgs e) { // also triggers when the window moves
+		private void FormBrowser_ResizeEnd(object? sender, EventArgs e) { // also triggers when the window moves
 			if (!isLoaded) {
 				return;
 			}
@@ -218,7 +218,7 @@ namespace TweetDuck.Browser {
 			}
 		}
 
-		private void FormBrowser_FormClosing(object sender, FormClosingEventArgs e) {
+		private void FormBrowser_FormClosing(object? sender, FormClosingEventArgs e) {
 			if (!isLoaded) {
 				return;
 			}
@@ -229,33 +229,33 @@ namespace TweetDuck.Browser {
 			}
 		}
 
-		private void FormBrowser_FormClosed(object sender, FormClosedEventArgs e) {
+		private void FormBrowser_FormClosed(object? sender, FormClosedEventArgs e) {
 			if (isLoaded && UpdateInstaller == null) {
 				updates.InteractionManager.ClearUpdate();
 				updates.InteractionManager.Dispose();
 			}
 		}
 
-		private void Config_MuteToggled(object sender, EventArgs e) {
+		private void Config_MuteToggled(object? sender, EventArgs e) {
 			UpdateFormIcon();
 		}
 
-		private void Config_TrayBehaviorChanged(object sender, EventArgs e) {
+		private void Config_TrayBehaviorChanged(object? sender, EventArgs e) {
 			UpdateTray();
 		}
 
-		private void trayIcon_ClickRestore(object sender, EventArgs e) {
+		private void trayIcon_ClickRestore(object? sender, EventArgs e) {
 			Show();
 			RestoreWindow();
 			Activate();
 			UpdateTray();
 		}
 
-		private void trayIcon_ClickClose(object sender, EventArgs e) {
+		private void trayIcon_ClickClose(object? sender, EventArgs e) {
 			ForceClose();
 		}
 
-		private void updateInteractionManager_UpdateAccepted(object sender, UpdateInfo update) {
+		private void updateInteractionManager_UpdateAccepted(object? sender, UpdateInfo update) {
 			this.InvokeAsyncSafe(() => {
 				FormManager.CloseAllDialogs();
 
@@ -305,7 +305,7 @@ namespace TweetDuck.Browser {
 			});
 		}
 
-		private void updateInteractionManager_UpdateDismissed(object sender, UpdateInfo update) {
+		private void updateInteractionManager_UpdateDismissed(object? sender, UpdateInfo update) {
 			this.InvokeAsyncSafe(() => {
 				Config.DismissedUpdate = update.VersionTag;
 				Config.Save();
@@ -385,7 +385,7 @@ namespace TweetDuck.Browser {
 			OpenSettings(null);
 		}
 
-		public void OpenSettings(Type startTab) {
+		public void OpenSettings(Type? startTab) {
 			if (!FormManager.TryBringToFront<FormSettings>()) {
 				bool prevEnableUpdateCheck = Config.EnableUpdateCheck;
 
@@ -464,7 +464,7 @@ namespace TweetDuck.Browser {
 				videoUrl = Regex.Replace(videoUrl, "^https://", "http://");
 			}
 
-			string playerPath = Config.VideoPlayerPath;
+			string? playerPath = Config.VideoPlayerPath;
 
 			if (playerPath == null || !File.Exists(playerPath)) {
 				if (videoPlayer == null) {
@@ -512,7 +512,7 @@ namespace TweetDuck.Browser {
 			notificationScreenshotManager.Trigger(html, width);
 		}
 
-		private void DisplayTooltip(string text) {
+		private void DisplayTooltip(string? text) {
 			if (string.IsNullOrEmpty(text)) {
 				toolTip.Hide(this);
 			}
@@ -554,7 +554,7 @@ namespace TweetDuck.Browser {
 				FormMessage.Show("TweetDuck Browser Message", contents, icon, FormMessage.OK);
 			}
 
-			public void DisplayTooltip(string text) {
+			public void DisplayTooltip(string? text) {
 				form.InvokeAsyncSafe(() => form.DisplayTooltip(text));
 			}
 

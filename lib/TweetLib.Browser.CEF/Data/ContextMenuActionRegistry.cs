@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 namespace TweetLib.Browser.CEF.Data {
-	abstract class ContextMenuActionRegistry<T> {
+	abstract class ContextMenuActionRegistry<T> where T : notnull {
 		private readonly Dictionary<T, Action> actions = new ();
 
 		protected abstract T NextId(int n);

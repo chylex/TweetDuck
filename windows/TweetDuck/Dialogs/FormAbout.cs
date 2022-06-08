@@ -27,15 +27,15 @@ namespace TweetDuck.Dialogs {
 			}
 		}
 
-		private void OnLinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+		private void OnLinkClicked(object? sender, LinkLabelLinkClickedEventArgs e) {
 			App.SystemHandler.OpenBrowser(e.Link.LinkData as string);
 		}
 
-		private void FormAbout_HelpRequested(object sender, HelpEventArgs hlpevent) {
+		private void FormAbout_HelpRequested(object? sender, HelpEventArgs hlpevent) {
 			ShowGuide();
 		}
 
-		private void FormAbout_HelpButtonClicked(object sender, CancelEventArgs e) {
+		private void FormAbout_HelpButtonClicked(object? sender, CancelEventArgs e) {
 			e.Cancel = true;
 			ShowGuide();
 		}

@@ -11,7 +11,7 @@ namespace TweetDuck.Management {
 		private static string CacheFolder => CefUtils.GetCacheFolder(App.StoragePath);
 
 		private static bool clearOnExit;
-		private static Timer autoClearTimer;
+		private static Timer? autoClearTimer;
 
 		private static long CalculateCacheSize() {
 			return new DirectoryInfo(CacheFolder).EnumerateFiles().Select(file => {

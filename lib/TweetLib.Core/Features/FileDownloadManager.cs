@@ -84,7 +84,7 @@ namespace TweetLib.Core.Features {
 			var settings = new SaveFileDialogSettings {
 				DialogTitle = oneImage ? "Save Image" : "Save Images",
 				OverwritePrompt = oneImage,
-				FileName = qualityIndex == -1 ? filename : $"{author} {Path.ChangeExtension(filename, null)} {firstImageLink.Substring(qualityIndex + 1)}".Trim() + ext,
+				FileName = qualityIndex == -1 ? filename : $"{author} {Path.ChangeExtension(filename, null)} {firstImageLink[(qualityIndex + 1)..]}".Trim() + ext,
 				Filters = new [] { new FileDialogFilter(oneImage ? "Image" : "Images", string.IsNullOrEmpty(ext) ? Array.Empty<string>() : new [] { ext }) }
 			};
 

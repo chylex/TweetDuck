@@ -22,23 +22,23 @@ namespace TweetDuck.Dialogs {
 		public const string Ignore = "Ignore";
 		public const string Exit = "Exit";
 
-		public static bool Information(string caption, string text, string buttonAccept, string buttonCancel = null) {
+		public static bool Information(string caption, string text, string buttonAccept, string? buttonCancel = null) {
 			return Show(caption, text, MessageBoxIcon.Information, buttonAccept, buttonCancel);
 		}
 
-		public static bool Warning(string caption, string text, string buttonAccept, string buttonCancel = null) {
+		public static bool Warning(string caption, string text, string buttonAccept, string? buttonCancel = null) {
 			return Show(caption, text, MessageBoxIcon.Warning, buttonAccept, buttonCancel);
 		}
 
-		public static bool Error(string caption, string text, string buttonAccept, string buttonCancel = null) {
+		public static bool Error(string caption, string text, string buttonAccept, string? buttonCancel = null) {
 			return Show(caption, text, MessageBoxIcon.Error, buttonAccept, buttonCancel);
 		}
 
-		public static bool Question(string caption, string text, string buttonAccept, string buttonCancel = null) {
+		public static bool Question(string caption, string text, string buttonAccept, string? buttonCancel = null) {
 			return Show(caption, text, MessageBoxIcon.Question, buttonAccept, buttonCancel);
 		}
 
-		public static bool Show(string caption, string text, MessageBoxIcon icon, string buttonAccept, string buttonCancel = null) {
+		public static bool Show(string caption, string text, MessageBoxIcon icon, string buttonAccept, string? buttonCancel = null) {
 			using FormMessage message = new FormMessage(caption, text, icon);
 
 			if (buttonCancel == null) {
@@ -54,7 +54,7 @@ namespace TweetDuck.Dialogs {
 
 		// Instance
 
-		public Button ClickedButton { get; private set; }
+		public Button? ClickedButton { get; private set; }
 
 		public bool HasIcon => icon != null;
 		public int ActionPanelY => panelActions.Location.Y;
@@ -68,7 +68,7 @@ namespace TweetDuck.Dialogs {
 			get => BrowserUtils.Scale(96, dpiScale);
 		}
 
-		private readonly Icon icon;
+		private readonly Icon? icon;
 		private readonly bool isReady;
 		private readonly float dpiScale;
 
@@ -115,7 +115,7 @@ namespace TweetDuck.Dialogs {
 			this.labelMessage.Text = text.Replace("\r", "").Replace("\n", Environment.NewLine);
 		}
 
-		private void FormMessage_SizeChanged(object sender, EventArgs e) {
+		private void FormMessage_SizeChanged(object? sender, EventArgs e) {
 			RecalculateButtonLocation();
 		}
 
@@ -135,7 +135,7 @@ namespace TweetDuck.Dialogs {
 			};
 
 			button.Click += (sender, args) => {
-				ClickedButton = (Button) sender;
+				ClickedButton = button;
 				DialogResult = result;
 				Close();
 			};
@@ -181,7 +181,7 @@ namespace TweetDuck.Dialogs {
 			}
 		}
 
-		private void labelMessage_SizeChanged(object sender, EventArgs e) {
+		private void labelMessage_SizeChanged(object? sender, EventArgs e) {
 			if (!isReady) {
 				return;
 			}

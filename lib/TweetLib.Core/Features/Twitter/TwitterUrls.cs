@@ -49,11 +49,11 @@ namespace TweetLib.Core.Features.Twitter {
 		}
 
 		public static UrlType Check(string url) {
-			if (url.Contains("\"")) {
+			if (url.Contains('"')) {
 				return UrlType.Invalid;
 			}
 
-			if (Uri.TryCreate(url, UriKind.Absolute, out Uri uri)) {
+			if (Uri.TryCreate(url, UriKind.Absolute, out var uri)) {
 				string scheme = uri.Scheme;
 
 				if (scheme == Uri.UriSchemeHttps || scheme == Uri.UriSchemeHttp || scheme == Uri.UriSchemeFtp || scheme == Uri.UriSchemeMailto) {

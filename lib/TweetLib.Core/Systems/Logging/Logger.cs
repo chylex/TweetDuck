@@ -43,7 +43,7 @@ namespace TweetLib.Core.Systems.Logging {
 				build.Append("Please, report all issues to: ").Append(Lib.IssueTrackerUrl).Append("\r\n\r\n");
 			}
 
-			build.Append("[").Append(DateTime.Now.ToString("G", Lib.Culture)).Append("] ").Append(level).Append("\r\n");
+			build.Append('[').Append(DateTime.Now.ToString("G", Lib.Culture)).Append("] ").Append(level).Append("\r\n");
 			build.Append(message).Append("\r\n\r\n");
 
 			try {

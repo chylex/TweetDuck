@@ -51,11 +51,11 @@ namespace TweetDuck.Dialogs.Settings {
 			return canPlay;
 		}
 
-		private void tbCustomSound_TextChanged(object sender, EventArgs e) {
+		private void tbCustomSound_TextChanged(object? sender, EventArgs e) {
 			RefreshCanPlay();
 		}
 
-		private void btnPlaySound_Click(object sender, EventArgs e) {
+		private void btnPlaySound_Click(object? sender, EventArgs e) {
 			if (RefreshCanPlay()) {
 				Config.NotificationSoundPath = tbCustomSound.Text;
 				Config.NotificationSoundVolume = trackBarVolume.Value;
@@ -63,7 +63,7 @@ namespace TweetDuck.Dialogs.Settings {
 			}
 		}
 
-		private void btnBrowseSound_Click(object sender, EventArgs e) {
+		private void btnBrowseSound_Click(object? sender, EventArgs e) {
 			using OpenFileDialog dialog = new OpenFileDialog {
 				AutoUpgradeEnabled = true,
 				DereferenceLinks = true,
@@ -84,17 +84,17 @@ namespace TweetDuck.Dialogs.Settings {
 			}
 		}
 
-		private void btnResetSound_Click(object sender, EventArgs e) {
+		private void btnResetSound_Click(object? sender, EventArgs e) {
 			tbCustomSound.Text = string.Empty;
 		}
 
-		private void trackBarVolume_ValueChanged(object sender, EventArgs e) {
+		private void trackBarVolume_ValueChanged(object? sender, EventArgs e) {
 			volumeUpdateTimer.Stop();
 			volumeUpdateTimer.Start();
 			labelVolumeValue.Text = trackBarVolume.Value + "%";
 		}
 
-		private void volumeUpdateTimer_Tick(object sender, EventArgs e) {
+		private void volumeUpdateTimer_Tick(object? sender, EventArgs e) {
 			Config.NotificationSoundVolume = trackBarVolume.Value;
 			volumeUpdateTimer.Stop();
 		}

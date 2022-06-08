@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading;
 using TweetLib.Utils.Static;
@@ -91,7 +90,6 @@ namespace TweetLib.Utils.Startup {
 			return UnlockResult.Success;
 		}
 
-		[SuppressMessage("ReSharper", "PossibleNullReferenceException")]
 		private LockResult DetermineLockingProcessOrFail(Exception originalException) {
 			try {
 				int pid;
@@ -110,7 +108,7 @@ namespace TweetLib.Utils.Startup {
 					var foundProcess = Process.GetProcessById(pid);
 					using var currentProcess = Process.GetCurrentProcess();
 
-					if (currentProcess.MainModule.FileVersionInfo.InternalName == foundProcess.MainModule.FileVersionInfo.InternalName) {
+					if (currentProcess.MainModule!.FileVersionInfo.InternalName == foundProcess.MainModule!.FileVersionInfo.InternalName) {
 						return new LockResult.HasProcess(foundProcess);
 					}
 					else {

@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace TweetDuck.Controls {
 	sealed class NumericUpDownEx : NumericUpDown {
-		public string TextSuffix { get; set ; }
+		public string? TextSuffix { get; set; }
 
 		protected override void UpdateEditText() {
 			base.UpdateEditText();

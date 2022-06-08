@@ -48,17 +48,17 @@ namespace TweetLib.Core.Features.Plugins {
 		}
 
 		internal Plugin? GetPluginFromToken(int token) {
-			return tokens.TryGetValue(token, out Plugin plugin) ? plugin : null;
+			return tokens.TryGetValue(token, out var plugin) ? plugin : null;
 		}
 
 		// Event handlers
 
-		private void manager_Reloaded(object sender, PluginErrorEventArgs e) {
+		private void manager_Reloaded(object? sender, PluginErrorEventArgs e) {
 			tokens.Clear();
 			fileCache.Clear();
 		}
 
-		private void Config_PluginChangedState(object sender, PluginChangedStateEventArgs e) {
+		private void Config_PluginChangedState(object? sender, PluginChangedStateEventArgs e) {
 			if (!e.IsEnabled) {
 				int token = GetTokenFromPlugin(e.Plugin);
 
@@ -88,7 +88,7 @@ namespace TweetLib.Core.Features.Plugins {
 		private string ReadFileUnsafe(int token, PluginFolder folder, string path, bool readCached) {
 			string fullPath = GetFullPathOrThrow(token, folder, path);
 
-			if (readCached && fileCache.TryGetValue(token, folder, path, out string cachedContents)) {
+			if (readCached && fileCache.TryGetValue(token, folder, path, out var cachedContents)) {
 				return cachedContents;
 			}
 
@@ -161,7 +161,7 @@ namespace TweetLib.Core.Features.Plugins {
 				cache.Clear();
 			}
 
-			public bool TryGetValue(int token, PluginFolder folder, string path, out string contents) {
+			public bool TryGetValue(int token, PluginFolder folder, string path, [MaybeNullWhen(false)] out string contents) {
 				return cache.TryGetValue(token, Key(folder, path), out contents);
 			}
 

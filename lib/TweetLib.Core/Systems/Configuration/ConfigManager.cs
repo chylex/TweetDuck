@@ -16,7 +16,7 @@ namespace TweetLib.Core.Systems.Configuration {
 			ConverterRegistry.Register(typeof(WindowState), new BasicTypeConverter<WindowState> {
 				ConvertToString = static value => $"{(value.IsMaximized ? 'M' : '_')}{value.Bounds.X} {value.Bounds.Y} {value.Bounds.Width} {value.Bounds.Height}",
 				ConvertToObject = static value => {
-					int[] elements = StringUtils.ParseInts(value.Substring(1), ' ');
+					int[] elements = StringUtils.ParseInts(value[1..], ' ');
 
 					return new WindowState {
 						Bounds = new Rectangle(elements[0], elements[1], elements[2], elements[3]),

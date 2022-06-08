@@ -57,7 +57,7 @@ namespace TweetLib.Utils.Collections {
 		}
 
 		public string? GetValue(string key) {
-			return values.TryGetValue(key.ToLower(), out string val) ? val : null;
+			return values.TryGetValue(key.ToLower(), out var val) ? val : null;
 		}
 
 		public void RemoveValue(string key) {

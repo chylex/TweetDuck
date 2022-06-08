@@ -8,7 +8,7 @@ namespace TweetDuck.Browser.Base {
 	sealed class ContextMenuNotification : ContextMenuBase {
 		private readonly FormNotificationBase form;
 
-		public ContextMenuNotification(FormNotificationBase form, IContextMenuHandler handler) : base(handler) {
+		public ContextMenuNotification(FormNotificationBase form, IContextMenuHandler? handler) : base(handler) {
 			this.form = form;
 		}
 

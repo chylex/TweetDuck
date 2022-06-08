@@ -28,12 +28,12 @@ namespace TweetDuck.Management {
 			}
 		}
 
-		public static T TryFind<T>() where T : Form {
+		public static T? TryFind<T>() where T : Form {
 			return OpenForms.OfType<T>().FirstOrDefault();
 		}
 
 		public static bool TryBringToFront<T>() where T : Form {
-			T form = TryFind<T>();
+			T? form = TryFind<T>();
 
 			if (form != null) {
 				form.BringToFront();

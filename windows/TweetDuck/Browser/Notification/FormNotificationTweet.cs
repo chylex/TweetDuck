@@ -53,7 +53,7 @@ namespace TweetDuck.Browser.Notification {
 			}
 		}
 
-		private void WindowsSessionManager_LockStateChanged(object sender, EventArgs e) {
+		private void WindowsSessionManager_LockStateChanged(object? sender, EventArgs e) {
 			if (WindowsSessionManager.IsLocked) {
 				PauseNotification(NotificationPauseReason.WindowsSessionLocked);
 			}
@@ -78,7 +78,7 @@ namespace TweetDuck.Browser.Notification {
 
 		// event handlers
 
-		private void Config_MuteToggled(object sender, EventArgs e) {
+		private void Config_MuteToggled(object? sender, EventArgs e) {
 			if (Config.MuteNotifications) {
 				PauseNotification(NotificationPauseReason.UserConfiguration);
 			}
@@ -87,14 +87,14 @@ namespace TweetDuck.Browser.Notification {
 			}
 		}
 
-		private void timerCursorCheck_Tick(object sender, EventArgs e) {
+		private void timerCursorCheck_Tick(object? sender, EventArgs e) {
 			if (!IsCursorOverNotificationArea) {
 				ResumeNotification(NotificationPauseReason.CursorOverNotificationArea);
 				timerCursorCheck.Stop();
 			}
 		}
 
-		private void timerIdlePauseCheck_Tick(object sender, EventArgs e) {
+		private void timerIdlePauseCheck_Tick(object? sender, EventArgs e) {
 			if (NativeMethods.GetIdleSeconds() < Config.NotificationIdlePauseSeconds) {
 				ResumeNotification(NotificationPauseReason.SystemIdle);
 				timerIdlePauseCheck.Stop();

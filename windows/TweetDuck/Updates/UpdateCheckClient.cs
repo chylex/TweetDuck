@@ -33,7 +33,7 @@ namespace TweetDuck.Updates {
 					result.SetCanceled();
 				}
 				else if (task.IsFaulted) {
-					result.SetException(ExpandWebException(task.Exception.InnerException));
+					result.SetException(ExpandWebException(task.Exception!.InnerException));
 				}
 				else {
 					try {
@@ -65,7 +65,7 @@ namespace TweetDuck.Updates {
 			return new UpdateInfo(versionTag, releaseNotes, downloadUrl, installerFolder);
 		}
 
-		private static Exception ExpandWebException(Exception e) {
+		private static Exception ExpandWebException(Exception? e) {
 			if (e is WebException { Response: HttpWebResponse response } ) {
 				try {
 					using var stream = response.GetResponseStream();
@@ -76,7 +76,7 @@ namespace TweetDuck.Updates {
 				}
 			}
 
-			return e;
+			return e!;
 		}
 	}
 }

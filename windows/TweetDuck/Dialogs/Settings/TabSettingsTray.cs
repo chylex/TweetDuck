@@ -29,12 +29,12 @@ namespace TweetDuck.Dialogs.Settings {
 
 		#region System Tray
 
-		private void comboBoxTrayType_SelectedIndexChanged(object sender, EventArgs e) {
+		private void comboBoxTrayType_SelectedIndexChanged(object? sender, EventArgs e) {
 			Config.TrayBehavior = (TrayIcon.Behavior) comboBoxTrayType.SelectedIndex;
 			checkTrayHighlight.Enabled = Config.TrayBehavior.ShouldDisplayIcon();
 		}
 
-		private void checkTrayHighlight_CheckedChanged(object sender, EventArgs e) {
+		private void checkTrayHighlight_CheckedChanged(object? sender, EventArgs e) {
 			Config.EnableTrayHighlight = checkTrayHighlight.Checked;
 		}
 

@@ -9,7 +9,7 @@ namespace TweetDuck.Controls {
 			GotFocus += FlatButton_GotFocus;
 		}
 
-		private void FlatButton_GotFocus(object sender, EventArgs e) { // removes extra border when focused
+		private void FlatButton_GotFocus(object? sender, EventArgs e) { // removes extra border when focused
 			NotifyDefault(false);
 		}
 	}

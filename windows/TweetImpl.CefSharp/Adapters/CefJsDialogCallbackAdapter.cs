@@ -7,7 +7,7 @@ namespace TweetImpl.CefSharp.Adapters {
 
 		private CefJsDialogCallbackAdapter() {}
 
-		public void Continue(IJsDialogCallback callback, bool success, string userInput = null) {
+		public void Continue(IJsDialogCallback callback, bool success, string? userInput = null) {
 			if (userInput == null) {
 				callback.Continue(success);
 			}

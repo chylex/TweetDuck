@@ -40,7 +40,7 @@ namespace TweetLib.Utils.Static {
 				return null;
 			}
 
-			return (str.Substring(0, index), str.Substring(index + 1));
+			return (str[..index], str[(index + 1)..]);
 		}
 
 		/// <summary>
@@ -49,7 +49,7 @@ namespace TweetLib.Utils.Static {
 		/// </summary>
 		public static string ExtractBefore(string str, char search, int startIndex = 0) {
 			int index = str.IndexOf(search, startIndex);
-			return index == -1 ? str : str.Substring(0, index);
+			return index == -1 ? str : str[..index];
 		}
 
 		/// <summary>

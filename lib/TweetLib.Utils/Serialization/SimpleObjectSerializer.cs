@@ -28,7 +28,7 @@ namespace TweetLib.Utils.Serialization {
 					break;
 				}
 				else {
-					build.Append(data.Substring(index, nextIndex - index));
+					build.Append(data[index..nextIndex]);
 
 					char next = data[nextIndex + 1];
 
@@ -47,7 +47,7 @@ namespace TweetLib.Utils.Serialization {
 				}
 			}
 
-			return build.Append(data.Substring(index)).ToString();
+			return build.Append(data[index..]).ToString();
 		}
 
 		private readonly TypeConverterRegistry converterRegistry;
@@ -114,7 +114,7 @@ namespace TweetLib.Utils.Serialization {
 				int nextPos = contents.IndexOf(NewLineReal, currentPos);
 
 				if (nextPos == -1) {
-					line = contents.Substring(currentPos);
+					line = contents[currentPos..];
 					currentPos = -1;
 
 					if (string.IsNullOrEmpty(line)) {
@@ -133,10 +133,10 @@ namespace TweetLib.Utils.Serialization {
 					continue;
 				}
 
-				string property = line.Substring(0, space);
-				string value = UnescapeLine(line.Substring(space + 1));
+				string property = line[..space];
+				string value = UnescapeLine(line[(space + 1)..]);
 
-				if (props.TryGetValue(property, out PropertyInfo info)) {
+				if (props.TryGetValue(property, out var info)) {
 					var type = info.PropertyType;
 					var converter = converterRegistry.TryGet(type) ?? ClrTypeConverter.Instance;
 

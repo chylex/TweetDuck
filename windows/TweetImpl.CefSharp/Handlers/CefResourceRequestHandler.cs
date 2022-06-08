@@ -9,7 +9,7 @@ namespace TweetImpl.CefSharp.Handlers {
 	sealed class CefResourceRequestHandler : ResourceRequestHandler {
 		private readonly ResourceRequestHandlerLogic<IRequest, IResponse, IResourceHandler> logic;
 
-		public CefResourceRequestHandler(ResourceHandlerRegistry<IResourceHandler> resourceHandlerRegistry, IResourceRequestHandler resourceRequestHandler) {
+		public CefResourceRequestHandler(ResourceHandlerRegistry<IResourceHandler> resourceHandlerRegistry, IResourceRequestHandler? resourceRequestHandler) {
 			this.logic = new ResourceRequestHandlerLogic<IRequest, IResponse, IResourceHandler>(CefRequestAdapter.Instance, CefResponseAdapter.Instance, resourceHandlerRegistry, resourceRequestHandler);
 		}
 
@@ -17,11 +17,11 @@ namespace TweetImpl.CefSharp.Handlers {
 			return logic.OnBeforeResourceLoad(request, callback) ? CefReturnValue.Continue : CefReturnValue.Cancel;
 		}
 
-		protected override IResourceHandler GetResourceHandler(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request) {
+		protected override IResourceHandler? GetResourceHandler(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request) {
 			return logic.GetResourceHandler(request);
 		}
 
-		protected override IResponseFilter GetResourceResponseFilter(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IResponse response) {
+		protected override IResponseFilter? GetResourceResponseFilter(IWebBrowser browserControl, IBrowser browser, IFrame frame, IRequest request, IResponse response) {
 			return CefResponseFilter.Create(logic.GetResourceResponseFilter(request, response));
 		}
 

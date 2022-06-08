@@ -13,7 +13,7 @@ using TweetLib.Core.Systems.Configuration;
 
 namespace TweetDuck.Application {
 	sealed class SystemHandler : IAppSystemHandler {
-		public void OpenBrowser(string url) {
+		public void OpenBrowser(string? url) {
 			if (string.IsNullOrWhiteSpace(url)) {
 				return;
 			}
@@ -23,7 +23,7 @@ namespace TweetDuck.Application {
 
 				switch (TwitterUrls.Check(url)) {
 					case TwitterUrls.UrlType.Fine:
-						string browserPath = config.BrowserPath;
+						string? browserPath = config.BrowserPath;
 
 						if (browserPath == null || !File.Exists(browserPath)) {
 							OpenAssociatedProgram(url);
@@ -120,7 +120,7 @@ namespace TweetDuck.Application {
 
 			void PerformSearch() {
 				var config = Program.Config.User;
-				string searchUrl = config.SearchEngineUrl;
+				string? searchUrl = config.SearchEngineUrl;
 
 				if (string.IsNullOrEmpty(searchUrl)) {
 					if (FormMessage.Question("Search Options", "You have not configured a default search engine yet, would you like to do it now?", FormMessage.Yes, FormMessage.No)) {
@@ -132,7 +132,7 @@ namespace TweetDuck.Application {
 							return;
 						}
 
-						FormSettings settings = FormManager.TryFind<FormSettings>();
+						FormSettings? settings = FormManager.TryFind<FormSettings>();
 
 						if (settings == null) {
 							return;
@@ -146,7 +146,7 @@ namespace TweetDuck.Application {
 					}
 				}
 				else {
-					App.SystemHandler.OpenBrowser(searchUrl + Uri.EscapeUriString(text));
+					App.SystemHandler.OpenBrowser(searchUrl + Uri.EscapeDataString(text));
 				}
 			}
 

@@ -10,7 +10,7 @@ namespace TweetDuck.Dialogs.Settings {
 
 		private readonly string initialArgs;
 
-		public DialogSettingsCefArgs(string args) {
+		public DialogSettingsCefArgs(string? args) {
 			InitializeComponent();
 
 			Text = Program.BrandName + " Options - CEF Arguments";
@@ -20,11 +20,11 @@ namespace TweetDuck.Dialogs.Settings {
 			textBoxArgs.Select(textBoxArgs.Text.Length, 0);
 		}
 
-		private void btnHelp_Click(object sender, EventArgs e) {
+		private void btnHelp_Click(object? sender, EventArgs e) {
 			App.SystemHandler.OpenBrowser("http://peter.sh/experiments/chromium-command-line-switches/");
 		}
 
-		private void btnApply_Click(object sender, EventArgs e) {
+		private void btnApply_Click(object? sender, EventArgs e) {
 			if (CefArgs == initialArgs) {
 				DialogResult = DialogResult.Cancel;
 				Close();
@@ -40,7 +40,7 @@ namespace TweetDuck.Dialogs.Settings {
 			}
 		}
 
-		private void btnCancel_Click(object sender, EventArgs e) {
+		private void btnCancel_Click(object? sender, EventArgs e) {
 			DialogResult = DialogResult.Cancel;
 			Close();
 		}

@@ -83,7 +83,7 @@ module ReadFile =
     [<InlineData("singleFile")>]
     [<InlineData("singleFileWithMultiIdentifier")>]
     let ``reading first file from single file stream returns an entry`` (stream: string) =
-        using TestData.singleFileStreams.[stream] (fun f ->
+        using TestData.singleFileStreams[stream] (fun f ->
             Assert.NotNull(f.ReadFile())
         )
 
@@ -91,7 +91,7 @@ module ReadFile =
     [<InlineData("singleFile")>]
     [<InlineData("singleFileWithMultiIdentifier")>]
     let ``reading second file from single file stream returns null`` (stream: string) =
-        using TestData.singleFileStreams.[stream] (fun f ->
+        using TestData.singleFileStreams[stream] (fun f ->
             f.ReadFile() |> ignore
             Assert.Null(f.ReadFile())
         )
@@ -197,7 +197,7 @@ module Entry =
         [<InlineData("singleFile")>]
         [<InlineData("singleFileWithMultiIdentifier")>]
         let ``contents of single file stream with are correct`` (stream: string) =
-            using TestData.singleFileStreams.[stream] (fun f ->
+            using TestData.singleFileStreams[stream] (fun f ->
                 Assert.Equal("test file\n123", Encoding.UTF8.GetString(f.ReadFile().Contents))
             )
 

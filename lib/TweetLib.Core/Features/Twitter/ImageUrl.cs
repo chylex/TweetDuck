@@ -57,7 +57,7 @@ namespace TweetLib.Core.Features.Twitter {
 				return false;
 			}
 
-			string originalUrl = url.Substring(0, question);
+			string originalUrl = url[..question];
 
 			obj = new ImageUrl(Path.HasExtension(originalUrl) ? originalUrl : originalUrl + imageExtension, imageQuality);
 			return true;

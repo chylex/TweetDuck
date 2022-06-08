@@ -40,13 +40,13 @@ namespace TweetDuck.Browser.Notification {
 				".mp3"  => "audio/mp3",
 				".flac" => "audio/flac",
 				".opus" => "audio/ogg; codecs=opus",
-				_       => null
+				_       => "application/octet-stream"
 			};
 
 			try {
 				return (File.ReadAllBytes(path), mimeType);
 			} catch {
-				FormBrowser browser = FormManager.TryFind<FormBrowser>();
+				FormBrowser? browser = FormManager.TryFind<FormBrowser>();
 
 				browser?.InvokeAsyncSafe(() => {
 					using FormMessage form = new FormMessage("Sound Notification Error", "Could not find custom notification sound file:\n" + path, MessageBoxIcon.Error);

@@ -16,9 +16,11 @@ namespace TweetDuck.Plugins {
 
 		private int nextHeight;
 
+		#pragma warning disable CS8618
 		private PluginControl() {
 			InitializeComponent();
 		}
+		#pragma warning restore CS8618
 
 		public PluginControl(PluginManager pluginManager, Plugin plugin) : this() {
 			this.pluginManager = pluginManager;
@@ -49,13 +51,13 @@ namespace TweetDuck.Plugins {
 			panelDescription_Resize(panelDescription, EventArgs.Empty);
 		}
 
-		private void timerLayout_Tick(object sender, EventArgs e) {
+		private void timerLayout_Tick(object? sender, EventArgs e) {
 			timerLayout.Stop();
 			Height = nextHeight;
 			ResumeLayout();
 		}
 
-		private void panelDescription_Resize(object sender, EventArgs e) {
+		private void panelDescription_Resize(object? sender, EventArgs e) {
 			SuspendLayout();
 
 			int maxWidth = panelDescription.Width - (panelDescription.VerticalScroll.Visible ? SystemInformation.VerticalScrollBarWidth : 0);
@@ -80,18 +82,18 @@ namespace TweetDuck.Plugins {
 			}
 		}
 
-		private void labelWebsite_Click(object sender, EventArgs e) {
+		private void labelWebsite_Click(object? sender, EventArgs e) {
 			if (labelWebsite.Text.Length > 0) {
 				App.SystemHandler.OpenBrowser(labelWebsite.Text);
 			}
 		}
 
-		private void btnConfigure_Click(object sender, EventArgs e) {
+		private void btnConfigure_Click(object? sender, EventArgs e) {
 			pluginManager.ConfigurePlugin(plugin);
 			ParentForm?.Close();
 		}
 
-		private void btnToggleState_Click(object sender, EventArgs e) {
+		private void btnToggleState_Click(object? sender, EventArgs e) {
 			pluginManager.Config.SetEnabled(plugin, !pluginManager.Config.IsEnabled(plugin));
 			pluginManager.Config.Save();
 			UpdatePluginState();

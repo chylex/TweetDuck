@@ -38,36 +38,36 @@ module Indexer =
     [<InlineData("second", 2, 200.0)>]
     [<InlineData("third", 1, 1000.0)>]
     let ``get returns correct value`` (outerKey: string, innerKey: int, value: float) =
-        Assert.Equal(value, TestData.uniquevals.[outerKey, innerKey])
+        Assert.Equal(value, TestData.uniquevals[outerKey, innerKey])
 
     [<Fact>]
     let ``get throws if outer key is missing`` () =
-        Assert.Throws<KeyNotFoundException>(fun () -> TestData.uniquevals.["missing", 1] |> ignore)
+        Assert.Throws<KeyNotFoundException>(fun () -> TestData.uniquevals["missing", 1] |> ignore)
 
     [<Fact>]
     let ``get throws if inner key is missing`` () =
-        Assert.Throws<KeyNotFoundException>(fun () -> TestData.uniquevals.["first", 0] |> ignore)
+        Assert.Throws<KeyNotFoundException>(fun () -> TestData.uniquevals["first", 0] |> ignore)
 
     [<Fact>]
     let ``set modifies existing value`` () =
         let copy = TestData.uniquevals
-        copy.["first", 1] <- 50.0
+        copy["first", 1] <- 50.0
 
-        Assert.Equal(50.0, copy.["first", 1])
+        Assert.Equal(50.0, copy["first", 1])
 
     [<Fact>]
     let ``set creates new inner key`` () =
         let copy = TestData.uniquevals
-        copy.["second", 3] <- 300.0
+        copy["second", 3] <- 300.0
 
-        Assert.Equal(300.0, copy.["second", 3])
+        Assert.Equal(300.0, copy["second", 3])
 
     [<Fact>]
     let ``set creates new outer key`` () =
         let copy = TestData.uniquevals
-        copy.["fourth", 1] <- 10000.0
+        copy["fourth", 1] <- 10000.0
 
-        Assert.Equal(10000.0, copy.["fourth", 1])
+        Assert.Equal(10000.0, copy["fourth", 1])
 
 
 module InnerValues =
@@ -93,14 +93,14 @@ module Add =
         let copy = TestData.uniquevals
         copy.Add("first", 4, 40.0)
 
-        Assert.Equal(40.0, copy.["first", 4])
+        Assert.Equal(40.0, copy["first", 4])
 
     [<Fact>]
     let ``creates new outer key`` () =
         let copy = TestData.uniquevals
         copy.Add("fourth", 1, 10000.0)
 
-        Assert.Equal(10000.0, copy.["fourth", 1])
+        Assert.Equal(10000.0, copy["fourth", 1])
 
     [<Fact>]
     let ``throw on duplicate key`` () =

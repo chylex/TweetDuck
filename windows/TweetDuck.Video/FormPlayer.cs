@@ -153,12 +153,12 @@ namespace TweetDuck.Video {
 
 		// Events
 
-		private void FormPlayer_Load(object sender, EventArgs e) {
+		private void FormPlayer_Load(object? sender, EventArgs e) {
 			Player.URL = videoUrl;
 		}
 
-		private void pipe_DataIn(object sender, DuplexPipe.PipeReadEventArgs e) {
-			Invoke(new Action(() => {
+		private void pipe_DataIn(object? sender, DuplexPipe.PipeReadEventArgs e) {
+			Invoke(() => {
 				switch (e.Key) {
 					case "key":
 						HandleKey((Keys) int.Parse(e.Data, NumberStyles.Integer));
@@ -168,7 +168,7 @@ namespace TweetDuck.Video {
 						StopVideo();
 						break;
 				}
-			}));
+			});
 		}
 
 		private void player_PlayStateChange(int newState) {
@@ -215,7 +215,7 @@ namespace TweetDuck.Video {
 			Marshal.ReleaseComObject(controls);
 		}
 
-		private void timerSync_Tick(object sender, EventArgs e) {
+		private void timerSync_Tick(object? sender, EventArgs e) {
 			if (NativeMethods.GetWindowRect(ownerHandle, out NativeMethods.RECT rect)) {
 				IWMPMedia media = Player.currentMedia;
 				IWMPControls controls = Player.controls;
@@ -312,12 +312,12 @@ namespace TweetDuck.Video {
 			}
 		}
 
-		private void timerData_Tick(object sender, EventArgs e) {
+		private void timerData_Tick(object? sender, EventArgs e) {
 			timerData.Stop();
 			pipe.Write("vol", trackBarVolume.Value.ToString());
 		}
 
-		private void progressSeek_MouseDown(object sender, MouseEventArgs e) {
+		private void progressSeek_MouseDown(object? sender, MouseEventArgs e) {
 			if (e.Button == MouseButtons.Left) {
 				IWMPMedia media = Player.currentMedia;
 				IWMPControls controls = Player.controls;
@@ -329,7 +329,7 @@ namespace TweetDuck.Video {
 			}
 		}
 
-		private void trackBarVolume_ValueChanged(object sender, EventArgs e) {
+		private void trackBarVolume_ValueChanged(object? sender, EventArgs e) {
 			IWMPSettings settings = Player.settings;
 			settings.volume = trackBarVolume.Value;
 
@@ -341,23 +341,23 @@ namespace TweetDuck.Video {
 			}
 		}
 
-		private void trackBarVolume_MouseDown(object sender, MouseEventArgs e) {
+		private void trackBarVolume_MouseDown(object? sender, MouseEventArgs e) {
 			isDragging = true;
 		}
 
-		private void trackBarVolume_MouseUp(object sender, MouseEventArgs e) {
+		private void trackBarVolume_MouseUp(object? sender, MouseEventArgs e) {
 			isDragging = false;
 		}
 
-		private void imageClose_Click(object sender, EventArgs e) {
+		private void imageClose_Click(object? sender, EventArgs e) {
 			StopVideo();
 		}
 
-		private void imageDownload_Click(object sender, EventArgs e) {
+		private void imageDownload_Click(object? sender, EventArgs e) {
 			pipe.Write("download");
 		}
 
-		private void imageResize_Click(object sender, EventArgs e) {
+		private void imageResize_Click(object? sender, EventArgs e) {
 			Player.fullScreen = true;
 		}
 

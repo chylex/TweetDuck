@@ -276,11 +276,11 @@ module ToDictionary =
         TestData.mixed.ToDictionary(dict)
 
         Assert.Equal(5, dict.Count)
-        Assert.Equal("1", dict.["flag1"])
-        Assert.Equal("1", dict.["flag2"])
-        Assert.Equal("1", dict.["flag3"])
-        Assert.Equal("hello", dict.["val1"])
-        Assert.Equal("world", dict.["val2"])
+        Assert.Equal("1", dict["flag1"])
+        Assert.Equal("1", dict["flag2"])
+        Assert.Equal("1", dict["flag3"])
+        Assert.Equal("hello", dict["val1"])
+        Assert.Equal("world", dict["val2"])
 
     [<Fact>]
     let ``prefers value if the same name is used for a flag and value`` () =
@@ -288,7 +288,7 @@ module ToDictionary =
         TestData.duplicate.ToDictionary(dict)
 
         Assert.Equal(1, dict.Count)
-        Assert.Equal("value", dict.["duplicate"])
+        Assert.Equal("value", dict["duplicate"])
 
 
 module ToString =

@@ -11,7 +11,7 @@ namespace TweetImpl.CefSharp.Handlers {
 
 		private readonly ResourceRequestHandlerFactoryLogic<CefResourceRequestHandler, IResourceHandler, IRequest> logic;
 
-		public CefResourceRequestHandlerFactory(IResourceRequestHandler resourceRequestHandler, ResourceHandlerRegistry<IResourceHandler> registry) {
+		public CefResourceRequestHandlerFactory(IResourceRequestHandler? resourceRequestHandler, ResourceHandlerRegistry<IResourceHandler> registry) {
 			this.logic = new ResourceRequestHandlerFactoryLogic<CefResourceRequestHandler, IResourceHandler, IRequest>(CefRequestAdapter.Instance, new CefResourceRequestHandler(registry, resourceRequestHandler), registry);
 		}
 

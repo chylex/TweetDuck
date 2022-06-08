@@ -32,7 +32,7 @@ namespace TweetDuck.Browser.Notification {
 			}
 		}
 
-		public event EventHandler Ready;
+		public event EventHandler? Ready;
 
 		private readonly DesktopNotification exampleNotification;
 

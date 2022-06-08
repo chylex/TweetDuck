@@ -35,7 +35,7 @@ namespace TweetDuck.Browser.Notification.Screenshot {
 		public const int WaitFrames = 5;
 		#endif
 
-		private FormNotificationScreenshotable screenshot;
+		private FormNotificationScreenshotable? screenshot;
 
 		public TweetScreenshotManager(FormBrowser owner, PluginManager pluginManager) {
 			this.owner = owner;
@@ -53,14 +53,14 @@ namespace TweetDuck.Browser.Notification.Screenshot {
 			#endif
 		}
 
-		private void timeout_Tick(object sender, EventArgs e) {
+		private void timeout_Tick(object? sender, EventArgs e) {
 			timeout.Stop();
 			OnFinished();
 		}
 
-		private void disposer_Tick(object sender, EventArgs e) {
+		private void disposer_Tick(object? sender, EventArgs e) {
 			disposer.Stop();
-			screenshot.Dispose();
+			screenshot?.Dispose();
 			screenshot = null;
 		}
 
@@ -88,12 +88,12 @@ namespace TweetDuck.Browser.Notification.Screenshot {
 			}
 
 			timeout.Stop();
-			screenshot.TakeScreenshot().ContinueWith(HandleResult, TaskScheduler.FromCurrentSynchronizationContext());
+			screenshot?.TakeScreenshot()?.ContinueWith(HandleResult, TaskScheduler.FromCurrentSynchronizationContext());
 		}
 
 		private void HandleResult(Task<Image> task) {
 			if (task.IsFaulted) {
-				App.ErrorHandler.HandleException("Screenshot Failed", "An error occurred while taking a screenshot.", true, task.Exception!.InnerException);
+				App.ErrorHandler.HandleException("Screenshot Failed", "An error occurred while taking a screenshot.", true, task.Exception!.InnerException!);
 			}
 			else if (task.IsCompleted) {
 				Clipboard.SetImage(task.Result);
@@ -111,7 +111,10 @@ namespace TweetDuck.Browser.Notification.Screenshot {
 			debugger.Stop();
 			#endif
 
-			screenshot.Location = ControlExtensions.InvisibleLocation;
+			if (screenshot != null) {
+				screenshot.Location = ControlExtensions.InvisibleLocation;
+			}
+
 			owner.IsWaiting = false;
 			disposer.Start();
 		}
@@ -141,7 +144,7 @@ namespace TweetDuck.Browser.Notification.Screenshot {
 			debugger.Start();
 		}
 
-		private void debugger_Tick(object sender, EventArgs e) {
+		private void debugger_Tick(object? sender, EventArgs e) {
 			if (frameCounter < 63) {
 				int frame = ++frameCounter;
 				screenshot.TakeScreenshot(true).ContinueWith(task => SaveDebugFrame(task, frame), TaskScheduler.FromCurrentSynchronizationContext());

@@ -5,18 +5,18 @@ using Win = System.Windows.Forms;
 namespace TweetDuck.Management {
 	static class WindowsSessionManager {
 		public static bool IsLocked { get; private set; } = false;
-		public static event EventHandler LockStateChanged;
+		public static event EventHandler? LockStateChanged;
 
 		public static void Register() {
 			Win.Application.ApplicationExit += OnApplicationExit;
 			SystemEvents.SessionSwitch += OnSessionSwitch;
 		}
 
-		private static void OnApplicationExit(object sender, EventArgs e) {
+		private static void OnApplicationExit(object? sender, EventArgs e) {
 			SystemEvents.SessionSwitch -= OnSessionSwitch;
 		}
 
-		private static void OnSessionSwitch(object sender, SessionSwitchEventArgs e) {
+		private static void OnSessionSwitch(object? sender, SessionSwitchEventArgs e) {
 			var reason = e.Reason;
 			if (reason == SessionSwitchReason.SessionLock) {
 				SetLocked(true);

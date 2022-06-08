@@ -28,7 +28,7 @@ namespace TweetDuck.Browser.Notification.Screenshot {
 			browserComponent.AttachBridgeObject("$TD_NotificationScreenshot", new ScreenshotBridge(this, SetScreenshotHeight, callback));
 
 			browserComponent.BrowserLoaded += (sender, args) => {
-				string script = ResourceUtils.ReadFileOrNull("notification/screenshot/screenshot.js");
+				string? script = ResourceUtils.ReadFileOrNull("notification/screenshot/screenshot.js");
 
 				if (script == null) {
 					this.InvokeAsyncSafe(callback);
@@ -47,29 +47,27 @@ namespace TweetDuck.Browser.Notification.Screenshot {
 			this.height = BrowserUtils.Scale(browserHeight, SizeScale);
 		}
 
-		public Task<Image> TakeScreenshot(bool ignoreHeightError = false) {
-			if (!ignoreHeightError) {
-				if (height == 0) {
-					FormMessage.Error("Screenshot Failed", "Could not detect screenshot size.", FormMessage.OK);
-					return null;
-				}
-				else if (height > ClientSize.Height) {
-					FormMessage.Error("Screenshot Failed", $"Screenshot is too large: {height}px > {ClientSize.Height}px", FormMessage.OK);
-					return null;
-				}
+		public Task<Image>? TakeScreenshot() {
+			if (height == 0) {
+				FormMessage.Error("Screenshot Failed", "Could not detect screenshot size.", FormMessage.OK);
+				return null;
+			}
+			else if (height > ClientSize.Height) {
+				FormMessage.Error("Screenshot Failed", $"Screenshot is too large: {height}px > {ClientSize.Height}px", FormMessage.OK);
+				return null;
 			}
 
 			return Task.Run(TakeScreenshotImpl);
 		}
 
 		private async Task<Image> TakeScreenshotImpl() {
-			if (this.height == 0) {
-				return null;
+			if (height == 0) {
+				throw new InvalidOperationException("Screenshot height must not be zero!");
 			}
 
 			Viewport viewport = new Viewport {
-				Width = this.ClientSize.Width,
-				Height = this.height,
+				Width = ClientSize.Width,
+				Height = height,
 				Scale = 1
 			};
 

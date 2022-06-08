@@ -102,7 +102,7 @@ namespace TweetLib.Core.Features.Plugins {
 			Executed?.Invoke(this, new PluginErrorEventArgs(errors));
 		}
 
-		private void Config_PluginChangedState(object sender, PluginChangedStateEventArgs e) {
+		private void Config_PluginChangedState(object? sender, PluginChangedStateEventArgs e) {
 			browserExecutor?.RunFunction("TDPF_setPluginState", e.Plugin, e.IsEnabled);
 		}
 

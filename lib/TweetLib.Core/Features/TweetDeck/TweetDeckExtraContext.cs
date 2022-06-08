@@ -24,15 +24,15 @@ namespace TweetLib.Core.Features.TweetDeck {
 
 			switch (type) {
 				case "link":
-					Link = new Link(url!, url!);
+					Link = new Link(url, url);
 					break;
 
 				case "image":
-					Media = new Media(Type.Image, TwitterUrls.GetMediaLink(url!, App.UserConfiguration.TwitterImageQuality));
+					Media = new Media(Type.Image, TwitterUrls.GetMediaLink(url, App.UserConfiguration.TwitterImageQuality));
 					break;
 
 				case "video":
-					Media = new Media(Type.Video, url!);
+					Media = new Media(Type.Video, url);
 					break;
 			}
 		}

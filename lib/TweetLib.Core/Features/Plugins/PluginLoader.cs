@@ -41,7 +41,7 @@ namespace TweetLib.Core.Features.Plugins {
 		private static Plugin FromFolder(string name, string pathRoot, string pathData, PluginGroup group) {
 			Plugin.Builder builder = new Plugin.Builder(group, name, pathRoot, pathData);
 
-			foreach (var environment in Directory.EnumerateFiles(pathRoot, "*.js", SearchOption.TopDirectoryOnly).Select(Path.GetFileName).Select(EnvironmentFromFileName)) {
+			foreach (var environment in Directory.EnumerateFiles(pathRoot, "*.js", SearchOption.TopDirectoryOnly).Select(Path.GetFileName).Select(EnvironmentFromFileName!)) {
 				builder.AddEnvironment(environment);
 			}
 
@@ -55,7 +55,7 @@ namespace TweetLib.Core.Features.Plugins {
 			string currentContents = string.Empty;
 
 			foreach (string line in File.ReadAllLines(metaFile, Encoding.UTF8).Concat(EndTag).Select(static line => line.TrimEnd()).Where(static line => line.Length > 0)) {
-				if (line[0] == '[' && line[line.Length - 1] == ']') {
+				if (line[0] == '[' && line[^1] == ']') {
 					if (currentTag != null) {
 						SetProperty(builder, currentTag, currentContents);
 					}
@@ -106,7 +106,7 @@ namespace TweetLib.Core.Features.Plugins {
 					builder.ConfigDefault = value;
 					break;
 				case "REQUIRES":
-					builder.RequiredVersion = Version.TryParse(value, out Version version) ? version : throw new FormatException($"Invalid required minimum version: {value}");
+					builder.RequiredVersion = Version.TryParse(value, out var version) ? version : throw new FormatException($"Invalid required minimum version: {value}");
 					break;
 				default:
 					throw new FormatException($"Invalid metadata tag: {tag}");

@@ -11,7 +11,7 @@ namespace TweetLib.Utils.Collections {
 	/// <typeparam name="V">The type of the values.</typeparam>
 	[SuppressMessage("ReSharper", "UnusedMethodReturnValue.Global")]
 	[SuppressMessage("ReSharper", "UnusedMember.Global")]
-	public sealed class TwoKeyDictionary<K1, K2, V> {
+	public sealed class TwoKeyDictionary<K1, K2, V> where K1 : notnull where K2 : notnull {
 		private readonly Dictionary<K1, Dictionary<K2, V>> dict;
 		private readonly int innerCapacity;
 
@@ -41,7 +41,7 @@ namespace TweetLib.Utils.Collections {
 			}
 
 			set {
-				if (!dict.TryGetValue(outerKey, out Dictionary<K2, V> innerDict)) {
+				if (!dict.TryGetValue(outerKey, out Dictionary<K2, V>? innerDict)) {
 					dict.Add(outerKey, innerDict = new Dictionary<K2, V>(innerCapacity));
 				}
 
@@ -67,7 +67,7 @@ namespace TweetLib.Utils.Collections {
 		/// Throws if the key pair already exists.
 		/// </summary>
 		public void Add(K1 outerKey, K2 innerKey, V value) {
-			if (!dict.TryGetValue(outerKey, out Dictionary<K2, V> innerDict)) {
+			if (!dict.TryGetValue(outerKey, out Dictionary<K2, V>? innerDict)) {
 				dict.Add(outerKey, innerDict = new Dictionary<K2, V>(innerCapacity));
 			}
 
@@ -100,7 +100,7 @@ namespace TweetLib.Utils.Collections {
 		/// Determines whether the dictionary contains the key pair.
 		/// </summary>
 		public bool Contains(K1 outerKey, K2 innerKey) {
-			return dict.TryGetValue(outerKey, out Dictionary<K2, V> innerDict) && innerDict.ContainsKey(innerKey);
+			return dict.TryGetValue(outerKey, out Dictionary<K2, V>? innerDict) && innerDict.ContainsKey(innerKey);
 		}
 
 		/// <summary>
@@ -122,8 +122,8 @@ namespace TweetLib.Utils.Collections {
 		/// Gets the value associated with the key pair.
 		/// Returns true if the key pair was present.
 		/// </summary>
-		public bool TryGetValue(K1 outerKey, K2 innerKey, out V value) {
-			if (dict.TryGetValue(outerKey, out Dictionary<K2, V> innerDict)) {
+		public bool TryGetValue(K1 outerKey, K2 innerKey, [MaybeNullWhen(false)] out V value) {
+			if (dict.TryGetValue(outerKey, out Dictionary<K2, V>? innerDict)) {
 				return innerDict.TryGetValue(innerKey, out value);
 			}
 			else {
@@ -145,7 +145,7 @@ namespace TweetLib.Utils.Collections {
 		/// Returns true if the key pair was present.
 		/// </summary>
 		public bool Remove(K1 outerKey, K2 innerKey) {
-			if (dict.TryGetValue(outerKey, out Dictionary<K2, V> innerDict) && innerDict.Remove(innerKey)) {
+			if (dict.TryGetValue(outerKey, out Dictionary<K2, V>? innerDict) && innerDict.Remove(innerKey)) {
 				if (innerDict.Count == 0) {
 					dict.Remove(outerKey);
 				}

@@ -13,13 +13,11 @@ namespace TweetLib.Communication.Pipe {
 
 		public static Client CreateClient(string token) {
 			int space = token.IndexOf(' ');
-			return new Client(token.Substring(0, space), token.Substring(space + 1));
+			return new Client(token[..space], token[(space + 1)..]);
 		}
 
 		private readonly PipeStream pipeIn;
 		private readonly PipeStream pipeOut;
-
-		private readonly Thread readerThread;
 		private readonly StreamWriter writerStream;
 
 		public event EventHandler<PipeReadEventArgs>? DataIn;
@@ -27,13 +25,9 @@ namespace TweetLib.Communication.Pipe {
 		private DuplexPipe(PipeStream pipeIn, PipeStream pipeOut) {
 			this.pipeIn = pipeIn;
 			this.pipeOut = pipeOut;
-
-			this.readerThread = new Thread(ReaderThread) {
-				IsBackground = true
-			};
-
-			this.readerThread.Start();
 			this.writerStream = new StreamWriter(this.pipeOut);
+
+			new Thread(ReaderThread) { IsBackground = true }.Start();
 		}
 
 		private void ReaderThread() {
@@ -95,8 +89,8 @@ namespace TweetLib.Communication.Pipe {
 					Data = string.Empty;
 				}
 				else {
-					Key = line.Substring(0, separatorIndex);
-					Data = line.Substring(separatorIndex + 1);
+					Key = line[..separatorIndex];
+					Data = line[(separatorIndex + 1)..];
 				}
 			}
 		}

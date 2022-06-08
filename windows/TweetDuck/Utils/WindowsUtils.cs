@@ -43,28 +43,28 @@ namespace TweetDuck.Utils {
 		public static IEnumerable<Browser> FindInstalledBrowsers() {
 			static IEnumerable<Browser> ReadBrowsersFromKey(RegistryHive hive) {
 				using RegistryKey root = RegistryKey.OpenBaseKey(hive, RegistryView.Default);
-				using RegistryKey browserList = root.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet", false);
+				using RegistryKey? browserList = root.OpenSubKey(@"SOFTWARE\Clients\StartMenuInternet", false);
 
 				if (browserList == null) {
 					yield break;
 				}
 
 				foreach (string sub in browserList.GetSubKeyNames()) {
-					using RegistryKey browserKey = browserList.OpenSubKey(sub, false);
-					using RegistryKey shellKey = browserKey?.OpenSubKey(@"shell\open\command");
+					using RegistryKey? browserKey = browserList.OpenSubKey(sub, false);
+					using RegistryKey? shellKey = browserKey?.OpenSubKey(@"shell\open\command");
 
-					if (shellKey == null) {
+					if (browserKey == null || shellKey == null) {
 						continue;
 					}
 
-					string browserName = browserKey.GetValue(null) as string;
-					string browserPath = shellKey.GetValue(null) as string;
+					string? browserName = browserKey.GetValue(null) as string;
+					string? browserPath = shellKey.GetValue(null) as string;
 
 					if (string.IsNullOrEmpty(browserName) || string.IsNullOrEmpty(browserPath)) {
 						continue;
 					}
 
-					if (browserPath[0] == '"' && browserPath[browserPath.Length - 1] == '"') {
+					if (browserPath[0] == '"' && browserPath[^1] == '"') {
 						browserPath = browserPath.Substring(1, browserPath.Length - 2);
 					}
 
@@ -94,7 +94,7 @@ namespace TweetDuck.Utils {
 			}
 
 			public override int GetHashCode() => Name.GetHashCode();
-			public override bool Equals(object obj) => obj is Browser other && Name == other.Name;
+			public override bool Equals(object? obj) => obj is Browser other && Name == other.Name;
 			public override string ToString() => Name;
 		}
 	}

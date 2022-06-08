@@ -29,18 +29,18 @@ namespace TweetDuck.Configuration {
 		public bool EnableAnimatedImages      { get; set; } = true;
 		public bool HideTweetsByNftUsers      { get; set; } = false;
 
-		private bool _enableSmoothScrolling = true;
-		private string _customCefArgs       = null;
+		private bool _enableSmoothScrolling  = true;
+		private string? _customCefArgs       = null;
 
-		public string BrowserPath            { get; set; } = null;
-		public string BrowserPathArgs        { get; set; } = null;
+		public string? BrowserPath           { get; set; } = null;
+		public string? BrowserPathArgs       { get; set; } = null;
 		public bool IgnoreTrackingUrlWarning { get; set; } = false;
-		public string SearchEngineUrl        { get; set; } = null;
+		public string? SearchEngineUrl       { get; set; } = null;
 		private int _zoomLevel                             = 100;
 
-		public string VideoPlayerPath     { get; set; } = null;
-		public string VideoPlayerPathArgs { get; set; } = null;
-		public int VideoPlayerVolume      { get; set; } = 50;
+		public string? VideoPlayerPath     { get; set; } = null;
+		public string? VideoPlayerPathArgs { get; set; } = null;
+		public int VideoPlayerVolume       { get; set; } = 50;
 
 		public bool EnableSpellCheck { get; set; } = false;
 		private string _spellCheckLanguage         = "en-US";
@@ -51,8 +51,8 @@ namespace TweetDuck.Configuration {
 		private TrayIcon.Behavior _trayBehavior       = TrayIcon.Behavior.Disabled;
 		public bool EnableTrayHighlight { get; set; } = true;
 
-		public bool EnableUpdateCheck { get; set; } = true;
-		public string DismissedUpdate { get; set; } = null;
+		public bool EnableUpdateCheck  { get; set; } = true;
+		public string? DismissedUpdate { get; set; } = null;
 
 		public bool DisplayNotificationColumn    { get; set; } = false;
 		public bool NotificationMediaPreviews    { get; set; } = true;
@@ -74,13 +74,13 @@ namespace TweetDuck.Configuration {
 		public Size CustomNotificationSize               { get; set; } = Size.Empty;
 		public int NotificationScrollSpeed               { get; set; } = 100;
 
-		private string _notificationSoundPath;
+		private string? _notificationSoundPath;
 		private int _notificationSoundVolume = 100;
 
 		private bool _muteNotifications;
 
-		public string CustomBrowserCSS      { get; set; } = null;
-		public string CustomNotificationCSS { get; set; } = null;
+		public string? CustomBrowserCSS      { get; set; } = null;
+		public string? CustomNotificationCSS { get; set; } = null;
 
 		public bool DevToolsInContextMenu { get; set; } = false;
 		public bool DevToolsWindowOnTop   { get; set; } = true;
@@ -123,7 +123,7 @@ namespace TweetDuck.Configuration {
 			set => UpdatePropertyWithCallback(ref _enableSmoothScrolling, value, App.ConfigManager.TriggerProgramRestartRequested);
 		}
 
-		public string CustomCefArgs {
+		public string? CustomCefArgs {
 			get => _customCefArgs;
 			set => UpdatePropertyWithCallback(ref _customCefArgs, value, App.ConfigManager.TriggerProgramRestartRequested);
 		}
@@ -149,11 +149,11 @@ namespace TweetDuck.Configuration {
 
 		// EVENTS
 
-		public event EventHandler MuteToggled;
-		public event EventHandler ZoomLevelChanged;
-		public event EventHandler TrayBehaviorChanged;
-		public event EventHandler SoundNotificationChanged;
-		public event EventHandler OptionsDialogClosed;
+		public event EventHandler? MuteToggled;
+		public event EventHandler? ZoomLevelChanged;
+		public event EventHandler? TrayBehaviorChanged;
+		public event EventHandler? SoundNotificationChanged;
+		public event EventHandler? OptionsDialogClosed;
 
 		public void TriggerOptionsDialogClosed() {
 			OptionsDialogClosed?.Invoke(this, EventArgs.Empty);

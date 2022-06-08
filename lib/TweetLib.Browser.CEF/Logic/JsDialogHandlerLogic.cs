@@ -9,7 +9,7 @@ namespace TweetLib.Browser.CEF.Logic {
 			
 			int pipe = text.IndexOf('|');
 			if (pipe != -1) {
-				type = text.Substring(0, pipe) switch {
+				type = text[..pipe] switch {
 					"error"    => MessageDialogType.Error,
 					"warning"  => MessageDialogType.Warning,
 					"info"     => MessageDialogType.Information,
@@ -18,7 +18,7 @@ namespace TweetLib.Browser.CEF.Logic {
 				};
 
 				if (type != MessageDialogType.None) {
-					text = text.Substring(pipe + 1);
+					text = text[(pipe + 1)..];
 				}
 			}
 

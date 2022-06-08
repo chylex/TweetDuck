@@ -23,7 +23,7 @@ namespace TweetImpl.CefSharp.Handlers {
 			this.logic = new SchemeHandlerFactoryLogic<IRequest, IResourceHandler>(handler, CefRequestAdapter.Instance, CefResourceHandlerFactory.Instance);
 		}
 
-		IResourceHandler ISchemeHandlerFactory.Create(IBrowser browser, IFrame frame, string schemeName, IRequest request) {
+		IResourceHandler? ISchemeHandlerFactory.Create(IBrowser browser, IFrame frame, string schemeName, IRequest request) {
 			return logic.Create(request);
 		}
 	}

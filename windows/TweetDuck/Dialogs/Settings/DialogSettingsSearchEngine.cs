@@ -14,12 +14,12 @@ namespace TweetDuck.Dialogs.Settings {
 			textBoxUrl.Select(textBoxUrl.Text.Length, 0);
 		}
 
-		private void btnApply_Click(object sender, EventArgs e) {
+		private void btnApply_Click(object? sender, EventArgs e) {
 			DialogResult = DialogResult.OK;
 			Close();
 		}
 
-		private void btnCancel_Click(object sender, EventArgs e) {
+		private void btnCancel_Click(object? sender, EventArgs e) {
 			DialogResult = DialogResult.Cancel;
 			Close();
 		}

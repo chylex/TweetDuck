@@ -10,7 +10,7 @@ namespace TweetDuck.Browser.Base {
 
 		public override string CacheFolder => CefUtils.GetCacheFolder(App.StoragePath);
 		
-		public CefBrowserComponent(ChromiumWebBrowser browser, CreateContextMenu createContextMenu = null, bool autoReload = true) : base(browser, createContextMenu ?? DefaultContextMenuFactory, new JsDialogOpener(browser), PopupHandler.Instance, autoReload) {
+		public CefBrowserComponent(ChromiumWebBrowser browser, CreateContextMenu? createContextMenu = null, bool autoReload = true) : base(browser, createContextMenu ?? DefaultContextMenuFactory, new JsDialogOpener(browser), PopupHandler.Instance, autoReload) {
 			browser.SetupZoomEvents();	
 		}
 	}

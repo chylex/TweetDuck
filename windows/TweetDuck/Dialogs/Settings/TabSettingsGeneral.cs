@@ -171,27 +171,27 @@ namespace TweetDuck.Dialogs.Settings {
 
 		#region User Interface
 
-		private void checkExpandLinks_CheckedChanged(object sender, EventArgs e) {
+		private void checkExpandLinks_CheckedChanged(object? sender, EventArgs e) {
 			Config.ExpandLinksOnHover = checkExpandLinks.Checked;
 		}
 
-		private void checkFocusDmInput_CheckedChanged(object sender, EventArgs e) {
+		private void checkFocusDmInput_CheckedChanged(object? sender, EventArgs e) {
 			Config.FocusDmInput = checkFocusDmInput.Checked;
 		}
 
-		private void checkOpenSearchInFirstColumn_CheckedChanged(object sender, EventArgs e) {
+		private void checkOpenSearchInFirstColumn_CheckedChanged(object? sender, EventArgs e) {
 			Config.OpenSearchInFirstColumn = checkOpenSearchInFirstColumn.Checked;
 		}
 
-		private void checkKeepLikeFollowDialogsOpen_CheckedChanged(object sender, EventArgs e) {
+		private void checkKeepLikeFollowDialogsOpen_CheckedChanged(object? sender, EventArgs e) {
 			Config.KeepLikeFollowDialogsOpen = checkKeepLikeFollowDialogsOpen.Checked;
 		}
 
-		private void checkSmoothScrolling_CheckedChanged(object sender, EventArgs e) {
+		private void checkSmoothScrolling_CheckedChanged(object? sender, EventArgs e) {
 			Config.EnableSmoothScrolling = checkSmoothScrolling.Checked;
 		}
 
-		private void trackBarZoom_ValueChanged(object sender, EventArgs e) {
+		private void trackBarZoom_ValueChanged(object? sender, EventArgs e) {
 			if (trackBarZoom.AlignValueToTick()) {
 				zoomUpdateTimer.Stop();
 				zoomUpdateTimer.Start();
@@ -199,7 +199,7 @@ namespace TweetDuck.Dialogs.Settings {
 			}
 		}
 
-		private void zoomUpdateTimer_Tick(object sender, EventArgs e) {
+		private void zoomUpdateTimer_Tick(object? sender, EventArgs e) {
 			Config.ZoomLevel = trackBarZoom.Value;
 			zoomUpdateTimer.Stop();
 		}
@@ -208,16 +208,16 @@ namespace TweetDuck.Dialogs.Settings {
 
 		#region Twitter
 
-		private void checkBestImageQuality_CheckedChanged(object sender, EventArgs e) {
+		private void checkBestImageQuality_CheckedChanged(object? sender, EventArgs e) {
 			Config.BestImageQuality = checkBestImageQuality.Checked;
 		}
 
-		private void checkHideTweetsByNftUsers_CheckedChanged(object sender, EventArgs e) {
+		private void checkHideTweetsByNftUsers_CheckedChanged(object? sender, EventArgs e) {
 			Config.HideTweetsByNftUsers = checkHideTweetsByNftUsers.Checked;
 			BeginInvoke(reloadTweetDeck);
 		}
 
-		private void checkAnimatedAvatars_CheckedChanged(object sender, EventArgs e) {
+		private void checkAnimatedAvatars_CheckedChanged(object? sender, EventArgs e) {
 			Config.EnableAnimatedImages = checkAnimatedAvatars.Checked;
 			BrowserProcessHandler.UpdatePrefs().ContinueWith(task => reloadColumns());
 		}
@@ -226,18 +226,18 @@ namespace TweetDuck.Dialogs.Settings {
 
 		#region Updates
 
-		private void checkUpdateNotifications_CheckedChanged(object sender, EventArgs e) {
+		private void checkUpdateNotifications_CheckedChanged(object? sender, EventArgs e) {
 			Config.EnableUpdateCheck = checkUpdateNotifications.Checked;
 		}
 
-		private void btnCheckUpdates_Click(object sender, EventArgs e) {
+		private void btnCheckUpdates_Click(object? sender, EventArgs e) {
 			Config.DismissedUpdate = null;
 
 			btnCheckUpdates.Enabled = false;
 			updateCheckEventId = updates.Check(true);
 		}
 
-		private void updates_CheckFinished(object sender, UpdateCheckEventArgs e) {
+		private void updates_CheckFinished(object? sender, UpdateCheckEventArgs e) {
 			if (e.EventId == updateCheckEventId) {
 				btnCheckUpdates.Enabled = true;
 
@@ -264,7 +264,7 @@ namespace TweetDuck.Dialogs.Settings {
 				comboBoxCustomBrowser.SelectedIndex = browserListIndexDefault;
 			}
 			else {
-				WindowsUtils.Browser browserInfo = comboBoxCustomBrowser.Items.OfType<WindowsUtils.Browser>().FirstOrDefault(browser => browser.Path == Config.BrowserPath);
+				WindowsUtils.Browser? browserInfo = comboBoxCustomBrowser.Items.OfType<WindowsUtils.Browser>().FirstOrDefault(browser => browser.Path == Config.BrowserPath);
 
 				if (browserInfo == null || Config.BrowserPathArgs != null) {
 					comboBoxCustomBrowser.SelectedIndex = browserListIndexCustom;
@@ -277,7 +277,7 @@ namespace TweetDuck.Dialogs.Settings {
 			UpdateBrowserChangeButton();
 		}
 
-		private void comboBoxCustomBrowser_SelectedIndexChanged(object sender, EventArgs e) {
+		private void comboBoxCustomBrowser_SelectedIndexChanged(object? sender, EventArgs e) {
 			if (comboBoxCustomBrowser.SelectedIndex == browserListIndexCustom) {
 				btnCustomBrowserChange_Click(sender, e);
 			}
@@ -288,7 +288,7 @@ namespace TweetDuck.Dialogs.Settings {
 			}
 		}
 
-		private void btnCustomBrowserChange_Click(object sender, EventArgs e) {
+		private void btnCustomBrowserChange_Click(object? sender, EventArgs e) {
 			using (DialogSettingsExternalProgram dialog = new DialogSettingsExternalProgram("External Browser", "Open Links With...") {
 				Path = Config.BrowserPath,
 				Args = Config.BrowserPathArgs
@@ -319,7 +319,7 @@ namespace TweetDuck.Dialogs.Settings {
 			UpdateVideoPlayerChangeButton();
 		}
 
-		private void comboBoxCustomVideoPlayer_SelectedIndexChanged(object sender, EventArgs e) {
+		private void comboBoxCustomVideoPlayer_SelectedIndexChanged(object? sender, EventArgs e) {
 			if (comboBoxCustomVideoPlayer.SelectedIndex == videoPlayerListIndexCustom) {
 				btnCustomVideoPlayerChange_Click(sender, e);
 			}
@@ -330,7 +330,7 @@ namespace TweetDuck.Dialogs.Settings {
 			}
 		}
 
-		private void btnCustomVideoPlayerChange_Click(object sender, EventArgs e) {
+		private void btnCustomVideoPlayerChange_Click(object? sender, EventArgs e) {
 			using (DialogSettingsExternalProgram dialog = new DialogSettingsExternalProgram("External Video Player", "Play Videos With...") {
 				Path = Config.VideoPlayerPath,
 				Args = Config.VideoPlayerPathArgs
@@ -346,7 +346,7 @@ namespace TweetDuck.Dialogs.Settings {
 			comboBoxCustomVideoPlayer.SelectedIndexChanged += comboBoxCustomVideoPlayer_SelectedIndexChanged;
 		}
 
-		private void comboBoxSearchEngine_SelectedIndexChanged(object sender, EventArgs e) {
+		private void comboBoxSearchEngine_SelectedIndexChanged(object? sender, EventArgs e) {
 			if (comboBoxSearchEngine.SelectedIndex == searchEngineIndexCustom) {
 				using (DialogSettingsSearchEngine dialog = new DialogSettingsSearchEngine()) {
 					if (dialog.ShowDialog() == DialogResult.OK) {
@@ -368,7 +368,7 @@ namespace TweetDuck.Dialogs.Settings {
 				comboBoxSearchEngine.SelectedIndex = searchEngineIndexDefault;
 			}
 			else {
-				SearchEngine engineInfo = comboBoxSearchEngine.Items.OfType<SearchEngine>().FirstOrDefault(engine => engine.Url == Config.SearchEngineUrl);
+				SearchEngine? engineInfo = comboBoxSearchEngine.Items.OfType<SearchEngine>().FirstOrDefault(engine => engine.Url == Config.SearchEngineUrl);
 
 				if (engineInfo == null) {
 					comboBoxSearchEngine.SelectedIndex = searchEngineIndexCustom;
@@ -389,7 +389,7 @@ namespace TweetDuck.Dialogs.Settings {
 			}
 
 			public override int GetHashCode() => Name.GetHashCode();
-			public override bool Equals(object obj) => obj is SearchEngine other && Name == other.Name;
+			public override bool Equals(object? obj) => obj is SearchEngine other && Name == other.Name;
 			public override string ToString() => Name;
 		}
 
@@ -397,20 +397,20 @@ namespace TweetDuck.Dialogs.Settings {
 
 		#region Locales
 
-		private void checkSpellCheck_CheckedChanged(object sender, EventArgs e) {
+		private void checkSpellCheck_CheckedChanged(object? sender, EventArgs e) {
 			Config.EnableSpellCheck = checkSpellCheck.Checked;
 			BrowserProcessHandler.UpdatePrefs();
 		}
 
-		private void comboBoxSpellCheckLanguage_SelectedValueChanged(object sender, EventArgs e) {
+		private void comboBoxSpellCheckLanguage_SelectedValueChanged(object? sender, EventArgs e) {
 			Config.SpellCheckLanguage = (comboBoxSpellCheckLanguage.SelectedItem as Language)?.Code ?? "en-US";
 		}
 
-		private void comboBoxTranslationTarget_SelectedValueChanged(object sender, EventArgs e) {
+		private void comboBoxTranslationTarget_SelectedValueChanged(object? sender, EventArgs e) {
 			Config.TranslationTarget = (comboBoxTranslationTarget.SelectedItem as Language)?.Code ?? "en";
 		}
 
-		private void comboBoxFirstDayOfWeek_SelectedValueChanged(object sender, EventArgs e) {
+		private void comboBoxFirstDayOfWeek_SelectedValueChanged(object? sender, EventArgs e) {
 			Config.CalendarFirstDay = (comboBoxFirstDayOfWeek.SelectedItem as DayOfWeekItem)?.Id ?? -1;
 		}
 
@@ -424,7 +424,7 @@ namespace TweetDuck.Dialogs.Settings {
 			}
 
 			public override int GetHashCode() => Name.GetHashCode();
-			public override bool Equals(object obj) => obj is DayOfWeekItem other && Name == other.Name;
+			public override bool Equals(object? obj) => obj is DayOfWeekItem other && Name == other.Name;
 			public override string ToString() => Name;
 		}
 

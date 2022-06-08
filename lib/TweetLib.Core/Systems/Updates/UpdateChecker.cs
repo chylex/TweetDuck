@@ -37,7 +37,7 @@ namespace TweetLib.Core.Systems.Updates {
 			InteractionManager.Dispose();
 		}
 
-		private void timer_Elapsed(object sender, ElapsedEventArgs e) {
+		private void timer_Elapsed(object? sender, ElapsedEventArgs e) {
 			Check(false);
 		}
 

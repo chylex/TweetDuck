@@ -18,7 +18,7 @@ namespace TweetDuck.Application {
 				};
 
 				if (dialog.ShowDialog() == DialogResult.OK) {
-					onAccepted(dialog.FileName);
+					onAccepted(dialog.FileName!);
 				}
 			});
 		}

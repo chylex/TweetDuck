@@ -16,11 +16,11 @@ namespace TweetDuck.Management {
 
 		public bool Running => currentInstance is { Running: true };
 
-		public event EventHandler ProcessExited;
+		public event EventHandler? ProcessExited;
 
 		private readonly FormBrowser owner;
 
-		private Instance currentInstance;
+		private Instance? currentInstance;
 		private bool isClosing;
 
 		public VideoPlayer(FormBrowser owner) {
@@ -44,7 +44,7 @@ namespace TweetDuck.Management {
 					RedirectStandardOutput = true
 				};
 
-				Process process;
+				Process? process;
 				if ((process = Process.Start(startInfo)) != null) {
 					currentInstance = new Instance(process, pipe, videoUrl, tweetUrl, username);
 
@@ -69,7 +69,7 @@ namespace TweetDuck.Management {
 			currentInstance?.Pipe.Write("key", ((int) key).ToString());
 		}
 
-		private void pipe_DataIn(object sender, DuplexPipe.PipeReadEventArgs e) {
+		private void pipe_DataIn(object? sender, DuplexPipe.PipeReadEventArgs e) {
 			owner.InvokeSafe(() => {
 				switch (e.Key) {
 					case "vol":
@@ -128,19 +128,19 @@ namespace TweetDuck.Management {
 			}
 		}
 
-		private void owner_FormClosing(object sender, FormClosingEventArgs e) {
+		private void owner_FormClosing(object? sender, FormClosingEventArgs e) {
 			if (currentInstance != null) {
 				currentInstance.Process.Exited -= process_Exited;
 			}
 		}
 
-		private void process_OutputDataReceived(object sender, DataReceivedEventArgs e) {
+		private void process_OutputDataReceived(object? sender, DataReceivedEventArgs e) {
 			if (!string.IsNullOrEmpty(e.Data)) {
 				App.Logger.Debug("[VideoPlayer] " + e.Data);
 			}
 		}
 
-		private void process_Exited(object sender, EventArgs e) {
+		private void process_Exited(object? sender, EventArgs e) {
 			if (currentInstance == null) {
 				return;
 			}

@@ -47,7 +47,7 @@ module RegexAccount =
             Assert.True(isMatch("https://twitter.com/" + name))
 
     module Match =
-        let extract str = TwitterUrls.RegexAccount.Match(str).Groups.[1].Value
+        let extract str = TwitterUrls.RegexAccount.Match(str).Groups[1].Value
 
         [<Fact>]
         let ``extracts account name from simple URL`` () =

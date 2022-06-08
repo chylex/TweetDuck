@@ -16,11 +16,11 @@ namespace TweetDuck.Updates {
 			timerDownloadCheck.Start();
 		}
 
-		private void btnCancel_Click(object sender, EventArgs e) {
+		private void btnCancel_Click(object? sender, EventArgs e) {
 			Close();
 		}
 
-		private void timerDownloadCheck_Tick(object sender, EventArgs e) {
+		private void timerDownloadCheck_Tick(object? sender, EventArgs e) {
 			if (updateInfo.DownloadStatus.IsFinished(false)) {
 				timerDownloadCheck.Stop();
 				DialogResult = DialogResult.OK;

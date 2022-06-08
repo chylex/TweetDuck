@@ -62,7 +62,7 @@ namespace TweetDuck.Utils {
 		[DllImport("user32.dll")]
 		private static extern bool PostMessage(IntPtr hWnd, uint msg, UIntPtr wParam, IntPtr lParam);
 
-		[DllImport("user32.dll")]
+		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
 		public static extern uint RegisterWindowMessage(string messageName);
 
 		[DllImport("user32.dll")]

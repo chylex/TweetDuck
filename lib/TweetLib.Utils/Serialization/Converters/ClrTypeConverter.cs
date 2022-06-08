@@ -6,18 +6,17 @@ namespace TweetLib.Utils.Serialization.Converters {
 
 		private ClrTypeConverter() {}
 
-		bool ITypeConverter.TryWriteType(Type type, object value, out string? converted) {
+		bool ITypeConverter.TryWriteType(Type type, object? value, out string? converted) {
 			switch (Type.GetTypeCode(type)) {
 				case TypeCode.Boolean:
-					converted = value.ToString();
+					converted = value!.ToString();
 					return true;
 
 				case TypeCode.Int32:
-					converted = ((int) value).ToString(); // cast required for enums
+					converted = ((int) value!).ToString(); // cast required for enums
 					return true;
 
 				case TypeCode.String:
-					// ReSharper disable once ConstantConditionalAccessQualifier
 					converted = value?.ToString();
 					return true;
 

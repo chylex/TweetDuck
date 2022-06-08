@@ -9,7 +9,7 @@ using TweetLib.Core.Application;
 
 namespace TweetDuck {
 	sealed class Reporter : IAppErrorHandler {
-		private static void Exit(string message, Exception ex = null) {
+		private static void Exit(string message, Exception? ex = null) {
 			try {
 				Process.GetCurrentProcess().Kill();
 			} catch {

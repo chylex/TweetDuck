@@ -12,8 +12,10 @@ namespace TweetLib.Utils.Static {
 
 		private static void EnsureTLS12() {
 			if (!hasMicrosoftBeenBroughtTo2008Yet) {
+				#pragma warning disable CS0618
 				ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
 				ServicePointManager.SecurityProtocol &= ~(SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11);
+				#pragma warning restore CS0618
 				hasMicrosoftBeenBroughtTo2008Yet = true;
 			}
 		}

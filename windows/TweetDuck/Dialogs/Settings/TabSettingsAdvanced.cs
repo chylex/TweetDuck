@@ -9,10 +9,10 @@ using TweetLib.Core;
 
 namespace TweetDuck.Dialogs.Settings {
 	sealed partial class TabSettingsAdvanced : FormSettings.BaseTab {
-		private readonly Action<string> reinjectBrowserCSS;
+		private readonly Action<string?> reinjectBrowserCSS;
 		private readonly Action openDevTools;
 
-		public TabSettingsAdvanced(Action<string> reinjectBrowserCSS, Action openDevTools) {
+		public TabSettingsAdvanced(Action<string?> reinjectBrowserCSS, Action openDevTools) {
 			InitializeComponent();
 
 			this.reinjectBrowserCSS = reinjectBrowserCSS;
@@ -98,19 +98,19 @@ namespace TweetDuck.Dialogs.Settings {
 
 		#region Application
 
-		private void btnOpenAppFolder_Click(object sender, EventArgs e) {
+		private void btnOpenAppFolder_Click(object? sender, EventArgs e) {
 			App.SystemHandler.OpenFileExplorer(App.ProgramPath);
 		}
 
-		private void btnOpenDataFolder_Click(object sender, EventArgs e) {
+		private void btnOpenDataFolder_Click(object? sender, EventArgs e) {
 			App.SystemHandler.OpenFileExplorer(App.StoragePath);
 		}
 
-		private void btnRestart_Click(object sender, EventArgs e) {
+		private void btnRestart_Click(object? sender, EventArgs e) {
 			Program.Restart();
 		}
 
-		private void btnRestartArgs_Click(object sender, EventArgs e) {
+		private void btnRestartArgs_Click(object? sender, EventArgs e) {
 			using DialogSettingsRestart dialog = new DialogSettingsRestart(Arguments.GetCurrentClean());
 
 			if (dialog.ShowDialog() == DialogResult.OK) {
@@ -122,15 +122,15 @@ namespace TweetDuck.Dialogs.Settings {
 
 		#region Browser Settings
 
-		private void checkTouchAdjustment_CheckedChanged(object sender, EventArgs e) {
+		private void checkTouchAdjustment_CheckedChanged(object? sender, EventArgs e) {
 			SysConfig.EnableTouchAdjustment = checkTouchAdjustment.Checked;
 		}
 
-		private void checkAutomaticallyDetectColorProfile_CheckedChanged(object sender, EventArgs e) {
+		private void checkAutomaticallyDetectColorProfile_CheckedChanged(object? sender, EventArgs e) {
 			SysConfig.EnableColorProfileDetection = checkAutomaticallyDetectColorProfile.Checked;
 		}
 
-		private void checkHardwareAcceleration_CheckedChanged(object sender, EventArgs e) {
+		private void checkHardwareAcceleration_CheckedChanged(object? sender, EventArgs e) {
 			SysConfig.HardwareAcceleration = checkHardwareAcceleration.Checked;
 		}
 
@@ -138,13 +138,13 @@ namespace TweetDuck.Dialogs.Settings {
 
 		#region Browser Cache
 
-		private void btnClearCache_Click(object sender, EventArgs e) {
+		private void btnClearCache_Click(object? sender, EventArgs e) {
 			btnClearCache.Enabled = false;
 			BrowserCache.SetClearOnExit();
 			FormMessage.Information("Clear Cache", "Cache will be automatically cleared when TweetDuck exits.", FormMessage.OK);
 		}
 
-		private void checkClearCacheAuto_CheckedChanged(object sender, EventArgs e) {
+		private void checkClearCacheAuto_CheckedChanged(object? sender, EventArgs e) {
 			numClearCacheThreshold.Enabled = checkClearCacheAuto.Checked;
 		}
 
@@ -152,11 +152,12 @@ namespace TweetDuck.Dialogs.Settings {
 
 		#region Configuration
 
-		private void btnEditCefArgs_Click(object sender, EventArgs e) {
-			DialogSettingsCefArgs form = new DialogSettingsCefArgs(Config.CustomCefArgs);
+		private void btnEditCefArgs_Click(object? sender, EventArgs e) {
+			var parentForm = ParentForm ?? throw new InvalidOperationException("Dialog does not have a parent form!");
+			var form = new DialogSettingsCefArgs(Config.CustomCefArgs);
 
 			form.VisibleChanged += (sender2, args2) => {
-				form.MoveToCenter(ParentForm);
+				form.MoveToCenter(parentForm);
 			};
 
 			form.FormClosed += (sender2, args2) => {
@@ -169,15 +170,16 @@ namespace TweetDuck.Dialogs.Settings {
 				form.Dispose();
 			};
 
-			form.Show(ParentForm);
-			NativeMethods.SetFormDisabled(ParentForm, true);
+			form.Show(parentForm);
+			NativeMethods.SetFormDisabled(parentForm, true);
 		}
 
-		private void btnEditCSS_Click(object sender, EventArgs e) {
-			DialogSettingsCSS form = new DialogSettingsCSS(Config.CustomBrowserCSS, Config.CustomNotificationCSS, reinjectBrowserCSS, openDevTools);
+		private void btnEditCSS_Click(object? sender, EventArgs e) {
+			var parentForm = ParentForm ?? throw new InvalidOperationException("Dialog does not have a parent form!");
+			var form = new DialogSettingsCSS(Config.CustomBrowserCSS, Config.CustomNotificationCSS, reinjectBrowserCSS, openDevTools);
 
 			form.VisibleChanged += (sender2, args2) => {
-				form.MoveToCenter(ParentForm);
+				form.MoveToCenter(parentForm);
 			};
 
 			form.FormClosed += (sender2, args2) => {
@@ -192,8 +194,8 @@ namespace TweetDuck.Dialogs.Settings {
 				form.Dispose();
 			};
 
-			form.Show(ParentForm);
-			NativeMethods.SetFormDisabled(ParentForm, true);
+			form.Show(parentForm);
+			NativeMethods.SetFormDisabled(parentForm, true);
 		}
 
 		private void RestoreParentForm() {
@@ -206,7 +208,7 @@ namespace TweetDuck.Dialogs.Settings {
 
 		#region Proxy
 
-		private void checkUseSystemProxyForAllConnections_CheckedChanged(object sender, EventArgs e) {
+		private void checkUseSystemProxyForAllConnections_CheckedChanged(object? sender, EventArgs e) {
 			SysConfig.UseSystemProxyForAllConnections = checkUseSystemProxyForAllConnections.Checked;
 		}
 
@@ -214,11 +216,11 @@ namespace TweetDuck.Dialogs.Settings {
 
 		#region Development Tools
 
-		private void checkDevToolsInContextMenuOnCheckedChanged(object sender, EventArgs e) {
+		private void checkDevToolsInContextMenuOnCheckedChanged(object? sender, EventArgs e) {
 			Config.DevToolsInContextMenu = checkDevToolsInContextMenu.Checked;
 		}
 
-		private void checkDevToolsWindowOnTop_CheckedChanged(object sender, EventArgs e) {
+		private void checkDevToolsWindowOnTop_CheckedChanged(object? sender, EventArgs e) {
 			Config.DevToolsWindowOnTop = checkDevToolsWindowOnTop.Checked;
 		}
 

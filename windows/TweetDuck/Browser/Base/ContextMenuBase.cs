@@ -14,7 +14,7 @@ namespace TweetDuck.Browser.Base {
 
 		protected static UserConfig Config => Program.Config.User;
 
-		public ContextMenuBase(IContextMenuHandler handler) : base(handler) {}
+		public ContextMenuBase(IContextMenuHandler? handler) : base(handler) {}
 
 		protected override Context CreateContext(IContextMenuParams parameters) {
 			return CreateContext(parameters, null, Config.TwitterImageQuality);
@@ -55,7 +55,7 @@ namespace TweetDuck.Browser.Base {
 			}
 		}
 
-		protected static Context CreateContext(IContextMenuParams parameters, TweetDeckExtraContext extraContext, ImageQuality imageQuality) {
+		protected static Context CreateContext(IContextMenuParams parameters, TweetDeckExtraContext? extraContext, ImageQuality imageQuality) {
 			var context = new Context();
 			var flags = parameters.TypeFlags;
 
@@ -74,7 +74,7 @@ namespace TweetDuck.Browser.Base {
 			return context;
 		}
 
-		private static Link? GetLink(IContextMenuParams parameters, TweetDeckExtraContext extraContext) {
+		private static Link? GetLink(IContextMenuParams parameters, TweetDeckExtraContext? extraContext) {
 			var link = extraContext?.Link;
 			if (link != null) {
 				return link;
@@ -87,7 +87,7 @@ namespace TweetDuck.Browser.Base {
 			return null;
 		}
 
-		private static Media? GetMedia(IContextMenuParams parameters, TweetDeckExtraContext extraContext, ImageQuality imageQuality) {
+		private static Media? GetMedia(IContextMenuParams parameters, TweetDeckExtraContext? extraContext, ImageQuality imageQuality) {
 			var media = extraContext?.Media;
 			if (media != null) {
 				return media;

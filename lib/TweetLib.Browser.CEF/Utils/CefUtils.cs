@@ -8,7 +8,7 @@ namespace TweetLib.Browser.CEF.Utils {
 			return Path.Combine(storagePath, "Cache");
 		}
 
-		public static CommandLineArgs ParseCommandLineArguments(string argumentString) {
+		public static CommandLineArgs ParseCommandLineArguments(string? argumentString) {
 			CommandLineArgs args = new CommandLineArgs();
 
 			if (string.IsNullOrWhiteSpace(argumentString)) {
@@ -26,8 +26,8 @@ namespace TweetLib.Browser.CEF.Utils {
 					value = "1";
 				}
 				else {
-					key = matchValue.Substring(0, indexEquals).TrimStart('-');
-					value = matchValue.Substring(indexEquals + 1).Trim('"');
+					key = matchValue[..indexEquals].TrimStart('-');
+					value = matchValue[(indexEquals + 1)..].Trim('"');
 				}
 
 				if (key.Length != 0) {

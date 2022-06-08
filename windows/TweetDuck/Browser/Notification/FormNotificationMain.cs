@@ -23,7 +23,7 @@ namespace TweetDuck.Browser.Notification {
 				this.notification = notification;
 			}
 
-			public void DisplayTooltip(string text) {
+			public void DisplayTooltip(string? text) {
 				notification.InvokeAsyncSafe(() => notification.DisplayTooltip(text));
 			}
 
@@ -175,14 +175,14 @@ namespace TweetDuck.Browser.Notification {
 
 		// event handlers
 
-		private void FormNotification_FormClosing(object sender, FormClosingEventArgs e) {
+		private void FormNotification_FormClosing(object? sender, FormClosingEventArgs e) {
 			if (e.CloseReason == CloseReason.UserClosing) {
 				HideNotification();
 				e.Cancel = true;
 			}
 		}
 
-		private void Browser_LoadingStateChanged(object sender, LoadingStateChangedEventArgs e) {
+		private void Browser_LoadingStateChanged(object? sender, LoadingStateChangedEventArgs e) {
 			if (!e.IsLoading && browser.Address != NotificationBrowser.BlankURL) {
 				this.InvokeSafe(() => {
 					Visible = true; // ensures repaint before moving the window to a visible location
@@ -191,12 +191,12 @@ namespace TweetDuck.Browser.Notification {
 			}
 		}
 
-		private void timerDisplayDelay_Tick(object sender, EventArgs e) {
+		private void timerDisplayDelay_Tick(object? sender, EventArgs e) {
 			OnNotificationReady();
 			timerDisplayDelay.Stop();
 		}
 
-		private void timerHideProgress_Tick(object sender, EventArgs e) {
+		private void timerHideProgress_Tick(object? sender, EventArgs e) {
 			bool isCursorInside = Bounds.Contains(Cursor.Position);
 
 			if (isCursorInside) {

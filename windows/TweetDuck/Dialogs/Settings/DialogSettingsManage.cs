@@ -35,7 +35,7 @@ namespace TweetDuck.Dialogs.Settings {
 		private readonly bool openImportImmediately;
 
 		private State currentState;
-		private ProfileManager importManager;
+		private ProfileManager? importManager;
 		private bool requestedRestartFromConfig;
 
 		private ProfileManager.Items _selectedItems = ProfileManager.Items.None;
@@ -59,16 +59,16 @@ namespace TweetDuck.Dialogs.Settings {
 			}
 		}
 
-		private void radioDecision_CheckedChanged(object sender, EventArgs e) {
+		private void radioDecision_CheckedChanged(object? sender, EventArgs e) {
 			btnContinue.Enabled = true;
 		}
 
-		private void checkBoxSelection_CheckedChanged(object sender, EventArgs e) {
-			CheckBox cb = (CheckBox) sender;
+		private void checkBoxSelection_CheckedChanged(object? sender, EventArgs e) {
+			CheckBox cb = (CheckBox) sender!;
 			SetFlag(checkBoxMap[cb], cb.Checked);
 		}
 
-		private void btnContinue_Click(object sender, EventArgs e) {
+		private void btnContinue_Click(object? sender, EventArgs e) {
 			string file;
 
 			switch (currentState) {
@@ -167,7 +167,7 @@ namespace TweetDuck.Dialogs.Settings {
 					break;
 
 				case State.Import:
-					if (importManager.Import(SelectedItems)) {
+					if (importManager!.Import(SelectedItems)) {
 						App.ConfigManager.ProgramRestartRequested += Config_ProgramRestartRequested;
 						App.ConfigManager.ReloadAll();
 						App.ConfigManager.SaveAll();
@@ -209,12 +209,12 @@ namespace TweetDuck.Dialogs.Settings {
 			}
 		}
 
-		private void btnCancel_Click(object sender, EventArgs e) {
+		private void btnCancel_Click(object? sender, EventArgs e) {
 			DialogResult = DialogResult.Cancel;
 			Close();
 		}
 
-		private void Config_ProgramRestartRequested(object sender, EventArgs e) {
+		private void Config_ProgramRestartRequested(object? sender, EventArgs e) {
 			requestedRestartFromConfig = true;
 		}
 

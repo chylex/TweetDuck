@@ -7,7 +7,7 @@ namespace TweetImpl.CefSharp.Handlers {
 	public abstract class CefContextMenuHandler : IContextMenuHandler {
 		private readonly ContextMenuLogic<IMenuModel> logic;
 
-		protected CefContextMenuHandler(TweetLib.Browser.Interfaces.IContextMenuHandler handler) {
+		protected CefContextMenuHandler(TweetLib.Browser.Interfaces.IContextMenuHandler? handler) {
 			this.logic = new ContextMenuLogic<IMenuModel>(handler, CefMenuModelAdapter.Instance);
 		}
 

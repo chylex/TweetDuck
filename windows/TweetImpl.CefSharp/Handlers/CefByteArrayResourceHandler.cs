@@ -12,25 +12,27 @@ namespace TweetImpl.CefSharp.Handlers {
 			dataOut.Write(dataIn, position, length);
 		};
 
-		private ByteArrayResourceHandlerLogic<IResponse> logic;
-
-		public CefByteArrayResourceHandler() {
-			SetResource(new ByteArrayResource(Array.Empty<byte>()));
+		private static ByteArrayResourceHandlerLogic<IResponse> CreateLogic(ByteArrayResource resource) {
+			return new ByteArrayResourceHandlerLogic<IResponse>(resource, CefResponseAdapter.Instance);
 		}
 
+		private ByteArrayResourceHandlerLogic<IResponse> logic;
+
+		public CefByteArrayResourceHandler() : this(new ByteArrayResource(Array.Empty<byte>())) {}
+
 		internal CefByteArrayResourceHandler(ByteArrayResource resource) {
-			SetResource(resource);
+			this.logic = CreateLogic(resource);
 		}
 
 		public void SetResource(ByteArrayResource resource) {
-			this.logic = new ByteArrayResourceHandlerLogic<IResponse>(resource, CefResponseAdapter.Instance);
+			this.logic = CreateLogic(resource);
 		}
 
 		bool IResourceHandler.Open(IRequest request, out bool handleRequest, ICallback callback) {
 			return logic.Open(out handleRequest);
 		}
 
-		void IResourceHandler.GetResponseHeaders(IResponse response, out long responseLength, out string redirectUrl) {
+		void IResourceHandler.GetResponseHeaders(IResponse response, out long responseLength, out string? redirectUrl) {
 			logic.GetResponseHeaders(response, out responseLength, out redirectUrl);
 		}
 

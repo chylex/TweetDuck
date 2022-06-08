@@ -5,9 +5,9 @@ using TweetLib.Utils.Static;
 
 namespace TweetDuck.Browser.Base {
 	sealed class CustomKeyboardHandler : IKeyboardHandler {
-		private readonly IBrowserKeyHandler handler;
+		private readonly IBrowserKeyHandler? handler;
 
-		public CustomKeyboardHandler(IBrowserKeyHandler handler) {
+		public CustomKeyboardHandler(IBrowserKeyHandler? handler) {
 			this.handler = handler;
 		}
 

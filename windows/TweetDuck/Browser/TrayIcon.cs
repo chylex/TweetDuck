@@ -17,8 +17,8 @@ namespace TweetDuck.Browser {
 
 		private static UserConfig Config => Program.Config.User;
 
-		public event EventHandler ClickRestore;
-		public event EventHandler ClickClose;
+		public event EventHandler? ClickRestore;
+		public event EventHandler? ClickClose;
 
 		public bool Visible {
 			get {
@@ -85,30 +85,30 @@ namespace TweetDuck.Browser {
 
 		// event handlers
 
-		private void Config_MuteToggled(object sender, EventArgs e) {
+		private void Config_MuteToggled(object? sender, EventArgs e) {
 			UpdateIcon();
 		}
 
-		private void trayIcon_MouseClick(object sender, MouseEventArgs e) {
+		private void trayIcon_MouseClick(object? sender, MouseEventArgs e) {
 			if (e.Button == MouseButtons.Left) {
 				menuItemRestore_Click(sender, e);
 			}
 		}
 
-		private void contextMenu_Popup(object sender, EventArgs e) {
+		private void contextMenu_Popup(object? sender, EventArgs e) {
 			((ToolStripMenuItem) contextMenu.Items[1]).Checked = Config.MuteNotifications;
 		}
 
-		private void menuItemRestore_Click(object sender, EventArgs e) {
+		private void menuItemRestore_Click(object? sender, EventArgs e) {
 			ClickRestore?.Invoke(this, e);
 		}
 
-		private void menuItemMuteNotifications_Click(object sender, EventArgs e) {
+		private void menuItemMuteNotifications_Click(object? sender, EventArgs e) {
 			Config.MuteNotifications = !((ToolStripMenuItem) contextMenu.Items[1]).Checked;
 			Config.Save();
 		}
 
-		private void menuItemClose_Click(object sender, EventArgs e) {
+		private void menuItemClose_Click(object? sender, EventArgs e) {
 			ClickClose?.Invoke(this, e);
 		}
 	}

@@ -25,9 +25,9 @@ namespace TweetDuck.Dialogs {
 		private readonly int buttonHeight;
 
 		private readonly Dictionary<Type, SettingsTab> tabs = new Dictionary<Type, SettingsTab>(8);
-		private SettingsTab currentTab;
+		private SettingsTab? currentTab;
 
-		public FormSettings(FormBrowser browser, PluginManager plugins, UpdateChecker updates, TweetDeckFunctions tweetDeckFunctions, Type startTab) {
+		public FormSettings(FormBrowser browser, PluginManager plugins, UpdateChecker updates, TweetDeckFunctions tweetDeckFunctions, Type? startTab) {
 			InitializeComponent();
 
 			Text = Program.BrandName + " Options";
@@ -56,19 +56,19 @@ namespace TweetDuck.Dialogs {
 		}
 
 		private void PrepareUnload() { // TODO refactor this further later
-			currentTab.Control.OnClosing();
+			currentTab?.Control.OnClosing();
 
 			App.ConfigManager.ProgramRestartRequested -= Config_ProgramRestartRequested;
 			App.ConfigManager.SaveAll();
 		}
 
-		private void Config_ProgramRestartRequested(object sender, EventArgs e) {
+		private void Config_ProgramRestartRequested(object? sender, EventArgs e) {
 			if (FormMessage.Information("TweetDuck Options", "The application must restart for the option to take place. Do you want to restart now?", FormMessage.Yes, FormMessage.No)) {
 				Program.Restart();
 			}
 		}
 
-		private void FormSettings_FormClosing(object sender, FormClosingEventArgs e) {
+		private void FormSettings_FormClosing(object? sender, FormClosingEventArgs e) {
 			PrepareUnload();
 
 			foreach (SettingsTab tab in tabs.Values) {
@@ -80,7 +80,7 @@ namespace TweetDuck.Dialogs {
 			browser.ResumeNotification(NotificationPauseReason.SettingsDialogOpen);
 		}
 
-		private void btnManageOptions_Click(object sender, EventArgs e) {
+		private void btnManageOptions_Click(object? sender, EventArgs e) {
 			PrepareUnload();
 
 			using DialogSettingsManage dialog = new DialogSettingsManage(plugins);
@@ -104,7 +104,7 @@ namespace TweetDuck.Dialogs {
 			}
 		}
 
-		private void btnClose_Click(object sender, EventArgs e) {
+		private void btnClose_Click(object? sender, EventArgs e) {
 			Close();
 		}
 
@@ -128,7 +128,7 @@ namespace TweetDuck.Dialogs {
 
 			panelButtons.Controls.Add(new Panel {
 				BackColor = Color.DimGray,
-				Location = new Point(0, panelButtons.Controls[panelButtons.Controls.Count - 1].Location.Y + buttonHeight),
+				Location = new Point(0, panelButtons.Controls[^1].Location.Y + buttonHeight),
 				Margin = new Padding(0),
 				Size = new Size(panelButtons.Width, 1)
 			});
@@ -182,7 +182,7 @@ namespace TweetDuck.Dialogs {
 			currentTab = tab;
 		}
 
-		private void control_MouseLeave(object sender, EventArgs e) {
+		private void control_MouseLeave(object? sender, EventArgs e) {
 			if (sender is ComboBox { DroppedDown: true } ) {
 				return; // prevents comboboxes from closing when MouseLeave event triggers during opening animation
 			}
@@ -190,7 +190,7 @@ namespace TweetDuck.Dialogs {
 			panelContents.Focus();
 		}
 
-		private void control_MouseWheel(object sender, MouseEventArgs e) {
+		private void control_MouseWheel(object? sender, MouseEventArgs e) {
 			((HandledMouseEventArgs) e).Handled = true;
 			panelContents.Focus();
 		}
@@ -202,7 +202,7 @@ namespace TweetDuck.Dialogs {
 			public bool IsInitialized => control != null;
 
 			private readonly Func<BaseTab> constructor;
-			private BaseTab control;
+			private BaseTab? control;
 
 			public SettingsTab(Button button, Func<BaseTab> constructor) {
 				this.Button = button;

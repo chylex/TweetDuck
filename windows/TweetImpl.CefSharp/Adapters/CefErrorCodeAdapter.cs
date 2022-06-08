@@ -12,7 +12,7 @@ namespace TweetImpl.CefSharp.Adapters {
 			return errorCode == CefErrorCode.Aborted;
 		}
 
-		public string GetName(CefErrorCode errorCode) {
+		public string? GetName(CefErrorCode errorCode) {
 			return Enum.GetName(typeof(CefErrorCode), errorCode);
 		}
 	}

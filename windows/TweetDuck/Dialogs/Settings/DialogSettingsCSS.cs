@@ -12,7 +12,7 @@ namespace TweetDuck.Dialogs.Settings {
 		private readonly Action<string> reinjectBrowserCSS;
 		private readonly Action openDevTools;
 
-		public DialogSettingsCSS(string browserCSS, string notificationCSS, Action<string> reinjectBrowserCSS, Action openDevTools) {
+		public DialogSettingsCSS(string? browserCSS, string? notificationCSS, Action<string> reinjectBrowserCSS, Action openDevTools) {
 			InitializeComponent();
 
 			Text = Program.BrandName + " Options - CSS";
@@ -30,8 +30,8 @@ namespace TweetDuck.Dialogs.Settings {
 			textBoxBrowserCSS.Select(textBoxBrowserCSS.TextLength, 0);
 		}
 
-		private void tabPanel_SelectedIndexChanged(object sender, EventArgs e) {
-			TextBox tb = tabPanel.SelectedTab.Controls.OfType<TextBox>().FirstOrDefault();
+		private void tabPanel_SelectedIndexChanged(object? sender, EventArgs e) {
+			TextBox? tb = tabPanel.SelectedTab.Controls.OfType<TextBox>().FirstOrDefault();
 
 			if (tb != null) {
 				tb.Focus();
@@ -39,8 +39,8 @@ namespace TweetDuck.Dialogs.Settings {
 			}
 		}
 
-		private void textBoxCSS_KeyDown(object sender, KeyEventArgs e) {
-			TextBox tb = (TextBox) sender;
+		private void textBoxCSS_KeyDown(object? sender, KeyEventArgs e) {
+			TextBox tb = (TextBox) sender!;
 			string text = tb.Text;
 
 			if (e.KeyCode == Keys.Back && e.Modifiers == Keys.Control) {
@@ -79,7 +79,7 @@ namespace TweetDuck.Dialogs.Settings {
 			}
 			else if (e.KeyCode == Keys.Enter && e.Modifiers == Keys.None && tb.SelectionLength == 0) {
 				int insertAt = tb.SelectionStart, cursorOffset = 0;
-				string insertText;
+				string? insertText;
 
 				if (insertAt == 0) {
 					return;
@@ -97,8 +97,9 @@ namespace TweetDuck.Dialogs.Settings {
 				}
 				else {
 					int lineStart = text.LastIndexOf('\n', tb.SelectionStart - 1);
-
-					Match match = Regex.Match(text.Substring(lineStart == -1 ? 0 : lineStart + 1), "^([ \t]+)");
+					var firstIndex = (lineStart == -1 ? 0 : lineStart + 1);
+					
+					Match match = Regex.Match(text[firstIndex..], "^([ \t]+)");
 					insertText = match.Success ? Environment.NewLine + match.Groups[1].Value : null;
 				}
 
@@ -110,26 +111,26 @@ namespace TweetDuck.Dialogs.Settings {
 			}
 		}
 
-		private void textBoxBrowserCSS_KeyUp(object sender, KeyEventArgs e) {
+		private void textBoxBrowserCSS_KeyUp(object? sender, KeyEventArgs e) {
 			timerTestBrowser.Stop();
 			timerTestBrowser.Start();
 		}
 
-		private void timerTestBrowser_Tick(object sender, EventArgs e) {
+		private void timerTestBrowser_Tick(object? sender, EventArgs e) {
 			reinjectBrowserCSS(textBoxBrowserCSS.Text);
 			timerTestBrowser.Stop();
 		}
 
-		private void btnOpenDevTools_Click(object sender, EventArgs e) {
+		private void btnOpenDevTools_Click(object? sender, EventArgs e) {
 			openDevTools();
 		}
 
-		private void btnApply_Click(object sender, EventArgs e) {
+		private void btnApply_Click(object? sender, EventArgs e) {
 			DialogResult = DialogResult.OK;
 			Close();
 		}
 
-		private void btnCancel_Click(object sender, EventArgs e) {
+		private void btnCancel_Click(object? sender, EventArgs e) {
 			DialogResult = DialogResult.Cancel;
 			Close();
 		}

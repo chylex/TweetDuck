@@ -38,7 +38,7 @@ namespace TweetDuck.Utils {
 			args["disable-plugins-discovery"] = "1";
 			args["enable-system-flash"] = "0";
 
-			if (args.TryGetValue("js-flags", out string jsFlags)) {
+			if (args.TryGetValue("js-flags", out var jsFlags)) {
 				args["js-flags"] = "--expose-gc " + jsFlags;
 			}
 			else {
@@ -63,7 +63,7 @@ namespace TweetDuck.Utils {
 				host.SetZoomLevel(Math.Log(percentage / 100.0, 1.2));
 			}
 
-			void UpdateZoomLevel(object sender, EventArgs args) {
+			void UpdateZoomLevel(object? sender, EventArgs args) {
 				SetZoomLevel(browser.GetBrowserHost(), Config.ZoomLevel);
 			}
 

@@ -21,7 +21,7 @@ namespace TweetLib.Utils.Globalization {
 			}
 		}
 
-		public override bool Equals(object obj) {
+		public override bool Equals(object? obj) {
 			return obj is Language other && Code.Equals(other.Code, StringComparison.OrdinalIgnoreCase);
 		}
 
@@ -38,8 +38,8 @@ namespace TweetLib.Utils.Globalization {
 			return cultureInfo.DisplayName == cultureInfo.NativeName ? capitalizedName : $"{capitalizedName}, {cultureInfo.DisplayName}";
 		}
 
-		public int CompareTo(Language other) {
-			return string.Compare(Name, other.Name, false, CultureInfo.InvariantCulture);
+		public int CompareTo(Language? other) {
+			return string.Compare(Name, other?.Name, false, CultureInfo.InvariantCulture);
 		}
 	}
 }
