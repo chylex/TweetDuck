@@ -66,15 +66,15 @@ Icons and logos were designed in [Affinity Designer](https://affinity.serif.com/
 > If you don't want to build installers using the existing foundations, you can skip this section.
 
 Official Windows installers are built using [InnoSetup](https://jrsoftware.org/isinfo.php) and [Inno Download Plugin](https://mitrichsoftware.wordpress.com/inno-setup-tools/inno-download-plugin/), specifically:
-* [InnoSetup 5.6.1](https://files.jrsoftware.org/is/5/innosetup-5.6.1.exe) with Preprocessor support
-* [Inno Download Plugin 1.5.0](https://drive.google.com/folderview?id=0Bzw1xBVt0mokSXZrUEFIanV4azA&usp=sharing#list)
+* [InnoSetup 6.2.1](https://files.jrsoftware.org/is/6/innosetup-6.2.1.exe)
+* [Inno Download Plugin 1.5.1](https://drive.google.com/folderview?id=0Bzw1xBVt0mokSXZrUEFIanV4azA&usp=sharing#list)
 
-When installing InnoSetup, you can choose to include Inno Script Studio which I recommend for editing and testing installer configuration files in the `bld` folder (`.iss` extension).
+During installation, the download plugin will ask whether to add its include path to `ISPPBuiltins.iss`. Note that this option does not work with InnoSetup 6, so TweetDuck installers don't need it.
 
 Scripts for building installers require the `PATH` environment variable to include the InnoSetup installation folder. You can either edit `PATH` manually, or use a program like [Rapid Environment Editor](https://www.rapidee.com/en/about) to simplify the process. For example, this is the installation folder I added to `PATH` under **User variables**:
-* `C:\Program Files (x86)\Inno Setup 5`
+* `C:\Program Files (x86)\Inno Setup 6`
 
-You may need to restart Visual Studio after changing `PATH` for the change to take place.
+You may need to restart Visual Studio or Rider after changing `PATH` for the change to take place.
 
 ## Solution Overview
 

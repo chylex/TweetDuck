@@ -9,6 +9,8 @@
 
 #define MyAppVersion GetFileVersion("..\windows\TweetDuck\bin\x86\Release\TweetDuck.exe")
 
+#include ReadReg(HKLM, "Software\Mitrich Software\Inno Download Plugin", "InstallDir") + "\idp.iss"
+
 [Setup]
 AppId={{8C25A716-7E11-4AAD-9992-8B5D0C78AE06}
 AppName={#MyAppName} Portable
@@ -29,12 +31,10 @@ Uninstallable=no
 UsePreviousAppDir=no
 PrivilegesRequired=lowest
 Compression=lzma2/ultra
-LZMADictionarySize=15360
+LZMADictionarySize=32768
 SolidCompression=yes
 InternalCompressLevel=normal
 MinVersion=0,6.1
-
-#include <idp.iss>
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -52,19 +52,10 @@ AdditionalTasks=Additional components:
 [Code]
 var UpdatePath: String;
 
-function TDGetNetFrameworkVersion: Cardinal; forward;
-
-{ Check .NET Framework version on startup, ask user if they want to proceed if older than 4.7.2. }
+{ Prepare installation variables. }
 function InitializeSetup: Boolean;
 begin
   UpdatePath := ExpandConstant('{param:UPDATEPATH}')
-  
-  if (TDGetNetFrameworkVersion() < 461808) and (MsgBox('{#MyAppName} requires .NET Framework 4.7.2 or newer,'+#13+#10+'please visit {#MyAppShortURL} for a download link.'+#13+#10+#13+#10'Do you want to proceed with the setup anyway?', mbCriticalError, MB_YESNO or MB_DEFBUTTON2) = IDNO) then
-  begin
-    Result := False
-    Exit
-  end;
-  
   Result := True
 end;
 
@@ -101,18 +92,4 @@ begin
       end;
     end;
   end;
-end;
-
-{ Return DWORD value containing the build version of .NET Framework. }
-function TDGetNetFrameworkVersion: Cardinal;
-var FrameworkVersion: Cardinal;
-
-begin
-  if RegQueryDWordValue(HKEY_LOCAL_MACHINE, 'Software\Microsoft\NET Framework Setup\NDP\v4\Full', 'Release', FrameworkVersion) then
-  begin
-    Result := FrameworkVersion
-    Exit
-  end;
-  
-  Result := 0
 end;

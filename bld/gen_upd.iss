@@ -11,6 +11,8 @@
 #define MyAppVersion GetFileVersion("..\windows\TweetDuck\bin\x86\Release\TweetDuck.exe")
 #define CefVersion GetFileVersion("..\windows\TweetDuck\bin\x86\Release\libcef.dll")
 
+#include ReadReg(HKLM, "Software\Mitrich Software\Inno Download Plugin", "InstallDir") + "\idp.iss"
+
 [Setup]
 AppId={{{#MyAppID}}
 AppName={#MyAppName}
@@ -36,8 +38,6 @@ LZMADictionarySize=512
 SolidCompression=True
 InternalCompressLevel=normal
 MinVersion=0,6.1
-
-#include <idp.iss>
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -84,7 +84,6 @@ Type: filesandordirs; Name: "{app}\scripts"
 function TDIsUninstallable: Boolean; forward;
 function TDGetRunArgs(Param: String): String; forward;
 function TDFindUpdatePath: String; forward;
-function TDGetNetFrameworkVersion: Cardinal; forward;
 function TDGetAppVersionClean: String; forward;
 function TDGetFullDownloadFileName: String; forward;
 function TDIsMatchingCEFVersion: Boolean; forward;
@@ -93,7 +92,7 @@ procedure TDExecuteFullDownload; forward;
 var IsPortable: Boolean;
 var UpdatePath: String;
 
-{ Check .NET Framework version on startup, ask user if they want to proceed if older than 4.7.2. Prepare full download package if required. }
+{ Prepare update installation, and the full download package if required. }
 function InitializeSetup: Boolean;
 begin
   IsPortable := ExpandConstant('{param:PORTABLE}') = '1'
@@ -109,12 +108,6 @@ begin
   if not TDIsMatchingCEFVersion() then
   begin
     idpAddFile('https://github.com/{#MyAppPublisher}/{#MyAppName}/releases/download/'+TDGetAppVersionClean()+'/'+TDGetFullDownloadFileName(), ExpandConstant('{tmp}\{#MyAppName}.Full.exe'))
-  end;
-  
-  if (TDGetNetFrameworkVersion() < 461808) and (MsgBox('{#MyAppName} requires .NET Framework 4.7.2 or newer,'+#13+#10+'please visit {#MyAppShortURL} for a download link.'+#13+#10+#13+#10'Do you want to proceed with the setup anyway?', mbCriticalError, MB_YESNO or MB_DEFBUTTON2) = IDNO) then
-  begin
-    Result := False
-    Exit
   end;
   
   Result := True
@@ -209,20 +202,6 @@ begin
   end;
   
   Result := Path
-end;
-
-{ Return DWORD value containing the build version of .NET Framework. }
-function TDGetNetFrameworkVersion: Cardinal;
-var FrameworkVersion: Cardinal;
-
-begin
-  if RegQueryDWordValue(HKEY_LOCAL_MACHINE, 'Software\Microsoft\NET Framework Setup\NDP\v4\Full', 'Release', FrameworkVersion) then
-  begin
-    Result := FrameworkVersion
-    Exit
-  end;
-  
-  Result := 0
 end;
 
 { Return the name of the full installer file to download from GitHub. }
