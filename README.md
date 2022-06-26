@@ -142,6 +142,10 @@ By default, [CefSharp](https://github.com/cefsharp/CefSharp/) is not built with 
 
 Windows library that implements `TweetLib.Browser.CEF` using the [CefSharp](https://github.com/cefsharp/CefSharp/) library and Windows Forms.
 
+#### TweetLib.WinForms.Legacy
+
+Windows library that re-adds some legacy Windows Forms components that were removed in .NET Core 3.1. The sources were taken from the [.NET Core 3.0 sources of Windows Forms](https://github.com/dotnet/winforms/tree/v3.0.2), and edited to remove unnecessary features.
+
 ### Linux Projects
 
 #### TweetDuck

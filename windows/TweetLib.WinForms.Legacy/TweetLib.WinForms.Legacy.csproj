@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Configurations>Debug;Release</Configurations>
+    <Platforms>x86</Platforms>
+    <RuntimeIdentifier>win7-x86</RuntimeIdentifier>
+    <LangVersion>10</LangVersion>
+    <Nullable>disable</Nullable>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <UseWindowsForms>true</UseWindowsForms>
+    <RootNamespace>System</RootNamespace>
+    <AssemblyName>TweetLib.WinForms.Legacy</AssemblyName>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Compile Include="..\..\Version.cs" Link="Version.cs" />
+  </ItemGroup>
+
+</Project>

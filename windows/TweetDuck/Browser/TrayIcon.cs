@@ -45,19 +45,23 @@ namespace TweetDuck.Browser {
 			}
 		}
 
-		private readonly ContextMenuStrip contextMenu;
+		private readonly ContextMenu contextMenu;
+		private readonly ContextMenuStrip fakeContextMenu;
 		private bool hasNotifications;
 
 		private TrayIcon() {
 			InitializeComponent();
 
-			this.contextMenu = new ContextMenuStrip();
-			this.contextMenu.Items.Add("Restore", null, menuItemRestore_Click);
-			this.contextMenu.Items.Add("Mute notifications", null, menuItemMuteNotifications_Click);
-			this.contextMenu.Items.Add("Close", null, menuItemClose_Click);
-			this.contextMenu.Opening += contextMenu_Popup;
+			this.contextMenu = new ContextMenu();
+			this.contextMenu.MenuItems.Add("Restore", menuItemRestore_Click);
+			this.contextMenu.MenuItems.Add("Mute notifications", menuItemMuteNotifications_Click);
+			this.contextMenu.MenuItems.Add("Close", menuItemClose_Click);
+			this.contextMenu.Popup += contextMenu_Popup;
 
-			this.notifyIcon.ContextMenuStrip = contextMenu;
+			this.fakeContextMenu = new ContextMenuStrip();
+			this.fakeContextMenu.Opening += fakeContextMenu_Opening;
+			
+			this.notifyIcon.ContextMenuStrip = this.fakeContextMenu;
 			this.notifyIcon.Text = Program.BrandName;
 
 			Config.MuteToggled += Config_MuteToggled;
@@ -72,6 +76,7 @@ namespace TweetDuck.Browser {
 			if (disposing) {
 				components?.Dispose();
 				contextMenu.Dispose();
+				fakeContextMenu.Dispose();
 			}
 
 			base.Dispose(disposing);
@@ -95,8 +100,13 @@ namespace TweetDuck.Browser {
 			}
 		}
 
+		private void fakeContextMenu_Opening(object? sender, CancelEventArgs args) {
+			args.Cancel = true;
+			contextMenu.Show(notifyIcon, Cursor.Position);
+		}
+
 		private void contextMenu_Popup(object? sender, EventArgs e) {
-			((ToolStripMenuItem) contextMenu.Items[1]).Checked = Config.MuteNotifications;
+			contextMenu.MenuItems[1].Checked = Config.MuteNotifications;
 		}
 
 		private void menuItemRestore_Click(object? sender, EventArgs e) {
@@ -104,7 +114,7 @@ namespace TweetDuck.Browser {
 		}
 
 		private void menuItemMuteNotifications_Click(object? sender, EventArgs e) {
-			Config.MuteNotifications = !((ToolStripMenuItem) contextMenu.Items[1]).Checked;
+			Config.MuteNotifications = !contextMenu.MenuItems[1].Checked;
 			Config.Save();
 		}
 

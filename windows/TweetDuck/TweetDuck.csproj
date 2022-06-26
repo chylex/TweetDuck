@@ -48,6 +48,7 @@
     <ProjectReference Include="..\TweetDuck.Browser\TweetDuck.Browser.csproj" />
     <ProjectReference Include="..\TweetDuck.Video\TweetDuck.Video.csproj" />
     <ProjectReference Include="..\TweetImpl.CefSharp\TweetImpl.CefSharp.csproj" />
+    <ProjectReference Include="..\TweetLib.WinForms.Legacy\TweetLib.WinForms.Legacy.csproj" />
   </ItemGroup>
   
   <ItemGroup>
