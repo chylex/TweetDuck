@@ -59,6 +59,7 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(284, 122);
             this.Controls.Add(this.progressBarTimer);
+            this.Font = TweetDuck.Controls.ControlExtensions.DefaultFont;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormNotification_FormClosing);
             this.ResumeLayout(false);
 

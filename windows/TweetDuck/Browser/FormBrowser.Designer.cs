@@ -29,6 +29,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = TweetLib.Core.Features.TweetDeck.TweetDeckBrowser.BackgroundColor;
             this.ClientSize = new System.Drawing.Size(1008, 730);
+            this.Font = TweetDuck.Controls.ControlExtensions.DefaultFont;
             this.Icon = Properties.Resources.icon;
             this.Location = TweetDuck.Controls.ControlExtensions.InvisibleLocation;
             this.MinimumSize = new System.Drawing.Size(348, 424);

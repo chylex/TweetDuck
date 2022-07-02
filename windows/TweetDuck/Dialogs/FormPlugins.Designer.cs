@@ -103,6 +103,7 @@ namespace TweetDuck.Dialogs {
             this.Controls.Add(this.btnOpenFolder);
             this.Controls.Add(this.btnReload);
             this.Controls.Add(this.btnClose);
+            this.Font = TweetDuck.Controls.ControlExtensions.DefaultFont;
             this.Icon = global::TweetDuck.Properties.Resources.icon;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

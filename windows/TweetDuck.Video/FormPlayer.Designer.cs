@@ -231,6 +231,7 @@
             this.Controls.Add(this.tablePanelCompactBottom);
             this.Controls.Add(this.tablePanelFull);
             this.Controls.Add(this.tablePanelCompactTop);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Location = new System.Drawing.Point(-32000, -32000);
             this.MaximizeBox = false;

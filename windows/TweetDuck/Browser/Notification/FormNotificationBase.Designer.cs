@@ -22,6 +22,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(284, 122);
+            this.Font = TweetDuck.Controls.ControlExtensions.DefaultFont;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Location = TweetDuck.Controls.ControlExtensions.InvisibleLocation;
             this.MaximizeBox = false;

@@ -72,6 +72,7 @@
 	        this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 	        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 	        this.Controls.Add(this.flowPanel);
+	        this.Font = TweetDuck.Controls.ControlExtensions.DefaultFont;
 	        this.Name = "TabSettingsFeedback";
 	        this.Size = new System.Drawing.Size(631, 480);
 	        this.flowPanel.ResumeLayout(false);

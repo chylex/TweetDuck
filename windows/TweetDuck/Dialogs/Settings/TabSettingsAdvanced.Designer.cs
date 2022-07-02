@@ -402,6 +402,7 @@
             this.Controls.Add(this.panelSeparator);
             this.Controls.Add(this.flowPanelRight);
             this.Controls.Add(this.flowPanelLeft);
+            this.Font = TweetDuck.Controls.ControlExtensions.DefaultFont;
             this.Name = "TabSettingsAdvanced";
             this.Size = new System.Drawing.Size(631, 480);
             ((System.ComponentModel.ISupportInitialize)(this.numClearCacheThreshold)).EndInit();

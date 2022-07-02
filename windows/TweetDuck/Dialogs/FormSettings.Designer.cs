@@ -90,6 +90,7 @@
             this.Controls.Add(this.panelContents);
             this.Controls.Add(this.panelButtons);
             this.Controls.Add(this.btnClose);
+            this.Font = TweetDuck.Controls.ControlExtensions.DefaultFont;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = global::TweetDuck.Properties.Resources.icon;
             this.MaximizeBox = false;

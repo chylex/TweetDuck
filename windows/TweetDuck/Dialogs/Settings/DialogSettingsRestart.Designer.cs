@@ -148,6 +148,7 @@
             this.Controls.Add(this.flowPanel);
             this.Controls.Add(this.btnRestart);
             this.Controls.Add(this.btnCancel);
+            this.Font = TweetDuck.Controls.ControlExtensions.DefaultFont;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

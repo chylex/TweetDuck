@@ -130,6 +130,7 @@
             this.Controls.Add(this.btnApply);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.textBoxPath);
+            this.Font = TweetDuck.Controls.ControlExtensions.DefaultFont;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

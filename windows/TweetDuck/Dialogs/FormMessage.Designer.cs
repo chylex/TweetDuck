@@ -60,6 +60,7 @@
             this.ClientSize = new System.Drawing.Size(98, 133);
             this.Controls.Add(this.labelMessage);
             this.Controls.Add(this.panelActions);
+            this.Font = TweetDuck.Controls.ControlExtensions.DefaultFont;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

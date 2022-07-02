@@ -7,6 +7,8 @@ using TweetLib.Utils.Data;
 namespace TweetDuck.Controls {
 	static class ControlExtensions {
 		public static readonly Point InvisibleLocation = new (-32000, -32000);
+		
+		public static readonly Font DefaultFont = new ("Segoe UI", 9F, FontStyle.Regular);
 
 		public static void InvokeSafe(this Control control, Action func) {
 			if (control.InvokeRequired) {

@@ -20,6 +20,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
             this.ClientSize = new System.Drawing.Size(424, 282);
+            this.Font = TweetDuck.Controls.ControlExtensions.DefaultFont;
             this.Icon = global::TweetDuck.Properties.Resources.icon;
             this.MinimumSize = new System.Drawing.Size(440, 320);
             this.Name = "FormGuide";

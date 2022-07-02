@@ -106,6 +106,7 @@
             this.Controls.Add(this.btnApply);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.textBoxArgs);
+            this.Font = TweetDuck.Controls.ControlExtensions.DefaultFont;
             this.MinimumSize = new System.Drawing.Size(520, 160);
             this.Name = "DialogSettingsCefArgs";
             this.ShowIcon = false;

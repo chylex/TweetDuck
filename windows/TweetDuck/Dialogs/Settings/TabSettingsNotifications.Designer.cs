@@ -671,6 +671,7 @@
             this.Controls.Add(this.flowPanelRight);
             this.Controls.Add(this.flowPanelLeft);
             this.Controls.Add(this.panelSeparator);
+            this.Font = TweetDuck.Controls.ControlExtensions.DefaultFont;
             this.Name = "TabSettingsNotifications";
             this.Size = new System.Drawing.Size(631, 480);
             this.ParentChanged += new System.EventHandler(this.TabSettingsNotifications_ParentChanged);

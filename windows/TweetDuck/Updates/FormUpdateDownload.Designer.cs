@@ -66,6 +66,7 @@
             this.Controls.Add(this.labelDescription);
             this.Controls.Add(this.btnCancel);
             this.DoubleBuffered = true;
+            this.Font = TweetDuck.Controls.ControlExtensions.DefaultFont;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = global::TweetDuck.Properties.Resources.icon;
             this.MaximizeBox = false;

@@ -203,6 +203,7 @@
             this.Controls.Add(this.panelDescription);
             this.Controls.Add(this.btnToggleState);
             this.Controls.Add(this.labelVersion);
+            this.Font = TweetDuck.Controls.ControlExtensions.DefaultFont;
             this.Margin = new System.Windows.Forms.Padding(0);
             this.MaximumSize = new System.Drawing.Size(65535, 88);
             this.Name = "PluginControl";

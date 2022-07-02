@@ -111,6 +111,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.flowPanelRight);
             this.Controls.Add(this.flowPanelLeft);
+            this.Font = TweetDuck.Controls.ControlExtensions.DefaultFont;
             this.Name = "TabSettingsTray";
             this.Size = new System.Drawing.Size(631, 480);
             this.flowPanelLeft.ResumeLayout(false);

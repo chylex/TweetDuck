@@ -126,6 +126,7 @@ namespace TweetDuck.Dialogs {
             this.Controls.Add(this.tablePanelLinks);
             this.Controls.Add(this.labelDescription);
             this.Controls.Add(this.pictureLogo);
+            this.Font = TweetDuck.Controls.ControlExtensions.DefaultFont;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.HelpButton = true;
             this.MaximizeBox = false;

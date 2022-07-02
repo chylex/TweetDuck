@@ -160,6 +160,7 @@
             this.Controls.Add(this.btnOpenDevTools);
             this.Controls.Add(this.btnApply);
             this.Controls.Add(this.btnCancel);
+            this.Font = TweetDuck.Controls.ControlExtensions.DefaultFont;
             this.MinimumSize = new System.Drawing.Size(320, 240);
             this.Name = "DialogSettingsCSS";
             this.ShowIcon = false;

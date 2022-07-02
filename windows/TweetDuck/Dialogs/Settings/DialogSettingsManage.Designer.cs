@@ -206,6 +206,7 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.panelDecision);
             this.Controls.Add(this.panelSelection);
+            this.Font = TweetDuck.Controls.ControlExtensions.DefaultFont;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
