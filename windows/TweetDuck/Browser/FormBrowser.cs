@@ -94,7 +94,7 @@ namespace TweetDuck.Browser {
 			Config.MuteToggled += Config_MuteToggled;
 			Config.TrayBehaviorChanged += Config_TrayBehaviorChanged;
 
-			Disposed += (sender, args) => {
+			Disposed += (_, _) => {
 				Config.MuteToggled -= Config_MuteToggled;
 				Config.TrayBehaviorChanged -= Config_TrayBehaviorChanged;
 				browser.Dispose();
@@ -127,7 +127,7 @@ namespace TweetDuck.Browser {
 		}
 
 		private void ShowChildForm(Form form) {
-			form.VisibleChanged += (sender, args) => form.MoveToCenter(this);
+			form.VisibleChanged += (_, _) => form.MoveToCenter(this);
 			form.Show(this);
 		}
 
@@ -286,12 +286,12 @@ namespace TweetDuck.Browser {
 				else {
 					FormUpdateDownload downloadForm = new FormUpdateDownload(update);
 
-					downloadForm.VisibleChanged += (sender2, args2) => {
+					downloadForm.VisibleChanged += (_, _) => {
 						downloadForm.MoveToCenter(this);
 						Hide();
 					};
 
-					downloadForm.FormClosed += (sender2, args2) => {
+					downloadForm.FormClosed += (_, _) => {
 						if (downloadForm.DialogResult != DialogResult.OK) {
 							update.CancelDownload();
 						}
@@ -391,7 +391,7 @@ namespace TweetDuck.Browser {
 
 				FormSettings form = new FormSettings(this, plugins, updates, browser.Functions, startTab);
 
-				form.FormClosed += (sender, args) => {
+				form.FormClosed += (_, _) => {
 					if (!prevEnableUpdateCheck && Config.EnableUpdateCheck) {
 						Config.DismissedUpdate = null;
 						Config.Save();
@@ -469,7 +469,7 @@ namespace TweetDuck.Browser {
 			if (playerPath == null || !File.Exists(playerPath)) {
 				if (videoPlayer == null) {
 					videoPlayer = new VideoPlayer(this);
-					videoPlayer.ProcessExited += (sender, args) => browser.HideVideoOverlay(true);
+					videoPlayer.ProcessExited += (_, _) => browser.HideVideoOverlay(true);
 				}
 
 				callShowOverlay.ExecuteAsync();

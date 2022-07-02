@@ -7,7 +7,7 @@ using TweetLib.Utils.Dialogs;
 
 namespace TweetImpl.CefSharp.Dialogs {
 	sealed class FileDialogOpener : IFileDialogOpener {
-		public static FileDialogOpener Instance { get; } = new FileDialogOpener();
+		public static FileDialogOpener Instance { get; } = new ();
 
 		private FileDialogOpener() {}
 
@@ -17,7 +17,7 @@ namespace TweetImpl.CefSharp.Dialogs {
 				DereferenceLinks = true,
 				Multiselect = multiple,
 				Title = title,
-				Filter = string.Join("|", filters.Select(filter => filter.JoinFullNameAndPattern("|")))
+				Filter = string.Join("|", filters.Select(static filter => filter.JoinFullNameAndPattern("|")))
 			};
 
 			if (dialog.ShowDialog() == DialogResult.OK) {

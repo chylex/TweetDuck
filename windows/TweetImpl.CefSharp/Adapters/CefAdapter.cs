@@ -4,7 +4,7 @@ using TweetLib.Browser.CEF.Interfaces;
 
 namespace TweetImpl.CefSharp.Adapters {
 	sealed class CefAdapter : ICefAdapter {
-		public static CefAdapter Instance { get; } = new CefAdapter();
+		public static CefAdapter Instance { get; } = new ();
 
 		private CefAdapter() {}
 

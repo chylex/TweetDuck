@@ -135,7 +135,7 @@ namespace TweetDuck {
 
 				Cef.Initialize(settings, false, new BrowserProcessHandler());
 
-				Win.Application.ApplicationExit += (sender, args) => ExitCleanup();
+				Win.Application.ApplicationExit += static (_, _) => ExitCleanup();
 				var updateCheckClient = new UpdateCheckClient(Path.Combine(storagePath, InstallerFolder));
 				var mainForm = new FormBrowser(resourceCache, pluginManager, updateCheckClient, lockManager.WindowRestoreMessage);
 				Win.Application.Run(mainForm);

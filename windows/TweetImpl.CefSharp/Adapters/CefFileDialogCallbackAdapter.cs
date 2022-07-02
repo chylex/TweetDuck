@@ -4,7 +4,7 @@ using TweetLib.Browser.CEF.Interfaces;
 
 namespace TweetImpl.CefSharp.Adapters {
 	sealed class CefFileDialogCallbackAdapter : IFileDialogCallbackAdapter<IFileDialogCallback> {
-		public static CefFileDialogCallbackAdapter Instance { get; } = new CefFileDialogCallbackAdapter();
+		public static CefFileDialogCallbackAdapter Instance { get; } = new ();
 
 		private CefFileDialogCallbackAdapter() {}
 

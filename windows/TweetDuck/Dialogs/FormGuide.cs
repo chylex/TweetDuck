@@ -36,7 +36,7 @@ namespace TweetDuck.Dialogs {
 
 			Text = Program.BrandName + " Guide";
 			Size = new Size(owner.Size.Width * 3 / 4, owner.Size.Height * 3 / 4);
-			VisibleChanged += (sender, args) => this.MoveToCenter(owner);
+			VisibleChanged += (_, _) => this.MoveToCenter(owner);
 
 			browser = new ChromiumWebBrowser(url) {
 				KeyboardHandler = new CustomKeyboardHandler(null)
@@ -51,7 +51,7 @@ namespace TweetDuck.Dialogs {
 
 			Controls.Add(browser);
 
-			Disposed += (sender, args) => {
+			Disposed += (_, _) => {
 				browserImpl.Dispose();
 				browser.Dispose();
 			};

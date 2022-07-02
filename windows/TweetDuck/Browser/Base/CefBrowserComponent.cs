@@ -6,7 +6,7 @@ using TweetLib.Core;
 
 namespace TweetDuck.Browser.Base {
 	sealed class CefBrowserComponent : BrowserComponentBase {
-		private static readonly CreateContextMenu DefaultContextMenuFactory = handler => new ContextMenuBase(handler);
+		private static readonly CreateContextMenu DefaultContextMenuFactory = static handler => new ContextMenuBase(handler);
 
 		public override string CacheFolder => CefUtils.GetCacheFolder(App.StoragePath);
 		

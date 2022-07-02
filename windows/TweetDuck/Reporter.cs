@@ -47,7 +47,7 @@ namespace TweetDuck {
 					UseVisualStyleBackColor = true
 				};
 
-				btnOpenLog.Click += (sender, args) => {
+				btnOpenLog.Click += static (_, _) => {
 					if (!OpenLogFile()) {
 						FormMessage.Error("Error Log", "Cannot open error log.", FormMessage.OK);
 					}

@@ -52,7 +52,7 @@ namespace TweetDuck.Browser {
 			this.browserImpl = new TweetDeckBrowserImpl(browserComponent, tweetDeckInterface, extraContext, new SoundNotification(browserComponent.ResourceHandlerRegistry), pluginManager, updateChecker);
 
 			if (Arguments.HasFlag(Arguments.ArgIgnoreGDPR)) {
-				browserComponent.PageLoadEnd += (sender, args) => {
+				browserComponent.PageLoadEnd += (_, args) => {
 					if (TwitterUrls.IsTweetDeck(args.Url)) {
 						browserComponent.RunScript("gen:gdpr", "TD.storage.Account.prototype.requiresConsent = function() { return false; }");
 					}

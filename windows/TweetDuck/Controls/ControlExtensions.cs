@@ -6,7 +6,7 @@ using TweetLib.Utils.Data;
 
 namespace TweetDuck.Controls {
 	static class ControlExtensions {
-		public static readonly Point InvisibleLocation = new Point(-32000, -32000);
+		public static readonly Point InvisibleLocation = new (-32000, -32000);
 
 		public static void InvokeSafe(this Control control, Action func) {
 			if (control.InvokeRequired) {
@@ -73,7 +73,7 @@ namespace TweetDuck.Controls {
 		}
 
 		public static void EnableMultilineShortcuts(this TextBox textBox) {
-			textBox.KeyDown += (sender, args) => {
+			textBox.KeyDown += static (sender, args) => {
 				if (args.Control && args.KeyCode == Keys.A && sender is TextBox tb) {
 					tb.SelectAll();
 					args.SuppressKeyPress = true;

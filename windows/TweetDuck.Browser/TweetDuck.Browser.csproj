@@ -5,7 +5,7 @@
     <Configurations>Debug;Release</Configurations>
     <Platforms>x86</Platforms>
     <RuntimeIdentifier>win7-x86</RuntimeIdentifier>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>10</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
   

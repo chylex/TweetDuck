@@ -104,7 +104,7 @@ namespace TweetDuck.Browser.Notification {
 			browser.LoadingStateChanged += Browser_LoadingStateChanged;
 
 			mouseHookDelegate = MouseHookProc;
-			Disposed += (sender, args) => StopMouseHook(true);
+			Disposed += (_, _) => StopMouseHook(true);
 		}
 
 		private void SetOpacity(int opacity) {

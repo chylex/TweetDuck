@@ -127,7 +127,7 @@ namespace TweetDuck.Management {
 				else {
 					return false;
 				}
-			} catch (Exception ex) when (ex is InvalidOperationException || ex is Win32Exception) {
+			} catch (Exception ex) when (ex is InvalidOperationException or Win32Exception) {
 				bool hasExited = CheckProcessExited(process);
 				process.Dispose();
 				return hasExited;

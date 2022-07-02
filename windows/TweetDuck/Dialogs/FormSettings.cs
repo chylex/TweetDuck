@@ -24,7 +24,7 @@ namespace TweetDuck.Dialogs {
 
 		private readonly int buttonHeight;
 
-		private readonly Dictionary<Type, SettingsTab> tabs = new Dictionary<Type, SettingsTab>(8);
+		private readonly Dictionary<Type, SettingsTab> tabs = new (8);
 		private SettingsTab? currentTab;
 
 		public FormSettings(FormBrowser browser, PluginManager plugins, UpdateChecker updates, TweetDeckFunctions tweetDeckFunctions, Type? startTab) {
@@ -44,8 +44,8 @@ namespace TweetDuck.Dialogs {
 			AddButton("General", () => new TabSettingsGeneral(this.browser.ReloadToTweetDeck, tweetDeckFunctions.ReloadColumns, updates));
 			AddButton("Notifications", () => new TabSettingsNotifications(this.browser.CreateExampleNotification()));
 			AddButton("Sounds", () => new TabSettingsSounds(() => tweetDeckFunctions.PlaySoundNotification(true)));
-			AddButton("Tray", () => new TabSettingsTray());
-			AddButton("Feedback", () => new TabSettingsFeedback());
+			AddButton("Tray", static () => new TabSettingsTray());
+			AddButton("Feedback", static () => new TabSettingsFeedback());
 			AddButton("Advanced", () => new TabSettingsAdvanced(tweetDeckFunctions.ReinjectCustomCSS, this.browser.OpenDevTools));
 
 			SelectTab(tabs[startTab ?? typeof(TabSettingsGeneral)]);
@@ -135,7 +135,7 @@ namespace TweetDuck.Dialogs {
 
 			tabs.Add(typeof(T), new SettingsTab(btn, constructor));
 
-			btn.Click += (sender, args) => SelectTab<T>();
+			btn.Click += (_, _) => SelectTab<T>();
 		}
 
 		private void SelectTab<T>() where T : BaseTab {

@@ -61,7 +61,7 @@ namespace TweetDuck.Dialogs {
 
 		private int ClientWidth {
 			get => ClientSize.Width;
-			set => ClientSize = new Size(value, ClientSize.Height);
+			set => ClientSize = ClientSize with { Width = value };
 		}
 
 		private int ButtonDistance {
@@ -105,7 +105,7 @@ namespace TweetDuck.Dialogs {
 
 				default:
 					icon = null;
-					labelMessage.Location = new Point(BrowserUtils.Scale(19, dpiScale), labelMessage.Location.Y); // 19 instead of 9 due to larger height
+					labelMessage.Location = labelMessage.Location with { X = BrowserUtils.Scale(19, dpiScale) }; // 19 instead of 9 due to larger height
 					break;
 			}
 
@@ -134,7 +134,7 @@ namespace TweetDuck.Dialogs {
 				UseVisualStyleBackColor = true
 			};
 
-			button.Click += (sender, args) => {
+			button.Click += (_, _) => {
 				ClickedButton = button;
 				DialogResult = result;
 				Close();
@@ -177,7 +177,7 @@ namespace TweetDuck.Dialogs {
 
 			for (int index = 0; index < buttonCount; index++) {
 				Control control = panelActions.Controls[index];
-				control.Location = new Point(start - index * dist, control.Location.Y);
+				control.Location = control.Location with { X = start - index * dist };
 			}
 		}
 
@@ -190,11 +190,11 @@ namespace TweetDuck.Dialogs {
 			int labelOffset = BrowserUtils.Scale(8, dpiScale);
 
 			if (isMultiline && !wasLabelMultiline) {
-				labelMessage.Location = new Point(labelMessage.Location.X, labelMessage.Location.Y - labelOffset);
+				labelMessage.Location = labelMessage.Location with { Y = labelMessage.Location.Y - labelOffset };
 				prevLabelHeight += labelOffset;
 			}
 			else if (!isMultiline && wasLabelMultiline) {
-				labelMessage.Location = new Point(labelMessage.Location.X, labelMessage.Location.Y + labelOffset);
+				labelMessage.Location = labelMessage.Location with { Y = labelMessage.Location.Y + labelOffset };
 				prevLabelHeight -= labelOffset;
 			}
 

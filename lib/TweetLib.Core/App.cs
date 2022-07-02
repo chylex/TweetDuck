@@ -110,11 +110,11 @@ namespace TweetLib.Core {
 	}
 
 	public sealed class AppBuilder {
-		public IAppSetup? Setup { get; set; }
-		public IAppErrorHandler? ErrorHandler { get; set; }
-		public IAppSystemHandler? SystemHandler { get; set; }
-		public IAppMessageDialogs? MessageDialogs { get; set; }
-		public IAppFileDialogs? FileDialogs { get; set; }
+		public IAppSetup? Setup { get; init; }
+		public IAppErrorHandler? ErrorHandler { get; init; }
+		public IAppSystemHandler? SystemHandler { get; init; }
+		public IAppMessageDialogs? MessageDialogs { get; init; }
+		public IAppFileDialogs? FileDialogs { get; init; }
 
 		internal static AppBuilder? Instance { get; private set; }
 

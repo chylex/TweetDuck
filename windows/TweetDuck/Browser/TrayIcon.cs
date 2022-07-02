@@ -61,7 +61,7 @@ namespace TweetDuck.Browser {
 			this.notifyIcon.Text = Program.BrandName;
 
 			Config.MuteToggled += Config_MuteToggled;
-			Disposed += (sender, args) => Config.MuteToggled -= Config_MuteToggled;
+			Disposed += (_, _) => Config.MuteToggled -= Config_MuteToggled;
 		}
 
 		public TrayIcon(IContainer container) : this() {
@@ -119,11 +119,11 @@ namespace TweetDuck.Browser {
 		}
 
 		public static bool ShouldHideOnMinimize(this TrayIcon.Behavior behavior) {
-			return behavior == TrayIcon.Behavior.MinimizeToTray || behavior == TrayIcon.Behavior.Combined;
+			return behavior is TrayIcon.Behavior.MinimizeToTray or TrayIcon.Behavior.Combined;
 		}
 
 		public static bool ShouldHideOnClose(this TrayIcon.Behavior behavior) {
-			return behavior == TrayIcon.Behavior.CloseToTray || behavior == TrayIcon.Behavior.Combined;
+			return behavior is TrayIcon.Behavior.CloseToTray or TrayIcon.Behavior.Combined;
 		}
 	}
 }

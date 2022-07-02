@@ -3,7 +3,7 @@ using TweetLib.Browser.CEF.Interfaces;
 
 namespace TweetImpl.CefSharp.Adapters {
 	sealed class CefJsDialogCallbackAdapter : IJsDialogCallbackAdapter<IJsDialogCallback> {
-		public static CefJsDialogCallbackAdapter Instance { get; } = new CefJsDialogCallbackAdapter();
+		public static CefJsDialogCallbackAdapter Instance { get; } = new ();
 
 		private CefJsDialogCallbackAdapter() {}
 

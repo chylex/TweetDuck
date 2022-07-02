@@ -95,10 +95,10 @@ namespace TweetDuck.Browser.Notification {
 		protected readonly CefBrowserComponent browserComponent;
 		private readonly NotificationBrowser browserImpl;
 
-		private readonly CefByteArrayResourceHandler resourceHandler = new CefByteArrayResourceHandler();
+		private readonly CefByteArrayResourceHandler resourceHandler = new ();
 
 		private DesktopNotification? currentNotification;
-		private readonly HashSet<NotificationPauseReason> pauseReasons = new HashSet<NotificationPauseReason>();
+		private readonly HashSet<NotificationPauseReason> pauseReasons = new ();
 
 		public string? CurrentTweetUrl => currentNotification?.TweetUrl;
 		public string? CurrentQuoteUrl => currentNotification?.QuoteUrl;
@@ -126,7 +126,7 @@ namespace TweetDuck.Browser.Notification {
 
 			Controls.Add(browser);
 
-			Disposed += (sender, args) => {
+			Disposed += (_, _) => {
 				this.owner.FormClosed -= owner_FormClosed;
 				this.browserImpl.Dispose();
 				this.browser.Dispose();

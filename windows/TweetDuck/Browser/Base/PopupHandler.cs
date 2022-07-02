@@ -4,7 +4,7 @@ using TweetLib.Core.Features.Twitter;
 
 namespace TweetDuck.Browser.Base {
 	sealed class PopupHandler : IPopupHandler {
-		public static PopupHandler Instance { get; } = new PopupHandler();
+		public static PopupHandler Instance { get; } = new ();
 
 		private PopupHandler() {}
 

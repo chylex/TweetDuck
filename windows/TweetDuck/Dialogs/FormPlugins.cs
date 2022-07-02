@@ -31,16 +31,16 @@ namespace TweetDuck.Dialogs {
 				Size = new Size(Math.Max(MinimumSize.Width, targetSize.Width), Math.Max(MinimumSize.Height, targetSize.Height));
 			}
 
-			Shown += (sender, args) => {
+			Shown += (_, _) => {
 				ReloadPluginList();
 			};
 
-			FormClosed += (sender, args) => {
+			FormClosed += (_, _) => {
 				Config.PluginsWindowSize = Size;
 				Config.Save();
 			};
 
-			ResizeEnd += (sender, args) => {
+			ResizeEnd += (_, _) => {
 				timerLayout.Start();
 			};
 		}
@@ -53,7 +53,7 @@ namespace TweetDuck.Dialogs {
 			flowLayoutPlugins.Controls.Clear();
 			flowLayoutPlugins.SuspendLayout();
 
-			foreach (Plugin plugin in pluginManager.Plugins.OrderBy(GetPluginOrderIndex).ThenBy(plugin => plugin.Name)) {
+			foreach (Plugin plugin in pluginManager.Plugins.OrderBy(GetPluginOrderIndex).ThenBy(static plugin => plugin.Name)) {
 				flowLayoutPlugins.Controls.Add(new PluginControl(pluginManager, plugin));
 
 				flowLayoutPlugins.Controls.Add(new Panel {

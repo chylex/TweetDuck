@@ -37,7 +37,7 @@ namespace TweetDuck.Dialogs.Settings {
 			this.updates = updates;
 			this.updates.CheckFinished += updates_CheckFinished;
 
-			Disposed += (sender, args) => this.updates.CheckFinished -= updates_CheckFinished;
+			Disposed += (_, _) => this.updates.CheckFinished -= updates_CheckFinished;
 
 			// user interface
 
@@ -135,7 +135,7 @@ namespace TweetDuck.Dialogs.Settings {
 			daysOfWeek.Add(new DayOfWeekItem("Friday", DayOfWeek.Friday));
 			daysOfWeek.Add(new DayOfWeekItem("Saturday", DayOfWeek.Saturday));
 			daysOfWeek.Add(new DayOfWeekItem("Sunday", DayOfWeek.Sunday));
-			comboBoxFirstDayOfWeek.SelectedItem = daysOfWeek.OfType<DayOfWeekItem>().FirstOrDefault(dow => dow.Id == Config.CalendarFirstDay) ?? daysOfWeek[0];
+			comboBoxFirstDayOfWeek.SelectedItem = daysOfWeek.OfType<DayOfWeekItem>().FirstOrDefault(static dow => dow.Id == Config.CalendarFirstDay) ?? daysOfWeek[0];
 		}
 
 		public override void OnReady() {
@@ -219,7 +219,7 @@ namespace TweetDuck.Dialogs.Settings {
 
 		private void checkAnimatedAvatars_CheckedChanged(object? sender, EventArgs e) {
 			Config.EnableAnimatedImages = checkAnimatedAvatars.Checked;
-			BrowserProcessHandler.UpdatePrefs().ContinueWith(task => reloadColumns());
+			BrowserProcessHandler.UpdatePrefs().ContinueWith(_ => reloadColumns());
 		}
 
 		#endregion
@@ -241,11 +241,11 @@ namespace TweetDuck.Dialogs.Settings {
 			if (e.EventId == updateCheckEventId) {
 				btnCheckUpdates.Enabled = true;
 
-				e.Result.Handle(update => {
+				e.Result.Handle(static update => {
 					if (update.VersionTag == Program.VersionTag) {
 						FormMessage.Information("No Updates Available", "Your version of TweetDuck is up to date.", FormMessage.OK);
 					}
-				}, ex => {
+				}, static ex => {
 					App.ErrorHandler.HandleException("Update Check Error", "An error occurred while checking for updates.", true, ex);
 				});
 			}
@@ -264,7 +264,7 @@ namespace TweetDuck.Dialogs.Settings {
 				comboBoxCustomBrowser.SelectedIndex = browserListIndexDefault;
 			}
 			else {
-				WindowsUtils.Browser? browserInfo = comboBoxCustomBrowser.Items.OfType<WindowsUtils.Browser>().FirstOrDefault(browser => browser.Path == Config.BrowserPath);
+				WindowsUtils.Browser? browserInfo = comboBoxCustomBrowser.Items.OfType<WindowsUtils.Browser>().FirstOrDefault(static browser => browser.Path == Config.BrowserPath);
 
 				if (browserInfo == null || Config.BrowserPathArgs != null) {
 					comboBoxCustomBrowser.SelectedIndex = browserListIndexCustom;
@@ -368,7 +368,7 @@ namespace TweetDuck.Dialogs.Settings {
 				comboBoxSearchEngine.SelectedIndex = searchEngineIndexDefault;
 			}
 			else {
-				SearchEngine? engineInfo = comboBoxSearchEngine.Items.OfType<SearchEngine>().FirstOrDefault(engine => engine.Url == Config.SearchEngineUrl);
+				SearchEngine? engineInfo = comboBoxSearchEngine.Items.OfType<SearchEngine>().FirstOrDefault(static engine => engine.Url == Config.SearchEngineUrl);
 
 				if (engineInfo == null) {
 					comboBoxSearchEngine.SelectedIndex = searchEngineIndexCustom;

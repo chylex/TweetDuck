@@ -15,7 +15,7 @@ namespace TweetDuck.Dialogs.Settings {
 
 			this.notification = notification;
 
-			this.notification.Ready += (sender, args) => {
+			this.notification.Ready += (_, _) => {
 				this.InvokeAsyncSafe(() => {
 					this.notification.ShowExampleNotification(true);
 					this.notification.Move += notification_Move;
@@ -25,7 +25,7 @@ namespace TweetDuck.Dialogs.Settings {
 
 			this.notification.Show();
 
-			Disposed += (sender, args) => this.notification.Dispose();
+			Disposed += (_, _) => this.notification.Dispose();
 
 			// general
 
@@ -45,7 +45,7 @@ namespace TweetDuck.Dialogs.Settings {
 			comboBoxIdlePause.Items.Add("1 minute");
 			comboBoxIdlePause.Items.Add("2 minutes");
 			comboBoxIdlePause.Items.Add("5 minutes");
-			comboBoxIdlePause.SelectedIndex = Math.Max(0, Array.FindIndex(IdlePauseSeconds, val => val == Config.NotificationIdlePauseSeconds));
+			comboBoxIdlePause.SelectedIndex = Math.Max(0, Array.FindIndex(IdlePauseSeconds, static val => val == Config.NotificationIdlePauseSeconds));
 
 			trackBarOpacity.SetValueSafe(Config.NotificationWindowOpacity);
 			labelOpacityValue.Text = Config.NotificationWindowOpacity + "%";

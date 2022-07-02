@@ -14,7 +14,7 @@ namespace TweetDuck.Management {
 		private static Timer? autoClearTimer;
 
 		private static long CalculateCacheSize() {
-			return new DirectoryInfo(CacheFolder).EnumerateFiles().Select(file => {
+			return new DirectoryInfo(CacheFolder).EnumerateFiles().Select(static file => {
 				try {
 					return file.Length;
 				} catch {
@@ -37,7 +37,7 @@ namespace TweetDuck.Management {
 				autoClearTimer = null;
 			}
 			else if (shouldRun && autoClearTimer == null) {
-				autoClearTimer = new Timer(state => {
+				autoClearTimer = new Timer(static _ => {
 					if (autoClearTimer != null) {
 						try {
 							if (CalculateCacheSize() >= Program.Config.System.ClearCacheThreshold * 1024L * 1024L) {

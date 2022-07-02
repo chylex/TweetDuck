@@ -37,7 +37,7 @@ namespace TweetDuck.Browser.Notification {
 		private readonly DesktopNotification exampleNotification;
 
 		public FormNotificationExample(FormBrowser owner, ITweetDeckInterface tweetDeckInterface, PluginManager pluginManager) : base(owner, (form, browserComponent) => CreateBrowserImpl(browserComponent, new NotificationInterfaceImpl(form), tweetDeckInterface, pluginManager)) {
-			browserComponent.BrowserLoaded += (sender, args) => {
+			browserComponent.BrowserLoaded += (_, _) => {
 				Ready?.Invoke(this, EventArgs.Empty);
 			};
 

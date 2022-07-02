@@ -27,7 +27,7 @@ namespace TweetDuck.Browser.Notification.Screenshot {
 
 			browserComponent.AttachBridgeObject("$TD_NotificationScreenshot", new ScreenshotBridge(this, SetScreenshotHeight, callback));
 
-			browserComponent.BrowserLoaded += (sender, args) => {
+			browserComponent.BrowserLoaded += (_, _) => {
 				string? script = ResourceUtils.ReadFileOrNull("notification/screenshot/screenshot.js");
 
 				if (script == null) {

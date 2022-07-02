@@ -101,7 +101,7 @@ namespace TweetDuck.Browser.Notification.Screenshot {
 				OnFinished();
 				#else
 				screenshot.MoveToVisibleLocation();
-				screenshot.FormClosed += (sender, args) => disposer.Start();
+				screenshot.FormClosed += (_, _) => disposer.Start();
 				#endif
 			}
 		}

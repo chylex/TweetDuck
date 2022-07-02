@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using System.IO;
+﻿using System.IO;
 using System.Windows.Forms;
 using CefSharp;
 using TweetDuck.Controls;
@@ -54,7 +53,7 @@ namespace TweetDuck.Browser.Notification {
 
 					Button btnViewOptions = form.AddButton("View Options");
 					btnViewOptions.Width += 16;
-					btnViewOptions.Location = new Point(btnViewOptions.Location.X - 16, btnViewOptions.Location.Y);
+					btnViewOptions.Location = btnViewOptions.Location with { X = btnViewOptions.Location.X - 16 };
 
 					if (form.ShowDialog() == DialogResult.OK && form.ClickedButton == btnViewOptions) {
 						browser.OpenSettings(typeof(TabSettingsSounds));

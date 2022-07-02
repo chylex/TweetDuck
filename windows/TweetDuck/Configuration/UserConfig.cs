@@ -18,7 +18,7 @@ namespace TweetDuck.Configuration {
 		[SuppressMessage("ReSharper", "UnusedMember.Global")]
 		public bool AllowDataCollection { get; set; } = false;
 
-		public WindowState BrowserWindow { get; set; } = new WindowState();
+		public WindowState BrowserWindow { get; set; } = new ();
 		public Size PluginsWindowSize    { get; set; } = Size.Empty;
 
 		public bool ExpandLinksOnHover        { get; set; } = true;

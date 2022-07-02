@@ -84,7 +84,7 @@ On Windows, TweetDuck uses the [CefSharp](https://github.com/cefsharp/CefSharp/)
 
 On Linux, TweetDuck uses the [ChromiumGtk](https://github.com/lunixo/ChromiumGtk) library, which combines [CefGlue](https://gitlab.com/xiliumhq/chromiumembedded/cefglue) for the browser component and [GtkSharp](https://github.com/GtkSharp/GtkSharp) for the GUI.
 
-The solution contains several C# projects for executables and libraries, and F# projects for automated tests. All projects target `.NET 6`.
+The solution contains several C# projects for executables and libraries, and F# projects for automated tests. All projects target `.NET 6` and either `C# 10` or `F#`.
 
 Projects are organized into folders:
 * Windows projects are in the `windows/` folder

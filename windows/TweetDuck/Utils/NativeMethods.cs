@@ -8,8 +8,8 @@ namespace TweetDuck.Utils {
 	[SuppressMessage("ReSharper", "MemberCanBePrivate.Local")]
 	[SuppressMessage("ReSharper", "InconsistentNaming")]
 	static class NativeMethods {
-		private static readonly IntPtr HWND_BROADCAST = new IntPtr(0xFFFF);
-		public static readonly IntPtr HOOK_HANDLED = new IntPtr(-1);
+		private static readonly IntPtr HWND_BROADCAST = new (0xFFFF);
+		public static readonly IntPtr HOOK_HANDLED = new (-1);
 
 		public const int HWND_TOPMOST = -1;
 		public const uint SWP_NOACTIVATE = 0x0010;

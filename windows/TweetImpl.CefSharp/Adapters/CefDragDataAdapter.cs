@@ -3,7 +3,7 @@ using TweetLib.Browser.CEF.Interfaces;
 
 namespace TweetImpl.CefSharp.Adapters {
 	sealed class CefDragDataAdapter : IDragDataAdapter<IDragData> {
-		public static CefDragDataAdapter Instance { get; } = new CefDragDataAdapter();
+		public static CefDragDataAdapter Instance { get; } = new ();
 
 		private CefDragDataAdapter() {}
 

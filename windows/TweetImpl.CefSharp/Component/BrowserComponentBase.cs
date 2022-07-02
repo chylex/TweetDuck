@@ -12,7 +12,7 @@ namespace TweetImpl.CefSharp.Component {
 	public abstract class BrowserComponentBase : BrowserComponent<IFrame, IRequest> {
 		public delegate CefContextMenuHandler CreateContextMenu(IContextMenuHandler? handler);
 
-		public ResourceHandlerRegistry<IResourceHandler> ResourceHandlerRegistry { get; } = new ResourceHandlerRegistry<IResourceHandler>(CefResourceHandlerFactory.Instance);
+		public ResourceHandlerRegistry<IResourceHandler> ResourceHandlerRegistry { get; } = new (CefResourceHandlerFactory.Instance);
 
 		private readonly ChromiumWebBrowser browser;
 		private readonly CreateContextMenu createContextMenu;

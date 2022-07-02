@@ -31,7 +31,7 @@ namespace TweetDuck.Dialogs.Settings {
 		public bool ShouldReloadBrowser { get; private set; }
 
 		private readonly PluginManager plugins;
-		private readonly Dictionary<CheckBox, ProfileManager.Items> checkBoxMap = new Dictionary<CheckBox, ProfileManager.Items>(4);
+		private readonly Dictionary<CheckBox, ProfileManager.Items> checkBoxMap = new (4);
 		private readonly bool openImportImmediately;
 
 		private State currentState;

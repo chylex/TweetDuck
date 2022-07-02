@@ -58,7 +58,7 @@ namespace TweetDuck.Application {
 								config.Save();
 							}
 
-							if (result == DialogResult.Ignore || result == DialogResult.Yes) {
+							if (result is DialogResult.Ignore or DialogResult.Yes) {
 								goto case TwitterUrls.UrlType.Fine;
 							}
 						}
@@ -81,7 +81,7 @@ namespace TweetDuck.Application {
 			}
 		}
 
-		public IAppSystemHandler.OpenAssociatedProgramFunc OpenAssociatedProgram { get; } = path => {
+		public IAppSystemHandler.OpenAssociatedProgramFunc OpenAssociatedProgram { get; } = static path => {
 			try {
 				using (Process.Start(new ProcessStartInfo {
 					FileName = path,
@@ -94,7 +94,7 @@ namespace TweetDuck.Application {
 		};
 
 
-		public IAppSystemHandler.CopyImageFromFileFunc CopyImageFromFile { get; } = path => {
+		public IAppSystemHandler.CopyImageFromFileFunc CopyImageFromFile { get; } = static path => {
 			FormManager.RunOnUIThreadAsync(() => {
 				Image image;
 
@@ -109,11 +109,11 @@ namespace TweetDuck.Application {
 			});
 		};
 
-		public IAppSystemHandler.CopyTextFunc CopyText { get; } = text => {
+		public IAppSystemHandler.CopyTextFunc CopyText { get; } = static text => {
 			FormManager.RunOnUIThreadAsync(() => ClipboardManager.SetText(text, TextDataFormat.UnicodeText));
 		};
 
-		public IAppSystemHandler.SearchTextFunc SearchText { get; } = text => {
+		public IAppSystemHandler.SearchTextFunc SearchText { get; } = static text => {
 			if (string.IsNullOrWhiteSpace(text)) {
 				return;
 			}
@@ -138,7 +138,7 @@ namespace TweetDuck.Application {
 							return;
 						}
 
-						settings.FormClosed += (sender, args) => {
+						settings.FormClosed += (_, args) => {
 							if (args.CloseReason == CloseReason.UserClosing && config.SearchEngineUrl != searchUrl) {
 								PerformSearch();
 							}

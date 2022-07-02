@@ -11,11 +11,11 @@ namespace TweetDuck.Video.Controls {
 		}
 
 		public void AttachTooltip(Control control, bool followCursor, string tooltip) {
-			AttachTooltip(control, followCursor, args => tooltip);
+			AttachTooltip(control, followCursor, _ => tooltip);
 		}
 
 		public void AttachTooltip(Control control, bool followCursor, Func<MouseEventArgs, string?> tooltipFunc) {
-			control.MouseMove += (sender, args) => {
+			control.MouseMove += (_, args) => {
 				SuspendLayout();
 
 				Form? form = control.FindForm();

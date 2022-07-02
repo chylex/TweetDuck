@@ -176,7 +176,7 @@ namespace TweetDuck.Management {
 										Expires = DateTime.Now.Add(TimeSpan.FromDays(365 * 5)),
 										HttpOnly = true,
 										Secure = true
-									}).ContinueWith(t => {
+									}).ContinueWith(_ => {
 										// ReSharper disable once AccessToDisposedClosure
 										// ReSharper disable once ConvertToLambdaExpression
 										return cookies.FlushStoreAsync();

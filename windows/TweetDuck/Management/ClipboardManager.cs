@@ -7,8 +7,8 @@ using TweetLib.Core;
 
 namespace TweetDuck.Management {
 	static class ClipboardManager {
-		private static readonly Lazy<Regex> RegexStripHtmlStyles = new Lazy<Regex>(() => new Regex(@"\s?(?:style|class)="".*?"""), false);
-		private static readonly Lazy<Regex> RegexOffsetClipboardHtml = new Lazy<Regex>(() => new Regex(@"(?<=EndHTML:|EndFragment:)(\d+)"), false);
+		private static readonly Lazy<Regex> RegexStripHtmlStyles = new (static () => new Regex(@"\s?(?:style|class)="".*?"""), false);
+		private static readonly Lazy<Regex> RegexOffsetClipboardHtml = new (static () => new Regex(@"(?<=EndHTML:|EndFragment:)(\d+)"), false);
 
 		public static void SetText(string text, TextDataFormat format) {
 			if (string.IsNullOrEmpty(text)) {

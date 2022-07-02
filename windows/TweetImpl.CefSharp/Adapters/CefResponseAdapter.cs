@@ -3,7 +3,7 @@ using TweetLib.Browser.CEF.Interfaces;
 
 namespace TweetImpl.CefSharp.Adapters {
 	sealed class CefResponseAdapter : IResponseAdapter<IResponse> {
-		public static CefResponseAdapter Instance { get; } = new CefResponseAdapter();
+		public static CefResponseAdapter Instance { get; } = new ();
 
 		private CefResponseAdapter() {}
 

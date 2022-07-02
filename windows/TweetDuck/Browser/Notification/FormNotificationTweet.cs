@@ -33,7 +33,7 @@ namespace TweetDuck.Browser.Notification {
 			}
 		}
 
-		private readonly Queue<DesktopNotification> tweetQueue = new Queue<DesktopNotification>(4);
+		private readonly Queue<DesktopNotification> tweetQueue = new (4);
 		private bool needsTrim;
 		private bool hasTemporarilyMoved;
 
@@ -43,7 +43,7 @@ namespace TweetDuck.Browser.Notification {
 			Config.MuteToggled += Config_MuteToggled;
 			WindowsSessionManager.LockStateChanged += WindowsSessionManager_LockStateChanged;
 			
-			Disposed += (sender, args) => {
+			Disposed += (_, _) => {
 				Config.MuteToggled -= Config_MuteToggled;
 				WindowsSessionManager.LockStateChanged -= WindowsSessionManager_LockStateChanged;
 			};
@@ -66,7 +66,7 @@ namespace TweetDuck.Browser.Notification {
 			if (m.Msg == 0x00A7) { // WM_NCMBUTTONDOWN
 				int hitTest = m.WParam.ToInt32();
 
-				if (hitTest == 2 || hitTest == 20) { // HTCAPTION, HTCLOSE
+				if (hitTest is 2 or 20) { // HTCAPTION, HTCLOSE
 					hasTemporarilyMoved = false;
 					MoveToVisibleLocation();
 					return;

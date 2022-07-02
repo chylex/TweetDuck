@@ -14,7 +14,7 @@ namespace TweetDuck.Application {
 					OverwritePrompt = settings.OverwritePrompt,
 					Title = settings.DialogTitle,
 					FileName = settings.FileName,
-					Filter = settings.Filters == null ? null : string.Join("|", settings.Filters.Select(filter => filter.JoinFullNameAndPattern("|")))
+					Filter = settings.Filters == null ? null : string.Join("|", settings.Filters.Select(static filter => filter.JoinFullNameAndPattern("|")))
 				};
 
 				if (dialog.ShowDialog() == DialogResult.OK) {

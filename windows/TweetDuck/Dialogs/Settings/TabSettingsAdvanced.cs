@@ -156,11 +156,11 @@ namespace TweetDuck.Dialogs.Settings {
 			var parentForm = ParentForm ?? throw new InvalidOperationException("Dialog does not have a parent form!");
 			var form = new DialogSettingsCefArgs(Config.CustomCefArgs);
 
-			form.VisibleChanged += (sender2, args2) => {
+			form.VisibleChanged += (_, _) => {
 				form.MoveToCenter(parentForm);
 			};
 
-			form.FormClosed += (sender2, args2) => {
+			form.FormClosed += (_, _) => {
 				RestoreParentForm();
 
 				if (form.DialogResult == DialogResult.OK) {
@@ -178,11 +178,11 @@ namespace TweetDuck.Dialogs.Settings {
 			var parentForm = ParentForm ?? throw new InvalidOperationException("Dialog does not have a parent form!");
 			var form = new DialogSettingsCSS(Config.CustomBrowserCSS, Config.CustomNotificationCSS, reinjectBrowserCSS, openDevTools);
 
-			form.VisibleChanged += (sender2, args2) => {
+			form.VisibleChanged += (_, _) => {
 				form.MoveToCenter(parentForm);
 			};
 
-			form.FormClosed += (sender2, args2) => {
+			form.FormClosed += (_, _) => {
 				RestoreParentForm();
 
 				if (form.DialogResult == DialogResult.OK) {

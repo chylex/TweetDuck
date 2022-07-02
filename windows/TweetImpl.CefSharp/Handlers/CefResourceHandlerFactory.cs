@@ -4,7 +4,7 @@ using TweetLib.Browser.CEF.Interfaces;
 
 namespace TweetImpl.CefSharp.Handlers {
 	sealed class CefResourceHandlerFactory : IResourceHandlerFactory<IResourceHandler> {
-		public static CefResourceHandlerFactory Instance { get; } = new CefResourceHandlerFactory();
+		public static CefResourceHandlerFactory Instance { get; } = new ();
 
 		private CefResourceHandlerFactory() {}
 

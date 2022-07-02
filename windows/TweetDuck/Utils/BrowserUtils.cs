@@ -50,7 +50,7 @@ namespace TweetDuck.Utils {
 			browser.Dock = DockStyle.None;
 			browser.Location = ControlExtensions.InvisibleLocation;
 
-			browserComponent.BrowserLoaded += (sender, args) => {
+			browserComponent.BrowserLoaded += (_, _) => {
 				browser.InvokeAsyncSafe(() => {
 					browser.Location = Point.Empty;
 					browser.Dock = DockStyle.Fill;
@@ -68,9 +68,9 @@ namespace TweetDuck.Utils {
 			}
 
 			Config.ZoomLevelChanged += UpdateZoomLevel;
-			browser.Disposed += (sender, args) => Config.ZoomLevelChanged -= UpdateZoomLevel;
+			browser.Disposed += (_, _) => Config.ZoomLevelChanged -= UpdateZoomLevel;
 
-			browser.FrameLoadStart += (sender, args) => {
+			browser.FrameLoadStart += static (_, args) => {
 				if (args.Frame.IsMain && Config.ZoomLevel != 100) {
 					SetZoomLevel(args.Browser.GetHost(), Config.ZoomLevel);
 				}

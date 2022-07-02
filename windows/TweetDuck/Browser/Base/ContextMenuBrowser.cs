@@ -102,14 +102,14 @@ namespace TweetDuck.Browser.Base {
 		public static ContextMenuStrip CreateMenu(FormBrowser form) {
 			ContextMenuStrip menu = new ContextMenuStrip();
 
-			menu.Items.Add(TitleReloadBrowser, null, (sender, args) => form.ReloadToTweetDeck());
-			menu.Items.Add(TitleMuteNotifications, null, (sender, args) => ToggleMuteNotifications());
+			menu.Items.Add(TitleReloadBrowser, null, (_, _) => form.ReloadToTweetDeck());
+			menu.Items.Add(TitleMuteNotifications, null, static (_, _) => ToggleMuteNotifications());
 			menu.Items.Add("-");
-			menu.Items.Add(TitleSettings, null, (sender, args) => form.OpenSettings());
-			menu.Items.Add(TitlePlugins, null, (sender, args) => form.OpenPlugins());
-			menu.Items.Add(TitleAboutProgram, null,  (sender, args) => form.OpenAbout());
+			menu.Items.Add(TitleSettings, null, (_, _) => form.OpenSettings());
+			menu.Items.Add(TitlePlugins, null, (_, _) => form.OpenPlugins());
+			menu.Items.Add(TitleAboutProgram, null, (_, _) => form.OpenAbout());
 
-			menu.Opening += (sender, args) => {
+			menu.Opening += (_, _) => {
 				((ToolStripMenuItem) menu.Items[1]).Checked = Config.MuteNotifications;
 			};
 
