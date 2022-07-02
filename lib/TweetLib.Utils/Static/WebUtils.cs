@@ -10,10 +10,10 @@ namespace TweetLib.Utils.Static {
 		private static bool hasMicrosoftBeenBroughtTo2008Yet;
 		private static bool hasSystemProxyBeenEnabled;
 
-		private static void EnsureTLS12() {
+		private static void EnsureModernTLS() {
 			if (!hasMicrosoftBeenBroughtTo2008Yet) {
 				#pragma warning disable CS0618
-				ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
+				ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
 				ServicePointManager.SecurityProtocol &= ~(SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11);
 				#pragma warning restore CS0618
 				hasMicrosoftBeenBroughtTo2008Yet = true;
@@ -30,7 +30,7 @@ namespace TweetLib.Utils.Static {
 		}
 
 		public static WebClient NewClient(string? userAgent = null) {
-			EnsureTLS12();
+			EnsureModernTLS();
 
 			WebClient client = new WebClient();
 
