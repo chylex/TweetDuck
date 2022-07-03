@@ -40,6 +40,12 @@ namespace TweetDuck.Plugins {
 			this.labelWebsite.Text = plugin.Website;
 			this.labelVersion.Text = plugin.Version;
 
+			// Bottom anchor seems to be broken, so the height of the label and border is set manually.
+			this.labelType.Anchor = AnchorStyles.Left | AnchorStyles.Top;
+			this.panelBorder.Anchor = AnchorStyles.Left | AnchorStyles.Top;
+			this.labelType.Height = Height;
+			this.panelBorder.Height = Height;
+			
 			this.labelType.LineHeight = BrowserUtils.Scale(11, dpiScale);
 
 			UpdatePluginState();
@@ -54,6 +60,8 @@ namespace TweetDuck.Plugins {
 		private void timerLayout_Tick(object? sender, EventArgs e) {
 			timerLayout.Stop();
 			Height = nextHeight;
+			labelType.Height = nextHeight;
+			panelBorder.Height = nextHeight;
 			ResumeLayout();
 		}
 
