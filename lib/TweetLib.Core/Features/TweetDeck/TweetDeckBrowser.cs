@@ -236,6 +236,11 @@ namespace TweetLib.Core.Features.TweetDeck {
 			private const string UrlVersionCheck = "/web/dist/version.json";
 
 			public override RequestHandleResult? Handle(string url, ResourceType resourceType) {
+				var result = base.Handle(url, resourceType);
+				if (result != null) {
+					return result;
+				}
+				
 				switch (resourceType) {
 					case ResourceType.MainFrame when url.EndsWithOrdinal("://twitter.com/"):
 						return new RequestHandleResult.Redirect(TwitterUrls.TweetDeck); // redirect plain twitter.com requests, fixes bugs with login 2FA
@@ -256,7 +261,7 @@ namespace TweetLib.Core.Features.TweetDeck {
 						return new RequestHandleResult.Redirect(url.Replace("include_entities=1", "include_entities=1&include_ext_has_nft_avatar=1"));
 
 					default:
-						return base.Handle(url, resourceType);
+						return null;
 				}
 			}
 		}
