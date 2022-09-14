@@ -6,6 +6,6 @@ using TweetDuck;
 
 namespace TweetDuck {
 	internal static class Version {
-		public const string Tag = "1.23";
+		public const string Tag = "1.24";
 	}
 }
