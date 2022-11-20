@@ -45,6 +45,7 @@ namespace TweetDuck {
 		internal static void SetupWinForms() {
 			Win.Application.EnableVisualStyles();
 			Win.Application.SetCompatibleTextRenderingDefault(false);
+			Win.LegacyWinForms.EnsureValid();
 		}
 
 		[STAThread]

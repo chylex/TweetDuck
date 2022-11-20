@@ -7,8 +7,14 @@ using System.Runtime.InteropServices;
 
 namespace System.Windows.Forms {
 	public sealed class ContextMenu : Menu {
-		private static readonly FieldInfo NotifyIconWindowField = typeof(NotifyIcon).GetField("window", BindingFlags.Instance | BindingFlags.NonPublic) ?? throw new InvalidOperationException();
-			
+		private static readonly FieldInfo NotifyIconWindowField = typeof(NotifyIcon).GetField("_window", BindingFlags.Instance | BindingFlags.NonPublic);
+
+		internal static void EnsureValid() {
+			if (NotifyIconWindowField == null) {
+				throw new InvalidOperationException();
+			}
+		}
+
 		public event EventHandler Popup;
 
 		public void Show(Control control, Point pos) {
