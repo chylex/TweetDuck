@@ -28,7 +28,7 @@ namespace TweetDuck.Video.Controls {
 				brushFore.Color = ForeColor;
 				brushHover.Color = Color.FromArgb(128, ForeColor);
 				brushOverlap.Color = Color.FromArgb(80 + ForeColor.R * 11 / 16, 80 + ForeColor.G * 11 / 16, 80 + ForeColor.B * 11 / 16);
-				brushBack.Color = Parent.BackColor;
+				brushBack.Color = Parent?.BackColor ?? Color.Black;
 			}
 
 			Rectangle rect = new Rectangle(0, 0, Width, Height);

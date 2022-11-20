@@ -95,8 +95,8 @@ namespace TweetDuck.Controls {
 				form.WindowState = state.IsMaximized ? FormWindowState.Maximized : FormWindowState.Normal;
 			}
 
-			if ((state.Bounds == Rectangle.Empty && firstTimeFullscreen) || form.IsFullyOutsideView()) {
-				form.DesktopBounds = Screen.PrimaryScreen.WorkingArea;
+			if (((state.Bounds == Rectangle.Empty && firstTimeFullscreen) || form.IsFullyOutsideView()) && Screen.PrimaryScreen is {} primaryScreen) {
+				form.DesktopBounds = primaryScreen.WorkingArea;
 				form.WindowState = FormWindowState.Maximized;
 				state.Save(form);
 			}

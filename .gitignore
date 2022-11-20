@@ -12,6 +12,7 @@ bld/*
 # Rider
 **/.idea/dictionaries
 **/.idea/misc.xml
+**/.idea/riderMarkupCache.xml
 
 # User-specific files
 *.suo

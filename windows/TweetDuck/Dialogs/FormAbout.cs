@@ -28,7 +28,7 @@ namespace TweetDuck.Dialogs {
 		}
 
 		private void OnLinkClicked(object? sender, LinkLabelLinkClickedEventArgs e) {
-			App.SystemHandler.OpenBrowser(e.Link.LinkData as string);
+			App.SystemHandler.OpenBrowser(e.Link?.LinkData as string);
 		}
 
 		private void FormAbout_HelpRequested(object? sender, HelpEventArgs hlpevent) {

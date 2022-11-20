@@ -23,7 +23,7 @@ namespace TweetDuck.Video.Controls {
 
 				string? text = tooltipFunc(args);
 
-				if (text == null) {
+				if (text == null || control.Parent == null) {
 					Visible = false;
 					return;
 				}

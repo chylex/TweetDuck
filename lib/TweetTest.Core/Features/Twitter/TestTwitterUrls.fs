@@ -7,7 +7,7 @@ open Xunit
 module RegexAccount =
 
     module IsMatch =
-        let isMatch = TwitterUrls.RegexAccount.IsMatch
+        let isMatch: string -> bool = TwitterUrls.RegexAccount.IsMatch
 
         [<Fact>]
         let ``accepts HTTP protocol`` () =
