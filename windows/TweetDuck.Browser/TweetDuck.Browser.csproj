@@ -11,7 +11,6 @@
   
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <UseWindowsForms>true</UseWindowsForms>
     <RootNamespace>TweetDuck.Browser</RootNamespace>
     <AssemblyName>TweetDuck.Browser</AssemblyName>
     <ApplicationIcon>..\TweetDuck\Resources\Images\icon.ico</ApplicationIcon>
@@ -33,14 +32,14 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="CefSharp.WinForms.NETCore" Version="107.1.90" />
+    <PackageReference Include="CefSharp.Common.NETCore" Version="107.1.90" />
   </ItemGroup>
   
   <ItemGroup>
     <Compile Include="..\..\Version.cs" Link="Version.cs" />
   </ItemGroup>
   
-  <Target Name="CopyResources" AfterTargets="Build">
+  <Target Name="MakeBrowserProcessLargeAddressAware" AfterTargets="Build">
     <Exec Command="call &quot;$(DevEnvDir)\..\..\VC\Auxiliary\Build\vcvars32.bat&quot; &amp; editbin /largeaddressaware /TSAWARE &quot;$(TargetDir)TweetDuck.Browser.exe&quot;" ContinueOnError="false" />
   </Target>
   

@@ -84,6 +84,10 @@
     <PreBuildEvent>powershell -NoProfile -Command "$ErrorActionPreference = 'SilentlyContinue'; (Get-Process TweetDuck.Browser | Where-Object {$_.Path -eq '$(TargetDir)TweetDuck.Browser.exe'}).Kill(); Exit 0"</PreBuildEvent>
   </PropertyGroup>
   
+  <Target Name="MakeBrowserProcessLargeAddressAware" AfterTargets="Build">
+    <Exec Command="call &quot;$(DevEnvDir)\..\..\VC\Auxiliary\Build\vcvars32.bat&quot; &amp; editbin /largeaddressaware /TSAWARE &quot;$(TargetDir)TweetDuck.Browser.exe&quot;" ContinueOnError="false" />
+  </Target>
+  
   <Target Name="CopyResources" AfterTargets="Build">
     <ItemGroup>
       <LocalesToDelete Include="$(TargetDir)locales\*.pak" Exclude="$(TargetDir)locales\en-US.pak" Visible="false" />
