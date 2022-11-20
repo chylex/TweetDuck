@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using CefSharp;
 using CefSharp.Handler;
 using TweetImpl.CefSharp.Adapters;
@@ -7,11 +8,11 @@ namespace TweetImpl.CefSharp.Handlers {
 	sealed class CefRequestHandler : RequestHandler {
 		public RequestHandlerLogic<IRequest> Logic { get; }
 
-		private readonly bool autoReload;
+		private readonly AutoReloader? autoReloader;
 
 		public CefRequestHandler(CefLifeSpanHandler lifeSpanHandler, bool autoReload) {
 			this.Logic = new RequestHandlerLogic<IRequest>(CefRequestAdapter.Instance, lifeSpanHandler.Logic);
-			this.autoReload = autoReload;
+			this.autoReloader = autoReload ? new AutoReloader() : null;
 		}
 
 		protected override bool OnBeforeBrowse(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IRequest request, bool userGesture, bool isRedirect) {
@@ -23,8 +24,30 @@ namespace TweetImpl.CefSharp.Handlers {
 		}
 
 		protected override void OnRenderProcessTerminated(IWebBrowser browserControl, IBrowser browser, CefTerminationStatus status) {
-			if (autoReload) {
+			if (autoReloader?.RequestReload() == true) {
 				browser.Reload();
+			}
+		}
+
+		private sealed class AutoReloader {
+			private readonly Stopwatch lastReload = Stopwatch.StartNew();
+			private int rapidReloadCount;
+			
+			public bool RequestReload() {
+				if (rapidReloadCount >= 2) {
+					lastReload.Stop();
+					return false;
+				}
+				
+				if (lastReload.ElapsedMilliseconds < 5000) {
+					++rapidReloadCount;
+				}
+				else {
+					rapidReloadCount = 0;
+				}
+				
+				lastReload.Restart();
+				return true;
 			}
 		}
 	}
