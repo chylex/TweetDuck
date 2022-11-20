@@ -4,8 +4,7 @@ using Win = System.Windows.Forms;
 
 namespace TweetDuck.Management {
 	static class WindowsSessionManager {
-		public static bool IsLocked { get; private set; } = false;
-		public static event EventHandler? LockStateChanged;
+		public static event EventHandler<bool>? LockStateChanged;
 
 		public static void Register() {
 			Win.Application.ApplicationExit += OnApplicationExit;
@@ -27,8 +26,7 @@ namespace TweetDuck.Management {
 		}
 
 		private static void SetLocked(bool newState) {
-			IsLocked = newState;
-			LockStateChanged?.Invoke(null, EventArgs.Empty);
+			LockStateChanged?.Invoke(null, newState);
 		}
 	}
 }

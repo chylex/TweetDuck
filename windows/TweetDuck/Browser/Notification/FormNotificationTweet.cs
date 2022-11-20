@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using TweetDuck.Controls;
 using TweetDuck.Management;
 using TweetDuck.Utils;
 using TweetLib.Browser.Interfaces;
@@ -53,12 +54,12 @@ namespace TweetDuck.Browser.Notification {
 			}
 		}
 
-		private void WindowsSessionManager_LockStateChanged(object? sender, EventArgs e) {
-			if (WindowsSessionManager.IsLocked) {
-				PauseNotification(NotificationPauseReason.WindowsSessionLocked);
+		private void WindowsSessionManager_LockStateChanged(object? sender, bool isLocked) {
+			if (isLocked) {
+				this.InvokeAsyncSafe(() => PauseNotification(NotificationPauseReason.WindowsSessionLocked));
 			}
 			else {
-				ResumeNotification(NotificationPauseReason.WindowsSessionLocked);
+				this.InvokeAsyncSafe(() => ResumeNotification(NotificationPauseReason.WindowsSessionLocked));
 			}
 		}
 
