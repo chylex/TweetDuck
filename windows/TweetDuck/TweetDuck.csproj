@@ -78,6 +78,7 @@
     <ResourcesPlugins Remove="$(SolutionDir)resources\Plugins\.debug\**\*.*" />
     <ResourcesPlugins Remove="$(SolutionDir)resources\Plugins\emoji-keyboard\emoji-instructions.txt" />
     <ResourcesPluginsDebug Include="$(SolutionDir)resources\Plugins\.debug\**\*.*" Visible="false" />
+    <Redist Include="$(SolutionDir)bld\Redist\*.*" Visible="false" />
   </ItemGroup>
   
   <PropertyGroup>
@@ -124,6 +125,7 @@
     <Copy SourceFiles="@(ResourcesContent)" DestinationFiles="@(ResourcesContent->'$(TargetDir)\resources\%(RecursiveDir)%(Filename)%(Extension)')" />
     <Copy SourceFiles="@(ResourcesGuide)" DestinationFiles="@(ResourcesGuide->'$(TargetDir)\guide\%(RecursiveDir)%(Filename)%(Extension)')" />
     <Copy SourceFiles="@(ResourcesPlugins)" DestinationFiles="@(ResourcesPlugins->'$(TargetDir)\plugins\official\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(Redist)" DestinationFolder="$(TargetDir)" />
     <Exec Command="powershell -NoProfile -ExecutionPolicy Unrestricted -File &quot;$(ProjectDir)Resources\PostBuild.ps1&quot; &quot;$(TargetDir)\&quot;" IgnoreExitCode="false" />
   </Target>
   
