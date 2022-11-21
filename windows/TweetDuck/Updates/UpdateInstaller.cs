@@ -23,6 +23,7 @@ namespace TweetDuck.Updates {
 					FileName = Path,
 					Arguments = arguments,
 					Verb = runElevated ? "runas" : string.Empty,
+					UseShellExecute = true,
 					ErrorDialog = true
 				})) {
 					return true;
