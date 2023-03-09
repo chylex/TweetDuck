@@ -59,11 +59,15 @@ namespace TweetImpl.CefSharp.Component {
 		}
 
 		private void OnFrameLoadStart(object? sender, FrameLoadStartEventArgs e) {
-			base.OnFrameLoadStart(e.Url, e.Frame);
+			if (!string.IsNullOrEmpty(e.Url)) {
+				base.OnFrameLoadStart(e.Url, e.Frame);
+			}
 		}
 
 		private void OnFrameLoadEnd(object? sender, FrameLoadEndEventArgs e) {
-			base.OnFrameLoadEnd(e.Url, e.Frame);
+			if (!string.IsNullOrEmpty(e.Url)) {
+				base.OnFrameLoadEnd(e.Url, e.Frame);
+			}
 		}
 	}
 }
