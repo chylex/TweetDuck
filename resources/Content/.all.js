@@ -67,6 +67,7 @@ import setup_tweet_context_menu from "./tweetdeck/setup_tweet_context_menu.js";
 import setup_tweetduck_account_bamboozle from "./tweetdeck/setup_tweetduck_account_bamboozle.js";
 import setup_video_player from "./tweetdeck/setup_video_player.js";
 import skip_pre_login_page from "./tweetdeck/skip_pre_login_page.js";
+import tweetdeck_preview_warning from "./tweetdeck/tweetdeck_preview_warning.js";
 import update from "./update/update.js";
 
 const globalFunctions = [
