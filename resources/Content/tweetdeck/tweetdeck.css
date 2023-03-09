@@ -133,6 +133,14 @@ button {
   bottom: 192px !important;
 }
 
+/***********************/
+/* Hide Preview button */
+/***********************/
+
+.js-gryphon-beta-btn {
+  display: none !important;
+}
+
 /*************************************/
 /* Tweak collapsed left panel layout */
 /*************************************/
