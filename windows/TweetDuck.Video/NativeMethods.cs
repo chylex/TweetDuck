@@ -1,11 +1,13 @@
 ﻿#nullable enable
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
 using System.Runtime.InteropServices;
 
 namespace TweetDuck.Video {
 	[SuppressMessage("ReSharper", "InconsistentNaming")]
 	static class NativeMethods {
+		private const int GA_ROOT = 2;
 		private const int GWL_HWNDPARENT = -8;
 
 		[DllImport("user32.dll")]
@@ -24,6 +26,12 @@ namespace TweetDuck.Video {
 
 		[DllImport("user32.dll")]
 		public static extern IntPtr GetForegroundWindow();
+		
+		[DllImport("user32.dll")]
+		private static extern IntPtr WindowFromPoint(Point point);
+		
+		[DllImport("user32.dll")]
+		private static extern IntPtr GetAncestor(IntPtr hwnd, int flags);
 
 		[DllImport("user32.dll")]
 		public static extern bool SetProcessDPIAware();
@@ -48,6 +56,11 @@ namespace TweetDuck.Video {
 			 *
 			 * ...so technically, this is following the documentation to the word.
 			 */
+		}
+
+		public static IntPtr GetFormHandleAt(Point point) {
+			IntPtr window = WindowFromPoint(point);
+			return window == IntPtr.Zero ? IntPtr.Zero : GetAncestor(window, GA_ROOT);
 		}
 	}
 }

@@ -237,7 +237,7 @@ namespace TweetDuck.Video {
 				int maxWidth = Math.Min(DpiScaled(media.imageSourceWidth), ownerWidth * 3 / 4);
 				int maxHeight = Math.Min(DpiScaled(media.imageSourceHeight), ownerHeight * 3 / 4);
 
-				bool isCursorInside = ClientRectangle.Contains(PointToClient(Cursor.Position));
+				bool isCursorInside = ClientRectangle.Contains(PointToClient(Cursor.Position)) && Handle == NativeMethods.GetFormHandleAt(Cursor.Position);
 
 				Size newSize = new Size(Math.Max(minWidth + 2, maxWidth), Math.Max(minHeight + 2, maxHeight));
 				Point newLocation = new Point(ownerLeft + (ownerWidth - newSize.Width) / 2, ownerTop + (ownerHeight - newSize.Height + SystemInformation.CaptionHeight) / 2);
