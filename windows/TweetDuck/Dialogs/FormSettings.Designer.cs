@@ -50,10 +50,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelContents.AutoScroll = true;
             this.panelContents.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelContents.Location = new System.Drawing.Point(135, 12);
+            this.panelContents.Location = new System.Drawing.Point(134, 12);
             this.panelContents.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
             this.panelContents.Name = "panelContents";
-            this.panelContents.Size = new System.Drawing.Size(662, 482);
+            this.panelContents.Size = new System.Drawing.Size(663, 482);
             this.panelContents.TabIndex = 1;
             // 
             // panelButtons
