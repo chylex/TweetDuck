@@ -108,6 +108,10 @@ namespace TweetDuck {
 				if (Config.System.Migrate()) {
 					Config.System.Save();
 				}
+				
+				if (!Arguments.HasFlag(Arguments.ArgHideDeprecation) && !DeprecationNoticeDialog.Show()) {
+					Environment.Exit(0);
+				}
 			}
 
 			public void Launch(ResourceCache resourceCache, PluginManager pluginManager) {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Drawing;
 using System.Windows.Forms;
 using TweetDuck.Dialogs;
 using TweetDuck.Management;
@@ -36,16 +35,10 @@ namespace TweetDuck {
 				btnIgnore.Enabled = canIgnore;
 				form.ActiveControl = canIgnore ? btnIgnore : btnExit;
 
-				Button btnOpenLog = new Button {
-					Anchor = AnchorStyles.Bottom | AnchorStyles.Left,
-					Enabled = loggedSuccessfully,
-					Font = SystemFonts.MessageBoxFont,
-					Location = new Point(9, 12),
-					Margin = new Padding(0, 0, 48, 0),
-					Size = new Size(106, 26),
-					Text = "Show Error Log",
-					UseVisualStyleBackColor = true
-				};
+				Button btnOpenLog = form.CreateButton("Show Error Log", x: 9, width: 106);
+				btnOpenLog.Anchor |= AnchorStyles.Left;
+				btnOpenLog.Enabled = loggedSuccessfully;
+				btnOpenLog.Margin = new Padding(0, 0, 48, 0);
 
 				btnOpenLog.Click += static (_, _) => {
 					if (!OpenLogFile()) {

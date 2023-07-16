@@ -124,15 +124,7 @@ namespace TweetDuck.Dialogs {
 		}
 
 		public Button AddButton(string title, DialogResult result = DialogResult.OK, ControlType type = ControlType.None) {
-			Button button = new Button {
-				Anchor = AnchorStyles.Bottom,
-				Font = SystemFonts.MessageBoxFont,
-				Location = new Point(0, 12),
-				Size = new Size(BrowserUtils.Scale(88, dpiScale), BrowserUtils.Scale(26, dpiScale)),
-				TabIndex = 256 - buttonCount,
-				Text = title,
-				UseVisualStyleBackColor = true
-			};
+			Button button = CreateButton(title);
 
 			button.Click += (_, _) => {
 				ClickedButton = button;
@@ -160,6 +152,18 @@ namespace TweetDuck.Dialogs {
 			}
 
 			return button;
+		}
+
+		public Button CreateButton(string title, int x = 0, int width = 88) {
+			return new Button {
+				Anchor = AnchorStyles.Bottom,
+				Font = SystemFonts.MessageBoxFont,
+				Location = new Point(x, 12),
+				Size = new Size(BrowserUtils.Scale(width, dpiScale), BrowserUtils.Scale(26, dpiScale)),
+				TabIndex = 256 - buttonCount,
+				Text = title,
+				UseVisualStyleBackColor = true
+			};
 		}
 
 		public void AddActionControl(Control control) {

@@ -9,6 +9,7 @@ namespace TweetDuck.Configuration {
 		public const string ArgIgnoreGDPR = "-nogdpr";
 		public const string ArgHttpVideo = "-httpvideo";
 		public const string ArgFreeze = "-freeze";
+		public const string ArgHideDeprecation = "-hidedeprecation";
 
 		// internal args
 		public const string ArgRestart = "-restart";
