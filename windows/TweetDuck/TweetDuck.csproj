@@ -36,7 +36,7 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="CefSharp.WinForms.NETCore" Version="107.1.90" />
+    <PackageReference Include="CefSharp.WinForms.NETCore" Version="109.1.110" />
   </ItemGroup>
   
   <ItemGroup>
